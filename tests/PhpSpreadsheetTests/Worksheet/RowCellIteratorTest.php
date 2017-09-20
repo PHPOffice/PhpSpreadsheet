@@ -34,11 +34,11 @@ class RowCellIteratorTest extends PHPUnit_Framework_TestCase
     {
         $iterator = new RowCellIterator($this->mockWorksheet);
         $RowCellIndexResult = 'A';
-        $this->assertEquals($RowCellIndexResult, $iterator->key());
+        self::assertEquals($RowCellIndexResult, $iterator->key());
 
         foreach ($iterator as $key => $RowCell) {
-            $this->assertEquals($RowCellIndexResult++, $key);
-            $this->assertInstanceOf(Cell::class, $RowCell);
+            self::assertEquals($RowCellIndexResult++, $key);
+            self::assertInstanceOf(Cell::class, $RowCell);
         }
     }
 
@@ -46,11 +46,11 @@ class RowCellIteratorTest extends PHPUnit_Framework_TestCase
     {
         $iterator = new RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
         $RowCellIndexResult = 'B';
-        $this->assertEquals($RowCellIndexResult, $iterator->key());
+        self::assertEquals($RowCellIndexResult, $iterator->key());
 
         foreach ($iterator as $key => $RowCell) {
-            $this->assertEquals($RowCellIndexResult++, $key);
-            $this->assertInstanceOf(Cell::class, $RowCell);
+            self::assertEquals($RowCellIndexResult++, $key);
+            self::assertInstanceOf(Cell::class, $RowCell);
         }
     }
 
@@ -60,12 +60,12 @@ class RowCellIteratorTest extends PHPUnit_Framework_TestCase
         $iterator = new RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
         $RowCellIndexResult = 'D';
         $iterator->seek('D');
-        $this->assertEquals($RowCellIndexResult, $iterator->key());
+        self::assertEquals($RowCellIndexResult, $iterator->key());
 
         for ($i = 1; $i < array_search($RowCellIndexResult, $ranges); ++$i) {
             $iterator->prev();
             $expectedResult = $ranges[array_search($RowCellIndexResult, $ranges) - $i];
-            $this->assertEquals($expectedResult, $iterator->key());
+            self::assertEquals($expectedResult, $iterator->key());
         }
     }
 

@@ -18,7 +18,7 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
     public function testGetIsIconvEnabled()
     {
         $result = StringHelper::getIsIconvEnabled();
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testGetDecimalSeparator()
@@ -27,7 +27,7 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
 
         $expectedResult = (!empty($localeconv['decimal_point'])) ? $localeconv['decimal_point'] : ',';
         $result = StringHelper::getDecimalSeparator();
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function testSetDecimalSeparator()
@@ -36,7 +36,7 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
         StringHelper::setDecimalSeparator($expectedResult);
 
         $result = StringHelper::getDecimalSeparator();
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function testGetThousandsSeparator()
@@ -45,7 +45,7 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
 
         $expectedResult = (!empty($localeconv['thousands_sep'])) ? $localeconv['thousands_sep'] : ',';
         $result = StringHelper::getThousandsSeparator();
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function testSetThousandsSeparator()
@@ -54,7 +54,7 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
         StringHelper::setThousandsSeparator($expectedResult);
 
         $result = StringHelper::getThousandsSeparator();
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function testGetCurrencyCode()
@@ -62,7 +62,7 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
         $localeconv = localeconv();
         $expectedResult = (!empty($localeconv['currency_symbol']) ? $localeconv['currency_symbol'] : (!empty($localeconv['int_curr_symbol']) ? $localeconv['int_curr_symbol'] : '$'));
         $result = StringHelper::getCurrencyCode();
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function testSetCurrencyCode()
@@ -71,7 +71,7 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
         StringHelper::setCurrencyCode($expectedResult);
 
         $result = StringHelper::getCurrencyCode();
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function testControlCharacterPHP2OOXML()
@@ -79,7 +79,7 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
         $expectedResult = 'foo_x000B_bar';
         $result = StringHelper::controlCharacterPHP2OOXML('foo' . chr(11) . 'bar');
 
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function testControlCharacterOOXML2PHP()
@@ -87,7 +87,7 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
         $expectedResult = 'foo' . chr(11) . 'bar';
         $result = StringHelper::controlCharacterOOXML2PHP('foo_x000B_bar');
 
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function testSYLKtoUTF8()
@@ -95,6 +95,6 @@ class StringHelperTest extends PHPUnit_Framework_TestCase
         $expectedResult = 'foo' . chr(11) . 'bar';
         $result = StringHelper::SYLKtoUTF8("foo\x1B ;bar");
 
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 }

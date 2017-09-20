@@ -14,7 +14,7 @@ class WorksheetTest extends PHPUnit_Framework_TestCase
 
         $worksheet = new Worksheet();
         $worksheet->setTitle($testTitle);
-        $this->assertSame($testTitle, $worksheet->getTitle());
+        self::assertSame($testTitle, $worksheet->getTitle());
     }
 
     public function setTitleInvalidProvider()
@@ -53,17 +53,17 @@ class WorksheetTest extends PHPUnit_Framework_TestCase
         // Set unique title -- should be unchanged
         $sheet = $spreadsheet->getSheet(0);
         $sheet->setTitle('Test Title');
-        $this->assertSame('Test Title', $sheet->getTitle());
+        self::assertSame('Test Title', $sheet->getTitle());
 
         // Set duplicate title -- should have numeric suffix appended
         $sheet = $spreadsheet->getSheet(1);
         $sheet->setTitle('Test Title');
-        $this->assertSame('Test Title 1', $sheet->getTitle());
+        self::assertSame('Test Title 1', $sheet->getTitle());
 
         // Set duplicate title with validation disabled -- should be unchanged
         $sheet = $spreadsheet->getSheet(2);
         $sheet->setTitle('Test Title', true, false);
-        $this->assertSame('Test Title', $sheet->getTitle());
+        self::assertSame('Test Title', $sheet->getTitle());
     }
 
     public function testSetCodeName()
@@ -72,7 +72,7 @@ class WorksheetTest extends PHPUnit_Framework_TestCase
 
         $worksheet = new Worksheet();
         $worksheet->setCodeName($testCodeName);
-        $this->assertSame($testCodeName, $worksheet->getCodeName());
+        self::assertSame($testCodeName, $worksheet->getCodeName());
     }
 
     public function setCodeNameInvalidProvider()
@@ -111,16 +111,16 @@ class WorksheetTest extends PHPUnit_Framework_TestCase
         // Set unique code name -- should be massaged to Snake_Case
         $sheet = $spreadsheet->getSheet(0);
         $sheet->setCodeName('Test Code Name');
-        $this->assertSame('Test_Code_Name', $sheet->getCodeName());
+        self::assertSame('Test_Code_Name', $sheet->getCodeName());
 
         // Set duplicate code name -- should be massaged and have numeric suffix appended
         $sheet = $spreadsheet->getSheet(1);
         $sheet->setCodeName('Test Code Name');
-        $this->assertSame('Test_Code_Name_1', $sheet->getCodeName());
+        self::assertSame('Test_Code_Name_1', $sheet->getCodeName());
 
         // Set duplicate code name with validation disabled -- should be unchanged, and unmassaged
         $sheet = $spreadsheet->getSheet(2);
         $sheet->setCodeName('Test Code Name', false);
-        $this->assertSame('Test Code Name', $sheet->getCodeName());
+        self::assertSame('Test Code Name', $sheet->getCodeName());
     }
 }

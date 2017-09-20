@@ -14,7 +14,7 @@ class LayoutTest extends PHPUnit_Framework_TestCase
         $testInstance = new Layout();
 
         $result = $testInstance->setLayoutTarget($LayoutTargetValue);
-        $this->assertTrue($result instanceof Layout);
+        self::assertTrue($result instanceof Layout);
     }
 
     public function testGetLayoutTarget()
@@ -25,6 +25,6 @@ class LayoutTest extends PHPUnit_Framework_TestCase
         $setValue = $testInstance->setLayoutTarget($LayoutTargetValue);
 
         $result = $testInstance->getLayoutTarget();
-        $this->assertEquals($LayoutTargetValue, $result);
+        self::assertEquals($LayoutTargetValue, $result);
     }
 }

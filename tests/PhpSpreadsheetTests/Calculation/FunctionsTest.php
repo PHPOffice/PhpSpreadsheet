@@ -15,49 +15,49 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testDUMMY()
     {
         $result = Functions::DUMMY();
-        $this->assertEquals('#Not Yet Implemented', $result);
+        self::assertEquals('#Not Yet Implemented', $result);
     }
 
     public function testDIV0()
     {
         $result = Functions::DIV0();
-        $this->assertEquals('#DIV/0!', $result);
+        self::assertEquals('#DIV/0!', $result);
     }
 
     public function testNA()
     {
         $result = Functions::NA();
-        $this->assertEquals('#N/A', $result);
+        self::assertEquals('#N/A', $result);
     }
 
     public function testNAN()
     {
         $result = Functions::NAN();
-        $this->assertEquals('#NUM!', $result);
+        self::assertEquals('#NUM!', $result);
     }
 
     public function testNAME()
     {
         $result = Functions::NAME();
-        $this->assertEquals('#NAME?', $result);
+        self::assertEquals('#NAME?', $result);
     }
 
     public function testREF()
     {
         $result = Functions::REF();
-        $this->assertEquals('#REF!', $result);
+        self::assertEquals('#REF!', $result);
     }
 
     public function testNULL()
     {
         $result = Functions::null();
-        $this->assertEquals('#NULL!', $result);
+        self::assertEquals('#NULL!', $result);
     }
 
     public function testVALUE()
     {
         $result = Functions::VALUE();
-        $this->assertEquals('#VALUE!', $result);
+        self::assertEquals('#VALUE!', $result);
     }
 
     /**
@@ -68,7 +68,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testIsBlank($expectedResult, ...$args)
     {
         $result = Functions::isBlank(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIsBlank()
@@ -84,7 +84,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testIsErr($expectedResult, ...$args)
     {
         $result = Functions::isErr(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIsErr()
@@ -100,7 +100,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testIsError($expectedResult, ...$args)
     {
         $result = Functions::isError(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIsError()
@@ -116,7 +116,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testErrorType($expectedResult, ...$args)
     {
         $result = Functions::errorType(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerErrorType()
@@ -132,7 +132,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testIsLogical($expectedResult, ...$args)
     {
         $result = Functions::isLogical(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIsLogical()
@@ -148,7 +148,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testIsNa($expectedResult, ...$args)
     {
         $result = Functions::isNa(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIsNa()
@@ -164,7 +164,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testIsNumber($expectedResult, ...$args)
     {
         $result = Functions::isNumber(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIsNumber()
@@ -180,7 +180,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testIsText($expectedResult, ...$args)
     {
         $result = Functions::isText(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIsText()
@@ -196,7 +196,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testIsNonText($expectedResult, ...$args)
     {
         $result = Functions::isNonText(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIsNonText()
@@ -212,7 +212,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testIsEven($expectedResult, ...$args)
     {
         $result = Functions::isEven(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIsEven()
@@ -228,7 +228,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testIsOdd($expectedResult, ...$args)
     {
         $result = Functions::isOdd(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIsOdd()
@@ -244,7 +244,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testTYPE($expectedResult, ...$args)
     {
         $result = Functions::TYPE(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerTYPE()
@@ -260,7 +260,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testN($expectedResult, ...$args)
     {
         $result = Functions::n(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerN()

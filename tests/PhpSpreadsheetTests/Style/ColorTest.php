@@ -15,7 +15,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
     public function testGetRed($expectedResult, ...$args)
     {
         $result = Color::getRed(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerColorGetRed()
@@ -31,7 +31,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
     public function testGetGreen($expectedResult, ...$args)
     {
         $result = Color::getGreen(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerColorGetGreen()
@@ -47,7 +47,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
     public function testGetBlue($expectedResult, ...$args)
     {
         $result = Color::getBlue(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerColorGetBlue()
@@ -63,7 +63,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
     public function testChangeBrightness($expectedResult, ...$args)
     {
         $result = Color::changeBrightness(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerColorChangeBrightness()

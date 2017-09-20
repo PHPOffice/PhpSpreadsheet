@@ -20,7 +20,7 @@ class XEEValidatorTest extends PHPUnit_Framework_TestCase
         $reader = $this->getMockForAbstractClass(BaseReader::class);
         $expectedResult = 'FAILURE: Should throw an Exception rather than return a value';
         $result = $reader->securityScanFile($filename);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerInvalidXML()
@@ -65,7 +65,7 @@ class XEEValidatorTest extends PHPUnit_Framework_TestCase
     {
         $reader = $this->getMockForAbstractClass(BaseReader::class);
         $result = $reader->securityScanFile($filename);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerValidXML()

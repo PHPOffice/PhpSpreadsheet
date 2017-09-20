@@ -64,7 +64,7 @@ class OdsTest extends PHPUnit_Framework_TestCase
 
         // Test "listWorksheetNames" method
 
-        $this->assertEquals([
+        self::assertEquals([
             'Sheet1',
             'Second Sheet',
         ], $reader->listWorksheetNames($filename));
@@ -74,15 +74,15 @@ class OdsTest extends PHPUnit_Framework_TestCase
     {
         $spreadsheet = $this->loadDataFile();
 
-        $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
 
-        $this->assertEquals(2, $spreadsheet->getSheetCount());
+        self::assertEquals(2, $spreadsheet->getSheetCount());
 
         $firstSheet = $spreadsheet->getSheet(0);
-        $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet', $firstSheet);
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet', $firstSheet);
 
         $secondSheet = $spreadsheet->getSheet(1);
-        $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet', $secondSheet);
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet', $secondSheet);
     }
 
     public function testReadValueAndComments()
@@ -91,45 +91,45 @@ class OdsTest extends PHPUnit_Framework_TestCase
 
         $firstSheet = $spreadsheet->getSheet(0);
 
-        $this->assertEquals(29, $firstSheet->getHighestRow());
-        $this->assertEquals('N', $firstSheet->getHighestColumn());
+        self::assertEquals(29, $firstSheet->getHighestRow());
+        self::assertEquals('N', $firstSheet->getHighestColumn());
 
         // Simple cell value
-        $this->assertEquals('Test String 1', $firstSheet->getCell('A1')->getValue());
+        self::assertEquals('Test String 1', $firstSheet->getCell('A1')->getValue());
 
         // Merged cell
-        $this->assertEquals('BOX', $firstSheet->getCell('B18')->getValue());
+        self::assertEquals('BOX', $firstSheet->getCell('B18')->getValue());
 
         // Comments/Annotations
-        $this->assertEquals(
+        self::assertEquals(
             'Test for a simple colour-formatted string',
             $firstSheet->getComment('A1')->getText()->getPlainText()
         );
 
         // Data types
-        $this->assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('A1')->getDataType());
-        $this->assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('B1')->getDataType()); // Int
+        self::assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('A1')->getDataType());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('B1')->getDataType()); // Int
 
-        $this->assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('B6')->getDataType()); // Float
-        $this->assertEquals(1.23, $firstSheet->getCell('B6')->getValue());
-        $this->assertEquals(0, $firstSheet->getCell('G10')->getValue());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('B6')->getDataType()); // Float
+        self::assertEquals(1.23, $firstSheet->getCell('B6')->getValue());
+        self::assertEquals(0, $firstSheet->getCell('G10')->getValue());
 
-        $this->assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A10')->getDataType()); // Date
-        $this->assertEquals(22269.0, $firstSheet->getCell('A10')->getValue());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A10')->getDataType()); // Date
+        self::assertEquals(22269.0, $firstSheet->getCell('A10')->getValue());
 
-        $this->assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A13')->getDataType()); // Time
-        $this->assertEquals(25569.0625, $firstSheet->getCell('A13')->getValue());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A13')->getDataType()); // Time
+        self::assertEquals(25569.0625, $firstSheet->getCell('A13')->getValue());
 
-        $this->assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A15')->getDataType()); // Date + Time
-        $this->assertEquals(22269.0625, $firstSheet->getCell('A15')->getValue());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A15')->getDataType()); // Date + Time
+        self::assertEquals(22269.0625, $firstSheet->getCell('A15')->getValue());
 
-        $this->assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A11')->getDataType()); // Fraction
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A11')->getDataType()); // Fraction
 
-        $this->assertEquals(DataType::TYPE_BOOL, $firstSheet->getCell('D6')->getDataType());
-        $this->assertTrue($firstSheet->getCell('D6')->getValue());
+        self::assertEquals(DataType::TYPE_BOOL, $firstSheet->getCell('D6')->getDataType());
+        self::assertTrue($firstSheet->getCell('D6')->getValue());
 
-        $this->assertEquals(DataType::TYPE_FORMULA, $firstSheet->getCell('C6')->getDataType()); // Formula
-        $this->assertEquals('=TRUE()', $firstSheet->getCell('C6')->getValue()); // Formula
+        self::assertEquals(DataType::TYPE_FORMULA, $firstSheet->getCell('C6')->getDataType()); // Formula
+        self::assertEquals('=TRUE()', $firstSheet->getCell('C6')->getValue()); // Formula
 
         /*
          * Percentage, Currency
@@ -139,17 +139,17 @@ class OdsTest extends PHPUnit_Framework_TestCase
 
         $firstSheet = $spreadsheet->getSheet(0);
 
-        $this->assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A1')->getDataType()); // Percentage (10%)
-        $this->assertEquals(0.1, $firstSheet->getCell('A1')->getValue());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A1')->getDataType()); // Percentage (10%)
+        self::assertEquals(0.1, $firstSheet->getCell('A1')->getValue());
 
-        $this->assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A2')->getDataType()); // Percentage (10.00%)
-        $this->assertEquals(0.1, $firstSheet->getCell('A2')->getValue());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A2')->getDataType()); // Percentage (10.00%)
+        self::assertEquals(0.1, $firstSheet->getCell('A2')->getValue());
 
-        $this->assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A4')->getDataType()); // Currency (€10.00)
-        $this->assertEquals(10, $firstSheet->getCell('A4')->getValue());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A4')->getDataType()); // Currency (€10.00)
+        self::assertEquals(10, $firstSheet->getCell('A4')->getValue());
 
-        $this->assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A5')->getDataType()); // Currency ($20)
-        $this->assertEquals(20, $firstSheet->getCell('A5')->getValue());
+        self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A5')->getDataType()); // Currency ($20)
+        self::assertEquals(20, $firstSheet->getCell('A5')->getValue());
     }
 
     public function testReadColors()
@@ -161,9 +161,9 @@ class OdsTest extends PHPUnit_Framework_TestCase
 
         $style = $firstSheet->getCell('K3')->getStyle();
 
-        $this->assertEquals('none', $style->getFill()->getFillType());
-        $this->assertEquals('FFFFFFFF', $style->getFill()->getStartColor()->getARGB());
-        $this->assertEquals('FF000000', $style->getFill()->getEndColor()->getARGB());
+        self::assertEquals('none', $style->getFill()->getFillType());
+        self::assertEquals('FFFFFFFF', $style->getFill()->getStartColor()->getARGB());
+        self::assertEquals('FF000000', $style->getFill()->getEndColor()->getARGB());
     }
 
     public function testReadRichText()
@@ -171,7 +171,7 @@ class OdsTest extends PHPUnit_Framework_TestCase
         $spreadsheet = $this->loadOOCalcTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
 
-        $this->assertEquals(
+        self::assertEquals(
             "I don't know if OOCalc supports Rich Text in the same way as Excel, " .
             'And this row should be autofit height with text wrap',
             $firstSheet->getCell('A28')->getValue()
@@ -183,10 +183,10 @@ class OdsTest extends PHPUnit_Framework_TestCase
         $spreadsheet = $this->loadDataFile();
         $firstSheet = $spreadsheet->getSheet(0);
 
-        $this->assertEquals('This has    4 spaces before and 2 after  ', $firstSheet->getCell('A8')->getValue());
-        $this->assertEquals('This only one after ', $firstSheet->getCell('A9')->getValue());
-        $this->assertEquals('Test with DIFFERENT styles     and multiple spaces:  ', $firstSheet->getCell('A10')->getValue());
-        $this->assertEquals("test with new \nLines", $firstSheet->getCell('A11')->getValue());
+        self::assertEquals('This has    4 spaces before and 2 after  ', $firstSheet->getCell('A8')->getValue());
+        self::assertEquals('This only one after ', $firstSheet->getCell('A9')->getValue());
+        self::assertEquals('Test with DIFFERENT styles     and multiple spaces:  ', $firstSheet->getCell('A10')->getValue());
+        self::assertEquals("test with new \nLines", $firstSheet->getCell('A11')->getValue());
     }
 
     public function testReadHyperlinks()
@@ -196,9 +196,9 @@ class OdsTest extends PHPUnit_Framework_TestCase
 
         $hyperlink = $firstSheet->getCell('A29');
 
-        $this->assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
-        $this->assertEquals('PHPExcel', $hyperlink->getValue());
-        $this->assertEquals('http://www.phpexcel.net/', $hyperlink->getHyperlink()->getUrl());
+        self::assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
+        self::assertEquals('PHPExcel', $hyperlink->getValue());
+        self::assertEquals('http://www.phpexcel.net/', $hyperlink->getHyperlink()->getUrl());
     }
 
     /*
@@ -215,15 +215,15 @@ class OdsTest extends PHPUnit_Framework_TestCase
         // Font styles
 
         $style = $firstSheet->getCell('A1')->getStyle();
-        $this->assertEquals('FF000000', $style->getFont()->getColor()->getARGB());
-        $this->assertEquals(11, $style->getFont()->getSize());
-        $this->assertEquals(Font::UNDERLINE_NONE, $style->getFont()->getUnderline());
+        self::assertEquals('FF000000', $style->getFont()->getColor()->getARGB());
+        self::assertEquals(11, $style->getFont()->getSize());
+        self::assertEquals(Font::UNDERLINE_NONE, $style->getFont()->getUnderline());
 
         $style = $firstSheet->getCell('E3')->getStyle();
-        $this->assertEquals(Font::UNDERLINE_SINGLE, $style->getFont()->getUnderline());
+        self::assertEquals(Font::UNDERLINE_SINGLE, $style->getFont()->getUnderline());
 
         $style = $firstSheet->getCell('E1')->getStyle();
-        $this->assertTrue($style->getFont()->getBold());
-        $this->assertTrue($style->getFont()->getItalic());
+        self::assertTrue($style->getFont()->getBold());
+        self::assertTrue($style->getFont()->getItalic());
     }
 }

@@ -28,7 +28,7 @@ class ReferenceHelperTest extends PHPUnit_Framework_TestCase
         shuffle($columnBase);
         usort($columnBase, [ReferenceHelper::class, 'columnSort']);
         foreach ($columnBase as $key => $value) {
-            $this->assertEquals($columnExpectedResult[$key], $value);
+            self::assertEquals($columnExpectedResult[$key], $value);
         }
     }
 
@@ -50,7 +50,7 @@ class ReferenceHelperTest extends PHPUnit_Framework_TestCase
         $columnExpectedResult = array_reverse($columnExpectedResult);
         usort($columnBase, [ReferenceHelper::class, 'columnReverseSort']);
         foreach ($columnBase as $key => $value) {
-            $this->assertEquals($columnExpectedResult[$key], $value);
+            self::assertEquals($columnExpectedResult[$key], $value);
         }
     }
 }

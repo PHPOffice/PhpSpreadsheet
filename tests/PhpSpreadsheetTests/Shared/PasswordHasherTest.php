@@ -16,7 +16,7 @@ class PasswordHasherTest extends PHPUnit_Framework_TestCase
     public function testHashPassword($expectedResult, ...$args)
     {
         $result = PasswordHasher::hashPassword(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerHashPassword()

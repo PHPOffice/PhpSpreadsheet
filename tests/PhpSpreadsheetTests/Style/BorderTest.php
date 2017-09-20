@@ -16,11 +16,11 @@ class BorderTest extends PHPUnit_Framework_TestCase
         $bottom = $borders->getBottom();
 
         $actual = $bottom->getBorderStyle();
-        $this->assertSame(Border::BORDER_NONE, $actual, 'should default to none');
+        self::assertSame(Border::BORDER_NONE, $actual, 'should default to none');
 
         $allBorders->setBorderStyle(Border::BORDER_THIN);
 
         $actual = $bottom->getBorderStyle();
-        $this->assertSame(Border::BORDER_THIN, $actual, 'should have been set via allBorders');
+        self::assertSame(Border::BORDER_THIN, $actual, 'should have been set via allBorders');
     }
 }

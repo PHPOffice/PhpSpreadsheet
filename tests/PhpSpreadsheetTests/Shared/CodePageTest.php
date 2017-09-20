@@ -16,7 +16,7 @@ class CodePageTest extends PHPUnit_Framework_TestCase
     public function testCodePageNumberToName($expectedResult, ...$args)
     {
         $result = CodePage::numberToName(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCodePage()
@@ -30,7 +30,7 @@ class CodePageTest extends PHPUnit_Framework_TestCase
         try {
             CodePage::numberToName($invalidCodePage);
         } catch (Exception $e) {
-            $this->assertEquals($e->getMessage(), 'Unknown codepage: 12345');
+            self::assertEquals($e->getMessage(), 'Unknown codepage: 12345');
 
             return;
         }
@@ -43,7 +43,7 @@ class CodePageTest extends PHPUnit_Framework_TestCase
         try {
             CodePage::numberToName($unsupportedCodePage);
         } catch (Exception $e) {
-            $this->assertEquals($e->getMessage(), 'Code page 720 not supported.');
+            self::assertEquals($e->getMessage(), 'Code page 720 not supported.');
 
             return;
         }

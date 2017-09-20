@@ -16,13 +16,13 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     public function testTRUE()
     {
         $result = Logical::TRUE();
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testFALSE()
     {
         $result = Logical::FALSE();
-        $this->assertFalse($result);
+        self::assertFalse($result);
     }
 
     /**
@@ -33,7 +33,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     public function testAND($expectedResult, ...$args)
     {
         $result = Logical::logicalAnd(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerAND()
@@ -49,7 +49,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     public function testOR($expectedResult, ...$args)
     {
         $result = Logical::logicalOr(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerOR()
@@ -65,7 +65,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     public function testNOT($expectedResult, ...$args)
     {
         $result = Logical::NOT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerNOT()
@@ -81,7 +81,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     public function testIF($expectedResult, ...$args)
     {
         $result = Logical::statementIf(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerIF()
@@ -97,7 +97,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     public function testIFERROR($expectedResult, ...$args)
     {
         $result = Logical::IFERROR(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerIFERROR()

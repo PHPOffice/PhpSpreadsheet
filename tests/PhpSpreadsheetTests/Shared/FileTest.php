@@ -12,7 +12,7 @@ class FileTest extends PHPUnit_Framework_TestCase
         $expectedResult = false;
 
         $result = File::getUseUploadTempDirectory();
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function testSetUseUploadTempDirectory()
@@ -26,7 +26,7 @@ class FileTest extends PHPUnit_Framework_TestCase
             File::setUseUploadTempDirectory($useUploadTempDirectoryValue);
 
             $result = File::getUseUploadTempDirectory();
-            $this->assertEquals($useUploadTempDirectoryValue, $result);
+            self::assertEquals($useUploadTempDirectoryValue, $result);
         }
     }
 }

@@ -25,23 +25,23 @@ class WorksheetColumnTest extends PHPUnit_Framework_TestCase
     public function testInstantiateColumnDefault()
     {
         $column = new Column($this->mockWorksheet);
-        $this->assertInstanceOf(Column::class, $column);
+        self::assertInstanceOf(Column::class, $column);
         $columnIndex = $column->getColumnIndex();
-        $this->assertEquals('A', $columnIndex);
+        self::assertEquals('A', $columnIndex);
     }
 
     public function testInstantiateColumnSpecified()
     {
         $column = new Column($this->mockWorksheet, 'E');
-        $this->assertInstanceOf(Column::class, $column);
+        self::assertInstanceOf(Column::class, $column);
         $columnIndex = $column->getColumnIndex();
-        $this->assertEquals('E', $columnIndex);
+        self::assertEquals('E', $columnIndex);
     }
 
     public function testGetCellIterator()
     {
         $column = new Column($this->mockWorksheet);
         $cellIterator = $column->getCellIterator();
-        $this->assertInstanceOf(ColumnCellIterator::class, $cellIterator);
+        self::assertInstanceOf(ColumnCellIterator::class, $cellIterator);
     }
 }

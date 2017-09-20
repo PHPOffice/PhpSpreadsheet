@@ -22,7 +22,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testATAN2($expectedResult, ...$args)
     {
         $result = MathTrig::ATAN2(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerATAN2()
@@ -38,7 +38,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testCEILING($expectedResult, ...$args)
     {
         $result = MathTrig::CEILING(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerCEILING()
@@ -54,7 +54,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testCOMBIN($expectedResult, ...$args)
     {
         $result = MathTrig::COMBIN(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerCOMBIN()
@@ -70,7 +70,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testEVEN($expectedResult, ...$args)
     {
         $result = MathTrig::EVEN(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerEVEN()
@@ -86,7 +86,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testODD($expectedResult, ...$args)
     {
         $result = MathTrig::ODD(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerODD()
@@ -102,7 +102,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testFACT($expectedResult, ...$args)
     {
         $result = MathTrig::FACT(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerFACT()
@@ -118,7 +118,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testFACTDOUBLE($expectedResult, ...$args)
     {
         $result = MathTrig::FACTDOUBLE(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerFACTDOUBLE()
@@ -134,7 +134,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testFLOOR($expectedResult, ...$args)
     {
         $result = MathTrig::FLOOR(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerFLOOR()
@@ -150,7 +150,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testGCD($expectedResult, ...$args)
     {
         $result = MathTrig::GCD(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerGCD()
@@ -166,7 +166,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testLCM($expectedResult, ...$args)
     {
         $result = MathTrig::LCM(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerLCM()
@@ -182,7 +182,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testINT($expectedResult, ...$args)
     {
         $result = MathTrig::INT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerINT()
@@ -198,7 +198,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testSIGN($expectedResult, ...$args)
     {
         $result = MathTrig::SIGN(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerSIGN()
@@ -214,7 +214,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testPOWER($expectedResult, ...$args)
     {
         $result = MathTrig::POWER(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerPOWER()
@@ -230,7 +230,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testLOG($expectedResult, ...$args)
     {
         $result = MathTrig::logBase(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerLOG()
@@ -246,7 +246,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testMOD($expectedResult, ...$args)
     {
         $result = MathTrig::MOD(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerMOD()
@@ -262,7 +262,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testMDETERM($expectedResult, ...$args)
     {
         $result = MathTrig::MDETERM(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerMDETERM()
@@ -281,7 +281,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
         $this->markTestIncomplete('TODO: This test should be fixed');
 
         $result = MathTrig::MINVERSE(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerMINVERSE()
@@ -300,7 +300,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
         $this->markTestIncomplete('TODO: This test should be fixed');
 
         $result = MathTrig::MMULT(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerMMULT()
@@ -316,7 +316,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testMULTINOMIAL($expectedResult, ...$args)
     {
         $result = MathTrig::MULTINOMIAL(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerMULTINOMIAL()
@@ -334,7 +334,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
         $result = MathTrig::MROUND(...$args);
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerMROUND()
@@ -350,7 +350,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testPRODUCT($expectedResult, ...$args)
     {
         $result = MathTrig::PRODUCT(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerPRODUCT()
@@ -366,7 +366,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testQUOTIENT($expectedResult, ...$args)
     {
         $result = MathTrig::QUOTIENT(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerQUOTIENT()
@@ -382,7 +382,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testROUNDUP($expectedResult, ...$args)
     {
         $result = MathTrig::ROUNDUP(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerROUNDUP()
@@ -398,7 +398,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testROUNDDOWN($expectedResult, ...$args)
     {
         $result = MathTrig::ROUNDDOWN(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerROUNDDOWN()
@@ -414,7 +414,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testSERIESSUM($expectedResult, ...$args)
     {
         $result = MathTrig::SERIESSUM(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerSERIESSUM()
@@ -430,7 +430,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testSUMSQ($expectedResult, ...$args)
     {
         $result = MathTrig::SUMSQ(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerSUMSQ()
@@ -446,7 +446,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testTRUNC($expectedResult, ...$args)
     {
         $result = MathTrig::TRUNC(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerTRUNC()
@@ -462,7 +462,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testROMAN($expectedResult, ...$args)
     {
         $result = MathTrig::ROMAN(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerROMAN()
@@ -478,7 +478,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testSQRTPI($expectedResult, ...$args)
     {
         $result = MathTrig::SQRTPI(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerSQRTPI()
@@ -494,7 +494,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function testSUMIF($expectedResult, ...$args)
     {
         $result = MathTrig::SUMIF(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerSUMIF()

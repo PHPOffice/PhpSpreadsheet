@@ -46,7 +46,7 @@ class WorkbookTest extends PHPUnit_Framework_TestCase
 
         $palette = $propertyPalette->getValue($this->workbook);
 
-        $this->assertEquals($expectedResult, $palette);
+        self::assertEquals($expectedResult, $palette);
     }
 
     public function providerAddColor()

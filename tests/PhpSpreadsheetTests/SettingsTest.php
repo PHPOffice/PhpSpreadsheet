@@ -26,15 +26,15 @@ class SettingsTest extends PHPUnit_Framework_TestCase
     public function testGetXMLSettings()
     {
         $result = Settings::getLibXmlLoaderOptions();
-        $this->assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR) & $result));
-        $this->assertFalse(libxml_disable_entity_loader());
+        self::assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR) & $result));
+        self::assertFalse(libxml_disable_entity_loader());
     }
 
     public function testSetXMLSettings()
     {
         Settings::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID);
         $result = Settings::getLibXmlLoaderOptions();
-        $this->assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
-        $this->assertFalse(libxml_disable_entity_loader());
+        self::assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
+        self::assertFalse(libxml_disable_entity_loader());
     }
 }

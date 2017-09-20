@@ -25,7 +25,7 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
     public function testHLOOKUP($expectedResult, ...$args)
     {
         $result = LookupRef::HLOOKUP(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerHLOOKUP()
@@ -42,7 +42,7 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
     public function testVLOOKUP($expectedResult, ...$args)
     {
         $result = LookupRef::VLOOKUP(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerVLOOKUP()
@@ -59,7 +59,7 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
     public function testMATCH($expectedResult, ...$args)
     {
         $result = LookupRef::MATCH(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerMATCH()

@@ -24,11 +24,11 @@ class CalculationTest extends PHPUnit_Framework_TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $resultExcel = Calculation::getInstance()->_calculateFormulaValue($formula);
-        $this->assertEquals($expectedResultExcel, $resultExcel, 'should be Excel compatible');
+        self::assertEquals($expectedResultExcel, $resultExcel, 'should be Excel compatible');
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
         $resultOpenOffice = Calculation::getInstance()->_calculateFormulaValue($formula);
-        $this->assertEquals($expectedResultOpenOffice, $resultOpenOffice, 'should be OpenOffice compatible');
+        self::assertEquals($expectedResultOpenOffice, $resultOpenOffice, 'should be OpenOffice compatible');
     }
 
     public function providerBinaryComparisonOperation()
@@ -45,7 +45,7 @@ class CalculationTest extends PHPUnit_Framework_TestCase
      */
     public function testGetFunctions($category, $functionCall, $argumentCount)
     {
-        $this->assertInternalType('callable', $functionCall);
+        self::assertInternalType('callable', $functionCall);
     }
 
     public function providerGetFunctions()
@@ -56,10 +56,10 @@ class CalculationTest extends PHPUnit_Framework_TestCase
     public function testIsImplemented()
     {
         $calculation = Calculation::getInstance();
-        $this->assertFalse($calculation->isImplemented('non-existing-function'));
-        $this->assertFalse($calculation->isImplemented('AREAS'));
-        $this->assertTrue($calculation->isImplemented('coUNt'));
-        $this->assertTrue($calculation->isImplemented('abs'));
+        self::assertFalse($calculation->isImplemented('non-existing-function'));
+        self::assertFalse($calculation->isImplemented('AREAS'));
+        self::assertTrue($calculation->isImplemented('coUNt'));
+        self::assertTrue($calculation->isImplemented('abs'));
     }
 
     /**
@@ -70,7 +70,7 @@ class CalculationTest extends PHPUnit_Framework_TestCase
     public function testCanLoadAllSupportedLocales($locale)
     {
         $calculation = Calculation::getInstance();
-        $this->assertTrue($calculation->setLocale($locale));
+        self::assertTrue($calculation->setLocale($locale));
     }
 
     public function providerCanLoadAllSupportedLocales()

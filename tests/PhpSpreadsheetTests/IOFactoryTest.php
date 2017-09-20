@@ -16,7 +16,7 @@ class IOFactoryTest extends PHPUnit_Framework_TestCase
     public function testIdentify($file, $expected)
     {
         $actual = IOFactory::identify($file);
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function providerIdentify()

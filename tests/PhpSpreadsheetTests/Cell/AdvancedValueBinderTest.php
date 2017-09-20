@@ -74,6 +74,6 @@ class AdvancedValueBinderTest extends PHPUnit_Framework_TestCase
 
         $binder = new AdvancedValueBinder();
         $binder->bindValue($cell, $value);
-        $this->assertEquals($valueBinded, $cell->getValue());
+        self::assertEquals($valueBinded, $cell->getValue());
     }
 }

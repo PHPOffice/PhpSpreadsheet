@@ -35,7 +35,7 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
         $this->createCellStub();
         $binder = new DefaultValueBinder();
         $result = $binder->bindValue($this->cellStub, $value);
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function binderProvider()
@@ -64,7 +64,7 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
     public function testDataTypeForValue($expectedResult, ...$args)
     {
         $result = DefaultValueBinder::dataTypeForValue(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerDataTypeForValue()
@@ -79,6 +79,6 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
 
         $expectedResult = DataType::TYPE_INLINE;
         $result = DefaultValueBinder::dataTypeForValue($objRichText);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 }
