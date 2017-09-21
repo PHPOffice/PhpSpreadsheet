@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\BaseReader;
+use PhpOffice\PhpSpreadsheet\Reader\Xml;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit_Framework_TestCase;
 
@@ -20,11 +21,11 @@ class XEEValidatorTest extends PHPUnit_Framework_TestCase
     protected function loadXEETestFile()
     {
         if (!$this->spreadsheetXEETest) {
-            $filename = __DIR__ . '/../../../samples/templates/Excel2003XMLTest.xml';
+            $filename = '../samples/templates/Excel2003XMLTest.xml';
 
             // Load into this instance
             $reader = new Xml();
-            $this->spreadsheetXEETest = $reader->loadIntoExisting($filename, new Spreadsheet());
+            $this->spreadsheetXEETest = $reader->load($filename);
         }
 
         return $this->spreadsheetXEETest;
@@ -88,7 +89,7 @@ class XEEValidatorTest extends PHPUnit_Framework_TestCase
         $hyperlink = $firstSheet->getCell('L1');
 
         $this->assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
-        $this->assertEquals('PHPExcel', $hyperlink->getValue());
-        $this->assertEquals('http://www.phpexcel.net/', $hyperlink->getHyperlink()->getUrl());
+        $this->assertEquals('PhpSpreadsheet', $hyperlink->getValue());
+        $this->assertEquals('http://phpspreadsheet.readthedocs.io/', $hyperlink->getHyperlink()->getUrl());
     }
 }
