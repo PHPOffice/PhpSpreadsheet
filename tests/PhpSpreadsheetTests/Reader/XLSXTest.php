@@ -3,13 +3,12 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit_Framework_TestCase;
 
 class XLSXTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * Test load Xlsx file without cell reference
+     * Test load Xlsx file without cell reference.
      */
     public function testLoadXlsxWithoutCellReference()
     {
