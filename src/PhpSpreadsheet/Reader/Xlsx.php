@@ -848,6 +848,7 @@ class Xlsx extends BaseReader implements IReader
                             }
 
                             if ($xmlSheet && $xmlSheet->sheetData && $xmlSheet->sheetData->row) {
+                                $cIndex = 1; // Cell Start from 1
                                 foreach ($xmlSheet->sheetData->row as $row) {
                                     if ($row['ht'] && !$this->readDataOnly) {
                                         $docSheet->getRowDimension((int) ($row['r']))->setRowHeight((float) ($row['ht']));
@@ -865,8 +866,12 @@ class Xlsx extends BaseReader implements IReader
                                         $docSheet->getRowDimension((int) ($row['r']))->setXfIndex((int) ($row['s']));
                                     }
 
+                                    $rowIndex = 0; // Start form zero because Cell::stringFromColumnIndex start from A default, actually is 1
                                     foreach ($row->c as $c) {
                                         $r = (string) $c['r'];
+                                        if ($r == '') {
+                                            $r = Cell::stringFromColumnIndex($rowIndex) . $cIndex;
+                                        }
                                         $cellDataType = (string) $c['t'];
                                         $value = null;
                                         $calculatedValue = null;
@@ -963,7 +968,9 @@ class Xlsx extends BaseReader implements IReader
                                             $cell->setXfIndex(isset($styles[(int) ($c['s'])]) ?
                                                 (int) ($c['s']) : 0);
                                         }
+                                        $rowIndex += 1;
                                     }
+                                    $cIndex += 1;
                                 }
                             }
 
