@@ -100,3 +100,8 @@ architecture](./topics/architecture.md),
 Please refer to the [contributor
 list](https://github.com/PHPOffice/PhpSpreadsheet/graphs/contributors)
 for up-to-date credits.
+
+# Languages Translation
+
+- [English](./index.md)
+- [Chinese 中文](./i18n/zh_cn/index.md)
