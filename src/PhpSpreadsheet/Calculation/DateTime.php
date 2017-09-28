@@ -1149,15 +1149,15 @@ class DateTime
             return Functions::VALUE();
         }
 
-		if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
-			if ($dateValue < 1.0) {
-				return 0;
-			} elseif ($dateValue < 0.0) {
-				return Functions::NAN();
-			}
-		}
+        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
+            if ($dateValue < 1.0) {
+                return 0;
+            } elseif ($dateValue < 0.0) {
+                return Functions::NAN();
+            }
+        }
 
-		// Execute function
+        // Execute function
         $PHPDateObject = Date::excelToDateTimeObject($dateValue);
 
         return (int) $PHPDateObject->format('j');
