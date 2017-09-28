@@ -213,7 +213,7 @@ class Date
         $seconds = round($partDay * 60);
 
 		if ($days >= 0) {
-	        $interval = '+' . $days;
+	        $days = '+' . $days;
 		}
         $interval = $days . ' days';
 
