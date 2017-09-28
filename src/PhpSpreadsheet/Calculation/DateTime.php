@@ -1147,13 +1147,17 @@ class DateTime
             $dateValue = 1;
         } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
             return Functions::VALUE();
-        } elseif ($dateValue < 1.0) {
-            return 0;
-        } elseif ($dateValue < 0.0) {
-            return Functions::NAN();
         }
 
-        // Execute function
+		if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
+			if ($dateValue < 1.0) {
+				return 0;
+			} elseif ($dateValue < 0.0) {
+				return Functions::NAN();
+			}
+		}
+
+		// Execute function
         $PHPDateObject = Date::excelToDateTimeObject($dateValue);
 
         return (int) $PHPDateObject->format('j');

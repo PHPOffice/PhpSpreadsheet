@@ -186,18 +186,24 @@ class Date
     public static function excelToDateTimeObject($excelTimestamp, $timeZone = null)
     {
         $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
-        if ($excelTimestamp < 1.0) {
-            // Unix timestamp base date
-            $baseDate = new \DateTime('1970-01-01', $timeZone);
-        } else {
-            // MS Excel calendar base dates
-            if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
-                // Allow adjustment for 1900 Leap Year in MS Excel
-                $baseDate = ($excelTimestamp < 60) ? new \DateTime('1899-12-31', $timeZone) : new \DateTime('1899-12-30', $timeZone);
-            } else {
-                $baseDate = new \DateTime('1904-01-01', $timeZone);
-            }
-        }
+		if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
+			if ($excelTimestamp < 1.0) {
+				// Unix timestamp base date
+				$baseDate = new \DateTime('1970-01-01', $timeZone);
+			} else {
+				// MS Excel calendar base dates
+				if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
+					// Allow adjustment for 1900 Leap Year in MS Excel
+					$baseDate = ($excelTimestamp < 60) ? new \DateTime('1899-12-31', $timeZone) : new \DateTime('1899-12-30', $timeZone);
+				} else {
+					$baseDate = new \DateTime('1904-01-01', $timeZone);
+				}
+			}
+		}
+		else {
+			$baseDate = new \DateTime('1899-12-30', $timeZone);
+		}
+
         $days = floor($excelTimestamp);
         $partDay = $excelTimestamp - $days;
         $hours = floor($partDay * 24);
@@ -206,7 +212,10 @@ class Date
         $partDay = $partDay * 60 - $minutes;
         $seconds = round($partDay * 60);
 
-        $interval = '+' . $days . ' days';
+		if ($days >= 0) {
+	        $interval = '+' . $days;
+		}
+        $interval = $days . ' days';
 
         return $baseDate->modify($interval)
             ->setTime($hours, $minutes, $seconds);
