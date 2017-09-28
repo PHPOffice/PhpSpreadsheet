@@ -1470,6 +1470,24 @@
 		<td>$spreadsheet->setMacrosCode();</td>
 	</tr>
 	<tr>
+		<td><strong>Form Controls</strong></td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+	</tr>
+	<tr>
 		<th></th>
 		<th>XLS</th>
 		<th>XLSX</th>
