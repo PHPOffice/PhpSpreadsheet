@@ -647,7 +647,7 @@ class LookupRef
                     if (isset($arrayColumn[$rowNum])) {
                         $returnArray[] = $arrayColumn[$rowNum];
                     } else {
-                        return [ $rowNum => $arrayValues[$rowNum] ];
+                        return [$rowNum => $arrayValues[$rowNum]];
                     }
                 } else {
                     return $arrayValues[$rowNum];
