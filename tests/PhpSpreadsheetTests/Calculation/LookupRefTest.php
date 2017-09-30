@@ -18,7 +18,6 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerHLOOKUP
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -35,7 +34,6 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerVLOOKUP
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -52,7 +50,6 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMATCH
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -69,7 +66,6 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerINDEX
-     * @group fail19
      *
      * @param mixed $expectedResult
      */

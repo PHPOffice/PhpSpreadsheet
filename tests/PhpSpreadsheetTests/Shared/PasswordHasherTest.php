@@ -9,7 +9,6 @@ class PasswordHasherTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerHashPassword
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
