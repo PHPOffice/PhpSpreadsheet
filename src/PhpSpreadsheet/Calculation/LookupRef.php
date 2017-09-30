@@ -627,7 +627,7 @@ class LookupRef
             return Functions::VALUE();
         }
 
-        if (!is_array($arrayValues)) {
+        if (!is_array($arrayValues) || ($rowNum > count($arrayValues))) {
             return Functions::REF();
         }
 
@@ -647,7 +647,7 @@ class LookupRef
                     if (isset($arrayColumn[$rowNum])) {
                         $returnArray[] = $arrayColumn[$rowNum];
                     } else {
-                        return $arrayValues[$rowNum];
+                        return [$rowNum => $arrayValues[$rowNum]];
                     }
                 } else {
                     return $arrayValues[$rowNum];

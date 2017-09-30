@@ -66,4 +66,21 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
     {
         return require 'data/Calculation/LookupRef/MATCH.php';
     }
+
+    /**
+     * @dataProvider providerINDEX
+     * @group fail19
+     *
+     * @param mixed $expectedResult
+     */
+    public function testINDEX($expectedResult, ...$args)
+    {
+        $result = LookupRef::INDEX(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerINDEX()
+    {
+        return require 'data/Calculation/LookupRef/INDEX.php';
+    }
 }
