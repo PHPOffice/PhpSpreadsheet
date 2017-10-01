@@ -36,13 +36,13 @@
         "ext-xml": "*",
         "ext-xmlwriter": "*",
         "ext-zip": "*",
-        "psr/simple-cache": "^1.0"
+        "psr/simple-cache": "^1.0",
+        "friendsofphp/php-cs-fixer": "^2.7"
     },
     "require-dev": {
         "tecnickcom/tcpdf": "^6.2",
         "squizlabs/php_codesniffer": "^2.7",
         "phpunit/phpunit": "^5.7",
-        "friendsofphp/php-cs-fixer": "^2.0",
         "dompdf/dompdf": "^0.8.0",
         "mpdf/mpdf": "7.0.0-RC1@dev"
     },
