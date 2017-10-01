@@ -42,7 +42,7 @@ class SampleTest extends PHPUnit_Framework_TestCase
         $result = [];
         foreach ($helper->getSamples() as $samples) {
             foreach ($samples as $name => $sample) {
-                if (!in_array($name, $skipped) && preg_match('~21_Pdf_mPDF~', $sample)) {
+                if (!in_array($name, $skipped)) {
                     $file = '../samples/' . $sample;
                     $result[] = [$file];
                 }
