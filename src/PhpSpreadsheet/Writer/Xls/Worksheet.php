@@ -431,20 +431,25 @@ class Worksheet extends BIFFwriter
                         } else {
                             $this->writeString($row, $column, $cVal, $xfIndex);
                         }
+
                         break;
                     case Cell\DataType::TYPE_NUMERIC:
                         $this->writeNumber($row, $column, $cVal, $xfIndex);
+
                         break;
                     case Cell\DataType::TYPE_FORMULA:
                         $calculatedValue = $this->preCalculateFormulas ?
                             $cell->getCalculatedValue() : null;
                         $this->writeFormula($row, $column, $cVal, $xfIndex, $calculatedValue);
+
                         break;
                     case Cell\DataType::TYPE_BOOL:
                         $this->writeBoolErr($row, $column, $cVal, 0, $xfIndex);
+
                         break;
                     case Cell\DataType::TYPE_ERROR:
                         $this->writeBoolErr($row, $column, self::mapErrorCode($cVal), 1, $xfIndex);
+
                         break;
                 }
             }
@@ -473,7 +478,7 @@ class Worksheet extends BIFFwriter
 
         // Hyperlinks
         foreach ($phpSheet->getHyperLinkCollection() as $coordinate => $hyperlink) {
-            list($column, $row) = Cell::coordinateFromString($coordinate);
+            [$column, $row] = Cell::coordinateFromString($coordinate);
 
             $url = $hyperlink->getUrl();
 
@@ -666,7 +671,7 @@ class Worksheet extends BIFFwriter
         $length = 0x000A; // Bytes to follow
         $str = StringHelper::UTF8toBIFF8UnicodeShort($str, $arrcRun);
 
-        /* check if string is already present */
+        // check if string is already present
         if (!isset($this->stringTable[$str])) {
             $this->stringTable[$str] = $this->stringUnique++;
         }
@@ -736,7 +741,7 @@ class Worksheet extends BIFFwriter
 
         $str = StringHelper::UTF8toBIFF8UnicodeLong($str);
 
-        /* check if string is already present */
+        // check if string is already present
         if (!isset($this->stringTable[$str])) {
             $this->stringTable[$str] = $this->stringUnique++;
         }
@@ -1418,17 +1423,17 @@ class Worksheet extends BIFFwriter
         $selectedCells = Cell::splitRange($this->phpSheet->getSelectedCells());
         $selectedCells = $selectedCells[0];
         if (count($selectedCells) == 2) {
-            list($first, $last) = $selectedCells;
+            [$first, $last] = $selectedCells;
         } else {
             $first = $selectedCells[0];
             $last = $selectedCells[0];
         }
 
-        list($colFirst, $rwFirst) = Cell::coordinateFromString($first);
+        [$colFirst, $rwFirst] = Cell::coordinateFromString($first);
         $colFirst = Cell::columnIndexFromString($colFirst) - 1; // base 0 column index
         --$rwFirst; // base 0 row index
 
-        list($colLast, $rwLast) = Cell::coordinateFromString($last);
+        [$colLast, $rwLast] = Cell::coordinateFromString($last);
         $colLast = Cell::columnIndexFromString($colLast) - 1; // base 0 column index
         --$rwLast; // base 0 row index
 
@@ -1457,11 +1462,11 @@ class Worksheet extends BIFFwriter
 
         // Swap last row/col for first row/col as necessary
         if ($rwFirst > $rwLast) {
-            list($rwFirst, $rwLast) = [$rwLast, $rwFirst];
+            [$rwFirst, $rwLast] = [$rwLast, $rwFirst];
         }
 
         if ($colFirst > $colLast) {
-            list($colFirst, $colLast) = [$colLast, $colFirst];
+            [$colFirst, $colLast] = [$colLast, $colFirst];
         }
 
         $header = pack('vv', $record, $length);
@@ -1503,9 +1508,9 @@ class Worksheet extends BIFFwriter
 
             // extract the row and column indexes
             $range = Cell::splitRange($mergeCell);
-            list($first, $last) = $range[0];
-            list($firstColumn, $firstRow) = Cell::coordinateFromString($first);
-            list($lastColumn, $lastRow) = Cell::coordinateFromString($last);
+            [$first, $last] = $range[0];
+            [$firstColumn, $firstRow] = Cell::coordinateFromString($first);
+            [$lastColumn, $lastRow] = Cell::coordinateFromString($last);
 
             $recordData .= pack('vvvv', $firstRow - 1, $lastRow - 1, Cell::columnIndexFromString($firstColumn) - 1, Cell::columnIndexFromString($lastColumn) - 1);
 
@@ -1705,7 +1710,7 @@ class Worksheet extends BIFFwriter
     {
         $panes = [];
         if ($freezePane = $this->phpSheet->getFreezePane()) {
-            list($column, $row) = Cell::coordinateFromString($freezePane);
+            [$column, $row] = Cell::coordinateFromString($freezePane);
             $panes[0] = $row - 1;
             $panes[1] = Cell::columnIndexFromString($column) - 1;
         } else {
@@ -2157,10 +2162,12 @@ class Worksheet extends BIFFwriter
                 case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN:
                     // Add to list of vertical breaks
                     $vbreaks[] = Cell::columnIndexFromString($coordinates[0]) - 1;
+
                     break;
                 case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_ROW:
                     // Add to list of horizontal breaks
                     $hbreaks[] = $coordinates[1];
+
                     break;
                 case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_NONE:
                 default:
@@ -2324,7 +2331,7 @@ class Worksheet extends BIFFwriter
     public function insertBitmap($row, $col, $bitmap, $x = 0, $y = 0, $scale_x = 1, $scale_y = 1)
     {
         $bitmap_array = (is_resource($bitmap) ? $this->processBitmapGd($bitmap) : $this->processBitmap($bitmap));
-        list($width, $height, $size, $data) = $bitmap_array;
+        [$width, $height, $size, $data] = $bitmap_array;
 
         // Scale the frame of the image.
         $width *= $scale_x;
@@ -2805,27 +2812,35 @@ class Worksheet extends BIFFwriter
                 switch ($dataValidation->getType()) {
                     case DataValidation::TYPE_NONE:
                         $type = 0x00;
+
                         break;
                     case DataValidation::TYPE_WHOLE:
                         $type = 0x01;
+
                         break;
                     case DataValidation::TYPE_DECIMAL:
                         $type = 0x02;
+
                         break;
                     case DataValidation::TYPE_LIST:
                         $type = 0x03;
+
                         break;
                     case DataValidation::TYPE_DATE:
                         $type = 0x04;
+
                         break;
                     case DataValidation::TYPE_TIME:
                         $type = 0x05;
+
                         break;
                     case DataValidation::TYPE_TEXTLENGTH:
                         $type = 0x06;
+
                         break;
                     case DataValidation::TYPE_CUSTOM:
                         $type = 0x07;
+
                         break;
                 }
 
@@ -2836,12 +2851,15 @@ class Worksheet extends BIFFwriter
                 switch ($dataValidation->getErrorStyle()) {
                     case DataValidation::STYLE_STOP:
                         $errorStyle = 0x00;
+
                         break;
                     case DataValidation::STYLE_WARNING:
                         $errorStyle = 0x01;
+
                         break;
                     case DataValidation::STYLE_INFORMATION:
                         $errorStyle = 0x02;
+
                         break;
                 }
 
@@ -2869,27 +2887,35 @@ class Worksheet extends BIFFwriter
                 switch ($dataValidation->getOperator()) {
                     case DataValidation::OPERATOR_BETWEEN:
                         $operator = 0x00;
+
                         break;
                     case DataValidation::OPERATOR_NOTBETWEEN:
                         $operator = 0x01;
+
                         break;
                     case DataValidation::OPERATOR_EQUAL:
                         $operator = 0x02;
+
                         break;
                     case DataValidation::OPERATOR_NOTEQUAL:
                         $operator = 0x03;
+
                         break;
                     case DataValidation::OPERATOR_GREATERTHAN:
                         $operator = 0x04;
+
                         break;
                     case DataValidation::OPERATOR_LESSTHAN:
                         $operator = 0x05;
+
                         break;
                     case DataValidation::OPERATOR_GREATERTHANOREQUAL:
                         $operator = 0x06;
+
                         break;
                     case DataValidation::OPERATOR_LESSTHANOREQUAL:
                         $operator = 0x07;
+
                         break;
                 }
 
@@ -3041,27 +3067,35 @@ class Worksheet extends BIFFwriter
             switch ($conditional->getOperatorType()) {
                 case Conditional::OPERATOR_NONE:
                     $operatorType = 0x00;
+
                     break;
                 case Conditional::OPERATOR_EQUAL:
                     $operatorType = 0x03;
+
                     break;
                 case Conditional::OPERATOR_GREATERTHAN:
                     $operatorType = 0x05;
+
                     break;
                 case Conditional::OPERATOR_GREATERTHANOREQUAL:
                     $operatorType = 0x07;
+
                     break;
                 case Conditional::OPERATOR_LESSTHAN:
                     $operatorType = 0x06;
+
                     break;
                 case Conditional::OPERATOR_LESSTHANOREQUAL:
                     $operatorType = 0x08;
+
                     break;
                 case Conditional::OPERATOR_NOTEQUAL:
                     $operatorType = 0x04;
+
                     break;
                 case Conditional::OPERATOR_BETWEEN:
                     $operatorType = 0x01;
+
                     break;
                     // not OPERATOR_NOTBETWEEN 0x02
             }
@@ -3225,26 +3259,32 @@ class Worksheet extends BIFFwriter
                 case \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE:
                     $dataBlockFont .= pack('C', 0x00);
                     $fontUnderline = 0;
+
                     break;
                 case \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE:
                     $dataBlockFont .= pack('C', 0x02);
                     $fontUnderline = 0;
+
                     break;
                 case \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLEACCOUNTING:
                     $dataBlockFont .= pack('C', 0x22);
                     $fontUnderline = 0;
+
                     break;
                 case \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE:
                     $dataBlockFont .= pack('C', 0x01);
                     $fontUnderline = 0;
+
                     break;
                 case \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLEACCOUNTING:
                     $dataBlockFont .= pack('C', 0x21);
                     $fontUnderline = 0;
+
                     break;
                 default:
                     $dataBlockFont .= pack('C', 0x00);
                     $fontUnderline = 1;
+
                     break;
             }
             // Not used (3)
@@ -3253,174 +3293,231 @@ class Worksheet extends BIFFwriter
             switch ($conditional->getStyle()->getFont()->getColor()->getRGB()) {
                 case '000000':
                     $colorIdx = 0x08;
+
                     break;
                 case 'FFFFFF':
                     $colorIdx = 0x09;
+
                     break;
                 case 'FF0000':
                     $colorIdx = 0x0A;
+
                     break;
                 case '00FF00':
                     $colorIdx = 0x0B;
+
                     break;
                 case '0000FF':
                     $colorIdx = 0x0C;
+
                     break;
                 case 'FFFF00':
                     $colorIdx = 0x0D;
+
                     break;
                 case 'FF00FF':
                     $colorIdx = 0x0E;
+
                     break;
                 case '00FFFF':
                     $colorIdx = 0x0F;
+
                     break;
                 case '800000':
                     $colorIdx = 0x10;
+
                     break;
                 case '008000':
                     $colorIdx = 0x11;
+
                     break;
                 case '000080':
                     $colorIdx = 0x12;
+
                     break;
                 case '808000':
                     $colorIdx = 0x13;
+
                     break;
                 case '800080':
                     $colorIdx = 0x14;
+
                     break;
                 case '008080':
                     $colorIdx = 0x15;
+
                     break;
                 case 'C0C0C0':
                     $colorIdx = 0x16;
+
                     break;
                 case '808080':
                     $colorIdx = 0x17;
+
                     break;
                 case '9999FF':
                     $colorIdx = 0x18;
+
                     break;
                 case '993366':
                     $colorIdx = 0x19;
+
                     break;
                 case 'FFFFCC':
                     $colorIdx = 0x1A;
+
                     break;
                 case 'CCFFFF':
                     $colorIdx = 0x1B;
+
                     break;
                 case '660066':
                     $colorIdx = 0x1C;
+
                     break;
                 case 'FF8080':
                     $colorIdx = 0x1D;
+
                     break;
                 case '0066CC':
                     $colorIdx = 0x1E;
+
                     break;
                 case 'CCCCFF':
                     $colorIdx = 0x1F;
+
                     break;
                 case '000080':
                     $colorIdx = 0x20;
+
                     break;
                 case 'FF00FF':
                     $colorIdx = 0x21;
+
                     break;
                 case 'FFFF00':
                     $colorIdx = 0x22;
+
                     break;
                 case '00FFFF':
                     $colorIdx = 0x23;
+
                     break;
                 case '800080':
                     $colorIdx = 0x24;
+
                     break;
                 case '800000':
                     $colorIdx = 0x25;
+
                     break;
                 case '008080':
                     $colorIdx = 0x26;
+
                     break;
                 case '0000FF':
                     $colorIdx = 0x27;
+
                     break;
                 case '00CCFF':
                     $colorIdx = 0x28;
+
                     break;
                 case 'CCFFFF':
                     $colorIdx = 0x29;
+
                     break;
                 case 'CCFFCC':
                     $colorIdx = 0x2A;
+
                     break;
                 case 'FFFF99':
                     $colorIdx = 0x2B;
+
                     break;
                 case '99CCFF':
                     $colorIdx = 0x2C;
+
                     break;
                 case 'FF99CC':
                     $colorIdx = 0x2D;
+
                     break;
                 case 'CC99FF':
                     $colorIdx = 0x2E;
+
                     break;
                 case 'FFCC99':
                     $colorIdx = 0x2F;
+
                     break;
                 case '3366FF':
                     $colorIdx = 0x30;
+
                     break;
                 case '33CCCC':
                     $colorIdx = 0x31;
+
                     break;
                 case '99CC00':
                     $colorIdx = 0x32;
+
                     break;
                 case 'FFCC00':
                     $colorIdx = 0x33;
+
                     break;
                 case 'FF9900':
                     $colorIdx = 0x34;
+
                     break;
                 case 'FF6600':
                     $colorIdx = 0x35;
+
                     break;
                 case '666699':
                     $colorIdx = 0x36;
+
                     break;
                 case '969696':
                     $colorIdx = 0x37;
+
                     break;
                 case '003366':
                     $colorIdx = 0x38;
+
                     break;
                 case '339966':
                     $colorIdx = 0x39;
+
                     break;
                 case '003300':
                     $colorIdx = 0x3A;
+
                     break;
                 case '333300':
                     $colorIdx = 0x3B;
+
                     break;
                 case '993300':
                     $colorIdx = 0x3C;
+
                     break;
                 case '993366':
                     $colorIdx = 0x3D;
+
                     break;
                 case '333399':
                     $colorIdx = 0x3E;
+
                     break;
                 case '333333':
                     $colorIdx = 0x3F;
+
                     break;
                 default:
                     $colorIdx = 0x00;
+
                     break;
             }
             $dataBlockFont .= pack('V', $colorIdx);
@@ -3454,21 +3551,27 @@ class Worksheet extends BIFFwriter
             switch ($conditional->getStyle()->getAlignment()->getHorizontal()) {
                 case Alignment::HORIZONTAL_GENERAL:
                     $blockAlign = 0;
+
                     break;
                 case Alignment::HORIZONTAL_LEFT:
                     $blockAlign = 1;
+
                     break;
                 case Alignment::HORIZONTAL_RIGHT:
                     $blockAlign = 3;
+
                     break;
                 case Alignment::HORIZONTAL_CENTER:
                     $blockAlign = 2;
+
                     break;
                 case Alignment::HORIZONTAL_CENTER_CONTINUOUS:
                     $blockAlign = 6;
+
                     break;
                 case Alignment::HORIZONTAL_JUSTIFY:
                     $blockAlign = 5;
+
                     break;
             }
             if ($conditional->getStyle()->getAlignment()->getWrapText() == true) {
@@ -3479,15 +3582,19 @@ class Worksheet extends BIFFwriter
             switch ($conditional->getStyle()->getAlignment()->getVertical()) {
                 case Alignment::VERTICAL_BOTTOM:
                     $blockAlign = 2 << 4;
+
                     break;
                 case Alignment::VERTICAL_TOP:
                     $blockAlign = 0 << 4;
+
                     break;
                 case Alignment::VERTICAL_CENTER:
                     $blockAlign = 1 << 4;
+
                     break;
                 case Alignment::VERTICAL_JUSTIFY:
                     $blockAlign = 3 << 4;
+
                     break;
             }
             $blockAlign |= 0 << 7;
@@ -3514,177 +3621,233 @@ class Worksheet extends BIFFwriter
             switch ($conditional->getStyle()->getBorders()->getLeft()->getBorderStyle()) {
                 case Border::BORDER_NONE:
                     $blockLineStyle |= 0x00;
+
                     break;
                 case Border::BORDER_THIN:
                     $blockLineStyle |= 0x01;
+
                     break;
                 case Border::BORDER_MEDIUM:
                     $blockLineStyle |= 0x02;
+
                     break;
                 case Border::BORDER_DASHED:
                     $blockLineStyle |= 0x03;
+
                     break;
                 case Border::BORDER_DOTTED:
                     $blockLineStyle |= 0x04;
+
                     break;
                 case Border::BORDER_THICK:
                     $blockLineStyle |= 0x05;
+
                     break;
                 case Border::BORDER_DOUBLE:
                     $blockLineStyle |= 0x06;
+
                     break;
                 case Border::BORDER_HAIR:
                     $blockLineStyle |= 0x07;
+
                     break;
                 case Border::BORDER_MEDIUMDASHED:
                     $blockLineStyle |= 0x08;
+
                     break;
                 case Border::BORDER_DASHDOT:
                     $blockLineStyle |= 0x09;
+
                     break;
                 case Border::BORDER_MEDIUMDASHDOT:
                     $blockLineStyle |= 0x0A;
+
                     break;
                 case Border::BORDER_DASHDOTDOT:
                     $blockLineStyle |= 0x0B;
+
                     break;
                 case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockLineStyle |= 0x0C;
+
                     break;
                 case Border::BORDER_SLANTDASHDOT:
                     $blockLineStyle |= 0x0D;
+
                     break;
             }
             switch ($conditional->getStyle()->getBorders()->getRight()->getBorderStyle()) {
                 case Border::BORDER_NONE:
                     $blockLineStyle |= 0x00 << 4;
+
                     break;
                 case Border::BORDER_THIN:
                     $blockLineStyle |= 0x01 << 4;
+
                     break;
                 case Border::BORDER_MEDIUM:
                     $blockLineStyle |= 0x02 << 4;
+
                     break;
                 case Border::BORDER_DASHED:
                     $blockLineStyle |= 0x03 << 4;
+
                     break;
                 case Border::BORDER_DOTTED:
                     $blockLineStyle |= 0x04 << 4;
+
                     break;
                 case Border::BORDER_THICK:
                     $blockLineStyle |= 0x05 << 4;
+
                     break;
                 case Border::BORDER_DOUBLE:
                     $blockLineStyle |= 0x06 << 4;
+
                     break;
                 case Border::BORDER_HAIR:
                     $blockLineStyle |= 0x07 << 4;
+
                     break;
                 case Border::BORDER_MEDIUMDASHED:
                     $blockLineStyle |= 0x08 << 4;
+
                     break;
                 case Border::BORDER_DASHDOT:
                     $blockLineStyle |= 0x09 << 4;
+
                     break;
                 case Border::BORDER_MEDIUMDASHDOT:
                     $blockLineStyle |= 0x0A << 4;
+
                     break;
                 case Border::BORDER_DASHDOTDOT:
                     $blockLineStyle |= 0x0B << 4;
+
                     break;
                 case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockLineStyle |= 0x0C << 4;
+
                     break;
                 case Border::BORDER_SLANTDASHDOT:
                     $blockLineStyle |= 0x0D << 4;
+
                     break;
             }
             switch ($conditional->getStyle()->getBorders()->getTop()->getBorderStyle()) {
                 case Border::BORDER_NONE:
                     $blockLineStyle |= 0x00 << 8;
+
                     break;
                 case Border::BORDER_THIN:
                     $blockLineStyle |= 0x01 << 8;
+
                     break;
                 case Border::BORDER_MEDIUM:
                     $blockLineStyle |= 0x02 << 8;
+
                     break;
                 case Border::BORDER_DASHED:
                     $blockLineStyle |= 0x03 << 8;
+
                     break;
                 case Border::BORDER_DOTTED:
                     $blockLineStyle |= 0x04 << 8;
+
                     break;
                 case Border::BORDER_THICK:
                     $blockLineStyle |= 0x05 << 8;
+
                     break;
                 case Border::BORDER_DOUBLE:
                     $blockLineStyle |= 0x06 << 8;
+
                     break;
                 case Border::BORDER_HAIR:
                     $blockLineStyle |= 0x07 << 8;
+
                     break;
                 case Border::BORDER_MEDIUMDASHED:
                     $blockLineStyle |= 0x08 << 8;
+
                     break;
                 case Border::BORDER_DASHDOT:
                     $blockLineStyle |= 0x09 << 8;
+
                     break;
                 case Border::BORDER_MEDIUMDASHDOT:
                     $blockLineStyle |= 0x0A << 8;
+
                     break;
                 case Border::BORDER_DASHDOTDOT:
                     $blockLineStyle |= 0x0B << 8;
+
                     break;
                 case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockLineStyle |= 0x0C << 8;
+
                     break;
                 case Border::BORDER_SLANTDASHDOT:
                     $blockLineStyle |= 0x0D << 8;
+
                     break;
             }
             switch ($conditional->getStyle()->getBorders()->getBottom()->getBorderStyle()) {
                 case Border::BORDER_NONE:
                     $blockLineStyle |= 0x00 << 12;
+
                     break;
                 case Border::BORDER_THIN:
                     $blockLineStyle |= 0x01 << 12;
+
                     break;
                 case Border::BORDER_MEDIUM:
                     $blockLineStyle |= 0x02 << 12;
+
                     break;
                 case Border::BORDER_DASHED:
                     $blockLineStyle |= 0x03 << 12;
+
                     break;
                 case Border::BORDER_DOTTED:
                     $blockLineStyle |= 0x04 << 12;
+
                     break;
                 case Border::BORDER_THICK:
                     $blockLineStyle |= 0x05 << 12;
+
                     break;
                 case Border::BORDER_DOUBLE:
                     $blockLineStyle |= 0x06 << 12;
+
                     break;
                 case Border::BORDER_HAIR:
                     $blockLineStyle |= 0x07 << 12;
+
                     break;
                 case Border::BORDER_MEDIUMDASHED:
                     $blockLineStyle |= 0x08 << 12;
+
                     break;
                 case Border::BORDER_DASHDOT:
                     $blockLineStyle |= 0x09 << 12;
+
                     break;
                 case Border::BORDER_MEDIUMDASHDOT:
                     $blockLineStyle |= 0x0A << 12;
+
                     break;
                 case Border::BORDER_DASHDOTDOT:
                     $blockLineStyle |= 0x0B << 12;
+
                     break;
                 case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockLineStyle |= 0x0C << 12;
+
                     break;
                 case Border::BORDER_SLANTDASHDOT:
                     $blockLineStyle |= 0x0D << 12;
+
                     break;
             }
             //@todo writeCFRule() => $blockLineStyle => Index Color for left line
@@ -3698,45 +3861,59 @@ class Worksheet extends BIFFwriter
             switch ($conditional->getStyle()->getBorders()->getDiagonal()->getBorderStyle()) {
                 case Border::BORDER_NONE:
                     $blockColor |= 0x00 << 21;
+
                     break;
                 case Border::BORDER_THIN:
                     $blockColor |= 0x01 << 21;
+
                     break;
                 case Border::BORDER_MEDIUM:
                     $blockColor |= 0x02 << 21;
+
                     break;
                 case Border::BORDER_DASHED:
                     $blockColor |= 0x03 << 21;
+
                     break;
                 case Border::BORDER_DOTTED:
                     $blockColor |= 0x04 << 21;
+
                     break;
                 case Border::BORDER_THICK:
                     $blockColor |= 0x05 << 21;
+
                     break;
                 case Border::BORDER_DOUBLE:
                     $blockColor |= 0x06 << 21;
+
                     break;
                 case Border::BORDER_HAIR:
                     $blockColor |= 0x07 << 21;
+
                     break;
                 case Border::BORDER_MEDIUMDASHED:
                     $blockColor |= 0x08 << 21;
+
                     break;
                 case Border::BORDER_DASHDOT:
                     $blockColor |= 0x09 << 21;
+
                     break;
                 case Border::BORDER_MEDIUMDASHDOT:
                     $blockColor |= 0x0A << 21;
+
                     break;
                 case Border::BORDER_DASHDOTDOT:
                     $blockColor |= 0x0B << 21;
+
                     break;
                 case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockColor |= 0x0C << 21;
+
                     break;
                 case Border::BORDER_SLANTDASHDOT:
                     $blockColor |= 0x0D << 21;
+
                     break;
             }
             $dataBlockBorder = pack('vv', $blockLineStyle, $blockColor);
@@ -3747,417 +3924,553 @@ class Worksheet extends BIFFwriter
             switch ($conditional->getStyle()->getFill()->getFillType()) {
                 case Fill::FILL_NONE:
                     $blockFillPatternStyle = 0x00;
+
                     break;
                 case Fill::FILL_SOLID:
                     $blockFillPatternStyle = 0x01;
+
                     break;
                 case Fill::FILL_PATTERN_MEDIUMGRAY:
                     $blockFillPatternStyle = 0x02;
+
                     break;
                 case Fill::FILL_PATTERN_DARKGRAY:
                     $blockFillPatternStyle = 0x03;
+
                     break;
                 case Fill::FILL_PATTERN_LIGHTGRAY:
                     $blockFillPatternStyle = 0x04;
+
                     break;
                 case Fill::FILL_PATTERN_DARKHORIZONTAL:
                     $blockFillPatternStyle = 0x05;
+
                     break;
                 case Fill::FILL_PATTERN_DARKVERTICAL:
                     $blockFillPatternStyle = 0x06;
+
                     break;
                 case Fill::FILL_PATTERN_DARKDOWN:
                     $blockFillPatternStyle = 0x07;
+
                     break;
                 case Fill::FILL_PATTERN_DARKUP:
                     $blockFillPatternStyle = 0x08;
+
                     break;
                 case Fill::FILL_PATTERN_DARKGRID:
                     $blockFillPatternStyle = 0x09;
+
                     break;
                 case Fill::FILL_PATTERN_DARKTRELLIS:
                     $blockFillPatternStyle = 0x0A;
+
                     break;
                 case Fill::FILL_PATTERN_LIGHTHORIZONTAL:
                     $blockFillPatternStyle = 0x0B;
+
                     break;
                 case Fill::FILL_PATTERN_LIGHTVERTICAL:
                     $blockFillPatternStyle = 0x0C;
+
                     break;
                 case Fill::FILL_PATTERN_LIGHTDOWN:
                     $blockFillPatternStyle = 0x0D;
+
                     break;
                 case Fill::FILL_PATTERN_LIGHTUP:
                     $blockFillPatternStyle = 0x0E;
+
                     break;
                 case Fill::FILL_PATTERN_LIGHTGRID:
                     $blockFillPatternStyle = 0x0F;
+
                     break;
                 case Fill::FILL_PATTERN_LIGHTTRELLIS:
                     $blockFillPatternStyle = 0x10;
+
                     break;
                 case Fill::FILL_PATTERN_GRAY125:
                     $blockFillPatternStyle = 0x11;
+
                     break;
                 case Fill::FILL_PATTERN_GRAY0625:
                     $blockFillPatternStyle = 0x12;
+
                     break;
                 case Fill::FILL_GRADIENT_LINEAR:
                     $blockFillPatternStyle = 0x00;
+
                     break; // does not exist in BIFF8
                 case Fill::FILL_GRADIENT_PATH:
                     $blockFillPatternStyle = 0x00;
+
                     break; // does not exist in BIFF8
                 default:
                     $blockFillPatternStyle = 0x00;
+
                     break;
             }
             // Color
             switch ($conditional->getStyle()->getFill()->getStartColor()->getRGB()) {
                 case '000000':
                     $colorIdxBg = 0x08;
+
                     break;
                 case 'FFFFFF':
                     $colorIdxBg = 0x09;
+
                     break;
                 case 'FF0000':
                     $colorIdxBg = 0x0A;
+
                     break;
                 case '00FF00':
                     $colorIdxBg = 0x0B;
+
                     break;
                 case '0000FF':
                     $colorIdxBg = 0x0C;
+
                     break;
                 case 'FFFF00':
                     $colorIdxBg = 0x0D;
+
                     break;
                 case 'FF00FF':
                     $colorIdxBg = 0x0E;
+
                     break;
                 case '00FFFF':
                     $colorIdxBg = 0x0F;
+
                     break;
                 case '800000':
                     $colorIdxBg = 0x10;
+
                     break;
                 case '008000':
                     $colorIdxBg = 0x11;
+
                     break;
                 case '000080':
                     $colorIdxBg = 0x12;
+
                     break;
                 case '808000':
                     $colorIdxBg = 0x13;
+
                     break;
                 case '800080':
                     $colorIdxBg = 0x14;
+
                     break;
                 case '008080':
                     $colorIdxBg = 0x15;
+
                     break;
                 case 'C0C0C0':
                     $colorIdxBg = 0x16;
+
                     break;
                 case '808080':
                     $colorIdxBg = 0x17;
+
                     break;
                 case '9999FF':
                     $colorIdxBg = 0x18;
+
                     break;
                 case '993366':
                     $colorIdxBg = 0x19;
+
                     break;
                 case 'FFFFCC':
                     $colorIdxBg = 0x1A;
+
                     break;
                 case 'CCFFFF':
                     $colorIdxBg = 0x1B;
+
                     break;
                 case '660066':
                     $colorIdxBg = 0x1C;
+
                     break;
                 case 'FF8080':
                     $colorIdxBg = 0x1D;
+
                     break;
                 case '0066CC':
                     $colorIdxBg = 0x1E;
+
                     break;
                 case 'CCCCFF':
                     $colorIdxBg = 0x1F;
+
                     break;
                 case '000080':
                     $colorIdxBg = 0x20;
+
                     break;
                 case 'FF00FF':
                     $colorIdxBg = 0x21;
+
                     break;
                 case 'FFFF00':
                     $colorIdxBg = 0x22;
+
                     break;
                 case '00FFFF':
                     $colorIdxBg = 0x23;
+
                     break;
                 case '800080':
                     $colorIdxBg = 0x24;
+
                     break;
                 case '800000':
                     $colorIdxBg = 0x25;
+
                     break;
                 case '008080':
                     $colorIdxBg = 0x26;
+
                     break;
                 case '0000FF':
                     $colorIdxBg = 0x27;
+
                     break;
                 case '00CCFF':
                     $colorIdxBg = 0x28;
+
                     break;
                 case 'CCFFFF':
                     $colorIdxBg = 0x29;
+
                     break;
                 case 'CCFFCC':
                     $colorIdxBg = 0x2A;
+
                     break;
                 case 'FFFF99':
                     $colorIdxBg = 0x2B;
+
                     break;
                 case '99CCFF':
                     $colorIdxBg = 0x2C;
+
                     break;
                 case 'FF99CC':
                     $colorIdxBg = 0x2D;
+
                     break;
                 case 'CC99FF':
                     $colorIdxBg = 0x2E;
+
                     break;
                 case 'FFCC99':
                     $colorIdxBg = 0x2F;
+
                     break;
                 case '3366FF':
                     $colorIdxBg = 0x30;
+
                     break;
                 case '33CCCC':
                     $colorIdxBg = 0x31;
+
                     break;
                 case '99CC00':
                     $colorIdxBg = 0x32;
+
                     break;
                 case 'FFCC00':
                     $colorIdxBg = 0x33;
+
                     break;
                 case 'FF9900':
                     $colorIdxBg = 0x34;
+
                     break;
                 case 'FF6600':
                     $colorIdxBg = 0x35;
+
                     break;
                 case '666699':
                     $colorIdxBg = 0x36;
+
                     break;
                 case '969696':
                     $colorIdxBg = 0x37;
+
                     break;
                 case '003366':
                     $colorIdxBg = 0x38;
+
                     break;
                 case '339966':
                     $colorIdxBg = 0x39;
+
                     break;
                 case '003300':
                     $colorIdxBg = 0x3A;
+
                     break;
                 case '333300':
                     $colorIdxBg = 0x3B;
+
                     break;
                 case '993300':
                     $colorIdxBg = 0x3C;
+
                     break;
                 case '993366':
                     $colorIdxBg = 0x3D;
+
                     break;
                 case '333399':
                     $colorIdxBg = 0x3E;
+
                     break;
                 case '333333':
                     $colorIdxBg = 0x3F;
+
                     break;
                 default:
                           $colorIdxBg = 0x41;
+
                     break;
             }
             // Fg Color
             switch ($conditional->getStyle()->getFill()->getEndColor()->getRGB()) {
                 case '000000':
                     $colorIdxFg = 0x08;
+
                     break;
                 case 'FFFFFF':
                     $colorIdxFg = 0x09;
+
                     break;
                 case 'FF0000':
                     $colorIdxFg = 0x0A;
+
                     break;
                 case '00FF00':
                     $colorIdxFg = 0x0B;
+
                     break;
                 case '0000FF':
                     $colorIdxFg = 0x0C;
+
                     break;
                 case 'FFFF00':
                     $colorIdxFg = 0x0D;
+
                     break;
                 case 'FF00FF':
                     $colorIdxFg = 0x0E;
+
                     break;
                 case '00FFFF':
                     $colorIdxFg = 0x0F;
+
                     break;
                 case '800000':
                     $colorIdxFg = 0x10;
+
                     break;
                 case '008000':
                     $colorIdxFg = 0x11;
+
                     break;
                 case '000080':
                     $colorIdxFg = 0x12;
+
                     break;
                 case '808000':
                     $colorIdxFg = 0x13;
+
                     break;
                 case '800080':
                     $colorIdxFg = 0x14;
+
                     break;
                 case '008080':
                     $colorIdxFg = 0x15;
+
                     break;
                 case 'C0C0C0':
                     $colorIdxFg = 0x16;
+
                     break;
                 case '808080':
                     $colorIdxFg = 0x17;
+
                     break;
                 case '9999FF':
                     $colorIdxFg = 0x18;
+
                     break;
                 case '993366':
                     $colorIdxFg = 0x19;
+
                     break;
                 case 'FFFFCC':
                     $colorIdxFg = 0x1A;
+
                     break;
                 case 'CCFFFF':
                     $colorIdxFg = 0x1B;
+
                     break;
                 case '660066':
                     $colorIdxFg = 0x1C;
+
                     break;
                 case 'FF8080':
                     $colorIdxFg = 0x1D;
+
                     break;
                 case '0066CC':
                     $colorIdxFg = 0x1E;
+
                     break;
                 case 'CCCCFF':
                     $colorIdxFg = 0x1F;
+
                     break;
                 case '000080':
                     $colorIdxFg = 0x20;
+
                     break;
                 case 'FF00FF':
                     $colorIdxFg = 0x21;
+
                     break;
                 case 'FFFF00':
                     $colorIdxFg = 0x22;
+
                     break;
                 case '00FFFF':
                     $colorIdxFg = 0x23;
+
                     break;
                 case '800080':
                     $colorIdxFg = 0x24;
+
                     break;
                 case '800000':
                     $colorIdxFg = 0x25;
+
                     break;
                 case '008080':
                     $colorIdxFg = 0x26;
+
                     break;
                 case '0000FF':
                     $colorIdxFg = 0x27;
+
                     break;
                 case '00CCFF':
                     $colorIdxFg = 0x28;
+
                     break;
                 case 'CCFFFF':
                     $colorIdxFg = 0x29;
+
                     break;
                 case 'CCFFCC':
                     $colorIdxFg = 0x2A;
+
                     break;
                 case 'FFFF99':
                     $colorIdxFg = 0x2B;
+
                     break;
                 case '99CCFF':
                     $colorIdxFg = 0x2C;
+
                     break;
                 case 'FF99CC':
                     $colorIdxFg = 0x2D;
+
                     break;
                 case 'CC99FF':
                     $colorIdxFg = 0x2E;
+
                     break;
                 case 'FFCC99':
                     $colorIdxFg = 0x2F;
+
                     break;
                 case '3366FF':
                     $colorIdxFg = 0x30;
+
                     break;
                 case '33CCCC':
                     $colorIdxFg = 0x31;
+
                     break;
                 case '99CC00':
                     $colorIdxFg = 0x32;
+
                     break;
                 case 'FFCC00':
                     $colorIdxFg = 0x33;
+
                     break;
                 case 'FF9900':
                     $colorIdxFg = 0x34;
+
                     break;
                 case 'FF6600':
                     $colorIdxFg = 0x35;
+
                     break;
                 case '666699':
                     $colorIdxFg = 0x36;
+
                     break;
                 case '969696':
                     $colorIdxFg = 0x37;
+
                     break;
                 case '003366':
                     $colorIdxFg = 0x38;
+
                     break;
                 case '339966':
                     $colorIdxFg = 0x39;
+
                     break;
                 case '003300':
                     $colorIdxFg = 0x3A;
+
                     break;
                 case '333300':
                     $colorIdxFg = 0x3B;
+
                     break;
                 case '993300':
                     $colorIdxFg = 0x3C;
+
                     break;
                 case '993366':
                     $colorIdxFg = 0x3D;
+
                     break;
                 case '333399':
                     $colorIdxFg = 0x3E;
+
                     break;
                 case '333333':
                     $colorIdxFg = 0x3F;
+
                     break;
                 default:
                           $colorIdxFg = 0x40;
+
                     break;
             }
             $dataBlockFill = pack('v', $blockFillPatternStyle);
@@ -4189,10 +4502,10 @@ class Worksheet extends BIFFwriter
         if ($bFormatProt == 1) {
             $data .= $dataBlockProtection;
         }
-        if (!is_null($operand1)) {
+        if ($operand1 !== null) {
             $data .= $operand1;
         }
-        if (!is_null($operand2)) {
+        if ($operand2 !== null) {
             $data .= $operand2;
         }
         $header = pack('vv', $record, strlen($data));
@@ -4224,16 +4537,16 @@ class Worksheet extends BIFFwriter
                     if (!is_numeric($arrCoord[0])) {
                         $arrCoord[0] = Cell::columnIndexFromString($arrCoord[0]);
                     }
-                    if (is_null($numColumnMin) || ($numColumnMin > $arrCoord[0])) {
+                    if ($numColumnMin === null || ($numColumnMin > $arrCoord[0])) {
                         $numColumnMin = $arrCoord[0];
                     }
-                    if (is_null($numColumnMax) || ($numColumnMax < $arrCoord[0])) {
+                    if ($numColumnMax === null || ($numColumnMax < $arrCoord[0])) {
                         $numColumnMax = $arrCoord[0];
                     }
-                    if (is_null($numRowMin) || ($numRowMin > $arrCoord[1])) {
+                    if ($numRowMin === null || ($numRowMin > $arrCoord[1])) {
                         $numRowMin = $arrCoord[1];
                     }
-                    if (is_null($numRowMax) || ($numRowMax < $arrCoord[1])) {
+                    if ($numRowMax === null || ($numRowMax < $arrCoord[1])) {
                         $numRowMax = $arrCoord[1];
                     }
                 }

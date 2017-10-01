@@ -73,21 +73,25 @@ class Chart
                                     switch ($chartDetailKey) {
                                         case 'layout':
                                             $plotAreaLayout = self::chartLayoutDetails($chartDetail, $namespacesChartMeta);
+
                                             break;
                                         case 'catAx':
                                             if (isset($chartDetail->title)) {
                                                 $XaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
                                             }
+
                                             break;
                                         case 'dateAx':
                                             if (isset($chartDetail->title)) {
                                                 $XaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
                                             }
+
                                             break;
                                         case 'valAx':
                                             if (isset($chartDetail->title)) {
                                                 $YaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
                                             }
+
                                             break;
                                         case 'barChart':
                                         case 'bar3DChart':
@@ -96,16 +100,19 @@ class Chart
                                             $plotSer->setPlotDirection($barDirection);
                                             $plotSeries[] = $plotSer;
                                             $plotAttributes = self::readChartAttributes($chartDetail);
+
                                             break;
                                         case 'lineChart':
                                         case 'line3DChart':
                                             $plotSeries[] = self::chartDataSeries($chartDetail, $namespacesChartMeta, $chartDetailKey);
                                             $plotAttributes = self::readChartAttributes($chartDetail);
+
                                             break;
                                         case 'areaChart':
                                         case 'area3DChart':
                                             $plotSeries[] = self::chartDataSeries($chartDetail, $namespacesChartMeta, $chartDetailKey);
                                             $plotAttributes = self::readChartAttributes($chartDetail);
+
                                             break;
                                         case 'doughnutChart':
                                         case 'pieChart':
@@ -115,6 +122,7 @@ class Chart
                                             $plotSer->setPlotStyle($explosion);
                                             $plotSeries[] = $plotSer;
                                             $plotAttributes = self::readChartAttributes($chartDetail);
+
                                             break;
                                         case 'scatterChart':
                                             $scatterStyle = self::getAttribute($chartDetail->scatterStyle, 'val', 'string');
@@ -122,6 +130,7 @@ class Chart
                                             $plotSer->setPlotStyle($scatterStyle);
                                             $plotSeries[] = $plotSer;
                                             $plotAttributes = self::readChartAttributes($chartDetail);
+
                                             break;
                                         case 'bubbleChart':
                                             $bubbleScale = self::getAttribute($chartDetail->bubbleScale, 'val', 'integer');
@@ -129,6 +138,7 @@ class Chart
                                             $plotSer->setPlotStyle($bubbleScale);
                                             $plotSeries[] = $plotSer;
                                             $plotAttributes = self::readChartAttributes($chartDetail);
+
                                             break;
                                         case 'radarChart':
                                             $radarStyle = self::getAttribute($chartDetail->radarStyle, 'val', 'string');
@@ -136,6 +146,7 @@ class Chart
                                             $plotSer->setPlotStyle($radarStyle);
                                             $plotSeries[] = $plotSer;
                                             $plotAttributes = self::readChartAttributes($chartDetail);
+
                                             break;
                                         case 'surfaceChart':
                                         case 'surface3DChart':
@@ -144,10 +155,12 @@ class Chart
                                             $plotSer->setPlotStyle($wireFrame);
                                             $plotSeries[] = $plotSer;
                                             $plotAttributes = self::readChartAttributes($chartDetail);
+
                                             break;
                                         case 'stockChart':
                                             $plotSeries[] = self::chartDataSeries($chartDetail, $namespacesChartMeta, $chartDetailKey);
                                             $plotAttributes = self::readChartAttributes($plotAreaLayout);
+
                                             break;
                                     }
                                 }
@@ -156,15 +169,19 @@ class Chart
                                 }
                                 $plotArea = new PlotArea($plotAreaLayout, $plotSeries);
                                 self::setChartAttributes($plotAreaLayout, $plotAttributes);
+
                                 break;
                             case 'plotVisOnly':
                                 $plotVisOnly = self::getAttribute($chartDetails, 'val', 'string');
+
                                 break;
                             case 'dispBlanksAs':
                                 $dispBlanksAs = self::getAttribute($chartDetails, 'val', 'string');
+
                                 break;
                             case 'title':
                                 $title = self::chartTitle($chartDetails, $namespacesChartMeta);
+
                                 break;
                             case 'legend':
                                 $legendPos = 'r';
@@ -174,16 +191,20 @@ class Chart
                                     switch ($chartDetailKey) {
                                         case 'legendPos':
                                             $legendPos = self::getAttribute($chartDetail, 'val', 'string');
+
                                             break;
                                         case 'overlay':
                                             $legendOverlay = self::getAttribute($chartDetail, 'val', 'boolean');
+
                                             break;
                                         case 'layout':
                                             $legendLayout = self::chartLayoutDetails($chartDetail, $namespacesChartMeta);
+
                                             break;
                                     }
                                 }
                                 $legend = new Legend($legendPos, $legendLayout, $legendOverlay);
+
                                 break;
                         }
                     }
@@ -209,9 +230,11 @@ class Chart
                                 $caption[] = self::parseRichText($titleDetailPart);
                         }
                     }
+
                     break;
                 case 'layout':
                     $titleLayout = self::chartLayoutDetails($chartDetail, $namespacesChartMeta);
+
                     break;
             }
         }
@@ -225,7 +248,7 @@ class Chart
             return null;
         }
         $details = $chartDetail->manualLayout->children($namespacesChartMeta['c']);
-        if (is_null($details)) {
+        if ($details === null) {
             return null;
         }
         $layout = [];
@@ -247,6 +270,7 @@ class Chart
             switch ($seriesDetailKey) {
                 case 'grouping':
                     $multiSeriesType = self::getAttribute($chartDetail->grouping, 'val', 'string');
+
                     break;
                 case 'ser':
                     $marker = null;
@@ -254,31 +278,40 @@ class Chart
                         switch ($seriesKey) {
                             case 'idx':
                                 $seriesIndex = self::getAttribute($seriesDetail, 'val', 'integer');
+
                                 break;
                             case 'order':
                                 $seriesOrder = self::getAttribute($seriesDetail, 'val', 'integer');
                                 $plotOrder[$seriesIndex] = $seriesOrder;
+
                                 break;
                             case 'tx':
                                 $seriesLabel[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta);
+
                                 break;
                             case 'marker':
                                 $marker = self::getAttribute($seriesDetail->symbol, 'val', 'string');
+
                                 break;
                             case 'smooth':
                                 $smoothLine = self::getAttribute($seriesDetail, 'val', 'boolean');
+
                                 break;
                             case 'cat':
                                 $seriesCategory[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta);
+
                                 break;
                             case 'val':
                                 $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker);
+
                                 break;
                             case 'xVal':
                                 $seriesCategory[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker);
+
                                 break;
                             case 'yVal':
                                 $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker);
+
                                 break;
                         }
                     }
@@ -327,9 +360,11 @@ class Chart
             switch ($seriesValueIdx) {
                 case 'ptCount':
                     $pointCount = self::getAttribute($seriesValue, 'val', 'integer');
+
                     break;
                 case 'formatCode':
                     $formatCode = (string) $seriesValue;
+
                     break;
                 case 'pt':
                     $pointVal = self::getAttribute($seriesValue, 'idx', 'integer');
@@ -340,6 +375,7 @@ class Chart
                     } else {
                         $seriesVal[$pointVal] = (float) $seriesValue->v;
                     }
+
                     break;
             }
         }
@@ -362,9 +398,11 @@ class Chart
                 switch ($seriesValueIdx) {
                     case 'ptCount':
                         $pointCount = self::getAttribute($seriesValue, 'val', 'integer');
+
                         break;
                     case 'formatCode':
                         $formatCode = (string) $seriesValue;
+
                         break;
                     case 'pt':
                         $pointVal = self::getAttribute($seriesValue, 'idx', 'integer');
@@ -375,6 +413,7 @@ class Chart
                         } else {
                             $seriesVal[$pointVal][] = (float) $seriesValue->v;
                         }
+
                         break;
                 }
             }
@@ -401,27 +440,27 @@ class Chart
                 }
 
                 $fontSize = (self::getAttribute($titleDetailElement->rPr, 'sz', 'integer'));
-                if (!is_null($fontSize)) {
+                if ($fontSize !== null) {
                     $objText->getFont()->setSize(floor($fontSize / 100));
                 }
 
                 $fontColor = (self::getAttribute($titleDetailElement->rPr, 'color', 'string'));
-                if (!is_null($fontColor)) {
+                if ($fontColor !== null) {
                     $objText->getFont()->setColor(new Color(self::readColor($fontColor)));
                 }
 
                 $bold = self::getAttribute($titleDetailElement->rPr, 'b', 'boolean');
-                if (!is_null($bold)) {
+                if ($bold !== null) {
                     $objText->getFont()->setBold($bold);
                 }
 
                 $italic = self::getAttribute($titleDetailElement->rPr, 'i', 'boolean');
-                if (!is_null($italic)) {
+                if ($italic !== null) {
                     $objText->getFont()->setItalic($italic);
                 }
 
                 $baseline = self::getAttribute($titleDetailElement->rPr, 'baseline', 'integer');
-                if (!is_null($baseline)) {
+                if ($baseline !== null) {
                     if ($baseline > 0) {
                         $objText->getFont()->setSuperscript(true);
                     } elseif ($baseline < 0) {
@@ -430,7 +469,7 @@ class Chart
                 }
 
                 $underscore = (self::getAttribute($titleDetailElement->rPr, 'u', 'string'));
-                if (!is_null($underscore)) {
+                if ($underscore !== null) {
                     if ($underscore == 'sng') {
                         $objText->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
                     } elseif ($underscore == 'dbl') {
@@ -441,7 +480,7 @@ class Chart
                 }
 
                 $strikethrough = (self::getAttribute($titleDetailElement->rPr, 's', 'string'));
-                if (!is_null($strikethrough)) {
+                if ($strikethrough !== null) {
                     if ($strikethrough == 'noStrike') {
                         $objText->getFont()->setStrikethrough(false);
                     } else {
@@ -494,24 +533,31 @@ class Chart
             switch ($plotAttributeKey) {
                 case 'showLegendKey':
                     $plotArea->setShowLegendKey($plotAttributeValue);
+
                     break;
                 case 'showVal':
                     $plotArea->setShowVal($plotAttributeValue);
+
                     break;
                 case 'showCatName':
                     $plotArea->setShowCatName($plotAttributeValue);
+
                     break;
                 case 'showSerName':
                     $plotArea->setShowSerName($plotAttributeValue);
+
                     break;
                 case 'showPercent':
                     $plotArea->setShowPercent($plotAttributeValue);
+
                     break;
                 case 'showBubbleSize':
                     $plotArea->setShowBubbleSize($plotAttributeValue);
+
                     break;
                 case 'showLeaderLines':
                     $plotArea->setShowLeaderLines($plotAttributeValue);
+
                     break;
             }
         }

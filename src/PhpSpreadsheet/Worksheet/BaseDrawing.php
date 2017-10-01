@@ -202,7 +202,7 @@ class BaseDrawing implements IComparable
      */
     public function setWorksheet(Worksheet $pValue = null, $pOverrideOld = false)
     {
-        if (is_null($this->worksheet)) {
+        if ($this->worksheet === null) {
             // Add drawing to \PhpOffice\PhpSpreadsheet\Worksheet
             $this->worksheet = $pValue;
             $this->worksheet->getCell($this->coordinates);
@@ -216,6 +216,7 @@ class BaseDrawing implements IComparable
                     if ($iterator->current()->getHashCode() == $this->getHashCode()) {
                         $this->worksheet->getDrawingCollection()->offsetUnset($iterator->key());
                         $this->worksheet = null;
+
                         break;
                     }
                 }

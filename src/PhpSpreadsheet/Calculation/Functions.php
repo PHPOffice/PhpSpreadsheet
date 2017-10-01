@@ -278,7 +278,7 @@ class Functions
             return '=' . $condition;
         }
         preg_match('/([<>=]+)(.*)/', $condition, $matches);
-        list(, $operator, $operand) = $matches;
+        [, $operator, $operand] = $matches;
 
         if (!is_numeric($operand)) {
             $operand = str_replace('"', '""', $operand);
@@ -319,11 +319,11 @@ class Functions
      */
     public static function isBlank($value = null)
     {
-        if (!is_null($value)) {
+        if ($value !== null) {
             $value = self::flattenSingleValue($value);
         }
 
-        return is_null($value);
+        return $value === null;
     }
 
     /**
@@ -377,7 +377,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @return string|bool
+     * @return bool|string
      */
     public static function isEven($value = null)
     {
@@ -397,7 +397,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @return string|bool
+     * @return bool|string
      */
     public static function isOdd($value = null)
     {
@@ -505,6 +505,7 @@ class Functions
                 if ((strlen($value) > 0) && ($value[0] == '#')) {
                     return $value;
                 }
+
                 break;
         }
 

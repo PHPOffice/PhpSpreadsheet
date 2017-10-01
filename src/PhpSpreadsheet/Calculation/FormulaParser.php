@@ -26,7 +26,7 @@ PARTLY BASED ON:
 */
 class FormulaParser
 {
-    /* Character constants */
+    // Character constants
     const QUOTE_DOUBLE = '"';
     const QUOTE_SINGLE = '\'';
     const BRACKET_CLOSE = ']';
@@ -68,7 +68,7 @@ class FormulaParser
     public function __construct($pFormula = '')
     {
         // Check parameters
-        if (is_null($pFormula)) {
+        if ($pFormula === null) {
             throw new Exception('Invalid parameter passed: formula');
         }
 
@@ -102,6 +102,7 @@ class FormulaParser
         if (isset($this->tokens[$pId])) {
             return $this->tokens[$pId];
         }
+
         throw new Exception("Token with id $pId does not exist.");
     }
 
@@ -170,6 +171,7 @@ class FormulaParser
                     $value .= $this->formula[$index];
                 }
                 ++$index;
+
                 continue;
             }
 
@@ -188,6 +190,7 @@ class FormulaParser
                     $value .= $this->formula[$index];
                 }
                 ++$index;
+
                 continue;
             }
 
@@ -200,6 +203,7 @@ class FormulaParser
                 }
                 $value .= $this->formula[$index];
                 ++$index;
+
                 continue;
             }
 
@@ -213,6 +217,7 @@ class FormulaParser
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_OPERAND, FormulaToken::TOKEN_SUBTYPE_ERROR);
                     $value = '';
                 }
+
                 continue;
             }
 
@@ -222,6 +227,7 @@ class FormulaParser
                     if (preg_match("/^[1-9]{1}(\.[0-9]+)?E{1}$/", $this->formula[$index]) != 0) {
                         $value .= $this->formula[$index];
                         ++$index;
+
                         continue;
                     }
                 }
@@ -238,6 +244,7 @@ class FormulaParser
                 }
                 $inString = true;
                 ++$index;
+
                 continue;
             }
 
@@ -249,6 +256,7 @@ class FormulaParser
                 }
                 $inPath = true;
                 ++$index;
+
                 continue;
             }
 
@@ -256,6 +264,7 @@ class FormulaParser
                 $inRange = true;
                 $value .= self::BRACKET_OPEN;
                 ++$index;
+
                 continue;
             }
 
@@ -268,6 +277,7 @@ class FormulaParser
                 $inError = true;
                 $value .= self::ERROR_START;
                 ++$index;
+
                 continue;
             }
 
@@ -288,6 +298,7 @@ class FormulaParser
                 $stack[] = clone $tmp;
 
                 ++$index;
+
                 continue;
             }
 
@@ -310,6 +321,7 @@ class FormulaParser
                 $stack[] = clone $tmp;
 
                 ++$index;
+
                 continue;
             }
 
@@ -330,6 +342,7 @@ class FormulaParser
                 $tokens1[] = $tmp;
 
                 ++$index;
+
                 continue;
             }
 
@@ -344,6 +357,7 @@ class FormulaParser
                 while (($this->formula[$index] == self::WHITESPACE) && ($index < $formulaLength)) {
                     ++$index;
                 }
+
                 continue;
             }
 
@@ -356,6 +370,7 @@ class FormulaParser
                     }
                     $tokens1[] = new FormulaToken(substr($this->formula, $index, 2), FormulaToken::TOKEN_TYPE_OPERATORINFIX, FormulaToken::TOKEN_SUBTYPE_LOGICAL);
                     $index += 2;
+
                     continue;
                 }
             }
@@ -368,6 +383,7 @@ class FormulaParser
                 }
                 $tokens1[] = new FormulaToken($this->formula[$index], FormulaToken::TOKEN_TYPE_OPERATORINFIX);
                 ++$index;
+
                 continue;
             }
 
@@ -379,6 +395,7 @@ class FormulaParser
                 }
                 $tokens1[] = new FormulaToken($this->formula[$index], FormulaToken::TOKEN_TYPE_OPERATORPOSTFIX);
                 ++$index;
+
                 continue;
             }
 
@@ -395,6 +412,7 @@ class FormulaParser
                     $stack[] = clone $tmp;
                 }
                 ++$index;
+
                 continue;
             }
 
@@ -416,6 +434,7 @@ class FormulaParser
                     $tokens1[] = new FormulaToken(',', FormulaToken::TOKEN_TYPE_ARGUMENT);
                 }
                 ++$index;
+
                 continue;
             }
 
@@ -432,6 +451,7 @@ class FormulaParser
                 $tokens1[] = $tmp;
 
                 ++$index;
+
                 continue;
             }
 
@@ -460,16 +480,17 @@ class FormulaParser
                 $nextToken = null;
             }
 
-            if (is_null($token)) {
+            if ($token === null) {
                 continue;
             }
 
             if ($token->getTokenType() != FormulaToken::TOKEN_TYPE_WHITESPACE) {
                 $tokens2[] = $token;
+
                 continue;
             }
 
-            if (is_null($previousToken)) {
+            if ($previousToken === null) {
                 continue;
             }
 
@@ -481,7 +502,7 @@ class FormulaParser
                 continue;
             }
 
-            if (is_null($nextToken)) {
+            if ($nextToken === null) {
                 continue;
             }
 
@@ -514,7 +535,7 @@ class FormulaParser
                 $nextToken = null;
             }
 
-            if (is_null($token)) {
+            if ($token === null) {
                 continue;
             }
 
@@ -533,6 +554,7 @@ class FormulaParser
                 }
 
                 $this->tokens[] = $token;
+
                 continue;
             }
 
@@ -551,6 +573,7 @@ class FormulaParser
                 }
 
                 $this->tokens[] = $token;
+
                 continue;
             }
 
@@ -565,6 +588,7 @@ class FormulaParser
                 }
 
                 $this->tokens[] = $token;
+
                 continue;
             }
 
@@ -581,6 +605,7 @@ class FormulaParser
                 }
 
                 $this->tokens[] = $token;
+
                 continue;
             }
 

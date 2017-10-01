@@ -273,7 +273,7 @@ class Html extends BaseReader implements IReader
                     //    simply append the text if the cell content is a plain text string
                     $cellContent .= $domText;
                 }
-                    //    but if we have a rich text run instead, we need to append it correctly
+                //    but if we have a rich text run instead, we need to append it correctly
                     //    TODO
             } elseif ($child instanceof DOMElement) {
                 $attributeArray = [];
@@ -292,11 +292,13 @@ class Html extends BaseReader implements IReader
                             }
                         }
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
+
                         break;
                     case 'title':
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
                         $sheet->setTitle($cellContent, true, false);
                         $cellContent = '';
+
                         break;
                     case 'span':
                     case 'div':
@@ -312,6 +314,7 @@ class Html extends BaseReader implements IReader
                         if ($cellContent > '') {
                             $cellContent .= ' ';
                         }
+
                         break;
                     case 'hr':
                         $this->flushCell($sheet, $column, $row, $cellContent);
@@ -324,6 +327,7 @@ class Html extends BaseReader implements IReader
                         }
                         ++$row;
                         // Add a break after a horizontal rule, simply by allowing the code to dropthru
+                        // no break
                     case 'br':
                         if ($this->tableLevel > 0) {
                             //    If we're inside a table, replace with a \n
@@ -333,6 +337,7 @@ class Html extends BaseReader implements IReader
                             $this->flushCell($sheet, $column, $row, $cellContent);
                             ++$row;
                         }
+
                         break;
                     case 'a':
                         foreach ($attributeArray as $attributeName => $attributeValue) {
@@ -342,11 +347,13 @@ class Html extends BaseReader implements IReader
                                     if (isset($this->formats[$child->nodeName])) {
                                         $sheet->getStyle($column . $row)->applyFromArray($this->formats[$child->nodeName]);
                                     }
+
                                     break;
                             }
                         }
                         $cellContent .= ' ';
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
+
                         break;
                     case 'h1':
                     case 'h2':
@@ -376,6 +383,7 @@ class Html extends BaseReader implements IReader
                             ++$row;
                             $column = 'A';
                         }
+
                         break;
                     case 'li':
                         if ($this->tableLevel > 0) {
@@ -391,6 +399,7 @@ class Html extends BaseReader implements IReader
                             $this->flushCell($sheet, $column, $row, $cellContent);
                             $column = 'A';
                         }
+
                         break;
                     case 'table':
                         $this->flushCell($sheet, $column, $row, $cellContent);
@@ -405,16 +414,19 @@ class Html extends BaseReader implements IReader
                         } else {
                             ++$row;
                         }
+
                         break;
                     case 'thead':
                     case 'tbody':
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
+
                         break;
                     case 'tr':
                         $column = $this->getTableStartColumn();
                         $cellContent = '';
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
                         ++$row;
+
                         break;
                     case 'th':
                     case 'td':
@@ -429,7 +441,7 @@ class Html extends BaseReader implements IReader
 
                         $this->flushCell($sheet, $column, $row, $cellContent);
 
-                        if (isset($attributeArray['rowspan']) && isset($attributeArray['colspan'])) {
+                        if (isset($attributeArray['rowspan'], $attributeArray['colspan'])) {
                             //create merging rowspan and colspan
                             $columnTo = $column;
                             for ($i = 0; $i < $attributeArray['colspan'] - 1; ++$i) {
@@ -467,6 +479,7 @@ class Html extends BaseReader implements IReader
                             );
                         }
                         ++$column;
+
                         break;
                     case 'body':
                         $row = 1;
@@ -474,6 +487,7 @@ class Html extends BaseReader implements IReader
                         $content = '';
                         $this->tableLevel = 0;
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
+
                         break;
                     default:
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
@@ -610,9 +624,11 @@ class Html extends BaseReader implements IReader
             switch (trim($value[0])) {
                 case 'background-color':
                     $sheet->getStyle($column . $row)->applyFromArray(['fill' => ['fillType' => Fill::FILL_SOLID, 'color' => ['rgb' => "{$style_color}"]]]);
+
                     break;
                 case 'color':
                     $sheet->getStyle($column . $row)->applyFromArray(['font' => ['color' => ['rgb' => "$style_color}"]]]);
+
                     break;
             }
         }

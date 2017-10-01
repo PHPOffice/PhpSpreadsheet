@@ -8,14 +8,14 @@ use PhpOffice\PhpSpreadsheet\Style;
 
 class Conditional implements IComparable
 {
-    /* Condition types */
+    // Condition types
     const CONDITION_NONE = 'none';
     const CONDITION_CELLIS = 'cellIs';
     const CONDITION_CONTAINSTEXT = 'containsText';
     const CONDITION_EXPRESSION = 'expression';
     const CONDITION_CONTAINSBLANKS = 'containsBlanks';
 
-    /* Operator types */
+    // Operator types
     const OPERATOR_NONE = '';
     const OPERATOR_BEGINSWITH = 'beginsWith';
     const OPERATOR_ENDSWITH = 'endsWith';

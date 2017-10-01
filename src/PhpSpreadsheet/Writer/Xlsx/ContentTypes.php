@@ -182,6 +182,7 @@ class ContentTypes extends WriterPart
 
             return image_type_to_mime_type($image[2]);
         }
+
         throw new WriterException("File $pFile does not exist");
     }
 

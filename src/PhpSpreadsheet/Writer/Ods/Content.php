@@ -111,7 +111,7 @@ class Content extends WriterPart
      */
     private function writeSheets(XMLWriter $objWriter)
     {
-        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /* @var $spreadsheet Spreadsheet */
+        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); // @var $spreadsheet Spreadsheet
 
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
@@ -194,6 +194,7 @@ class Content extends WriterPart
                     $objWriter->writeAttribute('office:value-type', 'boolean');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
+
                     break;
                 case DataType::TYPE_ERROR:
                     throw new Exception('Writing of error not implemented yet.');
@@ -215,6 +216,7 @@ class Content extends WriterPart
                     }
                     $objWriter->writeAttribute('office:value', $formulaValue);
                     $objWriter->writeElement('text:p', $formulaValue);
+
                     break;
                 case DataType::TYPE_INLINE:
                     throw new Exception('Writing of inline not implemented yet.');
@@ -223,10 +225,12 @@ class Content extends WriterPart
                     $objWriter->writeAttribute('office:value-type', 'float');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
+
                     break;
                 case DataType::TYPE_STRING:
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $objWriter->writeElement('text:p', $cell->getValue());
+
                     break;
             }
             Comment::write($objWriter, $cell);
@@ -279,9 +283,7 @@ class Content extends WriterPart
             $writer->writeAttribute('style:family', 'table-cell');
             $writer->writeAttribute('style:parent-style-name', 'Default');
 
-            /*
-             * style:text-properties
-             */
+            // style:text-properties
 
             // Font
             $writer->startElement('style:text-properties');
@@ -318,18 +320,18 @@ class Content extends WriterPart
                 switch ($font->getUnderline()) {
                     case Font::UNDERLINE_DOUBLE:
                         $writer->writeAttribute('style:text-underline-type', 'double');
+
                         break;
                     case Font::UNDERLINE_SINGLE:
                         $writer->writeAttribute('style:text-underline-type', 'single');
+
                         break;
                 }
             }
 
             $writer->endElement(); // Close style:text-properties
 
-            /*
-             * style:table-cell-properties
-             */
+            // style:table-cell-properties
 
             $writer->startElement('style:table-cell-properties');
             $writer->writeAttribute('style:rotation-align', 'none');
@@ -342,6 +344,7 @@ class Content extends WriterPart
                             '#%s',
                             strtolower($fill->getStartColor()->getRGB())
                         ));
+
                         break;
                     case Fill::FILL_GRADIENT_LINEAR:
                     case Fill::FILL_GRADIENT_PATH:
@@ -354,9 +357,7 @@ class Content extends WriterPart
 
             $writer->endElement(); // Close style:table-cell-properties
 
-            /*
-             * End
-             */
+            // End
 
             $writer->endElement(); // Close style:style
         }

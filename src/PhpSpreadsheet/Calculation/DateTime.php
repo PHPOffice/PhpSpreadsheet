@@ -154,12 +154,15 @@ class DateTime
         switch (Functions::getReturnDateType()) {
             case Functions::RETURNDATE_EXCEL:
                 $retValue = (float) Date::PHPToExcel(time());
+
                 break;
             case Functions::RETURNDATE_PHP_NUMERIC:
                 $retValue = (int) time();
+
                 break;
             case Functions::RETURNDATE_PHP_OBJECT:
                 $retValue = new \DateTime();
+
                 break;
         }
         date_default_timezone_set($saveTimeZone);
@@ -195,12 +198,15 @@ class DateTime
         switch (Functions::getReturnDateType()) {
             case Functions::RETURNDATE_EXCEL:
                 $retValue = (float) $excelDateTime;
+
                 break;
             case Functions::RETURNDATE_PHP_NUMERIC:
                 $retValue = (int) Date::excelToTimestamp($excelDateTime);
+
                 break;
             case Functions::RETURNDATE_PHP_OBJECT:
                 $retValue = Date::excelToDateTimeObject($excelDateTime);
+
                 break;
         }
         date_default_timezone_set($saveTimeZone);
@@ -681,6 +687,7 @@ class DateTime
         switch ($unit) {
             case 'D':
                 $retVal = (int) $difference;
+
                 break;
             case 'M':
                 $retVal = (int) ($endMonths - $startMonths) + ((int) ($endYears - $startYears) * 12);
@@ -688,6 +695,7 @@ class DateTime
                 if ($endDays < $startDays) {
                     --$retVal;
                 }
+
                 break;
             case 'Y':
                 $retVal = (int) ($endYears - $startYears);
@@ -700,6 +708,7 @@ class DateTime
                     // Remove end month
                     --$retVal;
                 }
+
                 break;
             case 'MD':
                 if ($endDays < $startDays) {
@@ -710,6 +719,7 @@ class DateTime
                 } else {
                     $retVal = $endDays - $startDays;
                 }
+
                 break;
             case 'YM':
                 $retVal = (int) ($endMonths - $startMonths);
@@ -720,6 +730,7 @@ class DateTime
                 if ($endDays < $startDays) {
                     --$retVal;
                 }
+
                 break;
             case 'YD':
                 $retVal = (int) $difference;
@@ -744,6 +755,7 @@ class DateTime
                         --$retVal;
                     }
                 }
+
                 break;
             default:
                 $retVal = Functions::VALUE();
@@ -1183,11 +1195,13 @@ class DateTime
         switch ($style) {
             case 1:
                 ++$DoW;
+
                 break;
             case 2:
                 if ($DoW == 0) {
                     $DoW = 7;
                 }
+
                 break;
             case 3:
                 if ($DoW == 0) {
@@ -1195,6 +1209,7 @@ class DateTime
                 }
                 $firstDay = 0;
                 --$DoW;
+
                 break;
         }
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {

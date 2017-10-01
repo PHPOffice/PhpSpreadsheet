@@ -49,7 +49,6 @@ if ($helper->isCli()) {
                             } ?></ul>
                         </li>
                     <?php
-
                     } ?>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

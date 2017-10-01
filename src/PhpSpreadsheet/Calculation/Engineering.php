@@ -805,7 +805,7 @@ class Engineering
      */
     private static function nbrConversionFormat($xVal, $places)
     {
-        if (!is_null($places)) {
+        if ($places !== null) {
             if (is_numeric($places)) {
                 $places = (int) $places;
             } else {
@@ -846,8 +846,8 @@ class Engineering
      */
     public static function BESSELI($x, $ord)
     {
-        $x = (is_null($x)) ? 0.0 : Functions::flattenSingleValue($x);
-        $ord = (is_null($ord)) ? 0.0 : Functions::flattenSingleValue($ord);
+        $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
+        $ord = ($ord === null) ? 0.0 : Functions::flattenSingleValue($ord);
 
         if ((is_numeric($x)) && (is_numeric($ord))) {
             $ord = floor($ord);
@@ -900,8 +900,8 @@ class Engineering
      */
     public static function BESSELJ($x, $ord)
     {
-        $x = (is_null($x)) ? 0.0 : Functions::flattenSingleValue($x);
-        $ord = (is_null($ord)) ? 0.0 : Functions::flattenSingleValue($ord);
+        $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
+        $ord = ($ord === null) ? 0.0 : Functions::flattenSingleValue($ord);
 
         if ((is_numeric($x)) && (is_numeric($ord))) {
             $ord = floor($ord);
@@ -993,8 +993,8 @@ class Engineering
      */
     public static function BESSELK($x, $ord)
     {
-        $x = (is_null($x)) ? 0.0 : Functions::flattenSingleValue($x);
-        $ord = (is_null($ord)) ? 0.0 : Functions::flattenSingleValue($ord);
+        $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
+        $ord = ($ord === null) ? 0.0 : Functions::flattenSingleValue($ord);
 
         if ((is_numeric($x)) && (is_numeric($ord))) {
             if (($ord < 0) || ($x == 0.0)) {
@@ -1004,9 +1004,11 @@ class Engineering
             switch (floor($ord)) {
                 case 0:
                     $fBk = self::besselK0($x);
+
                     break;
                 case 1:
                     $fBk = self::besselK1($x);
+
                     break;
                 default:
                     $fTox = 2 / $x;
@@ -1080,8 +1082,8 @@ class Engineering
      */
     public static function BESSELY($x, $ord)
     {
-        $x = (is_null($x)) ? 0.0 : Functions::flattenSingleValue($x);
-        $ord = (is_null($ord)) ? 0.0 : Functions::flattenSingleValue($ord);
+        $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
+        $ord = ($ord === null) ? 0.0 : Functions::flattenSingleValue($ord);
 
         if ((is_numeric($x)) && (is_numeric($ord))) {
             if (($ord < 0) || ($x == 0.0)) {
@@ -1091,9 +1093,11 @@ class Engineering
             switch (floor($ord)) {
                 case 0:
                     $fBy = self::besselY0($x);
+
                     break;
                 case 1:
                     $fBy = self::besselY1($x);
+
                     break;
                 default:
                     $fTox = 2 / $x;
@@ -1757,9 +1761,9 @@ class Engineering
      */
     public static function COMPLEX($realNumber = 0.0, $imaginary = 0.0, $suffix = 'i')
     {
-        $realNumber = (is_null($realNumber)) ? 0.0 : Functions::flattenSingleValue($realNumber);
-        $imaginary = (is_null($imaginary)) ? 0.0 : Functions::flattenSingleValue($imaginary);
-        $suffix = (is_null($suffix)) ? 'i' : Functions::flattenSingleValue($suffix);
+        $realNumber = ($realNumber === null) ? 0.0 : Functions::flattenSingleValue($realNumber);
+        $imaginary = ($imaginary === null) ? 0.0 : Functions::flattenSingleValue($imaginary);
+        $suffix = ($suffix === null) ? 'i' : Functions::flattenSingleValue($suffix);
 
         if (((is_numeric($realNumber)) && (is_numeric($imaginary))) &&
             (($suffix == 'i') || ($suffix == 'j') || ($suffix == ''))
@@ -1943,7 +1947,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the cosine
      *
-     * @return string|float
+     * @return float|string
      */
     public static function IMCOS($complexNumber)
     {
@@ -1974,7 +1978,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the sine
      *
-     * @return string|float
+     * @return float|string
      */
     public static function IMSIN($complexNumber)
     {
@@ -2444,7 +2448,7 @@ class Engineering
         $upper = Functions::flattenSingleValue($upper);
 
         if (is_numeric($lower)) {
-            if (is_null($upper)) {
+            if ($upper === null) {
                 return self::erfVal($lower);
             }
             if (is_numeric($upper)) {
@@ -2544,7 +2548,7 @@ class Engineering
     {
         $conversionGroups = [];
         foreach (self::$conversionUnits as $conversionUnit => $conversionGroup) {
-            if ((is_null($group)) || ($conversionGroup['Group'] == $group)) {
+            if (($group === null) || ($conversionGroup['Group'] == $group)) {
                 $conversionGroups[$conversionGroup['Group']][] = $conversionUnit;
             }
         }
@@ -2563,7 +2567,7 @@ class Engineering
     {
         $conversionGroups = [];
         foreach (self::$conversionUnits as $conversionUnit => $conversionGroup) {
-            if ((is_null($group)) || ($conversionGroup['Group'] == $group)) {
+            if (($group === null) || ($conversionGroup['Group'] == $group)) {
                 $conversionGroups[$conversionGroup['Group']][] = [
                     'unit' => $conversionUnit,
                     'description' => $conversionGroup['Unit Name'],

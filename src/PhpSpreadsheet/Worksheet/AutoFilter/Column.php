@@ -32,7 +32,7 @@ class Column
         self::AUTOFILTER_FILTERTYPE_TOPTENFILTER,
     ];
 
-    /* Multiple Rule Connections */
+    // Multiple Rule Connections
     const AUTOFILTER_COLUMN_JOIN_AND = 'and';
     const AUTOFILTER_COLUMN_JOIN_OR = 'or';
 

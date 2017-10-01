@@ -18,7 +18,7 @@ abstract class CellIterator
      *
      * @var mixed
      */
-    protected $position = null;
+    protected $position;
 
     /**
      * Iterate only existing cells.

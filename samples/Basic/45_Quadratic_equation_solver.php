@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
     if ($_POST['A'] == 0) {
         $helper->log('The equation is not quadratic');
     } else {
-        /* 	Calculate and Display the results			* */
+        // Calculate and Display the results
         $helper->log('<hr /><b>Roots:</b><br />');
 
         $discriminantFormula = '=POWER(' . $_POST['B'] . ',2) - (4 * ' . $_POST['A'] . ' * ' . $_POST['C'] . ')';

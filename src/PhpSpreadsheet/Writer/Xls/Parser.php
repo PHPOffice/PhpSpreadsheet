@@ -493,31 +493,31 @@ class Parser
             return $this->convertString($token);
         } elseif (is_numeric($token)) {
             return $this->convertNumber($token);
-        // match references like A1 or $A$1
+            // match references like A1 or $A$1
         } elseif (preg_match('/^\$?([A-Ia-i]?[A-Za-z])\$?(\d+)$/', $token)) {
             return $this->convertRef2d($token);
-        // match external references like Sheet1!A1 or Sheet1:Sheet2!A1 or Sheet1!$A$1 or Sheet1:Sheet2!$A$1
+            // match external references like Sheet1!A1 or Sheet1:Sheet2!A1 or Sheet1!$A$1 or Sheet1:Sheet2!$A$1
         } elseif (preg_match('/^' . self::REGEX_SHEET_TITLE_UNQUOTED . "(\:" . self::REGEX_SHEET_TITLE_UNQUOTED . ")?\!\\$?[A-Ia-i]?[A-Za-z]\\$?(\d+)$/u", $token)) {
             return $this->convertRef3d($token);
-        // match external references like 'Sheet1'!A1 or 'Sheet1:Sheet2'!A1 or 'Sheet1'!$A$1 or 'Sheet1:Sheet2'!$A$1
+            // match external references like 'Sheet1'!A1 or 'Sheet1:Sheet2'!A1 or 'Sheet1'!$A$1 or 'Sheet1:Sheet2'!$A$1
         } elseif (preg_match("/^'" . self::REGEX_SHEET_TITLE_QUOTED . "(\:" . self::REGEX_SHEET_TITLE_QUOTED . ")?'\!\\$?[A-Ia-i]?[A-Za-z]\\$?(\d+)$/u", $token)) {
             return $this->convertRef3d($token);
-        // match ranges like A1:B2 or $A$1:$B$2
+            // match ranges like A1:B2 or $A$1:$B$2
         } elseif (preg_match('/^(\$)?[A-Ia-i]?[A-Za-z](\$)?(\d+)\:(\$)?[A-Ia-i]?[A-Za-z](\$)?(\d+)$/', $token)) {
             return $this->convertRange2d($token);
-        // match external ranges like Sheet1!A1:B2 or Sheet1:Sheet2!A1:B2 or Sheet1!$A$1:$B$2 or Sheet1:Sheet2!$A$1:$B$2
+            // match external ranges like Sheet1!A1:B2 or Sheet1:Sheet2!A1:B2 or Sheet1!$A$1:$B$2 or Sheet1:Sheet2!$A$1:$B$2
         } elseif (preg_match('/^' . self::REGEX_SHEET_TITLE_UNQUOTED . "(\:" . self::REGEX_SHEET_TITLE_UNQUOTED . ")?\!\\$?([A-Ia-i]?[A-Za-z])?\\$?(\d+)\:\\$?([A-Ia-i]?[A-Za-z])?\\$?(\d+)$/u", $token)) {
             return $this->convertRange3d($token);
-        // match external ranges like 'Sheet1'!A1:B2 or 'Sheet1:Sheet2'!A1:B2 or 'Sheet1'!$A$1:$B$2 or 'Sheet1:Sheet2'!$A$1:$B$2
+            // match external ranges like 'Sheet1'!A1:B2 or 'Sheet1:Sheet2'!A1:B2 or 'Sheet1'!$A$1:$B$2 or 'Sheet1:Sheet2'!$A$1:$B$2
         } elseif (preg_match("/^'" . self::REGEX_SHEET_TITLE_QUOTED . "(\:" . self::REGEX_SHEET_TITLE_QUOTED . ")?'\!\\$?([A-Ia-i]?[A-Za-z])?\\$?(\d+)\:\\$?([A-Ia-i]?[A-Za-z])?\\$?(\d+)$/u", $token)) {
             return $this->convertRange3d($token);
-        // operators (including parentheses)
+            // operators (including parentheses)
         } elseif (isset($this->ptg[$token])) {
             return pack('C', $this->ptg[$token]);
-        // match error codes
+            // match error codes
         } elseif (preg_match("/^#[A-Z0\/]{3,5}[!?]{1}$/", $token) or $token == '#N/A') {
             return $this->convertError($token);
-        // commented so argument number can be processed correctly. See toReversePolish().
+            // commented so argument number can be processed correctly. See toReversePolish().
         /*elseif (preg_match("/[A-Z0-9\xc0-\xdc\.]+/", $token))
         {
             return($this->convertFunction($token, $this->_func_args));
@@ -603,15 +603,15 @@ class Parser
         // TODO: possible class value 0,1,2 check Formula.pm
         // Split the range into 2 cell refs
         if (preg_match('/^(\$)?([A-Ia-i]?[A-Za-z])(\$)?(\d+)\:(\$)?([A-Ia-i]?[A-Za-z])(\$)?(\d+)$/', $range)) {
-            list($cell1, $cell2) = explode(':', $range);
+            [$cell1, $cell2] = explode(':', $range);
         } else {
             // TODO: use real error codes
             throw new WriterException('Unknown range separator');
         }
 
         // Convert the cell references
-        list($row1, $col1) = $this->cellToPackedRowcol($cell1);
-        list($row2, $col2) = $this->cellToPackedRowcol($cell2);
+        [$row1, $col1] = $this->cellToPackedRowcol($cell1);
+        [$row2, $col2] = $this->cellToPackedRowcol($cell2);
 
         // The ptg value depends on the class of the ptg.
         if ($class == 0) {
@@ -639,20 +639,20 @@ class Parser
     private function convertRange3d($token)
     {
         // Split the ref at the ! symbol
-        list($ext_ref, $range) = explode('!', $token);
+        [$ext_ref, $range] = explode('!', $token);
 
         // Convert the external reference part (different for BIFF8)
         $ext_ref = $this->getRefIndex($ext_ref);
 
         // Split the range into 2 cell refs
-        list($cell1, $cell2) = explode(':', $range);
+        [$cell1, $cell2] = explode(':', $range);
 
         // Convert the cell references
         if (preg_match("/^(\\$)?[A-Ia-i]?[A-Za-z](\\$)?(\d+)$/", $cell1)) {
-            list($row1, $col1) = $this->cellToPackedRowcol($cell1);
-            list($row2, $col2) = $this->cellToPackedRowcol($cell2);
+            [$row1, $col1] = $this->cellToPackedRowcol($cell1);
+            [$row2, $col2] = $this->cellToPackedRowcol($cell2);
         } else { // It's a rows range (like 26:27)
-            list($row1, $col1, $row2, $col2) = $this->rangeToPackedRange($cell1 . ':' . $cell2);
+            [$row1, $col1, $row2, $col2] = $this->rangeToPackedRange($cell1 . ':' . $cell2);
         }
 
         // The ptg value depends on the class of the ptg.
@@ -672,7 +672,7 @@ class Parser
     {
         // Convert the cell reference
         $cell_array = $this->cellToPackedRowcol($cell);
-        list($row, $col) = $cell_array;
+        [$row, $col] = $cell_array;
 
         // The ptg value depends on the class of the ptg.
         $ptgRef = pack('C', $this->ptg['ptgRefA']);
@@ -691,13 +691,13 @@ class Parser
     private function convertRef3d($cell)
     {
         // Split the ref at the ! symbol
-        list($ext_ref, $cell) = explode('!', $cell);
+        [$ext_ref, $cell] = explode('!', $cell);
 
         // Convert the external reference part (different for BIFF8)
         $ext_ref = $this->getRefIndex($ext_ref);
 
         // Convert the cell reference part
-        list($row, $col) = $this->cellToPackedRowcol($cell);
+        [$row, $col] = $this->cellToPackedRowcol($cell);
 
         // The ptg value depends on the class of the ptg.
         $ptgRef = pack('C', $this->ptg['ptgRef3dA']);
@@ -749,7 +749,7 @@ class Parser
 
         // Check if there is a sheet range eg., Sheet1:Sheet2.
         if (preg_match('/:/', $ext_ref)) {
-            list($sheet_name1, $sheet_name2) = explode(':', $ext_ref);
+            [$sheet_name1, $sheet_name2] = explode(':', $ext_ref);
 
             $sheet1 = $this->getSheetIndex($sheet_name1);
             if ($sheet1 == -1) {
@@ -762,7 +762,7 @@ class Parser
 
             // Reverse max and min sheet numbers if necessary
             if ($sheet1 > $sheet2) {
-                list($sheet1, $sheet2) = [$sheet2, $sheet1];
+                [$sheet1, $sheet2] = [$sheet2, $sheet1];
             }
         } else { // Single sheet name only.
             $sheet1 = $this->getSheetIndex($ext_ref);
@@ -795,7 +795,7 @@ class Parser
 
         // Check if there is a sheet range eg., Sheet1:Sheet2.
         if (preg_match('/:/', $ext_ref)) {
-            list($sheet_name1, $sheet_name2) = explode(':', $ext_ref);
+            [$sheet_name1, $sheet_name2] = explode(':', $ext_ref);
 
             $sheet1 = $this->getSheetIndex($sheet_name1);
             if ($sheet1 == -1) {
@@ -808,7 +808,7 @@ class Parser
 
             // Reverse max and min sheet numbers if necessary
             if ($sheet1 > $sheet2) {
-                list($sheet1, $sheet2) = [$sheet2, $sheet1];
+                [$sheet1, $sheet2] = [$sheet2, $sheet1];
             }
         } else { // Single sheet name only.
             $sheet1 = $this->getSheetIndex($ext_ref);
@@ -826,6 +826,7 @@ class Parser
         for ($i = 0; $i < $totalreferences; ++$i) {
             if ($ref == $this->references[$i]) {
                 $index = $i;
+
                 break;
             }
         }
@@ -881,7 +882,7 @@ class Parser
     private function cellToPackedRowcol($cell)
     {
         $cell = strtoupper($cell);
-        list($row, $col, $row_rel, $col_rel) = $this->cellToRowcol($cell);
+        [$row, $col, $row_rel, $col_rel] = $this->cellToRowcol($cell);
         if ($col >= 256) {
             throw new WriterException("Column in: $cell greater than 255");
         }
@@ -1186,13 +1187,13 @@ class Parser
             $this->advance();
 
             return $result;
-        // If it's an error code
+            // If it's an error code
         } elseif (preg_match("/^#[A-Z0\/]{3,5}[!?]{1}$/", $this->currentToken) or $this->currentToken == '#N/A') {
             $result = $this->createTree($this->currentToken, 'ptgErr', '');
             $this->advance();
 
             return $result;
-        // If it's a negative value
+            // If it's a negative value
         } elseif ($this->currentToken == '-') {
             // catch "-" Term
             $this->advance();
@@ -1200,7 +1201,7 @@ class Parser
             $result = $this->createTree('ptgUminus', $result2, '');
 
             return $result;
-        // If it's a positive value
+            // If it's a positive value
         } elseif ($this->currentToken == '+') {
             // catch "+" Term
             $this->advance();
@@ -1349,6 +1350,7 @@ class Parser
 
             return $result;
         }
+
         throw new WriterException('Syntax error: ' . $this->currentToken . ', lookahead: ' . $this->lookAhead . ', current char: ' . $this->currentCharacter);
     }
 

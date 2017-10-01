@@ -199,7 +199,7 @@ class Style extends Style\Supervisor implements IComparable
                 $rangeA = $pRange;
                 $rangeB = $pRange;
             } else {
-                list($rangeA, $rangeB) = explode(':', $pRange);
+                [$rangeA, $rangeB] = explode(':', $pRange);
             }
 
             // Calculate range outer borders
@@ -313,6 +313,7 @@ class Style extends Style\Supervisor implements IComparable
                                     } else {
                                         unset($regionStyles['borders'][$innerEdge]);
                                     }
+
                                     break;
                                 case 'left':
                                 case 'right':
@@ -322,6 +323,7 @@ class Style extends Style\Supervisor implements IComparable
                                     } else {
                                         unset($regionStyles['borders'][$innerEdge]);
                                     }
+
                                     break;
                             }
                         }
@@ -351,6 +353,7 @@ class Style extends Style\Supervisor implements IComparable
                     for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
                         $oldXfIndexes[$this->getActiveSheet()->getColumnDimensionByColumn($col)->getXfIndex()] = true;
                     }
+
                     break;
                 case 'ROW':
                     $oldXfIndexes = [];
@@ -361,6 +364,7 @@ class Style extends Style\Supervisor implements IComparable
                             $oldXfIndexes[$this->getActiveSheet()->getRowDimension($row)->getXfIndex()] = true;
                         }
                     }
+
                     break;
                 case 'CELL':
                     $oldXfIndexes = [];
@@ -369,6 +373,7 @@ class Style extends Style\Supervisor implements IComparable
                             $oldXfIndexes[$this->getActiveSheet()->getCellByColumnAndRow($col, $row)->getXfIndex()] = true;
                         }
                     }
+
                     break;
             }
 
@@ -397,6 +402,7 @@ class Style extends Style\Supervisor implements IComparable
                         $oldXfIndex = $columnDimension->getXfIndex();
                         $columnDimension->setXfIndex($newXfIndexes[$oldXfIndex]);
                     }
+
                     break;
                 case 'ROW':
                     for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
@@ -405,6 +411,7 @@ class Style extends Style\Supervisor implements IComparable
                             0 : $rowDimension->getXfIndex(); // row without explicit style should be formatted based on default style
                         $rowDimension->setXfIndex($newXfIndexes[$oldXfIndex]);
                     }
+
                     break;
                 case 'CELL':
                     for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
@@ -414,6 +421,7 @@ class Style extends Style\Supervisor implements IComparable
                             $cell->setXfIndex($newXfIndexes[$oldXfIndex]);
                         }
                     }
+
                     break;
             }
         } else {

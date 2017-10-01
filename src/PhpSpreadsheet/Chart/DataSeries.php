@@ -123,19 +123,19 @@ class DataSeries
         $this->plotOrder = $plotOrder;
         $keys = array_keys($plotValues);
         $this->plotValues = $plotValues;
-        if ((count($plotLabel) == 0) || (is_null($plotLabel[$keys[0]]))) {
+        if ((count($plotLabel) == 0) || ($plotLabel[$keys[0]] === null)) {
             $plotLabel[$keys[0]] = new DataSeriesValues();
         }
 
         $this->plotLabel = $plotLabel;
-        if ((count($plotCategory) == 0) || (is_null($plotCategory[$keys[0]]))) {
+        if ((count($plotCategory) == 0) || ($plotCategory[$keys[0]] === null)) {
             $plotCategory[$keys[0]] = new DataSeriesValues();
         }
         $this->plotCategory = $plotCategory;
         $this->smoothLine = $smoothLine;
         $this->plotStyle = $plotStyle;
 
-        if (is_null($plotDirection)) {
+        if ($plotDirection === null) {
             $plotDirection = self::DIRECTION_COL;
         }
         $this->plotDirection = $plotDirection;

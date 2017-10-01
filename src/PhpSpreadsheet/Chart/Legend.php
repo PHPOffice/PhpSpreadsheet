@@ -46,13 +46,13 @@ class Legend
      *
      * @var Layout
      */
-    private $layout = null;
+    private $layout;
 
     /**
      * Create a new Legend.
      *
      * @param string $position
-     * @param Layout|null $layout
+     * @param null|Layout $layout
      * @param bool $overlay
      */
     public function __construct($position = self::POSITION_RIGHT, Layout $layout = null, $overlay = false)

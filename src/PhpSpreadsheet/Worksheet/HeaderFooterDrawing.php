@@ -311,7 +311,7 @@ class HeaderFooterDrawing extends Drawing implements IComparable
 
                 if ($this->width == 0 && $this->height == 0) {
                     // Get width/height
-                    list($this->width, $this->height) = getimagesize($pValue);
+                    [$this->width, $this->height] = getimagesize($pValue);
                 }
             } else {
                 throw new PhpSpreadsheetException("File $pValue not found!");

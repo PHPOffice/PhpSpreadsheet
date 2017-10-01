@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\RichText;
 
 class Font
 {
-    /* Methods for resolving autosize value */
+    // Methods for resolving autosize value
     const AUTOSIZE_METHOD_APPROX = 'approx';
     const AUTOSIZE_METHOD_EXACT = 'exact';
 
@@ -219,7 +219,7 @@ class Font
      * @param \PhpOffice\PhpSpreadsheet\Style\Font $font Font object
      * @param RichText|string $cellText Text to calculate width
      * @param int $rotation Rotation angle
-     * @param \PhpOffice\PhpSpreadsheet\Style\Font|null $defaultFont Font object
+     * @param null|\PhpOffice\PhpSpreadsheet\Style\Font $defaultFont Font object
      *
      * @return int Column width
      */
@@ -245,6 +245,7 @@ class Font
         $approximate = self::$autoSizeMethod == self::AUTOSIZE_METHOD_APPROX;
         if (!$approximate) {
             $columnWidthAdjust = ceil(self::getTextWidthPixelsExact('n', $font, 0) * 1.07);
+
             try {
                 // Width of text in pixels excl. padding
                 // and addition because Excel adds some padding, just use approx width of 'n' glyph
@@ -416,79 +417,95 @@ class Font
                     $bold ? ($italic ? self::ARIAL_BOLD_ITALIC : self::ARIAL_BOLD)
                           : ($italic ? self::ARIAL_ITALIC : self::ARIAL)
                 );
+
                 break;
             case 'Calibri':
                 $fontFile = (
                     $bold ? ($italic ? self::CALIBRI_BOLD_ITALIC : self::CALIBRI_BOLD)
                           : ($italic ? self::CALIBRI_ITALIC : self::CALIBRI)
                 );
+
                 break;
             case 'Courier New':
                 $fontFile = (
                     $bold ? ($italic ? self::COURIER_NEW_BOLD_ITALIC : self::COURIER_NEW_BOLD)
                           : ($italic ? self::COURIER_NEW_ITALIC : self::COURIER_NEW)
                 );
+
                 break;
             case 'Comic Sans MS':
                 $fontFile = (
                     $bold ? self::COMIC_SANS_MS_BOLD : self::COMIC_SANS_MS
                 );
+
                 break;
             case 'Georgia':
                 $fontFile = (
                     $bold ? ($italic ? self::GEORGIA_BOLD_ITALIC : self::GEORGIA_BOLD)
                           : ($italic ? self::GEORGIA_ITALIC : self::GEORGIA)
                 );
+
                 break;
             case 'Impact':
                 $fontFile = self::IMPACT;
+
                 break;
             case 'Liberation Sans':
                 $fontFile = (
                     $bold ? ($italic ? self::LIBERATION_SANS_BOLD_ITALIC : self::LIBERATION_SANS_BOLD)
                           : ($italic ? self::LIBERATION_SANS_ITALIC : self::LIBERATION_SANS)
                 );
+
                 break;
             case 'Lucida Console':
                 $fontFile = self::LUCIDA_CONSOLE;
+
                 break;
             case 'Lucida Sans Unicode':
                 $fontFile = self::LUCIDA_SANS_UNICODE;
+
                 break;
             case 'Microsoft Sans Serif':
                 $fontFile = self::MICROSOFT_SANS_SERIF;
+
                 break;
             case 'Palatino Linotype':
                 $fontFile = (
                     $bold ? ($italic ? self::PALATINO_LINOTYPE_BOLD_ITALIC : self::PALATINO_LINOTYPE_BOLD)
                           : ($italic ? self::PALATINO_LINOTYPE_ITALIC : self::PALATINO_LINOTYPE)
                 );
+
                 break;
             case 'Symbol':
                 $fontFile = self::SYMBOL;
+
                 break;
             case 'Tahoma':
                 $fontFile = (
                     $bold ? self::TAHOMA_BOLD : self::TAHOMA
                 );
+
                 break;
             case 'Times New Roman':
                 $fontFile = (
                     $bold ? ($italic ? self::TIMES_NEW_ROMAN_BOLD_ITALIC : self::TIMES_NEW_ROMAN_BOLD)
                           : ($italic ? self::TIMES_NEW_ROMAN_ITALIC : self::TIMES_NEW_ROMAN)
                 );
+
                 break;
             case 'Trebuchet MS':
                 $fontFile = (
                     $bold ? ($italic ? self::TREBUCHET_MS_BOLD_ITALIC : self::TREBUCHET_MS_BOLD)
                           : ($italic ? self::TREBUCHET_MS_ITALIC : self::TREBUCHET_MS)
                 );
+
                 break;
             case 'Verdana':
                 $fontFile = (
                     $bold ? ($italic ? self::VERDANA_BOLD_ITALIC : self::VERDANA_BOLD)
                           : ($italic ? self::VERDANA_ITALIC : self::VERDANA)
                 );
+
                 break;
             default:
                 throw new PhpSpreadsheetException('Unknown font name "' . $name . '". Cannot map to TrueType font file');
@@ -578,134 +595,166 @@ class Font
                     case 10:
                         // inspection of Arial 10 workbook says 12.75pt ~17px
                         $rowHeight = 12.75;
+
                         break;
                     case 9:
                         // inspection of Arial 9 workbook says 12.00pt ~16px
                         $rowHeight = 12;
+
                         break;
                     case 8:
                         // inspection of Arial 8 workbook says 11.25pt ~15px
                         $rowHeight = 11.25;
+
                         break;
                     case 7:
                         // inspection of Arial 7 workbook says 9.00pt ~12px
                         $rowHeight = 9;
+
                         break;
                     case 6:
                     case 5:
                         // inspection of Arial 5,6 workbook says 8.25pt ~11px
                         $rowHeight = 8.25;
+
                         break;
                     case 4:
                         // inspection of Arial 4 workbook says 6.75pt ~9px
                         $rowHeight = 6.75;
+
                         break;
                     case 3:
                         // inspection of Arial 3 workbook says 6.00pt ~8px
                         $rowHeight = 6;
+
                         break;
                     case 2:
                     case 1:
                         // inspection of Arial 1,2 workbook says 5.25pt ~7px
                         $rowHeight = 5.25;
+
                         break;
                     default:
                         // use Arial 10 workbook as an approximation, extrapolation
                         $rowHeight = 12.75 * $font->getSize() / 10;
+
                         break;
                 }
+
                 break;
             case 'Calibri':
                 switch ($font->getSize()) {
                     case 11:
                         // inspection of Calibri 11 workbook says 15.00pt ~20px
                         $rowHeight = 15;
+
                         break;
                     case 10:
                         // inspection of Calibri 10 workbook says 12.75pt ~17px
                         $rowHeight = 12.75;
+
                         break;
                     case 9:
                         // inspection of Calibri 9 workbook says 12.00pt ~16px
                         $rowHeight = 12;
+
                         break;
                     case 8:
                         // inspection of Calibri 8 workbook says 11.25pt ~15px
                         $rowHeight = 11.25;
+
                         break;
                     case 7:
                         // inspection of Calibri 7 workbook says 9.00pt ~12px
                         $rowHeight = 9;
+
                         break;
                     case 6:
                     case 5:
                         // inspection of Calibri 5,6 workbook says 8.25pt ~11px
                         $rowHeight = 8.25;
+
                         break;
                     case 4:
                         // inspection of Calibri 4 workbook says 6.75pt ~9px
                         $rowHeight = 6.75;
+
                         break;
                     case 3:
                         // inspection of Calibri 3 workbook says 6.00pt ~8px
                         $rowHeight = 6.00;
+
                         break;
                     case 2:
                     case 1:
                         // inspection of Calibri 1,2 workbook says 5.25pt ~7px
                         $rowHeight = 5.25;
+
                         break;
                     default:
                         // use Calibri 11 workbook as an approximation, extrapolation
                         $rowHeight = 15 * $font->getSize() / 11;
+
                         break;
                 }
+
                 break;
             case 'Verdana':
                 switch ($font->getSize()) {
                     case 10:
                         // inspection of Verdana 10 workbook says 12.75pt ~17px
                         $rowHeight = 12.75;
+
                         break;
                     case 9:
                         // inspection of Verdana 9 workbook says 11.25pt ~15px
                         $rowHeight = 11.25;
+
                         break;
                     case 8:
                         // inspection of Verdana 8 workbook says 10.50pt ~14px
                         $rowHeight = 10.50;
+
                         break;
                     case 7:
                         // inspection of Verdana 7 workbook says 9.00pt ~12px
                         $rowHeight = 9.00;
+
                         break;
                     case 6:
                     case 5:
                         // inspection of Verdana 5,6 workbook says 8.25pt ~11px
                         $rowHeight = 8.25;
+
                         break;
                     case 4:
                         // inspection of Verdana 4 workbook says 6.75pt ~9px
                         $rowHeight = 6.75;
+
                         break;
                     case 3:
                         // inspection of Verdana 3 workbook says 6.00pt ~8px
                         $rowHeight = 6;
+
                         break;
                     case 2:
                     case 1:
                         // inspection of Verdana 1,2 workbook says 5.25pt ~7px
                         $rowHeight = 5.25;
+
                         break;
                     default:
                         // use Verdana 10 workbook as an approximation, extrapolation
                         $rowHeight = 12.75 * $font->getSize() / 10;
+
                         break;
                 }
+
                 break;
             default:
                 // just use Calibri as an approximation
                 $rowHeight = 15 * $font->getSize() / 11;
+
                 break;
         }
 

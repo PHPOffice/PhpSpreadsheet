@@ -91,7 +91,7 @@ class LookupRef
      */
     public static function COLUMN($cellAddress = null)
     {
-        if (is_null($cellAddress) || trim($cellAddress) === '') {
+        if ($cellAddress === null || trim($cellAddress) === '') {
             return 0;
         }
 
@@ -103,10 +103,10 @@ class LookupRef
             }
         } else {
             if (strpos($cellAddress, '!') !== false) {
-                list($sheet, $cellAddress) = explode('!', $cellAddress);
+                [$sheet, $cellAddress] = explode('!', $cellAddress);
             }
             if (strpos($cellAddress, ':') !== false) {
-                list($startAddress, $endAddress) = explode(':', $cellAddress);
+                [$startAddress, $endAddress] = explode(':', $cellAddress);
                 $startAddress = preg_replace('/[^a-z]/i', '', $startAddress);
                 $endAddress = preg_replace('/[^a-z]/i', '', $endAddress);
                 $returnValue = [];
@@ -137,7 +137,7 @@ class LookupRef
      */
     public static function COLUMNS($cellAddress = null)
     {
-        if (is_null($cellAddress) || $cellAddress === '') {
+        if ($cellAddress === null || $cellAddress === '') {
             return 1;
         } elseif (!is_array($cellAddress)) {
             return Functions::VALUE();
@@ -145,7 +145,7 @@ class LookupRef
 
         reset($cellAddress);
         $isMatrix = (is_numeric(key($cellAddress)));
-        list($columns, $rows) = Calculation::_getMatrixDimensions($cellAddress);
+        [$columns, $rows] = Calculation::_getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
             return $rows;
@@ -172,7 +172,7 @@ class LookupRef
      */
     public static function ROW($cellAddress = null)
     {
-        if (is_null($cellAddress) || trim($cellAddress) === '') {
+        if ($cellAddress === null || trim($cellAddress) === '') {
             return 0;
         }
 
@@ -184,10 +184,10 @@ class LookupRef
             }
         } else {
             if (strpos($cellAddress, '!') !== false) {
-                list($sheet, $cellAddress) = explode('!', $cellAddress);
+                [$sheet, $cellAddress] = explode('!', $cellAddress);
             }
             if (strpos($cellAddress, ':') !== false) {
-                list($startAddress, $endAddress) = explode(':', $cellAddress);
+                [$startAddress, $endAddress] = explode(':', $cellAddress);
                 $startAddress = preg_replace('/[^0-9]/', '', $startAddress);
                 $endAddress = preg_replace('/[^0-9]/', '', $endAddress);
                 $returnValue = [];
@@ -197,7 +197,7 @@ class LookupRef
 
                 return $returnValue;
             }
-            list($cellAddress) = explode(':', $cellAddress);
+            [$cellAddress] = explode(':', $cellAddress);
 
             return (int) preg_replace('/[^0-9]/', '', $cellAddress);
         }
@@ -218,7 +218,7 @@ class LookupRef
      */
     public static function ROWS($cellAddress = null)
     {
-        if (is_null($cellAddress) || $cellAddress === '') {
+        if ($cellAddress === null || $cellAddress === '') {
             return 1;
         } elseif (!is_array($cellAddress)) {
             return Functions::VALUE();
@@ -226,7 +226,7 @@ class LookupRef
 
         reset($cellAddress);
         $isMatrix = (is_numeric(key($cellAddress)));
-        list($columns, $rows) = Calculation::_getMatrixDimensions($cellAddress);
+        [$columns, $rows] = Calculation::_getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
             return $columns;
@@ -251,8 +251,8 @@ class LookupRef
      */
     public static function HYPERLINK($linkURL = '', $displayName = null, Cell $pCell = null)
     {
-        $linkURL = (is_null($linkURL)) ? '' : Functions::flattenSingleValue($linkURL);
-        $displayName = (is_null($displayName)) ? '' : Functions::flattenSingleValue($displayName);
+        $linkURL = ($linkURL === null) ? '' : Functions::flattenSingleValue($linkURL);
+        $displayName = ($displayName === null) ? '' : Functions::flattenSingleValue($displayName);
 
         if ((!is_object($pCell)) || (trim($linkURL) == '')) {
             return Functions::REF();
@@ -289,24 +289,24 @@ class LookupRef
     public static function INDIRECT($cellAddress = null, Cell $pCell = null)
     {
         $cellAddress = Functions::flattenSingleValue($cellAddress);
-        if (is_null($cellAddress) || $cellAddress === '') {
+        if ($cellAddress === null || $cellAddress === '') {
             return Functions::REF();
         }
 
         $cellAddress1 = $cellAddress;
         $cellAddress2 = null;
         if (strpos($cellAddress, ':') !== false) {
-            list($cellAddress1, $cellAddress2) = explode(':', $cellAddress);
+            [$cellAddress1, $cellAddress2] = explode(':', $cellAddress);
         }
 
         if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
-            ((!is_null($cellAddress2)) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))) {
+            (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))) {
             if (!preg_match('/^' . Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $cellAddress1, $matches)) {
                 return Functions::REF();
             }
 
             if (strpos($cellAddress, '!') !== false) {
-                list($sheetName, $cellAddress) = explode('!', $cellAddress);
+                [$sheetName, $cellAddress] = explode('!', $cellAddress);
                 $sheetName = trim($sheetName, "'");
                 $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
             } else {
@@ -317,7 +317,7 @@ class LookupRef
         }
 
         if (strpos($cellAddress, '!') !== false) {
-            list($sheetName, $cellAddress) = explode('!', $cellAddress);
+            [$sheetName, $cellAddress] = explode('!', $cellAddress);
             $sheetName = trim($sheetName, "'");
             $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
         } else {
@@ -375,16 +375,16 @@ class LookupRef
 
         $sheetName = null;
         if (strpos($cellAddress, '!')) {
-            list($sheetName, $cellAddress) = explode('!', $cellAddress);
+            [$sheetName, $cellAddress] = explode('!', $cellAddress);
             $sheetName = trim($sheetName, "'");
         }
         if (strpos($cellAddress, ':')) {
-            list($startCell, $endCell) = explode(':', $cellAddress);
+            [$startCell, $endCell] = explode(':', $cellAddress);
         } else {
             $startCell = $endCell = $cellAddress;
         }
-        list($startCellColumn, $startCellRow) = Cell::coordinateFromString($startCell);
-        list($endCellColumn, $endCellRow) = Cell::coordinateFromString($endCell);
+        [$startCellColumn, $startCellRow] = Cell::coordinateFromString($startCell);
+        [$endCellColumn, $endCellRow] = Cell::coordinateFromString($endCell);
 
         $startCellRow += $rows;
         $startCellColumn = Cell::columnIndexFromString($startCellColumn) - 1;
@@ -488,7 +488,7 @@ class LookupRef
     {
         $lookupArray = Functions::flattenArray($lookupArray);
         $lookupValue = Functions::flattenSingleValue($lookupValue);
-        $matchType = (is_null($matchType)) ? 1 : (int) Functions::flattenSingleValue($matchType);
+        $matchType = ($matchType === null) ? 1 : (int) Functions::flattenSingleValue($matchType);
 
         // MATCH is not case sensitive
         $lookupValue = strtolower($lookupValue);
@@ -513,7 +513,7 @@ class LookupRef
         foreach ($lookupArray as $i => $lookupArrayValue) {
             //    check the type of the value
             if ((!is_numeric($lookupArrayValue)) && (!is_string($lookupArrayValue)) &&
-                (!is_bool($lookupArrayValue)) && (!is_null($lookupArrayValue))
+                (!is_bool($lookupArrayValue)) && ($lookupArrayValue !== null)
             ) {
                 return Functions::NA();
             }
@@ -521,7 +521,7 @@ class LookupRef
             if (is_string($lookupArrayValue)) {
                 $lookupArray[$i] = strtolower($lookupArrayValue);
             }
-            if ((is_null($lookupArrayValue)) && (($matchType == 1) || ($matchType == -1))) {
+            if (($lookupArrayValue === null) && (($matchType == 1) || ($matchType == -1))) {
                 $lookupArray = array_slice($lookupArray, 0, $i - 1);
             }
         }
@@ -747,8 +747,8 @@ class LookupRef
                 //    if an exact match is required, we have what we need to return an appropriate response
                 return Functions::NA();
             }
-                //    otherwise return the appropriate value
-                return $lookup_array[$rowNumber][$returnColumn];
+            //    otherwise return the appropriate value
+            return $lookup_array[$rowNumber][$returnColumn];
         }
 
         return Functions::NA();
@@ -812,8 +812,8 @@ class LookupRef
                 //  if an exact match is required, we have what we need to return an appropriate response
                 return Functions::NA();
             }
-                //  otherwise return the appropriate value
-                return $lookup_array[$returnColumn][$rowNumber];
+            //  otherwise return the appropriate value
+            return $lookup_array[$returnColumn][$rowNumber];
         }
 
         return Functions::NA();
@@ -850,7 +850,7 @@ class LookupRef
             $lookupColumns = count($lookup_vector[array_shift($l)]);
         }
 
-        if (is_null($result_vector)) {
+        if ($result_vector === null) {
             $result_vector = $lookup_vector;
         }
         $resultRows = count($result_vector);

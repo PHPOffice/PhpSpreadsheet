@@ -390,6 +390,7 @@ class Xls extends BaseWriter implements IWriter
         foreach ($this->spreadsheet->getAllSheets() as $sheet) {
             if (count($sheet->getDrawingCollection()) > 0) {
                 $found = true;
+
                 break;
             }
         }
@@ -447,7 +448,7 @@ class Xls extends BaseWriter implements IWriter
                 if ($drawing instanceof Drawing) {
                     $filename = $drawing->getPath();
 
-                    list($imagesx, $imagesy, $imageFormat) = getimagesize($filename);
+                    [$imagesx, $imagesy, $imageFormat] = getimagesize($filename);
 
                     switch ($imageFormat) {
                         case 1: // GIF, not supported by BIFF8, we convert to PNG
@@ -456,14 +457,17 @@ class Xls extends BaseWriter implements IWriter
                             imagepng(imagecreatefromgif($filename));
                             $blipData = ob_get_contents();
                             ob_end_clean();
+
                             break;
                         case 2: // JPEG
                             $blipType = BSE::BLIPTYPE_JPEG;
                             $blipData = file_get_contents($filename);
+
                             break;
                         case 3: // PNG
                             $blipType = BSE::BLIPTYPE_PNG;
                             $blipData = file_get_contents($filename);
+
                             break;
                         case 6: // Windows DIB (BMP), we convert to PNG
                             $blipType = BSE::BLIPTYPE_PNG;
@@ -471,6 +475,7 @@ class Xls extends BaseWriter implements IWriter
                             imagepng(SharedDrawing::imagecreatefrombmp($filename));
                             $blipData = ob_get_contents();
                             ob_end_clean();
+
                             break;
                         default:
                             continue 2;
@@ -489,12 +494,14 @@ class Xls extends BaseWriter implements IWriter
                         case MemoryDrawing::RENDERING_JPEG:
                             $blipType = BSE::BLIPTYPE_JPEG;
                             $renderingFunction = 'imagejpeg';
+
                             break;
                         case MemoryDrawing::RENDERING_GIF:
                         case MemoryDrawing::RENDERING_PNG:
                         case MemoryDrawing::RENDERING_DEFAULT:
                             $blipType = BSE::BLIPTYPE_PNG;
                             $renderingFunction = 'imagepng';
+
                             break;
                     }
 
@@ -908,7 +915,7 @@ class Xls extends BaseWriter implements IWriter
 
                 $dataSection_Content_Offset += 4 + 8;
             }
-                // Data Type Not Used at the moment
+            // Data Type Not Used at the moment
         }
         // Now $dataSection_Content_Offset contains the size of the content
 

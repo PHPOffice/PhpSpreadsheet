@@ -47,7 +47,7 @@ abstract class BaseReader implements IReader
      */
     protected $readFilter;
 
-    protected $fileHandle = null;
+    protected $fileHandle;
 
     /**
      * Read data only?

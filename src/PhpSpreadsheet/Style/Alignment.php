@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\IComparable;
 
 class Alignment extends Supervisor implements IComparable
 {
-    /* Horizontal alignment styles */
+    // Horizontal alignment styles
     const HORIZONTAL_GENERAL = 'general';
     const HORIZONTAL_LEFT = 'left';
     const HORIZONTAL_RIGHT = 'right';
@@ -17,14 +17,14 @@ class Alignment extends Supervisor implements IComparable
     const HORIZONTAL_FILL = 'fill';
     const HORIZONTAL_DISTRIBUTED = 'distributed'; // Excel2007 only
 
-    /* Vertical alignment styles */
+    // Vertical alignment styles
     const VERTICAL_BOTTOM = 'bottom';
     const VERTICAL_TOP = 'top';
     const VERTICAL_CENTER = 'center';
     const VERTICAL_JUSTIFY = 'justify';
     const VERTICAL_DISTRIBUTED = 'distributed'; // Excel2007 only
 
-    /* Read order */
+    // Read order
     const READORDER_CONTEXT = 0;
     const READORDER_LTR = 1;
     const READORDER_RTL = 2;

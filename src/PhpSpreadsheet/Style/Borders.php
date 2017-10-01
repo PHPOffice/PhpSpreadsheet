@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\IComparable;
 
 class Borders extends Supervisor implements IComparable
 {
-    /* Diagonal directions */
+    // Diagonal directions
     const DIAGONAL_NONE = 0;
     const DIAGONAL_UP = 1;
     const DIAGONAL_DOWN = 2;

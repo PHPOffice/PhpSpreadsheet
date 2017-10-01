@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\IComparable;
 
 class Border extends Supervisor implements IComparable
 {
-    /* Border style */
+    // Border style
     const BORDER_NONE = 'none';
     const BORDER_DASHDOT = 'dashDot';
     const BORDER_DASHDOTDOT = 'dashDotDot';
@@ -180,7 +180,7 @@ class Border extends Supervisor implements IComparable
     /**
      * Set Border style.
      *
-     * @param string|bool $pValue
+     * @param bool|string $pValue
      *                            When passing a boolean, FALSE equates Border::BORDER_NONE
      *                                and TRUE to Border::BORDER_MEDIUM
      *

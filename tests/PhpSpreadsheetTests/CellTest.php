@@ -27,6 +27,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testColumnIndexFromStringTooLong()
     {
         $cellAddress = 'ABCD';
+
         try {
             Cell::columnIndexFromString($cellAddress);
         } catch (\Exception $e) {
@@ -41,6 +42,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testColumnIndexFromStringTooShort()
     {
         $cellAddress = '';
+
         try {
             Cell::columnIndexFromString($cellAddress);
         } catch (\Exception $e) {
@@ -87,6 +89,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testCoordinateFromStringWithRangeAddress()
     {
         $cellAddress = 'A1:AI2012';
+
         try {
             Cell::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
@@ -101,6 +104,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testCoordinateFromStringWithEmptyAddress()
     {
         $cellAddress = '';
+
         try {
             Cell::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
@@ -115,6 +119,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testCoordinateFromStringWithInvalidAddress()
     {
         $cellAddress = 'AI';
+
         try {
             Cell::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
@@ -145,6 +150,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testAbsoluteCoordinateFromStringWithRangeAddress()
     {
         $cellAddress = 'A1:AI2012';
+
         try {
             Cell::absoluteCoordinate($cellAddress);
         } catch (\Exception $e) {
@@ -175,6 +181,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testAbsoluteReferenceFromStringWithRangeAddress()
     {
         $cellAddress = 'A1:AI2012';
+
         try {
             Cell::absoluteReference($cellAddress);
         } catch (\Exception $e) {

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\OLE;
 
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
+// vim: set expandtab tabstop=4 shiftwidth=4:
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+

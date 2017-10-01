@@ -20,6 +20,7 @@ foreach ($inputFileNames as $inputFileName) {
 
     if (!file_exists($inputFileName)) {
         $helper->log('File ' . $inputFileNameShort . ' does not exist');
+
         continue;
     }
     $reader = IOFactory::createReader($inputFileType);
@@ -40,7 +41,7 @@ foreach ($inputFileNames as $inputFileName) {
             natsort($chartNames);
             foreach ($chartNames as $i => $chartName) {
                 $chart = $worksheet->getChartByName($chartName);
-                if (!is_null($chart->getTitle())) {
+                if ($chart->getTitle() !== null) {
                     $caption = '"' . implode(' ', $chart->getTitle()->getCaption()) . '"';
                 } else {
                     $caption = 'Untitled';

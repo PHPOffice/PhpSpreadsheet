@@ -6,13 +6,13 @@ use PhpOffice\PhpSpreadsheet\IComparable;
 
 class MemoryDrawing extends BaseDrawing implements IComparable
 {
-    /* Rendering functions */
+    // Rendering functions
     const RENDERING_DEFAULT = 'imagepng';
     const RENDERING_PNG = 'imagepng';
     const RENDERING_GIF = 'imagegif';
     const RENDERING_JPEG = 'imagejpeg';
 
-    /* MIME types */
+    // MIME types
     const MIMETYPE_DEFAULT = 'image/png';
     const MIMETYPE_PNG = 'image/png';
     const MIMETYPE_GIF = 'image/gif';
@@ -82,7 +82,7 @@ class MemoryDrawing extends BaseDrawing implements IComparable
     {
         $this->imageResource = $value;
 
-        if (!is_null($this->imageResource)) {
+        if ($this->imageResource !== null) {
             // Get width/height
             $this->width = imagesx($this->imageResource);
             $this->height = imagesy($this->imageResource);

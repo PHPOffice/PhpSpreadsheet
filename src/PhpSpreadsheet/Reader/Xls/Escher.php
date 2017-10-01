@@ -93,60 +93,79 @@ class Escher
             switch ($fbt) {
                 case self::DGGCONTAINER:
                     $this->readDggContainer();
+
                     break;
                 case self::DGG:
                     $this->readDgg();
+
                     break;
                 case self::BSTORECONTAINER:
                     $this->readBstoreContainer();
+
                     break;
                 case self::BSE:
                     $this->readBSE();
+
                     break;
                 case self::BLIPJPEG:
                     $this->readBlipJPEG();
+
                     break;
                 case self::BLIPPNG:
                     $this->readBlipPNG();
+
                     break;
                 case self::OPT:
                     $this->readOPT();
+
                     break;
                 case self::TERTIARYOPT:
                     $this->readTertiaryOPT();
+
                     break;
                 case self::SPLITMENUCOLORS:
                     $this->readSplitMenuColors();
+
                     break;
                 case self::DGCONTAINER:
                     $this->readDgContainer();
+
                     break;
                 case self::DG:
                     $this->readDg();
+
                     break;
                 case self::SPGRCONTAINER:
                     $this->readSpgrContainer();
+
                     break;
                 case self::SPCONTAINER:
                     $this->readSpContainer();
+
                     break;
                 case self::SPGR:
                     $this->readSpgr();
+
                     break;
                 case self::SP:
                     $this->readSp();
+
                     break;
                 case self::CLIENTTEXTBOX:
                     $this->readClientTextbox();
+
                     break;
                 case self::CLIENTANCHOR:
                     $this->readClientAnchor();
+
                     break;
                 case self::CLIENTDATA:
                     $this->readClientData();
+
                     break;
                 default:
                     $this->readDefault();
+
                     break;
             }
         }

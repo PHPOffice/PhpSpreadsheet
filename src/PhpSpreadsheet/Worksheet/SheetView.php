@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 class SheetView
 {
-    /* Sheet View types */
+    // Sheet View types
     const SHEETVIEW_NORMAL = 'normal';
     const SHEETVIEW_PAGE_LAYOUT = 'pageLayout';
     const SHEETVIEW_PAGE_BREAK_PREVIEW = 'pageBreakPreview';
@@ -75,7 +75,7 @@ class SheetView
     {
         // Microsoft Office Excel 2007 only allows setting a scale between 10 and 400 via the user interface,
         // but it is apparently still able to handle any scale >= 1
-        if (($pValue >= 1) || is_null($pValue)) {
+        if (($pValue >= 1) || $pValue === null) {
             $this->zoomScale = $pValue;
         } else {
             throw new PhpSpreadsheetException('Scale must be greater than or equal to 1.');
@@ -106,7 +106,7 @@ class SheetView
      */
     public function setZoomScaleNormal($pValue)
     {
-        if (($pValue >= 1) || is_null($pValue)) {
+        if (($pValue >= 1) || $pValue === null) {
             $this->zoomScaleNormal = $pValue;
         } else {
             throw new PhpSpreadsheetException('Scale must be greater than or equal to 1.');

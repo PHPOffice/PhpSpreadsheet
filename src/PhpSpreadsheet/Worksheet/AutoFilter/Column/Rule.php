@@ -166,19 +166,19 @@ class Rule
         self::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM,
     ];
 
-    /* Rule Operators (Numeric, Boolean etc) */
+    // Rule Operators (Numeric, Boolean etc)
 //    const AUTOFILTER_COLUMN_RULE_BETWEEN            = 'between';        //    greaterThanOrEqual 1 && lessThanOrEqual 2
-    /* Rule Operators (Numeric Special) which are translated to standard numeric operators with calculated values */
+    // Rule Operators (Numeric Special) which are translated to standard numeric operators with calculated values
 //    const AUTOFILTER_COLUMN_RULE_TOPTEN                = 'topTen';            //    greaterThan calculated value
 //    const AUTOFILTER_COLUMN_RULE_TOPTENPERCENT        = 'topTenPercent';    //    greaterThan calculated value
 //    const AUTOFILTER_COLUMN_RULE_ABOVEAVERAGE        = 'aboveAverage';    //    Value is calculated as the average
 //    const AUTOFILTER_COLUMN_RULE_BELOWAVERAGE        = 'belowAverage';    //    Value is calculated as the average
-    /* Rule Operators (String) which are set as wild-carded values */
+    // Rule Operators (String) which are set as wild-carded values
 //    const AUTOFILTER_COLUMN_RULE_BEGINSWITH            = 'beginsWith';            // A*
 //    const AUTOFILTER_COLUMN_RULE_ENDSWITH            = 'endsWith';            // *Z
 //    const AUTOFILTER_COLUMN_RULE_CONTAINS            = 'contains';            // *B*
 //    const AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN        = 'notEqual';            //    notEqual *B*
-    /* Rule Operators (Date Special) which are translated to standard numeric operators with calculated values */
+    // Rule Operators (Date Special) which are translated to standard numeric operators with calculated values
 //    const AUTOFILTER_COLUMN_RULE_BEFORE                = 'lessThan';
 //    const AUTOFILTER_COLUMN_RULE_AFTER                = 'greaterThan';
 //    const AUTOFILTER_COLUMN_RULE_YESTERDAY            = 'yesterday';
@@ -205,7 +205,7 @@ class Rule
      *
      * @var Column
      */
-    private $parent = null;
+    private $parent;
 
     /**
      * Autofilter Rule Type.

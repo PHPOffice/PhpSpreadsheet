@@ -26,14 +26,14 @@ class Cells
      *
      * @var Cell
      */
-    private $currentCell = null;
+    private $currentCell;
 
     /**
      * Coordinate of the currently active Cell.
      *
      * @var string
      */
-    private $currentCoordinate = null;
+    private $currentCoordinate;
 
     /**
      * Flag indicating whether the currently active Cell requires saving.
@@ -54,7 +54,7 @@ class Cells
      *
      * @var string
      */
-    private $cachePrefix = null;
+    private $cachePrefix;
 
     /**
      * Initialise this new cell collection.
@@ -121,7 +121,7 @@ class Cells
      */
     public function delete($pCoord)
     {
-        if ($pCoord === $this->currentCoordinate && !is_null($this->currentCell)) {
+        if ($pCoord === $this->currentCoordinate && $this->currentCell !== null) {
             $this->currentCell->detach();
             $this->currentCoordinate = null;
             $this->currentCell = null;
@@ -321,6 +321,7 @@ class Cells
         $stored = $newCollection->cache->setMultiple($newValues);
         if (!$stored) {
             $newCollection->__destruct();
+
             throw new PhpSpreadsheetException('Failed to copy cells in cache');
         }
 
@@ -371,6 +372,7 @@ class Cells
             $stored = $this->cache->set($this->cachePrefix . $this->currentCoordinate, $this->currentCell);
             if (!$stored) {
                 $this->__destruct();
+
                 throw new PhpSpreadsheetException("Failed to store cell {$this->currentCoordinate} in cache");
             }
             $this->currentCellIsDirty = false;
@@ -446,7 +448,7 @@ class Cells
      */
     public function unsetWorksheetCells()
     {
-        if (!is_null($this->currentCell)) {
+        if ($this->currentCell !== null) {
             $this->currentCell->detach();
             $this->currentCell = null;
             $this->currentCoordinate = null;

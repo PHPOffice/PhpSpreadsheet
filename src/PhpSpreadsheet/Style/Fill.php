@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\IComparable;
 
 class Fill extends Supervisor implements IComparable
 {
-    /* Fill types */
+    // Fill types
     const FILL_NONE = 'none';
     const FILL_SOLID = 'solid';
     const FILL_GRADIENT_LINEAR = 'linear';

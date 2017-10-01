@@ -11,7 +11,7 @@ class PlotArea
      *
      * @var Layout
      */
-    private $layout = null;
+    private $layout;
 
     /**
      * Plot Series.
@@ -23,7 +23,7 @@ class PlotArea
     /**
      * Create a new PlotArea.
      *
-     * @param Layout|null $layout
+     * @param null|Layout $layout
      * @param array $plotSeries
      */
     public function __construct(Layout $layout = null, array $plotSeries = [])

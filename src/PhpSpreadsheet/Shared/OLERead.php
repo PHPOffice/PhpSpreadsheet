@@ -34,9 +34,9 @@ class OLERead
     const START_BLOCK_POS = 0x74;
     const SIZE_POS = 0x78;
 
-    public $wrkbook = null;
-    public $summaryInformation = null;
-    public $documentSummaryInformation = null;
+    public $wrkbook;
+    public $summaryInformation;
+    public $documentSummaryInformation;
 
     /**
      * Read the file.

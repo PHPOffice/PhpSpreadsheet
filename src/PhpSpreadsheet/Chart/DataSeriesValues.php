@@ -234,7 +234,7 @@ class DataSeriesValues
     /**
      * Identify if the Data Series is a multi-level or a simple series.
      *
-     * @return bool|null
+     * @return null|bool
      */
     public function isMultiLevelSeries()
     {
@@ -324,7 +324,7 @@ class DataSeriesValues
             } else {
                 $cellRange = explode('!', $this->dataSource);
                 if (count($cellRange) > 1) {
-                    list(, $cellRange) = $cellRange;
+                    [, $cellRange] = $cellRange;
                 }
 
                 $dimensions = Cell::rangeDimension(str_replace('$', '', $cellRange));

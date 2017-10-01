@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\IComparable;
 
 class Font extends Supervisor implements IComparable
 {
-    /* Underline types */
+    // Underline types
     const UNDERLINE_NONE = 'none';
     const UNDERLINE_DOUBLE = 'double';
     const UNDERLINE_DOUBLEACCOUNTING = 'doubleAccounting';
@@ -430,7 +430,7 @@ class Font extends Supervisor implements IComparable
     /**
      * Set Underline.
      *
-     * @param string|bool $pValue \PhpOffice\PhpSpreadsheet\Style\Font underline type
+     * @param bool|string $pValue \PhpOffice\PhpSpreadsheet\Style\Font underline type
      *                                    If a boolean is passed, then TRUE equates to UNDERLINE_SINGLE,
      *                                        false equates to UNDERLINE_NONE
      *

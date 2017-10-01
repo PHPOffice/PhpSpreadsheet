@@ -149,10 +149,12 @@ class Slk extends BaseReader implements IReader
                         case 'C':
                         case 'X':
                             $columnIndex = substr($rowDatum, 1) - 1;
+
                             break;
                         case 'R':
                         case 'Y':
                             $rowIndex = substr($rowDatum, 1);
+
                             break;
                     }
 
@@ -239,13 +241,16 @@ class Slk extends BaseReader implements IReader
                     switch ($rowDatum[0]) {
                         case 'P':
                             $formatArray['numberFormat']['formatCode'] = str_replace($fromFormats, $toFormats, substr($rowDatum, 1));
+
                             break;
                         case 'E':
                         case 'F':
                             $formatArray['font']['name'] = substr($rowDatum, 1);
+
                             break;
                         case 'L':
                             $formatArray['font']['size'] = substr($rowDatum, 1);
+
                             break;
                         case 'S':
                             $styleSettings = substr($rowDatum, 1);
@@ -253,29 +258,36 @@ class Slk extends BaseReader implements IReader
                                 switch ($styleSettings[$i]) {
                                     case 'I':
                                         $formatArray['font']['italic'] = true;
+
                                         break;
                                     case 'D':
                                         $formatArray['font']['bold'] = true;
+
                                         break;
                                     case 'T':
                                         $formatArray['borders']['top']['borderStyle'] = Border::BORDER_THIN;
+
                                         break;
                                     case 'B':
                                         $formatArray['borders']['bottom']['borderStyle'] = Border::BORDER_THIN;
+
                                         break;
                                     case 'L':
                                         $formatArray['borders']['left']['borderStyle'] = Border::BORDER_THIN;
+
                                         break;
                                     case 'R':
                                         $formatArray['borders']['right']['borderStyle'] = Border::BORDER_THIN;
+
                                         break;
                                 }
                             }
+
                             break;
                     }
                 }
                 $this->formats['P' . $this->format++] = $formatArray;
-            //    Read cell value data
+                //    Read cell value data
             } elseif ($dataType == 'C') {
                 $hasCalculatedValue = false;
                 $cellData = $cellDataFormula = '';
@@ -284,13 +296,16 @@ class Slk extends BaseReader implements IReader
                         case 'C':
                         case 'X':
                             $column = substr($rowDatum, 1);
+
                             break;
                         case 'R':
                         case 'Y':
                             $row = substr($rowDatum, 1);
+
                             break;
                         case 'K':
                             $cellData = substr($rowDatum, 1);
+
                             break;
                         case 'E':
                             $cellDataFormula = '=' . substr($rowDatum, 1);
@@ -336,6 +351,7 @@ class Slk extends BaseReader implements IReader
                             //    Then rebuild the formula string
                             $cellDataFormula = implode('"', $temp);
                             $hasCalculatedValue = true;
+
                             break;
                     }
                 }
@@ -348,7 +364,7 @@ class Slk extends BaseReader implements IReader
                     $cellData = Calculation::unwrapResult($cellData);
                     $spreadsheet->getActiveSheet()->getCell($columnLetter . $row)->setCalculatedValue($cellData);
                 }
-            //    Read cell formatting
+                //    Read cell formatting
             } elseif ($dataType == 'F') {
                 $formatStyle = $columnWidth = $styleSettings = '';
                 $styleData = [];
@@ -357,16 +373,20 @@ class Slk extends BaseReader implements IReader
                         case 'C':
                         case 'X':
                             $column = substr($rowDatum, 1);
+
                             break;
                         case 'R':
                         case 'Y':
                             $row = substr($rowDatum, 1);
+
                             break;
                         case 'P':
                             $formatStyle = $rowDatum;
+
                             break;
                         case 'W':
-                            list($startCol, $endCol, $columnWidth) = explode(' ', substr($rowDatum, 1));
+                            [$startCol, $endCol, $columnWidth] = explode(' ', substr($rowDatum, 1));
+
                             break;
                         case 'S':
                             $styleSettings = substr($rowDatum, 1);
@@ -374,24 +394,31 @@ class Slk extends BaseReader implements IReader
                                 switch ($styleSettings[$i]) {
                                     case 'I':
                                         $styleData['font']['italic'] = true;
+
                                         break;
                                     case 'D':
                                         $styleData['font']['bold'] = true;
+
                                         break;
                                     case 'T':
                                         $styleData['borders']['top']['borderStyle'] = Border::BORDER_THIN;
+
                                         break;
                                     case 'B':
                                         $styleData['borders']['bottom']['borderStyle'] = Border::BORDER_THIN;
+
                                         break;
                                     case 'L':
                                         $styleData['borders']['left']['borderStyle'] = Border::BORDER_THIN;
+
                                         break;
                                     case 'R':
                                         $styleData['borders']['right']['borderStyle'] = Border::BORDER_THIN;
+
                                         break;
                                 }
                             }
+
                             break;
                     }
                 }
@@ -424,10 +451,12 @@ class Slk extends BaseReader implements IReader
                         case 'C':
                         case 'X':
                             $column = substr($rowDatum, 1);
+
                             break;
                         case 'R':
                         case 'Y':
                             $row = substr($rowDatum, 1);
+
                             break;
                     }
                 }

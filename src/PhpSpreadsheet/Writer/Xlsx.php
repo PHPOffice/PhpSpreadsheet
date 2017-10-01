@@ -225,7 +225,7 @@ class Xlsx extends BaseWriter implements IWriter
             //if hasMacros, add the vbaProject.bin file, Certificate file(if exists)
             if ($this->spreadSheet->hasMacros()) {
                 $macrosCode = $this->spreadSheet->getMacrosCode();
-                if (!is_null($macrosCode)) {
+                if ($macrosCode !== null) {
                     // we have the code ?
                     $zip->addFromString('xl/vbaProject.bin', $macrosCode); //allways in 'xl', allways named vbaProject.bin
                     if ($this->spreadSheet->hasMacrosCertificate()) {
@@ -399,6 +399,7 @@ class Xlsx extends BaseWriter implements IWriter
         if ($this->spreadSheet !== null) {
             return $this->spreadSheet;
         }
+
         throw new WriterException('No Spreadsheet object assigned.');
     }
 

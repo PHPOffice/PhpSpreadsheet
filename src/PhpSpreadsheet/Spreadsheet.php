@@ -137,13 +137,13 @@ class Spreadsheet
     public function setMacrosCode($macroCode)
     {
         $this->macrosCode = $macroCode;
-        $this->setHasMacros(!is_null($macroCode));
+        $this->setHasMacros($macroCode !== null);
     }
 
     /**
      * Return the macros code.
      *
-     * @return string|null
+     * @return null|string
      */
     public function getMacrosCode()
     {
@@ -153,7 +153,7 @@ class Spreadsheet
     /**
      * Set the macros certificate.
      *
-     * @param string|null $certificate
+     * @param null|string $certificate
      */
     public function setMacrosCertificate($certificate)
     {
@@ -167,13 +167,13 @@ class Spreadsheet
      */
     public function hasMacrosCertificate()
     {
-        return !is_null($this->macrosCertificate);
+        return $this->macrosCertificate !== null;
     }
 
     /**
      * Return the macros certificate.
      *
-     * @return string|null
+     * @return null|string
      */
     public function getMacrosCertificate()
     {
@@ -198,7 +198,7 @@ class Spreadsheet
      */
     public function setRibbonXMLData($target, $xmlData)
     {
-        if (!is_null($target) && !is_null($xmlData)) {
+        if ($target !== null && $xmlData !== null) {
             $this->ribbonXMLData = ['target' => $target, 'data' => $xmlData];
         } else {
             $this->ribbonXMLData = null;
@@ -221,12 +221,14 @@ class Spreadsheet
         switch ($what) {
             case 'all':
                 $returnData = $this->ribbonXMLData;
+
                 break;
             case 'target':
             case 'data':
                 if (is_array($this->ribbonXMLData) && isset($this->ribbonXMLData[$what])) {
                     $returnData = $this->ribbonXMLData[$what];
                 }
+
                 break;
         }
 
@@ -241,7 +243,7 @@ class Spreadsheet
      */
     public function setRibbonBinObjects($BinObjectsNames, $BinObjectsData)
     {
-        if (!is_null($BinObjectsNames) && !is_null($BinObjectsData)) {
+        if ($BinObjectsNames !== null && $BinObjectsData !== null) {
             $this->ribbonBinObjects = ['names' => $BinObjectsNames, 'data' => $BinObjectsData];
         } else {
             $this->ribbonBinObjects = null;
@@ -276,6 +278,7 @@ class Spreadsheet
                 if (is_array($this->ribbonBinObjects) && isset($this->ribbonBinObjects[$what])) {
                     $ReturnData = $this->ribbonBinObjects[$what];
                 }
+
                 break;
             case 'types':
                 if (is_array($this->ribbonBinObjects) &&
@@ -285,6 +288,7 @@ class Spreadsheet
                 } else {
                     $ReturnData = []; // the caller want an array... not null if empty
                 }
+
                 break;
         }
 
@@ -298,7 +302,7 @@ class Spreadsheet
      */
     public function hasRibbon()
     {
-        return !is_null($this->ribbonXMLData);
+        return $this->ribbonXMLData !== null;
     }
 
     /**
@@ -308,7 +312,7 @@ class Spreadsheet
      */
     public function hasRibbonBinObjects()
     {
-        return !is_null($this->ribbonBinObjects);
+        return $this->ribbonBinObjects !== null;
     }
 
     /**
@@ -462,7 +466,7 @@ class Spreadsheet
     /**
      * Create sheet and add it to this workbook.
      *
-     * @param int|null $sheetIndex Index where sheet should go (0,1,..., or null for last)
+     * @param null|int $sheetIndex Index where sheet should go (0,1,..., or null for last)
      *
      * @throws Exception
      *
@@ -492,7 +496,7 @@ class Spreadsheet
      * Add sheet.
      *
      * @param Worksheet $pSheet
-     * @param int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
+     * @param null|int $iSheetIndex Index where sheet should go (0,1,..., or null for last)
      *
      * @throws Exception
      *
@@ -570,6 +574,7 @@ class Spreadsheet
     {
         if (!isset($this->workSheetCollection[$pIndex])) {
             $numSheets = $this->getSheetCount();
+
             throw new Exception(
                 "Your requested sheet index: {$pIndex} is out of bounds. The actual number of sheets is {$numSheets}."
             );
@@ -738,7 +743,7 @@ class Spreadsheet
      * Add external sheet.
      *
      * @param Worksheet $pSheet External sheet to add
-     * @param int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
+     * @param null|int $iSheetIndex Index where sheet should go (0,1,..., or null for last)
      *
      * @throws Exception
      *
@@ -804,9 +809,9 @@ class Spreadsheet
      * Get named range.
      *
      * @param string $namedRange
-     * @param Worksheet|null $pSheet Scope. Use null for global scope
+     * @param null|Worksheet $pSheet Scope. Use null for global scope
      *
-     * @return NamedRange|null
+     * @return null|NamedRange
      */
     public function getNamedRange($namedRange, Worksheet $pSheet = null)
     {
@@ -831,7 +836,7 @@ class Spreadsheet
      * Remove named range.
      *
      * @param string $namedRange
-     * @param Worksheet|null $pSheet scope: use null for global scope
+     * @param null|Worksheet $pSheet scope: use null for global scope
      *
      * @return Spreadsheet
      */
@@ -917,7 +922,7 @@ class Spreadsheet
      *
      * @param string $pValue
      *
-     * @return Style|false
+     * @return false|Style
      */
     public function getCellXfByHashCode($pValue)
     {
@@ -954,6 +959,7 @@ class Spreadsheet
         if (isset($this->cellXfCollection[0])) {
             return $this->cellXfCollection[0];
         }
+
         throw new Exception('No default style found for this workbook');
     }
 
@@ -1037,7 +1043,7 @@ class Spreadsheet
      *
      * @param string $pValue
      *
-     * @return Style|false
+     * @return false|Style
      */
     public function getCellStyleXfByHashCode($pValue)
     {

@@ -9,14 +9,14 @@ class Title
      *
      * @var string
      */
-    private $caption = null;
+    private $caption;
 
     /**
      * Title Layout.
      *
      * @var Layout
      */
-    private $layout = null;
+    private $layout;
 
     /**
      * Create a new Title.

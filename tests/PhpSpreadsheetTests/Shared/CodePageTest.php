@@ -27,6 +27,7 @@ class CodePageTest extends PHPUnit_Framework_TestCase
     public function testNumberToNameWithInvalidCodePage()
     {
         $invalidCodePage = 12345;
+
         try {
             CodePage::numberToName($invalidCodePage);
         } catch (Exception $e) {
@@ -40,6 +41,7 @@ class CodePageTest extends PHPUnit_Framework_TestCase
     public function testNumberToNameWithUnsupportedCodePage()
     {
         $unsupportedCodePage = 720;
+
         try {
             CodePage::numberToName($unsupportedCodePage);
         } catch (Exception $e) {

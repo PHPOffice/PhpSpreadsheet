@@ -70,6 +70,7 @@ class Ods extends BaseReader implements IReader
                         $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
                         if ($manifestAttributes->{'full-path'} == '/') {
                             $mimeType = (string) $manifestAttributes->{'media-type'};
+
                             break;
                         }
                     }
@@ -177,7 +178,7 @@ class Ods extends BaseReader implements IReader
                     $xml->next();
                 }
             }
-                // Now read each node until we find our first table:table node
+            // Now read each node until we find our first table:table node
             while ($xml->read()) {
                 if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
                     $worksheetNames[] = $xml->getAttribute('table:name');
@@ -284,9 +285,7 @@ class Ods extends BaseReader implements IReader
             throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
 
-        /*
-         * Meta
-         */
+        // Meta
 
         $xml = simplexml_load_string(
             $this->securityScan($zip->getFromName('meta.xml')),
@@ -307,21 +306,26 @@ class Ods extends BaseReader implements IReader
                 switch ($propertyName) {
                     case 'title':
                         $docProps->setTitle($propertyValue);
+
                         break;
                     case 'subject':
                         $docProps->setSubject($propertyValue);
+
                         break;
                     case 'creator':
                         $docProps->setCreator($propertyValue);
                         $docProps->setLastModifiedBy($propertyValue);
+
                         break;
                     case 'date':
                         $creationDate = strtotime($propertyValue);
                         $docProps->setCreated($creationDate);
                         $docProps->setModified($creationDate);
+
                         break;
                     case 'description':
                         $docProps->setDescription($propertyValue);
+
                         break;
                 }
             }
@@ -335,13 +339,16 @@ class Ods extends BaseReader implements IReader
                 switch ($propertyName) {
                     case 'initial-creator':
                         $docProps->setCreator($propertyValue);
+
                         break;
                     case 'keyword':
                         $docProps->setKeywords($propertyValue);
+
                         break;
                     case 'creation-date':
                         $creationDate = strtotime($propertyValue);
                         $docProps->setCreated($creationDate);
+
                         break;
                     case 'user-defined':
                         $propertyValueType = Properties::PROPERTY_TYPE_STRING;
@@ -353,14 +360,17 @@ class Ods extends BaseReader implements IReader
                                     case 'date':
                                         $propertyValue = Properties::convertProperty($propertyValue, 'date');
                                         $propertyValueType = Properties::PROPERTY_TYPE_DATE;
+
                                         break;
                                     case 'boolean':
                                         $propertyValue = Properties::convertProperty($propertyValue, 'bool');
                                         $propertyValueType = Properties::PROPERTY_TYPE_BOOLEAN;
+
                                         break;
                                     case 'float':
                                         $propertyValue = Properties::convertProperty($propertyValue, 'r4');
                                         $propertyValueType = Properties::PROPERTY_TYPE_FLOAT;
+
                                         break;
                                     default:
                                         $propertyValueType = Properties::PROPERTY_TYPE_STRING;
@@ -368,14 +378,13 @@ class Ods extends BaseReader implements IReader
                             }
                         }
                         $docProps->setCustomProperty($propertyValueName, $propertyValue, $propertyValueType);
+
                         break;
                 }
             }
         }
 
-        /*
-         * Content
-         */
+        // Content
 
         $dom = new \DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
@@ -459,11 +468,12 @@ class Ods extends BaseReader implements IReader
 
                             $columnID = 'A';
                             foreach ($childNode->childNodes as $key => $cellData) {
-                                /* @var \DOMElement $cellData */
+                                // @var \DOMElement $cellData
 
                                 if ($this->getReadFilter() !== null) {
                                     if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
                                         ++$columnID;
+
                                         continue;
                                     }
                                 }
@@ -540,6 +550,7 @@ class Ods extends BaseReader implements IReader
                                         case 'boolean':
                                             $type = DataType::TYPE_BOOL;
                                             $dataValue = ($allCellDataText == 'TRUE') ? true : false;
+
                                             break;
                                         case 'percentage':
                                             $type = DataType::TYPE_NUMERIC;
@@ -549,6 +560,7 @@ class Ods extends BaseReader implements IReader
                                                 $dataValue = (int) $dataValue;
                                             }
                                             $formatting = NumberFormat::FORMAT_PERCENTAGE_00;
+
                                             break;
                                         case 'currency':
                                             $type = DataType::TYPE_NUMERIC;
@@ -558,6 +570,7 @@ class Ods extends BaseReader implements IReader
                                                 $dataValue = (int) $dataValue;
                                             }
                                             $formatting = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+
                                             break;
                                         case 'float':
                                             $type = DataType::TYPE_NUMERIC;
@@ -570,6 +583,7 @@ class Ods extends BaseReader implements IReader
                                                     $dataValue = (float) $dataValue;
                                                 }
                                             }
+
                                             break;
                                         case 'date':
                                             $type = DataType::TYPE_NUMERIC;
@@ -577,7 +591,7 @@ class Ods extends BaseReader implements IReader
 
                                             $dateObj = new DateTime($value, $GMT);
                                             $dateObj->setTimeZone($timezoneObj);
-                                            list($year, $month, $day, $hour, $minute, $second) = explode(
+                                            [$year, $month, $day, $hour, $minute, $second] = explode(
                                                 ' ',
                                                 $dateObj->format('Y m d H i s')
                                             );
@@ -598,6 +612,7 @@ class Ods extends BaseReader implements IReader
                                             } else {
                                                 $formatting = NumberFormat::FORMAT_DATE_XLSX15;
                                             }
+
                                             break;
                                         case 'time':
                                             $type = DataType::TYPE_NUMERIC;
@@ -610,6 +625,7 @@ class Ods extends BaseReader implements IReader
                                                 )
                                             );
                                             $formatting = NumberFormat::FORMAT_DATE_TIME4;
+
                                             break;
                                         default:
                                             $dataValue = null;
@@ -729,6 +745,7 @@ class Ods extends BaseReader implements IReader
                                 ++$columnID;
                             }
                             $rowID += $rowRepeats;
+
                             break;
                     }
                 }

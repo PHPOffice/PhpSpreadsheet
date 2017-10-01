@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
+// vim: set expandtab tabstop=4 shiftwidth=4:
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -38,7 +38,7 @@ class Root extends PPS
      *
      * @var string
      */
-    protected $tempDirectory = null;
+    protected $tempDirectory;
 
     /**
      * @param int $time_1st A timestamp
@@ -59,7 +59,7 @@ class Root extends PPS
      * If a resource pointer to a stream created by fopen() is passed
      * it will be used, but you have to close such stream by yourself.
      *
-     * @param string|resource $filename the name of the file or stream where to save the OLE container
+     * @param resource|string $filename the name of the file or stream where to save the OLE container
      *
      * @throws WriterException
      *
@@ -98,7 +98,7 @@ class Root extends PPS
         $aList = [];
         PPS::_savePpsSetPnt($aList, [$this]);
         // calculate values for header
-        list($iSBDcnt, $iBBcnt, $iPPScnt) = $this->_calcSize($aList); //, $rhInfo);
+        [$iSBDcnt, $iBBcnt, $iPPScnt] = $this->_calcSize($aList); //, $rhInfo);
         // Save Header
         $this->_saveHeader($iSBDcnt, $iBBcnt, $iPPScnt);
 
@@ -129,7 +129,7 @@ class Root extends PPS
     public function _calcSize(&$raList)
     {
         // Calculate Basic Setting
-        list($iSBDcnt, $iBBcnt, $iPPScnt) = [0, 0, 0];
+        [$iSBDcnt, $iBBcnt, $iPPScnt] = [0, 0, 0];
         $iSmallLen = 0;
         $iSBcnt = 0;
         $iCount = count($raList);

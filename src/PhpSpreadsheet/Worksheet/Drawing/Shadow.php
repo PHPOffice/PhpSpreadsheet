@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class Shadow implements IComparable
 {
-    /* Shadow alignment */
+    // Shadow alignment
     const SHADOW_BOTTOM = 'b';
     const SHADOW_BOTTOM_LEFT = 'bl';
     const SHADOW_BOTTOM_RIGHT = 'br';

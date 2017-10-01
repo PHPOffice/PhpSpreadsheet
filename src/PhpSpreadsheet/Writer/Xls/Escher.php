@@ -69,6 +69,7 @@ class Escher
                     $this->spOffsets = $writer->getSpOffsets();
                     $this->spTypes = $writer->getSpTypes();
                 }
+
                 break;
             case DggContainer::class:
                 // this is a container record
@@ -122,6 +123,7 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
                 $this->data = $header . $innerData;
+
                 break;
             case BstoreContainer::class:
                 // this is a container record
@@ -149,6 +151,7 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
                 $this->data = $header . $innerData;
+
                 break;
             case BSE::class:
                 // this is a semi-container record
@@ -198,6 +201,7 @@ class Escher
                 $this->data = $header;
 
                 $this->data .= $data;
+
                 break;
             case Blip::class:
                 // this is an atom record
@@ -229,6 +233,7 @@ class Escher
                         $this->data = $header;
 
                         $this->data .= $innerData;
+
                         break;
                     case BSE::BLIPTYPE_PNG:
                         // initialize
@@ -255,8 +260,10 @@ class Escher
                         $this->data = $header;
 
                         $this->data .= $innerData;
+
                         break;
                 }
+
                 break;
             case DgContainer::class:
                 // this is a container record
@@ -309,6 +316,7 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
                 $this->data = $header . $innerData;
+
                 break;
             case SpgrContainer::class:
                 // this is a container record
@@ -348,6 +356,7 @@ class Escher
                 $this->data = $header . $innerData;
                 $this->spOffsets = $spOffsets;
                 $this->spTypes = $spTypes;
+
                 break;
             case SpContainer::class:
                 // initialize
@@ -412,7 +421,7 @@ class Escher
                     $recType = 0xF010;
 
                     // start coordinates
-                    list($column, $row) = Cell::coordinateFromString($this->object->getStartCoordinates());
+                    [$column, $row] = Cell::coordinateFromString($this->object->getStartCoordinates());
                     $c1 = Cell::columnIndexFromString($column) - 1;
                     $r1 = $row - 1;
 
@@ -423,7 +432,7 @@ class Escher
                     $startOffsetY = $this->object->getStartOffsetY();
 
                     // end coordinates
-                    list($column, $row) = Cell::coordinateFromString($this->object->getEndCoordinates());
+                    [$column, $row] = Cell::coordinateFromString($this->object->getEndCoordinates());
                     $c2 = Cell::columnIndexFromString($column) - 1;
                     $r2 = $row - 1;
 
@@ -473,6 +482,7 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
                 $this->data = $header . $data;
+
                 break;
         }
 

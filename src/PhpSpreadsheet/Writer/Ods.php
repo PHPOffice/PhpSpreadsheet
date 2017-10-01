@@ -59,7 +59,7 @@ class Ods extends BaseWriter implements IWriter
      *
      * @param string $pPartName Writer part name
      *
-     * @return Ods\WriterPart|null
+     * @return null|Ods\WriterPart
      */
     public function getWriterPart($pPartName)
     {
@@ -158,6 +158,7 @@ class Ods extends BaseWriter implements IWriter
         if ($this->spreadSheet !== null) {
             return $this->spreadSheet;
         }
+
         throw new WriterException('No PhpSpreadsheet assigned.');
     }
 

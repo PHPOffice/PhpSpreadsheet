@@ -349,14 +349,17 @@ class Style extends WriterPart
             case Borders::DIAGONAL_UP:
                 $objWriter->writeAttribute('diagonalUp', 'true');
                 $objWriter->writeAttribute('diagonalDown', 'false');
+
                 break;
             case Borders::DIAGONAL_DOWN:
                 $objWriter->writeAttribute('diagonalUp', 'false');
                 $objWriter->writeAttribute('diagonalDown', 'true');
+
                 break;
             case Borders::DIAGONAL_BOTH:
                 $objWriter->writeAttribute('diagonalUp', 'true');
                 $objWriter->writeAttribute('diagonalDown', 'true');
+
                 break;
         }
 

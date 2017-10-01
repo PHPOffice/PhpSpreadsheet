@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class NumberFormat extends Supervisor implements IComparable
 {
-    /* Pre-defined formats */
+    // Pre-defined formats
     const FORMAT_GENERAL = 'General';
 
     const FORMAT_TEXT = '@';
@@ -253,7 +253,7 @@ class NumberFormat extends Supervisor implements IComparable
         //      KOR fmt 55: "yyyy/mm/dd"
 
         // Built-in format codes
-        if (is_null(self::$builtInFormats)) {
+        if (self::$builtInFormats === null) {
             self::$builtInFormats = [];
 
             // General
@@ -340,7 +340,7 @@ class NumberFormat extends Supervisor implements IComparable
      *
      * @param string $formatCode
      *
-     * @return int|bool
+     * @return bool|int
      */
     public static function builtInFormatCodeIndex($formatCode)
     {
@@ -601,6 +601,7 @@ class NumberFormat extends Supervisor implements IComparable
         switch (count($sections)) {
             case 1:
                 $format = $sections[0];
+
                 break;
             case 2:
                 $format = ($value >= 0) ? $sections[0] : $sections[1];
@@ -621,6 +622,7 @@ class NumberFormat extends Supervisor implements IComparable
             default:
                 // something is wrong, just use first section
                 $format = $sections[0];
+
                 break;
         }
 
@@ -722,7 +724,7 @@ class NumberFormat extends Supervisor implements IComparable
                     //  Currency or Accounting
                     $currencyFormat = $m[0];
                     $currencyCode = $m[1];
-                    list($currencyCode) = explode('-', $currencyCode);
+                    [$currencyCode] = explode('-', $currencyCode);
                     if ($currencyCode == '') {
                         $currencyCode = StringHelper::getCurrencyCode();
                     }
@@ -736,7 +738,7 @@ class NumberFormat extends Supervisor implements IComparable
 
         // Additional formatting provided by callback function
         if ($callBack !== null) {
-            list($writerInstance, $function) = $callBack;
+            [$writerInstance, $function] = $callBack;
             $value = $writerInstance->$function($value, $formatColor);
         }
 

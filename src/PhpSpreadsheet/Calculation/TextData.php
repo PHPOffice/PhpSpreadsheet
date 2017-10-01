@@ -155,7 +155,7 @@ class TextData
     public static function DOLLAR($value = 0, $decimals = 2)
     {
         $value = Functions::flattenSingleValue($value);
-        $decimals = is_null($decimals) ? 0 : Functions::flattenSingleValue($decimals);
+        $decimals = $decimals === null ? 0 : Functions::flattenSingleValue($decimals);
 
         // Validate parameters
         if (!is_numeric($value) || !is_numeric($decimals)) {
@@ -500,7 +500,7 @@ class TextData
      *
      * @param mixed $testValue Value to check
      *
-     * @return string|null
+     * @return null|string
      */
     public static function RETURNSTRING($testValue = '')
     {

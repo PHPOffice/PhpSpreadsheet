@@ -27,7 +27,7 @@ PARTLY BASED ON:
 
 class FormulaToken
 {
-    /* Token types */
+    // Token types
     const TOKEN_TYPE_NOOP = 'Noop';
     const TOKEN_TYPE_OPERAND = 'Operand';
     const TOKEN_TYPE_FUNCTION = 'Function';
@@ -39,7 +39,7 @@ class FormulaToken
     const TOKEN_TYPE_WHITESPACE = 'Whitespace';
     const TOKEN_TYPE_UNKNOWN = 'Unknown';
 
-    /* Token subtypes */
+    // Token subtypes
     const TOKEN_SUBTYPE_NOTHING = 'Nothing';
     const TOKEN_SUBTYPE_START = 'Start';
     const TOKEN_SUBTYPE_STOP = 'Stop';

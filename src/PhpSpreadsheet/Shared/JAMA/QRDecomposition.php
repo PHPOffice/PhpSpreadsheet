@@ -247,8 +247,10 @@ class QRDecomposition
 
                 return $X->getMatrix(0, $this->n - 1, 0, $nx);
             }
+
             throw new CalculationException(self::MATRIX_RANK_EXCEPTION);
         }
+
         throw new CalculationException(Matrix::MATRIX_DIMENSION_EXCEPTION);
     }
 }

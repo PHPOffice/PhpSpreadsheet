@@ -46,7 +46,7 @@ class NamedRange
      * @param Worksheet $pWorksheet
      * @param string $pRange
      * @param bool $pLocalOnly
-     * @param Worksheet|null $pScope Scope. Only applies when $pLocalOnly = true. Null for global scope.
+     * @param null|Worksheet $pScope Scope. Only applies when $pLocalOnly = true. Null for global scope.
      *
      * @throws Exception
      */
@@ -186,7 +186,7 @@ class NamedRange
     /**
      * Get scope.
      *
-     * @return Worksheet|null
+     * @return null|Worksheet
      */
     public function getScope()
     {
@@ -196,7 +196,7 @@ class NamedRange
     /**
      * Set scope.
      *
-     * @param Worksheet|null $value
+     * @param null|Worksheet $value
      *
      * @return NamedRange
      */
@@ -212,7 +212,7 @@ class NamedRange
      * Resolve a named range to a regular cell range.
      *
      * @param string $pNamedRange Named range
-     * @param Worksheet|null $pSheet Scope. Use null for global scope
+     * @param null|Worksheet $pSheet Scope. Use null for global scope
      *
      * @return NamedRange
      */

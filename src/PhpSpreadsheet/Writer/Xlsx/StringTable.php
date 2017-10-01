@@ -57,6 +57,7 @@ class StringTable extends WriterPart
 
             return $aStringTable;
         }
+
         throw new WriterException('Invalid Worksheet object passed.');
     }
 
@@ -200,7 +201,7 @@ class StringTable extends WriterPart
      * Write Rich Text.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param string|RichText $pRichText text string or Rich text
+     * @param RichText|string $pRichText text string or Rich text
      * @param string $prefix Optional Namespace prefix
      *
      * @throws WriterException
@@ -235,9 +236,11 @@ class StringTable extends WriterPart
             switch ($underlineType) {
                 case 'single':
                     $underlineType = 'sng';
+
                     break;
                 case 'double':
                     $underlineType = 'dbl';
+
                     break;
             }
             $objWriter->writeAttribute('u', $underlineType);

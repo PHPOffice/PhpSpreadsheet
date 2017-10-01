@@ -83,7 +83,7 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
  */
 class PageSetup
 {
-    /* Paper size */
+    // Paper size
     const PAPERSIZE_LETTER = 1;
     const PAPERSIZE_LETTER_SMALL = 2;
     const PAPERSIZE_TABLOID = 3;
@@ -151,12 +151,12 @@ class PageSetup
     const PAPERSIZE_A3_TRANSVERSE_PAPER = 65;
     const PAPERSIZE_A3_EXTRA_TRANSVERSE_PAPER = 66;
 
-    /* Page orientation */
+    // Page orientation
     const ORIENTATION_DEFAULT = 'default';
     const ORIENTATION_LANDSCAPE = 'landscape';
     const ORIENTATION_PORTRAIT = 'portrait';
 
-    /* Print Range Set Method */
+    // Print Range Set Method
     const SETPRINTRANGE_OVERWRITE = 'O';
     const SETPRINTRANGE_INSERT = 'I';
 
@@ -241,14 +241,14 @@ class PageSetup
      *
      * @var string
      */
-    private $printArea = null;
+    private $printArea;
 
     /**
      * First page number.
      *
      * @var int
      */
-    private $firstPageNumber = null;
+    private $firstPageNumber;
 
     /**
      * Create a new PageSetup.
@@ -320,7 +320,7 @@ class PageSetup
      * Print scaling. Valid values range from 10 to 400
      * This setting is overridden when fitToWidth and/or fitToHeight are in use.
      *
-     * @param int|null $pValue
+     * @param null|int $pValue
      * @param bool $pUpdate Update fitToPage so scaling applies rather than fitToHeight / fitToWidth
      *
      * @throws PhpSpreadsheetException
@@ -331,7 +331,7 @@ class PageSetup
     {
         // Microsoft Office Excel 2007 only allows setting a scale between 10 and 400 via the user interface,
         // but it is apparently still able to handle any scale >= 0, where 0 results in 100
-        if (($pValue >= 0) || is_null($pValue)) {
+        if (($pValue >= 0) || $pValue === null) {
             $this->scale = $pValue;
             if ($pUpdate) {
                 $this->fitToPage = false;
@@ -380,7 +380,7 @@ class PageSetup
     /**
      * Set Fit To Height.
      *
-     * @param int|null $pValue
+     * @param null|int $pValue
      * @param bool $pUpdate Update fitToPage so it applies rather than scaling
      *
      * @return PageSetup
@@ -408,7 +408,7 @@ class PageSetup
     /**
      * Set Fit To Width.
      *
-     * @param int|null $pValue
+     * @param null|int $pValue
      * @param bool $pUpdate Update fitToPage so it applies rather than scaling
      *
      * @return PageSetup
@@ -602,6 +602,7 @@ class PageSetup
         if (isset($printAreas[$index - 1])) {
             return $printAreas[$index - 1];
         }
+
         throw new PhpSpreadsheetException('Requested Print Area does not exist');
     }
 
@@ -618,7 +619,7 @@ class PageSetup
     public function isPrintAreaSet($index = 0)
     {
         if ($index == 0) {
-            return !is_null($this->printArea);
+            return $this->printArea !== null;
         }
         $printAreas = explode(',', $this->printArea);
 

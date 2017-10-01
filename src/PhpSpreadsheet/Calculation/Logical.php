@@ -60,7 +60,7 @@ class Logical
      *
      * @param mixed ...$args Data values
      *
-     * @return string|bool the logical AND of the arguments
+     * @return bool|string the logical AND of the arguments
      */
     public static function logicalAnd(...$args)
     {
@@ -117,7 +117,7 @@ class Logical
      *
      * @param mixed $args Data values
      *
-     * @return string|bool the logical OR of the arguments
+     * @return bool|string the logical OR of the arguments
      */
     public static function logicalOr(...$args)
     {
@@ -227,9 +227,9 @@ class Logical
      */
     public static function statementIf($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
-        $condition = (is_null($condition)) ? true : (bool) Functions::flattenSingleValue($condition);
-        $returnIfTrue = (is_null($returnIfTrue)) ? 0 : Functions::flattenSingleValue($returnIfTrue);
-        $returnIfFalse = (is_null($returnIfFalse)) ? false : Functions::flattenSingleValue($returnIfFalse);
+        $condition = ($condition === null) ? true : (bool) Functions::flattenSingleValue($condition);
+        $returnIfTrue = ($returnIfTrue === null) ? 0 : Functions::flattenSingleValue($returnIfTrue);
+        $returnIfFalse = ($returnIfFalse === null) ? false : Functions::flattenSingleValue($returnIfFalse);
 
         return ($condition) ? $returnIfTrue : $returnIfFalse;
     }
@@ -249,8 +249,8 @@ class Logical
      */
     public static function IFERROR($testValue = '', $errorpart = '')
     {
-        $testValue = (is_null($testValue)) ? '' : Functions::flattenSingleValue($testValue);
-        $errorpart = (is_null($errorpart)) ? '' : Functions::flattenSingleValue($errorpart);
+        $testValue = ($testValue === null) ? '' : Functions::flattenSingleValue($testValue);
+        $errorpart = ($errorpart === null) ? '' : Functions::flattenSingleValue($errorpart);
 
         return self::statementIf(Functions::isError($testValue), $errorpart, $testValue);
     }

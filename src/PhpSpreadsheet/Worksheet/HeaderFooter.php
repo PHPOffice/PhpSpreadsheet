@@ -67,7 +67,7 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
  */
 class HeaderFooter
 {
-    /* Header/footer image location */
+    // Header/footer image location
     const IMAGE_HEADER_LEFT = 'LH';
     const IMAGE_HEADER_CENTER = 'CH';
     const IMAGE_HEADER_RIGHT = 'RH';

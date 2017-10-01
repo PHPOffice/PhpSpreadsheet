@@ -131,7 +131,7 @@ class Settings
     /**
      * Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use (e.g. jpgraph).
      *
-     * @return string|null Internal reference name of the Chart Rendering Library that PhpSpreadsheet is
+     * @return null|string Internal reference name of the Chart Rendering Library that PhpSpreadsheet is
      *    currently configured to use
      *    e.g. \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
      */
@@ -143,7 +143,7 @@ class Settings
     /**
      * Return the directory path to the Chart Rendering Library that PhpSpreadsheet is currently configured to use.
      *
-     * @return string|null Directory Path to the Chart Rendering Library that PhpSpreadsheet is
+     * @return null|string Directory Path to the Chart Rendering Library that PhpSpreadsheet is
      *     currently configured to use
      */
     public static function getChartRendererPath()
@@ -170,7 +170,7 @@ class Settings
     /**
      * Return the PDF Rendering Library that PhpSpreadsheet is currently configured to use (e.g. dompdf).
      *
-     * @return string|null Internal reference name of the PDF Rendering Library that PhpSpreadsheet is
+     * @return null|string Internal reference name of the PDF Rendering Library that PhpSpreadsheet is
      *     currently configured to use
      * e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
      *       \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
@@ -188,7 +188,7 @@ class Settings
      */
     public static function setLibXmlLoaderOptions($options)
     {
-        if (is_null($options) && defined('LIBXML_DTDLOAD')) {
+        if ($options === null && defined('LIBXML_DTDLOAD')) {
             $options = LIBXML_DTDLOAD | LIBXML_DTDATTR;
         }
         self::$libXmlLoaderOptions = $options;
@@ -202,9 +202,9 @@ class Settings
      */
     public static function getLibXmlLoaderOptions()
     {
-        if (is_null(self::$libXmlLoaderOptions) && defined('LIBXML_DTDLOAD')) {
+        if (self::$libXmlLoaderOptions === null && defined('LIBXML_DTDLOAD')) {
             self::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR);
-        } elseif (is_null(self::$libXmlLoaderOptions)) {
+        } elseif (self::$libXmlLoaderOptions === null) {
             self::$libXmlLoaderOptions = true;
         }
 

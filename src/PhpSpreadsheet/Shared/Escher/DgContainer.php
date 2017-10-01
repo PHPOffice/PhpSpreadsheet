@@ -18,7 +18,7 @@ class DgContainer
      */
     private $lastSpId;
 
-    private $spgrContainer = null;
+    private $spgrContainer;
 
     public function getDgId()
     {

@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 class DataValidation
 {
-    /* Data validation types */
+    // Data validation types
     const TYPE_NONE = 'none';
     const TYPE_CUSTOM = 'custom';
     const TYPE_DATE = 'date';
@@ -14,12 +14,12 @@ class DataValidation
     const TYPE_TIME = 'time';
     const TYPE_WHOLE = 'whole';
 
-    /* Data validation error styles */
+    // Data validation error styles
     const STYLE_STOP = 'stop';
     const STYLE_WARNING = 'warning';
     const STYLE_INFORMATION = 'information';
 
-    /* Data validation operators */
+    // Data validation operators
     const OPERATOR_BETWEEN = 'between';
     const OPERATOR_EQUAL = 'equal';
     const OPERATOR_GREATERTHAN = 'greaterThan';

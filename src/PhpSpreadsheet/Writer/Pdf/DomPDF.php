@@ -22,7 +22,7 @@ class DomPDF extends Core implements IWriter
         $paperSize = 'LETTER'; //    Letter    (8.5 in. by 11 in.)
 
         //  Check for paper size and page orientation
-        if (is_null($this->getSheetIndex())) {
+        if ($this->getSheetIndex() === null) {
             $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
                 == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
@@ -37,13 +37,13 @@ class DomPDF extends Core implements IWriter
         $orientation = ($orientation == 'L') ? 'landscape' : 'portrait';
 
         //  Override Page Orientation
-        if (!is_null($this->getOrientation())) {
+        if ($this->getOrientation() !== null) {
             $orientation = ($this->getOrientation() == PageSetup::ORIENTATION_DEFAULT)
                 ? PageSetup::ORIENTATION_PORTRAIT
                 : $this->getOrientation();
         }
         //  Override Paper Size
-        if (!is_null($this->getPaperSize())) {
+        if ($this->getPaperSize() !== null) {
             $printPaperSize = $this->getPaperSize();
         }
 

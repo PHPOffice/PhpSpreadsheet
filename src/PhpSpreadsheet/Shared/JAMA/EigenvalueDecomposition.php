@@ -255,7 +255,7 @@ class EigenvalueDecomposition
                     $p = -$s * $s2 * $c3 * $el1 * $this->e[$l] / $dl1;
                     $this->e[$l] = $s * $p;
                     $this->d[$l] = $c * $p;
-                // Check for convergence.
+                    // Check for convergence.
                 } while (abs($this->e[$l]) > $eps * $tst1);
             }
             $this->d[$l] = $this->d[$l] + $f;
@@ -446,7 +446,7 @@ class EigenvalueDecomposition
                 $this->e[$n] = 0.0;
                 --$n;
                 $iter = 0;
-            // Two roots found
+                // Two roots found
             } elseif ($l == $n - 1) {
                 $w = $this->H[$n][$n - 1] * $this->H[$n - 1][$n];
                 $p = ($this->H[$n - 1][$n - 1] - $this->H[$n][$n]) / 2.0;
@@ -494,7 +494,7 @@ class EigenvalueDecomposition
                         $this->V[$i][$n - 1] = $q * $z + $p * $this->V[$i][$n];
                         $this->V[$i][$n] = $q * $this->V[$i][$n] - $p * $z;
                     }
-                // Complex pair
+                    // Complex pair
                 } else {
                     $this->d[$n - 1] = $x + $p;
                     $this->d[$n] = $x + $p;
@@ -503,7 +503,7 @@ class EigenvalueDecomposition
                 }
                 $n = $n - 2;
                 $iter = 0;
-            // No convergence yet
+                // No convergence yet
             } else {
                 // Form shift
                 $x = $this->H[$n][$n];
@@ -667,7 +667,7 @@ class EigenvalueDecomposition
                             } else {
                                 $this->H[$i][$n] = -$r / ($eps * $norm);
                             }
-                        // Solve real equations
+                            // Solve real equations
                         } else {
                             $x = $this->H[$i][$i + 1];
                             $y = $this->H[$i + 1][$i];
@@ -689,7 +689,7 @@ class EigenvalueDecomposition
                         }
                     }
                 }
-            // Complex vector
+                // Complex vector
             } elseif ($q < 0) {
                 $l = $n - 1;
                 // Last vector component imaginary so matrix is triangular

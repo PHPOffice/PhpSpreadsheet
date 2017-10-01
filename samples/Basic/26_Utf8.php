@@ -16,7 +16,7 @@ $helper->log('Load Xlsx template file');
 $reader = IOFactory::createReader('Xlsx');
 $spreadsheet = $reader->load(__DIR__ . '/../templates/26template.xlsx');
 
-/* at this point, we could do some manipulations with the template, but we skip this step */
+// at this point, we could do some manipulations with the template, but we skip this step
 $helper->write($spreadsheet, __FILE__, ['Xlsx', 'Xls', 'Html']);
 
 // Export to PDF (.pdf)

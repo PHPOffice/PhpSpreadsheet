@@ -12,7 +12,7 @@ class Pdf implements IWriter
      *
      * @var PDF\Core
      */
-    private $renderer = null;
+    private $renderer;
 
     /**
      * Instantiate a new renderer of the configured type within this container class.
@@ -24,7 +24,7 @@ class Pdf implements IWriter
     public function __construct(Spreadsheet $spreadsheet)
     {
         $pdfLibraryName = Settings::getPdfRendererName();
-        if (is_null($pdfLibraryName)) {
+        if ($pdfLibraryName === null) {
             throw new Exception('PDF Rendering library has not been defined.');
         }
 

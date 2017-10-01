@@ -40,23 +40,23 @@ class ChunkReadFilter implements IReadFilter
 }
 
 $helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
-/*  Create a new Reader of the type defined in $inputFileType  * */
+// Create a new Reader of the type defined in $inputFileType
 $reader = IOFactory::createReader($inputFileType);
 
-/*  Define how many rows we want to read for each "chunk"  * */
+// Define how many rows we want to read for each "chunk"
 $chunkSize = 20;
-/*  Create a new Instance of our Read Filter  * */
+// Create a new Instance of our Read Filter
 $chunkFilter = new ChunkReadFilter();
 
-/*  Tell the Reader that we want to use the Read Filter that we've Instantiated  * */
+// Tell the Reader that we want to use the Read Filter that we've Instantiated
 $reader->setReadFilter($chunkFilter);
 
-/*  Loop to read our worksheet in "chunk size" blocks  * */
+// Loop to read our worksheet in "chunk size" blocks
 for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
     $helper->log('Loading WorkSheet using configurable filter for headings row 1 and for rows ' . $startRow . ' to ' . ($startRow + $chunkSize - 1));
-    /*  Tell the Read Filter, the limits on which rows we want to read this iteration  * */
+    // Tell the Read Filter, the limits on which rows we want to read this iteration
     $chunkFilter->setRows($startRow, $chunkSize);
-    /*  Load only the rows that match our filter from $inputFileName to a PhpSpreadsheet Object  * */
+    // Load only the rows that match our filter from $inputFileName to a PhpSpreadsheet Object
     $spreadsheet = $reader->load($inputFileName);
 
     //	Do some processing here

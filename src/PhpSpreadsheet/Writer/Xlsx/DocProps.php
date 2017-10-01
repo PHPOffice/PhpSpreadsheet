@@ -219,20 +219,25 @@ class DocProps extends WriterPart
             switch ($propertyType) {
                 case 'i':
                     $objWriter->writeElement('vt:i4', $propertyValue);
+
                     break;
                 case 'f':
                     $objWriter->writeElement('vt:r8', $propertyValue);
+
                     break;
                 case 'b':
                     $objWriter->writeElement('vt:bool', ($propertyValue) ? 'true' : 'false');
+
                     break;
                 case 'd':
                     $objWriter->startElement('vt:filetime');
                     $objWriter->writeRawData(date(DATE_W3C, $propertyValue));
                     $objWriter->endElement();
+
                     break;
                 default:
                     $objWriter->writeElement('vt:lpwstr', $propertyValue);
+
                     break;
             }
 

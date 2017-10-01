@@ -20,7 +20,7 @@ class Csv extends BaseReader implements IReader
      *
      * @var string
      */
-    private $delimiter = null;
+    private $delimiter;
 
     /**
      * Enclosure.
@@ -91,22 +91,27 @@ class Csv extends BaseReader implements IReader
             case 'UTF-8':
                 fgets($this->fileHandle, 4) == "\xEF\xBB\xBF" ?
                     fseek($this->fileHandle, 3) : fseek($this->fileHandle, 0);
+
                 break;
             case 'UTF-16LE':
                 fgets($this->fileHandle, 3) == "\xFF\xFE" ?
                     fseek($this->fileHandle, 2) : fseek($this->fileHandle, 0);
+
                 break;
             case 'UTF-16BE':
                 fgets($this->fileHandle, 3) == "\xFE\xFF" ?
                     fseek($this->fileHandle, 2) : fseek($this->fileHandle, 0);
+
                 break;
             case 'UTF-32LE':
                 fgets($this->fileHandle, 5) == "\xFF\xFE\x00\x00" ?
                     fseek($this->fileHandle, 4) : fseek($this->fileHandle, 0);
+
                 break;
             case 'UTF-32BE':
                 fgets($this->fileHandle, 5) == "\x00\x00\xFE\xFF" ?
                     fseek($this->fileHandle, 4) : fseek($this->fileHandle, 0);
+
                 break;
             default:
                 break;

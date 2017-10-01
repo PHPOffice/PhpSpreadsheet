@@ -416,10 +416,10 @@ class Chart
     public function setTopLeftPosition($cell, $xOffset = null, $yOffset = null)
     {
         $this->topLeftCellRef = $cell;
-        if (!is_null($xOffset)) {
+        if ($xOffset !== null) {
             $this->setTopLeftXOffset($xOffset);
         }
-        if (!is_null($yOffset)) {
+        if ($yOffset !== null) {
             $this->setTopLeftYOffset($yOffset);
         }
 
@@ -474,11 +474,11 @@ class Chart
      */
     public function setTopLeftOffset($xOffset, $yOffset)
     {
-        if (!is_null($xOffset)) {
+        if ($xOffset !== null) {
             $this->setTopLeftXOffset($xOffset);
         }
 
-        if (!is_null($yOffset)) {
+        if ($yOffset !== null) {
             $this->setTopLeftYOffset($yOffset);
         }
 
@@ -534,10 +534,10 @@ class Chart
     public function setBottomRightPosition($cell, $xOffset = null, $yOffset = null)
     {
         $this->bottomRightCellRef = $cell;
-        if (!is_null($xOffset)) {
+        if ($xOffset !== null) {
             $this->setBottomRightXOffset($xOffset);
         }
-        if (!is_null($yOffset)) {
+        if ($yOffset !== null) {
             $this->setBottomRightYOffset($yOffset);
         }
 
@@ -585,11 +585,11 @@ class Chart
      */
     public function setBottomRightOffset($xOffset, $yOffset)
     {
-        if (!is_null($xOffset)) {
+        if ($xOffset !== null) {
             $this->setBottomRightXOffset($xOffset);
         }
 
-        if (!is_null($yOffset)) {
+        if ($yOffset !== null) {
             $this->setBottomRightYOffset($yOffset);
         }
 
@@ -643,7 +643,7 @@ class Chart
     public function render($outputDestination = null)
     {
         $libraryName = Settings::getChartRendererName();
-        if (is_null($libraryName)) {
+        if ($libraryName === null) {
             return false;
         }
         //    Ensure that data series values are up-to-date before we render

@@ -205,6 +205,7 @@ class Cell
         switch ($pDataType) {
             case Cell\DataType::TYPE_NULL:
                 $this->value = $pValue;
+
                 break;
             case Cell\DataType::TYPE_STRING2:
                 $pDataType = Cell\DataType::TYPE_STRING;
@@ -214,18 +215,23 @@ class Cell
             case Cell\DataType::TYPE_INLINE:
                 // Rich text
                 $this->value = Cell\DataType::checkString($pValue);
+
                 break;
             case Cell\DataType::TYPE_NUMERIC:
                 $this->value = (float) $pValue;
+
                 break;
             case Cell\DataType::TYPE_FORMULA:
                 $this->value = (string) $pValue;
+
                 break;
             case Cell\DataType::TYPE_BOOL:
                 $this->value = (bool) $pValue;
+
                 break;
             case Cell\DataType::TYPE_ERROR:
                 $this->value = Cell\DataType::checkErrorCode($pValue);
+
                 break;
             default:
                 throw new Exception('Invalid datatype: ' . $pDataType);
@@ -265,6 +271,7 @@ class Cell
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 }
                 $result = '#N/A';
+
                 throw new Calculation\Exception(
                     $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
                 );
@@ -493,7 +500,7 @@ class Cell
     {
         if ($mergeRange = $this->getMergeRange()) {
             $mergeRange = self::splitRange($mergeRange);
-            list($startCell) = $mergeRange[0];
+            [$startCell] = $mergeRange[0];
             if ($this->getCoordinate() === $startCell) {
                 return true;
             }
@@ -551,7 +558,7 @@ class Cell
      */
     public function isInRange($pRange)
     {
-        list($rangeStart, $rangeEnd) = self::rangeBoundaries($pRange);
+        [$rangeStart, $rangeEnd] = self::rangeBoundaries($pRange);
 
         // Translate properties
         $myColumn = self::columnIndexFromString($this->getColumn());
@@ -601,7 +608,7 @@ class Cell
             $worksheet = '';
             $cellAddress = explode('!', $pCoordinateString);
             if (count($cellAddress) > 1) {
-                list($worksheet, $pCoordinateString) = $cellAddress;
+                [$worksheet, $pCoordinateString] = $cellAddress;
             }
             if ($worksheet > '') {
                 $worksheet .= '!';
@@ -636,14 +643,14 @@ class Cell
             $worksheet = '';
             $cellAddress = explode('!', $pCoordinateString);
             if (count($cellAddress) > 1) {
-                list($worksheet, $pCoordinateString) = $cellAddress;
+                [$worksheet, $pCoordinateString] = $cellAddress;
             }
             if ($worksheet > '') {
                 $worksheet .= '!';
             }
 
             // Create absolute coordinate
-            list($column, $row) = self::coordinateFromString($pCoordinateString);
+            [$column, $row] = self::coordinateFromString($pCoordinateString);
             $column = ltrim($column, '$');
             $row = ltrim($row, '$');
 
@@ -727,7 +734,7 @@ class Cell
         if (strpos($pRange, ':') === false) {
             $rangeA = $rangeB = $pRange;
         } else {
-            list($rangeA, $rangeB) = explode(':', $pRange);
+            [$rangeA, $rangeB] = explode(':', $pRange);
         }
 
         // Calculate range outer borders
@@ -751,7 +758,7 @@ class Cell
     public static function rangeDimension($pRange)
     {
         // Calculate range outer borders
-        list($rangeStart, $rangeEnd) = self::rangeBoundaries($pRange);
+        [$rangeStart, $rangeEnd] = self::rangeBoundaries($pRange);
 
         return [($rangeEnd[0] - $rangeStart[0] + 1), ($rangeEnd[1] - $rangeStart[1] + 1)];
     }
@@ -778,7 +785,7 @@ class Cell
         if (strpos($pRange, ':') === false) {
             $rangeA = $rangeB = $pRange;
         } else {
-            list($rangeA, $rangeB) = explode(':', $pRange);
+            [$rangeA, $rangeB] = explode(':', $pRange);
         }
 
         return [self::coordinateFromString($rangeA), self::coordinateFromString($rangeB)];
@@ -828,6 +835,7 @@ class Cell
                 return $_indexCache[$pString];
             }
         }
+
         throw new Exception('Column string index can not be ' . ((isset($pString[0])) ? 'longer than 3 characters' : 'empty'));
     }
 
@@ -874,6 +882,7 @@ class Cell
             // Single cell?
             if (strpos($cellBlock, ':') === false && strpos($cellBlock, ',') === false) {
                 $returnValue[] = $cellBlock;
+
                 continue;
             }
 
@@ -883,11 +892,12 @@ class Cell
                 // Single cell?
                 if (!isset($range[1])) {
                     $returnValue[] = $range[0];
+
                     continue;
                 }
 
                 // Range...
-                list($rangeStart, $rangeEnd) = $range;
+                [$rangeStart, $rangeEnd] = $range;
                 sscanf($rangeStart, '%[A-Z]%d', $startCol, $startRow);
                 sscanf($rangeEnd, '%[A-Z]%d', $endCol, $endRow);
                 ++$endCol;
@@ -942,7 +952,7 @@ class Cell
         $hashedValues = [];
 
         foreach ($pCoordCollection as $coord => $value) {
-            list($column, $row) = self::coordinateFromString($coord);
+            [$column, $row] = self::coordinateFromString($coord);
             $row = (int) (ltrim($row, '$'));
             $hashCode = $column . '-' . (is_object($value) ? $value->getHashCode() : $value);
 

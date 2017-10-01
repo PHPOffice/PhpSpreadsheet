@@ -211,27 +211,34 @@ class IOFactory
                 case 'xltx':            //    Excel (OfficeOpenXML) Template
                 case 'xltm':            //    Excel (OfficeOpenXML) Macro Template (macros will be discarded)
                     $extensionType = 'Xlsx';
+
                     break;
                 case 'xls':                //    Excel (BIFF) Spreadsheet
                 case 'xlt':                //    Excel (BIFF) Template
                     $extensionType = 'Xls';
+
                     break;
                 case 'ods':                //    Open/Libre Offic Calc
                 case 'ots':                //    Open/Libre Offic Calc Template
                     $extensionType = 'Ods';
+
                     break;
                 case 'slk':
                     $extensionType = 'Slk';
+
                     break;
                 case 'xml':                //    Excel 2003 SpreadSheetML
                     $extensionType = 'Xml';
+
                     break;
                 case 'gnumeric':
                     $extensionType = 'Gnumeric';
+
                     break;
                 case 'htm':
                 case 'html':
                     $extensionType = 'Html';
+
                     break;
                 case 'csv':
                     // Do nothing

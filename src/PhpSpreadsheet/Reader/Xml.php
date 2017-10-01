@@ -82,6 +82,7 @@ class Xml extends BaseReader implements IReader
             // every part of the signature must be present
             if (strpos($data, $match) === false) {
                 $valid = false;
+
                 break;
             }
         }
@@ -344,38 +345,49 @@ class Xml extends BaseReader implements IReader
                 switch ($propertyName) {
                     case 'Title':
                         $docProps->setTitle(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Subject':
                         $docProps->setSubject(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Author':
                         $docProps->setCreator(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Created':
                         $creationDate = strtotime($propertyValue);
                         $docProps->setCreated($creationDate);
+
                         break;
                     case 'LastAuthor':
                         $docProps->setLastModifiedBy(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'LastSaved':
                         $lastSaveDate = strtotime($propertyValue);
                         $docProps->setModified($lastSaveDate);
+
                         break;
                     case 'Company':
                         $docProps->setCompany(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Category':
                         $docProps->setCategory(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Manager':
                         $docProps->setManager(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Keywords':
                         $docProps->setKeywords(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Description':
                         $docProps->setDescription(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                 }
             }
@@ -389,22 +401,27 @@ class Xml extends BaseReader implements IReader
                     case 'string':
                         $propertyType = Properties::PROPERTY_TYPE_STRING;
                         $propertyValue = trim($propertyValue);
+
                         break;
                     case 'boolean':
                         $propertyType = Properties::PROPERTY_TYPE_BOOLEAN;
                         $propertyValue = (bool) $propertyValue;
+
                         break;
                     case 'integer':
                         $propertyType = Properties::PROPERTY_TYPE_INTEGER;
                         $propertyValue = (int) $propertyValue;
+
                         break;
                     case 'float':
                         $propertyType = Properties::PROPERTY_TYPE_FLOAT;
                         $propertyValue = (float) $propertyValue;
+
                         break;
                     case 'dateTime.tz':
                         $propertyType = Properties::PROPERTY_TYPE_DATE;
                         $propertyValue = strtotime(trim($propertyValue));
+
                         break;
                 }
                 $docProps->setCustomProperty($propertyName, $propertyValue, $propertyType);
@@ -426,17 +443,21 @@ class Xml extends BaseReader implements IReader
                                     if (self::identifyFixedStyleValue($verticalAlignmentStyles, $styleAttributeValue)) {
                                         $this->styles[$styleID]['alignment']['vertical'] = $styleAttributeValue;
                                     }
+
                                     break;
                                 case 'Horizontal':
                                     if (self::identifyFixedStyleValue($horizontalAlignmentStyles, $styleAttributeValue)) {
                                         $this->styles[$styleID]['alignment']['horizontal'] = $styleAttributeValue;
                                     }
+
                                     break;
                                 case 'WrapText':
                                     $this->styles[$styleID]['alignment']['wrapText'] = true;
+
                                     break;
                             }
                         }
+
                         break;
                     case 'Borders':
                         foreach ($styleData->Border as $borderStyle) {
@@ -446,15 +467,18 @@ class Xml extends BaseReader implements IReader
                                 switch ($borderStyleKey) {
                                     case 'LineStyle':
                                         $thisBorder['borderStyle'] = Border::BORDER_MEDIUM;
+
                                         break;
                                     case 'Weight':
                                         break;
                                     case 'Position':
                                         $borderPosition = strtolower($borderStyleValue);
+
                                         break;
                                     case 'Color':
                                         $borderColour = substr($borderStyleValue, 1);
                                         $thisBorder['color']['rgb'] = $borderColour;
+
                                         break;
                                 }
                             }
@@ -464,6 +488,7 @@ class Xml extends BaseReader implements IReader
                                 }
                             }
                         }
+
                         break;
                     case 'Font':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
@@ -471,38 +496,48 @@ class Xml extends BaseReader implements IReader
                             switch ($styleAttributeKey) {
                                 case 'FontName':
                                     $this->styles[$styleID]['font']['name'] = $styleAttributeValue;
+
                                     break;
                                 case 'Size':
                                     $this->styles[$styleID]['font']['size'] = $styleAttributeValue;
+
                                     break;
                                 case 'Color':
                                     $this->styles[$styleID]['font']['color']['rgb'] = substr($styleAttributeValue, 1);
+
                                     break;
                                 case 'Bold':
                                     $this->styles[$styleID]['font']['bold'] = true;
+
                                     break;
                                 case 'Italic':
                                     $this->styles[$styleID]['font']['italic'] = true;
+
                                     break;
                                 case 'Underline':
                                     if (self::identifyFixedStyleValue($underlineStyles, $styleAttributeValue)) {
                                         $this->styles[$styleID]['font']['underline'] = $styleAttributeValue;
                                     }
+
                                     break;
                             }
                         }
+
                         break;
                     case 'Interior':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
                             switch ($styleAttributeKey) {
                                 case 'Color':
                                     $this->styles[$styleID]['fill']['color']['rgb'] = substr($styleAttributeValue, 1);
+
                                     break;
                                 case 'Pattern':
                                     $this->styles[$styleID]['fill']['fillType'] = strtolower($styleAttributeValue);
+
                                     break;
                             }
                         }
+
                         break;
                     case 'NumberFormat':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
@@ -510,16 +545,19 @@ class Xml extends BaseReader implements IReader
                             switch ($styleAttributeValue) {
                                 case 'Short Date':
                                     $styleAttributeValue = 'dd/mm/yyyy';
+
                                     break;
                             }
                             if ($styleAttributeValue > '') {
                                 $this->styles[$styleID]['numberFormat']['formatCode'] = $styleAttributeValue;
                             }
                         }
+
                         break;
                     case 'Protection':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
                         }
+
                         break;
                 }
             }
@@ -583,6 +621,7 @@ class Xml extends BaseReader implements IReader
                         if ($this->getReadFilter() !== null) {
                             if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
                                 ++$columnID;
+
                                 continue;
                             }
                         }
@@ -634,6 +673,7 @@ class Xml extends BaseReader implements IReader
                                     case 'String':
                                         $cellValue = self::convertStringEncoding($cellValue, $this->charSet);
                                         $type = Cell\DataType::TYPE_STRING;
+
                                         break;
                                     case 'Number':
                                         $type = Cell\DataType::TYPE_NUMERIC;
@@ -641,17 +681,21 @@ class Xml extends BaseReader implements IReader
                                         if (floor($cellValue) == $cellValue) {
                                             $cellValue = (int) $cellValue;
                                         }
+
                                         break;
                                     case 'Boolean':
                                         $type = Cell\DataType::TYPE_BOOL;
                                         $cellValue = ($cellValue != 0);
+
                                         break;
                                     case 'DateTime':
                                         $type = Cell\DataType::TYPE_NUMERIC;
                                         $cellValue = Date::PHPToExcel(strtotime($cellValue));
+
                                         break;
                                     case 'Error':
                                         $type = Cell\DataType::TYPE_ERROR;
+
                                         break;
                                 }
                             }

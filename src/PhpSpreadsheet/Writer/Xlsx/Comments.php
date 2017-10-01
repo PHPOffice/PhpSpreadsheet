@@ -126,8 +126,8 @@ class Comments extends WriterPart
         $objWriter->startElement('o:shapelayout');
         $objWriter->writeAttribute('v:ext', 'edit');
 
-            // o:idmap
-            $objWriter->startElement('o:idmap');
+        // o:idmap
+        $objWriter->startElement('o:idmap');
         $objWriter->writeAttribute('v:ext', 'edit');
         $objWriter->writeAttribute('data', '1');
         $objWriter->endElement();
@@ -141,13 +141,13 @@ class Comments extends WriterPart
         $objWriter->writeAttribute('o:spt', '202');
         $objWriter->writeAttribute('path', 'm,l,21600r21600,l21600,xe');
 
-            // v:stroke
-            $objWriter->startElement('v:stroke');
+        // v:stroke
+        $objWriter->startElement('v:stroke');
         $objWriter->writeAttribute('joinstyle', 'miter');
         $objWriter->endElement();
 
-            // v:path
-            $objWriter->startElement('v:path');
+        // v:path
+        $objWriter->startElement('v:path');
         $objWriter->writeAttribute('gradientshapeok', 't');
         $objWriter->writeAttribute('o:connecttype', 'rect');
         $objWriter->endElement();
@@ -177,7 +177,7 @@ class Comments extends WriterPart
     private function writeVMLComment(XMLWriter $objWriter, $pCellReference, Comment $pComment)
     {
         // Metadata
-        list($column, $row) = Cell::coordinateFromString($pCellReference);
+        [$column, $row] = Cell::coordinateFromString($pCellReference);
         $column = Cell::columnIndexFromString($column);
         $id = 1024 + $column + $row;
         $id = substr($id, 0, 4);
@@ -190,52 +190,52 @@ class Comments extends WriterPart
         $objWriter->writeAttribute('fillcolor', '#' . $pComment->getFillColor()->getRGB());
         $objWriter->writeAttribute('o:insetmode', 'auto');
 
-            // v:fill
-            $objWriter->startElement('v:fill');
+        // v:fill
+        $objWriter->startElement('v:fill');
         $objWriter->writeAttribute('color2', '#' . $pComment->getFillColor()->getRGB());
         $objWriter->endElement();
 
-            // v:shadow
-            $objWriter->startElement('v:shadow');
+        // v:shadow
+        $objWriter->startElement('v:shadow');
         $objWriter->writeAttribute('on', 't');
         $objWriter->writeAttribute('color', 'black');
         $objWriter->writeAttribute('obscured', 't');
         $objWriter->endElement();
 
-            // v:path
-            $objWriter->startElement('v:path');
+        // v:path
+        $objWriter->startElement('v:path');
         $objWriter->writeAttribute('o:connecttype', 'none');
         $objWriter->endElement();
 
-            // v:textbox
-            $objWriter->startElement('v:textbox');
+        // v:textbox
+        $objWriter->startElement('v:textbox');
         $objWriter->writeAttribute('style', 'mso-direction-alt:auto');
 
-                // div
-                $objWriter->startElement('div');
+        // div
+        $objWriter->startElement('div');
         $objWriter->writeAttribute('style', 'text-align:left');
         $objWriter->endElement();
 
         $objWriter->endElement();
 
-            // x:ClientData
-            $objWriter->startElement('x:ClientData');
+        // x:ClientData
+        $objWriter->startElement('x:ClientData');
         $objWriter->writeAttribute('ObjectType', 'Note');
 
-                // x:MoveWithCells
-                $objWriter->writeElement('x:MoveWithCells', '');
+        // x:MoveWithCells
+        $objWriter->writeElement('x:MoveWithCells', '');
 
-                // x:SizeWithCells
-                $objWriter->writeElement('x:SizeWithCells', '');
+        // x:SizeWithCells
+        $objWriter->writeElement('x:SizeWithCells', '');
 
-                // x:AutoFill
-                $objWriter->writeElement('x:AutoFill', 'False');
+        // x:AutoFill
+        $objWriter->writeElement('x:AutoFill', 'False');
 
-                // x:Row
-                $objWriter->writeElement('x:Row', ($row - 1));
+        // x:Row
+        $objWriter->writeElement('x:Row', ($row - 1));
 
-                // x:Column
-                $objWriter->writeElement('x:Column', ($column - 1));
+        // x:Column
+        $objWriter->writeElement('x:Column', ($column - 1));
 
         $objWriter->endElement();
 

@@ -233,6 +233,7 @@ class LUDecomposition
 
             return $d;
         }
+
         throw new CalculationException(Matrix::MATRIX_DIMENSION_EXCEPTION);
     }
 
@@ -277,8 +278,10 @@ class LUDecomposition
 
                 return $X;
             }
+
             throw new CalculationException(self::MATRIX_SINGULAR_EXCEPTION);
         }
+
         throw new CalculationException(self::MATRIX_SQUARE_EXCEPTION);
     }
 }

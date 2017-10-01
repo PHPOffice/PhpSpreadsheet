@@ -8,12 +8,12 @@ use PhpOffice\PhpSpreadsheet\Collection\CellsFactory;
 
 class Worksheet implements IComparable
 {
-    /* Break types */
+    // Break types
     const BREAK_NONE = 0;
     const BREAK_ROW = 1;
     const BREAK_COLUMN = 2;
 
-    /* Sheet state */
+    // Sheet state
     const SHEETSTATE_VISIBLE = 'visible';
     const SHEETSTATE_HIDDEN = 'hidden';
     const SHEETSTATE_VERYHIDDEN = 'veryHidden';
@@ -65,14 +65,14 @@ class Worksheet implements IComparable
      *
      * @var Worksheet\ColumnDimension
      */
-    private $defaultColumnDimension = null;
+    private $defaultColumnDimension;
 
     /**
      * Collection of drawings.
      *
      * @var Worksheet\BaseDrawing[]
      */
-    private $drawingCollection = null;
+    private $drawingCollection;
 
     /**
      * Collection of Chart objects.
@@ -303,7 +303,7 @@ class Worksheet implements IComparable
      *
      * @var string
      */
-    private $codeName = null;
+    private $codeName;
 
     /**
      * Create a new worksheet.
@@ -524,14 +524,14 @@ class Worksheet implements IComparable
      * Add chart.
      *
      * @param Chart $pChart
-     * @param int|null $iChartIndex Index where chart should go (0,1,..., or null for last)
+     * @param null|int $iChartIndex Index where chart should go (0,1,..., or null for last)
      *
      * @return Chart
      */
     public function addChart(Chart $pChart, $iChartIndex = null)
     {
         $pChart->setWorksheet($this);
-        if (is_null($iChartIndex)) {
+        if ($iChartIndex === null) {
             $this->chartCollection[] = $pChart;
         } else {
             // Insert the chart at the requested index
@@ -558,7 +558,7 @@ class Worksheet implements IComparable
      *
      * @throws Exception
      *
-     * @return false|Chart
+     * @return Chart|false
      */
     public function getChartByIndex($index)
     {
@@ -566,7 +566,7 @@ class Worksheet implements IComparable
         if ($chartCount == 0) {
             return false;
         }
-        if (is_null($index)) {
+        if ($index === null) {
             $index = --$chartCount;
         }
         if (!isset($this->chartCollection[$index])) {
@@ -600,7 +600,7 @@ class Worksheet implements IComparable
      *
      * @throws Exception
      *
-     * @return false|Chart
+     * @return Chart|false
      */
     public function getChartByName($chartName)
     {
@@ -1287,6 +1287,7 @@ class Worksheet implements IComparable
                     if (!$namedRange->getLocalOnly()) {
                         return $namedRange->getWorksheet()->cellExists($pCoordinate);
                     }
+
                     throw new Exception('Named range ' . $namedRange->getName() . ' is not accessible from within sheet ' . $this->getTitle());
                 }
             } else {
@@ -1302,11 +1303,11 @@ class Worksheet implements IComparable
         } elseif (strpos($pCoordinate, '$') !== false) {
             throw new Exception('Cell coordinate must not be absolute.');
         }
-            // Coordinates
-            $aCoordinates = Cell::coordinateFromString($pCoordinate);
+        // Coordinates
+        $aCoordinates = Cell::coordinateFromString($pCoordinate);
 
-            // Cell exists?
-            return $this->cellCollection->has($pCoordinate);
+        // Cell exists?
+        return $this->cellCollection->has($pCoordinate);
     }
 
     /**
@@ -1504,7 +1505,7 @@ class Worksheet implements IComparable
      */
     public function getStyleByColumnAndRow($pColumn, $pRow, $pColumn2 = null, $pRow2 = null)
     {
-        if (!is_null($pColumn2) && !is_null($pRow2)) {
+        if ($pColumn2 !== null && $pRow2 !== null) {
             $cellRange = Cell::stringFromColumnIndex($pColumn) . $pRow . ':' . Cell::stringFromColumnIndex($pColumn2) . $pRow2;
 
             return $this->getStyle($cellRange);
@@ -1542,7 +1543,7 @@ class Worksheet implements IComparable
         }
 
         // Calculate range outer borders
-        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($pRange . ':' . $pRange);
+        [$rangeStart, $rangeEnd] = Cell::rangeBoundaries($pRange . ':' . $pRange);
 
         // Make sure we can loop upwards on rows and columns
         if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -1582,7 +1583,7 @@ class Worksheet implements IComparable
         }
 
         // Calculate range outer borders
-        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($pRange . ':' . $pRange);
+        [$rangeStart, $rangeEnd] = Cell::rangeBoundaries($pRange . ':' . $pRange);
 
         // Make sure we can loop upwards on rows and columns
         if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -1898,7 +1899,7 @@ class Worksheet implements IComparable
     /**
      * Set AutoFilter.
      *
-     * @param Worksheet\AutoFilter|string $pValue
+     * @param string|Worksheet\AutoFilter $pValue
      *            A simple string containing a Cell range like 'A1:E10' is permitted for backward compatibility
      *
      * @throws Exception
@@ -2071,6 +2072,7 @@ class Worksheet implements IComparable
         if ($pBefore >= 0) {
             return $this->insertNewColumnBefore(Cell::stringFromColumnIndex($pBefore), $pNumCols);
         }
+
         throw new Exception('Columns can only be inserted before at least column A (0).');
     }
 
@@ -2144,6 +2146,7 @@ class Worksheet implements IComparable
         if ($pColumn >= 0) {
             return $this->removeColumn(Cell::stringFromColumnIndex($pColumn), $pNumCols);
         }
+
         throw new Exception('Columns to be deleted should at least start from column 0');
     }
 
@@ -2398,7 +2401,7 @@ class Worksheet implements IComparable
         $pCoordinate = preg_replace('/^([0-9]+):([0-9]+)$/', 'A${1}:XFD${2}', $pCoordinate);
 
         if (strpos($pCoordinate, ':') !== false || strpos($pCoordinate, ',') !== false) {
-            list($first) = Cell::splitRange($pCoordinate);
+            [$first] = Cell::splitRange($pCoordinate);
             $this->activeCell = $first[0];
         } else {
             $this->activeCell = $pCoordinate;
@@ -2467,7 +2470,7 @@ class Worksheet implements IComparable
         }
 
         // start coordinate
-        list($startColumn, $startRow) = Cell::coordinateFromString($startCell);
+        [$startColumn, $startRow] = Cell::coordinateFromString($startCell);
 
         // Loop through $source
         foreach ($source as $rowData) {
@@ -2509,7 +2512,7 @@ class Worksheet implements IComparable
         // Returnvalue
         $returnValue = [];
         //    Identify the range that we need to extract from the worksheet
-        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($pRange);
+        [$rangeStart, $rangeEnd] = Cell::rangeBoundaries($pRange);
         $minCol = Cell::stringFromColumnIndex($rangeStart[0] - 1);
         $minRow = $rangeStart[1];
         $maxCol = Cell::stringFromColumnIndex($rangeEnd[0] - 1);
@@ -2737,7 +2740,7 @@ class Worksheet implements IComparable
      * Set hyperlink.
      *
      * @param string $pCellCoordinate Cell coordinate to insert hyperlink, eg: 'A1'
-     * @param Cell\Hyperlink|null $pHyperlink
+     * @param null|Cell\Hyperlink $pHyperlink
      *
      * @return Worksheet
      */
@@ -2796,7 +2799,7 @@ class Worksheet implements IComparable
      * Set data validation.
      *
      * @param string $pCellCoordinate Cell coordinate to insert data validation, eg: 'A1'
-     * @param Cell\DataValidation|null $pDataValidation
+     * @param null|Cell\DataValidation $pDataValidation
      *
      * @return Worksheet
      */
@@ -3029,6 +3032,6 @@ class Worksheet implements IComparable
      */
     public function hasCodeName()
     {
-        return !(is_null($this->codeName));
+        return !($this->codeName === null);
     }
 }

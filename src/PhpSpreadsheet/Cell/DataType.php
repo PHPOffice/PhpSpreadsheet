@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class DataType
 {
-    /* Data types */
+    // Data types
     const TYPE_STRING2 = 'str';
     const TYPE_STRING = 's';
     const TYPE_FORMULA = 'f';

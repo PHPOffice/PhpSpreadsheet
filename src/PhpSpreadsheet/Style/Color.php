@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\IComparable;
 
 class Color extends Supervisor implements IComparable
 {
-    /* Colors */
+    // Colors
     const COLOR_BLACK = 'FF000000';
     const COLOR_WHITE = 'FFFFFFFF';
     const COLOR_RED = 'FFFF0000';
@@ -31,7 +31,7 @@ class Color extends Supervisor implements IComparable
      *
      * @var string
      */
-    protected $argb = null;
+    protected $argb;
 
     /**
      * Parent property name.
@@ -337,7 +337,7 @@ class Color extends Supervisor implements IComparable
         $pIndex = (int) $pIndex;
 
         // Indexed colors
-        if (is_null(self::$indexedColors)) {
+        if (self::$indexedColors === null) {
             self::$indexedColors = [
                 1 => 'FF000000', //  System Colour #1 - Black
                 2 => 'FFFFFFFF', //  System Colour #2 - White

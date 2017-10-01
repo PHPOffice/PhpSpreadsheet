@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 abstract class Category
 {
-    /* Function categories */
+    // Function categories
     const CATEGORY_CUBE = 'Cube';
     const CATEGORY_DATABASE = 'Database';
     const CATEGORY_DATE_AND_TIME = 'Date and Time';

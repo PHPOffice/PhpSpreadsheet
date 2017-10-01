@@ -122,7 +122,7 @@ class ReferenceHelper
      */
     private static function cellAddressInDeleteRange($cellAddress, $beforeRow, $pNumRows, $beforeColumnIndex, $pNumCols)
     {
-        list($cellColumn, $cellRow) = Cell::coordinateFromString($cellAddress);
+        [$cellColumn, $cellRow] = Cell::coordinateFromString($cellAddress);
         $cellColumnIndex = Cell::columnIndexFromString($cellColumn);
         //    Is cell within the range of rows/columns if we're deleting
         if ($pNumRows < 0 &&
@@ -309,7 +309,7 @@ class ReferenceHelper
         if (!empty($aColumnDimensions)) {
             foreach ($aColumnDimensions as $objColumnDimension) {
                 $newReference = $this->updateCellReference($objColumnDimension->getColumnIndex() . '1', $pBefore, $pNumCols, $pNumRows);
-                list($newReference) = Cell::coordinateFromString($newReference);
+                [$newReference] = Cell::coordinateFromString($newReference);
                 if ($objColumnDimension->getColumnIndex() != $newReference) {
                     $objColumnDimension->setColumnIndex($newReference);
                 }
@@ -334,7 +334,7 @@ class ReferenceHelper
         if (!empty($aRowDimensions)) {
             foreach ($aRowDimensions as $objRowDimension) {
                 $newReference = $this->updateCellReference('A' . $objRowDimension->getRowIndex(), $pBefore, $pNumCols, $pNumRows);
-                list(, $newReference) = Cell::coordinateFromString($newReference);
+                [, $newReference] = Cell::coordinateFromString($newReference);
                 if ($objRowDimension->getRowIndex() != $newReference) {
                     $objRowDimension->setRowIndex($newReference);
                 }
@@ -370,7 +370,7 @@ class ReferenceHelper
         // Get coordinate of $pBefore
         $beforeColumn = 'A';
         $beforeRow = 1;
-        list($beforeColumn, $beforeRow) = Cell::coordinateFromString($pBefore);
+        [$beforeColumn, $beforeRow] = Cell::coordinateFromString($pBefore);
         $beforeColumnIndex = Cell::columnIndexFromString($beforeColumn);
 
         // Clear cells if we are removing columns or rows
@@ -529,7 +529,7 @@ class ReferenceHelper
                 if (count($autoFilterColumns) > 0) {
                     sscanf($pBefore, '%[A-Z]%d', $column, $row);
                     $columnIndex = Cell::columnIndexFromString($column);
-                    list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($autoFilterRange);
+                    [$rangeStart, $rangeEnd] = Cell::rangeBoundaries($autoFilterRange);
                     if ($columnIndex <= $rangeEnd[0]) {
                         if ($pNumCols < 0) {
                             //    If we're actually deleting any columns that fall within the autofilter range,
@@ -696,7 +696,7 @@ class ReferenceHelper
                             if (($match[2] == '') || (trim($match[2], "'") == $sheetName)) {
                                 $toString = ($match[2] > '') ? $match[2] . '!' : '';
                                 $toString .= $modified3 . ':' . $modified4;
-                                list($column, $row) = Cell::coordinateFromString($match[3]);
+                                [$column, $row] = Cell::coordinateFromString($match[3]);
                                 //    Max worksheet size is 1,048,576 rows by 16,384 columns in Excel 2007, so our adjustments need to be at least one digit more
                                 $column = Cell::columnIndexFromString(trim($column, '$')) + 100000;
                                 $row = trim($row, '$') + 10000000;
@@ -722,7 +722,7 @@ class ReferenceHelper
                             if (($match[2] == '') || (trim($match[2], "'") == $sheetName)) {
                                 $toString = ($match[2] > '') ? $match[2] . '!' : '';
                                 $toString .= $modified3;
-                                list($column, $row) = Cell::coordinateFromString($match[3]);
+                                [$column, $row] = Cell::coordinateFromString($match[3]);
                                 //    Max worksheet size is 1,048,576 rows by 16,384 columns in Excel 2007, so our adjustments need to be at least one digit more
                                 $column = Cell::columnIndexFromString(trim($column, '$')) + 100000;
                                 $row = trim($row, '$') + 10000000;
@@ -770,7 +770,7 @@ class ReferenceHelper
         // Is it in another worksheet? Will not have to update anything.
         if (strpos($pCellRange, '!') !== false) {
             return $pCellRange;
-        // Is it a range or a single cell?
+            // Is it a range or a single cell?
         } elseif (strpos($pCellRange, ':') === false && strpos($pCellRange, ',') === false) {
             // Single cell
             return $this->updateSingleCellReference($pCellRange, $pBefore, $pNumCols, $pNumRows);
@@ -778,8 +778,8 @@ class ReferenceHelper
             // Range
             return $this->updateCellRange($pCellRange, $pBefore, $pNumCols, $pNumRows);
         }
-            // Return original
-            return $pCellRange;
+        // Return original
+        return $pCellRange;
     }
 
     /**
@@ -846,6 +846,7 @@ class ReferenceHelper
             // Recreate range string
             return Cell::buildRange($range);
         }
+
         throw new Exception('Only cell ranges may be passed to this method.');
     }
 
@@ -865,10 +866,10 @@ class ReferenceHelper
     {
         if (strpos($pCellReference, ':') === false && strpos($pCellReference, ',') === false) {
             // Get coordinate of $pBefore
-            list($beforeColumn, $beforeRow) = Cell::coordinateFromString($pBefore);
+            [$beforeColumn, $beforeRow] = Cell::coordinateFromString($pBefore);
 
             // Get coordinate of $pCellReference
-            list($newColumn, $newRow) = Cell::coordinateFromString($pCellReference);
+            [$newColumn, $newRow] = Cell::coordinateFromString($pCellReference);
 
             // Verify which parts should be updated
             $updateColumn = (($newColumn[0] != '$') && ($beforeColumn[0] != '$') && (Cell::columnIndexFromString($newColumn) >= Cell::columnIndexFromString($beforeColumn)));
@@ -887,6 +888,7 @@ class ReferenceHelper
             // Return new reference
             return $newColumn . $newRow;
         }
+
         throw new Exception('Only single cell references may be passed to this method.');
     }
 

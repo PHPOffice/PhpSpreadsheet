@@ -18,6 +18,7 @@ class Exception extends \Exception
         $e = new self($string, $code);
         $e->line = $line;
         $e->file = $file;
+
         throw $e;
     }
 }

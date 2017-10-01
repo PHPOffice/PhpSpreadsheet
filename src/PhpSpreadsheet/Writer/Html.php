@@ -208,7 +208,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @param string $hAlign Horizontal alignment
      *
-     * @return string|false
+     * @return false|string
      */
     private function mapHAlign($hAlign)
     {
@@ -343,7 +343,7 @@ class Html extends BaseWriter implements IWriter
     public function generateHTMLHeader($pIncludeStyles = false)
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
@@ -403,7 +403,7 @@ class Html extends BaseWriter implements IWriter
     public function generateSheetData()
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
@@ -414,7 +414,7 @@ class Html extends BaseWriter implements IWriter
 
         // Fetch sheets
         $sheets = [];
-        if (is_null($this->sheetIndex)) {
+        if ($this->sheetIndex === null) {
             $sheets = $this->spreadsheet->getAllSheets();
         } else {
             $sheets[] = $this->spreadsheet->getSheet($this->sheetIndex);
@@ -501,7 +501,7 @@ class Html extends BaseWriter implements IWriter
 
             // Writing PDF?
             if ($this->isPdf) {
-                if (is_null($this->sheetIndex) && $sheetId + 1 < $this->spreadsheet->getSheetCount()) {
+                if ($this->sheetIndex === null && $sheetId + 1 < $this->spreadsheet->getSheetCount()) {
                     $html .= '<div style="page-break-before:always" />';
                 }
             }
@@ -523,13 +523,13 @@ class Html extends BaseWriter implements IWriter
     public function generateNavigation()
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Fetch sheets
         $sheets = [];
-        if (is_null($this->sheetIndex)) {
+        if ($this->sheetIndex === null) {
             $sheets = $this->spreadsheet->getAllSheets();
         } else {
             $sheets[] = $this->spreadsheet->getSheet($this->sheetIndex);
@@ -758,7 +758,7 @@ class Html extends BaseWriter implements IWriter
     public function generateStyles($generateSurroundingHTML = true)
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
@@ -802,12 +802,12 @@ class Html extends BaseWriter implements IWriter
     public function buildCSS($generateSurroundingHTML = true)
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Cached?
-        if (!is_null($this->cssStyles)) {
+        if ($this->cssStyles !== null) {
             return $this->cssStyles;
         }
 
@@ -863,7 +863,7 @@ class Html extends BaseWriter implements IWriter
 
         // Fetch sheets
         $sheets = [];
-        if (is_null($this->sheetIndex)) {
+        if ($this->sheetIndex === null) {
             $sheets = $this->spreadsheet->getAllSheets();
         } else {
             $sheets[] = $this->spreadsheet->getSheet($this->sheetIndex);
@@ -939,7 +939,7 @@ class Html extends BaseWriter implements IWriter
         }
 
         // Cache
-        if (is_null($this->cssStyles)) {
+        if ($this->cssStyles === null) {
             $this->cssStyles = $css;
         }
 
@@ -1232,7 +1232,7 @@ class Html extends BaseWriter implements IWriter
             // Cell
             if ($cell instanceof Cell) {
                 $cellData = '';
-                if (is_null($cell->getParent())) {
+                if ($cell->getParent() === null) {
                     $cell->attach($pSheet);
                 }
                 // Value
@@ -1548,14 +1548,14 @@ class Html extends BaseWriter implements IWriter
 
             // loop through all Excel merged cells
             foreach ($sheet->getMergeCells() as $cells) {
-                list($cells) = Cell::splitRange($cells);
+                [$cells] = Cell::splitRange($cells);
                 $first = $cells[0];
                 $last = $cells[1];
 
-                list($fc, $fr) = Cell::coordinateFromString($first);
+                [$fc, $fr] = Cell::coordinateFromString($first);
                 $fc = Cell::columnIndexFromString($fc) - 1;
 
-                list($lc, $lr) = Cell::coordinateFromString($last);
+                [$lc, $lr] = Cell::coordinateFromString($last);
                 $lc = Cell::columnIndexFromString($lc) - 1;
 
                 // loop through the individual cells in the individual merge

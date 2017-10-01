@@ -115,7 +115,7 @@ class Calculation
      *
      * @var string
      */
-    public $formulaError = null;
+    public $formulaError;
 
     /**
      * An array of the nested cell references accessed by the calculation engine, used for the debug log.
@@ -2217,7 +2217,7 @@ class Calculation
         //    Identify our locale and language
         $language = $locale = strtolower($locale);
         if (strpos($locale, '_') !== false) {
-            list($language) = explode('_', $locale);
+            [$language] = explode('_', $locale);
         }
 
         if (count(self::$validLocaleLanguages) == 1) {
@@ -2243,9 +2243,9 @@ class Calculation
                 //    Retrieve the list of locale or language specific function names
                 $localeFunctions = file($functionNamesFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                 foreach ($localeFunctions as $localeFunction) {
-                    list($localeFunction) = explode('##', $localeFunction); //    Strip out comments
+                    [$localeFunction] = explode('##', $localeFunction); //    Strip out comments
                     if (strpos($localeFunction, '=') !== false) {
-                        list($fName, $lfName) = explode('=', $localeFunction);
+                        [$fName, $lfName] = explode('=', $localeFunction);
                         $fName = trim($fName);
                         $lfName = trim($lfName);
                         if ((isset(self::$phpSpreadsheetFunctions[$fName])) && ($lfName != '') && ($fName != $lfName)) {
@@ -2268,13 +2268,14 @@ class Calculation
                 if (file_exists($configFile)) {
                     $localeSettings = file($configFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                     foreach ($localeSettings as $localeSetting) {
-                        list($localeSetting) = explode('##', $localeSetting); //    Strip out comments
+                        [$localeSetting] = explode('##', $localeSetting); //    Strip out comments
                         if (strpos($localeSetting, '=') !== false) {
-                            list($settingName, $settingValue) = explode('=', $localeSetting);
+                            [$settingName, $settingValue] = explode('=', $localeSetting);
                             $settingName = strtoupper(trim($settingName));
                             switch ($settingName) {
                                 case 'ARGUMENTSEPARATOR':
                                     self::$localeArgumentSeparator = trim($settingValue);
+
                                     break;
                             }
                         }
@@ -2308,9 +2309,11 @@ class Calculation
             switch ($chr) {
                 case '{':
                     $inBraces = true;
+
                     break;
                 case '}':
                     $inBraces = false;
+
                     break;
                 case $fromSeparator:
                     if (!$inBraces) {
@@ -2449,7 +2452,7 @@ class Calculation
             }
             //    Return strings wrapped in quotes
             return '"' . $value . '"';
-        //    Convert numeric errors to NaN error
+            //    Convert numeric errors to NaN error
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
             return Calculation\Functions::NAN();
         }
@@ -2470,7 +2473,7 @@ class Calculation
             if ((isset($value[0])) && ($value[0] == '"') && (substr($value, -1) == '"')) {
                 return substr($value, 1, -1);
             }
-        //    Convert numeric errors to NAN error
+            //    Convert numeric errors to NAN error
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
             return Calculation\Functions::NAN();
         }
@@ -2529,6 +2532,7 @@ class Calculation
             'sheet' => $pCell->getWorksheet()->getTitle(),
             'cell' => $pCell->getCoordinate(),
         ];
+
         try {
             $result = self::unwrapResult($this->_calculateFormulaValue($pCell->getValue(), $pCell->getCoordinate(), $pCell));
             $cellAddress = array_pop($this->cellStack);
@@ -2536,6 +2540,7 @@ class Calculation
         } catch (Exception $e) {
             $cellAddress = array_pop($this->cellStack);
             $this->spreadsheet->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']);
+
             throw new Calculation\Exception($e->getMessage());
         }
 
@@ -2761,17 +2766,17 @@ class Calculation
         //    Examine each of the two operands, and turn them into an array if they aren't one already
         //    Note that this function should only be called if one or both of the operand is already an array
         if (!is_array($operand1)) {
-            list($matrixRows, $matrixColumns) = self::getMatrixDimensions($operand2);
+            [$matrixRows, $matrixColumns] = self::getMatrixDimensions($operand2);
             $operand1 = array_fill(0, $matrixRows, array_fill(0, $matrixColumns, $operand1));
             $resize = 0;
         } elseif (!is_array($operand2)) {
-            list($matrixRows, $matrixColumns) = self::getMatrixDimensions($operand1);
+            [$matrixRows, $matrixColumns] = self::getMatrixDimensions($operand1);
             $operand2 = array_fill(0, $matrixRows, array_fill(0, $matrixColumns, $operand2));
             $resize = 0;
         }
 
-        list($matrix1Rows, $matrix1Columns) = self::getMatrixDimensions($operand1);
-        list($matrix2Rows, $matrix2Columns) = self::getMatrixDimensions($operand2);
+        [$matrix1Rows, $matrix1Columns] = self::getMatrixDimensions($operand1);
+        [$matrix2Rows, $matrix2Columns] = self::getMatrixDimensions($operand2);
         if (($matrix1Rows == $matrix2Columns) && ($matrix2Rows == $matrix1Columns)) {
             $resize = 1;
         }
@@ -2944,7 +2949,7 @@ class Calculation
      *
      * @param mixed $value First matrix operand
      *
-     * @return string|null
+     * @return null|string
      */
     private function showTypeDetails($value)
     {
@@ -3073,7 +3078,7 @@ class Calculation
 
     /**
      * @param string $formula
-     * @param Cell|null $pCell
+     * @param null|Cell $pCell
      *
      * @return bool
      */
@@ -3181,18 +3186,21 @@ class Calculation
                                     $argumentCountError = true;
                                     $expectedArgumentCountString = $argMatch[1] . ' or more ';
                                 }
+
                                 break;
                             case '-':
                                 if (($argumentCount < $argMatch[1]) || ($argumentCount > $argMatch[3])) {
                                     $argumentCountError = true;
                                     $expectedArgumentCountString = 'between ' . $argMatch[1] . ' and ' . $argMatch[3];
                                 }
+
                                 break;
                             case ',':
                                 if (($argumentCount != $argMatch[1]) && ($argumentCount != $argMatch[3])) {
                                     $argumentCountError = true;
                                     $expectedArgumentCountString = 'either ' . $argMatch[1] . ' or ' . $argMatch[3];
                                 }
+
                                 break;
                         }
                     }
@@ -3278,14 +3286,14 @@ class Calculation
                         $startRowColRef = $output[count($output) - 1]['value'];
                         $rangeWS1 = '';
                         if (strpos('!', $startRowColRef) !== false) {
-                            list($rangeWS1, $startRowColRef) = explode('!', $startRowColRef);
+                            [$rangeWS1, $startRowColRef] = explode('!', $startRowColRef);
                         }
                         if ($rangeWS1 != '') {
                             $rangeWS1 .= '!';
                         }
                         $rangeWS2 = $rangeWS1;
                         if (strpos('!', $val) !== false) {
-                            list($rangeWS2, $val) = explode('!', $val);
+                            [$rangeWS2, $val] = explode('!', $val);
                         }
                         if ($rangeWS2 != '') {
                             $rangeWS2 .= '!';
@@ -3350,6 +3358,7 @@ class Calculation
                 if ((isset(self::$operators[$opCharacter])) && ($opCharacter != '%')) {
                     return $this->raiseFormulaError("Formula Error: Operator '$opCharacter' has no operands");
                 }
+
                 break;
             }
             //    Ignore white space
@@ -3406,8 +3415,8 @@ class Calculation
 
     /**
      * @param mixed $tokens
-     * @param string|null $cellID
-     * @param Cell|null $pCell
+     * @param null|string $cellID
+     * @param null|Cell $pCell
      *
      * @return bool
      */
@@ -3456,17 +3465,18 @@ class Calculation
                     case '=':            //    Equality
                     case '<>':            //    Inequality
                         $this->executeBinaryComparisonOperation($cellID, $operand1, $operand2, $token, $stack);
+
                         break;
                     //    Binary Operators
                     case ':':            //    Range
                         $sheet1 = $sheet2 = '';
                         if (strpos($operand1Data['reference'], '!') !== false) {
-                            list($sheet1, $operand1Data['reference']) = explode('!', $operand1Data['reference']);
+                            [$sheet1, $operand1Data['reference']] = explode('!', $operand1Data['reference']);
                         } else {
                             $sheet1 = ($pCellParent !== null) ? $pCellWorksheet->getTitle() : '';
                         }
                         if (strpos($operand2Data['reference'], '!') !== false) {
-                            list($sheet2, $operand2Data['reference']) = explode('!', $operand2Data['reference']);
+                            [$sheet2, $operand2Data['reference']] = explode('!', $operand2Data['reference']);
                         } else {
                             $sheet2 = $sheet1;
                         }
@@ -3507,21 +3517,27 @@ class Calculation
                         } else {
                             $stack->push('Error', Calculation\Functions::REF(), null);
                         }
+
                         break;
                     case '+':            //    Addition
                         $this->executeNumericBinaryOperation($cellID, $operand1, $operand2, $token, 'plusEquals', $stack);
+
                         break;
                     case '-':            //    Subtraction
                         $this->executeNumericBinaryOperation($cellID, $operand1, $operand2, $token, 'minusEquals', $stack);
+
                         break;
                     case '*':            //    Multiplication
                         $this->executeNumericBinaryOperation($cellID, $operand1, $operand2, $token, 'arrayTimesEquals', $stack);
+
                         break;
                     case '/':            //    Division
                         $this->executeNumericBinaryOperation($cellID, $operand1, $operand2, $token, 'arrayRightDivide', $stack);
+
                         break;
                     case '^':            //    Exponential
                         $this->executeNumericBinaryOperation($cellID, $operand1, $operand2, $token, 'power', $stack);
+
                         break;
                     case '&':            //    Concatenation
                         //    If either of the operands is a matrix, we need to treat them both as matrices
@@ -3536,6 +3552,7 @@ class Calculation
                         if ((is_array($operand1)) || (is_array($operand2))) {
                             //    Ensure that both operands are arrays/matrices
                             self::checkMatrixOperands($operand1, $operand2, 2);
+
                             try {
                                 //    Convert operand 1 from a PHP array to a matrix
                                 $matrix = new Shared\JAMA\Matrix($operand1);
@@ -3551,6 +3568,7 @@ class Calculation
                         }
                         $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
                         $stack->push('Value', $result);
+
                         break;
                     case '|':            //    Intersect
                         $rowIntersect = array_intersect_key($operand1, $operand2);
@@ -3565,10 +3583,11 @@ class Calculation
                         $cellRef = Cell::stringFromColumnIndex(min($oCol)) . min($oRow) . ':' . Cell::stringFromColumnIndex(max($oCol)) . max($oRow);
                         $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
                         $stack->push('Value', $cellIntersect, $cellRef);
+
                         break;
                 }
 
-            // if the token is a unary operator, pop one value off the stack, do the operation, and push it back on
+                // if the token is a unary operator, pop one value off the stack, do the operation, and push it back on
             } elseif (($token === '~') || ($token === '%')) {
                 if (($arg = $stack->pop()) === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
@@ -3583,6 +3602,7 @@ class Calculation
                 }
                 if (is_array($arg)) {
                     self::checkMatrixOperands($arg, $multiplier, 2);
+
                     try {
                         $matrix1 = new Shared\JAMA\Matrix($arg);
                         $matrixResult = $matrix1->arrayTimesEquals($multiplier);
@@ -3667,7 +3687,7 @@ class Calculation
                 }
                 $stack->push('Value', $cellValue, $cellRef);
 
-            // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
+                // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $token, $matches)) {
                 $functionName = $matches[1];
                 $argCount = $stack->pop();
@@ -3752,7 +3772,7 @@ class Calculation
                     $this->debugLog->writeDebugLog('Evaluating Constant ', $excelConstant, ' as ', $this->showTypeDetails(self::$excelConstants[$excelConstant]));
                 } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == '"') || ($token[0] == '#')) {
                     $stack->push('Value', $token);
-                // if the token is a named range, push the named range name onto the stack
+                    // if the token is a named range, push the named range name onto the stack
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $token, $matches)) {
                     $namedRange = $matches[6];
                     $this->debugLog->writeDebugLog('Evaluating Named Range ', $namedRange);
@@ -3819,7 +3839,7 @@ class Calculation
     }
 
     /**
-     * @param string|null $cellID
+     * @param null|string $cellID
      * @param mixed $operand1
      * @param mixed $operand2
      * @param string $operation
@@ -3895,6 +3915,7 @@ class Calculation
                 } else {
                     $result = ($operand1 > $operand2);
                 }
+
                 break;
             //    Less than
             case '<':
@@ -3903,6 +3924,7 @@ class Calculation
                 } else {
                     $result = ($operand1 < $operand2);
                 }
+
                 break;
             //    Equality
             case '=':
@@ -3911,6 +3933,7 @@ class Calculation
                 } else {
                     $result = strcmp($operand1, $operand2) == 0;
                 }
+
                 break;
             //    Greater than or equal
             case '>=':
@@ -3921,6 +3944,7 @@ class Calculation
                 } else {
                     $result = strcmp($operand1, $operand2) >= 0;
                 }
+
                 break;
             //    Less than or equal
             case '<=':
@@ -3931,6 +3955,7 @@ class Calculation
                 } else {
                     $result = strcmp($operand1, $operand2) <= 0;
                 }
+
                 break;
             //    Inequality
             case '<>':
@@ -3939,6 +3964,7 @@ class Calculation
                 } else {
                     $result = strcmp($operand1, $operand2) != 0;
                 }
+
                 break;
         }
 
@@ -3968,7 +3994,7 @@ class Calculation
 
     /**
      * @param string $matrixFunction
-     * @param string|null $cellID
+     * @param null|string $cellID
      * @param mixed $operand1
      * @param mixed $operand2
      * @param mixed $operation
@@ -4011,14 +4037,17 @@ class Calculation
                     //    Addition
                     case '+':
                         $result = $operand1 + $operand2;
+
                         break;
                     //    Subtraction
                     case '-':
                         $result = $operand1 - $operand2;
+
                         break;
                     //    Multiplication
                     case '*':
                         $result = $operand1 * $operand2;
+
                         break;
                     //    Division
                     case '/':
@@ -4035,6 +4064,7 @@ class Calculation
                     //    Power
                     case '^':
                         $result = pow($operand1, $operand2);
+
                         break;
                 }
             }
@@ -4078,7 +4108,7 @@ class Calculation
         if ($pSheet !== null) {
             $pSheetName = $pSheet->getTitle();
             if (strpos($pRange, '!') !== false) {
-                list($pSheetName, $pRange) = Worksheet::extractSheetTitle($pRange, true);
+                [$pSheetName, $pRange] = Worksheet::extractSheetTitle($pRange, true);
                 $pSheet = $this->spreadsheet->getSheetByName($pSheetName);
             }
 
@@ -4129,7 +4159,7 @@ class Calculation
         if ($pSheet !== null) {
             $pSheetName = $pSheet->getTitle();
             if (strpos($pRange, '!') !== false) {
-                list($pSheetName, $pRange) = Worksheet::extractSheetTitle($pRange, true);
+                [$pSheetName, $pRange] = Worksheet::extractSheetTitle($pRange, true);
                 $pSheet = $this->spreadsheet->getSheetByName($pSheetName);
             }
 
@@ -4153,7 +4183,7 @@ class Calculation
             $aReferences = Cell::extractAllCellReferencesInRange($pRange);
             if (!isset($aReferences[1])) {
                 //    Single cell (or single column or row) in range
-                list($currentCol, $currentRow) = Cell::coordinateFromString($aReferences[0]);
+                [$currentCol, $currentRow] = Cell::coordinateFromString($aReferences[0]);
                 if ($pSheet->cellExists($aReferences[0])) {
                     $returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
                 } else {
@@ -4163,7 +4193,7 @@ class Calculation
                 // Extract cell data for all cells in the range
                 foreach ($aReferences as $reference) {
                     // Extract range
-                    list($currentCol, $currentRow) = Cell::coordinateFromString($reference);
+                    [$currentCol, $currentRow] = Cell::coordinateFromString($reference);
                     if ($pSheet->cellExists($reference)) {
                         $returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
                     } else {
