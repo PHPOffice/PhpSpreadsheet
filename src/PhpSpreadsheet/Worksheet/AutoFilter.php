@@ -93,7 +93,7 @@ class AutoFilter
         // Uppercase coordinate
         $cellAddress = explode('!', strtoupper($pRange));
         if (count($cellAddress) > 1) {
-            [$worksheet, $pRange] = $cellAddress;
+            list($worksheet, $pRange) = $cellAddress;
         }
 
         if (strpos($pRange, ':') !== false) {
@@ -109,7 +109,7 @@ class AutoFilter
             $this->columns = [];
         } else {
             //    Discard any column rules that are no longer valid within this range
-            [$rangeStart, $rangeEnd] = Cell::rangeBoundaries($this->range);
+            list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($this->range);
             foreach ($this->columns as $key => $value) {
                 $colIndex = Cell::columnIndexFromString($key);
                 if (($rangeStart[0] > $colIndex) || ($rangeEnd[0] < $colIndex)) {
@@ -149,7 +149,7 @@ class AutoFilter
         }
 
         $columnIndex = Cell::columnIndexFromString($column);
-        [$rangeStart, $rangeEnd] = Cell::rangeBoundaries($this->range);
+        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($this->range);
         if (($rangeStart[0] > $columnIndex) || ($rangeEnd[0] < $columnIndex)) {
             throw new PhpSpreadsheetException('Column is outside of current autofilter range.');
         }
@@ -202,7 +202,7 @@ class AutoFilter
      */
     public function getColumnByOffset($pColumnOffset)
     {
-        [$rangeStart, $rangeEnd] = Cell::rangeBoundaries($this->range);
+        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($this->range);
         $pColumn = Cell::stringFromColumnIndex($rangeStart[0] + $pColumnOffset - 1);
 
         return $this->getColumn($pColumn);
@@ -624,7 +624,7 @@ class AutoFilter
      */
     public function showHideRows()
     {
-        [$rangeStart, $rangeEnd] = Cell::rangeBoundaries($this->range);
+        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($this->range);
 
         //    The heading row should always be visible
         $this->workSheet->getRowDimension($rangeStart[1])->setVisible(true);

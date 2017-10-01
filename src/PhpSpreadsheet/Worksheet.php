@@ -1543,7 +1543,7 @@ class Worksheet implements IComparable
         }
 
         // Calculate range outer borders
-        [$rangeStart, $rangeEnd] = Cell::rangeBoundaries($pRange . ':' . $pRange);
+        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($pRange . ':' . $pRange);
 
         // Make sure we can loop upwards on rows and columns
         if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -1583,7 +1583,7 @@ class Worksheet implements IComparable
         }
 
         // Calculate range outer borders
-        [$rangeStart, $rangeEnd] = Cell::rangeBoundaries($pRange . ':' . $pRange);
+        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($pRange . ':' . $pRange);
 
         // Make sure we can loop upwards on rows and columns
         if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -2401,7 +2401,7 @@ class Worksheet implements IComparable
         $pCoordinate = preg_replace('/^([0-9]+):([0-9]+)$/', 'A${1}:XFD${2}', $pCoordinate);
 
         if (strpos($pCoordinate, ':') !== false || strpos($pCoordinate, ',') !== false) {
-            [$first] = Cell::splitRange($pCoordinate);
+            list($first) = Cell::splitRange($pCoordinate);
             $this->activeCell = $first[0];
         } else {
             $this->activeCell = $pCoordinate;
@@ -2470,7 +2470,7 @@ class Worksheet implements IComparable
         }
 
         // start coordinate
-        [$startColumn, $startRow] = Cell::coordinateFromString($startCell);
+        list($startColumn, $startRow) = Cell::coordinateFromString($startCell);
 
         // Loop through $source
         foreach ($source as $rowData) {
@@ -2512,7 +2512,7 @@ class Worksheet implements IComparable
         // Returnvalue
         $returnValue = [];
         //    Identify the range that we need to extract from the worksheet
-        [$rangeStart, $rangeEnd] = Cell::rangeBoundaries($pRange);
+        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($pRange);
         $minCol = Cell::stringFromColumnIndex($rangeStart[0] - 1);
         $minRow = $rangeStart[1];
         $maxCol = Cell::stringFromColumnIndex($rangeEnd[0] - 1);

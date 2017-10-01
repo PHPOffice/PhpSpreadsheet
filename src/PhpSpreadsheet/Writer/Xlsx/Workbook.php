@@ -352,7 +352,7 @@ class Workbook extends WriterPart
             $range = $range[0];
             //    Strip any worksheet ref so we can make the cell ref absolute
             if (strpos($range[0], '!') !== false) {
-                [$ws, $range[0]] = explode('!', $range[0]);
+                list($ws, $range[0]) = explode('!', $range[0]);
             }
 
             $range[0] = Cell::absoluteCoordinate($range[0]);

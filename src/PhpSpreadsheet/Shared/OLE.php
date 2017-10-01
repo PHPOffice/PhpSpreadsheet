@@ -245,7 +245,7 @@ class OLE
      */
     private static function _readInt1($fh)
     {
-        [, $tmp] = unpack('c', fread($fh, 1));
+        list(, $tmp) = unpack('c', fread($fh, 1));
 
         return $tmp;
     }
@@ -259,7 +259,7 @@ class OLE
      */
     private static function _readInt2($fh)
     {
-        [, $tmp] = unpack('v', fread($fh, 2));
+        list(, $tmp) = unpack('v', fread($fh, 2));
 
         return $tmp;
     }
@@ -273,7 +273,7 @@ class OLE
      */
     private static function _readInt4($fh)
     {
-        [, $tmp] = unpack('V', fread($fh, 4));
+        list(, $tmp) = unpack('V', fread($fh, 4));
 
         return $tmp;
     }
@@ -546,8 +546,8 @@ class OLE
 
         // factor used for separating numbers into 4 bytes parts
         $factor = pow(2, 32);
-        [, $high_part] = unpack('V', substr($string, 4, 4));
-        [, $low_part] = unpack('V', substr($string, 0, 4));
+        list(, $high_part) = unpack('V', substr($string, 4, 4));
+        list(, $low_part) = unpack('V', substr($string, 0, 4));
 
         $big_date = ($high_part * $factor) + $low_part;
         // translate to seconds

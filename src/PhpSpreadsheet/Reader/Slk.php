@@ -385,7 +385,7 @@ class Slk extends BaseReader implements IReader
 
                             break;
                         case 'W':
-                            [$startCol, $endCol, $columnWidth] = explode(' ', substr($rowDatum, 1));
+                            list($startCol, $endCol, $columnWidth) = explode(' ', substr($rowDatum, 1));
 
                             break;
                         case 'S':

@@ -1110,7 +1110,7 @@ class MathTrig
         return array_filter(
             $args,
             function ($index) use ($cellReference) {
-                [, $row, $column] = explode('.', $index);
+                list(, $row, $column) = explode('.', $index);
 
                 return $cellReference->getWorksheet()->getRowDimension($row)->getVisible() &&
                     $cellReference->getWorksheet()->getColumnDimension($column)->getVisible();

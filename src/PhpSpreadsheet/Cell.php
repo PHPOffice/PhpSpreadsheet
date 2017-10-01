@@ -500,7 +500,7 @@ class Cell
     {
         if ($mergeRange = $this->getMergeRange()) {
             $mergeRange = self::splitRange($mergeRange);
-            [$startCell] = $mergeRange[0];
+            list($startCell) = $mergeRange[0];
             if ($this->getCoordinate() === $startCell) {
                 return true;
             }
@@ -558,7 +558,7 @@ class Cell
      */
     public function isInRange($pRange)
     {
-        [$rangeStart, $rangeEnd] = self::rangeBoundaries($pRange);
+        list($rangeStart, $rangeEnd) = self::rangeBoundaries($pRange);
 
         // Translate properties
         $myColumn = self::columnIndexFromString($this->getColumn());
@@ -608,7 +608,7 @@ class Cell
             $worksheet = '';
             $cellAddress = explode('!', $pCoordinateString);
             if (count($cellAddress) > 1) {
-                [$worksheet, $pCoordinateString] = $cellAddress;
+                list($worksheet, $pCoordinateString) = $cellAddress;
             }
             if ($worksheet > '') {
                 $worksheet .= '!';
@@ -643,14 +643,14 @@ class Cell
             $worksheet = '';
             $cellAddress = explode('!', $pCoordinateString);
             if (count($cellAddress) > 1) {
-                [$worksheet, $pCoordinateString] = $cellAddress;
+                list($worksheet, $pCoordinateString) = $cellAddress;
             }
             if ($worksheet > '') {
                 $worksheet .= '!';
             }
 
             // Create absolute coordinate
-            [$column, $row] = self::coordinateFromString($pCoordinateString);
+            list($column, $row) = self::coordinateFromString($pCoordinateString);
             $column = ltrim($column, '$');
             $row = ltrim($row, '$');
 
@@ -734,7 +734,7 @@ class Cell
         if (strpos($pRange, ':') === false) {
             $rangeA = $rangeB = $pRange;
         } else {
-            [$rangeA, $rangeB] = explode(':', $pRange);
+            list($rangeA, $rangeB) = explode(':', $pRange);
         }
 
         // Calculate range outer borders
@@ -758,7 +758,7 @@ class Cell
     public static function rangeDimension($pRange)
     {
         // Calculate range outer borders
-        [$rangeStart, $rangeEnd] = self::rangeBoundaries($pRange);
+        list($rangeStart, $rangeEnd) = self::rangeBoundaries($pRange);
 
         return [($rangeEnd[0] - $rangeStart[0] + 1), ($rangeEnd[1] - $rangeStart[1] + 1)];
     }
@@ -785,7 +785,7 @@ class Cell
         if (strpos($pRange, ':') === false) {
             $rangeA = $rangeB = $pRange;
         } else {
-            [$rangeA, $rangeB] = explode(':', $pRange);
+            list($rangeA, $rangeB) = explode(':', $pRange);
         }
 
         return [self::coordinateFromString($rangeA), self::coordinateFromString($rangeB)];
@@ -897,7 +897,7 @@ class Cell
                 }
 
                 // Range...
-                [$rangeStart, $rangeEnd] = $range;
+                list($rangeStart, $rangeEnd) = $range;
                 sscanf($rangeStart, '%[A-Z]%d', $startCol, $startRow);
                 sscanf($rangeEnd, '%[A-Z]%d', $endCol, $endRow);
                 ++$endCol;
@@ -952,7 +952,7 @@ class Cell
         $hashedValues = [];
 
         foreach ($pCoordCollection as $coord => $value) {
-            [$column, $row] = self::coordinateFromString($coord);
+            list($column, $row) = self::coordinateFromString($coord);
             $row = (int) (ltrim($row, '$'));
             $hashCode = $column . '-' . (is_object($value) ? $value->getHashCode() : $value);
 

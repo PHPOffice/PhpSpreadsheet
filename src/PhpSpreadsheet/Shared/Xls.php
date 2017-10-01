@@ -211,7 +211,7 @@ class Xls
      */
     public static function oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height)
     {
-        [$column, $row] = Cell::coordinateFromString($coordinates);
+        list($column, $row) = Cell::coordinateFromString($coordinates);
         $col_start = Cell::columnIndexFromString($column) - 1;
         $row_start = $row - 1;
 

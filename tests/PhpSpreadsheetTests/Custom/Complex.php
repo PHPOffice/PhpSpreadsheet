@@ -71,10 +71,10 @@ class Complex
         if ($imaginaryPart === null) {
             if (is_array($realPart)) {
                 //    We have an array of (potentially) real and imaginary parts, and any suffix
-                [$realPart, $imaginaryPart, $suffix] = array_values($realPart) + [0.0, 0.0, 'i'];
+                list($realPart, $imaginaryPart, $suffix) = array_values($realPart) + [0.0, 0.0, 'i'];
             } elseif ((is_string($realPart)) || (is_numeric($realPart))) {
                 //    We've been given a string to parse to extract the real and imaginary parts, and any suffix
-                [$realPart, $imaginaryPart, $suffix] = self::_parseComplex($realPart);
+                list($realPart, $imaginaryPart, $suffix) = self::_parseComplex($realPart);
             }
         }
 

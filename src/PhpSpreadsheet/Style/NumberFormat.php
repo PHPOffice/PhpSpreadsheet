@@ -724,7 +724,7 @@ class NumberFormat extends Supervisor implements IComparable
                     //  Currency or Accounting
                     $currencyFormat = $m[0];
                     $currencyCode = $m[1];
-                    [$currencyCode] = explode('-', $currencyCode);
+                    list($currencyCode) = explode('-', $currencyCode);
                     if ($currencyCode == '') {
                         $currencyCode = StringHelper::getCurrencyCode();
                     }
@@ -738,7 +738,7 @@ class NumberFormat extends Supervisor implements IComparable
 
         // Additional formatting provided by callback function
         if ($callBack !== null) {
-            [$writerInstance, $function] = $callBack;
+            list($writerInstance, $function) = $callBack;
             $value = $writerInstance->$function($value, $formatColor);
         }
 

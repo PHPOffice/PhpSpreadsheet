@@ -324,7 +324,7 @@ class DataSeriesValues
             } else {
                 $cellRange = explode('!', $this->dataSource);
                 if (count($cellRange) > 1) {
-                    [, $cellRange] = $cellRange;
+                    list(, $cellRange) = $cellRange;
                 }
 
                 $dimensions = Cell::rangeDimension(str_replace('$', '', $cellRange));

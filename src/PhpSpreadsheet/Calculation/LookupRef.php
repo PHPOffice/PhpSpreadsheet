@@ -103,10 +103,10 @@ class LookupRef
             }
         } else {
             if (strpos($cellAddress, '!') !== false) {
-                [$sheet, $cellAddress] = explode('!', $cellAddress);
+                list($sheet, $cellAddress) = explode('!', $cellAddress);
             }
             if (strpos($cellAddress, ':') !== false) {
-                [$startAddress, $endAddress] = explode(':', $cellAddress);
+                list($startAddress, $endAddress) = explode(':', $cellAddress);
                 $startAddress = preg_replace('/[^a-z]/i', '', $startAddress);
                 $endAddress = preg_replace('/[^a-z]/i', '', $endAddress);
                 $returnValue = [];
@@ -145,7 +145,7 @@ class LookupRef
 
         reset($cellAddress);
         $isMatrix = (is_numeric(key($cellAddress)));
-        [$columns, $rows] = Calculation::_getMatrixDimensions($cellAddress);
+        list($columns, $rows) = Calculation::_getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
             return $rows;
@@ -184,10 +184,10 @@ class LookupRef
             }
         } else {
             if (strpos($cellAddress, '!') !== false) {
-                [$sheet, $cellAddress] = explode('!', $cellAddress);
+                list($sheet, $cellAddress) = explode('!', $cellAddress);
             }
             if (strpos($cellAddress, ':') !== false) {
-                [$startAddress, $endAddress] = explode(':', $cellAddress);
+                list($startAddress, $endAddress) = explode(':', $cellAddress);
                 $startAddress = preg_replace('/[^0-9]/', '', $startAddress);
                 $endAddress = preg_replace('/[^0-9]/', '', $endAddress);
                 $returnValue = [];
@@ -197,7 +197,7 @@ class LookupRef
 
                 return $returnValue;
             }
-            [$cellAddress] = explode(':', $cellAddress);
+            list($cellAddress) = explode(':', $cellAddress);
 
             return (int) preg_replace('/[^0-9]/', '', $cellAddress);
         }
@@ -226,7 +226,7 @@ class LookupRef
 
         reset($cellAddress);
         $isMatrix = (is_numeric(key($cellAddress)));
-        [$columns, $rows] = Calculation::_getMatrixDimensions($cellAddress);
+        list($columns, $rows) = Calculation::_getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
             return $columns;
@@ -296,7 +296,7 @@ class LookupRef
         $cellAddress1 = $cellAddress;
         $cellAddress2 = null;
         if (strpos($cellAddress, ':') !== false) {
-            [$cellAddress1, $cellAddress2] = explode(':', $cellAddress);
+            list($cellAddress1, $cellAddress2) = explode(':', $cellAddress);
         }
 
         if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
@@ -306,7 +306,7 @@ class LookupRef
             }
 
             if (strpos($cellAddress, '!') !== false) {
-                [$sheetName, $cellAddress] = explode('!', $cellAddress);
+                list($sheetName, $cellAddress) = explode('!', $cellAddress);
                 $sheetName = trim($sheetName, "'");
                 $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
             } else {
@@ -317,7 +317,7 @@ class LookupRef
         }
 
         if (strpos($cellAddress, '!') !== false) {
-            [$sheetName, $cellAddress] = explode('!', $cellAddress);
+            list($sheetName, $cellAddress) = explode('!', $cellAddress);
             $sheetName = trim($sheetName, "'");
             $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
         } else {
@@ -375,16 +375,16 @@ class LookupRef
 
         $sheetName = null;
         if (strpos($cellAddress, '!')) {
-            [$sheetName, $cellAddress] = explode('!', $cellAddress);
+            list($sheetName, $cellAddress) = explode('!', $cellAddress);
             $sheetName = trim($sheetName, "'");
         }
         if (strpos($cellAddress, ':')) {
-            [$startCell, $endCell] = explode(':', $cellAddress);
+            list($startCell, $endCell) = explode(':', $cellAddress);
         } else {
             $startCell = $endCell = $cellAddress;
         }
-        [$startCellColumn, $startCellRow] = Cell::coordinateFromString($startCell);
-        [$endCellColumn, $endCellRow] = Cell::coordinateFromString($endCell);
+        list($startCellColumn, $startCellRow) = Cell::coordinateFromString($startCell);
+        list($endCellColumn, $endCellRow) = Cell::coordinateFromString($endCell);
 
         $startCellRow += $rows;
         $startCellColumn = Cell::columnIndexFromString($startCellColumn) - 1;

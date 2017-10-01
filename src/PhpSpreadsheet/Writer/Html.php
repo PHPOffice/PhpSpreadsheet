@@ -1548,14 +1548,14 @@ class Html extends BaseWriter implements IWriter
 
             // loop through all Excel merged cells
             foreach ($sheet->getMergeCells() as $cells) {
-                [$cells] = Cell::splitRange($cells);
+                list($cells) = Cell::splitRange($cells);
                 $first = $cells[0];
                 $last = $cells[1];
 
-                [$fc, $fr] = Cell::coordinateFromString($first);
+                list($fc, $fr) = Cell::coordinateFromString($first);
                 $fc = Cell::columnIndexFromString($fc) - 1;
 
-                [$lc, $lr] = Cell::coordinateFromString($last);
+                list($lc, $lr) = Cell::coordinateFromString($last);
                 $lc = Cell::columnIndexFromString($lc) - 1;
 
                 // loop through the individual cells in the individual merge

@@ -253,7 +253,7 @@ class Worksheet extends WriterPart
             // Calculate freeze coordinates
             $xSplit = $ySplit = 0;
 
-            [$xSplit, $ySplit] = Cell::coordinateFromString($topLeftCell);
+            list($xSplit, $ySplit) = Cell::coordinateFromString($topLeftCell);
             $xSplit = Cell::columnIndexFromString($xSplit);
 
             // pane
@@ -761,7 +761,7 @@ class Worksheet extends WriterPart
             $range = $range[0];
             //    Strip any worksheet ref
             if (strpos($range[0], '!') !== false) {
-                [$ws, $range[0]] = explode('!', $range[0]);
+                list($ws, $range[0]) = explode('!', $range[0]);
             }
             $range = implode(':', $range);
 

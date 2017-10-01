@@ -199,7 +199,7 @@ class Style extends Style\Supervisor implements IComparable
                 $rangeA = $pRange;
                 $rangeB = $pRange;
             } else {
-                [$rangeA, $rangeB] = explode(':', $pRange);
+                list($rangeA, $rangeB) = explode(':', $pRange);
             }
 
             // Calculate range outer borders

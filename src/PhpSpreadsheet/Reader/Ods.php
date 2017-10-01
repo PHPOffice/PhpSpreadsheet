@@ -591,7 +591,7 @@ class Ods extends BaseReader implements IReader
 
                                             $dateObj = new DateTime($value, $GMT);
                                             $dateObj->setTimeZone($timezoneObj);
-                                            [$year, $month, $day, $hour, $minute, $second] = explode(
+                                            list($year, $month, $day, $hour, $minute, $second) = explode(
                                                 ' ',
                                                 $dateObj->format('Y m d H i s')
                                             );

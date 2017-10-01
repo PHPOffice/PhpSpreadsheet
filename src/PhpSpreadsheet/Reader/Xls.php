@@ -1085,8 +1085,8 @@ class Xls extends BaseReader implements IReader
                     }
 
                     // calculate the width and height of the shape
-                    [$startColumn, $startRow] = Cell::coordinateFromString($spContainer->getStartCoordinates());
-                    [$endColumn, $endRow] = Cell::coordinateFromString($spContainer->getEndCoordinates());
+                    list($startColumn, $startRow) = Cell::coordinateFromString($spContainer->getStartCoordinates());
+                    list($endColumn, $endRow) = Cell::coordinateFromString($spContainer->getEndCoordinates());
 
                     $startOffsetX = $spContainer->getStartOffsetX();
                     $startOffsetY = $spContainer->getStartOffsetY();
@@ -1171,7 +1171,7 @@ class Xls extends BaseReader implements IReader
             // treat SHAREDFMLA records
             if ($this->version == self::XLS_BIFF8) {
                 foreach ($this->sharedFormulaParts as $cell => $baseCell) {
-                    [$column, $row] = Cell::coordinateFromString($cell);
+                    list($column, $row) = Cell::coordinateFromString($cell);
                     if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($column, $row, $this->phpSheet->getTitle())) {
                         $formula = $this->getFormulaFromStructure($this->sharedFormulas[$baseCell], $cell);
                         $this->phpSheet->getCell($cell)->setValueExplicit('=' . $formula, Cell\DataType::TYPE_FORMULA);
@@ -1247,8 +1247,8 @@ class Xls extends BaseReader implements IReader
 
                                     $coordinateStrings = explode(':', $extractedRange);
                                     if (count($coordinateStrings) == 2) {
-                                        [$firstColumn, $firstRow] = Cell::coordinateFromString($coordinateStrings[0]);
-                                        [$lastColumn, $lastRow] = Cell::coordinateFromString($coordinateStrings[1]);
+                                        list($firstColumn, $firstRow) = Cell::coordinateFromString($coordinateStrings[0]);
+                                        list($lastColumn, $lastRow) = Cell::coordinateFromString($coordinateStrings[1]);
 
                                         if ($firstColumn == 'A' and $lastColumn == 'IV') {
                                             // then we have repeating rows
@@ -7201,7 +7201,7 @@ class Xls extends BaseReader implements IReader
      */
     private function readBIFF8CellAddressB($cellAddressStructure, $baseCell = 'A1')
     {
-        [$baseCol, $baseRow] = Cell::coordinateFromString($baseCell);
+        list($baseCol, $baseRow) = Cell::coordinateFromString($baseCell);
         $baseCol = Cell::columnIndexFromString($baseCol) - 1;
 
         // offset: 0; size: 2; index to row (0... 65535) (or offset (-32768... 32767))
@@ -7384,7 +7384,7 @@ class Xls extends BaseReader implements IReader
      */
     private function readBIFF8CellRangeAddressB($subData, $baseCell = 'A1')
     {
-        [$baseCol, $baseRow] = Cell::coordinateFromString($baseCell);
+        list($baseCol, $baseRow) = Cell::coordinateFromString($baseCell);
         $baseCol = Cell::columnIndexFromString($baseCol) - 1;
 
         // TODO: if cell range is just a single cell, should this funciton

@@ -276,7 +276,7 @@ class Gnumeric extends BaseReader implements IReader
 
                             break;
                         case 'user-defined':
-                            [, $attrName] = explode(':', $attributes['name']);
+                            list(, $attrName) = explode(':', $attributes['name']);
                             switch ($attrName) {
                                 case 'publisher':
                                     $docProps->setCompany(trim($propertyValue));
@@ -888,7 +888,7 @@ class Gnumeric extends BaseReader implements IReader
 
     private static function parseGnumericColour($gnmColour)
     {
-        [$gnmR, $gnmG, $gnmB] = explode(':', $gnmColour);
+        list($gnmR, $gnmG, $gnmB) = explode(':', $gnmColour);
         $gnmR = substr(str_pad($gnmR, 4, '0', STR_PAD_RIGHT), 0, 2);
         $gnmG = substr(str_pad($gnmG, 4, '0', STR_PAD_RIGHT), 0, 2);
         $gnmB = substr(str_pad($gnmB, 4, '0', STR_PAD_RIGHT), 0, 2);

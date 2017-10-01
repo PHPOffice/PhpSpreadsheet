@@ -47,7 +47,7 @@ return PhpCsFixer\Config::create()
             'is_null' => ['use_yoda_style' => false],
             'linebreak_after_opening_tag' => true,
             'line_ending' => true,
-            'list_syntax' => ['syntax' => 'short'],
+            'list_syntax' => ['syntax' => 'long'], // Stay compatiblew with PHP 5.6
             'lowercase_cast' => true,
             'lowercase_constants' => true,
             'lowercase_keywords' => true,

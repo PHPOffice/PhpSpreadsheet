@@ -98,7 +98,7 @@ class Root extends PPS
         $aList = [];
         PPS::_savePpsSetPnt($aList, [$this]);
         // calculate values for header
-        [$iSBDcnt, $iBBcnt, $iPPScnt] = $this->_calcSize($aList); //, $rhInfo);
+        list($iSBDcnt, $iBBcnt, $iPPScnt) = $this->_calcSize($aList); //, $rhInfo);
         // Save Header
         $this->_saveHeader($iSBDcnt, $iBBcnt, $iPPScnt);
 
@@ -129,7 +129,7 @@ class Root extends PPS
     public function _calcSize(&$raList)
     {
         // Calculate Basic Setting
-        [$iSBDcnt, $iBBcnt, $iPPScnt] = [0, 0, 0];
+        list($iSBDcnt, $iBBcnt, $iPPScnt) = [0, 0, 0];
         $iSmallLen = 0;
         $iSBcnt = 0;
         $iCount = count($raList);
