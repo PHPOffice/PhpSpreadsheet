@@ -5,7 +5,11 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RecursiveRegexIterator;
 use ReflectionClass;
+use RegexIterator;
 
 /**
  * Helper class to be used in sample code.
@@ -70,13 +74,29 @@ class Sample
     public function getSamples()
     {
         // Populate samples
+        $baseDir = realpath(__DIR__ . '/../../../samples');
+        $directory = new RecursiveDirectoryIterator($baseDir);
+        $iterator = new RecursiveIteratorIterator($directory);
+        $regex = new RegexIterator($iterator, '/^.+\.php$/', RecursiveRegexIterator::GET_MATCH);
+
         $files = [];
-        foreach (glob(realpath(__DIR__ . '/../../../samples') . '/*.php') as $file) {
+        foreach ($regex as $file) {
+            $file = str_replace($baseDir . '/', '', $file[0]);
             $info = pathinfo($file);
+            $category = str_replace('_', ' ', $info['dirname']);
             $name = str_replace('_', ' ', preg_replace('/(|\.php)/', '', $info['filename']));
-            if (preg_match('/^\d+/', $name)) {
-                $files[$name] = $file;
+            if (!in_array($category, ['.', 'boostrap', 'templates'])) {
+                if (!isset($files[$category])) {
+                    $files[$category] = [];
+                }
+                $files[$category][$name] = $file;
             }
+        }
+
+        // Sort everything
+        ksort($files);
+        foreach ($files as &$f) {
+            asort($f);
         }
 
         return $files;
@@ -151,7 +171,8 @@ class Sample
 
     public function log($message)
     {
-        echo date('H:i:s '), $message, EOL;
+        $eol = $this->isCli() ? PHP_EOL : '<br />';
+        echo date('H:i:s ') . $message . $eol;
     }
 
     /**

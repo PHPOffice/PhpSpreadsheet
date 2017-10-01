@@ -23,7 +23,7 @@ if (!$helper->isCli()) {
         </p>
     </div>
     <?php
-    echo '<h3>Requirement check:</h3>';
+    echo '<h3>Requirement check</h3>';
     echo '<ul>';
     foreach ($requirements as $label => $result) {
         $status = $result ? 'passed' : 'failed';

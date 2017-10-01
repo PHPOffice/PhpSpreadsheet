@@ -39,13 +39,16 @@ class SampleTest extends PHPUnit_Framework_TestCase
         }
 
         $helper = new Sample();
-        $samples = [];
-        foreach ($helper->getSamples() as $name => $sample) {
-            if (!in_array($name, $skipped)) {
-                $samples[$name] = [$sample];
+        $result = [];
+        foreach ($helper->getSamples() as $samples) {
+            foreach ($samples as $name => $sample) {
+                if (!in_array($name, $skipped) && preg_match('~21_Pdf_mPDF~', $sample)) {
+                    $file = '../samples/' . $sample;
+                    $result[] = [$file];
+                }
             }
         }
 
-        return $samples;
+        return $result;
     }
 }
