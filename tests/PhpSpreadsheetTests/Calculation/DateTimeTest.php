@@ -185,7 +185,6 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $argsOpenOffice = $args;
         $expectedResultOpenOffice = array_shift($argsOpenOffice);       // rewrite expected result for Excel
 
-
         $resultExcel = DateTime::DAYOFMONTH(...$argsExcel);
         self::assertEquals($expectedResultExcel, $resultExcel, null, 1E-8);
 
