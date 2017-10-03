@@ -626,7 +626,7 @@ class LookupRef
         $rowNum = Functions::flattenSingleValue($rowNum);
         $columnNum = Functions::flattenSingleValue($columnNum);
 
-		if (($rowNum < 0) || ($columnNum < 0)) {
+        if (($rowNum < 0) || ($columnNum < 0)) {
             return Functions::VALUE();
         }
 
