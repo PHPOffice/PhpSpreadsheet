@@ -178,8 +178,20 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
      */
     public function testDAY($expectedResult, ...$args)
     {
-        $result = DateTime::DAYOFMONTH(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        $argsExcel = $args;
+        array_shift($argsExcel);                                        // first item is expected result for OpenOffice
+        $expectedResultExcel = $expectedResult;
+
+        $argsOpenOffice = $args;
+        $expectedResultOpenOffice = array_shift($argsOpenOffice);       // rewrite expected result for Excel
+
+
+        $resultExcel = DateTime::DAYOFMONTH(...$argsExcel);
+        self::assertEquals($expectedResultExcel, $resultExcel, null, 1E-8);
+
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+        $resultOpenOffice = DateTime::DAYOFMONTH(...$argsOpenOffice);
+        self::assertEquals($expectedResultOpenOffice, $resultOpenOffice, null, 1E-8);
     }
 
     public function providerDAY()
