@@ -1137,10 +1137,14 @@ class DateTime
             $dateValue = 1;
         } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
             return Functions::VALUE();
-        } elseif ($dateValue == 0.0) {
-            return 0;
-        } elseif ($dateValue < 0.0) {
-            return Functions::NAN();
+        }
+
+        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
+            if ($dateValue < 0.0) {
+                return Functions::NAN();
+            } elseif ($dateValue < 1.0) {
+                return 0;
+            }
         }
 
         // Execute function
