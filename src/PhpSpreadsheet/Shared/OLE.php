@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
+// vim: set expandtab tabstop=4 shiftwidth=4:
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -301,12 +301,15 @@ class OLE
                 case self::OLE_PPS_TYPE_ROOT:
                     $pps = new OLE\PPS_Root(null, null, []);
                     $this->root = $pps;
+
                     break;
                 case self::OLE_PPS_TYPE_DIR:
                     $pps = new OLE\PPS(null, null, null, null, null, null, null, null, null, []);
+
                     break;
                 case self::OLE_PPS_TYPE_FILE:
                     $pps = new OLE\PPS\File($name);
+
                     break;
                 default:
                     continue;

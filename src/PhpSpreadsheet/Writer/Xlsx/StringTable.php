@@ -8,28 +8,6 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class StringTable extends WriterPart
 {
     /**
@@ -79,6 +57,7 @@ class StringTable extends WriterPart
 
             return $aStringTable;
         }
+
         throw new WriterException('Invalid Worksheet object passed.');
     }
 
@@ -222,7 +201,7 @@ class StringTable extends WriterPart
      * Write Rich Text.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param string|RichText $pRichText text string or Rich text
+     * @param RichText|string $pRichText text string or Rich text
      * @param string $prefix Optional Namespace prefix
      *
      * @throws WriterException
@@ -257,9 +236,11 @@ class StringTable extends WriterPart
             switch ($underlineType) {
                 case 'single':
                     $underlineType = 'sng';
+
                     break;
                 case 'double':
                     $underlineType = 'dbl';
+
                     break;
             }
             $objWriter->writeAttribute('u', $underlineType);

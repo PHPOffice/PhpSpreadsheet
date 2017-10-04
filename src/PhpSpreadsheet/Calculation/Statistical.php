@@ -5,28 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Statistical
 {
     const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
@@ -48,12 +26,12 @@ class Statistical
         $array1 = Functions::flattenArray($array1);
         $array2 = Functions::flattenArray($array2);
         foreach ($array1 as $key => $value) {
-            if ((is_bool($value)) || (is_string($value)) || (is_null($value))) {
+            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
                 unset($array1[$key], $array2[$key]);
             }
         }
         foreach ($array2 as $key => $value) {
-            if ((is_bool($value)) || (is_string($value)) || (is_null($value))) {
+            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
                 unset($array1[$key], $array2[$key]);
             }
         }
@@ -741,7 +719,7 @@ class Statistical
                 }
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = abs($arg - $aMean);
                     } else {
                         $returnValue += abs($arg - $aMean);
@@ -787,7 +765,7 @@ class Statistical
             }
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if (is_null($returnValue)) {
+                if ($returnValue === null) {
                     $returnValue = $arg;
                 } else {
                     $returnValue += $arg;
@@ -834,7 +812,7 @@ class Statistical
                     } elseif (is_string($arg)) {
                         $arg = 0;
                     }
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = $arg;
                     } else {
                         $returnValue += $arg;
@@ -885,7 +863,7 @@ class Statistical
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if ((is_null($returnValue)) || ($arg > $returnValue)) {
+                if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue += $arg;
                     ++$aCount;
                 }
@@ -1177,7 +1155,7 @@ class Statistical
      */
     public static function CORREL($yValues, $xValues = null)
     {
-        if ((is_null($xValues)) || (!is_array($yValues)) || (!is_array($xValues))) {
+        if (($xValues === null) || (!is_array($yValues)) || (!is_array($xValues))) {
             return Functions::VALUE();
         }
         if (!self::checkTrendArrays($yValues, $xValues)) {
@@ -1283,7 +1261,7 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a blank cell?
-            if ((is_null($arg)) || ((is_string($arg)) && ($arg == ''))) {
+            if (($arg === null) || ((is_string($arg)) && ($arg == ''))) {
                 ++$returnValue;
             }
         }
@@ -1513,7 +1491,7 @@ class Statistical
                     $arg = (int) $arg;
                 }
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = pow(($arg - $aMean), 2);
                     } else {
                         $returnValue += pow(($arg - $aMean), 2);
@@ -1523,7 +1501,7 @@ class Statistical
             }
 
             // Return
-            if (is_null($returnValue)) {
+            if ($returnValue === null) {
                 return Functions::NAN();
             }
 
@@ -1825,7 +1803,7 @@ class Statistical
         $yValues = Functions::flattenArray($yValues);
         $xValues = Functions::flattenArray($xValues);
         $newValues = Functions::flattenArray($newValues);
-        $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
 
         $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
         if (empty($newValues)) {
@@ -1872,7 +1850,7 @@ class Statistical
                 if ($arg <= 0) {
                     return Functions::NAN();
                 }
-                if (is_null($returnValue)) {
+                if ($returnValue === null) {
                     $returnValue = (1 / $arg);
                 } else {
                     $returnValue += (1 / $arg);
@@ -2064,9 +2042,9 @@ class Statistical
      */
     public static function LINEST($yValues, $xValues = null, $const = true, $stats = false)
     {
-        $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
-        $stats = (is_null($stats)) ? false : (bool) Functions::flattenSingleValue($stats);
-        if (is_null($xValues)) {
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
+        $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
+        if ($xValues === null) {
             $xValues = range(1, count(Functions::flattenArray($yValues)));
         }
 
@@ -2127,9 +2105,9 @@ class Statistical
      */
     public static function LOGEST($yValues, $xValues = null, $const = true, $stats = false)
     {
-        $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
-        $stats = (is_null($stats)) ? false : (bool) Functions::flattenSingleValue($stats);
-        if (is_null($xValues)) {
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
+        $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
+        if ($xValues === null) {
             $xValues = range(1, count(Functions::flattenArray($yValues)));
         }
 
@@ -2262,13 +2240,13 @@ class Statistical
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if ((is_null($returnValue)) || ($arg > $returnValue)) {
+                if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
             }
         }
 
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -2303,13 +2281,13 @@ class Statistical
                 } elseif (is_string($arg)) {
                     $arg = 0;
                 }
-                if ((is_null($returnValue)) || ($arg > $returnValue)) {
+                if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
             }
         }
 
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -2349,7 +2327,7 @@ class Statistical
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if ((is_null($returnValue)) || ($arg > $returnValue)) {
+                if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
             }
@@ -2425,13 +2403,13 @@ class Statistical
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if ((is_null($returnValue)) || ($arg < $returnValue)) {
+                if (($returnValue === null) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
             }
         }
 
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -2466,13 +2444,13 @@ class Statistical
                 } elseif (is_string($arg)) {
                     $arg = 0;
                 }
-                if ((is_null($returnValue)) || ($arg < $returnValue)) {
+                if (($returnValue === null) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
             }
         }
 
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -2512,7 +2490,7 @@ class Statistical
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if ((is_null($returnValue)) || ($arg < $returnValue)) {
+                if (($returnValue === null) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
             }
@@ -2534,6 +2512,7 @@ class Statistical
                 if ((string) $value['value'] == (string) $datum) {
                     ++$frequencyArray[$key]['frequency'];
                     $found = true;
+
                     break;
                 }
             }
@@ -2802,7 +2781,7 @@ class Statistical
     {
         $valueSet = Functions::flattenArray($valueSet);
         $value = Functions::flattenSingleValue($value);
-        $significance = (is_null($significance)) ? 3 : (int) Functions::flattenSingleValue($significance);
+        $significance = ($significance === null) ? 3 : (int) Functions::flattenSingleValue($significance);
 
         foreach ($valueSet as $key => $valueEntry) {
             if (!is_numeric($valueEntry)) {
@@ -2956,7 +2935,7 @@ class Statistical
     {
         $value = Functions::flattenSingleValue($value);
         $valueSet = Functions::flattenArray($valueSet);
-        $order = (is_null($order)) ? 0 : (int) Functions::flattenSingleValue($order);
+        $order = ($order === null) ? 0 : (int) Functions::flattenSingleValue($order);
 
         foreach ($valueSet as $key => $valueEntry) {
             if (!is_numeric($valueEntry)) {
@@ -3173,7 +3152,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGE($aArgs);
-        if (!is_null($aMean)) {
+        if ($aMean !== null) {
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
                 if ((is_bool($arg)) &&
@@ -3182,7 +3161,7 @@ class Statistical
                 }
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = pow(($arg - $aMean), 2);
                     } else {
                         $returnValue += pow(($arg - $aMean), 2);
@@ -3221,7 +3200,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGEA($aArgs);
-        if (!is_null($aMean)) {
+        if ($aMean !== null) {
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
                 if ((is_bool($arg)) &&
@@ -3234,7 +3213,7 @@ class Statistical
                         } elseif (is_string($arg)) {
                             $arg = 0;
                         }
-                        if (is_null($returnValue)) {
+                        if ($returnValue === null) {
                             $returnValue = pow(($arg - $aMean), 2);
                         } else {
                             $returnValue += pow(($arg - $aMean), 2);
@@ -3273,7 +3252,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGE($aArgs);
-        if (!is_null($aMean)) {
+        if ($aMean !== null) {
             $aCount = 0;
             foreach ($aArgs as $k => $arg) {
                 if ((is_bool($arg)) &&
@@ -3282,7 +3261,7 @@ class Statistical
                 }
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = pow(($arg - $aMean), 2);
                     } else {
                         $returnValue += pow(($arg - $aMean), 2);
@@ -3320,7 +3299,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGEA($aArgs);
-        if (!is_null($aMean)) {
+        if ($aMean !== null) {
             $aCount = 0;
             foreach ($aArgs as $k => $arg) {
                 if ((is_bool($arg)) &&
@@ -3333,7 +3312,7 @@ class Statistical
                         } elseif (is_string($arg)) {
                             $arg = 0;
                         }
-                        if (is_null($returnValue)) {
+                        if ($returnValue === null) {
                             $returnValue = pow(($arg - $aMean), 2);
                         } else {
                             $returnValue += pow(($arg - $aMean), 2);
@@ -3526,7 +3505,7 @@ class Statistical
         $yValues = Functions::flattenArray($yValues);
         $xValues = Functions::flattenArray($xValues);
         $newValues = Functions::flattenArray($newValues);
-        $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
         if (empty($newValues)) {
@@ -3837,7 +3816,7 @@ class Statistical
         $m0 = Functions::flattenSingleValue($m0);
         $sigma = Functions::flattenSingleValue($sigma);
 
-        if (is_null($sigma)) {
+        if ($sigma === null) {
             $sigma = self::STDEV($dataSet);
         }
         $n = count($dataSet);

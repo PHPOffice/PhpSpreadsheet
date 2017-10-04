@@ -4,28 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Functions
 {
     const PRECISION = 8.88E-016;
@@ -341,11 +319,11 @@ class Functions
      */
     public static function isBlank($value = null)
     {
-        if (!is_null($value)) {
+        if ($value !== null) {
             $value = self::flattenSingleValue($value);
         }
 
-        return is_null($value);
+        return $value === null;
     }
 
     /**
@@ -399,7 +377,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @return string|bool
+     * @return bool|string
      */
     public static function isEven($value = null)
     {
@@ -419,7 +397,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @return string|bool
+     * @return bool|string
      */
     public static function isOdd($value = null)
     {
@@ -527,6 +505,7 @@ class Functions
                 if ((strlen($value) > 0) && ($value[0] == '#')) {
                     return $value;
                 }
+
                 break;
         }
 

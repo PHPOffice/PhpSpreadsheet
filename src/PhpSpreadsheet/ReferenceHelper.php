@@ -2,28 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class ReferenceHelper
 {
     /**    Constants                */
@@ -792,7 +770,7 @@ class ReferenceHelper
         // Is it in another worksheet? Will not have to update anything.
         if (strpos($pCellRange, '!') !== false) {
             return $pCellRange;
-        // Is it a range or a single cell?
+            // Is it a range or a single cell?
         } elseif (strpos($pCellRange, ':') === false && strpos($pCellRange, ',') === false) {
             // Single cell
             return $this->updateSingleCellReference($pCellRange, $pBefore, $pNumCols, $pNumRows);
@@ -800,8 +778,8 @@ class ReferenceHelper
             // Range
             return $this->updateCellRange($pCellRange, $pBefore, $pNumCols, $pNumRows);
         }
-            // Return original
-            return $pCellRange;
+        // Return original
+        return $pCellRange;
     }
 
     /**
@@ -868,6 +846,7 @@ class ReferenceHelper
             // Recreate range string
             return Cell::buildRange($range);
         }
+
         throw new Exception('Only cell ranges may be passed to this method.');
     }
 
@@ -909,6 +888,7 @@ class ReferenceHelper
             // Return new reference
             return $newColumn . $newRow;
         }
+
         throw new Exception('Only single cell references may be passed to this method.');
     }
 

@@ -2,31 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
-/*
- * PhpSpreadsheet.
- *
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
@@ -136,7 +111,7 @@ class Content extends WriterPart
      */
     private function writeSheets(XMLWriter $objWriter)
     {
-        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /* @var $spreadsheet Spreadsheet */
+        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); // @var $spreadsheet Spreadsheet
 
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
@@ -219,6 +194,7 @@ class Content extends WriterPart
                     $objWriter->writeAttribute('office:value-type', 'boolean');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
+
                     break;
                 case DataType::TYPE_ERROR:
                     throw new Exception('Writing of error not implemented yet.');
@@ -240,6 +216,7 @@ class Content extends WriterPart
                     }
                     $objWriter->writeAttribute('office:value', $formulaValue);
                     $objWriter->writeElement('text:p', $formulaValue);
+
                     break;
                 case DataType::TYPE_INLINE:
                     throw new Exception('Writing of inline not implemented yet.');
@@ -248,10 +225,12 @@ class Content extends WriterPart
                     $objWriter->writeAttribute('office:value-type', 'float');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
+
                     break;
                 case DataType::TYPE_STRING:
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $objWriter->writeElement('text:p', $cell->getValue());
+
                     break;
             }
             Comment::write($objWriter, $cell);
@@ -304,9 +283,7 @@ class Content extends WriterPart
             $writer->writeAttribute('style:family', 'table-cell');
             $writer->writeAttribute('style:parent-style-name', 'Default');
 
-            /*
-             * style:text-properties
-             */
+            // style:text-properties
 
             // Font
             $writer->startElement('style:text-properties');
@@ -343,18 +320,18 @@ class Content extends WriterPart
                 switch ($font->getUnderline()) {
                     case Font::UNDERLINE_DOUBLE:
                         $writer->writeAttribute('style:text-underline-type', 'double');
+
                         break;
                     case Font::UNDERLINE_SINGLE:
                         $writer->writeAttribute('style:text-underline-type', 'single');
+
                         break;
                 }
             }
 
             $writer->endElement(); // Close style:text-properties
 
-            /*
-             * style:table-cell-properties
-             */
+            // style:table-cell-properties
 
             $writer->startElement('style:table-cell-properties');
             $writer->writeAttribute('style:rotation-align', 'none');
@@ -367,6 +344,7 @@ class Content extends WriterPart
                             '#%s',
                             strtolower($fill->getStartColor()->getRGB())
                         ));
+
                         break;
                     case Fill::FILL_GRADIENT_LINEAR:
                     case Fill::FILL_GRADIENT_PATH:
@@ -379,9 +357,7 @@ class Content extends WriterPart
 
             $writer->endElement(); // Close style:table-cell-properties
 
-            /*
-             * End
-             */
+            // End
 
             $writer->endElement(); // Close style:style
         }

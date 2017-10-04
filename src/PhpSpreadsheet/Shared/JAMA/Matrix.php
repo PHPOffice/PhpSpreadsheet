@@ -10,7 +10,6 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *    @author Lukasz Karapuda
  *    @author Bartek Matosiuk
  *    @version 1.8
- *    @license PHP v3.0
  *    @see http://math.nist.gov/javanumerics/jama/
  */
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
@@ -63,18 +62,21 @@ class Matrix
                     $this->m = count($args[0]);
                     $this->n = count($args[0][0]);
                     $this->A = $args[0];
+
                     break;
                 //Square matrix - n x n
                 case 'integer':
                     $this->m = $args[0];
                     $this->n = $args[0];
                     $this->A = array_fill(0, $this->m, array_fill(0, $this->n, 0));
+
                     break;
                 //Rectangular matrix - m x n
                 case 'integer,integer':
                     $this->m = $args[0];
                     $this->n = $args[1];
                     $this->A = array_fill(0, $this->m, array_fill(0, $this->n, 0));
+
                     break;
                 //Rectangular matrix - m x n initialized from packed array
                 case 'array,integer':
@@ -93,6 +95,7 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARRAY_LENGTH_EXCEPTION);
                     }
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -300,8 +303,10 @@ class Matrix
             if (($this->m == $B->getRowDimension()) && ($this->n == $B->getColumnDimension())) {
                 return true;
             }
+
             throw new CalculationException(self::MATRIX_DIMENSION_EXCEPTION);
         }
+
         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
     }
 
@@ -381,6 +386,7 @@ class Matrix
 
             return $this->getMatrix($i0, 0, $i0 + 1, $this->n);
         }
+
         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
     }
 
@@ -403,6 +409,7 @@ class Matrix
 
             return $this->getMatrix(0, $j0, $this->m, $j0 + 1);
         }
+
         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
     }
 
@@ -477,9 +484,11 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+
                     break;
                 case 'array':
                     $M = new self($args[0]);
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -494,6 +503,7 @@ class Matrix
 
             return $M;
         }
+
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
@@ -518,9 +528,11 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+
                     break;
                 case 'array':
                     $M = new self($args[0]);
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -549,6 +561,7 @@ class Matrix
 
             return $this;
         }
+
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
@@ -573,9 +586,11 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+
                     break;
                 case 'array':
                     $M = new self($args[0]);
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -590,6 +605,7 @@ class Matrix
 
             return $M;
         }
+
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
@@ -614,9 +630,11 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+
                     break;
                 case 'array':
                     $M = new self($args[0]);
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -645,6 +663,7 @@ class Matrix
 
             return $this;
         }
+
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
@@ -670,9 +689,11 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+
                     break;
                 case 'array':
                     $M = new self($args[0]);
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -687,6 +708,7 @@ class Matrix
 
             return $M;
         }
+
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
@@ -712,9 +734,11 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+
                     break;
                 case 'array':
                     $M = new self($args[0]);
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -743,6 +767,7 @@ class Matrix
 
             return $this;
         }
+
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
@@ -768,9 +793,11 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+
                     break;
                 case 'array':
                     $M = new self($args[0]);
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -804,6 +831,7 @@ class Matrix
 
             return $M;
         }
+
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
@@ -829,9 +857,11 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+
                     break;
                 case 'array':
                     $M = new self($args[0]);
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -846,6 +876,7 @@ class Matrix
 
             return $M;
         }
+
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
@@ -871,9 +902,11 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+
                     break;
                 case 'array':
                     $M = new self($args[0]);
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -888,6 +921,7 @@ class Matrix
 
             return $M;
         }
+
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
@@ -913,9 +947,11 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+
                     break;
                 case 'array':
                     $M = new self($args[0]);
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -930,6 +966,7 @@ class Matrix
 
             return $M;
         }
+
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
@@ -972,6 +1009,7 @@ class Matrix
 
                         return $C;
                     }
+
                     throw new CalculationException(self::MATRIX_DIMENSION_EXCEPTION);
                 case 'array':
                     $B = new self($args[0]);
@@ -989,6 +1027,7 @@ class Matrix
 
                         return $C;
                     }
+
                     throw new CalculationException(self::MATRIX_DIMENSION_EXCEPTION);
                 case 'integer':
                     $C = new self($this->A);
@@ -1046,9 +1085,11 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+
                     break;
                 case 'array':
                     $M = new self($args[0]);
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -1077,6 +1118,7 @@ class Matrix
 
             return $this;
         }
+
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
@@ -1101,9 +1143,11 @@ class Matrix
                     } else {
                         throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+
                     break;
                 case 'array':
                     $M = new self($args[0]);
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -1118,6 +1162,7 @@ class Matrix
 
             return $this;
         }
+
         throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 

@@ -6,28 +6,6 @@ use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class MathTrig
 {
     //
@@ -130,7 +108,7 @@ class MathTrig
         $number = Functions::flattenSingleValue($number);
         $significance = Functions::flattenSingleValue($significance);
 
-        if ((is_null($significance)) &&
+        if (($significance === null) &&
             (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)) {
             $significance = $number / abs($number);
         }
@@ -204,7 +182,7 @@ class MathTrig
     {
         $number = Functions::flattenSingleValue($number);
 
-        if (is_null($number)) {
+        if ($number === null) {
             return 0;
         } elseif (is_bool($number)) {
             $number = (int) $number;
@@ -315,7 +293,7 @@ class MathTrig
         $number = Functions::flattenSingleValue($number);
         $significance = Functions::flattenSingleValue($significance);
 
-        if ((is_null($significance)) &&
+        if (($significance === null) &&
             (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)) {
             $significance = $number / abs($number);
         }
@@ -431,7 +409,7 @@ class MathTrig
     {
         $number = Functions::flattenSingleValue($number);
 
-        if (is_null($number)) {
+        if ($number === null) {
             return 0;
         } elseif (is_bool($number)) {
             return (int) $number;
@@ -515,7 +493,7 @@ class MathTrig
     public static function logBase($number = null, $base = 10)
     {
         $number = Functions::flattenSingleValue($number);
-        $base = (is_null($base)) ? 10 : (float) Functions::flattenSingleValue($base);
+        $base = ($base === null) ? 10 : (float) Functions::flattenSingleValue($base);
 
         if ((!is_numeric($base)) || (!is_numeric($number))) {
             return Functions::VALUE();
@@ -800,7 +778,7 @@ class MathTrig
     {
         $number = Functions::flattenSingleValue($number);
 
-        if (is_null($number)) {
+        if ($number === null) {
             return 1;
         } elseif (is_bool($number)) {
             return 1;
@@ -872,7 +850,7 @@ class MathTrig
         foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if (is_null($returnValue)) {
+                if ($returnValue === null) {
                     $returnValue = $arg;
                 } else {
                     $returnValue *= $arg;
@@ -881,7 +859,7 @@ class MathTrig
         }
 
         // Return
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -912,7 +890,7 @@ class MathTrig
         foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if (is_null($returnValue)) {
+                if ($returnValue === null) {
                     $returnValue = ($arg == 0) ? 0 : $arg;
                 } else {
                     if (($returnValue == 0) || ($arg == 0)) {
@@ -951,7 +929,7 @@ class MathTrig
     public static function ROMAN($aValue, $style = 0)
     {
         $aValue = Functions::flattenSingleValue($aValue);
-        $style = (is_null($style)) ? 0 : (int) Functions::flattenSingleValue($style);
+        $style = ($style === null) ? 0 : (int) Functions::flattenSingleValue($style);
         if ((!is_numeric($aValue)) || ($aValue < 0) || ($aValue >= 4000)) {
             return Functions::VALUE();
         }

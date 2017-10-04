@@ -131,9 +131,7 @@ class OdsTest extends PHPUnit_Framework_TestCase
         self::assertEquals(DataType::TYPE_FORMULA, $firstSheet->getCell('C6')->getDataType()); // Formula
         self::assertEquals('=TRUE()', $firstSheet->getCell('C6')->getValue()); // Formula
 
-        /*
-         * Percentage, Currency
-         */
+        // Percentage, Currency
 
         $spreadsheet = $this->loadDataFile();
 
@@ -201,9 +199,7 @@ class OdsTest extends PHPUnit_Framework_TestCase
         self::assertEquals('http://www.phpexcel.net/', $hyperlink->getHyperlink()->getUrl());
     }
 
-    /*
-     * Below some test for features not implemented yet
-     */
+    // Below some test for features not implemented yet
 
     public function testReadBoldItalicUnderline()
     {

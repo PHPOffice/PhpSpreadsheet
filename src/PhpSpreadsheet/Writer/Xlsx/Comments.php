@@ -6,28 +6,6 @@ use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Comments extends WriterPart
 {
     /**
@@ -148,8 +126,8 @@ class Comments extends WriterPart
         $objWriter->startElement('o:shapelayout');
         $objWriter->writeAttribute('v:ext', 'edit');
 
-            // o:idmap
-            $objWriter->startElement('o:idmap');
+        // o:idmap
+        $objWriter->startElement('o:idmap');
         $objWriter->writeAttribute('v:ext', 'edit');
         $objWriter->writeAttribute('data', '1');
         $objWriter->endElement();
@@ -163,13 +141,13 @@ class Comments extends WriterPart
         $objWriter->writeAttribute('o:spt', '202');
         $objWriter->writeAttribute('path', 'm,l,21600r21600,l21600,xe');
 
-            // v:stroke
-            $objWriter->startElement('v:stroke');
+        // v:stroke
+        $objWriter->startElement('v:stroke');
         $objWriter->writeAttribute('joinstyle', 'miter');
         $objWriter->endElement();
 
-            // v:path
-            $objWriter->startElement('v:path');
+        // v:path
+        $objWriter->startElement('v:path');
         $objWriter->writeAttribute('gradientshapeok', 't');
         $objWriter->writeAttribute('o:connecttype', 'rect');
         $objWriter->endElement();
@@ -212,52 +190,52 @@ class Comments extends WriterPart
         $objWriter->writeAttribute('fillcolor', '#' . $pComment->getFillColor()->getRGB());
         $objWriter->writeAttribute('o:insetmode', 'auto');
 
-            // v:fill
-            $objWriter->startElement('v:fill');
+        // v:fill
+        $objWriter->startElement('v:fill');
         $objWriter->writeAttribute('color2', '#' . $pComment->getFillColor()->getRGB());
         $objWriter->endElement();
 
-            // v:shadow
-            $objWriter->startElement('v:shadow');
+        // v:shadow
+        $objWriter->startElement('v:shadow');
         $objWriter->writeAttribute('on', 't');
         $objWriter->writeAttribute('color', 'black');
         $objWriter->writeAttribute('obscured', 't');
         $objWriter->endElement();
 
-            // v:path
-            $objWriter->startElement('v:path');
+        // v:path
+        $objWriter->startElement('v:path');
         $objWriter->writeAttribute('o:connecttype', 'none');
         $objWriter->endElement();
 
-            // v:textbox
-            $objWriter->startElement('v:textbox');
+        // v:textbox
+        $objWriter->startElement('v:textbox');
         $objWriter->writeAttribute('style', 'mso-direction-alt:auto');
 
-                // div
-                $objWriter->startElement('div');
+        // div
+        $objWriter->startElement('div');
         $objWriter->writeAttribute('style', 'text-align:left');
         $objWriter->endElement();
 
         $objWriter->endElement();
 
-            // x:ClientData
-            $objWriter->startElement('x:ClientData');
+        // x:ClientData
+        $objWriter->startElement('x:ClientData');
         $objWriter->writeAttribute('ObjectType', 'Note');
 
-                // x:MoveWithCells
-                $objWriter->writeElement('x:MoveWithCells', '');
+        // x:MoveWithCells
+        $objWriter->writeElement('x:MoveWithCells', '');
 
-                // x:SizeWithCells
-                $objWriter->writeElement('x:SizeWithCells', '');
+        // x:SizeWithCells
+        $objWriter->writeElement('x:SizeWithCells', '');
 
-                // x:AutoFill
-                $objWriter->writeElement('x:AutoFill', 'False');
+        // x:AutoFill
+        $objWriter->writeElement('x:AutoFill', 'False');
 
-                // x:Row
-                $objWriter->writeElement('x:Row', ($row - 1));
+        // x:Row
+        $objWriter->writeElement('x:Row', ($row - 1));
 
-                // x:Column
-                $objWriter->writeElement('x:Column', ($column - 1));
+        // x:Column
+        $objWriter->writeElement('x:Column', ($column - 1));
 
         $objWriter->endElement();
 

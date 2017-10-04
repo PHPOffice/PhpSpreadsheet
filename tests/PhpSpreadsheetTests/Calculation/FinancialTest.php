@@ -15,7 +15,6 @@ class FinancialTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerACCRINT
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -464,7 +463,6 @@ class FinancialTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerPRICE
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -483,7 +481,6 @@ class FinancialTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerRATE
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -502,7 +499,6 @@ class FinancialTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerXIRR
-     * @group fail19
      *
      * @param mixed $expectedResult
      */

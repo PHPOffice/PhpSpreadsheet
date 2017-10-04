@@ -15,7 +15,6 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *    rank can be computed from this decomposition.
  *
  *    @author  Paul Meagher
- *    @license PHP v3.0
  *
  *    @version 1.1
  */
@@ -264,6 +263,7 @@ class SingularValueDecomposition
                 }
                 if (abs($e[$k]) <= $eps * (abs($this->s[$k]) + abs($this->s[$k + 1]))) {
                     $e[$k] = 0.0;
+
                     break;
                 }
             }
@@ -277,6 +277,7 @@ class SingularValueDecomposition
                     $t = ($ks != $p ? abs($e[$ks]) : 0.) + ($ks != $k + 1 ? abs($e[$ks - 1]) : 0.);
                     if (abs($this->s[$ks]) <= $eps * $t) {
                         $this->s[$ks] = 0.0;
+
                         break;
                     }
                 }
@@ -314,6 +315,7 @@ class SingularValueDecomposition
                             }
                         }
                     }
+
                     break;
                 // Split at negligible s(k).
                 case 2:
@@ -334,6 +336,7 @@ class SingularValueDecomposition
                             }
                         }
                     }
+
                     break;
                 // Perform one qr step.
                 case 3:
@@ -393,6 +396,7 @@ class SingularValueDecomposition
                     }
                     $e[$p - 2] = $f;
                     $iter = $iter + 1;
+
                     break;
                 // Convergence.
                 case 4:
@@ -431,6 +435,7 @@ class SingularValueDecomposition
                     }
                     $iter = 0;
                     --$p;
+
                     break;
             } // end switch
         } // end while

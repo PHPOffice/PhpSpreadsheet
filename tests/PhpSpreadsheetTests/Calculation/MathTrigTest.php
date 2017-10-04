@@ -272,7 +272,6 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMINVERSE
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -291,7 +290,6 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMMULT
-     * @group fail19
      *
      * @param mixed $expectedResult
      */

@@ -4,28 +4,6 @@ namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 
-/**
- *    Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- *    This library is free software; you can redistribute it and/or
- *    modify it under the terms of the GNU Lesser General Public
- *    License as published by the Free Software Foundation; either
- *    version 2.1 of the License, or (at your option) any later version.
- *
- *    This library is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- *    Lesser General Public License for more details.
- *
- *    You should have received a copy of the GNU Lesser General Public
- *    License along with this library; if not, write to the Free Software
- *    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- *    @category    PhpSpreadsheet
- *
- *    @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- *    @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Cell
 {
     /**
@@ -227,6 +205,7 @@ class Cell
         switch ($pDataType) {
             case Cell\DataType::TYPE_NULL:
                 $this->value = $pValue;
+
                 break;
             case Cell\DataType::TYPE_STRING2:
                 $pDataType = Cell\DataType::TYPE_STRING;
@@ -236,18 +215,23 @@ class Cell
             case Cell\DataType::TYPE_INLINE:
                 // Rich text
                 $this->value = Cell\DataType::checkString($pValue);
+
                 break;
             case Cell\DataType::TYPE_NUMERIC:
                 $this->value = (float) $pValue;
+
                 break;
             case Cell\DataType::TYPE_FORMULA:
                 $this->value = (string) $pValue;
+
                 break;
             case Cell\DataType::TYPE_BOOL:
                 $this->value = (bool) $pValue;
+
                 break;
             case Cell\DataType::TYPE_ERROR:
                 $this->value = Cell\DataType::checkErrorCode($pValue);
+
                 break;
             default:
                 throw new Exception('Invalid datatype: ' . $pDataType);
@@ -287,6 +271,7 @@ class Cell
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 }
                 $result = '#N/A';
+
                 throw new Calculation\Exception(
                     $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
                 );
@@ -850,6 +835,7 @@ class Cell
                 return $_indexCache[$pString];
             }
         }
+
         throw new Exception('Column string index can not be ' . ((isset($pString[0])) ? 'longer than 3 characters' : 'empty'));
     }
 
@@ -896,6 +882,7 @@ class Cell
             // Single cell?
             if (strpos($cellBlock, ':') === false && strpos($cellBlock, ',') === false) {
                 $returnValue[] = $cellBlock;
+
                 continue;
             }
 
@@ -905,6 +892,7 @@ class Cell
                 // Single cell?
                 if (!isset($range[1])) {
                     $returnValue[] = $range[0];
+
                     continue;
                 }
 

@@ -9,28 +9,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Date
 {
     /** constants */
@@ -119,7 +97,7 @@ class Date
     /**
      * Set the Default timezone to use for dates.
      *
-     * @param string|DateTimeZone $timeZone The timezone to set for all Excel datetimestamp to PHP DateTime Object conversions
+     * @param DateTimeZone|string $timeZone The timezone to set for all Excel datetimestamp to PHP DateTime Object conversions
      *
      * @throws \Exception
      *
@@ -154,7 +132,7 @@ class Date
     /**
      * Validate a timezone.
      *
-     * @param string|DateTimeZone $timeZone The timezone to validate, either as a timezone string or object
+     * @param DateTimeZone|string $timeZone The timezone to validate, either as a timezone string or object
      *
      * @throws \Exception
      *
@@ -168,14 +146,15 @@ class Date
         } elseif (is_string($timeZone)) {
             return new DateTimeZone($timeZone);
         }
+
         throw new \Exception('Invalid timezone');
     }
 
     /**
      * Convert a MS serialized datetime value from Excel to a PHP Date/Time object.
      *
-     * @param int|float $excelTimestamp MS Excel serialized date/time value
-     * @param DateTimeZone|string|null $timeZone The timezone to assume for the Excel timestamp,
+     * @param float|int $excelTimestamp MS Excel serialized date/time value
+     * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
      *
@@ -186,18 +165,23 @@ class Date
     public static function excelToDateTimeObject($excelTimestamp, $timeZone = null)
     {
         $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
-        if ($excelTimestamp < 1.0) {
-            // Unix timestamp base date
-            $baseDate = new \DateTime('1970-01-01', $timeZone);
-        } else {
-            // MS Excel calendar base dates
-            if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
-                // Allow adjustment for 1900 Leap Year in MS Excel
-                $baseDate = ($excelTimestamp < 60) ? new \DateTime('1899-12-31', $timeZone) : new \DateTime('1899-12-30', $timeZone);
+        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
+            if ($excelTimestamp < 1.0) {
+                // Unix timestamp base date
+                $baseDate = new \DateTime('1970-01-01', $timeZone);
             } else {
-                $baseDate = new \DateTime('1904-01-01', $timeZone);
+                // MS Excel calendar base dates
+                if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
+                    // Allow adjustment for 1900 Leap Year in MS Excel
+                    $baseDate = ($excelTimestamp < 60) ? new \DateTime('1899-12-31', $timeZone) : new \DateTime('1899-12-30', $timeZone);
+                } else {
+                    $baseDate = new \DateTime('1904-01-01', $timeZone);
+                }
             }
+        } else {
+            $baseDate = new \DateTime('1899-12-30', $timeZone);
         }
+
         $days = floor($excelTimestamp);
         $partDay = $excelTimestamp - $days;
         $hours = floor($partDay * 24);
@@ -206,7 +190,10 @@ class Date
         $partDay = $partDay * 60 - $minutes;
         $seconds = round($partDay * 60);
 
-        $interval = '+' . $days . ' days';
+        if ($days >= 0) {
+            $days = '+' . $days;
+        }
+        $interval = $days . ' days';
 
         return $baseDate->modify($interval)
             ->setTime($hours, $minutes, $seconds);
@@ -215,8 +202,8 @@ class Date
     /**
      * Convert a MS serialized datetime value from Excel to a unix timestamp.
      *
-     * @param int|float $excelTimestamp MS Excel serialized date/time value
-     * @param DateTimeZone|string|null $timeZone The timezone to assume for the Excel timestamp,
+     * @param float|int $excelTimestamp MS Excel serialized date/time value
+     * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
      *
@@ -235,7 +222,7 @@ class Date
      *
      * @param mixed $dateValue Unix Timestamp or PHP DateTime object or a string
      *
-     * @return float|bool Excel date/time value
+     * @return bool|float Excel date/time value
      *                                  or boolean FALSE on failure
      */
     public static function PHPToExcel($dateValue)
@@ -442,7 +429,7 @@ class Date
      *
      * @param string $dateValue Examples: '2009-12-31', '2009-12-31 15:59', '2009-12-31 15:59:10'
      *
-     * @return float|false Excel date/time serial value
+     * @return false|float Excel date/time serial value
      */
     public static function stringToExcel($dateValue)
     {

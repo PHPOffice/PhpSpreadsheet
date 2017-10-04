@@ -27,8 +27,8 @@ $inputFileName = './sampleData/example1.xls';
 $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
 ```
 
-> See Examples/Reader/exampleReader01.php for a working example of this
-> code.
+See `samples/Reader/01_Simple_file_reader_using_IOFactory.php` for a working
+example of this code.
 
 The `load()` method will attempt to identify the file type, and
 instantiate a loader for that file type; using it to load the file and
@@ -72,8 +72,8 @@ $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
 $spreadsheet = $reader->load($inputFileName);
 ```
 
-> See Examples/Reader/exampleReader02.php for a working example of this
-> code.
+See `samples/Reader/02_Simple_file_reader_using_a_specified_reader.php`
+for a working example of this code.
 
 Alternatively, you can use the IO Factory's `createReader()` method to
 instantiate the reader object for you, simply telling it the file type
@@ -95,8 +95,8 @@ $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 $spreadsheet = $reader->load($inputFileName);
 ```
 
-> See Examples/Reader/exampleReader03.php for a working example of this
-> code.
+See `samples/Reader/03_Simple_file_reader_using_the_IOFactory_to_return_a_reader.php`
+for a working example of this code.
 
 If you're uncertain of the filetype, you can use the IO Factory's
 identify() method to identify the reader that you need, before using the
@@ -113,8 +113,8 @@ $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 $spreadsheet = $reader->load($inputFileName);
 ```
 
-> See Examples/Reader/exampleReader04.php for a working example of this
-> code.
+See `samples/Reader/04_Simple_file_reader_using_the_IOFactory_to_identify_a_reader_to_use.php`
+for a working example of this code.
 
 ## Spreadsheet Reader Options
 
@@ -141,8 +141,8 @@ $reader->setReadDataOnly(true);
 $spreadsheet = $reader->load($inputFileName);
 ```
 
-> See Examples/Reader/exampleReader05.php for a working example of this
-> code.
+See `samples/Reader/05_Simple_file_reader_using_the_read_data_only_option.php`
+for a working example of this code.
 
 It is important to note that Workbooks (and PhpSpreadsheet) store dates
 and times as simple numeric values: they can only be distinguished from
@@ -187,8 +187,8 @@ $reader->setLoadSheetsOnly($sheetname);
 $spreadsheet = $reader->load($inputFileName);
 ```
 
-> See Examples/Reader/exampleReader07.php for a working example of this
-> code.
+See `samples/Reader/07_Simple_file_reader_loading_a_single_named_worksheet.php`
+for a working example of this code.
 
 If you want to read more than just a single sheet, you can pass a list
 of sheet names as an array parameter to the `setLoadSheetsOnly()` method.
@@ -206,8 +206,8 @@ $reader->setLoadSheetsOnly($sheetnames);
 $spreadsheet = $reader->load($inputFileName);
 ```
 
-> See Examples/Reader/exampleReader08.php for a working example of this
-> code.
+See `samples/Reader/08_Simple_file_reader_loading_several_named_worksheets.php`
+for a working example of this code.
 
 To reset this option to the default, you can call the `setLoadAllSheets()`
 method.
@@ -224,8 +224,8 @@ $reader->setLoadAllSheets();
 $spreadsheet = $reader->load($inputFileName);
 ```
 
-> See Examples/Reader/exampleReader06.php for a working example of this
-> code.
+See `samples/Reader/06_Simple_file_reader_loading_all_worksheets.php` for a
+working example of this code.
 
 Reading Only Named WorkSheets from a File applies to Readers:
 
@@ -277,8 +277,8 @@ $reader->setReadFilter($filterSubset);
 $spreadsheet = $reader->load($inputFileName);
 ```
 
-> See Examples/Reader/exampleReader09.php for a working example of this
-> code.
+See `samples/Reader/09_Simple_file_reader_using_a_read_filter.php` for a
+working example of this code.
 
 This example is not particularly useful, because it can only be used in
 a very specific circumstance (when you only want cells in the range
@@ -315,8 +315,8 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 $filterSubset = new MyReadFilter(9,15,range('G','K'));
 ```
 
-> See Examples/Reader/exampleReader10.php for a working example of this
-> code.
+See `samples/Reader/10_Simple_file_reader_using_a_configurable_read_filter.php`
+for a working example of this code.
 
 This can be particularly useful for conserving memory, by allowing you
 to read and process a large workbook in "chunks": an example of this
@@ -329,7 +329,7 @@ $inputFileName = './sampleData/example2.xls';
 
 
 /**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
-class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
+class ChunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
     private $_startRow = 0;
     private $_endRow   = 0;
@@ -357,7 +357,7 @@ $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Define how many rows we want to read for each "chunk"  **/
 $chunkSize = 2048;
 /**  Create a new Instance of our Read Filter  **/
-$chunkFilter = new chunkReadFilter();
+$chunkFilter = new ChunkReadFilter();
 
 /**  Tell the Reader that we want to use the Read Filter  **/
 $reader->setReadFilter($chunkFilter);
@@ -372,8 +372,8 @@ for ($startRow = 2; $startRow <= 65536; $startRow += $chunkSize) {
 }
 ```
 
-> See Examples/Reader/exampleReader12.php for a working example of this
-> code.
+See `samples/Reader/12_Reading_a_workbook_in_chunks_using_a_configurable_read_filter_`
+for a working example of this code.
 
 Using Read Filters applies to:
 
@@ -427,8 +427,8 @@ foreach($inputFileNames as $sheet => $inputFileName) {
 }
 ```
 
-> See Examples/Reader/exampleReader13.php for a working example of this
-> code.
+See `samples/Reader/13_Simple_file_reader_for_multiple_CSV_files.php` for a
+working example of this code.
 
 Note that using the same sheet index for multiple sheets won't append
 files into the same sheet, but overwrite the results of the previous
@@ -450,7 +450,7 @@ Xlsx Microsoft Office Open XML SpreadsheetML .xlsx file is limited to
 by available disk space. This means that we wouldn’t ordinarily be able
 to read all the rows from a very large CSV file that exceeded those
 limits, and save it as an Xls or Xlsx file. However, by using Read
-Filters to read the CSV file in "chunks" (using the chunkReadFilter
+Filters to read the CSV file in "chunks" (using the ChunkReadFilter
 Class that we defined in [the above section](#reading-only-specific-columns-and-rows-from-a-file-read-filters),
 and the `setSheetIndex()` method of the `$reader`, we can split the CSV
 file across several individual worksheets.
@@ -468,7 +468,7 @@ $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Define how many rows we want to read for each "chunk"  **/
 $chunkSize = 65530;
 /**  Create a new Instance of our Read Filter  **/
-$chunkFilter = new chunkReadFilter();
+$chunkFilter = new ChunkReadFilter();
 
 /**  Tell the Reader that we want to use the Read Filter  **/
 /**    and that we want to store it in contiguous rows/columns  **/
@@ -497,8 +497,8 @@ for ($startRow = 2; $startRow <= 1000000; $startRow += $chunkSize) {
 }
 ```
 
-> See Examples/Reader/exampleReader14.php for a working example of this
-> code.
+See `samples/Reader/14_Reading_a_large_CSV_file_in_chunks_to_split_across_multiple_worksheets.php`
+for a working example of this code.
 
 This code will read 65,530 rows at a time from the CSV file that we’re
 loading, and store each "chunk" in a new worksheet.
@@ -542,8 +542,8 @@ $reader->setDelimiter("\t");
 $spreadsheet = $reader->load($inputFileName);
 ```
 
-> See Examples/Reader/exampleReader15.php for a working example of this
-> code.
+See `samples/Reader/15_Simple_file_reader_for_tab_separated_value_file_using_the_Advanced_Value_Binder.php`
+for a working example of this code.
 
 In addition to the delimiter, you can also use the following methods to
 set other attributes for the data load:
@@ -603,8 +603,8 @@ $reader->setDelimiter("\t");
 $spreadsheet = $reader->load($inputFileName);
 ```
 
-> See Examples/Reader/exampleReader15.php for a working example of this
-> code.
+See `samples/Reader/15_Simple_file_reader_for_tab_separated_value_file_using_the_Advanced_Value_Binder.php`
+for a working example of this code.
 
 Loading using a Value Binder applies to:
 
@@ -636,8 +636,8 @@ try {
 }
 ```
 
-> See Examples/Reader/exampleReader16.php for a working example of this
-> code.
+See `samples/Reader/16_Handling_loader_exceptions_using_TryCatch.php` for a
+working example of this code.
 
 ## Helper Methods
 
@@ -665,8 +665,8 @@ foreach ($worksheetNames as $worksheetName) {
 echo '</ol>';
 ```
 
-> See Examples/Reader/exampleReader18.php for a working example of this
-> code.
+See `samples/Reader/18_Reading_list_of_worksheets_without_loading_entire_file.php`
+for a working example of this code.
 
 ### listWorksheetInfo
 
@@ -691,5 +691,5 @@ foreach ($worksheetData as $worksheet) {
 echo '</ol>';
 ```
 
-> See Examples/Reader/exampleReader19.php for a working example of this
-> code.
+See `samples/Reader/19_Reading_worksheet_information_without_loading_entire_file.php`
+for a working example of this code.

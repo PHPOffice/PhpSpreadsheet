@@ -5,29 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
-/**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-
 // Original file header of PEAR::Spreadsheet_Excel_Writer_Parser (used as the base for this class):
 // -----------------------------------------------------------------------------------------
 // *  Class for parsing Excel formulas
@@ -516,31 +493,31 @@ class Parser
             return $this->convertString($token);
         } elseif (is_numeric($token)) {
             return $this->convertNumber($token);
-        // match references like A1 or $A$1
+            // match references like A1 or $A$1
         } elseif (preg_match('/^\$?([A-Ia-i]?[A-Za-z])\$?(\d+)$/', $token)) {
             return $this->convertRef2d($token);
-        // match external references like Sheet1!A1 or Sheet1:Sheet2!A1 or Sheet1!$A$1 or Sheet1:Sheet2!$A$1
+            // match external references like Sheet1!A1 or Sheet1:Sheet2!A1 or Sheet1!$A$1 or Sheet1:Sheet2!$A$1
         } elseif (preg_match('/^' . self::REGEX_SHEET_TITLE_UNQUOTED . "(\:" . self::REGEX_SHEET_TITLE_UNQUOTED . ")?\!\\$?[A-Ia-i]?[A-Za-z]\\$?(\d+)$/u", $token)) {
             return $this->convertRef3d($token);
-        // match external references like 'Sheet1'!A1 or 'Sheet1:Sheet2'!A1 or 'Sheet1'!$A$1 or 'Sheet1:Sheet2'!$A$1
+            // match external references like 'Sheet1'!A1 or 'Sheet1:Sheet2'!A1 or 'Sheet1'!$A$1 or 'Sheet1:Sheet2'!$A$1
         } elseif (preg_match("/^'" . self::REGEX_SHEET_TITLE_QUOTED . "(\:" . self::REGEX_SHEET_TITLE_QUOTED . ")?'\!\\$?[A-Ia-i]?[A-Za-z]\\$?(\d+)$/u", $token)) {
             return $this->convertRef3d($token);
-        // match ranges like A1:B2 or $A$1:$B$2
+            // match ranges like A1:B2 or $A$1:$B$2
         } elseif (preg_match('/^(\$)?[A-Ia-i]?[A-Za-z](\$)?(\d+)\:(\$)?[A-Ia-i]?[A-Za-z](\$)?(\d+)$/', $token)) {
             return $this->convertRange2d($token);
-        // match external ranges like Sheet1!A1:B2 or Sheet1:Sheet2!A1:B2 or Sheet1!$A$1:$B$2 or Sheet1:Sheet2!$A$1:$B$2
+            // match external ranges like Sheet1!A1:B2 or Sheet1:Sheet2!A1:B2 or Sheet1!$A$1:$B$2 or Sheet1:Sheet2!$A$1:$B$2
         } elseif (preg_match('/^' . self::REGEX_SHEET_TITLE_UNQUOTED . "(\:" . self::REGEX_SHEET_TITLE_UNQUOTED . ")?\!\\$?([A-Ia-i]?[A-Za-z])?\\$?(\d+)\:\\$?([A-Ia-i]?[A-Za-z])?\\$?(\d+)$/u", $token)) {
             return $this->convertRange3d($token);
-        // match external ranges like 'Sheet1'!A1:B2 or 'Sheet1:Sheet2'!A1:B2 or 'Sheet1'!$A$1:$B$2 or 'Sheet1:Sheet2'!$A$1:$B$2
+            // match external ranges like 'Sheet1'!A1:B2 or 'Sheet1:Sheet2'!A1:B2 or 'Sheet1'!$A$1:$B$2 or 'Sheet1:Sheet2'!$A$1:$B$2
         } elseif (preg_match("/^'" . self::REGEX_SHEET_TITLE_QUOTED . "(\:" . self::REGEX_SHEET_TITLE_QUOTED . ")?'\!\\$?([A-Ia-i]?[A-Za-z])?\\$?(\d+)\:\\$?([A-Ia-i]?[A-Za-z])?\\$?(\d+)$/u", $token)) {
             return $this->convertRange3d($token);
-        // operators (including parentheses)
+            // operators (including parentheses)
         } elseif (isset($this->ptg[$token])) {
             return pack('C', $this->ptg[$token]);
-        // match error codes
+            // match error codes
         } elseif (preg_match("/^#[A-Z0\/]{3,5}[!?]{1}$/", $token) or $token == '#N/A') {
             return $this->convertError($token);
-        // commented so argument number can be processed correctly. See toReversePolish().
+            // commented so argument number can be processed correctly. See toReversePolish().
         /*elseif (preg_match("/[A-Z0-9\xc0-\xdc\.]+/", $token))
         {
             return($this->convertFunction($token, $this->_func_args));
@@ -849,6 +826,7 @@ class Parser
         for ($i = 0; $i < $totalreferences; ++$i) {
             if ($ref == $this->references[$i]) {
                 $index = $i;
+
                 break;
             }
         }
@@ -1209,13 +1187,13 @@ class Parser
             $this->advance();
 
             return $result;
-        // If it's an error code
+            // If it's an error code
         } elseif (preg_match("/^#[A-Z0\/]{3,5}[!?]{1}$/", $this->currentToken) or $this->currentToken == '#N/A') {
             $result = $this->createTree($this->currentToken, 'ptgErr', '');
             $this->advance();
 
             return $result;
-        // If it's a negative value
+            // If it's a negative value
         } elseif ($this->currentToken == '-') {
             // catch "-" Term
             $this->advance();
@@ -1223,7 +1201,7 @@ class Parser
             $result = $this->createTree('ptgUminus', $result2, '');
 
             return $result;
-        // If it's a positive value
+            // If it's a positive value
         } elseif ($this->currentToken == '+') {
             // catch "+" Term
             $this->advance();
@@ -1372,6 +1350,7 @@ class Parser
 
             return $result;
         }
+
         throw new WriterException('Syntax error: ' . $this->currentToken . ', lookahead: ' . $this->lookAhead . ', current char: ' . $this->currentCharacter);
     }
 

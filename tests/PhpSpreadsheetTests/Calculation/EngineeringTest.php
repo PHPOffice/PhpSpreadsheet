@@ -155,7 +155,6 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIMARGUMENT
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -204,7 +203,6 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIMDIV
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -287,7 +285,6 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIMPOWER
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -354,7 +351,6 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIMSUB
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -373,7 +369,6 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIMSUM
-     * @group fail19
      *
      * @param mixed $expectedResult
      */

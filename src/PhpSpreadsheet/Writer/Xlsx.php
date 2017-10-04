@@ -25,28 +25,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
 use ZipArchive;
 
-/**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Xlsx extends BaseWriter implements IWriter
 {
     /**
@@ -247,7 +225,7 @@ class Xlsx extends BaseWriter implements IWriter
             //if hasMacros, add the vbaProject.bin file, Certificate file(if exists)
             if ($this->spreadSheet->hasMacros()) {
                 $macrosCode = $this->spreadSheet->getMacrosCode();
-                if (!is_null($macrosCode)) {
+                if ($macrosCode !== null) {
                     // we have the code ?
                     $zip->addFromString('xl/vbaProject.bin', $macrosCode); //allways in 'xl', allways named vbaProject.bin
                     if ($this->spreadSheet->hasMacrosCertificate()) {
@@ -421,6 +399,7 @@ class Xlsx extends BaseWriter implements IWriter
         if ($this->spreadSheet !== null) {
             return $this->spreadSheet;
         }
+
         throw new WriterException('No Spreadsheet object assigned.');
     }
 

@@ -23,28 +23,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
-/**
- * Copyright (c) 2006 - 2015 Spreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   Spreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2015 Spreadsheet (https://github.com/PHPOffice/Spreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Html extends BaseWriter implements IWriter
 {
     /**
@@ -230,7 +208,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @param string $hAlign Horizontal alignment
      *
-     * @return string|false
+     * @return false|string
      */
     private function mapHAlign($hAlign)
     {
@@ -365,7 +343,7 @@ class Html extends BaseWriter implements IWriter
     public function generateHTMLHeader($pIncludeStyles = false)
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
@@ -425,7 +403,7 @@ class Html extends BaseWriter implements IWriter
     public function generateSheetData()
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
@@ -436,7 +414,7 @@ class Html extends BaseWriter implements IWriter
 
         // Fetch sheets
         $sheets = [];
-        if (is_null($this->sheetIndex)) {
+        if ($this->sheetIndex === null) {
             $sheets = $this->spreadsheet->getAllSheets();
         } else {
             $sheets[] = $this->spreadsheet->getSheet($this->sheetIndex);
@@ -523,7 +501,7 @@ class Html extends BaseWriter implements IWriter
 
             // Writing PDF?
             if ($this->isPdf) {
-                if (is_null($this->sheetIndex) && $sheetId + 1 < $this->spreadsheet->getSheetCount()) {
+                if ($this->sheetIndex === null && $sheetId + 1 < $this->spreadsheet->getSheetCount()) {
                     $html .= '<div style="page-break-before:always" />';
                 }
             }
@@ -545,13 +523,13 @@ class Html extends BaseWriter implements IWriter
     public function generateNavigation()
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Fetch sheets
         $sheets = [];
-        if (is_null($this->sheetIndex)) {
+        if ($this->sheetIndex === null) {
             $sheets = $this->spreadsheet->getAllSheets();
         } else {
             $sheets[] = $this->spreadsheet->getSheet($this->sheetIndex);
@@ -780,7 +758,7 @@ class Html extends BaseWriter implements IWriter
     public function generateStyles($generateSurroundingHTML = true)
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
@@ -824,12 +802,12 @@ class Html extends BaseWriter implements IWriter
     public function buildCSS($generateSurroundingHTML = true)
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Cached?
-        if (!is_null($this->cssStyles)) {
+        if ($this->cssStyles !== null) {
             return $this->cssStyles;
         }
 
@@ -885,7 +863,7 @@ class Html extends BaseWriter implements IWriter
 
         // Fetch sheets
         $sheets = [];
-        if (is_null($this->sheetIndex)) {
+        if ($this->sheetIndex === null) {
             $sheets = $this->spreadsheet->getAllSheets();
         } else {
             $sheets[] = $this->spreadsheet->getSheet($this->sheetIndex);
@@ -961,7 +939,7 @@ class Html extends BaseWriter implements IWriter
         }
 
         // Cache
-        if (is_null($this->cssStyles)) {
+        if ($this->cssStyles === null) {
             $this->cssStyles = $css;
         }
 
@@ -1254,7 +1232,7 @@ class Html extends BaseWriter implements IWriter
             // Cell
             if ($cell instanceof Cell) {
                 $cellData = '';
-                if (is_null($cell->getParent())) {
+                if ($cell->getParent() === null) {
                     $cell->attach($pSheet);
                 }
                 // Value

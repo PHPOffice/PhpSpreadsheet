@@ -8,29 +8,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-/**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-
 // Original file header of PEAR::Spreadsheet_Excel_Writer_Workbook (used as the base for this class):
 // -----------------------------------------------------------------------------------------
 // /*
@@ -624,7 +601,7 @@ class Workbook extends BIFFwriter
                     $colmax
                 );
 
-            // (exclusive) either repeatColumns or repeatRows
+                // (exclusive) either repeatColumns or repeatRows
             } elseif ($sheetSetup->isColumnsToRepeatAtLeftSet() || $sheetSetup->isRowsToRepeatAtTopSet()) {
                 // Columns to repeat
                 if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
@@ -730,7 +707,7 @@ class Workbook extends BIFFwriter
                 // store the DEFINEDNAME record
                 $chunk .= $this->writeData($this->writeDefinedNameBiff8(pack('C', 0x07), $formulaData, $i + 1, true));
 
-            // (exclusive) either repeatColumns or repeatRows
+                // (exclusive) either repeatColumns or repeatRows
             } elseif ($sheetSetup->isColumnsToRepeatAtLeftSet() || $sheetSetup->isRowsToRepeatAtTopSet()) {
                 // Columns to repeat
                 if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
@@ -943,15 +920,19 @@ class Workbook extends BIFFwriter
         switch ($sheet->getSheetState()) {
             case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE:
                 $ss = 0x00;
+
                 break;
             case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN:
                 $ss = 0x01;
+
                 break;
             case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN:
                 $ss = 0x02;
+
                 break;
             default:
                 $ss = 0x00;
+
                 break;
         }
 
@@ -1254,7 +1235,7 @@ class Workbook extends BIFFwriter
         $length = 4; // Number of bytes to follow
 
         $header = pack('vv', $record, $length);
-        /* using the same country code always for simplicity */
+        // using the same country code always for simplicity
         $data = pack('vv', $this->countryCode, $this->countryCode);
 
         return $this->writeData($header . $data);
@@ -1382,7 +1363,7 @@ class Workbook extends BIFFwriter
                         // and start new record data block where we start writing the string
                         $recordData = '';
 
-                    // 2. space remaining is greater than or equal to minimum space needed
+                        // 2. space remaining is greater than or equal to minimum space needed
                     } else {
                         // initialize effective remaining space, for Unicode strings this may need to be reduced by 1, see below
                         $effective_space_remaining = $space_remaining;

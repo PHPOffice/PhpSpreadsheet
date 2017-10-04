@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
+// vim: set expandtab tabstop=4 shiftwidth=4:
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -38,7 +38,7 @@ class Root extends PPS
      *
      * @var string
      */
-    protected $tempDirectory = null;
+    protected $tempDirectory;
 
     /**
      * @param int $time_1st A timestamp
@@ -59,7 +59,7 @@ class Root extends PPS
      * If a resource pointer to a stream created by fopen() is passed
      * it will be used, but you have to close such stream by yourself.
      *
-     * @param string|resource $filename the name of the file or stream where to save the OLE container
+     * @param resource|string $filename the name of the file or stream where to save the OLE container
      *
      * @throws WriterException
      *

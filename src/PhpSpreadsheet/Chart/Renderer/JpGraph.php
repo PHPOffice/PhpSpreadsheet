@@ -5,28 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 use PhpOffice\PhpSpreadsheet\Chart;
 use PhpOffice\PhpSpreadsheet\Settings;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class JpGraph
 {
     private static $width = 640;
@@ -64,7 +42,7 @@ class JpGraph
     private function formatPointMarker($seriesPlot, $markerID)
     {
         $plotMarkKeys = array_keys(self::$markSet);
-        if (is_null($markerID)) {
+        if ($markerID === null) {
             //    Use default plot marker (next marker in the series)
             self::$plotMark %= count(self::$markSet);
             $seriesPlot->mark->SetType(self::$markSet[$plotMarkKeys[self::$plotMark++]]);
@@ -91,7 +69,7 @@ class JpGraph
     private function formatDataSetLabels($groupID, $datasetLabels, $labelCount, $rotation = '')
     {
         $datasetLabelFormatCode = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getFormatCode();
-        if (!is_null($datasetLabelFormatCode)) {
+        if ($datasetLabelFormatCode !== null) {
             //    Retrieve any label formatting code
             $datasetLabelFormatCode = stripslashes($datasetLabelFormatCode);
         }
@@ -107,7 +85,7 @@ class JpGraph
                 }
             } else {
                 //    Format labels according to any formatting code
-                if (!is_null($datasetLabelFormatCode)) {
+                if ($datasetLabelFormatCode !== null) {
                     $datasetLabels[$i] = NumberFormat::toFormattedString($datasetLabel, $datasetLabelFormatCode);
                 }
             }
@@ -150,9 +128,9 @@ class JpGraph
     private function getCaption($captionElement)
     {
         //    Read any caption
-        $caption = (!is_null($captionElement)) ? $captionElement->getCaption() : null;
+        $caption = ($captionElement !== null) ? $captionElement->getCaption() : null;
         //    Test if we have a title caption to display
-        if (!is_null($caption)) {
+        if ($caption !== null) {
             //    If we do, it could be a plain string or an array
             if (is_array($caption)) {
                 //    Implode an array to a plain string
@@ -166,7 +144,7 @@ class JpGraph
     private function renderTitle()
     {
         $title = $this->getCaption($this->chart->getTitle());
-        if (!is_null($title)) {
+        if ($title !== null) {
             $this->graph->title->Set($title);
         }
     }
@@ -174,17 +152,19 @@ class JpGraph
     private function renderLegend()
     {
         $legend = $this->chart->getLegend();
-        if (!is_null($legend)) {
+        if ($legend !== null) {
             $legendPosition = $legend->getPosition();
             $legendOverlay = $legend->getOverlay();
             switch ($legendPosition) {
                 case 'r':
                     $this->graph->legend->SetPos(0.01, 0.5, 'right', 'center'); //    right
                     $this->graph->legend->SetColumns(1);
+
                     break;
                 case 'l':
                     $this->graph->legend->SetPos(0.01, 0.5, 'left', 'center'); //    left
                     $this->graph->legend->SetColumns(1);
+
                     break;
                 case 't':
                     $this->graph->legend->SetPos(0.5, 0.01, 'center', 'top'); //    top
@@ -195,6 +175,7 @@ class JpGraph
                 default:
                     $this->graph->legend->SetPos(0.01, 0.01, 'right', 'top'); //    top-right
                     $this->graph->legend->SetColumns(1);
+
                     break;
             }
         } else {
@@ -214,9 +195,9 @@ class JpGraph
         $reverse = ($rotation == 'bar') ? true : false;
 
         $xAxisLabel = $this->chart->getXAxisLabel();
-        if (!is_null($xAxisLabel)) {
+        if ($xAxisLabel !== null) {
             $title = $this->getCaption($xAxisLabel);
-            if (!is_null($title)) {
+            if ($title !== null) {
                 $this->graph->xaxis->SetTitle($title, 'center');
                 $this->graph->xaxis->title->SetMargin(35);
                 if ($reverse) {
@@ -227,9 +208,9 @@ class JpGraph
         }
 
         $yAxisLabel = $this->chart->getYAxisLabel();
-        if (!is_null($yAxisLabel)) {
+        if ($yAxisLabel !== null) {
             $title = $this->getCaption($yAxisLabel);
-            if (!is_null($title)) {
+            if ($title !== null) {
                 $this->graph->yaxis->SetTitle($title, 'center');
                 if ($reverse) {
                     $this->graph->yaxis->title->SetAngle(0);
@@ -728,24 +709,29 @@ class JpGraph
                     // no break
                 case 'areaChart':
                     $this->renderPlotLine($i, true, true, $dimensions);
+
                     break;
                 case 'bar3DChart':
                     $dimensions = '3d';
                     // no break
                 case 'barChart':
                     $this->renderPlotBar($i, $dimensions);
+
                     break;
                 case 'line3DChart':
                     $dimensions = '3d';
                     // no break
                 case 'lineChart':
                     $this->renderPlotLine($i, false, true, $dimensions);
+
                     break;
                 case 'scatterChart':
                     $this->renderPlotScatter($i, false);
+
                     break;
                 case 'bubbleChart':
                     $this->renderPlotScatter($i, true);
+
                     break;
                 default:
                     $this->graph = null;
@@ -793,48 +779,58 @@ class JpGraph
                 // no break
             case 'areaChart':
                 $this->renderAreaChart($groupCount, $dimensions);
+
                 break;
             case 'bar3DChart':
                 $dimensions = '3d';
                 // no break
             case 'barChart':
                 $this->renderBarChart($groupCount, $dimensions);
+
                 break;
             case 'line3DChart':
                 $dimensions = '3d';
                 // no break
             case 'lineChart':
                 $this->renderLineChart($groupCount, $dimensions);
+
                 break;
             case 'pie3DChart':
                 $dimensions = '3d';
                 // no break
             case 'pieChart':
                 $this->renderPieChart($groupCount, $dimensions, false, false);
+
                 break;
             case 'doughnut3DChart':
                 $dimensions = '3d';
                 // no break
             case 'doughnutChart':
                 $this->renderPieChart($groupCount, $dimensions, true, true);
+
                 break;
             case 'scatterChart':
                 $this->renderScatterChart($groupCount);
+
                 break;
             case 'bubbleChart':
                 $this->renderBubbleChart($groupCount);
+
                 break;
             case 'radarChart':
                 $this->renderRadarChart($groupCount);
+
                 break;
             case 'surface3DChart':
                 $dimensions = '3d';
                 // no break
             case 'surfaceChart':
                 $this->renderContourChart($groupCount, $dimensions);
+
                 break;
             case 'stockChart':
                 $this->renderStockChart($groupCount);
+
                 break;
             default:
                 echo $chartType . ' is not yet implemented<br />';

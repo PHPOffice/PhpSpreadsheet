@@ -4,28 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Database
 {
     /**
@@ -43,7 +21,7 @@ class Database
      *                                        represents the position of the column within the list: 1 for
      *                                        the first column, 2 for the second column, and so on.
      *
-     * @return string|null
+     * @return null|string
      */
     private static function fieldExtract($database, $field)
     {
@@ -160,7 +138,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param string|int $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -176,7 +154,7 @@ class Database
     public static function DAVERAGE($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if (is_null($field)) {
+        if ($field === null) {
             return null;
         }
 
@@ -204,7 +182,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param string|int $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -223,7 +201,7 @@ class Database
     public static function DCOUNT($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if (is_null($field)) {
+        if ($field === null) {
             return null;
         }
 
@@ -247,7 +225,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param string|int $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -266,7 +244,7 @@ class Database
     public static function DCOUNTA($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if (is_null($field)) {
+        if ($field === null) {
             return null;
         }
 
@@ -299,7 +277,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param string|int $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -315,7 +293,7 @@ class Database
     public static function DGET($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if (is_null($field)) {
+        if ($field === null) {
             return null;
         }
 
@@ -343,7 +321,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param string|int $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -359,7 +337,7 @@ class Database
     public static function DMAX($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if (is_null($field)) {
+        if ($field === null) {
             return null;
         }
 
@@ -384,7 +362,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param string|int $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -400,7 +378,7 @@ class Database
     public static function DMIN($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if (is_null($field)) {
+        if ($field === null) {
             return null;
         }
 
@@ -424,7 +402,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param string|int $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -440,7 +418,7 @@ class Database
     public static function DPRODUCT($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if (is_null($field)) {
+        if ($field === null) {
             return null;
         }
 
@@ -465,7 +443,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param string|int $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -481,7 +459,7 @@ class Database
     public static function DSTDEV($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if (is_null($field)) {
+        if ($field === null) {
             return null;
         }
 
@@ -506,7 +484,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param string|int $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -522,7 +500,7 @@ class Database
     public static function DSTDEVP($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if (is_null($field)) {
+        if ($field === null) {
             return null;
         }
 
@@ -546,7 +524,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param string|int $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -562,7 +540,7 @@ class Database
     public static function DSUM($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if (is_null($field)) {
+        if ($field === null) {
             return null;
         }
 
@@ -587,7 +565,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param string|int $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -603,7 +581,7 @@ class Database
     public static function DVAR($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if (is_null($field)) {
+        if ($field === null) {
             return null;
         }
 
@@ -628,7 +606,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param string|int $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -644,7 +622,7 @@ class Database
     public static function DVARP($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if (is_null($field)) {
+        if ($field === null) {
             return null;
         }
 

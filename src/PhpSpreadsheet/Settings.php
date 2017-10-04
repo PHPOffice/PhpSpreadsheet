@@ -5,28 +5,6 @@ namespace PhpOffice\PhpSpreadsheet;
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
 use Psr\SimpleCache\CacheInterface;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Settings
 {
     /**    Optional Chart Rendering libraries */
@@ -153,7 +131,7 @@ class Settings
     /**
      * Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use (e.g. jpgraph).
      *
-     * @return string|null Internal reference name of the Chart Rendering Library that PhpSpreadsheet is
+     * @return null|string Internal reference name of the Chart Rendering Library that PhpSpreadsheet is
      *    currently configured to use
      *    e.g. \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
      */
@@ -165,7 +143,7 @@ class Settings
     /**
      * Return the directory path to the Chart Rendering Library that PhpSpreadsheet is currently configured to use.
      *
-     * @return string|null Directory Path to the Chart Rendering Library that PhpSpreadsheet is
+     * @return null|string Directory Path to the Chart Rendering Library that PhpSpreadsheet is
      *     currently configured to use
      */
     public static function getChartRendererPath()
@@ -192,7 +170,7 @@ class Settings
     /**
      * Return the PDF Rendering Library that PhpSpreadsheet is currently configured to use (e.g. dompdf).
      *
-     * @return string|null Internal reference name of the PDF Rendering Library that PhpSpreadsheet is
+     * @return null|string Internal reference name of the PDF Rendering Library that PhpSpreadsheet is
      *     currently configured to use
      * e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
      *       \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
@@ -210,7 +188,7 @@ class Settings
      */
     public static function setLibXmlLoaderOptions($options)
     {
-        if (is_null($options) && defined('LIBXML_DTDLOAD')) {
+        if ($options === null && defined('LIBXML_DTDLOAD')) {
             $options = LIBXML_DTDLOAD | LIBXML_DTDATTR;
         }
         self::$libXmlLoaderOptions = $options;
@@ -224,9 +202,9 @@ class Settings
      */
     public static function getLibXmlLoaderOptions()
     {
-        if (is_null(self::$libXmlLoaderOptions) && defined('LIBXML_DTDLOAD')) {
+        if (self::$libXmlLoaderOptions === null && defined('LIBXML_DTDLOAD')) {
             self::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR);
-        } elseif (is_null(self::$libXmlLoaderOptions)) {
+        } elseif (self::$libXmlLoaderOptions === null) {
             self::$libXmlLoaderOptions = true;
         }
 
