@@ -601,6 +601,9 @@ class LookupRef
      */
     public static function INDEX($arrayValues, $rowNum = 0, $columnNum = 0)
     {
+        $rowNum = Functions::flattenSingleValue($rowNum);
+        $columnNum = Functions::flattenSingleValue($columnNum);
+
         if (($rowNum < 0) || ($columnNum < 0)) {
             return Functions::VALUE();
         }
