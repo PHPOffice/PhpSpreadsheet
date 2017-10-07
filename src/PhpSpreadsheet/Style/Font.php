@@ -78,6 +78,11 @@ class Font extends Supervisor implements IComparable
     protected $color;
 
     /**
+     * @var int
+     */
+    public $colorIndex;
+
+    /**
      * Create a new Font.
      *
      * @param bool $isSupervisor Flag indicating if this is a supervisor or not

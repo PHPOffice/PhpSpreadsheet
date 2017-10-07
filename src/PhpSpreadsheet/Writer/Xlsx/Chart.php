@@ -19,6 +19,11 @@ class Chart extends WriterPart
     protected $calculateCellValues;
 
     /**
+     * @var int
+     */
+    private $_seriesIndex;
+
+    /**
      * Write charts to XML format.
      *
      * @param \PhpOffice\PhpSpreadsheet\Chart $pChart

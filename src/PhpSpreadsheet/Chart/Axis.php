@@ -212,7 +212,7 @@ class Axis extends Properties
      */
     public function setAxisOrientation($orientation)
     {
-        $this->orientation = (string) $orientation;
+        $this->axisOptions['orientation'] = (string) $orientation;
     }
 
     /**
