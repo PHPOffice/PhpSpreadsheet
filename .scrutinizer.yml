@@ -1,0 +1,16 @@
+checks:
+    php: true
+
+filter:
+    excluded_paths:
+        - "samples/*"
+        - "tests/*"
+        - "docs/*"
+        - ".github/*"
+        - "bin/*"
+
+coding_style:
+    php:
+        spaces:
+            around_operators:
+                concatenation: true
