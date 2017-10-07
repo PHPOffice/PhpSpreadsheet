@@ -735,50 +735,6 @@ class Parser
     }
 
     /**
-     * Convert the sheet name part of an external reference, for example "Sheet1" or
-     * "Sheet1:Sheet2", to a packed structure.
-     *
-     * @param string $ext_ref The name of the external reference
-     *
-     * @return string The reference index in packed() format
-     */
-    private function packExtRef($ext_ref)
-    {
-        $ext_ref = preg_replace("/^'/", '', $ext_ref); // Remove leading  ' if any.
-        $ext_ref = preg_replace("/'$/", '', $ext_ref); // Remove trailing ' if any.
-
-        // Check if there is a sheet range eg., Sheet1:Sheet2.
-        if (preg_match('/:/', $ext_ref)) {
-            list($sheet_name1, $sheet_name2) = explode(':', $ext_ref);
-
-            $sheet1 = $this->getSheetIndex($sheet_name1);
-            if ($sheet1 == -1) {
-                throw new WriterException("Unknown sheet name $sheet_name1 in formula");
-            }
-            $sheet2 = $this->getSheetIndex($sheet_name2);
-            if ($sheet2 == -1) {
-                throw new WriterException("Unknown sheet name $sheet_name2 in formula");
-            }
-
-            // Reverse max and min sheet numbers if necessary
-            if ($sheet1 > $sheet2) {
-                list($sheet1, $sheet2) = [$sheet2, $sheet1];
-            }
-        } else { // Single sheet name only.
-            $sheet1 = $this->getSheetIndex($ext_ref);
-            if ($sheet1 == -1) {
-                throw new WriterException("Unknown sheet name $ext_ref in formula");
-            }
-            $sheet2 = $sheet1;
-        }
-
-        // References are stored relative to 0xFFFF.
-        $offset = -1 - $sheet1;
-
-        return pack('vdvv', $offset, 0x00, $sheet1, $sheet2);
-    }
-
-    /**
      * Look up the REF index that corresponds to an external sheet name
      * (or range). If it doesn't exist yet add it to the workbook's references
      * array. It assumes all sheet names given must exist.

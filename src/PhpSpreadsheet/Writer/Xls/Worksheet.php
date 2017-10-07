@@ -684,43 +684,6 @@ class Worksheet extends BIFFwriter
 
     /**
      * Write a string to the specified row and column (zero indexed).
-     * NOTE: there is an Excel 5 defined limit of 255 characters.
-     * $format is optional.
-     * Returns  0 : normal termination
-     *         -2 : row or column out of range
-     *         -3 : long string truncated to 255 chars.
-     *
-     * @param int $row Zero indexed row
-     * @param int $col Zero indexed column
-     * @param string $str The string to write
-     * @param mixed $xfIndex The XF format index for the cell
-     *
-     * @return int
-     */
-    private function writeLabel($row, $col, $str, $xfIndex)
-    {
-        $strlen = strlen($str);
-        $record = 0x0204; // Record identifier
-        $length = 0x0008 + $strlen; // Bytes to follow
-
-        $str_error = 0;
-
-        if ($strlen > $this->xlsStringMaxLength) { // LABEL must be < 255 chars
-            $str = substr($str, 0, $this->xlsStringMaxLength);
-            $length = 0x0008 + $this->xlsStringMaxLength;
-            $strlen = $this->xlsStringMaxLength;
-            $str_error = -3;
-        }
-
-        $header = pack('vv', $record, $length);
-        $data = pack('vvvv', $row, $col, $xfIndex, $strlen);
-        $this->append($header . $data . $str);
-
-        return $str_error;
-    }
-
-    /**
-     * Write a string to the specified row and column (zero indexed).
      * This is the BIFF8 version (no 255 chars limit).
      * $format is optional.
      * Returns  0 : normal termination
@@ -750,37 +713,6 @@ class Worksheet extends BIFFwriter
         $header = pack('vv', $record, $length);
         $data = pack('vvvV', $row, $col, $xfIndex, $this->stringTable[$str]);
         $this->append($header . $data);
-    }
-
-    /**
-     * Writes a note associated with the cell given by the row and column.
-     * NOTE records don't have a length limit.
-     *
-     * @param int $row Zero indexed row
-     * @param int $col Zero indexed column
-     * @param string $note The note to write
-     */
-    private function writeNote($row, $col, $note)
-    {
-        $note_length = strlen($note);
-        $record = 0x001C; // Record identifier
-        $max_length = 2048; // Maximun length for a NOTE record
-
-        // Length for this record is no more than 2048 + 6
-        $length = 0x0006 + min($note_length, 2048);
-        $header = pack('vv', $record, $length);
-        $data = pack('vvv', $row, $col, $note_length);
-        $this->append($header . $data . substr($note, 0, 2048));
-
-        for ($i = $max_length; $i < $note_length; $i += $max_length) {
-            $chunk = substr($note, $i, $max_length);
-            $length = 0x0006 + strlen($chunk);
-            $header = pack('vv', $record, $length);
-            $data = pack('vvv', -1, 0, strlen($chunk));
-            $this->append($header . $data . $chunk);
-        }
-
-        return 0;
     }
 
     /**
@@ -1645,59 +1577,6 @@ class Worksheet extends BIFFwriter
             $header = pack('vv', $record, $length);
             $this->append($header . $recordData);
         }
-    }
-
-    /**
-     * Write BIFF record EXTERNCOUNT to indicate the number of external sheet
-     * references in a worksheet.
-     *
-     * Excel only stores references to external sheets that are used in formulas.
-     * For simplicity we store references to all the sheets in the workbook
-     * regardless of whether they are used or not. This reduces the overall
-     * complexity and eliminates the need for a two way dialogue between the formula
-     * parser the worksheet objects.
-     *
-     * @param int $count The number of external sheet references in this worksheet
-     */
-    private function writeExterncount($count)
-    {
-        $record = 0x0016; // Record identifier
-        $length = 0x0002; // Number of bytes to follow
-
-        $header = pack('vv', $record, $length);
-        $data = pack('v', $count);
-        $this->append($header . $data);
-    }
-
-    /**
-     * Writes the Excel BIFF EXTERNSHEET record. These references are used by
-     * formulas. A formula references a sheet name via an index. Since we store a
-     * reference to all of the external worksheets the EXTERNSHEET index is the same
-     * as the worksheet index.
-     *
-     * @param string $sheetname The name of a external worksheet
-     */
-    private function writeExternsheet($sheetname)
-    {
-        $record = 0x0017; // Record identifier
-
-        // References to the current sheet are encoded differently to references to
-        // external sheets.
-        //
-        if ($this->phpSheet->getTitle() == $sheetname) {
-            $sheetname = '';
-            $length = 0x02; // The following 2 bytes
-            $cch = 1; // The following byte
-            $rgch = 0x02; // Self reference
-        } else {
-            $length = 0x02 + strlen($sheetname);
-            $cch = strlen($sheetname);
-            $rgch = 0x03; // Reference to a sheet in the current workbook
-        }
-
-        $header = pack('vv', $record, $length);
-        $data = pack('CC', $cch, $rgch);
-        $this->append($header . $data . $sheetname);
     }
 
     /**

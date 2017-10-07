@@ -3800,7 +3800,7 @@ class Calculation
         return $output;
     }
 
-    private function validateBinaryOperand($cellID, &$operand, &$stack)
+    private function validateBinaryOperand(&$operand, &$stack)
     {
         if (is_array($operand)) {
             if ((count($operand, COUNT_RECURSIVE) - count($operand)) == 1) {
@@ -4002,10 +4002,10 @@ class Calculation
     private function executeNumericBinaryOperation($cellID, $operand1, $operand2, $operation, $matrixFunction, &$stack)
     {
         //    Validate the two operands
-        if (!$this->validateBinaryOperand($cellID, $operand1, $stack)) {
+        if (!$this->validateBinaryOperand($operand1, $stack)) {
             return false;
         }
-        if (!$this->validateBinaryOperand($cellID, $operand2, $stack)) {
+        if (!$this->validateBinaryOperand($operand2, $stack)) {
             return false;
         }
 

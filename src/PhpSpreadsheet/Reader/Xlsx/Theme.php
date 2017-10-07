@@ -19,13 +19,6 @@ class Theme
     private $colourSchemeName;
 
     /**
-     * Colour Map indexed by position.
-     *
-     * @var array of string
-     */
-    private $colourMapValues;
-
-    /**
      * Colour Map.
      *
      * @var array of string

@@ -21,13 +21,6 @@ use XMLReader;
 class Gnumeric extends BaseReader implements IReader
 {
     /**
-     * Formats.
-     *
-     * @var array
-     */
-    private $styles = [];
-
-    /**
      * Shared Expressions.
      *
      * @var array

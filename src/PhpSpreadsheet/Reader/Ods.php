@@ -20,13 +20,6 @@ use ZipArchive;
 class Ods extends BaseReader implements IReader
 {
     /**
-     * Formats.
-     *
-     * @var array
-     */
-    private $styles = [];
-
-    /**
      * Create a new Ods Reader instance.
      */
     public function __construct()
@@ -213,7 +206,7 @@ class Ods extends BaseReader implements IReader
                                     }
                                 } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                     $mergeSize = $xml->getAttribute('table:number-columns-repeated');
-                                    $currCells += $mergeSize;
+                                    $currCells += (int) $mergeSize;
                                     $xml->read();
                                 }
                             } while ($xml->name != 'table:table-row');
@@ -247,20 +240,6 @@ class Ods extends BaseReader implements IReader
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);
-    }
-
-    private static function identifyFixedStyleValue($styleList, &$styleAttributeValue)
-    {
-        $styleAttributeValue = strtolower($styleAttributeValue);
-        foreach ($styleList as $style) {
-            if ($styleAttributeValue == strtolower($style)) {
-                $styleAttributeValue = $style;
-
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**

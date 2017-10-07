@@ -165,13 +165,6 @@ class Xls extends BaseReader implements IReader
     private $documentSummaryInformation;
 
     /**
-     * User-Defined Properties stream data.
-     *
-     * @var string
-     */
-    private $userDefinedProperties;
-
-    /**
      * Workbook stream data. (Includes workbook globals substream as well as sheet substreams).
      *
      * @var string
@@ -1043,7 +1036,6 @@ class Xls extends BaseReader implements IReader
                         $this->readNote();
 
                         break;
-                    //case self::XLS_TYPE_IMDATA:                $this->readImData();                    break;
                     case self::XLS_TYPE_TXO:
                         $this->readTextObject();
 
@@ -5185,80 +5177,6 @@ class Xls extends BaseReader implements IReader
                 $this->phpSheet->protectCells(implode(' ', $cellRanges), strtoupper(dechex($wPassword)), true);
             }
         }
-    }
-
-    /**
-     * Read IMDATA record.
-     */
-    private function readImData()
-    {
-        $length = self::getUInt2d($this->data, $this->pos + 2);
-
-        // get spliced record data
-        $splicedRecordData = $this->getSplicedRecordData();
-        $recordData = $splicedRecordData['recordData'];
-
-        // UNDER CONSTRUCTION
-
-        // offset: 0; size: 2; image format
-        $cf = self::getUInt2d($recordData, 0);
-
-        // offset: 2; size: 2; environment from which the file was written
-        $env = self::getUInt2d($recordData, 2);
-
-        // offset: 4; size: 4; length of the image data
-        $lcb = self::getInt4d($recordData, 4);
-
-        // offset: 8; size: var; image data
-        $iData = substr($recordData, 8);
-
-        switch ($cf) {
-            case 0x09: // Windows bitmap format
-                // BITMAPCOREINFO
-                // 1. BITMAPCOREHEADER
-                // offset: 0; size: 4; bcSize, Specifies the number of bytes required by the structure
-                $bcSize = self::getInt4d($iData, 0);
-
-                // offset: 4; size: 2; bcWidth, specifies the width of the bitmap, in pixels
-                $bcWidth = self::getUInt2d($iData, 4);
-
-                // offset: 6; size: 2; bcHeight, specifies the height of the bitmap, in pixels.
-                $bcHeight = self::getUInt2d($iData, 6);
-                $ih = imagecreatetruecolor($bcWidth, $bcHeight);
-
-                // offset: 8; size: 2; bcPlanes, specifies the number of planes for the target device. This value must be 1
-
-                // offset: 10; size: 2; bcBitCount specifies the number of bits-per-pixel. This value must be 1, 4, 8, or 24
-                $bcBitCount = self::getUInt2d($iData, 10);
-
-                $rgbString = substr($iData, 12);
-                $rgbTriples = [];
-                while (strlen($rgbString) > 0) {
-                    $rgbTriples[] = unpack('Cb/Cg/Cr', $rgbString);
-                    $rgbString = substr($rgbString, 3);
-                }
-                $x = 0;
-                $y = 0;
-                foreach ($rgbTriples as $i => $rgbTriple) {
-                    $color = imagecolorallocate($ih, $rgbTriple['r'], $rgbTriple['g'], $rgbTriple['b']);
-                    imagesetpixel($ih, $x, $bcHeight - 1 - $y, $color);
-                    $x = ($x + 1) % $bcWidth;
-                    $y = $y + floor(($x + 1) / $bcWidth);
-                }
-                //imagepng($ih, 'image.png');
-
-                $drawing = new Drawing();
-                $drawing->setPath($filename);
-                $drawing->setWorksheet($this->phpSheet);
-
-                break;
-            case 0x02: // Windows metafile or Macintosh PICT format
-            case 0x0e: // native format
-            default:
-                break;
-        }
-
-        // getSplicedRecordData() takes care of moving current position in data stream
     }
 
     /**

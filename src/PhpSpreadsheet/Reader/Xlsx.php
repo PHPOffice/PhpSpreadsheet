@@ -247,7 +247,6 @@ class Xlsx extends BaseReader implements IReader
         }
 
         return (bool) $c->v;
-        return $value;
     }
 
     private static function castToError($c)

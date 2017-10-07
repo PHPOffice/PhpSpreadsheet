@@ -34,13 +34,6 @@ class Color extends Supervisor implements IComparable
     protected $argb;
 
     /**
-     * Parent property name.
-     *
-     * @var string
-     */
-    protected $parentPropertyName;
-
-    /**
      * Create a new Color.
      *
      * @param string $pARGB ARGB value for the colour
@@ -60,22 +53,6 @@ class Color extends Supervisor implements IComparable
         if (!$isConditional) {
             $this->argb = $pARGB;
         }
-    }
-
-    /**
-     * Bind parent. Only used for supervisor.
-     *
-     * @param mixed $parent
-     * @param string $parentPropertyName
-     *
-     * @return Color
-     */
-    public function bindParent($parent, $parentPropertyName = null)
-    {
-        $this->parent = $parent;
-        $this->parentPropertyName = $parentPropertyName;
-
-        return $this;
     }
 
     /**

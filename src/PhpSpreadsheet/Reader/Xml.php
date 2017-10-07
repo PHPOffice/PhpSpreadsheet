@@ -236,7 +236,7 @@ class Xml extends BaseReader implements IReader
         return $this->loadIntoExisting($pFilename, $spreadsheet);
     }
 
-    protected static function identifyFixedStyleValue($styleList, &$styleAttributeValue)
+    private static function identifyFixedStyleValue($styleList, &$styleAttributeValue)
     {
         $styleAttributeValue = strtolower($styleAttributeValue);
         foreach ($styleList as $style) {

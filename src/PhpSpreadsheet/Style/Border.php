@@ -38,13 +38,6 @@ class Border extends Supervisor implements IComparable
     protected $color;
 
     /**
-     * Parent property name.
-     *
-     * @var string
-     */
-    protected $parentPropertyName;
-
-    /**
      * Create a new Border.
      *
      * @param bool $isSupervisor Flag indicating if this is a supervisor or not
@@ -66,22 +59,6 @@ class Border extends Supervisor implements IComparable
         if ($isSupervisor) {
             $this->color->bindParent($this, 'color');
         }
-    }
-
-    /**
-     * Bind parent. Only used for supervisor.
-     *
-     * @param Borders $parent
-     * @param string $parentPropertyName
-     *
-     * @return Border
-     */
-    public function bindParent($parent, $parentPropertyName = null)
-    {
-        $this->parent = $parent;
-        $this->parentPropertyName = $parentPropertyName;
-
-        return $this;
     }
 
     /**

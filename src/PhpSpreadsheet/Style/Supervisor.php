@@ -19,6 +19,13 @@ abstract class Supervisor
     protected $parent;
 
     /**
+     * Parent property name.
+     *
+     * @var null|string
+     */
+    protected $parentPropertyName;
+
+    /**
      * Create a new Supervisor.
      *
      * @param bool $isSupervisor Flag indicating if this is a supervisor or not
@@ -35,13 +42,14 @@ abstract class Supervisor
      * Bind parent. Only used for supervisor.
      *
      * @param Style $parent
-     * @param null|mixed $parentPropertyName
+     * @param null|string $parentPropertyName
      *
      * @return Supervisor
      */
     public function bindParent($parent, $parentPropertyName = null)
     {
         $this->parent = $parent;
+        $this->parentPropertyName = $parentPropertyName;
 
         return $this;
     }

@@ -53,9 +53,9 @@ class DomPDF extends Core implements IWriter
 
         //  Create PDF
         $pdf = new \Dompdf\Dompdf();
-        $pdf->set_paper(strtolower($paperSize), $orientation);
+        $pdf->setPaper(strtolower($paperSize), $orientation);
 
-        $pdf->load_html(
+        $pdf->loadHtml(
             $this->generateHTMLHeader(false) .
             $this->generateSheetData() .
             $this->generateHTMLFooter()

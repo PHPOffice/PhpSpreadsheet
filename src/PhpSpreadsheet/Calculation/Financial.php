@@ -24,20 +24,6 @@ class Financial
         return $testDate->format('d') == $testDate->format('t');
     }
 
-    /**
-     * isFirstDayOfMonth.
-     *
-     * Returns a boolean TRUE/FALSE indicating if this date is the first date of the month
-     *
-     * @param DateTime $testDate The date for testing
-     *
-     * @return bool
-     */
-    private static function isFirstDayOfMonth($testDate)
-    {
-        return $testDate->format('d') == 1;
-    }
-
     private static function couponFirstPeriodDate($settlement, $maturity, $frequency, $next)
     {
         $months = 12 / $frequency;
@@ -542,8 +528,6 @@ class Financial
                 // US (NASD) 30/360, Actual/360 or European 30/360
                 return 360 / $frequency;
         }
-
-        return Functions::VALUE();
     }
 
     /**

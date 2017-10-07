@@ -2,8 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-
 class ExceptionHandler
 {
     /**
@@ -11,7 +9,7 @@ class ExceptionHandler
      */
     public function __construct()
     {
-        set_error_handler([CalculationException::class, 'errorHandlerCallback'], E_ALL);
+        set_error_handler([Exception::class, 'errorHandlerCallback'], E_ALL);
     }
 
     /**

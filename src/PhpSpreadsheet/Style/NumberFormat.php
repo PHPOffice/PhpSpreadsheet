@@ -523,15 +523,15 @@ class NumberFormat extends Supervisor implements IComparable
         }
     }
 
-    private static function complexNumberFormatMask($number, $mask, $level = 0)
+    private static function complexNumberFormatMask($number, $mask)
     {
         $sign = ($number < 0.0);
         $number = abs($number);
         if (strpos($mask, '.') !== false) {
             $numbers = explode('.', $number . '.0');
             $masks = explode('.', $mask . '.0');
-            $result1 = self::complexNumberFormatMask($numbers[0], $masks[0], 1);
-            $result2 = strrev(self::complexNumberFormatMask(strrev($numbers[1]), strrev($masks[1]), 1));
+            $result1 = self::complexNumberFormatMask($numbers[0], $masks[0]);
+            $result2 = strrev(self::complexNumberFormatMask(strrev($numbers[1]), strrev($masks[1])));
 
             return (($sign) ? '-' : '') . $result1 . '.' . $result2;
         }

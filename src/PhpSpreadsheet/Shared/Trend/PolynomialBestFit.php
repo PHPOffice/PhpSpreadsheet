@@ -122,9 +122,8 @@ class PolynomialBestFit extends BestFit
      * @param int $order Order of Polynomial for this regression
      * @param float[] $yValues The set of Y-values for this regression
      * @param float[] $xValues The set of X-values for this regression
-     * @param bool $const
      */
-    private function polynomialRegression($order, $yValues, $xValues, $const)
+    private function polynomialRegression($order, $yValues, $xValues)
     {
         // calculate sums
         $x_sum = array_sum($xValues);
@@ -156,7 +155,7 @@ class PolynomialBestFit extends BestFit
         $C = $matrixA->solve($matrixB);
 
         $coefficients = [];
-        for ($i = 0; $i < $C->m; ++$i) {
+        for ($i = 0; $i < $C->getRowDimension(); ++$i) {
             $r = $C->get($i, 0);
             if (abs($r) <= pow(10, -9)) {
                 $r = 0;
@@ -187,7 +186,7 @@ class PolynomialBestFit extends BestFit
             if ($order < $this->valueCount) {
                 $this->bestFitType .= '_' . $order;
                 $this->order = $order;
-                $this->polynomialRegression($order, $yValues, $xValues, $const);
+                $this->polynomialRegression($order, $yValues, $xValues);
                 if (($this->getGoodnessOfFit() < 0.0) || ($this->getGoodnessOfFit() > 1.0)) {
                     $this->_error = true;
                 }
