@@ -19,7 +19,7 @@ class Financial
      *
      * @return bool
      */
-    private static function isLastDayOfMonth($testDate)
+    private static function isLastDayOfMonth(\DateTime $testDate)
     {
         return $testDate->format('d') == $testDate->format('t');
     }

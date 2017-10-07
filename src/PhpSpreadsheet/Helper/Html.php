@@ -581,6 +581,9 @@ class Html
 
     protected $stringData = '';
 
+    /**
+     * @var RichText
+     */
     protected $richTextObject;
 
     protected function initialise()

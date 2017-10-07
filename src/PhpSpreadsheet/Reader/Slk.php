@@ -485,7 +485,7 @@ class Slk extends BaseReader implements IReader
      *
      * @param int $pValue Sheet index
      *
-     * @return SYLK
+     * @return Slk
      */
     public function setSheetIndex($pValue)
     {

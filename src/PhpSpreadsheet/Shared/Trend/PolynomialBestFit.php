@@ -101,14 +101,14 @@ class PolynomialBestFit extends BestFit
     {
         if ($dp != 0) {
             $coefficients = [];
-            foreach ($this->_slope as $coefficient) {
+            foreach ($this->slope as $coefficient) {
                 $coefficients[] = round($coefficient, $dp);
             }
 
             return $coefficients;
         }
 
-        return $this->_slope;
+        return $this->slope;
     }
 
     public function getCoefficients($dp = 0)
@@ -164,7 +164,7 @@ class PolynomialBestFit extends BestFit
         }
 
         $this->intersect = array_shift($coefficients);
-        $this->_slope = $coefficients;
+        $this->slope = $coefficients;
 
         $this->calculateGoodnessOfFit($x_sum, $y_sum, $xx_sum, $yy_sum, $xy_sum);
         foreach ($this->xValues as $xKey => $xValue) {
@@ -188,10 +188,10 @@ class PolynomialBestFit extends BestFit
                 $this->order = $order;
                 $this->polynomialRegression($order, $yValues, $xValues);
                 if (($this->getGoodnessOfFit() < 0.0) || ($this->getGoodnessOfFit() > 1.0)) {
-                    $this->_error = true;
+                    $this->error = true;
                 }
             } else {
-                $this->_error = true;
+                $this->error = true;
             }
         }
     }

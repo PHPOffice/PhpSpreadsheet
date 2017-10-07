@@ -2038,14 +2038,6 @@ class Calculation
     }
 
     /**
-     * Unset an instance of this class.
-     */
-    public function __destruct()
-    {
-        $this->workbook = null;
-    }
-
-    /**
      * Flush the calculation cache for any existing instance of this class
      *        but only if a Calculation instance exists.
      */

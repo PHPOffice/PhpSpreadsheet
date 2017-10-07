@@ -83,7 +83,7 @@ class EigenvalueDecomposition
             $i_ = $i - 1;
             // Scale to avoid under/overflow.
             $h = $scale = 0.0;
-            $scale += array_sum(array_map(abs, $this->d));
+            $scale += array_sum(array_map('abs', $this->d));
             if ($scale == 0.0) {
                 $this->e[$i] = $this->d[$i_];
                 $this->d = array_slice($this->V[$i_], 0, $i_);

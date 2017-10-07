@@ -47,7 +47,7 @@ class Root extends PPS
      */
     public function __construct($time_1st, $time_2nd, $raChild)
     {
-        $this->_tempDir = \PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir();
+        $this->tempDirectory = \PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir();
 
         parent::__construct(null, OLE::ascToUcs('Root Entry'), OLE::OLE_PPS_TYPE_ROOT, null, null, null, $time_1st, $time_2nd, null, $raChild);
     }

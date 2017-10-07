@@ -300,7 +300,7 @@ class Statistical
         $y = $x;
         if ($y > 0.0 && $y <= self::LOG_GAMMA_X_MAX_VALUE) {
             if ($y <= self::EPS) {
-                $res = -log(y);
+                $res = -log($y);
             } elseif ($y <= 1.5) {
                 // ---------------------
                 //    EPS .LT. X .LE. 1.5

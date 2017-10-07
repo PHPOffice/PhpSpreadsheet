@@ -61,10 +61,10 @@ class ExponentialBestFit extends BestFit
     public function getSlope($dp = 0)
     {
         if ($dp != 0) {
-            return round(exp($this->_slope), $dp);
+            return round(exp($this->slope), $dp);
         }
 
-        return exp($this->_slope);
+        return exp($this->slope);
     }
 
     /**

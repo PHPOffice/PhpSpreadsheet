@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
+use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class StringTable extends WriterPart
@@ -20,45 +21,41 @@ class StringTable extends WriterPart
      *
      * @return string[] String table for worksheet
      */
-    public function createStringTable($pSheet = null, $pExistingTable = null)
+    public function createStringTable(Worksheet $pSheet, $pExistingTable = null)
     {
-        if ($pSheet !== null) {
-            // Create string lookup table
-            $aStringTable = [];
-            $cellCollection = null;
-            $aFlippedStringTable = null; // For faster lookup
+        // Create string lookup table
+        $aStringTable = [];
+        $cellCollection = null;
+        $aFlippedStringTable = null; // For faster lookup
 
-            // Is an existing table given?
-            if (($pExistingTable !== null) && is_array($pExistingTable)) {
-                $aStringTable = $pExistingTable;
-            }
-
-            // Fill index array
-            $aFlippedStringTable = $this->flipStringTable($aStringTable);
-
-            // Loop through cells
-            foreach ($pSheet->getCoordinates() as $coordinate) {
-                $cell = $pSheet->getCell($coordinate);
-                $cellValue = $cell->getValue();
-                if (!is_object($cellValue) &&
-                    ($cellValue !== null) &&
-                    $cellValue !== '' &&
-                    !isset($aFlippedStringTable[$cellValue]) &&
-                    ($cell->getDataType() == Cell\DataType::TYPE_STRING || $cell->getDataType() == Cell\DataType::TYPE_STRING2 || $cell->getDataType() == Cell\DataType::TYPE_NULL)) {
-                    $aStringTable[] = $cellValue;
-                    $aFlippedStringTable[$cellValue] = true;
-                } elseif ($cellValue instanceof RichText &&
-                          ($cellValue !== null) &&
-                          !isset($aFlippedStringTable[$cellValue->getHashCode()])) {
-                    $aStringTable[] = $cellValue;
-                    $aFlippedStringTable[$cellValue->getHashCode()] = true;
-                }
-            }
-
-            return $aStringTable;
+        // Is an existing table given?
+        if (($pExistingTable !== null) && is_array($pExistingTable)) {
+            $aStringTable = $pExistingTable;
         }
 
-        throw new WriterException('Invalid Worksheet object passed.');
+        // Fill index array
+        $aFlippedStringTable = $this->flipStringTable($aStringTable);
+
+        // Loop through cells
+        foreach ($pSheet->getCoordinates() as $coordinate) {
+            $cell = $pSheet->getCell($coordinate);
+            $cellValue = $cell->getValue();
+            if (!is_object($cellValue) &&
+                ($cellValue !== null) &&
+                $cellValue !== '' &&
+                !isset($aFlippedStringTable[$cellValue]) &&
+                ($cell->getDataType() == Cell\DataType::TYPE_STRING || $cell->getDataType() == Cell\DataType::TYPE_STRING2 || $cell->getDataType() == Cell\DataType::TYPE_NULL)) {
+                $aStringTable[] = $cellValue;
+                $aFlippedStringTable[$cellValue] = true;
+            } elseif ($cellValue instanceof RichText &&
+                ($cellValue !== null) &&
+                !isset($aFlippedStringTable[$cellValue->getHashCode()])) {
+                $aStringTable[] = $cellValue;
+                $aFlippedStringTable[$cellValue->getHashCode()] = true;
+            }
+        }
+
+        return $aStringTable;
     }
 
     /**

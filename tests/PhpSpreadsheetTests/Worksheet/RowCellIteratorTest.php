@@ -10,7 +10,7 @@ use PHPUnit_Framework_TestCase;
 class RowCellIteratorTest extends PHPUnit_Framework_TestCase
 {
     public $mockWorksheet;
-    public $mockRowCell;
+    public $mockCell;
 
     public function setUp()
     {

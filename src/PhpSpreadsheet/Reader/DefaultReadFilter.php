@@ -7,9 +7,9 @@ class DefaultReadFilter implements IReadFilter
     /**
      * Should this cell be read?
      *
-     * @param $column Column address (as a string value like "A", or "IV")
-     * @param $row Row number
-     * @param $worksheetName Optional worksheet name
+     * @param string $column Column address (as a string value like "A", or "IV")
+     * @param int $row Row number
+     * @param string $worksheetName Optional worksheet name
      *
      * @return bool
      */
