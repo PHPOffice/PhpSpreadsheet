@@ -1,0 +1,13 @@
+checks:
+    php: true
+coding_style:
+    php:
+        spaces:
+            before_parentheses:
+                closure_definition: true
+            around_operators:
+                concatenation: true
+
+tools:
+    external_code_coverage:
+        timeout: 3600
