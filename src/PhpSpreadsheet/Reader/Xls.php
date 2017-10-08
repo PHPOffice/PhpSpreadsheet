@@ -397,6 +397,16 @@ class Xls extends BaseReader implements IReader
     private $md5Ctxt;
 
     /**
+     * @var int
+     */
+    private $textObjRef;
+
+    /**
+     * @var string
+     */
+    private $_baseCell;
+
+    /**
      * Create a new Xls Reader instance.
      */
     public function __construct()

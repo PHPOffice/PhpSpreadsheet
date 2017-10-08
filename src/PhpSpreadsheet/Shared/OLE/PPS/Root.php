@@ -41,6 +41,26 @@ class Root extends PPS
     protected $tempDirectory;
 
     /**
+     * @var resource
+     */
+    private $_FILEH_;
+
+    /**
+     * @var string
+     */
+    private $_tmp_filename;
+
+    /**
+     * @var int
+     */
+    private $_SMALL_BLOCK_SIZE;
+
+    /**
+     * @var int
+     */
+    private $_BIG_BLOCK_SIZE;
+
+    /**
      * @param int $time_1st A timestamp
      * @param int $time_2nd A timestamp
      * @param File[] $raChild

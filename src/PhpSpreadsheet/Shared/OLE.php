@@ -98,6 +98,13 @@ class OLE
     public $smallBlockSize;
 
     /**
+     * Threshold for big blocks.
+     *
+     * @var int
+     */
+    private $bigBlockThreshold;
+
+    /**
      * Reads an OLE container from the contents of the file given.
      *
      * @acces public
@@ -299,7 +306,7 @@ class OLE
             $type = self::_readInt1($fh);
             switch ($type) {
                 case self::OLE_PPS_TYPE_ROOT:
-                    $pps = new OLE\PPS_Root(null, null, []);
+                    $pps = new OLE\PPS\Root(null, null, []);
                     $this->root = $pps;
 
                     break;

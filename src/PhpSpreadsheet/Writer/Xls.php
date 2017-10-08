@@ -90,6 +90,16 @@ class Xls extends BaseWriter implements IWriter
     private $documentSummaryInformation;
 
     /**
+     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook
+     */
+    private $writerWorkbook;
+
+    /**
+     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Worksheet[]
+     */
+    private $writerWorksheets;
+
+    /**
      * Create a new Xls Writer.
      *
      * @param Spreadsheet $spreadsheet PhpSpreadsheet object

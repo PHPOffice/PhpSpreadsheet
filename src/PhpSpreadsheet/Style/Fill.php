@@ -31,6 +31,16 @@ class Fill extends Supervisor implements IComparable
     const FILL_PATTERN_MEDIUMGRAY = 'mediumGray';
 
     /**
+     * @var int
+     */
+    public $startcolorIndex;
+
+    /**
+     * @var int
+     */
+    public $endcolorIndex;
+
+    /**
      * Fill type.
      *
      * @var string

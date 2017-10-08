@@ -38,6 +38,11 @@ class Border extends Supervisor implements IComparable
     protected $color;
 
     /**
+     * @var int
+     */
+    public $colorIndex;
+
+    /**
      * Create a new Border.
      *
      * @param bool $isSupervisor Flag indicating if this is a supervisor or not
