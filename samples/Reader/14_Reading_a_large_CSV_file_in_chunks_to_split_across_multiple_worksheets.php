@@ -1,6 +1,6 @@
 <?php
 
-namespace Sample;
+namespace Samples\Sample14;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
@@ -14,8 +14,8 @@ $inputFileName = __DIR__ . '/sampleData/example2.csv';
 /**  Define a Read Filter class implementing IReadFilter  */
 class ChunkReadFilter implements IReadFilter
 {
-    private $_startRow = 0;
-    private $_endRow = 0;
+    private $startRow = 0;
+    private $endRow = 0;
 
     /**
      * Set the list of rows that we want to read.
@@ -25,14 +25,14 @@ class ChunkReadFilter implements IReadFilter
      */
     public function setRows($startRow, $chunkSize)
     {
-        $this->_startRow = $startRow;
-        $this->_endRow = $startRow + $chunkSize;
+        $this->startRow = $startRow;
+        $this->endRow = $startRow + $chunkSize;
     }
 
     public function readCell($column, $row, $worksheetName = '')
     {
         //  Only read the heading row, and the rows that are configured in $this->_startRow and $this->_endRow
-        if (($row == 1) || ($row >= $this->_startRow && $row < $this->_endRow)) {
+        if (($row == 1) || ($row >= $this->startRow && $row < $this->endRow)) {
             return true;
         }
 

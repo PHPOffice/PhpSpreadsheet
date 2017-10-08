@@ -1,6 +1,6 @@
 <?php
 
-namespace Sample;
+namespace Samples\Sample10;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
@@ -13,21 +13,21 @@ $sheetname = 'Data Sheet #3';
 
 class MyReadFilter implements IReadFilter
 {
-    private $_startRow = 0;
-    private $_endRow = 0;
-    private $_columns = [];
+    private $startRow = 0;
+    private $endRow = 0;
+    private $columns = [];
 
     public function __construct($startRow, $endRow, $columns)
     {
-        $this->_startRow = $startRow;
-        $this->_endRow = $endRow;
-        $this->_columns = $columns;
+        $this->startRow = $startRow;
+        $this->endRow = $endRow;
+        $this->columns = $columns;
     }
 
     public function readCell($column, $row, $worksheetName = '')
     {
-        if ($row >= $this->_startRow && $row <= $this->_endRow) {
-            if (in_array($column, $this->_columns)) {
+        if ($row >= $this->startRow && $row <= $this->endRow) {
+            if (in_array($column, $this->columns)) {
                 return true;
             }
         }

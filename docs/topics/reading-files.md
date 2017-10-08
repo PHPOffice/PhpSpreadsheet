@@ -289,21 +289,21 @@ useful:
 /**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
-    private $_startRow = 0;
-    private $_endRow   = 0;
-    private $_columns  = array();
+    private $startRow = 0;
+    private $endRow   = 0;
+    private $columns  = array();
 
     /**  Get the list of rows and columns to read  */
     public function __construct($startRow, $endRow, $columns) {
-        $this->_startRow = $startRow;
-        $this->_endRow   = $endRow;
-        $this->_columns  = $columns;
+        $this->startRow = $startRow;
+        $this->endRow   = $endRow;
+        $this->columns  = $columns;
     }
 
     public function readCell($column, $row, $worksheetName = '') {
         //  Only read the rows and columns that were configured
-        if ($row >= $this->_startRow && $row <= $this->_endRow) {
-            if (in_array($column,$this->_columns)) {
+        if ($row >= $this->startRow && $row <= $this->endRow) {
+            if (in_array($column,$this->columns)) {
                 return true;
             }
         }
@@ -331,18 +331,18 @@ $inputFileName = './sampleData/example2.xls';
 /**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
 class ChunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
-    private $_startRow = 0;
-    private $_endRow   = 0;
+    private $startRow = 0;
+    private $endRow   = 0;
 
     /**  Set the list of rows that we want to read  */
     public function setRows($startRow, $chunkSize) {
-        $this->_startRow = $startRow;
-        $this->_endRow   = $startRow + $chunkSize;
+        $this->startRow = $startRow;
+        $this->endRow   = $startRow + $chunkSize;
     }
 
     public function readCell($column, $row, $worksheetName = '') {
         //  Only read the heading row, and the configured rows
-        if (($row == 1) || ($row >= $this->_startRow && $row < $this->_endRow)) {
+        if (($row == 1) || ($row >= $this->startRow && $row < $this->endRow)) {
             return true;
         }
         return false;

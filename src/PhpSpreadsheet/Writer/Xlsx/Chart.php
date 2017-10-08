@@ -21,7 +21,7 @@ class Chart extends WriterPart
     /**
      * @var int
      */
-    private $_seriesIndex;
+    private $seriesIndex;
 
     /**
      * Write charts to XML format.
@@ -220,7 +220,7 @@ class Chart extends WriterPart
         }
 
         $id1 = $id2 = 0;
-        $this->_seriesIndex = 0;
+        $this->seriesIndex = 0;
         $objWriter->startElement('c:plotArea');
 
         $layout = $plotArea->getLayout();
@@ -1096,11 +1096,11 @@ class Chart extends WriterPart
             }
 
             $objWriter->startElement('c:idx');
-            $objWriter->writeAttribute('val', $this->_seriesIndex + $plotSeriesIdx);
+            $objWriter->writeAttribute('val', $this->seriesIndex + $plotSeriesIdx);
             $objWriter->endElement();
 
             $objWriter->startElement('c:order');
-            $objWriter->writeAttribute('val', $this->_seriesIndex + $plotSeriesRef);
+            $objWriter->writeAttribute('val', $this->seriesIndex + $plotSeriesRef);
             $objWriter->endElement();
 
             if (($groupType == DataSeries::TYPE_PIECHART) || ($groupType == DataSeries::TYPE_PIECHART_3D) || ($groupType == DataSeries::TYPE_DONUTCHART)) {
@@ -1218,7 +1218,7 @@ class Chart extends WriterPart
             $objWriter->endElement();
         }
 
-        $this->_seriesIndex += $plotSeriesIdx + 1;
+        $this->seriesIndex += $plotSeriesIdx + 1;
     }
 
     /**

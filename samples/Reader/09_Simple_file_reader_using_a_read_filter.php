@@ -1,6 +1,6 @@
 <?php
 
-namespace Sample;
+namespace Samples\Sample12;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;

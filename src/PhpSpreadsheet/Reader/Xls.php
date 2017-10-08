@@ -404,7 +404,7 @@ class Xls extends BaseReader implements IReader
     /**
      * @var string
      */
-    private $_baseCell;
+    private $baseCell;
 
     /**
      * Create a new Xls Reader instance.
@@ -3968,14 +3968,14 @@ class Xls extends BaseReader implements IReader
             // get the base cell, grab tExp token
             $baseRow = self::getUInt2d($formulaStructure, 3);
             $baseCol = self::getUInt2d($formulaStructure, 5);
-            $this->_baseCell = Cell::stringFromColumnIndex($baseCol) . ($baseRow + 1);
+            $this->baseCell = Cell::stringFromColumnIndex($baseCol) . ($baseRow + 1);
         }
 
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
             if ($isPartOfSharedFormula) {
                 // formula is added to this cell after the sheet has been read
-                $this->sharedFormulaParts[$columnString . ($row + 1)] = $this->_baseCell;
+                $this->sharedFormulaParts[$columnString . ($row + 1)] = $this->baseCell;
             }
 
             // offset: 16: size: 4; not used
@@ -4078,7 +4078,7 @@ class Xls extends BaseReader implements IReader
         $formula = substr($recordData, 8);
 
         // at this point we only store the shared formula for later use
-        $this->sharedFormulas[$this->_baseCell] = $formula;
+        $this->sharedFormulas[$this->baseCell] = $formula;
     }
 
     /**
