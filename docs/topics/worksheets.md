@@ -97,7 +97,7 @@ insert the clone into the workbook.
 
 ``` php
 $clonedWorksheet = clone $spreadsheet->getSheetByName('Worksheet 1');
-$clonedWorksheet->setTitle('Copy of Worksheet 1')
+$clonedWorksheet->setTitle('Copy of Worksheet 1');
 $spreadsheet->addSheet($clonedWorksheet);
 ```
 
