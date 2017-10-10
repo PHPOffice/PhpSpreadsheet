@@ -460,6 +460,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Empty/NULL</td>
@@ -1486,6 +1487,60 @@
 		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center; color: red;">✖</td>
+	</tr>
+	<tr>
+		<td><strong>Security</strong></td>
+		<td style="text-align: center; color: orange;">●</td>
+		<td style="text-align: center; color: orange;">●</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+	</tr>
+	<tr>
+		<td style="padding-left: 2em;">Protection (prevent editing)</td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td>$sheet->getProtection()</td>
+		<td>$sheet->getProtection()->setSheet(true)</td>
+	</tr>
+	<tr>
+		<td style="padding-left: 2em;">Encryption (prevent viewing)</td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<th></th>
