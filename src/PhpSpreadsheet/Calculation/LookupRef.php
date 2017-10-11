@@ -301,7 +301,7 @@ class LookupRef
 
         if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
             (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))) {
-            if (!preg_match('/^' . Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $cellAddress1, $matches)) {
+            if (!preg_match('/^' . Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/iu', $cellAddress1, $matches)) {
                 return Functions::REF();
             }
 
