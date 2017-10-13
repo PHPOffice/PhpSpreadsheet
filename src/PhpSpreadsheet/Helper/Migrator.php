@@ -210,6 +210,9 @@ class Migrator
             'SECONDOFMINUTE' => 'SECOND',
             'DAYOFWEEK' => 'WEEKDAY',
             'WEEKOFYEAR' => 'WEEKNUM',
+            'ExcelToPHPObject' => 'excelToDateTimeObject',
+            'ExcelToPHP' => 'excelToTimestamp',
+            'FormattedPHPToExcel' => 'formattedPHPToExcel',
         ];
 
         return $mapping;
