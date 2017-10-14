@@ -7,11 +7,9 @@ require __DIR__ . '/../Header.php';
 
 //	Change these values to select the Rendering library that you wish to use
 //		for PDF files, and its directory location on your server
-//$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF;
-$rendererName = Settings::PDF_RENDERER_MPDF;
-//$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF;
+$rendererName = \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF::class;
 
-Settings::setPdfRendererName($rendererName);
+Settings::setDefaultPdfWriter($rendererName);
 
 //	Change these values to select the Rendering library that you wish to use
 //		for Chart images, and its directory location on your server

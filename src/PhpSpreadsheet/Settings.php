@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 use Psr\SimpleCache\CacheInterface;
 
 class Settings
@@ -10,18 +11,8 @@ class Settings
     /**    Optional Chart Rendering libraries */
     const CHART_RENDERER_JPGRAPH = 'JpGraph';
 
-    /**    Optional PDF Rendering libraries */
-    const PDF_RENDERER_TCPDF = 'TcPDF';
-    const PDF_RENDERER_DOMPDF = 'DomPDF';
-    const PDF_RENDERER_MPDF = 'MPDF';
-
     private static $chartRenderers = [
         self::CHART_RENDERER_JPGRAPH,
-    ];
-    private static $pdfRenderers = [
-        self::PDF_RENDERER_TCPDF,
-        self::PDF_RENDERER_DOMPDF,
-        self::PDF_RENDERER_MPDF,
     ];
 
     /**
@@ -47,7 +38,7 @@ class Settings
      *
      * @var string
      */
-    private static $pdfRendererName;
+    private static $defaultPdfWriter;
 
     /**
      * Default options for libxml loader.
@@ -152,33 +143,27 @@ class Settings
     }
 
     /**
-     * Identify to PhpSpreadsheet the external library to use for rendering PDF files.
+     * Identify to PhpSpreadsheet the default writer to use for PDF.
      *
-     * @param string $libraryName Internal reference name of the library
-     *     e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
-     *          \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
-     *       or \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF
+     * @param string $writerClassName Internal reference name of the library
      */
-    public static function setPdfRendererName($libraryName)
+    public static function setDefaultPdfWriter($writerClassName)
     {
-        if (!in_array($libraryName, self::$pdfRenderers)) {
-            throw new Exception('"' . $libraryName . '" is not a valid PDF library name');
+        if (!is_a($writerClassName, Pdf::class, true)) {
+            throw new Exception('"' . $writerClassName . '" is not a valid PDF writer class name');
         }
-        self::$pdfRendererName = $libraryName;
+        self::$defaultPdfWriter = $writerClassName;
     }
 
     /**
-     * Return the PDF Rendering Library that PhpSpreadsheet is currently configured to use (e.g. dompdf).
+     * Return the default PDF writer that PhpSpreadsheet is currently configured to use (e.g. dompdf).
      *
      * @return null|string Internal reference name of the PDF Rendering Library that PhpSpreadsheet is
      *     currently configured to use
-     * e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
-     *       \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
-     *    or \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF
      */
-    public static function getPdfRendererName()
+    public static function getDefaultPdfWriter()
     {
-        return self::$pdfRendererName;
+        return self::$defaultPdfWriter;
     }
 
     /**

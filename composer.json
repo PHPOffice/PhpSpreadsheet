@@ -27,6 +27,9 @@
             "php-cs-fixer fix --ansi --dry-run --diff",
             "phpcs --report-width=200 --report-summary  --report-full samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n",
             "phpunit --color=always"
+        ],
+        "fix": [
+            "php-cs-fixer fix --ansi"
         ]
     },
     "require": {

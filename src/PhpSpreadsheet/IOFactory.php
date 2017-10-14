@@ -98,6 +98,15 @@ class IOFactory
         // Search type
         $searchType = 'IWriter';
 
+        if ($writerType === 'Pdf') {
+            $pdfWriter = Settings::getDefaultPdfWriter();
+            if ($pdfWriter === null) {
+                throw new Exception('PDF default writer has not been defined.');
+            }
+
+            return new $pdfWriter($spreadsheet);
+        }
+
         // Include class
         foreach (self::$searchLocations as $searchLocation) {
             if ($searchLocation['type'] == $searchType) {

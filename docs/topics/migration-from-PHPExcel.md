@@ -124,13 +124,15 @@ autoloading mechanism.
 
 ## Writing PDF
 
-`PHPExcel_Settings::setPdfRenderer()` and `PHPExcel_Settings::setPdfRenderer()`
-were removed and PDF libraries must be installed via composer. So the only thing
-to do is to specify a renderer like so:
+`PHPExcel_Settings::getPdfRenderer()` and `PHPExcel_Settings::setPdfRenderer()`
+were removed. `PHPExcel_Settings::getPdfRendererName()` and
+`PHPExcel_Settings::setPdfRendererName()` were renamed as `setDefaultPdfWriter()`
+and `setDefaultPdfWriter()` respectively. And PDF libraries must be installed via
+composer. So the only thing to do is to specify a default writer class like so:
 
 ```php
-$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
-\PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
+$rendererName = \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF::class;
+\PhpOffice\PhpSpreadsheet\Settings::setDefaultPdfWriter($rendererName);
 ```
 
 ## PclZip and ZipArchive

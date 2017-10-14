@@ -12,9 +12,9 @@ $spreadsheet->getActiveSheet()->setShowGridLines(false);
 $helper->log('Set orientation to landscape');
 $spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
 
-$rendererName = Settings::PDF_RENDERER_TCPDF;
+$rendererName = \PhpOffice\PhpSpreadsheet\Writer\Pdf\TcPDF::class;
 $helper->log("Write to PDF format using {$rendererName}");
-Settings::setPdfRendererName($rendererName);
+Settings::setDefaultPdfWriter($rendererName);
 
 // Save
 $helper->write($spreadsheet, __FILE__, ['Pdf']);

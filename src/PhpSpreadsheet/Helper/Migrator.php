@@ -59,7 +59,7 @@ class Migrator
             'PHPExcel_Writer_OpenDocument_Styles' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Styles::class,
             'PHPExcel_Writer_OpenDocument_Thumbnails' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Thumbnails::class,
             'PHPExcel_Writer_OpenDocument_WriterPart' => \PhpOffice\PhpSpreadsheet\Writer\Ods\WriterPart::class,
-            'PHPExcel_Writer_PDF_Core' => \PhpOffice\PhpSpreadsheet\Writer\Pdf\Core::class,
+            'PHPExcel_Writer_PDF_Core' => \PhpOffice\PhpSpreadsheet\Writer\Pdf::class,
             'PHPExcel_Writer_PDF_DomPDF' => \PhpOffice\PhpSpreadsheet\Writer\Pdf\DomPDF::class,
             'PHPExcel_Writer_PDF_mPDF' => \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF::class,
             'PHPExcel_Writer_PDF_tcPDF' => \PhpOffice\PhpSpreadsheet\Writer\Pdf\TcPDF::class,

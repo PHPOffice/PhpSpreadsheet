@@ -4,8 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
-class TcPDF extends Core implements IWriter
+class TcPDF extends Pdf implements IWriter
 {
     /**
      * Save Spreadsheet to file.
