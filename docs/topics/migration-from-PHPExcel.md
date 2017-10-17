@@ -3,7 +3,10 @@
 PhpSpreadsheet introduced many breaking changes by introducing
 namespaces and renaming some classes. To help you migrate existing
 project, a tool was written to replace all references to PHPExcel
-classes to their new names.
+classes to their new names. But they are also manual changes that
+need to be done.
+
+## Automated tool
 
 The tool is included in PhpSpreadsheet. It scans recursively all files
 and directories, starting from the current directory. Assuming it was
@@ -17,12 +20,33 @@ cd /project/to/migrate/src
 **Important** The tool will irreversibly modify your sources, be sure to
 backup everything, and double check the result before committing.
 
-## Removed deprecated things
+## Manual changes
 
-In addition to automated changes, usage of deprecated methods must be migrated
-manually.
+In addition to automated changes, a few things need to be migrated manually.
 
-### Worksheet::duplicateStyleArray()
+### Renamed readers and writers
+
+When using with `IOFactory::createReader()`, `IOFactory::createWriter()` 
+and `IOFactory::identify()`, the reader/writer short names are used. 
+Those were changed, along as their corresponding class, to remove ambiguity:
+            
+Before           | After
+-----------------|---------
+`'CSV'`          | `'Csv'`
+`'Excel2003XML'` | `'Xml'`
+`'Excel2007'`    | `'Xlsx'`
+`'Excel5'`       | `'Xls'`
+`'Gnumeric'`     | `'Gnumeric'`
+`'HTML'`         | `'Html'`
+`'OOCalc'`       | `'Ods'`
+`'OpenDocument'` | `'Ods'`
+`'PDF'`          | `'Pdf'`
+`'SYLK'`         | `'Slk'`
+
+
+### Removed deprecated things
+
+#### Worksheet::duplicateStyleArray()
 
 ``` php
 // Before
@@ -32,7 +56,7 @@ $worksheet->duplicateStyleArray($styles, $range, $advanced);
 $worksheet->getStyle($range)->applyFromArray($styles, $advanced);
 ```
 
-### DataType::dataTypeForValue()
+#### DataType::dataTypeForValue()
 
 ``` php
 // Before
@@ -42,7 +66,7 @@ DataType::dataTypeForValue($value);
 DefaultValueBinder::dataTypeForValue($value);
 ```
 
-### Conditional::getCondition()
+#### Conditional::getCondition()
 
 ``` php
 // Before
@@ -52,7 +76,7 @@ $conditional->getCondition();
 $conditional->getConditions()[0];
 ```
 
-### Conditional::setCondition()
+#### Conditional::setCondition()
 
 ``` php
 // Before
@@ -62,7 +86,7 @@ $conditional->setCondition($value);
 $conditional->setConditions($value);
 ```
 
-### Worksheet::getDefaultStyle()
+#### Worksheet::getDefaultStyle()
 
 ``` php
 // Before
@@ -72,7 +96,7 @@ $worksheet->getDefaultStyle();
 $worksheet->getParent()->getDefaultStyle();
 ```
 
-### Worksheet::setDefaultStyle()
+#### Worksheet::setDefaultStyle()
 
 ``` php
 // Before
@@ -88,7 +112,7 @@ $worksheet->getParent()->getDefaultStyle()->applyFromArray([
 
 ```
 
-### Worksheet::setSharedStyle()
+#### Worksheet::setSharedStyle()
 
 ``` php
 // Before
@@ -98,7 +122,7 @@ $worksheet->setSharedStyle($sharedStyle, $range);
 $worksheet->duplicateStyle($sharedStyle, $range);
 ```
 
-### Worksheet::getSelectedCell()
+#### Worksheet::getSelectedCell()
 
 ``` php
 // Before
@@ -108,7 +132,7 @@ $worksheet->getSelectedCell();
 $worksheet->getSelectedCells();
 ```
 
-### Writer\Xls::setTempDir()
+#### Writer\Xls::setTempDir()
 
 ``` php
 // Before
@@ -117,12 +141,12 @@ $writer->setTempDir();
 // After, there is no way to set temporary storage directory anymore
 ```
 
-## Autoloader
+### Autoloader
 
 The class `PHPExcel_Autoloader` was removed entirely and is replaced by composer
 autoloading mechanism.
 
-## Writing PDF
+### Writing PDF
 
 `PHPExcel_Settings::getPdfRenderer()` and `PHPExcel_Settings::setPdfRenderer()`
 were removed. `PHPExcel_Settings::getPdfRendererName()` and
@@ -135,7 +159,7 @@ $rendererName = \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF::class;
 \PhpOffice\PhpSpreadsheet\Settings::setDefaultPdfWriter($rendererName);
 ```
 
-## PclZip and ZipArchive
+### PclZip and ZipArchive
 
 Support for PclZip were dropped in favor of the more complete and modern
 [PHP extension ZipArchive](http://php.net/manual/en/book.zip.php).
@@ -148,7 +172,7 @@ So the following were removed:
 - `PHPExcel_Shared_ZipStreamWrapper`
 
 
-## Cell caching
+### Cell caching
 
 Cell caching was heavily refactored to leverage
 [PSR-16](http://www.php-fig.org/psr/psr-16/). That means most classes
@@ -174,7 +198,7 @@ to `\PhpOffice\PhpSpreadsheet::getCoordinates()` and
 
 Refer to [the new documentation](./memory_saving.md) to see how to migrate.
 
-## Dropped conditionally returned cell
+### Dropped conditionally returned cell
 
 For all the following methods, it is no more possible to change the type of
 returned value. It always return the Worksheet and never the Cell or Rule:
@@ -195,7 +219,7 @@ $cell = $worksheet->setCellValue('A1', 'value', true);
 $cell = $worksheet->getCell('A1')->setValue('value');
 ```
 
-## Standardized keys for styling
+### Standardized keys for styling
 
 Array keys used for styling have been standardized for a more coherent experience.
 It now uses the same wording and casing as the getter and setter:
