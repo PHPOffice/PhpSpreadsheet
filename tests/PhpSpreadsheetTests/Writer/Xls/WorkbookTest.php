@@ -86,7 +86,7 @@ class WorkbookTest extends PHPUnit_Framework_TestCase
 
         // Add new color after all existing color
         $colorsAddTwo = array_map([$this, 'paletteToColor'], $palette);
-        array_push($colorsAddTwo, $this->paletteToColor($newColor1));
+        $colorsAddTwo[] = $this->paletteToColor($newColor1);
         $paletteTestSix = $palette;
 
         // Add one existing color

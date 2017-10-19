@@ -856,8 +856,8 @@ $conditional2->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsh
 $conditional2->getStyle()->getFont()->setBold(true);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('B2')->getConditionalStyles();
-array_push($conditionalStyles, $conditional1);
-array_push($conditionalStyles, $conditional2);
+$conditionalStyles[] = $conditional1;
+$conditionalStyles[] = $conditional2;
 
 $spreadsheet->getActiveSheet()->getStyle('B2')->setConditionalStyles($conditionalStyles);
 ```
