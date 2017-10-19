@@ -79,9 +79,9 @@ $conditional3->getStyle()->getFont()->setItalic(true);
 $conditional3->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('B2')->getConditionalStyles();
-array_push($conditionalStyles, $conditional1);
-array_push($conditionalStyles, $conditional2);
-array_push($conditionalStyles, $conditional3);
+$conditionalStyles[] = $conditional1;
+$conditionalStyles[] = $conditional2;
+$conditionalStyles[] = $conditional3;
 $spreadsheet->getActiveSheet()->getStyle('B2')->setConditionalStyles($conditionalStyles);
 
 //	duplicate the conditional styles across a range of cells
