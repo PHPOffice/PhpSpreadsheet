@@ -18,14 +18,13 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerHLOOKUP
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
     public function testHLOOKUP($expectedResult, ...$args)
     {
         $result = LookupRef::HLOOKUP(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerHLOOKUP()
@@ -35,14 +34,13 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerVLOOKUP
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
     public function testVLOOKUP($expectedResult, ...$args)
     {
         $result = LookupRef::VLOOKUP(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerVLOOKUP()
@@ -52,18 +50,33 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMATCH
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
     public function testMATCH($expectedResult, ...$args)
     {
         $result = LookupRef::MATCH(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerMATCH()
     {
         return require 'data/Calculation/LookupRef/MATCH.php';
+    }
+
+    /**
+     * @dataProvider providerINDEX
+     *
+     * @param mixed $expectedResult
+     */
+    public function testINDEX($expectedResult, ...$args)
+    {
+        $result = LookupRef::INDEX(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerINDEX()
+    {
+        return require 'data/Calculation/LookupRef/INDEX.php';
     }
 }

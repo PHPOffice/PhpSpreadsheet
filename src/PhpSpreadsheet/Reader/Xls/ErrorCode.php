@@ -19,7 +19,7 @@ class ErrorCode
      *
      * @param int $code
      *
-     * @return string|bool
+     * @return bool|string
      */
     public static function lookup($code)
     {

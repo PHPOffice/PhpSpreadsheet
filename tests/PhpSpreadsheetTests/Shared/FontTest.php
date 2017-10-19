@@ -12,7 +12,7 @@ class FontTest extends PHPUnit_Framework_TestCase
         $expectedResult = Font::AUTOSIZE_METHOD_APPROX;
 
         $result = Font::getAutoSizeMethod();
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function testSetAutoSizeMethod()
@@ -24,7 +24,7 @@ class FontTest extends PHPUnit_Framework_TestCase
 
         foreach ($autosizeMethodValues as $autosizeMethodValue) {
             $result = Font::setAutoSizeMethod($autosizeMethodValue);
-            $this->assertTrue($result);
+            self::assertTrue($result);
         }
     }
 
@@ -33,7 +33,7 @@ class FontTest extends PHPUnit_Framework_TestCase
         $unsupportedAutosizeMethod = 'guess';
 
         $result = Font::setAutoSizeMethod($unsupportedAutosizeMethod);
-        $this->assertFalse($result);
+        self::assertFalse($result);
     }
 
     /**
@@ -44,7 +44,7 @@ class FontTest extends PHPUnit_Framework_TestCase
     public function testFontSizeToPixels($expectedResult, ...$args)
     {
         $result = Font::fontSizeToPixels(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerFontSizeToPixels()
@@ -60,7 +60,7 @@ class FontTest extends PHPUnit_Framework_TestCase
     public function testInchSizeToPixels($expectedResult, ...$args)
     {
         $result = Font::inchSizeToPixels(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerInchSizeToPixels()
@@ -76,7 +76,7 @@ class FontTest extends PHPUnit_Framework_TestCase
     public function testCentimeterSizeToPixels($expectedResult, ...$args)
     {
         $result = Font::centimeterSizeToPixels(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCentimeterSizeToPixels()

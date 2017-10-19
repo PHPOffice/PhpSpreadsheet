@@ -549,7 +549,9 @@
                     <Data ss:Type="String">AE</Data>
                 </Cell>
                 <Cell ss:StyleID="ce5"/>
-                <Cell ss:StyleID="ce5"/>
+                <Cell ss:StyleID="ce5" ss:HRef="http://phpspreadsheet.readthedocs.io/">
+                    <Data ss:Type="String">PhpSpreadsheet</Data>
+                </Cell>
                 <Cell ss:StyleID="ce5"/>
                 <Cell ss:StyleID="ce5"/>
                 <Cell ss:StyleID="ce5"/>

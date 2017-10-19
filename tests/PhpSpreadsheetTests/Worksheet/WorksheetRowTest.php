@@ -25,23 +25,23 @@ class WorksheetRowTest extends PHPUnit_Framework_TestCase
     public function testInstantiateRowDefault()
     {
         $row = new Row($this->mockWorksheet);
-        $this->assertInstanceOf(Row::class, $row);
+        self::assertInstanceOf(Row::class, $row);
         $rowIndex = $row->getRowIndex();
-        $this->assertEquals(1, $rowIndex);
+        self::assertEquals(1, $rowIndex);
     }
 
     public function testInstantiateRowSpecified()
     {
         $row = new Row($this->mockWorksheet, 5);
-        $this->assertInstanceOf(Row::class, $row);
+        self::assertInstanceOf(Row::class, $row);
         $rowIndex = $row->getRowIndex();
-        $this->assertEquals(5, $rowIndex);
+        self::assertEquals(5, $rowIndex);
     }
 
     public function testGetCellIterator()
     {
         $row = new Row($this->mockWorksheet);
         $cellIterator = $row->getCellIterator();
-        $this->assertInstanceOf(RowCellIterator::class, $cellIterator);
+        self::assertInstanceOf(RowCellIterator::class, $cellIterator);
     }
 }

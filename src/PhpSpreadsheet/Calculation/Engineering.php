@@ -2,28 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Engineering
 {
     /**
@@ -827,7 +805,7 @@ class Engineering
      */
     private static function nbrConversionFormat($xVal, $places)
     {
-        if (!is_null($places)) {
+        if ($places !== null) {
             if (is_numeric($places)) {
                 $places = (int) $places;
             } else {
@@ -868,8 +846,8 @@ class Engineering
      */
     public static function BESSELI($x, $ord)
     {
-        $x = (is_null($x)) ? 0.0 : Functions::flattenSingleValue($x);
-        $ord = (is_null($ord)) ? 0.0 : Functions::flattenSingleValue($ord);
+        $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
+        $ord = ($ord === null) ? 0.0 : Functions::flattenSingleValue($ord);
 
         if ((is_numeric($x)) && (is_numeric($ord))) {
             $ord = floor($ord);
@@ -922,8 +900,8 @@ class Engineering
      */
     public static function BESSELJ($x, $ord)
     {
-        $x = (is_null($x)) ? 0.0 : Functions::flattenSingleValue($x);
-        $ord = (is_null($ord)) ? 0.0 : Functions::flattenSingleValue($ord);
+        $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
+        $ord = ($ord === null) ? 0.0 : Functions::flattenSingleValue($ord);
 
         if ((is_numeric($x)) && (is_numeric($ord))) {
             $ord = floor($ord);
@@ -1015,8 +993,8 @@ class Engineering
      */
     public static function BESSELK($x, $ord)
     {
-        $x = (is_null($x)) ? 0.0 : Functions::flattenSingleValue($x);
-        $ord = (is_null($ord)) ? 0.0 : Functions::flattenSingleValue($ord);
+        $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
+        $ord = ($ord === null) ? 0.0 : Functions::flattenSingleValue($ord);
 
         if ((is_numeric($x)) && (is_numeric($ord))) {
             if (($ord < 0) || ($x == 0.0)) {
@@ -1026,9 +1004,11 @@ class Engineering
             switch (floor($ord)) {
                 case 0:
                     $fBk = self::besselK0($x);
+
                     break;
                 case 1:
                     $fBk = self::besselK1($x);
+
                     break;
                 default:
                     $fTox = 2 / $x;
@@ -1102,8 +1082,8 @@ class Engineering
      */
     public static function BESSELY($x, $ord)
     {
-        $x = (is_null($x)) ? 0.0 : Functions::flattenSingleValue($x);
-        $ord = (is_null($ord)) ? 0.0 : Functions::flattenSingleValue($ord);
+        $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
+        $ord = ($ord === null) ? 0.0 : Functions::flattenSingleValue($ord);
 
         if ((is_numeric($x)) && (is_numeric($ord))) {
             if (($ord < 0) || ($x == 0.0)) {
@@ -1113,9 +1093,11 @@ class Engineering
             switch (floor($ord)) {
                 case 0:
                     $fBy = self::besselY0($x);
+
                     break;
                 case 1:
                     $fBy = self::besselY1($x);
+
                     break;
                 default:
                     $fTox = 2 / $x;
@@ -1779,9 +1761,9 @@ class Engineering
      */
     public static function COMPLEX($realNumber = 0.0, $imaginary = 0.0, $suffix = 'i')
     {
-        $realNumber = (is_null($realNumber)) ? 0.0 : Functions::flattenSingleValue($realNumber);
-        $imaginary = (is_null($imaginary)) ? 0.0 : Functions::flattenSingleValue($imaginary);
-        $suffix = (is_null($suffix)) ? 'i' : Functions::flattenSingleValue($suffix);
+        $realNumber = ($realNumber === null) ? 0.0 : Functions::flattenSingleValue($realNumber);
+        $imaginary = ($imaginary === null) ? 0.0 : Functions::flattenSingleValue($imaginary);
+        $suffix = ($suffix === null) ? 'i' : Functions::flattenSingleValue($suffix);
 
         if (((is_numeric($realNumber)) && (is_numeric($imaginary))) &&
             (($suffix == 'i') || ($suffix == 'j') || ($suffix == ''))
@@ -1965,7 +1947,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the cosine
      *
-     * @return string|float
+     * @return float|string
      */
     public static function IMCOS($complexNumber)
     {
@@ -1996,7 +1978,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the sine
      *
-     * @return string|float
+     * @return float|string
      */
     public static function IMSIN($complexNumber)
     {
@@ -2293,7 +2275,7 @@ class Engineering
      * Excel Function:
      *        IMSUM(complexNumber[,complexNumber[,...]])
      *
-     * @param string $complexNumbers Series of complex numbers to add
+     * @param string ...$complexNumbers Series of complex numbers to add
      *
      * @return string
      */
@@ -2333,7 +2315,7 @@ class Engineering
      * Excel Function:
      *        IMPRODUCT(complexNumber[,complexNumber[,...]])
      *
-     * @param string $complexNumbers Series of complex numbers to multiply
+     * @param string ...$complexNumbers Series of complex numbers to multiply
      *
      * @return string
      */
@@ -2466,7 +2448,7 @@ class Engineering
         $upper = Functions::flattenSingleValue($upper);
 
         if (is_numeric($lower)) {
-            if (is_null($upper)) {
+            if ($upper === null) {
                 return self::erfVal($lower);
             }
             if (is_numeric($upper)) {
@@ -2566,7 +2548,7 @@ class Engineering
     {
         $conversionGroups = [];
         foreach (self::$conversionUnits as $conversionUnit => $conversionGroup) {
-            if ((is_null($group)) || ($conversionGroup['Group'] == $group)) {
+            if (($group === null) || ($conversionGroup['Group'] == $group)) {
                 $conversionGroups[$conversionGroup['Group']][] = $conversionUnit;
             }
         }
@@ -2585,7 +2567,7 @@ class Engineering
     {
         $conversionGroups = [];
         foreach (self::$conversionUnits as $conversionUnit => $conversionGroup) {
-            if ((is_null($group)) || ($conversionGroup['Group'] == $group)) {
+            if (($group === null) || ($conversionGroup['Group'] == $group)) {
                 $conversionGroups[$conversionGroup['Group']][] = [
                     'unit' => $conversionUnit,
                     'description' => $conversionGroup['Unit Name'],

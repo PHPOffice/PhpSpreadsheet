@@ -5,31 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Fill extends Supervisor implements IComparable
 {
-    /* Fill types */
+    // Fill types
     const FILL_NONE = 'none';
     const FILL_SOLID = 'solid';
     const FILL_GRADIENT_LINEAR = 'linear';
@@ -51,6 +29,16 @@ class Fill extends Supervisor implements IComparable
     const FILL_PATTERN_LIGHTUP = 'lightUp';
     const FILL_PATTERN_LIGHTVERTICAL = 'lightVertical';
     const FILL_PATTERN_MEDIUMGRAY = 'mediumGray';
+
+    /**
+     * @var int
+     */
+    public $startcolorIndex;
+
+    /**
+     * @var int
+     */
+    public $endcolorIndex;
 
     /**
      * Fill type.
@@ -137,12 +125,12 @@ class Fill extends Supervisor implements IComparable
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFill()->applyFromArray(
      *        array(
-     *            'type'       => Fill::FILL_GRADIENT_LINEAR,
+     *            'fillType'       => Fill::FILL_GRADIENT_LINEAR,
      *            'rotation'   => 0,
-     *            'startcolor' => array(
+     *            'startColor' => array(
      *                'rgb' => '000000'
      *            ),
-     *            'endcolor'   => array(
+     *            'endColor'   => array(
      *                'argb' => 'FFFFFFFF'
      *            )
      *        )
@@ -160,17 +148,17 @@ class Fill extends Supervisor implements IComparable
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            if (isset($pStyles['type'])) {
-                $this->setFillType($pStyles['type']);
+            if (isset($pStyles['fillType'])) {
+                $this->setFillType($pStyles['fillType']);
             }
             if (isset($pStyles['rotation'])) {
                 $this->setRotation($pStyles['rotation']);
             }
-            if (isset($pStyles['startcolor'])) {
-                $this->getStartColor()->applyFromArray($pStyles['startcolor']);
+            if (isset($pStyles['startColor'])) {
+                $this->getStartColor()->applyFromArray($pStyles['startColor']);
             }
-            if (isset($pStyles['endcolor'])) {
-                $this->getEndColor()->applyFromArray($pStyles['endcolor']);
+            if (isset($pStyles['endColor'])) {
+                $this->getEndColor()->applyFromArray($pStyles['endColor']);
             }
             if (isset($pStyles['color'])) {
                 $this->getStartColor()->applyFromArray($pStyles['color']);
@@ -205,7 +193,7 @@ class Fill extends Supervisor implements IComparable
     public function setFillType($pValue)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['type' => $pValue]);
+            $styleArray = $this->getStyleArray(['fillType' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->fillType = $pValue;

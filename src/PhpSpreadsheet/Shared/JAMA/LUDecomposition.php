@@ -20,8 +20,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
  *    @author Michael Bommarito
  *
  *    @version 1.1
- *
- *    @license PHP v3.0
  */
 class LUDecomposition
 {
@@ -235,6 +233,7 @@ class LUDecomposition
 
             return $d;
         }
+
         throw new CalculationException(Matrix::MATRIX_DIMENSION_EXCEPTION);
     }
 
@@ -279,8 +278,10 @@ class LUDecomposition
 
                 return $X;
             }
+
             throw new CalculationException(self::MATRIX_SINGULAR_EXCEPTION);
         }
+
         throw new CalculationException(self::MATRIX_SQUARE_EXCEPTION);
     }
 }

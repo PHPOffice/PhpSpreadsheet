@@ -23,28 +23,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
-/**
- * Copyright (c) 2006 - 2015 Spreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   Spreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2015 Spreadsheet (https://github.com/PHPOffice/Spreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Html extends BaseWriter implements IWriter
 {
     /**
@@ -230,7 +208,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @param string $hAlign Horizontal alignment
      *
-     * @return string|false
+     * @return false|string
      */
     private function mapHAlign($hAlign)
     {
@@ -365,7 +343,7 @@ class Html extends BaseWriter implements IWriter
     public function generateHTMLHeader($pIncludeStyles = false)
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
@@ -425,7 +403,7 @@ class Html extends BaseWriter implements IWriter
     public function generateSheetData()
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
@@ -436,7 +414,7 @@ class Html extends BaseWriter implements IWriter
 
         // Fetch sheets
         $sheets = [];
-        if (is_null($this->sheetIndex)) {
+        if ($this->sheetIndex === null) {
             $sheets = $this->spreadsheet->getAllSheets();
         } else {
             $sheets[] = $this->spreadsheet->getSheet($this->sheetIndex);
@@ -523,7 +501,7 @@ class Html extends BaseWriter implements IWriter
 
             // Writing PDF?
             if ($this->isPdf) {
-                if (is_null($this->sheetIndex) && $sheetId + 1 < $this->spreadsheet->getSheetCount()) {
+                if ($this->sheetIndex === null && $sheetId + 1 < $this->spreadsheet->getSheetCount()) {
                     $html .= '<div style="page-break-before:always" />';
                 }
             }
@@ -545,13 +523,13 @@ class Html extends BaseWriter implements IWriter
     public function generateNavigation()
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Fetch sheets
         $sheets = [];
-        if (is_null($this->sheetIndex)) {
+        if ($this->sheetIndex === null) {
             $sheets = $this->spreadsheet->getAllSheets();
         } else {
             $sheets[] = $this->spreadsheet->getSheet($this->sheetIndex);
@@ -739,7 +717,7 @@ class Html extends BaseWriter implements IWriter
             if ($chart instanceof Chart) {
                 $chartCoordinates = $chart->getTopLeftPosition();
                 if ($chartCoordinates['cell'] == $coordinates) {
-                    $chartFileName = File::sysGetTempDir() . '/' . uniqid() . '.png';
+                    $chartFileName = File::sysGetTempDir() . '/' . uniqid('', true) . '.png';
                     if (!$chart->render($chartFileName)) {
                         return;
                     }
@@ -780,7 +758,7 @@ class Html extends BaseWriter implements IWriter
     public function generateStyles($generateSurroundingHTML = true)
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
@@ -824,12 +802,12 @@ class Html extends BaseWriter implements IWriter
     public function buildCSS($generateSurroundingHTML = true)
     {
         // Spreadsheet object known?
-        if (is_null($this->spreadsheet)) {
+        if ($this->spreadsheet === null) {
             throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Cached?
-        if (!is_null($this->cssStyles)) {
+        if ($this->cssStyles !== null) {
             return $this->cssStyles;
         }
 
@@ -885,7 +863,7 @@ class Html extends BaseWriter implements IWriter
 
         // Fetch sheets
         $sheets = [];
-        if (is_null($this->sheetIndex)) {
+        if ($this->sheetIndex === null) {
             $sheets = $this->spreadsheet->getAllSheets();
         } else {
             $sheets[] = $this->spreadsheet->getSheet($this->sheetIndex);
@@ -961,7 +939,7 @@ class Html extends BaseWriter implements IWriter
         }
 
         // Cache
-        if (is_null($this->cssStyles)) {
+        if ($this->cssStyles === null) {
             $this->cssStyles = $css;
         }
 
@@ -978,9 +956,6 @@ class Html extends BaseWriter implements IWriter
      */
     private function createCSSStyle(Style $pStyle)
     {
-        // Construct CSS
-        $css = '';
-
         // Create CSS
         $css = array_merge(
             $this->createCSSStyleAlignment($pStyle->getAlignment()),
@@ -1235,7 +1210,6 @@ class Html extends BaseWriter implements IWriter
             $cell = ($cellAddress > '') ? $pSheet->getCell($cellAddress) : '';
             $coordinate = Cell::stringFromColumnIndex($colNum) . ($pRow + 1);
             if (!$this->useInlineCss) {
-                $cssClass = '';
                 $cssClass = 'column' . $colNum;
             } else {
                 $cssClass = [];
@@ -1258,7 +1232,7 @@ class Html extends BaseWriter implements IWriter
             // Cell
             if ($cell instanceof Cell) {
                 $cellData = '';
-                if (is_null($cell->getParent())) {
+                if ($cell->getParent() === null) {
                     $cell->attach($pSheet);
                 }
                 // Value
@@ -1270,9 +1244,9 @@ class Html extends BaseWriter implements IWriter
                         if ($element instanceof RichText\Run) {
                             $cellData .= '<span style="' . $this->assembleCSS($this->createCSSStyleFont($element->getFont())) . '">';
 
-                            if ($element->getFont()->getSuperScript()) {
+                            if ($element->getFont()->getSuperscript()) {
                                 $cellData .= '<sup>';
-                            } elseif ($element->getFont()->getSubScript()) {
+                            } elseif ($element->getFont()->getSubscript()) {
                                 $cellData .= '<sub>';
                             }
                         }
@@ -1282,9 +1256,9 @@ class Html extends BaseWriter implements IWriter
                         $cellData .= htmlspecialchars($cellText);
 
                         if ($element instanceof RichText\Run) {
-                            if ($element->getFont()->getSuperScript()) {
+                            if ($element->getFont()->getSuperscript()) {
                                 $cellData .= '</sup>';
-                            } elseif ($element->getFont()->getSubScript()) {
+                            } elseif ($element->getFont()->getSubscript()) {
                                 $cellData .= '</sub>';
                             }
 
@@ -1306,9 +1280,9 @@ class Html extends BaseWriter implements IWriter
                         );
                     }
                     $cellData = htmlspecialchars($cellData);
-                    if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperScript()) {
+                    if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
                         $cellData = '<sup>' . $cellData . '</sup>';
-                    } elseif ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubScript()) {
+                    } elseif ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubscript()) {
                         $cellData = '<sub>' . $cellData . '</sub>';
                     }
                 }
@@ -1541,8 +1515,7 @@ class Html extends BaseWriter implements IWriter
 
         $color_regex = '/^\\[[a-zA-Z]+\\]/';
         if (preg_match($color_regex, $pFormat, $matches)) {
-            $color = str_replace('[', '', $matches[0]);
-            $color = str_replace(']', '', $color);
+            $color = str_replace(['[', ']'], '', $matches[0]);
             $color = strtolower($color);
         }
 

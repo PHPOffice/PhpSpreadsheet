@@ -22,7 +22,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testCHAR($expectedResult, ...$args)
     {
         $result = TextData::CHARACTER(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCHAR()
@@ -38,7 +38,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testCODE($expectedResult, ...$args)
     {
         $result = TextData::ASCIICODE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCODE()
@@ -54,7 +54,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testCONCATENATE($expectedResult, ...$args)
     {
         $result = TextData::CONCATENATE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCONCATENATE()
@@ -70,7 +70,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testLEFT($expectedResult, ...$args)
     {
         $result = TextData::LEFT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerLEFT()
@@ -86,7 +86,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testMID($expectedResult, ...$args)
     {
         $result = TextData::MID(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerMID()
@@ -102,7 +102,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testRIGHT($expectedResult, ...$args)
     {
         $result = TextData::RIGHT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerRIGHT()
@@ -118,7 +118,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testLOWER($expectedResult, ...$args)
     {
         $result = TextData::LOWERCASE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerLOWER()
@@ -134,7 +134,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testUPPER($expectedResult, ...$args)
     {
         $result = TextData::UPPERCASE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerUPPER()
@@ -150,7 +150,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testPROPER($expectedResult, ...$args)
     {
         $result = TextData::PROPERCASE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerPROPER()
@@ -166,7 +166,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testLEN($expectedResult, ...$args)
     {
         $result = TextData::STRINGLENGTH(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerLEN()
@@ -182,7 +182,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testSEARCH($expectedResult, ...$args)
     {
         $result = TextData::SEARCHINSENSITIVE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerSEARCH()
@@ -198,7 +198,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testFIND($expectedResult, ...$args)
     {
         $result = TextData::SEARCHSENSITIVE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerFIND()
@@ -214,7 +214,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testREPLACE($expectedResult, ...$args)
     {
         $result = TextData::REPLACE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerREPLACE()
@@ -230,7 +230,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testSUBSTITUTE($expectedResult, ...$args)
     {
         $result = TextData::SUBSTITUTE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerSUBSTITUTE()
@@ -246,7 +246,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testTRIM($expectedResult, ...$args)
     {
         $result = TextData::TRIMSPACES(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerTRIM()
@@ -262,7 +262,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testCLEAN($expectedResult, ...$args)
     {
         $result = TextData::TRIMNONPRINTABLE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCLEAN()
@@ -278,7 +278,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testDOLLAR($expectedResult, ...$args)
     {
         $result = TextData::DOLLAR(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerDOLLAR()
@@ -294,7 +294,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testFIXED($expectedResult, ...$args)
     {
         $result = TextData::FIXEDFORMAT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerFIXED()
@@ -310,7 +310,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     public function testT($expectedResult, ...$args)
     {
         $result = TextData::RETURNSTRING(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerT()
@@ -331,7 +331,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
         StringHelper::setCurrencyCode('$');
 
         $result = TextData::TEXTFORMAT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerTEXT()
@@ -351,7 +351,7 @@ class TextDataTest extends PHPUnit_Framework_TestCase
         StringHelper::setCurrencyCode('$');
 
         $result = TextData::VALUE(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerVALUE()

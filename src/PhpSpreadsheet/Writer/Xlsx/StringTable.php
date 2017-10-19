@@ -6,30 +6,9 @@ use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
+use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class StringTable extends WriterPart
 {
     /**
@@ -42,44 +21,41 @@ class StringTable extends WriterPart
      *
      * @return string[] String table for worksheet
      */
-    public function createStringTable($pSheet = null, $pExistingTable = null)
+    public function createStringTable(Worksheet $pSheet, $pExistingTable = null)
     {
-        if ($pSheet !== null) {
-            // Create string lookup table
-            $aStringTable = [];
-            $cellCollection = null;
-            $aFlippedStringTable = null; // For faster lookup
+        // Create string lookup table
+        $aStringTable = [];
+        $cellCollection = null;
+        $aFlippedStringTable = null; // For faster lookup
 
-            // Is an existing table given?
-            if (($pExistingTable !== null) && is_array($pExistingTable)) {
-                $aStringTable = $pExistingTable;
-            }
-
-            // Fill index array
-            $aFlippedStringTable = $this->flipStringTable($aStringTable);
-
-            // Loop through cells
-            foreach ($pSheet->getCoordinates() as $coordinate) {
-                $cell = $pSheet->getCell($coordinate);
-                $cellValue = $cell->getValue();
-                if (!is_object($cellValue) &&
-                    ($cellValue !== null) &&
-                    $cellValue !== '' &&
-                    !isset($aFlippedStringTable[$cellValue]) &&
-                    ($cell->getDataType() == Cell\DataType::TYPE_STRING || $cell->getDataType() == Cell\DataType::TYPE_STRING2 || $cell->getDataType() == Cell\DataType::TYPE_NULL)) {
-                    $aStringTable[] = $cellValue;
-                    $aFlippedStringTable[$cellValue] = true;
-                } elseif ($cellValue instanceof RichText &&
-                          ($cellValue !== null) &&
-                          !isset($aFlippedStringTable[$cellValue->getHashCode()])) {
-                    $aStringTable[] = $cellValue;
-                    $aFlippedStringTable[$cellValue->getHashCode()] = true;
-                }
-            }
-
-            return $aStringTable;
+        // Is an existing table given?
+        if (($pExistingTable !== null) && is_array($pExistingTable)) {
+            $aStringTable = $pExistingTable;
         }
-        throw new WriterException('Invalid Worksheet object passed.');
+
+        // Fill index array
+        $aFlippedStringTable = $this->flipStringTable($aStringTable);
+
+        // Loop through cells
+        foreach ($pSheet->getCoordinates() as $coordinate) {
+            $cell = $pSheet->getCell($coordinate);
+            $cellValue = $cell->getValue();
+            if (!is_object($cellValue) &&
+                ($cellValue !== null) &&
+                $cellValue !== '' &&
+                !isset($aFlippedStringTable[$cellValue]) &&
+                ($cell->getDataType() == Cell\DataType::TYPE_STRING || $cell->getDataType() == Cell\DataType::TYPE_STRING2 || $cell->getDataType() == Cell\DataType::TYPE_NULL)) {
+                $aStringTable[] = $cellValue;
+                $aFlippedStringTable[$cellValue] = true;
+            } elseif ($cellValue instanceof RichText &&
+                ($cellValue !== null) &&
+                !isset($aFlippedStringTable[$cellValue->getHashCode()])) {
+                $aStringTable[] = $cellValue;
+                $aFlippedStringTable[$cellValue->getHashCode()] = true;
+            }
+        }
+
+        return $aStringTable;
     }
 
     /**
@@ -175,11 +151,11 @@ class StringTable extends WriterPart
                 $objWriter->endElement();
 
                 // Superscript / subscript
-                if ($element->getFont()->getSuperScript() || $element->getFont()->getSubScript()) {
+                if ($element->getFont()->getSuperscript() || $element->getFont()->getSubscript()) {
                     $objWriter->startElement($prefix . 'vertAlign');
-                    if ($element->getFont()->getSuperScript()) {
+                    if ($element->getFont()->getSuperscript()) {
                         $objWriter->writeAttribute('val', 'superscript');
-                    } elseif ($element->getFont()->getSubScript()) {
+                    } elseif ($element->getFont()->getSubscript()) {
                         $objWriter->writeAttribute('val', 'subscript');
                     }
                     $objWriter->endElement();
@@ -222,7 +198,7 @@ class StringTable extends WriterPart
      * Write Rich Text.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param string|RichText $pRichText text string or Rich text
+     * @param RichText|string $pRichText text string or Rich text
      * @param string $prefix Optional Namespace prefix
      *
      * @throws WriterException
@@ -257,9 +233,11 @@ class StringTable extends WriterPart
             switch ($underlineType) {
                 case 'single':
                     $underlineType = 'sng';
+
                     break;
                 case 'double':
                     $underlineType = 'dbl';
+
                     break;
             }
             $objWriter->writeAttribute('u', $underlineType);

@@ -33,7 +33,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testBESSELI($expectedResult, ...$args)
     {
         $result = Engineering::BESSELI(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerBESSELI()
@@ -49,7 +49,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testBESSELJ($expectedResult, ...$args)
     {
         $result = Engineering::BESSELJ(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerBESSELJ()
@@ -65,7 +65,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testBESSELK($expectedResult, ...$args)
     {
         $result = Engineering::BESSELK(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerBESSELK()
@@ -81,7 +81,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testBESSELY($expectedResult, ...$args)
     {
         $result = Engineering::BESSELY(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerBESSELY()
@@ -97,7 +97,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testCOMPLEX($expectedResult, ...$args)
     {
         $result = Engineering::COMPLEX(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCOMPLEX()
@@ -113,7 +113,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testIMAGINARY($expectedResult, ...$args)
     {
         $result = Engineering::IMAGINARY(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIMAGINARY()
@@ -129,7 +129,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testIMREAL($expectedResult, ...$args)
     {
         $result = Engineering::IMREAL(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIMREAL()
@@ -145,7 +145,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testIMABS($expectedResult, ...$args)
     {
         $result = Engineering::IMABS(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIMABS()
@@ -155,14 +155,13 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIMARGUMENT
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
     public function testIMARGUMENT($expectedResult, ...$args)
     {
         $result = Engineering::IMARGUMENT(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIMARGUMENT()
@@ -178,7 +177,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testIMCONJUGATE($expectedResult, ...$args)
     {
         $result = Engineering::IMCONJUGATE(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMCONJUGATE()
@@ -194,7 +193,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testIMCOS($expectedResult, ...$args)
     {
         $result = Engineering::IMCOS(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMCOS()
@@ -204,7 +203,6 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIMDIV
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -213,7 +211,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
         $this->markTestIncomplete('TODO: This test should be fixed');
 
         $result = Engineering::IMDIV(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMDIV()
@@ -229,7 +227,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testIMEXP($expectedResult, ...$args)
     {
         $result = Engineering::IMEXP(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMEXP()
@@ -245,7 +243,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testIMLN($expectedResult, ...$args)
     {
         $result = Engineering::IMLN(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMLN()
@@ -261,7 +259,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testIMLOG2($expectedResult, ...$args)
     {
         $result = Engineering::IMLOG2(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMLOG2()
@@ -277,7 +275,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testIMLOG10($expectedResult, ...$args)
     {
         $result = Engineering::IMLOG10(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMLOG10()
@@ -287,7 +285,6 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIMPOWER
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -296,7 +293,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
         $this->markTestIncomplete('TODO: This test should be fixed');
 
         $result = Engineering::IMPOWER(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMPOWER()
@@ -312,7 +309,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testIMPRODUCT($expectedResult, ...$args)
     {
         $result = Engineering::IMPRODUCT(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMPRODUCT()
@@ -328,7 +325,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testIMSIN($expectedResult, ...$args)
     {
         $result = Engineering::IMSIN(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMSIN()
@@ -344,7 +341,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testIMSQRT($expectedResult, ...$args)
     {
         $result = Engineering::IMSQRT(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMSQRT()
@@ -354,7 +351,6 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIMSUB
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
@@ -363,7 +359,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
         $this->markTestIncomplete('TODO: This test should be fixed');
 
         $result = Engineering::IMSUB(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMSUB()
@@ -373,14 +369,13 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIMSUM
-     * @group fail19
      *
      * @param mixed $expectedResult
      */
     public function testIMSUM($expectedResult, ...$args)
     {
         $result = Engineering::IMSUM(...$args);
-        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMSUM()
@@ -396,7 +391,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testERF($expectedResult, ...$args)
     {
         $result = Engineering::ERF(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerERF()
@@ -412,7 +407,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testERFC($expectedResult, ...$args)
     {
         $result = Engineering::ERFC(...$args);
-        $this->assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerERFC()
@@ -428,7 +423,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testBIN2DEC($expectedResult, ...$args)
     {
         $result = Engineering::BINTODEC(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBIN2DEC()
@@ -444,7 +439,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testBIN2HEX($expectedResult, ...$args)
     {
         $result = Engineering::BINTOHEX(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBIN2HEX()
@@ -460,7 +455,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testBIN2OCT($expectedResult, ...$args)
     {
         $result = Engineering::BINTOOCT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBIN2OCT()
@@ -476,7 +471,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testDEC2BIN($expectedResult, ...$args)
     {
         $result = Engineering::DECTOBIN(...$args);
-        $this->assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, null);
     }
 
     public function providerDEC2BIN()
@@ -492,7 +487,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testDEC2HEX($expectedResult, ...$args)
     {
         $result = Engineering::DECTOHEX(...$args);
-        $this->assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, null);
     }
 
     public function providerDEC2HEX()
@@ -508,7 +503,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testDEC2OCT($expectedResult, ...$args)
     {
         $result = Engineering::DECTOOCT(...$args);
-        $this->assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, null);
     }
 
     public function providerDEC2OCT()
@@ -524,7 +519,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testHEX2BIN($expectedResult, ...$args)
     {
         $result = Engineering::HEXTOBIN(...$args);
-        $this->assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, null);
     }
 
     public function providerHEX2BIN()
@@ -540,7 +535,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testHEX2DEC($expectedResult, ...$args)
     {
         $result = Engineering::HEXTODEC(...$args);
-        $this->assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, null);
     }
 
     public function providerHEX2DEC()
@@ -556,7 +551,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testHEX2OCT($expectedResult, ...$args)
     {
         $result = Engineering::HEXTOOCT(...$args);
-        $this->assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, null);
     }
 
     public function providerHEX2OCT()
@@ -572,7 +567,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testOCT2BIN($expectedResult, ...$args)
     {
         $result = Engineering::OCTTOBIN(...$args);
-        $this->assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, null);
     }
 
     public function providerOCT2BIN()
@@ -588,7 +583,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testOCT2DEC($expectedResult, ...$args)
     {
         $result = Engineering::OCTTODEC(...$args);
-        $this->assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, null);
     }
 
     public function providerOCT2DEC()
@@ -604,7 +599,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testOCT2HEX($expectedResult, ...$args)
     {
         $result = Engineering::OCTTOHEX(...$args);
-        $this->assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, null);
     }
 
     public function providerOCT2HEX()
@@ -620,7 +615,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testDELTA($expectedResult, ...$args)
     {
         $result = Engineering::DELTA(...$args);
-        $this->assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, null);
     }
 
     public function providerDELTA()
@@ -636,7 +631,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testGESTEP($expectedResult, ...$args)
     {
         $result = Engineering::GESTEP(...$args);
-        $this->assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, null);
     }
 
     public function providerGESTEP()
@@ -647,25 +642,25 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testGetConversionGroups()
     {
         $result = Engineering::getConversionGroups();
-        $this->assertInternalType('array', $result);
+        self::assertInternalType('array', $result);
     }
 
     public function testGetConversionGroupUnits()
     {
         $result = Engineering::getConversionGroupUnits();
-        $this->assertInternalType('array', $result);
+        self::assertInternalType('array', $result);
     }
 
     public function testGetConversionGroupUnitDetails()
     {
         $result = Engineering::getConversionGroupUnitDetails();
-        $this->assertInternalType('array', $result);
+        self::assertInternalType('array', $result);
     }
 
     public function testGetConversionMultipliers()
     {
         $result = Engineering::getConversionMultipliers();
-        $this->assertInternalType('array', $result);
+        self::assertInternalType('array', $result);
     }
 
     /**
@@ -676,7 +671,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
     public function testCONVERTUOM($expectedResult, ...$args)
     {
         $result = Engineering::CONVERTUOM(...$args);
-        $this->assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, null);
     }
 
     public function providerCONVERTUOM()

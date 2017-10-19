@@ -42,7 +42,7 @@ class ContentTest extends PHPUnit_Framework_TestCase
         $content = new Content(new Ods(new Spreadsheet()));
         $xml = $content->write();
 
-        $this->assertXmlStringEqualsXmlFile($this->samplesPath . '/content-empty.xml', $xml);
+        self::assertXmlStringEqualsXmlFile($this->samplesPath . '/content-empty.xml', $xml);
     }
 
     public function testWriteSpreadsheet()
@@ -93,6 +93,6 @@ class ContentTest extends PHPUnit_Framework_TestCase
         $content = new Content(new Ods($workbook));
         $xml = $content->write();
 
-        $this->assertXmlStringEqualsXmlFile($this->samplesPath . '/content-with-data.xml', $xml);
+        self::assertXmlStringEqualsXmlFile($this->samplesPath . '/content-with-data.xml', $xml);
     }
 }

@@ -4,30 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
-/**
- *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
- *
- *  This library is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU Lesser General Public
- *  License as published by the Free Software Foundation; either
- *  version 2.1 of the License, or (at your option) any later version.
- *
- *  This library is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public
- *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- *  @category    PhpSpreadsheet
- *
- *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-class DomPDF extends Core implements IWriter
+class DomPDF extends Pdf implements IWriter
 {
     /**
      * Save Spreadsheet to file.
@@ -44,7 +23,7 @@ class DomPDF extends Core implements IWriter
         $paperSize = 'LETTER'; //    Letter    (8.5 in. by 11 in.)
 
         //  Check for paper size and page orientation
-        if (is_null($this->getSheetIndex())) {
+        if ($this->getSheetIndex() === null) {
             $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
                 == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
@@ -59,13 +38,13 @@ class DomPDF extends Core implements IWriter
         $orientation = ($orientation == 'L') ? 'landscape' : 'portrait';
 
         //  Override Page Orientation
-        if (!is_null($this->getOrientation())) {
+        if ($this->getOrientation() !== null) {
             $orientation = ($this->getOrientation() == PageSetup::ORIENTATION_DEFAULT)
                 ? PageSetup::ORIENTATION_PORTRAIT
                 : $this->getOrientation();
         }
         //  Override Paper Size
-        if (!is_null($this->getPaperSize())) {
+        if ($this->getPaperSize() !== null) {
             $printPaperSize = $this->getPaperSize();
         }
 
@@ -75,9 +54,9 @@ class DomPDF extends Core implements IWriter
 
         //  Create PDF
         $pdf = new \Dompdf\Dompdf();
-        $pdf->set_paper(strtolower($paperSize), $orientation);
+        $pdf->setPaper(strtolower($paperSize), $orientation);
 
-        $pdf->load_html(
+        $pdf->loadHtml(
             $this->generateHTMLHeader(false) .
             $this->generateSheetData() .
             $this->generateHTMLFooter()

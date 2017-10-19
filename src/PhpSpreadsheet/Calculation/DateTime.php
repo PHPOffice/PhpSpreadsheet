@@ -5,28 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class DateTime
 {
     /**
@@ -176,12 +154,15 @@ class DateTime
         switch (Functions::getReturnDateType()) {
             case Functions::RETURNDATE_EXCEL:
                 $retValue = (float) Date::PHPToExcel(time());
+
                 break;
             case Functions::RETURNDATE_PHP_NUMERIC:
                 $retValue = (int) time();
+
                 break;
             case Functions::RETURNDATE_PHP_OBJECT:
                 $retValue = new \DateTime();
+
                 break;
         }
         date_default_timezone_set($saveTimeZone);
@@ -217,12 +198,15 @@ class DateTime
         switch (Functions::getReturnDateType()) {
             case Functions::RETURNDATE_EXCEL:
                 $retValue = (float) $excelDateTime;
+
                 break;
             case Functions::RETURNDATE_PHP_NUMERIC:
                 $retValue = (int) Date::excelToTimestamp($excelDateTime);
+
                 break;
             case Functions::RETURNDATE_PHP_OBJECT:
                 $retValue = Date::excelToDateTimeObject($excelDateTime);
+
                 break;
         }
         date_default_timezone_set($saveTimeZone);
@@ -493,7 +477,7 @@ class DateTime
         //    Strip any ordinals because they're allowed in Excel (English only)
         $dateValue = preg_replace('/(\d)(st|nd|rd|th)([ -\/])/Ui', '$1$3', $dateValue);
         //    Convert separators (/ . or space) to hyphens (should also handle dot used for ordinals in some countries, e.g. Denmark, Germany)
-        $dateValue = str_replace(['/', '.', '-', '  '], [' ', ' ', ' ', ' '], $dateValue);
+        $dateValue = str_replace(['/', '.', '-', '  '], ' ', $dateValue);
 
         $yearFound = false;
         $t1 = explode(' ', $dateValue);
@@ -520,7 +504,7 @@ class DateTime
                     $t1[1] += 1900;
                     array_unshift($t1, 1);
                 } else {
-                    array_push($t1, date('Y'));
+                    $t1[] = date('Y');
                 }
             }
         }
@@ -621,7 +605,7 @@ class DateTime
     public static function TIMEVALUE($timeValue)
     {
         $timeValue = trim(Functions::flattenSingleValue($timeValue), '"');
-        $timeValue = str_replace(['/', '.'], ['-', '-'], $timeValue);
+        $timeValue = str_replace(['/', '.'], '-', $timeValue);
 
         $arraySplit = preg_split('/[\/:\-\s]/', $timeValue);
         if ((count($arraySplit) == 2 || count($arraySplit) == 3) && $arraySplit[0] > 24) {
@@ -703,6 +687,7 @@ class DateTime
         switch ($unit) {
             case 'D':
                 $retVal = (int) $difference;
+
                 break;
             case 'M':
                 $retVal = (int) ($endMonths - $startMonths) + ((int) ($endYears - $startYears) * 12);
@@ -710,6 +695,7 @@ class DateTime
                 if ($endDays < $startDays) {
                     --$retVal;
                 }
+
                 break;
             case 'Y':
                 $retVal = (int) ($endYears - $startYears);
@@ -722,6 +708,7 @@ class DateTime
                     // Remove end month
                     --$retVal;
                 }
+
                 break;
             case 'MD':
                 if ($endDays < $startDays) {
@@ -732,6 +719,7 @@ class DateTime
                 } else {
                     $retVal = $endDays - $startDays;
                 }
+
                 break;
             case 'YM':
                 $retVal = (int) ($endMonths - $startMonths);
@@ -742,6 +730,7 @@ class DateTime
                 if ($endDays < $startDays) {
                     --$retVal;
                 }
+
                 break;
             case 'YD':
                 $retVal = (int) $difference;
@@ -766,6 +755,7 @@ class DateTime
                         --$retVal;
                     }
                 }
+
                 break;
             default:
                 $retVal = Functions::VALUE();
@@ -1147,10 +1137,14 @@ class DateTime
             $dateValue = 1;
         } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
             return Functions::VALUE();
-        } elseif ($dateValue == 0.0) {
-            return 0;
-        } elseif ($dateValue < 0.0) {
-            return Functions::NAN();
+        }
+
+        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
+            if ($dateValue < 0.0) {
+                return Functions::NAN();
+            } elseif ($dateValue < 1.0) {
+                return 0;
+            }
         }
 
         // Execute function
@@ -1205,11 +1199,13 @@ class DateTime
         switch ($style) {
             case 1:
                 ++$DoW;
+
                 break;
             case 2:
                 if ($DoW == 0) {
                     $DoW = 7;
                 }
+
                 break;
             case 3:
                 if ($DoW == 0) {
@@ -1217,6 +1213,7 @@ class DateTime
                 }
                 $firstDay = 0;
                 --$DoW;
+
                 break;
         }
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {

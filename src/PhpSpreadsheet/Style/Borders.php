@@ -5,31 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Borders extends Supervisor implements IComparable
 {
-    /* Diagonal directions */
+    // Diagonal directions
     const DIAGONAL_NONE = 0;
     const DIAGONAL_UP = 1;
     const DIAGONAL_DOWN = 2;
@@ -78,21 +56,21 @@ class Borders extends Supervisor implements IComparable
     protected $diagonalDirection;
 
     /**
-     * All borders psedo-border. Only applies to supervisor.
+     * All borders pseudo-border. Only applies to supervisor.
      *
      * @var Border
      */
     protected $allBorders;
 
     /**
-     * Outline psedo-border. Only applies to supervisor.
+     * Outline pseudo-border. Only applies to supervisor.
      *
      * @var Border
      */
     protected $outline;
 
     /**
-     * Inside psedo-border. Only applies to supervisor.
+     * Inside pseudo-border. Only applies to supervisor.
      *
      * @var Border
      */
@@ -187,13 +165,13 @@ class Borders extends Supervisor implements IComparable
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
      *         array(
      *             'bottom'     => array(
-     *                 'style' => Border::BORDER_DASHDOT,
+     *                 'borderStyle' => Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
      *             ),
      *             'top'     => array(
-     *                 'style' => Border::BORDER_DASHDOT,
+     *                 'borderStyle' => Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
@@ -204,8 +182,8 @@ class Borders extends Supervisor implements IComparable
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
      *         array(
-     *             'allborders' => array(
-     *                 'style' => Border::BORDER_DASHDOT,
+     *             'allBorders' => array(
+     *                 'borderStyle' => Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
@@ -240,14 +218,14 @@ class Borders extends Supervisor implements IComparable
             if (isset($pStyles['diagonal'])) {
                 $this->getDiagonal()->applyFromArray($pStyles['diagonal']);
             }
-            if (isset($pStyles['diagonaldirection'])) {
-                $this->setDiagonalDirection($pStyles['diagonaldirection']);
+            if (isset($pStyles['diagonalDirection'])) {
+                $this->setDiagonalDirection($pStyles['diagonalDirection']);
             }
-            if (isset($pStyles['allborders'])) {
-                $this->getLeft()->applyFromArray($pStyles['allborders']);
-                $this->getRight()->applyFromArray($pStyles['allborders']);
-                $this->getTop()->applyFromArray($pStyles['allborders']);
-                $this->getBottom()->applyFromArray($pStyles['allborders']);
+            if (isset($pStyles['allBorders'])) {
+                $this->getLeft()->applyFromArray($pStyles['allBorders']);
+                $this->getRight()->applyFromArray($pStyles['allBorders']);
+                $this->getTop()->applyFromArray($pStyles['allBorders']);
+                $this->getBottom()->applyFromArray($pStyles['allBorders']);
             }
         }
 
@@ -325,7 +303,7 @@ class Borders extends Supervisor implements IComparable
      *
      * @throws PhpSpreadsheetException
      *
-     * @return bool
+     * @return Border
      */
     public function getOutline()
     {
@@ -341,7 +319,7 @@ class Borders extends Supervisor implements IComparable
      *
      * @throws PhpSpreadsheetException
      *
-     * @return bool
+     * @return Border
      */
     public function getInside()
     {
@@ -411,7 +389,7 @@ class Borders extends Supervisor implements IComparable
             $pValue = self::DIAGONAL_NONE;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['diagonaldirection' => $pValue]);
+            $styleArray = $this->getStyleArray(['diagonalDirection' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->diagonalDirection = $pValue;

@@ -8,7 +8,7 @@ class Complex
 {
     private $realPart = 0;
     private $imaginaryPart = 0;
-    private $suffix = null;
+    private $suffix;
 
     public static function _parseComplex($complexNumber)
     {
@@ -53,7 +53,7 @@ class Complex
                 if ($complexParts[8] === '-') {
                     $complexParts[4] = -1;
                 }
-            //    ... or if we have only the real and no imaginary part (in which case our real should be the imaginary)
+                //    ... or if we have only the real and no imaginary part (in which case our real should be the imaginary)
             } else {
                 $complexParts[4] = $complexParts[1];
                 $complexParts[1] = 0;

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
+// vim: set expandtab tabstop=4 shiftwidth=4:
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -96,6 +96,13 @@ class OLE
      * @var int number of octets per block
      */
     public $smallBlockSize;
+
+    /**
+     * Threshold for big blocks.
+     *
+     * @var int
+     */
+    private $bigBlockThreshold;
 
     /**
      * Reads an OLE container from the contents of the file given.
@@ -299,14 +306,17 @@ class OLE
             $type = self::_readInt1($fh);
             switch ($type) {
                 case self::OLE_PPS_TYPE_ROOT:
-                    $pps = new OLE\PPS_Root(null, null, []);
+                    $pps = new OLE\PPS\Root(null, null, []);
                     $this->root = $pps;
+
                     break;
                 case self::OLE_PPS_TYPE_DIR:
                     $pps = new OLE\PPS(null, null, null, null, null, null, null, null, null, []);
+
                     break;
                 case self::OLE_PPS_TYPE_FILE:
                     $pps = new OLE\PPS\File($name);
+
                     break;
                 default:
                     continue;
@@ -538,7 +548,7 @@ class OLE
     public static function OLE2LocalDate($string)
     {
         if (strlen($string) != 8) {
-            return new PEAR_Error('Expecting 8 byte string');
+            throw new ReaderException('Expecting 8 byte string');
         }
 
         // factor used for separating numbers into 4 bytes parts

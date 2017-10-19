@@ -8,29 +8,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-/**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-
 // Original file header of PEAR::Spreadsheet_Excel_Writer_Workbook (used as the base for this class):
 // -----------------------------------------------------------------------------------------
 // /*
@@ -332,20 +309,31 @@ class Workbook extends BIFFwriter
     private function addColor($rgb)
     {
         if (!isset($this->colors[$rgb])) {
-            if (count($this->colors) < 57) {
-                // then we add a custom color altering the palette
-                $colorIndex = 8 + count($this->colors);
-                $this->palette[$colorIndex] =
-                    [
-                        hexdec(substr($rgb, 0, 2)),
-                        hexdec(substr($rgb, 2, 2)),
-                        hexdec(substr($rgb, 4)),
-                        0,
-                    ];
+            $color =
+                [
+                    hexdec(substr($rgb, 0, 2)),
+                    hexdec(substr($rgb, 2, 2)),
+                    hexdec(substr($rgb, 4)),
+                    0,
+                ];
+            $colorIndex = array_search($color, $this->palette);
+            if ($colorIndex) {
                 $this->colors[$rgb] = $colorIndex;
             } else {
-                // no room for more custom colors, just map to black
-                $colorIndex = 0;
+                if (count($this->colors) == 0) {
+                    $lastColor = 7;
+                } else {
+                    $lastColor = end($this->colors);
+                }
+                if ($lastColor < 57) {
+                    // then we add a custom color altering the palette
+                    $colorIndex = $lastColor + 1;
+                    $this->palette[$colorIndex] = $color;
+                    $this->colors[$rgb] = $colorIndex;
+                } else {
+                    // no room for more custom colors, just map to black
+                    $colorIndex = 0;
+                }
             }
         } else {
             // fetch already added custom color
@@ -540,114 +528,6 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Write the EXTERNCOUNT and EXTERNSHEET records. These are used as indexes for
-     * the NAME records.
-     */
-    private function writeExternals()
-    {
-        $countSheets = $this->spreadsheet->getSheetCount();
-        // Create EXTERNCOUNT with number of worksheets
-        $this->writeExternalCount($countSheets);
-
-        // Create EXTERNSHEET for each worksheet
-        for ($i = 0; $i < $countSheets; ++$i) {
-            $this->writeExternalSheet($this->spreadsheet->getSheet($i)->getTitle());
-        }
-    }
-
-    /**
-     * Write the NAME record to define the print area and the repeat rows and cols.
-     */
-    private function writeNames()
-    {
-        // total number of sheets
-        $total_worksheets = $this->spreadsheet->getSheetCount();
-
-        // Create the print area NAME records
-        for ($i = 0; $i < $total_worksheets; ++$i) {
-            $sheetSetup = $this->spreadsheet->getSheet($i)->getPageSetup();
-            // Write a Name record if the print area has been defined
-            if ($sheetSetup->isPrintAreaSet()) {
-                // Print area
-                $printArea = Cell::splitRange($sheetSetup->getPrintArea());
-                $printArea = $printArea[0];
-                $printArea[0] = Cell::coordinateFromString($printArea[0]);
-                $printArea[1] = Cell::coordinateFromString($printArea[1]);
-
-                $print_rowmin = $printArea[0][1] - 1;
-                $print_rowmax = $printArea[1][1] - 1;
-                $print_colmin = Cell::columnIndexFromString($printArea[0][0]) - 1;
-                $print_colmax = Cell::columnIndexFromString($printArea[1][0]) - 1;
-
-                $this->writeNameShort(
-                    $i, // sheet index
-                    0x06, // NAME type
-                    $print_rowmin,
-                    $print_rowmax,
-                    $print_colmin,
-                    $print_colmax
-                );
-            }
-        }
-
-        // Create the print title NAME records
-        for ($i = 0; $i < $total_worksheets; ++$i) {
-            $sheetSetup = $this->spreadsheet->getSheet($i)->getPageSetup();
-
-            // simultaneous repeatColumns repeatRows
-            if ($sheetSetup->isColumnsToRepeatAtLeftSet() && $sheetSetup->isRowsToRepeatAtTopSet()) {
-                $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                $colmin = Cell::columnIndexFromString($repeat[0]) - 1;
-                $colmax = Cell::columnIndexFromString($repeat[1]) - 1;
-
-                $repeat = $sheetSetup->getRowsToRepeatAtTop();
-                $rowmin = $repeat[0] - 1;
-                $rowmax = $repeat[1] - 1;
-
-                $this->writeNameLong(
-                    $i, // sheet index
-                    0x07, // NAME type
-                    $rowmin,
-                    $rowmax,
-                    $colmin,
-                    $colmax
-                );
-
-            // (exclusive) either repeatColumns or repeatRows
-            } elseif ($sheetSetup->isColumnsToRepeatAtLeftSet() || $sheetSetup->isRowsToRepeatAtTopSet()) {
-                // Columns to repeat
-                if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
-                    $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                    $colmin = Cell::columnIndexFromString($repeat[0]) - 1;
-                    $colmax = Cell::columnIndexFromString($repeat[1]) - 1;
-                } else {
-                    $colmin = 0;
-                    $colmax = 255;
-                }
-
-                // Rows to repeat
-                if ($sheetSetup->isRowsToRepeatAtTopSet()) {
-                    $repeat = $sheetSetup->getRowsToRepeatAtTop();
-                    $rowmin = $repeat[0] - 1;
-                    $rowmax = $repeat[1] - 1;
-                } else {
-                    $rowmin = 0;
-                    $rowmax = 65535;
-                }
-
-                $this->writeNameShort(
-                    $i, // sheet index
-                    0x07, // NAME type
-                    $rowmin,
-                    $rowmax,
-                    $colmin,
-                    $colmax
-                );
-            }
-        }
-    }
-
-    /**
      * Writes all the DEFINEDNAME records (BIFF8).
      * So far this is only used for repeating rows/columns (print titles) and print areas.
      */
@@ -719,7 +599,7 @@ class Workbook extends BIFFwriter
                 // store the DEFINEDNAME record
                 $chunk .= $this->writeData($this->writeDefinedNameBiff8(pack('C', 0x07), $formulaData, $i + 1, true));
 
-            // (exclusive) either repeatColumns or repeatRows
+                // (exclusive) either repeatColumns or repeatRows
             } elseif ($sheetSetup->isColumnsToRepeatAtLeftSet() || $sheetSetup->isRowsToRepeatAtTopSet()) {
                 // Columns to repeat
                 if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
@@ -932,15 +812,19 @@ class Workbook extends BIFFwriter
         switch ($sheet->getSheetState()) {
             case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE:
                 $ss = 0x00;
+
                 break;
             case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN:
                 $ss = 0x01;
+
                 break;
             case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN:
                 $ss = 0x02;
+
                 break;
             default:
                 $ss = 0x00;
+
                 break;
         }
 
@@ -1044,195 +928,6 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Write BIFF record EXTERNCOUNT to indicate the number of external sheet
-     * references in the workbook.
-     *
-     * Excel only stores references to external sheets that are used in NAME.
-     * The workbook NAME record is required to define the print area and the repeat
-     * rows and columns.
-     *
-     * A similar method is used in Worksheet.php for a slightly different purpose.
-     *
-     * @param int $cxals Number of external references
-     */
-    private function writeExternalCount($cxals)
-    {
-        $record = 0x0016; // Record identifier
-        $length = 0x0002; // Number of bytes to follow
-
-        $header = pack('vv', $record, $length);
-        $data = pack('v', $cxals);
-        $this->append($header . $data);
-    }
-
-    /**
-     * Writes the Excel BIFF EXTERNSHEET record. These references are used by
-     * formulas. NAME record is required to define the print area and the repeat
-     * rows and columns.
-     *
-     * A similar method is used in Worksheet.php for a slightly different purpose.
-     *
-     * @param string $sheetname Worksheet name
-     */
-    private function writeExternalSheet($sheetname)
-    {
-        $record = 0x0017; // Record identifier
-        $length = 0x02 + strlen($sheetname); // Number of bytes to follow
-
-        $cch = strlen($sheetname); // Length of sheet name
-        $rgch = 0x03; // Filename encoding
-
-        $header = pack('vv', $record, $length);
-        $data = pack('CC', $cch, $rgch);
-        $this->append($header . $data . $sheetname);
-    }
-
-    /**
-     * Store the NAME record in the short format that is used for storing the print
-     * area, repeat rows only and repeat columns only.
-     *
-     * @param int $index Sheet index
-     * @param int $type Built-in name type
-     * @param int $rowmin Start row
-     * @param int $rowmax End row
-     * @param int $colmin Start colum
-     * @param int $colmax End column
-     */
-    private function writeNameShort($index, $type, $rowmin, $rowmax, $colmin, $colmax)
-    {
-        $record = 0x0018; // Record identifier
-        $length = 0x0024; // Number of bytes to follow
-
-        $grbit = 0x0020; // Option flags
-        $chKey = 0x00; // Keyboard shortcut
-        $cch = 0x01; // Length of text name
-        $cce = 0x0015; // Length of text definition
-        $ixals = $index + 1; // Sheet index
-        $itab = $ixals; // Equal to ixals
-        $cchCustMenu = 0x00; // Length of cust menu text
-        $cchDescription = 0x00; // Length of description text
-        $cchHelptopic = 0x00; // Length of help topic text
-        $cchStatustext = 0x00; // Length of status bar text
-        $rgch = $type; // Built-in name type
-
-        $unknown03 = 0x3b;
-        $unknown04 = 0xffff - $index;
-        $unknown05 = 0x0000;
-        $unknown06 = 0x0000;
-        $unknown07 = 0x1087;
-        $unknown08 = 0x8005;
-
-        $header = pack('vv', $record, $length);
-        $data = pack('v', $grbit);
-        $data .= pack('C', $chKey);
-        $data .= pack('C', $cch);
-        $data .= pack('v', $cce);
-        $data .= pack('v', $ixals);
-        $data .= pack('v', $itab);
-        $data .= pack('C', $cchCustMenu);
-        $data .= pack('C', $cchDescription);
-        $data .= pack('C', $cchHelptopic);
-        $data .= pack('C', $cchStatustext);
-        $data .= pack('C', $rgch);
-        $data .= pack('C', $unknown03);
-        $data .= pack('v', $unknown04);
-        $data .= pack('v', $unknown05);
-        $data .= pack('v', $unknown06);
-        $data .= pack('v', $unknown07);
-        $data .= pack('v', $unknown08);
-        $data .= pack('v', $index);
-        $data .= pack('v', $index);
-        $data .= pack('v', $rowmin);
-        $data .= pack('v', $rowmax);
-        $data .= pack('C', $colmin);
-        $data .= pack('C', $colmax);
-        $this->append($header . $data);
-    }
-
-    /**
-     * Store the NAME record in the long format that is used for storing the repeat
-     * rows and columns when both are specified. This shares a lot of code with
-     * writeNameShort() but we use a separate method to keep the code clean.
-     * Code abstraction for reuse can be carried too far, and I should know. ;-).
-     *
-     * @param int $index Sheet index
-     * @param int $type Built-in name type
-     * @param int $rowmin Start row
-     * @param int $rowmax End row
-     * @param int $colmin Start colum
-     * @param int $colmax End column
-     */
-    private function writeNameLong($index, $type, $rowmin, $rowmax, $colmin, $colmax)
-    {
-        $record = 0x0018; // Record identifier
-        $length = 0x003d; // Number of bytes to follow
-        $grbit = 0x0020; // Option flags
-        $chKey = 0x00; // Keyboard shortcut
-        $cch = 0x01; // Length of text name
-        $cce = 0x002e; // Length of text definition
-        $ixals = $index + 1; // Sheet index
-        $itab = $ixals; // Equal to ixals
-        $cchCustMenu = 0x00; // Length of cust menu text
-        $cchDescription = 0x00; // Length of description text
-        $cchHelptopic = 0x00; // Length of help topic text
-        $cchStatustext = 0x00; // Length of status bar text
-        $rgch = $type; // Built-in name type
-
-        $unknown01 = 0x29;
-        $unknown02 = 0x002b;
-        $unknown03 = 0x3b;
-        $unknown04 = 0xffff - $index;
-        $unknown05 = 0x0000;
-        $unknown06 = 0x0000;
-        $unknown07 = 0x1087;
-        $unknown08 = 0x8008;
-
-        $header = pack('vv', $record, $length);
-        $data = pack('v', $grbit);
-        $data .= pack('C', $chKey);
-        $data .= pack('C', $cch);
-        $data .= pack('v', $cce);
-        $data .= pack('v', $ixals);
-        $data .= pack('v', $itab);
-        $data .= pack('C', $cchCustMenu);
-        $data .= pack('C', $cchDescription);
-        $data .= pack('C', $cchHelptopic);
-        $data .= pack('C', $cchStatustext);
-        $data .= pack('C', $rgch);
-        $data .= pack('C', $unknown01);
-        $data .= pack('v', $unknown02);
-        // Column definition
-        $data .= pack('C', $unknown03);
-        $data .= pack('v', $unknown04);
-        $data .= pack('v', $unknown05);
-        $data .= pack('v', $unknown06);
-        $data .= pack('v', $unknown07);
-        $data .= pack('v', $unknown08);
-        $data .= pack('v', $index);
-        $data .= pack('v', $index);
-        $data .= pack('v', 0x0000);
-        $data .= pack('v', 0x3fff);
-        $data .= pack('C', $colmin);
-        $data .= pack('C', $colmax);
-        // Row definition
-        $data .= pack('C', $unknown03);
-        $data .= pack('v', $unknown04);
-        $data .= pack('v', $unknown05);
-        $data .= pack('v', $unknown06);
-        $data .= pack('v', $unknown07);
-        $data .= pack('v', $unknown08);
-        $data .= pack('v', $index);
-        $data .= pack('v', $index);
-        $data .= pack('v', $rowmin);
-        $data .= pack('v', $rowmax);
-        $data .= pack('C', 0x00);
-        $data .= pack('C', 0xff);
-        // End of data
-        $data .= pack('C', 0x10);
-        $this->append($header . $data);
-    }
-
-    /**
      * Stores the COUNTRY record for localization.
      *
      * @return string
@@ -1243,7 +938,7 @@ class Workbook extends BIFFwriter
         $length = 4; // Number of bytes to follow
 
         $header = pack('vv', $record, $length);
-        /* using the same country code always for simplicity */
+        // using the same country code always for simplicity
         $data = pack('vv', $this->countryCode, $this->countryCode);
 
         return $this->writeData($header . $data);
@@ -1371,7 +1066,7 @@ class Workbook extends BIFFwriter
                         // and start new record data block where we start writing the string
                         $recordData = '';
 
-                    // 2. space remaining is greater than or equal to minimum space needed
+                        // 2. space remaining is greater than or equal to minimum space needed
                     } else {
                         // initialize effective remaining space, for Unicode strings this may need to be reduced by 1, see below
                         $effective_space_remaining = $space_remaining;

@@ -22,6 +22,16 @@
             "name": "Erik Tilt"
         }
     ],
+    "scripts": {
+        "check": [
+            "php-cs-fixer fix --ansi --dry-run --diff",
+            "phpcs --report-width=200 --report-summary  --report-full samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n",
+            "phpunit --color=always"
+        ],
+        "fix": [
+            "php-cs-fixer fix --ansi"
+        ]
+    },
     "require": {
         "php": "^5.6|^7.0",
         "ext-mbstring": "*",
@@ -32,12 +42,12 @@
         "psr/simple-cache": "^1.0"
     },
     "require-dev": {
-        "mpdf/mpdf": "^6.1",
         "tecnickcom/tcpdf": "^6.2",
         "squizlabs/php_codesniffer": "^2.7",
         "phpunit/phpunit": "^5.7",
-        "friendsofphp/php-cs-fixer": "^2.0",
-        "dompdf/dompdf": "^0.8.0"
+        "dompdf/dompdf": "^0.8.0",
+        "mpdf/mpdf": "7.0.0-RC1@dev",
+        "friendsofphp/php-cs-fixer": "^2.7"
     },
     "suggest": {
         "ext-gd": "Required for exact column width autocalculation",

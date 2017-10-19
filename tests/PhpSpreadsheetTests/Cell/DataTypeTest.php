@@ -10,8 +10,8 @@ class DataTypeTest extends PHPUnit_Framework_TestCase
     public function testGetErrorCodes()
     {
         $result = DataType::getErrorCodes();
-        $this->assertInternalType('array', $result);
-        $this->assertGreaterThan(0, count($result));
-        $this->assertArrayHasKey('#NULL!', $result);
+        self::assertInternalType('array', $result);
+        self::assertGreaterThan(0, count($result));
+        self::assertArrayHasKey('#NULL!', $result);
     }
 }

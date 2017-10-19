@@ -19,7 +19,7 @@ class DataSeriesValuesTest extends PHPUnit_Framework_TestCase
 
         foreach ($dataTypeValues as $dataTypeValue) {
             $result = $testInstance->setDataType($dataTypeValue);
-            $this->assertTrue($result instanceof DataSeriesValues);
+            self::assertTrue($result instanceof DataSeriesValues);
         }
     }
 
@@ -30,7 +30,7 @@ class DataSeriesValuesTest extends PHPUnit_Framework_TestCase
         try {
             $testInstance->setDataType('BOOLEAN');
         } catch (Exception $e) {
-            $this->assertEquals($e->getMessage(), 'Invalid datatype for chart data series values');
+            self::assertEquals($e->getMessage(), 'Invalid datatype for chart data series values');
 
             return;
         }
@@ -45,6 +45,6 @@ class DataSeriesValuesTest extends PHPUnit_Framework_TestCase
         $testInstance->setDataType($dataTypeValue);
 
         $result = $testInstance->getDataType();
-        $this->assertEquals($dataTypeValue, $result);
+        self::assertEquals($dataTypeValue, $result);
     }
 }

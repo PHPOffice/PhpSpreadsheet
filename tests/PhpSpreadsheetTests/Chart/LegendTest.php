@@ -21,7 +21,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
 
         foreach ($positionValues as $positionValue) {
             $result = $testInstance->setPosition($positionValue);
-            $this->assertTrue($result);
+            self::assertTrue($result);
         }
     }
 
@@ -30,10 +30,10 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $testInstance = new Legend();
 
         $result = $testInstance->setPosition('BottomLeft');
-        $this->assertFalse($result);
+        self::assertFalse($result);
         //    Ensure that value is unchanged
         $result = $testInstance->getPosition();
-        $this->assertEquals(Legend::POSITION_RIGHT, $result);
+        self::assertEquals(Legend::POSITION_RIGHT, $result);
     }
 
     public function testGetPosition()
@@ -44,7 +44,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $setValue = $testInstance->setPosition($PositionValue);
 
         $result = $testInstance->getPosition();
-        $this->assertEquals($PositionValue, $result);
+        self::assertEquals($PositionValue, $result);
     }
 
     public function testSetPositionXL()
@@ -62,7 +62,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
 
         foreach ($positionValues as $positionValue) {
             $result = $testInstance->setPositionXL($positionValue);
-            $this->assertTrue($result);
+            self::assertTrue($result);
         }
     }
 
@@ -71,10 +71,10 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $testInstance = new Legend();
 
         $result = $testInstance->setPositionXL(999);
-        $this->assertFalse($result);
+        self::assertFalse($result);
         //    Ensure that value is unchanged
         $result = $testInstance->getPositionXL();
-        $this->assertEquals(Legend::XL_LEGEND_POSITION_RIGHT, $result);
+        self::assertEquals(Legend::XL_LEGEND_POSITION_RIGHT, $result);
     }
 
     public function testGetPositionXL()
@@ -85,7 +85,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $setValue = $testInstance->setPositionXL($PositionValue);
 
         $result = $testInstance->getPositionXL();
-        $this->assertEquals($PositionValue, $result);
+        self::assertEquals($PositionValue, $result);
     }
 
     public function testSetOverlay()
@@ -99,7 +99,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
 
         foreach ($overlayValues as $overlayValue) {
             $result = $testInstance->setOverlay($overlayValue);
-            $this->assertTrue($result);
+            self::assertTrue($result);
         }
     }
 
@@ -108,10 +108,10 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $testInstance = new Legend();
 
         $result = $testInstance->setOverlay('INVALID');
-        $this->assertFalse($result);
+        self::assertFalse($result);
 
         $result = $testInstance->getOverlay();
-        $this->assertFalse($result);
+        self::assertFalse($result);
     }
 
     public function testGetOverlay()
@@ -122,6 +122,6 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $setValue = $testInstance->setOverlay($OverlayValue);
 
         $result = $testInstance->getOverlay();
-        $this->assertEquals($OverlayValue, $result);
+        self::assertEquals($OverlayValue, $result);
     }
 }

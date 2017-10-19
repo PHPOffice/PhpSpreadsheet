@@ -25,20 +25,20 @@ class CsvTest extends PHPUnit_Framework_TestCase
         $reader = new ReaderCsv();
         $reloadedSpreadsheet = $reader->load($filename);
         $actual = $reloadedSpreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
-        $this->assertSame($value, $actual, 'should be able to write and read strings with multiples quotes');
+        self::assertSame($value, $actual, 'should be able to write and read strings with multiples quotes');
     }
 
     public function testDelimiterDetection()
     {
         $reader = new ReaderCsv();
-        $this->assertNull($reader->getDelimiter());
+        self::assertNull($reader->getDelimiter());
 
         $filename = __DIR__ . '/../../data/Reader/CSV/semicolon_separated.csv';
         $spreadsheet = $reader->load($filename);
 
-        $this->assertSame(';', $reader->getDelimiter(), 'should be able to infer the delimiter');
+        self::assertSame(';', $reader->getDelimiter(), 'should be able to infer the delimiter');
 
         $actual = $spreadsheet->getActiveSheet()->getCell('C2')->getValue();
-        $this->assertSame('25,5', $actual, 'should be able to retrieve values with commas');
+        self::assertSame('25,5', $actual, 'should be able to retrieve values with commas');
     }
 }

@@ -6,36 +6,14 @@ use ArrayObject;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Collection\CellsFactory;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Worksheet implements IComparable
 {
-    /* Break types */
+    // Break types
     const BREAK_NONE = 0;
     const BREAK_ROW = 1;
     const BREAK_COLUMN = 2;
 
-    /* Sheet state */
+    // Sheet state
     const SHEETSTATE_VISIBLE = 'visible';
     const SHEETSTATE_HIDDEN = 'hidden';
     const SHEETSTATE_VERYHIDDEN = 'veryHidden';
@@ -87,14 +65,14 @@ class Worksheet implements IComparable
      *
      * @var Worksheet\ColumnDimension
      */
-    private $defaultColumnDimension = null;
+    private $defaultColumnDimension;
 
     /**
      * Collection of drawings.
      *
      * @var Worksheet\BaseDrawing[]
      */
-    private $drawingCollection = null;
+    private $drawingCollection;
 
     /**
      * Collection of Chart objects.
@@ -325,7 +303,7 @@ class Worksheet implements IComparable
      *
      * @var string
      */
-    private $codeName = null;
+    private $codeName;
 
     /**
      * Create a new worksheet.
@@ -546,14 +524,14 @@ class Worksheet implements IComparable
      * Add chart.
      *
      * @param Chart $pChart
-     * @param int|null $iChartIndex Index where chart should go (0,1,..., or null for last)
+     * @param null|int $iChartIndex Index where chart should go (0,1,..., or null for last)
      *
      * @return Chart
      */
     public function addChart(Chart $pChart, $iChartIndex = null)
     {
         $pChart->setWorksheet($this);
-        if (is_null($iChartIndex)) {
+        if ($iChartIndex === null) {
             $this->chartCollection[] = $pChart;
         } else {
             // Insert the chart at the requested index
@@ -580,7 +558,7 @@ class Worksheet implements IComparable
      *
      * @throws Exception
      *
-     * @return false|Chart
+     * @return Chart|false
      */
     public function getChartByIndex($index)
     {
@@ -588,7 +566,7 @@ class Worksheet implements IComparable
         if ($chartCount == 0) {
             return false;
         }
-        if (is_null($index)) {
+        if ($index === null) {
             $index = --$chartCount;
         }
         if (!isset($this->chartCollection[$index])) {
@@ -622,7 +600,7 @@ class Worksheet implements IComparable
      *
      * @throws Exception
      *
-     * @return false|Chart
+     * @return Chart|false
      */
     public function getChartByName($chartName)
     {
@@ -825,52 +803,54 @@ class Worksheet implements IComparable
      * Set title.
      *
      * @param string $pValue String containing the dimension of this worksheet
-     * @param string $updateFormulaCellReferences boolean Flag indicating whether cell references in formulae should
+     * @param bool $updateFormulaCellReferences Flag indicating whether cell references in formulae should
      *            be updated to reflect the new sheet name.
      *          This should be left as the default true, unless you are
      *          certain that no formula cells on any worksheet contain
      *          references to this worksheet
+     * @param bool $validate False to skip validation of new title. WARNING: This should only be set
+     *                       at parse time (by Readers), where titles can be assumed to be valid.
      *
      * @return Worksheet
      */
-    public function setTitle($pValue, $updateFormulaCellReferences = true)
+    public function setTitle($pValue, $updateFormulaCellReferences = true, $validate = true)
     {
         // Is this a 'rename' or not?
         if ($this->getTitle() == $pValue) {
             return $this;
         }
 
-        // Syntax check
-        self::checkSheetTitle($pValue);
-
         // Old title
         $oldTitle = $this->getTitle();
 
-        if ($this->parent) {
-            // Is there already such sheet name?
-            if ($this->parent->sheetNameExists($pValue)) {
-                // Use name, but append with lowest possible integer
+        if ($validate) {
+            // Syntax check
+            self::checkSheetTitle($pValue);
 
-                if (Shared\StringHelper::countCharacters($pValue) > 29) {
-                    $pValue = Shared\StringHelper::substring($pValue, 0, 29);
-                }
-                $i = 1;
-                while ($this->parent->sheetNameExists($pValue . ' ' . $i)) {
-                    ++$i;
-                    if ($i == 10) {
-                        if (Shared\StringHelper::countCharacters($pValue) > 28) {
-                            $pValue = Shared\StringHelper::substring($pValue, 0, 28);
-                        }
-                    } elseif ($i == 100) {
-                        if (Shared\StringHelper::countCharacters($pValue) > 27) {
-                            $pValue = Shared\StringHelper::substring($pValue, 0, 27);
+            if ($this->parent) {
+                // Is there already such sheet name?
+                if ($this->parent->sheetNameExists($pValue)) {
+                    // Use name, but append with lowest possible integer
+
+                    if (Shared\StringHelper::countCharacters($pValue) > 29) {
+                        $pValue = Shared\StringHelper::substring($pValue, 0, 29);
+                    }
+                    $i = 1;
+                    while ($this->parent->sheetNameExists($pValue . ' ' . $i)) {
+                        ++$i;
+                        if ($i == 10) {
+                            if (Shared\StringHelper::countCharacters($pValue) > 28) {
+                                $pValue = Shared\StringHelper::substring($pValue, 0, 28);
+                            }
+                        } elseif ($i == 100) {
+                            if (Shared\StringHelper::countCharacters($pValue) > 27) {
+                                $pValue = Shared\StringHelper::substring($pValue, 0, 27);
+                            }
                         }
                     }
+
+                    $pValue .= " $i";
                 }
-
-                $altTitle = $pValue . ' ' . $i;
-
-                return $this->setTitle($altTitle, $updateFormulaCellReferences);
             }
         }
 
@@ -1161,7 +1141,6 @@ class Worksheet implements IComparable
      * @param int $pRow Numeric row coordinate of the cell
      * @param mixed $pValue Value of the cell
      * @param string $pDataType Explicit data type, see Cell\DataType::TYPE_*
-     * @param bool $returnCell Return the worksheet (false, default) or the cell (true)
      *
      * @return Worksheet
      */
@@ -1308,6 +1287,7 @@ class Worksheet implements IComparable
                     if (!$namedRange->getLocalOnly()) {
                         return $namedRange->getWorksheet()->cellExists($pCoordinate);
                     }
+
                     throw new Exception('Named range ' . $namedRange->getName() . ' is not accessible from within sheet ' . $this->getTitle());
                 }
             } else {
@@ -1323,11 +1303,11 @@ class Worksheet implements IComparable
         } elseif (strpos($pCoordinate, '$') !== false) {
             throw new Exception('Cell coordinate must not be absolute.');
         }
-            // Coordinates
-            $aCoordinates = Cell::coordinateFromString($pCoordinate);
+        // Coordinates
+        $aCoordinates = Cell::coordinateFromString($pCoordinate);
 
-            // Cell exists?
-            return $this->cellCollection->has($pCoordinate);
+        // Cell exists?
+        return $this->cellCollection->has($pCoordinate);
     }
 
     /**
@@ -1525,7 +1505,7 @@ class Worksheet implements IComparable
      */
     public function getStyleByColumnAndRow($pColumn, $pRow, $pColumn2 = null, $pRow2 = null)
     {
-        if (!is_null($pColumn2) && !is_null($pRow2)) {
+        if ($pColumn2 !== null && $pRow2 !== null) {
             $cellRange = Cell::stringFromColumnIndex($pColumn) . $pRow . ':' . Cell::stringFromColumnIndex($pColumn2) . $pRow2;
 
             return $this->getStyle($cellRange);
@@ -1919,7 +1899,7 @@ class Worksheet implements IComparable
     /**
      * Set AutoFilter.
      *
-     * @param Worksheet\AutoFilter|string $pValue
+     * @param string|Worksheet\AutoFilter $pValue
      *            A simple string containing a Cell range like 'A1:E10' is permitted for backward compatibility
      *
      * @throws Exception
@@ -2092,6 +2072,7 @@ class Worksheet implements IComparable
         if ($pBefore >= 0) {
             return $this->insertNewColumnBefore(Cell::stringFromColumnIndex($pBefore), $pNumCols);
         }
+
         throw new Exception('Columns can only be inserted before at least column A (0).');
     }
 
@@ -2165,6 +2146,7 @@ class Worksheet implements IComparable
         if ($pColumn >= 0) {
             return $this->removeColumn(Cell::stringFromColumnIndex($pColumn), $pNumCols);
         }
+
         throw new Exception('Columns to be deleted should at least start from column 0');
     }
 
@@ -2758,7 +2740,7 @@ class Worksheet implements IComparable
      * Set hyperlink.
      *
      * @param string $pCellCoordinate Cell coordinate to insert hyperlink, eg: 'A1'
-     * @param Cell\Hyperlink|null $pHyperlink
+     * @param null|Cell\Hyperlink $pHyperlink
      *
      * @return Worksheet
      */
@@ -2817,7 +2799,7 @@ class Worksheet implements IComparable
      * Set data validation.
      *
      * @param string $pCellCoordinate Cell coordinate to insert data validation, eg: 'A1'
-     * @param Cell\DataValidation|null $pDataValidation
+     * @param null|Cell\DataValidation $pDataValidation
      *
      * @return Worksheet
      */
@@ -2976,51 +2958,55 @@ class Worksheet implements IComparable
     /**
      * Define the code name of the sheet.
      *
-     * @param null|string Same rule as Title minus space not allowed (but, like Excel, change silently space to underscore)
-     * @param null|mixed $pValue
+     * @param string $pValue Same rule as Title minus space not allowed (but, like Excel, change
+     *                       silently space to underscore)
+     * @param bool $validate False to skip validation of new title. WARNING: This should only be set
+     *                       at parse time (by Readers), where titles can be assumed to be valid.
      *
      * @throws Exception
      *
      * @return objWorksheet
      */
-    public function setCodeName($pValue)
+    public function setCodeName($pValue, $validate = true)
     {
         // Is this a 'rename' or not?
         if ($this->getCodeName() == $pValue) {
             return $this;
         }
-        $pValue = str_replace(' ', '_', $pValue); //Excel does this automatically without flinching, we are doing the same
-        // Syntax check
-        // throw an exception if not valid
-        self::checkSheetCodeName($pValue);
 
-        // We use the same code that setTitle to find a valid codeName else not using a space (Excel don't like) but a '_'
+        if ($validate) {
+            $pValue = str_replace(' ', '_', $pValue); //Excel does this automatically without flinching, we are doing the same
 
-        if ($this->getParent()) {
-            // Is there already such sheet name?
-            if ($this->getParent()->sheetCodeNameExists($pValue)) {
-                // Use name, but append with lowest possible integer
+            // Syntax check
+            // throw an exception if not valid
+            self::checkSheetCodeName($pValue);
 
-                if (Shared\StringHelper::countCharacters($pValue) > 29) {
-                    $pValue = Shared\StringHelper::substring($pValue, 0, 29);
-                }
-                $i = 1;
-                while ($this->getParent()->sheetCodeNameExists($pValue . '_' . $i)) {
-                    ++$i;
-                    if ($i == 10) {
-                        if (Shared\StringHelper::countCharacters($pValue) > 28) {
-                            $pValue = Shared\StringHelper::substring($pValue, 0, 28);
-                        }
-                    } elseif ($i == 100) {
-                        if (Shared\StringHelper::countCharacters($pValue) > 27) {
-                            $pValue = Shared\StringHelper::substring($pValue, 0, 27);
+            // We use the same code that setTitle to find a valid codeName else not using a space (Excel don't like) but a '_'
+
+            if ($this->getParent()) {
+                // Is there already such sheet name?
+                if ($this->getParent()->sheetCodeNameExists($pValue)) {
+                    // Use name, but append with lowest possible integer
+
+                    if (Shared\StringHelper::countCharacters($pValue) > 29) {
+                        $pValue = Shared\StringHelper::substring($pValue, 0, 29);
+                    }
+                    $i = 1;
+                    while ($this->getParent()->sheetCodeNameExists($pValue . '_' . $i)) {
+                        ++$i;
+                        if ($i == 10) {
+                            if (Shared\StringHelper::countCharacters($pValue) > 28) {
+                                $pValue = Shared\StringHelper::substring($pValue, 0, 28);
+                            }
+                        } elseif ($i == 100) {
+                            if (Shared\StringHelper::countCharacters($pValue) > 27) {
+                                $pValue = Shared\StringHelper::substring($pValue, 0, 27);
+                            }
                         }
                     }
-                }
 
-                $pValue = $pValue . '_' . $i; // ok, we have a valid name
-                //codeName is'nt used in formula : no need to call for an update
-                //return $this->setTitle($altTitle, $updateFormulaCellReferences);
+                    $pValue = $pValue . '_' . $i; // ok, we have a valid name
+                }
             }
         }
 
@@ -3046,6 +3032,6 @@ class Worksheet implements IComparable
      */
     public function hasCodeName()
     {
-        return !(is_null($this->codeName));
+        return !($this->codeName === null);
     }
 }

@@ -4,28 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
 use PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class PolynomialBestFit extends BestFit
 {
     /**
@@ -123,14 +101,14 @@ class PolynomialBestFit extends BestFit
     {
         if ($dp != 0) {
             $coefficients = [];
-            foreach ($this->_slope as $coefficient) {
+            foreach ($this->slope as $coefficient) {
                 $coefficients[] = round($coefficient, $dp);
             }
 
             return $coefficients;
         }
 
-        return $this->_slope;
+        return $this->slope;
     }
 
     public function getCoefficients($dp = 0)
@@ -144,9 +122,8 @@ class PolynomialBestFit extends BestFit
      * @param int $order Order of Polynomial for this regression
      * @param float[] $yValues The set of Y-values for this regression
      * @param float[] $xValues The set of X-values for this regression
-     * @param bool $const
      */
-    private function polynomialRegression($order, $yValues, $xValues, $const)
+    private function polynomialRegression($order, $yValues, $xValues)
     {
         // calculate sums
         $x_sum = array_sum($xValues);
@@ -178,7 +155,7 @@ class PolynomialBestFit extends BestFit
         $C = $matrixA->solve($matrixB);
 
         $coefficients = [];
-        for ($i = 0; $i < $C->m; ++$i) {
+        for ($i = 0; $i < $C->getRowDimension(); ++$i) {
             $r = $C->get($i, 0);
             if (abs($r) <= pow(10, -9)) {
                 $r = 0;
@@ -187,7 +164,7 @@ class PolynomialBestFit extends BestFit
         }
 
         $this->intersect = array_shift($coefficients);
-        $this->_slope = $coefficients;
+        $this->slope = $coefficients;
 
         $this->calculateGoodnessOfFit($x_sum, $y_sum, $xx_sum, $yy_sum, $xy_sum);
         foreach ($this->xValues as $xKey => $xValue) {
@@ -209,12 +186,12 @@ class PolynomialBestFit extends BestFit
             if ($order < $this->valueCount) {
                 $this->bestFitType .= '_' . $order;
                 $this->order = $order;
-                $this->polynomialRegression($order, $yValues, $xValues, $const);
+                $this->polynomialRegression($order, $yValues, $xValues);
                 if (($this->getGoodnessOfFit() < 0.0) || ($this->getGoodnessOfFit() > 1.0)) {
-                    $this->_error = true;
+                    $this->error = true;
                 }
             } else {
-                $this->_error = true;
+                $this->error = true;
             }
         }
     }

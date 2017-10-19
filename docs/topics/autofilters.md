@@ -519,7 +519,7 @@ foreach ($spreadsheet->getActiveSheet()->getRowIterator() as $row) {
             ->getCell(
                 'D'.$row->getRowIndex()
             )->getFormattedValue(), ' ';
-        echo EOL;
+        echo PHP_EOL;
     }
 }
 ```

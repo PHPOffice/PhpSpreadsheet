@@ -4,28 +4,6 @@ namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 
-/**
- *    Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- *    This library is free software; you can redistribute it and/or
- *    modify it under the terms of the GNU Lesser General Public
- *    License as published by the Free Software Foundation; either
- *    version 2.1 of the License, or (at your option) any later version.
- *
- *    This library is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- *    Lesser General Public License for more details.
- *
- *    You should have received a copy of the GNU Lesser General Public
- *    License along with this library; if not, write to the Free Software
- *    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- *    @category    PhpSpreadsheet
- *
- *    @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- *    @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Cell
 {
     /**
@@ -227,6 +205,7 @@ class Cell
         switch ($pDataType) {
             case Cell\DataType::TYPE_NULL:
                 $this->value = $pValue;
+
                 break;
             case Cell\DataType::TYPE_STRING2:
                 $pDataType = Cell\DataType::TYPE_STRING;
@@ -236,18 +215,23 @@ class Cell
             case Cell\DataType::TYPE_INLINE:
                 // Rich text
                 $this->value = Cell\DataType::checkString($pValue);
+
                 break;
             case Cell\DataType::TYPE_NUMERIC:
                 $this->value = (float) $pValue;
+
                 break;
             case Cell\DataType::TYPE_FORMULA:
                 $this->value = (string) $pValue;
+
                 break;
             case Cell\DataType::TYPE_BOOL:
                 $this->value = (bool) $pValue;
+
                 break;
             case Cell\DataType::TYPE_ERROR:
                 $this->value = Cell\DataType::checkErrorCode($pValue);
+
                 break;
             default:
                 throw new Exception('Invalid datatype: ' . $pDataType);
@@ -287,6 +271,7 @@ class Cell
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 }
                 $result = '#N/A';
+
                 throw new Calculation\Exception(
                     $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
                 );
@@ -818,15 +803,15 @@ class Cell
         //    Using a lookup cache adds a slight memory overhead, but boosts speed
         //    caching using a static within the method is faster than a class static,
         //        though it's additional memory overhead
-        static $_indexCache = [];
+        static $indexCache = [];
 
-        if (isset($_indexCache[$pString])) {
-            return $_indexCache[$pString];
+        if (isset($indexCache[$pString])) {
+            return $indexCache[$pString];
         }
         //    It's surprising how costly the strtoupper() and ord() calls actually are, so we use a lookup array rather than use ord()
         //        and make it case insensitive to get rid of the strtoupper() as well. Because it's a static, there's no significant
         //        memory overhead either
-        static $_columnLookup = [
+        static $columnLookup = [
             'A' => 1, 'B' => 2, 'C' => 3, 'D' => 4, 'E' => 5, 'F' => 6, 'G' => 7, 'H' => 8, 'I' => 9, 'J' => 10, 'K' => 11, 'L' => 12, 'M' => 13,
             'N' => 14, 'O' => 15, 'P' => 16, 'Q' => 17, 'R' => 18, 'S' => 19, 'T' => 20, 'U' => 21, 'V' => 22, 'W' => 23, 'X' => 24, 'Y' => 25, 'Z' => 26,
             'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'f' => 6, 'g' => 7, 'h' => 8, 'i' => 9, 'j' => 10, 'k' => 11, 'l' => 12, 'm' => 13,
@@ -837,51 +822,46 @@ class Cell
         //        for improved performance
         if (isset($pString[0])) {
             if (!isset($pString[1])) {
-                $_indexCache[$pString] = $_columnLookup[$pString];
+                $indexCache[$pString] = $columnLookup[$pString];
 
-                return $_indexCache[$pString];
+                return $indexCache[$pString];
             } elseif (!isset($pString[2])) {
-                $_indexCache[$pString] = $_columnLookup[$pString[0]] * 26 + $_columnLookup[$pString[1]];
+                $indexCache[$pString] = $columnLookup[$pString[0]] * 26 + $columnLookup[$pString[1]];
 
-                return $_indexCache[$pString];
+                return $indexCache[$pString];
             } elseif (!isset($pString[3])) {
-                $_indexCache[$pString] = $_columnLookup[$pString[0]] * 676 + $_columnLookup[$pString[1]] * 26 + $_columnLookup[$pString[2]];
+                $indexCache[$pString] = $columnLookup[$pString[0]] * 676 + $columnLookup[$pString[1]] * 26 + $columnLookup[$pString[2]];
 
-                return $_indexCache[$pString];
+                return $indexCache[$pString];
             }
         }
+
         throw new Exception('Column string index can not be ' . ((isset($pString[0])) ? 'longer than 3 characters' : 'empty'));
     }
 
     /**
      * String from columnindex.
      *
-     * @param int $pColumnIndex Column index (A = 0)
+     * @param int $columnIndex Column index (A = 0)
      *
      * @return string
      */
-    public static function stringFromColumnIndex($pColumnIndex)
+    public static function stringFromColumnIndex($columnIndex)
     {
-        //    Using a lookup cache adds a slight memory overhead, but boosts speed
-        //    caching using a static within the method is faster than a class static,
-        //        though it's additional memory overhead
-        static $_indexCache = [];
+        static $indexCache = [];
 
-        if (!isset($_indexCache[$pColumnIndex])) {
-            // Determine column string
-            if ($pColumnIndex < 26) {
-                $_indexCache[$pColumnIndex] = chr(65 + $pColumnIndex);
-            } elseif ($pColumnIndex < 702) {
-                $_indexCache[$pColumnIndex] = chr(64 + ($pColumnIndex / 26)) .
-                                                chr(65 + $pColumnIndex % 26);
-            } else {
-                $_indexCache[$pColumnIndex] = chr(64 + (($pColumnIndex - 26) / 676)) .
-                                                chr(65 + ((($pColumnIndex - 26) % 676) / 26)) .
-                                                chr(65 + $pColumnIndex % 26);
-            }
+        if (!isset($indexCache[$columnIndex])) {
+            $indexValue = $columnIndex + 1;
+            $base26 = null;
+            do {
+                $characterValue = ($indexValue % 26) ?: 26;
+                $indexValue = ($indexValue - $characterValue) / 26;
+                $base26 = chr($characterValue + 64) . ($base26 ?: '');
+            } while ($indexValue > 0);
+            $indexCache[$columnIndex] = $base26;
         }
 
-        return $_indexCache[$pColumnIndex];
+        return $indexCache[$columnIndex];
     }
 
     /**
@@ -902,6 +882,7 @@ class Cell
             // Single cell?
             if (strpos($cellBlock, ':') === false && strpos($cellBlock, ',') === false) {
                 $returnValue[] = $cellBlock;
+
                 continue;
             }
 
@@ -911,6 +892,7 @@ class Cell
                 // Single cell?
                 if (!isset($range[1])) {
                     $returnValue[] = $range[0];
+
                     continue;
                 }
 
@@ -946,6 +928,86 @@ class Cell
 
         // Return value
         return array_values($sortKeys);
+    }
+
+    /**
+     * Convert an associative array of single cell coordinates to values to an associative array
+     * of cell ranges to values.  Only adjacent cell coordinates with the same
+     * value will be merged.  If the value is an object, it must implement the method getHashCode().
+     *
+     * For example, this function converts:
+     *
+     *    [ 'A1' => 'x', 'A2' => 'x', 'A3' => 'x', 'A4' => 'y' ]
+     *
+     * to:
+     *
+     *    [ 'A1:A3' => 'x', 'A4' => 'y' ]
+     *
+     * @param array $pCoordCollection associative array mapping coordinates to values
+     *
+     * @return array associative array mapping coordinate ranges to valuea
+     */
+    public static function mergeRangesInCollection(array $pCoordCollection)
+    {
+        $hashedValues = [];
+
+        foreach ($pCoordCollection as $coord => $value) {
+            list($column, $row) = self::coordinateFromString($coord);
+            $row = (int) (ltrim($row, '$'));
+            $hashCode = $column . '-' . (is_object($value) ? $value->getHashCode() : $value);
+
+            if (!isset($hashedValues[$hashCode])) {
+                $hashedValues[$hashCode] = (object) [
+                    'value' => $value,
+                    'col' => $column,
+                    'rows' => [$row],
+                ];
+            } else {
+                $hashedValues[$hashCode]->rows[] = $row;
+            }
+        }
+
+        $mergedCoordCollection = [];
+        ksort($hashedValues);
+
+        foreach ($hashedValues as $hashedValue) {
+            sort($hashedValue->rows);
+            $rowStart = null;
+            $rowEnd = null;
+            $ranges = [];
+
+            foreach ($hashedValue->rows as $row) {
+                if ($rowStart === null) {
+                    $rowStart = $row;
+                    $rowEnd = $row;
+                } elseif ($rowEnd === $row - 1) {
+                    $rowEnd = $row;
+                } else {
+                    if ($rowStart == $rowEnd) {
+                        $ranges[] = $hashedValue->col . $rowStart;
+                    } else {
+                        $ranges[] = $hashedValue->col . $rowStart . ':' . $hashedValue->col . $rowEnd;
+                    }
+
+                    $rowStart = $row;
+                    $rowEnd = $row;
+                }
+            }
+
+            if ($rowStart !== null) {
+                if ($rowStart == $rowEnd) {
+                    $ranges[] = $hashedValue->col . $rowStart;
+                } else {
+                    $ranges[] = $hashedValue->col . $rowStart . ':' . $hashedValue->col . $rowEnd;
+                }
+            }
+
+            foreach ($ranges as $range) {
+                $mergedCoordCollection[$range] = $hashedValue->value;
+            }
+        }
+
+        return $mergedCoordCollection;
     }
 
     /**

@@ -2,28 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Style extends Style\Supervisor implements IComparable
 {
     /**
@@ -177,20 +155,20 @@ class Style extends Style\Supervisor implements IComparable
      *                 'bold'      => true,
      *                 'italic'    => false,
      *                 'underline' => \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE,
-     *                 'strike'    => false,
+     *                 'strikethrough'    => false,
      *                 'color'     => array(
      *                     'rgb' => '808080'
      *                 )
      *             ),
      *             'borders' => array(
      *                 'bottom'     => array(
-     *                     'style' => Border::BORDER_DASHDOT,
+     *                     'borderStyle' => Border::BORDER_DASHDOT,
      *                     'color' => array(
      *                         'rgb' => '808080'
      *                     )
      *                 ),
      *                 'top'     => array(
-     *                     'style' => Border::BORDER_DASHDOT,
+     *                     'borderStyle' => Border::BORDER_DASHDOT,
      *                     'color' => array(
      *                         'rgb' => '808080'
      *                     )
@@ -241,15 +219,15 @@ class Style extends Style\Supervisor implements IComparable
 
             // ADVANCED MODE:
             if ($pAdvanced && isset($pStyles['borders'])) {
-                // 'allborders' is a shorthand property for 'outline' and 'inside' and
+                // 'allBorders' is a shorthand property for 'outline' and 'inside' and
                 //        it applies to components that have not been set explicitly
-                if (isset($pStyles['borders']['allborders'])) {
+                if (isset($pStyles['borders']['allBorders'])) {
                     foreach (['outline', 'inside'] as $component) {
                         if (!isset($pStyles['borders'][$component])) {
-                            $pStyles['borders'][$component] = $pStyles['borders']['allborders'];
+                            $pStyles['borders'][$component] = $pStyles['borders']['allBorders'];
                         }
                     }
-                    unset($pStyles['borders']['allborders']); // not needed any more
+                    unset($pStyles['borders']['allBorders']); // not needed any more
                 }
                 // 'outline' is a shorthand property for 'top', 'right', 'bottom', 'left'
                 //        it applies to components that have not been set explicitly
@@ -335,6 +313,7 @@ class Style extends Style\Supervisor implements IComparable
                                     } else {
                                         unset($regionStyles['borders'][$innerEdge]);
                                     }
+
                                     break;
                                 case 'left':
                                 case 'right':
@@ -344,6 +323,7 @@ class Style extends Style\Supervisor implements IComparable
                                     } else {
                                         unset($regionStyles['borders'][$innerEdge]);
                                     }
+
                                     break;
                             }
                         }
@@ -373,6 +353,7 @@ class Style extends Style\Supervisor implements IComparable
                     for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
                         $oldXfIndexes[$this->getActiveSheet()->getColumnDimensionByColumn($col)->getXfIndex()] = true;
                     }
+
                     break;
                 case 'ROW':
                     $oldXfIndexes = [];
@@ -383,6 +364,7 @@ class Style extends Style\Supervisor implements IComparable
                             $oldXfIndexes[$this->getActiveSheet()->getRowDimension($row)->getXfIndex()] = true;
                         }
                     }
+
                     break;
                 case 'CELL':
                     $oldXfIndexes = [];
@@ -391,6 +373,7 @@ class Style extends Style\Supervisor implements IComparable
                             $oldXfIndexes[$this->getActiveSheet()->getCellByColumnAndRow($col, $row)->getXfIndex()] = true;
                         }
                     }
+
                     break;
             }
 
@@ -419,6 +402,7 @@ class Style extends Style\Supervisor implements IComparable
                         $oldXfIndex = $columnDimension->getXfIndex();
                         $columnDimension->setXfIndex($newXfIndexes[$oldXfIndex]);
                     }
+
                     break;
                 case 'ROW':
                     for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
@@ -427,6 +411,7 @@ class Style extends Style\Supervisor implements IComparable
                             0 : $rowDimension->getXfIndex(); // row without explicit style should be formatted based on default style
                         $rowDimension->setXfIndex($newXfIndexes[$oldXfIndex]);
                     }
+
                     break;
                 case 'CELL':
                     for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
@@ -436,6 +421,7 @@ class Style extends Style\Supervisor implements IComparable
                             $cell->setXfIndex($newXfIndexes[$oldXfIndex]);
                         }
                     }
+
                     break;
             }
         } else {
@@ -452,8 +438,8 @@ class Style extends Style\Supervisor implements IComparable
             if (isset($pStyles['alignment'])) {
                 $this->getAlignment()->applyFromArray($pStyles['alignment']);
             }
-            if (isset($pStyles['numberformat'])) {
-                $this->getNumberFormat()->applyFromArray($pStyles['numberformat']);
+            if (isset($pStyles['numberFormat'])) {
+                $this->getNumberFormat()->applyFromArray($pStyles['numberFormat']);
             }
             if (isset($pStyles['protection'])) {
                 $this->getProtection()->applyFromArray($pStyles['protection']);

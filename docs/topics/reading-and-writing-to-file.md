@@ -745,11 +745,11 @@ of different libraries.
 
 Currently, the following libraries are supported:
 
-Library | Downloadable from                   | PhpSpreadsheet Internal Constant
---------|-------------------------------------|---------------------------------
-tcPDF   | https://github.com/tecnickcom/tcpdf | PDF_RENDERER_TCPDF
-mPDF    | https://github.com/mpdf/mpdf        | PDF_RENDERER_MPDF
-domPDF  | https://github.com/dompdf/dompdf    | PDF_RENDERER_DOMPDF
+Library | Downloadable from                   | PhpSpreadsheet writer
+--------|-------------------------------------|----------------------
+tcPDF   | https://github.com/tecnickcom/tcpdf | TcPdf
+mPDF    | https://github.com/mpdf/mpdf        | MPDF
+domPDF  | https://github.com/dompdf/dompdf    | DomPDF
 
 The different libraries have different strengths and weaknesses. Some
 generate better formatted output than others, some are faster or use
@@ -757,12 +757,19 @@ less memory than others, while some generate smaller .pdf files. It is
 the developers choice which one they wish to use, appropriate to their
 own circumstances.
 
-Before instantiating a Writer to generate PDF output, you will need to
-indicate which Rendering library you are using.
+Before instantiating a Writer via `IOFactory` to generate PDF output,
+you will need to indicate which writer you are using:
 
 ``` php
-$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
-\PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
+$rendererName = \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF::class;
+\PhpOffice\PhpSpreadsheet\Settings::setDefaultPdfWriter($rendererName);
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory\IOFactory::createWriter($spreadsheet, 'Pdf');
+```
+
+Or you can instantiate directly the writer of your choice like so:
+
+``` php
+$writer = \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF($spreadsheet);
 ```
 
 #### Writing a spreadsheet
@@ -771,11 +778,11 @@ Once you have identified the Renderer that you wish to use for PDF
 generation, you can write a .pdf file using the following code:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF($spreadsheet);
 $writer->save("05featuredemo.pdf");
 ```
 
-Please note that \PhpOffice\PhpSpreadsheet\Writer\Pdf only outputs the
+Please note that `\PhpOffice\PhpSpreadsheet\Writer\Pdf` only outputs the
 first worksheet by default.
 
 #### Write all worksheets
@@ -803,7 +810,7 @@ This can be slow on large spreadsheets, and maybe even unwanted. You can
 however disable formula pre-calculation:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF($spreadsheet);
 $writer->setPreCalculateFormulas(false);
 
 $writer->save("05featuredemo.pdf");

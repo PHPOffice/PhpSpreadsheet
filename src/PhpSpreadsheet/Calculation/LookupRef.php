@@ -5,28 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class LookupRef
 {
     /**
@@ -113,7 +91,7 @@ class LookupRef
      */
     public static function COLUMN($cellAddress = null)
     {
-        if (is_null($cellAddress) || trim($cellAddress) === '') {
+        if ($cellAddress === null || trim($cellAddress) === '') {
             return 0;
         }
 
@@ -159,7 +137,7 @@ class LookupRef
      */
     public static function COLUMNS($cellAddress = null)
     {
-        if (is_null($cellAddress) || $cellAddress === '') {
+        if ($cellAddress === null || $cellAddress === '') {
             return 1;
         } elseif (!is_array($cellAddress)) {
             return Functions::VALUE();
@@ -194,14 +172,14 @@ class LookupRef
      */
     public static function ROW($cellAddress = null)
     {
-        if (is_null($cellAddress) || trim($cellAddress) === '') {
+        if ($cellAddress === null || trim($cellAddress) === '') {
             return 0;
         }
 
         if (is_array($cellAddress)) {
             foreach ($cellAddress as $columnKey => $rowValue) {
                 foreach ($rowValue as $rowKey => $cellValue) {
-                    return (int) preg_replace('/[^0-9]/i', '', $rowKey);
+                    return (int) preg_replace('/[^0-9]/', '', $rowKey);
                 }
             }
         } else {
@@ -240,7 +218,7 @@ class LookupRef
      */
     public static function ROWS($cellAddress = null)
     {
-        if (is_null($cellAddress) || $cellAddress === '') {
+        if ($cellAddress === null || $cellAddress === '') {
             return 1;
         } elseif (!is_array($cellAddress)) {
             return Functions::VALUE();
@@ -273,8 +251,8 @@ class LookupRef
      */
     public static function HYPERLINK($linkURL = '', $displayName = null, Cell $pCell = null)
     {
-        $linkURL = (is_null($linkURL)) ? '' : Functions::flattenSingleValue($linkURL);
-        $displayName = (is_null($displayName)) ? '' : Functions::flattenSingleValue($displayName);
+        $linkURL = ($linkURL === null) ? '' : Functions::flattenSingleValue($linkURL);
+        $displayName = ($displayName === null) ? '' : Functions::flattenSingleValue($displayName);
 
         if ((!is_object($pCell)) || (trim($linkURL) == '')) {
             return Functions::REF();
@@ -311,7 +289,7 @@ class LookupRef
     public static function INDIRECT($cellAddress = null, Cell $pCell = null)
     {
         $cellAddress = Functions::flattenSingleValue($cellAddress);
-        if (is_null($cellAddress) || $cellAddress === '') {
+        if ($cellAddress === null || $cellAddress === '') {
             return Functions::REF();
         }
 
@@ -322,7 +300,7 @@ class LookupRef
         }
 
         if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
-            ((!is_null($cellAddress2)) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))) {
+            (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))) {
             if (!preg_match('/^' . Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $cellAddress1, $matches)) {
                 return Functions::REF();
             }
@@ -510,7 +488,7 @@ class LookupRef
     {
         $lookupArray = Functions::flattenArray($lookupArray);
         $lookupValue = Functions::flattenSingleValue($lookupValue);
-        $matchType = (is_null($matchType)) ? 1 : (int) Functions::flattenSingleValue($matchType);
+        $matchType = ($matchType === null) ? 1 : (int) Functions::flattenSingleValue($matchType);
 
         // MATCH is not case sensitive
         $lookupValue = strtolower($lookupValue);
@@ -535,7 +513,7 @@ class LookupRef
         foreach ($lookupArray as $i => $lookupArrayValue) {
             //    check the type of the value
             if ((!is_numeric($lookupArrayValue)) && (!is_string($lookupArrayValue)) &&
-                (!is_bool($lookupArrayValue)) && (!is_null($lookupArrayValue))
+                (!is_bool($lookupArrayValue)) && ($lookupArrayValue !== null)
             ) {
                 return Functions::NA();
             }
@@ -543,7 +521,7 @@ class LookupRef
             if (is_string($lookupArrayValue)) {
                 $lookupArray[$i] = strtolower($lookupArrayValue);
             }
-            if ((is_null($lookupArrayValue)) && (($matchType == 1) || ($matchType == -1))) {
+            if (($lookupArrayValue === null) && (($matchType == 1) || ($matchType == -1))) {
                 $lookupArray = array_slice($lookupArray, 0, $i - 1);
             }
         }
@@ -623,11 +601,14 @@ class LookupRef
      */
     public static function INDEX($arrayValues, $rowNum = 0, $columnNum = 0)
     {
+        $rowNum = Functions::flattenSingleValue($rowNum);
+        $columnNum = Functions::flattenSingleValue($columnNum);
+
         if (($rowNum < 0) || ($columnNum < 0)) {
             return Functions::VALUE();
         }
 
-        if (!is_array($arrayValues)) {
+        if (!is_array($arrayValues) || ($rowNum > count($arrayValues))) {
             return Functions::REF();
         }
 
@@ -647,7 +628,7 @@ class LookupRef
                     if (isset($arrayColumn[$rowNum])) {
                         $returnArray[] = $arrayColumn[$rowNum];
                     } else {
-                        return $arrayValues[$rowNum];
+                        return [$rowNum => $arrayValues[$rowNum]];
                     }
                 } else {
                     return $arrayValues[$rowNum];
@@ -769,8 +750,8 @@ class LookupRef
                 //    if an exact match is required, we have what we need to return an appropriate response
                 return Functions::NA();
             }
-                //    otherwise return the appropriate value
-                return $lookup_array[$rowNumber][$returnColumn];
+            //    otherwise return the appropriate value
+            return $lookup_array[$rowNumber][$returnColumn];
         }
 
         return Functions::NA();
@@ -834,8 +815,8 @@ class LookupRef
                 //  if an exact match is required, we have what we need to return an appropriate response
                 return Functions::NA();
             }
-                //  otherwise return the appropriate value
-                return $lookup_array[$returnColumn][$rowNumber];
+            //  otherwise return the appropriate value
+            return $lookup_array[$returnColumn][$rowNumber];
         }
 
         return Functions::NA();
@@ -872,7 +853,7 @@ class LookupRef
             $lookupColumns = count($lookup_vector[array_shift($l)]);
         }
 
-        if (is_null($result_vector)) {
+        if ($result_vector === null) {
             $result_vector = $lookup_vector;
         }
         $resultRows = count($result_vector);

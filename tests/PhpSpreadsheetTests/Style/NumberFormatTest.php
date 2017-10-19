@@ -22,7 +22,7 @@ class NumberFormatTest extends PHPUnit_Framework_TestCase
     public function testFormatValueWithMask($expectedResult, ...$args)
     {
         $result = NumberFormat::toFormattedString(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerNumberFormat()

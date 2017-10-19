@@ -90,7 +90,7 @@ calculated values, or force recalculation in Excel2003.
 ### Excel functions that return a Date and Time value
 
 Any of the Date and Time functions that return a date value in Excel can
-return either an Excel timestamp or a PHP timestamp or date object.
+return either an Excel timestamp or a PHP timestamp or `DateTime` object.
 
 It is possible for scripts to change the data type used for returning
 date values by calling the
@@ -103,9 +103,9 @@ method:
 
 where the following constants can be used for `$returnDateType`:
 
--   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_NUMERIC`
--   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_OBJECT`
--   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL`
+- `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_NUMERIC`
+- `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_OBJECT`
+- `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL`
 
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in for the return date type).
@@ -117,11 +117,11 @@ method can be used to determine the current value of this setting:
 $returnDateType = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
 ```
 
-The default is RETURNDATE\_PHP\_NUMERIC.
+The default is `RETURNDATE_PHP_NUMERIC`.
 
 #### PHP Timestamps
 
-If RETURNDATE\_PHP\_NUMERIC is set for the Return Date Type, then any
+If `RETURNDATE_PHP_NUMERIC` is set for the Return Date Type, then any
 date value returned to the calling script by any access to the Date and
 Time functions in Excel will be an integer value that represents the
 number of seconds from the PHP/Unix base date. The PHP/Unix base date
@@ -131,15 +131,15 @@ while a value of +3600 would be 01:00 hrs on 1st January 1970. This
 gives PHP a date range of between 14th December 1901 and 19th January
 2038.
 
-#### PHP DateTime Objects
+#### PHP `DateTime` Objects
 
-If the Return Date Type is set for RETURNDATE\_PHP\_NUMERIC, then any
+If the Return Date Type is set for `RETURNDATE_PHP_OBJECT`, then any
 date value returned to the calling script by any access to the Date and
-Time functions in Excel will be a PHP date/time object.
+Time functions in Excel will be a PHP `DateTime` object.
 
 #### Excel Timestamps
 
-If RETURNDATE\_EXCEL is set for the Return Date Type, then the returned
+If `RETURNDATE_EXCEL` is set for the Return Date Type, then the returned
 date value by any access to the Date and Time functions in Excel will be
 a floating point value that represents a number of days from the Excel
 base date. The Excel base date is determined by which calendar Excel
@@ -157,8 +157,8 @@ Excel date values by calling the
 
 where the following constants can be used for `$baseDate`:
 
--   \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR\_WINDOWS\_1900
--   \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR\_MAC\_1904
+- `\PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR_WINDOWS_1900`
+- `\PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR_MAC_1904`
 
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in).
@@ -170,31 +170,31 @@ be used to determine the current value of this setting:
 $baseDate = \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar();
 ```
 
-The default is CALENDAR\_WINDOWS\_1900.
+The default is `CALENDAR_WINDOWS_1900`.
 
 #### Functions that return a Date/Time Value
 
--   DATE
--   DATEVALUE
--   EDATE
--   EOMONTH
--   NOW
--   TIME
--   TIMEVALUE
--   TODAY
+- DATE
+- DATEVALUE
+- EDATE
+- EOMONTH
+- NOW
+- TIME
+- TIMEVALUE
+- TODAY
 
 ### Excel functions that accept Date and Time values as parameters
 
 Date values passed in as parameters to a function can be an Excel
-timestamp or a PHP timestamp; or date object; or a string containing a
+timestamp or a PHP timestamp; or `DateTime` object; or a string containing a
 date value (e.g. '1-Jan-2009'). PhpSpreadsheet will attempt to identify
 their type based on the PHP datatype:
 
 An integer numeric value will be treated as a PHP/Unix timestamp. A real
 (floating point) numeric value will be treated as an Excel
-date/timestamp. Any PHP DateTime object will be treated as a DateTime
+date/timestamp. Any PHP `DateTime` object will be treated as a `DateTime`
 object. Any string value (even one containing straight numeric data)
-will be converted to a date/time object for validation as a date value
+will be converted to a `DateTime` object for validation as a date value
 based on the server locale settings, so passing through an ambiguous
 value of '07/08/2008' will be treated as 7th August 2008 if your server
 settings are UK, but as 8th July 2008 if your server settings are US.
@@ -202,7 +202,7 @@ However, if you pass through a value such as '31/12/2008' that would be
 considered an error by a US-based server, but which is not ambiguous,
 then PhpSpreadsheet will attempt to correct this to 31st December 2008.
 If the content of the string doesn’t match any of the formats recognised
-by the php date/time object implementation of `strtotime()` (which can
+by the php `DateTime` object implementation of `strtotime()` (which can
 handle a wider range of formats than the normal `strtotime()` function),
 then the function will return a `#VALUE` error. However, Excel
 recommends that you should always use date/timestamps for your date
@@ -213,28 +213,28 @@ The same principle applies when data is being written to Excel. Cells
 containing date actual values (rather than Excel functions that return a
 date value) are always written as Excel dates, converting where
 necessary. If a cell formatted as a date contains an integer or
-date/time object value, then it is converted to an Excel value for
+`DateTime` object value, then it is converted to an Excel value for
 writing: if a cell formatted as a date contains a real value, then no
 conversion is required. Note that string values are written as strings
 rather than converted to Excel date timestamp values.
 
 #### Functions that expect a Date/Time Value
 
--   DATEDIF
--   DAY
--   DAYS360
--   EDATE
--   EOMONTH
--   HOUR
--   MINUTE
--   MONTH
--   NETWORKDAYS
--   SECOND
--   WEEKDAY
--   WEEKNUM
--   WORKDAY
--   YEAR
--   YEARFRAC
+- DATEDIF
+- DAY
+- DAYS360
+- EDATE
+- EOMONTH
+- HOUR
+- MINUTE
+- MONTH
+- NETWORKDAYS
+- SECOND
+- WEEKDAY
+- WEEKNUM
+- WORKDAY
+- YEAR
+- YEARFRAC
 
 ### Helper Methods
 
@@ -243,7 +243,7 @@ number of other methods are available in the
 \PhpOffice\PhpSpreadsheet\Shared\Date class that can help when working
 with dates:
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHP($excelDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($excelDate)
 
 Converts a date/time from an Excel date timestamp to return a PHP
 serialized date/timestamp.
@@ -251,17 +251,17 @@ serialized date/timestamp.
 Note that this method does not trap for Excel dates that fall outside of
 the valid range for a PHP date timestamp.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHPObject($excelDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($excelDate)
 
-Converts a date from an Excel date/timestamp to return a PHP DateTime
+Converts a date from an Excel date/timestamp to return a PHP `DateTime`
 object.
 
 #### \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($PHPDate)
 
-Converts a PHP serialized date/timestamp or a PHP DateTime object to
+Converts a PHP serialized date/timestamp or a PHP `DateTime` object to
 return an Excel date timestamp.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::FormattedPHPToExcel($year, $month, $day, $hours=0, $minutes=0, $seconds=0)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel($year, $month, $day, $hours=0, $minutes=0, $seconds=0)
 
 Takes year, month and day values (and optional hour, minute and second
 values) and returns an Excel date timestamp value.
@@ -979,7 +979,7 @@ Excel and in PHP.
 
 #### DATE
 
-The DATE function returns an Excel timestamp or a PHP timestamp or date
+The DATE function returns an Excel timestamp or a PHP timestamp or `DateTime`
 object representing the date that is referenced by the parameters.
 
 ##### Syntax
@@ -1025,7 +1025,7 @@ February 27, 2008.
 
 **mixed** A date/time stamp that corresponds to the given date.
 
-This could be a PHP timestamp value (integer), a PHP date/time object,
+This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
 \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
@@ -1093,12 +1093,12 @@ variety of different intervals, such number of years, months, or days.
 
 **date1** First Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **date2** Second Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **unit** The interval type to use for the calculation
@@ -1230,7 +1230,7 @@ A string, representing a date value.
 
 **mixed** A date/time stamp that corresponds to the given date.
 
-This could be a PHP timestamp value (integer), a PHP date/time object,
+This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
 \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
@@ -1290,7 +1290,7 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-DATEVALUE uses the php date/time object implementation of `strtotime()`
+DATEVALUE uses the php `DateTime` object implementation of `strtotime()`
 (which can handle a wider range of formats than the normal `strtotime()`
 function), and it is also called for any date parameter passed to other
 date functions (such as DATEDIF) when the parameter value is a string.
@@ -1317,7 +1317,7 @@ integer ranging from 1 to 31.
 
 **datetime** Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 ##### Return Value
@@ -1371,12 +1371,12 @@ accounting systems.
 
 **date1** First Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **date2** Second Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **method** A boolean flag (TRUE or FALSE)
@@ -1453,7 +1453,7 @@ Excel `TRUE()` and `FALSE()` functions are used instead.
 
 #### EDATE
 
-The EDATE function returns an Excel timestamp or a PHP timestamp or date
+The EDATE function returns an Excel timestamp or a PHP timestamp or `DateTime`
 object representing the date that is the indicated number of months
 before or after a specified date (the start\_date). Use EDATE to
 calculate maturity dates or due dates that fall on the same day of the
@@ -1467,7 +1467,7 @@ month as the date of issue.
 
 **baseDate** Start Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **months** Number of months to add.
@@ -1480,7 +1480,7 @@ value yields a past date.
 
 **mixed** A date/time stamp that corresponds to the basedate + months.
 
-This could be a PHP timestamp value (integer), a PHP date/time object,
+This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
 \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
@@ -1526,7 +1526,7 @@ the Analysis ToolPak.
 #### EOMONTH
 
 The EOMONTH function returns an Excel timestamp or a PHP timestamp or
-date object representing the date of the last day of the month that is
+`DateTime` object representing the date of the last day of the month that is
 the indicated number of months before or after a specified date (the
 start\_date). Use EOMONTH to calculate maturity dates or due dates that
 fall on the last day of the month.
@@ -1539,7 +1539,7 @@ fall on the last day of the month.
 
 **baseDate** Start Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **months** Number of months to add.
@@ -1553,7 +1553,7 @@ value yields a past date.
 **mixed** A date/time stamp that corresponds to the last day of basedate
 + months.
 
-This could be a PHP timestamp value (integer), a PHP date/time object,
+This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
 \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
@@ -1607,7 +1607,7 @@ an integer, ranging from 0 (12:00 A.M.) to 23 (11:00 P.M.).
 
 **datetime** Time.
 
-An Excel date/time value, PHP date timestamp, PHP date object, or a
+An Excel date/time value, PHP date timestamp, PHP `DateTime` object, or a
 date/time represented as a string.
 
 ##### Return Value
@@ -1665,7 +1665,7 @@ given as an integer, ranging from 0 to 59.
 
 **datetime** Time.
 
-An Excel date/time value, PHP date timestamp, PHP date object, or a
+An Excel date/time value, PHP date timestamp, PHP `DateTime` object, or a
 date/time represented as a string.
 
 ##### Return Value
@@ -1723,7 +1723,7 @@ integer ranging from 1 to 12.
 
 **datetime** Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 ##### Return Value
@@ -1779,12 +1779,12 @@ a specific term.
 
 **startDate** Start Date of the period.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **endDate** End Date of the period.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **holidays** Optional array of Holiday dates.
@@ -1831,7 +1831,7 @@ There are no parameters for the `NOW()` function.
 **mixed** A date/time stamp that corresponds to the current date and
 time.
 
-This could be a PHP timestamp value (integer), a PHP date/time object,
+This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
 \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
@@ -1862,7 +1862,7 @@ given as an integer, ranging from 0 to 59.
 
 **datetime** Time.
 
-An Excel date/time value, PHP date timestamp, PHP date object, or a
+An Excel date/time value, PHP date timestamp, PHP `DateTime` object, or a
 date/time represented as a string.
 
 ##### Return Value
@@ -1934,7 +1934,7 @@ modified to return a value between 0 and 6.
 
 **datetime** Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **method** An integer flag (values 0, 1 or 2)
@@ -2012,7 +2012,7 @@ The YEAR function returns the year of a date.
 
 **datetime** Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 ##### Return Value

@@ -5,28 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Statistical
 {
     const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
@@ -48,12 +26,12 @@ class Statistical
         $array1 = Functions::flattenArray($array1);
         $array2 = Functions::flattenArray($array2);
         foreach ($array1 as $key => $value) {
-            if ((is_bool($value)) || (is_string($value)) || (is_null($value))) {
+            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
                 unset($array1[$key], $array2[$key]);
             }
         }
         foreach ($array2 as $key => $value) {
-            if ((is_bool($value)) || (is_string($value)) || (is_null($value))) {
+            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
                 unset($array1[$key], $array2[$key]);
             }
         }
@@ -61,27 +39,6 @@ class Statistical
         $array2 = array_merge($array2);
 
         return true;
-    }
-
-    /**
-     * Beta function.
-     *
-     * @author Jaco van Kooten
-     *
-     * @param p require p>0
-     * @param q require q>0
-     * @param mixed $p
-     * @param mixed $q
-     *
-     * @return 0 if p<=0, q<=0 or p+q>2.55E305 to avoid errors and over/underflow
-     */
-    private static function beta($p, $q)
-    {
-        if ($p <= 0.0 || $q <= 0.0 || ($p + $q) > self::LOG_GAMMA_X_MAX_VALUE) {
-            return 0.0;
-        }
-
-        return exp(self::logBeta($p, $q));
     }
 
     /**
@@ -343,7 +300,7 @@ class Statistical
         $y = $x;
         if ($y > 0.0 && $y <= self::LOG_GAMMA_X_MAX_VALUE) {
             if ($y <= self::EPS) {
-                $res = -log(y);
+                $res = -log($y);
             } elseif ($y <= 1.5) {
                 // ---------------------
                 //    EPS .LT. X .LE. 1.5
@@ -562,153 +519,6 @@ class Statistical
         return Functions::NULL();
     }
 
-    private static function inverseNcdf2($prob)
-    {
-        //    Approximation of inverse standard normal CDF developed by
-        //    B. Moro, "The Full Monte," Risk 8(2), Feb 1995, 57-58.
-
-        $a1 = 2.50662823884;
-        $a2 = -18.61500062529;
-        $a3 = 41.39119773534;
-        $a4 = -25.44106049637;
-
-        $b1 = -8.4735109309;
-        $b2 = 23.08336743743;
-        $b3 = -21.06224101826;
-        $b4 = 3.13082909833;
-
-        $c1 = 0.337475482272615;
-        $c2 = 0.976169019091719;
-        $c3 = 0.160797971491821;
-        $c4 = 2.76438810333863E-02;
-        $c5 = 3.8405729373609E-03;
-        $c6 = 3.951896511919E-04;
-        $c7 = 3.21767881768E-05;
-        $c8 = 2.888167364E-07;
-        $c9 = 3.960315187E-07;
-
-        $y = $prob - 0.5;
-        if (abs($y) < 0.42) {
-            $z = ($y * $y);
-            $z = $y * ((($a4 * $z + $a3) * $z + $a2) * $z + $a1) / (((($b4 * $z + $b3) * $z + $b2) * $z + $b1) * $z + 1);
-        } else {
-            if ($y > 0) {
-                $z = log(-log(1 - $prob));
-            } else {
-                $z = log(-log($prob));
-            }
-            $z = $c1 + $z * ($c2 + $z * ($c3 + $z * ($c4 + $z * ($c5 + $z * ($c6 + $z * ($c7 + $z * ($c8 + $z * $c9)))))));
-            if ($y < 0) {
-                $z = -$z;
-            }
-        }
-
-        return $z;
-    }
-
-    //    function inverseNcdf2()
-
-    private static function inverseNcdf3($p)
-    {
-        //    ALGORITHM AS241 APPL. STATIST. (1988) VOL. 37, NO. 3.
-        //    Produces the normal deviate Z corresponding to a given lower
-        //    tail area of P; Z is accurate to about 1 part in 10**16.
-        //
-        //    This is a PHP version of the original FORTRAN code that can
-        //    be found at http://lib.stat.cmu.edu/apstat/
-        $split1 = 0.425;
-        $split2 = 5;
-        $const1 = 0.180625;
-        $const2 = 1.6;
-
-        //    coefficients for p close to 0.5
-        $a0 = 3.3871328727963666080;
-        $a1 = 1.3314166789178437745E+2;
-        $a2 = 1.9715909503065514427E+3;
-        $a3 = 1.3731693765509461125E+4;
-        $a4 = 4.5921953931549871457E+4;
-        $a5 = 6.7265770927008700853E+4;
-        $a6 = 3.3430575583588128105E+4;
-        $a7 = 2.5090809287301226727E+3;
-
-        $b1 = 4.2313330701600911252E+1;
-        $b2 = 6.8718700749205790830E+2;
-        $b3 = 5.3941960214247511077E+3;
-        $b4 = 2.1213794301586595867E+4;
-        $b5 = 3.9307895800092710610E+4;
-        $b6 = 2.8729085735721942674E+4;
-        $b7 = 5.2264952788528545610E+3;
-
-        //    coefficients for p not close to 0, 0.5 or 1.
-        $c0 = 1.42343711074968357734;
-        $c1 = 4.63033784615654529590;
-        $c2 = 5.76949722146069140550;
-        $c3 = 3.64784832476320460504;
-        $c4 = 1.27045825245236838258;
-        $c5 = 2.41780725177450611770E-1;
-        $c6 = 2.27238449892691845833E-2;
-        $c7 = 7.74545014278341407640E-4;
-
-        $d1 = 2.05319162663775882187;
-        $d2 = 1.67638483018380384940;
-        $d3 = 6.89767334985100004550E-1;
-        $d4 = 1.48103976427480074590E-1;
-        $d5 = 1.51986665636164571966E-2;
-        $d6 = 5.47593808499534494600E-4;
-        $d7 = 1.05075007164441684324E-9;
-
-        //    coefficients for p near 0 or 1.
-        $e0 = 6.65790464350110377720;
-        $e1 = 5.46378491116411436990;
-        $e2 = 1.78482653991729133580;
-        $e3 = 2.96560571828504891230E-1;
-        $e4 = 2.65321895265761230930E-2;
-        $e5 = 1.24266094738807843860E-3;
-        $e6 = 2.71155556874348757815E-5;
-        $e7 = 2.01033439929228813265E-7;
-
-        $f1 = 5.99832206555887937690E-1;
-        $f2 = 1.36929880922735805310E-1;
-        $f3 = 1.48753612908506148525E-2;
-        $f4 = 7.86869131145613259100E-4;
-        $f5 = 1.84631831751005468180E-5;
-        $f6 = 1.42151175831644588870E-7;
-        $f7 = 2.04426310338993978564E-15;
-
-        $q = $p - 0.5;
-
-        //    computation for p close to 0.5
-        if (abs($q) <= split1) {
-            $R = $const1 - $q * $q;
-            $z = $q * ((((((($a7 * $R + $a6) * $R + $a5) * $R + $a4) * $R + $a3) * $R + $a2) * $R + $a1) * $R + $a0) /
-                      ((((((($b7 * $R + $b6) * $R + $b5) * $R + $b4) * $R + $b3) * $R + $b2) * $R + $b1) * $R + 1);
-        } else {
-            if ($q < 0) {
-                $R = $p;
-            } else {
-                $R = 1 - $p;
-            }
-            $R = pow(-log($R), 2);
-
-            //    computation for p not close to 0, 0.5 or 1.
-            if ($R <= $split2) {
-                $R = $R - $const2;
-                $z = ((((((($c7 * $R + $c6) * $R + $c5) * $R + $c4) * $R + $c3) * $R + $c2) * $R + $c1) * $R + $c0) /
-                     ((((((($d7 * $R + $d6) * $R + $d5) * $R + $d4) * $R + $d3) * $R + $d2) * $R + $d1) * $R + 1);
-            } else {
-                //    computation for p near 0 or 1.
-                $R = $R - $split2;
-                $z = ((((((($e7 * $R + $e6) * $R + $e5) * $R + $e4) * $R + $e3) * $R + $e2) * $R + $e1) * $R + $e0) /
-                     ((((((($f7 * $R + $f6) * $R + $f5) * $R + $f4) * $R + $f3) * $R + $f2) * $R + $f1) * $R + 1);
-            }
-            if ($q < 0) {
-                $z = -$z;
-            }
-        }
-
-        return $z;
-    }
-
     /**
      * AVEDEV.
      *
@@ -720,7 +530,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -741,7 +551,7 @@ class Statistical
                 }
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = abs($arg - $aMean);
                     } else {
                         $returnValue += abs($arg - $aMean);
@@ -771,7 +581,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -787,7 +597,7 @@ class Statistical
             }
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if (is_null($returnValue)) {
+                if ($returnValue === null) {
                     $returnValue = $arg;
                 } else {
                     $returnValue += $arg;
@@ -814,7 +624,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -834,7 +644,7 @@ class Statistical
                     } elseif (is_string($arg)) {
                         $arg = 0;
                     }
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = $arg;
                     } else {
                         $returnValue += $arg;
@@ -885,7 +695,7 @@ class Statistical
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if ((is_null($returnValue)) || ($arg > $returnValue)) {
+                if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue += $arg;
                     ++$aCount;
                 }
@@ -1177,7 +987,7 @@ class Statistical
      */
     public static function CORREL($yValues, $xValues = null)
     {
-        if ((is_null($xValues)) || (!is_array($yValues)) || (!is_array($xValues))) {
+        if (($xValues === null) || (!is_array($yValues)) || (!is_array($xValues))) {
             return Functions::VALUE();
         }
         if (!self::checkTrendArrays($yValues, $xValues)) {
@@ -1207,7 +1017,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return int
      */
@@ -1241,7 +1051,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return int
      */
@@ -1271,7 +1081,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return int
      */
@@ -1283,7 +1093,7 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a blank cell?
-            if ((is_null($arg)) || ((is_string($arg)) && ($arg == ''))) {
+            if (($arg === null) || ((is_string($arg)) && ($arg == ''))) {
                 ++$returnValue;
             }
         }
@@ -1491,7 +1301,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1513,7 +1323,7 @@ class Statistical
                     $arg = (int) $arg;
                 }
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = pow(($arg - $aMean), 2);
                     } else {
                         $returnValue += pow(($arg - $aMean), 2);
@@ -1523,7 +1333,7 @@ class Statistical
             }
 
             // Return
-            if (is_null($returnValue)) {
+            if ($returnValue === null) {
                 return Functions::NAN();
             }
 
@@ -1785,7 +1595,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1825,7 +1635,7 @@ class Statistical
         $yValues = Functions::flattenArray($yValues);
         $xValues = Functions::flattenArray($xValues);
         $newValues = Functions::flattenArray($newValues);
-        $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
 
         $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
         if (empty($newValues)) {
@@ -1851,7 +1661,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1872,7 +1682,7 @@ class Statistical
                 if ($arg <= 0) {
                     return Functions::NAN();
                 }
-                if (is_null($returnValue)) {
+                if ($returnValue === null) {
                     $returnValue = (1 / $arg);
                 } else {
                     $returnValue += (1 / $arg);
@@ -1967,7 +1777,7 @@ class Statistical
      * kurtosis indicates a relatively peaked distribution. Negative kurtosis indicates a
      * relatively flat distribution.
      *
-     * @param array Data Series
+     * @param array ...$args Data Series
      *
      * @return float
      */
@@ -2064,9 +1874,9 @@ class Statistical
      */
     public static function LINEST($yValues, $xValues = null, $const = true, $stats = false)
     {
-        $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
-        $stats = (is_null($stats)) ? false : (bool) Functions::flattenSingleValue($stats);
-        if (is_null($xValues)) {
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
+        $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
+        if ($xValues === null) {
             $xValues = range(1, count(Functions::flattenArray($yValues)));
         }
 
@@ -2127,9 +1937,9 @@ class Statistical
      */
     public static function LOGEST($yValues, $xValues = null, $const = true, $stats = false)
     {
-        $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
-        $stats = (is_null($stats)) ? false : (bool) Functions::flattenSingleValue($stats);
-        if (is_null($xValues)) {
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
+        $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
+        if ($xValues === null) {
             $xValues = range(1, count(Functions::flattenArray($yValues)));
         }
 
@@ -2249,7 +2059,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2262,13 +2072,13 @@ class Statistical
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if ((is_null($returnValue)) || ($arg > $returnValue)) {
+                if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
             }
         }
 
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -2285,7 +2095,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2303,13 +2113,13 @@ class Statistical
                 } elseif (is_string($arg)) {
                     $arg = 0;
                 }
-                if ((is_null($returnValue)) || ($arg > $returnValue)) {
+                if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
             }
         }
 
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -2349,7 +2159,7 @@ class Statistical
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if ((is_null($returnValue)) || ($arg > $returnValue)) {
+                if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
             }
@@ -2368,7 +2178,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2412,7 +2222,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2425,13 +2235,13 @@ class Statistical
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if ((is_null($returnValue)) || ($arg < $returnValue)) {
+                if (($returnValue === null) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
             }
         }
 
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -2448,7 +2258,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2466,13 +2276,13 @@ class Statistical
                 } elseif (is_string($arg)) {
                     $arg = 0;
                 }
-                if ((is_null($returnValue)) || ($arg < $returnValue)) {
+                if (($returnValue === null) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
             }
         }
 
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -2512,7 +2322,7 @@ class Statistical
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if ((is_null($returnValue)) || ($arg < $returnValue)) {
+                if (($returnValue === null) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
             }
@@ -2534,6 +2344,7 @@ class Statistical
                 if ((string) $value['value'] == (string) $datum) {
                     ++$frequencyArray[$key]['frequency'];
                     $found = true;
+
                     break;
                 }
             }
@@ -2568,7 +2379,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2802,7 +2613,7 @@ class Statistical
     {
         $valueSet = Functions::flattenArray($valueSet);
         $value = Functions::flattenSingleValue($value);
-        $significance = (is_null($significance)) ? 3 : (int) Functions::flattenSingleValue($significance);
+        $significance = ($significance === null) ? 3 : (int) Functions::flattenSingleValue($significance);
 
         foreach ($valueSet as $key => $valueEntry) {
             if (!is_numeric($valueEntry)) {
@@ -2956,7 +2767,7 @@ class Statistical
     {
         $value = Functions::flattenSingleValue($value);
         $valueSet = Functions::flattenArray($valueSet);
-        $order = (is_null($order)) ? 0 : (int) Functions::flattenSingleValue($order);
+        $order = ($order === null) ? 0 : (int) Functions::flattenSingleValue($order);
 
         foreach ($valueSet as $key => $valueEntry) {
             if (!is_numeric($valueEntry)) {
@@ -3016,7 +2827,7 @@ class Statistical
      * asymmetric tail extending toward more positive values. Negative skewness indicates a
      * distribution with an asymmetric tail extending toward more negative values.
      *
-     * @param array Data Series
+     * @param array ...$args Data Series
      *
      * @return float
      */
@@ -3161,7 +2972,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3173,7 +2984,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGE($aArgs);
-        if (!is_null($aMean)) {
+        if ($aMean !== null) {
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
                 if ((is_bool($arg)) &&
@@ -3182,7 +2993,7 @@ class Statistical
                 }
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = pow(($arg - $aMean), 2);
                     } else {
                         $returnValue += pow(($arg - $aMean), 2);
@@ -3210,7 +3021,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3221,7 +3032,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGEA($aArgs);
-        if (!is_null($aMean)) {
+        if ($aMean !== null) {
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
                 if ((is_bool($arg)) &&
@@ -3234,7 +3045,7 @@ class Statistical
                         } elseif (is_string($arg)) {
                             $arg = 0;
                         }
-                        if (is_null($returnValue)) {
+                        if ($returnValue === null) {
                             $returnValue = pow(($arg - $aMean), 2);
                         } else {
                             $returnValue += pow(($arg - $aMean), 2);
@@ -3262,7 +3073,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3273,7 +3084,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGE($aArgs);
-        if (!is_null($aMean)) {
+        if ($aMean !== null) {
             $aCount = 0;
             foreach ($aArgs as $k => $arg) {
                 if ((is_bool($arg)) &&
@@ -3282,7 +3093,7 @@ class Statistical
                 }
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = pow(($arg - $aMean), 2);
                     } else {
                         $returnValue += pow(($arg - $aMean), 2);
@@ -3309,7 +3120,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3320,7 +3131,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGEA($aArgs);
-        if (!is_null($aMean)) {
+        if ($aMean !== null) {
             $aCount = 0;
             foreach ($aArgs as $k => $arg) {
                 if ((is_bool($arg)) &&
@@ -3333,7 +3144,7 @@ class Statistical
                         } elseif (is_string($arg)) {
                             $arg = 0;
                         }
-                        if (is_null($returnValue)) {
+                        if ($returnValue === null) {
                             $returnValue = pow(($arg - $aMean), 2);
                         } else {
                             $returnValue += pow(($arg - $aMean), 2);
@@ -3526,7 +3337,7 @@ class Statistical
         $yValues = Functions::flattenArray($yValues);
         $xValues = Functions::flattenArray($xValues);
         $newValues = Functions::flattenArray($newValues);
-        $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
         if (empty($newValues)) {
@@ -3599,7 +3410,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3643,7 +3454,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3696,7 +3507,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3741,7 +3552,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3837,7 +3648,7 @@ class Statistical
         $m0 = Functions::flattenSingleValue($m0);
         $sigma = Functions::flattenSingleValue($sigma);
 
-        if (is_null($sigma)) {
+        if ($sigma === null) {
             $sigma = self::STDEV($dataSet);
         }
         $n = count($dataSet);

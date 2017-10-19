@@ -4,28 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Financial
 {
     const FINANCIAL_MAX_ITERATIONS = 128;
@@ -41,23 +19,9 @@ class Financial
      *
      * @return bool
      */
-    private static function isLastDayOfMonth($testDate)
+    private static function isLastDayOfMonth(\DateTime $testDate)
     {
         return $testDate->format('d') == $testDate->format('t');
-    }
-
-    /**
-     * isFirstDayOfMonth.
-     *
-     * Returns a boolean TRUE/FALSE indicating if this date is the first date of the month
-     *
-     * @param DateTime $testDate The date for testing
-     *
-     * @return bool
-     */
-    private static function isFirstDayOfMonth($testDate)
-    {
-        return $testDate->format('d') == 1;
     }
 
     private static function couponFirstPeriodDate($settlement, $maturity, $frequency, $next)
@@ -116,12 +80,15 @@ class Financial
             case 2:
             case 4:
                 $daysPerYear = 360;
+
                 break;
             case 3:
                 $daysPerYear = 365;
+
                 break;
             case 1:
                 $daysPerYear = (DateTime::isLeapYear($year)) ? 366 : 365;
+
                 break;
             default:
                 return Functions::NAN();
@@ -185,9 +152,9 @@ class Financial
         $firstinterest = Functions::flattenSingleValue($firstinterest);
         $settlement = Functions::flattenSingleValue($settlement);
         $rate = Functions::flattenSingleValue($rate);
-        $par = (is_null($par)) ? 1000 : Functions::flattenSingleValue($par);
-        $frequency = (is_null($frequency)) ? 1 : Functions::flattenSingleValue($frequency);
-        $basis = (is_null($basis)) ? 0 : Functions::flattenSingleValue($basis);
+        $par = ($par === null) ? 1000 : Functions::flattenSingleValue($par);
+        $frequency = ($frequency === null) ? 1 : Functions::flattenSingleValue($frequency);
+        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
 
         //    Validate
         if ((is_numeric($rate)) && (is_numeric($par))) {
@@ -242,8 +209,8 @@ class Financial
         $issue = Functions::flattenSingleValue($issue);
         $settlement = Functions::flattenSingleValue($settlement);
         $rate = Functions::flattenSingleValue($rate);
-        $par = (is_null($par)) ? 1000 : Functions::flattenSingleValue($par);
-        $basis = (is_null($basis)) ? 0 : Functions::flattenSingleValue($basis);
+        $par = ($par === null) ? 1000 : Functions::flattenSingleValue($par);
+        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
 
         //    Validate
         if ((is_numeric($rate)) && (is_numeric($par))) {
@@ -311,7 +278,7 @@ class Financial
         $salvage = Functions::flattenSingleValue($salvage);
         $period = floor(Functions::flattenSingleValue($period));
         $rate = Functions::flattenSingleValue($rate);
-        $basis = (is_null($basis)) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
         //    The depreciation coefficients are:
         //    Life of assets (1/rate)        Depreciation coefficient
@@ -396,7 +363,7 @@ class Financial
         $salvage = Functions::flattenSingleValue($salvage);
         $period = Functions::flattenSingleValue($period);
         $rate = Functions::flattenSingleValue($rate);
-        $basis = (is_null($basis)) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
         $fOneRate = $cost * $rate;
         $fCostDelta = $cost - $salvage;
@@ -464,7 +431,7 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = (is_null($basis)) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
         if (is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
@@ -527,7 +494,7 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = (is_null($basis)) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
         if (is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
@@ -561,8 +528,6 @@ class Financial
                 // US (NASD) 30/360, Actual/360 or European 30/360
                 return 360 / $frequency;
         }
-
-        return Functions::VALUE();
     }
 
     /**
@@ -607,7 +572,7 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = (is_null($basis)) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
         if (is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
@@ -671,7 +636,7 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = (is_null($basis)) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
         if (is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
@@ -732,7 +697,7 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = (is_null($basis)) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
         if (is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
@@ -809,7 +774,7 @@ class Financial
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = (is_null($basis)) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
         if (is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
@@ -1150,7 +1115,7 @@ class Financial
         $fraction = (int) Functions::flattenSingleValue($fraction);
 
         // Validate parameters
-        if (is_null($fractional_dollar) || $fraction < 0) {
+        if ($fractional_dollar === null || $fraction < 0) {
             return Functions::NAN();
         }
         if ($fraction == 0) {
@@ -1188,7 +1153,7 @@ class Financial
         $fraction = (int) Functions::flattenSingleValue($fraction);
 
         // Validate parameters
-        if (is_null($decimal_dollar) || $fraction < 0) {
+        if ($decimal_dollar === null || $fraction < 0) {
             return Functions::NAN();
         }
         if ($fraction == 0) {
@@ -1269,7 +1234,7 @@ class Financial
         }
 
         // Calculate
-        if (!is_null($rate) && $rate != 0) {
+        if ($rate !== null && $rate != 0) {
             return -$pv * pow(1 + $rate, $nper) - $pmt * (1 + $rate * $type) * (pow(1 + $rate, $nper) - 1) / $rate;
         }
 
@@ -1606,7 +1571,7 @@ class Financial
         }
 
         // Calculate
-        if (!is_null($rate) && $rate != 0) {
+        if ($rate !== null && $rate != 0) {
             if ($pmt == 0 && $pv == 0) {
                 return Functions::NAN();
             }
@@ -1675,7 +1640,7 @@ class Financial
         }
 
         // Calculate
-        if (!is_null($rate) && $rate != 0) {
+        if ($rate !== null && $rate != 0) {
             return (-$fv - $pv * pow(1 + $rate, $nper)) / (1 + $rate * $type) / ((pow(1 + $rate, $nper) - 1) / $rate);
         }
 
@@ -1727,7 +1692,7 @@ class Financial
         $yield = (float) Functions::flattenSingleValue($yield);
         $redemption = (float) Functions::flattenSingleValue($redemption);
         $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = (is_null($basis)) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
         if (is_string($settlement = DateTime::getDateValue($settlement))) {
             return Functions::VALUE();
@@ -1909,7 +1874,7 @@ class Financial
         }
 
         // Calculate
-        if (!is_null($rate) && $rate != 0) {
+        if ($rate !== null && $rate != 0) {
             return (-$pmt * (1 + $rate * $type) * ((pow(1 + $rate, $nper) - 1) / $rate) - $fv) / pow(1 + $rate, $nper);
         }
 
@@ -1958,9 +1923,9 @@ class Financial
         $nper = (int) Functions::flattenSingleValue($nper);
         $pmt = Functions::flattenSingleValue($pmt);
         $pv = Functions::flattenSingleValue($pv);
-        $fv = (is_null($fv)) ? 0.0 : Functions::flattenSingleValue($fv);
-        $type = (is_null($type)) ? 0 : (int) Functions::flattenSingleValue($type);
-        $guess = (is_null($guess)) ? 0.1 : Functions::flattenSingleValue($guess);
+        $fv = ($fv === null) ? 0.0 : Functions::flattenSingleValue($fv);
+        $type = ($type === null) ? 0 : (int) Functions::flattenSingleValue($type);
+        $guess = ($guess === null) ? 0.1 : Functions::flattenSingleValue($guess);
 
         $rate = $guess;
         if (abs($rate) < self::FINANCIAL_PRECISION) {

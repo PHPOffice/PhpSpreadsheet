@@ -2,28 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Chart
 {
     /**
@@ -438,10 +416,10 @@ class Chart
     public function setTopLeftPosition($cell, $xOffset = null, $yOffset = null)
     {
         $this->topLeftCellRef = $cell;
-        if (!is_null($xOffset)) {
+        if ($xOffset !== null) {
             $this->setTopLeftXOffset($xOffset);
         }
-        if (!is_null($yOffset)) {
+        if ($yOffset !== null) {
             $this->setTopLeftYOffset($yOffset);
         }
 
@@ -496,11 +474,11 @@ class Chart
      */
     public function setTopLeftOffset($xOffset, $yOffset)
     {
-        if (!is_null($xOffset)) {
+        if ($xOffset !== null) {
             $this->setTopLeftXOffset($xOffset);
         }
 
-        if (!is_null($yOffset)) {
+        if ($yOffset !== null) {
             $this->setTopLeftYOffset($yOffset);
         }
 
@@ -556,10 +534,10 @@ class Chart
     public function setBottomRightPosition($cell, $xOffset = null, $yOffset = null)
     {
         $this->bottomRightCellRef = $cell;
-        if (!is_null($xOffset)) {
+        if ($xOffset !== null) {
             $this->setBottomRightXOffset($xOffset);
         }
-        if (!is_null($yOffset)) {
+        if ($yOffset !== null) {
             $this->setBottomRightYOffset($yOffset);
         }
 
@@ -607,11 +585,11 @@ class Chart
      */
     public function setBottomRightOffset($xOffset, $yOffset)
     {
-        if (!is_null($xOffset)) {
+        if ($xOffset !== null) {
             $this->setBottomRightXOffset($xOffset);
         }
 
-        if (!is_null($yOffset)) {
+        if ($yOffset !== null) {
             $this->setBottomRightYOffset($yOffset);
         }
 
@@ -665,7 +643,7 @@ class Chart
     public function render($outputDestination = null)
     {
         $libraryName = Settings::getChartRendererName();
-        if (is_null($libraryName)) {
+        if ($libraryName === null) {
             return false;
         }
         //    Ensure that data series values are up-to-date before we render

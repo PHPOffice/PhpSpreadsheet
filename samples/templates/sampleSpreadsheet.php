@@ -156,7 +156,7 @@ $helper->log('Set thin black border outline around column');
 $styleThinBlackBorderOutline = [
     'borders' => [
         'outline' => [
-            'style' => Border::BORDER_THIN,
+            'borderStyle' => Border::BORDER_THIN,
             'color' => ['argb' => 'FF000000'],
         ],
     ],
@@ -168,7 +168,7 @@ $helper->log('Set thick brown border outline around Total');
 $styleThickBrownBorderOutline = [
     'borders' => [
         'outline' => [
-            'style' => Border::BORDER_THICK,
+            'borderStyle' => Border::BORDER_THICK,
             'color' => ['argb' => 'FF993300'],
         ],
     ],
@@ -192,16 +192,16 @@ $spreadsheet->getActiveSheet()->getStyle('A3:E3')->applyFromArray(
             ],
             'borders' => [
                 'top' => [
-                    'style' => Border::BORDER_THIN,
+                    'borderStyle' => Border::BORDER_THIN,
                 ],
             ],
             'fill' => [
-                'type' => Fill::FILL_GRADIENT_LINEAR,
+                'fillType' => Fill::FILL_GRADIENT_LINEAR,
                 'rotation' => 90,
-                'startcolor' => [
+                'startColor' => [
                     'argb' => 'FFA0A0A0',
                 ],
-                'endcolor' => [
+                'endColor' => [
                     'argb' => 'FFFFFFFF',
                 ],
             ],
@@ -215,7 +215,7 @@ $spreadsheet->getActiveSheet()->getStyle('A3')->applyFromArray(
             ],
             'borders' => [
                 'left' => [
-                    'style' => Border::BORDER_THIN,
+                    'borderStyle' => Border::BORDER_THIN,
                 ],
             ],
         ]
@@ -233,7 +233,7 @@ $spreadsheet->getActiveSheet()->getStyle('E3')->applyFromArray(
     [
             'borders' => [
                 'right' => [
-                    'style' => Border::BORDER_THIN,
+                    'borderStyle' => Border::BORDER_THIN,
                 ],
             ],
         ]

@@ -16,7 +16,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testColumnIndexFromString($expectedResult, ...$args)
     {
         $result = Cell::columnIndexFromString(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerColumnString()
@@ -27,11 +27,12 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testColumnIndexFromStringTooLong()
     {
         $cellAddress = 'ABCD';
+
         try {
             Cell::columnIndexFromString($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
-            $this->assertEquals($e->getMessage(), 'Column string index can not be longer than 3 characters');
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), 'Column string index can not be longer than 3 characters');
 
             return;
         }
@@ -41,11 +42,12 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testColumnIndexFromStringTooShort()
     {
         $cellAddress = '';
+
         try {
             Cell::columnIndexFromString($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
-            $this->assertEquals($e->getMessage(), 'Column string index can not be empty');
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), 'Column string index can not be empty');
 
             return;
         }
@@ -60,7 +62,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testStringFromColumnIndex($expectedResult, ...$args)
     {
         $result = Cell::stringFromColumnIndex(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerColumnIndex()
@@ -76,7 +78,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testCoordinateFromString($expectedResult, ...$args)
     {
         $result = Cell::coordinateFromString(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCoordinates()
@@ -87,11 +89,12 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testCoordinateFromStringWithRangeAddress()
     {
         $cellAddress = 'A1:AI2012';
+
         try {
             Cell::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
-            $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
 
             return;
         }
@@ -101,11 +104,12 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testCoordinateFromStringWithEmptyAddress()
     {
         $cellAddress = '';
+
         try {
             Cell::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
-            $this->assertEquals($e->getMessage(), 'Cell coordinate can not be zero-length string');
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), 'Cell coordinate can not be zero-length string');
 
             return;
         }
@@ -115,11 +119,12 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testCoordinateFromStringWithInvalidAddress()
     {
         $cellAddress = 'AI';
+
         try {
             Cell::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
-            $this->assertEquals($e->getMessage(), 'Invalid cell coordinate ' . $cellAddress);
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), 'Invalid cell coordinate ' . $cellAddress);
 
             return;
         }
@@ -134,7 +139,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testAbsoluteCoordinateFromString($expectedResult, ...$args)
     {
         $result = Cell::absoluteCoordinate(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerAbsoluteCoordinates()
@@ -145,11 +150,12 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testAbsoluteCoordinateFromStringWithRangeAddress()
     {
         $cellAddress = 'A1:AI2012';
+
         try {
             Cell::absoluteCoordinate($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
-            $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
 
             return;
         }
@@ -164,7 +170,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testAbsoluteReferenceFromString($expectedResult, ...$args)
     {
         $result = Cell::absoluteReference(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerAbsoluteReferences()
@@ -175,11 +181,12 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testAbsoluteReferenceFromStringWithRangeAddress()
     {
         $cellAddress = 'A1:AI2012';
+
         try {
             Cell::absoluteReference($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
-            $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
 
             return;
         }
@@ -196,9 +203,9 @@ class CellTest extends PHPUnit_Framework_TestCase
         $result = Cell::splitRange(...$args);
         foreach ($result as $key => $split) {
             if (!is_array($expectedResult[$key])) {
-                $this->assertEquals($expectedResult[$key], $split[0]);
+                self::assertEquals($expectedResult[$key], $split[0]);
             } else {
-                $this->assertEquals($expectedResult[$key], $split);
+                self::assertEquals($expectedResult[$key], $split);
             }
         }
     }
@@ -216,7 +223,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testBuildRange($expectedResult, ...$args)
     {
         $result = Cell::buildRange(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBuildRange()
@@ -245,7 +252,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testRangeBoundaries($expectedResult, ...$args)
     {
         $result = Cell::rangeBoundaries(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerRangeBoundaries()
@@ -261,7 +268,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testRangeDimension($expectedResult, ...$args)
     {
         $result = Cell::rangeDimension(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerRangeDimension()
@@ -277,7 +284,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testGetRangeBoundaries($expectedResult, ...$args)
     {
         $result = Cell::getRangeBoundaries(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerGetRangeBoundaries()
@@ -293,11 +300,27 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function testExtractAllCellReferencesInRange($expectedResult, ...$args)
     {
         $result = Cell::extractAllCellReferencesInRange(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerExtractAllCellReferencesInRange()
     {
         return require 'data/CellExtractAllCellReferencesInRange.php';
+    }
+
+    /**
+     * @dataProvider providerMergeRangesInCollection
+     *
+     * @param mixed $expectedResult
+     */
+    public function testMergeRangesInCollection($expectedResult, ...$args)
+    {
+        $result = Cell::mergeRangesInCollection(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerMergeRangesInCollection()
+    {
+        return require 'data/CellMergeRangesInCollection.php';
     }
 }

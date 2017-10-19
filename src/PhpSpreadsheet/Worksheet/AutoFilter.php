@@ -10,28 +10,6 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class AutoFilter
 {
     /**
@@ -400,33 +378,42 @@ class AutoFilter
                 switch ($rule['operator']) {
                     case AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL:
                         $retVal = ($cellValue == $rule['value']);
+
                         break;
                     case AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL:
                         $retVal = ($cellValue != $rule['value']);
+
                         break;
                     case AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_GREATERTHAN:
                         $retVal = ($cellValue > $rule['value']);
+
                         break;
                     case AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL:
                         $retVal = ($cellValue >= $rule['value']);
+
                         break;
                     case AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN:
                         $retVal = ($cellValue < $rule['value']);
+
                         break;
                     case AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL:
                         $retVal = ($cellValue <= $rule['value']);
+
                         break;
                 }
             } elseif ($rule['value'] == '') {
                 switch ($rule['operator']) {
                     case AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL:
                         $retVal = (($cellValue == '') || ($cellValue === null));
+
                         break;
                     case AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL:
                         $retVal = (($cellValue != '') && ($cellValue !== null));
+
                         break;
                     default:
                         $retVal = true;
+
                         break;
                 }
             } else {
@@ -442,9 +429,11 @@ class AutoFilter
                     if ($returnVal) {
                         return $returnVal;
                     }
+
                     break;
                 case AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND:
                     $returnVal = $returnVal && $retVal;
+
                     break;
             }
         }
@@ -505,27 +494,35 @@ class AutoFilter
         switch ($dynamicRuleType) {
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK:
                 $baseDate = strtotime('-7 days', $baseDate);
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_NEXTWEEK:
                 $baseDate = strtotime('-7 days', $baseDate);
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTMONTH:
                 $baseDate = strtotime('-1 month', gmmktime(0, 0, 0, 1, date('m', $baseDate), date('Y', $baseDate)));
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_NEXTMONTH:
                 $baseDate = strtotime('+1 month', gmmktime(0, 0, 0, 1, date('m', $baseDate), date('Y', $baseDate)));
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTQUARTER:
                 $baseDate = strtotime('-3 month', gmmktime(0, 0, 0, 1, date('m', $baseDate), date('Y', $baseDate)));
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_NEXTQUARTER:
                 $baseDate = strtotime('+3 month', gmmktime(0, 0, 0, 1, date('m', $baseDate), date('Y', $baseDate)));
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTYEAR:
                 $baseDate = strtotime('-1 year', gmmktime(0, 0, 0, 1, date('m', $baseDate), date('Y', $baseDate)));
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_NEXTYEAR:
                 $baseDate = strtotime('+1 year', gmmktime(0, 0, 0, 1, date('m', $baseDate), date('Y', $baseDate)));
+
                 break;
         }
 
@@ -535,10 +532,12 @@ class AutoFilter
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_TOMORROW:
                 $maxVal = (int) Date::PHPtoExcel(strtotime('+1 day', $baseDate));
                 $val = (int) Date::PHPToExcel($baseDate);
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE:
                 $maxVal = (int) Date::PHPtoExcel(strtotime('+1 day', $baseDate));
                 $val = (int) Date::PHPToExcel(gmmktime(0, 0, 0, 1, 1, date('Y', $baseDate)));
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISYEAR:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTYEAR:
@@ -546,6 +545,7 @@ class AutoFilter
                 $maxVal = (int) Date::PHPToExcel(gmmktime(0, 0, 0, 31, 12, date('Y', $baseDate)));
                 ++$maxVal;
                 $val = (int) Date::PHPToExcel(gmmktime(0, 0, 0, 1, 1, date('Y', $baseDate)));
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISQUARTER:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTQUARTER:
@@ -555,6 +555,7 @@ class AutoFilter
                 $maxVal = (int) Date::PHPtoExcel(gmmktime(0, 0, 0, date('t', $baseDate), (1 + $thisQuarter) * 3, date('Y', $baseDate)));
                 ++$maxVal;
                 $val = (int) Date::PHPToExcel(gmmktime(0, 0, 0, 1, 1 + $thisQuarter * 3, date('Y', $baseDate)));
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISMONTH:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTMONTH:
@@ -562,6 +563,7 @@ class AutoFilter
                 $maxVal = (int) Date::PHPtoExcel(gmmktime(0, 0, 0, date('t', $baseDate), date('m', $baseDate), date('Y', $baseDate)));
                 ++$maxVal;
                 $val = (int) Date::PHPToExcel(gmmktime(0, 0, 0, 1, date('m', $baseDate), date('Y', $baseDate)));
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISWEEK:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK:
@@ -569,6 +571,7 @@ class AutoFilter
                 $dayOfWeek = date('w', $baseDate);
                 $val = (int) Date::PHPToExcel($baseDate) - $dayOfWeek;
                 $maxVal = $val + 7;
+
                 break;
         }
 
@@ -577,10 +580,12 @@ class AutoFilter
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_YESTERDAY:
                 --$maxVal;
                 --$val;
+
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_TOMORROW:
                 ++$maxVal;
                 ++$val;
+
                 break;
         }
 
@@ -629,6 +634,7 @@ class AutoFilter
             $rules = $filterColumn->getRules();
             switch ($filterColumn->getFilterType()) {
                 case AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER:
+                    $ruleType = null;
                     $ruleValues = [];
                     //    Build a list of the filter value selections
                     foreach ($rules as $rule) {
@@ -694,13 +700,13 @@ class AutoFilter
                             'arguments' => ['filterValues' => $arguments, 'blanks' => $blanks],
                         ];
                     }
+
                     break;
                 case AutoFilter\Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER:
                     $customRuleForBlanks = false;
                     $ruleValues = [];
                     //    Build a list of the filter value selections
                     foreach ($rules as $rule) {
-                        $ruleType = $rule->getRuleType();
                         $ruleValue = $rule->getValue();
                         if (!is_numeric($ruleValue)) {
                             //    Convert to a regexp allowing for regexp reserved characters, wildcards and escaped wildcards
@@ -718,6 +724,7 @@ class AutoFilter
                         'method' => 'filterTestInCustomDataSet',
                         'arguments' => ['filterRules' => $ruleValues, 'join' => $join, 'customRuleForBlanks' => $customRuleForBlanks],
                     ];
+
                     break;
                 case AutoFilter\Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER:
                     $ruleValues = [];
@@ -763,10 +770,12 @@ class AutoFilter
                             } else {
                                 //    Date Range
                                 $columnFilterTests[$columnID] = $this->dynamicFilterDateRange($dynamicRuleType, $filterColumn);
+
                                 break;
                             }
                         }
                     }
+
                     break;
                 case AutoFilter\Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER:
                     $ruleValues = [];
@@ -798,6 +807,7 @@ class AutoFilter
                         'arguments' => ['filterRules' => $ruleValues, 'join' => AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_OR],
                     ];
                     $filterColumn->setAttributes(['maxVal' => $maxVal]);
+
                     break;
             }
         }

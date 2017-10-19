@@ -355,11 +355,11 @@ abstract class Properties
         if (!is_array($elements)) {
             return $reference[$elements];
         }
+
         foreach ($elements as $keys) {
             $reference = &$reference[$keys];
         }
 
         return $reference;
-        return $this;
     }
 }

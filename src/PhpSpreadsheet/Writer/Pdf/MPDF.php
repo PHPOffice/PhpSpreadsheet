@@ -5,30 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
-/**
- *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
- *
- *  This library is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU Lesser General Public
- *  License as published by the Free Software Foundation; either
- *  version 2.1 of the License, or (at your option) any later version.
- *
- *  This library is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public
- *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- *  @category    PhpSpreadsheet
- *
- *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-class MPDF extends Core implements IWriter
+class MPDF extends Pdf implements IWriter
 {
     /**
      * Save Spreadsheet to file.
@@ -77,7 +56,8 @@ class MPDF extends Core implements IWriter
         }
 
         //  Create PDF
-        $pdf = new \mPDF();
+        $config = ['tempDir' => $this->tempDir];
+        $pdf = new \Mpdf\Mpdf($config);
         $ortmp = $orientation;
         $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
         $pdf->DefOrientation = $orientation;

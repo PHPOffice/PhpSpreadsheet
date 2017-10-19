@@ -16,29 +16,6 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-
-/**
  * Reader for SpreadsheetML, the XML schema for Microsoft Office Excel 2003.
  */
 class Xml extends BaseReader implements IReader
@@ -105,6 +82,7 @@ class Xml extends BaseReader implements IReader
             // every part of the signature must be present
             if (strpos($data, $match) === false) {
                 $valid = false;
+
                 break;
             }
         }
@@ -115,6 +93,30 @@ class Xml extends BaseReader implements IReader
         }
 
         return $valid;
+    }
+
+    /**
+     * Check if the file is a valid SimpleXML.
+     *
+     * @param string $pFilename
+     *
+     * @throws Exception
+     *
+     * @return false|\SimpleXMLElement
+     */
+    public function trySimpleXMLLoadString($pFilename)
+    {
+        try {
+            $xml = simplexml_load_string(
+                $this->securityScan(file_get_contents($pFilename)),
+                'SimpleXMLElement',
+                Settings::getLibXmlLoaderOptions()
+            );
+        } catch (\Exception $e) {
+            throw new Exception('Cannot load invalid XML file: ' . $pFilename, 0, $e);
+        }
+
+        return $xml;
     }
 
     /**
@@ -133,11 +135,8 @@ class Xml extends BaseReader implements IReader
 
         $worksheetNames = [];
 
-        $xml = simplexml_load_string(
-            $this->securityScan(file_get_contents($pFilename)),
-            'SimpleXMLElement',
-            Settings::getLibXmlLoaderOptions()
-        );
+        $xml = $this->trySimpleXMLLoadString($pFilename);
+
         $namespaces = $xml->getNamespaces(true);
 
         $xml_ss = $xml->children($namespaces['ss']);
@@ -162,11 +161,8 @@ class Xml extends BaseReader implements IReader
 
         $worksheetInfo = [];
 
-        $xml = simplexml_load_string(
-            $this->securityScan(file_get_contents($pFilename)),
-            'SimpleXMLElement',
-            Settings::getLibXmlLoaderOptions()
-        );
+        $xml = $this->trySimpleXMLLoadString($pFilename);
+
         $namespaces = $xml->getNamespaces(true);
 
         $worksheetID = 1;
@@ -240,7 +236,7 @@ class Xml extends BaseReader implements IReader
         return $this->loadIntoExisting($pFilename, $spreadsheet);
     }
 
-    protected static function identifyFixedStyleValue($styleList, &$styleAttributeValue)
+    private static function identifyFixedStyleValue($styleList, &$styleAttributeValue)
     {
         $styleAttributeValue = strtolower($styleAttributeValue);
         foreach ($styleList as $style) {
@@ -339,11 +335,8 @@ class Xml extends BaseReader implements IReader
             throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
 
-        $xml = simplexml_load_string(
-            $this->securityScan(file_get_contents($pFilename)),
-            'SimpleXMLElement',
-            Settings::getLibXmlLoaderOptions()
-        );
+        $xml = $this->trySimpleXMLLoadString($pFilename);
+
         $namespaces = $xml->getNamespaces(true);
 
         $docProps = $spreadsheet->getProperties();
@@ -352,38 +345,49 @@ class Xml extends BaseReader implements IReader
                 switch ($propertyName) {
                     case 'Title':
                         $docProps->setTitle(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Subject':
                         $docProps->setSubject(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Author':
                         $docProps->setCreator(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Created':
                         $creationDate = strtotime($propertyValue);
                         $docProps->setCreated($creationDate);
+
                         break;
                     case 'LastAuthor':
                         $docProps->setLastModifiedBy(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'LastSaved':
                         $lastSaveDate = strtotime($propertyValue);
                         $docProps->setModified($lastSaveDate);
+
                         break;
                     case 'Company':
                         $docProps->setCompany(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Category':
                         $docProps->setCategory(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Manager':
                         $docProps->setManager(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Keywords':
                         $docProps->setKeywords(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                     case 'Description':
                         $docProps->setDescription(self::convertStringEncoding($propertyValue, $this->charSet));
+
                         break;
                 }
             }
@@ -397,22 +401,27 @@ class Xml extends BaseReader implements IReader
                     case 'string':
                         $propertyType = Properties::PROPERTY_TYPE_STRING;
                         $propertyValue = trim($propertyValue);
+
                         break;
                     case 'boolean':
                         $propertyType = Properties::PROPERTY_TYPE_BOOLEAN;
                         $propertyValue = (bool) $propertyValue;
+
                         break;
                     case 'integer':
                         $propertyType = Properties::PROPERTY_TYPE_INTEGER;
                         $propertyValue = (int) $propertyValue;
+
                         break;
                     case 'float':
                         $propertyType = Properties::PROPERTY_TYPE_FLOAT;
                         $propertyValue = (float) $propertyValue;
+
                         break;
                     case 'dateTime.tz':
                         $propertyType = Properties::PROPERTY_TYPE_DATE;
                         $propertyValue = strtotime(trim($propertyValue));
+
                         break;
                 }
                 $docProps->setCustomProperty($propertyName, $propertyValue, $propertyType);
@@ -434,17 +443,21 @@ class Xml extends BaseReader implements IReader
                                     if (self::identifyFixedStyleValue($verticalAlignmentStyles, $styleAttributeValue)) {
                                         $this->styles[$styleID]['alignment']['vertical'] = $styleAttributeValue;
                                     }
+
                                     break;
                                 case 'Horizontal':
                                     if (self::identifyFixedStyleValue($horizontalAlignmentStyles, $styleAttributeValue)) {
                                         $this->styles[$styleID]['alignment']['horizontal'] = $styleAttributeValue;
                                     }
+
                                     break;
                                 case 'WrapText':
-                                    $this->styles[$styleID]['alignment']['wrap'] = true;
+                                    $this->styles[$styleID]['alignment']['wrapText'] = true;
+
                                     break;
                             }
                         }
+
                         break;
                     case 'Borders':
                         foreach ($styleData->Border as $borderStyle) {
@@ -453,16 +466,19 @@ class Xml extends BaseReader implements IReader
                             foreach ($borderAttributes as $borderStyleKey => $borderStyleValue) {
                                 switch ($borderStyleKey) {
                                     case 'LineStyle':
-                                        $thisBorder['style'] = Border::BORDER_MEDIUM;
+                                        $thisBorder['borderStyle'] = Border::BORDER_MEDIUM;
+
                                         break;
                                     case 'Weight':
                                         break;
                                     case 'Position':
                                         $borderPosition = strtolower($borderStyleValue);
+
                                         break;
                                     case 'Color':
                                         $borderColour = substr($borderStyleValue, 1);
                                         $thisBorder['color']['rgb'] = $borderColour;
+
                                         break;
                                 }
                             }
@@ -472,6 +488,7 @@ class Xml extends BaseReader implements IReader
                                 }
                             }
                         }
+
                         break;
                     case 'Font':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
@@ -479,38 +496,48 @@ class Xml extends BaseReader implements IReader
                             switch ($styleAttributeKey) {
                                 case 'FontName':
                                     $this->styles[$styleID]['font']['name'] = $styleAttributeValue;
+
                                     break;
                                 case 'Size':
                                     $this->styles[$styleID]['font']['size'] = $styleAttributeValue;
+
                                     break;
                                 case 'Color':
                                     $this->styles[$styleID]['font']['color']['rgb'] = substr($styleAttributeValue, 1);
+
                                     break;
                                 case 'Bold':
                                     $this->styles[$styleID]['font']['bold'] = true;
+
                                     break;
                                 case 'Italic':
                                     $this->styles[$styleID]['font']['italic'] = true;
+
                                     break;
                                 case 'Underline':
                                     if (self::identifyFixedStyleValue($underlineStyles, $styleAttributeValue)) {
                                         $this->styles[$styleID]['font']['underline'] = $styleAttributeValue;
                                     }
+
                                     break;
                             }
                         }
+
                         break;
                     case 'Interior':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
                             switch ($styleAttributeKey) {
                                 case 'Color':
                                     $this->styles[$styleID]['fill']['color']['rgb'] = substr($styleAttributeValue, 1);
+
                                     break;
                                 case 'Pattern':
-                                    $this->styles[$styleID]['fill']['type'] = strtolower($styleAttributeValue);
+                                    $this->styles[$styleID]['fill']['fillType'] = strtolower($styleAttributeValue);
+
                                     break;
                             }
                         }
+
                         break;
                     case 'NumberFormat':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
@@ -518,16 +545,19 @@ class Xml extends BaseReader implements IReader
                             switch ($styleAttributeValue) {
                                 case 'Short Date':
                                     $styleAttributeValue = 'dd/mm/yyyy';
+
                                     break;
                             }
                             if ($styleAttributeValue > '') {
-                                $this->styles[$styleID]['numberformat']['code'] = $styleAttributeValue;
+                                $this->styles[$styleID]['numberFormat']['formatCode'] = $styleAttributeValue;
                             }
                         }
+
                         break;
                     case 'Protection':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
                         }
+
                         break;
                 }
             }
@@ -552,7 +582,7 @@ class Xml extends BaseReader implements IReader
                 //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
                 //        formula cells... during the load, all formulae should be correct, and we're simply bringing
                 //        the worksheet name in line with the formula, not the reverse
-                $spreadsheet->getActiveSheet()->setTitle($worksheetName, false);
+                $spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
             }
 
             $columnID = 'A';
@@ -591,8 +621,13 @@ class Xml extends BaseReader implements IReader
                         if ($this->getReadFilter() !== null) {
                             if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
                                 ++$columnID;
+
                                 continue;
                             }
+                        }
+
+                        if (isset($cell_ss['HRef'])) {
+                            $spreadsheet->getActiveSheet()->getCell($cellRange)->getHyperlink()->setUrl($cell_ss['HRef']);
                         }
 
                         if ((isset($cell_ss['MergeAcross'])) || (isset($cell_ss['MergeDown']))) {
@@ -638,6 +673,7 @@ class Xml extends BaseReader implements IReader
                                     case 'String':
                                         $cellValue = self::convertStringEncoding($cellValue, $this->charSet);
                                         $type = Cell\DataType::TYPE_STRING;
+
                                         break;
                                     case 'Number':
                                         $type = Cell\DataType::TYPE_NUMERIC;
@@ -645,17 +681,21 @@ class Xml extends BaseReader implements IReader
                                         if (floor($cellValue) == $cellValue) {
                                             $cellValue = (int) $cellValue;
                                         }
+
                                         break;
                                     case 'Boolean':
                                         $type = Cell\DataType::TYPE_BOOL;
                                         $cellValue = ($cellValue != 0);
+
                                         break;
                                     case 'DateTime':
                                         $type = Cell\DataType::TYPE_NUMERIC;
                                         $cellValue = Date::PHPToExcel(strtotime($cellValue));
+
                                         break;
                                     case 'Error':
                                         $type = Cell\DataType::TYPE_ERROR;
+
                                         break;
                                 }
                             }

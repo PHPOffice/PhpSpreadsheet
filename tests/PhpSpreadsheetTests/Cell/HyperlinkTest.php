@@ -14,7 +14,7 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         $testInstance = new Hyperlink($urlValue);
 
         $result = $testInstance->getUrl();
-        $this->assertEquals($urlValue, $result);
+        self::assertEquals($urlValue, $result);
     }
 
     public function testSetUrl()
@@ -24,10 +24,10 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
 
         $testInstance = new Hyperlink($initialUrlValue);
         $result = $testInstance->setUrl($newUrlValue);
-        $this->assertTrue($result instanceof Hyperlink);
+        self::assertTrue($result instanceof Hyperlink);
 
         $result = $testInstance->getUrl();
-        $this->assertEquals($newUrlValue, $result);
+        self::assertEquals($newUrlValue, $result);
     }
 
     public function testGetTooltip()
@@ -37,7 +37,7 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         $testInstance = new Hyperlink(null, $tooltipValue);
 
         $result = $testInstance->getTooltip();
-        $this->assertEquals($tooltipValue, $result);
+        self::assertEquals($tooltipValue, $result);
     }
 
     public function testSetTooltip()
@@ -47,10 +47,10 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
 
         $testInstance = new Hyperlink(null, $initialTooltipValue);
         $result = $testInstance->setTooltip($newTooltipValue);
-        $this->assertTrue($result instanceof Hyperlink);
+        self::assertTrue($result instanceof Hyperlink);
 
         $result = $testInstance->getTooltip();
-        $this->assertEquals($newTooltipValue, $result);
+        self::assertEquals($newTooltipValue, $result);
     }
 
     public function testIsInternal()
@@ -60,11 +60,11 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
 
         $testInstance = new Hyperlink($initialUrlValue);
         $result = $testInstance->isInternal();
-        $this->assertFalse($result);
+        self::assertFalse($result);
 
         $testInstance->setUrl($newUrlValue);
         $result = $testInstance->isInternal();
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testGetHashCode()
@@ -76,6 +76,6 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         $testInstance = new Hyperlink($urlValue, $tooltipValue);
 
         $result = $testInstance->getHashCode();
-        $this->assertEquals($initialExpectedHash, $result);
+        self::assertEquals($initialExpectedHash, $result);
     }
 }
