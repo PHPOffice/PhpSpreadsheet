@@ -410,7 +410,53 @@ class Cell
     }
 
     /**
-     *    Does this cell contain a Hyperlink?
+     * Does this cell contain valid value?
+     *
+     * @return bool
+     */
+    public function hasValidValue()
+    {
+        if (!$this->hasDataValidation()) {
+            return true;
+        }
+
+        $cellValue = $this->getValue();
+        $cellValidation = $this->getDataValidation();
+
+        if (!$cellValidation->getAllowBlank() && (is_null($cellValue) || $cellValue == ""))
+            return false;
+
+        // TODO: write check on all cases
+        switch ($cellValidation->getType()) {
+            case Cell\DataValidation::TYPE_LIST:
+                $formula1 = $cellValidation->getFormula1();
+                if (empty($formula1))
+                    break;
+
+                if ($formula1[0] == '"') {                          // inline values list
+                    return in_array(strtolower($cellValue), explode(',', strtolower(trim($formula1, '"'))), true);
+
+                } else if (strpos($formula1, ':') > 0) {            // values list cells
+                    $match_formula = '=MATCH('.$this->getCoordinate().','.$formula1.',0)';
+
+                    try {
+                        $result = Calculation::getInstance(
+                            $this->getWorksheet()->getParent()
+                        )->calculateFormula($match_formula, $this->getCoordinate(), $this);
+
+                        return ($result != "#N/A");
+                    } catch (Exception $ex) {
+                        return false;
+                    }
+                }
+                break;
+        }
+
+        return true;
+    }
+
+    /**
+     * Does this cell contain a Hyperlink?
      *
      * @throws Exception
      *
