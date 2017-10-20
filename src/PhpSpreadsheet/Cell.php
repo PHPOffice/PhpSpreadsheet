@@ -423,7 +423,7 @@ class Cell
         $cellValue = $this->getValue();
         $cellValidation = $this->getDataValidation();
 
-        if (!$cellValidation->getAllowBlank() && ($cellValue === null || $cellValue == "")) {
+        if (!$cellValidation->getAllowBlank() && ($cellValue === null || $cellValue == '')) {
             return false;
         }
 
@@ -436,11 +436,12 @@ class Cell
                         return in_array(strtolower($cellValue), explode(',', strtolower(trim($formula1, '"'))), true);
     
                     } elseif (strpos($formula1, ':') > 0) {            // values list cells
-                        $match_formula = '=MATCH('.$this->getCoordinate().','.$formula1.',0)';
+                        $match_formula = '=MATCH(' . $this->getCoordinate() . ',' . $formula1 . ',0)';
                         try {
                             $result = Calculation::getInstance(
                                 $this->getWorksheet()->getParent()
                             )->calculateFormula($match_formula, $this->getCoordinate(), $this);
+                            
                             return $result != "#N/A";
                         } catch (Exception $ex) {
                             return false;
