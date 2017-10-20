@@ -441,8 +441,8 @@ class Cell
                             $result = Calculation::getInstance(
                                 $this->getWorksheet()->getParent()
                             )->calculateFormula($match_formula, $this->getCoordinate(), $this);
-                            
-                            return $result != "#N/A";
+
+                            return $result != '#N/A';
                         } catch (Exception $ex) {
                             return false;
                         }
