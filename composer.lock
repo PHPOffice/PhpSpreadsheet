@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ec3258024acb21252f3468aa5739ac1",
+    "content-hash": "9e6701cecd8bd2ce501c52ac8cf5aa8d",
     "packages": [
         {
             "name": "psr/simple-cache",
@@ -529,16 +529,16 @@
         },
         {
             "name": "mpdf/mpdf",
-            "version": "v7.0.0-RC1",
+            "version": "v7.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/mpdf.git",
-                "reference": "ef766b1a3e183d78fac39694ecefb41ce391bbd1"
+                "reference": "375a79a575fde762a7c390766837e78e8dfe97bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/ef766b1a3e183d78fac39694ecefb41ce391bbd1",
-                "reference": "ef766b1a3e183d78fac39694ecefb41ce391bbd1",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/375a79a575fde762a7c390766837e78e8dfe97bf",
+                "reference": "375a79a575fde762a7c390766837e78e8dfe97bf",
                 "shasum": ""
             },
             "require": {
@@ -569,10 +569,7 @@
             "autoload": {
                 "psr-4": {
                     "Mpdf\\": "src/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -595,7 +592,7 @@
                 "php",
                 "utf-8"
             ],
-            "time": "2017-09-26T12:00:17+00:00"
+            "time": "2017-10-19T16:38:45+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -3088,9 +3085,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "mpdf/mpdf": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
