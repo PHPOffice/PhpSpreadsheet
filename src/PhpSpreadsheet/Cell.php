@@ -434,9 +434,9 @@ class Cell
                 if (!empty($formula1)) {
                     if ($formula1[0] == '"') {                          // inline values list
                         return in_array(strtolower($cellValue), explode(',', strtolower(trim($formula1, '"'))), true);
-    
                     } elseif (strpos($formula1, ':') > 0) {            // values list cells
                         $match_formula = '=MATCH(' . $this->getCoordinate() . ',' . $formula1 . ',0)';
+
                         try {
                             $result = Calculation::getInstance(
                                 $this->getWorksheet()->getParent()
