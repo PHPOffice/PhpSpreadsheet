@@ -2,12 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
-class MPDF extends Pdf implements IWriter
+class Tcpdf extends Pdf implements IWriter
 {
     /**
      * Save Spreadsheet to file.
@@ -15,7 +14,6 @@ class MPDF extends Pdf implements IWriter
      * @param string $pFilename Name of the file to save as
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @throws PhpSpreadsheetException
      */
     public function save($pFilename)
     {
@@ -25,7 +23,7 @@ class MPDF extends Pdf implements IWriter
         $paperSize = 'LETTER'; //    Letter    (8.5 in. by 11 in.)
 
         //  Check for paper size and page orientation
-        if (null === $this->getSheetIndex()) {
+        if ($this->getSheetIndex() === null) {
             $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
                 == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
@@ -36,18 +34,15 @@ class MPDF extends Pdf implements IWriter
             $printPaperSize = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
             $printMargins = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageMargins();
         }
-        $this->setOrientation($orientation);
 
         //  Override Page Orientation
-        if (null !== $this->getOrientation()) {
-            $orientation = ($this->getOrientation() == PageSetup::ORIENTATION_DEFAULT)
-                ? PageSetup::ORIENTATION_PORTRAIT
-                : $this->getOrientation();
+        if ($this->getOrientation() !== null) {
+            $orientation = ($this->getOrientation() == PageSetup::ORIENTATION_LANDSCAPE)
+                ? 'L'
+                : 'P';
         }
-        $orientation = strtoupper($orientation);
-
         //  Override Paper Size
-        if (null !== $this->getPaperSize()) {
+        if ($this->getPaperSize() !== null) {
             $printPaperSize = $this->getPaperSize();
         }
 
@@ -56,12 +51,24 @@ class MPDF extends Pdf implements IWriter
         }
 
         //  Create PDF
-        $config = ['tempDir' => $this->tempDir];
-        $pdf = new \Mpdf\Mpdf($config);
-        $ortmp = $orientation;
-        $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
-        $pdf->DefOrientation = $orientation;
-        $pdf->AddPage($orientation);
+        $pdf = new \TCPDF($orientation, 'pt', $paperSize);
+        $pdf->setFontSubsetting(false);
+        //    Set margins, converting inches to points (using 72 dpi)
+        $pdf->SetMargins($printMargins->getLeft() * 72, $printMargins->getTop() * 72, $printMargins->getRight() * 72);
+        $pdf->SetAutoPageBreak(true, $printMargins->getBottom() * 72);
+
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+
+        $pdf->AddPage();
+
+        //  Set the appropriate font
+        $pdf->SetFont($this->getFont());
+        $pdf->writeHTML(
+            $this->generateHTMLHeader(false) .
+            $this->generateSheetData() .
+            $this->generateHTMLFooter()
+        );
 
         //  Document info
         $pdf->SetTitle($this->spreadsheet->getProperties()->getTitle());
@@ -70,14 +77,8 @@ class MPDF extends Pdf implements IWriter
         $pdf->SetKeywords($this->spreadsheet->getProperties()->getKeywords());
         $pdf->SetCreator($this->spreadsheet->getProperties()->getCreator());
 
-        $pdf->WriteHTML(
-            $this->generateHTMLHeader(false) .
-            $this->generateSheetData() .
-            $this->generateHTMLFooter()
-        );
-
         //  Write to file
-        fwrite($fileHandle, $pdf->Output('', 'S'));
+        fwrite($fileHandle, $pdf->output($pFilename, 'S'));
 
         parent::restoreStateAfterSave($fileHandle);
     }

@@ -5,11 +5,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/../Header.php';
 
-//	Change these values to select the Rendering library that you wish to use
-//		for PDF files, and its directory location on your server
-$rendererName = \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF::class;
-
-Settings::setDefaultPdfWriter($rendererName);
+IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
 
 //	Change these values to select the Rendering library that you wish to use
 //		for Chart images, and its directory location on your server

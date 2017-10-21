@@ -4,74 +4,35 @@ namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
 
-class IOFactory
+/**
+ * Factory to create readers and writers easily.
+ *
+ * It is not required to use this class, but it should make it easier to read and write files.
+ * Especially for reading files with an unknown format.
+ */
+abstract class IOFactory
 {
-    /**
-     * Search locations.
-     *
-     * @var array
-     */
-    private static $searchLocations = [
-        ['type' => 'IWriter', 'path' => 'PhpSpreadsheet/Writer/{0}.php', 'class' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\{0}'],
-        ['type' => 'IReader', 'path' => 'PhpSpreadsheet/Reader/{0}.php', 'class' => '\\PhpOffice\\PhpSpreadsheet\\Reader\\{0}'],
+    private static $readers = [
+        'Xlsx' => Reader\Xlsx::class,
+        'Xls' => Reader\Xls::class,
+        'Xml' => Reader\Xml::class,
+        'Ods' => Reader\Ods::class,
+        'Slk' => Reader\Slk::class,
+        'Gnumeric' => Reader\Gnumeric::class,
+        'Html' => Reader\Html::class,
+        'Csv' => Reader\Csv::class,
     ];
 
-    /**
-     * Autoresolve classes.
-     *
-     * @var array
-     */
-    private static $autoResolveClasses = [
-        'Xlsx',
-        'Xls',
-        'Xml',
-        'Ods',
-        'Slk',
-        'Gnumeric',
-        'Html',
-        'Csv',
+    private static $writers = [
+        'Xls' => Writer\Xls::class,
+        'Xlsx' => Writer\Xlsx::class,
+        'Ods' => Writer\Ods::class,
+        'Csv' => Writer\Csv::class,
+        'Html' => Writer\Html::class,
+        'Tcpdf' => Writer\Pdf\Tcpdf::class,
+        'Dompdf' => Writer\Pdf\Dompdf::class,
+        'Mpdf' => Writer\Pdf\Mpdf::class,
     ];
-
-    /**
-     * Private constructor for IOFactory.
-     */
-    private function __construct()
-    {
-    }
-
-    /**
-     * Get search locations.
-     *
-     * @return array
-     */
-    public static function getSearchLocations()
-    {
-        return self::$searchLocations;
-    }
-
-    /**
-     * Set search locations.
-     *
-     * @param array $value
-     *
-     * @throws Reader\Exception
-     */
-    public static function setSearchLocations(array $value)
-    {
-        self::$searchLocations = $value;
-    }
-
-    /**
-     * Add search location.
-     *
-     * @param string $type Example: IWriter
-     * @param string $location Example: PhpSpreadsheet/Writer/{0}.php
-     * @param string $classname Example: Writer\{0}
-     */
-    public static function addSearchLocation($type, $location, $classname)
-    {
-        self::$searchLocations[] = ['type' => $type, 'path' => $location, 'class' => $classname];
-    }
 
     /**
      * Create Writer\IWriter.
@@ -85,32 +46,15 @@ class IOFactory
      */
     public static function createWriter(Spreadsheet $spreadsheet, $writerType)
     {
-        // Search type
-        $searchType = 'IWriter';
-
-        if ($writerType === 'Pdf') {
-            $pdfWriter = Settings::getDefaultPdfWriter();
-            if ($pdfWriter === null) {
-                throw new Exception('PDF default writer has not been defined.');
-            }
-
-            return new $pdfWriter($spreadsheet);
+        if (!isset(self::$writers[$writerType])) {
+            throw new Writer\Exception("No writer found for type $writerType");
         }
 
-        // Include class
-        foreach (self::$searchLocations as $searchLocation) {
-            if ($searchLocation['type'] == $searchType) {
-                $className = str_replace('{0}', $writerType, $searchLocation['class']);
+        // Instantiate writer
+        $className = self::$writers[$writerType];
+        $writer = new $className($spreadsheet);
 
-                $instance = new $className($spreadsheet);
-                if ($instance !== null) {
-                    return $instance;
-                }
-            }
-        }
-
-        // Nothing found...
-        throw new Writer\Exception("No $searchType found for type $writerType");
+        return $writer;
     }
 
     /**
@@ -124,23 +68,15 @@ class IOFactory
      */
     public static function createReader($readerType)
     {
-        // Search type
-        $searchType = 'IReader';
-
-        // Include class
-        foreach (self::$searchLocations as $searchLocation) {
-            if ($searchLocation['type'] == $searchType) {
-                $className = str_replace('{0}', $readerType, $searchLocation['class']);
-
-                $instance = new $className();
-                if ($instance !== null) {
-                    return $instance;
-                }
-            }
+        if (!isset(self::$readers[$readerType])) {
+            throw new Reader\Exception("No reader found for type $readerType");
         }
 
-        // Nothing found...
-        throw new Reader\Exception("No $searchType found for type $readerType");
+        // Instantiate reader
+        $className = self::$readers[$readerType];
+        $reader = new $className();
+
+        return $reader;
     }
 
     /**
@@ -181,86 +117,114 @@ class IOFactory
     /**
      * Create Reader\IReader for file using automatic Reader\IReader resolution.
      *
-     * @param string $pFilename The name of the spreadsheet file
+     * @param string $filename The name of the spreadsheet file
      *
      * @throws Reader\Exception
      *
      * @return Reader\IReader
      */
-    public static function createReaderForFile($pFilename)
+    public static function createReaderForFile($filename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($filename);
 
         // First, lucky guess by inspecting file extension
-        $pathinfo = pathinfo($pFilename);
+        $guessedReader = self::getReaderTypeFromExtension($filename);
+        if ($guessedReader !== null) {
+            $reader = self::createReader($guessedReader);
 
-        $extensionType = null;
-        if (isset($pathinfo['extension'])) {
-            switch (strtolower($pathinfo['extension'])) {
-                case 'xlsx':            //    Excel (OfficeOpenXML) Spreadsheet
-                case 'xlsm':            //    Excel (OfficeOpenXML) Macro Spreadsheet (macros will be discarded)
-                case 'xltx':            //    Excel (OfficeOpenXML) Template
-                case 'xltm':            //    Excel (OfficeOpenXML) Macro Template (macros will be discarded)
-                    $extensionType = 'Xlsx';
-
-                    break;
-                case 'xls':                //    Excel (BIFF) Spreadsheet
-                case 'xlt':                //    Excel (BIFF) Template
-                    $extensionType = 'Xls';
-
-                    break;
-                case 'ods':                //    Open/Libre Offic Calc
-                case 'ots':                //    Open/Libre Offic Calc Template
-                    $extensionType = 'Ods';
-
-                    break;
-                case 'slk':
-                    $extensionType = 'Slk';
-
-                    break;
-                case 'xml':                //    Excel 2003 SpreadSheetML
-                    $extensionType = 'Xml';
-
-                    break;
-                case 'gnumeric':
-                    $extensionType = 'Gnumeric';
-
-                    break;
-                case 'htm':
-                case 'html':
-                    $extensionType = 'Html';
-
-                    break;
-                case 'csv':
-                    // Do nothing
-                    // We must not try to use CSV reader since it loads
-                    // all files including Excel files etc.
-                    break;
-                default:
-                    break;
-            }
-
-            if ($extensionType !== null) {
-                $reader = self::createReader($extensionType);
-                // Let's see if we are lucky
-                if (isset($reader) && $reader->canRead($pFilename)) {
-                    return $reader;
-                }
+            // Let's see if we are lucky
+            if (isset($reader) && $reader->canRead($filename)) {
+                return $reader;
             }
         }
 
         // If we reach here then "lucky guess" didn't give any result
         // Try walking through all the options in self::$autoResolveClasses
-        foreach (self::$autoResolveClasses as $autoResolveClass) {
+        foreach (self::$readers as $type => $class) {
             //    Ignore our original guess, we know that won't work
-            if ($autoResolveClass !== $extensionType) {
-                $reader = self::createReader($autoResolveClass);
-                if ($reader->canRead($pFilename)) {
+            if ($type !== $guessedReader) {
+                $reader = self::createReader($type);
+                if ($reader->canRead($filename)) {
                     return $reader;
                 }
             }
         }
 
         throw new Reader\Exception('Unable to identify a reader for this file');
+    }
+
+    /**
+     * Guess a reader type from the file extension, if any.
+     *
+     * @param string $filename
+     *
+     * @return null|string
+     */
+    private static function getReaderTypeFromExtension($filename)
+    {
+        $pathinfo = pathinfo($filename);
+        if (!isset($pathinfo['extension'])) {
+            return null;
+        }
+
+        switch (strtolower($pathinfo['extension'])) {
+            case 'xlsx': // Excel (OfficeOpenXML) Spreadsheet
+            case 'xlsm': // Excel (OfficeOpenXML) Macro Spreadsheet (macros will be discarded)
+            case 'xltx': // Excel (OfficeOpenXML) Template
+            case 'xltm': // Excel (OfficeOpenXML) Macro Template (macros will be discarded)
+                return 'Xlsx';
+            case 'xls': // Excel (BIFF) Spreadsheet
+            case 'xlt': // Excel (BIFF) Template
+                return 'Xls';
+            case 'ods': // Open/Libre Offic Calc
+            case 'ots': // Open/Libre Offic Calc Template
+                return 'Ods';
+            case 'slk':
+                return 'Slk';
+            case 'xml': // Excel 2003 SpreadSheetML
+                return 'Xml';
+            case 'gnumeric':
+                return 'Gnumeric';
+            case 'htm':
+            case 'html':
+                return 'Html';
+            case 'csv':
+                // Do nothing
+                // We must not try to use CSV reader since it loads
+                // all files including Excel files etc.
+                return null;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Register a writer with its type and class name.
+     *
+     * @param string $writerType
+     * @param string $writerClass
+     */
+    public static function registerWriter($writerType, $writerClass)
+    {
+        if (!is_a($writerClass, Writer\IWriter::class, true)) {
+            throw new Writer\Exception('Registered writers must implement ' . Writer\IWriter::class);
+        }
+
+        self::$writers[$writerType] = $writerClass;
+    }
+
+    /**
+     * Register a reader with its type and class name.
+     *
+     * @param string $readerType
+     * @param string $readerClass
+     */
+    public static function registerReader($readerType, $readerClass)
+    {
+        if (!is_a($readerClass, Reader\IReader::class, true)) {
+            throw new Reader\Exception('Registered readers must implement ' . Reader\IReader::class);
+        }
+
+        self::$readers[$readerType] = $readerClass;
     }
 }

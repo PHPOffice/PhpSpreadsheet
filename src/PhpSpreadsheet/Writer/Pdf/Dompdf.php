@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
-class DomPDF extends Pdf implements IWriter
+class Dompdf extends Pdf implements IWriter
 {
     /**
      * Save Spreadsheet to file.

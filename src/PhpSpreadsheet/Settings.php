@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
-use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 use Psr\SimpleCache\CacheInterface;
 
 class Settings
@@ -30,15 +29,6 @@ class Settings
      * @var string
      */
     private static $chartRendererPath;
-
-    /**
-     * Name of the external Library used for rendering PDF files
-     * e.g.
-     *         mPDF.
-     *
-     * @var string
-     */
-    private static $defaultPdfWriter;
 
     /**
      * Default options for libxml loader.
@@ -140,30 +130,6 @@ class Settings
     public static function getChartRendererPath()
     {
         return self::$chartRendererPath;
-    }
-
-    /**
-     * Identify to PhpSpreadsheet the default writer to use for PDF.
-     *
-     * @param string $writerClassName Internal reference name of the library
-     */
-    public static function setDefaultPdfWriter($writerClassName)
-    {
-        if (!is_a($writerClassName, Pdf::class, true)) {
-            throw new Exception('"' . $writerClassName . '" is not a valid PDF writer class name');
-        }
-        self::$defaultPdfWriter = $writerClassName;
-    }
-
-    /**
-     * Return the default PDF writer that PhpSpreadsheet is currently configured to use (e.g. dompdf).
-     *
-     * @return null|string Internal reference name of the PDF Rendering Library that PhpSpreadsheet is
-     *     currently configured to use
-     */
-    public static function getDefaultPdfWriter()
-    {
-        return self::$defaultPdfWriter;
     }
 
     /**

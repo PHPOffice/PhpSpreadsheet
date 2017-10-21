@@ -2,7 +2,6 @@
 
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require_once __DIR__ . '/../../src/Bootstrap.php';
@@ -13,10 +12,6 @@ if ($helper->isCli()) {
 
     return;
 }
-
-//	Change these values to select the Rendering library that you wish to use
-//		and its directory location on your server
-$rendererName = \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF::class;
 
 // Create new Spreadsheet object
 $spreadsheet = new Spreadsheet();
@@ -49,7 +44,7 @@ $spreadsheet->getActiveSheet()->setShowGridLines(false);
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $spreadsheet->setActiveSheetIndex(0);
 
-Settings::setDefaultPdfWriter($rendererName);
+IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
 
 // Redirect output to a client’s web browser (PDF)
 header('Content-Type: application/pdf');

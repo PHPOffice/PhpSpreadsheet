@@ -1177,7 +1177,7 @@ class Html extends BaseWriter implements IWriter
         // Sheet index
         $sheetIndex = $pSheet->getParent()->getIndex($pSheet);
 
-        // DomPDF and breaks
+        // Dompdf and breaks
         if ($this->isPdf && count($pSheet->getBreaks()) > 0) {
             $breaks = $pSheet->getBreaks();
 
