@@ -10,7 +10,6 @@ class IOFactory
      * Search locations.
      *
      * @var array
-     * @static
      */
     private static $searchLocations = [
         ['type' => 'IWriter', 'path' => 'PhpSpreadsheet/Writer/{0}.php', 'class' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\{0}'],
@@ -21,7 +20,6 @@ class IOFactory
      * Autoresolve classes.
      *
      * @var array
-     * @static
      */
     private static $autoResolveClasses = [
         'Xlsx',
@@ -44,8 +42,6 @@ class IOFactory
     /**
      * Get search locations.
      *
-     * @static
-     *
      * @return array
      */
     public static function getSearchLocations()
@@ -55,8 +51,6 @@ class IOFactory
 
     /**
      * Set search locations.
-     *
-     * @static
      *
      * @param array $value
      *
@@ -70,8 +64,6 @@ class IOFactory
     /**
      * Add search location.
      *
-     * @static
-     *
      * @param string $type Example: IWriter
      * @param string $location Example: PhpSpreadsheet/Writer/{0}.php
      * @param string $classname Example: Writer\{0}
@@ -83,8 +75,6 @@ class IOFactory
 
     /**
      * Create Writer\IWriter.
-     *
-     * @static
      *
      * @param Spreadsheet $spreadsheet
      * @param string $writerType Example: Xlsx
@@ -126,8 +116,6 @@ class IOFactory
     /**
      * Create Reader\IReader.
      *
-     * @static
-     *
      * @param string $readerType Example: Xlsx
      *
      * @throws Reader\Exception
@@ -158,8 +146,6 @@ class IOFactory
     /**
      * Loads Spreadsheet from file using automatic Reader\IReader resolution.
      *
-     * @static
-     *
      * @param string $pFilename The name of the spreadsheet file
      *
      * @throws Reader\Exception
@@ -175,8 +161,6 @@ class IOFactory
 
     /**
      * Identify file type using automatic Reader\IReader resolution.
-     *
-     * @static
      *
      * @param string $pFilename The name of the spreadsheet file to identify
      *
@@ -196,8 +180,6 @@ class IOFactory
 
     /**
      * Create Reader\IReader for file using automatic Reader\IReader resolution.
-     *
-     * @static
      *
      * @param string $pFilename The name of the spreadsheet file
      *
