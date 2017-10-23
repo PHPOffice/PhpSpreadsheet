@@ -33,6 +33,13 @@ class CellDataValidator
         return true;
     }
 
+    /**
+     * Does this cell contain valid value, based on list?
+     *
+     * @param Cell $cell Cell to check the value
+     *
+     * @return bool
+     */
     private function isValueInList(Cell $cell)
     {
         $cellValue = $cell->getValue();
