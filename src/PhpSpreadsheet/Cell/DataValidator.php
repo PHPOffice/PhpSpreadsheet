@@ -9,7 +9,7 @@ class DataValidator
 {
     /**
      * Does this cell contain valid value?
-	 * 
+     *
      * @param Cell $cell Cell to check the value
      *
      * @return bool
