@@ -420,7 +420,7 @@ class Cell
             return true;
         }
 
-        return (new Cell\DataValidator())->isValidCellValue($this);
+        return (new Cell\CellDataValidator())->isValid($this);
     }
 
     /**
