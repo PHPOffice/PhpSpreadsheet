@@ -718,22 +718,18 @@ class Xlsx extends BaseReader implements IReader
                                     $docSheet->setRightToLeft(self::boolean((string) $xmlSheet->sheetViews->sheetView['rightToLeft']));
                                 }
                                 if (isset($xmlSheet->sheetViews->sheetView->pane)) {
-                                    if (isset($xmlSheet->sheetViews->sheetView->pane['topLeftCell'])) {
-                                        $docSheet->freezePane((string) $xmlSheet->sheetViews->sheetView->pane['topLeftCell']);
-                                    } else {
-                                        $xSplit = 0;
-                                        $ySplit = 0;
+                                    $xSplit = 0;
+                                    $ySplit = 0;
 
-                                        if (isset($xmlSheet->sheetViews->sheetView->pane['xSplit'])) {
-                                            $xSplit = 1 + (int) ($xmlSheet->sheetViews->sheetView->pane['xSplit']);
-                                        }
-
-                                        if (isset($xmlSheet->sheetViews->sheetView->pane['ySplit'])) {
-                                            $ySplit = 1 + (int) ($xmlSheet->sheetViews->sheetView->pane['ySplit']);
-                                        }
-
-                                        $docSheet->freezePaneByColumnAndRow($xSplit, $ySplit);
+                                    if (isset($xmlSheet->sheetViews->sheetView->pane['xSplit'])) {
+                                        $xSplit = 1 + (int) ($xmlSheet->sheetViews->sheetView->pane['xSplit']);
                                     }
+
+                                    if (isset($xmlSheet->sheetViews->sheetView->pane['ySplit'])) {
+                                        $ySplit = 1 + (int) ($xmlSheet->sheetViews->sheetView->pane['ySplit']);
+                                    }
+
+                                    $docSheet->freezePaneByColumnAndRow($xSplit, $ySplit);
                                 }
 
                                 if (isset($xmlSheet->sheetViews->sheetView->selection)) {
