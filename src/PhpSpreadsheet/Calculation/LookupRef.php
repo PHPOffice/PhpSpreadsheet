@@ -789,7 +789,7 @@ class LookupRef
         }
         $f = array_keys($lookup_array);
         $firstRow = array_pop($f);
-        if ((!is_array($lookup_array[$firstRow])) || ($index_number - 1 > count($lookup_array[$firstRow]))) {
+        if ((!is_array($lookup_array[$firstRow])) || ($index_number > count($lookup_array))) {
             return Functions::REF();
         }
         $columnKeys = array_keys($lookup_array[$firstRow]);
