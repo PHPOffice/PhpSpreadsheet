@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 
 use PhpOffice\PhpSpreadsheet\Chart;
 use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class JpGraph
 {
@@ -846,6 +847,8 @@ class JpGraph
 
     /**
      * Create a new jpgraph.
+     *
+     * @param Chart $chart
      */
     public function __construct(Chart $chart)
     {
