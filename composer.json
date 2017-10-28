@@ -34,11 +34,18 @@
     },
     "require": {
         "php": "^5.6|^7.0",
-        "ext-mbstring": "*",
+        "ext-ctype": "*",
+        "ext-dom": "*",
+        "ext-gd": "*",
         "ext-iconv": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
+        "ext-SimpleXML": "*",
         "ext-xml": "*",
+        "ext-xmlreader": "*",
         "ext-xmlwriter": "*",
         "ext-zip": "*",
+        "ext-zlib": "*",
         "psr/simple-cache": "^1.0"
     },
     "require-dev": {
