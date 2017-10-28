@@ -54,7 +54,8 @@
         "phpunit/phpunit": "^5.7",
         "dompdf/dompdf": "^0.8.0",
         "mpdf/mpdf": "^7.0.0",
-        "friendsofphp/php-cs-fixer": "^2.7"
+        "friendsofphp/php-cs-fixer": "^2.7",
+        "jpgraph/jpgraph": "^4.0"
     },
     "suggest": {
         "ext-gd": "Required for exact column width autocalculation",

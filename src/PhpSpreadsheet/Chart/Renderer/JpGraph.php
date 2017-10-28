@@ -3,10 +3,11 @@
 namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 
 use PhpOffice\PhpSpreadsheet\Chart;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class JpGraph
+require_once __DIR__ . '/Polyfill.php';
+
+class JpGraph implements IRenderer
 {
     private static $width = 640;
 
@@ -20,17 +21,7 @@ class JpGraph
         'goldenrod2',
     ];
 
-    private static $markSet = [
-        'diamond' => MARK_DIAMOND,
-        'square' => MARK_SQUARE,
-        'triangle' => MARK_UTRIANGLE,
-        'x' => MARK_X,
-        'star' => MARK_STAR,
-        'dot' => MARK_FILLEDCIRCLE,
-        'dash' => MARK_DTRIANGLE,
-        'circle' => MARK_CIRCLE,
-        'plus' => MARK_CROSS,
-    ];
+    private static $markSet;
 
     private $chart;
 
@@ -39,6 +30,51 @@ class JpGraph
     private static $plotColour = 0;
 
     private static $plotMark = 0;
+
+    /**
+     * Create a new jpgraph.
+     *
+     * @param Chart $chart
+     */
+    public function __construct(Chart $chart)
+    {
+        self::init();
+        $this->graph = null;
+        $this->chart = $chart;
+    }
+
+    private static function init()
+    {
+        static $loaded = false;
+        if ($loaded) {
+            return;
+        }
+
+        \JpGraph\JpGraph::load();
+        \JpGraph\JpGraph::module('bar');
+        \JpGraph\JpGraph::module('contour');
+        \JpGraph\JpGraph::module('line');
+        \JpGraph\JpGraph::module('pie');
+        \JpGraph\JpGraph::module('pie3d');
+        \JpGraph\JpGraph::module('radar');
+        \JpGraph\JpGraph::module('regstat');
+        \JpGraph\JpGraph::module('scatter');
+        \JpGraph\JpGraph::module('stock');
+
+        self::$markSet = [
+            'diamond' => MARK_DIAMOND,
+            'square' => MARK_SQUARE,
+            'triangle' => MARK_UTRIANGLE,
+            'x' => MARK_X,
+            'star' => MARK_STAR,
+            'dot' => MARK_FILLEDCIRCLE,
+            'dash' => MARK_DTRIANGLE,
+            'circle' => MARK_CIRCLE,
+            'plus' => MARK_CROSS,
+        ];
+
+        $loaded = true;
+    }
 
     private function formatPointMarker($seriesPlot, $markerID)
     {
@@ -186,7 +222,7 @@ class JpGraph
 
     private function renderCartesianPlotArea($type = 'textlin')
     {
-        $this->graph = new Graph(self::$width, self::$height);
+        $this->graph = new \Graph(self::$width, self::$height);
         $this->graph->SetScale($type);
 
         $this->renderTitle();
@@ -223,14 +259,14 @@ class JpGraph
 
     private function renderPiePlotArea($doughnut = false)
     {
-        $this->graph = new PieGraph(self::$width, self::$height);
+        $this->graph = new \PieGraph(self::$width, self::$height);
 
         $this->renderTitle();
     }
 
     private function renderRadarPlotArea()
     {
-        $this->graph = new RadarGraph(self::$width, self::$height);
+        $this->graph = new \RadarGraph(self::$width, self::$height);
         $this->graph->SetScale('lin');
 
         $this->renderTitle();
@@ -272,7 +308,7 @@ class JpGraph
                 ++$testCurrentIndex;
             }
 
-            $seriesPlot = new LinePlot($dataValues);
+            $seriesPlot = new \LinePlot($dataValues);
             if ($combination) {
                 $seriesPlot->SetBarCenter();
             }
@@ -294,7 +330,7 @@ class JpGraph
         if ($grouping == 'standard') {
             $groupPlot = $seriesPlots;
         } else {
-            $groupPlot = new AccLinePlot($seriesPlots);
+            $groupPlot = new \AccLinePlot($seriesPlots);
         }
         $this->graph->Add($groupPlot);
     }
@@ -349,7 +385,7 @@ class JpGraph
             if ($rotation == 'bar') {
                 $dataValues = array_reverse($dataValues);
             }
-            $seriesPlot = new BarPlot($dataValues);
+            $seriesPlot = new \BarPlot($dataValues);
             $seriesPlot->SetColor('black');
             $seriesPlot->SetFillColor(self::$colourSet[self::$plotColour++]);
             if ($dimensions == '3d') {
@@ -370,11 +406,11 @@ class JpGraph
         }
 
         if ($grouping == 'clustered') {
-            $groupPlot = new GroupBarPlot($seriesPlots);
+            $groupPlot = new \GroupBarPlot($seriesPlots);
         } elseif ($grouping == 'standard') {
-            $groupPlot = new GroupBarPlot($seriesPlots);
+            $groupPlot = new \GroupBarPlot($seriesPlots);
         } else {
-            $groupPlot = new AccBarPlot($seriesPlots);
+            $groupPlot = new \AccBarPlot($seriesPlots);
             if ($dimensions == '3d') {
                 $groupPlot->SetShadow();
             }
@@ -400,14 +436,14 @@ class JpGraph
                 $dataValuesY[$k] = $k;
             }
 
-            $seriesPlot = new ScatterPlot($dataValuesX, $dataValuesY);
+            $seriesPlot = new \ScatterPlot($dataValuesX, $dataValuesY);
             if ($scatterStyle == 'lineMarker') {
                 $seriesPlot->SetLinkPoints();
                 $seriesPlot->link->SetColor(self::$colourSet[self::$plotColour]);
             } elseif ($scatterStyle == 'smoothMarker') {
-                $spline = new Spline($dataValuesY, $dataValuesX);
+                $spline = new \Spline($dataValuesY, $dataValuesX);
                 list($splineDataY, $splineDataX) = $spline->Get(count($dataValuesX) * self::$width / 20);
-                $lplot = new LinePlot($splineDataX, $splineDataY);
+                $lplot = new \LinePlot($splineDataX, $splineDataY);
                 $lplot->SetColor(self::$colourSet[self::$plotColour]);
 
                 $this->graph->Add($lplot);
@@ -452,7 +488,7 @@ class JpGraph
 
             $this->graph->SetTitles(array_reverse($dataValues));
 
-            $seriesPlot = new RadarPlot(array_reverse($dataValuesX));
+            $seriesPlot = new \RadarPlot(array_reverse($dataValuesX));
 
             $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($i)->getDataValue();
             $seriesPlot->SetColor(self::$colourSet[self::$plotColour++]);
@@ -481,7 +517,7 @@ class JpGraph
 
             $dataValues[$i] = $dataValuesX;
         }
-        $seriesPlot = new ContourPlot($dataValues);
+        $seriesPlot = new \ContourPlot($dataValues);
 
         $this->graph->Add($seriesPlot);
     }
@@ -519,7 +555,7 @@ class JpGraph
             $this->graph->xaxis->SetTickLabels($datasetLabels);
         }
 
-        $seriesPlot = new StockPlot($dataValuesPlot);
+        $seriesPlot = new \StockPlot($dataValuesPlot);
         $seriesPlot->SetWidth(20);
 
         $this->graph->Add($seriesPlot);
@@ -527,8 +563,6 @@ class JpGraph
 
     private function renderAreaChart($groupCount, $dimensions = '2d')
     {
-        require_once Settings::getChartRendererPath() . 'jpgraph_line.php';
-
         $this->renderCartesianPlotArea();
 
         for ($i = 0; $i < $groupCount; ++$i) {
@@ -538,8 +572,6 @@ class JpGraph
 
     private function renderLineChart($groupCount, $dimensions = '2d')
     {
-        require_once Settings::getChartRendererPath() . 'jpgraph_line.php';
-
         $this->renderCartesianPlotArea();
 
         for ($i = 0; $i < $groupCount; ++$i) {
@@ -549,8 +581,6 @@ class JpGraph
 
     private function renderBarChart($groupCount, $dimensions = '2d')
     {
-        require_once Settings::getChartRendererPath() . 'jpgraph_bar.php';
-
         $this->renderCartesianPlotArea();
 
         for ($i = 0; $i < $groupCount; ++$i) {
@@ -560,10 +590,6 @@ class JpGraph
 
     private function renderScatterChart($groupCount)
     {
-        require_once Settings::getChartRendererPath() . 'jpgraph_scatter.php';
-        require_once Settings::getChartRendererPath() . 'jpgraph_regstat.php';
-        require_once Settings::getChartRendererPath() . 'jpgraph_line.php';
-
         $this->renderCartesianPlotArea('linlin');
 
         for ($i = 0; $i < $groupCount; ++$i) {
@@ -573,8 +599,6 @@ class JpGraph
 
     private function renderBubbleChart($groupCount)
     {
-        require_once Settings::getChartRendererPath() . 'jpgraph_scatter.php';
-
         $this->renderCartesianPlotArea('linlin');
 
         for ($i = 0; $i < $groupCount; ++$i) {
@@ -584,11 +608,6 @@ class JpGraph
 
     private function renderPieChart($groupCount, $dimensions = '2d', $doughnut = false, $multiplePlots = false)
     {
-        require_once Settings::getChartRendererPath() . 'jpgraph_pie.php';
-        if ($dimensions == '3d') {
-            require_once Settings::getChartRendererPath() . 'jpgraph_pie3d.php';
-        }
-
         $this->renderPiePlotArea($doughnut);
 
         $iLimit = ($multiplePlots) ? $groupCount : 1;
@@ -622,12 +641,12 @@ class JpGraph
                 }
 
                 if ($dimensions == '3d') {
-                    $seriesPlot = new PiePlot3D($dataValues);
+                    $seriesPlot = new \PiePlot3D($dataValues);
                 } else {
                     if ($doughnut) {
-                        $seriesPlot = new PiePlotC($dataValues);
+                        $seriesPlot = new \PiePlotC($dataValues);
                     } else {
-                        $seriesPlot = new PiePlot($dataValues);
+                        $seriesPlot = new \PiePlot($dataValues);
                     }
                 }
 
@@ -660,8 +679,6 @@ class JpGraph
 
     private function renderRadarChart($groupCount)
     {
-        require_once Settings::getChartRendererPath() . 'jpgraph_radar.php';
-
         $this->renderRadarPlotArea();
 
         for ($groupID = 0; $groupID < $groupCount; ++$groupID) {
@@ -671,8 +688,6 @@ class JpGraph
 
     private function renderStockChart($groupCount)
     {
-        require_once Settings::getChartRendererPath() . 'jpgraph_stock.php';
-
         $this->renderCartesianPlotArea('intint');
 
         for ($groupID = 0; $groupID < $groupCount; ++$groupID) {
@@ -682,8 +697,6 @@ class JpGraph
 
     private function renderContourChart($groupCount, $dimensions)
     {
-        require_once Settings::getChartRendererPath() . 'jpgraph_contour.php';
-
         $this->renderCartesianPlotArea('intint');
 
         for ($i = 0; $i < $groupCount; ++$i) {
@@ -693,12 +706,6 @@ class JpGraph
 
     private function renderCombinationChart($groupCount, $dimensions, $outputDestination)
     {
-        require_once Settings::getChartRendererPath() . 'jpgraph_line.php';
-        require_once Settings::getChartRendererPath() . 'jpgraph_bar.php';
-        require_once Settings::getChartRendererPath() . 'jpgraph_scatter.php';
-        require_once Settings::getChartRendererPath() . 'jpgraph_regstat.php';
-        require_once Settings::getChartRendererPath() . 'jpgraph_line.php';
-
         $this->renderCartesianPlotArea();
 
         for ($i = 0; $i < $groupCount; ++$i) {
@@ -707,21 +714,21 @@ class JpGraph
             switch ($chartType) {
                 case 'area3DChart':
                     $dimensions = '3d';
-                    // no break
+                // no break
                 case 'areaChart':
                     $this->renderPlotLine($i, true, true, $dimensions);
 
                     break;
                 case 'bar3DChart':
                     $dimensions = '3d';
-                    // no break
+                // no break
                 case 'barChart':
                     $this->renderPlotBar($i, $dimensions);
 
                     break;
                 case 'line3DChart':
                     $dimensions = '3d';
-                    // no break
+                // no break
                 case 'lineChart':
                     $this->renderPlotLine($i, false, true, $dimensions);
 
@@ -777,35 +784,35 @@ class JpGraph
         switch ($chartType) {
             case 'area3DChart':
                 $dimensions = '3d';
-                // no break
+            // no break
             case 'areaChart':
                 $this->renderAreaChart($groupCount, $dimensions);
 
                 break;
             case 'bar3DChart':
                 $dimensions = '3d';
-                // no break
+            // no break
             case 'barChart':
                 $this->renderBarChart($groupCount, $dimensions);
 
                 break;
             case 'line3DChart':
                 $dimensions = '3d';
-                // no break
+            // no break
             case 'lineChart':
                 $this->renderLineChart($groupCount, $dimensions);
 
                 break;
             case 'pie3DChart':
                 $dimensions = '3d';
-                // no break
+            // no break
             case 'pieChart':
                 $this->renderPieChart($groupCount, $dimensions, false, false);
 
                 break;
             case 'doughnut3DChart':
                 $dimensions = '3d';
-                // no break
+            // no break
             case 'doughnutChart':
                 $this->renderPieChart($groupCount, $dimensions, true, true);
 
@@ -824,7 +831,7 @@ class JpGraph
                 break;
             case 'surface3DChart':
                 $dimensions = '3d';
-                // no break
+            // no break
             case 'surfaceChart':
                 $this->renderContourChart($groupCount, $dimensions);
 
@@ -843,18 +850,5 @@ class JpGraph
         $this->graph->Stroke($outputDestination);
 
         return true;
-    }
-
-    /**
-     * Create a new jpgraph.
-     *
-     * @param Chart $chart
-     */
-    public function __construct(Chart $chart)
-    {
-        $this->graph = null;
-        $this->chart = $chart;
-
-        require_once Settings::getChartRendererPath() . '/jpgraph.php';
     }
 }

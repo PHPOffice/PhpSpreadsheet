@@ -25,15 +25,18 @@ class SampleTest extends PHPUnit_Framework_TestCase
 
     public function providerSample()
     {
-        $skipped = [];
+        $skipped = [
+            'Chart/32_Chart_read_write_PDF.php', // Unfortunately JpGraph is not up to date for latest PHP and raise many warnings
+            'Chart/32_Chart_read_write_HTML.php', // idem
+        ];
 
         // Unfortunately some tests are too long be ran with code-coverage
         // analysis on Travis, so we need to exclude them
         global $argv;
         if (in_array('--coverage-clover', $argv)) {
             $tooLongToBeCovered = [
-                '06 Largescale',
-                '13 CalculationCyclicFormulae',
+                'Basic/06_Largescale.php',
+                'Basic/13_CalculationCyclicFormulae.php',
             ];
             $skipped = array_merge($skipped, $tooLongToBeCovered);
         }
@@ -41,8 +44,8 @@ class SampleTest extends PHPUnit_Framework_TestCase
         $helper = new Sample();
         $result = [];
         foreach ($helper->getSamples() as $samples) {
-            foreach ($samples as $name => $sample) {
-                if (!in_array($name, $skipped)) {
+            foreach ($samples as $sample) {
+                if (!in_array($sample, $skipped)) {
                     $file = '../samples/' . $sample;
                     $result[] = [$file];
                 }

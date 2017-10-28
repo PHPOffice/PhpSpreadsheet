@@ -640,28 +640,28 @@ class Chart
         }
     }
 
+    /**
+     * Render the chart to given file (or stream).
+     *
+     * @param string $outputDestination Name of the file render to
+     *
+     * @return bool true on success
+     */
     public function render($outputDestination = null)
     {
-        $libraryName = Settings::getChartRendererName();
-        if ($libraryName === null) {
-            return false;
-        }
-        //    Ensure that data series values are up-to-date before we render
-        $this->refresh();
-
-        $libraryPath = Settings::getChartRendererPath();
-        $includePath = str_replace('\\', '/', get_include_path());
-        $rendererPath = str_replace('\\', '/', $libraryPath);
-        if (strpos($rendererPath, $includePath) === false) {
-            set_include_path(get_include_path() . PATH_SEPARATOR . $libraryPath);
-        }
-
-        $rendererName = '\\PhpOffice\\PhpSpreadsheet\\Chart\\Renderer\\' . $libraryName;
-        $renderer = new $rendererName($this);
-
         if ($outputDestination == 'php://output') {
             $outputDestination = null;
         }
+
+        $libraryName = Settings::getChartRenderer();
+        if ($libraryName === null) {
+            return false;
+        }
+
+        // Ensure that data series values are up-to-date before we render
+        $this->refresh();
+
+        $renderer = new $libraryName($this);
 
         return $renderer->render($outputDestination);
     }
