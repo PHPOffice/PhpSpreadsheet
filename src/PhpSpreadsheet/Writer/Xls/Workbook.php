@@ -2,11 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 
 // Original file header of PEAR::Spreadsheet_Excel_Writer_Workbook (used as the base for this class):
 // -----------------------------------------------------------------------------------------
@@ -221,14 +222,14 @@ class Workbook extends BIFFwriter
     /**
      * Add a new XF writer.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style
+     * @param Style
      * @param bool Is it a style XF?
      * @param mixed $style
      * @param mixed $isStyleXf
      *
      * @return int Index to XF record
      */
-    public function addXfWriter($style, $isStyleXf = false)
+    public function addXfWriter(Style $style, $isStyleXf = false)
     {
         $xfWriter = new Xf($style);
         $xfWriter->setIsStyleXf($isStyleXf);
@@ -800,7 +801,7 @@ class Workbook extends BIFFwriter
     /**
      * Writes Excel BIFF BOUNDSHEET record.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet Worksheet name
+     * @param Worksheet $sheet Worksheet name
      * @param int $offset Location of worksheet BOF
      */
     private function writeBoundSheet($sheet, $offset)
@@ -810,15 +811,15 @@ class Workbook extends BIFFwriter
 
         // sheet state
         switch ($sheet->getSheetState()) {
-            case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE:
+            case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VISIBLE:
                 $ss = 0x00;
 
                 break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN:
+            case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN:
                 $ss = 0x01;
 
                 break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN:
+            case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VERYHIDDEN:
                 $ss = 0x02;
 
                 break;

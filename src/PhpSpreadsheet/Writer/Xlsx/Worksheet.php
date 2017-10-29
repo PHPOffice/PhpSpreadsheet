@@ -2,15 +2,15 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Cell;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
-use PhpOffice\PhpSpreadsheet\Worksheet as PhpspreadsheetWorksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 /**
@@ -120,7 +120,7 @@ class Worksheet extends WriterPart
             return $objWriter->getData();
         }
 
-        throw new WriterException('Invalid \\PhpOffice\\PhpSpreadsheet\\Worksheet object passed.');
+        throw new WriterException('Invalid \\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet object passed.');
     }
 
     /**
@@ -531,7 +531,7 @@ class Worksheet extends WriterPart
      * Write DataValidations.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param PhpspreadsheetWorksheet $pSheet Worksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\PhpspreadsheetWorksheet $pSheet Worksheet
      *
      * @throws WriterException
      */
@@ -697,7 +697,7 @@ class Worksheet extends WriterPart
      * Write PrintOptions.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param PhpspreadsheetWorksheet $pSheet Worksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\PhpspreadsheetWorksheet $pSheet Worksheet
      *
      * @throws WriterException
      */
@@ -724,7 +724,7 @@ class Worksheet extends WriterPart
      * Write PageMargins.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param PhpspreadsheetWorksheet $pSheet Worksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\PhpspreadsheetWorksheet $pSheet Worksheet
      *
      * @throws WriterException
      */
@@ -901,7 +901,7 @@ class Worksheet extends WriterPart
      * Write Breaks.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param PhpspreadsheetWorksheet $pSheet Worksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\PhpspreadsheetWorksheet $pSheet Worksheet
      *
      * @throws WriterException
      */
@@ -1167,7 +1167,7 @@ class Worksheet extends WriterPart
      * Write Drawings.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param PhpspreadsheetWorksheet $pSheet Worksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\PhpspreadsheetWorksheet $pSheet Worksheet
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      *
      * @throws WriterException

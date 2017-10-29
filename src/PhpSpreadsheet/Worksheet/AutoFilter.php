@@ -2,13 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PhpOffice\PhpSpreadsheet\Worksheet;
 
 class AutoFilter
 {
@@ -850,7 +849,7 @@ class AutoFilter
                     $this->{$key} = clone $value;
                 }
             } elseif ((is_array($value)) && ($key == 'columns')) {
-                //    The columns array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter objects
+                //    The columns array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter objects
                 $this->{$key} = [];
                 foreach ($value as $k => $v) {
                     $this->{$key}[$k] = clone $v;

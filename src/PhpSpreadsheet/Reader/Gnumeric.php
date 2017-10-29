@@ -2,10 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -404,7 +405,7 @@ class Gnumeric extends BaseReader implements IReader
 
                 $ValueType = $cellAttributes->ValueType;
                 $ExprID = (string) $cellAttributes->ExprID;
-                $type = Cell\DataType::TYPE_FORMULA;
+                $type = DataType::TYPE_FORMULA;
                 if ($ExprID > '') {
                     if (((string) $cell) > '') {
                         $this->expressions[$ExprID] = [
@@ -423,15 +424,15 @@ class Gnumeric extends BaseReader implements IReader
                             $worksheetName
                         );
                     }
-                    $type = Cell\DataType::TYPE_FORMULA;
+                    $type = DataType::TYPE_FORMULA;
                 } else {
                     switch ($ValueType) {
                         case '10':        //    NULL
-                            $type = Cell\DataType::TYPE_NULL;
+                            $type = DataType::TYPE_NULL;
 
                             break;
                         case '20':        //    Boolean
-                            $type = Cell\DataType::TYPE_BOOL;
+                            $type = DataType::TYPE_BOOL;
                             $cell = ($cell == 'TRUE') ? true : false;
 
                             break;
@@ -440,15 +441,15 @@ class Gnumeric extends BaseReader implements IReader
                             // Excel 2007+ doesn't differentiate between integer and float, so set the value and dropthru to the next (numeric) case
                             // no break
                         case '40':        //    Float
-                            $type = Cell\DataType::TYPE_NUMERIC;
+                            $type = DataType::TYPE_NUMERIC;
 
                             break;
                         case '50':        //    Error
-                            $type = Cell\DataType::TYPE_ERROR;
+                            $type = DataType::TYPE_ERROR;
 
                             break;
                         case '60':        //    String
-                            $type = Cell\DataType::TYPE_STRING;
+                            $type = DataType::TYPE_STRING;
 
                             break;
                         case '70':        //    Cell Range

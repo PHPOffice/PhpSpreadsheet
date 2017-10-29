@@ -50,7 +50,7 @@ class Iterator implements \Iterator
     /**
      * Current Worksheet.
      *
-     * @return \PhpOffice\PhpSpreadsheet\Worksheet
+     * @return Worksheet
      */
     public function current()
     {

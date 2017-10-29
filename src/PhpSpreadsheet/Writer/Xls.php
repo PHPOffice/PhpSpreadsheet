@@ -2,10 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
-use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Cell;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 use PhpOffice\PhpSpreadsheet\Shared\Escher;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer;
@@ -164,7 +165,7 @@ class Xls extends BaseWriter implements IWriter
                 if ($cVal instanceof RichText) {
                     $elements = $cVal->getRichTextElements();
                     foreach ($elements as $element) {
-                        if ($element instanceof RichText\Run) {
+                        if ($element instanceof Run) {
                             $font = $element->getFont();
                             $this->writerWorksheets[$i]->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
                         }

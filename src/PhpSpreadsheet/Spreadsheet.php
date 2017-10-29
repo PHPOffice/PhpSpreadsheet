@@ -2,6 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+
 class Spreadsheet
 {
     /**
@@ -858,11 +863,11 @@ class Spreadsheet
     /**
      * Get worksheet iterator.
      *
-     * @return Worksheet\Iterator
+     * @return Iterator
      */
     public function getWorksheetIterator()
     {
-        return new Worksheet\Iterator($this);
+        return new Iterator($this);
     }
 
     /**

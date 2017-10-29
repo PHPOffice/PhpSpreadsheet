@@ -28,6 +28,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Standardization of array keys used for style, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Easier usage of PDF writers, and other custom readers and writers, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
+- Easier usage of chart renderers, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
+- Rename a few more classes to keep them in their related namespaces:
+    - `CalcEngine` => `Calculation\Engine`
+    - `PhpSpreadsheet\Calculation` => `PhpSpreadsheet\Calculation\Calculation` 
+    - `PhpSpreadsheet\Cell` => `PhpSpreadsheet\Cell\Cell` 
+    - `PhpSpreadsheet\Chart` => `PhpSpreadsheet\Chart\Chart` 
+    - `PhpSpreadsheet\RichText` => `PhpSpreadsheet\RichText\RichText` 
+    - `PhpSpreadsheet\Style` => `PhpSpreadsheet\Style\Style` 
+    - `PhpSpreadsheet\Worksheet` => `PhpSpreadsheet\Worksheet\Worksheet` 
 
 ## [1.0.0-beta] - 2017-08-17
 

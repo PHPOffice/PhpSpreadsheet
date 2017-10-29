@@ -26,14 +26,14 @@ class Chart extends WriterPart
     /**
      * Write charts to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Chart $pChart
+     * @param \PhpOffice\PhpSpreadsheet\Chart\Chart $pChart
      * @param mixed $calculateCellValues
      *
      * @throws WriterException
      *
      * @return string XML Output
      */
-    public function writeChart(\PhpOffice\PhpSpreadsheet\Chart $pChart, $calculateCellValues = true)
+    public function writeChart(\PhpOffice\PhpSpreadsheet\Chart\Chart $pChart, $calculateCellValues = true)
     {
         $this->calculateCellValues = $calculateCellValues;
 
@@ -204,7 +204,7 @@ class Chart extends WriterPart
      * Write Chart Plot Area.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet
+     * @param Worksheet $pSheet
      * @param PlotArea $plotArea
      * @param Title $xAxisLabel
      * @param Title $yAxisLabel
@@ -213,7 +213,7 @@ class Chart extends WriterPart
      *
      * @throws WriterException
      */
-    private function writePlotArea(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet, PlotArea $plotArea, Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
+    private function writePlotArea(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pSheet, PlotArea $plotArea, Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
     {
         if ($plotArea === null) {
             return;

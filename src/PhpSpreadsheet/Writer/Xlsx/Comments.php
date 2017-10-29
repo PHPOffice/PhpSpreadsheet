@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 
@@ -11,13 +11,13 @@ class Comments extends WriterPart
     /**
      * Write comments to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     * @param Worksheet $pWorksheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeComments(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet)
+    public function writeComments(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -94,13 +94,13 @@ class Comments extends WriterPart
     /**
      * Write VML comments to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     * @param Worksheet $pWorksheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeVMLComments(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet)
+    public function writeVMLComments(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet)
     {
         // Create XML writer
         $objWriter = null;

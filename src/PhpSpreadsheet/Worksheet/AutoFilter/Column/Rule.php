@@ -422,7 +422,7 @@ class Rule
     /**
      * Set this Rule's AutoFilter Column Parent.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
+     * @param Column $pParent
      *
      * @return Rule
      */

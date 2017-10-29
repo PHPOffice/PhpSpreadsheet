@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 
-use PhpOffice\PhpSpreadsheet\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 require_once __DIR__ . '/Polyfill.php';

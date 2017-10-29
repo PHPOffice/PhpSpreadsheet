@@ -2,9 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Collection;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Psr\SimpleCache\CacheInterface;
 
 class Cells
@@ -390,7 +390,7 @@ class Cells
      *
      * @throws PhpSpreadsheetException
      *
-     * @return Cell
+     * @return \PhpOffice\PhpSpreadsheet\Cell\Cell
      */
     public function add($pCoord, Cell $cell)
     {
@@ -413,7 +413,7 @@ class Cells
      *
      * @throws PhpSpreadsheetException
      *
-     * @return Cell Cell that was found, or null if not found
+     * @return \PhpOffice\PhpSpreadsheet\Cell\Cell Cell that was found, or null if not found
      */
     public function get($pCoord)
     {

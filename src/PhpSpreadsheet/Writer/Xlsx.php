@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
-use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\HashTable;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -98,7 +98,7 @@ class Xlsx extends BaseWriter implements IWriter
     private $numFmtHashTable;
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing HashTable.
+     * Private unique \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\BaseDrawing HashTable.
      *
      * @var HashTable
      */
@@ -488,7 +488,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing HashTable.
+     * Get \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\BaseDrawing HashTable.
      *
      * @return HashTable
      */

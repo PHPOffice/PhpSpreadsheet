@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
@@ -14,14 +14,14 @@ class Drawing extends WriterPart
     /**
      * Write drawings to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     * @param Worksheet $pWorksheet
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      *
      * @throws WriterException
      *
      * @return string XML Output
      */
-    public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet, $includeCharts = false)
+    public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;
@@ -69,12 +69,12 @@ class Drawing extends WriterPart
      * Write drawings to XML format.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Chart $pChart
+     * @param \PhpOffice\PhpSpreadsheet\Chart\Chart $pChart
      * @param int $pRelationId
      *
      * @throws WriterException
      */
-    public function writeChart(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Chart $pChart, $pRelationId = -1)
+    public function writeChart(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Chart\Chart $pChart, $pRelationId = -1)
     {
         $tl = $pChart->getTopLeftPosition();
         $tl['colRow'] = Cell::coordinateFromString($tl['cell']);
@@ -271,13 +271,13 @@ class Drawing extends WriterPart
     /**
      * Write VML header/footer images to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     * @param Worksheet $pWorksheet
      *
      * @throws WriterException
      *
      * @return string XML Output
      */
-    public function writeVMLHeaderFooterImages(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet)
+    public function writeVMLHeaderFooterImages(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet)
     {
         // Create XML writer
         $objWriter = null;

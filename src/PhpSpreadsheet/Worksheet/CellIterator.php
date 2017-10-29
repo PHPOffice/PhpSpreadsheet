@@ -9,7 +9,7 @@ abstract class CellIterator
     /**
      * Worksheet to iterate.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Worksheet
+     * @var Worksheet
      */
     protected $subject;
 

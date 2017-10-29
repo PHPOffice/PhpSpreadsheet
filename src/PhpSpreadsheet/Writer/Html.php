@@ -2,25 +2,26 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
-use PhpOffice\PhpSpreadsheet\Calculation;
-use PhpOffice\PhpSpreadsheet\Cell;
-use PhpOffice\PhpSpreadsheet\Chart;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Chart\Chart;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\Font as SharedFont;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class Html extends BaseWriter implements IWriter
@@ -617,7 +618,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate image tag in cell.
      *
-     * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
+     * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      * @param string $coordinates Cell coordinates
      *
      * @throws WriterException
@@ -700,7 +701,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate chart tag in cell.
      *
-     * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
+     * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      * @param string $coordinates Cell coordinates
      *
      * @throws WriterException
@@ -1160,7 +1161,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate row.
      *
-     * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
+     * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      * @param array $pValues Array containing cells in a row
      * @param int $pRow Row number (0-based)
      * @param mixed $cellType eg: 'td'
@@ -1241,7 +1242,7 @@ class Html extends BaseWriter implements IWriter
                     $elements = $cell->getValue()->getRichTextElements();
                     foreach ($elements as $element) {
                         // Rich text start?
-                        if ($element instanceof RichText\Run) {
+                        if ($element instanceof Run) {
                             $cellData .= '<span style="' . $this->assembleCSS($this->createCSSStyleFont($element->getFont())) . '">';
 
                             if ($element->getFont()->getSuperscript()) {
@@ -1255,7 +1256,7 @@ class Html extends BaseWriter implements IWriter
                         $cellText = $element->getText();
                         $cellData .= htmlspecialchars($cellText);
 
-                        if ($element instanceof RichText\Run) {
+                        if ($element instanceof Run) {
                             if ($element->getFont()->getSuperscript()) {
                                 $cellData .= '</sup>';
                             } elseif ($element->getFont()->getSubscript()) {

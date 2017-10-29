@@ -79,10 +79,10 @@ class OdsTest extends PHPUnit_Framework_TestCase
         self::assertEquals(2, $spreadsheet->getSheetCount());
 
         $firstSheet = $spreadsheet->getSheet(0);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet', $firstSheet);
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
 
         $secondSheet = $spreadsheet->getSheet(1);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet', $secondSheet);
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
     }
 
     public function testReadValueAndComments()

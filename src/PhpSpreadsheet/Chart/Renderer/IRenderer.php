@@ -2,14 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 
-use PhpOffice\PhpSpreadsheet\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\Chart;
 
 interface IRenderer
 {
     /**
      * IRenderer constructor.
      *
-     * @param Chart $chart
+     * @param \PhpOffice\PhpSpreadsheet\Chart\Chart $chart
      */
     public function __construct(Chart $chart);
 

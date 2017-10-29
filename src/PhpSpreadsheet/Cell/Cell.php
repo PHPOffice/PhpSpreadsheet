@@ -1,8 +1,13 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
+use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Style;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Cell
 {
@@ -16,7 +21,7 @@ class Cell
     /**
      * Value binder to use.
      *
-     * @var Cell\IValueBinder
+     * @var IValueBinder
      */
     private static $valueBinder;
 
@@ -106,8 +111,8 @@ class Cell
 
         // Set datatype?
         if ($pDataType !== null) {
-            if ($pDataType == Cell\DataType::TYPE_STRING2) {
-                $pDataType = Cell\DataType::TYPE_STRING;
+            if ($pDataType == DataType::TYPE_STRING2) {
+                $pDataType = DataType::TYPE_STRING;
             }
             $this->dataType = $pDataType;
         } elseif (!self::getValueBinder()->bindValue($this, $pValue)) {
@@ -193,7 +198,7 @@ class Cell
      * Set the value for a cell, with the explicit data type passed to the method (bypassing any use of the value binder).
      *
      * @param mixed $pValue Value
-     * @param string $pDataType Explicit data type, see Cell\DataType::TYPE_*
+     * @param string $pDataType Explicit data type, see DataType::TYPE_*
      *
      * @throws Exception
      *
@@ -203,34 +208,34 @@ class Cell
     {
         // set the value according to data type
         switch ($pDataType) {
-            case Cell\DataType::TYPE_NULL:
+            case DataType::TYPE_NULL:
                 $this->value = $pValue;
 
                 break;
-            case Cell\DataType::TYPE_STRING2:
-                $pDataType = Cell\DataType::TYPE_STRING;
+            case DataType::TYPE_STRING2:
+                $pDataType = DataType::TYPE_STRING;
                 // no break
-            case Cell\DataType::TYPE_STRING:
+            case DataType::TYPE_STRING:
                 // Synonym for string
-            case Cell\DataType::TYPE_INLINE:
+            case DataType::TYPE_INLINE:
                 // Rich text
-                $this->value = Cell\DataType::checkString($pValue);
+                $this->value = DataType::checkString($pValue);
 
                 break;
-            case Cell\DataType::TYPE_NUMERIC:
+            case DataType::TYPE_NUMERIC:
                 $this->value = (float) $pValue;
 
                 break;
-            case Cell\DataType::TYPE_FORMULA:
+            case DataType::TYPE_FORMULA:
                 $this->value = (string) $pValue;
 
                 break;
-            case Cell\DataType::TYPE_BOOL:
+            case DataType::TYPE_BOOL:
                 $this->value = (bool) $pValue;
 
                 break;
-            case Cell\DataType::TYPE_ERROR:
-                $this->value = Cell\DataType::checkErrorCode($pValue);
+            case DataType::TYPE_ERROR:
+                $this->value = DataType::checkErrorCode($pValue);
 
                 break;
             default:
@@ -255,7 +260,7 @@ class Cell
      */
     public function getCalculatedValue($resetLog = true)
     {
-        if ($this->dataType == Cell\DataType::TYPE_FORMULA) {
+        if ($this->dataType == DataType::TYPE_FORMULA) {
             try {
                 $result = Calculation::getInstance(
                     $this->getWorksheet()->getParent()
@@ -271,7 +276,7 @@ class Cell
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 }
 
-                throw new Calculation\Exception(
+                throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(
                     $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
                 );
             }
@@ -332,14 +337,14 @@ class Cell
     /**
      * Set cell data type.
      *
-     * @param string $pDataType see Cell\DataType::TYPE_*
+     * @param string $pDataType see DataType::TYPE_*
      *
      * @return Cell
      */
     public function setDataType($pDataType)
     {
-        if ($pDataType == Cell\DataType::TYPE_STRING2) {
-            $pDataType = Cell\DataType::TYPE_STRING;
+        if ($pDataType == DataType::TYPE_STRING2) {
+            $pDataType = DataType::TYPE_STRING;
         }
         $this->dataType = $pDataType;
 
@@ -353,7 +358,7 @@ class Cell
      */
     public function isFormula()
     {
-        return $this->dataType == Cell\DataType::TYPE_FORMULA;
+        return $this->dataType == DataType::TYPE_FORMULA;
     }
 
     /**
@@ -377,7 +382,7 @@ class Cell
      *
      * @throws Exception
      *
-     * @return Cell\DataValidation
+     * @return DataValidation
      */
     public function getDataValidation()
     {
@@ -391,13 +396,13 @@ class Cell
     /**
      * Set Data validation rules.
      *
-     * @param Cell\DataValidation $pDataValidation
+     * @param DataValidation $pDataValidation
      *
      * @throws Exception
      *
      * @return Cell
      */
-    public function setDataValidation(Cell\DataValidation $pDataValidation = null)
+    public function setDataValidation(DataValidation $pDataValidation = null)
     {
         if (!isset($this->parent)) {
             throw new Exception('Cannot set data validation for cell that is not bound to a worksheet');
@@ -429,7 +434,7 @@ class Cell
      *
      * @throws Exception
      *
-     * @return Cell\Hyperlink
+     * @return Hyperlink
      */
     public function getHyperlink()
     {
@@ -443,13 +448,13 @@ class Cell
     /**
      * Set Hyperlink.
      *
-     * @param Cell\Hyperlink $pHyperlink
+     * @param Hyperlink $pHyperlink
      *
      * @throws Exception
      *
      * @return Cell
      */
-    public function setHyperlink(Cell\Hyperlink $pHyperlink = null)
+    public function setHyperlink(Hyperlink $pHyperlink = null)
     {
         if (!isset($this->parent)) {
             throw new Exception('Cannot set hyperlink for cell that is not bound to a worksheet');
@@ -1033,12 +1038,12 @@ class Cell
     /**
      * Get value binder to use.
      *
-     * @return Cell\IValueBinder
+     * @return IValueBinder
      */
     public static function getValueBinder()
     {
         if (self::$valueBinder === null) {
-            self::$valueBinder = new Cell\DefaultValueBinder();
+            self::$valueBinder = new DefaultValueBinder();
         }
 
         return self::$valueBinder;
@@ -1047,11 +1052,11 @@ class Cell
     /**
      * Set value binder to use.
      *
-     * @param Cell\IValueBinder $binder
+     * @param IValueBinder $binder
      *
      * @throws Exception
      */
-    public static function setValueBinder(Cell\IValueBinder $binder)
+    public static function setValueBinder(IValueBinder $binder)
     {
         self::$valueBinder = $binder;
     }

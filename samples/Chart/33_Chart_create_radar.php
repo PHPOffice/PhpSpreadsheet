@@ -1,8 +1,9 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
@@ -79,7 +80,7 @@ $series = new DataSeries(
 );
 
 //	Set up a layout object for the Pie chart
-$layout = new Chart\Layout();
+$layout = new Layout();
 
 //	Set the series in the plot area
 $plotArea = new PlotArea($layout, [$series]);

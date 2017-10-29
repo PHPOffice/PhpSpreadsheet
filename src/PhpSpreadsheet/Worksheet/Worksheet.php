@@ -1,10 +1,28 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use ArrayObject;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
+use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Collection\CellsFactory;
+use PhpOffice\PhpSpreadsheet\Comment;
+use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\ReferenceHelper;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Shared;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 
 class Worksheet implements IComparable
 {
@@ -42,35 +60,35 @@ class Worksheet implements IComparable
     /**
      * Collection of row dimensions.
      *
-     * @var Worksheet\RowDimension[]
+     * @var RowDimension[]
      */
     private $rowDimensions = [];
 
     /**
      * Default row dimension.
      *
-     * @var Worksheet\RowDimension
+     * @var RowDimension
      */
     private $defaultRowDimension;
 
     /**
      * Collection of column dimensions.
      *
-     * @var Worksheet\ColumnDimension[]
+     * @var ColumnDimension[]
      */
     private $columnDimensions = [];
 
     /**
      * Default column dimension.
      *
-     * @var Worksheet\ColumnDimension
+     * @var ColumnDimension
      */
     private $defaultColumnDimension;
 
     /**
      * Collection of drawings.
      *
-     * @var Worksheet\BaseDrawing[]
+     * @var BaseDrawing[]
      */
     private $drawingCollection;
 
@@ -98,35 +116,35 @@ class Worksheet implements IComparable
     /**
      * Page setup.
      *
-     * @var Worksheet\PageSetup
+     * @var PageSetup
      */
     private $pageSetup;
 
     /**
      * Page margins.
      *
-     * @var Worksheet\PageMargins
+     * @var PageMargins
      */
     private $pageMargins;
 
     /**
      * Page header/footer.
      *
-     * @var Worksheet\HeaderFooter
+     * @var HeaderFooter
      */
     private $headerFooter;
 
     /**
      * Sheet view.
      *
-     * @var Worksheet\SheetView
+     * @var SheetView
      */
     private $sheetView;
 
     /**
      * Protection.
      *
-     * @var Worksheet\Protection
+     * @var Protection
      */
     private $protection;
 
@@ -175,7 +193,7 @@ class Worksheet implements IComparable
     /**
      * Autofilter Range and selection.
      *
-     * @var Worksheet\AutoFilter
+     * @var AutoFilter
      */
     private $autoFilter;
 
@@ -280,7 +298,7 @@ class Worksheet implements IComparable
     /**
      * Tab color.
      *
-     * @var Style\Color
+     * @var Color
      */
     private $tabColor;
 
@@ -322,24 +340,24 @@ class Worksheet implements IComparable
 
         $this->cellCollection = CellsFactory::getInstance($this);
         // Set page setup
-        $this->pageSetup = new Worksheet\PageSetup();
+        $this->pageSetup = new PageSetup();
         // Set page margins
-        $this->pageMargins = new Worksheet\PageMargins();
+        $this->pageMargins = new PageMargins();
         // Set page header/footer
-        $this->headerFooter = new Worksheet\HeaderFooter();
+        $this->headerFooter = new HeaderFooter();
         // Set sheet view
-        $this->sheetView = new Worksheet\SheetView();
+        $this->sheetView = new SheetView();
         // Drawing collection
         $this->drawingCollection = new \ArrayObject();
         // Chart collection
         $this->chartCollection = new \ArrayObject();
         // Protection
-        $this->protection = new Worksheet\Protection();
+        $this->protection = new Protection();
         // Default row dimension
-        $this->defaultRowDimension = new Worksheet\RowDimension(null);
+        $this->defaultRowDimension = new RowDimension(null);
         // Default column dimension
-        $this->defaultColumnDimension = new Worksheet\ColumnDimension(null);
-        $this->autoFilter = new Worksheet\AutoFilter(null, $this);
+        $this->defaultColumnDimension = new ColumnDimension(null);
+        $this->autoFilter = new AutoFilter(null, $this);
     }
 
     /**
@@ -463,7 +481,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of row dimensions.
      *
-     * @return Worksheet\RowDimension[]
+     * @return RowDimension[]
      */
     public function getRowDimensions()
     {
@@ -473,7 +491,7 @@ class Worksheet implements IComparable
     /**
      * Get default row dimension.
      *
-     * @return Worksheet\RowDimension
+     * @return RowDimension
      */
     public function getDefaultRowDimension()
     {
@@ -483,7 +501,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of column dimensions.
      *
-     * @return Worksheet\ColumnDimension[]
+     * @return ColumnDimension[]
      */
     public function getColumnDimensions()
     {
@@ -493,7 +511,7 @@ class Worksheet implements IComparable
     /**
      * Get default column dimension.
      *
-     * @return Worksheet\ColumnDimension
+     * @return ColumnDimension
      */
     public function getDefaultColumnDimension()
     {
@@ -503,7 +521,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of drawings.
      *
-     * @return Worksheet\BaseDrawing[]
+     * @return BaseDrawing[]
      */
     public function getDrawingCollection()
     {
@@ -725,7 +743,7 @@ class Worksheet implements IComparable
                     if (!$isMerged || $isMergedButProceed) {
                         // Calculated value
                         // To formatted string
-                        $cellValue = Style\NumberFormat::toFormattedString(
+                        $cellValue = NumberFormat::toFormattedString(
                             $cell->getCalculatedValue(),
                             $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode()
                         );
@@ -898,7 +916,7 @@ class Worksheet implements IComparable
     /**
      * Get page setup.
      *
-     * @return Worksheet\PageSetup
+     * @return PageSetup
      */
     public function getPageSetup()
     {
@@ -908,11 +926,11 @@ class Worksheet implements IComparable
     /**
      * Set page setup.
      *
-     * @param Worksheet\PageSetup $pValue
+     * @param PageSetup $pValue
      *
      * @return Worksheet
      */
-    public function setPageSetup(Worksheet\PageSetup $pValue)
+    public function setPageSetup(PageSetup $pValue)
     {
         $this->pageSetup = $pValue;
 
@@ -922,7 +940,7 @@ class Worksheet implements IComparable
     /**
      * Get page margins.
      *
-     * @return Worksheet\PageMargins
+     * @return PageMargins
      */
     public function getPageMargins()
     {
@@ -932,11 +950,11 @@ class Worksheet implements IComparable
     /**
      * Set page margins.
      *
-     * @param Worksheet\PageMargins $pValue
+     * @param PageMargins $pValue
      *
      * @return Worksheet
      */
-    public function setPageMargins(Worksheet\PageMargins $pValue)
+    public function setPageMargins(PageMargins $pValue)
     {
         $this->pageMargins = $pValue;
 
@@ -946,7 +964,7 @@ class Worksheet implements IComparable
     /**
      * Get page header/footer.
      *
-     * @return Worksheet\HeaderFooter
+     * @return HeaderFooter
      */
     public function getHeaderFooter()
     {
@@ -956,11 +974,11 @@ class Worksheet implements IComparable
     /**
      * Set page header/footer.
      *
-     * @param Worksheet\HeaderFooter $pValue
+     * @param HeaderFooter $pValue
      *
      * @return Worksheet
      */
-    public function setHeaderFooter(Worksheet\HeaderFooter $pValue)
+    public function setHeaderFooter(HeaderFooter $pValue)
     {
         $this->headerFooter = $pValue;
 
@@ -970,7 +988,7 @@ class Worksheet implements IComparable
     /**
      * Get sheet view.
      *
-     * @return Worksheet\SheetView
+     * @return SheetView
      */
     public function getSheetView()
     {
@@ -980,11 +998,11 @@ class Worksheet implements IComparable
     /**
      * Set sheet view.
      *
-     * @param Worksheet\SheetView $pValue
+     * @param SheetView $pValue
      *
      * @return Worksheet
      */
-    public function setSheetView(Worksheet\SheetView $pValue)
+    public function setSheetView(SheetView $pValue)
     {
         $this->sheetView = $pValue;
 
@@ -994,7 +1012,7 @@ class Worksheet implements IComparable
     /**
      * Get Protection.
      *
-     * @return Worksheet\Protection
+     * @return Protection
      */
     public function getProtection()
     {
@@ -1004,11 +1022,11 @@ class Worksheet implements IComparable
     /**
      * Set Protection.
      *
-     * @param Worksheet\Protection $pValue
+     * @param Protection $pValue
      *
      * @return Worksheet
      */
-    public function setProtection(Worksheet\Protection $pValue)
+    public function setProtection(Protection $pValue)
     {
         $this->protection = $pValue;
         $this->dirty = true;
@@ -1122,7 +1140,7 @@ class Worksheet implements IComparable
      *
      * @param string $pCoordinate Coordinate of the cell, eg: 'A1'
      * @param mixed $pValue Value of the cell
-     * @param string $pDataType Explicit data type, see Cell\DataType::TYPE_*
+     * @param string $pDataType Explicit data type, see DataType::TYPE_*
      *
      * @return Worksheet
      */
@@ -1140,7 +1158,7 @@ class Worksheet implements IComparable
      * @param int $pColumn Numeric column coordinate of the cell (A = 0)
      * @param int $pRow Numeric row coordinate of the cell
      * @param mixed $pValue Value of the cell
-     * @param string $pDataType Explicit data type, see Cell\DataType::TYPE_*
+     * @param string $pDataType Explicit data type, see DataType::TYPE_*
      *
      * @return Worksheet
      */
@@ -1232,7 +1250,7 @@ class Worksheet implements IComparable
      */
     private function createNewCell($pCoordinate)
     {
-        $cell = new Cell(null, Cell\DataType::TYPE_NULL, $this);
+        $cell = new Cell(null, DataType::TYPE_NULL, $this);
         $this->cellCollection->add($pCoordinate, $cell);
         $this->cellCollectionIsSorted = false;
 
@@ -1327,7 +1345,7 @@ class Worksheet implements IComparable
      * @param int $pRow Numeric index of the row
      * @param mixed $create
      *
-     * @return Worksheet\RowDimension
+     * @return RowDimension
      */
     public function getRowDimension($pRow, $create = true)
     {
@@ -1339,7 +1357,7 @@ class Worksheet implements IComparable
             if (!$create) {
                 return null;
             }
-            $this->rowDimensions[$pRow] = new Worksheet\RowDimension($pRow);
+            $this->rowDimensions[$pRow] = new RowDimension($pRow);
 
             $this->cachedHighestRow = max($this->cachedHighestRow, $pRow);
         }
@@ -1353,7 +1371,7 @@ class Worksheet implements IComparable
      * @param string $pColumn String index of the column eg: 'A'
      * @param mixed $create
      *
-     * @return Worksheet\ColumnDimension
+     * @return ColumnDimension
      */
     public function getColumnDimension($pColumn, $create = true)
     {
@@ -1365,7 +1383,7 @@ class Worksheet implements IComparable
             if (!$create) {
                 return null;
             }
-            $this->columnDimensions[$pColumn] = new Worksheet\ColumnDimension($pColumn);
+            $this->columnDimensions[$pColumn] = new ColumnDimension($pColumn);
 
             if (Cell::columnIndexFromString($this->cachedHighestColumn) < Cell::columnIndexFromString($pColumn)) {
                 $this->cachedHighestColumn = $pColumn;
@@ -1380,7 +1398,7 @@ class Worksheet implements IComparable
      *
      * @param int $pColumn Numeric column coordinate of the cell (A = 0)
      *
-     * @return Worksheet\ColumnDimension
+     * @return ColumnDimension
      */
     public function getColumnDimensionByColumn($pColumn)
     {
@@ -1422,7 +1440,7 @@ class Worksheet implements IComparable
      *
      * @param string $pCoordinate eg: 'A1'
      *
-     * @return Style\Conditional[]
+     * @return Conditional[]
      */
     public function getConditionalStyles($pCoordinate)
     {
@@ -1478,7 +1496,7 @@ class Worksheet implements IComparable
      * Set conditional styles.
      *
      * @param string $pCoordinate eg: 'A1'
-     * @param $pValue Style\Conditional[]
+     * @param $pValue Conditional[]
      *
      * @return Worksheet
      */
@@ -1562,7 +1580,7 @@ class Worksheet implements IComparable
      *
      * Please note that this will overwrite existing cell styles for cells in range!
      *
-     * @param Style\Conditional[] $pCellStyle Cell style to duplicate
+     * @param Conditional[] $pCellStyle Cell style to duplicate
      * @param string $pRange Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
      *
      * @throws Exception
@@ -1572,7 +1590,7 @@ class Worksheet implements IComparable
     public function duplicateConditionalStyle(array $pCellStyle, $pRange = '')
     {
         foreach ($pCellStyle as $cellStyle) {
-            if (!($cellStyle instanceof Style\Conditional)) {
+            if (!($cellStyle instanceof Conditional)) {
                 throw new Exception('Style is not a conditional style');
             }
         }
@@ -1676,14 +1694,14 @@ class Worksheet implements IComparable
             // create upper left cell if it does not already exist
             $upperLeft = $aReferences[0];
             if (!$this->cellExists($upperLeft)) {
-                $this->getCell($upperLeft)->setValueExplicit(null, Cell\DataType::TYPE_NULL);
+                $this->getCell($upperLeft)->setValueExplicit(null, DataType::TYPE_NULL);
             }
 
             // Blank out the rest of the cells in the range (if they exist)
             $count = count($aReferences);
             for ($i = 1; $i < $count; ++$i) {
                 if ($this->cellExists($aReferences[$i])) {
-                    $this->getCell($aReferences[$i])->setValueExplicit(null, Cell\DataType::TYPE_NULL);
+                    $this->getCell($aReferences[$i])->setValueExplicit(null, DataType::TYPE_NULL);
                 }
             }
         } else {
@@ -1882,7 +1900,7 @@ class Worksheet implements IComparable
     /**
      * Get Autofilter.
      *
-     * @return Worksheet\AutoFilter
+     * @return AutoFilter
      */
     public function getAutoFilter()
     {
@@ -1904,7 +1922,7 @@ class Worksheet implements IComparable
         $pValue = strtoupper($pValue);
         if (is_string($pValue)) {
             $this->autoFilter->setRange($pValue);
-        } elseif (is_object($pValue) && ($pValue instanceof Worksheet\AutoFilter)) {
+        } elseif (is_object($pValue) && ($pValue instanceof AutoFilter)) {
             $this->autoFilter = $pValue;
         }
 
@@ -2538,9 +2556,9 @@ class Worksheet implements IComparable
 
                         if ($formatData) {
                             $style = $this->parent->getCellXfByIndex($cell->getXfIndex());
-                            $returnValue[$rRef][$cRef] = Style\NumberFormat::toFormattedString(
+                            $returnValue[$rRef][$cRef] = NumberFormat::toFormattedString(
                                 $returnValue[$rRef][$cRef],
-                                ($style && $style->getNumberFormat()) ? $style->getNumberFormat()->getFormatCode() : Style\NumberFormat::FORMAT_GENERAL
+                                ($style && $style->getNumberFormat()) ? $style->getNumberFormat()->getFormatCode() : NumberFormat::FORMAT_GENERAL
                             );
                         }
                     } else {
@@ -2614,11 +2632,11 @@ class Worksheet implements IComparable
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow The row number at which to stop iterating
      *
-     * @return Worksheet\RowIterator
+     * @return RowIterator
      */
     public function getRowIterator($startRow = 1, $endRow = null)
     {
-        return new Worksheet\RowIterator($this, $startRow, $endRow);
+        return new RowIterator($this, $startRow, $endRow);
     }
 
     /**
@@ -2627,11 +2645,11 @@ class Worksheet implements IComparable
      * @param string $startColumn The column address at which to start iterating
      * @param string $endColumn The column address at which to stop iterating
      *
-     * @return Worksheet\ColumnIterator
+     * @return ColumnIterator
      */
     public function getColumnIterator($startColumn = 'A', $endColumn = null)
     {
-        return new Worksheet\ColumnIterator($this, $startColumn, $endColumn);
+        return new ColumnIterator($this, $startColumn, $endColumn);
     }
 
     /**
@@ -2724,7 +2742,7 @@ class Worksheet implements IComparable
         }
 
         // else create hyperlink
-        $this->hyperlinkCollection[$pCellCoordinate] = new Cell\Hyperlink();
+        $this->hyperlinkCollection[$pCellCoordinate] = new Hyperlink();
 
         return $this->hyperlinkCollection[$pCellCoordinate];
     }
@@ -2733,11 +2751,11 @@ class Worksheet implements IComparable
      * Set hyperlink.
      *
      * @param string $pCellCoordinate Cell coordinate to insert hyperlink, eg: 'A1'
-     * @param null|Cell\Hyperlink $pHyperlink
+     * @param null|Hyperlink $pHyperlink
      *
      * @return Worksheet
      */
-    public function setHyperlink($pCellCoordinate, Cell\Hyperlink $pHyperlink = null)
+    public function setHyperlink($pCellCoordinate, Hyperlink $pHyperlink = null)
     {
         if ($pHyperlink === null) {
             unset($this->hyperlinkCollection[$pCellCoordinate]);
@@ -2763,7 +2781,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of hyperlinks.
      *
-     * @return Cell\Hyperlink[]
+     * @return Hyperlink[]
      */
     public function getHyperlinkCollection()
     {
@@ -2783,7 +2801,7 @@ class Worksheet implements IComparable
         }
 
         // else create data validation
-        $this->dataValidationCollection[$pCellCoordinate] = new Cell\DataValidation();
+        $this->dataValidationCollection[$pCellCoordinate] = new DataValidation();
 
         return $this->dataValidationCollection[$pCellCoordinate];
     }
@@ -2792,11 +2810,11 @@ class Worksheet implements IComparable
      * Set data validation.
      *
      * @param string $pCellCoordinate Cell coordinate to insert data validation, eg: 'A1'
-     * @param null|Cell\DataValidation $pDataValidation
+     * @param null|DataValidation $pDataValidation
      *
      * @return Worksheet
      */
-    public function setDataValidation($pCellCoordinate, Cell\DataValidation $pDataValidation = null)
+    public function setDataValidation($pCellCoordinate, DataValidation $pDataValidation = null)
     {
         if ($pDataValidation === null) {
             unset($this->dataValidationCollection[$pCellCoordinate]);
@@ -2822,7 +2840,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of data validations.
      *
-     * @return Cell\DataValidation[]
+     * @return DataValidation[]
      */
     public function getDataValidationCollection()
     {
@@ -2869,12 +2887,12 @@ class Worksheet implements IComparable
     /**
      * Get tab color.
      *
-     * @return Style\Color
+     * @return Color
      */
     public function getTabColor()
     {
         if ($this->tabColor === null) {
-            $this->tabColor = new Style\Color();
+            $this->tabColor = new Color();
         }
 
         return $this->tabColor;
@@ -2937,7 +2955,7 @@ class Worksheet implements IComparable
                         }
                     }
                     $this->drawingCollection = $newCollection;
-                } elseif (($key == 'autoFilter') && ($this->autoFilter instanceof Worksheet\AutoFilter)) {
+                } elseif (($key == 'autoFilter') && ($this->autoFilter instanceof AutoFilter)) {
                     $newAutoFilter = clone $this->autoFilter;
                     $this->autoFilter = $newAutoFilter;
                     $this->autoFilter->setParent($this);
@@ -2958,7 +2976,7 @@ class Worksheet implements IComparable
      *
      * @throws Exception
      *
-     * @return objWorksheet
+     * @return Worksheet
      */
     public function setCodeName($pValue, $validate = true)
     {

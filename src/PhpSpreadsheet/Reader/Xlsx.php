@@ -2,12 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Chart;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing;
@@ -15,10 +15,16 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\Font;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Borders;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
+use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use XMLReader;
 use ZipArchive;
 
@@ -969,7 +975,7 @@ class Xlsx extends BaseReader implements IReader
                             if (!$this->readDataOnly && $xmlSheet && $xmlSheet->conditionalFormatting) {
                                 foreach ($xmlSheet->conditionalFormatting as $conditional) {
                                     foreach ($conditional->cfRule as $cfRule) {
-                                        if (((string) $cfRule['type'] == Style\Conditional::CONDITION_NONE || (string) $cfRule['type'] == Style\Conditional::CONDITION_CELLIS || (string) $cfRule['type'] == Style\Conditional::CONDITION_CONTAINSTEXT || (string) $cfRule['type'] == Style\Conditional::CONDITION_EXPRESSION) && isset($dxfs[(int) ($cfRule['dxfId'])])) {
+                                        if (((string) $cfRule['type'] == Conditional::CONDITION_NONE || (string) $cfRule['type'] == Conditional::CONDITION_CELLIS || (string) $cfRule['type'] == Conditional::CONDITION_CONTAINSTEXT || (string) $cfRule['type'] == Conditional::CONDITION_EXPRESSION) && isset($dxfs[(int) ($cfRule['dxfId'])])) {
                                             $conditionals[(string) $conditional['sqref']][(int) ($cfRule['priority'])] = $cfRule;
                                         }
                                     }
@@ -979,7 +985,7 @@ class Xlsx extends BaseReader implements IReader
                                     ksort($cfRules);
                                     $conditionalStyles = [];
                                     foreach ($cfRules as $cfRule) {
-                                        $objConditional = new Style\Conditional();
+                                        $objConditional = new Conditional();
                                         $objConditional->setConditionType((string) $cfRule['type']);
                                         $objConditional->setOperatorType((string) $cfRule['operator']);
 
@@ -1475,7 +1481,7 @@ class Xlsx extends BaseReader implements IReader
                                                 $imageData = $imageData->attributes('urn:schemas-microsoft-com:office:office');
                                                 $style = self::toCSSArray((string) $shape['style']);
 
-                                                $hfImages[(string) $shape['id']] = new Worksheet\HeaderFooterDrawing();
+                                                $hfImages[(string) $shape['id']] = new HeaderFooterDrawing();
                                                 if (isset($imageData['title'])) {
                                                     $hfImages[(string) $shape['id']]->setName((string) $imageData['title']);
                                                 }
@@ -1555,7 +1561,7 @@ class Xlsx extends BaseReader implements IReader
                                                     $xfrm = $oneCellAnchor->pic->spPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->xfrm;
                                                     /** @var \SimpleXMLElement $outerShdw */
                                                     $outerShdw = $oneCellAnchor->pic->spPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->effectLst->outerShdw;
-                                                    $objDrawing = new Worksheet\Drawing();
+                                                    $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
                                                     $objDrawing->setPath(
@@ -1602,7 +1608,7 @@ class Xlsx extends BaseReader implements IReader
                                                     $blip = $twoCellAnchor->pic->blipFill->children('http://schemas.openxmlformats.org/drawingml/2006/main')->blip;
                                                     $xfrm = $twoCellAnchor->pic->spPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->xfrm;
                                                     $outerShdw = $twoCellAnchor->pic->spPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->effectLst->outerShdw;
-                                                    $objDrawing = new Worksheet\Drawing();
+                                                    $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
                                                     $objDrawing->setPath(
@@ -1869,13 +1875,13 @@ class Xlsx extends BaseReader implements IReader
         if (isset($color['rgb'])) {
             return (string) $color['rgb'];
         } elseif (isset($color['indexed'])) {
-            return Style\Color::indexedColor($color['indexed'] - 7, $background)->getARGB();
+            return Color::indexedColor($color['indexed'] - 7, $background)->getARGB();
         } elseif (isset($color['theme'])) {
             if (self::$theme !== null) {
                 $returnColour = self::$theme->getColourByIndex((int) $color['theme']);
                 if (isset($color['tint'])) {
                     $tintAdjust = (float) $color['tint'];
-                    $returnColour = Style\Color::changeBrightness($returnColour, $tintAdjust);
+                    $returnColour = Color::changeBrightness($returnColour, $tintAdjust);
                 }
 
                 return 'FF' . $returnColour;
@@ -1913,7 +1919,7 @@ class Xlsx extends BaseReader implements IReader
             $docStyle->getFont()->getColor()->setARGB(self::readColor($style->font->color));
 
             if (isset($style->font->u) && !isset($style->font->u['val'])) {
-                $docStyle->getFont()->setUnderline(Style\Font::UNDERLINE_SINGLE);
+                $docStyle->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
             } elseif (isset($style->font->u, $style->font->u['val'])) {
                 $docStyle->getFont()->setUnderline((string) $style->font->u['val']);
             }
@@ -1960,13 +1966,13 @@ class Xlsx extends BaseReader implements IReader
             $diagonalUp = self::boolean((string) $style->border['diagonalUp']);
             $diagonalDown = self::boolean((string) $style->border['diagonalDown']);
             if (!$diagonalUp && !$diagonalDown) {
-                $docStyle->getBorders()->setDiagonalDirection(Style\Borders::DIAGONAL_NONE);
+                $docStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_NONE);
             } elseif ($diagonalUp && !$diagonalDown) {
-                $docStyle->getBorders()->setDiagonalDirection(Style\Borders::DIAGONAL_UP);
+                $docStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_UP);
             } elseif (!$diagonalUp && $diagonalDown) {
-                $docStyle->getBorders()->setDiagonalDirection(Style\Borders::DIAGONAL_DOWN);
+                $docStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_DOWN);
             } else {
-                $docStyle->getBorders()->setDiagonalDirection(Style\Borders::DIAGONAL_BOTH);
+                $docStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_BOTH);
             }
             self::readBorder($docStyle->getBorders()->getLeft(), $style->border->left);
             self::readBorder($docStyle->getBorders()->getRight(), $style->border->right);
@@ -1998,17 +2004,17 @@ class Xlsx extends BaseReader implements IReader
         if (isset($style->protection)) {
             if (isset($style->protection['locked'])) {
                 if (self::boolean((string) $style->protection['locked'])) {
-                    $docStyle->getProtection()->setLocked(Style\Protection::PROTECTION_PROTECTED);
+                    $docStyle->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
                 } else {
-                    $docStyle->getProtection()->setLocked(Style\Protection::PROTECTION_UNPROTECTED);
+                    $docStyle->getProtection()->setLocked(Protection::PROTECTION_UNPROTECTED);
                 }
             }
 
             if (isset($style->protection['hidden'])) {
                 if (self::boolean((string) $style->protection['hidden'])) {
-                    $docStyle->getProtection()->setHidden(Style\Protection::PROTECTION_PROTECTED);
+                    $docStyle->getProtection()->setHidden(Protection::PROTECTION_PROTECTED);
                 } else {
-                    $docStyle->getProtection()->setHidden(Style\Protection::PROTECTION_UNPROTECTED);
+                    $docStyle->getProtection()->setHidden(Protection::PROTECTION_UNPROTECTED);
                 }
             }
         }
@@ -2020,10 +2026,10 @@ class Xlsx extends BaseReader implements IReader
     }
 
     /**
-     * @param Style\Border $docBorder
+     * @param Border $docBorder
      * @param \SimpleXMLElement $eleBorder
      */
-    private static function readBorder($docBorder, $eleBorder)
+    private static function readBorder(Border $docBorder, $eleBorder)
     {
         if (isset($eleBorder['style'])) {
             $docBorder->setBorderStyle((string) $eleBorder['style']);
@@ -2059,7 +2065,7 @@ class Xlsx extends BaseReader implements IReader
                             $objText->getFont()->setSize((string) $run->rPr->sz['val']);
                         }
                         if (isset($run->rPr->color)) {
-                            $objText->getFont()->setColor(new Style\Color(self::readColor($run->rPr->color)));
+                            $objText->getFont()->setColor(new Color(self::readColor($run->rPr->color)));
                         }
                         if ((isset($run->rPr->b['val']) && self::boolean((string) $run->rPr->b['val'])) ||
                             (isset($run->rPr->b) && !isset($run->rPr->b['val']))) {
@@ -2079,7 +2085,7 @@ class Xlsx extends BaseReader implements IReader
                             }
                         }
                         if (isset($run->rPr->u) && !isset($run->rPr->u['val'])) {
-                            $objText->getFont()->setUnderline(Style\Font::UNDERLINE_SINGLE);
+                            $objText->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
                         } elseif (isset($run->rPr->u, $run->rPr->u['val'])) {
                             $objText->getFont()->setUnderline((string) $run->rPr->u['val']);
                         }
