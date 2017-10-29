@@ -126,9 +126,6 @@ class Slk extends BaseReader implements IReader
         $worksheetInfo[0]['totalRows'] = 0;
         $worksheetInfo[0]['totalColumns'] = 0;
 
-        // Loop through file
-        $rowData = [];
-
         // loop through one row (line) at a time in the file
         $rowIndex = 0;
         while (($rowData = fgets($fileHandle)) !== false) {
@@ -221,7 +218,6 @@ class Slk extends BaseReader implements IReader
         $toFormats = ['-', ' '];
 
         // Loop through file
-        $rowData = [];
         $column = $row = '';
 
         // loop through one row (line) at a time in the file

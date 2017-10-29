@@ -22,7 +22,7 @@ class LayoutTest extends PHPUnit_Framework_TestCase
         $LayoutTargetValue = 'String';
 
         $testInstance = new Layout();
-        $setValue = $testInstance->setLayoutTarget($LayoutTargetValue);
+        $testInstance->setLayoutTarget($LayoutTargetValue);
 
         $result = $testInstance->getLayoutTarget();
         self::assertEquals($LayoutTargetValue, $result);

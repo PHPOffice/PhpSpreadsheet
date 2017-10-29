@@ -249,7 +249,7 @@ class Chart extends WriterPart
                         $objWriter->endElement();
                     }
 
-                    $this->writePlotGroup($plotGroup, $chartType, $objWriter, $catIsMultiLevelSeries, $valIsMultiLevelSeries, $plotGroupingType, $pSheet);
+                    $this->writePlotGroup($plotGroup, $chartType, $objWriter, $catIsMultiLevelSeries, $valIsMultiLevelSeries, $plotGroupingType);
                 }
             }
 
@@ -325,12 +325,12 @@ class Chart extends WriterPart
 
         if (($chartType !== DataSeries::TYPE_PIECHART) && ($chartType !== DataSeries::TYPE_PIECHART_3D) && ($chartType !== DataSeries::TYPE_DONUTCHART)) {
             if ($chartType === DataSeries::TYPE_BUBBLECHART) {
-                $this->writeValueAxis($objWriter, $plotArea, $xAxisLabel, $chartType, $id1, $id2, $catIsMultiLevelSeries, $xAxis, $yAxis, $majorGridlines, $minorGridlines);
+                $this->writeValueAxis($objWriter, $xAxisLabel, $chartType, $id1, $id2, $catIsMultiLevelSeries, $xAxis, $majorGridlines, $minorGridlines);
             } else {
-                $this->writeCategoryAxis($objWriter, $plotArea, $xAxisLabel, $chartType, $id1, $id2, $catIsMultiLevelSeries, $xAxis, $yAxis);
+                $this->writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $catIsMultiLevelSeries, $yAxis);
             }
 
-            $this->writeValueAxis($objWriter, $plotArea, $yAxisLabel, $chartType, $id1, $id2, $valIsMultiLevelSeries, $xAxis, $yAxis, $majorGridlines, $minorGridlines);
+            $this->writeValueAxis($objWriter, $yAxisLabel, $chartType, $id1, $id2, $valIsMultiLevelSeries, $xAxis, $majorGridlines, $minorGridlines);
         }
 
         $objWriter->endElement();
@@ -390,18 +390,15 @@ class Chart extends WriterPart
      * Write Category Axis.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param PlotArea $plotArea
      * @param Title $xAxisLabel
-     * @param string $groupType Chart type
      * @param string $id1
      * @param string $id2
      * @param bool $isMultiLevelSeries
-     * @param mixed $xAxis
      * @param mixed $yAxis
      *
      * @throws WriterException
      */
-    private function writeCategoryAxis($objWriter, PlotArea $plotArea, $xAxisLabel, $groupType, $id1, $id2, $isMultiLevelSeries, $xAxis, $yAxis)
+    private function writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $isMultiLevelSeries, $yAxis)
     {
         $objWriter->startElement('c:catAx');
 
@@ -513,20 +510,18 @@ class Chart extends WriterPart
      * Write Value Axis.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param PlotArea $plotArea
      * @param Title $yAxisLabel
      * @param string $groupType Chart type
      * @param string $id1
      * @param string $id2
      * @param bool $isMultiLevelSeries
      * @param mixed $xAxis
-     * @param mixed $yAxis
      * @param mixed $majorGridlines
      * @param mixed $minorGridlines
      *
      * @throws WriterException
      */
-    private function writeValueAxis($objWriter, PlotArea $plotArea, $yAxisLabel, $groupType, $id1, $id2, $isMultiLevelSeries, $xAxis, $yAxis, $majorGridlines, $minorGridlines)
+    private function writeValueAxis($objWriter, $yAxisLabel, $groupType, $id1, $id2, $isMultiLevelSeries, $xAxis, $majorGridlines, $minorGridlines)
     {
         $objWriter->startElement('c:valAx');
 
@@ -1037,11 +1032,10 @@ class Chart extends WriterPart
      * @param bool &$catIsMultiLevelSeries Is category a multi-series category
      * @param bool &$valIsMultiLevelSeries Is value set a multi-series set
      * @param string &$plotGroupingType Type of grouping for multi-series values
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet
      *
      * @throws WriterException
      */
-    private function writePlotGroup($plotGroup, $groupType, $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries, &$plotGroupingType, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet)
+    private function writePlotGroup($plotGroup, $groupType, $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries, &$plotGroupingType)
     {
         if ($plotGroup === null) {
             return;

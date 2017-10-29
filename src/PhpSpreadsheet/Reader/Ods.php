@@ -153,7 +153,7 @@ class Ods extends BaseReader implements IReader
         }
 
         $xml = new XMLReader();
-        $res = $xml->xml(
+        $xml->xml(
             $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
             Settings::getLibXmlLoaderOptions()

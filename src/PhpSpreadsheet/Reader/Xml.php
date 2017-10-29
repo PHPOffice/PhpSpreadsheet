@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\RichText;
@@ -327,9 +326,6 @@ class Xml extends BaseReader implements IReader
             Alignment::HORIZONTAL_JUSTIFY,
         ];
 
-        $timezoneObj = new DateTimeZone('Europe/London');
-        $GMT = new DateTimeZone('UTC');
-
         File::assertFile($pFilename);
         if (!$this->canRead($pFilename)) {
             throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
@@ -648,10 +644,6 @@ class Xml extends BaseReader implements IReader
                         $cellDataFormula = '';
                         if (isset($cell_ss['Formula'])) {
                             $cellDataFormula = $cell_ss['Formula'];
-                            // added this as a check for array formulas
-                            if (isset($cell_ss['ArrayRange'])) {
-                                $cellDataCSEFormula = $cell_ss['ArrayRange'];
-                            }
                             $hasCalculatedValue = true;
                         }
                         if (isset($cell->Data)) {
@@ -792,9 +784,6 @@ class Xml extends BaseReader implements IReader
                     }
 
                     if ($rowHasData) {
-                        if (isset($row_ss['StyleID'])) {
-                            $rowStyle = $row_ss['StyleID'];
-                        }
                         if (isset($row_ss['Height'])) {
                             $rowHeight = $row_ss['Height'];
                             $spreadsheet->getActiveSheet()->getRowDimension($rowID)->setRowHeight($rowHeight);

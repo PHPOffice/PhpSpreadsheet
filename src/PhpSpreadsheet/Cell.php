@@ -270,7 +270,6 @@ class Cell
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 }
-                $result = '#N/A';
 
                 throw new Calculation\Exception(
                     $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()

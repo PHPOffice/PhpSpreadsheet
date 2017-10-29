@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
@@ -194,9 +193,6 @@ class Gnumeric extends BaseReader implements IReader
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
         File::assertFile($pFilename);
-
-        $timezoneObj = new DateTimeZone('Europe/London');
-        $GMT = new DateTimeZone('UTC');
 
         $gFileData = $this->gzfileGetContents($pFilename);
 

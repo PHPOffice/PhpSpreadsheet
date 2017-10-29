@@ -220,7 +220,7 @@ class Xls extends BaseWriter implements IWriter
 
         $root = new Root(time(), time(), $arrRootData);
         // save the OLE file
-        $res = $root->save($pFilename);
+        $root->save($pFilename);
 
         Functions::setReturnDateType($saveDateReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);

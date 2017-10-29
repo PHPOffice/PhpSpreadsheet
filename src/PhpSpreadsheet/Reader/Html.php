@@ -484,7 +484,7 @@ class Html extends BaseReader implements IReader
                     case 'body':
                         $row = 1;
                         $column = 'A';
-                        $content = '';
+                        $cellContent = '';
                         $this->tableLevel = 0;
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
 

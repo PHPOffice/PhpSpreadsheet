@@ -15,14 +15,13 @@ class Drawing extends WriterPart
      * Write drawings to XML format.
      *
      * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
-     * @param int &$chartRef Chart ID
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      *
      * @throws WriterException
      *
      * @return string XML Output
      */
-    public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet, &$chartRef, $includeCharts = false)
+    public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;

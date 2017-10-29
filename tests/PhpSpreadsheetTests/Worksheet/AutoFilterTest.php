@@ -11,6 +11,9 @@ use PHPUnit_Framework_TestCase;
 class AutoFilterTest extends PHPUnit_Framework_TestCase
 {
     private $testInitialRange = 'H2:O256';
+    /**
+     * @var AutoFilter
+     */
     private $testAutoFilterObject;
     private $mockWorksheetObject;
     private $cellCollection;
@@ -99,7 +102,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     {
         $expectedResult = 'A1';
 
-        $result = $this->testAutoFilterObject->setRange($expectedResult);
+        $this->testAutoFilterObject->setRange($expectedResult);
     }
 
     public function testGetColumnsEmpty()
@@ -133,7 +136,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     {
         $invalidColumn = 'G';
 
-        $result = $this->testAutoFilterObject->getColumnOffset($invalidColumn);
+        $this->testAutoFilterObject->getColumnOffset($invalidColumn);
     }
 
     public function testSetColumnWithString()
@@ -160,7 +163,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     {
         $invalidColumn = 'A';
 
-        $result = $this->testAutoFilterObject->setColumn($invalidColumn);
+        $this->testAutoFilterObject->setColumn($invalidColumn);
     }
 
     public function testSetColumnWithColumnObject()
@@ -187,9 +190,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     public function testSetInvalidColumnWithObject()
     {
         $invalidColumn = 'E';
-        $columnObject = new AutoFilter\Column($invalidColumn);
-
-        $result = $this->testAutoFilterObject->setColumn($invalidColumn);
+        $this->testAutoFilterObject->setColumn($invalidColumn);
     }
 
     /**
@@ -198,9 +199,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     public function testSetColumnWithInvalidDataType()
     {
         $invalidColumn = 123.456;
-        $columnObject = new AutoFilter\Column($invalidColumn);
-
-        $result = $this->testAutoFilterObject->setColumn($invalidColumn);
+        $this->testAutoFilterObject->setColumn($invalidColumn);
     }
 
     public function testGetColumns()
@@ -269,8 +268,8 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     public function testGetColumnWithoutRangeSet()
     {
         //  Clear the range
-        $result = $this->testAutoFilterObject->setRange('');
-        $result = $this->testAutoFilterObject->getColumn('A');
+        $this->testAutoFilterObject->setRange('');
+        $this->testAutoFilterObject->getColumn('A');
     }
 
     public function testClearRangeWithExistingColumns()

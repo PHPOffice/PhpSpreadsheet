@@ -1303,8 +1303,6 @@ class Worksheet implements IComparable
         } elseif (strpos($pCoordinate, '$') !== false) {
             throw new Exception('Cell coordinate must not be absolute.');
         }
-        // Coordinates
-        $aCoordinates = Cell::coordinateFromString($pCoordinate);
 
         // Cell exists?
         return $this->cellCollection->has($pCoordinate);
@@ -1528,9 +1526,6 @@ class Worksheet implements IComparable
      */
     public function duplicateStyle(Style $pCellStyle, $pRange)
     {
-        // make sure we have a real style and not supervisor
-        $style = $pCellStyle->getIsSupervisor() ? $pCellStyle->getSharedComponent() : $pCellStyle;
-
         // Add the style to the workbook if necessary
         $workbook = $this->parent;
         if ($existingStyle = $this->parent->getCellXfByHashCode($pCellStyle->getHashCode())) {
@@ -1862,14 +1857,12 @@ class Worksheet implements IComparable
      * @param int $pRow1 Numeric row coordinate of the first cell
      * @param int $pColumn2 Numeric column coordinate of the last cell (A = 0)
      * @param int $pRow2 Numeric row coordinate of the last cell
-     * @param string $pPassword Password to unlock the protection
-     * @param bool $pAlreadyHashed If the password has already been hashed, set this to true
      *
      * @throws Exception
      *
      * @return Worksheet
      */
-    public function unprotectCellsByColumnAndRow($pColumn1, $pRow1, $pColumn2, $pRow2, $pPassword, $pAlreadyHashed = false)
+    public function unprotectCellsByColumnAndRow($pColumn1, $pRow1, $pColumn2, $pRow2)
     {
         $cellRange = Cell::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . Cell::stringFromColumnIndex($pColumn2) . $pRow2;
 
@@ -1908,7 +1901,7 @@ class Worksheet implements IComparable
      */
     public function setAutoFilter($pValue)
     {
-        $pRange = strtoupper($pValue);
+        $pValue = strtoupper($pValue);
         if (is_string($pValue)) {
             $this->autoFilter->setRange($pValue);
         } elseif (is_object($pValue) && ($pValue instanceof Worksheet\AutoFilter)) {

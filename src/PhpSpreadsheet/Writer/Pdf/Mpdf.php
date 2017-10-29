@@ -29,12 +29,10 @@ class Mpdf extends Pdf implements IWriter
             $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
                 == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
-            $printMargins = $this->spreadsheet->getSheet(0)->getPageMargins();
         } else {
             $orientation = ($this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation()
                 == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
-            $printMargins = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageMargins();
         }
         $this->setOrientation($orientation);
 

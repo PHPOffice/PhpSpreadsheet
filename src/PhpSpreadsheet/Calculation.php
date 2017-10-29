@@ -3512,23 +3512,23 @@ class Calculation
 
                         break;
                     case '+':            //    Addition
-                        $this->executeNumericBinaryOperation($cellID, $operand1, $operand2, $token, 'plusEquals', $stack);
+                        $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'plusEquals', $stack);
 
                         break;
                     case '-':            //    Subtraction
-                        $this->executeNumericBinaryOperation($cellID, $operand1, $operand2, $token, 'minusEquals', $stack);
+                        $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'minusEquals', $stack);
 
                         break;
                     case '*':            //    Multiplication
-                        $this->executeNumericBinaryOperation($cellID, $operand1, $operand2, $token, 'arrayTimesEquals', $stack);
+                        $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'arrayTimesEquals', $stack);
 
                         break;
                     case '/':            //    Division
-                        $this->executeNumericBinaryOperation($cellID, $operand1, $operand2, $token, 'arrayRightDivide', $stack);
+                        $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'arrayRightDivide', $stack);
 
                         break;
                     case '^':            //    Exponential
-                        $this->executeNumericBinaryOperation($cellID, $operand1, $operand2, $token, 'power', $stack);
+                        $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'power', $stack);
 
                         break;
                     case '&':            //    Concatenation
@@ -3606,7 +3606,7 @@ class Calculation
                     $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
                     $stack->push('Value', $result);
                 } else {
-                    $this->executeNumericBinaryOperation($cellID, $multiplier, $arg, '*', 'arrayTimesEquals', $stack);
+                    $this->executeNumericBinaryOperation($multiplier, $arg, '*', 'arrayTimesEquals', $stack);
                 }
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $token, $matches)) {
                 $cellRef = null;
@@ -3985,13 +3985,15 @@ class Calculation
     }
 
     /**
-     * @param string $matrixFunction
-     * @param null|string $cellID
      * @param mixed $operand1
      * @param mixed $operand2
      * @param mixed $operation
+     * @param string $matrixFunction
+     * @param mixed $stack
+     *
+     * @return bool
      */
-    private function executeNumericBinaryOperation($cellID, $operand1, $operand2, $operation, $matrixFunction, &$stack)
+    private function executeNumericBinaryOperation($operand1, $operand2, $operation, $matrixFunction, &$stack)
     {
         //    Validate the two operands
         if (!$this->validateBinaryOperand($operand1, $stack)) {

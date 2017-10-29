@@ -200,7 +200,7 @@ class Xlsx extends BaseReader implements IReader
                         $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id')];
 
                         $xml = new XMLReader();
-                        $res = $xml->xml(
+                        $xml->xml(
                             $this->securityScanFile(
                                 'zip://' . File::realpath($pFilename) . '#' . "$dir/$fileWorksheet"
                             ),

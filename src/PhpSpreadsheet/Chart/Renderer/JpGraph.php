@@ -191,7 +191,6 @@ class JpGraph implements IRenderer
         $legend = $this->chart->getLegend();
         if ($legend !== null) {
             $legendPosition = $legend->getPosition();
-            $legendOverlay = $legend->getOverlay();
             switch ($legendPosition) {
                 case 'r':
                     $this->graph->legend->SetPos(0.01, 0.5, 'right', 'center'); //    right
@@ -257,7 +256,7 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderPiePlotArea($doughnut = false)
+    private function renderPiePlotArea()
     {
         $this->graph = new \PieGraph(self::$width, self::$height);
 
@@ -608,7 +607,7 @@ class JpGraph implements IRenderer
 
     private function renderPieChart($groupCount, $dimensions = '2d', $doughnut = false, $multiplePlots = false)
     {
-        $this->renderPiePlotArea($doughnut);
+        $this->renderPiePlotArea();
 
         $iLimit = ($multiplePlots) ? $groupCount : 1;
         for ($groupID = 0; $groupID < $iLimit; ++$groupID) {

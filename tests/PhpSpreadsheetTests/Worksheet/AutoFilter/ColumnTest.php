@@ -77,7 +77,7 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     {
         $expectedResult = 'Unfiltered';
 
-        $result = $this->testAutoFilterColumnObject->setFilterType($expectedResult);
+        $this->testAutoFilterColumnObject->setFilterType($expectedResult);
     }
 
     public function testGetJoin()
@@ -102,7 +102,7 @@ class ColumnTest extends PHPUnit_Framework_TestCase
     {
         $expectedResult = 'Neither';
 
-        $result = $this->testAutoFilterColumnObject->setJoin($expectedResult);
+        $this->testAutoFilterColumnObject->setJoin($expectedResult);
     }
 
     public function testSetAttributes()

@@ -426,9 +426,6 @@ class Workbook extends WriterPart
             $objWriter->writeAttribute('name', '_xlnm.Print_Area');
             $objWriter->writeAttribute('localSheetId', $pSheetId);
 
-            // Setting string
-            $settingString = '';
-
             // Print area
             $printArea = Cell::splitRange($pSheet->getPageSetup()->getPrintArea());
 

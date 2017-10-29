@@ -604,7 +604,7 @@ class Html
         $dom = new DOMDocument();
         //    Load the HTML file into the DOM object
         //  Note the use of error suppression, because typically this will be an html fragment, so not fully valid markup
-        $loaded = @$dom->loadHTML($html);
+        @$dom->loadHTML($html);
 
         //    Discard excess white space
         $dom->preserveWhiteSpace = false;
