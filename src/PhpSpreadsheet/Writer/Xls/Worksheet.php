@@ -176,7 +176,7 @@ class Worksheet extends BIFFwriter
     /**
      * Sheet object.
      *
-     * @var Worksheet
+     * @var \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      */
     public $phpSheet;
 
@@ -214,16 +214,15 @@ class Worksheet extends BIFFwriter
     /**
      * Constructor.
      *
-     * @param int &$str_total Total number of strings
-     * @param int &$str_unique Total number of unique strings
+     * @param int $str_total Total number of strings
+     * @param int $str_unique Total number of unique strings
      * @param array &$str_table String Table
      * @param array &$colors Colour Table
-     * @param mixed $parser The formula parser created for the Workbook
+     * @param Parser $parser The formula parser created for the Workbook
      * @param bool $preCalculateFormulas Flag indicating whether formulas should be calculated or just written
-     * @param string $phpSheet The worksheet to write
-     * @param Worksheet $phpSheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet The worksheet to write
      */
-    public function __construct(&$str_total, &$str_unique, &$str_table, &$colors, $parser, $preCalculateFormulas, $phpSheet)
+    public function __construct(&$str_total, &$str_unique, &$str_table, &$colors, Parser $parser, $preCalculateFormulas, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();

@@ -14,7 +14,7 @@ class Drawing extends WriterPart
     /**
      * Write drawings to XML format.
      *
-     * @param Worksheet $pWorksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      *
      * @throws WriterException
@@ -271,7 +271,7 @@ class Drawing extends WriterPart
     /**
      * Write VML header/footer images to XML format.
      *
-     * @param Worksheet $pWorksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      *
      * @throws WriterException
      *

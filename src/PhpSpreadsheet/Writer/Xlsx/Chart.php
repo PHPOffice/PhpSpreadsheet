@@ -204,7 +204,7 @@ class Chart extends WriterPart
      * Write Chart Plot Area.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param Worksheet $pSheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pSheet
      * @param PlotArea $plotArea
      * @param Title $xAxisLabel
      * @param Title $yAxisLabel
@@ -394,11 +394,11 @@ class Chart extends WriterPart
      * @param string $id1
      * @param string $id2
      * @param bool $isMultiLevelSeries
-     * @param mixed $yAxis
+     * @param Axis $yAxis
      *
      * @throws WriterException
      */
-    private function writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $isMultiLevelSeries, $yAxis)
+    private function writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $isMultiLevelSeries, Axis $yAxis)
     {
         $objWriter->startElement('c:catAx');
 
@@ -515,13 +515,13 @@ class Chart extends WriterPart
      * @param string $id1
      * @param string $id2
      * @param bool $isMultiLevelSeries
-     * @param mixed $xAxis
-     * @param mixed $majorGridlines
-     * @param mixed $minorGridlines
+     * @param Axis $xAxis
+     * @param GridLines $majorGridlines
+     * @param GridLines $minorGridlines
      *
      * @throws WriterException
      */
-    private function writeValueAxis($objWriter, $yAxisLabel, $groupType, $id1, $id2, $isMultiLevelSeries, $xAxis, $majorGridlines, $minorGridlines)
+    private function writeValueAxis($objWriter, $yAxisLabel, $groupType, $id1, $id2, $isMultiLevelSeries, Axis $xAxis, GridLines $majorGridlines, GridLines $minorGridlines)
     {
         $objWriter->startElement('c:valAx');
 

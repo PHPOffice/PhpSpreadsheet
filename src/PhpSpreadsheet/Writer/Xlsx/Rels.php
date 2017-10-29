@@ -168,7 +168,7 @@ class Rels extends WriterPart
      *     rId1                 - Drawings
      *  rId_hyperlink_x     - Hyperlinks
      *
-     * @param Worksheet $pWorksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      * @param int $pWorksheetId
      * @param bool $includeCharts Flag indicating if we should write charts
      *
@@ -263,7 +263,7 @@ class Rels extends WriterPart
     /**
      * Write drawing relationships to XML format.
      *
-     * @param Worksheet $pWorksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      * @param int &$chartRef Chart ID
      * @param bool $includeCharts Flag indicating if we should write charts
      *
@@ -330,7 +330,7 @@ class Rels extends WriterPart
     /**
      * Write header/footer drawing relationships to XML format.
      *
-     * @param Worksheet $pWorksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      *
      * @throws WriterException
      *

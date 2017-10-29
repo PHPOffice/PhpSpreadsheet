@@ -6,7 +6,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
-use PhpOffice\PhpSpreadsheet\Style;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Cell
@@ -167,7 +168,7 @@ class Cell
      */
     public function getFormattedValue()
     {
-        return (string) Style\NumberFormat::toFormattedString(
+        return (string) NumberFormat::toFormattedString(
             $this->getCalculatedValue(),
             $this->getStyle()
                 ->getNumberFormat()->getFormatCode()

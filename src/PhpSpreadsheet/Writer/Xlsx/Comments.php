@@ -11,7 +11,7 @@ class Comments extends WriterPart
     /**
      * Write comments to XML format.
      *
-     * @param Worksheet $pWorksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
@@ -94,7 +94,7 @@ class Comments extends WriterPart
     /**
      * Write VML comments to XML format.
      *
-     * @param Worksheet $pWorksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *

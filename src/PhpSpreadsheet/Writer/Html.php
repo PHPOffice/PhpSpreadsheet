@@ -1164,7 +1164,7 @@ class Html extends BaseWriter implements IWriter
      * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      * @param array $pValues Array containing cells in a row
      * @param int $pRow Row number (0-based)
-     * @param mixed $cellType eg: 'td'
+     * @param string $cellType eg: 'td'
      *
      * @throws WriterException
      *

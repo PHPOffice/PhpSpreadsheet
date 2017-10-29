@@ -224,8 +224,8 @@ class Workbook extends BIFFwriter
      *
      * @param Style
      * @param bool Is it a style XF?
-     * @param mixed $style
-     * @param mixed $isStyleXf
+     * @param Style $style
+     * @param bool $isStyleXf
      *
      * @return int Index to XF record
      */
@@ -683,7 +683,7 @@ class Workbook extends BIFFwriter
      *
      * @param string $name The name in UTF-8
      * @param string $formulaData The binary formula data
-     * @param string $sheetIndex 1-based sheet index the defined name applies to. 0 = global
+     * @param int $sheetIndex 1-based sheet index the defined name applies to. 0 = global
      * @param bool $isBuiltIn Built-in name?
      *
      * @return string Complete binary record data

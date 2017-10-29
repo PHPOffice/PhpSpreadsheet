@@ -1343,7 +1343,7 @@ class Worksheet implements IComparable
      * Get row dimension at a specific row.
      *
      * @param int $pRow Numeric index of the row
-     * @param mixed $create
+     * @param bool $create
      *
      * @return RowDimension
      */
@@ -1369,7 +1369,7 @@ class Worksheet implements IComparable
      * Get column dimension at a specific column.
      *
      * @param string $pColumn String index of the column eg: 'A'
-     * @param mixed $create
+     * @param bool $create
      *
      * @return ColumnDimension
      */
@@ -1910,7 +1910,7 @@ class Worksheet implements IComparable
     /**
      * Set AutoFilter.
      *
-     * @param string|Worksheet\AutoFilter $pValue
+     * @param AutoFilter|string $pValue
      *            A simple string containing a Cell range like 'A1:E10' is permitted for backward compatibility
      *
      * @throws Exception
@@ -1919,7 +1919,6 @@ class Worksheet implements IComparable
      */
     public function setAutoFilter($pValue)
     {
-        $pValue = strtoupper($pValue);
         if (is_string($pValue)) {
             $this->autoFilter->setRange($pValue);
         } elseif (is_object($pValue) && ($pValue instanceof AutoFilter)) {
