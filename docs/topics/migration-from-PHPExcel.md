@@ -26,9 +26,9 @@ In addition to automated changes, a few things need to be migrated manually.
 
 ### Renamed readers and writers
 
-When using with `IOFactory::createReader()`, `IOFactory::createWriter()` 
-and `IOFactory::identify()`, the reader/writer short names are used. 
-Those were changed, along as their corresponding class, to remove ambiguity:
+When using `IOFactory::createReader()`, `IOFactory::createWriter()` and
+`IOFactory::identify()`, the reader/writer short names are used. Those were
+changed, along as their corresponding class, to remove ambiguity:
             
 Before           | After
 -----------------|---------
