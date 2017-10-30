@@ -779,6 +779,32 @@ Or you can instantiate directly the writer of your choice like so:
 $writer = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
 ```
 
+#### Custom implementation or configuration
+
+If you need a custom implementation, or custom configuration, of a supported
+PDF library. You can extends the PDF library, and the PDF writer like so:
+
+``` php
+class My_Custom_TCPDF extends TCPDF
+{
+	// ...
+}
+
+class My_Custom_TCPDF_Writer extends \PhpOffice\PhpSpreadsheet\Writer\Pdf\Tcpdf
+{
+	protected function createExternalWriterInstance($orientation, $unit, $paperSize)
+	{
+		$instance = new My_Custom_TCPDF($orientation, $unit, $paperSize);
+		
+		// more configuration of $instance
+		
+		return $instance;
+	}
+}
+
+\PhpOffice\PhpSpreadsheet\IOFactory::registerWriter('Pdf', MY_TCPDF_WRITER::class);
+```
+
 #### Writing a spreadsheet
 
 Once you have identified the Renderer that you wish to use for PDF
