@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Exception;
 
 class CellDataValidator
 {
@@ -57,7 +57,7 @@ class CellDataValidator
                 $match_formula = '=MATCH(' . $cell->getCoordinate() . ',' . $formula1 . ',0)';
 
                 try {
-                    $result = Calculation::getInstance(
+                    $result = Calculation\Calculation::getInstance(
                         $cell->getWorksheet()->getParent()
                     )->calculateFormula($match_formula, $cell->getCoordinate(), $cell);
 

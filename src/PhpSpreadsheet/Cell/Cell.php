@@ -421,7 +421,7 @@ class Cell
      */
     public function hasValidValue()
     {
-        return (new Cell\CellDataValidator())->isValid($this);
+        return (new CellDataValidator())->isValid($this);
     }
 
     /**
