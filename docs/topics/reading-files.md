@@ -575,7 +575,7 @@ these values during the load process within a Value Binder.
 
 A Value Binder is a class that implement the
 \PhpOffice\PhpSpreadsheet\Cell\IValueBinder interface. It must contain a
-bindValue() method that accepts a \PhpOffice\PhpSpreadsheet\Cell and a
+bindValue() method that accepts a `\PhpOffice\PhpSpreadsheet\Cell\Cell` and a
 value as arguments, and return a boolean true or false that indicates
 whether the workbook cell has been populated with the value or not. The
 Advanced Value Binder implements such a class: amongst other tests, it
@@ -593,7 +593,7 @@ loader logic when reading unformatted text files.
 
 ``` php
 /**  Tell PhpSpreadsheet that we want to use the Advanced Value Binder  **/
-\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+\PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.tsv';

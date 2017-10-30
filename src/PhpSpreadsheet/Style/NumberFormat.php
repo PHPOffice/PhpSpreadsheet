@@ -722,7 +722,6 @@ class NumberFormat extends Supervisor implements IComparable
                 }
                 if (preg_match('/\[\$(.*)\]/u', $format, $m)) {
                     //  Currency or Accounting
-                    $currencyFormat = $m[0];
                     $currencyCode = $m[1];
                     list($currencyCode) = explode('-', $currencyCode);
                     if ($currencyCode == '') {
@@ -732,9 +731,6 @@ class NumberFormat extends Supervisor implements IComparable
                 }
             }
         }
-
-        // Escape any escaped slashes to a single slash
-        $format = preg_replace('/\\\\/u', '\\', $format);
 
         // Additional formatting provided by callback function
         if ($callBack !== null) {

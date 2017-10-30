@@ -1,11 +1,12 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 require __DIR__ . '/../Header.php';
 
-Cell::setValueBinder(new Cell\AdvancedValueBinder());
+Cell::setValueBinder(new AdvancedValueBinder());
 
 $inputFileType = 'Csv';
 $inputFileName = __DIR__ . '/sampleData/example1.tsv';

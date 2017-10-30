@@ -19,7 +19,7 @@ spreadsheet file formats, like Excel and LibreOffice Calc.
 |HTML                                        |   ✓   |   ✓   |
 |SYLK                                        |   ✓   |       |
 |CSV                                         |   ✓   |   ✓   |
-|PDF (using either the tcPDF, DomPDF or mPDF libraries, which need to be installed separately)|       |   ✓   |
+|PDF (using either the TCPDF, Dompdf or mPDF libraries, which need to be installed separately)|       |   ✓   |
 
 # Getting started
 

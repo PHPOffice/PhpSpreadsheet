@@ -3,10 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use DateTime;
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PHPUnit_Framework_TestCase;
 
 class DefaultValueBinderTest extends PHPUnit_Framework_TestCase

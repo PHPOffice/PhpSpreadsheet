@@ -1,55 +1,59 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet\Style;
 
-class Style extends Style\Supervisor implements IComparable
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
+class Style extends Supervisor implements IComparable
 {
     /**
      * Font.
      *
-     * @var Style\Font
+     * @var Font
      */
     protected $font;
 
     /**
      * Fill.
      *
-     * @var Style\Fill
+     * @var Fill
      */
     protected $fill;
 
     /**
      * Borders.
      *
-     * @var Style\Borders
+     * @var Borders
      */
     protected $borders;
 
     /**
      * Alignment.
      *
-     * @var Style\Alignment
+     * @var Alignment
      */
     protected $alignment;
 
     /**
      * Number Format.
      *
-     * @var Style\NumberFormat
+     * @var NumberFormat
      */
     protected $numberFormat;
 
     /**
      * Conditional styles.
      *
-     * @var Style\Conditional[]
+     * @var Conditional[]
      */
     protected $conditionalStyles;
 
     /**
      * Protection.
      *
-     * @var Style\Protection
+     * @var Protection
      */
     protected $protection;
 
@@ -84,12 +88,12 @@ class Style extends Style\Supervisor implements IComparable
 
         // Initialise values
         $this->conditionalStyles = [];
-        $this->font = new Style\Font($isSupervisor, $isConditional);
-        $this->fill = new Style\Fill($isSupervisor, $isConditional);
-        $this->borders = new Style\Borders($isSupervisor, $isConditional);
-        $this->alignment = new Style\Alignment($isSupervisor, $isConditional);
-        $this->numberFormat = new Style\NumberFormat($isSupervisor, $isConditional);
-        $this->protection = new Style\Protection($isSupervisor, $isConditional);
+        $this->font = new Font($isSupervisor, $isConditional);
+        $this->fill = new Fill($isSupervisor, $isConditional);
+        $this->borders = new Borders($isSupervisor, $isConditional);
+        $this->alignment = new Alignment($isSupervisor, $isConditional);
+        $this->numberFormat = new NumberFormat($isSupervisor, $isConditional);
+        $this->protection = new Protection($isSupervisor, $isConditional);
 
         // bind parent if we are a supervisor
         if ($isSupervisor) {
@@ -154,7 +158,7 @@ class Style extends Style\Supervisor implements IComparable
      *                 'name'      => 'Arial',
      *                 'bold'      => true,
      *                 'italic'    => false,
-     *                 'underline' => \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE,
+     *                 'underline' => Font::UNDERLINE_DOUBLE,
      *                 'strikethrough'    => false,
      *                 'color'     => array(
      *                     'rgb' => '808080'
@@ -455,7 +459,7 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Get Fill.
      *
-     * @return Style\Fill
+     * @return Fill
      */
     public function getFill()
     {
@@ -465,7 +469,7 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Get Font.
      *
-     * @return Style\Font
+     * @return Font
      */
     public function getFont()
     {
@@ -475,11 +479,11 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Set font.
      *
-     * @param Style\Font $font
+     * @param Font $font
      *
      * @return Style
      */
-    public function setFont(Style\Font $font)
+    public function setFont(Font $font)
     {
         $this->font = $font;
 
@@ -489,7 +493,7 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Get Borders.
      *
-     * @return Style\Borders
+     * @return Borders
      */
     public function getBorders()
     {
@@ -499,7 +503,7 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Get Alignment.
      *
-     * @return Style\Alignment
+     * @return Alignment
      */
     public function getAlignment()
     {
@@ -509,7 +513,7 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Get Number Format.
      *
-     * @return Style\NumberFormat
+     * @return NumberFormat
      */
     public function getNumberFormat()
     {
@@ -519,7 +523,7 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Get Conditional Styles. Only used on supervisor.
      *
-     * @return Style\Conditional[]
+     * @return Conditional[]
      */
     public function getConditionalStyles()
     {
@@ -529,7 +533,7 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Set Conditional Styles. Only used on supervisor.
      *
-     * @param Style\Conditional[] $pValue Array of conditional styles
+     * @param Conditional[] $pValue Array of conditional styles
      *
      * @return Style
      */
@@ -543,7 +547,7 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Get Protection.
      *
-     * @return Style\Protection
+     * @return Protection
      */
     public function getProtection()
     {

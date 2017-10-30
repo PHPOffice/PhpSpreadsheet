@@ -2,11 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\NamedRange;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\CodePage;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\Escher;
@@ -16,16 +17,16 @@ use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use PhpOffice\PhpSpreadsheet\Shared\OLERead;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
-use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 // Original file header of ParseXL (used as the base for this class):
 // --------------------------------------------------------------------------------
@@ -1175,7 +1176,7 @@ class Xls extends BaseReader implements IReader
                     list($column, $row) = Cell::coordinateFromString($cell);
                     if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($column, $row, $this->phpSheet->getTitle())) {
                         $formula = $this->getFormulaFromStructure($this->sharedFormulas[$baseCell], $cell);
-                        $this->phpSheet->getCell($cell)->setValueExplicit('=' . $formula, Cell\DataType::TYPE_FORMULA);
+                        $this->phpSheet->getCell($cell)->setValueExplicit('=' . $formula, DataType::TYPE_FORMULA);
                     }
                 }
             }
@@ -3740,7 +3741,7 @@ class Xls extends BaseReader implements IReader
             }
 
             // add cell
-            $cell->setValueExplicit($numValue, Cell\DataType::TYPE_NUMERIC);
+            $cell->setValueExplicit($numValue, DataType::TYPE_NUMERIC);
         }
     }
 
@@ -3811,13 +3812,13 @@ class Xls extends BaseReader implements IReader
                 }
                 if ($this->readEmptyCells || trim($richText->getPlainText()) !== '') {
                     $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-                    $cell->setValueExplicit($richText, Cell\DataType::TYPE_STRING);
+                    $cell->setValueExplicit($richText, DataType::TYPE_STRING);
                     $emptyCell = false;
                 }
             } else {
                 if ($this->readEmptyCells || trim($this->sst[$index]['value']) !== '') {
                     $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-                    $cell->setValueExplicit($this->sst[$index]['value'], Cell\DataType::TYPE_STRING);
+                    $cell->setValueExplicit($this->sst[$index]['value'], DataType::TYPE_STRING);
                     $emptyCell = false;
                 }
             }
@@ -3875,7 +3876,7 @@ class Xls extends BaseReader implements IReader
                 }
 
                 // add cell value
-                $cell->setValueExplicit($numValue, Cell\DataType::TYPE_NUMERIC);
+                $cell->setValueExplicit($numValue, DataType::TYPE_NUMERIC);
             }
 
             $offset += 6;
@@ -3919,7 +3920,7 @@ class Xls extends BaseReader implements IReader
             }
 
             // add cell value
-            $cell->setValueExplicit($numValue, Cell\DataType::TYPE_NUMERIC);
+            $cell->setValueExplicit($numValue, DataType::TYPE_NUMERIC);
         }
     }
 
@@ -3986,7 +3987,7 @@ class Xls extends BaseReader implements IReader
             // offset: 6; size: 8; result of the formula
             if ((ord($recordData[6]) == 0) && (ord($recordData[12]) == 255) && (ord($recordData[13]) == 255)) {
                 // String formula. Result follows in appended STRING record
-                $dataType = Cell\DataType::TYPE_STRING;
+                $dataType = DataType::TYPE_STRING;
 
                 // read possible SHAREDFMLA record
                 $code = self::getUInt2d($this->data, $this->pos);
@@ -4000,23 +4001,23 @@ class Xls extends BaseReader implements IReader
                 && (ord($recordData[12]) == 255)
                 && (ord($recordData[13]) == 255)) {
                 // Boolean formula. Result is in +2; 0=false, 1=true
-                $dataType = Cell\DataType::TYPE_BOOL;
+                $dataType = DataType::TYPE_BOOL;
                 $value = (bool) ord($recordData[8]);
             } elseif ((ord($recordData[6]) == 2)
                 && (ord($recordData[12]) == 255)
                 && (ord($recordData[13]) == 255)) {
                 // Error formula. Error code is in +2
-                $dataType = Cell\DataType::TYPE_ERROR;
+                $dataType = DataType::TYPE_ERROR;
                 $value = Xls\ErrorCode::lookup(ord($recordData[8]));
             } elseif ((ord($recordData[6]) == 3)
                 && (ord($recordData[12]) == 255)
                 && (ord($recordData[13]) == 255)) {
                 // Formula result is a null string
-                $dataType = Cell\DataType::TYPE_NULL;
+                $dataType = DataType::TYPE_NULL;
                 $value = '';
             } else {
                 // forumla result is a number, first 14 bytes like _NUMBER record
-                $dataType = Cell\DataType::TYPE_NUMERIC;
+                $dataType = DataType::TYPE_NUMERIC;
                 $value = self::extractNumber(substr($recordData, 6, 8));
             }
 
@@ -4035,7 +4036,7 @@ class Xls extends BaseReader implements IReader
                         throw new Exception('Not BIFF8. Can only read BIFF8 formulas');
                     }
                     $formula = $this->getFormulaFromStructure($formulaStructure); // get formula in human language
-                    $cell->setValueExplicit('=' . $formula, Cell\DataType::TYPE_FORMULA);
+                    $cell->setValueExplicit('=' . $formula, DataType::TYPE_FORMULA);
                 } catch (PhpSpreadsheetException $e) {
                     $cell->setValueExplicit($value, $dataType);
                 }
@@ -4147,14 +4148,14 @@ class Xls extends BaseReader implements IReader
                     $value = (bool) $boolErr;
 
                     // add cell value
-                    $cell->setValueExplicit($value, Cell\DataType::TYPE_BOOL);
+                    $cell->setValueExplicit($value, DataType::TYPE_BOOL);
 
                     break;
                 case 1: // error type
                     $value = Xls\ErrorCode::lookup($boolErr);
 
                     // add cell value
-                    $cell->setValueExplicit($value, Cell\DataType::TYPE_ERROR);
+                    $cell->setValueExplicit($value, DataType::TYPE_ERROR);
 
                     break;
             }
@@ -4246,7 +4247,7 @@ class Xls extends BaseReader implements IReader
             }
             if ($this->readEmptyCells || trim($value) !== '') {
                 $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-                $cell->setValueExplicit($value, Cell\DataType::TYPE_STRING);
+                $cell->setValueExplicit($value, DataType::TYPE_STRING);
 
                 if (!$this->readDataOnly) {
                     // add cell style

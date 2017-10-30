@@ -2,13 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
-use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Row;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Comment;
@@ -166,17 +167,17 @@ class Content extends WriterPart
      * Write cells of the specified row.
      *
      * @param XMLWriter $objWriter
-     * @param Worksheet\Row $row
+     * @param Row $row
      *
      * @throws Exception
      */
-    private function writeCells(XMLWriter $objWriter, Worksheet\Row $row)
+    private function writeCells(XMLWriter $objWriter, Row $row)
     {
         $numberColsRepeated = self::NUMBER_COLS_REPEATED_MAX;
         $prevColumn = -1;
         $cells = $row->getCellIterator();
         while ($cells->valid()) {
-            /** @var Cell $cell */
+            /** @var \PhpOffice\PhpSpreadsheet\Cell\Cell $cell */
             $cell = $cells->current();
             $column = Cell::columnIndexFromString($cell->getColumn()) - 1;
 

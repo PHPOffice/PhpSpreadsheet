@@ -55,8 +55,8 @@ $conditional3->setConditionType(Conditional::CONDITION_CELLIS)
 $conditional3->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_GREEN);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('A1')->getConditionalStyles();
-array_push($conditionalStyles, $conditional1);
-array_push($conditionalStyles, $conditional3);
+$conditionalStyles[] = $conditional1;
+$conditionalStyles[] = $conditional3;
 $spreadsheet->getActiveSheet()->getStyle('A1')->setConditionalStyles($conditionalStyles);
 
 //	duplicate the conditional styles across a range of cells

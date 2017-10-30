@@ -2,10 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\Xls;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -174,7 +176,7 @@ class Worksheet extends BIFFwriter
     /**
      * Sheet object.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Worksheet
+     * @var \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      */
     public $phpSheet;
 
@@ -212,16 +214,15 @@ class Worksheet extends BIFFwriter
     /**
      * Constructor.
      *
-     * @param int &$str_total Total number of strings
-     * @param int &$str_unique Total number of unique strings
+     * @param int $str_total Total number of strings
+     * @param int $str_unique Total number of unique strings
      * @param array &$str_table String Table
      * @param array &$colors Colour Table
-     * @param mixed $parser The formula parser created for the Workbook
+     * @param Parser $parser The formula parser created for the Workbook
      * @param bool $preCalculateFormulas Flag indicating whether formulas should be calculated or just written
-     * @param string $phpSheet The worksheet to write
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $phpSheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet The worksheet to write
      */
-    public function __construct(&$str_total, &$str_unique, &$str_table, &$colors, $parser, $preCalculateFormulas, $phpSheet)
+    public function __construct(&$str_total, &$str_unique, &$str_table, &$colors, Parser $parser, $preCalculateFormulas, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();
@@ -412,7 +413,7 @@ class Worksheet extends BIFFwriter
                 $elements = $cVal->getRichTextElements();
                 foreach ($elements as $element) {
                     // FONT Index
-                    if ($element instanceof RichText\Run) {
+                    if ($element instanceof Run) {
                         $str_fontidx = $this->fontHashIndex[$element->getFont()->getHashCode()];
                     } else {
                         $str_fontidx = 0;
@@ -424,8 +425,8 @@ class Worksheet extends BIFFwriter
                 $this->writeRichTextString($row, $column, $cVal->getPlainText(), $xfIndex, $arrcRun);
             } else {
                 switch ($cell->getDatatype()) {
-                    case Cell\DataType::TYPE_STRING:
-                    case Cell\DataType::TYPE_NULL:
+                    case DataType::TYPE_STRING:
+                    case DataType::TYPE_NULL:
                         if ($cVal === '' || $cVal === null) {
                             $this->writeBlank($row, $column, $xfIndex);
                         } else {
@@ -433,21 +434,21 @@ class Worksheet extends BIFFwriter
                         }
 
                         break;
-                    case Cell\DataType::TYPE_NUMERIC:
+                    case DataType::TYPE_NUMERIC:
                         $this->writeNumber($row, $column, $cVal, $xfIndex);
 
                         break;
-                    case Cell\DataType::TYPE_FORMULA:
+                    case DataType::TYPE_FORMULA:
                         $calculatedValue = $this->preCalculateFormulas ?
                             $cell->getCalculatedValue() : null;
                         $this->writeFormula($row, $column, $cVal, $xfIndex, $calculatedValue);
 
                         break;
-                    case Cell\DataType::TYPE_BOOL:
+                    case DataType::TYPE_BOOL:
                         $this->writeBoolErr($row, $column, $cVal, 0, $xfIndex);
 
                         break;
-                    case Cell\DataType::TYPE_ERROR:
+                    case DataType::TYPE_ERROR:
                         $this->writeBoolErr($row, $column, self::mapErrorCode($cVal), 1, $xfIndex);
 
                         break;
@@ -799,7 +800,7 @@ class Worksheet extends BIFFwriter
                 // Numeric value
                 $num = pack('d', $calculatedValue);
             } elseif (is_string($calculatedValue)) {
-                $errorCodes = Cell\DataType::getErrorCodes();
+                $errorCodes = DataType::getErrorCodes();
                 if (isset($errorCodes[$calculatedValue])) {
                     // Error value
                     $num = pack('CCCvCv', 0x02, 0x00, self::mapErrorCode($calculatedValue), 0x00, 0x00, 0xFFFF);
@@ -2038,17 +2039,17 @@ class Worksheet extends BIFFwriter
 
             // Decide what to do by the type of break
             switch ($breakType) {
-                case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN:
+                case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN:
                     // Add to list of vertical breaks
                     $vbreaks[] = Cell::columnIndexFromString($coordinates[0]) - 1;
 
                     break;
-                case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_ROW:
+                case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW:
                     // Add to list of horizontal breaks
                     $hbreaks[] = $coordinates[1];
 
                     break;
-                case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_NONE:
+                case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_NONE:
                 default:
                     // Nothing to do
                     break;

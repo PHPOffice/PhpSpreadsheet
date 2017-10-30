@@ -2,12 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
-use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 
 // Original file header of PEAR::Spreadsheet_Excel_Writer_Format (used as the base for this class):
 // -----------------------------------------------------------------------------------------
@@ -347,7 +347,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for border styles.
      *
-     * @static    array of int
+     * @var array of int
      */
     private static $mapBorderStyles = [
         Border::BORDER_NONE => 0x00,
@@ -385,7 +385,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for fill types.
      *
-     * @static    array of int
+     * @var array of int
      */
     private static $mapFillTypes = [
         Fill::FILL_NONE => 0x00,
@@ -430,7 +430,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for horizontal alignment.
      *
-     * @static    array of int
+     * @var array of int
      */
     private static $mapHAlignments = [
         Alignment::HORIZONTAL_GENERAL => 0,
@@ -461,7 +461,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for vertical alignment.
      *
-     * @static    array of int
+     * @var array of int
      */
     private static $mapVAlignments = [
         Alignment::VERTICAL_TOP => 0,

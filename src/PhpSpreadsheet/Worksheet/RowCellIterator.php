@@ -2,9 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\Worksheet;
 
 class RowCellIterator extends CellIterator implements \Iterator
 {
@@ -124,7 +123,7 @@ class RowCellIterator extends CellIterator implements \Iterator
     /**
      * Return the current cell in this worksheet row.
      *
-     * @return Cell
+     * @return \PhpOffice\PhpSpreadsheet\Cell\Cell
      */
     public function current()
     {

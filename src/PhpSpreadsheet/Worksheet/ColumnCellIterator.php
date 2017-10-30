@@ -2,9 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\Worksheet;
 
 class ColumnCellIterator extends CellIterator implements \Iterator
 {
@@ -121,7 +120,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     /**
      * Return the current cell in this worksheet column.
      *
-     * @return null|Cell
+     * @return null|\PhpOffice\PhpSpreadsheet\Cell\Cell
      */
     public function current()
     {

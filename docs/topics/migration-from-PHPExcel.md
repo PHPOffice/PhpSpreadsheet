@@ -26,9 +26,9 @@ In addition to automated changes, a few things need to be migrated manually.
 
 ### Renamed readers and writers
 
-When using with `IOFactory::createReader()`, `IOFactory::createWriter()` 
-and `IOFactory::identify()`, the reader/writer short names are used. 
-Those were changed, along as their corresponding class, to remove ambiguity:
+When using `IOFactory::createReader()`, `IOFactory::createWriter()` and
+`IOFactory::identify()`, the reader/writer short names are used. Those were
+changed, along as their corresponding class, to remove ambiguity:
             
 Before           | After
 -----------------|---------
@@ -43,6 +43,28 @@ Before           | After
 `'PDF'`          | `'Pdf'`
 `'SYLK'`         | `'Slk'`
 
+### Simplified IOFactory
+
+The following methods :
+
+- `PHPExcel_IOFactory::getSearchLocations()`
+- `PHPExcel_IOFactory::setSearchLocations()`
+- `PHPExcel_IOFactory::addSearchLocation()`
+
+were replaced by `IOFactory::registerReader()` and `IOFactory::registerWriter()`. That means
+IOFactory now relies on classes autoloading.
+
+Before:
+
+```php
+\PHPExcel_IOFactory::addSearchLocation($type, $location, $classname);
+```
+
+After:
+
+```php
+\PhpOffice\PhpSpreadsheet\IOFactory::registerReader($type, $classname);
+```
 
 ### Removed deprecated things
 
@@ -148,15 +170,67 @@ autoloading mechanism.
 
 ### Writing PDF
 
-`PHPExcel_Settings::getPdfRenderer()` and `PHPExcel_Settings::setPdfRenderer()`
-were removed. `PHPExcel_Settings::getPdfRendererName()` and
-`PHPExcel_Settings::setPdfRendererName()` were renamed as `setDefaultPdfWriter()`
-and `setDefaultPdfWriter()` respectively. And PDF libraries must be installed via
-composer. So the only thing to do is to specify a default writer class like so:
+PDF libraries must be installed via composer. And the following methods were removed
+and are replaced by `IOFactory::registerWriter()` instead:
+
+- `PHPExcel_Settings::getPdfRenderer()`
+- `PHPExcel_Settings::setPdfRenderer()`
+- `PHPExcel_Settings::getPdfRendererName()`
+- `PHPExcel_Settings::setPdfRendererName()` were renamed as `setDefaultPdfWriter()`
+
+Before:
 
 ```php
-$rendererName = \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF::class;
-\PhpOffice\PhpSpreadsheet\Settings::setDefaultPdfWriter($rendererName);
+\PHPExcel_Settings::setPdfRendererName(PHPExcel_Settings::PDF_RENDERER_MPDF);
+\PHPExcel_Settings::setPdfRenderer($somePath);
+$writer = \PHPExcel_IOFactory::createWriter($spreadsheet, 'PDF');
+```
+
+After:
+
+```php
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
+
+// Or alternatively
+\PhpOffice\PhpSpreadsheet\IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Pdf');
+
+// Or alternatively
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
+```
+
+### Rendering charts
+
+When rendering charts for HTML or PDF outputs, the process was also simplified. And while
+JpGraph support is still available, it is unfortunately not up to date for latest PHP versions
+and it will generate various warnings.
+
+If you rely on this feature, please consider
+contributing either patches to JpGraph or another `IRenderer` implementation (a good 
+candidate might be [CpChart](https://github.com/szymach/c-pchart)).
+
+Before:
+
+```php
+$rendererName = \PHPExcel_Settings::CHART_RENDERER_JPGRAPH;
+$rendererLibrary = 'jpgraph3.5.0b1/src/';
+$rendererLibraryPath = '/php/libraries/Charts/' . $rendererLibrary;
+
+\PHPExcel_Settings::setChartRenderer($rendererName, $rendererLibraryPath); 
+```
+
+After:
+
+Require the dependency via composer:
+
+```sh
+composer require jpgraph/jpgraph
+```
+
+And then:
+
+```php
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
 ```
 
 ### PclZip and ZipArchive
