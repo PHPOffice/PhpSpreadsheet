@@ -416,10 +416,6 @@ class Cell
      */
     public function hasValidValue()
     {
-        if (!$this->hasDataValidation()) {
-            return true;
-        }
-
         return (new Cell\CellDataValidator())->isValid($this);
     }
 

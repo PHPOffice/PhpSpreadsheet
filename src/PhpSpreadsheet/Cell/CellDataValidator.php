@@ -17,6 +17,10 @@ class CellDataValidator
      */
     public function isValid(Cell $cell)
     {
+        if (!$cell->hasDataValidation()) {
+            return true;
+        }
+
         $cellValue = $cell->getValue();
         $dataValidation = $cell->getDataValidation();
 
