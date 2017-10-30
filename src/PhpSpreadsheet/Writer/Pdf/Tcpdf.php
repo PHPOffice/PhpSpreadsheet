@@ -9,6 +9,20 @@ use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 class Tcpdf extends Pdf implements IWriter
 {
     /**
+     * Gets the implementation of external PDF library that should be used.
+     *
+     * @param string $orientation Page orientation
+     * @param string $unit Unit measure
+     * @param string $paperSize Paper size
+     *
+     * @return TCPDF implementation
+     */
+    protected function getExternalWriter($orientation, $unit, $paperSize)
+    {
+        return new \TCPDF($orientation, $unit, $paperSize);
+    }
+
+    /**
      * Save Spreadsheet to file.
      *
      * @param string $pFilename Name of the file to save as
@@ -51,7 +65,7 @@ class Tcpdf extends Pdf implements IWriter
         }
 
         //  Create PDF
-        $pdf = new \TCPDF($orientation, 'pt', $paperSize);
+        $pdf = $this->getExternalWriter($orientation, 'pt', $paperSize);
         $pdf->setFontSubsetting(false);
         //    Set margins, converting inches to points (using 72 dpi)
         $pdf->SetMargins($printMargins->getLeft() * 72, $printMargins->getTop() * 72, $printMargins->getRight() * 72);

@@ -10,6 +10,18 @@ use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 class Mpdf extends Pdf implements IWriter
 {
     /**
+     * Gets the implementation of external PDF library that should be used.
+     *
+     * @param array $config Configuration array
+     *
+     * @return Mpdf implementation
+     */
+    protected function getExternalWriter($config)
+    {
+        return new \Mpdf\Mpdf($config);
+    }
+
+    /**
      * Save Spreadsheet to file.
      *
      * @param string $pFilename Name of the file to save as
@@ -55,7 +67,7 @@ class Mpdf extends Pdf implements IWriter
 
         //  Create PDF
         $config = ['tempDir' => $this->tempDir];
-        $pdf = new \Mpdf\Mpdf($config);
+        $pdf = $this->getExternalWriter($config);
         $ortmp = $orientation;
         $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
         $pdf->DefOrientation = $orientation;

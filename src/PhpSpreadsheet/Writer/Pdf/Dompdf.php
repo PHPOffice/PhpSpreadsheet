@@ -9,6 +9,18 @@ use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 class Dompdf extends Pdf implements IWriter
 {
     /**
+     * Gets the implementation of external PDF library that should be used.
+     *
+     * @param array $config Configuration array
+     *
+     * @return Dompdf implementation
+     */
+    protected function getExternalWriter()
+    {
+        return new \Dompdf\Dompdf();
+    }
+
+    /**
      * Save Spreadsheet to file.
      *
      * @param string $pFilename Name of the file to save as
@@ -51,7 +63,7 @@ class Dompdf extends Pdf implements IWriter
         }
 
         //  Create PDF
-        $pdf = new \Dompdf\Dompdf();
+        $pdf = $this->getExternalWriter();
         $pdf->setPaper(strtolower($paperSize), $orientation);
 
         $pdf->loadHtml(
