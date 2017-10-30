@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit_Framework_TestCase;
 
 class CellTest extends PHPUnit_Framework_TestCase
@@ -322,5 +323,41 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function providerMergeRangesInCollection()
     {
         return require 'data/CellMergeRangesInCollection.php';
+    }
+
+    public function testHasValidValue()
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $testCell = $sheet->getCell('A1');
+
+        $validation = $testCell->getDataValidation();
+        $validation->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+
+        // blank value
+        $testCell->setValue('');
+        $validation->setAllowBlank(true);
+        self::assertEquals(true, $testCell->hasValidValue(), 'cell can be empty');
+        $validation->setAllowBlank(false);
+        self::assertEquals(false, $testCell->hasValidValue(), 'cell can not be empty');
+
+        // inline list
+        $validation->setFormula1('"yes,no"');
+        $testCell->setValue('foo');
+        self::assertEquals(false, $testCell->hasValidValue(), "cell value ('foo') is not allowed");
+        $testCell->setValue('yes');
+        self::assertEquals(true, $testCell->hasValidValue(), "cell value ('yes') has to be allowed");
+
+        // list from cells
+        $sheet->getCell('B1')->setValue(5);
+        $sheet->getCell('B2')->setValue(6);
+        $sheet->getCell('B3')->setValue(7);
+        $testCell = $sheet->getCell('A1');      // redefine $testCell, because it has broken coordinates after using other cells
+        $validation->setFormula1('B1:B3');
+        $testCell->setValue('10');
+        self::assertEquals(false, $testCell->hasValidValue(), "cell value ('10') is not allowed");
+        $testCell = $sheet->getCell('A1');      // redefine $testCell, because it has broken coordinates after using other cells
+        $testCell->setValue('5');
+        self::assertEquals(true, $testCell->hasValidValue(), "cell value ('5') has to be allowed");
     }
 }

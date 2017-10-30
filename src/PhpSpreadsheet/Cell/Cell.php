@@ -415,7 +415,17 @@ class Cell
     }
 
     /**
-     *    Does this cell contain a Hyperlink?
+     * Does this cell contain valid value?
+     *
+     * @return bool
+     */
+    public function hasValidValue()
+    {
+        return (new CellDataValidator())->isValid($this);
+    }
+
+    /**
+     * Does this cell contain a Hyperlink?
      *
      * @throws Exception
      *
