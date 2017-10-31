@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Support for chart fill color - @CrazyBite [#158](https://github.com/PHPOffice/PhpSpreadsheet/pull/158)
 - Support for read Hyperlink for xml - [@GreatHumorist](https://github.com/GreatHumorist) [#223](https://github.com/PHPOffice/PhpSpreadsheet/pull/223)
+- Support for easer use extended classes of PDF libraries - [#266](https://github.com/PHPOffice/PhpSpreadsheet/pull/266)
 
 ### Changed
 
@@ -31,12 +32,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Easier usage of chart renderers, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Rename a few more classes to keep them in their related namespaces:
     - `CalcEngine` => `Calculation\Engine`
-    - `PhpSpreadsheet\Calculation` => `PhpSpreadsheet\Calculation\Calculation` 
-    - `PhpSpreadsheet\Cell` => `PhpSpreadsheet\Cell\Cell` 
-    - `PhpSpreadsheet\Chart` => `PhpSpreadsheet\Chart\Chart` 
-    - `PhpSpreadsheet\RichText` => `PhpSpreadsheet\RichText\RichText` 
-    - `PhpSpreadsheet\Style` => `PhpSpreadsheet\Style\Style` 
-    - `PhpSpreadsheet\Worksheet` => `PhpSpreadsheet\Worksheet\Worksheet` 
+    - `PhpSpreadsheet\Calculation` => `PhpSpreadsheet\Calculation\Calculation`
+    - `PhpSpreadsheet\Cell` => `PhpSpreadsheet\Cell\Cell`
+    - `PhpSpreadsheet\Chart` => `PhpSpreadsheet\Chart\Chart`
+    - `PhpSpreadsheet\RichText` => `PhpSpreadsheet\RichText\RichText`
+    - `PhpSpreadsheet\Style` => `PhpSpreadsheet\Style\Style`
+    - `PhpSpreadsheet\Worksheet` => `PhpSpreadsheet\Worksheet\Worksheet`
 
 ## [1.0.0-beta] - 2017-08-17
 
