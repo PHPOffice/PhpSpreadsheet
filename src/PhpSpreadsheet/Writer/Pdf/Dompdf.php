@@ -11,11 +11,9 @@ class Dompdf extends Pdf implements IWriter
     /**
      * Gets the implementation of external PDF library that should be used.
      *
-     * @param array $config Configuration array
-     *
-     * @return Dompdf implementation
+     * @return \Dompdf\Dompdf implementation
      */
-    protected function getExternalWriter()
+    protected function createExternalWriterInstance()
     {
         return new \Dompdf\Dompdf();
     }
@@ -63,7 +61,7 @@ class Dompdf extends Pdf implements IWriter
         }
 
         //  Create PDF
-        $pdf = $this->getExternalWriter();
+        $pdf = $this->createExternalWriterInstance();
         $pdf->setPaper(strtolower($paperSize), $orientation);
 
         $pdf->loadHtml(

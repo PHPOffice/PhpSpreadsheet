@@ -17,7 +17,7 @@ class Tcpdf extends Pdf implements IWriter
      *
      * @return TCPDF implementation
      */
-    protected function getExternalWriter($orientation, $unit, $paperSize)
+    protected function createExternalWriterInstance($orientation, $unit, $paperSize)
     {
         return new \TCPDF($orientation, $unit, $paperSize);
     }
@@ -65,7 +65,7 @@ class Tcpdf extends Pdf implements IWriter
         }
 
         //  Create PDF
-        $pdf = $this->getExternalWriter($orientation, 'pt', $paperSize);
+        $pdf = $this->createExternalWriterInstance($orientation, 'pt', $paperSize);
         $pdf->setFontSubsetting(false);
         //    Set margins, converting inches to points (using 72 dpi)
         $pdf->SetMargins($printMargins->getLeft() * 72, $printMargins->getTop() * 72, $printMargins->getRight() * 72);

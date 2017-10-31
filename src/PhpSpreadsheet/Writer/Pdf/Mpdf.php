@@ -14,9 +14,9 @@ class Mpdf extends Pdf implements IWriter
      *
      * @param array $config Configuration array
      *
-     * @return Mpdf implementation
+     * @return \Mpdf\Mpdf implementation
      */
-    protected function getExternalWriter($config)
+    protected function createExternalWriterInstance($config)
     {
         return new \Mpdf\Mpdf($config);
     }
@@ -67,7 +67,7 @@ class Mpdf extends Pdf implements IWriter
 
         //  Create PDF
         $config = ['tempDir' => $this->tempDir];
-        $pdf = $this->getExternalWriter($config);
+        $pdf = $this->createExternalWriterInstance($config);
         $ortmp = $orientation;
         $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
         $pdf->DefOrientation = $orientation;
