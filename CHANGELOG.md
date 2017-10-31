@@ -10,8 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Support for chart fill color - @CrazyBite [#158](https://github.com/PHPOffice/PhpSpreadsheet/pull/158)
-- Support for read Hyperlink for xml - [@GreatHumorist](https://github.com/GreatHumorist) [#223](https://github.com/PHPOffice/PhpSpreadsheet/pull/223)
-- Support for easer use extended classes of PDF libraries - [#266](https://github.com/PHPOffice/PhpSpreadsheet/pull/266)
+- Support for read Hyperlink for xml - @GreatHumorist [#223](https://github.com/PHPOffice/PhpSpreadsheet/pull/223)
+- Support for cell value validation according to data validation rules - @SailorMax [#257](https://github.com/PHPOffice/PhpSpreadsheet/pull/257)
+- Support for easer use extended classes of PDF libraries - @SailorMax [#266](https://github.com/PHPOffice/PhpSpreadsheet/pull/266)
 
 ### Changed
 
