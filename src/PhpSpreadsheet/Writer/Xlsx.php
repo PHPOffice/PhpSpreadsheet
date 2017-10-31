@@ -25,7 +25,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
 use ZipArchive;
 
-class Xlsx extends BaseWriter implements IWriter
+class Xlsx extends BaseWriter
 {
     /**
      * Office2003 compatibility.

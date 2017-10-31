@@ -3,9 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\IComparable;
 
-class Font extends Supervisor implements IComparable
+class Font extends Supervisor
 {
     // Underline types
     const UNDERLINE_NONE = 'none';

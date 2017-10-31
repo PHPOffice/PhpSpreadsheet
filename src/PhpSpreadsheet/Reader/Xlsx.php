@@ -28,7 +28,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use XMLReader;
 use ZipArchive;
 
-class Xlsx extends BaseReader implements IReader
+class Xlsx extends BaseReader
 {
     /**
      * ReferenceHelper instance.

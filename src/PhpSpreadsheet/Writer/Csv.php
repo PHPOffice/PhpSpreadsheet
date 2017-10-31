@@ -5,12 +5,12 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class Csv extends BaseWriter implements IWriter
+class Csv extends BaseWriter
 {
     /**
      * PhpSpreadsheet object.
      *
-     * @var PhpSpreadsheet
+     * @var Spreadsheet
      */
     private $spreadsheet;
 

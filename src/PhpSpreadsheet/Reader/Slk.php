@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
-class Slk extends BaseReader implements IReader
+class Slk extends BaseReader
 {
     /**
      * Input encoding.

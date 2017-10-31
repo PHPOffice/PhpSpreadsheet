@@ -3,10 +3,9 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
-use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
-class Dompdf extends Pdf implements IWriter
+class Dompdf extends Pdf
 {
     /**
      * Save Spreadsheet to file.

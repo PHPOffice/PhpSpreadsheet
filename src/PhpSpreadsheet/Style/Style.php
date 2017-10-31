@@ -3,10 +3,9 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\IComparable;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class Style extends Supervisor implements IComparable
+class Style extends Supervisor
 {
     /**
      * Font.

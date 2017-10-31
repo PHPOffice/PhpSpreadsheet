@@ -2,9 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\IComparable;
-
-class MemoryDrawing extends BaseDrawing implements IComparable
+class MemoryDrawing extends BaseDrawing
 {
     // Rendering functions
     const RENDERING_DEFAULT = 'imagepng';

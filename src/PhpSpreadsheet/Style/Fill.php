@@ -3,9 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\IComparable;
 
-class Fill extends Supervisor implements IComparable
+class Fill extends Supervisor
 {
     // Fill types
     const FILL_NONE = 'none';

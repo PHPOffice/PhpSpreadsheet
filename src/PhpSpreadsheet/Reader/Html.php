@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 /** PhpSpreadsheet root directory */
-class Html extends BaseReader implements IReader
+class Html extends BaseReader
 {
     /**
      * Sample size to read to determine if it's HTML or not.

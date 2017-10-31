@@ -17,7 +17,7 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use XMLReader;
 use ZipArchive;
 
-class Ods extends BaseReader implements IReader
+class Ods extends BaseReader
 {
     /**
      * Create a new Ods Reader instance.

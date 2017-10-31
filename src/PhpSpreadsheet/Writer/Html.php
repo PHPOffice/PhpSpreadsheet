@@ -24,7 +24,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
-class Html extends BaseWriter implements IWriter
+class Html extends BaseWriter
 {
     /**
      * Spreadsheet object.

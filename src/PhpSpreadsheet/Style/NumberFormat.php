@@ -4,11 +4,10 @@ namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\IComparable;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
-class NumberFormat extends Supervisor implements IComparable
+class NumberFormat extends Supervisor
 {
     // Pre-defined formats
     const FORMAT_GENERAL = 'General';

@@ -18,7 +18,7 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 /**
  * Reader for SpreadsheetML, the XML schema for Microsoft Office Excel 2003.
  */
-class Xml extends BaseReader implements IReader
+class Xml extends BaseReader
 {
     /**
      * Formats.

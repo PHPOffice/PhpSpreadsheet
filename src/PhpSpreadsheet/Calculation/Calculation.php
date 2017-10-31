@@ -40,14 +40,14 @@ class Calculation
     /**
      * Instance of this class.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Calculation
+     * @var Calculation
      */
     private static $instance;
 
     /**
      * Instance of the spreadsheet this Calculation Engine is using.
      *
-     * @var PhpSpreadsheet
+     * @var Spreadsheet
      */
     private $spreadsheet;
 

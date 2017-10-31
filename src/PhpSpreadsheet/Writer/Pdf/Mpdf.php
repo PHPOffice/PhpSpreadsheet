@@ -4,10 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
-use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
-class Mpdf extends Pdf implements IWriter
+class Mpdf extends Pdf
 {
     /**
      * Save Spreadsheet to file.

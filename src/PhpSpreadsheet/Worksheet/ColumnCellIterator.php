@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
-class ColumnCellIterator extends CellIterator implements \Iterator
+class ColumnCellIterator extends CellIterator
 {
     /**
      * Column index.

@@ -58,7 +58,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 //         Patch code for user-defined named cells supports single cells only.
 //         NOTE: this patch only works for BIFF8 as BIFF5-7 use a different
 //         external sheet reference structure
-class Xls extends BaseReader implements IReader
+class Xls extends BaseReader
 {
     // ParseXL definitions
     const XLS_BIFF8 = 0x0600;

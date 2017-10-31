@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
-abstract class CellIterator
+abstract class CellIterator implements \Iterator
 {
     /**
      * Worksheet to iterate.

@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
-abstract class Supervisor
+use PhpOffice\PhpSpreadsheet\IComparable;
+
+abstract class Supervisor implements IComparable
 {
     /**
      * Supervisor?

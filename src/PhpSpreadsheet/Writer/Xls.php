@@ -25,7 +25,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use RuntimeException;
 
-class Xls extends BaseWriter implements IWriter
+class Xls extends BaseWriter
 {
     /**
      * PhpSpreadsheet object.

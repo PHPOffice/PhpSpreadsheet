@@ -18,7 +18,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use XMLReader;
 
-class Gnumeric extends BaseReader implements IReader
+class Gnumeric extends BaseReader
 {
     /**
      * Shared Expressions.

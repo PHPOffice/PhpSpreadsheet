@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class Csv extends BaseReader implements IReader
+class Csv extends BaseReader
 {
     /**
      * Input encoding.
