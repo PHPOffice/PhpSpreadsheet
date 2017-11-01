@@ -249,7 +249,7 @@ class Worksheet extends WriterPart
             $ySplit = $pSheet->getRowSplit();
 
             // Calculate top left cell
-            $topLeftCell = Cell::stringFromColumnIndex($pSheet->getLeftMostColumn()) . ( $pSheet->getTopRow() );
+            $topLeftCell = Cell::stringFromColumnIndex($pSheet->getLeftMostColumn()) . ( $pSheet->getTopRow() + 1 );
             $activeCell = $topLeftCell;
 
             // pane

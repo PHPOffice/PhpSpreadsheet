@@ -738,7 +738,8 @@ class Xlsx extends BaseReader
                                     }
 
                                     if (isset($xmlSheet->sheetViews->sheetView->pane['topLeftCell'])) {
-                                        list($leftMostColumn, $topRow) = Cell::coordinateFromString($xmlSheet->sheetViews->sheetView->pane['topLeftCell']);
+                                        list($leftMostColumn, $topRow) = Cell::coordinateFromString((string) $xmlSheet->sheetViews->sheetView->pane['topLeftCell']);
+                                        $leftMostColumn = Cell::columnIndexFromString($leftMostColumn);
                                     }
 
                                     $docSheet->createFreezePane($xSplit, $ySplit, $leftMostColumn, $topRow);

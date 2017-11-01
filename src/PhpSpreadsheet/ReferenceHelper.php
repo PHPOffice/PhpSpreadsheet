@@ -583,8 +583,18 @@ class ReferenceHelper
         }
 
         // Update worksheet: freeze pane
-        if ($pSheet->getFreezePane() != '') {
-            $pSheet->freezePane($this->updateCellReference($pSheet->getFreezePane(), $pBefore, $pNumCols, $pNumRows));
+        if ($pSheet->getFreezePane()) {
+            $splitCell = Cell::stringFromColumnIndex($pSheet->getColSplit()) . ($pSheet->getRowSplit() + 1);
+            $topLeftCell = Cell::stringFromColumnIndex($pSheet->getLeftMostColumn()) . ($pSheet->getTopRow() + 1);
+
+            $colSplit = $rowSplit = $leftMostColumn = $topRow = 0;
+            list ($colSplit, $rowSplit) = Cell::coordinateFromString($this->updateCellReference($splitCell, $pBefore, $pNumCols, $pNumRows));
+            list ($leftMostColumn, $topRow) = Cell::coordinateFromString($this->updateCellReference($topLeftCell, $pBefore, $pNumCols, $pNumRows));
+
+            $colSplit = Cell::columnIndexFromString($colSplit);
+            $leftMostColumn = Cell::columnIndexFromString($leftMostColumn);
+
+            $pSheet->createFreezePane($colSplit, $rowSplit, $leftMostColumn, $topRow);
         }
 
         // Page setup

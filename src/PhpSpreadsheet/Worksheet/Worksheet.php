@@ -2011,11 +2011,24 @@ class Worksheet implements IComparable
      */
     public function createFreezePane($colSplit, $rowSplit, $leftMostColumn = null , $topRow = null)
     {
+        if(!isset($leftMostColumn)) {
+            $leftMostColumn = $colSplit;
+        }
+        if(!isset($topRow)) {
+            $topRow = $rowSplit;
+        }
+
+        if(!is_numeric($colSplit) || !is_numeric($rowSplit) || !is_numeric($leftMostColumn) || !is_numeric($topRow)) {
+            throw new Exception('Cell references should be numeric to create freezePane.');
+        }
+
         // If colSplit and rowSplit are equal to zero the freeze pane is removed
         if($colSplit == 0 && $rowSplit == 0) {
             $this->freezePane = false;
             return $this;
         }
+
+
 
         $this->freezePane = true;
 
