@@ -17,7 +17,8 @@ class SampleTest extends PHPUnit_Framework_TestCase
     public function testSample($sample)
     {
         // Suppress output to console
-
+        $this->setOutputCallback(function () {
+        });
 
         require $sample;
     }

@@ -197,7 +197,6 @@ class Worksheet implements IComparable
      */
     private $autoFilter;
 
-
     /**
      * Horizontal position of the split.
      *
@@ -213,14 +212,14 @@ class Worksheet implements IComparable
     private $rowSplit = 0;
 
     /**
-     * First visible left column in the right pane.
+     * First visible left column in the right pane. (zero-based).
      *
      * @var int
      */
     private $leftMostColumn = 0;
 
     /**
-     * Top most visible row in the bottom pane.
+     * Top most visible row in the bottom pane. (zero-based).
      *
      * @var int
      */
@@ -2003,32 +2002,34 @@ class Worksheet implements IComparable
     /**
      * Freeze Pane.
      *
-     * @param string $pCell Cell (i.e. A2)
+     * @param int $colSplit Horizontal position of the split
+     * @param int $rowSplit Vertical position of the split
+     * @param int $leftMostColumn Numeric column coordinate of the first visible left column in the right pane (A = 0)
+     * @param int $topRow The top most visible row in the bottom pane zero-base coordinate (A1 => topRow = 0)
      *
      * @throws Exception
      *
      * @return Worksheet
      */
-    public function createFreezePane($colSplit, $rowSplit, $leftMostColumn = null , $topRow = null)
+    public function createFreezePane($colSplit, $rowSplit, $leftMostColumn = null, $topRow = null)
     {
-        if(!isset($leftMostColumn)) {
+        if (!isset($leftMostColumn)) {
             $leftMostColumn = $colSplit;
         }
-        if(!isset($topRow)) {
+        if (!isset($topRow)) {
             $topRow = $rowSplit;
         }
 
-        if(!is_numeric($colSplit) || !is_numeric($rowSplit) || !is_numeric($leftMostColumn) || !is_numeric($topRow)) {
+        if (!is_numeric($colSplit) || !is_numeric($rowSplit) || !is_numeric($leftMostColumn) || !is_numeric($topRow)) {
             throw new Exception('Cell references should be numeric to create freezePane.');
         }
 
         // If colSplit and rowSplit are equal to zero the freeze pane is removed
-        if($colSplit == 0 && $rowSplit == 0) {
+        if ($colSplit == 0 && $rowSplit == 0) {
             $this->freezePane = false;
+
             return $this;
         }
-
-
 
         $this->freezePane = true;
 
@@ -2048,7 +2049,7 @@ class Worksheet implements IComparable
      */
     public function unfreezePane()
     {
-        return $this->createFreezePane(0, 0, 0, 0);
+        return $this->createFreezePane(0, 0);
     }
 
     /**

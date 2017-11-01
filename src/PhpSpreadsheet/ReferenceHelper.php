@@ -588,11 +588,13 @@ class ReferenceHelper
             $topLeftCell = Cell::stringFromColumnIndex($pSheet->getLeftMostColumn()) . ($pSheet->getTopRow() + 1);
 
             $colSplit = $rowSplit = $leftMostColumn = $topRow = 0;
-            list ($colSplit, $rowSplit) = Cell::coordinateFromString($this->updateCellReference($splitCell, $pBefore, $pNumCols, $pNumRows));
-            list ($leftMostColumn, $topRow) = Cell::coordinateFromString($this->updateCellReference($topLeftCell, $pBefore, $pNumCols, $pNumRows));
+            list($colSplit, $rowSplit) = Cell::coordinateFromString($this->updateCellReference($splitCell, $pBefore, $pNumCols, $pNumRows));
+            list($leftMostColumn, $topRow) = Cell::coordinateFromString($this->updateCellReference($topLeftCell, $pBefore, $pNumCols, $pNumRows));
 
-            $colSplit = Cell::columnIndexFromString($colSplit);
-            $leftMostColumn = Cell::columnIndexFromString($leftMostColumn);
+            $colSplit = Cell::columnIndexFromString($colSplit) - 1;
+            $leftMostColumn = Cell::columnIndexFromString($leftMostColumn) - 1;
+            $rowSplit = $rowSplit - 1;
+            $topRow = $topRow - 1;
 
             $pSheet->createFreezePane($colSplit, $rowSplit, $leftMostColumn, $topRow);
         }

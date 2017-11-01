@@ -244,12 +244,11 @@ class Worksheet extends WriterPart
         // Pane
         $pane = '';
         if ($pSheet->getFreezePane()) {
-
             $xSplit = $pSheet->getColSplit();
             $ySplit = $pSheet->getRowSplit();
 
             // Calculate top left cell
-            $topLeftCell = Cell::stringFromColumnIndex($pSheet->getLeftMostColumn()) . ( $pSheet->getTopRow() + 1 );
+            $topLeftCell = Cell::stringFromColumnIndex($pSheet->getLeftMostColumn()) . ($pSheet->getTopRow() + 1);
             $activeCell = $topLeftCell;
 
             // pane
