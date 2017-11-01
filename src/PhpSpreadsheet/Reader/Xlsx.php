@@ -720,16 +720,22 @@ class Xlsx extends BaseReader implements IReader
                                 if (isset($xmlSheet->sheetViews->sheetView->pane)) {
                                     $xSplit = 0;
                                     $ySplit = 0;
+                                    $leftMostColumn = null;
+                                    $topRow = null;
 
                                     if (isset($xmlSheet->sheetViews->sheetView->pane['xSplit'])) {
-                                        $xSplit = 1 + (int) ($xmlSheet->sheetViews->sheetView->pane['xSplit']);
+                                        $xSplit = (int) ($xmlSheet->sheetViews->sheetView->pane['xSplit']);
                                     }
 
                                     if (isset($xmlSheet->sheetViews->sheetView->pane['ySplit'])) {
-                                        $ySplit = 1 + (int) ($xmlSheet->sheetViews->sheetView->pane['ySplit']);
+                                        $ySplit = (int) ($xmlSheet->sheetViews->sheetView->pane['ySplit']);
                                     }
 
-                                    $docSheet->freezePaneByColumnAndRow($xSplit, $ySplit);
+                                    if (isset($xmlSheet->sheetViews->sheetView->pane['topLeftCell'])) {
+                                        list($leftMostColumn, $topRow) = Cell::coordinateFromString($xmlSheet->sheetViews->sheetView->pane['topLeftCell']);
+                                    }
+
+                                    $docSheet->createFreezePane($xSplit, $ySplit, $leftMostColumn, $topRow);
                                 }
 
                                 if (isset($xmlSheet->sheetViews->sheetView->selection)) {

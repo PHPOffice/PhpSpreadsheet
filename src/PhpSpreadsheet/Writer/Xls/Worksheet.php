@@ -1588,10 +1588,11 @@ class Worksheet extends BIFFwriter
     private function writePanes()
     {
         $panes = [];
-        if ($freezePane = $this->phpSheet->getFreezePane()) {
-            list($column, $row) = Cell::coordinateFromString($freezePane);
-            $panes[0] = $row - 1;
-            $panes[1] = Cell::columnIndexFromString($column) - 1;
+        if ($this->phpSheet->getFreezePane()) {
+            $panes[0] = $this->phpSheet->getColSplit();
+            $panes[1] = $this->phpSheet->getRowSplit();
+            $panes[2] = $this->phpSheet->getTopRow();
+            $panes[3] = $this->phpSheet->getLeftMostColumn();
         } else {
             // thaw panes
             return;
