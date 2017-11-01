@@ -3,9 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\IComparable;
 
-class Color extends Supervisor implements IComparable
+class Color extends Supervisor
 {
     // Colors
     const COLOR_BLACK = 'FF000000';

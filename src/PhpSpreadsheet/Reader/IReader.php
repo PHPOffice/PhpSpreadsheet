@@ -5,6 +5,11 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 interface IReader
 {
     /**
+     * IReader constructor.
+     */
+    public function __construct();
+
+    /**
      * Can the current IReader read the file?
      *
      * @param string $pFilename

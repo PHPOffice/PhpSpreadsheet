@@ -18,10 +18,6 @@ class Settings extends WriterPart
      */
     public function write(Spreadsheet $spreadsheet = null)
     {
-        if (!$spreadsheet) {
-            $spreadsheet = $this->getParentWriter()->getSpreadsheet();
-        }
-
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
             $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());

@@ -145,7 +145,7 @@ class Column
     /**
      * Set this Column's AutoFilter Parent.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter
+     * @param AutoFilter $pParent
      *
      * @return Column
      */
@@ -377,7 +377,7 @@ class Column
                 // Detach from autofilter parent
                 $this->parent = null;
             } elseif ($key === 'ruleset') {
-                // The columns array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter objects
+                // The columns array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter objects
                 $this->ruleset = [];
                 foreach ($value as $k => $v) {
                     $cloned = clone $v;

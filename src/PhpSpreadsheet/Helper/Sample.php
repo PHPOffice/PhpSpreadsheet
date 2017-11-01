@@ -157,7 +157,9 @@ class Sample
      */
     public function getFilename($filename, $extension = 'xlsx')
     {
-        return $this->getTemporaryFolder() . '/' . str_replace('.php', '.' . $extension, basename($filename));
+        $originalExtension = pathinfo($filename, PATHINFO_EXTENSION);
+
+        return $this->getTemporaryFolder() . '/' . str_replace('.' . $originalExtension, '.' . $extension, basename($filename));
     }
 
     /**

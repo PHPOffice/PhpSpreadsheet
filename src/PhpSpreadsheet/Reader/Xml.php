@@ -2,10 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use DateTimeZone;
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -18,7 +18,7 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 /**
  * Reader for SpreadsheetML, the XML schema for Microsoft Office Excel 2003.
  */
-class Xml extends BaseReader implements IReader
+class Xml extends BaseReader
 {
     /**
      * Formats.
@@ -326,9 +326,6 @@ class Xml extends BaseReader implements IReader
             Alignment::HORIZONTAL_CENTER_CONTINUOUS,
             Alignment::HORIZONTAL_JUSTIFY,
         ];
-
-        $timezoneObj = new DateTimeZone('Europe/London');
-        $GMT = new DateTimeZone('UTC');
 
         File::assertFile($pFilename);
         if (!$this->canRead($pFilename)) {
@@ -648,15 +645,11 @@ class Xml extends BaseReader implements IReader
                         $cellDataFormula = '';
                         if (isset($cell_ss['Formula'])) {
                             $cellDataFormula = $cell_ss['Formula'];
-                            // added this as a check for array formulas
-                            if (isset($cell_ss['ArrayRange'])) {
-                                $cellDataCSEFormula = $cell_ss['ArrayRange'];
-                            }
                             $hasCalculatedValue = true;
                         }
                         if (isset($cell->Data)) {
                             $cellValue = $cellData = $cell->Data;
-                            $type = Cell\DataType::TYPE_NULL;
+                            $type = DataType::TYPE_NULL;
                             $cellData_ss = $cellData->attributes($namespaces['ss']);
                             if (isset($cellData_ss['Type'])) {
                                 $cellDataType = $cellData_ss['Type'];
@@ -672,11 +665,11 @@ class Xml extends BaseReader implements IReader
                                     */
                                     case 'String':
                                         $cellValue = self::convertStringEncoding($cellValue, $this->charSet);
-                                        $type = Cell\DataType::TYPE_STRING;
+                                        $type = DataType::TYPE_STRING;
 
                                         break;
                                     case 'Number':
-                                        $type = Cell\DataType::TYPE_NUMERIC;
+                                        $type = DataType::TYPE_NUMERIC;
                                         $cellValue = (float) $cellValue;
                                         if (floor($cellValue) == $cellValue) {
                                             $cellValue = (int) $cellValue;
@@ -684,24 +677,24 @@ class Xml extends BaseReader implements IReader
 
                                         break;
                                     case 'Boolean':
-                                        $type = Cell\DataType::TYPE_BOOL;
+                                        $type = DataType::TYPE_BOOL;
                                         $cellValue = ($cellValue != 0);
 
                                         break;
                                     case 'DateTime':
-                                        $type = Cell\DataType::TYPE_NUMERIC;
+                                        $type = DataType::TYPE_NUMERIC;
                                         $cellValue = Date::PHPToExcel(strtotime($cellValue));
 
                                         break;
                                     case 'Error':
-                                        $type = Cell\DataType::TYPE_ERROR;
+                                        $type = DataType::TYPE_ERROR;
 
                                         break;
                                 }
                             }
 
                             if ($hasCalculatedValue) {
-                                $type = Cell\DataType::TYPE_FORMULA;
+                                $type = DataType::TYPE_FORMULA;
                                 $columnNumber = Cell::columnIndexFromString($columnID);
                                 if (substr($cellDataFormula, 0, 3) == 'of:') {
                                     $cellDataFormula = substr($cellDataFormula, 3);
@@ -792,9 +785,6 @@ class Xml extends BaseReader implements IReader
                     }
 
                     if ($rowHasData) {
-                        if (isset($row_ss['StyleID'])) {
-                            $rowStyle = $row_ss['StyleID'];
-                        }
                         if (isset($row_ss['Height'])) {
                             $rowHeight = $row_ss['Height'];
                             $spreadsheet->getActiveSheet()->getRowDimension($rowID)->setRowHeight($rowHeight);

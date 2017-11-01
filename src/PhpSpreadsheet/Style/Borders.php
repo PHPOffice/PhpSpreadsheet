@@ -3,9 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\IComparable;
 
-class Borders extends Supervisor implements IComparable
+class Borders extends Supervisor
 {
     // Diagonal directions
     const DIAGONAL_NONE = 0;

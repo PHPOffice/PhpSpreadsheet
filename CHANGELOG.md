@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Support for chart fill color - @CrazyBite [#158](https://github.com/PHPOffice/PhpSpreadsheet/pull/158)
-- Support for read Hyperlink for xml - [@GreatHumorist](https://github.com/GreatHumorist) [#223](https://github.com/PHPOffice/PhpSpreadsheet/pull/223)
+- Support for read Hyperlink for xml - @GreatHumorist [#223](https://github.com/PHPOffice/PhpSpreadsheet/pull/223)
+- Support for cell value validation according to data validation rules - @SailorMax [#257](https://github.com/PHPOffice/PhpSpreadsheet/pull/257)
 
 ### Changed
 
@@ -28,6 +29,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Standardization of array keys used for style, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Easier usage of PDF writers, and other custom readers and writers, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
+- Easier usage of chart renderers, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
+- Rename a few more classes to keep them in their related namespaces:
+    - `CalcEngine` => `Calculation\Engine`
+    - `PhpSpreadsheet\Calculation` => `PhpSpreadsheet\Calculation\Calculation` 
+    - `PhpSpreadsheet\Cell` => `PhpSpreadsheet\Cell\Cell` 
+    - `PhpSpreadsheet\Chart` => `PhpSpreadsheet\Chart\Chart` 
+    - `PhpSpreadsheet\RichText` => `PhpSpreadsheet\RichText\RichText` 
+    - `PhpSpreadsheet\Style` => `PhpSpreadsheet\Style\Style` 
+    - `PhpSpreadsheet\Worksheet` => `PhpSpreadsheet\Worksheet\Worksheet` 
 
 ## [1.0.0-beta] - 2017-08-17
 

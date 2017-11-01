@@ -3,9 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\IComparable;
 
-class Protection extends Supervisor implements IComparable
+class Protection extends Supervisor
 {
     /** Protection styles */
     const PROTECTION_INHERIT = 'inherit';

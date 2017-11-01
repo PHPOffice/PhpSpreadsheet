@@ -4,10 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
-use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
-class Mpdf extends Pdf implements IWriter
+class Mpdf extends Pdf
 {
     /**
      * Save Spreadsheet to file.
@@ -29,12 +28,10 @@ class Mpdf extends Pdf implements IWriter
             $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
                 == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
-            $printMargins = $this->spreadsheet->getSheet(0)->getPageMargins();
         } else {
             $orientation = ($this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation()
                 == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
-            $printMargins = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageMargins();
         }
         $this->setOrientation($orientation);
 

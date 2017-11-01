@@ -3,14 +3,13 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\Worksheet;
 
 class RowIterator implements \Iterator
 {
     /**
      * Worksheet to iterate.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Worksheet
+     * @var Worksheet
      */
     private $subject;
 

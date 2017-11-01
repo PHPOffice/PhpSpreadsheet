@@ -389,7 +389,7 @@ $worksheet = $spreadsheet->getActiveSheet();
 // Get the highest row and column numbers referenced in the worksheet
 $highestRow = $worksheet->getHighestRow(); // e.g. 10
 $highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
-$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($highestColumn); // e.g. 5
+$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Cell::columnIndexFromString($highestColumn); // e.g. 5
 
 echo '<table>' . "\n";
 for ($row = 1; $row <= $highestRow; ++$row) {
@@ -459,7 +459,7 @@ value binder in PhpSpreadsheet:
 require_once 'src/Boostrap.php';
 
 // Set value binder
-\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+\PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 // Create new Spreadsheet object
 $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();

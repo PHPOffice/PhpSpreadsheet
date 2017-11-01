@@ -71,7 +71,7 @@ method that suits you the best. Here are some examples:
 ``` php
 
 // MySQL-like timestamp '2008-12-31' or date string
-\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+\PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('D1', '2008-12-31');
@@ -248,7 +248,7 @@ when it sees a newline character in a string that you are inserting in a
 cell. Just like Microsoft Office Excel. Try this:
 
 ``` php
-\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+\PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()->getCell('A1')->setValue("hello\nworld");
 ```
@@ -743,13 +743,13 @@ easy manner.
 ### Valid array keys for style `applyFromArray()`
 
 The following table lists the valid array keys for
-\PhpOffice\PhpSpreadsheet\Style applyFromArray() classes. If the "Maps
+`\PhpOffice\PhpSpreadsheet\Style\Style::applyFromArray()` classes. If the "Maps
 to property" column maps a key to a setter, the value provided for that
 key will be applied directly. If the "Maps to property" column maps a
 key to a getter, the value provided for that key will be applied as
 another style array.
 
-**\PhpOffice\PhpSpreadsheet\Style**
+**\PhpOffice\PhpSpreadsheet\Style\Style**
 
 Array key    | Maps to property
 -------------|-------------------

@@ -2,12 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
-use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 
 // Original file header of PEAR::Spreadsheet_Excel_Writer_Format (used as the base for this class):
 // -----------------------------------------------------------------------------------------

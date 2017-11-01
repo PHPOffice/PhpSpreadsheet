@@ -26,9 +26,9 @@ In addition to automated changes, a few things need to be migrated manually.
 
 ### Renamed readers and writers
 
-When using with `IOFactory::createReader()`, `IOFactory::createWriter()` 
-and `IOFactory::identify()`, the reader/writer short names are used. 
-Those were changed, along as their corresponding class, to remove ambiguity:
+When using `IOFactory::createReader()`, `IOFactory::createWriter()` and
+`IOFactory::identify()`, the reader/writer short names are used. Those were
+changed, along as their corresponding class, to remove ambiguity:
             
 Before           | After
 -----------------|---------
@@ -197,6 +197,40 @@ $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Pdf')
 
 // Or alternatively
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
+```
+
+### Rendering charts
+
+When rendering charts for HTML or PDF outputs, the process was also simplified. And while
+JpGraph support is still available, it is unfortunately not up to date for latest PHP versions
+and it will generate various warnings.
+
+If you rely on this feature, please consider
+contributing either patches to JpGraph or another `IRenderer` implementation (a good 
+candidate might be [CpChart](https://github.com/szymach/c-pchart)).
+
+Before:
+
+```php
+$rendererName = \PHPExcel_Settings::CHART_RENDERER_JPGRAPH;
+$rendererLibrary = 'jpgraph3.5.0b1/src/';
+$rendererLibraryPath = '/php/libraries/Charts/' . $rendererLibrary;
+
+\PHPExcel_Settings::setChartRenderer($rendererName, $rendererLibraryPath); 
+```
+
+After:
+
+Require the dependency via composer:
+
+```sh
+composer require jpgraph/jpgraph
+```
+
+And then:
+
+```php
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
 ```
 
 ### PclZip and ZipArchive

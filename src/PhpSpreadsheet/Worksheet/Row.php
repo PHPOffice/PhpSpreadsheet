@@ -2,14 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Worksheet;
-
 class Row
 {
     /**
-     * \PhpOffice\PhpSpreadsheet\Worksheet.
+     * \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Worksheet
+     * @var Worksheet
      */
     private $worksheet;
 

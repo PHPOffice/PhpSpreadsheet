@@ -6,15 +6,15 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMText;
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 /** PhpSpreadsheet root directory */
-class Html extends BaseReader implements IReader
+class Html extends BaseReader
 {
     /**
      * Sample size to read to determine if it's HTML or not.
@@ -484,7 +484,7 @@ class Html extends BaseReader implements IReader
                     case 'body':
                         $row = 1;
                         $column = 'A';
-                        $content = '';
+                        $cellContent = '';
                         $this->tableLevel = 0;
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
 

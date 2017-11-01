@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
-abstract class Supervisor
+use PhpOffice\PhpSpreadsheet\IComparable;
+
+abstract class Supervisor implements IComparable
 {
     /**
      * Supervisor?
@@ -14,7 +16,7 @@ abstract class Supervisor
     /**
      * Parent. Only used for supervisor.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Style
+     * @var Style
      */
     protected $parent;
 
@@ -67,7 +69,7 @@ abstract class Supervisor
     /**
      * Get the currently active sheet. Only used for supervisor.
      *
-     * @return \PhpOffice\PhpSpreadsheet\Worksheet
+     * @return Worksheet
      */
     public function getActiveSheet()
     {

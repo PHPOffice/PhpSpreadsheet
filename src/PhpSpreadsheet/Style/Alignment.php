@@ -3,9 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\IComparable;
 
-class Alignment extends Supervisor implements IComparable
+class Alignment extends Supervisor
 {
     // Horizontal alignment styles
     const HORIZONTAL_GENERAL = 'general';

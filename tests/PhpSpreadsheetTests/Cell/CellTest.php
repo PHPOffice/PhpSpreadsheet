@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests;
+namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PHPUnit_Framework_TestCase;
 

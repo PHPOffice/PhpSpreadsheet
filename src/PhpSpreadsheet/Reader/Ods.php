@@ -4,11 +4,11 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use DateTime;
 use DateTimeZone;
-use PhpOffice\PhpSpreadsheet\Calculation;
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -17,7 +17,7 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use XMLReader;
 use ZipArchive;
 
-class Ods extends BaseReader implements IReader
+class Ods extends BaseReader
 {
     /**
      * Create a new Ods Reader instance.
@@ -153,7 +153,7 @@ class Ods extends BaseReader implements IReader
         }
 
         $xml = new XMLReader();
-        $res = $xml->xml(
+        $xml->xml(
             $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
             Settings::getLibXmlLoaderOptions()
