@@ -308,13 +308,9 @@ class Xlsx extends BaseReader
         //    so we need to load case-insensitively from the zip file
 
         // Apache POI fixes
-        $contents = $archive->getFromIndex(
-            $archive->locateName($fileName, ZipArchive::FL_NOCASE)
-        );
+        $contents = $archive->getFromName($fileName, 0, ZipArchive::FL_NOCASE);
         if ($contents === false) {
-            $contents = $archive->getFromIndex(
-                $archive->locateName(substr($fileName, 1), ZipArchive::FL_NOCASE)
-            );
+            $contents = $archive->getFromName(substr($fileName, 1), 0, ZipArchive::FL_NOCASE);
         }
 
         return $contents;
