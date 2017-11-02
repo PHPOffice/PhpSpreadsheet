@@ -212,18 +212,11 @@ class Worksheet implements IComparable
     private $rowSplit = 0;
 
     /**
-     * First visible left column in the right pane. (zero-based).
+     * Cell at the upper-left corner of the right pane.
      *
-     * @var int
+     * @var string
      */
-    private $leftMostColumn = 0;
-
-    /**
-     * Top most visible row in the bottom pane. (zero-based).
-     *
-     * @var int
-     */
-    private $topRow = 0;
+    private $topLeftCell = '';
 
     /**
      * Pane frozen ?
@@ -2004,24 +1997,26 @@ class Worksheet implements IComparable
      *
      * @param int $colSplit Horizontal position of the split
      * @param int $rowSplit Vertical position of the split
-     * @param int $leftMostColumn Numeric column coordinate of the first visible left column in the right pane (A = 0)
-     * @param int $topRow The top most visible row in the bottom pane zero-base coordinate (A1 => topRow = 0)
+     * @param string $topLeftCell cell at the upper-left corner of the right pane
      *
      * @throws Exception
      *
      * @return Worksheet
      */
-    public function createFreezePane($colSplit, $rowSplit, $leftMostColumn = null, $topRow = null)
+    public function createFreezePane($colSplit, $rowSplit, $topLeftCell = null)
     {
-        if (!isset($leftMostColumn)) {
-            $leftMostColumn = $colSplit;
-        }
-        if (!isset($topRow)) {
-            $topRow = $rowSplit;
+        if (!isset($topLeftCell)) {
+            $topLeftCell = Cell::stringFromColumnIndex($colSplit) . ($rowSplit + 1);
         }
 
-        if (!is_numeric($colSplit) || !is_numeric($rowSplit) || !is_numeric($leftMostColumn) || !is_numeric($topRow)) {
-            throw new Exception('Cell references should be numeric to create freezePane.');
+        if (strpos($topLeftCell, ':') === false && strpos($topLeftCell, ',') === false) {
+            $this->freezePane = $topLeftCell;
+        } else {
+            throw new Exception('Freeze pane can not be set on a range of cells.');
+        }
+
+        if (!is_int($colSplit) || !is_int($rowSplit)) {
+            throw new Exception('Split values should be integer to create freeze pane.');
         }
 
         // If colSplit and rowSplit are equal to zero the freeze pane is removed
@@ -2036,8 +2031,7 @@ class Worksheet implements IComparable
         $this->colSplit = $colSplit;
         $this->rowSplit = $rowSplit;
 
-        $this->leftMostColumn = $leftMostColumn;
-        $this->topRow = $topRow;
+        $this->topLeftCell = $topLeftCell;
 
         return $this;
     }
@@ -2073,23 +2067,13 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Get first visible left column in the right pane.
+     * Get the cell at the upper-left corner of the right pane.
      *
      * @return int
      */
-    public function getLeftMostColumn()
+    public function getTopLeftCell()
     {
-        return $this->leftMostColumn;
-    }
-
-    /**
-     * Get top most visible row in the bottom pane.
-     *
-     * @return int
-     */
-    public function getTopRow()
-    {
-        return $this->topRow;
+        return $this->topLeftCell;
     }
 
     /**

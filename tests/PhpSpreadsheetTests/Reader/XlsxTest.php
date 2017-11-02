@@ -10,50 +10,17 @@ use PHPUnit_Framework_TestCase;
 
 class XlsxTest extends PHPUnit_Framework_TestCase
 {
-    public function testFreezePaneSplit()
-    {
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet');
-
-        $colSplit = 1;
-        $rowSplit = 1;
-
-        $spreadsheet = new Spreadsheet();
-        $active = $spreadsheet->getActiveSheet();
-        $active->createFreezePane($colSplit, $rowSplit);
-
-        $leftMostColumn = $active->getLeftMostColumn();
-        $topRow = $active->getTopRow();
-
-        $writer = new WriterXlsx($spreadsheet);
-        $writer->save($filename);
-
-        // Read written file
-        $reader = new ReaderXlsx();
-        $reloadedSpreadsheet = $reader->load($filename);
-        $reloadedActive = $reloadedSpreadsheet->getActiveSheet();
-        $actualColSplit = $reloadedActive->getColSplit();
-        $actualRowSplit = $reloadedActive->getRowSplit();
-        $actualLeftMostColumn = $reloadedActive->getLeftMostColumn();
-        $actualTopRow = $reloadedActive->getTopRow();
-
-        self::assertSame($colSplit, $actualColSplit, 'should be able to set horizontal split');
-        self::assertSame($rowSplit, $actualRowSplit, 'should be able to set vertical split');
-        self::assertSame($leftMostColumn, $actualLeftMostColumn, 'should be able to set left most visible column');
-        self::assertSame($topRow, $actualTopRow, 'should be able to set top most visible row');
-    }
-
     public function testFreezePane()
     {
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet');
 
         $colSplit = 1;
         $rowSplit = 1;
-        $leftMostColumn = 2;
-        $topRow = 3;
+        $topLeftCell = 'B4';
 
         $spreadsheet = new Spreadsheet();
         $active = $spreadsheet->getActiveSheet();
-        $active->createFreezePane($colSplit, $rowSplit, $leftMostColumn, $topRow);
+        $active->createFreezePane($colSplit, $rowSplit, $topLeftCell);
 
         $writer = new WriterXlsx($spreadsheet);
         $writer->save($filename);
@@ -64,12 +31,10 @@ class XlsxTest extends PHPUnit_Framework_TestCase
         $reloadedActive = $reloadedSpreadsheet->getActiveSheet();
         $actualColSplit = $reloadedActive->getColSplit();
         $actualRowSplit = $reloadedActive->getRowSplit();
-        $actualLeftMostColumn = $reloadedActive->getLeftMostColumn();
-        $actualTopRow = $reloadedActive->getTopRow();
+        $actualTopLeftCell = $reloadedActive->getTopLeftCell();
 
         self::assertSame($colSplit, $actualColSplit, 'should be able to set horizontal split');
         self::assertSame($rowSplit, $actualRowSplit, 'should be able to set vertical split');
-        self::assertSame($leftMostColumn, $actualLeftMostColumn, 'should be able to set left most visible column');
-        self::assertSame($topRow, $actualTopRow, 'should be able to set top most visible row');
+        self::assertSame($topLeftCell, $actualTopLeftCell, 'should be able to set the top left cell');
     }
 }

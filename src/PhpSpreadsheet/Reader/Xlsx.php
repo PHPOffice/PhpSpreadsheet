@@ -726,8 +726,7 @@ class Xlsx extends BaseReader
                                 if (isset($xmlSheet->sheetViews->sheetView->pane)) {
                                     $xSplit = 0;
                                     $ySplit = 0;
-                                    $leftMostColumn = null;
-                                    $topRow = null;
+                                    $topLeftCell = null;
 
                                     if (isset($xmlSheet->sheetViews->sheetView->pane['xSplit'])) {
                                         $xSplit = (int) ($xmlSheet->sheetViews->sheetView->pane['xSplit']);
@@ -738,13 +737,10 @@ class Xlsx extends BaseReader
                                     }
 
                                     if (isset($xmlSheet->sheetViews->sheetView->pane['topLeftCell'])) {
-                                        list($leftMostColumn, $topRow) = Cell::coordinateFromString((string) $xmlSheet->sheetViews->sheetView->pane['topLeftCell']);
-                                        // Need to remove 1 because leftMostColumn and topRow are zero-based
-                                        $leftMostColumn = Cell::columnIndexFromString($leftMostColumn) - 1;
-                                        $topRow = $topRow - 1;
+                                        $topLeftCell = (string) $xmlSheet->sheetViews->sheetView->pane['topLeftCell'];
                                     }
 
-                                    $docSheet->createFreezePane($xSplit, $ySplit, $leftMostColumn, (int) $topRow);
+                                    $docSheet->createFreezePane($xSplit, $ySplit, $topLeftCell);
                                 }
 
                                 if (isset($xmlSheet->sheetViews->sheetView->selection)) {

@@ -1592,8 +1592,10 @@ class Worksheet extends BIFFwriter
         if ($this->phpSheet->getFreezePane()) {
             $panes[0] = $this->phpSheet->getColSplit();
             $panes[1] = $this->phpSheet->getRowSplit();
-            $panes[2] = $this->phpSheet->getTopRow();
-            $panes[3] = $this->phpSheet->getLeftMostColumn();
+            list($leftMostColumn, $topRow) = Cell::coordinateFromString($this->phpSheet->getTopLeftCell());
+            //Coordinates are zero-based in xls files
+            $panes[2] = ($topRow - 1);
+            $panes[3] = (Cell::columnIndexFromString($leftMostColumn) - 1);
         } else {
             // thaw panes
             return;

@@ -4496,7 +4496,8 @@ class Xls extends BaseReader
 
             if ($this->frozen) {
                 // frozen panes
-                $this->phpSheet->createFreezePane($px, $py, $colLeft, $rwTop);
+                $topLeftCell = Cell::stringFromColumnIndex($colLeft) . ($rwTop + 1);
+                $this->phpSheet->createFreezePane($px, $py, $topLeftCell);
             }
             // unfrozen panes; split windows; not supported by PhpSpreadsheet core
         }
