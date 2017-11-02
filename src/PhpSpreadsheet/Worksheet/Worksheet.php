@@ -2009,9 +2009,7 @@ class Worksheet implements IComparable
             $topLeftCell = Cell::stringFromColumnIndex($colSplit) . ($rowSplit + 1);
         }
 
-        if (strpos($topLeftCell, ':') === false && strpos($topLeftCell, ',') === false) {
-            $this->freezePane = $topLeftCell;
-        } else {
+        if (!(strpos($topLeftCell, ':') === false && strpos($topLeftCell, ',') === false)) {
             throw new Exception('Freeze pane can not be set on a range of cells.');
         }
 
