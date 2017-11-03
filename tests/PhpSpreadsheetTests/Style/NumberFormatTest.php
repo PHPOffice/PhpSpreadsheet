@@ -29,4 +29,20 @@ class NumberFormatTest extends PHPUnit_Framework_TestCase
     {
         return require 'data/Style/NumberFormat.php';
     }
+
+    /**
+     * @dataProvider providerNumberFormatDates
+     *
+     * @param mixed $expectedResult
+     */
+    public function testFormatValueWithMaskDate($expectedResult, ...$args)
+    {
+        $result = NumberFormat::toFormattedString(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerNumberFormatDates()
+    {
+        return require 'data/Style/NumberFormatDates.php';
+    }
 }

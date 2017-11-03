@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit_Framework_TestCase;
 
-class WorksheetRowTest extends PHPUnit_Framework_TestCase
+class RowTest extends PHPUnit_Framework_TestCase
 {
     public $mockWorksheet;
     public $mockRow;

@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\ColumnCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit_Framework_TestCase;
 
-class WorksheetColumnTest extends PHPUnit_Framework_TestCase
+class ColumnTest extends PHPUnit_Framework_TestCase
 {
     public $mockWorksheet;
     public $mockColumn;

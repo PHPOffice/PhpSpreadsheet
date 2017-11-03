@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests;
+namespace PhpOffice\PhpSpreadsheetTests\Sample;
 
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PHPUnit_Framework_TestCase;
