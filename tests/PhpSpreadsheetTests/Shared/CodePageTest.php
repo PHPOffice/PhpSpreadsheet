@@ -4,9 +4,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\CodePage;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class CodePageTest extends PHPUnit_Framework_TestCase
+class CodePageTest extends TestCase
 {
     /**
      * @dataProvider providerCodePage

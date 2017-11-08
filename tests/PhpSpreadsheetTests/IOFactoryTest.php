@@ -6,9 +6,9 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class IOFactoryTest extends PHPUnit_Framework_TestCase
+class IOFactoryTest extends TestCase
 {
     /**
      * @dataProvider providerCreateWriter

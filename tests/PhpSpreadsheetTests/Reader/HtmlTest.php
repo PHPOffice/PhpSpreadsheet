@@ -3,9 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Reader\Html;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class HtmlTest extends PHPUnit_Framework_TestCase
+class HtmlTest extends TestCase
 {
     public function testCsvWithAngleBracket()
     {

@@ -4,9 +4,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class LogicalTest extends PHPUnit_Framework_TestCase
+class LogicalTest extends TestCase
 {
     public function setUp()
     {

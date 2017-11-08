@@ -5,9 +5,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class RowCellIteratorTest extends PHPUnit_Framework_TestCase
+class RowCellIteratorTest extends TestCase
 {
     public $mockWorksheet;
     public $mockCell;

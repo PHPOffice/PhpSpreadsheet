@@ -4,9 +4,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class WorksheetTest extends PHPUnit_Framework_TestCase
+class WorksheetTest extends TestCase
 {
     public function testSetTitle()
     {

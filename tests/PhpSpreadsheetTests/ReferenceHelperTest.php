@@ -3,9 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ReferenceHelperTest extends PHPUnit_Framework_TestCase
+class ReferenceHelperTest extends TestCase
 {
     public function setUp()
     {
