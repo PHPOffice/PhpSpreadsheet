@@ -3,9 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class DataTypeTest extends PHPUnit_Framework_TestCase
+class DataTypeTest extends TestCase
 {
     public function testGetErrorCodes()
     {

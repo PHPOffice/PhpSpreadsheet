@@ -5,9 +5,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls\Workbook;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xls\Parser;
 use PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class WorkbookTest extends PHPUnit_Framework_TestCase
+class WorkbookTest extends TestCase
 {
     /**
      * @var Workbook

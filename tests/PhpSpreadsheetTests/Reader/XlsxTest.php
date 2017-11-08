@@ -3,9 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class XlsxTest extends PHPUnit_Framework_TestCase
+class XlsxTest extends TestCase
 {
     /**
      * Test load Xlsx file without cell reference.

@@ -6,9 +6,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class TextDataTest extends PHPUnit_Framework_TestCase
+class TextDataTest extends TestCase
 {
     public function setUp()
     {
