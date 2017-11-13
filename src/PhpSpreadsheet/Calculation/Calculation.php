@@ -3800,7 +3800,7 @@ class Calculation
                     $pCell->attach($pCellParent);
                     $this->debugLog->writeDebugLog('Evaluation Result for named range ', $namedRange, ' is ', $this->showTypeDetails($cellValue));
                     $stack->push('Named Range', $cellValue, $namedRange);
-                    if ($cellValue === Calculation\Functions::REF())
+                    if ($cellValue === Functions::REF())
                         $this->formulaErrorDetails[] = $stack->last();
                 } else {
                     return $this->raiseFormulaError("undefined variable '$token'");
