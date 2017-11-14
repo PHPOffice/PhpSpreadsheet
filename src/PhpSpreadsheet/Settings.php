@@ -2,43 +2,20 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Chart\Renderer\IRenderer;
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
-use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 use Psr\SimpleCache\CacheInterface;
 
 class Settings
 {
-    /**    Optional Chart Rendering libraries */
-    const CHART_RENDERER_JPGRAPH = 'JpGraph';
-
-    private static $chartRenderers = [
-        self::CHART_RENDERER_JPGRAPH,
-    ];
-
     /**
-     * Name of the external Library used for rendering charts
-     * e.g.
-     *        jpgraph.
+     * Class name of the chart renderer used for rendering charts
+     * eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph.
      *
      * @var string
      */
-    private static $chartRendererName;
-
-    /**
-     * Directory Path to the external Library used for rendering charts.
-     *
-     * @var string
-     */
-    private static $chartRendererPath;
-
-    /**
-     * Name of the external Library used for rendering PDF files
-     * e.g.
-     *         mPDF.
-     *
-     * @var string
-     */
-    private static $defaultPdfWriter;
+    private static $chartRenderer;
 
     /**
      * Default options for libxml loader.
@@ -67,103 +44,31 @@ class Settings
     }
 
     /**
-     * Set details of the external library that PhpSpreadsheet should use for rendering charts.
-     *
-     * @param string $libraryName Internal reference name of the library
-     *    e.g. \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
-     * @param string $libraryBaseDir Directory path to the library's base folder
-     *
-     * @return bool Success or failure
-     */
-    public static function setChartRenderer($libraryName, $libraryBaseDir)
-    {
-        if (!self::setChartRendererName($libraryName)) {
-            return false;
-        }
-
-        return self::setChartRendererPath($libraryBaseDir);
-    }
-
-    /**
      * Identify to PhpSpreadsheet the external library to use for rendering charts.
      *
-     * @param string $libraryName Internal reference name of the library
-     *    e.g. \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
+     * @param string $rendererClass Class name of the chart renderer
+     *    eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph
      *
-     * @return bool Success or failure
+     * @throws Exception
      */
-    public static function setChartRendererName($libraryName)
+    public static function setChartRenderer($rendererClass)
     {
-        if (!in_array($libraryName, self::$chartRenderers)) {
-            return false;
+        if (!is_a($rendererClass, IRenderer::class, true)) {
+            throw new Exception('Chart renderer must implement ' . IRenderer::class);
         }
-        self::$chartRendererName = $libraryName;
 
-        return true;
+        self::$chartRenderer = $rendererClass;
     }
 
     /**
-     * Tell PhpSpreadsheet where to find the external library to use for rendering charts.
+     * Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use.
      *
-     * @param string $libraryBaseDir Directory path to the library's base folder
-     *
-     * @return bool Success or failure
+     * @return null|string Class name of the chart renderer
+     *    eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph
      */
-    public static function setChartRendererPath($libraryBaseDir)
+    public static function getChartRenderer()
     {
-        if ((file_exists($libraryBaseDir) === false) || (is_readable($libraryBaseDir) === false)) {
-            return false;
-        }
-        self::$chartRendererPath = $libraryBaseDir;
-
-        return true;
-    }
-
-    /**
-     * Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use (e.g. jpgraph).
-     *
-     * @return null|string Internal reference name of the Chart Rendering Library that PhpSpreadsheet is
-     *    currently configured to use
-     *    e.g. \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
-     */
-    public static function getChartRendererName()
-    {
-        return self::$chartRendererName;
-    }
-
-    /**
-     * Return the directory path to the Chart Rendering Library that PhpSpreadsheet is currently configured to use.
-     *
-     * @return null|string Directory Path to the Chart Rendering Library that PhpSpreadsheet is
-     *     currently configured to use
-     */
-    public static function getChartRendererPath()
-    {
-        return self::$chartRendererPath;
-    }
-
-    /**
-     * Identify to PhpSpreadsheet the default writer to use for PDF.
-     *
-     * @param string $writerClassName Internal reference name of the library
-     */
-    public static function setDefaultPdfWriter($writerClassName)
-    {
-        if (!is_a($writerClassName, Pdf::class, true)) {
-            throw new Exception('"' . $writerClassName . '" is not a valid PDF writer class name');
-        }
-        self::$defaultPdfWriter = $writerClassName;
-    }
-
-    /**
-     * Return the default PDF writer that PhpSpreadsheet is currently configured to use (e.g. dompdf).
-     *
-     * @return null|string Internal reference name of the PDF Rendering Library that PhpSpreadsheet is
-     *     currently configured to use
-     */
-    public static function getDefaultPdfWriter()
-    {
-        return self::$defaultPdfWriter;
+        return self::$chartRenderer;
     }
 
     /**

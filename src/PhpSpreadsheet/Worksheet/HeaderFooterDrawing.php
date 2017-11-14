@@ -3,9 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\IComparable;
 
-class HeaderFooterDrawing extends Drawing implements IComparable
+class HeaderFooterDrawing extends Drawing
 {
     /**
      * Path.

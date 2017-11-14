@@ -3,9 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class DateTest extends PHPUnit_Framework_TestCase
+class DateTest extends TestCase
 {
     public function testSetExcelCalendar()
     {

@@ -2,11 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Cell;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class StringTable extends WriterPart
@@ -44,7 +45,7 @@ class StringTable extends WriterPart
                 ($cellValue !== null) &&
                 $cellValue !== '' &&
                 !isset($aFlippedStringTable[$cellValue]) &&
-                ($cell->getDataType() == Cell\DataType::TYPE_STRING || $cell->getDataType() == Cell\DataType::TYPE_STRING2 || $cell->getDataType() == Cell\DataType::TYPE_NULL)) {
+                ($cell->getDataType() == DataType::TYPE_STRING || $cell->getDataType() == DataType::TYPE_STRING2 || $cell->getDataType() == DataType::TYPE_NULL)) {
                 $aStringTable[] = $cellValue;
                 $aFlippedStringTable[$cellValue] = true;
             } elseif ($cellValue instanceof RichText &&
@@ -131,7 +132,7 @@ class StringTable extends WriterPart
             $objWriter->startElement($prefix . 'r');
 
             // rPr
-            if ($element instanceof RichText\Run) {
+            if ($element instanceof Run) {
                 // rPr
                 $objWriter->startElement($prefix . 'rPr');
 

@@ -5,23 +5,10 @@ use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/../Header.php';
 
-//	Change these values to select the Rendering library that you wish to use
-//		for PDF files, and its directory location on your server
-$rendererName = \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF::class;
-
-Settings::setDefaultPdfWriter($rendererName);
+IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
 
 //	Change these values to select the Rendering library that you wish to use
-//		for Chart images, and its directory location on your server
-$rendererName = Settings::CHART_RENDERER_JPGRAPH;
-$rendererLibrary = 'jpgraph3.5.0b1/src/';
-$rendererLibraryPath = '/php/libraries/Charts/' . $rendererLibrary;
-
-if (!Settings::setChartRenderer($rendererName, $rendererLibraryPath)) {
-    $helper->log('NOTICE: Please set the $rendererName and $rendererLibraryPath values at the top of this script as appropriate for your directory structure');
-
-    return;
-}
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
 
 $inputFileType = 'Xlsx';
 $inputFileNames = __DIR__ . '/../templates/36write*.xlsx';
@@ -92,7 +79,7 @@ foreach ($inputFileNames as $inputFileName) {
     }
 
     // Save
-    $filename = $helper->getFilename($inputFileName);
+    $filename = $helper->getFilename($inputFileName, 'pdf');
     $writer = IOFactory::createWriter($spreadsheet, 'Pdf');
     $writer->setIncludeCharts(true);
     $callStartTime = microtime(true);

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+
 class Comment implements IComparable
 {
     /**

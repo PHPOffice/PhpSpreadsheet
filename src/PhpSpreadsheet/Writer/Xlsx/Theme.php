@@ -15,7 +15,7 @@ class Theme extends WriterPart
     /**
      * Map of Major fonts to write.
      *
-     * @static    array of string
+     * @var array of string
      */
     private static $majorFonts = [
         'Jpan' => 'ＭＳ Ｐゴシック',
@@ -53,7 +53,7 @@ class Theme extends WriterPart
     /**
      * Map of Minor fonts to write.
      *
-     * @static    array of string
+     * @var array of string
      */
     private static $minorFonts = [
         'Jpan' => 'ＭＳ Ｐゴシック',
@@ -91,7 +91,7 @@ class Theme extends WriterPart
     /**
      * Map of core colours.
      *
-     * @static    array of string
+     * @var array of string
      */
     private static $colourScheme = [
         'dk2' => '1F497D',

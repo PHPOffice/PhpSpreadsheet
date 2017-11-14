@@ -3,25 +3,18 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class MetaInf extends WriterPart
 {
     /**
      * Write META-INF/manifest.xml to XML format.
      *
-     * @param Spreadsheet $spreadsheet
-     *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeManifest(Spreadsheet $spreadsheet = null)
+    public function writeManifest()
     {
-        if (!$spreadsheet) {
-            $spreadsheet = $this->getParentWriter()->getSpreadsheet();
-        }
-
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
             $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());

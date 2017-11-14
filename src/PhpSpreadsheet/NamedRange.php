@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+
 class NamedRange
 {
     /**

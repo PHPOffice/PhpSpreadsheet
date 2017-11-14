@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Ods\Styles;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Thumbnails;
 use ZipArchive;
 
-class Ods extends BaseWriter implements IWriter
+class Ods extends BaseWriter
 {
     /**
      * Private writer parts.
@@ -26,7 +26,7 @@ class Ods extends BaseWriter implements IWriter
     /**
      * Private PhpSpreadsheet.
      *
-     * @var PhpSpreadsheet
+     * @var Spreadsheet
      */
     private $spreadSheet;
 

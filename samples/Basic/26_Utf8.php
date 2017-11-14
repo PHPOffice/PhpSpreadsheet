@@ -1,13 +1,8 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/../Header.php';
-
-//	Change these values to select the PDF Rendering library that you wish to use
-//		and its directory location on your server
-$rendererName = \PhpOffice\PhpSpreadsheet\Writer\Pdf\DomPDF::class;
 
 // Read from Xlsx (.xlsx) template
 $helper->log('Load Xlsx template file');
@@ -19,7 +14,7 @@ $helper->write($spreadsheet, __FILE__, ['Xlsx', 'Xls', 'Html']);
 
 // Export to PDF (.pdf)
 $helper->log('Write to PDF format');
-Settings::setDefaultPdfWriter($rendererName);
+IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf::class);
 $helper->write($spreadsheet, __FILE__, ['Pdf']);
 
 // Remove first two rows with field headers before exporting to CSV

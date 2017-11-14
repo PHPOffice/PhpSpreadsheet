@@ -2,14 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Collection;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet;
-use PHPUnit_Framework_TestCase;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\TestCase;
 
-class CellsTest extends PHPUnit_Framework_TestCase
+class CellsTest extends TestCase
 {
     public function testCollectionCell()
     {

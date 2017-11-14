@@ -1,6 +1,6 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 require __DIR__ . '/../Header.php';
@@ -12,9 +12,9 @@ $spreadsheet->getActiveSheet()->setShowGridLines(false);
 $helper->log('Set orientation to landscape');
 $spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
 
-$rendererName = \PhpOffice\PhpSpreadsheet\Writer\Pdf\MPDF::class;
-$helper->log("Write to PDF format using {$rendererName}");
-Settings::setDefaultPdfWriter($rendererName);
+$className = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class;
+$helper->log("Write to PDF format using {$className}");
+IOFactory::registerWriter('Pdf', $className);
 
 // Save
 $helper->write($spreadsheet, __FILE__, ['Pdf']);

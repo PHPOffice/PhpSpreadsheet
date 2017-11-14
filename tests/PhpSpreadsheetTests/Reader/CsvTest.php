@@ -6,9 +6,9 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv as ReaderCsv;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv as WriterCsv;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class CsvTest extends PHPUnit_Framework_TestCase
+class CsvTest extends TestCase
 {
     public function testEnclosure()
     {

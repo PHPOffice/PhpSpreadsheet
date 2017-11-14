@@ -2,15 +2,15 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Cell;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
-use PhpOffice\PhpSpreadsheet\Worksheet as PhpspreadsheetWorksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 /**
@@ -31,96 +31,92 @@ class Worksheet extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeWorksheet($pSheet = null, $pStringTable = null, $includeCharts = false)
+    public function writeWorksheet(PhpspreadsheetWorksheet $pSheet, $pStringTable = null, $includeCharts = false)
     {
-        if ($pSheet !== null) {
-            // Create XML writer
-            $objWriter = null;
-            if ($this->getParentWriter()->getUseDiskCaching()) {
-                $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
-            } else {
-                $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
-            }
-
-            // XML header
-            $objWriter->startDocument('1.0', 'UTF-8', 'yes');
-
-            // Worksheet
-            $objWriter->startElement('worksheet');
-            $objWriter->writeAttribute('xml:space', 'preserve');
-            $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
-            $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
-
-            // sheetPr
-            $this->writeSheetPr($objWriter, $pSheet);
-
-            // Dimension
-            $this->writeDimension($objWriter, $pSheet);
-
-            // sheetViews
-            $this->writeSheetViews($objWriter, $pSheet);
-
-            // sheetFormatPr
-            $this->writeSheetFormatPr($objWriter, $pSheet);
-
-            // cols
-            $this->writeCols($objWriter, $pSheet);
-
-            // sheetData
-            $this->writeSheetData($objWriter, $pSheet, $pStringTable);
-
-            // sheetProtection
-            $this->writeSheetProtection($objWriter, $pSheet);
-
-            // protectedRanges
-            $this->writeProtectedRanges($objWriter, $pSheet);
-
-            // autoFilter
-            $this->writeAutoFilter($objWriter, $pSheet);
-
-            // mergeCells
-            $this->writeMergeCells($objWriter, $pSheet);
-
-            // conditionalFormatting
-            $this->writeConditionalFormatting($objWriter, $pSheet);
-
-            // dataValidations
-            $this->writeDataValidations($objWriter, $pSheet);
-
-            // hyperlinks
-            $this->writeHyperlinks($objWriter, $pSheet);
-
-            // Print options
-            $this->writePrintOptions($objWriter, $pSheet);
-
-            // Page margins
-            $this->writePageMargins($objWriter, $pSheet);
-
-            // Page setup
-            $this->writePageSetup($objWriter, $pSheet);
-
-            // Header / footer
-            $this->writeHeaderFooter($objWriter, $pSheet);
-
-            // Breaks
-            $this->writeBreaks($objWriter, $pSheet);
-
-            // Drawings and/or Charts
-            $this->writeDrawings($objWriter, $pSheet, $includeCharts);
-
-            // LegacyDrawing
-            $this->writeLegacyDrawing($objWriter, $pSheet);
-
-            // LegacyDrawingHF
-            $this->writeLegacyDrawingHF($objWriter, $pSheet);
-
-            $objWriter->endElement();
-
-            // Return
-            return $objWriter->getData();
+        // Create XML writer
+        $objWriter = null;
+        if ($this->getParentWriter()->getUseDiskCaching()) {
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+        } else {
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
         }
 
-        throw new WriterException('Invalid \\PhpOffice\\PhpSpreadsheet\\Worksheet object passed.');
+        // XML header
+        $objWriter->startDocument('1.0', 'UTF-8', 'yes');
+
+        // Worksheet
+        $objWriter->startElement('worksheet');
+        $objWriter->writeAttribute('xml:space', 'preserve');
+        $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
+        $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+
+        // sheetPr
+        $this->writeSheetPr($objWriter, $pSheet);
+
+        // Dimension
+        $this->writeDimension($objWriter, $pSheet);
+
+        // sheetViews
+        $this->writeSheetViews($objWriter, $pSheet);
+
+        // sheetFormatPr
+        $this->writeSheetFormatPr($objWriter, $pSheet);
+
+        // cols
+        $this->writeCols($objWriter, $pSheet);
+
+        // sheetData
+        $this->writeSheetData($objWriter, $pSheet, $pStringTable);
+
+        // sheetProtection
+        $this->writeSheetProtection($objWriter, $pSheet);
+
+        // protectedRanges
+        $this->writeProtectedRanges($objWriter, $pSheet);
+
+        // autoFilter
+        $this->writeAutoFilter($objWriter, $pSheet);
+
+        // mergeCells
+        $this->writeMergeCells($objWriter, $pSheet);
+
+        // conditionalFormatting
+        $this->writeConditionalFormatting($objWriter, $pSheet);
+
+        // dataValidations
+        $this->writeDataValidations($objWriter, $pSheet);
+
+        // hyperlinks
+        $this->writeHyperlinks($objWriter, $pSheet);
+
+        // Print options
+        $this->writePrintOptions($objWriter, $pSheet);
+
+        // Page margins
+        $this->writePageMargins($objWriter, $pSheet);
+
+        // Page setup
+        $this->writePageSetup($objWriter, $pSheet);
+
+        // Header / footer
+        $this->writeHeaderFooter($objWriter, $pSheet);
+
+        // Breaks
+        $this->writeBreaks($objWriter, $pSheet);
+
+        // Drawings and/or Charts
+        $this->writeDrawings($objWriter, $pSheet, $includeCharts);
+
+        // LegacyDrawing
+        $this->writeLegacyDrawing($objWriter, $pSheet);
+
+        // LegacyDrawingHF
+        $this->writeLegacyDrawingHF($objWriter, $pSheet);
+
+        $objWriter->endElement();
+
+        // Return
+        return $objWriter->getData();
     }
 
     /**
@@ -1048,7 +1044,6 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      * @param Cell $pCellAddress Cell Address
-     * @param string[] $pStringTable String table
      * @param string[] $pFlippedStringTable String table (flipped), for faster index searching
      *
      * @throws WriterException

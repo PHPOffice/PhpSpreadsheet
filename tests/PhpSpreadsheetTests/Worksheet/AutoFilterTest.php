@@ -3,14 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
-use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
-use PHPUnit_Framework_TestCase;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\TestCase;
 
-class AutoFilterTest extends PHPUnit_Framework_TestCase
+class AutoFilterTest extends TestCase
 {
     private $testInitialRange = 'H2:O256';
+    /**
+     * @var AutoFilter
+     */
     private $testAutoFilterObject;
     private $mockWorksheetObject;
     private $cellCollection;
@@ -99,7 +102,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     {
         $expectedResult = 'A1';
 
-        $result = $this->testAutoFilterObject->setRange($expectedResult);
+        $this->testAutoFilterObject->setRange($expectedResult);
     }
 
     public function testGetColumnsEmpty()
@@ -133,7 +136,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     {
         $invalidColumn = 'G';
 
-        $result = $this->testAutoFilterObject->getColumnOffset($invalidColumn);
+        $this->testAutoFilterObject->getColumnOffset($invalidColumn);
     }
 
     public function testSetColumnWithString()
@@ -145,7 +148,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
         self::assertInstanceOf(AutoFilter::class, $result);
 
         $result = $this->testAutoFilterObject->getColumns();
-        //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
+        //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
         self::assertInternalType('array', $result);
         self::assertCount(1, $result);
@@ -160,7 +163,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     {
         $invalidColumn = 'A';
 
-        $result = $this->testAutoFilterObject->setColumn($invalidColumn);
+        $this->testAutoFilterObject->setColumn($invalidColumn);
     }
 
     public function testSetColumnWithColumnObject()
@@ -173,7 +176,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
         self::assertInstanceOf(AutoFilter::class, $result);
 
         $result = $this->testAutoFilterObject->getColumns();
-        //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
+        //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
         self::assertInternalType('array', $result);
         self::assertCount(1, $result);
@@ -187,9 +190,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     public function testSetInvalidColumnWithObject()
     {
         $invalidColumn = 'E';
-        $columnObject = new AutoFilter\Column($invalidColumn);
-
-        $result = $this->testAutoFilterObject->setColumn($invalidColumn);
+        $this->testAutoFilterObject->setColumn($invalidColumn);
     }
 
     /**
@@ -198,9 +199,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     public function testSetColumnWithInvalidDataType()
     {
         $invalidColumn = 123.456;
-        $columnObject = new AutoFilter\Column($invalidColumn);
-
-        $result = $this->testAutoFilterObject->setColumn($invalidColumn);
+        $this->testAutoFilterObject->setColumn($invalidColumn);
     }
 
     public function testGetColumns()
@@ -212,7 +211,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
         }
 
         $result = $this->testAutoFilterObject->getColumns();
-        //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
+        //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
         self::assertInternalType('array', $result);
         self::assertCount(count($columnIndexes), $result);
@@ -231,7 +230,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
         }
 
         //  If we request a specific column by its column ID, we should
-        //    get a \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column object returned
+        //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column object returned
         foreach ($columnIndexes as $columnIndex) {
             $result = $this->testAutoFilterObject->getColumn($columnIndex);
             self::assertInstanceOf(Column::class, $result);
@@ -247,7 +246,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
         ];
 
         //  If we request a specific column by its offset, we should
-        //    get a \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column object returned
+        //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column object returned
         foreach ($columnIndexes as $columnIndex => $columnID) {
             $result = $this->testAutoFilterObject->getColumnByOffset($columnIndex);
             self::assertInstanceOf(Column::class, $result);
@@ -258,7 +257,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     public function testGetColumnIfNotSet()
     {
         //  If we request a specific column by its column ID, we should
-        //    get a \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column object returned
+        //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column object returned
         $result = $this->testAutoFilterObject->getColumn('K');
         self::assertInstanceOf(Column::class, $result);
     }
@@ -269,8 +268,8 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
     public function testGetColumnWithoutRangeSet()
     {
         //  Clear the range
-        $result = $this->testAutoFilterObject->setRange('');
-        $result = $this->testAutoFilterObject->getColumn('A');
+        $this->testAutoFilterObject->setRange('');
+        $this->testAutoFilterObject->getColumn('A');
     }
 
     public function testClearRangeWithExistingColumns()

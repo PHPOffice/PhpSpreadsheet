@@ -6,12 +6,12 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Font;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @todo The class doesn't read the bold/italic/underline properties (rich text)
  */
-class OdsTest extends PHPUnit_Framework_TestCase
+class OdsTest extends TestCase
 {
     /**
      * @var Spreadsheet
@@ -79,10 +79,10 @@ class OdsTest extends PHPUnit_Framework_TestCase
         self::assertEquals(2, $spreadsheet->getSheetCount());
 
         $firstSheet = $spreadsheet->getSheet(0);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet', $firstSheet);
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
 
         $secondSheet = $spreadsheet->getSheet(1);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet', $secondSheet);
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
     }
 
     public function testReadValueAndComments()

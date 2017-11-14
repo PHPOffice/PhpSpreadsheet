@@ -3,9 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class LegendTest extends PHPUnit_Framework_TestCase
+class LegendTest extends TestCase
 {
     public function testSetPosition()
     {
@@ -41,7 +41,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $PositionValue = Legend::POSITION_BOTTOM;
 
         $testInstance = new Legend();
-        $setValue = $testInstance->setPosition($PositionValue);
+        $testInstance->setPosition($PositionValue);
 
         $result = $testInstance->getPosition();
         self::assertEquals($PositionValue, $result);
@@ -82,7 +82,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $PositionValue = Legend::XL_LEGEND_POSITION_CORNER;
 
         $testInstance = new Legend();
-        $setValue = $testInstance->setPositionXL($PositionValue);
+        $testInstance->setPositionXL($PositionValue);
 
         $result = $testInstance->getPositionXL();
         self::assertEquals($PositionValue, $result);
@@ -119,7 +119,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $OverlayValue = true;
 
         $testInstance = new Legend();
-        $setValue = $testInstance->setOverlay($OverlayValue);
+        $testInstance->setOverlay($OverlayValue);
 
         $result = $testInstance->getOverlay();
         self::assertEquals($OverlayValue, $result);

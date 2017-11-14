@@ -2,6 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+
 class ReferenceHelper
 {
     /**    Constants                */
@@ -384,7 +388,7 @@ class ReferenceHelper
                     $coordinate = Cell::stringFromColumnIndex($j) . $i;
                     $pSheet->removeConditionalStyles($coordinate);
                     if ($pSheet->cellExists($coordinate)) {
-                        $pSheet->getCell($coordinate)->setValueExplicit('', Cell\DataType::TYPE_NULL);
+                        $pSheet->getCell($coordinate)->setValueExplicit('', DataType::TYPE_NULL);
                         $pSheet->getCell($coordinate)->setXfIndex(0);
                     }
                 }
@@ -398,7 +402,7 @@ class ReferenceHelper
                     $coordinate = Cell::stringFromColumnIndex($i) . $j;
                     $pSheet->removeConditionalStyles($coordinate);
                     if ($pSheet->cellExists($coordinate)) {
-                        $pSheet->getCell($coordinate)->setValueExplicit('', Cell\DataType::TYPE_NULL);
+                        $pSheet->getCell($coordinate)->setValueExplicit('', DataType::TYPE_NULL);
                         $pSheet->getCell($coordinate)->setXfIndex(0);
                     }
                 }
@@ -427,7 +431,7 @@ class ReferenceHelper
                 $pSheet->getCell($newCoordinate)->setXfIndex($cell->getXfIndex());
 
                 // Insert this cell at its new location
-                if ($cell->getDataType() == Cell\DataType::TYPE_FORMULA) {
+                if ($cell->getDataType() == DataType::TYPE_FORMULA) {
                     // Formula should be adjusted
                     $pSheet->getCell($newCoordinate)
                             ->setValue($this->updateFormulaReferences($cell->getValue(), $pBefore, $pNumCols, $pNumRows, $pSheet->getTitle()));
@@ -441,7 +445,7 @@ class ReferenceHelper
             } else {
                 /*    We don't need to update styles for rows/columns before our insertion position,
                         but we do still need to adjust any formulae    in those cells                    */
-                if ($cell->getDataType() == Cell\DataType::TYPE_FORMULA) {
+                if ($cell->getDataType() == DataType::TYPE_FORMULA) {
                     // Formula should be adjusted
                     $cell->setValue($this->updateFormulaReferences($cell->getValue(), $pBefore, $pNumCols, $pNumRows, $pSheet->getTitle()));
                 }
@@ -798,12 +802,12 @@ class ReferenceHelper
         foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
             foreach ($sheet->getCoordinates(false) as $coordinate) {
                 $cell = $sheet->getCell($coordinate);
-                if (($cell !== null) && ($cell->getDataType() == Cell\DataType::TYPE_FORMULA)) {
+                if (($cell !== null) && ($cell->getDataType() == DataType::TYPE_FORMULA)) {
                     $formula = $cell->getValue();
                     if (strpos($formula, $oldName) !== false) {
                         $formula = str_replace("'" . $oldName . "'!", "'" . $newName . "'!", $formula);
                         $formula = str_replace($oldName . '!', $newName . '!', $formula);
-                        $cell->setValueExplicit($formula, Cell\DataType::TYPE_FORMULA);
+                        $cell->setValueExplicit($formula, DataType::TYPE_FORMULA);
                     }
                 }
             }

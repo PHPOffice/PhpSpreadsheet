@@ -2016,7 +2016,7 @@ class Engineering
         $parsedComplex = self::parseComplex($complexNumber);
 
         $theta = self::IMARGUMENT($complexNumber);
-        if ($theta === functions::DIV0()) {
+        if ($theta === Functions::DIV0()) {
             return '0';
         }
 

@@ -4,9 +4,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class BorderTest extends PHPUnit_Framework_TestCase
+class BorderTest extends TestCase
 {
     public function testCase()
     {

@@ -472,8 +472,6 @@ class OLE
     /**
      * Utility function to transform ASCII text to Unicode.
      *
-     * @static
-     *
      * @param string $ascii The ASCII string to transform
      *
      * @return string The string in Unicode
@@ -492,8 +490,6 @@ class OLE
     /**
      * Utility function
      * Returns a string for the OLE container with the date given.
-     *
-     * @static
      *
      * @param int $date A timestamp
      *
@@ -538,8 +534,6 @@ class OLE
 
     /**
      * Returns a timestamp from an OLE container's date.
-     *
-     * @static
      *
      * @param int $string A binary string with the encoded date
      *

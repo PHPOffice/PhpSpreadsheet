@@ -2,12 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
-use PHPUnit_Framework_TestCase;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\TestCase;
 
-class WorksheetRowTest extends PHPUnit_Framework_TestCase
+class RowTest extends TestCase
 {
     public $mockWorksheet;
     public $mockRow;
