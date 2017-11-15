@@ -198,11 +198,32 @@ class Worksheet implements IComparable
     private $autoFilter;
 
     /**
-     * Freeze pane.
+     * Horizontal position of the split.
+     *
+     * @var int
+     */
+    private $colSplit = 0;
+
+    /**
+     * Vertical position of the split.
+     *
+     * @var int
+     */
+    private $rowSplit = 0;
+
+    /**
+     * Default position of the right bottom pane.
      *
      * @var string
      */
-    private $freezePane = '';
+    private $topLeftCell = '';
+
+    /**
+     * Pane frozen ?
+     *
+     * @var bool
+     */
+    private $freezePane = false;
 
     /**
      * Show gridlines?
@@ -1962,9 +1983,9 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Get Freeze Pane.
+     * Freeze pane ?
      *
-     * @return string
+     * @return bool
      */
     public function getFreezePane()
     {
@@ -1974,43 +1995,43 @@ class Worksheet implements IComparable
     /**
      * Freeze Pane.
      *
-     * @param string $pCell Cell (i.e. A2)
-     *                                    Examples:
-     *                                        A2 will freeze the rows above cell A2 (i.e row 1)
-     *                                        B1 will freeze the columns to the left of cell B1 (i.e column A)
-     *                                        B2 will freeze the rows above and to the left of cell A2
-     *                                            (i.e row 1 and column A)
+     * @param int $colSplit Horizontal position of the split
+     * @param int $rowSplit Vertical position of the split
+     * @param string $topLeftCell default position of the right bottom pane
      *
      * @throws Exception
      *
      * @return Worksheet
      */
-    public function freezePane($pCell)
+    public function freezePane($colSplit, $rowSplit, $topLeftCell = null)
     {
-        // Uppercase coordinate
-        $pCell = strtoupper($pCell);
-        if (strpos($pCell, ':') === false && strpos($pCell, ',') === false) {
-            $this->freezePane = $pCell;
-        } else {
+        if (!isset($topLeftCell)) {
+            $topLeftCell = Cell::stringFromColumnIndex($colSplit) . ($rowSplit + 1);
+        }
+
+        if (!(strpos($topLeftCell, ':') === false && strpos($topLeftCell, ',') === false)) {
             throw new Exception('Freeze pane can not be set on a range of cells.');
         }
 
-        return $this;
-    }
+        if (!is_int($colSplit) || !is_int($rowSplit)) {
+            throw new Exception('Split values should be integer to create freeze pane.');
+        }
 
-    /**
-     * Freeze Pane by using numeric cell coordinates.
-     *
-     * @param int $pColumn Numeric column coordinate of the cell (A = 0)
-     * @param int $pRow Numeric row coordinate of the cell
-     *
-     * @throws Exception
-     *
-     * @return Worksheet
-     */
-    public function freezePaneByColumnAndRow($pColumn, $pRow)
-    {
-        return $this->freezePane(Cell::stringFromColumnIndex($pColumn) . $pRow);
+        // If colSplit and rowSplit are equal to zero the freeze pane is removed
+        if ($colSplit == 0 && $rowSplit == 0) {
+            $this->freezePane = false;
+
+            return $this;
+        }
+
+        $this->freezePane = true;
+
+        $this->colSplit = $colSplit;
+        $this->rowSplit = $rowSplit;
+
+        $this->topLeftCell = $topLeftCell;
+
+        return $this;
     }
 
     /**
@@ -2020,7 +2041,37 @@ class Worksheet implements IComparable
      */
     public function unfreezePane()
     {
-        return $this->freezePane('');
+        return $this->freezePane(0, 0);
+    }
+
+    /**
+     * Get horizontal position of the split.
+     *
+     * @return int
+     */
+    public function getColSplit()
+    {
+        return $this->colSplit;
+    }
+
+    /**
+     * Get vertical position of the split.
+     *
+     * @return int
+     */
+    public function getRowSplit()
+    {
+        return $this->rowSplit;
+    }
+
+    /**
+     * Get the default position of the right bottom pane.
+     *
+     * @return int
+     */
+    public function getTopLeftCell()
+    {
+        return $this->topLeftCell;
     }
 
     /**

@@ -38,7 +38,7 @@ $spreadsheet->getActiveSheet()->getColumnDimension('E')->setOutlineLevel(1)
 
 // Freeze panes
 $helper->log('Freeze panes');
-$spreadsheet->getActiveSheet()->freezePane('A2');
+$spreadsheet->getActiveSheet()->freezePane(0, 1);
 
 // Rows to repeat at top
 $helper->log('Rows to repeat at top');
