@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
-
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;

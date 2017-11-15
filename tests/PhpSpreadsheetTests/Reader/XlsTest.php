@@ -10,7 +10,6 @@ use PHPUnit_Framework_TestCase;
 
 class XlsTest extends PHPUnit_Framework_TestCase
 {
-
     public function testFreezePane()
     {
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet');
