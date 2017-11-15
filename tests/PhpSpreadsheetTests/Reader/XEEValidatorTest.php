@@ -6,9 +6,9 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\BaseReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class XEEValidatorTest extends PHPUnit_Framework_TestCase
+class XEEValidatorTest extends TestCase
 {
     /**
      * @var Spreadsheet

@@ -10,6 +10,7 @@ use PHPUnit_Framework_TestCase;
 
 class XlsTest extends PHPUnit_Framework_TestCase
 {
+
     public function testFreezePane()
     {
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet');
@@ -20,7 +21,7 @@ class XlsTest extends PHPUnit_Framework_TestCase
 
         $spreadsheet = new Spreadsheet();
         $active = $spreadsheet->getActiveSheet();
-        $active->createFreezePane($colSplit, $rowSplit, $topLeftCell);
+        $active->freezePane($colSplit, $rowSplit, $topLeftCell);
 
         $writer = new WriterXls($spreadsheet);
         $writer->save($filename);

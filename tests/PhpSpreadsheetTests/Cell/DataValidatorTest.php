@@ -4,9 +4,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class DataValidatorTest extends PHPUnit_Framework_TestCase
+class DataValidatorTest extends TestCase
 {
     public function testNoValidation()
     {

@@ -8,6 +8,16 @@ use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 class Dompdf extends Pdf
 {
     /**
+     * Gets the implementation of external PDF library that should be used.
+     *
+     * @return \Dompdf\Dompdf implementation
+     */
+    protected function createExternalWriterInstance()
+    {
+        return new \Dompdf\Dompdf();
+    }
+
+    /**
      * Save Spreadsheet to file.
      *
      * @param string $pFilename Name of the file to save as
@@ -50,7 +60,7 @@ class Dompdf extends Pdf
         }
 
         //  Create PDF
-        $pdf = new \Dompdf\Dompdf();
+        $pdf = $this->createExternalWriterInstance();
         $pdf->setPaper(strtolower($paperSize), $orientation);
 
         $pdf->loadHtml(

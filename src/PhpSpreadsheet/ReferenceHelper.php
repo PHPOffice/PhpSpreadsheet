@@ -594,7 +594,7 @@ class ReferenceHelper
             $rowSplit = $rowSplit - 1;
             $topLeftCell = $this->updateCellReference($topLeftCell, $pBefore, $pNumCols, $pNumRows);
 
-            $pSheet->createFreezePane($colSplit, $rowSplit, $topLeftCell);
+            $pSheet->freezePane($colSplit, $rowSplit, $topLeftCell);
         }
 
         // Page setup

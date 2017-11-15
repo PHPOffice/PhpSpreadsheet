@@ -3,9 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\Font;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class FontTest extends PHPUnit_Framework_TestCase
+class FontTest extends TestCase
 {
     public function testGetAutoSizeMethod()
     {

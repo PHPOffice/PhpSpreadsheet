@@ -736,7 +736,7 @@ class Xlsx extends BaseReader
                                         $topLeftCell = (string) $xmlSheet->sheetViews->sheetView->pane['topLeftCell'];
                                     }
 
-                                    $docSheet->createFreezePane($xSplit, $ySplit, $topLeftCell);
+                                    $docSheet->freezePane($xSplit, $ySplit, $topLeftCell);
                                 }
 
                                 if (isset($xmlSheet->sheetViews->sheetView->selection)) {

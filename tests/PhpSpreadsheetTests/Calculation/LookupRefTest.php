@@ -4,12 +4,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class LookupRefTest.
  */
-class LookupRefTest extends PHPUnit_Framework_TestCase
+class LookupRefTest extends TestCase
 {
     public function setUp()
     {

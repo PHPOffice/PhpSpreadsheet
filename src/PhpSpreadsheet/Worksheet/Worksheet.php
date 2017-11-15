@@ -212,7 +212,7 @@ class Worksheet implements IComparable
     private $rowSplit = 0;
 
     /**
-     * Cell at the upper-left corner of the right pane.
+     * Default position of the right bottom pane.
      *
      * @var string
      */
@@ -1997,13 +1997,13 @@ class Worksheet implements IComparable
      *
      * @param int $colSplit Horizontal position of the split
      * @param int $rowSplit Vertical position of the split
-     * @param string $topLeftCell cell at the upper-left corner of the right pane
+     * @param string $topLeftCell default position of the right bottom pane
      *
      * @throws Exception
      *
      * @return Worksheet
      */
-    public function createFreezePane($colSplit, $rowSplit, $topLeftCell = null)
+    public function freezePane($colSplit, $rowSplit, $topLeftCell = null)
     {
         if (!isset($topLeftCell)) {
             $topLeftCell = Cell::stringFromColumnIndex($colSplit) . ($rowSplit + 1);
@@ -2041,7 +2041,7 @@ class Worksheet implements IComparable
      */
     public function unfreezePane()
     {
-        return $this->createFreezePane(0, 0);
+        return $this->freezePane(0, 0);
     }
 
     /**
@@ -2065,7 +2065,7 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Get the cell at the upper-left corner of the right pane.
+     * Get the default position of the right bottom pane.
      *
      * @return int
      */

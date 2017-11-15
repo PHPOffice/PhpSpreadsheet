@@ -3,9 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class StringHelperTest extends PHPUnit_Framework_TestCase
+class StringHelperTest extends TestCase
 {
     public function setUp()
     {
