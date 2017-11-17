@@ -25,6 +25,14 @@ abstract class BaseReader implements IReader
     protected $readEmptyCells = true;
 
     /**
+     * Lazy init cells by first access or instantly
+     * Identifies when loaded cells will be initialized - instantly or on first access.
+     *
+     * @var bool
+     */
+    protected $lazyInitCells = false;
+
+    /**
      * Read charts that are defined in the workbook?
      * Identifies whether the Reader should read the definitions for any charts that exist in the workbook;.
      *
@@ -101,6 +109,34 @@ abstract class BaseReader implements IReader
     public function setReadEmptyCells($pValue)
     {
         $this->readEmptyCells = (bool) $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Deferred init cells or by first access
+     *        If this is true, then the Reader will create cells internal object for each readed cell.
+     *        If false (the default) it will store readed cells data to create for them internal objects on first access.
+     *
+     * @return bool
+     */
+    public function getLazyInitCells()
+    {
+        return $this->lazyInitCells;
+    }
+
+    /**
+     * Set deferred init cells or by first access
+     *        Set to true to create cells internal object for each readed cell.
+     *        Set to false (the default) to store readed cells data to create for them internal objects on first access.
+     *
+     * @param bool $pValue
+     *
+     * @return IReader
+     */
+    public function setLazyInitCells($pValue)
+    {
+        $this->lazyInitCells = (bool) $pValue;
 
         return $this;
     }

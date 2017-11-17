@@ -1242,6 +1242,62 @@ class Worksheet implements IComparable
     }
 
     /**
+     * Store new cell at the specified coordinate to create it on first access.
+     *
+     * @param string $pCoordinate Coordinate of the cell
+     * @param mixed $pValue Value of the cell
+     * @param mixed $calculatedValue Value of the cell
+     * @param string $cellDataType Explicit data type, see DataType::TYPE_*
+     * @param int $styleIndex Style index of cell
+     * @param string $hyperlink Hyperlink string
+     */
+    public function lazyCreateNewCell($pCoordinate, $pValue, $calculatedValue, $cellDataType, $styleIndex = 0, $hyperlink = null)
+    {
+        $cellData = [
+            'value' => $pValue,
+            'calculatedValue' => $calculatedValue,
+            'type' => $cellDataType,
+            'styleIndex' => $styleIndex,
+            'hyperlink' => $hyperlink,
+        ];
+        $this->cellCollection->addLazyCellData($pCoordinate, $cellData);
+        $this->cellCollectionIsSorted = false;
+    }
+
+    /**
+     * Create a new cell with predefined attributes at the specified coordinate.
+     *
+     * @param string $pCoordinate Coordinate of the cell
+     * @param array $cellData Cell predefined attributes
+     *
+     * @return Cell Cell that was created
+     */
+    public function createNewPredefinedCell($pCoordinate, $cellData)
+    {
+        $cell = $this->createNewCell($pCoordinate);
+
+        // Assign value
+        if (!empty($cellData['type'])) {    // type can be empty string
+            $cell->setValueExplicit($cellData['value'], $cellData['type']);
+        } else {
+            $cell->setValue($cellData['value']);
+        }
+        if (isset($cellData['calculatedValue'])) {
+            $cell->setCalculatedValue($cellData['calculatedValue']);
+        }
+        // Style information?
+        if (isset($cellData['styleIndex'])) {
+            $cell->setXfIndex($cellData['styleIndex']);
+        }
+        if (isset($cellData['hyperlink'])) {
+            $cell->getHyperlink()
+                ->setUrl($cellData['hyperlink']);
+        }
+
+        return $cell;
+    }
+
+    /**
      * Create a new cell at the specified coordinate.
      *
      * @param string $pCoordinate Coordinate of the cell

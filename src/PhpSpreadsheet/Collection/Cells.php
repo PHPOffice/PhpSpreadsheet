@@ -50,6 +50,13 @@ class Cells
     private $index = [];
 
     /**
+     * An index of deferred created cells.
+     *
+     * @var array[]
+     */
+    private $lazyCellsData = [];
+
+    /**
      * Prefix used to uniquely identify cache data for this worksheet.
      *
      * @var string
@@ -95,7 +102,7 @@ class Cells
         }
 
         // Check if the requested entry exists in the index
-        return isset($this->index[$pCoord]);
+        return isset($this->index[$pCoord]) || isset($this->lazyCellsData[$pCoord]);
     }
 
     /**
@@ -407,6 +414,17 @@ class Cells
     }
 
     /**
+     * Add or update a lazy cell identified by its coordinate into the collection.
+     *
+     * @param string $pCoord Coordinate of the cell to update
+     * @param array $cellData Cell data to deferred create
+     */
+    public function addLazyCellData($pCoord, array $cellData)
+    {
+        $this->lazyCellsData[$pCoord] = $cellData;
+    }
+
+    /**
      * Get cell at a specific coordinate.
      *
      * @param string $pCoord Coordinate of the cell
@@ -425,6 +443,13 @@ class Cells
         // Return null if requested entry doesn't exist in collection
         if (!$this->has($pCoord)) {
             return null;
+        }
+
+        if (isset($this->lazyCellsData[$pCoord])) {
+            $cell = $this->parent->createNewPredefinedCell($pCoord, $this->lazyCellsData[$pCoord]);
+            $this->add($pCoord, $cell);
+            $this->storeCurrentCell();
+            unset($this->lazyCellsData[$pCoord]);
         }
 
         // Check if the entry that has been requested actually exists
