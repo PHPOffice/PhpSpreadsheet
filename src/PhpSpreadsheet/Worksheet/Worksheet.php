@@ -1242,38 +1242,23 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Store new cell at the specified coordinate to create it on first access.
-     *
-     * @param string $pCoordinate Coordinate of the cell
-     * @param mixed $pValue Value of the cell
-     * @param mixed $calculatedValue Value of the cell
-     * @param string $cellDataType Explicit data type, see DataType::TYPE_*
-     * @param int $styleIndex Style index of cell
-     * @param string $hyperlink Hyperlink string
-     */
-    public function lazyCreateNewCell($pCoordinate, $pValue, $calculatedValue, $cellDataType, $styleIndex = 0, $hyperlink = null)
-    {
-        $cellData = [
-            'value' => $pValue,
-            'calculatedValue' => $calculatedValue,
-            'type' => $cellDataType,
-            'styleIndex' => $styleIndex,
-            'hyperlink' => $hyperlink,
-        ];
-        $this->cellCollection->addLazyCellData($pCoordinate, $cellData);
-        $this->cellCollectionIsSorted = false;
-    }
-
-    /**
      * Create a new cell with predefined attributes at the specified coordinate.
      *
      * @param string $pCoordinate Coordinate of the cell
      * @param array $cellData Cell predefined attributes
+     * @param bool $lazyCreate Create immediately or on first access
      *
      * @return Cell Cell that was created
      */
-    public function createNewPredefinedCell($pCoordinate, $cellData)
+    public function createNewPredefinedCell($pCoordinate, $cellData, $lazyCreate = false)
     {
+        if ($lazyCreate) {
+            $this->cellCollection->addLazyCellData($pCoordinate, $cellData);
+            $this->cellCollectionIsSorted = false;
+
+            return null;
+        }
+
         $cell = $this->createNewCell($pCoordinate);
 
         // Assign value

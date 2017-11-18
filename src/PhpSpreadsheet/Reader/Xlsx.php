@@ -952,37 +952,33 @@ class Xlsx extends BaseReader
                                                 (int) ($c['s']) : 0);
                                         }
 
-                                        if ($this->lazyInitCells) {
-                                            $docSheet->lazyCreateNewCell($r, $value, $calculatedValue, $cellDataType, $styleIndex);
+                                        /*
+                                        $cell = $docSheet->getCell($r);
+
+                                        // Assign value
+                                        if ($cellDataType != '') {
+                                            $cell->setValueExplicit($value, $cellDataType);
                                         } else {
-                                            /*
-                                            $cell = $docSheet->getCell($r);
-
-                                            // Assign value
-                                            if ($cellDataType != '') {
-                                                $cell->setValueExplicit($value, $cellDataType);
-                                            } else {
-                                                $cell->setValue($value);
-                                            }
-                                            if ($calculatedValue !== null) {
-                                                $cell->setCalculatedValue($calculatedValue);
-                                            }
-
-                                            // Style information?
-                                            if ($c['s'] && !$this->readDataOnly) {
-                                                // no style index means 0, it seems
-                                                $cell->setXfIndex(isset($styles[(int) ($c['s'])]) ?
-                                                    (int) ($c['s']) : 0);
-                                            }
-                                            */
-                                            $cellData = [
-                                                'value' => $value,
-                                                'calculatedValue' => $calculatedValue,
-                                                'type' => $cellDataType,
-                                                'styleIndex' => $styleIndex,
-                                            ];
-                                            $docSheet->createNewPredefinedCell($r, $cellData);
+                                            $cell->setValue($value);
                                         }
+                                        if ($calculatedValue !== null) {
+                                            $cell->setCalculatedValue($calculatedValue);
+                                        }
+
+                                        // Style information?
+                                        if ($c['s'] && !$this->readDataOnly) {
+                                            // no style index means 0, it seems
+                                            $cell->setXfIndex(isset($styles[(int) ($c['s'])]) ?
+                                                (int) ($c['s']) : 0);
+                                        }
+                                        */
+                                        $cellData = [
+                                            'value' => $value,
+                                            'calculatedValue' => $calculatedValue,
+                                            'type' => $cellDataType,
+                                            'styleIndex' => $styleIndex,
+                                        ];
+                                        $docSheet->createNewPredefinedCell($r, $cellData, $this->lazyInitCells);
 
                                         $rowIndex += 1;
                                     }
