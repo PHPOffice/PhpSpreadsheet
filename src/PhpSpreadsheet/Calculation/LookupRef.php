@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class LookupRef
 {
@@ -52,7 +53,7 @@ class LookupRef
         }
         if ((!is_bool($referenceStyle)) || $referenceStyle) {
             $rowRelative = $columnRelative = '$';
-            $column = Cell::stringFromColumnIndex($column - 1);
+            $column = Coordinate::stringFromColumnIndex($column - 1);
             if (($relativity == 2) || ($relativity == 4)) {
                 $columnRelative = '';
             }
@@ -98,7 +99,7 @@ class LookupRef
             foreach ($cellAddress as $columnKey => $value) {
                 $columnKey = preg_replace('/[^a-z]/i', '', $columnKey);
 
-                return (int) Cell::columnIndexFromString($columnKey);
+                return (int) Coordinate::columnIndexFromString($columnKey);
             }
         } else {
             if (strpos($cellAddress, '!') !== false) {
@@ -110,14 +111,14 @@ class LookupRef
                 $endAddress = preg_replace('/[^a-z]/i', '', $endAddress);
                 $returnValue = [];
                 do {
-                    $returnValue[] = (int) Cell::columnIndexFromString($startAddress);
+                    $returnValue[] = (int) Coordinate::columnIndexFromString($startAddress);
                 } while ($startAddress++ != $endAddress);
 
                 return $returnValue;
             }
             $cellAddress = preg_replace('/[^a-z]/i', '', $cellAddress);
 
-            return (int) Cell::columnIndexFromString($cellAddress);
+            return (int) Coordinate::columnIndexFromString($cellAddress);
         }
     }
 
@@ -382,23 +383,23 @@ class LookupRef
         } else {
             $startCell = $endCell = $cellAddress;
         }
-        list($startCellColumn, $startCellRow) = Cell::coordinateFromString($startCell);
-        list($endCellColumn, $endCellRow) = Cell::coordinateFromString($endCell);
+        list($startCellColumn, $startCellRow) = Coordinate::coordinateFromString($startCell);
+        list($endCellColumn, $endCellRow) = Coordinate::coordinateFromString($endCell);
 
         $startCellRow += $rows;
-        $startCellColumn = Cell::columnIndexFromString($startCellColumn) - 1;
+        $startCellColumn = Coordinate::columnIndexFromString($startCellColumn) - 1;
         $startCellColumn += $columns;
 
         if (($startCellRow <= 0) || ($startCellColumn < 0)) {
             return Functions::REF();
         }
-        $endCellColumn = Cell::columnIndexFromString($endCellColumn) - 1;
+        $endCellColumn = Coordinate::columnIndexFromString($endCellColumn) - 1;
         if (($width != null) && (!is_object($width))) {
             $endCellColumn = $startCellColumn + $width - 1;
         } else {
             $endCellColumn += $columns;
         }
-        $startCellColumn = Cell::stringFromColumnIndex($startCellColumn);
+        $startCellColumn = Coordinate::stringFromColumnIndex($startCellColumn);
 
         if (($height != null) && (!is_object($height))) {
             $endCellRow = $startCellRow + $height - 1;
@@ -409,7 +410,7 @@ class LookupRef
         if (($endCellRow <= 0) || ($endCellColumn < 0)) {
             return Functions::REF();
         }
-        $endCellColumn = Cell::stringFromColumnIndex($endCellColumn);
+        $endCellColumn = Coordinate::stringFromColumnIndex($endCellColumn);
 
         $cellAddress = $startCellColumn . $startCellRow;
         if (($startCellColumn != $endCellColumn) || ($startCellRow != $endCellRow)) {

@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 use ArrayObject;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
@@ -715,7 +716,7 @@ class Worksheet implements IComparable
             // build list of cells references that participate in a merge
             $isMergeCell = [];
             foreach ($this->getMergeCells() as $cells) {
-                foreach (Cell::extractAllCellReferencesInRange($cells) as $cellReference) {
+                foreach (Coordinate::extractAllCellReferencesInRange($cells) as $cellReference) {
                     $isMergeCell[$cellReference] = true;
                 }
             }
@@ -733,7 +734,7 @@ class Worksheet implements IComparable
                     //The only exception is if it's a merge range value cell of a 'vertical' randge (1 column wide)
                     if ($isMerged && $cell->isMergeRangeValueCell()) {
                         $range = $cell->getMergeRange();
-                        $rangeBoundaries = Cell::rangeDimension($range);
+                        $rangeBoundaries = Coordinate::rangeDimension($range);
                         if ($rangeBoundaries[0] == 1) {
                             $isMergedButProceed = true;
                         }
@@ -1230,7 +1231,7 @@ class Worksheet implements IComparable
      */
     public function getCellByColumnAndRow($pColumn, $pRow, $createIfNotExists = true)
     {
-        $columnLetter = Cell::stringFromColumnIndex($pColumn);
+        $columnLetter = Coordinate::stringFromColumnIndex($pColumn);
         $coordinate = $columnLetter . $pRow;
 
         if ($this->cellCollection->has($coordinate)) {
@@ -1255,8 +1256,8 @@ class Worksheet implements IComparable
         $this->cellCollectionIsSorted = false;
 
         // Coordinates
-        $aCoordinates = Cell::coordinateFromString($pCoordinate);
-        if (Cell::columnIndexFromString($this->cachedHighestColumn) < Cell::columnIndexFromString($aCoordinates[0])) {
+        $aCoordinates = Coordinate::coordinateFromString($pCoordinate);
+        if (Coordinate::columnIndexFromString($this->cachedHighestColumn) < Coordinate::columnIndexFromString($aCoordinates[0])) {
             $this->cachedHighestColumn = $aCoordinates[0];
         }
         $this->cachedHighestRow = max($this->cachedHighestRow, $aCoordinates[1]);
@@ -1336,7 +1337,7 @@ class Worksheet implements IComparable
      */
     public function cellExistsByColumnAndRow($pColumn, $pRow)
     {
-        return $this->cellExists(Cell::stringFromColumnIndex($pColumn) . $pRow);
+        return $this->cellExists(Coordinate::stringFromColumnIndex($pColumn) . $pRow);
     }
 
     /**
@@ -1385,7 +1386,7 @@ class Worksheet implements IComparable
             }
             $this->columnDimensions[$pColumn] = new ColumnDimension($pColumn);
 
-            if (Cell::columnIndexFromString($this->cachedHighestColumn) < Cell::columnIndexFromString($pColumn)) {
+            if (Coordinate::columnIndexFromString($this->cachedHighestColumn) < Coordinate::columnIndexFromString($pColumn)) {
                 $this->cachedHighestColumn = $pColumn;
             }
         }
@@ -1402,7 +1403,7 @@ class Worksheet implements IComparable
      */
     public function getColumnDimensionByColumn($pColumn)
     {
-        return $this->getColumnDimension(Cell::stringFromColumnIndex($pColumn));
+        return $this->getColumnDimension(Coordinate::stringFromColumnIndex($pColumn));
     }
 
     /**
@@ -1522,12 +1523,12 @@ class Worksheet implements IComparable
     public function getStyleByColumnAndRow($pColumn, $pRow, $pColumn2 = null, $pRow2 = null)
     {
         if ($pColumn2 !== null && $pRow2 !== null) {
-            $cellRange = Cell::stringFromColumnIndex($pColumn) . $pRow . ':' . Cell::stringFromColumnIndex($pColumn2) . $pRow2;
+            $cellRange = Coordinate::stringFromColumnIndex($pColumn) . $pRow . ':' . Coordinate::stringFromColumnIndex($pColumn2) . $pRow2;
 
             return $this->getStyle($cellRange);
         }
 
-        return $this->getStyle(Cell::stringFromColumnIndex($pColumn) . $pRow);
+        return $this->getStyle(Coordinate::stringFromColumnIndex($pColumn) . $pRow);
     }
 
     /**
@@ -1556,7 +1557,7 @@ class Worksheet implements IComparable
         }
 
         // Calculate range outer borders
-        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($pRange . ':' . $pRange);
+        list($rangeStart, $rangeEnd) = Coordinate::rangeBoundaries($pRange . ':' . $pRange);
 
         // Make sure we can loop upwards on rows and columns
         if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -1568,7 +1569,7 @@ class Worksheet implements IComparable
         // Loop through cells and apply styles
         for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
             for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
-                $this->getCell(Cell::stringFromColumnIndex($col - 1) . $row)->setXfIndex($xfIndex);
+                $this->getCell(Coordinate::stringFromColumnIndex($col - 1) . $row)->setXfIndex($xfIndex);
             }
         }
 
@@ -1596,7 +1597,7 @@ class Worksheet implements IComparable
         }
 
         // Calculate range outer borders
-        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($pRange . ':' . $pRange);
+        list($rangeStart, $rangeEnd) = Coordinate::rangeBoundaries($pRange . ':' . $pRange);
 
         // Make sure we can loop upwards on rows and columns
         if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -1608,7 +1609,7 @@ class Worksheet implements IComparable
         // Loop through cells and apply styles
         for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
             for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
-                $this->setConditionalStyles(Cell::stringFromColumnIndex($col - 1) . $row, $pCellStyle);
+                $this->setConditionalStyles(Coordinate::stringFromColumnIndex($col - 1) . $row, $pCellStyle);
             }
         }
 
@@ -1656,7 +1657,7 @@ class Worksheet implements IComparable
      */
     public function setBreakByColumnAndRow($pColumn, $pRow, $pBreak)
     {
-        return $this->setBreak(Cell::stringFromColumnIndex($pColumn) . $pRow, $pBreak);
+        return $this->setBreak(Coordinate::stringFromColumnIndex($pColumn) . $pRow, $pBreak);
     }
 
     /**
@@ -1689,7 +1690,7 @@ class Worksheet implements IComparable
             // make sure cells are created
 
             // get the cells in the range
-            $aReferences = Cell::extractAllCellReferencesInRange($pRange);
+            $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
 
             // create upper left cell if it does not already exist
             $upperLeft = $aReferences[0];
@@ -1725,7 +1726,7 @@ class Worksheet implements IComparable
      */
     public function mergeCellsByColumnAndRow($pColumn1, $pRow1, $pColumn2, $pRow2)
     {
-        $cellRange = Cell::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . Cell::stringFromColumnIndex($pColumn2) . $pRow2;
+        $cellRange = Coordinate::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . Coordinate::stringFromColumnIndex($pColumn2) . $pRow2;
 
         return $this->mergeCells($cellRange);
     }
@@ -1771,7 +1772,7 @@ class Worksheet implements IComparable
      */
     public function unmergeCellsByColumnAndRow($pColumn1, $pRow1, $pColumn2, $pRow2)
     {
-        $cellRange = Cell::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . Cell::stringFromColumnIndex($pColumn2) . $pRow2;
+        $cellRange = Coordinate::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . Coordinate::stringFromColumnIndex($pColumn2) . $pRow2;
 
         return $this->unmergeCells($cellRange);
     }
@@ -1840,7 +1841,7 @@ class Worksheet implements IComparable
      */
     public function protectCellsByColumnAndRow($pColumn1, $pRow1, $pColumn2, $pRow2, $pPassword, $pAlreadyHashed = false)
     {
-        $cellRange = Cell::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . Cell::stringFromColumnIndex($pColumn2) . $pRow2;
+        $cellRange = Coordinate::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . Coordinate::stringFromColumnIndex($pColumn2) . $pRow2;
 
         return $this->protectCells($cellRange, $pPassword, $pAlreadyHashed);
     }
@@ -1882,7 +1883,7 @@ class Worksheet implements IComparable
      */
     public function unprotectCellsByColumnAndRow($pColumn1, $pRow1, $pColumn2, $pRow2)
     {
-        $cellRange = Cell::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . Cell::stringFromColumnIndex($pColumn2) . $pRow2;
+        $cellRange = Coordinate::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . Coordinate::stringFromColumnIndex($pColumn2) . $pRow2;
 
         return $this->unprotectCells($cellRange);
     }
@@ -1943,9 +1944,9 @@ class Worksheet implements IComparable
     public function setAutoFilterByColumnAndRow($pColumn1, $pRow1, $pColumn2, $pRow2)
     {
         return $this->setAutoFilter(
-            Cell::stringFromColumnIndex($pColumn1) . $pRow1
+            Coordinate::stringFromColumnIndex($pColumn1) . $pRow1
             . ':' .
-            Cell::stringFromColumnIndex($pColumn2) . $pRow2
+            Coordinate::stringFromColumnIndex($pColumn2) . $pRow2
         );
     }
 
@@ -2010,7 +2011,7 @@ class Worksheet implements IComparable
      */
     public function freezePaneByColumnAndRow($pColumn, $pRow)
     {
-        return $this->freezePane(Cell::stringFromColumnIndex($pColumn) . $pRow);
+        return $this->freezePane(Coordinate::stringFromColumnIndex($pColumn) . $pRow);
     }
 
     /**
@@ -2080,7 +2081,7 @@ class Worksheet implements IComparable
     public function insertNewColumnBeforeByIndex($pBefore, $pNumCols = 1)
     {
         if ($pBefore >= 0) {
-            return $this->insertNewColumnBefore(Cell::stringFromColumnIndex($pBefore), $pNumCols);
+            return $this->insertNewColumnBefore(Coordinate::stringFromColumnIndex($pBefore), $pNumCols);
         }
 
         throw new Exception('Columns can only be inserted before at least column A (0).');
@@ -2127,12 +2128,12 @@ class Worksheet implements IComparable
     {
         if (!is_numeric($pColumn)) {
             $highestColumn = $this->getHighestDataColumn();
-            $pColumn = Cell::stringFromColumnIndex(Cell::columnIndexFromString($pColumn) - 1 + $pNumCols);
+            $pColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($pColumn) - 1 + $pNumCols);
             $objReferenceHelper = ReferenceHelper::getInstance();
             $objReferenceHelper->insertNewBefore($pColumn . '1', -$pNumCols, 0, $this);
             for ($c = 0; $c < $pNumCols; ++$c) {
                 $this->getCellCollection()->removeColumn($highestColumn);
-                $highestColumn = Cell::stringFromColumnIndex(Cell::columnIndexFromString($highestColumn) - 2);
+                $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 2);
             }
         } else {
             throw new Exception('Column references should not be numeric.');
@@ -2154,7 +2155,7 @@ class Worksheet implements IComparable
     public function removeColumnByIndex($pColumn, $pNumCols = 1)
     {
         if ($pColumn >= 0) {
-            return $this->removeColumn(Cell::stringFromColumnIndex($pColumn), $pNumCols);
+            return $this->removeColumn(Coordinate::stringFromColumnIndex($pColumn), $pNumCols);
         }
 
         throw new Exception('Columns to be deleted should at least start from column 0');
@@ -2349,7 +2350,7 @@ class Worksheet implements IComparable
      */
     public function getCommentByColumnAndRow($pColumn, $pRow)
     {
-        return $this->getComment(Cell::stringFromColumnIndex($pColumn) . $pRow);
+        return $this->getComment(Coordinate::stringFromColumnIndex($pColumn) . $pRow);
     }
 
     /**
@@ -2411,7 +2412,7 @@ class Worksheet implements IComparable
         $pCoordinate = preg_replace('/^([0-9]+):([0-9]+)$/', 'A${1}:XFD${2}', $pCoordinate);
 
         if (strpos($pCoordinate, ':') !== false || strpos($pCoordinate, ',') !== false) {
-            list($first) = Cell::splitRange($pCoordinate);
+            list($first) = Coordinate::splitRange($pCoordinate);
             $this->activeCell = $first[0];
         } else {
             $this->activeCell = $pCoordinate;
@@ -2433,7 +2434,7 @@ class Worksheet implements IComparable
      */
     public function setSelectedCellByColumnAndRow($pColumn, $pRow)
     {
-        return $this->setSelectedCells(Cell::stringFromColumnIndex($pColumn) . $pRow);
+        return $this->setSelectedCells(Coordinate::stringFromColumnIndex($pColumn) . $pRow);
     }
 
     /**
@@ -2480,7 +2481,7 @@ class Worksheet implements IComparable
         }
 
         // start coordinate
-        list($startColumn, $startRow) = Cell::coordinateFromString($startCell);
+        list($startColumn, $startRow) = Coordinate::coordinateFromString($startCell);
 
         // Loop through $source
         foreach ($source as $rowData) {
@@ -2522,10 +2523,10 @@ class Worksheet implements IComparable
         // Returnvalue
         $returnValue = [];
         //    Identify the range that we need to extract from the worksheet
-        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($pRange);
-        $minCol = Cell::stringFromColumnIndex($rangeStart[0] - 1);
+        list($rangeStart, $rangeEnd) = Coordinate::rangeBoundaries($pRange);
+        $minCol = Coordinate::stringFromColumnIndex($rangeStart[0] - 1);
         $minRow = $rangeStart[1];
-        $maxCol = Cell::stringFromColumnIndex($rangeEnd[0] - 1);
+        $maxCol = Coordinate::stringFromColumnIndex($rangeEnd[0] - 1);
         $maxRow = $rangeEnd[1];
 
         ++$maxCol;
@@ -2664,11 +2665,11 @@ class Worksheet implements IComparable
         // Lookup highest column and highest row if cells are cleaned
         $colRow = $this->cellCollection->getHighestRowAndColumn();
         $highestRow = $colRow['row'];
-        $highestColumn = Cell::columnIndexFromString($colRow['column']);
+        $highestColumn = Coordinate::columnIndexFromString($colRow['column']);
 
         // Loop through column dimensions
         foreach ($this->columnDimensions as $dimension) {
-            $highestColumn = max($highestColumn, Cell::columnIndexFromString($dimension->getColumnIndex()));
+            $highestColumn = max($highestColumn, Coordinate::columnIndexFromString($dimension->getColumnIndex()));
         }
 
         // Loop through row dimensions
@@ -2680,7 +2681,7 @@ class Worksheet implements IComparable
         if ($highestColumn < 0) {
             $this->cachedHighestColumn = 'A';
         } else {
-            $this->cachedHighestColumn = Cell::stringFromColumnIndex(--$highestColumn);
+            $this->cachedHighestColumn = Coordinate::stringFromColumnIndex(--$highestColumn);
         }
         $this->cachedHighestRow = $highestRow;
 
@@ -2857,20 +2858,20 @@ class Worksheet implements IComparable
     {
         $maxCol = $this->getHighestColumn();
         $maxRow = $this->getHighestRow();
-        $maxCol = Cell::columnIndexFromString($maxCol);
+        $maxCol = Coordinate::columnIndexFromString($maxCol);
 
         $rangeBlocks = explode(' ', $range);
         foreach ($rangeBlocks as &$rangeSet) {
-            $rangeBoundaries = Cell::getRangeBoundaries($rangeSet);
+            $rangeBoundaries = Coordinate::getRangeBoundaries($rangeSet);
 
-            if (Cell::columnIndexFromString($rangeBoundaries[0][0]) > $maxCol) {
-                $rangeBoundaries[0][0] = Cell::stringFromColumnIndex($maxCol);
+            if (Coordinate::columnIndexFromString($rangeBoundaries[0][0]) > $maxCol) {
+                $rangeBoundaries[0][0] = Coordinate::stringFromColumnIndex($maxCol);
             }
             if ($rangeBoundaries[0][1] > $maxRow) {
                 $rangeBoundaries[0][1] = $maxRow;
             }
-            if (Cell::columnIndexFromString($rangeBoundaries[1][0]) > $maxCol) {
-                $rangeBoundaries[1][0] = Cell::stringFromColumnIndex($maxCol);
+            if (Coordinate::columnIndexFromString($rangeBoundaries[1][0]) > $maxCol) {
+                $rangeBoundaries[1][0] = Coordinate::stringFromColumnIndex($maxCol);
             }
             if ($rangeBoundaries[1][1] > $maxRow) {
                 $rangeBoundaries[1][1] = $maxRow;

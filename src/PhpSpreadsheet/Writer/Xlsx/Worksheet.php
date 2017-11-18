@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
@@ -249,8 +250,8 @@ class Worksheet extends WriterPart
             // Calculate freeze coordinates
             $xSplit = $ySplit = 0;
 
-            list($xSplit, $ySplit) = Cell::coordinateFromString($topLeftCell);
-            $xSplit = Cell::columnIndexFromString($xSplit);
+            list($xSplit, $ySplit) = Coordinate::coordinateFromString($topLeftCell);
+            $xSplit = Coordinate::columnIndexFromString($xSplit);
 
             // pane
             $pane = 'topRight';
@@ -367,8 +368,8 @@ class Worksheet extends WriterPart
             foreach ($pSheet->getColumnDimensions() as $colDimension) {
                 // col
                 $objWriter->startElement('col');
-                $objWriter->writeAttribute('min', Cell::columnIndexFromString($colDimension->getColumnIndex()));
-                $objWriter->writeAttribute('max', Cell::columnIndexFromString($colDimension->getColumnIndex()));
+                $objWriter->writeAttribute('min', Coordinate::columnIndexFromString($colDimension->getColumnIndex()));
+                $objWriter->writeAttribute('max', Coordinate::columnIndexFromString($colDimension->getColumnIndex()));
 
                 if ($colDimension->getWidth() < 0) {
                     // No width set, apply default of 10
@@ -538,7 +539,7 @@ class Worksheet extends WriterPart
 
         // Write data validations?
         if (!empty($dataValidationCollection)) {
-            $dataValidationCollection = Cell::mergeRangesInCollection($dataValidationCollection);
+            $dataValidationCollection = Coordinate::mergeRangesInCollection($dataValidationCollection);
             $objWriter->startElement('dataValidations');
             $objWriter->writeAttribute('count', count($dataValidationCollection));
 
@@ -753,7 +754,7 @@ class Worksheet extends WriterPart
             $objWriter->startElement('autoFilter');
 
             // Strip any worksheet reference from the filter coordinates
-            $range = Cell::splitRange($autoFilterRange);
+            $range = Coordinate::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref
             if (strpos($range[0], '!') !== false) {
@@ -921,7 +922,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('manualBreakCount', count($aRowBreaks));
 
             foreach ($aRowBreaks as $cell) {
-                $coords = Cell::coordinateFromString($cell);
+                $coords = Coordinate::coordinateFromString($cell);
 
                 $objWriter->startElement('brk');
                 $objWriter->writeAttribute('id', $coords[1]);
@@ -939,10 +940,10 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('manualBreakCount', count($aColumnBreaks));
 
             foreach ($aColumnBreaks as $cell) {
-                $coords = Cell::coordinateFromString($cell);
+                $coords = Coordinate::coordinateFromString($cell);
 
                 $objWriter->startElement('brk');
-                $objWriter->writeAttribute('id', Cell::columnIndexFromString($coords[0]) - 1);
+                $objWriter->writeAttribute('id', Coordinate::columnIndexFromString($coords[0]) - 1);
                 $objWriter->writeAttribute('man', '1');
                 $objWriter->endElement();
             }
@@ -969,7 +970,7 @@ class Worksheet extends WriterPart
         $objWriter->startElement('sheetData');
 
         // Get column count
-        $colCount = Cell::columnIndexFromString($pSheet->getHighestColumn());
+        $colCount = Coordinate::columnIndexFromString($pSheet->getHighestColumn());
 
         // Highest row number
         $highestRow = $pSheet->getHighestRow();
@@ -977,7 +978,7 @@ class Worksheet extends WriterPart
         // Loop through cells
         $cellsByRow = [];
         foreach ($pSheet->getCoordinates() as $coordinate) {
-            $cellAddress = Cell::coordinateFromString($coordinate);
+            $cellAddress = Coordinate::coordinateFromString($coordinate);
             $cellsByRow[$cellAddress[1]][] = $coordinate;
         }
 

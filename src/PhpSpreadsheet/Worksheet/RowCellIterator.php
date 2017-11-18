@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 class RowCellIterator extends CellIterator
@@ -64,10 +64,10 @@ class RowCellIterator extends CellIterator
      */
     public function resetStart($startColumn = 'A')
     {
-        $startColumnIndex = Cell::columnIndexFromString($startColumn) - 1;
+        $startColumnIndex = Coordinate::columnIndexFromString($startColumn) - 1;
         $this->startColumn = $startColumnIndex;
         $this->adjustForExistingOnlyRange();
-        $this->seek(Cell::stringFromColumnIndex($this->startColumn));
+        $this->seek(Coordinate::stringFromColumnIndex($this->startColumn));
 
         return $this;
     }
@@ -84,7 +84,7 @@ class RowCellIterator extends CellIterator
     public function resetEnd($endColumn = null)
     {
         $endColumn = ($endColumn) ? $endColumn : $this->subject->getHighestColumn();
-        $this->endColumn = Cell::columnIndexFromString($endColumn) - 1;
+        $this->endColumn = Coordinate::columnIndexFromString($endColumn) - 1;
         $this->adjustForExistingOnlyRange();
 
         return $this;
@@ -101,7 +101,7 @@ class RowCellIterator extends CellIterator
      */
     public function seek($column = 'A')
     {
-        $column = Cell::columnIndexFromString($column) - 1;
+        $column = Coordinate::columnIndexFromString($column) - 1;
         if (($column < $this->startColumn) || ($column > $this->endColumn)) {
             throw new PhpSpreadsheetException("Column $column is out of range ({$this->startColumn} - {$this->endColumn})");
         } elseif ($this->onlyExistingCells && !($this->subject->cellExistsByColumnAndRow($column, $this->rowIndex))) {
@@ -137,7 +137,7 @@ class RowCellIterator extends CellIterator
      */
     public function key()
     {
-        return Cell::stringFromColumnIndex($this->position);
+        return Coordinate::stringFromColumnIndex($this->position);
     }
 
     /**
@@ -158,7 +158,7 @@ class RowCellIterator extends CellIterator
     public function prev()
     {
         if ($this->position <= $this->startColumn) {
-            throw new PhpSpreadsheetException('Column is already at the beginning of range (' . Cell::stringFromColumnIndex($this->endColumn) . ' - ' . Cell::stringFromColumnIndex($this->endColumn) . ')');
+            throw new PhpSpreadsheetException('Column is already at the beginning of range (' . Coordinate::stringFromColumnIndex($this->endColumn) . ' - ' . Coordinate::stringFromColumnIndex($this->endColumn) . ')');
         }
         do {
             --$this->position;

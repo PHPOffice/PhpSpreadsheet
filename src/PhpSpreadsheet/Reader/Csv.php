@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -251,7 +251,7 @@ class Csv extends BaseReader
             $worksheetInfo[0]['lastColumnIndex'] = max($worksheetInfo[0]['lastColumnIndex'], count($rowData) - 1);
         }
 
-        $worksheetInfo[0]['lastColumnLetter'] = Cell::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
+        $worksheetInfo[0]['lastColumnLetter'] = Coordinate::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
         $worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
 
         // Close file

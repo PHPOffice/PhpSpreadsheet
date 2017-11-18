@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -179,7 +179,7 @@ class Content extends WriterPart
         while ($cells->valid()) {
             /** @var \PhpOffice\PhpSpreadsheet\Cell\Cell $cell */
             $cell = $cells->current();
-            $column = Cell::columnIndexFromString($cell->getColumn()) - 1;
+            $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
 
             $this->writeCellSpan($objWriter, $column, $prevColumn);
             $objWriter->startElement('table:table-cell');

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 class ColumnCellIterator extends CellIterator
@@ -40,7 +40,7 @@ class ColumnCellIterator extends CellIterator
     {
         // Set subject
         $this->subject = $subject;
-        $this->columnIndex = Cell::columnIndexFromString($columnIndex) - 1;
+        $this->columnIndex = Coordinate::columnIndexFromString($columnIndex) - 1;
         $this->resetEnd($endRow);
         $this->resetStart($startRow);
     }

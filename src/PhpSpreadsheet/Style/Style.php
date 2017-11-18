@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Style extends Supervisor
@@ -206,12 +206,12 @@ class Style extends Supervisor
             }
 
             // Calculate range outer borders
-            $rangeStart = Cell::coordinateFromString($rangeA);
-            $rangeEnd = Cell::coordinateFromString($rangeB);
+            $rangeStart = Coordinate::coordinateFromString($rangeA);
+            $rangeEnd = Coordinate::coordinateFromString($rangeB);
 
             // Translate column into index
-            $rangeStart[0] = Cell::columnIndexFromString($rangeStart[0]) - 1;
-            $rangeEnd[0] = Cell::columnIndexFromString($rangeEnd[0]) - 1;
+            $rangeStart[0] = Coordinate::columnIndexFromString($rangeStart[0]) - 1;
+            $rangeEnd[0] = Coordinate::columnIndexFromString($rangeEnd[0]) - 1;
 
             // Make sure we can loop upwards on rows and columns
             if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -260,12 +260,12 @@ class Style extends Supervisor
                 for ($x = 1; $x <= $xMax; ++$x) {
                     // start column index for region
                     $colStart = ($x == 3) ?
-                        Cell::stringFromColumnIndex($rangeEnd[0])
-                            : Cell::stringFromColumnIndex($rangeStart[0] + $x - 1);
+                        Coordinate::stringFromColumnIndex($rangeEnd[0])
+                            : Coordinate::stringFromColumnIndex($rangeStart[0] + $x - 1);
                     // end column index for region
                     $colEnd = ($x == 1) ?
-                        Cell::stringFromColumnIndex($rangeStart[0])
-                            : Cell::stringFromColumnIndex($rangeEnd[0] - $xMax + $x);
+                        Coordinate::stringFromColumnIndex($rangeStart[0])
+                            : Coordinate::stringFromColumnIndex($rangeEnd[0] - $xMax + $x);
 
                     for ($y = 1; $y <= $yMax; ++$y) {
                         // which edges are touching the region

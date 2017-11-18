@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -3491,11 +3492,11 @@ class Calculation
                             $oData = array_merge(explode(':', $operand1Data['reference']), explode(':', $operand2Data['reference']));
                             $oCol = $oRow = [];
                             foreach ($oData as $oDatum) {
-                                $oCR = Cell::coordinateFromString($oDatum);
-                                $oCol[] = Cell::columnIndexFromString($oCR[0]) - 1;
+                                $oCR = Coordinate::coordinateFromString($oDatum);
+                                $oCol[] = Coordinate::columnIndexFromString($oCR[0]) - 1;
                                 $oRow[] = $oCR[1];
                             }
-                            $cellRef = Cell::stringFromColumnIndex(min($oCol)) . min($oRow) . ':' . Cell::stringFromColumnIndex(max($oCol)) . max($oRow);
+                            $cellRef = Coordinate::stringFromColumnIndex(min($oCol)) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol)) . max($oRow);
                             if ($pCellParent !== null) {
                                 $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($sheet1), false);
                             } else {
@@ -3564,11 +3565,11 @@ class Calculation
                         foreach (array_keys($rowIntersect) as $row) {
                             $oRow[] = $row;
                             foreach ($rowIntersect[$row] as $col => $data) {
-                                $oCol[] = Cell::columnIndexFromString($col) - 1;
+                                $oCol[] = Coordinate::columnIndexFromString($col) - 1;
                                 $cellIntersect[$row] = array_intersect_key($operand1[$row], $operand2[$row]);
                             }
                         }
-                        $cellRef = Cell::stringFromColumnIndex(min($oCol)) . min($oRow) . ':' . Cell::stringFromColumnIndex(max($oCol)) . max($oRow);
+                        $cellRef = Coordinate::stringFromColumnIndex(min($oCol)) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol)) . max($oRow);
                         $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
                         $stack->push('Value', $cellIntersect, $cellRef);
 
@@ -4103,7 +4104,7 @@ class Calculation
             }
 
             // Extract range
-            $aReferences = Cell::extractAllCellReferencesInRange($pRange);
+            $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
             $pRange = $pSheetName . '!' . $pRange;
             if (!isset($aReferences[1])) {
                 //    Single cell in range
@@ -4158,7 +4159,7 @@ class Calculation
             if ($namedRange !== null) {
                 $pSheet = $namedRange->getWorksheet();
                 $pRange = $namedRange->getRange();
-                $splitRange = Cell::splitRange($pRange);
+                $splitRange = Coordinate::splitRange($pRange);
                 //    Convert row and column references
                 if (ctype_alpha($splitRange[0][0])) {
                     $pRange = $splitRange[0][0] . '1:' . $splitRange[0][1] . $namedRange->getWorksheet()->getHighestRow();
@@ -4170,10 +4171,10 @@ class Calculation
             }
 
             // Extract range
-            $aReferences = Cell::extractAllCellReferencesInRange($pRange);
+            $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
             if (!isset($aReferences[1])) {
                 //    Single cell (or single column or row) in range
-                list($currentCol, $currentRow) = Cell::coordinateFromString($aReferences[0]);
+                list($currentCol, $currentRow) = Coordinate::coordinateFromString($aReferences[0]);
                 if ($pSheet->cellExists($aReferences[0])) {
                     $returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
                 } else {
@@ -4183,7 +4184,7 @@ class Calculation
                 // Extract cell data for all cells in the range
                 foreach ($aReferences as $reference) {
                     // Extract range
-                    list($currentCol, $currentRow) = Cell::coordinateFromString($reference);
+                    list($currentCol, $currentRow) = Coordinate::coordinateFromString($reference);
                     if ($pSheet->cellExists($reference)) {
                         $returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
                     } else {

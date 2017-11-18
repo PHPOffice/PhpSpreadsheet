@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -260,8 +260,8 @@ class Worksheet extends BIFFwriter
         // Determine lowest and highest column and row
         $this->lastRowIndex = ($maxR > 65535) ? 65535 : $maxR;
 
-        $this->firstColumnIndex = Cell::columnIndexFromString($minC);
-        $this->lastColumnIndex = Cell::columnIndexFromString($maxC);
+        $this->firstColumnIndex = Coordinate::columnIndexFromString($minC);
+        $this->lastColumnIndex = Coordinate::columnIndexFromString($maxC);
 
 //        if ($this->firstColumnIndex > 255) $this->firstColumnIndex = 255;
         if ($this->lastColumnIndex > 255) {
@@ -310,7 +310,7 @@ class Worksheet extends BIFFwriter
 
             $width = $defaultWidth;
 
-            $columnLetter = Cell::stringFromColumnIndex($i);
+            $columnLetter = Coordinate::stringFromColumnIndex($i);
             if (isset($columnDimensions[$columnLetter])) {
                 $columnDimension = $columnDimensions[$columnLetter];
                 if ($columnDimension->getWidth() >= 0) {
@@ -395,7 +395,7 @@ class Worksheet extends BIFFwriter
         foreach ($phpSheet->getCoordinates() as $coordinate) {
             $cell = $phpSheet->getCell($coordinate);
             $row = $cell->getRow() - 1;
-            $column = Cell::columnIndexFromString($cell->getColumn()) - 1;
+            $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
 
             // Don't break Excel break the code!
             if ($row > 65535 || $column > 255) {
@@ -479,7 +479,7 @@ class Worksheet extends BIFFwriter
 
         // Hyperlinks
         foreach ($phpSheet->getHyperLinkCollection() as $coordinate => $hyperlink) {
-            list($column, $row) = Cell::coordinateFromString($coordinate);
+            list($column, $row) = Coordinate::coordinateFromString($coordinate);
 
             $url = $hyperlink->getUrl();
 
@@ -493,7 +493,7 @@ class Worksheet extends BIFFwriter
                 $url = 'external:' . $url;
             }
 
-            $this->writeUrl($row - 1, Cell::columnIndexFromString($column) - 1, $url);
+            $this->writeUrl($row - 1, Coordinate::columnIndexFromString($column) - 1, $url);
         }
 
         $this->writeDataValidity();
@@ -552,10 +552,10 @@ class Worksheet extends BIFFwriter
             $lastCell = $explodes[1];
         }
 
-        $firstCellCoordinates = Cell::coordinateFromString($firstCell); // e.g. array(0, 1)
-        $lastCellCoordinates = Cell::coordinateFromString($lastCell); // e.g. array(1, 6)
+        $firstCellCoordinates = Coordinate::coordinateFromString($firstCell); // e.g. array(0, 1)
+        $lastCellCoordinates = Coordinate::coordinateFromString($lastCell); // e.g. array(1, 6)
 
-        return pack('vvvv', $firstCellCoordinates[1] - 1, $lastCellCoordinates[1] - 1, Cell::columnIndexFromString($firstCellCoordinates[0]) - 1, Cell::columnIndexFromString($lastCellCoordinates[0]) - 1);
+        return pack('vvvv', $firstCellCoordinates[1] - 1, $lastCellCoordinates[1] - 1, Coordinate::columnIndexFromString($firstCellCoordinates[0]) - 1, Coordinate::columnIndexFromString($lastCellCoordinates[0]) - 1);
     }
 
     /**
@@ -1353,7 +1353,7 @@ class Worksheet extends BIFFwriter
     private function writeSelection()
     {
         // look up the selected cell range
-        $selectedCells = Cell::splitRange($this->phpSheet->getSelectedCells());
+        $selectedCells = Coordinate::splitRange($this->phpSheet->getSelectedCells());
         $selectedCells = $selectedCells[0];
         if (count($selectedCells) == 2) {
             list($first, $last) = $selectedCells;
@@ -1362,12 +1362,12 @@ class Worksheet extends BIFFwriter
             $last = $selectedCells[0];
         }
 
-        list($colFirst, $rwFirst) = Cell::coordinateFromString($first);
-        $colFirst = Cell::columnIndexFromString($colFirst) - 1; // base 0 column index
+        list($colFirst, $rwFirst) = Coordinate::coordinateFromString($first);
+        $colFirst = Coordinate::columnIndexFromString($colFirst) - 1; // base 0 column index
         --$rwFirst; // base 0 row index
 
-        list($colLast, $rwLast) = Cell::coordinateFromString($last);
-        $colLast = Cell::columnIndexFromString($colLast) - 1; // base 0 column index
+        list($colLast, $rwLast) = Coordinate::coordinateFromString($last);
+        $colLast = Coordinate::columnIndexFromString($colLast) - 1; // base 0 column index
         --$rwLast; // base 0 row index
 
         // make sure we are not out of bounds
@@ -1440,12 +1440,12 @@ class Worksheet extends BIFFwriter
             ++$j;
 
             // extract the row and column indexes
-            $range = Cell::splitRange($mergeCell);
+            $range = Coordinate::splitRange($mergeCell);
             list($first, $last) = $range[0];
-            list($firstColumn, $firstRow) = Cell::coordinateFromString($first);
-            list($lastColumn, $lastRow) = Cell::coordinateFromString($last);
+            list($firstColumn, $firstRow) = Coordinate::coordinateFromString($first);
+            list($lastColumn, $lastRow) = Coordinate::coordinateFromString($last);
 
-            $recordData .= pack('vvvv', $firstRow - 1, $lastRow - 1, Cell::columnIndexFromString($firstColumn) - 1, Cell::columnIndexFromString($lastColumn) - 1);
+            $recordData .= pack('vvvv', $firstRow - 1, $lastRow - 1, Coordinate::columnIndexFromString($firstColumn) - 1, Coordinate::columnIndexFromString($lastColumn) - 1);
 
             // flush record if we have reached limit for number of merged cells, or reached final merged cell
             if ($j == $maxCountMergeCellsPerRecord or $i == $countMergeCells) {
@@ -1590,9 +1590,9 @@ class Worksheet extends BIFFwriter
     {
         $panes = [];
         if ($freezePane = $this->phpSheet->getFreezePane()) {
-            list($column, $row) = Cell::coordinateFromString($freezePane);
+            list($column, $row) = Coordinate::coordinateFromString($freezePane);
             $panes[0] = $row - 1;
-            $panes[1] = Cell::columnIndexFromString($column) - 1;
+            $panes[1] = Coordinate::columnIndexFromString($column) - 1;
         } else {
             // thaw panes
             return;
@@ -1933,7 +1933,7 @@ class Worksheet extends BIFFwriter
         $record = 0x009D; // Record identifier
         $length = 0x0002; // Bytes to follow
 
-        $rangeBounds = Cell::rangeBoundaries($this->phpSheet->getAutoFilter()->getRange());
+        $rangeBounds = Coordinate::rangeBoundaries($this->phpSheet->getAutoFilter()->getRange());
         $iNumFilters = 1 + $rangeBounds[1][0] - $rangeBounds[0][0];
 
         $header = pack('vv', $record, $length);
@@ -2035,13 +2035,13 @@ class Worksheet extends BIFFwriter
 
         foreach ($this->phpSheet->getBreaks() as $cell => $breakType) {
             // Fetch coordinates
-            $coordinates = Cell::coordinateFromString($cell);
+            $coordinates = Coordinate::coordinateFromString($cell);
 
             // Decide what to do by the type of break
             switch ($breakType) {
                 case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN:
                     // Add to list of vertical breaks
-                    $vbreaks[] = Cell::columnIndexFromString($coordinates[0]) - 1;
+                    $vbreaks[] = Coordinate::columnIndexFromString($coordinates[0]) - 1;
 
                     break;
                 case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW:
@@ -2288,7 +2288,7 @@ class Worksheet extends BIFFwriter
         $row_end = $row_start; // Row containing bottom right corner of object
 
         // Zero the specified offset if greater than the cell dimensions
-        if ($x1 >= Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_start))) {
+        if ($x1 >= Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_start))) {
             $x1 = 0;
         }
         if ($y1 >= Xls::sizeRow($this->phpSheet, $row_start + 1)) {
@@ -2299,8 +2299,8 @@ class Worksheet extends BIFFwriter
         $height = $height + $y1 - 1;
 
         // Subtract the underlying cell widths to find the end cell of the image
-        while ($width >= Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end))) {
-            $width -= Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end));
+        while ($width >= Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_end))) {
+            $width -= Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_end));
             ++$col_end;
         }
 
@@ -2313,10 +2313,10 @@ class Worksheet extends BIFFwriter
         // Bitmap isn't allowed to start or finish in a hidden cell, i.e. a cell
         // with zero eight or width.
         //
-        if (Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_start)) == 0) {
+        if (Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_start)) == 0) {
             return;
         }
-        if (Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end)) == 0) {
+        if (Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_end)) == 0) {
             return;
         }
         if (Xls::sizeRow($this->phpSheet, $row_start + 1) == 0) {
@@ -2327,9 +2327,9 @@ class Worksheet extends BIFFwriter
         }
 
         // Convert the pixel values to the percentage value expected by Excel
-        $x1 = $x1 / Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_start)) * 1024;
+        $x1 = $x1 / Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_start)) * 1024;
         $y1 = $y1 / Xls::sizeRow($this->phpSheet, $row_start + 1) * 256;
-        $x2 = $width / Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
+        $x2 = $width / Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
         $y2 = $height / Xls::sizeRow($this->phpSheet, $row_end + 1) * 256; // Distance to bottom of object
 
         $this->writeObjPicture($col_start, $x1, $row_start, $y1, $col_end, $x2, $row_end, $y2);
@@ -4413,9 +4413,9 @@ class Worksheet extends BIFFwriter
                         $arrConditional[] = $conditional->getHashCode();
                     }
                     // Cells
-                    $arrCoord = Cell::coordinateFromString($cellCoordinate);
+                    $arrCoord = Coordinate::coordinateFromString($cellCoordinate);
                     if (!is_numeric($arrCoord[0])) {
-                        $arrCoord[0] = Cell::columnIndexFromString($arrCoord[0]);
+                        $arrCoord[0] = Coordinate::columnIndexFromString($arrCoord[0]);
                     }
                     if ($numColumnMin === null || ($numColumnMin > $arrCoord[0])) {
                         $numColumnMin = $arrCoord[0];

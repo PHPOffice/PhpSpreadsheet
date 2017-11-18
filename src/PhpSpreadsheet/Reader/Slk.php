@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -161,7 +161,7 @@ class Slk extends BaseReader
             }
         }
 
-        $worksheetInfo[0]['lastColumnLetter'] = Cell::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
+        $worksheetInfo[0]['lastColumnLetter'] = Coordinate::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
         $worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
 
         // Close file
@@ -337,7 +337,7 @@ class Slk extends BaseReader
                                         if ($columnReference[0] == '[') {
                                             $columnReference = $column + trim($columnReference, '[]');
                                         }
-                                        $A1CellReference = Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;
+                                        $A1CellReference = Coordinate::stringFromColumnIndex($columnReference - 1) . $rowReference;
 
                                         $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                                     }
@@ -351,7 +351,7 @@ class Slk extends BaseReader
                             break;
                     }
                 }
-                $columnLetter = Cell::stringFromColumnIndex($column - 1);
+                $columnLetter = Coordinate::stringFromColumnIndex($column - 1);
                 $cellData = Calculation::unwrapResult($cellData);
 
                 // Set cell value
@@ -419,22 +419,22 @@ class Slk extends BaseReader
                     }
                 }
                 if (($formatStyle > '') && ($column > '') && ($row > '')) {
-                    $columnLetter = Cell::stringFromColumnIndex($column - 1);
+                    $columnLetter = Coordinate::stringFromColumnIndex($column - 1);
                     if (isset($this->formats[$formatStyle])) {
                         $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($this->formats[$formatStyle]);
                     }
                 }
                 if ((!empty($styleData)) && ($column > '') && ($row > '')) {
-                    $columnLetter = Cell::stringFromColumnIndex($column - 1);
+                    $columnLetter = Coordinate::stringFromColumnIndex($column - 1);
                     $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($styleData);
                 }
                 if ($columnWidth > '') {
                     if ($startCol == $endCol) {
-                        $startCol = Cell::stringFromColumnIndex($startCol - 1);
+                        $startCol = Coordinate::stringFromColumnIndex($startCol - 1);
                         $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth($columnWidth);
                     } else {
-                        $startCol = Cell::stringFromColumnIndex($startCol - 1);
-                        $endCol = Cell::stringFromColumnIndex($endCol - 1);
+                        $startCol = Coordinate::stringFromColumnIndex($startCol - 1);
+                        $endCol = Coordinate::stringFromColumnIndex($endCol - 1);
                         $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth($columnWidth);
                         do {
                             $spreadsheet->getActiveSheet()->getColumnDimension(++$startCol)->setWidth($columnWidth);

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Collection;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Psr\SimpleCache\CacheInterface;
@@ -244,10 +245,10 @@ class Cells
             if ($r != $row) {
                 continue;
             }
-            $columnList[] = Cell::columnIndexFromString($c);
+            $columnList[] = Coordinate::columnIndexFromString($c);
         }
 
-        return Cell::stringFromColumnIndex(max($columnList) - 1);
+        return Coordinate::stringFromColumnIndex(max($columnList) - 1);
     }
 
     /**

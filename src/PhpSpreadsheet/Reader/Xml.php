@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -207,7 +207,7 @@ class Xml extends BaseReader
                 }
             }
 
-            $tmpInfo['lastColumnLetter'] = Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+            $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
             $tmpInfo['totalColumns'] = $tmpInfo['lastColumnIndex'] + 1;
 
             $worksheetInfo[] = $tmpInfo;
@@ -587,7 +587,7 @@ class Xml extends BaseReader
                 foreach ($worksheet->Table->Column as $columnData) {
                     $columnData_ss = $columnData->attributes($namespaces['ss']);
                     if (isset($columnData_ss['Index'])) {
-                        $columnID = Cell::stringFromColumnIndex($columnData_ss['Index'] - 1);
+                        $columnID = Coordinate::stringFromColumnIndex($columnData_ss['Index'] - 1);
                     }
                     if (isset($columnData_ss['Width'])) {
                         $columnWidth = $columnData_ss['Width'];
@@ -611,7 +611,7 @@ class Xml extends BaseReader
                     foreach ($rowData->Cell as $cell) {
                         $cell_ss = $cell->attributes($namespaces['ss']);
                         if (isset($cell_ss['Index'])) {
-                            $columnID = Cell::stringFromColumnIndex($cell_ss['Index'] - 1);
+                            $columnID = Coordinate::stringFromColumnIndex($cell_ss['Index'] - 1);
                         }
                         $cellRange = $columnID . $rowID;
 
@@ -631,7 +631,7 @@ class Xml extends BaseReader
                             $columnTo = $columnID;
                             if (isset($cell_ss['MergeAcross'])) {
                                 $additionalMergedCells += (int) $cell_ss['MergeAcross'];
-                                $columnTo = Cell::stringFromColumnIndex(Cell::columnIndexFromString($columnID) + $cell_ss['MergeAcross'] - 1);
+                                $columnTo = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($columnID) + $cell_ss['MergeAcross'] - 1);
                             }
                             $rowTo = $rowID;
                             if (isset($cell_ss['MergeDown'])) {
@@ -695,7 +695,7 @@ class Xml extends BaseReader
 
                             if ($hasCalculatedValue) {
                                 $type = DataType::TYPE_FORMULA;
-                                $columnNumber = Cell::columnIndexFromString($columnID);
+                                $columnNumber = Coordinate::columnIndexFromString($columnID);
                                 if (substr($cellDataFormula, 0, 3) == 'of:') {
                                     $cellDataFormula = substr($cellDataFormula, 3);
                                     $temp = explode('"', $cellDataFormula);
@@ -739,7 +739,7 @@ class Xml extends BaseReader
                                                 if ($columnReference[0] == '[') {
                                                     $columnReference = $columnNumber + trim($columnReference, '[]');
                                                 }
-                                                $A1CellReference = Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;
+                                                $A1CellReference = Coordinate::stringFromColumnIndex($columnReference - 1) . $rowReference;
                                                 $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                                             }
                                         }

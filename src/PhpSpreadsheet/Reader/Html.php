@@ -6,7 +6,7 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMText;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -448,7 +448,7 @@ class Html extends BaseReader
                                 ++$columnTo;
                             }
                             $range = $column . $row . ':' . $columnTo . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (Coordinate::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -456,7 +456,7 @@ class Html extends BaseReader
                         } elseif (isset($attributeArray['rowspan'])) {
                             //create merging rowspan
                             $range = $column . $row . ':' . $column . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (Coordinate::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);

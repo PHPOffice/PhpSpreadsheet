@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -602,7 +602,7 @@ class Xls extends BaseReader
                 }
             }
 
-            $tmpInfo['lastColumnLetter'] = Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+            $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
             $tmpInfo['totalColumns'] = $tmpInfo['lastColumnIndex'] + 1;
 
             $worksheetInfo[] = $tmpInfo;
@@ -1087,8 +1087,8 @@ class Xls extends BaseReader
                     }
 
                     // calculate the width and height of the shape
-                    list($startColumn, $startRow) = Cell::coordinateFromString($spContainer->getStartCoordinates());
-                    list($endColumn, $endRow) = Cell::coordinateFromString($spContainer->getEndCoordinates());
+                    list($startColumn, $startRow) = Coordinate::coordinateFromString($spContainer->getStartCoordinates());
+                    list($endColumn, $endRow) = Coordinate::coordinateFromString($spContainer->getEndCoordinates());
 
                     $startOffsetX = $spContainer->getStartOffsetX();
                     $startOffsetY = $spContainer->getStartOffsetY();
@@ -1173,7 +1173,7 @@ class Xls extends BaseReader
             // treat SHAREDFMLA records
             if ($this->version == self::XLS_BIFF8) {
                 foreach ($this->sharedFormulaParts as $cell => $baseCell) {
-                    list($column, $row) = Cell::coordinateFromString($cell);
+                    list($column, $row) = Coordinate::coordinateFromString($cell);
                     if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($column, $row, $this->phpSheet->getTitle())) {
                         $formula = $this->getFormulaFromStructure($this->sharedFormulas[$baseCell], $cell);
                         $this->phpSheet->getCell($cell)->setValueExplicit('=' . $formula, DataType::TYPE_FORMULA);
@@ -1249,8 +1249,8 @@ class Xls extends BaseReader
 
                                     $coordinateStrings = explode(':', $extractedRange);
                                     if (count($coordinateStrings) == 2) {
-                                        list($firstColumn, $firstRow) = Cell::coordinateFromString($coordinateStrings[0]);
-                                        list($lastColumn, $lastRow) = Cell::coordinateFromString($coordinateStrings[1]);
+                                        list($firstColumn, $firstRow) = Coordinate::coordinateFromString($coordinateStrings[0]);
+                                        list($lastColumn, $lastRow) = Coordinate::coordinateFromString($coordinateStrings[1]);
 
                                         if ($firstColumn == 'A' and $lastColumn == 'IV') {
                                             // then we have repeating rows
@@ -3723,7 +3723,7 @@ class Xls extends BaseReader
 
         // offset: 2; size: 2; index to column
         $column = self::getUInt2d($recordData, 2);
-        $columnString = Cell::stringFromColumnIndex($column);
+        $columnString = Coordinate::stringFromColumnIndex($column);
 
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -3767,7 +3767,7 @@ class Xls extends BaseReader
 
         // offset: 2; size: 2; index to column
         $column = self::getUInt2d($recordData, 2);
-        $columnString = Cell::stringFromColumnIndex($column);
+        $columnString = Coordinate::stringFromColumnIndex($column);
 
         $emptyCell = true;
         // Read cell?
@@ -3860,7 +3860,7 @@ class Xls extends BaseReader
         $offset = 4;
 
         for ($i = 0; $i < $columns; ++$i) {
-            $columnString = Cell::stringFromColumnIndex($colFirst + $i);
+            $columnString = Coordinate::stringFromColumnIndex($colFirst + $i);
 
             // Read cell?
             if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -3904,7 +3904,7 @@ class Xls extends BaseReader
 
         // offset: 2; size 2; index to column
         $column = self::getUInt2d($recordData, 2);
-        $columnString = Cell::stringFromColumnIndex($column);
+        $columnString = Coordinate::stringFromColumnIndex($column);
 
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -3945,7 +3945,7 @@ class Xls extends BaseReader
 
         // offset: 2; size: 2; col index
         $column = self::getUInt2d($recordData, 2);
-        $columnString = Cell::stringFromColumnIndex($column);
+        $columnString = Coordinate::stringFromColumnIndex($column);
 
         // offset: 20: size: variable; formula structure
         $formulaStructure = substr($recordData, 20);
@@ -3969,7 +3969,7 @@ class Xls extends BaseReader
             // get the base cell, grab tExp token
             $baseRow = self::getUInt2d($formulaStructure, 3);
             $baseCol = self::getUInt2d($formulaStructure, 5);
-            $this->baseCell = Cell::stringFromColumnIndex($baseCol) . ($baseRow + 1);
+            $this->baseCell = Coordinate::stringFromColumnIndex($baseCol) . ($baseRow + 1);
         }
 
         // Read cell?
@@ -4129,7 +4129,7 @@ class Xls extends BaseReader
 
         // offset: 2; size: 2; column index
         $column = self::getUInt2d($recordData, 2);
-        $columnString = Cell::stringFromColumnIndex($column);
+        $columnString = Coordinate::stringFromColumnIndex($column);
 
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -4193,7 +4193,7 @@ class Xls extends BaseReader
         // add style information
         if (!$this->readDataOnly && $this->readEmptyCells) {
             for ($i = 0; $i < $length / 2 - 3; ++$i) {
-                $columnString = Cell::stringFromColumnIndex($fc + $i);
+                $columnString = Coordinate::stringFromColumnIndex($fc + $i);
 
                 // Read cell?
                 if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -4229,7 +4229,7 @@ class Xls extends BaseReader
 
         // offset: 2; size: 2; index to column
         $column = self::getUInt2d($recordData, 2);
-        $columnString = Cell::stringFromColumnIndex($column);
+        $columnString = Coordinate::stringFromColumnIndex($column);
 
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -4273,7 +4273,7 @@ class Xls extends BaseReader
 
         // offset: 2; size: 2; col index
         $col = self::getUInt2d($recordData, 2);
-        $columnString = Cell::stringFromColumnIndex($col);
+        $columnString = Coordinate::stringFromColumnIndex($col);
 
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -4490,7 +4490,7 @@ class Xls extends BaseReader
 
             if ($this->frozen) {
                 // frozen panes
-                $this->phpSheet->freezePane(Cell::stringFromColumnIndex($px) . ($py + 1));
+                $this->phpSheet->freezePane(Coordinate::stringFromColumnIndex($px) . ($py + 1));
             }
             // unfrozen panes; split windows; not supported by PhpSpreadsheet core
         }
@@ -4551,7 +4551,7 @@ class Xls extends BaseReader
         $includeCellRange = true;
         if ($this->getReadFilter() !== null) {
             $includeCellRange = false;
-            $rangeBoundaries = Cell::getRangeBoundaries($cellRangeAddress);
+            $rangeBoundaries = Coordinate::getRangeBoundaries($cellRangeAddress);
             ++$rangeBoundaries[1][0];
             for ($row = $rangeBoundaries[0][1]; $row <= $rangeBoundaries[1][1]; ++$row) {
                 for ($column = $rangeBoundaries[0][0]; $column != $rangeBoundaries[1][0]; ++$column) {
@@ -4762,7 +4762,7 @@ class Xls extends BaseReader
             }
 
             // apply the hyperlink to all the relevant cells
-            foreach (Cell::extractAllCellReferencesInRange($cellRange) as $coordinate) {
+            foreach (Coordinate::extractAllCellReferencesInRange($cellRange) as $coordinate) {
                 $this->phpSheet->getCell($coordinate)->getHyperLink()->setUrl($url);
             }
         }
@@ -4971,7 +4971,7 @@ class Xls extends BaseReader
 
         foreach ($cellRangeAddresses as $cellRange) {
             $stRange = $this->phpSheet->shrinkRangeToFit($cellRange);
-            foreach (Cell::extractAllCellReferencesInRange($stRange) as $coordinate) {
+            foreach (Coordinate::extractAllCellReferencesInRange($stRange) as $coordinate) {
                 $objValidation = $this->phpSheet->getCell($coordinate)->getDataValidation();
                 $objValidation->setType($type);
                 $objValidation->setErrorStyle($errorStyle);
@@ -7103,7 +7103,7 @@ class Xls extends BaseReader
 
         // offset: 2; size: 2; index to column or column offset + relative flags
         // bit: 7-0; mask 0x00FF; column index
-        $column = Cell::stringFromColumnIndex(0x00FF & self::getUInt2d($cellAddressStructure, 2));
+        $column = Coordinate::stringFromColumnIndex(0x00FF & self::getUInt2d($cellAddressStructure, 2));
 
         // bit: 14; mask 0x4000; (1 = relative column index, 0 = absolute column index)
         if (!(0x4000 & self::getUInt2d($cellAddressStructure, 2))) {
@@ -7129,8 +7129,8 @@ class Xls extends BaseReader
      */
     private function readBIFF8CellAddressB($cellAddressStructure, $baseCell = 'A1')
     {
-        list($baseCol, $baseRow) = Cell::coordinateFromString($baseCell);
-        $baseCol = Cell::columnIndexFromString($baseCol) - 1;
+        list($baseCol, $baseRow) = Coordinate::coordinateFromString($baseCell);
+        $baseCol = Coordinate::columnIndexFromString($baseCol) - 1;
 
         // offset: 0; size: 2; index to row (0... 65535) (or offset (-32768... 32767))
         $rowIndex = self::getUInt2d($cellAddressStructure, 0);
@@ -7142,7 +7142,7 @@ class Xls extends BaseReader
             // bit: 7-0; mask 0x00FF; column index
             $colIndex = 0x00FF & self::getUInt2d($cellAddressStructure, 2);
 
-            $column = Cell::stringFromColumnIndex($colIndex);
+            $column = Coordinate::stringFromColumnIndex($colIndex);
             $column = '$' . $column;
         } else {
             // offset: 2; size: 2; index to column or column offset + relative flags
@@ -7151,7 +7151,7 @@ class Xls extends BaseReader
             $colIndex = $baseCol + $relativeColIndex;
             $colIndex = ($colIndex < 256) ? $colIndex : $colIndex - 256;
             $colIndex = ($colIndex >= 0) ? $colIndex : $colIndex + 256;
-            $column = Cell::stringFromColumnIndex($colIndex);
+            $column = Coordinate::stringFromColumnIndex($colIndex);
         }
 
         // bit: 15; mask 0x8000; (1 = relative row index, 0 = absolute row index)
@@ -7196,8 +7196,8 @@ class Xls extends BaseReader
         }
 
         // column index to letter
-        $fc = Cell::stringFromColumnIndex($fc);
-        $lc = Cell::stringFromColumnIndex($lc);
+        $fc = Coordinate::stringFromColumnIndex($fc);
+        $lc = Coordinate::stringFromColumnIndex($lc);
 
         if ($fr == $lr and $fc == $lc) {
             return "$fc$fr";
@@ -7237,8 +7237,8 @@ class Xls extends BaseReader
         }
 
         // column index to letter
-        $fc = Cell::stringFromColumnIndex($fc);
-        $lc = Cell::stringFromColumnIndex($lc);
+        $fc = Coordinate::stringFromColumnIndex($fc);
+        $lc = Coordinate::stringFromColumnIndex($lc);
 
         if ($fr == $lr and $fc == $lc) {
             return "$fc$fr";
@@ -7270,7 +7270,7 @@ class Xls extends BaseReader
         // offset: 4; size: 2; index to first column or column offset + relative flags
 
         // bit: 7-0; mask 0x00FF; column index
-        $fc = Cell::stringFromColumnIndex(0x00FF & self::getUInt2d($subData, 4));
+        $fc = Coordinate::stringFromColumnIndex(0x00FF & self::getUInt2d($subData, 4));
 
         // bit: 14; mask 0x4000; (1 = relative column index, 0 = absolute column index)
         if (!(0x4000 & self::getUInt2d($subData, 4))) {
@@ -7285,7 +7285,7 @@ class Xls extends BaseReader
         // offset: 6; size: 2; index to last column or column offset + relative flags
 
         // bit: 7-0; mask 0x00FF; column index
-        $lc = Cell::stringFromColumnIndex(0x00FF & self::getUInt2d($subData, 6));
+        $lc = Coordinate::stringFromColumnIndex(0x00FF & self::getUInt2d($subData, 6));
 
         // bit: 14; mask 0x4000; (1 = relative column index, 0 = absolute column index)
         if (!(0x4000 & self::getUInt2d($subData, 6))) {
@@ -7312,8 +7312,8 @@ class Xls extends BaseReader
      */
     private function readBIFF8CellRangeAddressB($subData, $baseCell = 'A1')
     {
-        list($baseCol, $baseRow) = Cell::coordinateFromString($baseCell);
-        $baseCol = Cell::columnIndexFromString($baseCol) - 1;
+        list($baseCol, $baseRow) = Coordinate::coordinateFromString($baseCell);
+        $baseCol = Coordinate::columnIndexFromString($baseCol) - 1;
 
         // TODO: if cell range is just a single cell, should this funciton
         // not just return e.g. 'A1' and not 'A1:A1' ?
@@ -7330,7 +7330,7 @@ class Xls extends BaseReader
             // offset: 4; size: 2; first column with relative/absolute flags
             // bit: 7-0; mask 0x00FF; column index
             $fcIndex = 0x00FF & self::getUInt2d($subData, 4);
-            $fc = Cell::stringFromColumnIndex($fcIndex);
+            $fc = Coordinate::stringFromColumnIndex($fcIndex);
             $fc = '$' . $fc;
         } else {
             // column offset
@@ -7340,7 +7340,7 @@ class Xls extends BaseReader
             $fcIndex = $baseCol + $relativeFcIndex;
             $fcIndex = ($fcIndex < 256) ? $fcIndex : $fcIndex - 256;
             $fcIndex = ($fcIndex >= 0) ? $fcIndex : $fcIndex + 256;
-            $fc = Cell::stringFromColumnIndex($fcIndex);
+            $fc = Coordinate::stringFromColumnIndex($fcIndex);
         }
 
         // bit: 15; mask 0x8000; (1 = relative row index, 0 = absolute row index)
@@ -7360,7 +7360,7 @@ class Xls extends BaseReader
             // offset: 6; size: 2; last column with relative/absolute flags
             // bit: 7-0; mask 0x00FF; column index
             $lcIndex = 0x00FF & self::getUInt2d($subData, 6);
-            $lc = Cell::stringFromColumnIndex($lcIndex);
+            $lc = Coordinate::stringFromColumnIndex($lcIndex);
             $lc = '$' . $lc;
         } else {
             // column offset
@@ -7370,7 +7370,7 @@ class Xls extends BaseReader
             $lcIndex = $baseCol + $relativeLcIndex;
             $lcIndex = ($lcIndex < 256) ? $lcIndex : $lcIndex - 256;
             $lcIndex = ($lcIndex >= 0) ? $lcIndex : $lcIndex + 256;
-            $lc = Cell::stringFromColumnIndex($lcIndex);
+            $lc = Coordinate::stringFromColumnIndex($lcIndex);
         }
 
         // bit: 15; mask 0x8000; (1 = relative row index, 0 = absolute row index)

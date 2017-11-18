@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
@@ -323,7 +323,7 @@ class Xls extends BaseWriter
 
             // AutoFilters
             if (!empty($filterRange)) {
-                $rangeBounds = Cell::rangeBoundaries($filterRange);
+                $rangeBounds = Coordinate::rangeBoundaries($filterRange);
                 $iNumColStart = $rangeBounds[0][0];
                 $iNumColEnd = $rangeBounds[1][0];
 
@@ -334,7 +334,7 @@ class Xls extends BaseWriter
                     // create an Drawing Object for the dropdown
                     $oDrawing = new BaseDrawing();
                     // get the coordinates of drawing
-                    $cDrawing = Cell::stringFromColumnIndex($iInc - 1) . $rangeBounds[0][1];
+                    $cDrawing = Coordinate::stringFromColumnIndex($iInc - 1) . $rangeBounds[0][1];
                     $oDrawing->setCoordinates($cDrawing);
                     $oDrawing->setWorksheet($sheet);
 
@@ -363,7 +363,7 @@ class Xls extends BaseWriter
                     $spContainer->setOPT(0x03BF, 0x000A0000); // Group Shape -> fPrint
 
                     // set coordinates and offsets, client anchor
-                    $endCoordinates = Cell::stringFromColumnIndex($iInc - 1);
+                    $endCoordinates = Coordinate::stringFromColumnIndex($iInc - 1);
                     $endCoordinates .= $rangeBounds[0][1] + 1;
 
                     $spContainer->setStartCoordinates($cDrawing);

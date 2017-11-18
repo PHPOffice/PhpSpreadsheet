@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer;
@@ -421,8 +421,8 @@ class Escher
                     $recType = 0xF010;
 
                     // start coordinates
-                    list($column, $row) = Cell::coordinateFromString($this->object->getStartCoordinates());
-                    $c1 = Cell::columnIndexFromString($column) - 1;
+                    list($column, $row) = Coordinate::coordinateFromString($this->object->getStartCoordinates());
+                    $c1 = Coordinate::columnIndexFromString($column) - 1;
                     $r1 = $row - 1;
 
                     // start offsetX
@@ -432,8 +432,8 @@ class Escher
                     $startOffsetY = $this->object->getStartOffsetY();
 
                     // end coordinates
-                    list($column, $row) = Cell::coordinateFromString($this->object->getEndCoordinates());
-                    $c2 = Cell::columnIndexFromString($column) - 1;
+                    list($column, $row) = Coordinate::coordinateFromString($this->object->getEndCoordinates());
+                    $c2 = Coordinate::columnIndexFromString($column) - 1;
                     $r2 = $row - 1;
 
                     // end offsetX

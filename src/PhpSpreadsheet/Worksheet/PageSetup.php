@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 /**
@@ -767,7 +767,7 @@ class PageSetup
     public function setPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
     {
         return $this->setPrintArea(
-            Cell::stringFromColumnIndex($column1) . $row1 . ':' . Cell::stringFromColumnIndex($column2) . $row2,
+            Coordinate::stringFromColumnIndex($column1) . $row1 . ':' . Coordinate::stringFromColumnIndex($column2) . $row2,
             $index,
             $method
         );
@@ -794,7 +794,7 @@ class PageSetup
     public function addPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = -1)
     {
         return $this->setPrintArea(
-            Cell::stringFromColumnIndex($column1) . $row1 . ':' . Cell::stringFromColumnIndex($column2) . $row2,
+            Coordinate::stringFromColumnIndex($column1) . $row1 . ':' . Coordinate::stringFromColumnIndex($column2) . $row2,
             $index,
             self::SETPRINTRANGE_INSERT
         );

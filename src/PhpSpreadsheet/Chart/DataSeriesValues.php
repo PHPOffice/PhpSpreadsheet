@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class DataSeriesValues
@@ -327,7 +327,7 @@ class DataSeriesValues
                     list(, $cellRange) = $cellRange;
                 }
 
-                $dimensions = Cell::rangeDimension(str_replace('$', '', $cellRange));
+                $dimensions = Coordinate::rangeDimension(str_replace('$', '', $cellRange));
                 if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
                     $this->dataValues = Functions::flattenArray($newDataValues);
                 } else {

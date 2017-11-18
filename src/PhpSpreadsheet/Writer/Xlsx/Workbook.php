@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
@@ -314,14 +314,14 @@ class Workbook extends WriterPart
         }
 
         // Create absolute coordinate and write as raw text
-        $range = Cell::splitRange($pNamedRange->getRange());
+        $range = Coordinate::splitRange($pNamedRange->getRange());
         for ($i = 0; $i < count($range); ++$i) {
-            $range[$i][0] = '\'' . str_replace("'", "''", $pNamedRange->getWorksheet()->getTitle()) . '\'!' . Cell::absoluteReference($range[$i][0]);
+            $range[$i][0] = '\'' . str_replace("'", "''", $pNamedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteReference($range[$i][0]);
             if (isset($range[$i][1])) {
-                $range[$i][1] = Cell::absoluteReference($range[$i][1]);
+                $range[$i][1] = Coordinate::absoluteReference($range[$i][1]);
             }
         }
-        $range = Cell::buildRange($range);
+        $range = Coordinate::buildRange($range);
 
         $objWriter->writeRawData($range);
 
@@ -348,15 +348,15 @@ class Workbook extends WriterPart
             $objWriter->writeAttribute('hidden', '1');
 
             // Create absolute coordinate and write as raw text
-            $range = Cell::splitRange($autoFilterRange);
+            $range = Coordinate::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref so we can make the cell ref absolute
             if (strpos($range[0], '!') !== false) {
                 list($ws, $range[0]) = explode('!', $range[0]);
             }
 
-            $range[0] = Cell::absoluteCoordinate($range[0]);
-            $range[1] = Cell::absoluteCoordinate($range[1]);
+            $range[0] = Coordinate::absoluteCoordinate($range[0]);
+            $range[1] = Coordinate::absoluteCoordinate($range[1]);
             $range = implode(':', $range);
 
             $objWriter->writeRawData('\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!' . $range);
@@ -427,12 +427,12 @@ class Workbook extends WriterPart
             $objWriter->writeAttribute('localSheetId', $pSheetId);
 
             // Print area
-            $printArea = Cell::splitRange($pSheet->getPageSetup()->getPrintArea());
+            $printArea = Coordinate::splitRange($pSheet->getPageSetup()->getPrintArea());
 
             $chunks = [];
             foreach ($printArea as $printAreaRect) {
-                $printAreaRect[0] = Cell::absoluteReference($printAreaRect[0]);
-                $printAreaRect[1] = Cell::absoluteReference($printAreaRect[1]);
+                $printAreaRect[0] = Coordinate::absoluteReference($printAreaRect[0]);
+                $printAreaRect[1] = Coordinate::absoluteReference($printAreaRect[1]);
                 $chunks[] = '\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!' . implode(':', $printAreaRect);
             }
 
