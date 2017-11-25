@@ -20,7 +20,7 @@ for ($i = 0; $i < 10; ++$i) {
 
 $helper->log('Add data (begin)');
 $t = microtime(true);
-for ($col = 0; $col < 50; ++$col) {
+for ($col = 1; $col <= 50; ++$col) {
     for ($row = 0; $row < 100; ++$row) {
         $str = ($row + $col);
         $style = $styles[$row % 10];

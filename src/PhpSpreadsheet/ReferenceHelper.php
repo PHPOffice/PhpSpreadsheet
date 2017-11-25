@@ -372,8 +372,6 @@ class ReferenceHelper
         $allCoordinates = $pSheet->getCoordinates();
 
         // Get coordinate of $pBefore
-        $beforeColumn = 'A';
-        $beforeRow = 1;
         list($beforeColumn, $beforeRow) = Coordinate::coordinateFromString($pBefore);
         $beforeColumnIndex = Coordinate::columnIndexFromString($beforeColumn);
 
@@ -385,7 +383,7 @@ class ReferenceHelper
         if ($pNumCols < 0 && $beforeColumnIndex - 2 + $pNumCols > 0) {
             for ($i = 1; $i <= $highestRow - 1; ++$i) {
                 for ($j = $beforeColumnIndex - 1 + $pNumCols; $j <= $beforeColumnIndex - 2; ++$j) {
-                    $coordinate = Coordinate::stringFromColumnIndex($j) . $i;
+                    $coordinate = Coordinate::stringFromColumnIndex($j + 1) . $i;
                     $pSheet->removeConditionalStyles($coordinate);
                     if ($pSheet->cellExists($coordinate)) {
                         $pSheet->getCell($coordinate)->setValueExplicit('', DataType::TYPE_NULL);
@@ -399,7 +397,7 @@ class ReferenceHelper
         if ($pNumRows < 0 && $beforeRow - 1 + $pNumRows > 0) {
             for ($i = $beforeColumnIndex - 1; $i <= Coordinate::columnIndexFromString($highestColumn) - 1; ++$i) {
                 for ($j = $beforeRow + $pNumRows; $j <= $beforeRow - 1; ++$j) {
-                    $coordinate = Coordinate::stringFromColumnIndex($i) . $j;
+                    $coordinate = Coordinate::stringFromColumnIndex($i + 1) . $j;
                     $pSheet->removeConditionalStyles($coordinate);
                     if ($pSheet->cellExists($coordinate)) {
                         $pSheet->getCell($coordinate)->setValueExplicit('', DataType::TYPE_NULL);
@@ -423,7 +421,7 @@ class ReferenceHelper
             }
 
             // New coordinate
-            $newCoordinate = Coordinate::stringFromColumnIndex($cellIndex - 1 + $pNumCols) . ($cell->getRow() + $pNumRows);
+            $newCoordinate = Coordinate::stringFromColumnIndex($cellIndex + $pNumCols) . ($cell->getRow() + $pNumRows);
 
             // Should the cell be updated? Move value and cellXf index from one cell to another.
             if (($cellIndex >= $beforeColumnIndex) && ($cell->getRow() >= $beforeRow)) {
@@ -459,12 +457,12 @@ class ReferenceHelper
         if ($pNumCols > 0 && $beforeColumnIndex - 2 > 0) {
             for ($i = $beforeRow; $i <= $highestRow - 1; ++$i) {
                 // Style
-                $coordinate = Coordinate::stringFromColumnIndex($beforeColumnIndex - 2) . $i;
+                $coordinate = Coordinate::stringFromColumnIndex($beforeColumnIndex - 1) . $i;
                 if ($pSheet->cellExists($coordinate)) {
                     $xfIndex = $pSheet->getCell($coordinate)->getXfIndex();
                     $conditionalStyles = $pSheet->conditionalStylesExists($coordinate) ?
                         $pSheet->getConditionalStyles($coordinate) : false;
-                    for ($j = $beforeColumnIndex - 1; $j <= $beforeColumnIndex - 2 + $pNumCols; ++$j) {
+                    for ($j = $beforeColumnIndex; $j <= $beforeColumnIndex - 1 + $pNumCols; ++$j) {
                         $pSheet->getCellByColumnAndRow($j, $i)->setXfIndex($xfIndex);
                         if ($conditionalStyles) {
                             $cloned = [];
@@ -479,7 +477,7 @@ class ReferenceHelper
         }
 
         if ($pNumRows > 0 && $beforeRow - 1 > 0) {
-            for ($i = $beforeColumnIndex - 1; $i <= Coordinate::columnIndexFromString($highestColumn) - 1; ++$i) {
+            for ($i = $beforeColumnIndex; $i <= Coordinate::columnIndexFromString($highestColumn); ++$i) {
                 // Style
                 $coordinate = Coordinate::stringFromColumnIndex($i) . ($beforeRow - 1);
                 if ($pSheet->cellExists($coordinate)) {
@@ -541,8 +539,8 @@ class ReferenceHelper
                             $deleteColumn = $columnIndex + $pNumCols - 1;
                             $deleteCount = abs($pNumCols);
                             for ($i = 1; $i <= $deleteCount; ++$i) {
-                                if (isset($autoFilterColumns[Coordinate::stringFromColumnIndex($deleteColumn)])) {
-                                    $autoFilter->clearColumn(Coordinate::stringFromColumnIndex($deleteColumn));
+                                if (isset($autoFilterColumns[Coordinate::stringFromColumnIndex($deleteColumn + 1)])) {
+                                    $autoFilter->clearColumn(Coordinate::stringFromColumnIndex($deleteColumn + 1));
                                 }
                                 ++$deleteColumn;
                             }
@@ -551,25 +549,20 @@ class ReferenceHelper
 
                         //    Shuffle columns in autofilter range
                         if ($pNumCols > 0) {
-                            //    For insert, we shuffle from end to beginning to avoid overwriting
-                            $startColID = Coordinate::stringFromColumnIndex($startCol - 1);
-                            $toColID = Coordinate::stringFromColumnIndex($startCol + $pNumCols - 1);
-                            $endColID = Coordinate::stringFromColumnIndex($rangeEnd[0]);
-
                             $startColRef = $startCol;
                             $endColRef = $rangeEnd[0];
                             $toColRef = $rangeEnd[0] + $pNumCols;
 
                             do {
-                                $autoFilter->shiftColumn(Coordinate::stringFromColumnIndex($endColRef - 1), Coordinate::stringFromColumnIndex($toColRef - 1));
+                                $autoFilter->shiftColumn(Coordinate::stringFromColumnIndex($endColRef), Coordinate::stringFromColumnIndex($toColRef));
                                 --$endColRef;
                                 --$toColRef;
                             } while ($startColRef <= $endColRef);
                         } else {
                             //    For delete, we shuffle from beginning to end to avoid overwriting
-                            $startColID = Coordinate::stringFromColumnIndex($startCol - 1);
-                            $toColID = Coordinate::stringFromColumnIndex($startCol + $pNumCols - 1);
-                            $endColID = Coordinate::stringFromColumnIndex($rangeEnd[0]);
+                            $startColID = Coordinate::stringFromColumnIndex($startCol);
+                            $toColID = Coordinate::stringFromColumnIndex($startCol + $pNumCols);
+                            $endColID = Coordinate::stringFromColumnIndex($rangeEnd[0] + 1);
                             do {
                                 $autoFilter->shiftColumn($startColID, $toColID);
                                 ++$startColID;
@@ -881,7 +874,7 @@ class ReferenceHelper
 
             // Create new column reference
             if ($updateColumn) {
-                $newColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($newColumn) - 1 + $pNumCols);
+                $newColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($newColumn) + $pNumCols);
             }
 
             // Create new row reference

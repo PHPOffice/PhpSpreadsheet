@@ -4,6 +4,12 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 
+/**
+ * Helper class to manipulate cell coordinates.
+ *
+ * Columns indexes and rows are always based on 1, **not** on 0. This match the behavior
+ * that Excel users are used to, and also match the Excel functions `COLUMN()` and `ROW()`.
+ */
 abstract class Coordinate
 {
     /**
@@ -240,7 +246,7 @@ abstract class Coordinate
      *
      * @param string $pString eg 'A'
      *
-     * @return int Column index (base 1 !!!)
+     * @return int Column index (A = 1)
      */
     public static function columnIndexFromString($pString)
     {
@@ -284,9 +290,9 @@ abstract class Coordinate
     }
 
     /**
-     * String from columnindex.
+     * String from column index.
      *
-     * @param int $columnIndex Column index (A = 0)
+     * @param int $columnIndex Column index (A = 1)
      *
      * @return string
      */
@@ -295,7 +301,7 @@ abstract class Coordinate
         static $indexCache = [];
 
         if (!isset($indexCache[$columnIndex])) {
-            $indexValue = $columnIndex + 1;
+            $indexValue = $columnIndex;
             $base26 = null;
             do {
                 $characterValue = ($indexValue % 26) ?: 26;

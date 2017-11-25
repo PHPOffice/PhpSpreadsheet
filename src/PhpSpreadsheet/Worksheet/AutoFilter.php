@@ -202,7 +202,7 @@ class AutoFilter
     public function getColumnByOffset($pColumnOffset)
     {
         list($rangeStart, $rangeEnd) = Coordinate::rangeBoundaries($this->range);
-        $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $pColumnOffset - 1);
+        $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $pColumnOffset);
 
         return $this->getColumn($pColumn);
     }

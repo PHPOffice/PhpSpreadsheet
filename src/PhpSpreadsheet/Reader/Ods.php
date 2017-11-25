@@ -215,7 +215,7 @@ class Ods extends BaseReader
 
                     $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                     $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
-                    $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+                    $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
                     $worksheetInfo[] = $tmpInfo;
                 }
             }
@@ -707,7 +707,7 @@ class Ods extends BaseReader
                                             $columnIndex += (int) $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
                                             $columnIndex -= 2;
 
-                                            $columnTo = Coordinate::stringFromColumnIndex($columnIndex);
+                                            $columnTo = Coordinate::stringFromColumnIndex($columnIndex + 1);
                                         }
 
                                         $rowTo = $rowID;

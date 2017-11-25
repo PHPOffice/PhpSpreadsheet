@@ -310,7 +310,7 @@ class Worksheet extends BIFFwriter
 
             $width = $defaultWidth;
 
-            $columnLetter = Coordinate::stringFromColumnIndex($i);
+            $columnLetter = Coordinate::stringFromColumnIndex($i + 1);
             if (isset($columnDimensions[$columnLetter])) {
                 $columnDimension = $columnDimensions[$columnLetter];
                 if ($columnDimension->getWidth() >= 0) {
@@ -2288,7 +2288,7 @@ class Worksheet extends BIFFwriter
         $row_end = $row_start; // Row containing bottom right corner of object
 
         // Zero the specified offset if greater than the cell dimensions
-        if ($x1 >= Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_start))) {
+        if ($x1 >= Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_start + 1))) {
             $x1 = 0;
         }
         if ($y1 >= Xls::sizeRow($this->phpSheet, $row_start + 1)) {
@@ -2299,8 +2299,8 @@ class Worksheet extends BIFFwriter
         $height = $height + $y1 - 1;
 
         // Subtract the underlying cell widths to find the end cell of the image
-        while ($width >= Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_end))) {
-            $width -= Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_end));
+        while ($width >= Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_end + 1))) {
+            $width -= Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_end + 1));
             ++$col_end;
         }
 
@@ -2313,10 +2313,10 @@ class Worksheet extends BIFFwriter
         // Bitmap isn't allowed to start or finish in a hidden cell, i.e. a cell
         // with zero eight or width.
         //
-        if (Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_start)) == 0) {
+        if (Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_start + 1)) == 0) {
             return;
         }
-        if (Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_end)) == 0) {
+        if (Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_end + 1)) == 0) {
             return;
         }
         if (Xls::sizeRow($this->phpSheet, $row_start + 1) == 0) {
@@ -2327,9 +2327,9 @@ class Worksheet extends BIFFwriter
         }
 
         // Convert the pixel values to the percentage value expected by Excel
-        $x1 = $x1 / Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_start)) * 1024;
+        $x1 = $x1 / Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_start + 1)) * 1024;
         $y1 = $y1 / Xls::sizeRow($this->phpSheet, $row_start + 1) * 256;
-        $x2 = $width / Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
+        $x2 = $width / Xls::sizeCol($this->phpSheet, Coordinate::stringFromColumnIndex($col_end + 1)) * 1024; // Distance to right side of object
         $y2 = $height / Xls::sizeRow($this->phpSheet, $row_end + 1) * 256; // Distance to bottom of object
 
         $this->writeObjPicture($col_start, $x1, $row_start, $y1, $col_end, $x2, $row_end, $y2);

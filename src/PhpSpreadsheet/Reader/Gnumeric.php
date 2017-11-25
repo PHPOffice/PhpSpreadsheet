@@ -138,7 +138,7 @@ class Gnumeric extends BaseReader
                         break;
                     }
                 }
-                $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+                $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
                 $worksheetInfo[] = $tmpInfo;
             }
         }
@@ -394,7 +394,7 @@ class Gnumeric extends BaseReader
                     $maxCol = $column;
                 }
 
-                $column = Coordinate::stringFromColumnIndex($column);
+                $column = Coordinate::stringFromColumnIndex($column + 1);
 
                 // Read cell?
                 if ($this->getReadFilter() !== null) {
@@ -472,11 +472,11 @@ class Gnumeric extends BaseReader
                 $styleAttributes = $styleRegion->attributes();
                 if (($styleAttributes['startRow'] <= $maxRow) &&
                     ($styleAttributes['startCol'] <= $maxCol)) {
-                    $startColumn = Coordinate::stringFromColumnIndex((int) $styleAttributes['startCol']);
+                    $startColumn = Coordinate::stringFromColumnIndex((int) $styleAttributes['startCol'] + 1);
                     $startRow = $styleAttributes['startRow'] + 1;
 
                     $endColumn = ($styleAttributes['endCol'] > $maxCol) ? $maxCol : (int) $styleAttributes['endCol'];
-                    $endColumn = Coordinate::stringFromColumnIndex($endColumn);
+                    $endColumn = Coordinate::stringFromColumnIndex($endColumn + 1);
                     $endRow = ($styleAttributes['endRow'] > $maxRow) ? $maxRow : $styleAttributes['endRow'];
                     $endRow += 1;
                     $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
@@ -718,19 +718,19 @@ class Gnumeric extends BaseReader
                     $hidden = ((isset($columnAttributes['Hidden'])) && ($columnAttributes['Hidden'] == '1')) ? true : false;
                     $columnCount = (isset($columnAttributes['Count'])) ? $columnAttributes['Count'] : 1;
                     while ($c < $column) {
-                        $spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c))->setWidth($defaultWidth);
+                        $spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c + 1))->setWidth($defaultWidth);
                         ++$c;
                     }
                     while (($c < ($column + $columnCount)) && ($c <= $maxCol)) {
-                        $spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c))->setWidth($columnWidth);
+                        $spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c + 1))->setWidth($columnWidth);
                         if ($hidden) {
-                            $spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c))->setVisible(false);
+                            $spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c + 1))->setVisible(false);
                         }
                         ++$c;
                     }
                 }
                 while ($c <= $maxCol) {
-                    $spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c))->setWidth($defaultWidth);
+                    $spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c + 1))->setWidth($defaultWidth);
                     ++$c;
                 }
             }

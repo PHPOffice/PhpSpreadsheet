@@ -53,7 +53,7 @@ class LookupRef
         }
         if ((!is_bool($referenceStyle)) || $referenceStyle) {
             $rowRelative = $columnRelative = '$';
-            $column = Coordinate::stringFromColumnIndex($column - 1);
+            $column = Coordinate::stringFromColumnIndex($column);
             if (($relativity == 2) || ($relativity == 4)) {
                 $columnRelative = '';
             }
@@ -399,7 +399,7 @@ class LookupRef
         } else {
             $endCellColumn += $columns;
         }
-        $startCellColumn = Coordinate::stringFromColumnIndex($startCellColumn);
+        $startCellColumn = Coordinate::stringFromColumnIndex($startCellColumn + 1);
 
         if (($height != null) && (!is_object($height))) {
             $endCellRow = $startCellRow + $height - 1;
@@ -410,7 +410,7 @@ class LookupRef
         if (($endCellRow <= 0) || ($endCellColumn < 0)) {
             return Functions::REF();
         }
-        $endCellColumn = Coordinate::stringFromColumnIndex($endCellColumn);
+        $endCellColumn = Coordinate::stringFromColumnIndex($endCellColumn + 1);
 
         $cellAddress = $startCellColumn . $startCellRow;
         if (($startCellColumn != $endCellColumn) || ($startCellRow != $endCellRow)) {

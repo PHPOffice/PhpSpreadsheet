@@ -12,11 +12,15 @@ class CoordinateTest extends TestCase
      * @dataProvider providerColumnString
      *
      * @param mixed $expectedResult
+     * @param mixed $string
      */
-    public function testColumnIndexFromString($expectedResult, ...$args)
+    public function testColumnIndexFromString($expectedResult, $string)
     {
-        $result = Coordinate::columnIndexFromString(...$args);
-        self::assertEquals($expectedResult, $result);
+        $columnIndex = Coordinate::columnIndexFromString($string);
+        self::assertEquals($expectedResult, $columnIndex);
+
+        $stringBack = Coordinate::stringFromColumnIndex($columnIndex);
+        self::assertEquals($stringBack, $string, 'should be able to get the original input with opposite method');
     }
 
     public function providerColumnString()
@@ -58,11 +62,15 @@ class CoordinateTest extends TestCase
      * @dataProvider providerColumnIndex
      *
      * @param mixed $expectedResult
+     * @param int $columnIndex
      */
-    public function testStringFromColumnIndex($expectedResult, ...$args)
+    public function testStringFromColumnIndex($expectedResult, $columnIndex)
     {
-        $result = Coordinate::stringFromColumnIndex(...$args);
-        self::assertEquals($expectedResult, $result);
+        $string = Coordinate::stringFromColumnIndex($columnIndex);
+        self::assertEquals($expectedResult, $string);
+
+        $columnIndexBack = Coordinate::columnIndexFromString($string);
+        self::assertEquals($columnIndexBack, $columnIndex, 'should be able to get the original input with opposite method');
     }
 
     public function providerColumnIndex()

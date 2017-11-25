@@ -111,8 +111,8 @@ class Xls
         $distanceX = 0;
 
         // add the widths of the spanning columns
-        $startColumnIndex = Coordinate::columnIndexFromString($startColumn) - 1; // 1-based
-        $endColumnIndex = Coordinate::columnIndexFromString($endColumn) - 1; // 1-based
+        $startColumnIndex = Coordinate::columnIndexFromString($startColumn);
+        $endColumnIndex = Coordinate::columnIndexFromString($endColumn);
         for ($i = $startColumnIndex; $i <= $endColumnIndex; ++$i) {
             $distanceX += self::sizeCol($sheet, Coordinate::stringFromColumnIndex($i));
         }
@@ -212,7 +212,7 @@ class Xls
     public static function oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height)
     {
         list($column, $row) = Coordinate::coordinateFromString($coordinates);
-        $col_start = Coordinate::columnIndexFromString($column) - 1;
+        $col_start = Coordinate::columnIndexFromString($column);
         $row_start = $row - 1;
 
         $x1 = $offsetX;

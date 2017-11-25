@@ -334,7 +334,7 @@ class Xls extends BaseWriter
                     // create an Drawing Object for the dropdown
                     $oDrawing = new BaseDrawing();
                     // get the coordinates of drawing
-                    $cDrawing = Coordinate::stringFromColumnIndex($iInc - 1) . $rangeBounds[0][1];
+                    $cDrawing = Coordinate::stringFromColumnIndex($iInc) . $rangeBounds[0][1];
                     $oDrawing->setCoordinates($cDrawing);
                     $oDrawing->setWorksheet($sheet);
 
@@ -363,7 +363,7 @@ class Xls extends BaseWriter
                     $spContainer->setOPT(0x03BF, 0x000A0000); // Group Shape -> fPrint
 
                     // set coordinates and offsets, client anchor
-                    $endCoordinates = Coordinate::stringFromColumnIndex($iInc - 1);
+                    $endCoordinates = Coordinate::stringFromColumnIndex($iInc);
                     $endCoordinates .= $rangeBounds[0][1] + 1;
 
                     $spContainer->setStartCoordinates($cDrawing);

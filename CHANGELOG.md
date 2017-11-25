@@ -29,6 +29,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### BREAKING CHANGE
 
+- Extracted coordinate method to dedicate class [migration guide](./docs/topics/migration-from-PHPExcel.md).
+- Column indexes are based on 1, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Standardization of array keys used for style, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Easier usage of PDF writers, and other custom readers and writers, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Easier usage of chart renderers, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).

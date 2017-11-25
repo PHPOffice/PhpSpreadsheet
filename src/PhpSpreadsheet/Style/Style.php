@@ -210,8 +210,8 @@ class Style extends Supervisor
             $rangeEnd = Coordinate::coordinateFromString($rangeB);
 
             // Translate column into index
-            $rangeStart[0] = Coordinate::columnIndexFromString($rangeStart[0]) - 1;
-            $rangeEnd[0] = Coordinate::columnIndexFromString($rangeEnd[0]) - 1;
+            $rangeStart[0] = Coordinate::columnIndexFromString($rangeStart[0]);
+            $rangeEnd[0] = Coordinate::columnIndexFromString($rangeEnd[0]);
 
             // Make sure we can loop upwards on rows and columns
             if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {

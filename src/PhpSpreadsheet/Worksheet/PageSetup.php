@@ -749,7 +749,7 @@ class PageSetup
      * @param int $index Identifier for a specific print area range allowing several ranges to be set
      *                                When the method is "O"verwrite, then a positive integer index will overwrite that indexed
      *                                    entry in the print areas list; a negative index value will identify which entry to
-     *                                    overwrite working bacward through the print area to the list, with the last entry as -1.
+     *                                    overwrite working backward through the print area to the list, with the last entry as -1.
      *                                    Specifying an index value of 0, will overwrite <b>all</b> existing print ranges.
      *                                When the method is "I"nsert, then a positive index will insert after that indexed entry in
      *                                    the print areas list, while a negative index will insert before the indexed entry.

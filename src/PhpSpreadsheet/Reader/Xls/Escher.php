@@ -598,7 +598,7 @@ class Escher
         $endOffsetY = Xls::getUInt2d($recordData, 16);
 
         // set the start coordinates
-        $this->object->setStartCoordinates(Coordinate::stringFromColumnIndex($c1) . ($r1 + 1));
+        $this->object->setStartCoordinates(Coordinate::stringFromColumnIndex($c1 + 1) . ($r1 + 1));
 
         // set the start offsetX
         $this->object->setStartOffsetX($startOffsetX);
@@ -607,7 +607,7 @@ class Escher
         $this->object->setStartOffsetY($startOffsetY);
 
         // set the end coordinates
-        $this->object->setEndCoordinates(Coordinate::stringFromColumnIndex($c2) . ($r2 + 1));
+        $this->object->setEndCoordinates(Coordinate::stringFromColumnIndex($c2 + 1) . ($r2 + 1));
 
         // set the end offsetX
         $this->object->setEndOffsetX($endOffsetX);

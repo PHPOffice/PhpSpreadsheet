@@ -230,7 +230,7 @@ class Xlsx extends BaseReader
                         $xml->close();
 
                         $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
-                        $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+                        $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
 
                         $worksheetInfo[] = $tmpInfo;
                     }
@@ -734,7 +734,7 @@ class Xlsx extends BaseReader
                                             $ySplit = 1 + (int) ($xmlSheet->sheetViews->sheetView->pane['ySplit']);
                                         }
 
-                                        $docSheet->freezePaneByColumnAndRow($xSplit, $ySplit);
+                                        $docSheet->freezePaneByColumnAndRow($xSplit + 1, $ySplit);
                                     }
                                 }
 
@@ -798,7 +798,7 @@ class Xlsx extends BaseReader
 
                             if (isset($xmlSheet->cols) && !$this->readDataOnly) {
                                 foreach ($xmlSheet->cols->col as $col) {
-                                    for ($i = (int) ($col['min']) - 1; $i < (int) ($col['max']); ++$i) {
+                                    for ($i = (int) ($col['min']); $i <= (int) ($col['max']); ++$i) {
                                         if ($col['style'] && !$this->readDataOnly) {
                                             $docSheet->getColumnDimension(Coordinate::stringFromColumnIndex($i))->setXfIndex((int) ($col['style']));
                                         }
@@ -854,7 +854,7 @@ class Xlsx extends BaseReader
                                         $docSheet->getRowDimension((int) ($row['r']))->setXfIndex((int) ($row['s']));
                                     }
 
-                                    $rowIndex = 0; // Start form zero because Cell::stringFromColumnIndex start from A default, actually is 1
+                                    $rowIndex = 1;
                                     foreach ($row->c as $c) {
                                         $r = (string) $c['r'];
                                         if ($r == '') {
@@ -1214,7 +1214,7 @@ class Xlsx extends BaseReader
                             if ($xmlSheet && $xmlSheet->colBreaks && $xmlSheet->colBreaks->brk && !$this->readDataOnly) {
                                 foreach ($xmlSheet->colBreaks->brk as $brk) {
                                     if ($brk['man']) {
-                                        $docSheet->setBreak(Coordinate::stringFromColumnIndex((string) $brk['id']) . '1', Worksheet::BREAK_COLUMN);
+                                        $docSheet->setBreak(Coordinate::stringFromColumnIndex((string) $brk['id'] + 1) . '1', Worksheet::BREAK_COLUMN);
                                     }
                                 }
                             }
@@ -1568,7 +1568,7 @@ class Xlsx extends BaseReader
                                                         )],
                                                         false
                                                     );
-                                                    $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex((string) $oneCellAnchor->from->col) . ($oneCellAnchor->from->row + 1));
+                                                    $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((string) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1));
                                                     $objDrawing->setOffsetX(Drawing::EMUToPixels($oneCellAnchor->from->colOff));
                                                     $objDrawing->setOffsetY(Drawing::EMUToPixels($oneCellAnchor->from->rowOff));
                                                     $objDrawing->setResizeProportional(false);
@@ -1590,7 +1590,7 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setWorksheet($docSheet);
                                                 } else {
                                                     //    ? Can charts be positioned with a oneCellAnchor ?
-                                                    $coordinates = Coordinate::stringFromColumnIndex((string) $oneCellAnchor->from->col) . ($oneCellAnchor->from->row + 1);
+                                                    $coordinates = Coordinate::stringFromColumnIndex(((string) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1);
                                                     $offsetX = Drawing::EMUToPixels($oneCellAnchor->from->colOff);
                                                     $offsetY = Drawing::EMUToPixels($oneCellAnchor->from->rowOff);
                                                     $width = Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cx'));
@@ -1615,7 +1615,7 @@ class Xlsx extends BaseReader
                                                         )],
                                                         false
                                                     );
-                                                    $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1));
+                                                    $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((string) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1));
                                                     $objDrawing->setOffsetX(Drawing::EMUToPixels($twoCellAnchor->from->colOff));
                                                     $objDrawing->setOffsetY(Drawing::EMUToPixels($twoCellAnchor->from->rowOff));
                                                     $objDrawing->setResizeProportional(false);
@@ -1637,10 +1637,10 @@ class Xlsx extends BaseReader
                                                     }
                                                     $objDrawing->setWorksheet($docSheet);
                                                 } elseif (($this->includeCharts) && ($twoCellAnchor->graphicFrame)) {
-                                                    $fromCoordinate = Coordinate::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1);
+                                                    $fromCoordinate = Coordinate::stringFromColumnIndex(((string) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1);
                                                     $fromOffsetX = Drawing::EMUToPixels($twoCellAnchor->from->colOff);
                                                     $fromOffsetY = Drawing::EMUToPixels($twoCellAnchor->from->rowOff);
-                                                    $toCoordinate = Coordinate::stringFromColumnIndex((string) $twoCellAnchor->to->col) . ($twoCellAnchor->to->row + 1);
+                                                    $toCoordinate = Coordinate::stringFromColumnIndex(((string) $twoCellAnchor->to->col) + 1) . ($twoCellAnchor->to->row + 1);
                                                     $toOffsetX = Drawing::EMUToPixels($twoCellAnchor->to->colOff);
                                                     $toOffsetY = Drawing::EMUToPixels($twoCellAnchor->to->rowOff);
                                                     $graphic = $twoCellAnchor->graphicFrame->children('http://schemas.openxmlformats.org/drawingml/2006/main')->graphic;

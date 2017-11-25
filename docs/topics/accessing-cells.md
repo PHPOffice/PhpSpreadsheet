@@ -261,8 +261,7 @@ the cell's `getFormattedValue()` method.
 
 ``` php
 // Get the value fom cell A6
-$cellValue = $spreadsheet->getActiveSheet()->getCell('A6')
-    ->getFormattedValue();
+$cellValue = $spreadsheet->getActiveSheet()->getCell('A6')->getFormattedValue();
 ```
 
 ## Setting a cell value by column and row
@@ -281,13 +280,12 @@ than from `1`.
 ## Retrieving a cell value by column and row
 
 To retrieve the value of a cell, the cell should first be retrieved from
-the worksheet using the getCellByColumnAndRow method. A cell’s value can
+the worksheet using the `getCellByColumnAndRow()` method. A cell’s value can
 be read again using the following line of code:
 
 ``` php
 // Get the value fom cell B5
-$cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, 5)
-    ->getValue();
+$cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, 5)->getValue();
 ```
 
 If you need the calculated value of a cell, use the following code. This
@@ -295,8 +293,7 @@ is further explained in .
 
 ``` php
 // Get the value fom cell A4
-$cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(0, 4)
-    ->getCalculatedValue();
+$cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, 4)->getCalculatedValue();
 ```
 
 ## Retrieving a range of cell values to an array
@@ -374,8 +371,7 @@ One can use the possibility to access cell values by column and row
 index like (0,1) instead of 'A1' for reading and writing cell values in
 loops.
 
-Note: In PhpSpreadsheet column index is 0-based while row index is
-1-based. That means 'A1' \~ (0,1)
+Note: In PhpSpreadsheet column index and row index are 1-based. That means `'A1'` ~ `[1, 1]`
 
 Below is an example where we read all the values in a worksheet and
 display them in a table.
@@ -394,11 +390,9 @@ $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Cell::columnIndexFromString
 echo '<table>' . "\n";
 for ($row = 1; $row <= $highestRow; ++$row) {
     echo '<tr>' . PHP_EOL;
-    for ($col = 0; $col <= $highestColumnIndex; ++$col) {
-        echo '<td>' .
-             $worksheet->getCellByColumnAndRow($col, $row)
-                 ->getValue() .
-             '</td>' . PHP_EOL;
+    for ($col = 1; $col <= $highestColumnIndex; ++$col) {
+        $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+        echo '<td>' . $value . '</td>' . PHP_EOL;
     }
     echo '</tr>' . PHP_EOL;
 }

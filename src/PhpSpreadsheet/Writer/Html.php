@@ -434,9 +434,9 @@ class Html extends BaseWriter
             // Get worksheet dimension
             $dimension = explode(':', $sheet->calculateWorksheetDimension());
             $dimension[0] = Coordinate::coordinateFromString($dimension[0]);
-            $dimension[0][0] = Coordinate::columnIndexFromString($dimension[0][0]) - 1;
+            $dimension[0][0] = Coordinate::columnIndexFromString($dimension[0][0]);
             $dimension[1] = Coordinate::coordinateFromString($dimension[1]);
-            $dimension[1][0] = Coordinate::columnIndexFromString($dimension[1][0]) - 1;
+            $dimension[1][0] = Coordinate::columnIndexFromString($dimension[1][0]);
 
             // row min,max
             $rowMin = $dimension[0][1];
@@ -476,14 +476,15 @@ class Html extends BaseWriter
                     // Start a new rowData
                     $rowData = [];
                     // Loop through columns
-                    $column = $dimension[0][0] - 1;
-                    while ($column++ < $dimension[1][0]) {
+                    $column = $dimension[0][0];
+                    while ($column <= $dimension[1][0]) {
                         // Cell exists?
                         if ($sheet->cellExistsByColumnAndRow($column, $row)) {
                             $rowData[$column] = Coordinate::stringFromColumnIndex($column) . $row;
                         } else {
                             $rowData[$column] = '';
                         }
+                        ++$column;
                     }
                     $html .= $this->generateRow($sheet, $rowData, $row - 1, $cellType);
                 }
@@ -1210,7 +1211,7 @@ class Html extends BaseWriter
         $colNum = 0;
         foreach ($pValues as $cellAddress) {
             $cell = ($cellAddress > '') ? $pSheet->getCell($cellAddress) : '';
-            $coordinate = Coordinate::stringFromColumnIndex($colNum) . ($pRow + 1);
+            $coordinate = Coordinate::stringFromColumnIndex($colNum + 1) . ($pRow + 1);
             if (!$this->useInlineCss) {
                 $cssClass = 'column' . $colNum;
             } else {
@@ -1340,7 +1341,7 @@ class Html extends BaseWriter
 
                 //    Also apply style from last cell in merge to fix borders -
                 //        relies on !important for non-none border declarations in createCSSStyleBorder
-                $endCellCoord = Coordinate::stringFromColumnIndex($colNum + $colSpan - 1) . ($pRow + $rowSpan);
+                $endCellCoord = Coordinate::stringFromColumnIndex($colNum + $colSpan) . ($pRow + $rowSpan);
                 if (!$this->useInlineCss) {
                     $cssClass .= ' style' . $pSheet->getCell($endCellCoord)->getXfIndex();
                 }

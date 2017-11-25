@@ -161,7 +161,7 @@ class Slk extends BaseReader
             }
         }
 
-        $worksheetInfo[0]['lastColumnLetter'] = Coordinate::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
+        $worksheetInfo[0]['lastColumnLetter'] = Coordinate::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex'] + 1);
         $worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
 
         // Close file
@@ -337,7 +337,7 @@ class Slk extends BaseReader
                                         if ($columnReference[0] == '[') {
                                             $columnReference = $column + trim($columnReference, '[]');
                                         }
-                                        $A1CellReference = Coordinate::stringFromColumnIndex($columnReference - 1) . $rowReference;
+                                        $A1CellReference = Coordinate::stringFromColumnIndex($columnReference) . $rowReference;
 
                                         $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                                     }
@@ -351,7 +351,7 @@ class Slk extends BaseReader
                             break;
                     }
                 }
-                $columnLetter = Coordinate::stringFromColumnIndex($column - 1);
+                $columnLetter = Coordinate::stringFromColumnIndex($column);
                 $cellData = Calculation::unwrapResult($cellData);
 
                 // Set cell value
@@ -419,22 +419,22 @@ class Slk extends BaseReader
                     }
                 }
                 if (($formatStyle > '') && ($column > '') && ($row > '')) {
-                    $columnLetter = Coordinate::stringFromColumnIndex($column - 1);
+                    $columnLetter = Coordinate::stringFromColumnIndex($column);
                     if (isset($this->formats[$formatStyle])) {
                         $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($this->formats[$formatStyle]);
                     }
                 }
                 if ((!empty($styleData)) && ($column > '') && ($row > '')) {
-                    $columnLetter = Coordinate::stringFromColumnIndex($column - 1);
+                    $columnLetter = Coordinate::stringFromColumnIndex($column);
                     $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($styleData);
                 }
                 if ($columnWidth > '') {
                     if ($startCol == $endCol) {
-                        $startCol = Coordinate::stringFromColumnIndex($startCol - 1);
+                        $startCol = Coordinate::stringFromColumnIndex($startCol);
                         $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth($columnWidth);
                     } else {
-                        $startCol = Coordinate::stringFromColumnIndex($startCol - 1);
-                        $endCol = Coordinate::stringFromColumnIndex($endCol - 1);
+                        $startCol = Coordinate::stringFromColumnIndex($startCol);
+                        $endCol = Coordinate::stringFromColumnIndex($endCol);
                         $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth($columnWidth);
                         do {
                             $spreadsheet->getActiveSheet()->getColumnDimension(++$startCol)->setWidth($columnWidth);

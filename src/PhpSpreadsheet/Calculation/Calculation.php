@@ -3496,7 +3496,7 @@ class Calculation
                                 $oCol[] = Coordinate::columnIndexFromString($oCR[0]) - 1;
                                 $oRow[] = $oCR[1];
                             }
-                            $cellRef = Coordinate::stringFromColumnIndex(min($oCol)) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol)) . max($oRow);
+                            $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
                             if ($pCellParent !== null) {
                                 $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($sheet1), false);
                             } else {
@@ -3569,7 +3569,7 @@ class Calculation
                                 $cellIntersect[$row] = array_intersect_key($operand1[$row], $operand2[$row]);
                             }
                         }
-                        $cellRef = Coordinate::stringFromColumnIndex(min($oCol)) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol)) . max($oRow);
+                        $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
                         $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
                         $stack->push('Value', $cellIntersect, $cellRef);
 
