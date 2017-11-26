@@ -312,6 +312,17 @@ class MathTrig
         return Functions::VALUE();
     }
 
+    public static function evaluateGCD($a, $b) {
+        // As we're just working with two values, we can use the recursive Euclidian method
+        // If we were working with more than two values, we need to extend as
+        //    gcd(gcd(a, b), c)
+        //    to encompass all the values we need to evaluate
+        // The method we're using is limited to integers, if we wanted to support floats as well
+        //    then we'd need something like:
+        //        return $b > .000000000001 ? gcd($b, fmod($a, $b)) : $a;
+        return $b ? self::evaluateGCD($b, $a % $b) : $a;
+    }
+
     /**
      * GCD.
      *
@@ -330,64 +341,22 @@ class MathTrig
      */
     public static function GCD(...$args)
     {
-        $returnValue = 1;
-        $allValuesFactors = [];
+        $args = Functions::flattenArray($args);
         // Loop through arguments
         foreach (Functions::flattenArray($args) as $value) {
             if (!is_numeric($value)) {
                 return Functions::VALUE();
-            } elseif ($value == 0) {
-                continue;
             } elseif ($value < 0) {
                 return Functions::NAN();
             }
-            $myFactors = self::factors($value);
-            $myCountedFactors = array_count_values($myFactors);
-            $allValuesFactors[] = $myCountedFactors;
-        }
-        $allValuesCount = count($allValuesFactors);
-        if ($allValuesCount == 0) {
-            return 0;
         }
 
-        $mergedArray = $allValuesFactors[0];
-        for ($i = 1; $i < $allValuesCount; ++$i) {
-            $mergedArray = array_intersect_key($mergedArray, $allValuesFactors[$i]);
-        }
-        $mergedArrayValues = count($mergedArray);
-        if ($mergedArrayValues == 0) {
-            return $returnValue;
-        } elseif ($mergedArrayValues > 1) {
-            foreach ($mergedArray as $mergedKey => $mergedValue) {
-                foreach ($allValuesFactors as $highestPowerTest) {
-                    foreach ($highestPowerTest as $testKey => $testValue) {
-                        if (($testKey == $mergedKey) && ($testValue < $mergedValue)) {
-                            $mergedArray[$mergedKey] = $testValue;
-                            $mergedValue = $testValue;
-                        }
-                    }
-                }
-            }
+        $gcd = (int) array_pop($args);
+        do {
+            $gcd = self::evaluateGCD($gcd, (int) array_pop($args));
+        } while (!empty($args));
 
-            $returnValue = 1;
-            foreach ($mergedArray as $key => $value) {
-                $returnValue *= pow($key, $value);
-            }
-
-            return $returnValue;
-        }
-        $keys = array_keys($mergedArray);
-        $key = $keys[0];
-        $value = $mergedArray[$key];
-        foreach ($allValuesFactors as $testValue) {
-            foreach ($testValue as $mergedKey => $mergedValue) {
-                if (($mergedKey == $key) && ($mergedValue < $value)) {
-                    $value = $mergedValue;
-                }
-            }
-        }
-
-        return pow($key, $value);
+        return $gcd;
     }
 
     /**
