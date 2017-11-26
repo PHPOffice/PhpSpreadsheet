@@ -312,14 +312,8 @@ class MathTrig
         return Functions::VALUE();
     }
 
-    public static function evaluateGCD($a, $b) {
-        // As we're just working with two values, we can use the recursive Euclidian method
-        // If we were working with more than two values, we need to extend as
-        //    gcd(gcd(a, b), c)
-        //    to encompass all the values we need to evaluate
-        // The method we're using is limited to integers, if we wanted to support floats as well
-        //    then we'd need something like:
-        //        return $b > .000000000001 ? gcd($b, fmod($a, $b)) : $a;
+    public static function evaluateGCD($a, $b)
+    {
         return $b ? self::evaluateGCD($b, $a % $b) : $a;
     }
 
