@@ -312,7 +312,7 @@ class MathTrig
         return Functions::VALUE();
     }
 
-    public static function evaluateGCD($a, $b)
+    private static function evaluateGCD($a, $b)
     {
         return $b ? self::evaluateGCD($b, $a % $b) : $a;
     }
