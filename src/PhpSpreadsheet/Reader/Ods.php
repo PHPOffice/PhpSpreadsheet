@@ -696,8 +696,8 @@ class Ods extends BaseReader
                                 }
 
                                 // Merged cells
-                                if ($childNode->hasAttributeNS($tableNs, 'number-columns-spanned')
-                                    || $childNode->hasAttributeNS($tableNs, 'number-rows-spanned')
+                                if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')
+                                    || $cellData->hasAttributeNS($tableNs, 'number-rows-spanned')
                                 ) {
                                     if (($type !== DataType::TYPE_NULL) || (!$this->readDataOnly)) {
                                         $columnTo = $columnID;

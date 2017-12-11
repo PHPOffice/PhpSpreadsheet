@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
@@ -183,6 +184,7 @@ class Content extends WriterPart
 
             $this->writeCellSpan($objWriter, $column, $prevColumn);
             $objWriter->startElement('table:table-cell');
+            $this->writeCellMerge($objWriter, $cell);
 
             // Style XF
             $style = $cell->getXfIndex();
@@ -362,5 +364,30 @@ class Content extends WriterPart
 
             $writer->endElement(); // Close style:style
         }
+    }
+
+    /**
+     * Write attributes for merged cell.
+     *
+     * @param XMLWriter $objWriter
+     * @param Cell $cell
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    private function writeCellMerge(XMLWriter $objWriter, Cell $cell)
+    {
+        if (!$cell->isMergeRangeValueCell()) {
+            return;
+        }
+
+        $mergeRange = Coordinate::splitRange($cell->getMergeRange());
+        list($startCell, $endCell) = $mergeRange[0];
+        $start = Coordinate::coordinateFromString($startCell);
+        $end = Coordinate::coordinateFromString($endCell);
+        $columnSpan = Coordinate::columnIndexFromString($end[0]) - Coordinate::columnIndexFromString($start[0]) + 1;
+        $rowSpan = $end[1] - $start[1] + 1;
+
+        $objWriter->writeAttribute('table:number-columns-spanned', $columnSpan);
+        $objWriter->writeAttribute('table:number-rows-spanned', $rowSpan);
     }
 }

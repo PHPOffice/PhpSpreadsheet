@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Support to write merged cells in ODS format [#287](https://github.com/PHPOffice/PhpSpreadsheet/issues/287)
+
 ### Changed
 
 ### Fixed
