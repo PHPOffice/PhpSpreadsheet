@@ -112,8 +112,6 @@ class Html extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return bool
      */
     public function canRead($pFilename)
@@ -148,7 +146,14 @@ class Html extends BaseReader
         $filename = $meta['uri'];
 
         $size = filesize($filename);
+        if ($size === 0) {
+            return '';
+        }
+
         $blockSize = self::TEST_SAMPLE_SIZE;
+        if ($size < $blockSize) {
+            $blockSize = $size;
+        }
 
         fseek($this->fileHandle, $size - $blockSize);
 
