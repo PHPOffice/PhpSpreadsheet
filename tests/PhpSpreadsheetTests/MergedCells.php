@@ -11,9 +11,9 @@ class MergedCells extends TestCase
     public function providerMergedCells()
     {
         return [
-//            ['Html'],
-//            ['Xls'],
-//            ['Xlsx'],
+            ['Html'],
+            ['Xls'],
+            ['Xlsx'],
             ['Ods'],
         ];
     }
