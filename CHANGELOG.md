@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Can read very small HTML files - [#194](https://github.com/PHPOffice/PhpSpreadsheet/issues/194)
 
+### BREAKING CHANGE
+
+- Constant `TYPE_DOUGHTNUTCHART` is now `TYPE_DOUGHNUTCHART`.
+
 ## [1.0.0-beta2] - 2017-11-26
 
 ### Added
