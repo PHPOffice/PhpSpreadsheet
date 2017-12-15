@@ -28,6 +28,9 @@ class Conditional implements IComparable
     const OPERATOR_NOTCONTAINS = 'notContains';
     const OPERATOR_BETWEEN = 'between';
 
+    const IF_TRUE_STOP = 1;
+    const IF_TRUE_DONT_STOP = 0;
+
     /**
      * Condition type.
      *
@@ -48,6 +51,13 @@ class Conditional implements IComparable
      * @var string
      */
     private $text;
+
+    /**
+     * Stop on this condition, if it matches
+     *
+     * @var int
+     */
+    private $stopIfTrue;
 
     /**
      * Condition.
@@ -72,6 +82,7 @@ class Conditional implements IComparable
         $this->conditionType = self::CONDITION_NONE;
         $this->operatorType = self::OPERATOR_NONE;
         $this->text = null;
+        $this->stopIfTrue = self::IF_TRUE_DONT_STOP;
         $this->condition = [];
         $this->style = new Style(false, true);
     }
@@ -145,6 +156,28 @@ class Conditional implements IComparable
     {
         $this->text = $value;
 
+        return $this;
+    }
+
+    /**
+     * Get StopIfTrue.
+     *
+     * @return int
+     */
+    public function getStopIfTrue() {
+        return $this->stopIfTrue;
+    }
+
+    /**
+     * Set StopIfTrue.
+     *
+     * @param int $value
+     *
+     * @return Conditional
+     */
+    public function setStopIfTrue($value) {
+        $this->stopIfTrue = $value;
+        
         return $this;
     }
 
