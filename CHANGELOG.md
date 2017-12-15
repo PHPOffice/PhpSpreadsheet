@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Support cell comments in HTML writer and reader- [#308](https://github.com/PHPOffice/PhpSpreadsheet/issues/308)
+- Option to stop at a conditional styling, if it matches (only XLSX format) - [#292](https://github.com/PHPOffice/PhpSpreadsheet/pull/292)
 
 ### Fixed
 

@@ -491,6 +491,10 @@ class Worksheet extends WriterPart
                         $objWriter->writeAttribute('text', $conditional->getText());
                     }
 
+                    if ($conditional->getStopIfTrue()) {
+                        $objWriter->writeAttribute('stopIfTrue', '1');
+                    }
+
                     if ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
                         && $conditional->getOperatorType() == Conditional::OPERATOR_CONTAINSTEXT
                         && $conditional->getText() !== null) {

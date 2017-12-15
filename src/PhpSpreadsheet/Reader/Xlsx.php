@@ -990,6 +990,10 @@ class Xlsx extends BaseReader
                                             $objConditional->setText((string) $cfRule['text']);
                                         }
 
+                                        if (isset($cfRule['stopIfTrue']) && (int) $cfRule['stopIfTrue'] === 1) {
+                                            $objConditional->setStopIfTrue(true);
+                                        }
+
                                         if (count($cfRule->formula) > 1) {
                                             foreach ($cfRule->formula as $formula) {
                                                 $objConditional->addCondition((string) $formula);
