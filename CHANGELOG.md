@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - Can read very small HTML files - [#194](https://github.com/PHPOffice/PhpSpreadsheet/issues/194)
+- Written DataValidation was corrupted - [#290](https://github.com/PHPOffice/PhpSpreadsheet/issues/290)
 
 ### BREAKING CHANGE
 
