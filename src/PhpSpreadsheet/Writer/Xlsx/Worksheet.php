@@ -244,31 +244,31 @@ class Worksheet extends WriterPart
 
         // Pane
         $pane = '';
-        $topLeftCell = $pSheet->getFreezePane();
-        if (($topLeftCell != '') && ($topLeftCell != 'A1')) {
-            $activeCell = $topLeftCell;
-            // Calculate freeze coordinates
-            $xSplit = $ySplit = 0;
-
-            list($xSplit, $ySplit) = Coordinate::coordinateFromString($topLeftCell);
+        if ($pSheet->getFreezePane()) {
+            list($xSplit, $ySplit) = Coordinate::coordinateFromString($pSheet->getFreezePane());
             $xSplit = Coordinate::columnIndexFromString($xSplit);
+            --$xSplit;
+            --$ySplit;
+
+            $topLeftCell = $pSheet->getTopLeftCell();
+            $activeCell = $topLeftCell;
 
             // pane
             $pane = 'topRight';
             $objWriter->startElement('pane');
-            if ($xSplit > 1) {
-                $objWriter->writeAttribute('xSplit', $xSplit - 1);
+            if ($xSplit > 0) {
+                $objWriter->writeAttribute('xSplit', $xSplit);
             }
-            if ($ySplit > 1) {
-                $objWriter->writeAttribute('ySplit', $ySplit - 1);
-                $pane = ($xSplit > 1) ? 'bottomRight' : 'bottomLeft';
+            if ($ySplit > 0) {
+                $objWriter->writeAttribute('ySplit', $ySplit);
+                $pane = ($xSplit > 0) ? 'bottomRight' : 'bottomLeft';
             }
             $objWriter->writeAttribute('topLeftCell', $topLeftCell);
             $objWriter->writeAttribute('activePane', $pane);
             $objWriter->writeAttribute('state', 'frozen');
             $objWriter->endElement();
 
-            if (($xSplit > 1) && ($ySplit > 1)) {
+            if (($xSplit > 0) && ($ySplit > 0)) {
                 //    Write additional selections if more than two panes (ie both an X and a Y split)
                 $objWriter->startElement('selection');
                 $objWriter->writeAttribute('pane', 'topRight');

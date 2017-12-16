@@ -2,24 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
+use PhpOffice\PhpSpreadsheet\Reader\Xls as ReaderXls;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx as WriterXlsx;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Writer\Xls as WriterXls;
+use PHPUnit_Framework_TestCase;
 
-class XlsxTest extends TestCase
+class XlsTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Test load Xlsx file without cell reference.
-     */
-    public function testLoadXlsxWithoutCellReference()
-    {
-        $filename = './data/Reader/XLSX/without_cell_reference.xlsx';
-        $reader = new ReaderXlsx();
-        $reader->load($filename);
-    }
-
     public function testFreezePane()
     {
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet');
@@ -31,11 +21,11 @@ class XlsxTest extends TestCase
         $active = $spreadsheet->getActiveSheet();
         $active->freezePane($cellSplit, $topLeftCell);
 
-        $writer = new WriterXlsx($spreadsheet);
+        $writer = new WriterXls($spreadsheet);
         $writer->save($filename);
 
         // Read written file
-        $reader = new ReaderXlsx();
+        $reader = new ReaderXls();
         $reloadedSpreadsheet = $reader->load($filename);
         $reloadedActive = $reloadedSpreadsheet->getActiveSheet();
         $actualCellSplit = $reloadedActive->getFreezePane();

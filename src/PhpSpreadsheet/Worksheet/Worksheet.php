@@ -201,9 +201,16 @@ class Worksheet implements IComparable
     /**
      * Freeze pane.
      *
-     * @var string
+     * @var null|string
      */
-    private $freezePane = '';
+    private $freezePane;
+
+    /**
+     * Default position of the right bottom pane.
+     *
+     * @var null|string
+     */
+    private $topLeftCell;
 
     /**
      * Show gridlines?
@@ -1975,26 +1982,32 @@ class Worksheet implements IComparable
     /**
      * Freeze Pane.
      *
-     * @param string $pCell Cell (i.e. A2)
-     *                                    Examples:
-     *                                        A2 will freeze the rows above cell A2 (i.e row 1)
-     *                                        B1 will freeze the columns to the left of cell B1 (i.e column A)
-     *                                        B2 will freeze the rows above and to the left of cell A2
-     *                                            (i.e row 1 and column A)
+     * Examples:
+     *
+     *     - A2 will freeze the rows above cell A2 (i.e row 1)
+     *     - B1 will freeze the columns to the left of cell B1 (i.e column A)
+     *     - B2 will freeze the rows above and to the left of cell A2 (i.e row 1 and column A)
+     *
+     * @param null|string $cell Position of the split
+     * @param null|string $topLeftCell default position of the right bottom pane
      *
      * @throws Exception
      *
      * @return Worksheet
      */
-    public function freezePane($pCell)
+    public function freezePane($cell, $topLeftCell = null)
     {
-        // Uppercase coordinate
-        $pCell = strtoupper($pCell);
-        if (strpos($pCell, ':') === false && strpos($pCell, ',') === false) {
-            $this->freezePane = $pCell;
-        } else {
+        if (is_string($cell) && (strpos($cell, ':') !== false || strpos($cell, ',') !== false)) {
             throw new Exception('Freeze pane can not be set on a range of cells.');
         }
+
+        if ($cell !== null && $topLeftCell === null) {
+            $coordinate = Coordinate::coordinateFromString($cell);
+            $topLeftCell = $coordinate[0] . ($coordinate[1] + 1);
+        }
+
+        $this->freezePane = $cell;
+        $this->topLeftCell = $topLeftCell;
 
         return $this;
     }
@@ -2004,8 +2017,6 @@ class Worksheet implements IComparable
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
-     *
-     * @throws Exception
      *
      * @return Worksheet
      */
@@ -2021,7 +2032,17 @@ class Worksheet implements IComparable
      */
     public function unfreezePane()
     {
-        return $this->freezePane('');
+        return $this->freezePane(null);
+    }
+
+    /**
+     * Get the default position of the right bottom pane.
+     *
+     * @return int
+     */
+    public function getTopLeftCell()
+    {
+        return $this->topLeftCell;
     }
 
     /**
@@ -2622,6 +2643,7 @@ class Worksheet implements IComparable
         //    Identify the range that we need to extract from the worksheet
         $maxCol = $this->getHighestColumn();
         $maxRow = $this->getHighestRow();
+
         // Return
         return $this->rangeToArray('A1:' . $maxCol . $maxRow, $nullValue, $calculateFormulas, $formatData, $returnCellRef);
     }

@@ -576,8 +576,14 @@ class ReferenceHelper
         }
 
         // Update worksheet: freeze pane
-        if ($pSheet->getFreezePane() != '') {
-            $pSheet->freezePane($this->updateCellReference($pSheet->getFreezePane(), $pBefore, $pNumCols, $pNumRows));
+        if ($pSheet->getFreezePane()) {
+            $splitCell = $pSheet->getFreezePane();
+            $topLeftCell = $pSheet->getTopLeftCell();
+
+            $splitCell = $this->updateCellReference($splitCell, $pBefore, $pNumCols, $pNumRows);
+            $topLeftCell = $this->updateCellReference($topLeftCell, $pBefore, $pNumCols, $pNumRows);
+
+            $pSheet->freezePane($splitCell, $topLeftCell);
         }
 
         // Page setup

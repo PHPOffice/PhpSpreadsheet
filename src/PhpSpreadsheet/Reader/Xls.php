@@ -4488,9 +4488,17 @@ class Xls extends BaseReader
             // offset: 2; size: 2; position of horizontal split
             $py = self::getUInt2d($recordData, 2);
 
+            // offset: 4; size: 2; top most visible row in the bottom pane
+            $rwTop = self::getUInt2d($recordData, 4);
+
+            // offset: 6; size: 2; first visible left column in the right pane
+            $colLeft = self::getUInt2d($recordData, 6);
+
             if ($this->frozen) {
                 // frozen panes
-                $this->phpSheet->freezePane(Coordinate::stringFromColumnIndex($px + 1) . ($py + 1));
+                $cell = Coordinate::stringFromColumnIndex($px + 1) . ($py + 1);
+                $topLeftCell = Coordinate::stringFromColumnIndex($colLeft + 1) . ($rwTop + 1);
+                $this->phpSheet->freezePane($cell, $topLeftCell);
             }
             // unfrozen panes; split windows; not supported by PhpSpreadsheet core
         }

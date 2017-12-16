@@ -720,22 +720,23 @@ class Xlsx extends BaseReader
                                     $docSheet->setRightToLeft(self::boolean((string) $xmlSheet->sheetViews->sheetView['rightToLeft']));
                                 }
                                 if (isset($xmlSheet->sheetViews->sheetView->pane)) {
-                                    if (isset($xmlSheet->sheetViews->sheetView->pane['topLeftCell'])) {
-                                        $docSheet->freezePane((string) $xmlSheet->sheetViews->sheetView->pane['topLeftCell']);
-                                    } else {
-                                        $xSplit = 0;
-                                        $ySplit = 0;
+                                    $xSplit = 0;
+                                    $ySplit = 0;
+                                    $topLeftCell = null;
 
-                                        if (isset($xmlSheet->sheetViews->sheetView->pane['xSplit'])) {
-                                            $xSplit = 1 + (int) ($xmlSheet->sheetViews->sheetView->pane['xSplit']);
-                                        }
-
-                                        if (isset($xmlSheet->sheetViews->sheetView->pane['ySplit'])) {
-                                            $ySplit = 1 + (int) ($xmlSheet->sheetViews->sheetView->pane['ySplit']);
-                                        }
-
-                                        $docSheet->freezePaneByColumnAndRow($xSplit + 1, $ySplit);
+                                    if (isset($xmlSheet->sheetViews->sheetView->pane['xSplit'])) {
+                                        $xSplit = (int) ($xmlSheet->sheetViews->sheetView->pane['xSplit']);
                                     }
+
+                                    if (isset($xmlSheet->sheetViews->sheetView->pane['ySplit'])) {
+                                        $ySplit = (int) ($xmlSheet->sheetViews->sheetView->pane['ySplit']);
+                                    }
+
+                                    if (isset($xmlSheet->sheetViews->sheetView->pane['topLeftCell'])) {
+                                        $topLeftCell = (string) $xmlSheet->sheetViews->sheetView->pane['topLeftCell'];
+                                    }
+
+                                    $docSheet->freezePane(Coordinate::stringFromColumnIndex($xSplit + 1) . ($ySplit + 1), $topLeftCell);
                                 }
 
                                 if (isset($xmlSheet->sheetViews->sheetView->selection)) {
