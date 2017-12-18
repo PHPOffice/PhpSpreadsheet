@@ -274,8 +274,7 @@ Setting a cell value by coordinate can be done using the worksheet's
 $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(1, 5, 'PhpSpreadsheet');
 ```
 
-**Note** that column references start with `0` for column `A`, rather
-than from `1`.
+**Note** that column references start with `1` for column `A`.
 
 ## Retrieving a cell value by column and row
 
