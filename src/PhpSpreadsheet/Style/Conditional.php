@@ -28,8 +28,8 @@ class Conditional implements IComparable
     const OPERATOR_NOTCONTAINS = 'notContains';
     const OPERATOR_BETWEEN = 'between';
 
-    const IF_TRUE_STOP = 1;
-    const IF_TRUE_DONT_STOP = 0;
+    const IF_TRUE_STOP = true;
+    const IF_TRUE_DONT_STOP = false;
 
     /**
      * Condition type.
@@ -55,7 +55,7 @@ class Conditional implements IComparable
     /**
      * Stop on this condition, if it matches
      *
-     * @var int
+     * @var bool
      */
     private $stopIfTrue;
 
@@ -162,7 +162,7 @@ class Conditional implements IComparable
     /**
      * Get StopIfTrue.
      *
-     * @return int
+     * @return bool
      */
     public function getStopIfTrue() {
         return $this->stopIfTrue;
@@ -171,7 +171,7 @@ class Conditional implements IComparable
     /**
      * Set StopIfTrue.
      *
-     * @param int $value
+     * @param bool $value
      *
      * @return Conditional
      */
