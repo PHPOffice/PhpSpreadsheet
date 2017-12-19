@@ -239,20 +239,19 @@ using the `getValue()` method.
 
 ``` php
 // Get the value fom cell A1
-$cellValue = $spreadsheet->getActiveSheet()->getCell('A1')
-    ->getValue();
+$cellValue = $spreadsheet->getActiveSheet()->getCell('A1')->getValue();
 ```
 
 This will retrieve the raw, unformatted value contained in the cell.
 
 If a cell contains a formula, and you need to retrieve the calculated
 value rather than the formula itself, then use the cell's
-`getCalculatedValue()` method. This is further explained in .
+`getCalculatedValue()` method. This is further explained in
+[the calculation engine](./calculation-engine.md).
 
 ``` php
 // Get the value fom cell A4
-$cellValue = $spreadsheet->getActiveSheet()->getCell('A4')
-    ->getCalculatedValue();
+$cellValue = $spreadsheet->getActiveSheet()->getCell('A4')->getCalculatedValue();
 ```
 
 Alternatively, if you want to see the value with any cell formatting
@@ -288,7 +287,7 @@ $cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, 5)->getVal
 ```
 
 If you need the calculated value of a cell, use the following code. This
-is further explained in .
+is further explained in [the calculation engine](./calculation-engine.md).
 
 ``` php
 // Get the value fom cell A4
