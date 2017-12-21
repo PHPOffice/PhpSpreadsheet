@@ -363,3 +363,66 @@ $style = [
     ],
 ];
 ```
+
+### Dedicated class to manipulate coordinates
+
+Methods to manipulate coordinates that used to exists in `PHPExcel_Cell` were extracted
+to a dedicated new class `\PhpOffice\PhpSpreadsheet\Cell\Coordinate`. The methods are:
+
+- `absoluteCoordinate()`
+- `absoluteReference()`
+- `buildRange()`
+- `columnIndexFromString()`
+- `coordinateFromString()`
+- `extractAllCellReferencesInRange()`
+- `getRangeBoundaries()`
+- `mergeRangesInCollection()`
+- `rangeBoundaries()`
+- `rangeDimension()`
+- `splitRange()`
+- `stringFromColumnIndex()`
+
+### Column index based on 1
+
+Column indexes are now based on 1. So column `A` is the index `1`. This is consistent
+with rows starting at 1 and Excel function `COLUMN()` that returns `1` for column `A`.
+So the code must be adapted with something like:
+
+```php
+// Before
+$cell = $worksheet->getCellByColumnAndRow($column, $row);
+
+for ($column = 0; $column < $max; $column++) {
+    $worksheet->setCellValueByColumnAndRow($column, $row, 'value ' . $column);
+}
+
+// After
+$cell = $worksheet->getCellByColumnAndRow($column + 1, $row);
+
+for ($column = 1; $column <= $max; $column++) {
+    $worksheet->setCellValueByColumnAndRow($column, $row, 'value ' . $column);
+}
+```
+
+All the following methods are affected:
+
+- `PHPExcel_Worksheet::cellExistsByColumnAndRow()`
+- `PHPExcel_Worksheet::freezePaneByColumnAndRow()`
+- `PHPExcel_Worksheet::getCellByColumnAndRow()`
+- `PHPExcel_Worksheet::getColumnDimensionByColumn()`
+- `PHPExcel_Worksheet::getCommentByColumnAndRow()`
+- `PHPExcel_Worksheet::getStyleByColumnAndRow()`
+- `PHPExcel_Worksheet::insertNewColumnBeforeByIndex()`
+- `PHPExcel_Worksheet::mergeCellsByColumnAndRow()`
+- `PHPExcel_Worksheet::protectCellsByColumnAndRow()`
+- `PHPExcel_Worksheet::removeColumnByIndex()`
+- `PHPExcel_Worksheet::setAutoFilterByColumnAndRow()`
+- `PHPExcel_Worksheet::setBreakByColumnAndRow()`
+- `PHPExcel_Worksheet::setCellValueByColumnAndRow()`
+- `PHPExcel_Worksheet::setCellValueExplicitByColumnAndRow()`
+- `PHPExcel_Worksheet::setSelectedCellByColumnAndRow()`
+- `PHPExcel_Worksheet::stringFromColumnIndex()`
+- `PHPExcel_Worksheet::unmergeCellsByColumnAndRow()`
+- `PHPExcel_Worksheet::unprotectCellsByColumnAndRow()`
+- `PHPExcel_Worksheet_PageSetup::addPrintAreaByColumnAndRow()`
+- `PHPExcel_Worksheet_PageSetup::setPrintAreaByColumnAndRow()`

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
@@ -243,31 +244,31 @@ class Worksheet extends WriterPart
 
         // Pane
         $pane = '';
-        $topLeftCell = $pSheet->getFreezePane();
-        if (($topLeftCell != '') && ($topLeftCell != 'A1')) {
-            $activeCell = $topLeftCell;
-            // Calculate freeze coordinates
-            $xSplit = $ySplit = 0;
+        if ($pSheet->getFreezePane()) {
+            list($xSplit, $ySplit) = Coordinate::coordinateFromString($pSheet->getFreezePane());
+            $xSplit = Coordinate::columnIndexFromString($xSplit);
+            --$xSplit;
+            --$ySplit;
 
-            list($xSplit, $ySplit) = Cell::coordinateFromString($topLeftCell);
-            $xSplit = Cell::columnIndexFromString($xSplit);
+            $topLeftCell = $pSheet->getTopLeftCell();
+            $activeCell = $topLeftCell;
 
             // pane
             $pane = 'topRight';
             $objWriter->startElement('pane');
-            if ($xSplit > 1) {
-                $objWriter->writeAttribute('xSplit', $xSplit - 1);
+            if ($xSplit > 0) {
+                $objWriter->writeAttribute('xSplit', $xSplit);
             }
-            if ($ySplit > 1) {
-                $objWriter->writeAttribute('ySplit', $ySplit - 1);
-                $pane = ($xSplit > 1) ? 'bottomRight' : 'bottomLeft';
+            if ($ySplit > 0) {
+                $objWriter->writeAttribute('ySplit', $ySplit);
+                $pane = ($xSplit > 0) ? 'bottomRight' : 'bottomLeft';
             }
             $objWriter->writeAttribute('topLeftCell', $topLeftCell);
             $objWriter->writeAttribute('activePane', $pane);
             $objWriter->writeAttribute('state', 'frozen');
             $objWriter->endElement();
 
-            if (($xSplit > 1) && ($ySplit > 1)) {
+            if (($xSplit > 0) && ($ySplit > 0)) {
                 //    Write additional selections if more than two panes (ie both an X and a Y split)
                 $objWriter->startElement('selection');
                 $objWriter->writeAttribute('pane', 'topRight');
@@ -367,8 +368,8 @@ class Worksheet extends WriterPart
             foreach ($pSheet->getColumnDimensions() as $colDimension) {
                 // col
                 $objWriter->startElement('col');
-                $objWriter->writeAttribute('min', Cell::columnIndexFromString($colDimension->getColumnIndex()));
-                $objWriter->writeAttribute('max', Cell::columnIndexFromString($colDimension->getColumnIndex()));
+                $objWriter->writeAttribute('min', Coordinate::columnIndexFromString($colDimension->getColumnIndex()));
+                $objWriter->writeAttribute('max', Coordinate::columnIndexFromString($colDimension->getColumnIndex()));
 
                 if ($colDimension->getWidth() < 0) {
                     // No width set, apply default of 10
@@ -538,7 +539,7 @@ class Worksheet extends WriterPart
 
         // Write data validations?
         if (!empty($dataValidationCollection)) {
-            $dataValidationCollection = Cell::mergeRangesInCollection($dataValidationCollection);
+            $dataValidationCollection = Coordinate::mergeRangesInCollection($dataValidationCollection);
             $objWriter->startElement('dataValidations');
             $objWriter->writeAttribute('count', count($dataValidationCollection));
 
@@ -753,7 +754,7 @@ class Worksheet extends WriterPart
             $objWriter->startElement('autoFilter');
 
             // Strip any worksheet reference from the filter coordinates
-            $range = Cell::splitRange($autoFilterRange);
+            $range = Coordinate::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref
             if (strpos($range[0], '!') !== false) {
@@ -921,7 +922,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('manualBreakCount', count($aRowBreaks));
 
             foreach ($aRowBreaks as $cell) {
-                $coords = Cell::coordinateFromString($cell);
+                $coords = Coordinate::coordinateFromString($cell);
 
                 $objWriter->startElement('brk');
                 $objWriter->writeAttribute('id', $coords[1]);
@@ -939,10 +940,10 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('manualBreakCount', count($aColumnBreaks));
 
             foreach ($aColumnBreaks as $cell) {
-                $coords = Cell::coordinateFromString($cell);
+                $coords = Coordinate::coordinateFromString($cell);
 
                 $objWriter->startElement('brk');
-                $objWriter->writeAttribute('id', Cell::columnIndexFromString($coords[0]) - 1);
+                $objWriter->writeAttribute('id', Coordinate::columnIndexFromString($coords[0]) - 1);
                 $objWriter->writeAttribute('man', '1');
                 $objWriter->endElement();
             }
@@ -969,7 +970,7 @@ class Worksheet extends WriterPart
         $objWriter->startElement('sheetData');
 
         // Get column count
-        $colCount = Cell::columnIndexFromString($pSheet->getHighestColumn());
+        $colCount = Coordinate::columnIndexFromString($pSheet->getHighestColumn());
 
         // Highest row number
         $highestRow = $pSheet->getHighestRow();
@@ -977,7 +978,7 @@ class Worksheet extends WriterPart
         // Loop through cells
         $cellsByRow = [];
         foreach ($pSheet->getCoordinates() as $coordinate) {
-            $cellAddress = Cell::coordinateFromString($coordinate);
+            $cellAddress = Coordinate::coordinateFromString($coordinate);
             $cellsByRow[$cellAddress[1]][] = $coordinate;
         }
 

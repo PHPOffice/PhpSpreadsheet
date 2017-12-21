@@ -455,7 +455,6 @@ $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $reader->setInputEncoding('CP1252');
 $reader->setDelimiter(';');
 $reader->setEnclosure('');
-$reader->setLineEnding("\r\n");
 $reader->setSheetIndex(0);
 
 $spreadsheet = $reader->load("sample.csv");
@@ -481,7 +480,6 @@ imports onto the 6th sheet:
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $reader->setDelimiter(';');
 $reader->setEnclosure('');
-$reader->setLineEnding("\r\n");
 $reader->setSheetIndex(5);
 
 $reader->loadIntoExisting("05featuredemo.csv", $spreadsheet);

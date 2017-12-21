@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -215,7 +215,7 @@ class Ods extends BaseReader
 
                     $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                     $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
-                    $tmpInfo['lastColumnLetter'] = Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+                    $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
                     $worksheetInfo[] = $tmpInfo;
                 }
             }
@@ -696,18 +696,18 @@ class Ods extends BaseReader
                                 }
 
                                 // Merged cells
-                                if ($childNode->hasAttributeNS($tableNs, 'number-columns-spanned')
-                                    || $childNode->hasAttributeNS($tableNs, 'number-rows-spanned')
+                                if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')
+                                    || $cellData->hasAttributeNS($tableNs, 'number-rows-spanned')
                                 ) {
                                     if (($type !== DataType::TYPE_NULL) || (!$this->readDataOnly)) {
                                         $columnTo = $columnID;
 
                                         if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')) {
-                                            $columnIndex = Cell::columnIndexFromString($columnID);
+                                            $columnIndex = Coordinate::columnIndexFromString($columnID);
                                             $columnIndex += (int) $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
                                             $columnIndex -= 2;
 
-                                            $columnTo = Cell::stringFromColumnIndex($columnIndex);
+                                            $columnTo = Coordinate::stringFromColumnIndex($columnIndex + 1);
                                         }
 
                                         $rowTo = $rowID;

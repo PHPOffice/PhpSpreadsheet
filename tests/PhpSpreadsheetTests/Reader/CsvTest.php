@@ -2,35 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
-use PhpOffice\PhpSpreadsheet\Reader\Csv as ReaderCsv;
-use PhpOffice\PhpSpreadsheet\Shared\File;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Csv as WriterCsv;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PHPUnit\Framework\TestCase;
 
 class CsvTest extends TestCase
 {
-    public function testEnclosure()
-    {
-        $value = '<img alt="" src="http://example.com/image.jpg" />';
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet');
-
-        // Write temp file with value
-        $spreadsheet = new Spreadsheet();
-        $spreadsheet->getActiveSheet()->getCell('A1')->setValue($value);
-        $writer = new WriterCsv($spreadsheet);
-        $writer->save($filename);
-
-        // Read written file
-        $reader = new ReaderCsv();
-        $reloadedSpreadsheet = $reader->load($filename);
-        $actual = $reloadedSpreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
-        self::assertSame($value, $actual, 'should be able to write and read strings with multiples quotes');
-    }
-
     public function testDelimiterDetection()
     {
-        $reader = new ReaderCsv();
+        $reader = new Csv();
         self::assertNull($reader->getDelimiter());
 
         $filename = __DIR__ . '/../../data/Reader/CSV/semicolon_separated.csv';

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
@@ -77,20 +77,20 @@ class Drawing extends WriterPart
     public function writeChart(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Chart\Chart $pChart, $pRelationId = -1)
     {
         $tl = $pChart->getTopLeftPosition();
-        $tl['colRow'] = Cell::coordinateFromString($tl['cell']);
+        $tl['colRow'] = Coordinate::coordinateFromString($tl['cell']);
         $br = $pChart->getBottomRightPosition();
-        $br['colRow'] = Cell::coordinateFromString($br['cell']);
+        $br['colRow'] = Coordinate::coordinateFromString($br['cell']);
 
         $objWriter->startElement('xdr:twoCellAnchor');
 
         $objWriter->startElement('xdr:from');
-        $objWriter->writeElement('xdr:col', Cell::columnIndexFromString($tl['colRow'][0]) - 1);
+        $objWriter->writeElement('xdr:col', Coordinate::columnIndexFromString($tl['colRow'][0]) - 1);
         $objWriter->writeElement('xdr:colOff', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($tl['xOffset']));
         $objWriter->writeElement('xdr:row', $tl['colRow'][1] - 1);
         $objWriter->writeElement('xdr:rowOff', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($tl['yOffset']));
         $objWriter->endElement();
         $objWriter->startElement('xdr:to');
-        $objWriter->writeElement('xdr:col', Cell::columnIndexFromString($br['colRow'][0]) - 1);
+        $objWriter->writeElement('xdr:col', Coordinate::columnIndexFromString($br['colRow'][0]) - 1);
         $objWriter->writeElement('xdr:colOff', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($br['xOffset']));
         $objWriter->writeElement('xdr:row', $br['colRow'][1] - 1);
         $objWriter->writeElement('xdr:rowOff', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($br['yOffset']));
@@ -153,8 +153,8 @@ class Drawing extends WriterPart
             // xdr:oneCellAnchor
             $objWriter->startElement('xdr:oneCellAnchor');
             // Image location
-            $aCoordinates = Cell::coordinateFromString($pDrawing->getCoordinates());
-            $aCoordinates[0] = Cell::columnIndexFromString($aCoordinates[0]);
+            $aCoordinates = Coordinate::coordinateFromString($pDrawing->getCoordinates());
+            $aCoordinates[0] = Coordinate::columnIndexFromString($aCoordinates[0]);
 
             // xdr:from
             $objWriter->startElement('xdr:from');

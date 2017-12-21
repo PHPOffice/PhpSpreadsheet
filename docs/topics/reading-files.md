@@ -551,7 +551,6 @@ set other attributes for the data load:
 Method             | Default
 -------------------|----------
 setEnclosure()     | `"`
-setLineEnding()    | `PHP_EOL`
 setInputEncoding() | `UTF-8`
 
 Setting CSV delimiter applies to:

@@ -14,7 +14,7 @@ class LayoutTest extends TestCase
         $testInstance = new Layout();
 
         $result = $testInstance->setLayoutTarget($LayoutTargetValue);
-        self::assertTrue($result instanceof Layout);
+        self::assertInstanceOf(Layout::class, $result);
     }
 
     public function testGetLayoutTarget()

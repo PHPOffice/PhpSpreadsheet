@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 
@@ -177,8 +177,8 @@ class Comments extends WriterPart
     private function writeVMLComment(XMLWriter $objWriter, $pCellReference, Comment $pComment)
     {
         // Metadata
-        list($column, $row) = Cell::coordinateFromString($pCellReference);
-        $column = Cell::columnIndexFromString($column);
+        list($column, $row) = Coordinate::coordinateFromString($pCellReference);
+        $column = Coordinate::columnIndexFromString($column);
         $id = 1024 + $column + $row;
         $id = substr($id, 0, 4);
 

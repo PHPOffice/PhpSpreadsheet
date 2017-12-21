@@ -11,14 +11,7 @@ abstract class CellIterator implements \Iterator
      *
      * @var Worksheet
      */
-    protected $subject;
-
-    /**
-     * Current iterator position.
-     *
-     * @var mixed
-     */
-    protected $position;
+    protected $worksheet;
 
     /**
      * Iterate only existing cells.
@@ -32,7 +25,7 @@ abstract class CellIterator implements \Iterator
      */
     public function __destruct()
     {
-        unset($this->subject);
+        unset($this->worksheet);
     }
 
     /**

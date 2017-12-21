@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Support to write merged cells in ODS format [#287](https://github.com/PHPOffice/PhpSpreadsheet/issues/287)
+- Able to set the `topLeftCell` in freeze panes [#261](https://github.com/PHPOffice/PhpSpreadsheet/pull/261) 
+
+### Changed
+
+### Fixed
+
+- Can read very small HTML files - [#194](https://github.com/PHPOffice/PhpSpreadsheet/issues/194)
+- Written DataValidation was corrupted - [#290](https://github.com/PHPOffice/PhpSpreadsheet/issues/290)
+
+### BREAKING CHANGE
+
+- Constant `TYPE_DOUGHTNUTCHART` is now `TYPE_DOUGHNUTCHART`.
+
+## [1.0.0-beta2] - 2017-11-26
+
+### Added
+
 - Support for chart fill color - @CrazyBite [#158](https://github.com/PHPOffice/PhpSpreadsheet/pull/158)
 - Support for read Hyperlink for xml - @GreatHumorist [#223](https://github.com/PHPOffice/PhpSpreadsheet/pull/223)
 - Support for cell value validation according to data validation rules - @SailorMax [#257](https://github.com/PHPOffice/PhpSpreadsheet/pull/257)
@@ -29,6 +47,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### BREAKING CHANGE
 
+- Extracted coordinate method to dedicate class [migration guide](./docs/topics/migration-from-PHPExcel.md).
+- Column indexes are based on 1, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Standardization of array keys used for style, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Easier usage of PDF writers, and other custom readers and writers, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Easier usage of chart renderers, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).

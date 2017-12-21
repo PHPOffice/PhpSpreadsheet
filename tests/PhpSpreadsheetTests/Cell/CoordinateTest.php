@@ -2,21 +2,25 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PHPUnit\Framework\TestCase;
 
-class CellTest extends TestCase
+class CoordinateTest extends TestCase
 {
     /**
      * @dataProvider providerColumnString
      *
      * @param mixed $expectedResult
+     * @param mixed $string
      */
-    public function testColumnIndexFromString($expectedResult, ...$args)
+    public function testColumnIndexFromString($expectedResult, $string)
     {
-        $result = Cell::columnIndexFromString(...$args);
-        self::assertEquals($expectedResult, $result);
+        $columnIndex = Coordinate::columnIndexFromString($string);
+        self::assertEquals($expectedResult, $columnIndex);
+
+        $stringBack = Coordinate::stringFromColumnIndex($columnIndex);
+        self::assertEquals($stringBack, $string, 'should be able to get the original input with opposite method');
     }
 
     public function providerColumnString()
@@ -29,7 +33,7 @@ class CellTest extends TestCase
         $cellAddress = 'ABCD';
 
         try {
-            Cell::columnIndexFromString($cellAddress);
+            Coordinate::columnIndexFromString($cellAddress);
         } catch (\Exception $e) {
             self::assertInstanceOf(Exception::class, $e);
             self::assertEquals($e->getMessage(), 'Column string index can not be longer than 3 characters');
@@ -44,7 +48,7 @@ class CellTest extends TestCase
         $cellAddress = '';
 
         try {
-            Cell::columnIndexFromString($cellAddress);
+            Coordinate::columnIndexFromString($cellAddress);
         } catch (\Exception $e) {
             self::assertInstanceOf(Exception::class, $e);
             self::assertEquals($e->getMessage(), 'Column string index can not be empty');
@@ -58,11 +62,15 @@ class CellTest extends TestCase
      * @dataProvider providerColumnIndex
      *
      * @param mixed $expectedResult
+     * @param int $columnIndex
      */
-    public function testStringFromColumnIndex($expectedResult, ...$args)
+    public function testStringFromColumnIndex($expectedResult, $columnIndex)
     {
-        $result = Cell::stringFromColumnIndex(...$args);
-        self::assertEquals($expectedResult, $result);
+        $string = Coordinate::stringFromColumnIndex($columnIndex);
+        self::assertEquals($expectedResult, $string);
+
+        $columnIndexBack = Coordinate::columnIndexFromString($string);
+        self::assertEquals($columnIndexBack, $columnIndex, 'should be able to get the original input with opposite method');
     }
 
     public function providerColumnIndex()
@@ -77,7 +85,7 @@ class CellTest extends TestCase
      */
     public function testCoordinateFromString($expectedResult, ...$args)
     {
-        $result = Cell::coordinateFromString(...$args);
+        $result = Coordinate::coordinateFromString(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -91,7 +99,7 @@ class CellTest extends TestCase
         $cellAddress = 'A1:AI2012';
 
         try {
-            Cell::coordinateFromString($cellAddress);
+            Coordinate::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
             self::assertInstanceOf(Exception::class, $e);
             self::assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
@@ -106,7 +114,7 @@ class CellTest extends TestCase
         $cellAddress = '';
 
         try {
-            Cell::coordinateFromString($cellAddress);
+            Coordinate::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
             self::assertInstanceOf(Exception::class, $e);
             self::assertEquals($e->getMessage(), 'Cell coordinate can not be zero-length string');
@@ -121,7 +129,7 @@ class CellTest extends TestCase
         $cellAddress = 'AI';
 
         try {
-            Cell::coordinateFromString($cellAddress);
+            Coordinate::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
             self::assertInstanceOf(Exception::class, $e);
             self::assertEquals($e->getMessage(), 'Invalid cell coordinate ' . $cellAddress);
@@ -138,7 +146,7 @@ class CellTest extends TestCase
      */
     public function testAbsoluteCoordinateFromString($expectedResult, ...$args)
     {
-        $result = Cell::absoluteCoordinate(...$args);
+        $result = Coordinate::absoluteCoordinate(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -152,7 +160,7 @@ class CellTest extends TestCase
         $cellAddress = 'A1:AI2012';
 
         try {
-            Cell::absoluteCoordinate($cellAddress);
+            Coordinate::absoluteCoordinate($cellAddress);
         } catch (\Exception $e) {
             self::assertInstanceOf(Exception::class, $e);
             self::assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
@@ -169,7 +177,7 @@ class CellTest extends TestCase
      */
     public function testAbsoluteReferenceFromString($expectedResult, ...$args)
     {
-        $result = Cell::absoluteReference(...$args);
+        $result = Coordinate::absoluteReference(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -183,7 +191,7 @@ class CellTest extends TestCase
         $cellAddress = 'A1:AI2012';
 
         try {
-            Cell::absoluteReference($cellAddress);
+            Coordinate::absoluteReference($cellAddress);
         } catch (\Exception $e) {
             self::assertInstanceOf(Exception::class, $e);
             self::assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
@@ -200,7 +208,7 @@ class CellTest extends TestCase
      */
     public function testSplitRange($expectedResult, ...$args)
     {
-        $result = Cell::splitRange(...$args);
+        $result = Coordinate::splitRange(...$args);
         foreach ($result as $key => $split) {
             if (!is_array($expectedResult[$key])) {
                 self::assertEquals($expectedResult[$key], $split[0]);
@@ -222,7 +230,7 @@ class CellTest extends TestCase
      */
     public function testBuildRange($expectedResult, ...$args)
     {
-        $result = Cell::buildRange(...$args);
+        $result = Coordinate::buildRange(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -241,7 +249,7 @@ class CellTest extends TestCase
         }
 
         $cellRange = '';
-        Cell::buildRange($cellRange);
+        Coordinate::buildRange($cellRange);
     }
 
     /**
@@ -251,7 +259,7 @@ class CellTest extends TestCase
      */
     public function testRangeBoundaries($expectedResult, ...$args)
     {
-        $result = Cell::rangeBoundaries(...$args);
+        $result = Coordinate::rangeBoundaries(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -267,7 +275,7 @@ class CellTest extends TestCase
      */
     public function testRangeDimension($expectedResult, ...$args)
     {
-        $result = Cell::rangeDimension(...$args);
+        $result = Coordinate::rangeDimension(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -283,7 +291,7 @@ class CellTest extends TestCase
      */
     public function testGetRangeBoundaries($expectedResult, ...$args)
     {
-        $result = Cell::getRangeBoundaries(...$args);
+        $result = Coordinate::getRangeBoundaries(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -299,7 +307,7 @@ class CellTest extends TestCase
      */
     public function testExtractAllCellReferencesInRange($expectedResult, ...$args)
     {
-        $result = Cell::extractAllCellReferencesInRange(...$args);
+        $result = Coordinate::extractAllCellReferencesInRange(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -315,7 +323,7 @@ class CellTest extends TestCase
      */
     public function testMergeRangesInCollection($expectedResult, ...$args)
     {
-        $result = Cell::mergeRangesInCollection(...$args);
+        $result = Coordinate::mergeRangesInCollection(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
