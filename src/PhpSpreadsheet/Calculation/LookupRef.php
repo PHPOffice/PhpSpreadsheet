@@ -179,7 +179,7 @@ class LookupRef
         if (is_array($cellAddress)) {
             foreach ($cellAddress as $columnKey => $rowValue) {
                 foreach ($rowValue as $rowKey => $cellValue) {
-                    return (int) preg_replace('/[^0-9]/', '', $rowKey);
+                    return (int) preg_replace('/\D/', '', $rowKey);
                 }
             }
         } else {
@@ -188,8 +188,8 @@ class LookupRef
             }
             if (strpos($cellAddress, ':') !== false) {
                 list($startAddress, $endAddress) = explode(':', $cellAddress);
-                $startAddress = preg_replace('/[^0-9]/', '', $startAddress);
-                $endAddress = preg_replace('/[^0-9]/', '', $endAddress);
+                $startAddress = preg_replace('/\D/', '', $startAddress);
+                $endAddress = preg_replace('/\D/', '', $endAddress);
                 $returnValue = [];
                 do {
                     $returnValue[][] = (int) $startAddress;
@@ -199,7 +199,7 @@ class LookupRef
             }
             list($cellAddress) = explode(':', $cellAddress);
 
-            return (int) preg_replace('/[^0-9]/', '', $cellAddress);
+            return (int) preg_replace('/\D/', '', $cellAddress);
         }
     }
 

@@ -1889,7 +1889,7 @@ class Xls extends BaseReader
     {
         $pwarray = str_repeat("\0", 64);
 
-        for ($i = 0; $i < strlen($password); ++$i) {
+        for ($i = 0, $iMax = strlen($password); $i < $iMax; ++$i) {
             $o = ord(substr($password, $i, 1));
             $pwarray[2 * $i] = chr($o & 0xff);
             $pwarray[2 * $i + 1] = chr(($o >> 8) & 0xff);
@@ -3087,7 +3087,7 @@ class Xls extends BaseReader
                         // 1st fragment compressed
                         // this fragment uncompressed
                         $newstr = '';
-                        for ($j = 0; $j < strlen($retstr); ++$j) {
+                        for ($j = 0, $jMax = strlen($retstr); $j < $jMax; ++$j) {
                             $newstr .= $retstr[$j] . chr(0);
                         }
                         $retstr = $newstr;
@@ -4546,8 +4546,8 @@ class Xls extends BaseReader
             }
 
             // first column 'A' + last column 'IV' indicates that full row is selected
-            if (preg_match('/^(A[0-9]+\:)IV([0-9]+)$/', $selectedCells)) {
-                $selectedCells = preg_replace('/^(A[0-9]+\:)IV([0-9]+)$/', '${1}XFD${2}', $selectedCells);
+            if (preg_match('/^(A\d+\:)IV(\d+)$/', $selectedCells)) {
+                $selectedCells = preg_replace('/^(A\d+\:)IV(\d+)$/', '${1}XFD${2}', $selectedCells);
             }
 
             $this->phpSheet->setSelectedCells($selectedCells);

@@ -540,7 +540,7 @@ class JpGraph implements IRenderer
 
         $dataValuesPlot = [];
         // Flatten the plot arrays to a single dimensional array to work with jpgraph
-        for ($j = 0; $j < count($dataValues[0]); ++$j) {
+        for ($j = 0, $jMax = count($dataValues[0]); $j < $jMax; ++$j) {
             for ($i = 0; $i < $seriesCount; ++$i) {
                 $dataValuesPlot[] = $dataValues[$i][$j];
             }

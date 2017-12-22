@@ -479,7 +479,7 @@ class OLE
     public static function ascToUcs($ascii)
     {
         $rawname = '';
-        for ($i = 0; $i < strlen($ascii); ++$i) {
+        for ($i = 0, $iMax = strlen($ascii); $i < $iMax; ++$i) {
             $rawname .= $ascii[$i]
             . "\x00";
         }

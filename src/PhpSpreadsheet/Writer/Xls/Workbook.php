@@ -543,7 +543,7 @@ class Workbook extends BIFFwriter
             foreach ($namedRanges as $namedRange) {
                 // Create absolute coordinate
                 $range = Coordinate::splitRange($namedRange->getRange());
-                for ($i = 0; $i < count($range); ++$i) {
+                for ($i = 0, $iMax = count($range); $i < $iMax; ++$i) {
                     $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteCoordinate($range[$i][0]);
                     if (isset($range[$i][1])) {
                         $range[$i][1] = Coordinate::absoluteCoordinate($range[$i][1]);
