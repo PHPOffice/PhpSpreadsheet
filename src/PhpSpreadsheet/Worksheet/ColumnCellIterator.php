@@ -53,14 +53,6 @@ class ColumnCellIterator extends CellIterator
     }
 
     /**
-     * Destructor.
-     */
-    public function __destruct()
-    {
-        unset($this->worksheet);
-    }
-
-    /**
      * (Re)Set the start row and the current row pointer.
      *
      * @param int $startRow The row number at which to start iterating
