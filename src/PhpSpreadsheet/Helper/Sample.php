@@ -141,7 +141,9 @@ class Sample
     {
         $tempFolder = sys_get_temp_dir() . '/phpspreadsheet';
         if (!is_dir($tempFolder)) {
-            mkdir($tempFolder);
+            if (! mkdir($tempFolder) && ! is_dir($tempFolder)) {
+                throw new \RuntimeException(sprintf('Directory "%s" was not created', $tempFolder));
+            }
         }
 
         return $tempFolder;
