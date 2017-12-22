@@ -91,7 +91,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             $currencyCode = StringHelper::getCurrencyCode();
             $decimalSeparator = StringHelper::getDecimalSeparator();
             $thousandsSeparator = StringHelper::getThousandsSeparator();
-            if (preg_match('/^' . preg_quote($currencyCode) . ' *(\d{1,3}(' . preg_quote($thousandsSeparator) . '\d{3})*|(\d+))(' . preg_quote($decimalSeparator) . '\d{2})?$/', $value)) {
+            if (preg_match('/^' . preg_quote($currencyCode, '/') . ' *(\d{1,3}(' . preg_quote($thousandsSeparator, '/') . '\d{3})*|(\d+))(' . preg_quote($decimalSeparator, '/') . '\d{2})?$/', $value)) {
                 // Convert value to number
                 $value = (float) trim(str_replace([$currencyCode, $thousandsSeparator, $decimalSeparator], ['', '', '.'], $value));
                 $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
