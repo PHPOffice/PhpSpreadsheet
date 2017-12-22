@@ -61,11 +61,7 @@ class Gnumeric extends BaseReader
         $data = fread($fh, 2);
         fclose($fh);
 
-        if ($data != chr(0x1F) . chr(0x8B)) {
-            return false;
-        }
-
-        return true;
+        return $data == chr(0x1F) . chr(0x8B);
     }
 
     /**
