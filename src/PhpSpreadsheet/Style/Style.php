@@ -342,7 +342,7 @@ class Style extends Supervisor
             // Selection type, inspect
             if (preg_match('/^[A-Z]+1:[A-Z]+1048576$/', $pRange)) {
                 $selectionType = 'COLUMN';
-            } elseif (preg_match('/^A[0-9]+:XFD[0-9]+$/', $pRange)) {
+            } elseif (preg_match('/^A\d+:XFD\d+$/', $pRange)) {
                 $selectionType = 'ROW';
             } else {
                 $selectionType = 'CELL';

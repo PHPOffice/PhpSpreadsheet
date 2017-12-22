@@ -49,7 +49,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             }
 
             // Check for fraction
-            if (preg_match('/^([+-]?)\s*([0-9]+)\s?\/\s*([0-9]+)$/', $value, $matches)) {
+            if (preg_match('/^([+-]?)\s*(\d+)\s?\/\s*(\d+)$/', $value, $matches)) {
                 // Convert value to number
                 $value = $matches[2] / $matches[3];
                 if ($matches[1] == '-') {
@@ -61,7 +61,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                     ->getNumberFormat()->setFormatCode('??/??');
 
                 return true;
-            } elseif (preg_match('/^([+-]?)([0-9]*) +([0-9]*)\s?\/\s*([0-9]*)$/', $value, $matches)) {
+            } elseif (preg_match('/^([+-]?)(\d*) +(\d*)\s?\/\s*(\d*)$/', $value, $matches)) {
                 // Convert value to number
                 $value = $matches[2] + ($matches[3] / $matches[4]);
                 if ($matches[1] == '-') {
@@ -76,7 +76,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             }
 
             // Check for percentage
-            if (preg_match('/^\-?[0-9]*\.?[0-9]*\s?\%$/', $value)) {
+            if (preg_match('/^\-?\d*\.?\d*\s?\%$/', $value)) {
                 // Convert value to number
                 $value = (float) str_replace('%', '', $value) / 100;
                 $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
