@@ -9,6 +9,7 @@ $finder = PhpCsFixer\Finder::create()
 return PhpCsFixer\Config::create()
         ->setRiskyAllowed(true)
         ->setFinder($finder)
+        ->setUsingCache(true)
         ->setRules([
             'align_multiline_comment' => true,
             'array_syntax' => ['syntax' => 'short'],
