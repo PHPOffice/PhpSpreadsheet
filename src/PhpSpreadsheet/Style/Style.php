@@ -82,8 +82,7 @@ class Style extends Supervisor
      */
     public function __construct($isSupervisor = false, $isConditional = false)
     {
-        // Supervisor?
-        $this->isSupervisor = $isSupervisor;
+        parent::__construct($this->isSupervisor);
 
         // Initialise values
         $this->conditionalStyles = [];
