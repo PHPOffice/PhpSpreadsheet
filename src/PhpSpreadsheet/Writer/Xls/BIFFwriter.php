@@ -217,7 +217,7 @@ class BIFFwriter
         // Retrieve the last chunk of data
         $header = pack('vv', $record, strlen($data) - $i);
         $tmp .= $header;
-        $tmp .= substr($data, $i, strlen($data) - $i);
+        $tmp .= substr($data, $i);
 
         return $tmp;
     }
