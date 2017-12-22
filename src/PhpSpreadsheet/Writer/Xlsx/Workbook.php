@@ -315,7 +315,8 @@ class Workbook extends WriterPart
 
         // Create absolute coordinate and write as raw text
         $range = Coordinate::splitRange($pNamedRange->getRange());
-        for ($i = 0; $i < count($range); ++$i) {
+        $iMax = count($range);
+        for ($i = 0; $i < $iMax; ++$i) {
             $range[$i][0] = '\'' . str_replace("'", "''", $pNamedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteReference($range[$i][0]);
             if (isset($range[$i][1])) {
                 $range[$i][1] = Coordinate::absoluteReference($range[$i][1]);

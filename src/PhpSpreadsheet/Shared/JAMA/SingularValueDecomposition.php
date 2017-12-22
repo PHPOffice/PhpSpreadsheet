@@ -81,7 +81,8 @@ class SingularValueDecomposition
 
         // Reduce A to bidiagonal form, storing the diagonal elements
         // in s and the super-diagonal elements in e.
-        for ($k = 0; $k < max($nct, $nrt); ++$k) {
+        $kMax = max($nct, $nrt);
+        for ($k = 0; $k < $kMax; ++$k) {
             if ($k < $nct) {
                 // Compute the transformation for the k-th column and
                 // place the k-th diagonal in s[$k].
@@ -518,7 +519,8 @@ class SingularValueDecomposition
         $eps = pow(2.0, -52.0);
         $tol = max($this->m, $this->n) * $this->s[0] * $eps;
         $r = 0;
-        for ($i = 0; $i < count($this->s); ++$i) {
+        $iMax = count($this->s);
+        for ($i = 0; $i < $iMax; ++$i) {
             if ($this->s[$i] > $tol) {
                 ++$r;
             }
