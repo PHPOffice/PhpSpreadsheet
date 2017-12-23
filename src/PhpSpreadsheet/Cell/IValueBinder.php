@@ -12,5 +12,5 @@ interface IValueBinder
      *
      * @return bool
      */
-    public function bindValue(Cell $cell, $value = null);
+    public function bindValue(Cell $cell, $value);
 }

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
-use DateTime;
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
@@ -16,14 +16,14 @@ class DefaultValueBinder implements IValueBinder
      *
      * @return bool
      */
-    public function bindValue(Cell $cell, $value = null)
+    public function bindValue(Cell $cell, $value)
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {
             $value = StringHelper::sanitizeUTF8($value);
         } elseif (is_object($value)) {
             // Handle any objects that might be injected
-            if ($value instanceof DateTime) {
+            if ($value instanceof DateTimeInterface) {
                 $value = $value->format('Y-m-d H:i:s');
             } elseif (!($value instanceof RichText)) {
                 $value = (string) $value;
