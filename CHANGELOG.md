@@ -5,19 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.0.0] - 2017-12-25
 
 ### Added
 
 - Support to write merged cells in ODS format [#287](https://github.com/PHPOffice/PhpSpreadsheet/issues/287)
 - Able to set the `topLeftCell` in freeze panes [#261](https://github.com/PHPOffice/PhpSpreadsheet/pull/261) 
-
-### Changed
+- Support `DateTimeImmutable` as cell value
+- Support migration of prefixed classes
 
 ### Fixed
 
 - Can read very small HTML files - [#194](https://github.com/PHPOffice/PhpSpreadsheet/issues/194)
 - Written DataValidation was corrupted - [#290](https://github.com/PHPOffice/PhpSpreadsheet/issues/290)
+- Date format compatible with both LibreOffice and Excel - [#298](https://github.com/PHPOffice/PhpSpreadsheet/issues/298)
 
 ### BREAKING CHANGE
 
