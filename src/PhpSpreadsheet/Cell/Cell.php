@@ -618,8 +618,6 @@ class Cell
      * Set value binder to use.
      *
      * @param IValueBinder $binder
-     *
-     * @throws Exception
      */
     public static function setValueBinder(IValueBinder $binder)
     {

@@ -176,7 +176,7 @@ and are replaced by `IOFactory::registerWriter()` instead:
 - `PHPExcel_Settings::getPdfRenderer()`
 - `PHPExcel_Settings::setPdfRenderer()`
 - `PHPExcel_Settings::getPdfRendererName()`
-- `PHPExcel_Settings::setPdfRendererName()` were renamed as `setDefaultPdfWriter()`
+- `PHPExcel_Settings::setPdfRendererName()`
 
 Before:
 
