@@ -21,14 +21,15 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 // +----------------------------------------------------------------------+
 //
 
-/*
-* Array for storing OLE instances that are accessed from
-* OLE_ChainedBlockStream::stream_open().
-* @var  array
-*/
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\ChainedBlockStream;
 
+/*
+ * Array for storing OLE instances that are accessed from
+ * OLE_ChainedBlockStream::stream_open().
+ *
+ * @var array
+ */
 $GLOBALS['_OLE_INSTANCES'] = [];
 
 /**
@@ -373,12 +374,12 @@ class OLE
     public function _ppsTreeComplete($index)
     {
         return isset($this->_list[$index]) &&
-               ($pps = $this->_list[$index]) &&
-               ($pps->PrevPps == -1 ||
+            ($pps = $this->_list[$index]) &&
+            ($pps->PrevPps == -1 ||
                 $this->_ppsTreeComplete($pps->PrevPps)) &&
-               ($pps->NextPps == -1 ||
+            ($pps->NextPps == -1 ||
                 $this->_ppsTreeComplete($pps->NextPps)) &&
-               ($pps->DirPps == -1 ||
+            ($pps->DirPps == -1 ||
                 $this->_ppsTreeComplete($pps->DirPps));
     }
 
@@ -482,7 +483,7 @@ class OLE
         $iMax = strlen($ascii);
         for ($i = 0; $i < $iMax; ++$i) {
             $rawname .= $ascii[$i]
-            . "\x00";
+                . "\x00";
         }
 
         return $rawname;

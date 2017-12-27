@@ -7,13 +7,11 @@ use ZipArchive;
 
 class File
 {
-    /*
-     * Use Temp or File Upload Temp for temporary files
+    /**
+     * Use Temp or File Upload Temp for temporary files.
      *
-     * @protected
-     * @var boolean
+     * @var bool
      */
-
     protected static $useUploadTempDirectory = false;
 
     /**
