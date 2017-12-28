@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - Better auto-detection of CSV separators - [#305](https://github.com/PHPOffice/PhpSpreadsheet/issues/305)
+- Support for shape style ending with `;` - [#304](https://github.com/PHPOffice/PhpSpreadsheet/issues/304)
 
 ## [1.0.0] - 2017-12-25
 

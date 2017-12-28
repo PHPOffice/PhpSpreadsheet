@@ -2157,7 +2157,7 @@ class Xlsx extends BaseReader
 
     private static function toCSSArray($style)
     {
-        $style = str_replace(["\r", "\n"], '', $style);
+        $style = trim(str_replace(["\r", "\n"], '', $style), ';');
 
         $temp = explode(';', $style);
         $style = [];
