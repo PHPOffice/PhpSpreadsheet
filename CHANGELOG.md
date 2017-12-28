@@ -5,12 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+### Fixed
+
+- Better auto-detection of CSV separators - [#305](https://github.com/PHPOffice/PhpSpreadsheet/issues/305)
+
 ## [1.0.0] - 2017-12-25
 
 ### Added
 
-- Support to write merged cells in ODS format [#287](https://github.com/PHPOffice/PhpSpreadsheet/issues/287)
-- Able to set the `topLeftCell` in freeze panes [#261](https://github.com/PHPOffice/PhpSpreadsheet/pull/261) 
+- Support to write merged cells in ODS format - [#287](https://github.com/PHPOffice/PhpSpreadsheet/issues/287)
+- Able to set the `topLeftCell` in freeze panes - [#261](https://github.com/PHPOffice/PhpSpreadsheet/pull/261) 
 - Support `DateTimeImmutable` as cell value
 - Support migration of prefixed classes
 
