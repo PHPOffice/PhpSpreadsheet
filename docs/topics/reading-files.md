@@ -100,9 +100,9 @@ $spreadsheet = $reader->load($inputFileName);
 See `samples/Reader/03_Simple_file_reader_using_the_IOFactory_to_return_a_reader.php`
 for a working example of this code.
 
-If you're uncertain of the filetype, you can use the IO Factory's
-identify() method to identify the reader that you need, before using the
-createReader() method to instantiate the reader object.
+If you're uncertain of the filetype, you can use the `IOFactory::identify()`
+method to identify the reader that you need, before using the
+`createReader()` method to instantiate the reader object.
 
 ``` php
 $inputFileName = './sampleData/example1.xls';
@@ -129,7 +129,7 @@ executing the `load()` method.
 If you're only interested in the cell values in a workbook, but don't
 need any of the cell formatting information, then you can set the reader
 to read only the data values and any formulae from each cell using the
-setReadDataOnly() method.
+`setReadDataOnly()` method.
 
 ``` php
 $inputFileType = 'Xls';
@@ -170,7 +170,7 @@ CSV       | NO  | HTML   | NO
 
 If your workbook contains a number of worksheets, but you are only
 interested in reading some of those, then you can use the
-setLoadSheetsOnly() method to identify those sheets you are interested
+`setLoadSheetsOnly()` method to identify those sheets you are interested
 in reading.
 
 To read a single sheet, you can pass that sheet name as a parameter to
@@ -242,8 +242,8 @@ CSV       | NO  | HTML   | NO
 If you are only interested in reading part of a worksheet, then you can
 write a filter class that identifies whether or not individual cells
 should be read by the loader. A read filter must implement the
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter interface, and contain a
-readCell() method that accepts arguments of `$column`, `$row` and
+`\PhpOffice\PhpSpreadsheet\Reader\IReadFilter` interface, and contain a
+`readCell()` method that accepts arguments of `$column`, `$row` and
 `$worksheetName`, and return a boolean true or false that indicates
 whether a workbook cell identified by those arguments should be read or
 not.
@@ -444,7 +444,7 @@ Xlsx      | NO  | Xls    | NO  | Xml | NO  |
 Ods       | NO  | SYLK   | YES | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
-### Combining Read Filters with the setSheetIndex() method to split a large CSV file across multiple Worksheets
+### Combining Read Filters with the `setSheetIndex()` method to split a large CSV file across multiple Worksheets
 
 An Xls BIFF .xls file is limited to 65536 rows in a worksheet, while the
 Xlsx Microsoft Office Open XML SpreadsheetML .xlsx file is limited to
@@ -624,7 +624,7 @@ any problems that are encountered, and deal with them in an appropriate
 manner.
 
 The PhpSpreadsheet Readers throw a
-\PhpOffice\PhpSpreadsheet\Reader\Exception.
+`\PhpOffice\PhpSpreadsheet\Reader\Exception`.
 
 ``` php
 $inputFileName = './sampleData/example-1.xls';

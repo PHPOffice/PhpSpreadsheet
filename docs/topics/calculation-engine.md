@@ -79,7 +79,7 @@ content.
 #### Formulas don’t seem to be calculated in Excel2003 using compatibility pack?
 
 This is normal behaviour of the compatibility pack, Xlsx displays this
-correctly. Use \PhpOffice\PhpSpreadsheet\Writer\Xls if you really need
+correctly. Use `\PhpOffice\PhpSpreadsheet\Writer\Xls` if you really need
 calculated values, or force recalculation in Excel2003.
 
 ## Handling Date and Time Values
@@ -107,7 +107,7 @@ where the following constants can be used for `$returnDateType`:
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in for the return date type).
 
-The \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()
+The `\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`
 method can be used to determine the current value of this setting:
 
 ``` php
@@ -146,7 +146,7 @@ base date for the Mac 1904 calendar.
 
 It is possible for scripts to change the calendar used for calculating
 Excel date values by calling the
-\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar() method:
+`\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar()` method:
 
 ``` php
 \PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar($baseDate);
@@ -160,7 +160,7 @@ where the following constants can be used for `$baseDate`:
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in).
 
-The \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar() method can
+The `\PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar()` method can
 be used to determine the current value of this setting:
 
 ``` php
@@ -237,7 +237,7 @@ rather than converted to Excel date timestamp values.
 
 In addition to the `setExcelCalendar()` and `getExcelCalendar()` methods, a
 number of other methods are available in the
-\PhpOffice\PhpSpreadsheet\Shared\Date class that can help when working
+`\PhpOffice\PhpSpreadsheet\Shared\Date` class that can help when working
 with dates:
 
 #### \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($excelDate)
@@ -1024,7 +1024,7 @@ February 27, 2008.
 
 This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1229,7 +1229,7 @@ A string, representing a date value.
 
 This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1351,7 +1351,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::DAYOFMONTH() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::DAYOFMONTH()` when the
 method is called statically.
 
 #### DAYS360
@@ -1479,7 +1479,7 @@ value yields a past date.
 
 This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1552,7 +1552,7 @@ value yields a past date.
 
 This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1646,7 +1646,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::HOUROFDAY() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::HOUROFDAY()` when the
 method is called statically.
 
 #### MINUTE
@@ -1704,7 +1704,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::MINUTE() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::MINUTE()` when the
 method is called statically.
 
 #### MONTH
@@ -1757,7 +1757,7 @@ $retVal = call_user_func_array(
 #### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::MONTHOFYEAR() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::MONTHOFYEAR()` when the
 method is called statically.
 
 #### NETWORKDAYS
@@ -1830,7 +1830,7 @@ time.
 
 This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1843,7 +1843,7 @@ or an Excel timestamp value (real), depending on the value of
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::DATETIMENOW() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::DATETIMENOW()` when the
 method is called statically.
 
 #### SECOND
@@ -1902,7 +1902,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::SECOND() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::SECOND()` when the
 method is called statically.
 
 #### TIME
@@ -1986,7 +1986,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::WEEKDAY() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::WEEKDAY()` when the
 method is called statically.
 
 #### WEEKNUM

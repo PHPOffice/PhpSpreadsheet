@@ -4,33 +4,33 @@ As you already know from the [architecture](./architecture.md#readers-and-writer
 reading and writing to a
 persisted storage is not possible using the base PhpSpreadsheet classes.
 For this purpose, PhpSpreadsheet provides readers and writers, which are
-implementations of \PhpOffice\PhpSpreadsheet\Reader\IReader and
-\PhpOffice\PhpSpreadsheet\Writer\IWriter.
+implementations of `\PhpOffice\PhpSpreadsheet\Reader\IReader` and
+`\PhpOffice\PhpSpreadsheet\Writer\IWriter`.
 
 ## \PhpOffice\PhpSpreadsheet\IOFactory
 
 The PhpSpreadsheet API offers multiple methods to create a
-\PhpOffice\PhpSpreadsheet\Reader\IReader or
-\PhpOffice\PhpSpreadsheet\Writer\IWriter instance:
+`\PhpOffice\PhpSpreadsheet\Reader\IReader` or
+`\PhpOffice\PhpSpreadsheet\Writer\IWriter` instance:
 
-Direct creation via \PhpOffice\PhpSpreadsheet\IOFactory. All examples
+Direct creation via `\PhpOffice\PhpSpreadsheet\IOFactory`. All examples
 underneath demonstrate the direct creation method. Note that you can
-also use the \PhpOffice\PhpSpreadsheet\IOFactory class to do this.
+also use the `\PhpOffice\PhpSpreadsheet\IOFactory` class to do this.
 
-### Creating \PhpOffice\PhpSpreadsheet\Reader\IReader using \PhpOffice\PhpSpreadsheet\IOFactory
+### Creating `\PhpOffice\PhpSpreadsheet\Reader\IReader` using `\PhpOffice\PhpSpreadsheet\IOFactory`
 
 There are 2 methods for reading in a file into PhpSpreadsheet: using
 automatic file type resolving or explicitly.
 
 Automatic file type resolving checks the different
-\PhpOffice\PhpSpreadsheet\Reader\IReader distributed with
+`\PhpOffice\PhpSpreadsheet\Reader\IReader` distributed with
 PhpSpreadsheet. If one of them can load the specified file name, the
-file is loaded using that \PhpOffice\PhpSpreadsheet\Reader\IReader.
+file is loaded using that `\PhpOffice\PhpSpreadsheet\Reader\IReader`.
 Explicit mode requires you to specify which
-\PhpOffice\PhpSpreadsheet\Reader\IReader should be used.
+`\PhpOffice\PhpSpreadsheet\Reader\IReader` should be used.
 
-You can create a \PhpOffice\PhpSpreadsheet\Reader\IReader instance using
-\PhpOffice\PhpSpreadsheet\IOFactory in automatic file type resolving
+You can create a `\PhpOffice\PhpSpreadsheet\Reader\IReader` instance using
+`\PhpOffice\PhpSpreadsheet\IOFactory` in automatic file type resolving
 mode using the following code sample:
 
 ``` php
@@ -51,8 +51,8 @@ $reader->setReadDataOnly(true);
 $reader->load("05featuredemo.xlsx");
 ```
 
-You can create a \PhpOffice\PhpSpreadsheet\Reader\IReader instance using
-\PhpOffice\PhpSpreadsheet\IOFactory in explicit mode using the following
+You can create a `\PhpOffice\PhpSpreadsheet\Reader\IReader` instance using
+`\PhpOffice\PhpSpreadsheet\IOFactory` in explicit mode using the following
 code sample:
 
 ``` php
@@ -63,10 +63,10 @@ $spreadsheet = $reader->load("05featuredemo.xlsx");
 Note that automatic type resolving mode is slightly slower than explicit
 mode.
 
-### Creating \PhpOffice\PhpSpreadsheet\Writer\IWriter using \PhpOffice\PhpSpreadsheet\IOFactory
+### Creating `\PhpOffice\PhpSpreadsheet\Writer\IWriter` using `\PhpOffice\PhpSpreadsheet\IOFactory`
 
-You can create a PhpOffice\PhpSpreadsheet\Writer\IWriter instance using
-\PhpOffice\PhpSpreadsheet\IOFactory:
+You can create a `\PhpOffice\PhpSpreadsheet\Writer\IWriter` instance using
+`\PhpOffice\PhpSpreadsheet\IOFactory`:
 
 ``` php
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, "Xlsx");
@@ -116,8 +116,8 @@ $spreadsheet = $reader->load("05featuredemo.xlsx");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
-read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
+`\PhpOffice\PhpSpreadsheet\Reader\IReadFilter`. By default, all cells are
+read using the `\PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter`.
 
 The following code will only read row 1 and rows 20 – 30 of any sheet in
 the Excel file:
@@ -234,8 +234,8 @@ $spreadsheet = $reader->load("05featuredemo.xls");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
-read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
+`\PhpOffice\PhpSpreadsheet\Reader\IReadFilter`. By default, all cells are
+read using the `\PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter`.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the Excel file:
@@ -293,8 +293,8 @@ $spreadsheet = $reader->load("05featuredemo.xml");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
-read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
+`\PhpOffice\PhpSpreadsheet\Reader\IReadFilter`. By default, all cells are
+read using the `\PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter`.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the Excel file:
@@ -344,8 +344,8 @@ $spreadsheet = $reader->load("05featuredemo.slk");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
-read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
+`\PhpOffice\PhpSpreadsheet\Reader\IReadFilter`. By default, all cells are
+read using the `\PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter`.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the SYLK file:
@@ -389,8 +389,8 @@ $spreadsheet = $reader->load("05featuredemo.ods");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
-read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
+`\PhpOffice\PhpSpreadsheet\Reader\IReadFilter`. By default, all cells are
+read using the `\PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter`.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the Calc file:
@@ -437,14 +437,14 @@ $spreadsheet = $reader->load("sample.csv");
 
 Often, CSV files are not really "comma separated", or use semicolon (`;`)
 as a separator. You can instruct
-\PhpOffice\PhpSpreadsheet\Reader\Csv some options before reading a CSV
+`\PhpOffice\PhpSpreadsheet\Reader\Csv` some options before reading a CSV
 file.
 
 The separator will be auto-detected, so in most cases it should not be necessary
 to specify it. But in cases where auto-detection does not fit the use-case, then
 it can be set manually.
 
-Note that \PhpOffice\PhpSpreadsheet\Reader\Csv by default assumes that
+Note that `\PhpOffice\PhpSpreadsheet\Reader\Csv` by default assumes that
 the loaded CSV file is UTF-8 encoded. If you are reading CSV files that
 were created in Microsoft Office Excel the correct input encoding may
 rather be Windows-1252 (CP1252). Always make sure that the input
@@ -500,7 +500,7 @@ $writer->save("05featuredemo.csv");
 
 Often, CSV files are not really "comma separated", or use semicolon (`;`)
 as a separator. You can instruct
-\PhpOffice\PhpSpreadsheet\Writer\Csv some options before writing a CSV
+`\PhpOffice\PhpSpreadsheet\Writer\Csv` some options before writing a CSV
 file:
 
 ``` php
@@ -600,7 +600,7 @@ and does not yet support merged cells or nested tables cleanly
 
 ### \PhpOffice\PhpSpreadsheet\Writer\Html
 
-Please note that \PhpOffice\PhpSpreadsheet\Writer\Html only outputs the
+Please note that `\PhpOffice\PhpSpreadsheet\Writer\Html` only outputs the
 first worksheet by default.
 
 #### Writing a spreadsheet
@@ -723,7 +723,7 @@ $writer->save("05featuredemo.htm");
 
 #### Decimal and thousands separators
 
-See section \PhpOffice\PhpSpreadsheet\Writer\Csv how to control the
+See section `\PhpOffice\PhpSpreadsheet\Writer\Csv` how to control the
 appearance of these.
 
 ## PDF
@@ -849,7 +849,7 @@ $writer->save("05featuredemo.pdf");
 
 #### Decimal and thousands separators
 
-See section \PhpOffice\PhpSpreadsheet\Writer\Csv how to control the
+See section `\PhpOffice\PhpSpreadsheet\Writer\Csv` how to control the
 appearance of these.
 
 ## Generating Excel files from templates (read, modify, write)

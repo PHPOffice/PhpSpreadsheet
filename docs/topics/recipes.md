@@ -96,10 +96,10 @@ $spreadsheet->getActiveSheet()->getStyle('D1')
 ```
 
 The above methods for entering a date all yield the same result.
-\PhpOffice\PhpSpreadsheet\Style\NumberFormat provides a lot of
+`\PhpOffice\PhpSpreadsheet\Style\NumberFormat` provides a lot of
 pre-defined date formats.
 
-The \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel() method will also
+The `\PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel()` method will also
 work with a PHP DateTime object.
 
 Similarly, times (or date and time values) can be entered in the same
@@ -333,7 +333,7 @@ As you can see, it is not necessary to call setFitToPage(TRUE) since
 setFitToWidth(...) and setFitToHeight(...) triggers this.
 
 If you use `setFitToWidth()` you should in general also specify
-setFitToHeight() explicitly like in the example. Be careful relying on
+`setFitToHeight()` explicitly like in the example. Be careful relying on
 the initial values.
 
 ### Page margins
@@ -1197,7 +1197,7 @@ $spreadsheet->getActiveSheet()->insertNewRowBefore(7, 2);
 
 A drawing is always represented as a separate object, which can be added
 to a worksheet. Therefore, you must first instantiate a new
-\PhpOffice\PhpSpreadsheet\Worksheet\Drawing, and assign its properties a
+`\PhpOffice\PhpSpreadsheet\Worksheet\Drawing`, and assign its properties a
 meaningful value:
 
 ``` php
@@ -1299,7 +1299,7 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
 ## Add rich text to a cell
 
 Adding rich text to a cell can be done using
-\PhpOffice\PhpSpreadsheet\RichText instances. Here''s an example, which
+`\PhpOffice\PhpSpreadsheet\RichText` instances. Here''s an example, which
 creates the following rich text string:
 
 > This invoice is ***payable within thirty days after the end of the
@@ -1346,10 +1346,10 @@ steps that can be followed to do this:
 
 1.  Create your PhpSpreadsheet spreadsheet
 2.  Output HTTP headers for the type of document you wish to output
-3.  Use the \PhpOffice\PhpSpreadsheet\Writer\* of your choice, and save
+3.  Use the `\PhpOffice\PhpSpreadsheet\Writer\*` of your choice, and save
     to "php://output"
 
-\PhpOffice\PhpSpreadsheet\Writer\Xlsx uses temporary storage when
+`\PhpOffice\PhpSpreadsheet\Writer\Xlsx` uses temporary storage when
 writing to php://output. By default, temporary files are stored in the
 script's working directory. When there is no access, it falls back to
 the operating system's temporary files location.
@@ -1472,7 +1472,7 @@ $worksheet1 = $spreadsheet->createSheet();
 $worksheet1->setTitle('Another sheet');
 ```
 
-Think of createSheet() as the "Insert sheet" button in Excel. When you
+Think of `createSheet()` as the "Insert sheet" button in Excel. When you
 hit that button a new sheet is appended to the existing collection of
 worksheets in the workbook.
 
