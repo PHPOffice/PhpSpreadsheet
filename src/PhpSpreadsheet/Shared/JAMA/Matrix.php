@@ -2,20 +2,22 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 
-/*
- *    Matrix class
- *
- *    @author Paul Meagher
- *    @author Michael Bommarito
- *    @author Lukasz Karapuda
- *    @author Bartek Matosiuk
- *    @version 1.8
- *    @see http://math.nist.gov/javanumerics/jama/
- */
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
+/**
+ * Matrix class.
+ *
+ * @author Paul Meagher
+ * @author Michael Bommarito
+ * @author Lukasz Karapuda
+ * @author Bartek Matosiuk
+ *
+ * @version 1.8
+ *
+ * @see http://math.nist.gov/javanumerics/jama/
+ */
 class Matrix
 {
     const POLYMORPHIC_ARGUMENT_EXCEPTION = 'Invalid argument pattern for polymorphic function.';

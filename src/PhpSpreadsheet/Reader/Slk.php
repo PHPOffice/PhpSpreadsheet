@@ -250,7 +250,8 @@ class Slk extends BaseReader
                             break;
                         case 'S':
                             $styleSettings = substr($rowDatum, 1);
-                            for ($i = 0; $i < strlen($styleSettings); ++$i) {
+                            $iMax = strlen($styleSettings);
+                            for ($i = 0; $i < $iMax; ++$i) {
                                 switch ($styleSettings[$i]) {
                                     case 'I':
                                         $formatArray['font']['italic'] = true;
@@ -386,7 +387,8 @@ class Slk extends BaseReader
                             break;
                         case 'S':
                             $styleSettings = substr($rowDatum, 1);
-                            for ($i = 0; $i < strlen($styleSettings); ++$i) {
+                            $iMax = strlen($styleSettings);
+                            for ($i = 0; $i < $iMax; ++$i) {
                                 switch ($styleSettings[$i]) {
                                     case 'I':
                                         $styleData['font']['italic'] = true;

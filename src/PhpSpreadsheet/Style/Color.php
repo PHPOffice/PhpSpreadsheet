@@ -187,8 +187,6 @@ class Color extends Supervisor
     /**
      * Get a specified colour component of an RGB value.
      *
-     * @private
-     *
      * @param string $RGB The colour as an RGB value (e.g. FF00CCCC or CCDDEE
      * @param int $offset Position within the RGB value to extract
      * @param bool $hex Flag indicating whether the component should be returned as a hex or a

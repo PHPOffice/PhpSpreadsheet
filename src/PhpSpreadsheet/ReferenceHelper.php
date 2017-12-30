@@ -576,8 +576,14 @@ class ReferenceHelper
         }
 
         // Update worksheet: freeze pane
-        if ($pSheet->getFreezePane() != '') {
-            $pSheet->freezePane($this->updateCellReference($pSheet->getFreezePane(), $pBefore, $pNumCols, $pNumRows));
+        if ($pSheet->getFreezePane()) {
+            $splitCell = $pSheet->getFreezePane();
+            $topLeftCell = $pSheet->getTopLeftCell();
+
+            $splitCell = $this->updateCellReference($splitCell, $pBefore, $pNumCols, $pNumRows);
+            $topLeftCell = $this->updateCellReference($topLeftCell, $pBefore, $pNumCols, $pNumRows);
+
+            $pSheet->freezePane($splitCell, $topLeftCell);
         }
 
         // Page setup
@@ -648,8 +654,8 @@ class ReferenceHelper
                                 $row = 10000000 + trim($match[3], '$');
                                 $cellIndex = $column . $row;
 
-                                $newCellTokens[$cellIndex] = preg_quote($toString);
-                                $cellTokens[$cellIndex] = '/(?<!\d\$\!)' . preg_quote($fromString) . '(?!\d)/i';
+                                $newCellTokens[$cellIndex] = preg_quote($toString, '/');
+                                $cellTokens[$cellIndex] = '/(?<!\d\$\!)' . preg_quote($fromString, '/') . '(?!\d)/i';
                                 ++$adjustCount;
                             }
                         }
@@ -673,8 +679,8 @@ class ReferenceHelper
                                 $row = 10000000;
                                 $cellIndex = $column . $row;
 
-                                $newCellTokens[$cellIndex] = preg_quote($toString);
-                                $cellTokens[$cellIndex] = '/(?<![A-Z\$\!])' . preg_quote($fromString) . '(?![A-Z])/i';
+                                $newCellTokens[$cellIndex] = preg_quote($toString, '/');
+                                $cellTokens[$cellIndex] = '/(?<![A-Z\$\!])' . preg_quote($fromString, '/') . '(?![A-Z])/i';
                                 ++$adjustCount;
                             }
                         }
@@ -699,8 +705,8 @@ class ReferenceHelper
                                 $row = trim($row, '$') + 10000000;
                                 $cellIndex = $column . $row;
 
-                                $newCellTokens[$cellIndex] = preg_quote($toString);
-                                $cellTokens[$cellIndex] = '/(?<![A-Z]\$\!)' . preg_quote($fromString) . '(?!\d)/i';
+                                $newCellTokens[$cellIndex] = preg_quote($toString, '/');
+                                $cellTokens[$cellIndex] = '/(?<![A-Z]\$\!)' . preg_quote($fromString, '/') . '(?!\d)/i';
                                 ++$adjustCount;
                             }
                         }
@@ -725,8 +731,8 @@ class ReferenceHelper
                                 $row = trim($row, '$') + 10000000;
                                 $cellIndex = $row . $column;
 
-                                $newCellTokens[$cellIndex] = preg_quote($toString);
-                                $cellTokens[$cellIndex] = '/(?<![A-Z\$\!])' . preg_quote($fromString) . '(?!\d)/i';
+                                $newCellTokens[$cellIndex] = preg_quote($toString, '/');
+                                $cellTokens[$cellIndex] = '/(?<![A-Z\$\!])' . preg_quote($fromString, '/') . '(?!\d)/i';
                                 ++$adjustCount;
                             }
                         }

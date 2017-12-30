@@ -16,7 +16,7 @@ class OdsTest extends TestCase
     /**
      * @var Spreadsheet
      */
-    private $spreadsheetOOCalcTest;
+    private $spreadsheetOdsTest;
 
     /**
      * @var Spreadsheet
@@ -26,17 +26,17 @@ class OdsTest extends TestCase
     /**
      * @return Spreadsheet
      */
-    protected function loadOOCalcTestFile()
+    private function loadOdsTestFile()
     {
-        if (!$this->spreadsheetOOCalcTest) {
+        if (!$this->spreadsheetOdsTest) {
             $filename = __DIR__ . '/../../../samples/templates/OOCalcTest.ods';
 
             // Load into this instance
             $reader = new Ods();
-            $this->spreadsheetOOCalcTest = $reader->loadIntoExisting($filename, new Spreadsheet());
+            $this->spreadsheetOdsTest = $reader->loadIntoExisting($filename, new Spreadsheet());
         }
 
-        return $this->spreadsheetOOCalcTest;
+        return $this->spreadsheetOdsTest;
     }
 
     /**
@@ -87,7 +87,7 @@ class OdsTest extends TestCase
 
     public function testReadValueAndComments()
     {
-        $spreadsheet = $this->loadOOCalcTestFile();
+        $spreadsheet = $this->loadOdsTestFile();
 
         $firstSheet = $spreadsheet->getSheet(0);
 
@@ -152,7 +152,7 @@ class OdsTest extends TestCase
 
     public function testReadColors()
     {
-        $spreadsheet = $this->loadOOCalcTestFile();
+        $spreadsheet = $this->loadOdsTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
 
         // Background color
@@ -166,7 +166,7 @@ class OdsTest extends TestCase
 
     public function testReadRichText()
     {
-        $spreadsheet = $this->loadOOCalcTestFile();
+        $spreadsheet = $this->loadOdsTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
 
         self::assertEquals(
@@ -189,14 +189,14 @@ class OdsTest extends TestCase
 
     public function testReadHyperlinks()
     {
-        $spreadsheet = $this->loadOOCalcTestFile();
+        $spreadsheet = $this->loadOdsTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
 
         $hyperlink = $firstSheet->getCell('A29');
 
         self::assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
-        self::assertEquals('PHPExcel', $hyperlink->getValue());
-        self::assertEquals('http://www.phpexcel.net/', $hyperlink->getHyperlink()->getUrl());
+        self::assertEquals('PhpSpreadsheet', $hyperlink->getValue());
+        self::assertEquals('https://github.com/PHPOffice/phpspreadsheet', $hyperlink->getHyperlink()->getUrl());
     }
 
     // Below some test for features not implemented yet
@@ -205,7 +205,7 @@ class OdsTest extends TestCase
     {
         $this->markTestIncomplete('Features not implemented yet');
 
-        $spreadsheet = $this->loadOOCalcTestFile();
+        $spreadsheet = $this->loadOdsTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
 
         // Font styles

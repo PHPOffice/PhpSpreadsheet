@@ -76,7 +76,7 @@ guarantee that the title is unique.
 
 Alternatively, you can instantiate a new worksheet (setting the title to
 whatever you choose) and then insert it into your workbook using the
-addSheet() method.
+`addSheet()` method.
 
 ``` php
 // Create a new worksheet called "My Data"

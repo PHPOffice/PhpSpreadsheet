@@ -22310,7 +22310,7 @@
                 <Cell ss:StyleID="ce16"/>
             </Row>
             <Row ss:Height="13.4079">
-                <Cell ss:MergeAcross="2" ss:HRef="http://www.phpexcel.net/" ss:StyleID="ce17">
+                <Cell ss:MergeAcross="2" ss:HRef="https://www.example.com/" ss:StyleID="ce17">
                     <Data ss:Type="String">PhpSpreadsheet</Data>
                 </Cell>
                 <Cell ss:Index="1024" ss:StyleID="ce13"/>

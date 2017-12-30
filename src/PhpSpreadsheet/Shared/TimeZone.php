@@ -7,10 +7,9 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 class TimeZone
 {
-    /*
-     * Default Timezone used for date/time conversions
+    /**
+     * Default Timezone used for date/time conversions.
      *
-     * @private
      * @var string
      */
     protected static $timezone = 'UTC';

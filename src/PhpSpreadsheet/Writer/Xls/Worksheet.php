@@ -1589,10 +1589,15 @@ class Worksheet extends BIFFwriter
     private function writePanes()
     {
         $panes = [];
-        if ($freezePane = $this->phpSheet->getFreezePane()) {
-            list($column, $row) = Coordinate::coordinateFromString($freezePane);
-            $panes[0] = $row - 1;
-            $panes[1] = Coordinate::columnIndexFromString($column) - 1;
+        if ($this->phpSheet->getFreezePane()) {
+            list($column, $row) = Coordinate::coordinateFromString($this->phpSheet->getFreezePane());
+            $panes[0] = Coordinate::columnIndexFromString($column) - 1;
+            $panes[1] = $row - 1;
+
+            list($leftMostColumn, $topRow) = Coordinate::coordinateFromString($this->phpSheet->getTopLeftCell());
+            //Coordinates are zero-based in xls files
+            $panes[2] = $topRow - 1;
+            $panes[3] = Coordinate::columnIndexFromString($leftMostColumn) - 1;
         } else {
             // thaw panes
             return;

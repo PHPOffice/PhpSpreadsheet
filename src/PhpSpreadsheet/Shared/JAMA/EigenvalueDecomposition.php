@@ -607,7 +607,8 @@ class EigenvalueDecomposition
                             $this->H[$k + 1][$j] = $this->H[$k + 1][$j] - $p * $y;
                         }
                         // Column modification
-                        for ($i = 0; $i <= min($n, $k + 3); ++$i) {
+                        $iMax = min($n, $k + 3);
+                        for ($i = 0; $i <= $iMax; ++$i) {
                             $p = $x * $this->H[$i][$k] + $y * $this->H[$i][$k + 1];
                             if ($notlast) {
                                 $p = $p + $z * $this->H[$i][$k + 2];
@@ -762,7 +763,8 @@ class EigenvalueDecomposition
         for ($j = $nn - 1; $j >= $low; --$j) {
             for ($i = $low; $i <= $high; ++$i) {
                 $z = 0.0;
-                for ($k = $low; $k <= min($j, $high); ++$k) {
+                $kMax = min($j, $high);
+                for ($k = $low; $k <= $kMax; ++$k) {
                     $z = $z + $this->V[$i][$k] * $this->H[$k][$j];
                 }
                 $this->V[$i][$j] = $z;

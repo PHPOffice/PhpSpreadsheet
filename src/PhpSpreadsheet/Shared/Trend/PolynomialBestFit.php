@@ -17,8 +17,6 @@ class PolynomialBestFit extends BestFit
     /**
      * Polynomial order.
      *
-     * @protected
-     *
      * @var int
      **/
     protected $order = 0;

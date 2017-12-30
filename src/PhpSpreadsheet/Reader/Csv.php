@@ -155,6 +155,10 @@ class Csv extends BaseReader
         // Count how many times each of the potential delimiters appears in each line
         $numberLines = 0;
         while (($line = fgets($this->fileHandle)) !== false && (++$numberLines < 1000)) {
+            // Drop everything that is enclosed to avoid counting false positives in enclosures
+            $enclosure = preg_quote($this->enclosure, '/');
+            $line = preg_replace('/(' . $enclosure . '.*' . $enclosure . ')/U', '', $line);
+
             $countLine = [];
             for ($i = strlen($line) - 1; $i >= 0; --$i) {
                 $char = $line[$i];
@@ -223,6 +227,8 @@ class Csv extends BaseReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
+     * @return array
      */
     public function listWorksheetInfo($pFilename)
     {

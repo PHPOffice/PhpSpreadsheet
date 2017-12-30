@@ -239,20 +239,19 @@ using the `getValue()` method.
 
 ``` php
 // Get the value fom cell A1
-$cellValue = $spreadsheet->getActiveSheet()->getCell('A1')
-    ->getValue();
+$cellValue = $spreadsheet->getActiveSheet()->getCell('A1')->getValue();
 ```
 
 This will retrieve the raw, unformatted value contained in the cell.
 
 If a cell contains a formula, and you need to retrieve the calculated
 value rather than the formula itself, then use the cell's
-`getCalculatedValue()` method. This is further explained in .
+`getCalculatedValue()` method. This is further explained in
+[the calculation engine](./calculation-engine.md).
 
 ``` php
 // Get the value fom cell A4
-$cellValue = $spreadsheet->getActiveSheet()->getCell('A4')
-    ->getCalculatedValue();
+$cellValue = $spreadsheet->getActiveSheet()->getCell('A4')->getCalculatedValue();
 ```
 
 Alternatively, if you want to see the value with any cell formatting
@@ -274,8 +273,7 @@ Setting a cell value by coordinate can be done using the worksheet's
 $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(1, 5, 'PhpSpreadsheet');
 ```
 
-**Note** that column references start with `0` for column `A`, rather
-than from `1`.
+**Note** that column references start with `1` for column `A`.
 
 ## Retrieving a cell value by column and row
 
@@ -289,7 +287,7 @@ $cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, 5)->getVal
 ```
 
 If you need the calculated value of a cell, use the following code. This
-is further explained in .
+is further explained in [the calculation engine](./calculation-engine.md).
 
 ``` php
 // Get the value fom cell A4
@@ -358,9 +356,9 @@ Note that we have set the cell iterator's
 `setIterateOnlyExistingCells()` to FALSE. This makes the iterator loop
 all cells within the worksheet range, even if they have not been set.
 
-The cell iterator will return a **NULL** as the cell value if it is not
+The cell iterator will return a `null` as the cell value if it is not
 set in the worksheet. Setting the cell iterator's
-setIterateOnlyExistingCells() to FALSE will loop all cells in the
+`setIterateOnlyExistingCells()` to `false` will loop all cells in the
 worksheet that can be available at that moment. This will create new
 cells if required and increase memory usage! Only use it if it is
 intended to loop all cells that are possibly available.
@@ -385,7 +383,7 @@ $worksheet = $spreadsheet->getActiveSheet();
 // Get the highest row and column numbers referenced in the worksheet
 $highestRow = $worksheet->getHighestRow(); // e.g. 10
 $highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
-$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Cell::columnIndexFromString($highestColumn); // e.g. 5
+$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
 
 echo '<table>' . "\n";
 for ($row = 1; $row <= $highestRow; ++$row) {
@@ -435,14 +433,14 @@ while \$col != the incremented highest column.
 ## Using value binders to facilitate data entry
 
 Internally, PhpSpreadsheet uses a default
-\PhpOffice\PhpSpreadsheet\Cell\IValueBinder implementation
+`\PhpOffice\PhpSpreadsheet\Cell\IValueBinder` implementation
 (\PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder) to determine data
 types of entered data using a cell's `setValue()` method (the
 `setValueExplicit()` method bypasses this check).
 
 Optionally, the default behaviour of PhpSpreadsheet can be modified,
 allowing easier data entry. For example, a
-\PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder class is available.
+`\PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder` class is available.
 It automatically converts percentages, number in scientific format, and
 dates entered as strings to the correct format, also setting the cell's
 style information. The following example demonstrates how to set the
@@ -471,6 +469,6 @@ $spreadsheet->getActiveSheet()->setCellValue('B5', '21 December 1983');
 
 **Creating your own value binder is easy.** When advanced value binding
 is required, you can implement the
-\PhpOffice\PhpSpreadsheet\Cell\IValueBinder interface or extend the
-\PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder or
-\PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder classes.
+`\PhpOffice\PhpSpreadsheet\Cell\IValueBinder` interface or extend the
+`\PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder` or
+`\PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder` classes.

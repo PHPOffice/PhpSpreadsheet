@@ -1889,7 +1889,8 @@ class Xls extends BaseReader
     {
         $pwarray = str_repeat("\0", 64);
 
-        for ($i = 0; $i < strlen($password); ++$i) {
+        $iMax = strlen($password);
+        for ($i = 0; $i < $iMax; ++$i) {
             $o = ord(substr($password, $i, 1));
             $pwarray[2 * $i] = chr($o & 0xff);
             $pwarray[2 * $i + 1] = chr(($o >> 8) & 0xff);
@@ -3087,7 +3088,8 @@ class Xls extends BaseReader
                         // 1st fragment compressed
                         // this fragment uncompressed
                         $newstr = '';
-                        for ($j = 0; $j < strlen($retstr); ++$j) {
+                        $jMax = strlen($retstr);
+                        for ($j = 0; $j < $jMax; ++$j) {
                             $newstr .= $retstr[$j] . chr(0);
                         }
                         $retstr = $newstr;
@@ -4488,9 +4490,17 @@ class Xls extends BaseReader
             // offset: 2; size: 2; position of horizontal split
             $py = self::getUInt2d($recordData, 2);
 
+            // offset: 4; size: 2; top most visible row in the bottom pane
+            $rwTop = self::getUInt2d($recordData, 4);
+
+            // offset: 6; size: 2; first visible left column in the right pane
+            $colLeft = self::getUInt2d($recordData, 6);
+
             if ($this->frozen) {
                 // frozen panes
-                $this->phpSheet->freezePane(Coordinate::stringFromColumnIndex($px + 1) . ($py + 1));
+                $cell = Coordinate::stringFromColumnIndex($px + 1) . ($py + 1);
+                $topLeftCell = Coordinate::stringFromColumnIndex($colLeft + 1) . ($rwTop + 1);
+                $this->phpSheet->freezePane($cell, $topLeftCell);
             }
             // unfrozen panes; split windows; not supported by PhpSpreadsheet core
         }
@@ -4538,8 +4548,8 @@ class Xls extends BaseReader
             }
 
             // first column 'A' + last column 'IV' indicates that full row is selected
-            if (preg_match('/^(A[0-9]+\:)IV([0-9]+)$/', $selectedCells)) {
-                $selectedCells = preg_replace('/^(A[0-9]+\:)IV([0-9]+)$/', '${1}XFD${2}', $selectedCells);
+            if (preg_match('/^(A\d+\:)IV(\d+)$/', $selectedCells)) {
+                $selectedCells = preg_replace('/^(A\d+\:)IV(\d+)$/', '${1}XFD${2}', $selectedCells);
             }
 
             $this->phpSheet->setSelectedCells($selectedCells);

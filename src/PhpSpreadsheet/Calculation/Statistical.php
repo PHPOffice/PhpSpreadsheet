@@ -2700,7 +2700,8 @@ class Statistical
             if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
                 if ($cumulative) {
                     $summer = 0;
-                    for ($i = 0; $i <= floor($value); ++$i) {
+                    $floor = floor($value);
+                    for ($i = 0; $i <= $floor; ++$i) {
                         $summer += pow($mean, $i) / MathTrig::FACT($i);
                     }
 
