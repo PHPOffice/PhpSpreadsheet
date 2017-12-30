@@ -246,7 +246,7 @@ $spreadsheet->getActiveSheet()->getStyle('B1')->getProtection()->setLocked(Prote
 // Add a hyperlink to the sheet
 $helper->log('Add a hyperlink to an external website');
 $spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
-$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('http://www.phpexcel.net');
+$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('https://www.example.com');
 $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setTooltip('Navigate to website');
 $spreadsheet->getActiveSheet()->getStyle('E26')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 

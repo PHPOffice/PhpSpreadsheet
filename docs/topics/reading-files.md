@@ -4,15 +4,17 @@
 
 XML-based formats such as OfficeOpen XML, Excel2003 XML, OASIS and
 Gnumeric are susceptible to XML External Entity Processing (XXE)
-injection attacks (for an explanation of XXE injection see
-http://websec.io/2012/08/27/Preventing-XEE-in-PHP.html) when reading
-spreadsheet files. This can lead to:
+injection attacks when reading spreadsheet files. This can lead to:
 
 -   Disclosure whether a file is existent
 -   Server Side Request Forgery
 -   Command Execution (depending on the installed PHP wrappers)
 
-To prevent this, by default every XML-based Reader looks for XML entities declared inside the DOCTYPE and if any is found an exception is raised.
+To prevent this, by default every XML-based Reader looks for XML
+entities declared inside the DOCTYPE and if any is found an exception
+is raised.
+
+Read more [about of XXE injection](https://websec.io/2012/08/27/Preventing-XXE-in-PHP.html).
 
 ## Loading a Spreadsheet File
 
@@ -566,16 +568,16 @@ CSV       | YES | HTML   | NO
 When loading data from a file that contains no formatting information,
 such as a CSV file, then data is read either as strings or numbers
 (float or integer). This means that PhpSpreadsheet does not
-automatically recognise dates/times (such as "16-Apr-2009" or "13:30"),
-booleans ("TRUE" or "FALSE"), percentages ("75%"), hyperlinks
-("http://www.phpexcel.net"), etc as anything other than simple strings.
+automatically recognise dates/times (such as `16-Apr-2009` or `13:30`),
+booleans (`true` or `false`), percentages (`75%`), hyperlinks
+(`https://www.example.com`), etc as anything other than simple strings.
 However, you can apply additional processing that is executed against
 these values during the load process within a Value Binder.
 
 A Value Binder is a class that implement the
-\PhpOffice\PhpSpreadsheet\Cell\IValueBinder interface. It must contain a
-bindValue() method that accepts a `\PhpOffice\PhpSpreadsheet\Cell\Cell` and a
-value as arguments, and return a boolean true or false that indicates
+`\PhpOffice\PhpSpreadsheet\Cell\IValueBinder` interface. It must contain a
+`bindValue()` method that accepts a `\PhpOffice\PhpSpreadsheet\Cell\Cell` and a
+value as arguments, and return a boolean `true` or `false` that indicates
 whether the workbook cell has been populated with the value or not. The
 Advanced Value Binder implements such a class: amongst other tests, it
 identifies a string comprising "TRUE" or "FALSE" (based on locale

@@ -275,7 +275,7 @@ You can make a cell a clickable URL by setting its hyperlink property:
 
 ``` php
 $spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
-$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('http://www.phpexcel.net');
+$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('https://www.example.com');
 ```
 
 If you want to make a hyperlink to another worksheet/cell, use the
