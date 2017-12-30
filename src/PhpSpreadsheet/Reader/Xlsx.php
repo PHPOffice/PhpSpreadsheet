@@ -973,14 +973,14 @@ class Xlsx extends BaseReader
                                     foreach ($conditional->cfRule as $cfRule) {
                                         if (
                                             (
-                                                (string) $cfRule['type'] == Conditional::CONDITION_NONE || 
-                                                (string) $cfRule['type'] == Conditional::CONDITION_CELLIS || 
-                                                (string) $cfRule['type'] == Conditional::CONDITION_CONTAINSTEXT || 
+                                                (string) $cfRule['type'] == Conditional::CONDITION_NONE ||
+                                                (string) $cfRule['type'] == Conditional::CONDITION_CELLIS ||
+                                                (string) $cfRule['type'] == Conditional::CONDITION_CONTAINSTEXT ||
                                                 (string) $cfRule['type'] == Conditional::CONDITION_EXPRESSION ||
                                                 (string) $cfRule['type'] == Conditional::CONDITION_CONTAINSBLANKS
-                                            ) && 
+                                            ) &&
                                             isset($dxfs[(int) ($cfRule['dxfId'])])
-                                        ){
+                                        ) {
                                             $conditionals[(string) $conditional['sqref']][(int) ($cfRule['priority'])] = $cfRule;
                                         }
                                     }
@@ -998,8 +998,8 @@ class Xlsx extends BaseReader
                                             $objConditional->setText((string) $cfRule['text']);
                                         }
 
-                                        if( (true === isset($cfRule['stopIfTrue'])) && ((int) $cfRule['stopIfTrue'] === 1) ) {
-                                            $objConditional->setStopIfTrue(Conditional::IF_TRUE_STOP);
+                                        if ((true === isset($cfRule['stopIfTrue'])) && ((int) $cfRule['stopIfTrue'] === 1)) {
+                                            $objConditional->setStopIfTrue(true);
                                         }
 
                                         if (count($cfRule->formula) > 1) {
