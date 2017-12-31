@@ -11,7 +11,7 @@ Currently, PhpSpreadsheet supports the following File Types for Reading:
 ### Xls
 
 The Microsoft Excel™ Binary file format (BIFF5 and BIFF8) is a binary
-file format that was used by Microsoft Excel™ between versions 95 and 2003. 
+file format that was used by Microsoft Excel™ between versions 95 and 2003.
 The format is supported (to various extents) by most spreadsheet
 programs. BIFF files normally have an extension of .xls. Documentation
 describing the format can be [read online](https://msdn.microsoft.com/en-us/library/cc313154(v=office.12).aspx)
