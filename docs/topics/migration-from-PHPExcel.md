@@ -245,7 +245,6 @@ So the following were removed:
 - `PHPExcel_Shared_ZipArchive`
 - `PHPExcel_Shared_ZipStreamWrapper`
 
-
 ### Cell caching
 
 Cell caching was heavily refactored to leverage

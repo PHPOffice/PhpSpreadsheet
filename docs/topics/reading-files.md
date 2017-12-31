@@ -253,7 +253,6 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #3';
 
-
 /**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
@@ -329,7 +328,6 @@ database.
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
 
-
 /**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
 class ChunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
@@ -351,10 +349,8 @@ class ChunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
     }
 }
 
-
 /**  Create a new Reader of the type defined in $inputFileType  **/
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-
 
 /**  Define how many rows we want to read for each "chunk"  **/
 $chunkSize = 2048;
@@ -407,7 +403,6 @@ $inputFileNames = array('./sampleData/example1.csv',
 /**  Create a new Reader of the type defined in $inputFileType  **/
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
-
 /**  Extract the first named file from the array list  **/
 $inputFileName = array_shift($inputFileNames);
 /**  Load the initial file to the first worksheet in a `Spreadsheet` Object  **/
@@ -415,7 +410,6 @@ $spreadsheet = $reader->load($inputFileName);
 /**  Set the worksheet title (to the filename that we've loaded)  **/
 $spreadsheet->getActiveSheet()
     ->setTitle(pathinfo($inputFileName,PATHINFO_BASENAME));
-
 
 /**  Loop through all the remaining files in the list  **/
 foreach($inputFileNames as $sheet => $inputFileName) {
@@ -461,11 +455,9 @@ file across several individual worksheets.
 $inputFileType = 'Csv';
 $inputFileName = './sampleData/example2.csv';
 
-
 echo 'Loading file ',pathinfo($inputFileName,PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 /**  Create a new Reader of the type defined in $inputFileType  **/
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-
 
 /**  Define how many rows we want to read for each "chunk"  **/
 $chunkSize = 65530;
