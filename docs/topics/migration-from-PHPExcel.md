@@ -29,7 +29,7 @@ In addition to automated changes, a few things need to be migrated manually.
 When using `IOFactory::createReader()`, `IOFactory::createWriter()` and
 `IOFactory::identify()`, the reader/writer short names are used. Those were
 changed, along as their corresponding class, to remove ambiguity:
-            
+
 Before           | After
 -----------------|---------
 `'CSV'`          | `'Csv'`
@@ -206,7 +206,7 @@ JpGraph support is still available, it is unfortunately not up to date for lates
 and it will generate various warnings.
 
 If you rely on this feature, please consider
-contributing either patches to JpGraph or another `IRenderer` implementation (a good 
+contributing either patches to JpGraph or another `IRenderer` implementation (a good
 candidate might be [CpChart](https://github.com/szymach/c-pchart)).
 
 Before:
@@ -216,7 +216,7 @@ $rendererName = \PHPExcel_Settings::CHART_RENDERER_JPGRAPH;
 $rendererLibrary = 'jpgraph3.5.0b1/src/';
 $rendererLibraryPath = '/php/libraries/Charts/' . $rendererLibrary;
 
-\PHPExcel_Settings::setChartRenderer($rendererName, $rendererLibraryPath); 
+\PHPExcel_Settings::setChartRenderer($rendererName, $rendererLibraryPath);
 ```
 
 After:
