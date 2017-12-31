@@ -51,7 +51,6 @@ One such library is [PHP Cache](https://www.php-cache.com/) which
 provides a wide range of alternatives. Refers to their documentation for
 details, but here are a few suggestions that should get you started.
 
-
 ### APCu
 
 Require the packages into your project:
