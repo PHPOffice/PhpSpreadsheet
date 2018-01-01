@@ -840,7 +840,7 @@ class Html extends BaseWriter
             'position' => 'absolute',
             'display' => 'block',
             'border' => '1px solid black',
-            'padding' => '0.5em'
+            'padding' => '0.5em',
         ];
 
         $css['a.comment-indicator'] = [
@@ -848,7 +848,7 @@ class Html extends BaseWriter
             'display' => 'inline-block',
             'border' => '1px solid black',
             'width' => '0.5em',
-            'height' => '0.5em'
+            'height' => '0.5em',
         ];
 
         $css['comment']['display'] = 'none';
