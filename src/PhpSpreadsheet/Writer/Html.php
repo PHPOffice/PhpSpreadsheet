@@ -830,6 +830,29 @@ class Html extends BaseWriter
             $css['html']['background-color'] = 'white';
         }
 
+        //
+        // Comment CSS taken from LibreOffice (core)
+        // sc/source/filter/html/htmlexp.cxx cHTMLExport::WriteHeader()
+        //
+
+        $css['a.comment-indicator:hover + comment'] = [
+            "background" => "#ffd",
+            "position" => "absolute",
+            "display" => "block",
+            "border" => "1px solid black",
+            "padding" => "0.5em"
+        ];
+
+        $css['a.comment-indicator'] = [
+            "background" => "red",
+            "display" => "inline-block",
+            "border" => "1px solid black",
+            "width" => "0.5em",
+            "height" => "0.5em"
+        ];
+
+        $css['comment']['display'] = 'none';
+
         // table { }
         $css['table']['border-collapse'] = 'collapse';
         if (!$this->isPdf) {
@@ -1384,6 +1407,13 @@ class Html extends BaseWriter
                     $html .= ' rowspan="' . $rowSpan . '"';
                 }
                 $html .= '>';
+
+                // Taken from LibreOffice core
+                // https://github.com/LibreOffice/core/blob/9fc9bf3240f8c62ad7859947ab8a033ac1fe93fa/sc/source/filter/html/htmlexp.cxx#L1073-L1092
+
+                if(isset($pSheet->getComments()[$coordinate])) {
+                    $html .= '<a class="comment-indicator"></a><comment>' . nl2br($comment) . '</comment>' . PHP_EOL;
+                }
 
                 // Image?
                 $html .= $this->writeImageInCell($pSheet, $coordinate);
