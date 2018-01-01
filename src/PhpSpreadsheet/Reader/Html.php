@@ -312,6 +312,14 @@ class Html extends BaseReader
                     case 'em':
                     case 'strong':
                     case 'b':
+                        if (isset($attributeArray['class']) && $attributeArray['class'] === 'comment') {
+                            $sheet->getComment($column . $row)
+                                ->getText()
+                                ->createTextRun($child->textContent);
+
+                            break;
+                        }
+
                         if ($cellContent > '') {
                             $cellContent .= ' ';
                         }
@@ -354,6 +362,10 @@ class Html extends BaseReader
                                     }
 
                                     break;
+                                case 'class':
+                                    if ($attributeValue === 'comment-indicator') {
+                                        break; // Ignore - it's just a red square.
+                                    }
                             }
                         }
                         $cellContent .= ' ';

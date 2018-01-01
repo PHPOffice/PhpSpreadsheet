@@ -830,6 +830,25 @@ class Html extends BaseWriter
             $css['html']['background-color'] = 'white';
         }
 
+        // CSS for comments as found in LibreOffice
+        $css['a.comment-indicator:hover + div.comment'] = [
+            'background' => '#ffd',
+            'position' => 'absolute',
+            'display' => 'block',
+            'border' => '1px solid black',
+            'padding' => '0.5em',
+        ];
+
+        $css['a.comment-indicator'] = [
+            'background' => 'red',
+            'display' => 'inline-block',
+            'border' => '1px solid black',
+            'width' => '0.5em',
+            'height' => '0.5em',
+        ];
+
+        $css['div.comment']['display'] = 'none';
+
         // table { }
         $css['table']['border-collapse'] = 'collapse';
         if (!$this->isPdf) {
@@ -1385,6 +1404,8 @@ class Html extends BaseWriter
                 }
                 $html .= '>';
 
+                $html .= $this->writeComment($pSheet, $coordinate);
+
                 // Image?
                 $html .= $this->writeImageInCell($pSheet, $coordinate);
 
@@ -1645,5 +1666,27 @@ class Html extends BaseWriter
         $htmlBody .= "}\n";
 
         return "<style>\n" . $htmlPage . $htmlBody . "</style>\n";
+    }
+
+    /**
+     * Write a comment in the same format as LibreOffice.
+     *
+     * @see https://github.com/LibreOffice/core/blob/9fc9bf3240f8c62ad7859947ab8a033ac1fe93fa/sc/source/filter/html/htmlexp.cxx#L1073-L1092
+     *
+     * @param Worksheet $pSheet
+     * @param string $coordinate
+     *
+     * @return string
+     */
+    private function writeComment(Worksheet $pSheet, $coordinate)
+    {
+        $result = '';
+        if (!$this->isPdf && isset($pSheet->getComments()[$coordinate])) {
+            $result .= '<a class="comment-indicator"></a>';
+            $result .= '<div class="comment">' . nl2br($pSheet->getComment($coordinate)->getText()->getPlainText()) . '</div>';
+            $result .= PHP_EOL;
+        }
+
+        return $result;
     }
 }
