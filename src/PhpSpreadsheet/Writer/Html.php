@@ -836,19 +836,19 @@ class Html extends BaseWriter
         //
 
         $css['a.comment-indicator:hover + comment'] = [
-            "background" => "#ffd",
-            "position" => "absolute",
-            "display" => "block",
-            "border" => "1px solid black",
-            "padding" => "0.5em"
+            'background' => '#ffd',
+            'position' => 'absolute',
+            'display' => 'block',
+            'border' => '1px solid black',
+            'padding' => '0.5em'
         ];
 
         $css['a.comment-indicator'] = [
-            "background" => "red",
-            "display" => "inline-block",
-            "border" => "1px solid black",
-            "width" => "0.5em",
-            "height" => "0.5em"
+            'background' => 'red',
+            'display' => 'inline-block',
+            'border' => '1px solid black',
+            'width' => '0.5em',
+            'height' => '0.5em'
         ];
 
         $css['comment']['display'] = 'none';
@@ -1411,8 +1411,10 @@ class Html extends BaseWriter
                 // Taken from LibreOffice core
                 // https://github.com/LibreOffice/core/blob/9fc9bf3240f8c62ad7859947ab8a033ac1fe93fa/sc/source/filter/html/htmlexp.cxx#L1073-L1092
 
-                if(isset($pSheet->getComments()[$coordinate])) {
-                    $html .= '<a class="comment-indicator"></a><comment>' . nl2br($pSheet->getComment($coordinate)) . '</comment>' . PHP_EOL;
+                if (isset($pSheet->getComments()[$coordinate])) {
+                    $html .= '<a class="comment-indicator"></a>';
+                    $html .= '<comment>' . nl2br($pSheet->getComment($coordinate)) . '</comment>';
+                    $html .= PHP_EOL;
                 }
 
                 // Image?
