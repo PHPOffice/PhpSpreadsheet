@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class FreezePane extends AbstractFunctional
+class FreezePaneTest extends AbstractFunctional
 {
     public function providerFormats()
     {

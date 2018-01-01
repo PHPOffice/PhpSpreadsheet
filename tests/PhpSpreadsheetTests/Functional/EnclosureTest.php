@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class Enclosure extends AbstractFunctional
+class EnclosureTest extends AbstractFunctional
 {
     public function providerFormats()
     {
