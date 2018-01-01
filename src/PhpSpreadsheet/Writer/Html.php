@@ -835,7 +835,7 @@ class Html extends BaseWriter
         // sc/source/filter/html/htmlexp.cxx cHTMLExport::WriteHeader()
         //
 
-        $css['a.comment-indicator:hover + comment'] = [
+        $css['a.comment-indicator:hover + div.comment'] = [
             'background' => '#ffd',
             'position' => 'absolute',
             'display' => 'block',
@@ -851,7 +851,7 @@ class Html extends BaseWriter
             'height' => '0.5em',
         ];
 
-        $css['comment']['display'] = 'none';
+        $css['div.comment']['display'] = 'none';
 
         // table { }
         $css['table']['border-collapse'] = 'collapse';
@@ -1413,7 +1413,7 @@ class Html extends BaseWriter
 
                 if (isset($pSheet->getComments()[$coordinate])) {
                     $html .= '<a class="comment-indicator"></a>';
-                    $html .= '<comment>' . nl2br($pSheet->getComment($coordinate)) . '</comment>';
+                    $html .= '<div class="comment">' . nl2br($pSheet->getComment($coordinate)->getText()->getPlainText()) . '</div>';
                     $html .= PHP_EOL;
                 }
 
