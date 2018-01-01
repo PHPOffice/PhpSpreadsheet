@@ -1411,7 +1411,7 @@ class Html extends BaseWriter
                 // Taken from LibreOffice core
                 // https://github.com/LibreOffice/core/blob/9fc9bf3240f8c62ad7859947ab8a033ac1fe93fa/sc/source/filter/html/htmlexp.cxx#L1073-L1092
 
-                if (isset($pSheet->getComments()[$coordinate])) {
+                if (!$this->isPdf && isset($pSheet->getComments()[$coordinate])) {
                     $html .= '<a class="comment-indicator"></a>';
                     $html .= '<div class="comment">' . nl2br($pSheet->getComment($coordinate)->getText()->getPlainText()) . '</div>';
                     $html .= PHP_EOL;
