@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Include spreadsheet comments in HTML writer - [#308](https://github.com/PHPOffice/PhpSpreadsheet/issues/308)
+
 ### Fixed
 
 - Better auto-detection of CSV separators - [#305](https://github.com/PHPOffice/PhpSpreadsheet/issues/305)
