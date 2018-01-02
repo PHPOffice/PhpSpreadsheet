@@ -3,40 +3,60 @@
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 
 class HtmlCommentsTest extends AbstractFunctional
 {
-    private $value = 'I am comment.';
     private $spreadsheet;
 
-    private function createComment()
+    public function providerCommentRichText()
+    {
+        $valueSingle = 'I am comment.';
+        $valueMulti= 'I am ' . PHP_EOL . 'multi-line' . PHP_EOL . 'comment.';
+
+        $plainSingle = new RichText();
+        $plainSingle->createText($valueSingle);
+
+        $plainMulti = new RichText();
+        $plainMulti->createText($valueMulti);
+
+        $richSingle = new RichText();
+        $richSingle->createTextRun($valueSingle)->getFont()->setBold(true);
+
+        $richMultiSimple = new RichText();
+        $richMultiSimple->createTextRun($valueMulti)->getFont()->setBold(true);
+
+        $richMultiMixed = new RichText();
+        $richMultiMixed->createText('I am' . PHP_EOL);
+        $richMultiMixed->createTextRun('multi-line')->getFont()->setBold(true);
+        $richMultiMixed->createText(PHP_EOL . 'comment!');
+
+        return [
+            'single line plain text' => [$plainSingle],
+            'multi-line plain text' => [$plainMulti],
+            'single line simple rich text' => [$richSingle],
+            'multi-line simple rich text' => [$richMultiSimple],
+            'multi-line mixed rich text' =>  [$richMultiMixed],
+        ];
+    }
+
+    /**
+     * @dataProvider providerCommentRichText
+     */
+    public function testComments($richText)
     {
         $this->spreadsheet = new Spreadsheet();
 
         $this->spreadsheet->getActiveSheet()->getCell('A1')->setValue('Comment');
 
-        return $this->spreadsheet->getActiveSheet()
+        $this->spreadsheet->getActiveSheet()
             ->getComment('A1')
-            ->getText()->createTextRun($this->value);
-    }
+            ->setText($richText);
 
-    private function doTheTest($string)
-    {
         $reloadedSpreadsheet = $this->writeAndReload($this->spreadsheet, 'Html');
 
-        $actual = (string) $reloadedSpreadsheet->getActiveSheet()->getComment('A1')->getText()->getPlainText();
-        self::assertSame($this->value, $actual, $string);
+        $actual = $reloadedSpreadsheet->getActiveSheet()->getComment('A1')->getText()->getPlainText();
+        self::assertSame($richText->getPlainText(), $actual);
     }
 
-    public function testPlainTextComment()
-    {
-        $this->createComment();
-        $this->doTheTest('should be able to read and write plain text comments from and to html as plain text');
-    }
-
-    public function testRichTextComment()
-    {
-        $this->createComment()->getFont()->setBold(true);
-        $this->doTheTest('should be able to read and write rich text comments from and to html as plain text');
-    }
 }
