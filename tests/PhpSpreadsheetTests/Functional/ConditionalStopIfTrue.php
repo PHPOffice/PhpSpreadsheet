@@ -6,8 +6,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ConditionalStopIfTrue extends AbstractFunctional
 {
-    const
-        COLOR_GREEN = 'FF99FF66';
+    const COLOR_GREEN = 'FF99FF66';
     const COLOR_RED = 'FFFF5050';
 
     public function providerFormats()
