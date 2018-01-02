@@ -770,7 +770,6 @@ startColor | getStartColor()
 endColor   | getEndColor()
 color      | getStartColor()
 
-
 **\PhpOffice\PhpSpreadsheet\Style\Font**
 
 Array key   | Maps to property
@@ -919,7 +918,6 @@ entered.
 disallow inserting rows on a specific sheet, disallow sorting, ...
 - Cell: offers the option to lock/unlock a cell as well as show/hide
 the internal formula.
-
 
 An example on setting document security:
 

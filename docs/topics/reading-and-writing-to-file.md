@@ -793,9 +793,9 @@ class My_Custom_TCPDF_Writer extends \PhpOffice\PhpSpreadsheet\Writer\Pdf\Tcpdf
 	protected function createExternalWriterInstance($orientation, $unit, $paperSize)
 	{
 		$instance = new My_Custom_TCPDF($orientation, $unit, $paperSize);
-		
+
 		// more configuration of $instance
-		
+
 		return $instance;
 	}
 }
