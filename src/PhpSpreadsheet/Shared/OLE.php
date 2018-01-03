@@ -23,6 +23,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\ChainedBlockStream;
+use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\Root;
 
 /*
  * Array for storing OLE instances that are accessed from
@@ -66,7 +67,7 @@ class OLE
     /**
      * Root directory of OLE container.
      *
-     * @var OLE_PPS_Root
+     * @var Root
      */
     public $root;
 
@@ -103,7 +104,7 @@ class OLE
      *
      * @var int
      */
-    private $bigBlockThreshold;
+    public $bigBlockThreshold;
 
     /**
      * Reads an OLE container from the contents of the file given.
@@ -214,8 +215,7 @@ class OLE
      * Returns a stream for use with fread() etc. External callers should
      * use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().
      *
-     * @param int|PPS block id or PPS
-     * @param mixed $blockIdOrPps
+     * @param int|OLE\PPS $blockIdOrPps block id or PPS
      *
      * @return resource read-only stream
      */

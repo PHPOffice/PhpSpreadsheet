@@ -777,10 +777,7 @@ class EigenvalueDecomposition
     /**
      * Constructor: Check for symmetry, then construct the eigenvalue decomposition.
      *
-     * @param A Square matrix
-     * @param mixed $Arg
-     *
-     * @return Structure to access D and V
+     * @param mixed $Arg A Square matrix
      */
     public function __construct($Arg)
     {
@@ -813,7 +810,7 @@ class EigenvalueDecomposition
     /**
      * Return the eigenvector matrix.
      *
-     * @return V
+     * @return Matrix V
      */
     public function getV()
     {
@@ -823,7 +820,7 @@ class EigenvalueDecomposition
     /**
      * Return the real parts of the eigenvalues.
      *
-     * @return real(diag(D))
+     * @return array real(diag(D))
      */
     public function getRealEigenvalues()
     {
@@ -833,7 +830,7 @@ class EigenvalueDecomposition
     /**
      * Return the imaginary parts of the eigenvalues.
      *
-     * @return imag(diag(D))
+     * @return array imag(diag(D))
      */
     public function getImagEigenvalues()
     {
@@ -843,7 +840,7 @@ class EigenvalueDecomposition
     /**
      * Return the block diagonal eigenvalue matrix.
      *
-     * @return D
+     * @return Matrix D
      */
     public function getD()
     {

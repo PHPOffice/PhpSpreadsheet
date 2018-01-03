@@ -184,8 +184,6 @@ class Style extends Supervisor
      * @param array $pStyles Array containing style information
      * @param bool $pAdvanced advanced mode for setting borders
      *
-     * @throws Exception
-     *
      * @return Style
      */
     public function applyFromArray(array $pStyles, $pAdvanced = true)

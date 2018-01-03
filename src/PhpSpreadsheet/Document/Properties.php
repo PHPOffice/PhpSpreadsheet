@@ -168,23 +168,23 @@ class Properties
     /**
      * Set Created.
      *
-     * @param datetime $pValue
+     * @param int|string $time
      *
      * @return Properties
      */
-    public function setCreated($pValue)
+    public function setCreated($time)
     {
-        if ($pValue === null) {
-            $pValue = time();
-        } elseif (is_string($pValue)) {
-            if (is_numeric($pValue)) {
-                $pValue = (int) $pValue;
+        if ($time === null) {
+            $time = time();
+        } elseif (is_string($time)) {
+            if (is_numeric($time)) {
+                $time = (int) $time;
             } else {
-                $pValue = strtotime($pValue);
+                $time = strtotime($time);
             }
         }
 
-        $this->created = $pValue;
+        $this->created = $time;
 
         return $this;
     }
@@ -202,23 +202,23 @@ class Properties
     /**
      * Set Modified.
      *
-     * @param datetime $pValue
+     * @param int|string $time
      *
      * @return Properties
      */
-    public function setModified($pValue)
+    public function setModified($time)
     {
-        if ($pValue === null) {
-            $pValue = time();
-        } elseif (is_string($pValue)) {
-            if (is_numeric($pValue)) {
-                $pValue = (int) $pValue;
+        if ($time === null) {
+            $time = time();
+        } elseif (is_string($time)) {
+            if (is_numeric($time)) {
+                $time = (int) $time;
             } else {
-                $pValue = strtotime($pValue);
+                $time = strtotime($time);
             }
         }
 
-        $this->modified = $pValue;
+        $this->modified = $time;
 
         return $this;
     }

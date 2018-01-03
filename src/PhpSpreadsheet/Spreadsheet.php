@@ -87,15 +87,15 @@ class Spreadsheet
     private $hasMacros = false;
 
     /**
-     * macrosCode : all macros code (the vbaProject.bin file, this include form, code,  etc.), null if no macro.
+     * macrosCode : all macros code as binary data (the vbaProject.bin file, this include form, code,  etc.), null if no macro.
      *
-     * @var binary
+     * @var string
      */
     private $macrosCode;
     /**
-     * macrosCertificate : if macros are signed, contains vbaProjectSignature.bin file, null if not signed.
+     * macrosCertificate : if macros are signed, contains binary data vbaProjectSignature.bin file, null if not signed.
      *
-     * @var binary
+     * @var string
      */
     private $macrosCertificate;
 

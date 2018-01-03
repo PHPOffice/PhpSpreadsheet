@@ -55,8 +55,6 @@ class QRDecomposition
      * QR Decomposition computed by Householder reflections.
      *
      * @param matrix $A Rectangular matrix
-     *
-     * @return Structure to access R and the Householder vectors and compute Q
      */
     public function __construct($A)
     {

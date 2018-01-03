@@ -253,10 +253,9 @@ class Xml extends BaseReader
     /**
      * pixel units to excel width units(units of 1/256th of a character width).
      *
-     * @param pxs
-     * @param mixed $pxs
+     * @param float $pxs
      *
-     * @return
+     * @return float
      */
     protected static function pixel2WidthUnits($pxs)
     {
@@ -271,10 +270,9 @@ class Xml extends BaseReader
     /**
      * excel width units(units of 1/256th of a character width) to pixel units.
      *
-     * @param widthUnits
-     * @param mixed $widthUnits
+     * @param float $widthUnits
      *
-     * @return
+     * @return float
      */
     protected static function widthUnits2Pixel($widthUnits)
     {

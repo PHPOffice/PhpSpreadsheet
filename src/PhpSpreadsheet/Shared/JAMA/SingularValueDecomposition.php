@@ -60,10 +60,7 @@ class SingularValueDecomposition
      *
      * Derived from LINPACK code.
      *
-     * @param $A Rectangular matrix
-     * @param mixed $Arg
-     *
-     * @return Structure to access U, S and V
+     * @param mixed $Arg Rectangular matrix
      */
     public function __construct($Arg)
     {
@@ -445,7 +442,7 @@ class SingularValueDecomposition
     /**
      * Return the left singular vectors.
      *
-     * @return U
+     * @return Matrix U
      */
     public function getU()
     {
@@ -455,7 +452,7 @@ class SingularValueDecomposition
     /**
      * Return the right singular vectors.
      *
-     * @return V
+     * @return Matrix V
      */
     public function getV()
     {
@@ -465,7 +462,7 @@ class SingularValueDecomposition
     /**
      * Return the one-dimensional array of singular values.
      *
-     * @return diagonal of S
+     * @return array diagonal of S
      */
     public function getSingularValues()
     {
@@ -475,7 +472,7 @@ class SingularValueDecomposition
     /**
      * Return the diagonal matrix of singular values.
      *
-     * @return S
+     * @return Matrix S
      */
     public function getS()
     {
@@ -492,7 +489,7 @@ class SingularValueDecomposition
     /**
      * Two norm.
      *
-     * @return max(S)
+     * @return float max(S)
      */
     public function norm2()
     {
@@ -502,7 +499,7 @@ class SingularValueDecomposition
     /**
      * Two norm condition number.
      *
-     * @return max(S)/min(S)
+     * @return float max(S)/min(S)
      */
     public function cond()
     {
@@ -512,7 +509,7 @@ class SingularValueDecomposition
     /**
      * Effective numerical matrix rank.
      *
-     * @return Number of nonnegligible singular values
+     * @return int Number of nonnegligible singular values
      */
     public function rank()
     {

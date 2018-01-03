@@ -2018,12 +2018,9 @@ class Financial
      *
      * Returns the straight-line depreciation of an asset for one period
      *
-     * @param cost Initial cost of the asset
-     * @param salvage Value at the end of the depreciation
-     * @param life Number of periods over which the asset is depreciated
-     * @param mixed $cost
-     * @param mixed $salvage
-     * @param mixed $life
+     * @param mixed $cost Initial cost of the asset
+     * @param mixed $salvage Value at the end of the depreciation
+     * @param mixed $life Number of periods over which the asset is depreciated
      *
      * @return float
      */
@@ -2050,14 +2047,10 @@ class Financial
      *
      * Returns the sum-of-years' digits depreciation of an asset for a specified period.
      *
-     * @param cost Initial cost of the asset
-     * @param salvage Value at the end of the depreciation
-     * @param life Number of periods over which the asset is depreciated
-     * @param period Period
-     * @param mixed $cost
-     * @param mixed $salvage
-     * @param mixed $life
-     * @param mixed $period
+     * @param mixed $cost Initial cost of the asset
+     * @param mixed $salvage Value at the end of the depreciation
+     * @param mixed $life Number of periods over which the asset is depreciated
+     * @param mixed $period Period
      *
      * @return float
      */

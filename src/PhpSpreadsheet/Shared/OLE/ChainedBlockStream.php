@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\OLE;
 
+use PhpOffice\PhpSpreadsheet\Shared\OLE;
+
 class ChainedBlockStream
 {
     /**

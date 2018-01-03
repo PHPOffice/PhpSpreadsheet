@@ -65,8 +65,6 @@ class LUDecomposition
      * LU Decomposition constructor.
      *
      * @param Matrix $A Rectangular matrix
-     *
-     * @return Structure to access L, U and piv
      */
     public function __construct($A)
     {
@@ -242,12 +240,12 @@ class LUDecomposition
     /**
      * Solve A*X = B.
      *
-     * @param $B a Matrix with as many rows as A and any number of columns
+     * @param mixed $B a Matrix with as many rows as A and any number of columns
      *
      * @throws CalculationException illegalArgumentException Matrix row dimensions must agree
      * @throws CalculationException runtimeException  Matrix is singular
      *
-     * @return X so that L*U*X = B(piv,:)
+     * @return Matrix X so that L*U*X = B(piv,:)
      */
     public function solve($B)
     {

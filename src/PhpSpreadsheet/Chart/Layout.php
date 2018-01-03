@@ -272,7 +272,7 @@ class Layout
     /**
      * Set Width.
      *
-     * @param Width $value
+     * @param float $value
      *
      * @return Layout
      */
@@ -296,7 +296,7 @@ class Layout
     /**
      * Set Height.
      *
-     * @param Height $value
+     * @param float $value
      *
      * @return Layout
      */
