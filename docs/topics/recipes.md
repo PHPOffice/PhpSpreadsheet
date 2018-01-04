@@ -105,7 +105,7 @@ work with a PHP DateTime object.
 Similarly, times (or date and time values) can be entered in the same
 fashion: just remember to use an appropriate format code.
 
-**Notes:**
+**Note:**
 
 See section "Using value binders to facilitate data entry" to learn more
 about the AdvancedValueBinder used in the first example. Excel can also

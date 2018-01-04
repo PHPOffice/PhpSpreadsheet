@@ -7503,7 +7503,7 @@ class Xls extends BaseReader
                     break;
                 default:
                     // TODO: external sheet support
-                    throw new Exception('Xls reader only supports internal sheets in fomulas');
+                    throw new Exception('Xls reader only supports internal sheets in formulas');
                     break;
             }
         }

@@ -167,7 +167,7 @@ $spreadsheet->getActiveSheet()->getStyle('A10')
 
 ![07-simple-example-1.png](./images/07-simple-example-1.png)
 
-**Note** that not all complex format masks such as this one will work
+**Note:** that not all complex format masks such as this one will work
 when retrieving a formatted value to display "on screen", or for certain
 writers such as HTML or PDF, but it will work with the true spreadsheet
 writers (Xlsx and Xls).
@@ -238,7 +238,7 @@ the worksheet using the `getCell()` method. A cell's value can be read
 using the `getValue()` method.
 
 ``` php
-// Get the value fom cell A1
+// Get the value from cell A1
 $cellValue = $spreadsheet->getActiveSheet()->getCell('A1')->getValue();
 ```
 
@@ -250,7 +250,7 @@ value rather than the formula itself, then use the cell's
 [the calculation engine](./calculation-engine.md).
 
 ``` php
-// Get the value fom cell A4
+// Get the value from cell A4
 $cellValue = $spreadsheet->getActiveSheet()->getCell('A4')->getCalculatedValue();
 ```
 
@@ -259,7 +259,7 @@ applied (e.g. for a human-readable date or time value), then you can use
 the cell's `getFormattedValue()` method.
 
 ``` php
-// Get the value fom cell A6
+// Get the value from cell A6
 $cellValue = $spreadsheet->getActiveSheet()->getCell('A6')->getFormattedValue();
 ```
 
@@ -269,11 +269,11 @@ Setting a cell value by coordinate can be done using the worksheet's
 `setCellValueByColumnAndRow()` method.
 
 ``` php
-// Set cell B5 with a string value
+// Set cell A5 with a string value
 $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(1, 5, 'PhpSpreadsheet');
 ```
 
-**Note** that column references start with `1` for column `A`.
+**Note:** that column references start with `1` for column `A`.
 
 ## Retrieving a cell value by column and row
 
@@ -282,7 +282,7 @@ the worksheet using the `getCellByColumnAndRow()` method. A cell’s value can
 be read again using the following line of code:
 
 ``` php
-// Get the value fom cell B5
+// Get the value from cell B5
 $cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, 5)->getValue();
 ```
 
@@ -290,7 +290,7 @@ If you need the calculated value of a cell, use the following code. This
 is further explained in [the calculation engine](./calculation-engine.md).
 
 ``` php
-// Get the value fom cell A4
+// Get the value from cell A4
 $cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, 4)->getCalculatedValue();
 ```
 
@@ -366,10 +366,10 @@ intended to loop all cells that are possibly available.
 ### Looping through cells using indexes
 
 One can use the possibility to access cell values by column and row
-index like (0,1) instead of 'A1' for reading and writing cell values in
+index like `[1, 1]` instead of `'A1'` for reading and writing cell values in
 loops.
 
-Note: In PhpSpreadsheet column index and row index are 1-based. That means `'A1'` ~ `[1, 1]`
+**Note:** In PhpSpreadsheet column index and row index are 1-based. That means `'A1'` ~ `[1, 1]`
 
 Below is an example where we read all the values in a worksheet and
 display them in a table.
