@@ -3274,18 +3274,18 @@ class Calculation
                     if ($testPrevOp['value'] == ':') {
                         $startRowColRef = $output[count($output) - 1]['value'];
                         $rangeWS1 = '';
-                        if (strpos('!', $startRowColRef) !== false) {
+                        if (strpos($startRowColRef, '!') !== false) {
                             list($rangeWS1, $startRowColRef) = explode('!', $startRowColRef);
-                        }
-                        if ($rangeWS1 != '') {
-                            $rangeWS1 .= '!';
+                            if ($rangeWS1 != '') {
+                                $rangeWS1 .= '!';
+                            }
                         }
                         $rangeWS2 = $rangeWS1;
-                        if (strpos('!', $val) !== false) {
+                        if (strpos($val, '!') !== false) {
                             list($rangeWS2, $val) = explode('!', $val);
-                        }
-                        if ($rangeWS2 != '') {
-                            $rangeWS2 .= '!';
+                            if ($rangeWS2 != '') {
+                                $rangeWS2 .= '!';
+                            }
                         }
                         if ((is_int($startRowColRef)) && (ctype_digit($val)) &&
                             ($startRowColRef <= 1048576) && ($val <= 1048576)) {
