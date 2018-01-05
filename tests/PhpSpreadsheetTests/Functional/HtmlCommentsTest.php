@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class HtmlCommentsTest extends AbstractFunctional
 {
@@ -12,7 +12,7 @@ class HtmlCommentsTest extends AbstractFunctional
     public function providerCommentRichText()
     {
         $valueSingle = 'I am comment.';
-        $valueMulti= 'I am ' . PHP_EOL . 'multi-line' . PHP_EOL . 'comment.';
+        $valueMulti = 'I am ' . PHP_EOL . 'multi-line' . PHP_EOL . 'comment.';
 
         $plainSingle = new RichText();
         $plainSingle->createText($valueSingle);
@@ -36,12 +36,14 @@ class HtmlCommentsTest extends AbstractFunctional
             'multi-line plain text' => [$plainMulti],
             'single line simple rich text' => [$richSingle],
             'multi-line simple rich text' => [$richMultiSimple],
-            'multi-line mixed rich text' =>  [$richMultiMixed],
+            'multi-line mixed rich text' => [$richMultiMixed],
         ];
     }
 
     /**
      * @dataProvider providerCommentRichText
+     *
+     * @param mixed $richText
      */
     public function testComments($richText)
     {
@@ -58,5 +60,4 @@ class HtmlCommentsTest extends AbstractFunctional
         $actual = $reloadedSpreadsheet->getActiveSheet()->getComment('A1')->getText()->getPlainText();
         self::assertSame($richText->getPlainText(), $actual);
     }
-
 }
