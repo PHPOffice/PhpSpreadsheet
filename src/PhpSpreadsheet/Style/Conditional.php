@@ -50,6 +50,13 @@ class Conditional implements IComparable
     private $text;
 
     /**
+     * Stop on this condition, if it matches.
+     *
+     * @var bool
+     */
+    private $stopIfTrue;
+
+    /**
      * Condition.
      *
      * @var string[]
@@ -72,6 +79,7 @@ class Conditional implements IComparable
         $this->conditionType = self::CONDITION_NONE;
         $this->operatorType = self::OPERATOR_NONE;
         $this->text = null;
+        $this->stopIfTrue = false;
         $this->condition = [];
         $this->style = new Style(false, true);
     }
@@ -144,6 +152,30 @@ class Conditional implements IComparable
     public function setText($value)
     {
         $this->text = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get StopIfTrue.
+     *
+     * @return bool
+     */
+    public function getStopIfTrue()
+    {
+        return $this->stopIfTrue;
+    }
+
+    /**
+     * Set StopIfTrue.
+     *
+     * @param bool $value
+     *
+     * @return Conditional
+     */
+    public function setStopIfTrue($value)
+    {
+        $this->stopIfTrue = $value;
 
         return $this;
     }
