@@ -801,10 +801,10 @@ outline           | setOutline()
 
 **\PhpOffice\PhpSpreadsheet\Style\Border**
 
-Array key | Maps to property
-----------|-------------------
-style     | setBorderStyle()
-color     | getColor()
+Array key   | Maps to property
+------------|-------------------
+borderStyle | setBorderStyle()
+color       | getColor()
 
 **\PhpOffice\PhpSpreadsheet\Style\Alignment**
 
