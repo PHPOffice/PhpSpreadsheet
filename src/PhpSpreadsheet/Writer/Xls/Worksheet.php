@@ -1603,8 +1603,8 @@ class Worksheet extends BIFFwriter
             return;
         }
 
-        $y = isset($panes[0]) ? $panes[0] : null;
-        $x = isset($panes[1]) ? $panes[1] : null;
+        $x = isset($panes[0]) ? $panes[0] : null;
+        $y = isset($panes[1]) ? $panes[1] : null;
         $rwTop = isset($panes[2]) ? $panes[2] : null;
         $colLeft = isset($panes[3]) ? $panes[3] : null;
         if (count($panes) > 4) { // if Active pane was received
