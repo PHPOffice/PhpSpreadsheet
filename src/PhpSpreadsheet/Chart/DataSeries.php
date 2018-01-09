@@ -64,7 +64,7 @@ class DataSeries
     /**
      * Plot Style.
      *
-     * @var string
+     * @var null|string
      */
     private $plotStyle;
 
@@ -108,15 +108,15 @@ class DataSeries
      *
      * @param null|mixed $plotType
      * @param null|mixed $plotGrouping
-     * @param mixed $plotOrder
-     * @param mixed $plotLabel
-     * @param mixed $plotCategory
-     * @param mixed $plotValues
-     * @param null|mixed $plotDirection
-     * @param null|mixed $smoothLine
-     * @param null|mixed $plotStyle
+     * @param int[] $plotOrder
+     * @param DataSeriesValues[] $plotLabel
+     * @param DataSeriesValues[] $plotCategory
+     * @param DataSeriesValues[] $plotValues
+     * @param null|string $plotDirection
+     * @param bool $smoothLine
+     * @param null|string $plotStyle
      */
-    public function __construct($plotType = null, $plotGrouping = null, $plotOrder = [], $plotLabel = [], $plotCategory = [], $plotValues = [], $plotDirection = null, $smoothLine = null, $plotStyle = null)
+    public function __construct($plotType = null, $plotGrouping = null, array $plotOrder = [], array $plotLabel = [], array $plotCategory = [], array $plotValues = [], $plotDirection = null, $smoothLine = false, $plotStyle = null)
     {
         $this->plotType = $plotType;
         $this->plotGrouping = $plotGrouping;
@@ -126,12 +126,13 @@ class DataSeries
         if ((count($plotLabel) == 0) || ($plotLabel[$keys[0]] === null)) {
             $plotLabel[$keys[0]] = new DataSeriesValues();
         }
-
         $this->plotLabel = $plotLabel;
+
         if ((count($plotCategory) == 0) || ($plotCategory[$keys[0]] === null)) {
             $plotCategory[$keys[0]] = new DataSeriesValues();
         }
         $this->plotCategory = $plotCategory;
+
         $this->smoothLine = $smoothLine;
         $this->plotStyle = $plotStyle;
 
@@ -284,7 +285,7 @@ class DataSeries
     /**
      * Get Plot Style.
      *
-     * @return string
+     * @return null|string
      */
     public function getPlotStyle()
     {
@@ -294,7 +295,7 @@ class DataSeries
     /**
      * Set Plot Style.
      *
-     * @param string $plotStyle
+     * @param null|string $plotStyle
      *
      * @return DataSeries
      */
