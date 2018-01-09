@@ -1216,7 +1216,7 @@ class Worksheet implements IComparable
         // Uppercase coordinate
         $pCoordinate = strtoupper($pCoordinate);
 
-        if (strpos($pCoordinate, ':') !== false || strpos($pCoordinate, ',') !== false) {
+        if (Coordinate::coordinateIsRange($pCoordinate)) {
             throw new Exception('Cell coordinate can not be a range of cells.');
         } elseif (strpos($pCoordinate, '$') !== false) {
             throw new Exception('Cell coordinate must not be absolute.');
@@ -1324,7 +1324,7 @@ class Worksheet implements IComparable
         // Uppercase coordinate
         $pCoordinate = strtoupper($pCoordinate);
 
-        if (strpos($pCoordinate, ':') !== false || strpos($pCoordinate, ',') !== false) {
+        if (Coordinate::coordinateIsRange($pCoordinate)) {
             throw new Exception('Cell coordinate can not be a range of cells.');
         } elseif (strpos($pCoordinate, '$') !== false) {
             throw new Exception('Cell coordinate must not be absolute.');
@@ -1993,7 +1993,7 @@ class Worksheet implements IComparable
      */
     public function freezePane($cell, $topLeftCell = null)
     {
-        if (is_string($cell) && (strpos($cell, ':') !== false || strpos($cell, ',') !== false)) {
+        if (is_string($cell) && Coordinate::coordinateIsRange($cell)) {
             throw new Exception('Freeze pane can not be set on a range of cells.');
         }
 
@@ -2337,7 +2337,7 @@ class Worksheet implements IComparable
         // Uppercase coordinate
         $pCellCoordinate = strtoupper($pCellCoordinate);
 
-        if (strpos($pCellCoordinate, ':') !== false || strpos($pCellCoordinate, ',') !== false) {
+        if (Coordinate::coordinateIsRange($pCellCoordinate)) {
             throw new Exception('Cell coordinate string can not be a range of cells.');
         } elseif (strpos($pCellCoordinate, '$') !== false) {
             throw new Exception('Cell coordinate string must not be absolute.');
@@ -2428,7 +2428,7 @@ class Worksheet implements IComparable
         // Convert '1:3' to 'A1:XFD3'
         $pCoordinate = preg_replace('/^(\d+):(\d+)$/', 'A${1}:XFD${2}', $pCoordinate);
 
-        if (strpos($pCoordinate, ':') !== false || strpos($pCoordinate, ',') !== false) {
+        if (Coordinate::coordinateIsRange($pCoordinate)) {
             list($first) = Coordinate::splitRange($pCoordinate);
             $this->activeCell = $first[0];
         } else {

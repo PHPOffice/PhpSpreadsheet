@@ -331,4 +331,20 @@ class CoordinateTest extends TestCase
     {
         return require 'data/CellMergeRangesInCollection.php';
     }
+
+    /**
+     * @dataProvider providerCoordinateIsRange
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCoordinateIsRange($expectedResult, ...$args)
+    {
+        $result = Coordinate::coordinateIsRange(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerCoordinateIsRange()
+    {
+        return require 'data/CoordinateIsRange.php';
+    }
 }

@@ -432,7 +432,7 @@ class ReferenceHelper
                 if ($cell->getDataType() == DataType::TYPE_FORMULA) {
                     // Formula should be adjusted
                     $pSheet->getCell($newCoordinate)
-                            ->setValue($this->updateFormulaReferences($cell->getValue(), $pBefore, $pNumCols, $pNumRows, $pSheet->getTitle()));
+                        ->setValue($this->updateFormulaReferences($cell->getValue(), $pBefore, $pNumCols, $pNumRows, $pSheet->getTitle()));
                 } else {
                     // Formula should not be adjusted
                     $pSheet->getCell($newCoordinate)->setValue($cell->getValue());
@@ -760,7 +760,7 @@ class ReferenceHelper
      * Update cell reference.
      *
      * @param string $pCellRange Cell range
-     * @param int $pBefore Insert before this one
+     * @param string $pBefore Insert before this one
      * @param int $pNumCols Number of columns to increment
      * @param int $pNumRows Number of rows to increment
      *
@@ -774,13 +774,14 @@ class ReferenceHelper
         if (strpos($pCellRange, '!') !== false) {
             return $pCellRange;
             // Is it a range or a single cell?
-        } elseif (strpos($pCellRange, ':') === false && strpos($pCellRange, ',') === false) {
+        } elseif (!Coordinate::coordinateIsRange($pCellRange)) {
             // Single cell
             return $this->updateSingleCellReference($pCellRange, $pBefore, $pNumCols, $pNumRows);
-        } elseif (strpos($pCellRange, ':') !== false || strpos($pCellRange, ',') !== false) {
+        } elseif (Coordinate::coordinateIsRange($pCellRange)) {
             // Range
             return $this->updateCellRange($pCellRange, $pBefore, $pNumCols, $pNumRows);
         }
+
         // Return original
         return $pCellRange;
     }
@@ -817,7 +818,7 @@ class ReferenceHelper
      * Update cell range.
      *
      * @param string $pCellRange Cell range    (e.g. 'B2:D4', 'B:C' or '2:3')
-     * @param int $pBefore Insert before this one
+     * @param string $pBefore Insert before this one
      * @param int $pNumCols Number of columns to increment
      * @param int $pNumRows Number of rows to increment
      *
@@ -827,37 +828,37 @@ class ReferenceHelper
      */
     private function updateCellRange($pCellRange = 'A1:A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0)
     {
-        if (strpos($pCellRange, ':') !== false || strpos($pCellRange, ',') !== false) {
-            // Update range
-            $range = Coordinate::splitRange($pCellRange);
-            $ic = count($range);
-            for ($i = 0; $i < $ic; ++$i) {
-                $jc = count($range[$i]);
-                for ($j = 0; $j < $jc; ++$j) {
-                    if (ctype_alpha($range[$i][$j])) {
-                        $r = Coordinate::coordinateFromString($this->updateSingleCellReference($range[$i][$j] . '1', $pBefore, $pNumCols, $pNumRows));
-                        $range[$i][$j] = $r[0];
-                    } elseif (ctype_digit($range[$i][$j])) {
-                        $r = Coordinate::coordinateFromString($this->updateSingleCellReference('A' . $range[$i][$j], $pBefore, $pNumCols, $pNumRows));
-                        $range[$i][$j] = $r[1];
-                    } else {
-                        $range[$i][$j] = $this->updateSingleCellReference($range[$i][$j], $pBefore, $pNumCols, $pNumRows);
-                    }
-                }
-            }
-
-            // Recreate range string
-            return Coordinate::buildRange($range);
+        if (!Coordinate::coordinateIsRange($pCellRange)) {
+            throw new Exception('Only cell ranges may be passed to this method.');
         }
 
-        throw new Exception('Only cell ranges may be passed to this method.');
+        // Update range
+        $range = Coordinate::splitRange($pCellRange);
+        $ic = count($range);
+        for ($i = 0; $i < $ic; ++$i) {
+            $jc = count($range[$i]);
+            for ($j = 0; $j < $jc; ++$j) {
+                if (ctype_alpha($range[$i][$j])) {
+                    $r = Coordinate::coordinateFromString($this->updateSingleCellReference($range[$i][$j] . '1', $pBefore, $pNumCols, $pNumRows));
+                    $range[$i][$j] = $r[0];
+                } elseif (ctype_digit($range[$i][$j])) {
+                    $r = Coordinate::coordinateFromString($this->updateSingleCellReference('A' . $range[$i][$j], $pBefore, $pNumCols, $pNumRows));
+                    $range[$i][$j] = $r[1];
+                } else {
+                    $range[$i][$j] = $this->updateSingleCellReference($range[$i][$j], $pBefore, $pNumCols, $pNumRows);
+                }
+            }
+        }
+
+        // Recreate range string
+        return Coordinate::buildRange($range);
     }
 
     /**
      * Update single cell reference.
      *
      * @param string $pCellReference Single cell reference
-     * @param int $pBefore Insert before this one
+     * @param string $pBefore Insert before this one
      * @param int $pNumCols Number of columns to increment
      * @param int $pNumRows Number of rows to increment
      *
@@ -867,32 +868,32 @@ class ReferenceHelper
      */
     private function updateSingleCellReference($pCellReference = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0)
     {
-        if (strpos($pCellReference, ':') === false && strpos($pCellReference, ',') === false) {
-            // Get coordinate of $pBefore
-            list($beforeColumn, $beforeRow) = Coordinate::coordinateFromString($pBefore);
-
-            // Get coordinate of $pCellReference
-            list($newColumn, $newRow) = Coordinate::coordinateFromString($pCellReference);
-
-            // Verify which parts should be updated
-            $updateColumn = (($newColumn[0] != '$') && ($beforeColumn[0] != '$') && (Coordinate::columnIndexFromString($newColumn) >= Coordinate::columnIndexFromString($beforeColumn)));
-            $updateRow = (($newRow[0] != '$') && ($beforeRow[0] != '$') && $newRow >= $beforeRow);
-
-            // Create new column reference
-            if ($updateColumn) {
-                $newColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($newColumn) + $pNumCols);
-            }
-
-            // Create new row reference
-            if ($updateRow) {
-                $newRow = $newRow + $pNumRows;
-            }
-
-            // Return new reference
-            return $newColumn . $newRow;
+        if (Coordinate::coordinateIsRange($pCellReference)) {
+            throw new Exception('Only single cell references may be passed to this method.');
         }
 
-        throw new Exception('Only single cell references may be passed to this method.');
+        // Get coordinate of $pBefore
+        list($beforeColumn, $beforeRow) = Coordinate::coordinateFromString($pBefore);
+
+        // Get coordinate of $pCellReference
+        list($newColumn, $newRow) = Coordinate::coordinateFromString($pCellReference);
+
+        // Verify which parts should be updated
+        $updateColumn = (($newColumn[0] != '$') && ($beforeColumn[0] != '$') && (Coordinate::columnIndexFromString($newColumn) >= Coordinate::columnIndexFromString($beforeColumn)));
+        $updateRow = (($newRow[0] != '$') && ($beforeRow[0] != '$') && $newRow >= $beforeRow);
+
+        // Create new column reference
+        if ($updateColumn) {
+            $newColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($newColumn) + $pNumCols);
+        }
+
+        // Create new row reference
+        if ($updateRow) {
+            $newRow = $newRow + $pNumRows;
+        }
+
+        // Return new reference
+        return $newColumn . $newRow;
     }
 
     /**

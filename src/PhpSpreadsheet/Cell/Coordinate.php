@@ -32,13 +32,25 @@ abstract class Coordinate
     {
         if (preg_match("/^([$]?[A-Z]{1,3})([$]?\d{1,7})$/", $pCoordinateString, $matches)) {
             return [$matches[1], $matches[2]];
-        } elseif ((strpos($pCoordinateString, ':') !== false) || (strpos($pCoordinateString, ',') !== false)) {
+        } elseif (self::coordinateIsRange($pCoordinateString)) {
             throw new Exception('Cell coordinate string can not be a range of cells');
         } elseif ($pCoordinateString == '') {
             throw new Exception('Cell coordinate can not be zero-length string');
         }
 
         throw new Exception('Invalid cell coordinate ' . $pCoordinateString);
+    }
+
+    /**
+     * Checks if a coordinate represents a range of cells.
+     *
+     * @param string $coord eg: 'A1' or 'A1:A2' or 'A1:A2,C1:C2'
+     *
+     * @return bool Whether the coordinate represents a range of cells
+     */
+    public static function coordinateIsRange($coord)
+    {
+        return (strpos($coord, ':') !== false) || (strpos($coord, ',') !== false);
     }
 
     /**
@@ -53,28 +65,28 @@ abstract class Coordinate
      */
     public static function absoluteReference($pCoordinateString)
     {
-        if (strpos($pCoordinateString, ':') === false && strpos($pCoordinateString, ',') === false) {
-            // Split out any worksheet name from the reference
-            $worksheet = '';
-            $cellAddress = explode('!', $pCoordinateString);
-            if (count($cellAddress) > 1) {
-                list($worksheet, $pCoordinateString) = $cellAddress;
-            }
-            if ($worksheet > '') {
-                $worksheet .= '!';
-            }
-
-            // Create absolute coordinate
-            if (ctype_digit($pCoordinateString)) {
-                return $worksheet . '$' . $pCoordinateString;
-            } elseif (ctype_alpha($pCoordinateString)) {
-                return $worksheet . '$' . strtoupper($pCoordinateString);
-            }
-
-            return $worksheet . self::absoluteCoordinate($pCoordinateString);
+        if (self::coordinateIsRange($pCoordinateString)) {
+            throw new Exception('Cell coordinate string can not be a range of cells');
         }
 
-        throw new Exception('Cell coordinate string can not be a range of cells');
+        // Split out any worksheet name from the reference
+        $worksheet = '';
+        $cellAddress = explode('!', $pCoordinateString);
+        if (count($cellAddress) > 1) {
+            list($worksheet, $pCoordinateString) = $cellAddress;
+        }
+        if ($worksheet > '') {
+            $worksheet .= '!';
+        }
+
+        // Create absolute coordinate
+        if (ctype_digit($pCoordinateString)) {
+            return $worksheet . '$' . $pCoordinateString;
+        } elseif (ctype_alpha($pCoordinateString)) {
+            return $worksheet . '$' . strtoupper($pCoordinateString);
+        }
+
+        return $worksheet . self::absoluteCoordinate($pCoordinateString);
     }
 
     /**
@@ -88,26 +100,26 @@ abstract class Coordinate
      */
     public static function absoluteCoordinate($pCoordinateString)
     {
-        if (strpos($pCoordinateString, ':') === false && strpos($pCoordinateString, ',') === false) {
-            // Split out any worksheet name from the coordinate
-            $worksheet = '';
-            $cellAddress = explode('!', $pCoordinateString);
-            if (count($cellAddress) > 1) {
-                list($worksheet, $pCoordinateString) = $cellAddress;
-            }
-            if ($worksheet > '') {
-                $worksheet .= '!';
-            }
-
-            // Create absolute coordinate
-            list($column, $row) = self::coordinateFromString($pCoordinateString);
-            $column = ltrim($column, '$');
-            $row = ltrim($row, '$');
-
-            return $worksheet . '$' . $column . '$' . $row;
+        if (self::coordinateIsRange($pCoordinateString)) {
+            throw new Exception('Cell coordinate string can not be a range of cells');
         }
 
-        throw new Exception('Cell coordinate string can not be a range of cells');
+        // Split out any worksheet name from the coordinate
+        $worksheet = '';
+        $cellAddress = explode('!', $pCoordinateString);
+        if (count($cellAddress) > 1) {
+            list($worksheet, $pCoordinateString) = $cellAddress;
+        }
+        if ($worksheet > '') {
+            $worksheet .= '!';
+        }
+
+        // Create absolute coordinate
+        list($column, $row) = self::coordinateFromString($pCoordinateString);
+        $column = ltrim($column, '$');
+        $row = ltrim($row, '$');
+
+        return $worksheet . '$' . $column . '$' . $row;
     }
 
     /**
@@ -330,7 +342,7 @@ abstract class Coordinate
         $cellBlocks = explode(' ', str_replace('$', '', strtoupper($pRange)));
         foreach ($cellBlocks as $cellBlock) {
             // Single cell?
-            if (strpos($cellBlock, ':') === false && strpos($cellBlock, ',') === false) {
+            if (!self::coordinateIsRange($cellBlock)) {
                 $returnValue[] = $cellBlock;
 
                 continue;
@@ -400,8 +412,15 @@ abstract class Coordinate
     public static function mergeRangesInCollection(array $pCoordCollection)
     {
         $hashedValues = [];
+        $mergedCoordCollection = [];
 
         foreach ($pCoordCollection as $coord => $value) {
+            if (self::coordinateIsRange($coord)) {
+                $mergedCoordCollection[$coord] = $value;
+
+                continue;
+            }
+
             list($column, $row) = self::coordinateFromString($coord);
             $row = (int) (ltrim($row, '$'));
             $hashCode = $column . '-' . (is_object($value) ? $value->getHashCode() : $value);
@@ -417,7 +436,6 @@ abstract class Coordinate
             }
         }
 
-        $mergedCoordCollection = [];
         ksort($hashedValues);
 
         foreach ($hashedValues as $hashedValue) {

@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Freeze Panes takes wrong coordinates for XLSX - [#322](https://github.com/PHPOffice/PhpSpreadsheet/issues/322)
 - `COLUMNS` and `ROWS` functions crashed in some cases - [#336](https://github.com/PHPOffice/PhpSpreadsheet/issues/336)
 - Support XML file without styles - [#331](https://github.com/PHPOffice/PhpSpreadsheet/pull/331)
+- Cell coordinates which are already a range cause an exception [#319](https://github.com/PHPOffice/PhpSpreadsheet/issues/319)
 
 ## [1.0.0] - 2017-12-25
 
