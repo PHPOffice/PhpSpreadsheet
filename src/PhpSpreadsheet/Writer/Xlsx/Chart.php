@@ -1127,11 +1127,19 @@ class Chart extends WriterPart
                 $objWriter->endElement();
             }
 
+            //    Values
+            $plotSeriesValues = $plotGroup->getPlotValuesByIndex($plotSeriesRef);
+
             //    Formatting for the points
             if (($groupType == DataSeries::TYPE_LINECHART) || ($groupType == DataSeries::TYPE_STOCKCHART)) {
+                $plotLineWidth = 12700;
+                if ($plotSeriesValues) {
+                    $plotLineWidth = $plotSeriesValues->getLineWidth();
+                }
+
                 $objWriter->startElement('c:spPr');
                 $objWriter->startElement('a:ln');
-                $objWriter->writeAttribute('w', 12700);
+                $objWriter->writeAttribute('w', $plotLineWidth);
                 if ($groupType == DataSeries::TYPE_STOCKCHART) {
                     $objWriter->startElement('a:noFill');
                     $objWriter->endElement();
@@ -1140,7 +1148,6 @@ class Chart extends WriterPart
                 $objWriter->endElement();
             }
 
-            $plotSeriesValues = $plotGroup->getPlotValuesByIndex($plotSeriesRef);
             if ($plotSeriesValues) {
                 $plotSeriesMarker = $plotSeriesValues->getPointMarker();
                 if ($plotSeriesMarker) {
