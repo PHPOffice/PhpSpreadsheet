@@ -37,6 +37,9 @@ class Worksheet implements IComparable
     const SHEETSTATE_HIDDEN = 'hidden';
     const SHEETSTATE_VERYHIDDEN = 'veryHidden';
 
+    // Row consts
+    const ROW_PADDING = 5;
+
     /**
      * Invalid characters in sheet title.
      *
@@ -3066,5 +3069,42 @@ class Worksheet implements IComparable
     public function hasCodeName()
     {
         return !($this->codeName === null);
+    }
+
+    /**
+     * Autofit the rows height in the interval based on the largest cell
+     *
+     * @param int $startRow
+     * @param int $endRow
+     * @return Alignment
+     */
+    public function autofitRowsHeight($startRow, $endRow, $rowPadding = null)
+    {
+        $rowPadding = $rowPadding ?? self::ROW_PADDING;
+
+        foreach ($this->getRowIterator($startRow, $endRow) as $row) {
+            $cellIterator = $row->getCellIterator();
+            $cellIterator->setIterateOnlyExistingCells(true);
+
+            $maxCellLength = 0;
+            $maxColumnWidth = 0;
+            foreach ($cellIterator as $cell) {
+                $cellLength = strlen($cell->getValue());
+                $columnWidth = $this->getColumnDimension($cell->getParent()->getCurrentColumn())->getWidth();
+
+                $maxCellLength = $cellLength > $maxCellLength ? $cellLength : $maxCellLength;
+                $maxColumnWidth = $columnWidth > $maxColumnWidth ? $columnWidth : $maxColumnWidth;
+            }
+
+            $rowDimension = $this->getRowDimension($row->getRowIndex());
+            $rowHeight = $rowDimension->getRowHeight();
+
+            $cellValuesOnColumn = ceil($maxCellLength / $maxColumnWidth);
+            $cellValuesOnColumn = $cellValuesOnColumn <= 0 ? 1 : $cellValuesOnColumn;
+
+            $rowDimension->setRowHeight( ($rowHeight * $cellValuesOnColumn) + $rowPadding);
+        }
+
+        return $this;
     }
 }
