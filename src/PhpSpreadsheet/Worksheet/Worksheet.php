@@ -3076,7 +3076,7 @@ class Worksheet implements IComparable
      *
      * @param int $startRow
      * @param int $endRow
-     * @return Alignment
+     * @return Worksheet
      */
     public function autofitRowsHeight($startRow, $endRow, $rowPadding = null)
     {
