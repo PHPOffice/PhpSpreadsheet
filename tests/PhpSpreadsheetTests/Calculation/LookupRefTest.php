@@ -79,4 +79,36 @@ class LookupRefTest extends TestCase
     {
         return require 'data/Calculation/LookupRef/INDEX.php';
     }
+
+    /**
+     * @dataProvider providerCOLUMNS
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCOLUMNS($expectedResult, ...$args)
+    {
+        $result = LookupRef::COLUMNS(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerCOLUMNS()
+    {
+        return require 'data/Calculation/LookupRef/COLUMNS.php';
+    }
+
+    /**
+     * @dataProvider providerROWS
+     *
+     * @param mixed $expectedResult
+     */
+    public function testROWS($expectedResult, ...$args)
+    {
+        $result = LookupRef::ROWS(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerROWS()
+    {
+        return require 'data/Calculation/LookupRef/ROWS.php';
+    }
 }

@@ -2784,11 +2784,11 @@ class Calculation
     /**
      * Read the dimensions of a matrix, and re-index it with straight numeric keys starting from row 0, column 0.
      *
-     * @param mixed &$matrix matrix operand
+     * @param array &$matrix matrix operand
      *
      * @return int[] An array comprising the number of rows, and number of columns
      */
-    private static function getMatrixDimensions(&$matrix)
+    public static function getMatrixDimensions(array &$matrix)
     {
         $matrixRows = count($matrix);
         $matrixColumns = 0;

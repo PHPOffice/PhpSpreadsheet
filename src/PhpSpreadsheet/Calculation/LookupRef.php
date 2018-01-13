@@ -138,7 +138,7 @@ class LookupRef
 
         reset($cellAddress);
         $isMatrix = (is_numeric(key($cellAddress)));
-        list($columns, $rows) = Calculation::_getMatrixDimensions($cellAddress);
+        list($columns, $rows) = Calculation::getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
             return $rows;
@@ -218,7 +218,7 @@ class LookupRef
 
         reset($cellAddress);
         $isMatrix = (is_numeric(key($cellAddress)));
-        list($columns, $rows) = Calculation::_getMatrixDimensions($cellAddress);
+        list($columns, $rows) = Calculation::getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
             return $columns;
