@@ -300,31 +300,6 @@ class Xml extends BaseReader
      */
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
-        $fromFormats = ['\-', '\ '];
-        $toFormats = ['-', ' '];
-
-        $underlineStyles = [
-            Font::UNDERLINE_NONE,
-            Font::UNDERLINE_DOUBLE,
-            Font::UNDERLINE_DOUBLEACCOUNTING,
-            Font::UNDERLINE_SINGLE,
-            Font::UNDERLINE_SINGLEACCOUNTING,
-        ];
-        $verticalAlignmentStyles = [
-            Alignment::VERTICAL_BOTTOM,
-            Alignment::VERTICAL_TOP,
-            Alignment::VERTICAL_CENTER,
-            Alignment::VERTICAL_JUSTIFY,
-        ];
-        $horizontalAlignmentStyles = [
-            Alignment::HORIZONTAL_GENERAL,
-            Alignment::HORIZONTAL_LEFT,
-            Alignment::HORIZONTAL_RIGHT,
-            Alignment::HORIZONTAL_CENTER,
-            Alignment::HORIZONTAL_CENTER_CONTINUOUS,
-            Alignment::HORIZONTAL_JUSTIFY,
-        ];
-
         File::assertFile($pFilename);
         if (!$this->canRead($pFilename)) {
             throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
@@ -423,140 +398,7 @@ class Xml extends BaseReader
             }
         }
 
-        foreach ($xml->Styles[0] as $style) {
-            $style_ss = $style->attributes($namespaces['ss']);
-            $styleID = (string) $style_ss['ID'];
-            $this->styles[$styleID] = (isset($this->styles['Default'])) ? $this->styles['Default'] : [];
-            foreach ($style as $styleType => $styleData) {
-                $styleAttributes = $styleData->attributes($namespaces['ss']);
-                switch ($styleType) {
-                    case 'Alignment':
-                        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
-                            $styleAttributeValue = (string) $styleAttributeValue;
-                            switch ($styleAttributeKey) {
-                                case 'Vertical':
-                                    if (self::identifyFixedStyleValue($verticalAlignmentStyles, $styleAttributeValue)) {
-                                        $this->styles[$styleID]['alignment']['vertical'] = $styleAttributeValue;
-                                    }
-
-                                    break;
-                                case 'Horizontal':
-                                    if (self::identifyFixedStyleValue($horizontalAlignmentStyles, $styleAttributeValue)) {
-                                        $this->styles[$styleID]['alignment']['horizontal'] = $styleAttributeValue;
-                                    }
-
-                                    break;
-                                case 'WrapText':
-                                    $this->styles[$styleID]['alignment']['wrapText'] = true;
-
-                                    break;
-                            }
-                        }
-
-                        break;
-                    case 'Borders':
-                        foreach ($styleData->Border as $borderStyle) {
-                            $borderAttributes = $borderStyle->attributes($namespaces['ss']);
-                            $thisBorder = [];
-                            foreach ($borderAttributes as $borderStyleKey => $borderStyleValue) {
-                                switch ($borderStyleKey) {
-                                    case 'LineStyle':
-                                        $thisBorder['borderStyle'] = Border::BORDER_MEDIUM;
-
-                                        break;
-                                    case 'Weight':
-                                        break;
-                                    case 'Position':
-                                        $borderPosition = strtolower($borderStyleValue);
-
-                                        break;
-                                    case 'Color':
-                                        $borderColour = substr($borderStyleValue, 1);
-                                        $thisBorder['color']['rgb'] = $borderColour;
-
-                                        break;
-                                }
-                            }
-                            if (!empty($thisBorder)) {
-                                if (($borderPosition == 'left') || ($borderPosition == 'right') || ($borderPosition == 'top') || ($borderPosition == 'bottom')) {
-                                    $this->styles[$styleID]['borders'][$borderPosition] = $thisBorder;
-                                }
-                            }
-                        }
-
-                        break;
-                    case 'Font':
-                        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
-                            $styleAttributeValue = (string) $styleAttributeValue;
-                            switch ($styleAttributeKey) {
-                                case 'FontName':
-                                    $this->styles[$styleID]['font']['name'] = $styleAttributeValue;
-
-                                    break;
-                                case 'Size':
-                                    $this->styles[$styleID]['font']['size'] = $styleAttributeValue;
-
-                                    break;
-                                case 'Color':
-                                    $this->styles[$styleID]['font']['color']['rgb'] = substr($styleAttributeValue, 1);
-
-                                    break;
-                                case 'Bold':
-                                    $this->styles[$styleID]['font']['bold'] = true;
-
-                                    break;
-                                case 'Italic':
-                                    $this->styles[$styleID]['font']['italic'] = true;
-
-                                    break;
-                                case 'Underline':
-                                    if (self::identifyFixedStyleValue($underlineStyles, $styleAttributeValue)) {
-                                        $this->styles[$styleID]['font']['underline'] = $styleAttributeValue;
-                                    }
-
-                                    break;
-                            }
-                        }
-
-                        break;
-                    case 'Interior':
-                        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
-                            switch ($styleAttributeKey) {
-                                case 'Color':
-                                    $this->styles[$styleID]['fill']['color']['rgb'] = substr($styleAttributeValue, 1);
-
-                                    break;
-                                case 'Pattern':
-                                    $this->styles[$styleID]['fill']['fillType'] = strtolower($styleAttributeValue);
-
-                                    break;
-                            }
-                        }
-
-                        break;
-                    case 'NumberFormat':
-                        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
-                            $styleAttributeValue = str_replace($fromFormats, $toFormats, $styleAttributeValue);
-                            switch ($styleAttributeValue) {
-                                case 'Short Date':
-                                    $styleAttributeValue = 'dd/mm/yyyy';
-
-                                    break;
-                            }
-                            if ($styleAttributeValue > '') {
-                                $this->styles[$styleID]['numberFormat']['formatCode'] = $styleAttributeValue;
-                            }
-                        }
-
-                        break;
-                    case 'Protection':
-                        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
-                        }
-
-                        break;
-                }
-            }
-        }
+        $this->parseStyles($xml, $namespaces);
 
         $worksheetID = 0;
         $xml_ss = $xml->children($namespaces['ss']);
@@ -816,4 +658,172 @@ class Xml extends BaseReader
 
         return $value;
     }
+
+    protected function parseStyles($xml, $namespaces)
+    {
+        if (!isset($xml->Styles)) {
+            return;
+        }
+
+        $fromFormats = ['\-', '\ '];
+        $toFormats = ['-', ' '];
+
+        $underlineStyles = [
+            Font::UNDERLINE_NONE,
+            Font::UNDERLINE_DOUBLE,
+            Font::UNDERLINE_DOUBLEACCOUNTING,
+            Font::UNDERLINE_SINGLE,
+            Font::UNDERLINE_SINGLEACCOUNTING,
+        ];
+        $verticalAlignmentStyles = [
+            Alignment::VERTICAL_BOTTOM,
+            Alignment::VERTICAL_TOP,
+            Alignment::VERTICAL_CENTER,
+            Alignment::VERTICAL_JUSTIFY,
+        ];
+        $horizontalAlignmentStyles = [
+            Alignment::HORIZONTAL_GENERAL,
+            Alignment::HORIZONTAL_LEFT,
+            Alignment::HORIZONTAL_RIGHT,
+            Alignment::HORIZONTAL_CENTER,
+            Alignment::HORIZONTAL_CENTER_CONTINUOUS,
+            Alignment::HORIZONTAL_JUSTIFY,
+        ];
+
+        foreach ($xml->Styles[0] as $style) {
+            $style_ss = $style->attributes($namespaces['ss']);
+            $styleID = (string)$style_ss['ID'];
+            $this->styles[$styleID] = (isset($this->styles['Default'])) ? $this->styles['Default'] : [];
+            foreach ($style as $styleType => $styleData) {
+                $styleAttributes = $styleData->attributes($namespaces['ss']);
+                switch ($styleType) {
+                    case 'Alignment':
+                        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
+                            $styleAttributeValue = (string)$styleAttributeValue;
+                            switch ($styleAttributeKey) {
+                                case 'Vertical':
+                                    if (self::identifyFixedStyleValue($verticalAlignmentStyles, $styleAttributeValue)) {
+                                        $this->styles[$styleID]['alignment']['vertical'] = $styleAttributeValue;
+                                    }
+
+                                    break;
+                                case 'Horizontal':
+                                    if (self::identifyFixedStyleValue($horizontalAlignmentStyles, $styleAttributeValue)) {
+                                        $this->styles[$styleID]['alignment']['horizontal'] = $styleAttributeValue;
+                                    }
+
+                                    break;
+                                case 'WrapText':
+                                    $this->styles[$styleID]['alignment']['wrapText'] = true;
+
+                                    break;
+                            }
+                        }
+
+                        break;
+                    case 'Borders':
+                        foreach ($styleData->Border as $borderStyle) {
+                            $borderAttributes = $borderStyle->attributes($namespaces['ss']);
+                            $thisBorder = [];
+                            foreach ($borderAttributes as $borderStyleKey => $borderStyleValue) {
+                                switch ($borderStyleKey) {
+                                    case 'LineStyle':
+                                        $thisBorder['borderStyle'] = Border::BORDER_MEDIUM;
+
+                                        break;
+                                    case 'Weight':
+                                        break;
+                                    case 'Position':
+                                        $borderPosition = strtolower($borderStyleValue);
+
+                                        break;
+                                    case 'Color':
+                                        $borderColour = substr($borderStyleValue, 1);
+                                        $thisBorder['color']['rgb'] = $borderColour;
+
+                                        break;
+                                }
+                            }
+                            if (!empty($thisBorder)) {
+                                if (($borderPosition == 'left') || ($borderPosition == 'right') || ($borderPosition == 'top') || ($borderPosition == 'bottom')) {
+                                    $this->styles[$styleID]['borders'][$borderPosition] = $thisBorder;
+                                }
+                            }
+                        }
+
+                        break;
+                    case 'Font':
+                        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
+                            $styleAttributeValue = (string)$styleAttributeValue;
+                            switch ($styleAttributeKey) {
+                                case 'FontName':
+                                    $this->styles[$styleID]['font']['name'] = $styleAttributeValue;
+
+                                    break;
+                                case 'Size':
+                                    $this->styles[$styleID]['font']['size'] = $styleAttributeValue;
+
+                                    break;
+                                case 'Color':
+                                    $this->styles[$styleID]['font']['color']['rgb'] = substr($styleAttributeValue, 1);
+
+                                    break;
+                                case 'Bold':
+                                    $this->styles[$styleID]['font']['bold'] = true;
+
+                                    break;
+                                case 'Italic':
+                                    $this->styles[$styleID]['font']['italic'] = true;
+
+                                    break;
+                                case 'Underline':
+                                    if (self::identifyFixedStyleValue($underlineStyles, $styleAttributeValue)) {
+                                        $this->styles[$styleID]['font']['underline'] = $styleAttributeValue;
+                                    }
+
+                                    break;
+                            }
+                        }
+
+                        break;
+                    case 'Interior':
+                        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
+                            switch ($styleAttributeKey) {
+                                case 'Color':
+                                    $this->styles[$styleID]['fill']['color']['rgb'] = substr($styleAttributeValue, 1);
+
+                                    break;
+                                case 'Pattern':
+                                    $this->styles[$styleID]['fill']['fillType'] = strtolower($styleAttributeValue);
+
+                                    break;
+                            }
+                        }
+
+                        break;
+                    case 'NumberFormat':
+                        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
+                            $styleAttributeValue = str_replace($fromFormats, $toFormats, $styleAttributeValue);
+                            switch ($styleAttributeValue) {
+                                case 'Short Date':
+                                    $styleAttributeValue = 'dd/mm/yyyy';
+
+                                    break;
+                            }
+                            if ($styleAttributeValue > '') {
+                                $this->styles[$styleID]['numberFormat']['formatCode'] = $styleAttributeValue;
+                            }
+                        }
+
+                        break;
+                    case 'Protection':
+                        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
+                        }
+
+                        break;
+                }
+            }
+        }
+    }
+
 }
