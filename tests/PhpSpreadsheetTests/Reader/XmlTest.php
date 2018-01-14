@@ -5,32 +5,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\BaseReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
-class XEEValidatorTest extends TestCase
+class XmlTest extends TestCase
 {
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheetXEETest;
-
-    /**
-     * @return Spreadsheet
-     */
-    protected function loadXEETestFile()
-    {
-        if (!$this->spreadsheetXEETest) {
-            $filename = '../samples/templates/Excel2003XMLTest.xml';
-
-            // Load into this instance
-            $reader = new Xml();
-            $this->spreadsheetXEETest = $reader->load($filename);
-        }
-
-        return $this->spreadsheetXEETest;
-    }
-
     /**
      * @dataProvider providerInvalidXML
      * @expectedException \PhpOffice\PhpSpreadsheet\Reader\Exception
@@ -48,7 +26,7 @@ class XEEValidatorTest extends TestCase
     public function providerInvalidXML()
     {
         $tests = [];
-        foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestInvalidUTF*.xml') as $file) {
+        foreach (glob(__DIR__ . '/../../data/Reader/Xml/XEETestInvalidUTF*.xml') as $file) {
             $tests[basename($file)] = [realpath($file)];
         }
 
@@ -70,7 +48,7 @@ class XEEValidatorTest extends TestCase
     public function providerInvalidSimpleXML()
     {
         $tests = [];
-        foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestInvalidSimpleXML*.xml') as $file) {
+        foreach (glob(__DIR__ . '/../../data/Reader/Xml/XEETestInvalidSimpleXML*.xml') as $file) {
             $tests[basename($file)] = [realpath($file)];
         }
 
@@ -93,7 +71,7 @@ class XEEValidatorTest extends TestCase
     public function providerValidXML()
     {
         $tests = [];
-        foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestValid*.xml') as $file) {
+        foreach (glob(__DIR__ . '/../../data/Reader/Xml/XEETestValid*.xml') as $file) {
             $tests[basename($file)] = [realpath($file), file_get_contents($file)];
         }
 
@@ -105,7 +83,8 @@ class XEEValidatorTest extends TestCase
      */
     public function testReadHyperlinks()
     {
-        $spreadsheet = $this->loadXEETestFile();
+        $reader = new Xml();
+        $spreadsheet = $reader->load('../samples/templates/Excel2003XMLTest.xml');
         $firstSheet = $spreadsheet->getSheet(0);
 
         $hyperlink = $firstSheet->getCell('L1');
@@ -113,5 +92,12 @@ class XEEValidatorTest extends TestCase
         self::assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
         self::assertEquals('PhpSpreadsheet', $hyperlink->getValue());
         self::assertEquals('http://phpspreadsheet.readthedocs.io/', $hyperlink->getHyperlink()->getUrl());
+    }
+
+    public function testReadWithoutStyle()
+    {
+        $reader = new Xml();
+        $spreadsheet = $reader->load(__DIR__ . '/../../data/Reader/Xml/WithoutStyle.xml');
+        self::assertSame('Test String 1', $spreadsheet->getActiveSheet()->getCell('A1')->getValue());
     }
 }
