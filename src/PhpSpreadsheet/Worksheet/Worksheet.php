@@ -1469,11 +1469,7 @@ class Worksheet implements IComparable
      */
     public function conditionalStylesExists($pCoordinate)
     {
-        if (isset($this->conditionalStylesCollection[strtoupper($pCoordinate)])) {
-            return true;
-        }
-
-        return false;
+        return isset($this->conditionalStylesCollection[strtoupper($pCoordinate)]);
     }
 
     /**
