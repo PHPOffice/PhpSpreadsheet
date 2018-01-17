@@ -1345,17 +1345,17 @@ steps that can be followed to do this:
 1.  Create your PhpSpreadsheet spreadsheet
 2.  Output HTTP headers for the type of document you wish to output
 3.  Use the `\PhpOffice\PhpSpreadsheet\Writer\*` of your choice, and save
-    to "php://output"
+    to `'php://output'`
 
 `\PhpOffice\PhpSpreadsheet\Writer\Xlsx` uses temporary storage when
-writing to php://output. By default, temporary files are stored in the
+writing to `php://output`. By default, temporary files are stored in the
 script's working directory. When there is no access, it falls back to
 the operating system's temporary files location.
 
 **This may not be safe for unauthorized viewing!** Depending on the
 configuration of your operating system, temporary storage can be read by
 anyone using the same temporary storage folder. When confidentiality of
-your document is needed, it is recommended not to use php://output.
+your document is needed, it is recommended not to use `php://output`.
 
 ### HTTP headers
 
