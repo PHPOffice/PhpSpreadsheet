@@ -47,4 +47,15 @@ class DataSeriesValuesTest extends TestCase
         $result = $testInstance->getDataType();
         self::assertEquals($dataTypeValue, $result);
     }
+
+    public function testGetLineWidth()
+    {
+        $dataTypeValue = 40000;
+
+        $testInstance = new DataSeriesValues();
+        $testInstance->setLineWidth($dataTypeValue);
+
+        $result = $testInstance->getLineWidth();
+        self::assertEquals($dataTypeValue, $result);
+    }
 }
