@@ -21,7 +21,7 @@ cache:
 before_script:
   # Deactivate xdebug if we don't do code coverage
   - if [ -z "$COVERAGE" ]; then rm -rfv /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ; fi
-  - composer install
+  - composer install --ignore-platform-reqs
 
 script:
   # PHP_CodeSniffer
