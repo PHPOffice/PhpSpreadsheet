@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -280,7 +281,7 @@ class Csv extends BaseReader
     public function load($pFilename)
     {
         // Create new Spreadsheet
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = IOFactory::getSpreadsheetInstance();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);
