@@ -420,8 +420,6 @@ class Xls extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return bool
      */
     public function canRead($pFilename)
@@ -447,6 +445,8 @@ class Xls extends BaseReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
+     * @return array
      */
     public function listWorksheetNames($pFilename)
     {
@@ -505,6 +505,8 @@ class Xls extends BaseReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
+     * @return array
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -1844,9 +1846,8 @@ class Xls extends BaseReader
     /**
      * Make an RC4 decryptor for the given block.
      *
-     * @param int Block for which to create decrypto
+     * @param int $block Block for which to create decrypto
      * @param string $valContext MD5 context state
-     * @param mixed $block
      *
      * @return Xls\RC4
      */
@@ -7805,6 +7806,8 @@ class Xls extends BaseReader
 
     /**
      * @param int $rknum
+     *
+     * @return float
      */
     private static function getIEEE754($rknum)
     {

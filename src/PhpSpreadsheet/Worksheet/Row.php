@@ -21,7 +21,7 @@ class Row
     /**
      * Create a new row.
      *
-     * @param Worksheet $parent
+     * @param Worksheet $worksheet
      * @param int $rowIndex
      */
     public function __construct(Worksheet $worksheet = null, $rowIndex = 1)

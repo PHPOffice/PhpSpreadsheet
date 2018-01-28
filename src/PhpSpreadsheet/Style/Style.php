@@ -568,6 +568,8 @@ class Style extends Supervisor
      * Set quote prefix.
      *
      * @param bool $pValue
+     *
+     * @return Style
      */
     public function setQuotePrefix($pValue)
     {

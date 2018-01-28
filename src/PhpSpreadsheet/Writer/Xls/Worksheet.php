@@ -687,16 +687,11 @@ class Worksheet extends BIFFwriter
      * Write a string to the specified row and column (zero indexed).
      * This is the BIFF8 version (no 255 chars limit).
      * $format is optional.
-     * Returns  0 : normal termination
-     *         -2 : row or column out of range
-     *         -3 : long string truncated to 255 chars.
      *
      * @param int $row Zero indexed row
      * @param int $col Zero indexed column
      * @param string $str The string to write
      * @param mixed $xfIndex The XF format index for the cell
-     *
-     * @return int
      */
     private function writeLabelSst($row, $col, $str, $xfIndex)
     {
@@ -731,6 +726,8 @@ class Worksheet extends BIFFwriter
      * @param int $row Zero indexed row
      * @param int $col Zero indexed column
      * @param mixed $xfIndex The XF format index
+     *
+     * @return int
      */
     public function writeBlank($row, $col, $xfIndex)
     {
@@ -752,6 +749,8 @@ class Worksheet extends BIFFwriter
      * @param int $value
      * @param bool $isError Error or Boolean?
      * @param int $xfIndex
+     *
+     * @return int
      */
     private function writeBoolErr($row, $col, $value, $isError, $xfIndex)
     {
@@ -2659,8 +2658,6 @@ class Worksheet extends BIFFwriter
 
     /**
      * Store the DATAVALIDATIONS and DATAVALIDATION records.
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeDataValidity()
     {

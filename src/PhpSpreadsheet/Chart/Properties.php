@@ -112,6 +112,8 @@ abstract class Properties
 
     /**
      * @param float $width
+     *
+     * @return float
      */
     protected function getExcelPointsWidth($width)
     {
@@ -120,6 +122,8 @@ abstract class Properties
 
     /**
      * @param float $angle
+     *
+     * @return float
      */
     protected function getExcelPointsAngle($angle)
     {

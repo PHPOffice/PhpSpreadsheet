@@ -69,7 +69,7 @@ class Gnumeric extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
+     * @return array
      */
     public function listWorksheetNames($pFilename)
     {
@@ -98,7 +98,7 @@ class Gnumeric extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
+     * @return array
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -144,12 +144,14 @@ class Gnumeric extends BaseReader
 
     /**
      * @param string $filename
+     *
+     * @return string
      */
     private function gzfileGetContents($filename)
     {
         $file = @gzopen($filename, 'rb');
+        $data = '';
         if ($file !== false) {
-            $data = '';
             while (!gzeof($file)) {
                 $data .= gzread($file, 1024);
             }

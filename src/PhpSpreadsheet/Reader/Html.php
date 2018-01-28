@@ -197,6 +197,8 @@ class Html extends BaseReader
      * Set input encoding.
      *
      * @param string $pValue Input encoding, eg: 'ANSI'
+     *
+     * @return Html
      */
     public function setInputEncoding($pValue)
     {
@@ -585,7 +587,7 @@ class Html extends BaseReader
      *
      * @param string $xml
      *
-     * @throws Exception
+     * @return string
      */
     public function securityScan($xml)
     {

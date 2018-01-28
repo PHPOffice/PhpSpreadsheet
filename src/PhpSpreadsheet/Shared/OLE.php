@@ -202,9 +202,9 @@ class OLE
     }
 
     /**
-     * @param int block id
-     * @param int byte offset from beginning of file
-     * @param mixed $blockId
+     * @param int $blockId byte offset from beginning of file
+     *
+     * @return int
      */
     public function _getBlockOffset($blockId)
     {

@@ -20,6 +20,8 @@ class Chart
      * @param SimpleXMLElement $component
      * @param string $name
      * @param string $format
+     *
+     * @return null|bool|float|int|string
      */
     private static function getAttribute(SimpleXMLElement $component, $name, $format)
     {
@@ -51,6 +53,8 @@ class Chart
     /**
      * @param SimpleXMLElement $chartElements
      * @param string $chartName
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Chart\Chart
      */
     public static function readChart(SimpleXMLElement $chartElements, $chartName)
     {

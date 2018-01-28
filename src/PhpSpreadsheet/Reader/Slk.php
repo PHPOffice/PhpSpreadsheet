@@ -51,8 +51,6 @@ class Slk extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return bool
      */
     public function canRead($pFilename)
@@ -84,6 +82,8 @@ class Slk extends BaseReader
      * Set input encoding.
      *
      * @param string $pValue Input encoding, eg: 'ANSI'
+     *
+     * @return Slk
      */
     public function setInputEncoding($pValue)
     {
@@ -108,6 +108,8 @@ class Slk extends BaseReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
+     * @return array
      */
     public function listWorksheetInfo($pFilename)
     {

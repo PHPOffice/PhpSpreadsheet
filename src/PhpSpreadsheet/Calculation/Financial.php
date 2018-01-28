@@ -15,7 +15,7 @@ class Financial
      *
      * Returns a boolean TRUE/FALSE indicating if this date is the last date of the month
      *
-     * @param DateTime $testDate The date for testing
+     * @param \DateTime $testDate The date for testing
      *
      * @return bool
      */
@@ -185,22 +185,17 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param mixed issue The security's issue date
-     * @param mixed settlement The security's settlement (or maturity) date
-     * @param float rate The security's annual coupon rate
-     * @param float par The security's par value.
+     * @param mixed $issue The security's issue date
+     * @param mixed $settlement The security's settlement (or maturity) date
+     * @param float $rate The security's annual coupon rate
+     * @param float $par The security's par value.
      *                                    If you omit par, ACCRINT uses $1,000.
-     * @param int basis The type of day count to use.
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $issue
-     * @param mixed $settlement
-     * @param mixed $rate
-     * @param mixed $par
-     * @param mixed $basis
      *
      * @return float
      */
@@ -248,25 +243,18 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param float cost The cost of the asset
-     * @param mixed purchased Date of the purchase of the asset
-     * @param mixed firstPeriod Date of the end of the first period
-     * @param mixed salvage The salvage value at the end of the life of the asset
-     * @param float period The period
-     * @param float rate Rate of depreciation
-     * @param int basis The type of day count to use.
+     * @param float $cost The cost of the asset
+     * @param mixed $purchased Date of the purchase of the asset
+     * @param mixed $firstPeriod Date of the end of the first period
+     * @param mixed $salvage The salvage value at the end of the life of the asset
+     * @param float $period The period
+     * @param float $rate Rate of depreciation
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $cost
-     * @param mixed $purchased
-     * @param mixed $firstPeriod
-     * @param mixed $salvage
-     * @param mixed $period
-     * @param mixed $rate
-     * @param mixed $basis
      *
      * @return float
      */
@@ -333,25 +321,18 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param float cost The cost of the asset
-     * @param mixed purchased Date of the purchase of the asset
-     * @param mixed firstPeriod Date of the end of the first period
-     * @param mixed salvage The salvage value at the end of the life of the asset
-     * @param float period The period
-     * @param float rate Rate of depreciation
-     * @param int basis The type of day count to use.
+     * @param float $cost The cost of the asset
+     * @param mixed $purchased Date of the purchase of the asset
+     * @param mixed $firstPeriod Date of the end of the first period
+     * @param mixed $salvage The salvage value at the end of the life of the asset
+     * @param float $period The period
+     * @param float $rate Rate of depreciation
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $cost
-     * @param mixed $purchased
-     * @param mixed $firstPeriod
-     * @param mixed $salvage
-     * @param mixed $period
-     * @param mixed $rate
-     * @param mixed $basis
      *
      * @return float
      */
@@ -399,12 +380,12 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param mixed settlement The security's settlement date.
+     * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
-     * @param mixed maturity The security's maturity date.
+     * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param int frequency the number of coupon payments per year.
+     * @param int $frequency the number of coupon payments per year.
      *                                    Valid frequency values are:
      *                                        1    Annual
      *                                        2    Semi-Annual
@@ -413,16 +394,12 @@ class Financial
      *                                    also available
      *                                        6    Bimonthly
      *                                        12    Monthly
-     * @param int basis The type of day count to use.
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $frequency
-     * @param mixed $basis
      *
      * @return float
      */
@@ -462,12 +439,12 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param mixed settlement The security's settlement date.
+     * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
-     * @param mixed maturity The security's maturity date.
+     * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param mixed frequency the number of coupon payments per year.
+     * @param mixed $frequency the number of coupon payments per year.
      *                                    Valid frequency values are:
      *                                        1    Annual
      *                                        2    Semi-Annual
@@ -476,16 +453,12 @@ class Financial
      *                                    also available
      *                                        6    Bimonthly
      *                                        12    Monthly
-     * @param int basis The type of day count to use.
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param int $frequency
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $basis
      *
      * @return float
      */
@@ -540,12 +513,12 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param mixed settlement The security's settlement date.
+     * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
-     * @param mixed maturity The security's maturity date.
+     * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param mixed frequency the number of coupon payments per year.
+     * @param mixed $frequency the number of coupon payments per year.
      *                                    Valid frequency values are:
      *                                        1    Annual
      *                                        2    Semi-Annual
@@ -554,16 +527,12 @@ class Financial
      *                                    also available
      *                                        6    Bimonthly
      *                                        12    Monthly
-     * @param int basis The type of day count to use.
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $frequency
-     * @param mixed $basis
      *
      * @return float
      */
@@ -603,12 +572,12 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param mixed settlement The security's settlement date.
+     * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
-     * @param mixed maturity The security's maturity date.
+     * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param mixed frequency the number of coupon payments per year.
+     * @param mixed $frequency the number of coupon payments per year.
      *                                    Valid frequency values are:
      *                                        1    Annual
      *                                        2    Semi-Annual
@@ -617,16 +586,12 @@ class Financial
      *                                    also available
      *                                        6    Bimonthly
      *                                        12    Monthly
-     * @param int basis The type of day count to use.
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $frequency
-     * @param mixed $basis
      *
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
@@ -665,12 +630,12 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param mixed settlement The security's settlement date.
+     * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
-     * @param mixed maturity The security's maturity date.
+     * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param mixed frequency the number of coupon payments per year.
+     * @param mixed $frequency the number of coupon payments per year.
      *                                    Valid frequency values are:
      *                                        1    Annual
      *                                        2    Semi-Annual
@@ -679,16 +644,12 @@ class Financial
      *                                    also available
      *                                        6    Bimonthly
      *                                        12    Monthly
-     * @param int basis The type of day count to use.
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $frequency
-     * @param mixed $basis
      *
      * @return int
      */
@@ -741,12 +702,12 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param mixed settlement The security's settlement date.
+     * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
-     * @param mixed maturity The security's maturity date.
+     * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param mixed frequency the number of coupon payments per year.
+     * @param mixed $frequency the number of coupon payments per year.
      *                                    Valid frequency values are:
      *                                        1    Annual
      *                                        2    Semi-Annual
@@ -755,16 +716,12 @@ class Financial
      *                                    also available
      *                                        6    Bimonthly
      *                                        12    Monthly
-     * @param int basis The type of day count to use.
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $frequency
-     * @param mixed $basis
      *
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
@@ -903,20 +860,15 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param float cost Initial cost of the asset
-     * @param float salvage Value at the end of the depreciation.
+     * @param float $cost Initial cost of the asset
+     * @param float $salvage Value at the end of the depreciation.
      *                                (Sometimes called the salvage value of the asset)
-     * @param int life Number of periods over which the asset is depreciated.
+     * @param int $life Number of periods over which the asset is depreciated.
      *                                (Sometimes called the useful life of the asset)
-     * @param int period The period for which you want to calculate the
+     * @param int $period The period for which you want to calculate the
      *                                depreciation. Period must use the same units as life.
-     * @param int month Number of months in the first year. If month is omitted,
+     * @param int $month Number of months in the first year. If month is omitted,
      *                                it defaults to 12.
-     * @param mixed $cost
-     * @param mixed $salvage
-     * @param mixed $life
-     * @param mixed $period
-     * @param mixed $month
      *
      * @return float
      */
@@ -977,21 +929,16 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param float cost Initial cost of the asset
-     * @param float salvage Value at the end of the depreciation.
+     * @param float $cost Initial cost of the asset
+     * @param float $salvage Value at the end of the depreciation.
      *                                (Sometimes called the salvage value of the asset)
-     * @param int life Number of periods over which the asset is depreciated.
+     * @param int $life Number of periods over which the asset is depreciated.
      *                                (Sometimes called the useful life of the asset)
-     * @param int period The period for which you want to calculate the
+     * @param int $period The period for which you want to calculate the
      *                                depreciation. Period must use the same units as life.
-     * @param float factor The rate at which the balance declines.
+     * @param float $factor The rate at which the balance declines.
      *                                If factor is omitted, it is assumed to be 2 (the
      *                                double-declining balance method).
-     * @param mixed $cost
-     * @param mixed $salvage
-     * @param mixed $life
-     * @param mixed $period
-     * @param mixed $factor
      *
      * @return float
      */
@@ -1043,24 +990,19 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param mixed settlement The security's settlement date.
+     * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
-     * @param mixed maturity The security's maturity date.
+     * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param int price The security's price per $100 face value
-     * @param int redemption The security's redemption value per $100 face value
-     * @param int basis The type of day count to use.
+     * @param int $price The security's price per $100 face value
+     * @param int $redemption The security's redemption value per $100 face value
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $price
-     * @param mixed $redemption
-     * @param mixed $basis
      *
      * @return float
      */
@@ -1731,23 +1673,18 @@ class Financial
      *
      * Returns the price per $100 face value of a discounted security.
      *
-     * @param mixed settlement The security's settlement date.
+     * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue date when the security is traded to the buyer.
-     * @param mixed maturity The security's maturity date.
+     * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param int discount The security's discount rate
-     * @param int redemption The security's redemption value per $100 face value
-     * @param int basis The type of day count to use.
+     * @param int $discount The security's discount rate
+     * @param int $redemption The security's redemption value per $100 face value
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $discount
-     * @param mixed $redemption
-     * @param mixed $basis
      *
      * @return float
      */
@@ -1781,25 +1718,19 @@ class Financial
      *
      * Returns the price per $100 face value of a security that pays interest at maturity.
      *
-     * @param mixed settlement The security's settlement date.
+     * @param mixed $settlement The security's settlement date.
      *                                The security's settlement date is the date after the issue date when the security is traded to the buyer.
-     * @param mixed maturity The security's maturity date.
+     * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param mixed issue The security's issue date
-     * @param int rate The security's interest rate at date of issue
-     * @param int yield The security's annual yield
-     * @param int basis The type of day count to use.
+     * @param mixed $issue The security's issue date
+     * @param int $rate The security's interest rate at date of issue
+     * @param int $yield The security's annual yield
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $issue
-     * @param mixed $rate
-     * @param mixed $yield
-     * @param mixed $basis
      *
      * @return float
      */
@@ -1895,27 +1826,21 @@ class Financial
      *
      * @category Financial Functions
      *
-     * @param float nper The total number of payment periods in an annuity
-     * @param float pmt The payment made each period and cannot change over the life
+     * @param float $nper The total number of payment periods in an annuity
+     * @param float $pmt The payment made each period and cannot change over the life
      *                                    of the annuity.
      *                                Typically, pmt includes principal and interest but no other
      *                                    fees or taxes.
-     * @param float pv The present value - the total amount that a series of future
+     * @param float $pv The present value - the total amount that a series of future
      *                                    payments is worth now
-     * @param float fv The future value, or a cash balance you want to attain after
+     * @param float $fv The future value, or a cash balance you want to attain after
      *                                    the last payment is made. If fv is omitted, it is assumed
      *                                    to be 0 (the future value of a loan, for example, is 0).
-     * @param int type A number 0 or 1 and indicates when payments are due:
+     * @param int $type A number 0 or 1 and indicates when payments are due:
      *                                        0 or omitted    At the end of the period.
      *                                        1                At the beginning of the period.
-     * @param float guess Your guess for what the rate will be.
+     * @param float $guess Your guess for what the rate will be.
      *                                    If you omit guess, it is assumed to be 10 percent.
-     * @param mixed $nper
-     * @param mixed $pmt
-     * @param mixed $pv
-     * @param mixed $fv
-     * @param mixed $type
-     * @param mixed $guess
      *
      * @return float
      **/
@@ -1968,23 +1893,18 @@ class Financial
      *
      * Returns the price per $100 face value of a discounted security.
      *
-     * @param mixed settlement The security's settlement date.
+     * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue date when the security is traded to the buyer.
-     * @param mixed maturity The security's maturity date.
+     * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param int investment The amount invested in the security
-     * @param int discount The security's discount rate
-     * @param int basis The type of day count to use.
+     * @param int $investment The amount invested in the security
+     * @param int $discount The security's discount rate
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $investment
-     * @param mixed $discount
-     * @param mixed $basis
      *
      * @return float
      */
@@ -2078,14 +1998,11 @@ class Financial
      *
      * Returns the bond-equivalent yield for a Treasury bill.
      *
-     * @param mixed settlement The Treasury bill's settlement date.
+     * @param mixed $settlement The Treasury bill's settlement date.
      *                                The Treasury bill's settlement date is the date after the issue date when the Treasury bill is traded to the buyer.
-     * @param mixed maturity The Treasury bill's maturity date.
+     * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param int discount The Treasury bill's discount rate
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $discount
+     * @param int $discount The Treasury bill's discount rate
      *
      * @return float
      */
@@ -2120,14 +2037,11 @@ class Financial
      *
      * Returns the yield for a Treasury bill.
      *
-     * @param mixed settlement The Treasury bill's settlement date.
+     * @param mixed $settlement The Treasury bill's settlement date.
      *                                The Treasury bill's settlement date is the date after the issue date when the Treasury bill is traded to the buyer.
-     * @param mixed maturity The Treasury bill's maturity date.
+     * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param int discount The Treasury bill's discount rate
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $discount
+     * @param int $discount The Treasury bill's discount rate
      *
      * @return float
      */
@@ -2178,14 +2092,11 @@ class Financial
      *
      * Returns the yield for a Treasury bill.
      *
-     * @param mixed settlement The Treasury bill's settlement date.
+     * @param mixed $settlement The Treasury bill's settlement date.
      *                                The Treasury bill's settlement date is the date after the issue date when the Treasury bill is traded to the buyer.
-     * @param mixed maturity The Treasury bill's maturity date.
+     * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param int price The Treasury bill's price per $100 face value
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $price
+     * @param int $price The Treasury bill's price per $100 face value
      *
      * @return float
      */
@@ -2331,23 +2242,18 @@ class Financial
      *
      * Returns the annual yield of a security that pays interest at maturity.
      *
-     * @param mixed settlement The security's settlement date.
+     * @param mixed $settlement The security's settlement date.
      *                                    The security's settlement date is the date after the issue date when the security is traded to the buyer.
-     * @param mixed maturity The security's maturity date.
+     * @param mixed $maturity The security's maturity date.
      *                                    The maturity date is the date when the security expires.
-     * @param int price The security's price per $100 face value
-     * @param int redemption The security's redemption value per $100 face value
-     * @param int basis The type of day count to use.
+     * @param int $price The security's price per $100 face value
+     * @param int $redemption The security's redemption value per $100 face value
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $price
-     * @param mixed $redemption
-     * @param mixed $basis
      *
      * @return float
      */
@@ -2386,25 +2292,19 @@ class Financial
      *
      * Returns the annual yield of a security that pays interest at maturity.
      *
-     * @param mixed settlement The security's settlement date.
+     * @param mixed $settlement The security's settlement date.
      *                                   The security's settlement date is the date after the issue date when the security is traded to the buyer.
-     * @param mixed maturity The security's maturity date.
+     * @param mixed $maturity The security's maturity date.
      *                                   The maturity date is the date when the security expires.
-     * @param mixed issue The security's issue date
-     * @param int rate The security's interest rate at date of issue
-     * @param int price The security's price per $100 face value
-     * @param int basis The type of day count to use.
+     * @param mixed $issue The security's issue date
+     * @param int $rate The security's interest rate at date of issue
+     * @param int $price The security's price per $100 face value
+     * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
-     * @param mixed $settlement
-     * @param mixed $maturity
-     * @param mixed $issue
-     * @param mixed $rate
-     * @param mixed $price
-     * @param mixed $basis
      *
      * @return float
      */

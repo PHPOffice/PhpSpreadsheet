@@ -62,6 +62,8 @@ class Csv extends BaseReader
      * Set input encoding.
      *
      * @param string $pValue Input encoding, eg: 'UTF-8'
+     *
+     * @return Csv
      */
     public function setInputEncoding($pValue)
     {
@@ -433,6 +435,8 @@ class Csv extends BaseReader
      * Set Contiguous.
      *
      * @param bool $contiguous
+     *
+     * @return Csv
      */
     public function setContiguous($contiguous)
     {
@@ -458,8 +462,6 @@ class Csv extends BaseReader
      * Can the current IReader read the file?
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      *
      * @return bool
      */

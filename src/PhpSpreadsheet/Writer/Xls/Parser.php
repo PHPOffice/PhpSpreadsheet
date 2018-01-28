@@ -535,6 +535,8 @@ class Parser
      * Convert a number token to ptgInt or ptgNum.
      *
      * @param mixed $num an integer or double for conversion to its ptg value
+     *
+     * @return string
      */
     private function convertNumber($num)
     {
@@ -597,6 +599,8 @@ class Parser
      *
      * @param string $range An Excel range in the A1:A2
      * @param int $class
+     *
+     * @return string
      */
     private function convertRange2d($range, $class = 0)
     {

@@ -204,7 +204,6 @@ class LookupRef
      *        =ROWS(cellAddress)
      *
      * @param null|array|string $cellAddress An array or array formula, or a reference to a range of cells for which you want the number of rows
-     * @param null|mixed $cellAddress
      *
      * @return int The number of rows in cellAddress
      */

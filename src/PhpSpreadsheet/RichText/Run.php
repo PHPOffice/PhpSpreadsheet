@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\RichText;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class Run extends TextElement implements ITextElement
@@ -40,8 +39,6 @@ class Run extends TextElement implements ITextElement
      * Set font.
      *
      * @param Font $pFont Font
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return ITextElement
      */

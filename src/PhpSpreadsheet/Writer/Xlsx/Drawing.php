@@ -71,8 +71,6 @@ class Drawing extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param \PhpOffice\PhpSpreadsheet\Chart\Chart $pChart
      * @param int $pRelationId
-     *
-     * @throws WriterException
      */
     public function writeChart(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Chart\Chart $pChart, $pRelationId = -1)
     {
@@ -423,8 +421,6 @@ class Drawing extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param string $pReference Reference
      * @param HeaderFooterDrawing $pImage Image
-     *
-     * @throws WriterException
      */
     private function writeVMLHeaderFooterImage(XMLWriter $objWriter, $pReference, HeaderFooterDrawing $pImage)
     {
@@ -464,8 +460,6 @@ class Drawing extends WriterPart
      * Get an array of all drawings.
      *
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws WriterException
      *
      * @return \PhpOffice\PhpSpreadsheet\Worksheet\Drawing[] All drawings in PhpSpreadsheet
      */

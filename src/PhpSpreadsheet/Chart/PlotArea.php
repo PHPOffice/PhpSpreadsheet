@@ -16,7 +16,7 @@ class PlotArea
     /**
      * Plot Series.
      *
-     * @var array of DataSeries
+     * @var DataSeries[]
      */
     private $plotSeries = [];
 
@@ -24,7 +24,7 @@ class PlotArea
      * Create a new PlotArea.
      *
      * @param null|Layout $layout
-     * @param array $plotSeries
+     * @param DataSeries[] $plotSeries
      */
     public function __construct(Layout $layout = null, array $plotSeries = [])
     {
@@ -92,8 +92,7 @@ class PlotArea
     /**
      * Set Plot Series.
      *
-     * @param DataSeries[]
-     * @param mixed $plotSeries
+     * @param DataSeries[] $plotSeries
      *
      * @return PlotArea
      */

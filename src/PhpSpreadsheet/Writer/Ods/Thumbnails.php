@@ -11,8 +11,6 @@ class Thumbnails extends WriterPart
      *
      * @param Spreadsheet $spreadsheet
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @return string XML Output
      */
     public function writeThumbnail(Spreadsheet $spreadsheet = null)

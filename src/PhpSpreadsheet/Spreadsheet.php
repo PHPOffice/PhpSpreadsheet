@@ -258,17 +258,21 @@ class Spreadsheet
     /**
      * return the extension of a filename. Internal use for a array_map callback (php<5.3 don't like lambda function).
      *
-     * @param mixed $ThePath
+     * @param mixed $path
+     *
+     * @return string
      */
-    private function getExtensionOnly($ThePath)
+    private function getExtensionOnly($path)
     {
-        return pathinfo($ThePath, PATHINFO_EXTENSION);
+        return pathinfo($path, PATHINFO_EXTENSION);
     }
 
     /**
      * retrieve Binaries Ribbon Objects.
      *
-     * @param mixed $what
+     * @param string $what
+     *
+     * @return null|array
      */
     public function getRibbonBinObjects($what = 'all')
     {

@@ -73,8 +73,6 @@ class Workbook extends WriterPart
      * Write file version.
      *
      * @param XMLWriter $objWriter XML Writer
-     *
-     * @throws WriterException
      */
     private function writeFileVersion(XMLWriter $objWriter)
     {
@@ -90,8 +88,6 @@ class Workbook extends WriterPart
      * Write WorkbookPr.
      *
      * @param XMLWriter $objWriter XML Writer
-     *
-     * @throws WriterException
      */
     private function writeWorkbookPr(XMLWriter $objWriter)
     {
@@ -111,8 +107,6 @@ class Workbook extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws WriterException
      */
     private function writeBookViews(XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {
@@ -142,8 +136,6 @@ class Workbook extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws WriterException
      */
     private function writeWorkbookProtection(XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {
@@ -170,8 +162,6 @@ class Workbook extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param bool $recalcRequired Indicate whether formulas should be recalculated before writing
-     *
-     * @throws WriterException
      */
     private function writeCalcPr(XMLWriter $objWriter, $recalcRequired = true)
     {
@@ -301,8 +291,6 @@ class Workbook extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param NamedRange $pNamedRange
-     *
-     * @throws WriterException
      */
     private function writeDefinedNameForNamedRange(XMLWriter $objWriter, NamedRange $pNamedRange)
     {
@@ -335,8 +323,6 @@ class Workbook extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param Worksheet $pSheet
      * @param int $pSheetId
-     *
-     * @throws WriterException
      */
     private function writeDefinedNameForAutofilter(XMLWriter $objWriter, Worksheet $pSheet, $pSheetId = 0)
     {
@@ -372,8 +358,6 @@ class Workbook extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param Worksheet $pSheet
      * @param int $pSheetId
-     *
-     * @throws WriterException
      */
     private function writeDefinedNameForPrintTitles(XMLWriter $objWriter, Worksheet $pSheet, $pSheetId = 0)
     {
@@ -416,8 +400,6 @@ class Workbook extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param Worksheet $pSheet
      * @param int $pSheetId
-     *
-     * @throws WriterException
      */
     private function writeDefinedNameForPrintArea(XMLWriter $objWriter, Worksheet $pSheet, $pSheetId = 0)
     {

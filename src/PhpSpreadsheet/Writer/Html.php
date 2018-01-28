@@ -623,8 +623,6 @@ class Html extends BaseWriter
      * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      * @param string $coordinates Cell coordinates
      *
-     * @throws WriterException
-     *
      * @return string
      */
     private function writeImageInCell(Worksheet $pSheet, $coordinates)
@@ -705,8 +703,6 @@ class Html extends BaseWriter
      *
      * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      * @param string $coordinates Cell coordinates
-     *
-     * @throws WriterException
      *
      * @return string
      */
@@ -1123,8 +1119,6 @@ class Html extends BaseWriter
      *
      * @param Worksheet $pSheet The worksheet for the table we are writing
      *
-     * @throws WriterException
-     *
      * @return string
      */
     private function generateTableHeader($pSheet)
@@ -1169,8 +1163,6 @@ class Html extends BaseWriter
 
     /**
      * Generate table footer.
-     *
-     * @throws WriterException
      */
     private function generateTableFooter()
     {
@@ -1435,12 +1427,11 @@ class Html extends BaseWriter
     /**
      * Takes array where of CSS properties / values and converts to CSS string.
      *
-     * @param array
-     * @param mixed $pValue
+     * @param array $pValue
      *
      * @return string
      */
-    private function assembleCSS($pValue = [])
+    private function assembleCSS(array $pValue = [])
     {
         $pairs = [];
         foreach ($pValue as $property => $value) {

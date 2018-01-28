@@ -462,8 +462,6 @@ class BaseDrawing implements IComparable
      *
      * @param Drawing\Shadow $pValue
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return BaseDrawing
      */
     public function setShadow(Drawing\Shadow $pValue = null)

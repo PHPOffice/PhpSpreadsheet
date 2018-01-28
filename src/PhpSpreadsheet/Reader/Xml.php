@@ -126,6 +126,8 @@ class Xml extends BaseReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
+     * @return array
      */
     public function listWorksheetNames($pFilename)
     {
@@ -155,6 +157,8 @@ class Xml extends BaseReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
+     * @return array
      */
     public function listWorksheetInfo($pFilename)
     {

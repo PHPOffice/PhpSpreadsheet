@@ -667,6 +667,8 @@ class Cell
      * Set the formula attributes.
      *
      * @param mixed $pAttributes
+     *
+     * @return Cell
      */
     public function setFormulaAttributes($pAttributes)
     {

@@ -134,8 +134,7 @@ class Font
     /**
      * Map underline.
      *
-     * @param string
-     * @param mixed $underline
+     * @param string $underline
      *
      * @return int
      */

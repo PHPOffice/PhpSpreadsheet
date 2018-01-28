@@ -421,8 +421,7 @@ class GridLines extends Properties
     /**
      * Get Shadow Property.
      *
-     * @param string $elements
-     * @param array $elements
+     * @param string|string[] $elements
      *
      * @return string
      */

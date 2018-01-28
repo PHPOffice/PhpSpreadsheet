@@ -582,8 +582,6 @@ class Worksheet implements IComparable
      *
      * @param string $index Chart index position
      *
-     * @throws Exception
-     *
      * @return Chart|false
      */
     public function getChartByIndex($index)
@@ -605,8 +603,6 @@ class Worksheet implements IComparable
     /**
      * Return an array of the names of charts on this worksheet.
      *
-     * @throws Exception
-     *
      * @return string[] The names of charts
      */
     public function getChartNames()
@@ -623,8 +619,6 @@ class Worksheet implements IComparable
      * Get a chart by name.
      *
      * @param string $chartName Chart name
-     *
-     * @throws Exception
      *
      * @return Chart|false
      */
@@ -1516,10 +1510,8 @@ class Worksheet implements IComparable
      *
      * @param int $columnIndex1 Numeric column coordinate of the cell
      * @param int $row1 Numeric row coordinate of the cell
-     * @param int $columnIndex2 Numeric column coordinate of the range cell
-     * @param int $row2 Numeric row coordinate of the range cell
-     * @param null|int $columnIndex2
-     * @param null|int $row2
+     * @param null|int $columnIndex2 Numeric column coordinate of the range cell
+     * @param null|int $row2 Numeric row coordinate of the range cell
      *
      * @return Style
      */
@@ -1794,8 +1786,9 @@ class Worksheet implements IComparable
      * Set merge cells array for the entire sheet. Use instead mergeCells() to merge
      * a single cell range.
      *
-     * @param array
-     * @param mixed $pValue
+     * @param array $pValue
+     *
+     * @return Worksheet
      */
     public function setMergeCells(array $pValue)
     {
@@ -1810,8 +1803,6 @@ class Worksheet implements IComparable
      * @param string $pRange Cell (e.g. A1) or cell range (e.g. A1:E1)
      * @param string $pPassword Password to unlock the protection
      * @param bool $pAlreadyHashed If the password has already been hashed, set this to true
-     *
-     * @throws Exception
      *
      * @return Worksheet
      */
@@ -1837,8 +1828,6 @@ class Worksheet implements IComparable
      * @param int $row2 Numeric row coordinate of the last cell
      * @param string $password Password to unlock the protection
      * @param bool $alreadyHashed If the password has already been hashed, set this to true
-     *
-     * @throws Exception
      *
      * @return Worksheet
      */
@@ -2311,8 +2300,7 @@ class Worksheet implements IComparable
     /**
      * Set comments array for the entire sheet.
      *
-     * @param array of Comment
-     * @param mixed $pValue
+     * @param Comment[] $pValue
      *
      * @return Worksheet
      */
@@ -2406,8 +2394,6 @@ class Worksheet implements IComparable
      * Select a range of cells.
      *
      * @param string $pCoordinate Cell range, examples: 'A1', 'B2:G5', 'A:C', '3:6'
-     *
-     * @throws Exception
      *
      * @return Worksheet
      */
@@ -2751,6 +2737,8 @@ class Worksheet implements IComparable
      * Get hyperlink.
      *
      * @param string $pCellCoordinate Cell coordinate to get hyperlink for, eg: 'A1'
+     *
+     * @return Hyperlink
      */
     public function getHyperlink($pCellCoordinate)
     {
@@ -2810,6 +2798,8 @@ class Worksheet implements IComparable
      * Get data validation.
      *
      * @param string $pCellCoordinate Cell coordinate to get data validation for, eg: 'A1'
+     *
+     * @return DataValidation
      */
     public function getDataValidation($pCellCoordinate)
     {

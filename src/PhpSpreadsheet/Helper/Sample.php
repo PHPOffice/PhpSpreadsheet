@@ -200,8 +200,6 @@ class Sample
      * @param IWriter $writer
      * @param string $path
      * @param float $callStartTime
-     *
-     * @throws \ReflectionException
      */
     public function logWrite(IWriter $writer, $path, $callStartTime)
     {

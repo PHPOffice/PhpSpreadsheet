@@ -222,10 +222,8 @@ class Workbook extends BIFFwriter
     /**
      * Add a new XF writer.
      *
-     * @param Style
-     * @param bool Is it a style XF?
      * @param Style $style
-     * @param bool $isStyleXf
+     * @param bool $isStyleXf Is it a style XF?
      *
      * @return int Index to XF record
      */

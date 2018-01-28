@@ -1175,7 +1175,6 @@ class MathTrig
      *
      * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be summed
-     * @param mixed $aArgs
      * @param mixed $sumArgs
      *
      * @return float

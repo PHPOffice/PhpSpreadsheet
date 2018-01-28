@@ -974,10 +974,8 @@ class Statistical
      *
      * Returns covariance, the average of the products of deviations for each data point pair.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $yValues
-     * @param null|mixed $xValues
+     * @param mixed $yValues array of mixed Data Series Y
+     * @param null|mixed $xValues array of mixed Data Series X
      *
      * @return float
      */
@@ -1138,10 +1136,8 @@ class Statistical
      *
      * Returns covariance, the average of the products of deviations for each data point pair.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $yValues
-     * @param mixed $xValues
+     * @param mixed $yValues array of mixed Data Series Y
+     * @param mixed $xValues array of mixed Data Series X
      *
      * @return float
      */
@@ -1427,12 +1423,9 @@ class Statistical
      *
      * Calculates, or predicts, a future value by using existing values. The predicted value is a y-value for a given x-value.
      *
-     * @param float Value of X for which we want to find Y
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $xValue
-     * @param mixed $yValues
-     * @param mixed $xValues
+     * @param float $xValue Value of X for which we want to find Y
+     * @param mixed $yValues array of mixed Data Series Y
+     * @param mixed $xValues of mixed Data Series X
      *
      * @return float
      */

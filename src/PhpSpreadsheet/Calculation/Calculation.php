@@ -2315,13 +2315,15 @@ class Calculation
     }
 
     /**
+     * @param string[] $from
+     * @param string[] $to
+     * @param string $formula
      * @param string $fromSeparator
      * @param string $toSeparator
-     * @param mixed $from
-     * @param mixed $to
-     * @param mixed $formula
+     *
+     * @return string
      */
-    private static function translateFormula($from, $to, $formula, $fromSeparator, $toSeparator)
+    private static function translateFormula(array $from, array $to, $formula, $fromSeparator, $toSeparator)
     {
         //    Convert any Excel function names to the required language
         if (self::$localeLanguage !== 'en_us') {
@@ -2573,8 +2575,6 @@ class Calculation
      *
      * @param string $formula Formula to parse
      *
-     * @throws Exception
-     *
      * @return array
      */
     public function parseFormula($formula)
@@ -2749,6 +2749,8 @@ class Calculation
      *                                            0 = no resize
      *                                            1 = shrink to fit
      *                                            2 = extend to fit
+     *
+     * @return array
      */
     private static function checkMatrixOperands(&$operand1, &$operand2, $resize = 1)
     {
@@ -4087,8 +4089,6 @@ class Calculation
      * @param Worksheet $pSheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
-     * @throws Exception
-     *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
     public function extractCellRange(&$pRange = 'A1', Worksheet $pSheet = null, $resetLog = true)
@@ -4137,8 +4137,6 @@ class Calculation
      * @param string &$pRange String based range representation
      * @param Worksheet $pSheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
-     *
-     * @throws Exception
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
