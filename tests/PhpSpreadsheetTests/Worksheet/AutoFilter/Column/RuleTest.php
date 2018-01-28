@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 class RuleTest extends TestCase
 {
     private $testAutoFilterRuleObject;
+
     private $mockAutoFilterColumnObject;
 
     public function setUp()

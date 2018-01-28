@@ -509,6 +509,7 @@ class Font
                 break;
             default:
                 throw new PhpSpreadsheetException('Unknown font name "' . $name . '". Cannot map to TrueType font file');
+
                 break;
         }
 

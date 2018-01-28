@@ -11,20 +11,20 @@ $spreadsheet = new Spreadsheet();
 // Set document properties
 $helper->log('Set document properties');
 $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
-        ->setLastModifiedBy('Maarten Balliauw')
-        ->setTitle('PhpSpreadsheet Test Document')
-        ->setSubject('PhpSpreadsheet Test Document')
-        ->setDescription('Test document for PhpSpreadsheet, generated using PHP classes.')
-        ->setKeywords('office PhpSpreadsheet php')
-        ->setCategory('Test result file');
+    ->setLastModifiedBy('Maarten Balliauw')
+    ->setTitle('PhpSpreadsheet Test Document')
+    ->setSubject('PhpSpreadsheet Test Document')
+    ->setDescription('Test document for PhpSpreadsheet, generated using PHP classes.')
+    ->setKeywords('office PhpSpreadsheet php')
+    ->setCategory('Test result file');
 
 // Create the worksheet
 $helper->log('Add data');
 $spreadsheet->setActiveSheetIndex(0);
 $spreadsheet->getActiveSheet()->setCellValue('A1', 'Year')
-        ->setCellValue('B1', 'Quarter')
-        ->setCellValue('C1', 'Country')
-        ->setCellValue('D1', 'Sales');
+    ->setCellValue('B1', 'Quarter')
+    ->setCellValue('C1', 'Country')
+    ->setCellValue('D1', 'Sales');
 
 $dataArray = [
     ['2010', 'Q1', 'United States', 790],

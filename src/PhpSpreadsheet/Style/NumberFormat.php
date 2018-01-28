@@ -415,6 +415,7 @@ class NumberFormat extends Supervisor
             //    fractional seconds - no php equivalent
             '.s' => '',
         ];
+
     /**
      * Search/replace values to convert Excel date/time format masks hours to PHP format masks (24 hr clock).
      *
@@ -424,6 +425,7 @@ class NumberFormat extends Supervisor
             'hh' => 'H',
             'h' => 'G',
         ];
+
     /**
      * Search/replace values to convert Excel date/time format masks hours to PHP format masks (12 hr clock).
      *
@@ -687,9 +689,9 @@ class NumberFormat extends Supervisor
                     // Strip #
                     $format = preg_replace('/\\#/', '0', $format);
 
-                    $n = "/\[[^\]]+\]/";
+                    $n = '/\\[[^\\]]+\\]/';
                     $m = preg_replace($n, '', $format);
-                    $number_regex = "/(0+)(\.?)(0*)/";
+                    $number_regex = '/(0+)(\\.?)(0*)/';
                     if (preg_match($number_regex, $m, $matches)) {
                         $left = $matches[1];
                         $dec = $matches[2];

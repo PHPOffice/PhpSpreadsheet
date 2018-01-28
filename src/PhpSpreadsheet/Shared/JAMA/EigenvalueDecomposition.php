@@ -37,6 +37,7 @@ class EigenvalueDecomposition
      * @var array
      */
     private $d = [];
+
     private $e = [];
 
     /**
@@ -66,6 +67,7 @@ class EigenvalueDecomposition
      * @var float
      */
     private $cdivr;
+
     private $cdivi;
 
     /**
@@ -439,7 +441,7 @@ class EigenvalueDecomposition
                 $this->e[$n] = 0.0;
                 --$n;
                 $iter = 0;
-                // Two roots found
+            // Two roots found
             } elseif ($l == $n - 1) {
                 $w = $this->H[$n][$n - 1] * $this->H[$n - 1][$n];
                 $p = ($this->H[$n - 1][$n - 1] - $this->H[$n][$n]) / 2.0;
@@ -496,7 +498,7 @@ class EigenvalueDecomposition
                 }
                 $n = $n - 2;
                 $iter = 0;
-                // No convergence yet
+            // No convergence yet
             } else {
                 // Form shift
                 $x = $this->H[$n][$n];

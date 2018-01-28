@@ -6,7 +6,9 @@ class RC4
 {
     // Context
     protected $s = [];
+
     protected $i = 0;
+
     protected $j = 0;
 
     /**

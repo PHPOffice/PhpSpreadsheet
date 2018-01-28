@@ -219,7 +219,9 @@ class Html extends BaseReader
 
     //    Data Array used for testing only, should write to Spreadsheet object on completion of tests
     protected $dataArray = [];
+
     protected $tableLevel = 0;
+
     protected $nestedColumn = ['A'];
 
     protected function setTableStartColumn($column)

@@ -197,9 +197,9 @@ class GridLines extends Properties
     public function setGlowProperties($size, $color_value = null, $color_alpha = null, $color_type = null)
     {
         $this
-                ->activateObject()
-                ->setGlowSize($size)
-                ->setGlowColor($color_value, $color_alpha, $color_type);
+            ->activateObject()
+            ->setGlowSize($size)
+            ->setGlowColor($color_value, $color_alpha, $color_type);
     }
 
     /**

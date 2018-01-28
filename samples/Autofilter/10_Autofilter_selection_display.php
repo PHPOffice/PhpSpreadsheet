@@ -15,22 +15,22 @@ $spreadsheet = new Spreadsheet();
 // Set document properties
 $helper->log('Set document properties');
 $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
-        ->setLastModifiedBy('Maarten Balliauw')
-        ->setTitle('PhpSpreadsheet Test Document')
-        ->setSubject('PhpSpreadsheet Test Document')
-        ->setDescription('Test document for PhpSpreadsheet, generated using PHP classes.')
-        ->setKeywords('office PhpSpreadsheet php')
-        ->setCategory('Test result file');
+    ->setLastModifiedBy('Maarten Balliauw')
+    ->setTitle('PhpSpreadsheet Test Document')
+    ->setSubject('PhpSpreadsheet Test Document')
+    ->setDescription('Test document for PhpSpreadsheet, generated using PHP classes.')
+    ->setKeywords('office PhpSpreadsheet php')
+    ->setCategory('Test result file');
 
 // Create the worksheet
 $helper->log('Add data');
 $spreadsheet->setActiveSheetIndex(0);
 $spreadsheet->getActiveSheet()->setCellValue('A1', 'Financial Year')
-        ->setCellValue('B1', 'Financial Period')
-        ->setCellValue('C1', 'Country')
-        ->setCellValue('D1', 'Date')
-        ->setCellValue('E1', 'Sales Value')
-        ->setCellValue('F1', 'Expenditure');
+    ->setCellValue('B1', 'Financial Period')
+    ->setCellValue('C1', 'Country')
+    ->setCellValue('D1', 'Date')
+    ->setCellValue('E1', 'Sales Value')
+    ->setCellValue('F1', 'Expenditure');
 $startYear = $endYear = $currentYear = date('Y');
 --$startYear;
 ++$endYear;
@@ -110,47 +110,47 @@ $helper->log('Set active filters');
 // Filter the Country column on a filter value of countries beginning with the letter U (or Japan)
 //     We use * as a wildcard, so specify as U* and using a wildcard requires customFilter
 $autoFilter->getColumn('C')
-        ->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER)
-        ->createRule()
-        ->setRule(
-            Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-            'u*'
-        )
-        ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+    ->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER)
+    ->createRule()
+    ->setRule(
+        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        'u*'
+    )
+    ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 $autoFilter->getColumn('C')
-        ->createRule()
-        ->setRule(
-            Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-            'japan'
-        )
-        ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+    ->createRule()
+    ->setRule(
+        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        'japan'
+    )
+    ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 // Filter the Date column on a filter value of the first day of every period of the current year
 //	We us a dateGroup ruletype for this, although it is still a standard filter
 foreach ($periods as $period) {
     $endDate = date('t', mktime(0, 0, 0, $period, 1, $currentYear));
 
     $autoFilter->getColumn('D')
-            ->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER)
-            ->createRule()
-            ->setRule(
-                Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-                [
-                'year' => $currentYear,
-                'month' => $period,
-                'day' => $endDate,
-                    ]
-            )
-            ->setRuleType(Rule::AUTOFILTER_RULETYPE_DATEGROUP);
-}
-// Display only sales values that are blank
-//     Standard filter, operator equals, and value of NULL
-$autoFilter->getColumn('E')
         ->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER)
         ->createRule()
         ->setRule(
             Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-            ''
-        );
+            [
+                'year' => $currentYear,
+                'month' => $period,
+                'day' => $endDate,
+            ]
+        )
+        ->setRuleType(Rule::AUTOFILTER_RULETYPE_DATEGROUP);
+}
+// Display only sales values that are blank
+//     Standard filter, operator equals, and value of NULL
+$autoFilter->getColumn('E')
+    ->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER)
+    ->createRule()
+    ->setRule(
+        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        ''
+    );
 
 // Execute filtering
 $helper->log('Execute filtering');

@@ -469,6 +469,7 @@ class AutoFilter
      * @var array
      */
     private static $fromReplace = ['\*', '\?', '~~', '~.*', '~.?'];
+
     private static $toReplace = ['.*', '.', '~', '\*', '\?'];
 
     /**

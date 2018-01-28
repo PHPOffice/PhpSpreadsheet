@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 class ColumnTest extends TestCase
 {
     public $mockWorksheet;
+
     public $mockColumn;
 
     public function setUp()

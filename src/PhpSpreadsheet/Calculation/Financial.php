@@ -1843,7 +1843,7 @@ class Financial
      *                                    If you omit guess, it is assumed to be 10 percent.
      *
      * @return float
-     **/
+     */
     public static function RATE($nper, $pmt, $pv, $fv = 0.0, $type = 0, $guess = 0.1)
     {
         $nper = (int) Functions::flattenSingleValue($nper);

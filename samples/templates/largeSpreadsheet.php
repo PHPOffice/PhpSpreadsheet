@@ -9,12 +9,12 @@ $spreadsheet = new Spreadsheet();
 // Set document properties
 $helper->log('Set properties');
 $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
-        ->setLastModifiedBy('Maarten Balliauw')
-        ->setTitle('Office 2007 XLSX Test Document')
-        ->setSubject('Office 2007 XLSX Test Document')
-        ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
-        ->setKeywords('office 2007 openxml php')
-        ->setCategory('Test result file');
+    ->setLastModifiedBy('Maarten Balliauw')
+    ->setTitle('Office 2007 XLSX Test Document')
+    ->setSubject('Office 2007 XLSX Test Document')
+    ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
+    ->setKeywords('office 2007 openxml php')
+    ->setCategory('Test result file');
 
 // Create a first sheet
 $helper->log('Add data');
@@ -33,8 +33,8 @@ $spreadsheet->getActiveSheet()->getColumnDimension('D')->setVisible(false);
 // Set outline levels
 $helper->log('Set outline levels');
 $spreadsheet->getActiveSheet()->getColumnDimension('E')->setOutlineLevel(1)
-        ->setVisible(false)
-        ->setCollapsed(true);
+    ->setVisible(false)
+    ->setCollapsed(true);
 
 // Freeze panes
 $helper->log('Freeze panes');
@@ -47,10 +47,10 @@ $spreadsheet->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 // Add data
 for ($i = 2; $i <= 5000; ++$i) {
     $spreadsheet->getActiveSheet()->setCellValue('A' . $i, "FName $i")
-            ->setCellValue('B' . $i, "LName $i")
-            ->setCellValue('C' . $i, "PhoneNo $i")
-            ->setCellValue('D' . $i, "FaxNo $i")
-            ->setCellValue('E' . $i, true);
+        ->setCellValue('B' . $i, "LName $i")
+        ->setCellValue('C' . $i, "PhoneNo $i")
+        ->setCellValue('D' . $i, "FaxNo $i")
+        ->setCellValue('E' . $i, true);
 }
 
 return $spreadsheet;

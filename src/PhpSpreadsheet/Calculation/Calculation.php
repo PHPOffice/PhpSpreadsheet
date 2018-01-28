@@ -171,6 +171,7 @@ class Calculation
      * @var string
      */
     private static $localeArgumentSeparator = ',';
+
     private static $localeFunctions = [];
 
     /**
@@ -2355,6 +2356,7 @@ class Calculation
     }
 
     private static $functionReplaceFromExcel = null;
+
     private static $functionReplaceToLocale = null;
 
     public function _translateFormulaToLocale($formula)
@@ -2383,6 +2385,7 @@ class Calculation
     }
 
     private static $functionReplaceFromLocale = null;
+
     private static $functionReplaceToExcel = null;
 
     public function _translateFormulaToEnglish($formula)
@@ -2443,7 +2446,7 @@ class Calculation
             }
             //    Return strings wrapped in quotes
             return '"' . $value . '"';
-            //    Convert numeric errors to NaN error
+        //    Convert numeric errors to NaN error
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
             return Functions::NAN();
         }
@@ -3678,7 +3681,7 @@ class Calculation
                 }
                 $stack->push('Value', $cellValue, $cellRef);
 
-                // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
+            // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $token, $matches)) {
                 $functionName = $matches[1];
                 $argCount = $stack->pop();
@@ -3763,7 +3766,7 @@ class Calculation
                     $this->debugLog->writeDebugLog('Evaluating Constant ', $excelConstant, ' as ', $this->showTypeDetails(self::$excelConstants[$excelConstant]));
                 } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == '"') || ($token[0] == '#')) {
                     $stack->push('Value', $token);
-                    // if the token is a named range, push the named range name onto the stack
+                // if the token is a named range, push the named range name onto the stack
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $token, $matches)) {
                     $namedRange = $matches[6];
                     $this->debugLog->writeDebugLog('Evaluating Named Range ', $namedRange);

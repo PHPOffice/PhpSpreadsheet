@@ -92,6 +92,7 @@ class Spreadsheet
      * @var string
      */
     private $macrosCode;
+
     /**
      * macrosCertificate : if macros are signed, contains binary data vbaProjectSignature.bin file, null if not signed.
      *
@@ -281,6 +282,7 @@ class Spreadsheet
         switch ($what) {
             case 'all':
                 return $this->ribbonBinObjects;
+
                 break;
             case 'names':
             case 'data':

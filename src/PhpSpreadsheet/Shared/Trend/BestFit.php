@@ -8,49 +8,49 @@ class BestFit
      * Indicator flag for a calculation error.
      *
      * @var bool
-     **/
+     */
     protected $error = false;
 
     /**
      * Algorithm type to use for best-fit.
      *
      * @var string
-     **/
+     */
     protected $bestFitType = 'undetermined';
 
     /**
      * Number of entries in the sets of x- and y-value arrays.
      *
      * @var int
-     **/
+     */
     protected $valueCount = 0;
 
     /**
      * X-value dataseries of values.
      *
      * @var float[]
-     **/
+     */
     protected $xValues = [];
 
     /**
      * Y-value dataseries of values.
      *
      * @var float[]
-     **/
+     */
     protected $yValues = [];
 
     /**
      * Flag indicating whether values should be adjusted to Y=0.
      *
      * @var bool
-     **/
+     */
     protected $adjustToZero = false;
 
     /**
      * Y-value series of best-fit values.
      *
      * @var float[]
-     **/
+     */
     protected $yBestFitValues = [];
 
     protected $goodnessOfFit = 1;

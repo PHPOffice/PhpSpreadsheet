@@ -12,12 +12,12 @@ $spreadsheet = new Spreadsheet();
 // Set document properties
 $helper->log('Set document properties');
 $spreadsheet->getProperties()->setCreator('Mark Baker')
-        ->setLastModifiedBy('Mark Baker')
-        ->setTitle('Office 2007 XLSX Test Document')
-        ->setSubject('Office 2007 XLSX Test Document')
-        ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
-        ->setKeywords('office 2007 openxml php')
-        ->setCategory('Test result file');
+    ->setLastModifiedBy('Mark Baker')
+    ->setTitle('Office 2007 XLSX Test Document')
+    ->setSubject('Office 2007 XLSX Test Document')
+    ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
+    ->setKeywords('office 2007 openxml php')
+    ->setCategory('Test result file');
 
 // Add some data
 $helper->log('Add some data');
@@ -38,10 +38,10 @@ $helper->log('Set cell protection');
 $helper->log('Set sheet security');
 $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
 $spreadsheet->getActiveSheet()
-        ->getStyle('A2:B2')
-        ->getProtection()->setLocked(
-            Protection::PROTECTION_UNPROTECTED
-        );
+    ->getStyle('A2:B2')
+    ->getProtection()->setLocked(
+        Protection::PROTECTION_UNPROTECTED
+    );
 
 // Save
 $helper->write($spreadsheet, __FILE__);

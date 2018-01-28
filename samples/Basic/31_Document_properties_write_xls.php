@@ -15,9 +15,9 @@ $helper->logRead($inputFileType, $inputFileName, $callStartTime);
 
 $helper->log('Adjust properties');
 $spreadsheet->getProperties()->setTitle('Office 95 XLS Test Document')
-        ->setSubject('Office 95 XLS Test Document')
-        ->setDescription('Test XLS document, generated using PhpSpreadsheet')
-        ->setKeywords('office 95 biff php');
+    ->setSubject('Office 95 XLS Test Document')
+    ->setDescription('Test XLS document, generated using PhpSpreadsheet')
+    ->setKeywords('office 95 biff php');
 
 // Save Excel 95 file
 $filename = $helper->getFilename(__FILE__, 'xls');

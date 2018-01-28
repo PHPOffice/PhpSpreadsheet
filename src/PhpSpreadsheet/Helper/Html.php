@@ -533,14 +533,21 @@ class Html
     ];
 
     protected $face;
+
     protected $size;
+
     protected $color;
 
     protected $bold = false;
+
     protected $italic = false;
+
     protected $underline = false;
+
     protected $superscript = false;
+
     protected $subscript = false;
+
     protected $strikethrough = false;
 
     protected $startTagCallbacks = [

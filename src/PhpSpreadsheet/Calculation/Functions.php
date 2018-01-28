@@ -533,7 +533,7 @@ class Functions
             //    Range of cells is an error
             if (self::isCellValue($a)) {
                 return 16;
-                //    Test for Matrix
+            //    Test for Matrix
             } elseif (self::isMatrixValue($a)) {
                 return 64;
             }

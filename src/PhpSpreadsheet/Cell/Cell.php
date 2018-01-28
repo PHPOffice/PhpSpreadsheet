@@ -234,6 +234,7 @@ class Cell
                 break;
             default:
                 throw new Exception('Invalid datatype: ' . $pDataType);
+
                 break;
         }
 
@@ -587,7 +588,7 @@ class Cell
      *
      * @return int Result of comparison (always -1 or 1, never zero!)
      */
-    public static function compareCells(Cell $a, Cell $b)
+    public static function compareCells(self $a, self $b)
     {
         if ($a->getRow() < $b->getRow()) {
             return -1;

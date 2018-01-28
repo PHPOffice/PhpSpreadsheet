@@ -773,7 +773,7 @@ class ReferenceHelper
         // Is it in another worksheet? Will not have to update anything.
         if (strpos($pCellRange, '!') !== false) {
             return $pCellRange;
-            // Is it a range or a single cell?
+        // Is it a range or a single cell?
         } elseif (!Coordinate::coordinateIsRange($pCellRange)) {
             // Single cell
             return $this->updateSingleCellReference($pCellRange, $pBefore, $pNumCols, $pNumRows);

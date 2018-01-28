@@ -2963,7 +2963,7 @@ class Xls extends BaseReader
      *
      * --    "OpenOffice.org's Documentation of the Microsoft
      *         Excel File Format"
-     **/
+     */
     private function readSst()
     {
         // offset within (spliced) record data
@@ -5035,6 +5035,7 @@ class Xls extends BaseReader
                 case 0x28:
                     // TODO: Investigate structure for .xls SHEETLAYOUT record as saved by MS Office Excel 2007
                     return;
+
                     break;
             }
         }
@@ -5726,6 +5727,7 @@ class Xls extends BaseReader
                                 break;
                             default:
                                 throw new Exception('Unrecognized space type in tAttrSpace token');
+
                                 break;
                         }
                         // offset: 3; size: 1; number of inserted spaces/carriage returns
@@ -5736,6 +5738,7 @@ class Xls extends BaseReader
                         break;
                     default:
                         throw new Exception('Unrecognized attribute flag in tAttr token');
+
                         break;
                 }
 
@@ -6586,6 +6589,7 @@ class Xls extends BaseReader
                         break;
                     default:
                         throw new Exception('Unrecognized function in formula');
+
                         break;
                 }
                 $data = ['function' => $function, 'args' => $args];
@@ -6955,6 +6959,7 @@ class Xls extends BaseReader
                         break;
                     default:
                         throw new Exception('Unrecognized function in formula');
+
                         break;
                 }
                 $data = ['function' => $function, 'args' => $args];
@@ -7088,6 +7093,7 @@ class Xls extends BaseReader
             // Unknown cases    // don't know how to deal with
             default:
                 throw new Exception('Unrecognized token ' . sprintf('%02X', $id) . ' in formula');
+
                 break;
         }
 
@@ -7501,10 +7507,12 @@ class Xls extends BaseReader
                     }
 
                     return $sheetRange;
+
                     break;
                 default:
                     // TODO: external sheet support
                     throw new Exception('Xls reader only supports internal sheets in formulas');
+
                     break;
             }
         }

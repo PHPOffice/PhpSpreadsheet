@@ -11,12 +11,13 @@ class XmlTest extends TestCase
 {
     /**
      * @dataProvider providerInvalidXML
-     * @expectedException \PhpOffice\PhpSpreadsheet\Reader\Exception
      *
      * @param mixed $filename
      */
     public function testInvalidXML($filename)
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+
         $reader = $this->getMockForAbstractClass(BaseReader::class);
         $expectedResult = 'FAILURE: Should throw an Exception rather than return a value';
         $result = $reader->securityScanFile($filename);
@@ -35,12 +36,13 @@ class XmlTest extends TestCase
 
     /**
      * @dataProvider providerInvalidSimpleXML
-     * @expectedException \PhpOffice\PhpSpreadsheet\Reader\Exception
      *
      * @param $filename
      */
     public function testInvalidSimpleXML($filename)
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+
         $xmlReader = new Xml();
         $xmlReader->trySimpleXMLLoadString($filename);
     }

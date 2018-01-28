@@ -20,7 +20,7 @@ class Trend
      * Names of the best-fit Trend analysis methods.
      *
      * @var string[]
-     **/
+     */
     private static $trendTypes = [
         self::TREND_LINEAR,
         self::TREND_LOGARITHMIC,
@@ -32,7 +32,7 @@ class Trend
      * Names of the best-fit Trend polynomial orders.
      *
      * @var string[]
-     **/
+     */
     private static $trendTypePolynomialOrders = [
         self::TREND_POLYNOMIAL_2,
         self::TREND_POLYNOMIAL_3,
@@ -45,7 +45,7 @@ class Trend
      * Cached results for each method when trying to identify which provides the best fit.
      *
      * @var bestFit[]
-     **/
+     */
     private static $trendCache = [];
 
     public static function calculate($trendType = self::TREND_BEST_FIT, $yValues = [], $xValues = [], $const = true)

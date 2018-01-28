@@ -73,7 +73,9 @@ class Statistical
 
     // Function cache for logBeta function
     private static $logBetaCacheP = 0.0;
+
     private static $logBetaCacheQ = 0.0;
+
     private static $logBetaCacheResult = 0.0;
 
     /**
@@ -207,6 +209,7 @@ class Statistical
 
     // Function cache for logGamma
     private static $logGammaCacheResult = 0.0;
+
     private static $logGammaCacheX = 0.0;
 
     private static function logGamma($x)
@@ -431,14 +434,14 @@ class Statistical
         return exp(0 - $tmp + log(self::SQRT2PI * $summer / $x));
     }
 
-    /***************************************************************************
+    /*
      *                                inverse_ncdf.php
      *                            -------------------
      *    begin                : Friday, January 16, 2004
      *    copyright            : (C) 2004 Michael Nickerson
      *    email                : nickersonm@yahoo.com
      *
-     ***************************************************************************/
+     */
     private static function inverseNcdf($p)
     {
         //    Inverse ncdf approximation by Peter J. Acklam, implementation adapted to

@@ -286,7 +286,7 @@ class Slk extends BaseReader
                     }
                 }
                 $this->formats['P' . $this->format++] = $formatArray;
-                //    Read cell value data
+            //    Read cell value data
             } elseif ($dataType == 'C') {
                 $hasCalculatedValue = false;
                 $cellData = $cellDataFormula = '';

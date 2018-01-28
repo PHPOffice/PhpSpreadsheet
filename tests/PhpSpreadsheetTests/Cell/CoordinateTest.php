@@ -239,11 +239,10 @@ class CoordinateTest extends TestCase
         return require 'data/CellBuildRange.php';
     }
 
-    /**
-     * @expectedException \TypeError
-     */
     public function testBuildRangeInvalid()
     {
+        $this->expectException(\TypeError::class);
+
         if (PHP_MAJOR_VERSION < 7) {
             $this->markTestSkipped('Cannot catch type hinting error with PHP 5.6');
         }
