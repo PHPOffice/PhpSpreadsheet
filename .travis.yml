@@ -10,10 +10,8 @@ php:
 
 matrix:
   include:
-    - php: 7.0
+    - php: 7.1
       env: COVERAGE=1
-  allow_failures:
-    - php: 7.2
 
 cache:
   directories:

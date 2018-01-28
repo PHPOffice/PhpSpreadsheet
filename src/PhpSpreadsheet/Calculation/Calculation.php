@@ -2798,11 +2798,12 @@ class Calculation
         $matrixRows = count($matrix);
         $matrixColumns = 0;
         foreach ($matrix as $rowKey => $rowValue) {
-            $matrixColumns = max(count($rowValue), $matrixColumns);
             if (!is_array($rowValue)) {
                 $matrix[$rowKey] = [$rowValue];
+                $matrixColumns = max(1, $matrixColumns);
             } else {
                 $matrix[$rowKey] = array_values($rowValue);
+                $matrixColumns = max(count($rowValue), $matrixColumns);
             }
         }
         $matrix = array_values($matrix);
