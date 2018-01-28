@@ -34,6 +34,8 @@ abstract class IOFactory
         'Mpdf' => Writer\Pdf\Mpdf::class,
     ];
 
+    private static $spreadSheetClass = Spreadsheet::class;
+
     /**
      * Create Writer\IWriter.
      *
@@ -226,5 +228,23 @@ abstract class IOFactory
         }
 
         self::$readers[$readerType] = $readerClass;
+    }
+
+    /**
+     * @return Spreadsheet
+     */
+    public static function getSpreadsheetInstance()
+    {
+      $spreadSheetClass = static::$spreadSheetClass;
+      return new $spreadSheetClass();
+    }
+
+    /**
+     * Use another spread sheet class than Spreadsheet.
+     * @param string $spreadSheetClass
+     */
+    public static function setSpreadsheetClass($spreadSheetClass)
+    {
+        static::$spreadSheetClass = $spreadSheetClass;
     }
 }
