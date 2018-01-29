@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Chart;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
@@ -331,7 +330,7 @@ class Xlsx extends BaseReader
         File::assertFile($pFilename);
 
         // Initialisations
-        $excel = IOFactory::getSpreadsheetInstance();
+        $excel = new Spreadsheet();
         $excel->removeSheetByIndex(0);
         if (!$this->readDataOnly) {
             $excel->removeCellStyleXfByIndex(0); // remove the default style
