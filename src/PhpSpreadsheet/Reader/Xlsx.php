@@ -702,10 +702,24 @@ class Xlsx extends BaseReader
 
                             if (isset($xmlSheet->sheetViews, $xmlSheet->sheetViews->sheetView)) {
                                 if (isset($xmlSheet->sheetViews->sheetView['zoomScale'])) {
-                                    $docSheet->getSheetView()->setZoomScale((int) ($xmlSheet->sheetViews->sheetView['zoomScale']));
+                                    $zoomScale = (int) ($xmlSheet->sheetViews->sheetView['zoomScale']);
+                                    if ($zoomScale <= 0) {
+                                        // setZoomScale will throw an Exception if the scale is less than or equals 0
+                                        // that is OK when manually creating documents, but we should be able to read all documents
+                                        $zoomScale = 100;
+                                    }
+
+                                    $docSheet->getSheetView()->setZoomScale($zoomScale);
                                 }
                                 if (isset($xmlSheet->sheetViews->sheetView['zoomScaleNormal'])) {
-                                    $docSheet->getSheetView()->setZoomScaleNormal((int) ($xmlSheet->sheetViews->sheetView['zoomScaleNormal']));
+                                    $zoomScaleNormal = (int) ($xmlSheet->sheetViews->sheetView['zoomScaleNormal']);
+                                    if ($zoomScaleNormal <= 0) {
+                                        // setZoomScaleNormal will throw an Exception if the scale is less than or equals 0
+                                        // that is OK when manually creating documents, but we should be able to read all documents
+                                        $zoomScaleNormal = 100;
+                                    }
+
+                                    $docSheet->getSheetView()->setZoomScaleNormal($zoomScaleNormal);
                                 }
                                 if (isset($xmlSheet->sheetViews->sheetView['view'])) {
                                     $docSheet->getSheetView()->setView((string) $xmlSheet->sheetViews->sheetView['view']);
