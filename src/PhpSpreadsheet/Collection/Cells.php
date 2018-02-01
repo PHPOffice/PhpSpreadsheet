@@ -285,7 +285,7 @@ class Cells
      */
     private function getUniqueID()
     {
-        return uniqid('phpspreadsheet-', true) . '-';
+        return uniqid('phpspreadsheet.', true) . '.';
     }
 
     /**
