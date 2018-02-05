@@ -195,11 +195,11 @@ class Csv extends BaseReader
             }
 
             $meanSquareDeviations[$delimiter] = array_reduce(
-                $series,
-                function ($sum, $value) use ($median) {
-                    return $sum + pow($value - $median, 2);
-                }
-            ) / count($series);
+                    $series,
+                    function ($sum, $value) use ($median) {
+                        return $sum + pow($value - $median, 2);
+                    }
+                ) / count($series);
         }
 
         // ... and pick the delimiter with the smallest mean square deviation (in case of ties, the order in potentialDelimiters is respected)
@@ -476,6 +476,13 @@ class Csv extends BaseReader
 
         fclose($this->fileHandle);
 
-        return true;
+        $type = mime_content_type($pFilename);
+        $supportedTypes = [
+            'text/csv',
+            'text/plain',
+            'inode/x-empty',
+        ];
+
+        return in_array($type, $supportedTypes, true);
     }
 }

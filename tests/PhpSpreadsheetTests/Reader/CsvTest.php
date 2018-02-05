@@ -63,4 +63,30 @@ class CsvTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * @dataProvider providerCanLoad
+     *
+     * @param bool $expected
+     * @param string $filename
+     */
+    public function testCanLoad($expected, $filename)
+    {
+        $reader = new Csv();
+        self::assertSame($expected, $reader->canRead($filename));
+    }
+
+    public function providerCanLoad()
+    {
+        return [
+            [false, 'data/Reader/Ods/data.ods'],
+            [false, 'data/Reader/Xml/WithoutStyle.xml'],
+            [true, 'data/Reader/CSV/enclosure.csv'],
+            [true, 'data/Reader/CSV/semicolon_separated.csv'],
+            [true, 'data/Reader/HTML/csv_with_angle_bracket.csv'],
+            [true, 'data/Reader/CSV/empty.csv'],
+            [true, '../samples/Reader/sampleData/example1.csv'],
+            [true, '../samples/Reader/sampleData/example2.csv'],
+        ];
+    }
 }
