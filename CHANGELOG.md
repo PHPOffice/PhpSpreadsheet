@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- HTML writer creates a generator meta tag - [#312](https://github.com/PHPOffice/PhpSpreadsheet/issues/312) 
+
 ### Fixed
 
 - Avoid potentially unsupported PSR-16 cache keys - [#354](https://github.com/PHPOffice/PhpSpreadsheet/issues/354) 
