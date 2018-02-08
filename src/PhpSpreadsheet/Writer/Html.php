@@ -355,7 +355,7 @@ class Html extends BaseWriter
         $html .= '<html>' . PHP_EOL;
         $html .= '  <head>' . PHP_EOL;
         $html .= '      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . PHP_EOL;
-        $html .= '      <meta name="generator" content="PhpSpreadsheet - https://github.com/PHPOffice/PhpSpreadsheet">' . PHP_EOL;
+        $html .= '      <meta name="generator" content="PhpSpreadsheet, https://github.com/PHPOffice/PhpSpreadsheet">' . PHP_EOL;
         if ($properties->getTitle() > '') {
             $html .= '      <title>' . htmlspecialchars($properties->getTitle()) . '</title>' . PHP_EOL;
         }
