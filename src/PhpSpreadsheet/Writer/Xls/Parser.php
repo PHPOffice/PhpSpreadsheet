@@ -563,7 +563,7 @@ class Parser
     private function convertString($string)
     {
         // chop away beggining and ending quotes
-        $string = substr($string, 1, -2);
+        $string = substr($string, 1, -1);
         if (strlen($string) > 255) {
             throw new WriterException('String is too long');
         }
