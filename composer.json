@@ -58,8 +58,6 @@
         "friendsofphp/php-cs-fixer": "@stable"
     },
     "suggest": {
-        "ext-gd": "Required for exact column width autocalculation",
-        "ext-dom": "Option to read and write HTML files",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnick.com/tcpdf": "Option for rendering PDF with PDF Writer",
