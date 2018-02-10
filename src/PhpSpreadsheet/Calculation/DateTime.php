@@ -1060,7 +1060,7 @@ class DateTime
         //    Adjust the calculated end date if it falls over a weekend
         $endDoW = self::WEEKDAY($endDate, 3);
         if ($endDoW >= 5) {
-            $endDate += ($decrementing) ? -$endDoW + 4 : 7 - $endDoW;
+            $endDate += ($decrementing) ? -2: 2;
         }
 
         //    Test any extra holiday parameters
@@ -1100,7 +1100,7 @@ class DateTime
                 //    Adjust the calculated end date if it falls over a weekend
                 $endDoW = self::WEEKDAY($endDate, 3);
                 if ($endDoW >= 5) {
-                    $endDate += ($decrementing) ? -$endDoW + 4 : 7 - $endDoW;
+                    $endDate += ($decrementing) ? -2: 2;
                 }
             }
         }
