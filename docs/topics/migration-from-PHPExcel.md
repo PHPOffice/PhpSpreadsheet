@@ -425,3 +425,9 @@ All the following methods are affected:
 - `PHPExcel_Worksheet::unprotectCellsByColumnAndRow()`
 - `PHPExcel_Worksheet_PageSetup::addPrintAreaByColumnAndRow()`
 - `PHPExcel_Worksheet_PageSetup::setPrintAreaByColumnAndRow()`
+
+### Removed default values
+
+Default values for many methods were removed when it did not make sense. Typically,
+setter methods should not have default values. For a complete list of methods and
+their original default values, see [that commit](https://github.com/PHPOffice/PhpSpreadsheet/commit/033a4bdad56340795a5bf7ec3c8a2fde005cda24).
