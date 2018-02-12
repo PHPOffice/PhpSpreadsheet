@@ -612,9 +612,9 @@ class Html extends BaseReader
      * - Implement to other propertie, such as border
      *
      * @param Worksheet $sheet
-     * @param array $attributeArray
      * @param int $row
      * @param string $column
+     * @param array $attributeArray
      */
     private function applyInlineStyle(&$sheet, $row, $column, $attributeArray)
     {

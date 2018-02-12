@@ -1611,14 +1611,10 @@ class Statistical
      *
      * Returns values along a predicted emponential Trend
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param array of mixed Values of X for which we want to find Y
-     * @param bool a logical value specifying whether to force the intersect to equal 0
-     * @param mixed $yValues
-     * @param mixed $xValues
-     * @param mixed $newValues
-     * @param mixed $const
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
+     * @param mixed[] $newValues Values of X for which we want to find Y
+     * @param bool $const a logical value specifying whether to force the intersect to equal 0
      *
      * @return array of float
      */
@@ -1735,10 +1731,8 @@ class Statistical
      *
      * Calculates the point at which a line will intersect the y-axis by using existing x-values and y-values.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $yValues
-     * @param mixed $xValues
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
      *
      * @return float
      */
@@ -1853,14 +1847,10 @@ class Statistical
      * Calculates the statistics for a line by using the "least squares" method to calculate a straight line that best fits your data,
      *        and then returns an array that describes the line.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param bool a logical value specifying whether to force the intersect to equal 0
-     * @param bool a logical value specifying whether to return additional regression statistics
-     * @param mixed $yValues
-     * @param null|mixed $xValues
-     * @param mixed $const
-     * @param mixed $stats
+     * @param mixed[] $yValues Data Series Y
+     * @param null|mixed[] $xValues Data Series X
+     * @param bool $const a logical value specifying whether to force the intersect to equal 0
+     * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
      * @return array
      */
@@ -1916,14 +1906,10 @@ class Statistical
      * Calculates an exponential curve that best fits the X and Y data series,
      *        and then returns an array that describes the line.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param bool a logical value specifying whether to force the intersect to equal 0
-     * @param bool a logical value specifying whether to return additional regression statistics
-     * @param mixed $yValues
-     * @param null|mixed $xValues
-     * @param mixed $const
-     * @param mixed $stats
+     * @param mixed[] $yValues Data Series Y
+     * @param null|mixed[] $xValues Data Series X
+     * @param bool $const a logical value specifying whether to force the intersect to equal 0
+     * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
      * @return array
      */
@@ -2592,12 +2578,9 @@ class Statistical
      *
      * Returns the rank of a value in a data set as a percentage of the data set.
      *
-     * @param array of number        An array of, or a reference to, a list of numbers
-     * @param number the number whose rank you want to find
-     * @param number the number of significant digits for the returned percentage value
-     * @param mixed $valueSet
-     * @param mixed $value
-     * @param mixed $significance
+     * @param float[] $valueSet An array of, or a reference to, a list of numbers
+     * @param int $value the number whose rank you want to find
+     * @param int $significance the number of significant digits for the returned percentage value
      *
      * @return float
      */
@@ -2747,12 +2730,9 @@ class Statistical
      *
      * Returns the rank of a number in a list of numbers.
      *
-     * @param number the number whose rank you want to find
-     * @param array of number        An array of, or a reference to, a list of numbers
-     * @param mixed Order to sort the values in the value set
-     * @param mixed $value
-     * @param mixed $valueSet
-     * @param mixed $order
+     * @param int $value the number whose rank you want to find
+     * @param float[] $valueSet An array of, or a reference to, a list of numbers
+     * @param int $order Order to sort the values in the value set
      *
      * @return float
      */
@@ -2786,10 +2766,8 @@ class Statistical
      *
      * Returns the square of the Pearson product moment correlation coefficient through data points in known_y's and known_x's.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $yValues
-     * @param mixed $xValues
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
      *
      * @return float
      */
@@ -2856,10 +2834,8 @@ class Statistical
      *
      * Returns the slope of the linear regression line through data points in known_y's and known_x's.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $yValues
-     * @param mixed $xValues
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
      *
      * @return float
      */
@@ -3160,10 +3136,8 @@ class Statistical
      *
      * Returns the standard error of the predicted y-value for each x in the regression.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $yValues
-     * @param mixed $xValues
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
      *
      * @return float
      */
@@ -3314,14 +3288,10 @@ class Statistical
      *
      * Returns values along a linear Trend
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param array of mixed Values of X for which we want to find Y
-     * @param bool a logical value specifying whether to force the intersect to equal 0
-     * @param mixed $yValues
-     * @param mixed $xValues
-     * @param mixed $newValues
-     * @param mixed $const
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
+     * @param mixed[] $newValues Values of X for which we want to find Y
+     * @param bool $const a logical value specifying whether to force the intersect to equal 0
      *
      * @return array of float
      */
