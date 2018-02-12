@@ -34,7 +34,7 @@ jobs:
       php: 7.1
       env: KEEP_XDEBUG=1
       script:
-        - ./vendor/bin/phpunit --debug --coverage-clover coverage-clover.xml
+        - travis_wait 40 ./vendor/bin/phpunit --debug --coverage-clover coverage-clover.xml
       after_script:
         - wget https://scrutinizer-ci.com/ocular.phar
         - php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml
