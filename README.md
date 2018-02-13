@@ -1,4 +1,8 @@
-# PhpSpreadsheet
+<p align="center">
+    <a href="https://phpspreadsheet.readthedocs.io/" target="_blank">
+        <img src="https://phpspreadsheet.readthedocs.io/en/develop/assets/logo.svg" width="500" alt="PhpSpreadsheet">
+    </a>
+</p>
 
 Master:
 [![Build Status](https://travis-ci.org/PHPOffice/PhpSpreadsheet.svg?branch=master)](https://travis-ci.org/PHPOffice/PhpSpreadsheet)
