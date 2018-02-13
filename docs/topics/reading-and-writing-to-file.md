@@ -107,7 +107,7 @@ reader to only load the sheets with a given name:
 
 ``` php
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-$reader->setLoadSheetsOnly( array("Sheet 1", "My special sheet") );
+$reader->setLoadSheetsOnly(["Sheet 1", "My special sheet"]);
 $spreadsheet = $reader->load("05featuredemo.xlsx");
 ```
 
@@ -225,7 +225,7 @@ reader to only load the sheets with a given name:
 
 ``` php
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-$reader->setLoadSheetsOnly( array("Sheet 1", "My special sheet") );
+$reader->setLoadSheetsOnly(["Sheet 1", "My special sheet"]);
 $spreadsheet = $reader->load("05featuredemo.xls");
 ```
 

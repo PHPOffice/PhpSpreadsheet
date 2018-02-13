@@ -178,13 +178,13 @@ It is also possible to set a range of cell values in a single call by
 passing an array of values to the `fromArray()` method.
 
 ``` php
-$arrayData = array(
-    array(NULL, 2010, 2011, 2012),
-    array('Q1',   12,   15,   21),
-    array('Q2',   56,   73,   86),
-    array('Q3',   52,   61,   69),
-    array('Q4',   30,   32,    0),
-);
+$arrayData = [
+    [NULL, 2010, 2011, 2012],
+    ['Q1',   12,   15,   21],
+    ['Q2',   56,   73,   86],
+    ['Q3',   52,   61,   69],
+    ['Q4',   30,   32,    0],
+];
 $spreadsheet->getActiveSheet()
     ->fromArray(
         $arrayData,  // The data to set
@@ -201,7 +201,7 @@ and columns. A 1-d array will be treated as a single row, which is
 particularly useful if you're fetching an array of data from a database.
 
 ``` php
-$rowArray = array('Value1', 'Value2', 'Value3', 'Value4');
+$rowArray = ['Value1', 'Value2', 'Value3', 'Value4'];
 $spreadsheet->getActiveSheet()
     ->fromArray(
         $rowArray,   // The data to set
@@ -218,7 +218,7 @@ the following will convert it into an appropriately structured 2-d array
 that can be fed to the `fromArray()` method:
 
 ``` php
-$rowArray = array('Value1', 'Value2', 'Value3', 'Value4');
+$rowArray = ['Value1', 'Value2', 'Value3', 'Value4'];
 $columnArray = array_chunk($rowArray, 1);
 $spreadsheet->getActiveSheet()
     ->fromArray(
