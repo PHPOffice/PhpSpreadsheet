@@ -114,12 +114,12 @@ class Border extends Supervisor
      *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->getTop()->applyFromArray(
-     *        array(
+     *        [
      *            'borderStyle' => Border::BORDER_DASHDOT,
-     *            'color' => array(
+     *            'color' => [
      *                'rgb' => '808080'
-     *            )
-     *        )
+     *            ]
+     *        ]
      * );
      * </code>
      *

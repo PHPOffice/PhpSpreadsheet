@@ -552,8 +552,8 @@ class Worksheet extends BIFFwriter
             $lastCell = $explodes[1];
         }
 
-        $firstCellCoordinates = Coordinate::coordinateFromString($firstCell); // e.g. array(0, 1)
-        $lastCellCoordinates = Coordinate::coordinateFromString($lastCell); // e.g. array(1, 6)
+        $firstCellCoordinates = Coordinate::coordinateFromString($firstCell); // e.g. [0, 1]
+        $lastCellCoordinates = Coordinate::coordinateFromString($lastCell); // e.g. [1, 6]
 
         return pack('vvvv', $firstCellCoordinates[1] - 1, $lastCellCoordinates[1] - 1, Coordinate::columnIndexFromString($firstCellCoordinates[0]) - 1, Coordinate::columnIndexFromString($lastCellCoordinates[0]) - 1);
     }

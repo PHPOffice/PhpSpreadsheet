@@ -74,12 +74,12 @@ class Protection extends Supervisor
      * Apply styles from array.
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getLocked()->applyFromArray(
-     *        array(
-     *            'locked' => TRUE,
-     *            'hidden' => FALSE
-     *        )
+     *     [
+     *         'locked' => TRUE,
+     *         'hidden' => FALSE
+     *     ]
      * );
-     * </code>.
+     * </code>
      *
      * @param array $pStyles Array containing style information
      *
