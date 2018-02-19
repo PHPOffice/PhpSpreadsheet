@@ -1274,7 +1274,7 @@ class Html extends BaseWriter
 
                         // Convert UTF8 data to PCDATA
                         $cellText = $element->getText();
-                        $cellData .= ($this->encodeHtml)?htmlspecialchars($cellText):$cellText;
+                        $cellData .= ($this->encodeHtml) ? htmlspecialchars($cellText) : $cellText;
 
                         if ($element instanceof Run) {
                             if ($element->getFont()->getSuperscript()) {
@@ -1300,7 +1300,7 @@ class Html extends BaseWriter
                             [$this, 'formatColor']
                         );
                     }
-                    $cellData = ($this->encodeHtml)?htmlspecialchars($cellData):$cellData;
+                    $cellData = ($this->encodeHtml) ? htmlspecialchars($cellData) : $cellData;
                     if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
                         $cellData = '<sup>' . $cellData . '</sup>';
                     } elseif ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubscript()) {
@@ -1522,7 +1522,7 @@ class Html extends BaseWriter
     }
 
     /**
-     * Set encode HTML text inside cell
+     * Set encode HTML text inside cell.
      *
      * @param bool $pValue
      *
