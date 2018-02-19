@@ -126,6 +126,13 @@ class Html extends BaseWriter
     private $generateSheetNavigationBlock = true;
 
     /**
+     * Encode text displayed inside the cell.
+     *
+     * @var bool
+     */
+    private $encodeHtml = true;
+
+    /**
      * Create a new HTML.
      *
      * @param Spreadsheet $spreadsheet
@@ -1267,7 +1274,7 @@ class Html extends BaseWriter
 
                         // Convert UTF8 data to PCDATA
                         $cellText = $element->getText();
-                        $cellData .= htmlspecialchars($cellText);
+                        $cellData .= ($this->encodeHtml) ? htmlspecialchars($cellText) : $cellText;
 
                         if ($element instanceof Run) {
                             if ($element->getFont()->getSuperscript()) {
@@ -1293,7 +1300,7 @@ class Html extends BaseWriter
                             [$this, 'formatColor']
                         );
                     }
-                    $cellData = htmlspecialchars($cellData);
+                    $cellData = ($this->encodeHtml) ? htmlspecialchars($cellData) : $cellData;
                     if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
                         $cellData = '<sup>' . $cellData . '</sup>';
                     } elseif ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubscript()) {
@@ -1510,6 +1517,20 @@ class Html extends BaseWriter
     public function setUseInlineCss($pValue)
     {
         $this->useInlineCss = $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Set encode HTML text inside cell.
+     *
+     * @param bool $pValue
+     *
+     * @return HTML
+     */
+    public function setEncodeHtml($pValue)
+    {
+        $this->encodeHtml = $pValue;
 
         return $this;
     }
