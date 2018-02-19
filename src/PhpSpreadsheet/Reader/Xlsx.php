@@ -2068,16 +2068,14 @@ class Xlsx extends BaseReader
         } else {
             if (is_object($is->r)) {
                 foreach ($is->r as $run) {
-                    if (!isset($run->rPr)) {
-                        $objText = $value->createText(StringHelper::controlCharacterOOXML2PHP((string) $run->t));
-                    } else {
+                    if (isset($run->rPr)) {
                         $objText = $value->createTextRun(StringHelper::controlCharacterOOXML2PHP((string) $run->t));
 
                         if (isset($run->rPr->rFont['val'])) {
                             $objText->getFont()->setName((string) $run->rPr->rFont['val']);
                         }
                         if (isset($run->rPr->sz['val'])) {
-                            $objText->getFont()->setSize((string) $run->rPr->sz['val']);
+                            $objText->getFont()->setSize((float) $run->rPr->sz['val']);
                         }
                         if (isset($run->rPr->color)) {
                             $objText->getFont()->setColor(new Color(self::readColor($run->rPr->color)));
@@ -2139,7 +2137,7 @@ class Xlsx extends BaseReader
                 'SimpleXMLElement',
                 Settings::getLibXmlLoaderOptions()
             );
-            if ($UIRels) {
+            if (false !== $UIRels) {
                 // we need to save id and target to avoid parsing customUI.xml and "guess" if it's a pseudo callback who load the image
                 foreach ($UIRels->Relationship as $ele) {
                     if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image') {
@@ -2155,11 +2153,11 @@ class Xlsx extends BaseReader
             if (count($customUIImagesNames) > 0 && count($customUIImagesBinaries) > 0) {
                 $excel->setRibbonBinObjects($customUIImagesNames, $customUIImagesBinaries);
             } else {
-                $excel->setRibbonBinObjects(null);
+                $excel->setRibbonBinObjects(null, null);
             }
         } else {
-            $excel->setRibbonXMLData(null);
-            $excel->setRibbonBinObjects(null);
+            $excel->setRibbonXMLData(null, null);
+            $excel->setRibbonBinObjects(null, null);
         }
     }
 
