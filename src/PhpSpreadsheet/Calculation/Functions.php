@@ -642,4 +642,17 @@ class Functions
 
         return $value;
     }
+
+    /**
+     * ISFORMULA.
+     *
+     * @param mixed $value The cell to check
+     * @param Cell $pCell The current cell (containing this formula)
+
+     * @return bool
+     */
+    public static function isFormula($value = '', \PhpOffice\PhpSpreadsheet\Cell\Cell $pCell = null)
+    {
+        return substr($pCell->getWorksheet()->getCell($value)->getValue(), 0, 1) === '=';
+    }
 }

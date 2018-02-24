@@ -267,4 +267,38 @@ class FunctionsTest extends TestCase
     {
         return require 'data/Calculation/Functions/N.php';
     }
+
+    /**
+     * @dataProvider providerIsFormula
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIsFormula($expectedResult, $value)
+    {
+        $remoteCell = $this->getMockBuilder(\PhpOffice\PhpSpreadsheet\Cell\Cell::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $remoteCell->method('getValue')
+            ->will($this->returnValue($value));
+
+        $sheet = $this->getMockBuilder(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $sheet->method('getCell')
+            ->will($this->returnValue($remoteCell));
+
+        $ourCell = $this->getMockBuilder(\PhpOffice\PhpSpreadsheet\Cell\Cell::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $ourCell->method('getWorksheet')
+            ->will($this->returnValue($sheet));
+
+        $result = Functions::isFormula($value, $ourCell);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerIsFormula()
+    {
+        return require 'data/Calculation/Functions/ISFORMULA.php';
+    }
 }
