@@ -648,7 +648,7 @@ class Functions
      *
      * @param mixed $value The cell to check
      * @param Cell $pCell The current cell (containing this formula)
-
+     *
      * @return bool
      */
     public static function isFormula($value = '', \PhpOffice\PhpSpreadsheet\Cell\Cell $pCell = null)

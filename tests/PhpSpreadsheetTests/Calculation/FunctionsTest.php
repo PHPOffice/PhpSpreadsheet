@@ -272,6 +272,7 @@ class FunctionsTest extends TestCase
      * @dataProvider providerIsFormula
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
     public function testIsFormula($expectedResult, $value)
     {

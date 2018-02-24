@@ -1087,7 +1087,7 @@ class Calculation
             'functionCall' => [Functions::class, 'isFormula'],
             'argumentCount' => '1',
             'passCellReference' => true,
-            'passByReference' => [true]
+            'passByReference' => [true],
         ],
         'ISLOGICAL' => [
             'category' => Category::CATEGORY_INFORMATION,
