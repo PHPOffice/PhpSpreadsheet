@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class FunctionsTest extends TestCase
@@ -266,5 +268,43 @@ class FunctionsTest extends TestCase
     public function providerN()
     {
         return require 'data/Calculation/Functions/N.php';
+    }
+
+    /**
+     * @dataProvider providerIsFormula
+     *
+     * @param mixed $expectedResult
+     * @param mixed $value
+     */
+    public function testIsFormula($expectedResult, $value = 'undefined')
+    {
+        $ourCell = null;
+        if ($value !== 'undefined') {
+            $remoteCell = $this->getMockBuilder(Cell::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+            $remoteCell->method('getValue')
+                ->will($this->returnValue($value));
+
+            $sheet = $this->getMockBuilder(Worksheet::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+            $sheet->method('getCell')
+                ->will($this->returnValue($remoteCell));
+
+            $ourCell = $this->getMockBuilder(Cell::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+            $ourCell->method('getWorksheet')
+                ->will($this->returnValue($sheet));
+        }
+
+        $result = Functions::isFormula($value, $ourCell);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerIsFormula()
+    {
+        return require 'data/Calculation/Functions/ISFORMULA.php';
     }
 }

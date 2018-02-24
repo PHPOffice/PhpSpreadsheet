@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+
 class Functions
 {
     const PRECISION = 8.88E-016;
@@ -641,5 +643,22 @@ class Functions
         }
 
         return $value;
+    }
+
+    /**
+     * ISFORMULA.
+     *
+     * @param mixed $value The cell to check
+     * @param Cell $pCell The current cell (containing this formula)
+     *
+     * @return bool|string
+     */
+    public static function isFormula($value = '', Cell $pCell = null)
+    {
+        if ($pCell === null) {
+            return self::REF();
+        }
+
+        return substr($pCell->getWorksheet()->getCell($value)->getValue(), 0, 1) === '=';
     }
 }
