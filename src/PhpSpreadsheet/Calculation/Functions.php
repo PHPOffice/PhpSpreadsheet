@@ -647,7 +647,7 @@ class Functions
      * ISFORMULA.
      *
      * @param mixed $value The cell to check
-     * @param Cell $pCell The current cell (containing this formula)
+     * @param \PhpOffice\PhpSpreadsheet\Cell\Cell $pCell The current cell (containing this formula)
      *
      * @return bool
      */
