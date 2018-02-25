@@ -654,8 +654,9 @@ class Functions
     public static function isFormula($value = '', \PhpOffice\PhpSpreadsheet\Cell\Cell $pCell = null)
     {
         if (!is_object($pCell)) {
-            return Functions::REF();
+            return self::REF();
         }
+
         return substr($pCell->getWorksheet()->getCell($value)->getValue(), 0, 1) === '=';
     }
 }
