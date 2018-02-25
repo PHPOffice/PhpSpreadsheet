@@ -121,6 +121,7 @@ class Fill extends Supervisor
 
     /**
      * Apply styles from array.
+     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFill()->applyFromArray(
      *     [
@@ -134,7 +135,7 @@ class Fill extends Supervisor
      *         ]
      *     ]
      * );
-     * </code>.
+     * </code>
      *
      * @param array $pStyles Array containing style information
      *

@@ -124,6 +124,7 @@ class Alignment extends Supervisor
 
     /**
      * Apply styles from array.
+     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getAlignment()->applyFromArray(
      *        [
@@ -133,7 +134,7 @@ class Alignment extends Supervisor
      *            'wrapText'     => TRUE
      *        ]
      * );
-     * </code>.
+     * </code>
      *
      * @param array $pStyles Array containing style information
      *

@@ -365,12 +365,13 @@ class BaseDrawing implements IComparable
     }
 
     /**
-     * Set width and height with proportional resize
+     * Set width and height with proportional resize.
+     *
      * Example:
      * <code>
      * $objDrawing->setResizeProportional(true);
      * $objDrawing->setWidthAndHeight(160,120);
-     * </code>.
+     * </code>
      *
      * @author Vincent@luo MSN:kele_100@hotmail.com
      *

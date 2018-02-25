@@ -160,6 +160,7 @@ class Borders extends Supervisor
 
     /**
      * Apply styles from array.
+     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
      *         [
@@ -178,6 +179,7 @@ class Borders extends Supervisor
      *         ]
      * );
      * </code>
+     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
      *         [
@@ -189,7 +191,7 @@ class Borders extends Supervisor
      *             ]
      *         ]
      * );
-     * </code>.
+     * </code>
      *
      * @param array $pStyles Array containing style information
      *
