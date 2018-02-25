@@ -7522,7 +7522,7 @@ class Xls extends BaseReader
 
     /**
      * read BIFF8 constant value array from array data
-     * returns e.g. array('value' => '{1,2;3,4}', 'size' => 40}
+     * returns e.g. ['value' => '{1,2;3,4}', 'size' => 40]
      * section 2.5.8.
      *
      * @param string $arrayData
@@ -7562,7 +7562,7 @@ class Xls extends BaseReader
     /**
      * read BIFF8 constant value which may be 'Empty Value', 'Number', 'String Value', 'Boolean Value', 'Error Value'
      * section 2.5.7
-     * returns e.g. array('value' => '5', 'size' => 9).
+     * returns e.g. ['value' => '5', 'size' => 9].
      *
      * @param string $valueData
      *

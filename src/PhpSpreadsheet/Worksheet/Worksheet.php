@@ -2712,7 +2712,7 @@ class Worksheet implements IComparable
      * Extract worksheet title from range.
      *
      * Example: extractSheetTitle("testSheet!A1") ==> 'A1'
-     * Example: extractSheetTitle("'testSheet 1'!A1", true) ==> array('testSheet 1', 'A1');
+     * Example: extractSheetTitle("'testSheet 1'!A1", true) ==> ['testSheet 1', 'A1'];
      *
      * @param string $pRange Range to extract title from
      * @param bool $returnRange Return range? (see example)

@@ -198,7 +198,7 @@ of sheet names as an array parameter to the `setLoadSheetsOnly()` method.
 ``` php
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
-$sheetnames = array('Data Sheet #1','Data Sheet #3');
+$sheetnames = ['Data Sheet #1','Data Sheet #3'];
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
@@ -292,7 +292,7 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
     private $startRow = 0;
     private $endRow   = 0;
-    private $columns  = array();
+    private $columns  = [];
 
     /**  Get the list of rows and columns to read  */
     public function __construct($startRow, $endRow, $columns) {
@@ -395,10 +395,11 @@ the file into that worksheet.
 
 ``` php
 $inputFileType = 'Csv';
-$inputFileNames = array('./sampleData/example1.csv',
+$inputFileNames = [
+    './sampleData/example1.csv',
     './sampleData/example2.csv'
     './sampleData/example3.csv'
-);
+];
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);

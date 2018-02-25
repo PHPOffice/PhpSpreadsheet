@@ -127,9 +127,9 @@ abstract class Coordinate
      *
      * @param string $pRange e.g. 'B4:D9' or 'B4:D9,H2:O11' or 'B4'
      *
-     * @return array Array containg one or more arrays containing one or two coordinate strings
-     *                                e.g. array('B4','D9') or array(array('B4','D9'),array('H2','O11'))
-     *                                        or array('B4')
+     * @return array Array containing one or more arrays containing one or two coordinate strings
+     *                                e.g. ['B4','D9'] or [['B4','D9'], ['H2','O11']]
+     *                                        or ['B4']
      */
     public static function splitRange($pRange)
     {
@@ -179,7 +179,7 @@ abstract class Coordinate
      *
      * @param string $pRange Cell range (e.g. A1:A1)
      *
-     * @return array Range coordinates array(Start Cell, End Cell)
+     * @return array Range coordinates [Start Cell, End Cell]
      *                    where Start Cell and End Cell are arrays (Column Number, Row Number)
      */
     public static function rangeBoundaries($pRange)
@@ -230,8 +230,8 @@ abstract class Coordinate
      *
      * @param string $pRange Cell range (e.g. A1:A1)
      *
-     * @return array Range coordinates array(Start Cell, End Cell)
-     *                    where Start Cell and End Cell are arrays (Column ID, Row Number)
+     * @return array Range coordinates [Start Cell, End Cell]
+     *                    where Start Cell and End Cell are arrays [Column ID, Row Number]
      */
     public static function getRangeBoundaries($pRange)
     {

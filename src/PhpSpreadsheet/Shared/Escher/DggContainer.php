@@ -164,7 +164,7 @@ class DggContainer
     }
 
     /**
-     * Set identifier clusters. array(<drawingId> => <max shape id>, ...).
+     * Set identifier clusters. [<drawingId> => <max shape id>, ...].
      *
      * @param array $pValue
      */

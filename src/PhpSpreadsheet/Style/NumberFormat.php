@@ -125,9 +125,9 @@ class NumberFormat extends Supervisor
      * Apply styles from array.
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArray(
-     *        array(
-     *            'formatCode' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
-     *        )
+     *     [
+     *         'formatCode' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
+     *     ]
      * );
      * </code>.
      *

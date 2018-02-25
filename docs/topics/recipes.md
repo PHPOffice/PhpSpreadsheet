@@ -549,29 +549,29 @@ sets a cell's style to font bold, alignment right, top border thin and a
 gradient fill:
 
 ``` php
-$styleArray = array(
-    'font' => array(
+$styleArray = [
+    'font' => [
         'bold' => true,
-    ),
-    'alignment' => array(
+    ],
+    'alignment' => [
         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
-    ),
-    'borders' => array(
-        'top' => array(
+    ],
+    'borders' => [
+        'top' => [
             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-        ),
-    ),
-    'fill' => array(
+        ],
+    ],
+    'fill' => [
         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
         'rotation' => 90,
-        'startColor' => array(
+        'startColor' => [
             'argb' => 'FFA0A0A0',
-        ),
-        'endColor' => array(
+        ],
+        'endColor' => [
             'argb' => 'FFFFFFFF',
-        ),
-    ),
-);
+        ],
+    ],
+];
 
 $spreadsheet->getActiveSheet()->getStyle('A3')->applyFromArray($styleArray);
 ```
@@ -690,14 +690,14 @@ selection. Here is how to apply a thick red border outline around cells
 B2:G8.
 
 ``` php
-$styleArray = array(
-    'borders' => array(
-        'outline' => array(
+$styleArray = [
+    'borders' => [
+        'outline' => [
             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-            'color' => array('argb' => 'FFFF0000'),
-        ),
-    ),
-);
+            'color' => ['argb' => 'FFFF0000'],
+        ],
+    ],
+];
 
 $worksheet->getStyle('B2:G8')->applyFromArray($styleArray);
 ```
