@@ -1700,7 +1700,7 @@ class Xlsx extends BaseReader
                                     }
 
                                     // Some definedNames are only applicable if we are on the same sheet...
-                                    if ((string) $definedName['localSheetId'] != '' && (string) $definedName['localSheetId'] == $sheetId) {
+                                    if ((string) $definedName['localSheetId'] != '' && (string) $definedName['localSheetId'] == $oldSheetId) {
                                         // Switch on type
                                         switch ((string) $definedName['name']) {
                                             case '_xlnm._FilterDatabase':
