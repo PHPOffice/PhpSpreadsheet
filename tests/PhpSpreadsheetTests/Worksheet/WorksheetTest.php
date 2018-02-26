@@ -127,7 +127,7 @@ class WorksheetTest extends TestCase
     public function testFreezePaneSelectedCell()
     {
         $worksheet = new Worksheet();
-        $worksheet->freezePane("B2");
-        self::assertSame("B2", $worksheet->getTopLeftCell());
+        $worksheet->freezePane('B2');
+        self::assertSame('B2', $worksheet->getTopLeftCell());
     }
 }
