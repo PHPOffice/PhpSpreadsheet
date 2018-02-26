@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Use proper € symbol for currency format - [#379](https://github.com/PHPOffice/PhpSpreadsheet/pull/379)
 - Read printing area correctly when skipping some sheets - [#371](https://github.com/PHPOffice/PhpSpreadsheet/issues/371)
 - Avoid incorrectly overwriting calculated value type - [#394](https://github.com/PHPOffice/PhpSpreadsheet/issues/394)
+- Select correct cell when calling freezePane - [#389](https://github.com/PHPOffice/PhpSpreadsheet/issues/389)
 
 ## [1.1.0] - 2018-01-28
 

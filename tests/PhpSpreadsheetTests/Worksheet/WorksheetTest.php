@@ -123,4 +123,11 @@ class WorksheetTest extends TestCase
         $sheet->setCodeName('Test Code Name', false);
         self::assertSame('Test Code Name', $sheet->getCodeName());
     }
+
+    public function testFreezePaneSelectedCell()
+    {
+        $worksheet = new Worksheet();
+        $worksheet->freezePane('B2');
+        self::assertSame('B2', $worksheet->getTopLeftCell());
+    }
 }
