@@ -1971,7 +1971,7 @@ class Worksheet implements IComparable
      *
      *     - A2 will freeze the rows above cell A2 (i.e row 1)
      *     - B1 will freeze the columns to the left of cell B1 (i.e column A)
-     *     - B2 will freeze the rows above and to the left of cell A2 (i.e row 1 and column A)
+     *     - B2 will freeze the rows above and to the left of cell B2 (i.e row 1 and column A)
      *
      * @param null|string $cell Position of the split
      * @param null|string $topLeftCell default position of the right bottom pane
@@ -1988,7 +1988,7 @@ class Worksheet implements IComparable
 
         if ($cell !== null && $topLeftCell === null) {
             $coordinate = Coordinate::coordinateFromString($cell);
-            $topLeftCell = $coordinate[0] . ($coordinate[1] + 1);
+            $topLeftCell = $coordinate[0] . $coordinate[1];
         }
 
         $this->freezePane = $cell;
