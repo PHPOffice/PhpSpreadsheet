@@ -1054,6 +1054,8 @@ class Worksheet extends WriterPart
                         $pCell->getCalculatedValue() : $cellValue;
                     if (is_string($calculatedValue)) {
                         $objWriter->writeAttribute('t', 'str');
+                    } elseif (is_bool($calculatedValue)) {
+                        $objWriter->writeAttribute('t', 'b');
                     }
 
                     break;
