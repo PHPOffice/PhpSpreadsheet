@@ -484,7 +484,7 @@ class Xlsx extends BaseReader
                         //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                         $this->securityScan($this->getFromZipArchive($zip, "$dir/$xpath[Target]")),
                         'SimpleXMLElement',
-                        Settings::getLibXmlLoaderOptions()
+                        Settings::getLibXmlLoaderOptions() | LIBXML_COMPACT | LIBXML_PARSEHUGE
                     );
                     if (isset($xmlStrings, $xmlStrings->si)) {
                         foreach ($xmlStrings->si as $val) {
