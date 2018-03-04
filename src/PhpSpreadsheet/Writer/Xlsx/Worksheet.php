@@ -247,7 +247,7 @@ class Worksheet extends WriterPart
             --$ySplit;
 
             $topLeftCell = $pSheet->getTopLeftCell();
-            $activeCell = $topLeftCell;
+            $activeCell = empty($activeCell) ? $topLeftCell : $activeCell;
 
             // pane
             $pane = 'topRight';
