@@ -484,8 +484,9 @@ class Font extends Supervisor
         if ($pValue == '') {
             $pValue = false;
         }
+
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['strike' => $pValue]);
+            $styleArray = $this->getStyleArray(['strikethrough' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->strikethrough = $pValue;
