@@ -10,8 +10,7 @@ class SetSelectedCellTest extends AbstractFunctional
     {
         return [
             ['Xls'],
-            ['Xlsx'],
-            ['Ods']
+            ['Xlsx']
         ];
     }
 
