@@ -9,11 +9,9 @@ class SetSelectedCellTest extends AbstractFunctional
     public function providerFormats()
     {
         return [
-            ['Html'],
             ['Xls'],
             ['Xlsx'],
-            ['Ods'],
-            ['Csv'],
+            ['Ods']
         ];
     }
 
