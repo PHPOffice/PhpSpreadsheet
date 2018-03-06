@@ -474,7 +474,7 @@ class Date
     }
 
     /**
-     * Strips an ordinal froma numeric value.
+     * Strips an ordinal from a numeric value.
      *
      * @param string $day Day number with an ordinal
      *
