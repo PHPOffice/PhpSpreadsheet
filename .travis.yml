@@ -2,11 +2,16 @@ language: php
 dist: trusty
 sudo: false
 
+os:
+  - linux
+  - osx
+
 php:
   - 5.6
   - 7.0
   - 7.1
   - 7.2
+  - nightly
 
 cache:
   directories:
