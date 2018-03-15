@@ -321,6 +321,60 @@ class Xlsx extends BaseReader
     }
 
     /**
+     * Set Worksheet column attributes by attributes array passed.
+     *
+     * @param Worksheet $docSheet
+     * @param string $column A, B, ... DX, ...
+     * @param array $columnAttributes array of attributes (indexes are attribute name, values are value)
+     *                               'xfIndex', 'visible', 'collapsed', 'outlineLevel', 'width', ... ?
+     */
+    private function setColumnAttributes(Worksheet $docSheet, $column, array $columnAttributes)
+    {
+        if (isset($columnAttributes['xfIndex'])) {
+            $docSheet->getColumnDimension($column)->setXfIndex($columnAttributes['xfIndex']);
+        }
+        if (isset($columnAttributes['visible'])) {
+            $docSheet->getColumnDimension($column)->setVisible($columnAttributes['visible']);
+        }
+        if (isset($columnAttributes['collapsed'])) {
+            $docSheet->getColumnDimension($column)->setCollapsed($columnAttributes['collapsed']);
+        }
+        if (isset($columnAttributes['outlineLevel'])) {
+            $docSheet->getColumnDimension($column)->setOutlineLevel($columnAttributes['outlineLevel']);
+        }
+        if (isset($columnAttributes['width'])) {
+            $docSheet->getColumnDimension($column)->setWidth($columnAttributes['width']);
+        }
+    }
+
+    /**
+     * Set Worksheet row attributes by attributes array passed.
+     *
+     * @param Worksheet $docSheet
+     * @param int $row 1, 2, 3, ... 99, ...
+     * @param array $rowAttributes array of attributes (indexes are attribute name, values are value)
+     *                               'xfIndex', 'visible', 'collapsed', 'outlineLevel', 'rowHeight', ... ?
+     */
+    private function setRowAttributes(Worksheet $docSheet, $row, array $rowAttributes)
+    {
+        if (isset($rowAttributes['xfIndex'])) {
+            $docSheet->getRowDimension($row)->setXfIndex($rowAttributes['xfIndex']);
+        }
+        if (isset($rowAttributes['visible'])) {
+            $docSheet->getRowDimension($row)->setVisible($rowAttributes['visible']);
+        }
+        if (isset($rowAttributes['collapsed'])) {
+            $docSheet->getRowDimension($row)->setCollapsed($rowAttributes['collapsed']);
+        }
+        if (isset($rowAttributes['outlineLevel'])) {
+            $docSheet->getRowDimension($row)->setOutlineLevel($rowAttributes['outlineLevel']);
+        }
+        if (isset($rowAttributes['rowHeight'])) {
+            $docSheet->getRowDimension($row)->setRowHeight($rowAttributes['rowHeight']);
+        }
+    }
+
+    /**
      * Loads Spreadsheet from file.
      *
      * @param string $pFilename
@@ -819,30 +873,6 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            if (isset($xmlSheet->cols) && !$this->readDataOnly) {
-                                foreach ($xmlSheet->cols->col as $col) {
-                                    for ($i = (int) ($col['min']); $i <= (int) ($col['max']); ++$i) {
-                                        if ($col['style'] && !$this->readDataOnly) {
-                                            $docSheet->getColumnDimension(Coordinate::stringFromColumnIndex($i))->setXfIndex((int) ($col['style']));
-                                        }
-                                        if (self::boolean($col['hidden'])) {
-                                            $docSheet->getColumnDimension(Coordinate::stringFromColumnIndex($i))->setVisible(false);
-                                        }
-                                        if (self::boolean($col['collapsed'])) {
-                                            $docSheet->getColumnDimension(Coordinate::stringFromColumnIndex($i))->setCollapsed(true);
-                                        }
-                                        if ($col['outlineLevel'] > 0) {
-                                            $docSheet->getColumnDimension(Coordinate::stringFromColumnIndex($i))->setOutlineLevel((int) ($col['outlineLevel']));
-                                        }
-                                        $docSheet->getColumnDimension(Coordinate::stringFromColumnIndex($i))->setWidth((float) ($col['width']));
-
-                                        if ((int) ($col['max']) == 16384) {
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-
                             if (isset($xmlSheet->printOptions) && !$this->readDataOnly) {
                                 if (self::boolean((string) $xmlSheet->printOptions['gridLinesSet'])) {
                                     $docSheet->setShowGridlines(true);
@@ -858,25 +888,77 @@ class Xlsx extends BaseReader
                                 }
                             }
 
+                            $columnsAttributes = [];
+                            $rowsAttributes = [];
+                            if (isset($xmlSheet->cols) && !$this->readDataOnly) {
+                                foreach ($xmlSheet->cols->col as $col) {
+                                    for ($i = (int) ($col['min']); $i <= (int) ($col['max']); ++$i) {
+                                        if ($col['style'] && !$this->readDataOnly) {
+                                            $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['xfIndex'] = (int) $col['style'];
+                                        }
+                                        if (self::boolean($col['hidden'])) {
+                                            $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['visible'] = false;
+                                        }
+                                        if (self::boolean($col['collapsed'])) {
+                                            $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['collapsed'] = true;
+                                        }
+                                        if ($col['outlineLevel'] > 0) {
+                                            $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['outlineLevel'] = (int) $col['outlineLevel'];
+                                        }
+                                        $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['width'] = (float) $col['width'];
+
+                                        if ((int) ($col['max']) == 16384) {
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if ($xmlSheet && $xmlSheet->sheetData && $xmlSheet->sheetData->row) {
+                                foreach ($xmlSheet->sheetData->row as $row) {
+                                    if ($row['ht'] && !$this->readDataOnly) {
+                                        $rowsAttributes[(int) $row['r']]['rowHeight'] = (float) $row['ht'];
+                                    }
+                                    if (self::boolean($row['hidden']) && !$this->readDataOnly) {
+                                        $rowsAttributes[(int) $row['r']]['visible'] = false;
+                                    }
+                                    if (self::boolean($row['collapsed'])) {
+                                        $rowsAttributes[(int) $row['r']]['collapsed'] = true;
+                                    }
+                                    if ($row['outlineLevel'] > 0) {
+                                        $rowsAttributes[(int) $row['r']]['outlineLevel'] = (int) $row['outlineLevel'];
+                                    }
+                                    if ($row['s'] && !$this->readDataOnly) {
+                                        $rowsAttributes[(int) $row['r']]['xfIndex'] = (int) $row['s'];
+                                    }
+                                }
+                            }
+
+                            // set columns/rows attributes
+                            $columnsAttributesSet = [];
+                            $rowsAttributesSet = [];
+                            foreach ($columnsAttributes as $coordColumn => $columnAttributes) {
+                                foreach ($rowsAttributes as $coordRow => $rowAttributes) {
+                                    if ($this->getReadFilter() !== null) {
+                                        if (!$this->getReadFilter()->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
+                                            continue;
+                                        }
+                                    }
+
+                                    if (!isset($columnsAttributesSet[$coordColumn])) {
+                                        $this->setColumnAttributes($docSheet, $coordColumn, $columnAttributes);
+                                        $columnsAttributesSet[$coordColumn] = true;
+                                    }
+                                    if (!isset($rowsAttributesSet[$coordRow])) {
+                                        $this->setRowAttributes($docSheet, $coordRow, $rowAttributes);
+                                        $rowsAttributesSet[$coordRow] = true;
+                                    }
+                                }
+                            }
+
                             if ($xmlSheet && $xmlSheet->sheetData && $xmlSheet->sheetData->row) {
                                 $cIndex = 1; // Cell Start from 1
                                 foreach ($xmlSheet->sheetData->row as $row) {
-                                    if ($row['ht'] && !$this->readDataOnly) {
-                                        $docSheet->getRowDimension((int) ($row['r']))->setRowHeight((float) ($row['ht']));
-                                    }
-                                    if (self::boolean($row['hidden']) && !$this->readDataOnly) {
-                                        $docSheet->getRowDimension((int) ($row['r']))->setVisible(false);
-                                    }
-                                    if (self::boolean($row['collapsed'])) {
-                                        $docSheet->getRowDimension((int) ($row['r']))->setCollapsed(true);
-                                    }
-                                    if ($row['outlineLevel'] > 0) {
-                                        $docSheet->getRowDimension((int) ($row['r']))->setOutlineLevel((int) ($row['outlineLevel']));
-                                    }
-                                    if ($row['s'] && !$this->readDataOnly) {
-                                        $docSheet->getRowDimension((int) ($row['r']))->setXfIndex((int) ($row['s']));
-                                    }
-
                                     $rowIndex = 1;
                                     foreach ($row->c as $c) {
                                         $r = (string) $c['r'];
@@ -891,7 +973,7 @@ class Xlsx extends BaseReader
                                         if ($this->getReadFilter() !== null) {
                                             $coordinates = Coordinate::coordinateFromString($r);
 
-                                            if (!$this->getReadFilter()->readCell($coordinates[0], $coordinates[1], $docSheet->getTitle())) {
+                                            if (!$this->getReadFilter()->readCell($coordinates[0], (int) $coordinates[1], $docSheet->getTitle())) {
                                                 continue;
                                             }
                                         }
