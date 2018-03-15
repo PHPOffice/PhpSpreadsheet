@@ -3748,7 +3748,7 @@ class Xls extends BaseReader
                 'type' => DataType::TYPE_NUMERIC,
                 'styleIndex' => !$this->readDataOnly ? $this->mapCellXfIndex[$xfIndex] : null,
             ];
-            $this->phpSheet->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
+            $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
         }
     }
 
@@ -3849,7 +3849,7 @@ class Xls extends BaseReader
             }
 
             if (isset($cellData)) {
-                $this->phpSheet->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
+                $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
             }
         }
     }
@@ -3908,7 +3908,7 @@ class Xls extends BaseReader
                     'type' => DataType::TYPE_NUMERIC,
                     'styleIndex' => !$this->readDataOnly ? $this->mapCellXfIndex[$xfIndex] : null,
                 ];
-                $this->phpSheet->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
+                $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
             }
 
             $offset += 6;
@@ -3959,7 +3959,7 @@ class Xls extends BaseReader
                 'type' => DataType::TYPE_NUMERIC,
                 'styleIndex' => !$this->readDataOnly ? $this->mapCellXfIndex[$xfIndex] : null,
             ];
-            $this->phpSheet->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
+            $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
         }
     }
 
@@ -4099,7 +4099,7 @@ class Xls extends BaseReader
             // store the cached calculated value
             //$cell->setCalculatedValue($value);
 
-            $this->phpSheet->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
+            $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
         }
     }
 
@@ -4220,7 +4220,7 @@ class Xls extends BaseReader
             }
             */
             $cellData['value'] = $value;
-            $this->phpSheet->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
+            $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
         }
     }
 
@@ -4317,7 +4317,7 @@ class Xls extends BaseReader
                     'type' => DataType::TYPE_STRING,
                     'styleIndex' => !$this->readDataOnly ? $this->mapCellXfIndex[$xfIndex] : null,
                 ];
-                $this->phpSheet->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
+                $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
             }
         }
     }

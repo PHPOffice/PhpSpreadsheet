@@ -686,7 +686,7 @@ class Ods extends BaseReader
                                                     'styleIndex' => null,
                                                     'hyperlink' => $hyperlink,
                                                 ];
-                                                $spreadsheet->getActiveSheet()->createNewPredefinedCell($columnID . $rID, $cellData, $this->lazyInitCells);
+                                                $spreadsheet->getActiveSheet()->getCellCollection()->createNewPredefinedCell($columnID . $rID, $cellData, $this->lazyInitCells);
 
                                                 // Set other properties
                                                 if ($formatting !== null) {

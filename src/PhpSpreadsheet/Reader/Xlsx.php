@@ -978,7 +978,7 @@ class Xlsx extends BaseReader
                                             'type' => $cellDataType,
                                             'styleIndex' => $styleIndex,
                                         ];
-                                        $docSheet->createNewPredefinedCell($r, $cellData, $this->lazyInitCells);
+                                        $docSheet->getCellCollection()->createNewPredefinedCell($r, $cellData, $this->lazyInitCells);
 
                                         $rowIndex += 1;
                                     }
