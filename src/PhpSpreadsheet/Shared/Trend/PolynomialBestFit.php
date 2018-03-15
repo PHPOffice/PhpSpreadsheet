@@ -11,23 +11,21 @@ class PolynomialBestFit extends BestFit
      * (Name of this Trend class).
      *
      * @var string
-     **/
+     */
     protected $bestFitType = 'polynomial';
 
     /**
      * Polynomial order.
      *
-     * @protected
-     *
      * @var int
-     **/
+     */
     protected $order = 0;
 
     /**
      * Return the order of this polynomial.
      *
      * @return int
-     **/
+     */
     public function getOrder()
     {
         return $this->order;
@@ -39,7 +37,7 @@ class PolynomialBestFit extends BestFit
      * @param float $xValue X-Value
      *
      * @return float Y-Value
-     **/
+     */
     public function getValueOfYForX($xValue)
     {
         $retVal = $this->getIntersect();
@@ -59,7 +57,7 @@ class PolynomialBestFit extends BestFit
      * @param float $yValue Y-Value
      *
      * @return float X-Value
-     **/
+     */
     public function getValueOfXForY($yValue)
     {
         return ($yValue - $this->getIntersect()) / $this->getSlope();
@@ -71,7 +69,7 @@ class PolynomialBestFit extends BestFit
      * @param int $dp Number of places of decimal precision to display
      *
      * @return string
-     **/
+     */
     public function getEquation($dp = 0)
     {
         $slope = $this->getSlope($dp);
@@ -96,7 +94,7 @@ class PolynomialBestFit extends BestFit
      * @param int $dp Number of places of decimal precision to display
      *
      * @return string
-     **/
+     */
     public function getSlope($dp = 0)
     {
         if ($dp != 0) {

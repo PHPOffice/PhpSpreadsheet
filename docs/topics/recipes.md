@@ -96,16 +96,16 @@ $spreadsheet->getActiveSheet()->getStyle('D1')
 ```
 
 The above methods for entering a date all yield the same result.
-\PhpOffice\PhpSpreadsheet\Style\NumberFormat provides a lot of
+`\PhpOffice\PhpSpreadsheet\Style\NumberFormat` provides a lot of
 pre-defined date formats.
 
-The \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel() method will also
+The `\PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel()` method will also
 work with a PHP DateTime object.
 
 Similarly, times (or date and time values) can be entered in the same
 fashion: just remember to use an appropriate format code.
 
-**Notes:**
+**Note:**
 
 See section "Using value binders to facilitate data entry" to learn more
 about the AdvancedValueBinder used in the first example. Excel can also
@@ -275,7 +275,7 @@ You can make a cell a clickable URL by setting its hyperlink property:
 
 ``` php
 $spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
-$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('http://www.phpexcel.net');
+$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('https://www.example.com');
 ```
 
 If you want to make a hyperlink to another worksheet/cell, use the
@@ -333,7 +333,7 @@ As you can see, it is not necessary to call setFitToPage(TRUE) since
 setFitToWidth(...) and setFitToHeight(...) triggers this.
 
 If you use `setFitToWidth()` you should in general also specify
-setFitToHeight() explicitly like in the example. Be careful relying on
+`setFitToHeight()` explicitly like in the example. Be careful relying on
 the initial values.
 
 ### Page margins
@@ -549,29 +549,29 @@ sets a cell's style to font bold, alignment right, top border thin and a
 gradient fill:
 
 ``` php
-$styleArray = array(
-    'font' => array(
+$styleArray = [
+    'font' => [
         'bold' => true,
-    ),
-    'alignment' => array(
+    ],
+    'alignment' => [
         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
-    ),
-    'borders' => array(
-        'top' => array(
+    ],
+    'borders' => [
+        'top' => [
             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-        ),
-    ),
-    'fill' => array(
+        ],
+    ],
+    'fill' => [
         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
         'rotation' => 90,
-        'startColor' => array(
+        'startColor' => [
             'argb' => 'FFA0A0A0',
-        ),
-        'endColor' => array(
+        ],
+        'endColor' => [
             'argb' => 'FFFFFFFF',
-        ),
-    ),
-);
+        ],
+    ],
+];
 
 $spreadsheet->getActiveSheet()->getStyle('A3')->applyFromArray($styleArray);
 ```
@@ -690,14 +690,14 @@ selection. Here is how to apply a thick red border outline around cells
 B2:G8.
 
 ``` php
-$styleArray = array(
-    'borders' => array(
-        'outline' => array(
+$styleArray = [
+    'borders' => [
+        'outline' => [
             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-            'color' => array('argb' => 'FFFF0000'),
-        ),
-    ),
-);
+            'color' => ['argb' => 'FFFF0000'],
+        ],
+    ],
+];
 
 $worksheet->getStyle('B2:G8')->applyFromArray($styleArray);
 ```
@@ -770,7 +770,6 @@ startColor | getStartColor()
 endColor   | getEndColor()
 color      | getStartColor()
 
-
 **\PhpOffice\PhpSpreadsheet\Style\Font**
 
 Array key   | Maps to property
@@ -802,10 +801,10 @@ outline           | setOutline()
 
 **\PhpOffice\PhpSpreadsheet\Style\Border**
 
-Array key | Maps to property
-----------|-------------------
-style     | setBorderStyle()
-color     | getColor()
+Array key   | Maps to property
+------------|-------------------
+borderStyle | setBorderStyle()
+color       | getColor()
 
 **\PhpOffice\PhpSpreadsheet\Style\Alignment**
 
@@ -919,7 +918,6 @@ entered.
 disallow inserting rows on a specific sheet, disallow sorting, ...
 - Cell: offers the option to lock/unlock a cell as well as show/hide
 the internal formula.
-
 
 An example on setting document security:
 
@@ -1197,7 +1195,7 @@ $spreadsheet->getActiveSheet()->insertNewRowBefore(7, 2);
 
 A drawing is always represented as a separate object, which can be added
 to a worksheet. Therefore, you must first instantiate a new
-\PhpOffice\PhpSpreadsheet\Worksheet\Drawing, and assign its properties a
+`\PhpOffice\PhpSpreadsheet\Worksheet\Drawing`, and assign its properties a
 meaningful value:
 
 ``` php
@@ -1299,7 +1297,7 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
 ## Add rich text to a cell
 
 Adding rich text to a cell can be done using
-\PhpOffice\PhpSpreadsheet\RichText instances. Here''s an example, which
+`\PhpOffice\PhpSpreadsheet\RichText` instances. Here''s an example, which
 creates the following rich text string:
 
 > This invoice is ***payable within thirty days after the end of the
@@ -1346,18 +1344,18 @@ steps that can be followed to do this:
 
 1.  Create your PhpSpreadsheet spreadsheet
 2.  Output HTTP headers for the type of document you wish to output
-3.  Use the \PhpOffice\PhpSpreadsheet\Writer\* of your choice, and save
-    to "php://output"
+3.  Use the `\PhpOffice\PhpSpreadsheet\Writer\*` of your choice, and save
+    to `'php://output'`
 
-\PhpOffice\PhpSpreadsheet\Writer\Xlsx uses temporary storage when
-writing to php://output. By default, temporary files are stored in the
+`\PhpOffice\PhpSpreadsheet\Writer\Xlsx` uses temporary storage when
+writing to `php://output`. By default, temporary files are stored in the
 script's working directory. When there is no access, it falls back to
 the operating system's temporary files location.
 
 **This may not be safe for unauthorized viewing!** Depending on the
 configuration of your operating system, temporary storage can be read by
 anyone using the same temporary storage folder. When confidentiality of
-your document is needed, it is recommended not to use php://output.
+your document is needed, it is recommended not to use `php://output`.
 
 ### HTTP headers
 
@@ -1472,7 +1470,7 @@ $worksheet1 = $spreadsheet->createSheet();
 $worksheet1->setTitle('Another sheet');
 ```
 
-Think of createSheet() as the "Insert sheet" button in Excel. When you
+Think of `createSheet()` as the "Insert sheet" button in Excel. When you
 hit that button a new sheet is appended to the existing collection of
 worksheets in the workbook.
 
@@ -1506,13 +1504,3 @@ right-to-left.
 // right-to-left worksheet
 $spreadsheet->getActiveSheet()->setRightToLeft(true);
 ```
-
-[^1]: z
-
-    ``` php
-    $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
-    $drawing->setName('PhpSpreadsheet logo');
-    $drawing->setPath('./images/PhpSpreadsheet_logo.png');
-    $drawing->setHeight(36);
-    $spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
-    ```

@@ -6,7 +6,7 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMText;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -112,8 +112,6 @@ class Html extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return bool
      */
     public function canRead($pFilename)
@@ -148,7 +146,14 @@ class Html extends BaseReader
         $filename = $meta['uri'];
 
         $size = filesize($filename);
+        if ($size === 0) {
+            return '';
+        }
+
         $blockSize = self::TEST_SAMPLE_SIZE;
+        if ($size < $blockSize) {
+            $blockSize = $size;
+        }
 
         fseek($this->fileHandle, $size - $blockSize);
 
@@ -192,6 +197,8 @@ class Html extends BaseReader
      * Set input encoding.
      *
      * @param string $pValue Input encoding, eg: 'ANSI'
+     *
+     * @return Html
      */
     public function setInputEncoding($pValue)
     {
@@ -212,7 +219,9 @@ class Html extends BaseReader
 
     //    Data Array used for testing only, should write to Spreadsheet object on completion of tests
     protected $dataArray = [];
+
     protected $tableLevel = 0;
+
     protected $nestedColumn = ['A'];
 
     protected function setTableStartColumn($column)
@@ -307,6 +316,14 @@ class Html extends BaseReader
                     case 'em':
                     case 'strong':
                     case 'b':
+                        if (isset($attributeArray['class']) && $attributeArray['class'] === 'comment') {
+                            $sheet->getComment($column . $row)
+                                ->getText()
+                                ->createTextRun($child->textContent);
+
+                            break;
+                        }
+
                         if ($cellContent > '') {
                             $cellContent .= ' ';
                         }
@@ -349,6 +366,10 @@ class Html extends BaseReader
                                     }
 
                                     break;
+                                case 'class':
+                                    if ($attributeValue === 'comment-indicator') {
+                                        break; // Ignore - it's just a red square.
+                                    }
                             }
                         }
                         $cellContent .= ' ';
@@ -448,7 +469,7 @@ class Html extends BaseReader
                                 ++$columnTo;
                             }
                             $range = $column . $row . ':' . $columnTo . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (Coordinate::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -456,7 +477,7 @@ class Html extends BaseReader
                         } elseif (isset($attributeArray['rowspan'])) {
                             //create merging rowspan
                             $range = $column . $row . ':' . $column . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (Coordinate::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -568,7 +589,7 @@ class Html extends BaseReader
      *
      * @param string $xml
      *
-     * @throws Exception
+     * @return string
      */
     public function securityScan($xml)
     {
@@ -591,9 +612,9 @@ class Html extends BaseReader
      * - Implement to other propertie, such as border
      *
      * @param Worksheet $sheet
-     * @param array $attributeArray
      * @param int $row
      * @param string $column
+     * @param array $attributeArray
      */
     private function applyInlineStyle(&$sheet, $row, $column, $attributeArray)
     {

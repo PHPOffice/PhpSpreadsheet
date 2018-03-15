@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -179,10 +180,11 @@ class Content extends WriterPart
         while ($cells->valid()) {
             /** @var \PhpOffice\PhpSpreadsheet\Cell\Cell $cell */
             $cell = $cells->current();
-            $column = Cell::columnIndexFromString($cell->getColumn()) - 1;
+            $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
 
             $this->writeCellSpan($objWriter, $column, $prevColumn);
             $objWriter->startElement('table:table-cell');
+            $this->writeCellMerge($objWriter, $cell);
 
             // Style XF
             $style = $cell->getXfIndex();
@@ -199,6 +201,7 @@ class Content extends WriterPart
                     break;
                 case DataType::TYPE_ERROR:
                     throw new Exception('Writing of error not implemented yet.');
+
                     break;
                 case DataType::TYPE_FORMULA:
                     $formulaValue = $cell->getValue();
@@ -221,6 +224,7 @@ class Content extends WriterPart
                     break;
                 case DataType::TYPE_INLINE:
                     throw new Exception('Writing of inline not implemented yet.');
+
                     break;
                 case DataType::TYPE_NUMERIC:
                     $objWriter->writeAttribute('office:value-type', 'float');
@@ -362,5 +366,30 @@ class Content extends WriterPart
 
             $writer->endElement(); // Close style:style
         }
+    }
+
+    /**
+     * Write attributes for merged cell.
+     *
+     * @param XMLWriter $objWriter
+     * @param Cell $cell
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    private function writeCellMerge(XMLWriter $objWriter, Cell $cell)
+    {
+        if (!$cell->isMergeRangeValueCell()) {
+            return;
+        }
+
+        $mergeRange = Coordinate::splitRange($cell->getMergeRange());
+        list($startCell, $endCell) = $mergeRange[0];
+        $start = Coordinate::coordinateFromString($startCell);
+        $end = Coordinate::coordinateFromString($endCell);
+        $columnSpan = Coordinate::columnIndexFromString($end[0]) - Coordinate::columnIndexFromString($start[0]) + 1;
+        $rowSpan = $end[1] - $start[1] + 1;
+
+        $objWriter->writeAttribute('table:number-columns-spanned', $columnSpan);
+        $objWriter->writeAttribute('table:number-rows-spanned', $rowSpan);
     }
 }

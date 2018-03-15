@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Sample;
+namespace PhpOffice\PhpSpreadsheetTests\Helper;
 
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PHPUnit\Framework\TestCase;
@@ -29,6 +29,11 @@ class SampleTest extends TestCase
             'Chart/32_Chart_read_write_PDF.php', // Unfortunately JpGraph is not up to date for latest PHP and raise many warnings
             'Chart/32_Chart_read_write_HTML.php', // idem
         ];
+
+        // TCPDF does not support PHP 7.2
+        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
+            $skipped[] = 'Pdf/21_Pdf_TCPDF.php';
+        }
 
         // Unfortunately some tests are too long be ran with code-coverage
         // analysis on Travis, so we need to exclude them

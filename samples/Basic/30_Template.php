@@ -32,10 +32,10 @@ foreach ($data as $r => $dataRow) {
     $spreadsheet->getActiveSheet()->insertNewRowBefore($row, 1);
 
     $spreadsheet->getActiveSheet()->setCellValue('A' . $row, $r + 1)
-            ->setCellValue('B' . $row, $dataRow['title'])
-            ->setCellValue('C' . $row, $dataRow['price'])
-            ->setCellValue('D' . $row, $dataRow['quantity'])
-            ->setCellValue('E' . $row, '=C' . $row . '*D' . $row);
+        ->setCellValue('B' . $row, $dataRow['title'])
+        ->setCellValue('C' . $row, $dataRow['price'])
+        ->setCellValue('D' . $row, $dataRow['quantity'])
+        ->setCellValue('E' . $row, '=C' . $row . '*D' . $row);
 }
 $spreadsheet->getActiveSheet()->removeRow($baseRow - 1, 1);
 

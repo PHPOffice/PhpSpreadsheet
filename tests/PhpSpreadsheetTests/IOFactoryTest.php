@@ -117,35 +117,31 @@ class IOFactoryTest extends TestCase
         ];
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testIdentifyNonExistingFileThrowException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         IOFactory::identify('/non/existing/file');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testIdentifyExistingDirectoryThrowExceptions()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         IOFactory::identify('.');
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Writer\Exception
-     */
     public function testRegisterInvalidWriter()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Writer\Exception::class);
+
         IOFactory::registerWriter('foo', 'bar');
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Reader\Exception
-     */
     public function testRegisterInvalidReader()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+
         IOFactory::registerReader('foo', 'bar');
     }
 }

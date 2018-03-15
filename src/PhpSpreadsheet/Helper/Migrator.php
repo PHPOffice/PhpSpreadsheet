@@ -12,7 +12,7 @@ class Migrator
     public function getMapping()
     {
         // Order matters here, we should have the deepest namespaces first (the most "unique" strings)
-        $mapping = [
+        $classes = [
             'PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip' => \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip::class,
             'PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer' => \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer::class,
             'PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE' => \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::class,
@@ -205,7 +205,9 @@ class Migrator
             'PHPExcel_Style' => \PhpOffice\PhpSpreadsheet\Style\Style::class,
             'PHPExcel_Worksheet' => \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::class,
             'PHPExcel' => \PhpOffice\PhpSpreadsheet\Spreadsheet::class,
-            // methods
+        ];
+
+        $methods = [
             'MINUTEOFHOUR' => 'MINUTE',
             'SECONDOFMINUTE' => 'SECOND',
             'DAYOFWEEK' => 'WEEKDAY',
@@ -213,7 +215,27 @@ class Migrator
             'ExcelToPHPObject' => 'excelToDateTimeObject',
             'ExcelToPHP' => 'excelToTimestamp',
             'FormattedPHPToExcel' => 'formattedPHPToExcel',
+            'Cell::absoluteCoordinate' => 'Coordinate::absoluteCoordinate',
+            'Cell::absoluteReference' => 'Coordinate::absoluteReference',
+            'Cell::buildRange' => 'Coordinate::buildRange',
+            'Cell::columnIndexFromString' => 'Coordinate::columnIndexFromString',
+            'Cell::coordinateFromString' => 'Coordinate::coordinateFromString',
+            'Cell::extractAllCellReferencesInRange' => 'Coordinate::extractAllCellReferencesInRange',
+            'Cell::getRangeBoundaries' => 'Coordinate::getRangeBoundaries',
+            'Cell::mergeRangesInCollection' => 'Coordinate::mergeRangesInCollection',
+            'Cell::rangeBoundaries' => 'Coordinate::rangeBoundaries',
+            'Cell::rangeDimension' => 'Coordinate::rangeDimension',
+            'Cell::splitRange' => 'Coordinate::splitRange',
+            'Cell::stringFromColumnIndex' => 'Coordinate::stringFromColumnIndex',
         ];
+
+        // Keep '\' prefix for class names
+        $prefixedClasses = [];
+        foreach ($classes as $key => &$value) {
+            $value = str_replace('PhpOffice\\', '\\PhpOffice\\', $value);
+            $prefixedClasses['\\' . $key] = $value;
+        }
+        $mapping = $prefixedClasses + $classes + $methods;
 
         return $mapping;
     }
@@ -228,6 +250,7 @@ class Migrator
         $patterns = [
             '/*.md',
             '/*.php',
+            '/*.phtml',
             '/*.txt',
             '/*.TXT',
         ];

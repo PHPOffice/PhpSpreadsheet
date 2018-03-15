@@ -9,7 +9,7 @@ class HyperlinkTest extends TestCase
 {
     public function testGetUrl()
     {
-        $urlValue = 'http://www.phpexcel.net';
+        $urlValue = 'https://www.example.com';
 
         $testInstance = new Hyperlink($urlValue);
 
@@ -19,12 +19,12 @@ class HyperlinkTest extends TestCase
 
     public function testSetUrl()
     {
-        $initialUrlValue = 'http://www.phpexcel.net';
+        $initialUrlValue = 'https://www.example.com';
         $newUrlValue = 'http://github.com/PHPOffice/PhpSpreadsheet';
 
         $testInstance = new Hyperlink($initialUrlValue);
         $result = $testInstance->setUrl($newUrlValue);
-        self::assertTrue($result instanceof Hyperlink);
+        self::assertInstanceOf(Hyperlink::class, $result);
 
         $result = $testInstance->getUrl();
         self::assertEquals($newUrlValue, $result);
@@ -47,7 +47,7 @@ class HyperlinkTest extends TestCase
 
         $testInstance = new Hyperlink(null, $initialTooltipValue);
         $result = $testInstance->setTooltip($newTooltipValue);
-        self::assertTrue($result instanceof Hyperlink);
+        self::assertInstanceOf(Hyperlink::class, $result);
 
         $result = $testInstance->getTooltip();
         self::assertEquals($newTooltipValue, $result);
@@ -55,7 +55,7 @@ class HyperlinkTest extends TestCase
 
     public function testIsInternal()
     {
-        $initialUrlValue = 'http://www.phpexcel.net';
+        $initialUrlValue = 'https://www.example.com';
         $newUrlValue = 'sheet://Worksheet1!A1';
 
         $testInstance = new Hyperlink($initialUrlValue);
@@ -69,9 +69,9 @@ class HyperlinkTest extends TestCase
 
     public function testGetHashCode()
     {
-        $urlValue = 'http://www.phpexcel.net';
+        $urlValue = 'https://www.example.com';
         $tooltipValue = 'PhpSpreadsheet Web Site';
-        $initialExpectedHash = '6f1d4cbf40034b9ddc3fbf6019506e91';
+        $initialExpectedHash = '3a8d5a682dba27276dce538c39402437';
 
         $testInstance = new Hyperlink($urlValue, $tooltipValue);
 

@@ -5,7 +5,62 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.2.0] - 2018-03-04
+
+### Added
+
+- HTML writer creates a generator meta tag - [#312](https://github.com/PHPOffice/PhpSpreadsheet/issues/312)
+- Support invalid zoom value in XLSX format - [#350](https://github.com/PHPOffice/PhpSpreadsheet/pull/350)
+- Support for `_xlfn.` prefixed functions and `ISFORMULA`, `MODE.SNGL`, `STDEV.S`, `STDEV.P` - [#390](https://github.com/PHPOffice/PhpSpreadsheet/pull/390)
+
+### Fixed
+
+- Avoid potentially unsupported PSR-16 cache keys - [#354](https://github.com/PHPOffice/PhpSpreadsheet/issues/354)
+- Check for MIME type to know if CSV reader can read a file - [#167](https://github.com/PHPOffice/PhpSpreadsheet/issues/167)
+- Use proper € symbol for currency format - [#379](https://github.com/PHPOffice/PhpSpreadsheet/pull/379)
+- Read printing area correctly when skipping some sheets - [#371](https://github.com/PHPOffice/PhpSpreadsheet/issues/371)
+- Avoid incorrectly overwriting calculated value type - [#394](https://github.com/PHPOffice/PhpSpreadsheet/issues/394)
+- Select correct cell when calling freezePane - [#389](https://github.com/PHPOffice/PhpSpreadsheet/issues/389)
+- `setStrikethrough()` did not set the font - [#403](https://github.com/PHPOffice/PhpSpreadsheet/issues/403)
+
+## [1.1.0] - 2018-01-28
+
+### Added
+
+- Support for PHP 7.2
+- Support cell comments in HTML writer and reader - [#308](https://github.com/PHPOffice/PhpSpreadsheet/issues/308)
+- Option to stop at a conditional styling, if it matches (only XLSX format) - [#292](https://github.com/PHPOffice/PhpSpreadsheet/pull/292)
+- Support for line width for data series when rendering Xlsx - [#329](https://github.com/PHPOffice/PhpSpreadsheet/pull/329)
+
+### Fixed
+
+- Better auto-detection of CSV separators - [#305](https://github.com/PHPOffice/PhpSpreadsheet/issues/305)
+- Support for shape style ending with `;` - [#304](https://github.com/PHPOffice/PhpSpreadsheet/issues/304)
+- Freeze Panes takes wrong coordinates for XLSX - [#322](https://github.com/PHPOffice/PhpSpreadsheet/issues/322)
+- `COLUMNS` and `ROWS` functions crashed in some cases - [#336](https://github.com/PHPOffice/PhpSpreadsheet/issues/336)
+- Support XML file without styles - [#331](https://github.com/PHPOffice/PhpSpreadsheet/pull/331)
+- Cell coordinates which are already a range cause an exception [#319](https://github.com/PHPOffice/PhpSpreadsheet/issues/319)
+
+## [1.0.0] - 2017-12-25
+
+### Added
+
+- Support to write merged cells in ODS format - [#287](https://github.com/PHPOffice/PhpSpreadsheet/issues/287)
+- Able to set the `topLeftCell` in freeze panes - [#261](https://github.com/PHPOffice/PhpSpreadsheet/pull/261)
+- Support `DateTimeImmutable` as cell value
+- Support migration of prefixed classes
+
+### Fixed
+
+- Can read very small HTML files - [#194](https://github.com/PHPOffice/PhpSpreadsheet/issues/194)
+- Written DataValidation was corrupted - [#290](https://github.com/PHPOffice/PhpSpreadsheet/issues/290)
+- Date format compatible with both LibreOffice and Excel - [#298](https://github.com/PHPOffice/PhpSpreadsheet/issues/298)
+
+### BREAKING CHANGE
+
+- Constant `TYPE_DOUGHTNUTCHART` is now `TYPE_DOUGHNUTCHART`.
+
+## [1.0.0-beta2] - 2017-11-26
 
 ### Added
 
@@ -29,17 +84,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### BREAKING CHANGE
 
+- Extracted coordinate method to dedicate class [migration guide](./docs/topics/migration-from-PHPExcel.md).
+- Column indexes are based on 1, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Standardization of array keys used for style, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Easier usage of PDF writers, and other custom readers and writers, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Easier usage of chart renderers, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 - Rename a few more classes to keep them in their related namespaces:
     - `CalcEngine` => `Calculation\Engine`
-    - `PhpSpreadsheet\Calculation` => `PhpSpreadsheet\Calculation\Calculation` 
-    - `PhpSpreadsheet\Cell` => `PhpSpreadsheet\Cell\Cell` 
-    - `PhpSpreadsheet\Chart` => `PhpSpreadsheet\Chart\Chart` 
-    - `PhpSpreadsheet\RichText` => `PhpSpreadsheet\RichText\RichText` 
-    - `PhpSpreadsheet\Style` => `PhpSpreadsheet\Style\Style` 
-    - `PhpSpreadsheet\Worksheet` => `PhpSpreadsheet\Worksheet\Worksheet` 
+    - `PhpSpreadsheet\Calculation` => `PhpSpreadsheet\Calculation\Calculation`
+    - `PhpSpreadsheet\Cell` => `PhpSpreadsheet\Cell\Cell`
+    - `PhpSpreadsheet\Chart` => `PhpSpreadsheet\Chart\Chart`
+    - `PhpSpreadsheet\RichText` => `PhpSpreadsheet\RichText\RichText`
+    - `PhpSpreadsheet\Style` => `PhpSpreadsheet\Style\Style`
+    - `PhpSpreadsheet\Worksheet` => `PhpSpreadsheet\Worksheet\Worksheet`
 
 ## [1.0.0-beta] - 2017-08-17
 

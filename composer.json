@@ -4,7 +4,7 @@
     "keywords": ["PHP", "OpenXML", "Excel", "xlsx", "xls", "ods", "gnumeric", "spreadsheet"],
     "homepage": "https://github.com/PHPOffice/PhpSpreadsheet",
     "type": "library",
-    "license": "LGPL-2.1",
+    "license": "LGPL-2.1-or-later",
     "authors": [
         {
             "name": "Maarten Balliauw",
@@ -54,12 +54,10 @@
         "phpunit/phpunit": "^5.7",
         "dompdf/dompdf": "^0.8.0",
         "mpdf/mpdf": "^7.0.0",
-        "friendsofphp/php-cs-fixer": "^2.7",
-        "jpgraph/jpgraph": "^4.0"
+        "jpgraph/jpgraph": "^4.0",
+        "friendsofphp/php-cs-fixer": "@stable"
     },
     "suggest": {
-        "ext-gd": "Required for exact column width autocalculation",
-        "ext-dom": "Option to read and write HTML files",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnick.com/tcpdf": "Option for rendering PDF with PDF Writer",

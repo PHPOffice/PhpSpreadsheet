@@ -1231,14 +1231,14 @@
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center;">N/A</td>
-        <td></td>
+        <td style="text-align: center; color: orange;">● <sup>1</sup></td>
         <td style="text-align: center;">N/A</td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Rich Text</td>
-        <td style="text-align: center; color: red;">✖ <sup>1</sup></td>
+        <td style="text-align: center; color: red;">✖ <sup>2</sup></td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -1256,7 +1256,7 @@
     </tr>
     <tr>
         <td style="padding-left: 1em;">Alignment</td>
-        <td style="text-align: center; color: red;">✖ <sup>2</sup></td>
+        <td style="text-align: center; color: red;">✖ <sup>3</sup></td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -1568,5 +1568,6 @@
     </tr>
 </table>
 
-1. Only BIFF8 files support Rich Text. Prior to that, comments could only be plain text
-2. Only BIFF8 files support alignment and rotation. Prior to that, comments could only be unformatted text
+1. Only text contents
+2. Only BIFF8 files support Rich Text. Prior to that, comments could only be plain text
+3. Only BIFF8 files support alignment and rotation. Prior to that, comments could only be unformatted text

@@ -19,7 +19,7 @@ class DataSeriesValuesTest extends TestCase
 
         foreach ($dataTypeValues as $dataTypeValue) {
             $result = $testInstance->setDataType($dataTypeValue);
-            self::assertTrue($result instanceof DataSeriesValues);
+            self::assertInstanceOf(DataSeriesValues::class, $result);
         }
     }
 
@@ -46,5 +46,17 @@ class DataSeriesValuesTest extends TestCase
 
         $result = $testInstance->getDataType();
         self::assertEquals($dataTypeValue, $result);
+    }
+
+    public function testGetLineWidth()
+    {
+        $testInstance = new DataSeriesValues();
+        self::assertEquals(12700, $testInstance->getLineWidth(), 'should have default');
+
+        $testInstance->setLineWidth(40000);
+        self::assertEquals(40000, $testInstance->getLineWidth());
+
+        $testInstance->setLineWidth(1);
+        self::assertEquals(12700, $testInstance->getLineWidth(), 'should enforce minimum width');
     }
 }

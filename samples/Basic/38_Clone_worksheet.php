@@ -11,25 +11,25 @@ $spreadsheet = new Spreadsheet();
 // Set document properties
 $helper->log('Set document properties');
 $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
-        ->setLastModifiedBy('Maarten Balliauw')
-        ->setTitle('PhpSpreadsheet Test Document')
-        ->setSubject('PhpSpreadsheet Test Document')
-        ->setDescription('Test document for PhpSpreadsheet, generated using PHP classes.')
-        ->setKeywords('office PhpSpreadsheet php')
-        ->setCategory('Test result file');
+    ->setLastModifiedBy('Maarten Balliauw')
+    ->setTitle('PhpSpreadsheet Test Document')
+    ->setSubject('PhpSpreadsheet Test Document')
+    ->setDescription('Test document for PhpSpreadsheet, generated using PHP classes.')
+    ->setKeywords('office PhpSpreadsheet php')
+    ->setCategory('Test result file');
 
 // Add some data
 $helper->log('Add some data');
 $spreadsheet->setActiveSheetIndex(0)
-        ->setCellValue('A1', 'Hello')
-        ->setCellValue('B2', 'world!')
-        ->setCellValue('C1', 'Hello')
-        ->setCellValue('D2', 'world!');
+    ->setCellValue('A1', 'Hello')
+    ->setCellValue('B2', 'world!')
+    ->setCellValue('C1', 'Hello')
+    ->setCellValue('D2', 'world!');
 
 // Miscellaneous glyphs, UTF-8
 $spreadsheet->setActiveSheetIndex(0)
-        ->setCellValue('A4', 'Miscellaneous glyphs')
-        ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
+    ->setCellValue('A4', 'Miscellaneous glyphs')
+    ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
 
 $spreadsheet->getActiveSheet()->setCellValue('A8', "Hello\nWorld");
 $spreadsheet->getActiveSheet()->getRowDimension(8)->setRowHeight(-1);
@@ -43,10 +43,10 @@ $spreadsheet->getActiveSheet()->setTitle('Simple');
 $helper->log('Clone worksheet');
 $clonedSheet = clone $spreadsheet->getActiveSheet();
 $clonedSheet
-        ->setCellValue('A1', 'Goodbye')
-        ->setCellValue('A2', 'cruel')
-        ->setCellValue('C1', 'Goodbye')
-        ->setCellValue('C2', 'cruel');
+    ->setCellValue('A1', 'Goodbye')
+    ->setCellValue('A2', 'cruel')
+    ->setCellValue('C1', 'Goodbye')
+    ->setCellValue('C2', 'cruel');
 
 // Rename cloned worksheet
 $helper->log('Rename cloned worksheet');

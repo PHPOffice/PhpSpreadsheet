@@ -2,20 +2,22 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 
-/*
- *    Matrix class
- *
- *    @author Paul Meagher
- *    @author Michael Bommarito
- *    @author Lukasz Karapuda
- *    @author Bartek Matosiuk
- *    @version 1.8
- *    @see http://math.nist.gov/javanumerics/jama/
- */
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
+/**
+ * Matrix class.
+ *
+ * @author Paul Meagher
+ * @author Michael Bommarito
+ * @author Lukasz Karapuda
+ * @author Bartek Matosiuk
+ *
+ * @version 1.8
+ *
+ * @see http://math.nist.gov/javanumerics/jama/
+ */
 class Matrix
 {
     const POLYMORPHIC_ARGUMENT_EXCEPTION = 'Invalid argument pattern for polymorphic function.';
@@ -99,6 +101,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
         } else {
@@ -190,6 +193,7 @@ class Matrix
                     }
 
                     return $R;
+
                     break;
                 //A($i0...$iF; $j0...$jF)
                 case 'integer,integer,integer,integer':
@@ -212,6 +216,7 @@ class Matrix
                     }
 
                     return $R;
+
                     break;
                 //$R = array of row indices; $C = array of column indices
                 case 'array,array':
@@ -234,6 +239,7 @@ class Matrix
                     }
 
                     return $R;
+
                     break;
                 //A($i0...$iF); $CL = array of column indices
                 case 'integer,integer,array':
@@ -256,6 +262,7 @@ class Matrix
                     }
 
                     return $R;
+
                     break;
                 //$RL = array of row indices
                 case 'array,integer,integer':
@@ -278,9 +285,11 @@ class Matrix
                     }
 
                     return $R;
+
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
         } else {
@@ -492,6 +501,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -536,6 +546,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -594,6 +605,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -638,6 +650,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -697,6 +710,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -742,6 +756,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -801,6 +816,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -865,6 +881,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -910,6 +927,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -955,6 +973,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -1093,6 +1112,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -1151,6 +1171,7 @@ class Matrix
                     break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+
                     break;
             }
             $this->checkMatrixDimensions($M);

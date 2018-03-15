@@ -8,30 +8,33 @@ php:
   - 7.1
   - 7.2
 
-matrix:
-  include:
-    - php: 7.0
-      env: COVERAGE=1
-  allow_failures:
-    - php: 7.2
-
 cache:
   directories:
     - vendor
     - $HOME/.composer/cache
 
 before_script:
-  # Deactivate xdebug if we don't do code coverage
-  - if [ -z "$COVERAGE" ]; then rm -rfv /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ; fi
-  - composer install
+  # Deactivate xdebug
+  - if [ -z "$KEEP_XDEBUG" ]; then rm -rfv /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ; fi
+  - composer install --ignore-platform-reqs
 
 script:
-  # PHP_CodeSniffer
-  - if [ -z "$COVERAGE" ]; then ./vendor/bin/phpcs --report-width=200 --report-summary  --report-full samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n ; fi
-  # PHP-CS-Fixer
-  - if [ -z "$COVERAGE" ]; then ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run ; fi
-  # PHPUnit
-  - ./vendor/bin/phpunit $(if [ -n "$COVERAGE" ]; then echo --debug --coverage-clover coverage-clover.xml ; fi)
+  - ./vendor/bin/phpunit
 
-after_script:
-  - if [ -n "$COVERAGE" ]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml ; fi
+jobs:
+  include:
+
+    - stage: Code style
+      php: 7.1
+      script:
+        - ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run
+        - ./vendor/bin/phpcs --report-width=200 --report-summary  --report-full samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n
+
+    - stage: Coverage
+      php: 7.1
+      env: KEEP_XDEBUG=1
+      script:
+        - travis_wait 40 ./vendor/bin/phpunit --debug --coverage-clover coverage-clover.xml
+      after_script:
+        - wget https://scrutinizer-ci.com/ocular.phar
+        - php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml

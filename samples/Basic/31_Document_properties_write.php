@@ -15,9 +15,9 @@ $helper->logRead($inputFileType, $inputFileName, $callStartTime);
 
 $helper->log('Adjust properties');
 $spreadsheet->getProperties()->setTitle('Office 2007 XLSX Test Document')
-        ->setSubject('Office 2007 XLSX Test Document')
-        ->setDescription('Test XLSX document, generated using PhpSpreadsheet')
-        ->setKeywords('office 2007 openxml php');
+    ->setSubject('Office 2007 XLSX Test Document')
+    ->setDescription('Test XLSX document, generated using PhpSpreadsheet')
+    ->setKeywords('office 2007 openxml php');
 
 // Save Excel 2007 file
 $filename = $helper->getFilename(__FILE__);

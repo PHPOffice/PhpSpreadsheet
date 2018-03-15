@@ -2,8 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-
 /**
  * <code>
  * Header/Footer Formatting Syntax taken from Office Open XML Part 4 - Markup Language Reference, page 1970:.
@@ -405,8 +403,6 @@ class HeaderFooter
      * @param HeaderFooterDrawing $image
      * @param string $location
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return HeaderFooter
      */
     public function addImage(HeaderFooterDrawing $image, $location = self::IMAGE_HEADER_LEFT)
@@ -420,8 +416,6 @@ class HeaderFooter
      * Remove header/footer image.
      *
      * @param string $location
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return HeaderFooter
      */
@@ -438,8 +432,6 @@ class HeaderFooter
      * Set header/footer images.
      *
      * @param HeaderFooterDrawing[] $images
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return HeaderFooter
      */

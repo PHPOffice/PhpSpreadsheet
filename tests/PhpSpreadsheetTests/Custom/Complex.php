@@ -7,7 +7,9 @@ use PhpOffice\PhpSpreadsheet\Exception;
 class Complex
 {
     private $realPart = 0;
+
     private $imaginaryPart = 0;
+
     private $suffix;
 
     public static function _parseComplex($complexNumber)

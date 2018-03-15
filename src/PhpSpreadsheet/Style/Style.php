@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Style extends Supervisor
@@ -82,8 +82,7 @@ class Style extends Supervisor
      */
     public function __construct($isSupervisor = false, $isConditional = false)
     {
-        // Supervisor?
-        $this->isSupervisor = $isSupervisor;
+        parent::__construct($isSupervisor);
 
         // Initialise values
         $this->conditionalStyles = [];
@@ -152,40 +151,38 @@ class Style extends Supervisor
      *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->applyFromArray(
-     *         array(
-     *             'font'    => array(
-     *                 'name'      => 'Arial',
-     *                 'bold'      => true,
-     *                 'italic'    => false,
-     *                 'underline' => Font::UNDERLINE_DOUBLE,
-     *                 'strikethrough'    => false,
-     *                 'color'     => array(
+     *     [
+     *         'font' => [
+     *             'name' => 'Arial',
+     *             'bold' => true,
+     *             'italic' => false,
+     *             'underline' => Font::UNDERLINE_DOUBLE,
+     *             'strikethrough' => false,
+     *             'color' => [
+     *                 'rgb' => '808080'
+     *             ]
+     *         ],
+     *         'borders' => [
+     *             'bottom' => [
+     *                 'borderStyle' => Border::BORDER_DASHDOT,
+     *                 'color' => [
      *                     'rgb' => '808080'
-     *                 )
-     *             ),
-     *             'borders' => array(
-     *                 'bottom'     => array(
-     *                     'borderStyle' => Border::BORDER_DASHDOT,
-     *                     'color' => array(
-     *                         'rgb' => '808080'
-     *                     )
-     *                 ),
-     *                 'top'     => array(
-     *                     'borderStyle' => Border::BORDER_DASHDOT,
-     *                     'color' => array(
-     *                         'rgb' => '808080'
-     *                     )
-     *                 )
-     *             ),
-     *             'quotePrefix'    => true
-     *         )
+     *                 ]
+     *             ],
+     *             'top' => [
+     *                 'borderStyle' => Border::BORDER_DASHDOT,
+     *                 'color' => [
+     *                     'rgb' => '808080'
+     *                 ]
+     *             ]
+     *         ],
+     *         'quotePrefix'    => true
+     *     ]
      * );
      * </code>
      *
      * @param array $pStyles Array containing style information
      * @param bool $pAdvanced advanced mode for setting borders
-     *
-     * @throws Exception
      *
      * @return Style
      */
@@ -206,12 +203,12 @@ class Style extends Supervisor
             }
 
             // Calculate range outer borders
-            $rangeStart = Cell::coordinateFromString($rangeA);
-            $rangeEnd = Cell::coordinateFromString($rangeB);
+            $rangeStart = Coordinate::coordinateFromString($rangeA);
+            $rangeEnd = Coordinate::coordinateFromString($rangeB);
 
             // Translate column into index
-            $rangeStart[0] = Cell::columnIndexFromString($rangeStart[0]) - 1;
-            $rangeEnd[0] = Cell::columnIndexFromString($rangeEnd[0]) - 1;
+            $rangeStart[0] = Coordinate::columnIndexFromString($rangeStart[0]);
+            $rangeEnd[0] = Coordinate::columnIndexFromString($rangeEnd[0]);
 
             // Make sure we can loop upwards on rows and columns
             if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -260,12 +257,12 @@ class Style extends Supervisor
                 for ($x = 1; $x <= $xMax; ++$x) {
                     // start column index for region
                     $colStart = ($x == 3) ?
-                        Cell::stringFromColumnIndex($rangeEnd[0])
-                            : Cell::stringFromColumnIndex($rangeStart[0] + $x - 1);
+                        Coordinate::stringFromColumnIndex($rangeEnd[0])
+                            : Coordinate::stringFromColumnIndex($rangeStart[0] + $x - 1);
                     // end column index for region
                     $colEnd = ($x == 1) ?
-                        Cell::stringFromColumnIndex($rangeStart[0])
-                            : Cell::stringFromColumnIndex($rangeEnd[0] - $xMax + $x);
+                        Coordinate::stringFromColumnIndex($rangeStart[0])
+                            : Coordinate::stringFromColumnIndex($rangeEnd[0] - $xMax + $x);
 
                     for ($y = 1; $y <= $yMax; ++$y) {
                         // which edges are touching the region
@@ -343,7 +340,7 @@ class Style extends Supervisor
             // Selection type, inspect
             if (preg_match('/^[A-Z]+1:[A-Z]+1048576$/', $pRange)) {
                 $selectionType = 'COLUMN';
-            } elseif (preg_match('/^A[0-9]+:XFD[0-9]+$/', $pRange)) {
+            } elseif (preg_match('/^A\d+:XFD\d+$/', $pRange)) {
                 $selectionType = 'ROW';
             } else {
                 $selectionType = 'CELL';
@@ -571,6 +568,8 @@ class Style extends Supervisor
      * Set quote prefix.
      *
      * @param bool $pValue
+     *
+     * @return Style
      */
     public function setQuotePrefix($pValue)
     {

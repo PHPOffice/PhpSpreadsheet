@@ -12,28 +12,28 @@ $spreadsheet = new Spreadsheet();
 // Set document properties
 $helper->log('Set document properties');
 $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
-        ->setLastModifiedBy('Maarten Balliauw')
-        ->setTitle('Office 2007 XLSX Test Document')
-        ->setSubject('Office 2007 XLSX Test Document')
-        ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
-        ->setKeywords('office 2007 openxml php')
-        ->setCategory('Test result file');
+    ->setLastModifiedBy('Maarten Balliauw')
+    ->setTitle('Office 2007 XLSX Test Document')
+    ->setSubject('Office 2007 XLSX Test Document')
+    ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
+    ->setKeywords('office 2007 openxml php')
+    ->setCategory('Test result file');
 
 // Create a first sheet
 $helper->log('Add data');
 $spreadsheet->setActiveSheetIndex(0);
 $spreadsheet->getActiveSheet()->setCellValue('A1', 'Cell B3 and B5 contain data validation...')
-        ->setCellValue('A3', 'Number:')
-        ->setCellValue('B3', '10')
-        ->setCellValue('A5', 'List:')
-        ->setCellValue('B5', 'Item A')
-        ->setCellValue('A7', 'List #2:')
-        ->setCellValue('B7', 'Item #2')
-        ->setCellValue('D2', 'Item #1')
-        ->setCellValue('D3', 'Item #2')
-        ->setCellValue('D4', 'Item #3')
-        ->setCellValue('D5', 'Item #4')
-        ->setCellValue('D6', 'Item #5');
+    ->setCellValue('A3', 'Number:')
+    ->setCellValue('B3', '10')
+    ->setCellValue('A5', 'List:')
+    ->setCellValue('B5', 'Item A')
+    ->setCellValue('A7', 'List #2:')
+    ->setCellValue('B7', 'Item #2')
+    ->setCellValue('D2', 'Item #1')
+    ->setCellValue('D3', 'Item #2')
+    ->setCellValue('D4', 'Item #3')
+    ->setCellValue('D5', 'Item #4')
+    ->setCellValue('D6', 'Item #5');
 
 // Set data validation
 $helper->log('Set data validation');

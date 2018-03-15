@@ -6,8 +6,11 @@ class MD5
 {
     // Context
     private $a;
+
     private $b;
+
     private $c;
+
     private $d;
 
     /**

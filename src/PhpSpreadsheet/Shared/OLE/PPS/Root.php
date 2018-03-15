@@ -308,6 +308,8 @@ class Root extends PPS
      * get small data (PPS's with data smaller than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
      * @param array &$raList Reference to array of PPS's
+     *
+     * @return string
      */
     public function _makeSmallData(&$raList)
     {

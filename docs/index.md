@@ -83,7 +83,7 @@ Then point your browser to:
 The samples may also be run directly from the command line, for example:
 
 ```sh
-php vendor/phpoffice/phpspreadsheet/samples/01_Simple.php
+php vendor/phpoffice/phpspreadsheet/samples/Basic/01_Simple.php
 ```
 
 ## Learn by documentation

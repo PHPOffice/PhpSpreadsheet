@@ -12,9 +12,9 @@ $spreadsheet = new Spreadsheet();
 // Add some data, we will use some formulas here
 $helper->log('Add some data and formulas');
 $spreadsheet->getActiveSheet()->setCellValue('A1', '=B1')
-        ->setCellValue('A2', '=B2+1')
-        ->setCellValue('B1', '=A1+1')
-        ->setCellValue('B2', '=A2');
+    ->setCellValue('A2', '=B2+1')
+    ->setCellValue('B1', '=A1+1')
+    ->setCellValue('B2', '=A2');
 
 Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 100;
 

@@ -14,7 +14,7 @@ class Tcpdf extends Pdf
      * @param string $unit Unit measure
      * @param string $paperSize Paper size
      *
-     * @return TCPDF implementation
+     * @return \TCPDF implementation
      */
     protected function createExternalWriterInstance($orientation, $unit, $paperSize)
     {

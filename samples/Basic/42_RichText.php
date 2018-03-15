@@ -12,12 +12,12 @@ $spreadsheet = new Spreadsheet();
 // Set document properties
 $helper->log('Set document properties');
 $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
-        ->setLastModifiedBy('Maarten Balliauw')
-        ->setTitle('PhpSpreadsheet Test Document')
-        ->setSubject('PhpSpreadsheet Test Document')
-        ->setDescription('Test document for PhpSpreadsheet, generated using PHP classes.')
-        ->setKeywords('office PhpSpreadsheet php')
-        ->setCategory('Test result file');
+    ->setLastModifiedBy('Maarten Balliauw')
+    ->setTitle('PhpSpreadsheet Test Document')
+    ->setSubject('PhpSpreadsheet Test Document')
+    ->setDescription('Test document for PhpSpreadsheet, generated using PHP classes.')
+    ->setKeywords('office PhpSpreadsheet php')
+    ->setCategory('Test result file');
 
 // Add some data
 $helper->log('Add some data');
@@ -55,44 +55,44 @@ $wizard = new HtmlHelper();
 $richText = $wizard->toRichTextObject($html1);
 
 $spreadsheet->getActiveSheet()
-        ->setCellValue('A1', $richText);
+    ->setCellValue('A1', $richText);
 
 $spreadsheet->getActiveSheet()
-        ->getColumnDimension('A')
-        ->setWidth(48);
+    ->getColumnDimension('A')
+    ->setWidth(48);
 $spreadsheet->getActiveSheet()
-        ->getRowDimension(1)
-        ->setRowHeight(-1);
+    ->getRowDimension(1)
+    ->setRowHeight(-1);
 $spreadsheet->getActiveSheet()->getStyle('A1')
-        ->getAlignment()
-        ->setWrapText(true);
+    ->getAlignment()
+    ->setWrapText(true);
 
 $richText = $wizard->toRichTextObject($html2);
 
 $spreadsheet->getActiveSheet()
-        ->setCellValue('A2', $richText);
+    ->setCellValue('A2', $richText);
 
 $spreadsheet->getActiveSheet()
-        ->getRowDimension(1)
-        ->setRowHeight(-1);
+    ->getRowDimension(1)
+    ->setRowHeight(-1);
 $spreadsheet->getActiveSheet()
-        ->getStyle('A2')
-        ->getAlignment()
-        ->setWrapText(true);
+    ->getStyle('A2')
+    ->getAlignment()
+    ->setWrapText(true);
 
 $spreadsheet->setActiveSheetIndex(0)
-        ->setCellValue('A3', $wizard->toRichTextObject($html3));
+    ->setCellValue('A3', $wizard->toRichTextObject($html3));
 
 $spreadsheet->setActiveSheetIndex(0)
-        ->setCellValue('A4', $wizard->toRichTextObject($html4));
+    ->setCellValue('A4', $wizard->toRichTextObject($html4));
 
 $spreadsheet->setActiveSheetIndex(0)
-        ->setCellValue('A5', $wizard->toRichTextObject($html5));
+    ->setCellValue('A5', $wizard->toRichTextObject($html5));
 
 // Rename worksheet
 $helper->log('Rename worksheet');
 $spreadsheet->getActiveSheet()
-        ->setTitle('Rich Text Examples');
+    ->setTitle('Rich Text Examples');
 
 // Save
 $helper->write($spreadsheet, __FILE__);

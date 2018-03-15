@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 /**
@@ -749,7 +749,7 @@ class PageSetup
      * @param int $index Identifier for a specific print area range allowing several ranges to be set
      *                                When the method is "O"verwrite, then a positive integer index will overwrite that indexed
      *                                    entry in the print areas list; a negative index value will identify which entry to
-     *                                    overwrite working bacward through the print area to the list, with the last entry as -1.
+     *                                    overwrite working backward through the print area to the list, with the last entry as -1.
      *                                    Specifying an index value of 0, will overwrite <b>all</b> existing print ranges.
      *                                When the method is "I"nsert, then a positive index will insert after that indexed entry in
      *                                    the print areas list, while a negative index will insert before the indexed entry.
@@ -767,7 +767,7 @@ class PageSetup
     public function setPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
     {
         return $this->setPrintArea(
-            Cell::stringFromColumnIndex($column1) . $row1 . ':' . Cell::stringFromColumnIndex($column2) . $row2,
+            Coordinate::stringFromColumnIndex($column1) . $row1 . ':' . Coordinate::stringFromColumnIndex($column2) . $row2,
             $index,
             $method
         );
@@ -794,7 +794,7 @@ class PageSetup
     public function addPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = -1)
     {
         return $this->setPrintArea(
-            Cell::stringFromColumnIndex($column1) . $row1 . ':' . Cell::stringFromColumnIndex($column2) . $row2,
+            Coordinate::stringFromColumnIndex($column1) . $row1 . ':' . Coordinate::stringFromColumnIndex($column2) . $row2,
             $index,
             self::SETPRINTRANGE_INSERT
         );

@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 
@@ -220,8 +219,6 @@ class Shadow implements IComparable
      * Set Color.
      *
      * @param Color $pValue
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return Shadow
      */

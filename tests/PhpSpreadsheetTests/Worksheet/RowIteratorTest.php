@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 class RowIteratorTest extends TestCase
 {
     public $mockWorksheet;
+
     public $mockRow;
 
     public function setUp()
@@ -64,20 +65,18 @@ class RowIteratorTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testSeekOutOfRange()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         $iterator = new RowIterator($this->mockWorksheet, 2, 4);
         $iterator->seek(1);
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testPrevOutOfRange()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         $iterator = new RowIterator($this->mockWorksheet, 2, 4);
         $iterator->prev();
     }

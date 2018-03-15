@@ -29,7 +29,7 @@ In addition to automated changes, a few things need to be migrated manually.
 When using `IOFactory::createReader()`, `IOFactory::createWriter()` and
 `IOFactory::identify()`, the reader/writer short names are used. Those were
 changed, along as their corresponding class, to remove ambiguity:
-            
+
 Before           | After
 -----------------|---------
 `'CSV'`          | `'Csv'`
@@ -176,7 +176,7 @@ and are replaced by `IOFactory::registerWriter()` instead:
 - `PHPExcel_Settings::getPdfRenderer()`
 - `PHPExcel_Settings::setPdfRenderer()`
 - `PHPExcel_Settings::getPdfRendererName()`
-- `PHPExcel_Settings::setPdfRendererName()` were renamed as `setDefaultPdfWriter()`
+- `PHPExcel_Settings::setPdfRendererName()`
 
 Before:
 
@@ -206,7 +206,7 @@ JpGraph support is still available, it is unfortunately not up to date for lates
 and it will generate various warnings.
 
 If you rely on this feature, please consider
-contributing either patches to JpGraph or another `IRenderer` implementation (a good 
+contributing either patches to JpGraph or another `IRenderer` implementation (a good
 candidate might be [CpChart](https://github.com/szymach/c-pchart)).
 
 Before:
@@ -216,7 +216,7 @@ $rendererName = \PHPExcel_Settings::CHART_RENDERER_JPGRAPH;
 $rendererLibrary = 'jpgraph3.5.0b1/src/';
 $rendererLibraryPath = '/php/libraries/Charts/' . $rendererLibrary;
 
-\PHPExcel_Settings::setChartRenderer($rendererName, $rendererLibraryPath); 
+\PHPExcel_Settings::setChartRenderer($rendererName, $rendererLibraryPath);
 ```
 
 After:
@@ -244,7 +244,6 @@ So the following were removed:
 - `PHPExcel_Settings::getZipClass()`
 - `PHPExcel_Shared_ZipArchive`
 - `PHPExcel_Shared_ZipStreamWrapper`
-
 
 ### Cell caching
 
@@ -363,3 +362,72 @@ $style = [
     ],
 ];
 ```
+
+### Dedicated class to manipulate coordinates
+
+Methods to manipulate coordinates that used to exists in `PHPExcel_Cell` were extracted
+to a dedicated new class `\PhpOffice\PhpSpreadsheet\Cell\Coordinate`. The methods are:
+
+- `absoluteCoordinate()`
+- `absoluteReference()`
+- `buildRange()`
+- `columnIndexFromString()`
+- `coordinateFromString()`
+- `extractAllCellReferencesInRange()`
+- `getRangeBoundaries()`
+- `mergeRangesInCollection()`
+- `rangeBoundaries()`
+- `rangeDimension()`
+- `splitRange()`
+- `stringFromColumnIndex()`
+
+### Column index based on 1
+
+Column indexes are now based on 1. So column `A` is the index `1`. This is consistent
+with rows starting at 1 and Excel function `COLUMN()` that returns `1` for column `A`.
+So the code must be adapted with something like:
+
+```php
+// Before
+$cell = $worksheet->getCellByColumnAndRow($column, $row);
+
+for ($column = 0; $column < $max; $column++) {
+    $worksheet->setCellValueByColumnAndRow($column, $row, 'value ' . $column);
+}
+
+// After
+$cell = $worksheet->getCellByColumnAndRow($column + 1, $row);
+
+for ($column = 1; $column <= $max; $column++) {
+    $worksheet->setCellValueByColumnAndRow($column, $row, 'value ' . $column);
+}
+```
+
+All the following methods are affected:
+
+- `PHPExcel_Worksheet::cellExistsByColumnAndRow()`
+- `PHPExcel_Worksheet::freezePaneByColumnAndRow()`
+- `PHPExcel_Worksheet::getCellByColumnAndRow()`
+- `PHPExcel_Worksheet::getColumnDimensionByColumn()`
+- `PHPExcel_Worksheet::getCommentByColumnAndRow()`
+- `PHPExcel_Worksheet::getStyleByColumnAndRow()`
+- `PHPExcel_Worksheet::insertNewColumnBeforeByIndex()`
+- `PHPExcel_Worksheet::mergeCellsByColumnAndRow()`
+- `PHPExcel_Worksheet::protectCellsByColumnAndRow()`
+- `PHPExcel_Worksheet::removeColumnByIndex()`
+- `PHPExcel_Worksheet::setAutoFilterByColumnAndRow()`
+- `PHPExcel_Worksheet::setBreakByColumnAndRow()`
+- `PHPExcel_Worksheet::setCellValueByColumnAndRow()`
+- `PHPExcel_Worksheet::setCellValueExplicitByColumnAndRow()`
+- `PHPExcel_Worksheet::setSelectedCellByColumnAndRow()`
+- `PHPExcel_Worksheet::stringFromColumnIndex()`
+- `PHPExcel_Worksheet::unmergeCellsByColumnAndRow()`
+- `PHPExcel_Worksheet::unprotectCellsByColumnAndRow()`
+- `PHPExcel_Worksheet_PageSetup::addPrintAreaByColumnAndRow()`
+- `PHPExcel_Worksheet_PageSetup::setPrintAreaByColumnAndRow()`
+
+### Removed default values
+
+Default values for many methods were removed when it did not make sense. Typically,
+setter methods should not have default values. For a complete list of methods and
+their original default values, see [that commit](https://github.com/PHPOffice/PhpSpreadsheet/commit/033a4bdad56340795a5bf7ec3c8a2fde005cda24).

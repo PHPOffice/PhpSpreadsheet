@@ -160,36 +160,38 @@ class Borders extends Supervisor
 
     /**
      * Apply styles from array.
+     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
-     *         array(
-     *             'bottom'     => array(
+     *         [
+     *             'bottom' => [
      *                 'borderStyle' => Border::BORDER_DASHDOT,
-     *                 'color' => array(
+     *                 'color' => [
      *                     'rgb' => '808080'
-     *                 )
-     *             ),
-     *             'top'     => array(
+     *                 ]
+     *             ],
+     *             'top' => [
      *                 'borderStyle' => Border::BORDER_DASHDOT,
-     *                 'color' => array(
+     *                 'color' => [
      *                     'rgb' => '808080'
-     *                 )
-     *             )
-     *         )
+     *                 ]
+     *             ]
+     *         ]
      * );
      * </code>
+     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
-     *         array(
-     *             'allBorders' => array(
+     *         [
+     *             'allBorders' => [
      *                 'borderStyle' => Border::BORDER_DASHDOT,
-     *                 'color' => array(
+     *                 'color' => [
      *                     'rgb' => '808080'
-     *                 )
-     *             )
-     *         )
+     *                 ]
+     *             ]
+     *         ]
      * );
-     * </code>.
+     * </code>
      *
      * @param array $pStyles Array containing style information
      *

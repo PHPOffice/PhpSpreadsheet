@@ -82,6 +82,7 @@ class Border extends Supervisor
             case 'outline':
             case 'vertical':
                 throw new PhpSpreadsheetException('Cannot get shared component for a pseudo-border.');
+
                 break;
             case 'bottom':
                 return $this->parent->getSharedComponent()->getBottom();
@@ -113,12 +114,12 @@ class Border extends Supervisor
      *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->getTop()->applyFromArray(
-     *        array(
+     *        [
      *            'borderStyle' => Border::BORDER_DASHDOT,
-     *            'color' => array(
+     *            'color' => [
      *                'rgb' => '808080'
-     *            )
-     *        )
+     *            ]
+     *        ]
      * );
      * </code>
      *

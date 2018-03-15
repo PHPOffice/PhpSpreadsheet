@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 class RowTest extends TestCase
 {
     public $mockWorksheet;
+
     public $mockRow;
 
     public function setUp()

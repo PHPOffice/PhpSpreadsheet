@@ -797,8 +797,6 @@ class Theme extends WriterPart
      * @param string $latinFont
      * @param array of string                $fontSet
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @return string XML Output
      */
     private function writeFonts($objWriter, $latinFont, $fontSet)
@@ -830,8 +828,6 @@ class Theme extends WriterPart
      * Write colour scheme to XML format.
      *
      * @param XMLWriter $objWriter
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */

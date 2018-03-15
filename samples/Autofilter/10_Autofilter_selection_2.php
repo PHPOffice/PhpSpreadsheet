@@ -15,22 +15,22 @@ $spreadsheet = new Spreadsheet();
 // Set document properties
 $helper->log('Set document properties');
 $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
-        ->setLastModifiedBy('Maarten Balliauw')
-        ->setTitle('PhpSpreadsheet Test Document')
-        ->setSubject('PhpSpreadsheet Test Document')
-        ->setDescription('Test document for PhpSpreadsheet, generated using PHP classes.')
-        ->setKeywords('office PhpSpreadsheet php')
-        ->setCategory('Test result file');
+    ->setLastModifiedBy('Maarten Balliauw')
+    ->setTitle('PhpSpreadsheet Test Document')
+    ->setSubject('PhpSpreadsheet Test Document')
+    ->setDescription('Test document for PhpSpreadsheet, generated using PHP classes.')
+    ->setKeywords('office PhpSpreadsheet php')
+    ->setCategory('Test result file');
 
 // Create the worksheet
 $helper->log('Add data');
 $spreadsheet->setActiveSheetIndex(0);
 $spreadsheet->getActiveSheet()->setCellValue('A1', 'Financial Year')
-        ->setCellValue('B1', 'Financial Period')
-        ->setCellValue('C1', 'Country')
-        ->setCellValue('D1', 'Date')
-        ->setCellValue('E1', 'Sales Value')
-        ->setCellValue('F1', 'Expenditure');
+    ->setCellValue('B1', 'Financial Period')
+    ->setCellValue('C1', 'Country')
+    ->setCellValue('D1', 'Date')
+    ->setCellValue('E1', 'Sales Value')
+    ->setCellValue('F1', 'Expenditure');
 $startYear = $endYear = $currentYear = date('Y');
 --$startYear;
 ++$endYear;
@@ -110,39 +110,39 @@ $helper->log('Set active filters');
 // Filter the Country column on a filter value of Germany
 //	As it's just a simple value filter, we can use FILTERTYPE_FILTER
 $autoFilter->getColumn('C')
-        ->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER)
-        ->createRule()
-        ->setRule(
-            Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-            'Germany'
-        );
+    ->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER)
+    ->createRule()
+    ->setRule(
+        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        'Germany'
+    );
 // Filter the Date column on a filter value of the year to date
 $autoFilter->getColumn('D')
-        ->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER)
-        ->createRule()
-        ->setRule(
-            Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-            null,
-            Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE
-        )
-        ->setRuleType(Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
+    ->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER)
+    ->createRule()
+    ->setRule(
+        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        null,
+        Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE
+    )
+    ->setRuleType(Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
 // Display only sales values that are between 400 and 600
 $autoFilter->getColumn('E')
-        ->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER)
-        ->createRule()
-        ->setRule(
-            Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL,
-            400
-        )
-        ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+    ->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER)
+    ->createRule()
+    ->setRule(
+        Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL,
+        400
+    )
+    ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 $autoFilter->getColumn('E')
-        ->setJoin(Column::AUTOFILTER_COLUMN_JOIN_AND)
-        ->createRule()
-        ->setRule(
-            Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL,
-            600
-        )
-        ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+    ->setJoin(Column::AUTOFILTER_COLUMN_JOIN_AND)
+    ->createRule()
+    ->setRule(
+        Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL,
+        600
+    )
+    ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 
 // Save
 $helper->write($spreadsheet, __FILE__);

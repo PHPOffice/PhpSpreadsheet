@@ -223,8 +223,6 @@ class Column
      *
      * @param string[] $attributes
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return Column
      */
     public function setAttributes(array $attributes)
@@ -239,8 +237,6 @@ class Column
      *
      * @param string $pName Attribute Name
      * @param string $pValue Attribute Value
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return Column
      */
@@ -279,8 +275,6 @@ class Column
 
     /**
      * Get all AutoFilter Column Rules.
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return Column\Rule[]
      */

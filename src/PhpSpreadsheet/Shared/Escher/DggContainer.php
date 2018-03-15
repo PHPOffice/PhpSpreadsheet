@@ -59,8 +59,7 @@ class DggContainer
     /**
      * Set maximum shape index of all shapes in all drawings (plus one).
      *
-     * @param int
-     * @param mixed $value
+     * @param int $value
      */
     public function setSpIdMax($value)
     {
@@ -80,8 +79,7 @@ class DggContainer
     /**
      * Set total number of drawings saved.
      *
-     * @param int
-     * @param mixed $value
+     * @param int $value
      */
     public function setCDgSaved($value)
     {
@@ -101,8 +99,7 @@ class DggContainer
     /**
      * Set total number of shapes saved (including group shapes).
      *
-     * @param int
-     * @param mixed $value
+     * @param int $value
      */
     public function setCSpSaved($value)
     {
@@ -167,7 +164,7 @@ class DggContainer
     }
 
     /**
-     * Set identifier clusters. array(<drawingId> => <max shape id>, ...).
+     * Set identifier clusters. [<drawingId> => <max shape id>, ...].
      *
      * @param array $pValue
      */

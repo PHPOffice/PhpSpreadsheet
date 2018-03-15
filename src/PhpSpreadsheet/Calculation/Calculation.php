@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -22,7 +23,7 @@ class Calculation
     //    Opening bracket
     const CALCULATION_REGEXP_OPENBRACE = '\(';
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
-    const CALCULATION_REGEXP_FUNCTION = '@?([A-Z][A-Z0-9\.]*)[\s]*\(';
+    const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?([A-Z][A-Z0-9\.]*)[\s]*\(';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?([a-z]{1,3})\$?(\d{1,7})';
     //    Named Range of cells
@@ -170,6 +171,7 @@ class Calculation
      * @var string
      */
     private static $localeArgumentSeparator = ',';
+
     private static $localeFunctions = [];
 
     /**
@@ -1080,6 +1082,13 @@ class Calculation
             'functionCall' => [Functions::class, 'isEven'],
             'argumentCount' => '1',
         ],
+        'ISFORMULA' => [
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => [Functions::class, 'isFormula'],
+            'argumentCount' => '1',
+            'passCellReference' => true,
+            'passByReference' => [true],
+        ],
         'ISLOGICAL' => [
             'category' => Category::CATEGORY_INFORMATION,
             'functionCall' => [Functions::class, 'isLogical'],
@@ -1296,6 +1305,11 @@ class Calculation
             'argumentCount' => '2',
         ],
         'MODE' => [
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => [Statistical::class, 'MODE'],
+            'argumentCount' => '1+',
+        ],
+        'MODE.SNGL' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'MODE'],
             'argumentCount' => '1+',
@@ -1696,6 +1710,16 @@ class Calculation
         'STDEV' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'STDEV'],
+            'argumentCount' => '1+',
+        ],
+        'STDEV.S' => [
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => [Statistical::class, 'STDEV'],
+            'argumentCount' => '1+',
+        ],
+        'STDEV.P' => [
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => [Statistical::class, 'STDEVP'],
             'argumentCount' => '1+',
         ],
         'STDEVA' => [
@@ -2314,13 +2338,15 @@ class Calculation
     }
 
     /**
+     * @param string[] $from
+     * @param string[] $to
+     * @param string $formula
      * @param string $fromSeparator
      * @param string $toSeparator
-     * @param mixed $from
-     * @param mixed $to
-     * @param mixed $formula
+     *
+     * @return string
      */
-    private static function translateFormula($from, $to, $formula, $fromSeparator, $toSeparator)
+    private static function translateFormula(array $from, array $to, $formula, $fromSeparator, $toSeparator)
     {
         //    Convert any Excel function names to the required language
         if (self::$localeLanguage !== 'en_us') {
@@ -2352,6 +2378,7 @@ class Calculation
     }
 
     private static $functionReplaceFromExcel = null;
+
     private static $functionReplaceToLocale = null;
 
     public function _translateFormulaToLocale($formula)
@@ -2359,10 +2386,10 @@ class Calculation
         if (self::$functionReplaceFromExcel === null) {
             self::$functionReplaceFromExcel = [];
             foreach (array_keys(self::$localeFunctions) as $excelFunctionName) {
-                self::$functionReplaceFromExcel[] = '/(@?[^\w\.])' . preg_quote($excelFunctionName) . '([\s]*\()/Ui';
+                self::$functionReplaceFromExcel[] = '/(@?[^\w\.])' . preg_quote($excelFunctionName, '/') . '([\s]*\()/Ui';
             }
             foreach (array_keys(self::$localeBoolean) as $excelBoolean) {
-                self::$functionReplaceFromExcel[] = '/(@?[^\w\.])' . preg_quote($excelBoolean) . '([^\w\.])/Ui';
+                self::$functionReplaceFromExcel[] = '/(@?[^\w\.])' . preg_quote($excelBoolean, '/') . '([^\w\.])/Ui';
             }
         }
 
@@ -2380,6 +2407,7 @@ class Calculation
     }
 
     private static $functionReplaceFromLocale = null;
+
     private static $functionReplaceToExcel = null;
 
     public function _translateFormulaToEnglish($formula)
@@ -2387,10 +2415,10 @@ class Calculation
         if (self::$functionReplaceFromLocale === null) {
             self::$functionReplaceFromLocale = [];
             foreach (array_values(self::$localeFunctions) as $localeFunctionName) {
-                self::$functionReplaceFromLocale[] = '/(@?[^\w\.])' . preg_quote($localeFunctionName) . '([\s]*\()/Ui';
+                self::$functionReplaceFromLocale[] = '/(@?[^\w\.])' . preg_quote($localeFunctionName, '/') . '([\s]*\()/Ui';
             }
             foreach (array_values(self::$localeBoolean) as $excelBoolean) {
-                self::$functionReplaceFromLocale[] = '/(@?[^\w\.])' . preg_quote($excelBoolean) . '([^\w\.])/Ui';
+                self::$functionReplaceFromLocale[] = '/(@?[^\w\.])' . preg_quote($excelBoolean, '/') . '([^\w\.])/Ui';
             }
         }
 
@@ -2440,7 +2468,7 @@ class Calculation
             }
             //    Return strings wrapped in quotes
             return '"' . $value . '"';
-            //    Convert numeric errors to NaN error
+        //    Convert numeric errors to NaN error
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
             return Functions::NAN();
         }
@@ -2571,8 +2599,6 @@ class Calculation
      * Validate and parse a formula string.
      *
      * @param string $formula Formula to parse
-     *
-     * @throws Exception
      *
      * @return array
      */
@@ -2748,6 +2774,8 @@ class Calculation
      *                                            0 = no resize
      *                                            1 = shrink to fit
      *                                            2 = extend to fit
+     *
+     * @return array
      */
     private static function checkMatrixOperands(&$operand1, &$operand2, $resize = 1)
     {
@@ -2783,20 +2811,21 @@ class Calculation
     /**
      * Read the dimensions of a matrix, and re-index it with straight numeric keys starting from row 0, column 0.
      *
-     * @param mixed &$matrix matrix operand
+     * @param array &$matrix matrix operand
      *
      * @return int[] An array comprising the number of rows, and number of columns
      */
-    private static function getMatrixDimensions(&$matrix)
+    public static function getMatrixDimensions(array &$matrix)
     {
         $matrixRows = count($matrix);
         $matrixColumns = 0;
         foreach ($matrix as $rowKey => $rowValue) {
-            $matrixColumns = max(count($rowValue), $matrixColumns);
             if (!is_array($rowValue)) {
                 $matrix[$rowKey] = [$rowValue];
+                $matrixColumns = max(1, $matrixColumns);
             } else {
                 $matrix[$rowKey] = array_values($rowValue);
+                $matrixColumns = max(count($rowValue), $matrixColumns);
             }
         }
         $matrix = array_values($matrix);
@@ -3491,11 +3520,11 @@ class Calculation
                             $oData = array_merge(explode(':', $operand1Data['reference']), explode(':', $operand2Data['reference']));
                             $oCol = $oRow = [];
                             foreach ($oData as $oDatum) {
-                                $oCR = Cell::coordinateFromString($oDatum);
-                                $oCol[] = Cell::columnIndexFromString($oCR[0]) - 1;
+                                $oCR = Coordinate::coordinateFromString($oDatum);
+                                $oCol[] = Coordinate::columnIndexFromString($oCR[0]) - 1;
                                 $oRow[] = $oCR[1];
                             }
-                            $cellRef = Cell::stringFromColumnIndex(min($oCol)) . min($oRow) . ':' . Cell::stringFromColumnIndex(max($oCol)) . max($oRow);
+                            $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
                             if ($pCellParent !== null) {
                                 $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($sheet1), false);
                             } else {
@@ -3564,11 +3593,11 @@ class Calculation
                         foreach (array_keys($rowIntersect) as $row) {
                             $oRow[] = $row;
                             foreach ($rowIntersect[$row] as $col => $data) {
-                                $oCol[] = Cell::columnIndexFromString($col) - 1;
+                                $oCol[] = Coordinate::columnIndexFromString($col) - 1;
                                 $cellIntersect[$row] = array_intersect_key($operand1[$row], $operand2[$row]);
                             }
                         }
-                        $cellRef = Cell::stringFromColumnIndex(min($oCol)) . min($oRow) . ':' . Cell::stringFromColumnIndex(max($oCol)) . max($oRow);
+                        $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
                         $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
                         $stack->push('Value', $cellIntersect, $cellRef);
 
@@ -3675,7 +3704,7 @@ class Calculation
                 }
                 $stack->push('Value', $cellValue, $cellRef);
 
-                // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
+            // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $token, $matches)) {
                 $functionName = $matches[1];
                 $argCount = $stack->pop();
@@ -3760,14 +3789,10 @@ class Calculation
                     $this->debugLog->writeDebugLog('Evaluating Constant ', $excelConstant, ' as ', $this->showTypeDetails(self::$excelConstants[$excelConstant]));
                 } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == '"') || ($token[0] == '#')) {
                     $stack->push('Value', $token);
-                    // if the token is a named range, push the named range name onto the stack
+                // if the token is a named range, push the named range name onto the stack
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $token, $matches)) {
                     $namedRange = $matches[6];
                     $this->debugLog->writeDebugLog('Evaluating Named Range ', $namedRange);
-
-                    if (substr($namedRange, 0, 6) === '_xlfn.') {
-                        return $this->raiseFormulaError("undefined named range / function '$token'");
-                    }
 
                     $cellValue = $this->extractNamedRange($namedRange, ((null !== $pCell) ? $pCellWorksheet : null), false);
                     $pCell->attach($pCellParent);
@@ -4086,8 +4111,6 @@ class Calculation
      * @param Worksheet $pSheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
-     * @throws Exception
-     *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
     public function extractCellRange(&$pRange = 'A1', Worksheet $pSheet = null, $resetLog = true)
@@ -4103,7 +4126,7 @@ class Calculation
             }
 
             // Extract range
-            $aReferences = Cell::extractAllCellReferencesInRange($pRange);
+            $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
             $pRange = $pSheetName . '!' . $pRange;
             if (!isset($aReferences[1])) {
                 //    Single cell in range
@@ -4137,8 +4160,6 @@ class Calculation
      * @param Worksheet $pSheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
-     * @throws Exception
-     *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
     public function extractNamedRange(&$pRange = 'A1', Worksheet $pSheet = null, $resetLog = true)
@@ -4158,7 +4179,7 @@ class Calculation
             if ($namedRange !== null) {
                 $pSheet = $namedRange->getWorksheet();
                 $pRange = $namedRange->getRange();
-                $splitRange = Cell::splitRange($pRange);
+                $splitRange = Coordinate::splitRange($pRange);
                 //    Convert row and column references
                 if (ctype_alpha($splitRange[0][0])) {
                     $pRange = $splitRange[0][0] . '1:' . $splitRange[0][1] . $namedRange->getWorksheet()->getHighestRow();
@@ -4170,10 +4191,10 @@ class Calculation
             }
 
             // Extract range
-            $aReferences = Cell::extractAllCellReferencesInRange($pRange);
+            $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
             if (!isset($aReferences[1])) {
                 //    Single cell (or single column or row) in range
-                list($currentCol, $currentRow) = Cell::coordinateFromString($aReferences[0]);
+                list($currentCol, $currentRow) = Coordinate::coordinateFromString($aReferences[0]);
                 if ($pSheet->cellExists($aReferences[0])) {
                     $returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
                 } else {
@@ -4183,7 +4204,7 @@ class Calculation
                 // Extract cell data for all cells in the range
                 foreach ($aReferences as $reference) {
                     // Extract range
-                    list($currentCol, $currentRow) = Cell::coordinateFromString($reference);
+                    list($currentCol, $currentRow) = Coordinate::coordinateFromString($reference);
                     if ($pSheet->cellExists($reference)) {
                         $returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
                     } else {

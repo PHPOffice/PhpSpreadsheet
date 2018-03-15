@@ -15,11 +15,10 @@ class Date
     const CALENDAR_WINDOWS_1900 = 1900; //    Base date of 1st Jan 1900 = 1.0
     const CALENDAR_MAC_1904 = 1904; //    Base date of 2nd Jan 1904 = 1.0
 
-    /*
+    /**
      * Names of the months of the year, indexed by shortname
-     * Planned usage for locale settings
+     * Planned usage for locale settings.
      *
-     * @public
      * @var string[]
      */
     public static $monthNames = [
@@ -37,8 +36,7 @@ class Date
         'Dec' => 'December',
     ];
 
-    /*
-     * @public
+    /**
      * @var string[]
      */
     public static $numberSuffixes = [
@@ -48,19 +46,17 @@ class Date
         'th',
     ];
 
-    /*
+    /**
      * Base calendar year to use for calculations
-     * Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904)
+     * Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904).
      *
-     * @private
      * @var int
      */
     protected static $excelCalendar = self::CALENDAR_WINDOWS_1900;
 
-    /*
-     * Default timezone to use for DateTime objects
+    /**
+     * Default timezone to use for DateTime objects.
      *
-     * @private
      * @var null|\DateTimeZone
      */
     protected static $defaultTimeZone;
@@ -478,7 +474,7 @@ class Date
     }
 
     /**
-     * Strips an ordinal froma numeric value.
+     * Strips an ordinal from a numeric value.
      *
      * @param string $day Day number with an ordinal
      *

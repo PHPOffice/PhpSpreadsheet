@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
@@ -57,7 +57,7 @@ class Escher
     /**
      * The object to be returned by the reader. Modified during load.
      *
-     * @var mixed
+     * @var BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
      */
     private $object;
 
@@ -75,6 +75,8 @@ class Escher
      * Load Escher stream data. May be a partial Escher stream.
      *
      * @param string $data
+     *
+     * @return BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
      */
     public function load($data)
     {
@@ -598,7 +600,7 @@ class Escher
         $endOffsetY = Xls::getUInt2d($recordData, 16);
 
         // set the start coordinates
-        $this->object->setStartCoordinates(Cell::stringFromColumnIndex($c1) . ($r1 + 1));
+        $this->object->setStartCoordinates(Coordinate::stringFromColumnIndex($c1 + 1) . ($r1 + 1));
 
         // set the start offsetX
         $this->object->setStartOffsetX($startOffsetX);
@@ -607,7 +609,7 @@ class Escher
         $this->object->setStartOffsetY($startOffsetY);
 
         // set the end coordinates
-        $this->object->setEndCoordinates(Cell::stringFromColumnIndex($c2) . ($r2 + 1));
+        $this->object->setEndCoordinates(Coordinate::stringFromColumnIndex($c2 + 1) . ($r2 + 1));
 
         // set the end offsetX
         $this->object->setEndOffsetX($endOffsetX);

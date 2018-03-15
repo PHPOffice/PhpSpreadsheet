@@ -86,9 +86,10 @@ class Color extends Supervisor
 
     /**
      * Apply styles from array.
+     *
      * <code>
-     * $spreadsheet->getActiveSheet()->getStyle('B2')->getFont()->getColor()->applyFromArray( array('rgb' => '808080') );
-     * </code>.
+     * $spreadsheet->getActiveSheet()->getStyle('B2')->getFont()->getColor()->applyFromArray(['rgb' => '808080']);
+     * </code>
      *
      * @param array $pStyles Array containing style information
      *
@@ -186,8 +187,6 @@ class Color extends Supervisor
 
     /**
      * Get a specified colour component of an RGB value.
-     *
-     * @private
      *
      * @param string $RGB The colour as an RGB value (e.g. FF00CCCC or CCDDEE
      * @param int $offset Position within the RGB value to extract

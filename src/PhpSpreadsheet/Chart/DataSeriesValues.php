@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class DataSeriesValues
@@ -65,6 +65,13 @@ class DataSeriesValues
      * @var string
      */
     private $fillColor;
+
+    /**
+     * Line Width.
+     *
+     * @var int
+     */
+    private $lineWidth = 12700;
 
     /**
      * Create a new DataSeriesValues object.
@@ -232,6 +239,31 @@ class DataSeriesValues
     }
 
     /**
+     * Get line width for series.
+     *
+     * @return int
+     */
+    public function getLineWidth()
+    {
+        return $this->lineWidth;
+    }
+
+    /**
+     * Set line width for the series.
+     *
+     * @param int $width
+     *
+     * @return DataSeriesValues
+     */
+    public function setLineWidth($width)
+    {
+        $minWidth = 12700;
+        $this->lineWidth = max($minWidth, $width);
+
+        return $this;
+    }
+
+    /**
      * Identify if the Data Series is a multi-level or a simple series.
      *
      * @return null|bool
@@ -327,7 +359,7 @@ class DataSeriesValues
                     list(, $cellRange) = $cellRange;
                 }
 
-                $dimensions = Cell::rangeDimension(str_replace('$', '', $cellRange));
+                $dimensions = Coordinate::rangeDimension(str_replace('$', '', $cellRange));
                 if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
                     $this->dataValues = Functions::flattenArray($newDataValues);
                 } else {

@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Collection;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Psr\SimpleCache\CacheInterface;
@@ -82,6 +83,7 @@ class Cells
      * Initialise this new cell collection.
      *
      * @param Worksheet $parent The worksheet for this cell collection
+     * @param CacheInterface $cache
      */
     public function __construct(Worksheet $parent, CacheInterface $cache)
     {
@@ -138,8 +140,6 @@ class Cells
      * Delete a cell in cache identified by coordinate.
      *
      * @param string $pCoord Coordinate of the cell to delete
-     *
-     * @throws PhpSpreadsheetException
      */
     public function delete($pCoord)
     {
@@ -276,10 +276,10 @@ class Cells
             if ($r != $row) {
                 continue;
             }
-            $columnList[] = Cell::columnIndexFromString($c);
+            $columnList[] = Coordinate::columnIndexFromString($c);
         }
 
-        return Cell::stringFromColumnIndex(max($columnList) - 1);
+        return Coordinate::stringFromColumnIndex(max($columnList) + 1);
     }
 
     public function getCachedHighestRow()
@@ -327,7 +327,7 @@ class Cells
      */
     private function getUniqueID()
     {
-        return uniqid('phpspreadsheet-', true) . '-';
+        return uniqid('phpspreadsheet.', true) . '.';
     }
 
     /**
@@ -609,7 +609,7 @@ class Cells
     /**
      * Returns all known cache keys.
      *
-     * @return string
+     * @return string[]
      */
     private function getAllCacheKeys()
     {

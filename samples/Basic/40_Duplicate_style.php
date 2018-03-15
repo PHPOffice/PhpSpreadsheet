@@ -1,6 +1,6 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 
@@ -20,11 +20,11 @@ for ($i = 0; $i < 10; ++$i) {
 
 $helper->log('Add data (begin)');
 $t = microtime(true);
-for ($col = 0; $col < 50; ++$col) {
+for ($col = 1; $col <= 50; ++$col) {
     for ($row = 0; $row < 100; ++$row) {
         $str = ($row + $col);
         $style = $styles[$row % 10];
-        $coord = Cell::stringFromColumnIndex($col) . ($row + 1);
+        $coord = Coordinate::stringFromColumnIndex($col) . ($row + 1);
         $worksheet->setCellValue($coord, $str);
         $worksheet->duplicateStyle($style, $coord);
     }

@@ -449,8 +449,8 @@ class DataValidation
         return md5(
             $this->formula1 .
             $this->formula2 .
-            $this->type = self::TYPE_NONE .
-            $this->errorStyle = self::STYLE_STOP .
+            $this->type .
+            $this->errorStyle .
             $this->operator .
             ($this->allowBlank ? 't' : 'f') .
             ($this->showDropDown ? 't' : 'f') .

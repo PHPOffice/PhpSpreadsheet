@@ -102,4 +102,19 @@ class CalculationTest extends TestCase
             ['tr'],
         ];
     }
+
+    public function testDoesHandleXlfnFunctions()
+    {
+        $calculation = Calculation::getInstance();
+
+        $tree = $calculation->parseFormula('=_xlfn.ISFORMULA(A1)');
+        self::assertCount(3, $tree);
+        $function = $tree[2];
+        self::assertEquals('Function', $function['type']);
+
+        $tree = $calculation->parseFormula('=_xlfn.STDEV.S(A1:B2)');
+        self::assertCount(5, $tree);
+        $function = $tree[4];
+        self::assertEquals('Function', $function['type']);
+    }
 }

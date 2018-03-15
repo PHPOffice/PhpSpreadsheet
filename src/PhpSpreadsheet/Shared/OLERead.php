@@ -35,7 +35,9 @@ class OLERead
     const SIZE_POS = 0x78;
 
     public $wrkbook;
+
     public $summaryInformation;
+
     public $documentSummaryInformation;
 
     /**

@@ -18,8 +18,6 @@ class StringTable extends WriterPart
      * @param Worksheet $pSheet Worksheet
      * @param string[] $pExistingTable Existing table to eventually merge with
      *
-     * @throws WriterException
-     *
      * @return string[] String table for worksheet
      */
     public function createStringTable(Worksheet $pSheet, $pExistingTable = null)
@@ -116,8 +114,6 @@ class StringTable extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param RichText $pRichText Rich text
      * @param string $prefix Optional Namespace prefix
-     *
-     * @throws WriterException
      */
     public function writeRichText(XMLWriter $objWriter, RichText $pRichText, $prefix = null)
     {
@@ -201,8 +197,6 @@ class StringTable extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param RichText|string $pRichText text string or Rich text
      * @param string $prefix Optional Namespace prefix
-     *
-     * @throws WriterException
      */
     public function writeRichTextForCharts(XMLWriter $objWriter, $pRichText = null, $prefix = null)
     {
