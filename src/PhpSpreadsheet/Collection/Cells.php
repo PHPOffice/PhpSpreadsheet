@@ -512,8 +512,8 @@ class Cells
         $this->add($pCoordinate, $cell);
 
         // Coordinates
-        $aCoordinates = Cell::coordinateFromString($pCoordinate);
-        if (Cell::columnIndexFromString($this->cachedHighestColumn) < Cell::columnIndexFromString($aCoordinates[0])) {
+        $aCoordinates = Coordinate::coordinateFromString($pCoordinate);
+        if (Coordinate::columnIndexFromString($this->cachedHighestColumn) < Coordinate::columnIndexFromString($aCoordinates[0])) {
             $this->cachedHighestColumn = $aCoordinates[0];
         }
         $this->cachedHighestRow = max($this->cachedHighestRow, $aCoordinates[1]);

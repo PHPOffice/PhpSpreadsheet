@@ -1330,7 +1330,7 @@ class Worksheet implements IComparable
             }
             $this->columnDimensions[$pColumn] = new ColumnDimension($pColumn);
 
-            if (Cell::columnIndexFromString($this->cellCollection->getCachedHighestColumn()) < Cell::columnIndexFromString($pColumn)) {
+            if (Coordinate::columnIndexFromString($this->cellCollection->getCachedHighestColumn()) < Coordinate::columnIndexFromString($pColumn)) {
                 $this->cellCollection->setCachedHighestColumn($pColumn);
             }
         }
@@ -2628,7 +2628,7 @@ class Worksheet implements IComparable
         if ($highestColumn < 1) {
             $this->cellCollection->setCachedHighestColumn('A');
         } else {
-            $this->cellCollection->setCachedHighestColumn(Cell::stringFromColumnIndex(--$highestColumn));
+            $this->cellCollection->setCachedHighestColumn(Coordinate::stringFromColumnIndex(--$highestColumn));
         }
         $this->cellCollection->setCachedHighestRow($highestRow);
 
