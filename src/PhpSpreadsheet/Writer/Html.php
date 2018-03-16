@@ -1617,12 +1617,14 @@ class Html extends BaseWriter
                     $c = -1;
                     $e = $countColumns - 1;
                     while ($c++ < $e) {
-                        $baseCell = $this->isSpannedCell[$sheetIndex][$rowIndex][$c]['baseCell'];
+                        if (isset($this->isSpannedCell[$sheetIndex][$rowIndex][$c])) {
+                            $baseCell = $this->isSpannedCell[$sheetIndex][$rowIndex][$c]['baseCell'];
 
-                        if (!in_array($baseCell, $adjustedBaseCells)) {
-                            // subtract rowspan by 1
-                            --$this->isBaseCell[$sheetIndex][$baseCell[0]][$baseCell[1]]['rowspan'];
-                            $adjustedBaseCells[] = $baseCell;
+                            if (!in_array($baseCell, $adjustedBaseCells)) {
+                                // subtract rowspan by 1
+                                --$this->isBaseCell[$sheetIndex][$baseCell[0]][$baseCell[1]]['rowspan'];
+                                $adjustedBaseCells[] = $baseCell;
+                            }
                         }
                     }
                 }

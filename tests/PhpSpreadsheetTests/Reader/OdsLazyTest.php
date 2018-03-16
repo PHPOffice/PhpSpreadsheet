@@ -198,8 +198,8 @@ class OdsLazyTest extends TestCase
         $hyperlink = $firstSheet->getCell('A29');
 
         self::assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
-        self::assertEquals('PHPExcel', $hyperlink->getValue());
-        self::assertEquals('http://www.phpexcel.net/', $hyperlink->getHyperlink()->getUrl());
+        self::assertEquals('PhpSpreadsheet', $hyperlink->getValue());
+        self::assertEquals('https://github.com/PHPOffice/phpspreadsheet', $hyperlink->getHyperlink()->getUrl());
     }
 
     // Below some test for features not implemented yet

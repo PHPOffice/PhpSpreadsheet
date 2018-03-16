@@ -679,14 +679,14 @@ class Ods extends BaseReader
                                                 }
                                                 */
 
-                                                $cellData = [
+                                                $cellDataArray = [
                                                     'value' => $hasCalculatedValue ? $cellDataFormula : $dataValue,
                                                     'calculatedValue' => $hasCalculatedValue ? $dataValue : null,
                                                     'type' => $type,
                                                     'styleIndex' => null,
                                                     'hyperlink' => $hyperlink,
                                                 ];
-                                                $spreadsheet->getActiveSheet()->getCellCollection()->createNewPredefinedCell($columnID . $rID, $cellData, $this->lazyInitCells);
+                                                $spreadsheet->getActiveSheet()->getCellCollection()->createNewPredefinedCell($columnID . $rID, $cellDataArray, $this->lazyInitCells);
 
                                                 // Set other properties
                                                 if ($formatting !== null) {
