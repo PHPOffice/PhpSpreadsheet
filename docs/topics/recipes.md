@@ -187,7 +187,7 @@ internal English coding.
 
 ``` php
 $formula = $spreadsheet->getActiveSheet()->getCell('B8')->getValue();
-$translatedFormula = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_translateFormulaToLocale($formula);
+$translatedFormula = \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->_translateFormulaToLocale($formula);
 ```
 
 You can also create a formula using the function names and argument
@@ -196,7 +196,7 @@ English before setting the cell value:
 
 ``` php
 $formula = '=ДНЕЙ360(ДАТА(2010;2;5);ДАТА(2010;12;31);ИСТИНА)';
-$internalFormula = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->translateFormulaToEnglish($formula);
+$internalFormula = \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->translateFormulaToEnglish($formula);
 $spreadsheet->getActiveSheet()->setCellValue('B8',$internalFormula);
 ```
 
@@ -461,13 +461,13 @@ To set a print break, use the following code, which sets a row break on
 row 10.
 
 ``` php
-$spreadsheet->getActiveSheet()->setBreak( 'A10' , \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_ROW );
+$spreadsheet->getActiveSheet()->setBreak('A10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW);
 ```
 
 The following line of code sets a print break on column D:
 
 ``` php
-$spreadsheet->getActiveSheet()->setBreak( 'D10' , \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN );
+$spreadsheet->getActiveSheet()->setBreak('D10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN);
 ```
 
 ### Show/hide gridlines when printing
@@ -1297,14 +1297,14 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
 ## Add rich text to a cell
 
 Adding rich text to a cell can be done using
-`\PhpOffice\PhpSpreadsheet\RichText` instances. Here''s an example, which
+`\PhpOffice\PhpSpreadsheet\RichText\RichText` instances. Here''s an example, which
 creates the following rich text string:
 
 > This invoice is ***payable within thirty days after the end of the
 > month*** unless specified otherwise on the invoice.
 
 ``` php
-$richText = new \PhpOffice\PhpSpreadsheet\RichText();
+$richText = new \PhpOffice\PhpSpreadsheet\RichText\RichText();
 $richText->createText('This invoice is ');
 $payable = $richText->createTextRun('payable within thirty days after the end of the month');
 $payable->getFont()->setBold(true);
@@ -1480,15 +1480,15 @@ Set a worksheet to be **hidden** using this code:
 
 ``` php
 $spreadsheet->getActiveSheet()
-    ->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN);
+    ->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
 ```
 
 Sometimes you may even want the worksheet to be **"very hidden"**. The
 available sheet states are :
 
--   `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE`
--   `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN`
--   `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN`
+-   `\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VISIBLE`
+-   `\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN`
+-   `\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VERYHIDDEN`
 
 In Excel the sheet state "very hidden" can only be set programmatically,
 e.g. with Visual Basic Macro. It is not possible to make such a sheet
