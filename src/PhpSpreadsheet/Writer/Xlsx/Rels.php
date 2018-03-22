@@ -195,6 +195,10 @@ class Rels extends WriterPart
 
         // Write drawing relationships?
         $d = 0;
+        $drawingOriginalIds = [];
+        if (isset($pWorksheet->getParent()->unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['drawingOriginalIds'])) {
+            $drawingOriginalIds = $pWorksheet->getParent()->unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['drawingOriginalIds'];
+        }
         if ($includeCharts) {
             $charts = $pWorksheet->getChartCollection();
         } else {
@@ -202,11 +206,16 @@ class Rels extends WriterPart
         }
         if (($pWorksheet->getDrawingCollection()->count() > 0) ||
             (count($charts) > 0)) {
+            $relPath = '../drawings/drawing' . $pWorksheetId . '.xml';
+            $rId = ++$d;
+            if (isset($drawingOriginalIds[$relPath])) {
+                $rId = substr($drawingOriginalIds[$relPath], 3);
+            }
             $this->writeRelationship(
                 $objWriter,
-                ++$d,
+                $rId,
                 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing',
-                '../drawings/drawing' . $pWorksheetId . '.xml'
+                $relPath
             );
         }
 
@@ -253,6 +262,38 @@ class Rels extends WriterPart
                 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/vmlDrawing',
                 '../drawings/vmlDrawingHF' . $pWorksheetId . '.vml'
             );
+        }
+
+        // Write unparsed relationship?
+        if (isset($pWorksheet->getParent()->unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['ctrlProps'])) {
+            foreach ($pWorksheet->getParent()->unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['ctrlProps'] as $rId => $ctrlProp) {
+                $this->writeRelationship(
+                    $objWriter,
+                    $rId,
+                    'http://schemas.openxmlformats.org/officeDocument/2006/relationships/ctrlProp',
+                    $ctrlProp['relFilePath']
+                );
+            }
+        }
+        if (isset($pWorksheet->getParent()->unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['vmlDrawings'])) {
+            foreach ($pWorksheet->getParent()->unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['vmlDrawings'] as $rId => $vmlDrawing) {
+                $this->writeRelationship(
+                    $objWriter,
+                    $rId,
+                    'http://schemas.openxmlformats.org/officeDocument/2006/relationships/vmlDrawing',
+                    $vmlDrawing['relFilePath']
+                );
+            }
+        }
+        if (isset($pWorksheet->getParent()->unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['printerSettings'])) {
+            foreach ($pWorksheet->getParent()->unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['printerSettings'] as $rId => $printerSettings) {
+                $this->writeRelationship(
+                    $objWriter,
+                    $rId,
+                    'http://schemas.openxmlformats.org/officeDocument/2006/relationships/printerSettings',
+                    $printerSettings['relFilePath']
+                );
+            }
         }
 
         $objWriter->endElement();
