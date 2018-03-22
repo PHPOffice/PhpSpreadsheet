@@ -263,7 +263,7 @@ return an Excel date timestamp.
 Takes year, month and day values (and optional hour, minute and second
 values) and returns an Excel date timestamp value.
 
-### Timezone Support for Excel date timestamp conversions
+### Timezone support for Excel date timestamp conversions
 
 The default timezone for the date functions in PhpSpreadsheet is UST (Universal Standard Time).
 If a different timezone needs to be used, these methods are available:
