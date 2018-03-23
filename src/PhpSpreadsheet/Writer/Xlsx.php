@@ -298,13 +298,13 @@ class Xlsx extends BaseWriter
 
                 // Add unparsedLoadedData
                 $sheetCodeName = $this->spreadSheet->getSheet($i)->getCodeName();
-                if (isset($this->getSpreadsheet()->unparsedLoadedData['sheets'][$sheetCodeName]['ctrlProps'])) {
-                    foreach ($this->getSpreadsheet()->unparsedLoadedData['sheets'][$sheetCodeName]['ctrlProps'] as $ctrlProp) {
+                if (isset($this->spreadSheet->unparsedLoadedData['sheets'][$sheetCodeName]['ctrlProps'])) {
+                    foreach ($this->spreadSheet->unparsedLoadedData['sheets'][$sheetCodeName]['ctrlProps'] as $ctrlProp) {
                         $zip->addFromString($ctrlProp['filePath'], $ctrlProp['content']);
                     }
                 }
-                if (isset($this->getSpreadsheet()->unparsedLoadedData['sheets'][$sheetCodeName]['printerSettings'])) {
-                    foreach ($this->getSpreadsheet()->unparsedLoadedData['sheets'][$sheetCodeName]['printerSettings'] as $ctrlProp) {
+                if (isset($this->spreadSheet->unparsedLoadedData['sheets'][$sheetCodeName]['printerSettings'])) {
+                    foreach ($this->spreadSheet->unparsedLoadedData['sheets'][$sheetCodeName]['printerSettings'] as $ctrlProp) {
                         $zip->addFromString($ctrlProp['filePath'], $ctrlProp['content']);
                     }
                 }
@@ -320,6 +320,9 @@ class Xlsx extends BaseWriter
                     // Drawing relationships
                     $zip->addFromString('xl/drawings/_rels/drawing' . ($i + 1) . '.xml.rels', $this->getWriterPart('Rels')->writeDrawingRelationships($this->spreadSheet->getSheet($i), $chartRef1, $this->includeCharts));
 
+                    // Drawings
+                    $zip->addFromString('xl/drawings/drawing' . ($i + 1) . '.xml', $this->getWriterPart('Drawing')->writeDrawings($this->spreadSheet->getSheet($i), $this->includeCharts));
+                } elseif (isset($this->spreadSheet->unparsedLoadedData['sheets'][$sheetCodeName]['drawingAlternateContents'])) {
                     // Drawings
                     $zip->addFromString('xl/drawings/drawing' . ($i + 1) . '.xml', $this->getWriterPart('Drawing')->writeDrawings($this->spreadSheet->getSheet($i), $this->includeCharts));
                 }
