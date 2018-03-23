@@ -57,7 +57,6 @@ class ContentTypes extends WriterPart
             // Yes : not standard content but "macroEnabled"
             $this->writeOverrideContentType($objWriter, '/xl/workbook.xml', 'application/vnd.ms-excel.sheet.macroEnabled.main+xml');
             //... and define a new type for the VBA project
-            //$this->writeDefaultContentType($objWriter, 'bin', 'application/vnd.ms-office.vbaProject');
             // Better use Override, because we can use 'bin' also for xl\printerSettings\printerSettings1.bin
             $this->writeOverrideContentType($objWriter, '/xl/vbaProject.bin', 'application/vnd.ms-office.vbaProject');
             if ($spreadsheet->hasMacrosCertificate()) {

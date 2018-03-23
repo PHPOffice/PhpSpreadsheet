@@ -290,7 +290,7 @@ class Xlsx extends BaseWriter
                 }
             }
 
-            $chartRef1 = $chartRef2 = 0;
+            $chartRef1 = 0;
             // Add worksheet relationships (drawings, ...)
             for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
                 // Add relationships

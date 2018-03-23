@@ -1155,25 +1155,25 @@ class Worksheet extends WriterPart
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      */
-    private function writeDrawings(XMLWriter $objWriter = null, PhpspreadsheetWorksheet $pSheet = null, $includeCharts = false)
+    private function writeDrawings(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, $includeCharts = false)
     {
         $chartCount = ($includeCharts) ? $pSheet->getChartCollection()->count() : 0;
-        // If sheet contains drawings, add the relationships
-        if (($pSheet->getDrawingCollection()->count() > 0) ||
-            ($chartCount > 0)) {
-            $objWriter->startElement('drawing');
-
-            $rId = 'rId1';
-            $drawingOriginalIds = [];
-            if (isset($pSheet->getParent()->unparsedLoadedData['sheets'][$pSheet->getCodeName()]['drawingOriginalIds'])) {
-                $drawingOriginalIds = $pSheet->getParent()->unparsedLoadedData['sheets'][$pSheet->getCodeName()]['drawingOriginalIds'];
-                // take first. In future can be overriten
-                $rId = reset($drawingOriginalIds);
-            }
-
-            $objWriter->writeAttribute('r:id', $rId);
-            $objWriter->endElement();
+        if ($chartCount == 0 && $pSheet->getDrawingCollection()->count() == 0) {
+            return;
         }
+
+        // If sheet contains drawings, add the relationships
+        $objWriter->startElement('drawing');
+
+        $rId = 'rId1';
+        if (isset($pSheet->getParent()->unparsedLoadedData['sheets'][$pSheet->getCodeName()]['drawingOriginalIds'])) {
+            $drawingOriginalIds = $pSheet->getParent()->unparsedLoadedData['sheets'][$pSheet->getCodeName()]['drawingOriginalIds'];
+            // take first. In future can be overriten
+            $rId = reset($drawingOriginalIds);
+        }
+
+        $objWriter->writeAttribute('r:id', $rId);
+        $objWriter->endElement();
     }
 
     /**
