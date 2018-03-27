@@ -1,2 +1,3 @@
 /tests export-ignore
 README.md export-ignore
+*.min.js binary
