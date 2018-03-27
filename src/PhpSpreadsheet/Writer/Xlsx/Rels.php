@@ -205,7 +205,8 @@ class Rels extends WriterPart
             $charts = [];
         }
         if (($pWorksheet->getDrawingCollection()->count() > 0) ||
-            (count($charts) > 0)) {
+            (count($charts) > 0) ||
+            $drawingOriginalIds) {
             $relPath = '../drawings/drawing' . $pWorksheetId . '.xml';
             $rId = ++$d;
             if (isset($drawingOriginalIds[$relPath])) {

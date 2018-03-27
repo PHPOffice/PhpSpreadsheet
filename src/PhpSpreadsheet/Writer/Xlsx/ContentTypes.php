@@ -94,9 +94,10 @@ class ContentTypes extends WriterPart
             $drawings = $spreadsheet->getSheet($i)->getDrawingCollection();
             $drawingCount = count($drawings);
             $chartCount = ($includeCharts) ? $spreadsheet->getSheet($i)->getChartCount() : 0;
+            $hasUnparsedDrawing = isset($spreadsheet->unparsedLoadedData['sheets'][$spreadsheet->getSheet($i)->getCodeName()]['drawingOriginalIds']);
 
             //    We need a drawing relationship for the worksheet if we have either drawings or charts
-            if (($drawingCount > 0) || ($chartCount > 0)) {
+            if (($drawingCount > 0) || ($chartCount > 0) || $hasUnparsedDrawing) {
                 $this->writeOverrideContentType($objWriter, '/xl/drawings/drawing' . ($i + 1) . '.xml', 'application/vnd.openxmlformats-officedocument.drawing+xml');
             }
 

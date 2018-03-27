@@ -1157,8 +1157,9 @@ class Worksheet extends WriterPart
      */
     private function writeDrawings(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, $includeCharts = false)
     {
+        $hasUnparsedDrawing = isset($pSheet->getParent()->unparsedLoadedData['sheets'][$pSheet->getCodeName()]['drawingOriginalIds']);
         $chartCount = ($includeCharts) ? $pSheet->getChartCollection()->count() : 0;
-        if ($chartCount == 0 && $pSheet->getDrawingCollection()->count() == 0) {
+        if ($chartCount == 0 && $pSheet->getDrawingCollection()->count() == 0 && !$hasUnparsedDrawing) {
             return;
         }
 
