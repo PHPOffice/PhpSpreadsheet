@@ -80,7 +80,7 @@ whatever you choose) and then insert it into your workbook using the
 
 ``` php
 // Create a new worksheet called "My Data"
-$myWorkSheet = new \PhpOffice\PhpSpreadsheet\Worksheet($spreadsheet, 'My Data');
+$myWorkSheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'My Data');
 
 // Attach the "My Data" worksheet as the first worksheet in the Spreadsheet object
 $spreadsheet->addSheet($myWorkSheet, 0);
