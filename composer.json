@@ -24,12 +24,12 @@
     ],
     "scripts": {
         "check": [
-            "php-cs-fixer fix --ansi --dry-run --diff",
-            "phpcs --report-width=200 --report-summary  --report-full samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n",
-            "phpunit --color=always"
+            "./vendor/bin/php-cs-fixer fix --ansi --dry-run --diff",
+            "./vendor/bin/phpcs --report-width=200 --report-summary  --report-full samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n",
+            "./vendor/bin/phpunit --color=always"
         ],
         "fix": [
-            "php-cs-fixer fix --ansi"
+            "./vendor/bin/php-cs-fixer fix --ansi"
         ]
     },
     "require": {
