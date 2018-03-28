@@ -263,6 +263,28 @@ return an Excel date timestamp.
 Takes year, month and day values (and optional hour, minute and second
 values) and returns an Excel date timestamp value.
 
+### Timezone support for Excel date timestamp conversions
+
+The default timezone for the date functions in PhpSpreadsheet is UST (Universal Standard Time).
+If a different timezone needs to be used, these methods are available:
+
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::getDefaultTimezone()
+
+Returns the current timezone value PhpSpeadsheet is using to handle dates and times.
+
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::setDefaultTimezone($timeZone)
+
+Sets the timezone for Excel date timestamp conversions to $timeZone,
+which must be a valid PHP DateTimeZone value.
+The return value is a Boolean, where true is success,
+and false is failure (e.g. an invalid DateTimeZone value was passed.)
+
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($excelDate, $timeZone)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimeStamp($excelDate, $timeZone)
+
+These functions support a timezone as an optional second parameter.
+This applies a specific timezone to that function call without affecting the default PhpSpreadsheet Timezone.
+
 ## Function Reference
 
 ### Database Functions
@@ -1046,7 +1068,7 @@ $retVal = $worksheet->getCell('D1')->getCalculatedValue();
 ``` php
 // We're going to be calling the same cell calculation multiple times,
 //    and expecting different return values, so disable calculation cacheing
-\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
+\PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
 
 $saveFormat = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
 
@@ -1258,7 +1280,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 ``` php
 // We're going to be calling the same cell calculation multiple times,
 //    and expecting different return values, so disable calculation cacheing
-\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
+\PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
 
 $saveFormat = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
 
