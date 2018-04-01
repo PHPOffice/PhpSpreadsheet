@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class TypeAttributePreservationTest extends AbstractFunctional
@@ -47,5 +48,31 @@ class TypeAttributePreservationTest extends AbstractFunctional
         }
 
         self::assertSame($expected, $actual);
+    }
+
+    /**
+     * Ensure saved spreadsheets maintain the correct data type.
+     *
+     * @dataProvider providerFormulae
+     *
+     * @param string $format
+     * @param array $values
+     */
+    public function testFormulaeExplicit($format, array $values)
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray($values, null, 'A1', false, [DataType::TYPE_STRING, DataType::TYPE_STRING]);
+
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format);
+        $reloadedSheet = $reloadedSpreadsheet->getActiveSheet();
+
+        $dt = $reloadedSheet->getCell('A1')->getDataType();
+
+        if ($sheet->getCell('A1')->getValue() !== null) {
+            self::assertEquals('s', $dt);
+        } else {
+            self::assertEquals('null', $dt);
+        }
     }
 }

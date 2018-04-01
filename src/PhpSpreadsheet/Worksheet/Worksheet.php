@@ -2471,12 +2471,13 @@ class Worksheet implements IComparable
      * @param mixed $nullValue Value in source array that stands for blank cell
      * @param string $startCell Insert array starting from this cell address as the top left coordinate
      * @param bool $strictNullComparison Apply strict comparison when testing for null values in the array
+     * @param null|array $explicitTypes Array of data types to use for each column to avoid automatic binding
      *
      * @throws Exception
      *
      * @return Worksheet
      */
-    public function fromArray(array $source, $nullValue = null, $startCell = 'A1', $strictNullComparison = false)
+    public function fromArray(array $source, $nullValue = null, $startCell = 'A1', $strictNullComparison = false, $explicitTypes = null)
     {
         //    Convert a 1-D array to 2-D (for ease of looping)
         if (!is_array(end($source))) {
@@ -2489,16 +2490,16 @@ class Worksheet implements IComparable
         // Loop through $source
         foreach ($source as $rowData) {
             $currentColumn = $startColumn;
-            foreach ($rowData as $cellValue) {
+            foreach ($rowData as $pos => $cellValue) {
                 if ($strictNullComparison) {
                     if ($cellValue !== $nullValue) {
                         // Set cell value
-                        $this->getCell($currentColumn . $startRow)->setValue($cellValue);
+                        $this->_setCellValue($currentColumn, $startRow, $cellValue, $pos, $explicitTypes);
                     }
                 } else {
                     if ($cellValue != $nullValue) {
                         // Set cell value
-                        $this->getCell($currentColumn . $startRow)->setValue($cellValue);
+                        $this->_setCellValue($currentColumn, $startRow, $cellValue, $pos, $explicitTypes);
                     }
                 }
                 ++$currentColumn;
@@ -2507,6 +2508,17 @@ class Worksheet implements IComparable
         }
 
         return $this;
+    }
+
+    private function _setCellValue($col, $row, $value, $pos, $explicitTypes)
+    {
+        $cell = $this->getCell($col . $row);
+
+        if ($explicitTypes !== null) {
+            $cell->setValueExplicit($value, $explicitTypes[$pos]);
+        } else {
+            $cell->setValue($value);
+        }
     }
 
     /**
