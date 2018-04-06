@@ -28,6 +28,15 @@ class ColumnDimension extends Dimension
     private $autoSize = false;
 
     /**
+     * Maximum column width.
+     *
+     * Define the maximum width of a column
+     *
+     * @var int
+     */
+    const MAX_WIDTH = 255;
+
+    /**
      * Create a new ColumnDimension.
      *
      * @param string $pIndex Character column index
