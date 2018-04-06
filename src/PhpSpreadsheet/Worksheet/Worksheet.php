@@ -768,6 +768,9 @@ class Worksheet implements IComparable
                 if ($width == -1) {
                     $width = $this->getDefaultColumnDimension()->getWidth();
                 }
+                if ($width > ColumnDimension::MAX_WIDTH) {
+                    $width = ColumnDimension::MAX_WIDTH;
+                }
                 $this->getColumnDimension($columnIndex)->setWidth($width);
             }
         }
