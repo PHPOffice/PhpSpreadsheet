@@ -2068,7 +2068,9 @@ class Xlsx extends BaseReader
         } else {
             if (is_object($is->r)) {
                 foreach ($is->r as $run) {
-                    if (isset($run->rPr)) {
+                    if (!isset($run->rPr)) {
+                        $value->createText(StringHelper::controlCharacterOOXML2PHP((string) $run->t));
+                    } else {
                         $objText = $value->createTextRun(StringHelper::controlCharacterOOXML2PHP((string) $run->t));
 
                         if (isset($run->rPr->rFont['val'])) {

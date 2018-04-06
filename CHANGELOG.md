@@ -60,6 +60,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Constant `TYPE_DOUGHTNUTCHART` is now `TYPE_DOUGHNUTCHART`.
 
+## [Unreleased]
+
+### Fixed
+
+- Plain text and richtext mixed in same cell can be read - [#442](https://github.com/PHPOffice/PhpSpreadsheet/issues/442)
+
 ## [1.0.0-beta2] - 2017-11-26
 
 ### Added
