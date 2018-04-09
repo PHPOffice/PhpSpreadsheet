@@ -27,12 +27,6 @@ class ColumnDimension extends Dimension
      */
     private $autoSize = false;
 
-    /**
-     * Maximum column width.
-     *
-     * Define the maximum width of a column
-     *
-     */
     const MAX_WIDTH = 255;
 
     /**
