@@ -32,7 +32,6 @@ class ColumnDimension extends Dimension
      *
      * Define the maximum width of a column
      *
-     * @var int
      */
     const MAX_WIDTH = 255;
 
