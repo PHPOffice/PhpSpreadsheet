@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
+- Define a max column width for worksheet to avoid format issues - [#455](https://github.com/PHPOffice/PhpSpreadsheet/pull/455)
 - Avoid potentially unsupported PSR-16 cache keys - [#354](https://github.com/PHPOffice/PhpSpreadsheet/issues/354)
 - Check for MIME type to know if CSV reader can read a file - [#167](https://github.com/PHPOffice/PhpSpreadsheet/issues/167)
 - Use proper € symbol for currency format - [#379](https://github.com/PHPOffice/PhpSpreadsheet/pull/379)
