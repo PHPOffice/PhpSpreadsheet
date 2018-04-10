@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.1] - 2018-04-10
+
+### Fixed
+
+- Plain text and richtext mixed in same cell can be read - [#442](https://github.com/PHPOffice/PhpSpreadsheet/issues/442)
+
 ## [1.2.0] - 2018-03-04
 
 ### Added
@@ -59,12 +65,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### BREAKING CHANGE
 
 - Constant `TYPE_DOUGHTNUTCHART` is now `TYPE_DOUGHNUTCHART`.
-
-## [Unreleased]
-
-### Fixed
-
-- Plain text and richtext mixed in same cell can be read - [#442](https://github.com/PHPOffice/PhpSpreadsheet/issues/442)
 
 ## [1.0.0-beta2] - 2017-11-26
 
