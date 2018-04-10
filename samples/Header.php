@@ -47,7 +47,7 @@ if ($helper->isCli()) {
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $category ?><strong class="caret"></strong></a>
                             <ul class="dropdown-menu"><?php
                             foreach ($files as $name => $file) {
-                                echo '<li><a href="' . substr($file,strlen(__dir__)) . '">' . $name . '</a></li>';
+                                echo '<li><a href="' . substr($file,strlen(__DIR__)) . '">' . $name . '</a></li>';
                             } ?></ul>
                         </li>
                     <?php
