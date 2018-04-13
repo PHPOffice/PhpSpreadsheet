@@ -1081,6 +1081,21 @@ class MathTrig
         );
     }
 
+    protected static function filterFormulaArgs($cellReference, $args)
+    {
+        return array_filter(
+            $args,
+            function ($index) use ($cellReference) {
+                list(, $row, $column) = explode('.', $index);
+
+                //take this cell out if it contains the SUBTOTAL formula
+                return strpos(strtoupper($cellReference->getWorksheet()->getCell($column . $row)->getValue()), '=SUBTOTAL(') === false;
+
+            },
+            ARRAY_FILTER_USE_KEY
+        );
+    }
+
     /**
      * SUBTOTAL.
      *
@@ -1105,6 +1120,7 @@ class MathTrig
                 $subtotal = $subtotal - 100;
             }
 
+            $aArgs = self::filterFormulaArgs($cellReference, $aArgs);
             switch ($subtotal) {
                 case 1:
                     return Statistical::AVERAGE($aArgs);
