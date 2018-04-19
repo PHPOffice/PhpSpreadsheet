@@ -499,4 +499,24 @@ class MathTrigTest extends TestCase
     {
         return require 'data/Calculation/MathTrig/SUMIF.php';
     }
+
+    /**
+     * @dataProvider providerSUBTOTAL
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSUBTOTAL($expectedResult, ...$args)
+    {
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $cellReference = $spreadsheet->getActiveSheet()->getCell('A1');
+
+        array_push($args, $cellReference);
+        $result = MathTrig::SUBTOTAL(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerSUBTOTAL()
+    {
+        return require 'data/Calculation/MathTrig/SUBTOTAL.php';
+    }
 }

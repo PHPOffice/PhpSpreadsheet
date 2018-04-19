@@ -1087,10 +1087,11 @@ class MathTrig
             $args,
             function ($index) use ($cellReference) {
                 list(, $row, $column) = explode('.', $index);
-
-                //take this cell out if it contains the SUBTOTAL formula
-                return strpos(strtoupper($cellReference->getWorksheet()->getCell($column . $row)->getValue()), '=SUBTOTAL(') === false;
-
+                if ($cellReference->getWorksheet()->cellExists($column . $row)) {
+                    //take this cell out if it contains the SUBTOTAL formula
+                    return strpos(strtoupper($cellReference->getWorksheet()->getCell($column . $row)->getValue()), '=SUBTOTAL(') === false;
+                }
+                return true;
             },
             ARRAY_FILTER_USE_KEY
         );
@@ -1109,8 +1110,8 @@ class MathTrig
      */
     public static function SUBTOTAL(...$args)
     {
+        $cellReference = array_pop($args);
         $aArgs = Functions::flattenArrayIndexed($args);
-        $cellReference = array_pop($aArgs);
         $subtotal = array_shift($aArgs);
 
         // Calculate
