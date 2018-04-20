@@ -5,6 +5,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
+use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PHPUnit\Framework\TestCase;
 
 class MathTrigTest extends TestCase
@@ -507,8 +511,26 @@ class MathTrigTest extends TestCase
      */
     public function testSUBTOTAL($expectedResult, ...$args)
     {
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-        $cellReference = $spreadsheet->getActiveSheet()->getCell('A1');
+        $cell = $this->getMockBuilder(Cell::class)
+            ->setMethods(['getValue'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cell->method('getValue')
+            ->willReturn(null);
+        $worksheet = $this->getMockBuilder(Worksheet::class)
+            ->setMethods(['cellExists', 'getCell'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $worksheet->method('cellExists')
+            ->willReturn(true);
+        $worksheet->method('getCell')
+            ->willReturn($cell);
+        $cellReference = $this->getMockBuilder(Cell::class)
+            ->setMethods(['getWorksheet'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cellReference->method('getWorksheet')
+            ->willReturn($worksheet);
 
         array_push($args, $cellReference);
         $result = MathTrig::SUBTOTAL(...$args);
@@ -518,5 +540,64 @@ class MathTrigTest extends TestCase
     public function providerSUBTOTAL()
     {
         return require 'data/Calculation/MathTrig/SUBTOTAL.php';
+    }
+
+    protected static function rowVisibility() {
+        yield from [1 => false, 2 => true, 3 => false, 4 => true, 5 => false, 6 => false, 7 => false, 8 => true, 9 => false, 10 => true, 11 =>true];
+    }
+
+    /**
+     * @dataProvider providerSUBTOTALHIDDEN
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSUBTOTALHIDDEN($expectedResult, ...$args)
+    {
+        $generator = \PhpOffice\PhpSpreadsheetTests\Calculation\MathTrigTest::rowVisibility();
+        $rowDimension = $this->getMockBuilder(RowDimension::class)
+            ->setMethods(['getVisible'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $rowDimension->method('getVisible')
+            ->will($this->returnCallback(function() use ($generator) { $result = $generator->current(); $generator->next(); return $result; }));
+        $columnDimension = $this->getMockBuilder(ColumnDimension::class)
+            ->setMethods(['getVisible'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $columnDimension->method('getVisible')
+            ->willReturn(true);
+        $cell = $this->getMockBuilder(Cell::class)
+            ->setMethods(['getValue'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cell->method('getValue')
+            ->willReturn('');
+        $worksheet = $this->getMockBuilder(Worksheet::class)
+            ->setMethods(['cellExists', 'getCell', 'getRowDimension', 'getColumnDimension'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $worksheet->method('cellExists')
+            ->willReturn(true);
+        $worksheet->method('getCell')
+            ->willReturn($cell);
+        $worksheet->method('getRowDimension')
+            ->willReturn($rowDimension);
+        $worksheet->method('getColumnDimension')
+            ->willReturn($columnDimension);
+        $cellReference = $this->getMockBuilder(Cell::class)
+            ->setMethods(['getWorksheet'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cellReference->method('getWorksheet')
+            ->willReturn($worksheet);
+
+        array_push($args, $cellReference);
+        $result = MathTrig::SUBTOTAL(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerSUBTOTALHIDDEN()
+    {
+        return require 'data/Calculation/MathTrig/SUBTOTALHIDDEN.php';
     }
 }

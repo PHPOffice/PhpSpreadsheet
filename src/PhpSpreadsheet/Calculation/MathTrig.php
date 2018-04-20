@@ -1073,7 +1073,6 @@ class MathTrig
             $args,
             function ($index) use ($cellReference) {
                 list(, $row, $column) = explode('.', $index);
-
                 return $cellReference->getWorksheet()->getRowDimension($row)->getVisible() &&
                     $cellReference->getWorksheet()->getColumnDimension($column)->getVisible();
             },

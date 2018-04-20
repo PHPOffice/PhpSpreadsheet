@@ -17,58 +17,58 @@ $baseTestData = [
 
 return [
     [
-        19.3333333333333,
-        1,
+        21,
+        101,
         $baseTestData,
     ],
     [
-        12,
-        2,
-        $baseTestData,
-    ],
-    [
-        12,
-        3,
-        $baseTestData,
-    ],
-    [
-        89,
-        4,
-        $baseTestData,
-    ],
-    [
-        0,
         5,
+        102,
         $baseTestData,
     ],
     [
-        0,
-        6,
+        5,
+        103,
         $baseTestData,
     ],
     [
-        27.5196899207337,
-        7,
+        55,
+        104,
         $baseTestData,
     ],
     [
-        26.3480971271593,
-        8,
+        1,
+        105,
         $baseTestData,
     ],
     [
-        232,
-        9,
+        48620,
+        106,
         $baseTestData,
     ],
     [
-        757.3333333333330,
-        10,
+        23.1840462387393,
+        107,
         $baseTestData,
     ],
     [
-        694.2222222222220,
-        11,
+        20.7364413533277,
+        108,
+        $baseTestData,
+    ],
+    [
+        105,
+        109,
+        $baseTestData,
+    ],
+    [
+        537.5,
+        110,
+        $baseTestData,
+    ],
+    [
+        430,
+        111,
         $baseTestData,
     ],
 ];
