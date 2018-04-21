@@ -542,7 +542,7 @@ class MathTrigTest extends TestCase
         return require 'data/Calculation/MathTrig/SUBTOTAL.php';
     }
 
-    protected static function rowVisibility() {
+    protected function rowVisibility() {
         yield from [1 => false, 2 => true, 3 => false, 4 => true, 5 => false, 6 => false, 7 => false, 8 => true, 9 => false, 10 => true, 11 =>true];
     }
 
@@ -553,13 +553,14 @@ class MathTrigTest extends TestCase
      */
     public function testHiddenSUBTOTAL($expectedResult, ...$args)
     {
-        $generator = \PhpOffice\PhpSpreadsheetTests\Calculation\MathTrigTest::rowVisibility();
+        $visibilityGenerator = $this->rowVisibility();
+
         $rowDimension = $this->getMockBuilder(RowDimension::class)
             ->setMethods(['getVisible'])
             ->disableOriginalConstructor()
             ->getMock();
         $rowDimension->method('getVisible')
-            ->will($this->returnCallback(function() use ($generator) { $result = $generator->current(); $generator->next(); return $result; }));
+            ->will($this->returnCallback(function() use ($visibilityGenerator) { $result = $visibilityGenerator->current(); $visibilityGenerator->next(); return $result; }));
         $columnDimension = $this->getMockBuilder(ColumnDimension::class)
             ->setMethods(['getVisible'])
             ->disableOriginalConstructor()
@@ -601,6 +602,13 @@ class MathTrigTest extends TestCase
         return require 'data/Calculation/MathTrig/SUBTOTALHIDDEN.php';
     }
 
+    public static $cellValues;
+
+    public function cellValues() {
+        echo 'CALLED cellValues()', PHP_EOL;
+        yield from [1,2,3,4,5,6,7,8,9,10];
+    }
+
     /**
      * @dataProvider providerNestedSUBTOTAL
      *
@@ -608,12 +616,17 @@ class MathTrigTest extends TestCase
      */
     public function testNestedSUBTOTAL($expectedResult, ...$args)
     {
+        self::$cellValues = Functions::flattenArray(array_slice($args, 1));
+        $cellValueGenerator = $this->cellValues();
+
         $cell = $this->getMockBuilder(Cell::class)
-            ->setMethods(['getValue'])
+            ->setMethods(['getValue', 'isFormula'])
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getValue')
-            ->willReturn(null);
+            ->will($this->returnCallback(function() use ($cellValueGenerator) { $result = $cellValueGenerator->current(); $cellValueGenerator->next(); var_dump($result); return $result; }));
+        $cell->method('isFormula')
+            ->willReturn(true);
         $worksheet = $this->getMockBuilder(Worksheet::class)
             ->setMethods(['cellExists', 'getCell'])
             ->disableOriginalConstructor()

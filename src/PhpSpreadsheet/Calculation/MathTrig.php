@@ -1088,7 +1088,8 @@ class MathTrig
                 list(, $row, $column) = explode('.', $index);
                 if ($cellReference->getWorksheet()->cellExists($column . $row)) {
                     //take this cell out if it contains the SUBTOTAL formula
-                    return !preg_match('/=.*\b(SUBTOTAL)\s*\(/', strtoupper($cellReference->getWorksheet()->getCell($column . $row)->getValue()));
+                    return !$cellReference->getWorksheet()->getCell($column . $row)->isFormula() &&
+                        !preg_match('/^=.*\bSUBTOTAL\s*\(/', strtoupper($cellReference->getWorksheet()->getCell($column . $row)->getValue()));
                 }
                 return true;
             },
@@ -1102,7 +1103,11 @@ class MathTrig
      * Returns a subtotal in a list or database.
      *
      * @param int the number 1 to 11 that specifies which function to
-     *                    use in calculating subtotals within a list
+     *                    use in calculating subtotals within a range
+     *                    list
+     *            Numbers 101 to 111 shadow the functions of 1 to 11
+     *                    but ignore any values in the range that are
+     *                    in hidden rows or columns
      * @param array of mixed Data Series
      *
      * @return float
@@ -1117,7 +1122,7 @@ class MathTrig
         if ((is_numeric($subtotal)) && (!is_string($subtotal))) {
             if ($subtotal > 100) {
                 $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
-                $subtotal = $subtotal - 100;
+                $subtotal -= 100;
             }
 
             $aArgs = self::filterFormulaArgs($cellReference, $aArgs);
