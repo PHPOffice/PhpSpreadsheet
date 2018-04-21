@@ -1088,7 +1088,7 @@ class MathTrig
                 list(, $row, $column) = explode('.', $index);
                 if ($cellReference->getWorksheet()->cellExists($column . $row)) {
                     //take this cell out if it contains the SUBTOTAL formula
-                    return strpos(strtoupper($cellReference->getWorksheet()->getCell($column . $row)->getValue()), '=SUBTOTAL(') === false;
+                    return !preg_match('/=.*\b(SUBTOTAL)\s*\(/', strtoupper($cellReference->getWorksheet()->getCell($column . $row)->getValue()));
                 }
                 return true;
             },

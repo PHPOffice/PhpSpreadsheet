@@ -547,11 +547,11 @@ class MathTrigTest extends TestCase
     }
 
     /**
-     * @dataProvider providerSUBTOTALHIDDEN
+     * @dataProvider providerHiddenSUBTOTAL
      *
      * @param mixed $expectedResult
      */
-    public function testSUBTOTALHIDDEN($expectedResult, ...$args)
+    public function testHiddenSUBTOTAL($expectedResult, ...$args)
     {
         $generator = \PhpOffice\PhpSpreadsheetTests\Calculation\MathTrigTest::rowVisibility();
         $rowDimension = $this->getMockBuilder(RowDimension::class)
@@ -596,8 +596,47 @@ class MathTrigTest extends TestCase
         self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
-    public function providerSUBTOTALHIDDEN()
+    public function providerHiddenSUBTOTAL()
     {
         return require 'data/Calculation/MathTrig/SUBTOTALHIDDEN.php';
     }
+
+    /**
+     * @dataProvider providerNestedSUBTOTAL
+     *
+     * @param mixed $expectedResult
+     */
+    public function testNestedSUBTOTAL($expectedResult, ...$args)
+    {
+        $cell = $this->getMockBuilder(Cell::class)
+            ->setMethods(['getValue'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cell->method('getValue')
+            ->willReturn(null);
+        $worksheet = $this->getMockBuilder(Worksheet::class)
+            ->setMethods(['cellExists', 'getCell'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $worksheet->method('cellExists')
+            ->willReturn(true);
+        $worksheet->method('getCell')
+            ->willReturn($cell);
+        $cellReference = $this->getMockBuilder(Cell::class)
+            ->setMethods(['getWorksheet'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cellReference->method('getWorksheet')
+            ->willReturn($worksheet);
+
+        array_push($args, $cellReference);
+        $result = MathTrig::SUBTOTAL(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerNestedSUBTOTAL()
+    {
+        return require 'data/Calculation/MathTrig/SUBTOTALNESTED.php';
+    }
+
 }
