@@ -21,7 +21,14 @@ $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
 
 // Generate an image
 $helper->log('Generate an image');
-$gdImage = @imagecreatetruecolor(120, 20) or die('Cannot Initialize new GD image stream');
+
+try {
+    $gdImage = @imagecreatetruecolor(120, 20);
+} catch (Exception $e) {
+    $helper->log('Error - Cannot Initialize new GD image stream');
+    die('Cannot Initialize new GD image stream');
+}
+
 $textColor = imagecolorallocate($gdImage, 255, 255, 255);
 imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 

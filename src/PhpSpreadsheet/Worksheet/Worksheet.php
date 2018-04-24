@@ -1116,7 +1116,7 @@ class Worksheet implements IComparable
      */
     public function setCellValue($pCoordinate, $pValue)
     {
-        $this->getCell($pCoordinate)->setValue($pValue);
+        $this->getCell($pCoordinate)->setValue(htmlspecialchars($pValue));
 
         return $this;
     }
