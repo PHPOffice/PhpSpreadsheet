@@ -178,7 +178,7 @@ class Xlsx extends BaseWriter
 
             // If $pFilename is php://output or php://stdout, make it a temporary file...
             $originalFilename = $pFilename;
-            if (strtolower($pFilename) == 'php://output' || strtolower($pFilename) == 'php://stdout') {
+            if (strtolower($pFilename) == 'php://output' || strtolower($pFilename) == 'php://stdout' || strtolower($pFilename) == 'return') {
                 $pFilename = @tempnam(File::sysGetTempDir(), 'phpxltmp');
                 if ($pFilename == '') {
                     $pFilename = $originalFilename;
@@ -377,7 +377,9 @@ class Xlsx extends BaseWriter
 
             // If a temporary file was used, copy it to the correct file stream
             if ($originalFilename != $pFilename) {
-                if (copy($pFilename, $originalFilename) === false) {
+                if($originalFilename == 'return') {
+                    return file_get_contents($originalFilename);
+                } elseif (copy($pFilename, $originalFilename) === false) {
                     throw new WriterException("Could not copy temporary zip file $pFilename to $originalFilename.");
                 }
                 @unlink($pFilename);
