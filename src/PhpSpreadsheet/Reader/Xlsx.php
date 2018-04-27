@@ -1916,7 +1916,13 @@ class Xlsx extends BaseReader
      */
     private static function readStyle(Style $docStyle, $style)
     {
-        $docStyle->getNumberFormat()->setFormatCode($style->numFmt);
+        if (isset($style->numFmt)) {
+            if (isset($style->numFmt['formatCode'])) {
+                $docStyle->getNumberFormat()->setFormatCode((string) $style->numFmt['formatCode']);
+            } else {
+                $docStyle->getNumberFormat()->setFormatCode($style->numFmt);
+            }
+        }
 
         // font
         if (isset($style->font)) {
