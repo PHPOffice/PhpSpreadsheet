@@ -1132,7 +1132,7 @@ class Worksheet implements IComparable
      */
     public function setCellValueByColumnAndRow($columnIndex, $row, $value)
     {
-        $this->getCellByColumnAndRow($columnIndex, $row)->setValue($value);
+        $this->getCellByColumnAndRow($columnIndex, $row)->setValue(htmlspecialchars($value));
 
         return $this;
     }
