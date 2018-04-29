@@ -9,13 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Add special characters in the SetCell function
 - HTML writer creates a generator meta tag - [#312](https://github.com/PHPOffice/PhpSpreadsheet/issues/312)
 - Support invalid zoom value in XLSX format - [#350](https://github.com/PHPOffice/PhpSpreadsheet/pull/350)
 - Support for `_xlfn.` prefixed functions and `ISFORMULA`, `MODE.SNGL`, `STDEV.S`, `STDEV.P` - [#390](https://github.com/PHPOffice/PhpSpreadsheet/pull/390)
 
 ### Fixed
 
-- Add special characters in the SetCell function
+- Add special characters in the SetCell function 
 - Using logical operators such as or instead of || is generally not recommended. Fixed
 - Using logical operators such as or instead of || is generally not recommended. Fixed
 - Avoid potentially unsupported PSR-16 cache keys - [#354](https://github.com/PHPOffice/PhpSpreadsheet/issues/354)
