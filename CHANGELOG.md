@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Add special characters in the SetCell function
 - HTML writer creates a generator meta tag - [#312](https://github.com/PHPOffice/PhpSpreadsheet/issues/312)
 - Support invalid zoom value in XLSX format - [#350](https://github.com/PHPOffice/PhpSpreadsheet/pull/350)
 - Support for `_xlfn.` prefixed functions and `ISFORMULA`, `MODE.SNGL`, `STDEV.S`, `STDEV.P` - [#390](https://github.com/PHPOffice/PhpSpreadsheet/pull/390)
