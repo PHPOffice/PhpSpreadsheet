@@ -3097,7 +3097,7 @@ class Calculation
      * @param string $formula
      * @param null|\PhpOffice\PhpSpreadsheet\Cell\Cell $pCell
      *
-     * @return bool
+     * @return array
      */
     private function _parseFormula($formula, Cell $pCell = null)
     {
