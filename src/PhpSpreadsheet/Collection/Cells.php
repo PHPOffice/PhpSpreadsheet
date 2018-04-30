@@ -10,6 +10,9 @@ use Psr\SimpleCache\CacheInterface;
 
 class Cells
 {
+
+    const CACHE_ID_HIGHEST_ROW_AND_COLUMN = 'highestRowAndColumn';
+
     /**
      * @var \Psr\SimpleCache\CacheInterface
      */
@@ -168,6 +171,10 @@ class Cells
      */
     public function getHighestRowAndColumn()
     {
+        if ($this->cache->has(self::CACHE_ID_HIGHEST_ROW_AND_COLUMN)) {
+            return $this->cache->get(self::CACHE_ID_HIGHEST_ROW_AND_COLUMN);
+        }
+
         // Lookup highest column and highest row
         $col = ['A' => '1A'];
         $row = [1];
@@ -182,10 +189,14 @@ class Cells
             $highestColumn = substr(max($col), 1);
         }
 
-        return [
+        $highestRowAndColumn = [
             'row' => $highestRow,
             'column' => $highestColumn,
         ];
+
+        $this->cache->set(self::CACHE_ID_HIGHEST_ROW_AND_COLUMN, $highestRowAndColumn);
+
+        return $highestRowAndColumn;
     }
 
     /**
