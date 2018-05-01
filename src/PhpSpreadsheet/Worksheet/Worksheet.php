@@ -38,6 +38,13 @@ class Worksheet implements IComparable
     const SHEETSTATE_VERYHIDDEN = 'veryHidden';
 
     /**
+     * Maximum 31 characters allowed for sheet title.
+     *
+     * @var int
+     */
+    const SHEET_TITLE_MAXIMUM_LENGTH = 31;
+
+    /**
      * Invalid characters in sheet title.
      *
      * @var array
@@ -434,9 +441,9 @@ class Worksheet implements IComparable
             throw new Exception('Invalid character found in sheet code name');
         }
 
-        // Maximum 31 characters allowed for sheet title
-        if ($CharCount > 31) {
-            throw new Exception('Maximum 31 characters allowed in sheet code name.');
+        // Enforce maximum characters allowed for sheet title
+        if ($CharCount > self::SHEET_TITLE_MAXIMUM_LENGTH) {
+            throw new Exception('Maximum ' . self::SHEET_TITLE_MAXIMUM_LENGTH . ' characters allowed in sheet code name.');
         }
 
         return $pValue;
@@ -458,9 +465,9 @@ class Worksheet implements IComparable
             throw new Exception('Invalid character found in sheet title');
         }
 
-        // Maximum 31 characters allowed for sheet title
-        if (Shared\StringHelper::countCharacters($pValue) > 31) {
-            throw new Exception('Maximum 31 characters allowed in sheet title.');
+        // Enforce maximum characters allowed for sheet title
+        if (Shared\StringHelper::countCharacters($pValue) > self::SHEET_TITLE_MAXIMUM_LENGTH) {
+            throw new Exception('Maximum ' . self::SHEET_TITLE_MAXIMUM_LENGTH . ' characters allowed in sheet title.');
         }
 
         return $pValue;

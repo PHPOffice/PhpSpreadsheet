@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Support to read Xlsm templates with form elements, macros, printer settings, protected elements and back compatibility drawing, and save result without losing important elements of document - [#435](https://github.com/PHPOffice/PhpSpreadsheet/issues/435)
+- Expose sheet title maximum length as `Worksheet::SHEET_TITLE_MAXIMUM_LENGTH` - [#482](https://github.com/PHPOffice/PhpSpreadsheet/issues/482)
 
 ### Fixed
 
