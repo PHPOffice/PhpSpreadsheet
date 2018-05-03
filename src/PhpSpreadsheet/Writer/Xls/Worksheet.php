@@ -827,7 +827,7 @@ class Worksheet extends BIFFwriter
             $formula = substr($formula, 1);
         } else {
             // Error handling
-            $this->writeString($row, $col, 'Unrecognised character for formula');
+            $this->writeString($row, $col, 'Unrecognised character for formula', 0);
 
             return -1;
         }
