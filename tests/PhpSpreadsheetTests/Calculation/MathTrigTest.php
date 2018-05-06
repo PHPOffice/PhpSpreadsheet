@@ -603,9 +603,13 @@ class MathTrigTest extends TestCase
     }
 
     protected function cellValues($cellValues) {
-        return function() use ($cellValues) {
-            yield from $cellValues;
-        };
+        yield from $cellValues;
+    }
+
+    protected function cellIsFormula($cellValues) {
+        foreach($cellValues as $cellValue) {
+            yield $cellValue[0] === '=';
+        }
     }
 
     /**
@@ -615,18 +619,17 @@ class MathTrigTest extends TestCase
      */
     public function testNestedSUBTOTAL($expectedResult, ...$args)
     {
-        $this->markTestSkipped('Revisite when cellValueGenarator() works for mocking getValue() calls');
-
         $cellValueGenerator = $this->cellValues(Functions::flattenArray(array_slice($args, 1)));
+        $cellIsFormulaGenerator = $this->cellIsFormula(Functions::flattenArray(array_slice($args, 1)));
 
         $cell = $this->getMockBuilder(Cell::class)
             ->setMethods(['getValue', 'isFormula'])
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getValue')
-            ->will($this->returnCallback(function() use ($cellValueGenerator) { $result = $cellValueGenerator->current(); $cellValueGenerator->next(); var_dump($result); return $result; }));
+            ->will($this->returnCallback(function() use ($cellValueGenerator) { $result = $cellValueGenerator->current(); $cellValueGenerator->next(); return $result; }));
         $cell->method('isFormula')
-            ->willReturn(true);
+            ->will($this->returnCallback(function() use ($cellIsFormulaGenerator) { $result = $cellIsFormulaGenerator->current(); $cellIsFormulaGenerator->next(); return $result; }));
         $worksheet = $this->getMockBuilder(Worksheet::class)
             ->setMethods(['cellExists', 'getCell'])
             ->disableOriginalConstructor()
@@ -643,6 +646,7 @@ class MathTrigTest extends TestCase
             ->willReturn($worksheet);
 
         array_push($args, $cellReference);
+
         $result = MathTrig::SUBTOTAL(...$args);
         self::assertEquals($expectedResult, $result, null, 1E-12);
     }
@@ -651,5 +655,4 @@ class MathTrigTest extends TestCase
     {
         return require 'data/Calculation/MathTrig/SUBTOTALNESTED.php';
     }
-
 }
