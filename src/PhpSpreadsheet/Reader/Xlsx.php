@@ -1546,11 +1546,11 @@ class Xlsx extends BaseReader
                                             'SimpleXMLElement',
                                             Settings::getLibXmlLoaderOptions()
                                         );
-                                        $images = array();
-                                        $hyperlinks = array();
+                                        $images = [];
+                                        $hyperlinks = [];
                                         if ($relsDrawing && $relsDrawing->Relationship) {
                                             foreach ($relsDrawing->Relationship as $ele) {
-                                                if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink'){
+                                                if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink') {
                                                     $hyperlinks[(string) $ele['Id']] = (string) $ele['Target'];
                                                 }
                                                 if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image') {
@@ -1659,7 +1659,7 @@ class Xlsx extends BaseReader
                                                         $shadow->getColor()->setRGB(self::getArrayItem($outerShdw->srgbClr->attributes(), 'val'));
                                                         $shadow->setAlpha(self::getArrayItem($outerShdw->srgbClr->alpha->attributes(), 'val') / 1000);
                                                     }
-                                                    if($hlinkClick) {
+                                                    if ($hlinkClick) {
                                                         $hlinkId = (string) $hlinkClick->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships')['id'];
                                                         $hyperlink = new Hyperlink(
                                                             $hyperlinks[$hlinkId],

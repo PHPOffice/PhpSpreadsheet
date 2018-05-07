@@ -100,7 +100,7 @@ class BaseDrawing implements IComparable
     protected $shadow;
 
     /**
-     * Image hyperlink
+     * Image hyperlink.
      *
      * @var Hyperlink
      */
@@ -530,7 +530,7 @@ class BaseDrawing implements IComparable
      */
     public function getHyperlink()
     {
-        if ($this->hyperlink === null){
+        if ($this->hyperlink === null) {
             $this->hyperlink = new Hyperlink();
         }
 

@@ -15,9 +15,9 @@ $spreadsheet = $reader->load($inputFileName);
 
 $helper->log('Set active sheet index 0');
 $aSheet = $spreadsheet->setActiveSheetIndex(0);
-$drawing  = $aSheet->getDrawingCollection();
-/** @var  $dr \PhpOffice\PhpSpreadsheet\Worksheet\Drawing */
-foreach ($drawing as $dr){
-    $helper->log("links "  . $dr->getHyperlink()->getUrl());
+$drawings = $aSheet->getDrawingCollection();
+/** @var $dr \PhpOffice\PhpSpreadsheet\Worksheet\Drawing */
+foreach ($drawings as $dr) {
+    $helper->log('links ' . $dr->getHyperlink()->getUrl());
 }
 $helper->log('End');
