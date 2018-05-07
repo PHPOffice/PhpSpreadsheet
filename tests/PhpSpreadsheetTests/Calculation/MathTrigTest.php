@@ -5,10 +5,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
-use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
+use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class MathTrigTest extends TestCase
@@ -542,8 +542,12 @@ class MathTrigTest extends TestCase
         return require 'data/Calculation/MathTrig/SUBTOTAL.php';
     }
 
-    protected function rowVisibility() {
-        yield from [1 => false, 2 => true, 3 => false, 4 => true, 5 => false, 6 => false, 7 => false, 8 => true, 9 => false, 10 => true, 11 =>true];
+    protected function rowVisibility()
+    {
+        $data = [1 => false, 2 => true, 3 => false, 4 => true, 5 => false, 6 => false, 7 => false, 8 => true, 9 => false, 10 => true, 11 => true];
+        foreach ($data as $k => $v) {
+            yield $k => $v;
+        }
     }
 
     /**
@@ -560,7 +564,12 @@ class MathTrigTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $rowDimension->method('getVisible')
-            ->will($this->returnCallback(function() use ($visibilityGenerator) { $result = $visibilityGenerator->current(); $visibilityGenerator->next(); return $result; }));
+            ->will($this->returnCallback(function () use ($visibilityGenerator) {
+                $result = $visibilityGenerator->current();
+                $visibilityGenerator->next();
+
+                return $result;
+            }));
         $columnDimension = $this->getMockBuilder(ColumnDimension::class)
             ->setMethods(['getVisible'])
             ->disableOriginalConstructor()
@@ -602,12 +611,16 @@ class MathTrigTest extends TestCase
         return require 'data/Calculation/MathTrig/SUBTOTALHIDDEN.php';
     }
 
-    protected function cellValues($cellValues) {
-        yield from $cellValues;
+    protected function cellValues(array $cellValues)
+    {
+        foreach ($cellValues as $k => $v) {
+            yield $k => $v;
+        }
     }
 
-    protected function cellIsFormula($cellValues) {
-        foreach($cellValues as $cellValue) {
+    protected function cellIsFormula(array $cellValues)
+    {
+        foreach ($cellValues as $cellValue) {
             yield $cellValue[0] === '=';
         }
     }
@@ -627,9 +640,19 @@ class MathTrigTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getValue')
-            ->will($this->returnCallback(function() use ($cellValueGenerator) { $result = $cellValueGenerator->current(); $cellValueGenerator->next(); return $result; }));
+            ->will($this->returnCallback(function () use ($cellValueGenerator) {
+                $result = $cellValueGenerator->current();
+                $cellValueGenerator->next();
+
+                return $result;
+            }));
         $cell->method('isFormula')
-            ->will($this->returnCallback(function() use ($cellIsFormulaGenerator) { $result = $cellIsFormulaGenerator->current(); $cellIsFormulaGenerator->next(); return $result; }));
+            ->will($this->returnCallback(function () use ($cellIsFormulaGenerator) {
+                $result = $cellIsFormulaGenerator->current();
+                $cellIsFormulaGenerator->next();
+
+                return $result;
+            }));
         $worksheet = $this->getMockBuilder(Worksheet::class)
             ->setMethods(['cellExists', 'getCell'])
             ->disableOriginalConstructor()

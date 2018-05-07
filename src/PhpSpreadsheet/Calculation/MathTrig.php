@@ -1073,6 +1073,7 @@ class MathTrig
             $args,
             function ($index) use ($cellReference) {
                 list(, $row, $column) = explode('.', $index);
+
                 return $cellReference->getWorksheet()->getRowDimension($row)->getVisible() &&
                     $cellReference->getWorksheet()->getColumnDimension($column)->getVisible();
             },
@@ -1090,8 +1091,10 @@ class MathTrig
                     //take this cell out if it contains the SUBTOTAL formula
                     $isFormula = $cellReference->getWorksheet()->getCell($column . $row)->isFormula();
                     $cellFormula = !preg_match('/^=.*\bSUBTOTAL\s*\(/', strtoupper($cellReference->getWorksheet()->getCell($column . $row)->getValue()));
+
                     return !$isFormula || $cellFormula;
                 }
+
                 return true;
             },
             ARRAY_FILTER_USE_KEY
