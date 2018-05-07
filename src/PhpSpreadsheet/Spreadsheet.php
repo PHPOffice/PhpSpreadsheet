@@ -116,6 +116,14 @@ class Spreadsheet
     private $ribbonBinObjects;
 
     /**
+     * unparsedLoadedData : list of unparsed loaded data for export to same format with better compatibility
+     * has to be minimized, when the library start to support currently unparsed data.
+     *
+     * @var array
+     */
+    public $unparsedLoadedData = [];
+
+    /**
      * The workbook has macros ?
      *
      * @return bool
