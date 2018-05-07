@@ -43,7 +43,12 @@ class Drawing extends WriterPart
         $i = 1;
         $iterator = $pWorksheet->getDrawingCollection()->getIterator();
         while ($iterator->valid()) {
-            $this->writeDrawing($objWriter, $iterator->current(), $i);
+            /** @var BaseDrawing $pDrawing */
+            $pDrawing = $iterator->current();
+            $pRelationId = $i;
+            $hlinkClickId = $pDrawing->getHyperlink() === null ? null : ++$i;
+
+            $this->writeDrawing($objWriter, $pDrawing, $pRelationId, $hlinkClickId);
 
             $iterator->next();
             ++$i;
@@ -150,10 +155,11 @@ class Drawing extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param BaseDrawing $pDrawing
      * @param int $pRelationId
+     * @param null|int $hlinkClickId
      *
      * @throws WriterException
      */
-    public function writeDrawing(XMLWriter $objWriter, BaseDrawing $pDrawing, $pRelationId = -1)
+    public function writeDrawing(XMLWriter $objWriter, BaseDrawing $pDrawing, $pRelationId = -1, $hlinkClickId = null)
     {
         if ($pRelationId >= 0) {
             // xdr:oneCellAnchor
@@ -187,6 +193,10 @@ class Drawing extends WriterPart
             $objWriter->writeAttribute('id', $pRelationId);
             $objWriter->writeAttribute('name', $pDrawing->getName());
             $objWriter->writeAttribute('descr', $pDrawing->getDescription());
+
+            //a:hlinkClick
+            $this->writeHyperLinkDrawing($objWriter, $hlinkClickId);
+
             $objWriter->endElement();
 
             // xdr:cNvPicPr
@@ -489,5 +499,21 @@ class Drawing extends WriterPart
         }
 
         return $aDrawings;
+    }
+
+    /**
+     * @param XMLWriter $objWriter
+     * @param null|int $hlinkClickId
+     */
+    private function writeHyperLinkDrawing(XMLWriter $objWriter, $hlinkClickId)
+    {
+        if ($hlinkClickId === null) {
+            return;
+        }
+
+        $objWriter->startElement('a:hlinkClick');
+        $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+        $objWriter->writeAttribute('r:id', 'rId' . $hlinkClickId);
+        $objWriter->endElement();
     }
 }
