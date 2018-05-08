@@ -25,7 +25,7 @@ class DrawingImageHyperlinkTest extends AbstractFunctional
 
         $aSheet = $spreadsheet->getActiveSheet();
 
-        $gdImage = @imagecreatetruecolor(120, 20) or die('Cannot Initialize new GD image stream');
+        $gdImage = @imagecreatetruecolor(120, 20);
         $textColor = imagecolorallocate($gdImage, 255, 255, 255);
         imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 
