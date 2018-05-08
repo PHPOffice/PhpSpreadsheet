@@ -295,12 +295,25 @@ class Rels extends WriterPart
             if ($iterator->current() instanceof \PhpOffice\PhpSpreadsheet\Worksheet\Drawing
                 || $iterator->current() instanceof MemoryDrawing) {
                 // Write relationship for image drawing
+                /** @var \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $drawing */
+                $drawing = $iterator->current();
                 $this->writeRelationship(
                     $objWriter,
                     $i,
                     'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image',
-                    '../media/' . str_replace(' ', '', $iterator->current()->getIndexedFilename())
+                    '../media/' . str_replace(' ', '', $drawing->getIndexedFilename())
                 );
+
+                if(!empty($drawing->getHyperlink()->getUrl())){
+                    ++$i;
+                    $this->writeRelationship(
+                        $objWriter,
+                        $i,
+                        'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink',
+                        $drawing->getHyperlink()->getUrl(),
+                        $drawing->getHyperlink()->isInternal() ? '' : 'External'
+                    );
+                }
             }
 
             $iterator->next();

@@ -43,7 +43,12 @@ class Drawing extends WriterPart
         $i = 1;
         $iterator = $pWorksheet->getDrawingCollection()->getIterator();
         while ($iterator->valid()) {
-            $this->writeDrawing($objWriter, $iterator->current(), $i);
+            /** @var BaseDrawing $pDrawing */
+            $pDrawing = $iterator->current();
+            $pRelationId = $i;
+            $pHlinkClickId = empty($pDrawing->getHyperlink()->getUrl()) ? -1 : ++$i;
+
+            $this->writeDrawing($objWriter, $pDrawing, $pRelationId, $pHlinkClickId);
 
             $iterator->next();
             ++$i;
@@ -142,10 +147,11 @@ class Drawing extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param BaseDrawing $pDrawing
      * @param int $pRelationId
+     * @param int $pHlinkClickId
      *
      * @throws WriterException
      */
-    public function writeDrawing(XMLWriter $objWriter, BaseDrawing $pDrawing, $pRelationId = -1)
+    public function writeDrawing(XMLWriter $objWriter, BaseDrawing $pDrawing, $pRelationId = -1, $pHlinkClickId = -1)
     {
         if ($pRelationId >= 0) {
             // xdr:oneCellAnchor
@@ -179,6 +185,15 @@ class Drawing extends WriterPart
             $objWriter->writeAttribute('id', $pRelationId);
             $objWriter->writeAttribute('name', $pDrawing->getName());
             $objWriter->writeAttribute('descr', $pDrawing->getDescription());
+
+            //a:hlinkClick
+            if($pHlinkClickId >= 0) {
+                $objWriter->startElement('a:hlinkClick');
+                $objWriter->writeAttribute('xmlns:r','http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+                $objWriter->writeAttribute('r:id','rId' . $pHlinkClickId );
+                $objWriter->endElement();
+            }
+
             $objWriter->endElement();
 
             // xdr:cNvPicPr

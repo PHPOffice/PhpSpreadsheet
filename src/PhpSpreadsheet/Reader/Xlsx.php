@@ -1580,6 +1580,9 @@ class Xlsx extends BaseReader
                                                     $xfrm = $oneCellAnchor->pic->spPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->xfrm;
                                                     /** @var \SimpleXMLElement $outerShdw */
                                                     $outerShdw = $oneCellAnchor->pic->spPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->effectLst->outerShdw;
+                                                    /** @var \SimpleXMLElement $hlinkClick */
+                                                    $hlinkClick = $oneCellAnchor->pic->nvPicPr->cNvPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->hlinkClick;
+
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
@@ -1609,6 +1612,14 @@ class Xlsx extends BaseReader
                                                         $shadow->setAlignment((string) self::getArrayItem($outerShdw->attributes(), 'algn'));
                                                         $shadow->getColor()->setRGB(self::getArrayItem($outerShdw->srgbClr->attributes(), 'val'));
                                                         $shadow->setAlpha(self::getArrayItem($outerShdw->srgbClr->alpha->attributes(), 'val') / 1000);
+                                                    }
+                                                    if ($hlinkClick) {
+                                                        $hlinkId = (string) $hlinkClick->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships')['id'];
+                                                        $hyperlink = new Hyperlink(
+                                                            $hyperlinks[$hlinkId],
+                                                            (string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name')
+                                                        );
+                                                        $objDrawing->setHyperlink($hyperlink);
                                                     }
                                                     $objDrawing->setWorksheet($docSheet);
                                                 } else {
