@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: yuzhakov
  * Date: 08.05.18
- * Time: 12:00
+ * Time: 12:00.
  */
 
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
-
 
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -15,22 +14,20 @@ use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
 class DrawingImageHyperlinkTest extends AbstractFunctional
 {
-
     const BASE_URL = 'https://github.com/PHPOffice/PhpSpreadsheet';
 
     /**
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function testDrawingImageHyperlinkTest(){
-
+    public function testDrawingImageHyperlinkTest()
+    {
         $spreadsheet = new Spreadsheet();
 
-        $aSheet  = $spreadsheet->getActiveSheet();
-
+        $aSheet = $spreadsheet->getActiveSheet();
 
         $gdImage = @imagecreatetruecolor(120, 20) or die('Cannot Initialize new GD image stream');
         $textColor = imagecolorallocate($gdImage, 255, 255, 255);
-        imagestring($gdImage, 1, 5, 5,  'Created with PhpSpreadsheet', $textColor);
+        imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 
         $drawing = new MemoryDrawing();
         $drawing->setName('In-Memory image 1');
@@ -42,14 +39,14 @@ class DrawingImageHyperlinkTest extends AbstractFunctional
         );
         $drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
         $drawing->setHeight(36);
-        $hyperLink  = new Hyperlink(self::BASE_URL,'test image');
+        $hyperLink = new Hyperlink(self::BASE_URL, 'test image');
         $drawing->setHyperlink($hyperLink);
         $drawing->setWorksheet($aSheet);
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
 
-        foreach ($reloadedSpreadsheet->getActiveSheet()->getDrawingCollection() as $pDrawing){
-            self::assertEquals(self::BASE_URL , $pDrawing->getHyperlink()->getUrl(), 'functional test drawing hyperlink');
+        foreach ($reloadedSpreadsheet->getActiveSheet()->getDrawingCollection() as $pDrawing) {
+            self::assertEquals(self::BASE_URL, $pDrawing->getHyperlink()->getUrl(), 'functional test drawing hyperlink');
         }
     }
 }

@@ -187,10 +187,10 @@ class Drawing extends WriterPart
             $objWriter->writeAttribute('descr', $pDrawing->getDescription());
 
             //a:hlinkClick
-            if($pHlinkClickId >= 0) {
+            if ($pHlinkClickId >= 0) {
                 $objWriter->startElement('a:hlinkClick');
-                $objWriter->writeAttribute('xmlns:r','http://schemas.openxmlformats.org/officeDocument/2006/relationships');
-                $objWriter->writeAttribute('r:id','rId' . $pHlinkClickId );
+                $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+                $objWriter->writeAttribute('r:id', 'rId' . $pHlinkClickId);
                 $objWriter->endElement();
             }
 

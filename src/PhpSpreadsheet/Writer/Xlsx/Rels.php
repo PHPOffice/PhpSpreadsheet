@@ -304,7 +304,7 @@ class Rels extends WriterPart
                     '../media/' . str_replace(' ', '', $drawing->getIndexedFilename())
                 );
 
-                if(!empty($drawing->getHyperlink()->getUrl())){
+                if (!empty($drawing->getHyperlink()->getUrl())) {
                     ++$i;
                     $this->writeRelationship(
                         $objWriter,
