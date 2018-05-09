@@ -35,14 +35,14 @@ abstract class IOFactory
     ];
 
     /**
-     * Create Writer\IWriter.
+     * Create Writer\BaseWriter.
      *
      * @param Spreadsheet $spreadsheet
      * @param string $writerType Example: Xlsx
      *
      * @throws Writer\Exception
      *
-     * @return Writer\IWriter
+     * @return Writer\BaseWriter
      */
     public static function createWriter(Spreadsheet $spreadsheet, $writerType)
     {
@@ -58,13 +58,13 @@ abstract class IOFactory
     }
 
     /**
-     * Create Reader\IReader.
+     * Create Reader\BaseReader.
      *
      * @param string $readerType Example: Xlsx
      *
      * @throws Reader\Exception
      *
-     * @return Reader\IReader
+     * @return Reader\BaseReader
      */
     public static function createReader($readerType)
     {
@@ -115,13 +115,13 @@ abstract class IOFactory
     }
 
     /**
-     * Create Reader\IReader for file using automatic Reader\IReader resolution.
+     * Create Reader\BaseReader for file using automatic Reader\IReader resolution.
      *
      * @param string $filename The name of the spreadsheet file
      *
      * @throws Reader\Exception
      *
-     * @return Reader\IReader
+     * @return Reader\BaseReader
      */
     public static function createReaderForFile($filename)
     {
@@ -203,6 +203,7 @@ abstract class IOFactory
      *
      * @param string $writerType
      * @param string $writerClass
+     * @throws Writer\Exception
      */
     public static function registerWriter($writerType, $writerClass)
     {
@@ -218,6 +219,7 @@ abstract class IOFactory
      *
      * @param string $readerType
      * @param string $readerClass
+     * @throws Reader\Exception
      */
     public static function registerReader($readerType, $readerClass)
     {
