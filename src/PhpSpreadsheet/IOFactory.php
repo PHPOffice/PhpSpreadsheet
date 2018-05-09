@@ -203,6 +203,7 @@ abstract class IOFactory
      *
      * @param string $writerType
      * @param string $writerClass
+     * @throws Writer\Exception
      */
     public static function registerWriter($writerType, $writerClass)
     {
@@ -218,6 +219,7 @@ abstract class IOFactory
      *
      * @param string $readerType
      * @param string $readerClass
+     * @throws Reader\Exception
      */
     public static function registerReader($readerType, $readerClass)
     {
