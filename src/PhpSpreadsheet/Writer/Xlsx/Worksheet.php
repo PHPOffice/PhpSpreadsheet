@@ -852,8 +852,9 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('useFirstPageNumber', '1');
         }
 
-        if (isset($pSheet->getParent()->getUnparsedLoadedData()['sheets'][$pSheet->getCodeName()]['pageSetupRelId'])) {
-            $objWriter->writeAttribute('r:id', $pSheet->getParent()->getUnparsedLoadedData()['sheets'][$pSheet->getCodeName()]['pageSetupRelId']);
+        $getUnparsedLoadedData = $pSheet->getParent()->getUnparsedLoadedData();
+        if (isset($getUnparsedLoadedData['sheets'][$pSheet->getCodeName()]['pageSetupRelId'])) {
+            $objWriter->writeAttribute('r:id', $getUnparsedLoadedData['sheets'][$pSheet->getCodeName()]['pageSetupRelId']);
         }
 
         $objWriter->endElement();
@@ -1157,7 +1158,8 @@ class Worksheet extends WriterPart
      */
     private function writeDrawings(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, $includeCharts = false)
     {
-        $hasUnparsedDrawing = isset($pSheet->getParent()->getUnparsedLoadedData()['sheets'][$pSheet->getCodeName()]['drawingOriginalIds']);
+        $unparsedLoadedData = $pSheet->getParent()->getUnparsedLoadedData();
+        $hasUnparsedDrawing = isset($unparsedLoadedData['sheets'][$pSheet->getCodeName()]['drawingOriginalIds']);
         $chartCount = ($includeCharts) ? $pSheet->getChartCollection()->count() : 0;
         if ($chartCount == 0 && $pSheet->getDrawingCollection()->count() == 0 && !$hasUnparsedDrawing) {
             return;
@@ -1167,8 +1169,8 @@ class Worksheet extends WriterPart
         $objWriter->startElement('drawing');
 
         $rId = 'rId1';
-        if (isset($pSheet->getParent()->getUnparsedLoadedData()['sheets'][$pSheet->getCodeName()]['drawingOriginalIds'])) {
-            $drawingOriginalIds = $pSheet->getParent()->getUnparsedLoadedData()['sheets'][$pSheet->getCodeName()]['drawingOriginalIds'];
+        if (isset($unparsedLoadedData['sheets'][$pSheet->getCodeName()]['drawingOriginalIds'])) {
+            $drawingOriginalIds = $unparsedLoadedData['sheets'][$pSheet->getCodeName()]['drawingOriginalIds'];
             // take first. In future can be overriten
             $rId = reset($drawingOriginalIds);
         }

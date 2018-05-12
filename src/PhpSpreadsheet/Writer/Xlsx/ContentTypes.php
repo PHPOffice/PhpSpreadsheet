@@ -89,12 +89,13 @@ class ContentTypes extends WriterPart
         $this->writeOverrideContentType($objWriter, '/xl/sharedStrings.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml');
 
         // Add worksheet relationship content types
+        $unparsedLoadedData = $spreadsheet->getUnparsedLoadedData();
         $chart = 1;
         for ($i = 0; $i < $sheetCount; ++$i) {
             $drawings = $spreadsheet->getSheet($i)->getDrawingCollection();
             $drawingCount = count($drawings);
             $chartCount = ($includeCharts) ? $spreadsheet->getSheet($i)->getChartCount() : 0;
-            $hasUnparsedDrawing = isset($spreadsheet->getUnparsedLoadedData()['sheets'][$spreadsheet->getSheet($i)->getCodeName()]['drawingOriginalIds']);
+            $hasUnparsedDrawing = isset($unparsedLoadedData['sheets'][$spreadsheet->getSheet($i)->getCodeName()]['drawingOriginalIds']);
 
             //    We need a drawing relationship for the worksheet if we have either drawings or charts
             if (($drawingCount > 0) || ($chartCount > 0) || $hasUnparsedDrawing) {
@@ -163,15 +164,15 @@ class ContentTypes extends WriterPart
         }
 
         // unparsed defaults
-        if (isset($spreadsheet->getUnparsedLoadedData()['default_content_types'])) {
-            foreach ($spreadsheet->getUnparsedLoadedData()['default_content_types'] as $extName => $contentType) {
+        if (isset($unparsedLoadedData['default_content_types'])) {
+            foreach ($unparsedLoadedData['default_content_types'] as $extName => $contentType) {
                 $this->writeDefaultContentType($objWriter, $extName, $contentType);
             }
         }
 
         // unparsed overrides
-        if (isset($spreadsheet->getUnparsedLoadedData()['override_content_types'])) {
-            foreach ($spreadsheet->getUnparsedLoadedData()['override_content_types'] as $partName => $overrideType) {
+        if (isset($unparsedLoadedData['override_content_types'])) {
+            foreach ($unparsedLoadedData['override_content_types'] as $partName => $overrideType) {
                 $this->writeOverrideContentType($objWriter, $partName, $overrideType);
             }
         }

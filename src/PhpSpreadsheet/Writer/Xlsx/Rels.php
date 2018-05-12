@@ -196,8 +196,9 @@ class Rels extends WriterPart
         // Write drawing relationships?
         $d = 0;
         $drawingOriginalIds = [];
-        if (isset($pWorksheet->getParent()->getUnparsedLoadedData()['sheets'][$pWorksheet->getCodeName()]['drawingOriginalIds'])) {
-            $drawingOriginalIds = $pWorksheet->getParent()->getUnparsedLoadedData()['sheets'][$pWorksheet->getCodeName()]['drawingOriginalIds'];
+        $unparsedLoadedData = $pWorksheet->getParent()->getUnparsedLoadedData();
+        if (isset($unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['drawingOriginalIds'])) {
+            $drawingOriginalIds = $unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['drawingOriginalIds'];
         }
 
         if ($includeCharts) {
@@ -278,11 +279,12 @@ class Rels extends WriterPart
 
     private function writeUnparsedRelationship(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet, XMLWriter $objWriter, $relationship, $type)
     {
-        if (!isset($pWorksheet->getParent()->getUnparsedLoadedData()['sheets'][$pWorksheet->getCodeName()][$relationship])) {
+        $unparsedLoadedData = $pWorksheet->getParent()->getUnparsedLoadedData();
+        if (!isset($unparsedLoadedData['sheets'][$pWorksheet->getCodeName()][$relationship])) {
             return;
         }
 
-        foreach ($pWorksheet->getParent()->getUnparsedLoadedData()['sheets'][$pWorksheet->getCodeName()][$relationship] as $rId => $value) {
+        foreach ($unparsedLoadedData['sheets'][$pWorksheet->getCodeName()][$relationship] as $rId => $value) {
             $this->writeRelationship(
                 $objWriter,
                 $rId,
