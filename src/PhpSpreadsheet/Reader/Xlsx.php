@@ -1464,7 +1464,7 @@ class Xlsx extends BaseReader
                                 // unparsed vmlDrawing
                                 if ($unparsedVmlDrawings) {
                                     foreach ($unparsedVmlDrawings as $rId => $relPath) {
-                                        $rId = substr($rId, 3);  // rIdXXX
+                                        $rId = substr($rId, 3); // rIdXXX
                                         $unparsedVmlDrawing = &$unparsedLoadedData['sheets'][$docSheet->getCodeName()]['vmlDrawings'];
                                         $unparsedVmlDrawing[$rId] = [];
                                         $unparsedVmlDrawing[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $relPath);
@@ -2350,7 +2350,7 @@ class Xlsx extends BaseReader
 
         $unparsedCtrlProps = &$unparsedLoadedData['sheets'][$docSheet->getCodeName()]['ctrlProps'];
         foreach ($ctrlProps as $rId => $ctrlProp) {
-            $rId = substr($rId, 3);  // rIdXXX
+            $rId = substr($rId, 3); // rIdXXX
             $unparsedCtrlProps[$rId] = [];
             $unparsedCtrlProps[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $ctrlProp['Target']);
             $unparsedCtrlProps[$rId]['relFilePath'] = (string) $ctrlProp['Target'];
@@ -2382,7 +2382,7 @@ class Xlsx extends BaseReader
 
         $unparsedPrinterSettings = &$unparsedLoadedData['sheets'][$docSheet->getCodeName()]['printerSettings'];
         foreach ($sheetPrinterSettings as $rId => $printerSettings) {
-            $rId = substr($rId, 3);  // rIdXXX
+            $rId = substr($rId, 3); // rIdXXX
             $unparsedPrinterSettings[$rId] = [];
             $unparsedPrinterSettings[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $printerSettings['Target']);
             $unparsedPrinterSettings[$rId]['relFilePath'] = (string) $printerSettings['Target'];
