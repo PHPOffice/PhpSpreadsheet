@@ -603,6 +603,13 @@ class Html
         $this->stringData = '';
     }
 
+    /**
+     * Parse HTML formatting and return the resulting RichText.
+     *
+     * @param string $html
+     *
+     * @return RichText
+     */
     public function toRichTextObject($html)
     {
         $this->initialise();
@@ -611,8 +618,8 @@ class Html
         $dom = new DOMDocument();
         //    Load the HTML file into the DOM object
         //  Note the use of error suppression, because typically this will be an html fragment, so not fully valid markup
-        @$dom->loadHTML($html);
-
+        $prefix = '<?xml encoding="UTF-8">';
+        @$dom->loadHTML($prefix . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         //    Discard excess white space
         $dom->preserveWhiteSpace = false;
 
