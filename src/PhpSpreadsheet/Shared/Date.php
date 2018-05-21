@@ -256,7 +256,7 @@ class Date
     /**
      * Convert a Unix timestamp to an MS Excel serialized date/time value.
      *
-     * @param DateTimeInterface $dateValue Unix Timestamp
+     * @param int $dateValue Unix Timestamp
      *
      * @return float MS Excel serialized date/time value
      */
