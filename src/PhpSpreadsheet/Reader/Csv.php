@@ -55,7 +55,7 @@ class Csv extends BaseReader
      *
      * @var string
      */
-    private $escapeCharacter;
+    private $escapeCharacter = '\\';
 
     /**
      * Create a new CSV Reader instance.
