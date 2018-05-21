@@ -142,7 +142,7 @@ class BestFit
      *
      * @param int $dp Number of places of decimal precision to display
      *
-     * @return string
+     * @return float
      */
     public function getSlope($dp = 0)
     {
@@ -158,7 +158,7 @@ class BestFit
      *
      * @param int $dp Number of places of decimal precision to display
      *
-     * @return string
+     * @return float
      */
     public function getSlopeSE($dp = 0)
     {
@@ -174,7 +174,7 @@ class BestFit
      *
      * @param int $dp Number of places of decimal precision to display
      *
-     * @return string
+     * @return float
      */
     public function getIntersect($dp = 0)
     {
@@ -190,7 +190,7 @@ class BestFit
      *
      * @param int $dp Number of places of decimal precision to display
      *
-     * @return string
+     * @return float
      */
     public function getIntersectSE($dp = 0)
     {
@@ -217,6 +217,13 @@ class BestFit
         return $this->goodnessOfFit;
     }
 
+    /**
+     * Return the goodness of fit for this regression.
+     *
+     * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
+     */
     public function getGoodnessOfFitPercent($dp = 0)
     {
         if ($dp != 0) {
@@ -242,6 +249,11 @@ class BestFit
         return $this->stdevOfResiduals;
     }
 
+    /**
+     * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
+     */
     public function getSSRegression($dp = 0)
     {
         if ($dp != 0) {
@@ -251,6 +263,11 @@ class BestFit
         return $this->SSRegression;
     }
 
+    /**
+     * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
+     */
     public function getSSResiduals($dp = 0)
     {
         if ($dp != 0) {
@@ -260,6 +277,11 @@ class BestFit
         return $this->SSResiduals;
     }
 
+    /**
+     * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
+     */
     public function getDFResiduals($dp = 0)
     {
         if ($dp != 0) {
@@ -269,6 +291,11 @@ class BestFit
         return $this->DFResiduals;
     }
 
+    /**
+     * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
+     */
     public function getF($dp = 0)
     {
         if ($dp != 0) {
@@ -278,6 +305,11 @@ class BestFit
         return $this->f;
     }
 
+    /**
+     * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
+     */
     public function getCovariance($dp = 0)
     {
         if ($dp != 0) {
@@ -287,6 +319,11 @@ class BestFit
         return $this->covariance;
     }
 
+    /**
+     * @param int $dp Number of places of decimal precision to return
+     *
+     * @return float
+     */
     public function getCorrelation($dp = 0)
     {
         if ($dp != 0) {
@@ -296,6 +333,9 @@ class BestFit
         return $this->correlation;
     }
 
+    /**
+     * @return float[]
+     */
     public function getYBestFitValues()
     {
         return $this->yBestFitValues;
