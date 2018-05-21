@@ -1000,7 +1000,7 @@ class Matrix
      */
     public function times(...$args)
     {
-        if (count() > 0) {
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -1094,7 +1094,7 @@ class Matrix
      */
     public function power(...$args)
     {
-        if (count() > 0) {
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
