@@ -90,10 +90,9 @@ class CsvTest extends TestCase
         ];
     }
 
-    /** @test */
     public function testEscapeCharacters()
     {
-        $reader = (new Csv)->setEscapeCharacter('"');
+        $reader = (new Csv())->setEscapeCharacter('"');
         $worksheet = $reader->load(__DIR__ . '/../../data/Reader/CSV/backslash.csv')
             ->getActiveSheet();
 
