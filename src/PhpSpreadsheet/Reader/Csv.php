@@ -51,6 +51,13 @@ class Csv extends BaseReader
     private $contiguousRow = -1;
 
     /**
+     * The character that can escape the enclosure.
+     *
+     * @var string
+     */
+    private $escapeCharacter = '\\';
+
+    /**
      * Create a new CSV Reader instance.
      */
     public function __construct()
@@ -254,7 +261,7 @@ class Csv extends BaseReader
         $worksheetInfo[0]['totalColumns'] = 0;
 
         // Loop through each line of the file in turn
-        while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure)) !== false) {
+        while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure, $this->escapeCharacter)) !== false) {
             ++$worksheetInfo[0]['totalRows'];
             $worksheetInfo[0]['lastColumnIndex'] = max($worksheetInfo[0]['lastColumnIndex'], count($rowData) - 1);
         }
@@ -326,7 +333,7 @@ class Csv extends BaseReader
         }
 
         // Loop through each line of the file in turn
-        while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure)) !== false) {
+        while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure, $this->escapeCharacter)) !== false) {
             $columnLetter = 'A';
             foreach ($rowData as $rowDatum) {
                 if ($rowDatum != '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
@@ -456,6 +463,30 @@ class Csv extends BaseReader
     public function getContiguous()
     {
         return $this->contiguous;
+    }
+
+    /**
+     * Set escape backslashes.
+     *
+     * @param string $escapeCharacter
+     *
+     * @return $this
+     */
+    public function setEscapeCharacter($escapeCharacter)
+    {
+        $this->escapeCharacter = $escapeCharacter;
+
+        return $this;
+    }
+
+    /**
+     * Get escape backslashes.
+     *
+     * @return string
+     */
+    public function getEscapeCharacter()
+    {
+        return $this->escapeCharacter;
     }
 
     /**
