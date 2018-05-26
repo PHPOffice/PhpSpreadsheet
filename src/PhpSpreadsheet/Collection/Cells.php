@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Collection;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Psr\SimpleCache\CacheInterface;
@@ -30,6 +31,20 @@ class Cells
     private $currentCell;
 
     /**
+     * Cached highest column.
+     *
+     * @var string
+     */
+    private $cachedHighestColumn = 'A';
+
+    /**
+     * Cached highest row.
+     *
+     * @var int
+     */
+    private $cachedHighestRow = 1;
+
+    /**
      * Coordinate of the currently active Cell.
      *
      * @var string
@@ -49,6 +64,13 @@ class Cells
      * @var bool[]
      */
     private $index = [];
+
+    /**
+     * An index of deferred created cells.
+     *
+     * @var array[]
+     */
+    private $lazyCellsData = [];
 
     /**
      * Prefix used to uniquely identify cache data for this worksheet.
@@ -97,7 +119,7 @@ class Cells
         }
 
         // Check if the requested entry exists in the index
-        return isset($this->index[$pCoord]);
+        return isset($this->index[$pCoord]) || isset($this->lazyCellsData[$pCoord]);
     }
 
     /**
@@ -222,6 +244,16 @@ class Cells
         return (int) $row;
     }
 
+    public function getCachedHighestColumn()
+    {
+        return $this->cachedHighestColumn;
+    }
+
+    public function setCachedHighestColumn($pColumn)
+    {
+        $this->cachedHighestColumn = $pColumn;
+    }
+
     /**
      * Get highest worksheet column.
      *
@@ -248,6 +280,16 @@ class Cells
         }
 
         return Coordinate::stringFromColumnIndex(max($columnList) + 1);
+    }
+
+    public function getCachedHighestRow()
+    {
+        return $this->cachedHighestRow;
+    }
+
+    public function setCachedHighestRow($pRow)
+    {
+        $this->cachedHighestRow = $pRow;
     }
 
     /**
@@ -407,6 +449,92 @@ class Cells
     }
 
     /**
+     * Add or update a lazy cell identified by its coordinate into the collection.
+     *
+     * @param string $pCoord Coordinate of the cell to update
+     * @param array $cellData Cell data to deferred create
+     */
+    public function addLazyCellData($pCoord, array $cellData)
+    {
+        $this->lazyCellsData[$pCoord] = $cellData;
+    }
+
+    /**
+     * Create a new cell with predefined attributes at the specified coordinate.
+     *
+     * @param string $pCoordinate Coordinate of the cell
+     * @param array $cellData Cell predefined attributes
+     * @param bool $lazyCreate Create immediately or on first access
+     *
+     * @return Cell Cell that was created
+     */
+    public function createNewPredefinedCell($pCoordinate, $cellData, $lazyCreate = false)
+    {
+        if ($lazyCreate) {
+            $this->addLazyCellData($pCoordinate, $cellData);
+
+            return null;
+        }
+
+        $cell = $this->createNewCell($pCoordinate);
+
+        // Assign value
+        if (!empty($cellData['type'])) {    // type can be empty string
+            $cell->setValueExplicit($cellData['value'], $cellData['type']);
+        } else {
+            $cell->setValue($cellData['value']);
+        }
+        if (isset($cellData['calculatedValue'])) {
+            $cell->setCalculatedValue($cellData['calculatedValue']);
+        }
+        // Style information?
+        if (isset($cellData['styleIndex'])) {
+            $cell->setXfIndex($cellData['styleIndex']);
+        }
+        if (isset($cellData['hyperlink'])) {
+            $cell->getHyperlink()
+                ->setUrl($cellData['hyperlink']);
+        }
+
+        return $cell;
+    }
+
+    /**
+     * Create a new cell at the specified coordinate.
+     *
+     * @param string $pCoordinate Coordinate of the cell
+     *
+     * @return Cell Cell that was created
+     */
+    public function createNewCell($pCoordinate)
+    {
+        $cell = new Cell(null, DataType::TYPE_NULL, $this->parent);
+        $this->add($pCoordinate, $cell);
+
+        // Coordinates
+        $aCoordinates = Coordinate::coordinateFromString($pCoordinate);
+        if (Coordinate::columnIndexFromString($this->cachedHighestColumn) < Coordinate::columnIndexFromString($aCoordinates[0])) {
+            $this->cachedHighestColumn = $aCoordinates[0];
+        }
+        $this->cachedHighestRow = max($this->cachedHighestRow, $aCoordinates[1]);
+
+        // Cell needs appropriate xfIndex from dimensions records
+        //    but don't create dimension records if they don't already exist
+        $rowDimension = $this->parent->getRowDimension($aCoordinates[1], false);
+        $columnDimension = $this->parent->getColumnDimension($aCoordinates[0], false);
+
+        if ($rowDimension !== null && $rowDimension->getXfIndex() > 0) {
+            // then there is a row dimension with explicit style, assign it to the cell
+            $cell->setXfIndex($rowDimension->getXfIndex());
+        } elseif ($columnDimension !== null && $columnDimension->getXfIndex() > 0) {
+            // then there is a column dimension, assign it to the cell
+            $cell->setXfIndex($columnDimension->getXfIndex());
+        }
+
+        return $cell;
+    }
+
+    /**
      * Get cell at a specific coordinate.
      *
      * @param string $pCoord Coordinate of the cell
@@ -425,6 +553,13 @@ class Cells
         // Return null if requested entry doesn't exist in collection
         if (!$this->has($pCoord)) {
             return null;
+        }
+
+        if (isset($this->lazyCellsData[$pCoord])) {
+            $cell = $this->createNewPredefinedCell($pCoord, $this->lazyCellsData[$pCoord]);
+            $this->add($pCoord, $cell);
+            $this->storeCurrentCell();
+            unset($this->lazyCellsData[$pCoord]);
         }
 
         // Check if the entry that has been requested actually exists

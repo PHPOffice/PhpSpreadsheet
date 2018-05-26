@@ -14,6 +14,15 @@ class XlsxTest extends TestCase
     {
         $filename = './data/Reader/XLSX/without_cell_reference.xlsx';
         $reader = new Xlsx();
-        $reader->load($filename);
+
+        $reader->setLazyInitCells(false);
+        $spreadsheet = $reader->load($filename);
+        $firstSheet = $spreadsheet->getSheet(0);
+        self::assertEquals('2', $firstSheet->getCell('B2')->getValue());
+
+        $reader->setLazyInitCells(true);
+        $spreadsheet = $reader->load($filename);
+        $firstSheet = $spreadsheet->getSheet(0);
+        self::assertEquals('2', $firstSheet->getCell('B2')->getValue());
     }
 }

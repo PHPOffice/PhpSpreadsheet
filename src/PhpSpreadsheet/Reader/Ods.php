@@ -658,7 +658,7 @@ class Ods extends BaseReader
                                         if ($type !== DataType::TYPE_NULL) {
                                             for ($rowAdjust = 0; $rowAdjust < $rowRepeats; ++$rowAdjust) {
                                                 $rID = $rowID + $rowAdjust;
-
+                                                /*
                                                 $cell = $spreadsheet->getActiveSheet()
                                                     ->getCell($columnID . $rID);
 
@@ -673,6 +673,21 @@ class Ods extends BaseReader
                                                     $cell->setCalculatedValue($dataValue);
                                                 }
 
+                                                if ($hyperlink !== null) {
+                                                    $cell->getHyperlink()
+                                                        ->setUrl($hyperlink);
+                                                }
+                                                */
+
+                                                $cellDataArray = [
+                                                    'value' => $hasCalculatedValue ? $cellDataFormula : $dataValue,
+                                                    'calculatedValue' => $hasCalculatedValue ? $dataValue : null,
+                                                    'type' => $type,
+                                                    'styleIndex' => null,
+                                                    'hyperlink' => $hyperlink,
+                                                ];
+                                                $spreadsheet->getActiveSheet()->getCellCollection()->createNewPredefinedCell($columnID . $rID, $cellDataArray, $this->lazyInitCells);
+
                                                 // Set other properties
                                                 if ($formatting !== null) {
                                                     $spreadsheet->getActiveSheet()
@@ -684,11 +699,6 @@ class Ods extends BaseReader
                                                         ->getStyle($columnID . $rID)
                                                         ->getNumberFormat()
                                                         ->setFormatCode(NumberFormat::FORMAT_GENERAL);
-                                                }
-
-                                                if ($hyperlink !== null) {
-                                                    $cell->getHyperlink()
-                                                        ->setUrl($hyperlink);
                                                 }
                                             }
                                         }

@@ -3736,7 +3736,7 @@ class Xls extends BaseReader
             // offset: 6; size: 4; RK value
             $rknum = self::getInt4d($recordData, 6);
             $numValue = self::getIEEE754($rknum);
-
+            /*
             $cell = $this->phpSheet->getCell($columnString . ($row + 1));
             if (!$this->readDataOnly) {
                 // add style information
@@ -3745,6 +3745,13 @@ class Xls extends BaseReader
 
             // add cell
             $cell->setValueExplicit($numValue, DataType::TYPE_NUMERIC);
+            */
+            $cellData = [
+                'value' => $numValue,
+                'type' => DataType::TYPE_NUMERIC,
+                'styleIndex' => !$this->readDataOnly ? $this->mapCellXfIndex[$xfIndex] : null,
+            ];
+            $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
         }
     }
 
@@ -3814,21 +3821,38 @@ class Xls extends BaseReader
                     }
                 }
                 if ($this->readEmptyCells || trim($richText->getPlainText()) !== '') {
+                    /*
                     $cell = $this->phpSheet->getCell($columnString . ($row + 1));
                     $cell->setValueExplicit($richText, DataType::TYPE_STRING);
+                    */
+                    $cellData = [
+                        'value' => $richText,
+                        'type' => DataType::TYPE_STRING,
+                    ];
                     $emptyCell = false;
                 }
             } else {
                 if ($this->readEmptyCells || trim($this->sst[$index]['value']) !== '') {
+                    /*
                     $cell = $this->phpSheet->getCell($columnString . ($row + 1));
                     $cell->setValueExplicit($this->sst[$index]['value'], DataType::TYPE_STRING);
+                    */
+                    $cellData = [
+                        'value' => $this->sst[$index]['value'],
+                        'type' => DataType::TYPE_STRING,
+                    ];
                     $emptyCell = false;
                 }
             }
 
             if (!$this->readDataOnly && !$emptyCell) {
                 // add style information
-                $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                //$cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                $cellData['styleIndex'] = $this->mapCellXfIndex[$xfIndex];
+            }
+
+            if (isset($cellData)) {
+                $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
             }
         }
     }
@@ -3872,6 +3896,7 @@ class Xls extends BaseReader
 
                 // offset: var; size: 4; RK value
                 $numValue = self::getIEEE754(self::getInt4d($recordData, $offset + 2));
+                /*
                 $cell = $this->phpSheet->getCell($columnString . ($row + 1));
                 if (!$this->readDataOnly) {
                     // add style
@@ -3880,6 +3905,13 @@ class Xls extends BaseReader
 
                 // add cell value
                 $cell->setValueExplicit($numValue, DataType::TYPE_NUMERIC);
+                */
+                $cellData = [
+                    'value' => $numValue,
+                    'type' => DataType::TYPE_NUMERIC,
+                    'styleIndex' => !$this->readDataOnly ? $this->mapCellXfIndex[$xfIndex] : null,
+                ];
+                $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
             }
 
             $offset += 6;
@@ -3915,7 +3947,7 @@ class Xls extends BaseReader
             $xfIndex = self::getUInt2d($recordData, 4);
 
             $numValue = self::extractNumber(substr($recordData, 6, 8));
-
+            /*
             $cell = $this->phpSheet->getCell($columnString . ($row + 1));
             if (!$this->readDataOnly) {
                 // add cell style
@@ -3924,6 +3956,13 @@ class Xls extends BaseReader
 
             // add cell value
             $cell->setValueExplicit($numValue, DataType::TYPE_NUMERIC);
+            */
+            $cellData = [
+                'value' => $numValue,
+                'type' => DataType::TYPE_NUMERIC,
+                'styleIndex' => !$this->readDataOnly ? $this->mapCellXfIndex[$xfIndex] : null,
+            ];
+            $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
         }
     }
 
@@ -4023,12 +4062,19 @@ class Xls extends BaseReader
                 $dataType = DataType::TYPE_NUMERIC;
                 $value = self::extractNumber(substr($recordData, 6, 8));
             }
-
+            /*
             $cell = $this->phpSheet->getCell($columnString . ($row + 1));
             if (!$this->readDataOnly) {
                 // add cell style
                 $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
+            */
+            $cellData = [
+                        'value' => $value,
+                        'dataType' => $dataType,
+                        'calculatedValue' => $value,
+                        'styleIndex' => !$this->readDataOnly ? $this->mapCellXfIndex[$xfIndex] : null,
+                        ];
 
             // store the formula
             if (!$isPartOfSharedFormula) {
@@ -4039,20 +4085,24 @@ class Xls extends BaseReader
                         throw new Exception('Not BIFF8. Can only read BIFF8 formulas');
                     }
                     $formula = $this->getFormulaFromStructure($formulaStructure); // get formula in human language
-                    $cell->setValueExplicit('=' . $formula, DataType::TYPE_FORMULA);
+                    //$cell->setValueExplicit('=' . $formula, DataType::TYPE_FORMULA);
+                    $cellData['value'] = '=' . $formula;
+                    $cellData['type'] = DataType::TYPE_FORMULA;
                 } catch (PhpSpreadsheetException $e) {
-                    $cell->setValueExplicit($value, $dataType);
+                    //$cell->setValueExplicit($value, $dataType);
                 }
             } else {
                 if ($this->version == self::XLS_BIFF8) {
                     // do nothing at this point, formula id added later in the code
-                } else {
-                    $cell->setValueExplicit($value, $dataType);
                 }
+                // else
+                //$cell->setValueExplicit($value, $dataType);
             }
 
             // store the cached calculated value
-            $cell->setCalculatedValue($value);
+            //$cell->setCalculatedValue($value);
+
+            $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
         }
     }
 
@@ -4144,29 +4194,36 @@ class Xls extends BaseReader
 
             // offset: 7; size: 1; 0=boolean; 1=error
             $isError = ord($recordData[7]);
-
-            $cell = $this->phpSheet->getCell($columnString . ($row + 1));
+            //$cell = $this->phpSheet->getCell($columnString . ($row + 1));
+            $cellData = [
+                'styleIndex' => !$this->readDataOnly ? $this->mapCellXfIndex[$xfIndex] : null,
+            ];
             switch ($isError) {
                 case 0: // boolean
                     $value = (bool) $boolErr;
 
                     // add cell value
-                    $cell->setValueExplicit($value, DataType::TYPE_BOOL);
+                    //$cell->setValueExplicit($value, DataType::TYPE_BOOL);
+                    $cellData['type'] = DataType::TYPE_BOOL;
 
                     break;
                 case 1: // error type
                     $value = Xls\ErrorCode::lookup($boolErr);
 
                     // add cell value
-                    $cell->setValueExplicit($value, DataType::TYPE_ERROR);
+                    //$cell->setValueExplicit($value, DataType::TYPE_ERROR);
+                    $cellData['type'] = DataType::TYPE_ERROR;
 
                     break;
             }
-
+            /*
             if (!$this->readDataOnly) {
                 // add cell style
                 $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
+            */
+            $cellData['value'] = $value;
+            $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
         }
     }
 
@@ -4249,6 +4306,7 @@ class Xls extends BaseReader
                 $value = $string['value'];
             }
             if ($this->readEmptyCells || trim($value) !== '') {
+                /*
                 $cell = $this->phpSheet->getCell($columnString . ($row + 1));
                 $cell->setValueExplicit($value, DataType::TYPE_STRING);
 
@@ -4256,6 +4314,13 @@ class Xls extends BaseReader
                     // add cell style
                     $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
                 }
+                */
+                $cellData = [
+                    'value' => $value,
+                    'type' => DataType::TYPE_STRING,
+                    'styleIndex' => !$this->readDataOnly ? $this->mapCellXfIndex[$xfIndex] : null,
+                ];
+                $this->phpSheet->getCellCollection()->createNewPredefinedCell($columnString . ($row + 1), $cellData, $this->lazyInitCells);
             }
         }
     }
