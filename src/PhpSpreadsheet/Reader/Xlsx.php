@@ -1433,7 +1433,7 @@ class Xlsx extends BaseReader
 
                                             if (($column !== null) && ($row !== null)) {
                                                 // Set comment properties
-                                                $comment = $docSheet->getCommentByColumnAndRow((string) $column, $row + 1);
+                                                $comment = $docSheet->getCommentByColumnAndRow($column + 1, $row + 1);
                                                 $comment->getFillColor()->setRGB($fillColor);
 
                                                 // Parse style
