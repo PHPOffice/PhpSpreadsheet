@@ -179,7 +179,7 @@ class Workbook extends WriterPart
         
         $objWriter->endElement();
     }
-
+    
     /**
      * Write sheets.
      *
