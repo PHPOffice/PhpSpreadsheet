@@ -176,10 +176,10 @@ class Workbook extends WriterPart
         $objWriter->writeAttribute('calcCompleted', ($recalcRequired) ? 1 : 0);
         $objWriter->writeAttribute('fullCalcOnLoad', ($recalcRequired) ? 0 : 1);
         $objWriter->writeAttribute('forceFullCalc', ($recalcRequired) ? 0 : 1);
-        
+
         $objWriter->endElement();
     }
-    
+
     /**
      * Write sheets.
      *
