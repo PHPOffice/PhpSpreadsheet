@@ -316,6 +316,24 @@ class CoordinateTest extends TestCase
     }
 
     /**
+     * @dataProvider providerInvalidRange
+     *
+     * @param string $range
+     */
+    public function testExtractAllCellReferencesInRangeInvalidRange($range)
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid range: "' . $range . '"');
+
+        Coordinate::extractAllCellReferencesInRange($range);
+    }
+
+    public function providerInvalidRange()
+    {
+        return [['Z1:A1'], ['A4:A1'], ['B1:A1'], ['AA1:Z1']];
+    }
+
+    /**
      * @dataProvider providerMergeRangesInCollection
      *
      * @param mixed $expectedResult
