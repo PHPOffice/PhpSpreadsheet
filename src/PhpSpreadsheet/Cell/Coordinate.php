@@ -327,7 +327,7 @@ abstract class Coordinate
     }
 
     /**
-     * Extract all cell references in range.
+     * Extract all cell references in range, which may be comprised of multiple cell ranges.
      *
      * @param string $pRange Range (e.g. A1 or A1:C10 or A1:E10 A20:E25)
      *
@@ -335,49 +335,12 @@ abstract class Coordinate
      */
     public static function extractAllCellReferencesInRange($pRange)
     {
-        // Returnvalue
         $returnValue = [];
 
         // Explode spaces
-        $cellBlocks = explode(' ', str_replace('$', '', strtoupper($pRange)));
+        $cellBlocks = self::getCellBlocksFromRangeString($pRange);
         foreach ($cellBlocks as $cellBlock) {
-            // Single cell?
-            if (!self::coordinateIsRange($cellBlock)) {
-                $returnValue[] = $cellBlock;
-
-                continue;
-            }
-
-            // Range...
-            $ranges = self::splitRange($cellBlock);
-            foreach ($ranges as $range) {
-                // Single cell?
-                if (!isset($range[1])) {
-                    $returnValue[] = $range[0];
-
-                    continue;
-                }
-
-                // Range...
-                list($rangeStart, $rangeEnd) = $range;
-                sscanf($rangeStart, '%[A-Z]%d', $startCol, $startRow);
-                sscanf($rangeEnd, '%[A-Z]%d', $endCol, $endRow);
-                ++$endCol;
-
-                // Current data
-                $currentCol = $startCol;
-                $currentRow = $startRow;
-
-                // Loop cells
-                while ($currentCol != $endCol) {
-                    while ($currentRow <= $endRow) {
-                        $returnValue[] = $currentCol . $currentRow;
-                        ++$currentRow;
-                    }
-                    ++$currentCol;
-                    $currentRow = $startRow;
-                }
-            }
+            $returnValue = array_merge($returnValue, static::getReferencesForCellBlock($cellBlock));
         }
 
         //    Sort the result by column and row
@@ -390,6 +353,72 @@ abstract class Coordinate
 
         // Return value
         return array_values($sortKeys);
+    }
+
+    /**
+     * Get all cell references for an individual cell block.
+     *
+     * @param string $cellBlock A cell range e.g. A4:B5
+     *
+     * @throws Exception
+     *
+     * @return array All individual cells in that range
+     */
+    private static function getReferencesForCellBlock($cellBlock)
+    {
+        $returnValue = [];
+
+        // Single cell?
+        if (!self::coordinateIsRange($cellBlock)) {
+            return (array) $cellBlock;
+        }
+
+        // Range...
+        $ranges = self::splitRange($cellBlock);
+        foreach ($ranges as $range) {
+            // Single cell?
+            if (!isset($range[1])) {
+                $returnValue[] = $range[0];
+
+                continue;
+            }
+
+            // Range...
+            list($rangeStart, $rangeEnd) = $range;
+            list($startCol, $startRow) = static::extractColumnAndRow($rangeStart);
+            list($endCol, $endRow) = static::extractColumnAndRow($rangeEnd);
+            ++$endCol;
+
+            // Current data
+            $currentCol = $startCol;
+            $currentRow = $startRow;
+
+            static::validateRange($cellBlock, $startCol, $endCol, $currentRow, $endRow);
+
+            // Loop cells
+            while ($currentCol < $endCol) {
+                while ($currentRow <= $endRow) {
+                    $returnValue[] = $currentCol . $currentRow;
+                    ++$currentRow;
+                }
+                ++$currentCol;
+                $currentRow = $startRow;
+            }
+        }
+
+        return $returnValue;
+    }
+
+    /**
+     * Extract the column and row from a cell reference in the format [$column, $row].
+     *
+     * @param string $cell
+     *
+     * @return array
+     */
+    private static function extractColumnAndRow($cell)
+    {
+        return sscanf($cell, '%[A-Z]%d');
     }
 
     /**
@@ -476,5 +505,36 @@ abstract class Coordinate
         }
 
         return $mergedCoordCollection;
+    }
+
+    /**
+     * Get the individual cell blocks from a range string, splitting by space and removing any $ characters.
+     *
+     * @param string $pRange
+     *
+     * @return string[]
+     */
+    private static function getCellBlocksFromRangeString($pRange)
+    {
+        return explode(' ', str_replace('$', '', strtoupper($pRange)));
+    }
+
+    /**
+     * Check that the given range is valid, i.e. that the start column and row are not greater than the end column and
+     * row.
+     *
+     * @param string $cellBlock The original range, for displaying a meaningful error message
+     * @param string $startCol
+     * @param string $endCol
+     * @param int $currentRow
+     * @param int $endRow
+     *
+     * @throws Exception
+     */
+    private static function validateRange($cellBlock, $startCol, $endCol, $currentRow, $endRow)
+    {
+        if ($startCol >= $endCol || $currentRow > $endRow) {
+            throw new Exception('Invalid range: "' . $cellBlock . '"');
+        }
     }
 }
