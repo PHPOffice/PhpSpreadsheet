@@ -544,6 +544,16 @@ class Worksheet implements IComparable
     }
 
     /**
+     * Clear the collection of drawings.
+     *
+     * @return NULL
+     */
+    public function clearDrawingCollection()
+    {
+        $this->drawingCollection = new \ArrayObject();
+    }
+
+     /**
      * Get collection of charts.
      *
      * @return Chart[]
@@ -1205,7 +1215,7 @@ class Worksheet implements IComparable
 
         // Named range?
         if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $pCoordinate, $matches)) &&
-            (preg_match('/^' . Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $pCoordinate, $matches))) {
+            (preg_match('/^' . Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/iu', $pCoordinate, $matches))) {
             $namedRange = NamedRange::resolveRange($pCoordinate, $this);
             if ($namedRange !== null) {
                 $pCoordinate = $namedRange->getRange();
@@ -1306,7 +1316,7 @@ class Worksheet implements IComparable
 
         // Named range?
         if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $pCoordinate, $matches)) &&
-            (preg_match('/^' . Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $pCoordinate, $matches))) {
+            (preg_match('/^' . Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/iu', $pCoordinate, $matches))) {
             $namedRange = NamedRange::resolveRange($pCoordinate, $this);
             if ($namedRange !== null) {
                 $pCoordinate = $namedRange->getRange();
