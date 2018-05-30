@@ -369,7 +369,7 @@ abstract class Coordinate
                 $currentRow = $startRow;
 
                 // Loop cells
-                while ($currentCol != $endCol) {
+                while ($currentCol < $endCol) {
                     while ($currentRow <= $endRow) {
                         $returnValue[] = $currentCol . $currentRow;
                         ++$currentRow;

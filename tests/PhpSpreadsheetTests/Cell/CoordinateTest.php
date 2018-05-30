@@ -315,6 +315,13 @@ class CoordinateTest extends TestCase
         return require 'data/CellExtractAllCellReferencesInRange.php';
     }
 
+    public function testExtractAllCellReferencesInRangeInvalidRange()
+    {
+        $result = Coordinate::extractAllCellReferencesInRange('Z1:A1');
+
+        self::assertSame([], $result);
+    }
+
     /**
      * @dataProvider providerMergeRangesInCollection
      *
