@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Preserve Xlsx workbook attributes on update - [#523](https://github.com/PHPOffice/PhpSpreadsheet/issues/523)
+
 ### Fixed
 
 - Ranges across Z and AA columns incorrectly threw an exception - [#545](https://github.com/PHPOffice/PhpSpreadsheet/issues/545)
@@ -18,7 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Support to read Xlsm templates with form elements, macros, printer settings, protected elements and back compatibility drawing, and save result without losing important elements of document - [#435](https://github.com/PHPOffice/PhpSpreadsheet/issues/435)
 - Expose sheet title maximum length as `Worksheet::SHEET_TITLE_MAXIMUM_LENGTH` - [#482](https://github.com/PHPOffice/PhpSpreadsheet/issues/482)
 - Allow escape character to be set in CSV reader – [#492](https://github.com/PHPOffice/PhpSpreadsheet/issues/492)
-- Preserve Xlsx workbook attributes on update - [#523](https://github.com/PHPOffice/PhpSpreadsheet/issues/523)
+- Preserve workbook bookview attributes on update - [#523](https://github.com/PHPOffice/PhpSpreadsheet/issues/523)
 
 ### Fixed
 
