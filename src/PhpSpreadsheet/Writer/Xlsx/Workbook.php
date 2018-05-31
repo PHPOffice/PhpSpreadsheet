@@ -117,14 +117,38 @@ class Workbook extends WriterPart
         $objWriter->startElement('workbookView');
 
         $objWriter->writeAttribute('activeTab', $spreadsheet->getActiveSheetIndex());
-        $objWriter->writeAttribute('autoFilterDateGrouping', '1');
-        $objWriter->writeAttribute('firstSheet', '0');
-        $objWriter->writeAttribute('minimized', '0');
-        $objWriter->writeAttribute('showHorizontalScroll', '1');
-        $objWriter->writeAttribute('showSheetTabs', '1');
-        $objWriter->writeAttribute('showVerticalScroll', '1');
-        $objWriter->writeAttribute('tabRatio', '600');
-        $objWriter->writeAttribute('visibility', 'visible');
+        $objWriter->writeAttribute(
+            'autoFilterDateGrouping',
+            $spreadsheet->getWorkbookViewAttribute('autoFilterDateGrouping', '1')
+        );
+        $objWriter->writeAttribute(
+            'firstSheet',
+            $spreadsheet->getWorkbookViewAttribute('firstSheet', '0')
+        );
+        $objWriter->writeAttribute(
+            'minimized',
+            $spreadsheet->getWorkbookViewAttribute('minimized', '0')
+        );
+        $objWriter->writeAttribute(
+            'showHorizontalScroll',
+            $spreadsheet->getWorkbookViewAttribute('showHorizontalScroll', '1')
+        );
+        $objWriter->writeAttribute(
+            'showSheetTabs',
+            $spreadsheet->getWorkbookViewAttribute('showSheetTabs', '1')
+        );
+        $objWriter->writeAttribute(
+            'showVerticalScroll',
+            $spreadsheet->getWorkbookViewAttribute('showVerticalScroll', '1')
+        );
+        $objWriter->writeAttribute(
+            'tabRatio',
+            $spreadsheet->getWorkbookViewAttribute('tabRatio', '600')
+        );
+        $objWriter->writeAttribute(
+            'visibility',
+            $spreadsheet->getWorkbookViewAttribute('visibility', 'visible')
+        );
 
         $objWriter->endElement();
 
