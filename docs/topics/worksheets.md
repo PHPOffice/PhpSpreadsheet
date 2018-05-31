@@ -31,8 +31,6 @@ index, use the `getSheet()` method.
 $spreadsheet->getSheet(1);
 ```
 
-If you don't specify a sheet index, then the first worksheet will be
-returned.
 
 Methods also exist allowing you to reorder the worksheets in the
 workbook.

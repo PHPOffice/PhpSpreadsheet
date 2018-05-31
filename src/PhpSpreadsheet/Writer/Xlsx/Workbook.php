@@ -13,6 +13,24 @@ use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 class Workbook extends WriterPart
 {
     /**
+     * Constant associative array listing the bookview attributes to write.
+     * Keys are the atttribute names and values are the default value for
+     * those attributes.
+     *
+     * @var array
+     */
+    private static $bookViewAttributes = [
+        'autoFilterDateGrouping' => '1',
+        'firstSheet' => '0',
+        'minimized' => '0',
+        'showHorizontalScroll' => '1',
+        'showSheetTabs' => '1',
+        'showVerticalScroll' => '1',
+        'tabRatio' => '600',
+        'visibility' => 'visible',
+    ];
+
+    /**
      * Write workbook to XML format.
      *
      * @param Spreadsheet $spreadsheet
@@ -117,14 +135,10 @@ class Workbook extends WriterPart
         $objWriter->startElement('workbookView');
 
         $objWriter->writeAttribute('activeTab', $spreadsheet->getActiveSheetIndex());
-        $objWriter->writeAttribute('autoFilterDateGrouping', '1');
-        $objWriter->writeAttribute('firstSheet', '0');
-        $objWriter->writeAttribute('minimized', '0');
-        $objWriter->writeAttribute('showHorizontalScroll', '1');
-        $objWriter->writeAttribute('showSheetTabs', '1');
-        $objWriter->writeAttribute('showVerticalScroll', '1');
-        $objWriter->writeAttribute('tabRatio', '600');
-        $objWriter->writeAttribute('visibility', 'visible');
+
+        foreach (self::$bookViewAttributes as $attribute => $defaultValue) {
+            $objWriter->writeAttribute($attribute, $spreadsheet->getWorkbookViewAttribute($attribute, $defaultValue));
+        }
 
         $objWriter->endElement();
 
