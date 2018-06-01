@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
-class HiddenTabsTest extends TestCase
+class WorkbookViewAttrsTest extends TestCase
 {
     /**
      * Copy of PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook::$bookViewAttributes
@@ -27,10 +27,13 @@ class HiddenTabsTest extends TestCase
     ];
 
     /**
-     * Test that the worksheet tabs remain hidden when reading and writing a XLSX document
-     * with hidden worksheets tabs.
+     * Test that workbook bookview attributes such as 'showSheetTabs',
+     * (the attribute controlling worksheet tabs visibility,)
+     * are preserved when xlsx documents are read and written.
+     *
+     * @see https://github.com/PHPOffice/PhpSpreadsheet/issues/523
      */
-    public function testUpdateWithHiddenTabs()
+    public function testPreserveWorkbookViewAttributes()
     {
         // Create a dummy workbook with two worksheets
         $workbook = new Spreadsheet();
