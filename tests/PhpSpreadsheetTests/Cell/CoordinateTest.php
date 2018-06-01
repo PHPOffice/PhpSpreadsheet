@@ -211,7 +211,7 @@ class CoordinateTest extends TestCase
     {
         $result = Coordinate::splitRange(...$args);
         foreach ($result as $key => $split) {
-            if (! is_array($expectedResult[$key])) {
+            if (!is_array($expectedResult[$key])) {
                 self::assertEquals($expectedResult[$key], $split[0]);
             } else {
                 self::assertEquals($expectedResult[$key], $split);
