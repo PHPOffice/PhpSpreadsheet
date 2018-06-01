@@ -1613,14 +1613,9 @@ class Xlsx extends BaseReader
                                                         $shadow->getColor()->setRGB(self::getArrayItem($outerShdw->srgbClr->attributes(), 'val'));
                                                         $shadow->setAlpha(self::getArrayItem($outerShdw->srgbClr->alpha->attributes(), 'val') / 1000);
                                                     }
-                                                    if ($hlinkClick) {
-                                                        $hlinkId = (string) $hlinkClick->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships')['id'];
-                                                        $hyperlink = new Hyperlink(
-                                                            $hyperlinks[$hlinkId],
-                                                            (string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name')
-                                                        );
-                                                        $objDrawing->setHyperlink($hyperlink);
-                                                    }
+
+                                                    $this->readHyperLinkDrawing($objDrawing, $oneCellAnchor, $hyperlinks);
+
                                                     $objDrawing->setWorksheet($docSheet);
                                                 } else {
                                                     //    ? Can charts be positioned with a oneCellAnchor ?
@@ -1670,14 +1665,9 @@ class Xlsx extends BaseReader
                                                         $shadow->getColor()->setRGB(self::getArrayItem($outerShdw->srgbClr->attributes(), 'val'));
                                                         $shadow->setAlpha(self::getArrayItem($outerShdw->srgbClr->alpha->attributes(), 'val') / 1000);
                                                     }
-                                                    if ($hlinkClick) {
-                                                        $hlinkId = (string) $hlinkClick->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships')['id'];
-                                                        $hyperlink = new Hyperlink(
-                                                            $hyperlinks[$hlinkId],
-                                                            (string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name')
-                                                        );
-                                                        $objDrawing->setHyperlink($hyperlink);
-                                                    }
+
+                                                    $this->readHyperLinkDrawing($objDrawing, $twoCellAnchor, $hyperlinks);
+
                                                     $objDrawing->setWorksheet($docSheet);
                                                 } elseif (($this->includeCharts) && ($twoCellAnchor->graphicFrame)) {
                                                     $fromCoordinate = Coordinate::stringFromColumnIndex(((string) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1);
@@ -2238,5 +2228,23 @@ class Xlsx extends BaseReader
         }
 
         return $value === 'true' || $value === 'TRUE';
+    }
+
+    /**
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $objDrawing
+     * @param \SimpleXMLElement $cellAnchor
+     * @param array $hyperlinks
+     */
+    private function readHyperLinkDrawing(&$objDrawing, $cellAnchor, $hyperlinks)
+    {
+        $hlinkClick = $cellAnchor->pic->nvPicPr->cNvPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->hlinkClick;
+        if ($hlinkClick) {
+            $hlinkId = (string) $hlinkClick->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships')['id'];
+            $hyperlink = new Hyperlink(
+                $hyperlinks[$hlinkId],
+                (string) self::getArrayItem($cellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name')
+            );
+            $objDrawing->setHyperlink($hyperlink);
+        }
     }
 }
