@@ -62,7 +62,7 @@ class CoordinateTest extends TestCase
      * @dataProvider providerColumnIndex
      *
      * @param mixed $expectedResult
-     * @param int $columnIndex
+     * @param int   $columnIndex
      */
     public function testStringFromColumnIndex($expectedResult, $columnIndex)
     {
@@ -70,7 +70,8 @@ class CoordinateTest extends TestCase
         self::assertEquals($expectedResult, $string);
 
         $columnIndexBack = Coordinate::columnIndexFromString($string);
-        self::assertEquals($columnIndexBack, $columnIndex, 'should be able to get the original input with opposite method');
+        self::assertEquals($columnIndexBack, $columnIndex,
+            'should be able to get the original input with opposite method');
     }
 
     public function providerColumnIndex()
@@ -210,7 +211,7 @@ class CoordinateTest extends TestCase
     {
         $result = Coordinate::splitRange(...$args);
         foreach ($result as $key => $split) {
-            if (!is_array($expectedResult[$key])) {
+            if (! is_array($expectedResult[$key])) {
                 self::assertEquals($expectedResult[$key], $split[0]);
             } else {
                 self::assertEquals($expectedResult[$key], $split);
@@ -315,11 +316,27 @@ class CoordinateTest extends TestCase
         return require 'data/CellExtractAllCellReferencesInRange.php';
     }
 
-    public function testExtractAllCellReferencesInRangeInvalidRange()
+    /**
+     * @dataProvider providerInvalidRange
+     *
+     * @param string $range
+     */
+    public function testExtractAllCellReferencesInRangeInvalidRange($range)
     {
-        $result = Coordinate::extractAllCellReferencesInRange('Z1:A1');
+        try {
+            Coordinate::extractAllCellReferencesInRange($range);
+        } catch (Exception $e) {
+            self::assertSame('Invalid range: "' . $range . '"', $e->getMessage());
 
-        self::assertSame([], $result);
+            return;
+        }
+
+        self::fail('Exception not thrown for invalid range "' . $range . '".');
+    }
+
+    public function providerInvalidRange()
+    {
+        return [['Z1:A1'], ['A4:A1'], ['B1:A1'], ['AA1:Z1']];
     }
 
     /**

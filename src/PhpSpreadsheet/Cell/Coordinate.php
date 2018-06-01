@@ -368,6 +368,10 @@ abstract class Coordinate
                 $currentCol = $startCol;
                 $currentRow = $startRow;
 
+                if ($startCol >= $endCol || $currentRow > $endRow) {
+                    throw new Exception('Invalid range: "'. $pRange . '"');
+                }
+
                 // Loop cells
                 while ($currentCol < $endCol) {
                     while ($currentRow <= $endRow) {
