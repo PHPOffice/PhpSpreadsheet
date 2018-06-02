@@ -277,7 +277,7 @@ class Functions
 
             return '=' . $condition;
         }
-        preg_match('/([<>=]+)(.*)/', $condition, $matches);
+        preg_match('/(=|<[>=]?|>=?)(.*)/', $condition, $matches);
         list(, $operator, $operand) = $matches;
 
         if (!is_numeric($operand)) {
