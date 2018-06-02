@@ -151,7 +151,7 @@ class Drawing extends WriterPart
      *
      * @throws WriterException
      */
-    public function writeDrawing(XMLWriter $objWriter, BaseDrawing $pDrawing, $pRelationId = -1, $pHlinkClickId = -1)
+    public function writeDrawing(XMLWriter $objWriter, BaseDrawing $pDrawing, $pRelationId = -1, $pHlinkClickId = null)
     {
         if ($pRelationId >= 0) {
             // xdr:oneCellAnchor
@@ -187,12 +187,7 @@ class Drawing extends WriterPart
             $objWriter->writeAttribute('descr', $pDrawing->getDescription());
 
             //a:hlinkClick
-            if ($pHlinkClickId >= 0) {
-                $objWriter->startElement('a:hlinkClick');
-                $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
-                $objWriter->writeAttribute('r:id', 'rId' . $pHlinkClickId);
-                $objWriter->endElement();
-            }
+            $this->writeHyperLinkDriwing($objWriter,$pHlinkClickId);
 
             $objWriter->endElement();
 
@@ -496,5 +491,18 @@ class Drawing extends WriterPart
         }
 
         return $aDrawings;
+    }
+
+    /**
+     * @param XMLWriter $objWriter
+     * @param $pHlinkClickId
+     */
+    private function writeHyperLinkDriwing(XMLWriter &$objWriter, $pHlinkClickId ){
+        if ($pHlinkClickId !== null ){
+            $objWriter->startElement('a:hlinkClick');
+            $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+            $objWriter->writeAttribute('r:id', 'rId' . $pHlinkClickId);
+            $objWriter->endElement();
+        }
     }
 }

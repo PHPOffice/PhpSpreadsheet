@@ -102,7 +102,7 @@ class BaseDrawing implements IComparable
     /**
      * Image hyperlink.
      *
-     * @var Hyperlink
+     * @var null | Hyperlink
      */
     protected $hyperlink;
 
@@ -518,7 +518,7 @@ class BaseDrawing implements IComparable
     }
 
     /**
-     * @param Hyperlink $pHyperlink
+     * @param null | Hyperlink $pHyperlink
      */
     public function setHyperlink(Hyperlink $pHyperlink = null)
     {
@@ -526,14 +526,10 @@ class BaseDrawing implements IComparable
     }
 
     /**
-     * @return Hyperlink
+     * @return null | Hyperlink
      */
     public function getHyperlink()
     {
-        if ($this->hyperlink === null) {
-            $this->hyperlink = new Hyperlink();
-        }
-
         return $this->hyperlink;
     }
 }

@@ -304,16 +304,7 @@ class Rels extends WriterPart
                     '../media/' . str_replace(' ', '', $drawing->getIndexedFilename())
                 );
 
-                if (!empty($drawing->getHyperlink()->getUrl())) {
-                    ++$i;
-                    $this->writeRelationship(
-                        $objWriter,
-                        $i,
-                        'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink',
-                        $drawing->getHyperlink()->getUrl(),
-                        $drawing->getHyperlink()->isInternal() ? '' : 'External'
-                    );
-                }
+                $this->writeDrawingHyperLink($objWriter,$drawing, $i);
             }
 
             $iterator->next();
@@ -409,6 +400,25 @@ class Rels extends WriterPart
             $objWriter->endElement();
         } else {
             throw new WriterException('Invalid parameters passed.');
+        }
+    }
+
+    /**
+     * @param $objWriter
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $drawing
+     * @param &$i
+     * @throws WriterException
+     */
+    private function writeDrawingHyperLink($objWriter, $drawing, &$i){
+        if ($drawing->getHyperlink() !== null){
+            ++$i;
+            $this->writeRelationship(
+                $objWriter,
+                $i,
+                'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink',
+                $drawing->getHyperlink()->getUrl(),
+                $drawing->getHyperlink()->getTypeHyperlink()
+            );
         }
     }
 }
