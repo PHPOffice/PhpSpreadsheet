@@ -187,7 +187,7 @@ class Drawing extends WriterPart
             $objWriter->writeAttribute('descr', $pDrawing->getDescription());
 
             //a:hlinkClick
-            $this->writeHyperLinkDriwing($objWriter,$pHlinkClickId);
+            $this->writeHyperLinkDriwing($objWriter, $pHlinkClickId);
 
             $objWriter->endElement();
 
@@ -497,8 +497,9 @@ class Drawing extends WriterPart
      * @param XMLWriter $objWriter
      * @param $pHlinkClickId
      */
-    private function writeHyperLinkDriwing(XMLWriter &$objWriter, $pHlinkClickId ){
-        if ($pHlinkClickId !== null ){
+    private function writeHyperLinkDriwing(XMLWriter &$objWriter, $pHlinkClickId)
+    {
+        if ($pHlinkClickId !== null) {
             $objWriter->startElement('a:hlinkClick');
             $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
             $objWriter->writeAttribute('r:id', 'rId' . $pHlinkClickId);

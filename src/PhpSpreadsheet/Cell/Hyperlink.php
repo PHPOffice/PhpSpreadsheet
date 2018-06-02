@@ -92,8 +92,9 @@ class Hyperlink
     /**
      * @return string
      */
-    public function getTypeHyperlink(){
-        return ($this->isInternal())? '' : 'External';
+    public function getTypeHyperlink()
+    {
+        return ($this->isInternal()) ? '' : 'External';
     }
 
     /**

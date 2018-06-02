@@ -304,7 +304,7 @@ class Rels extends WriterPart
                     '../media/' . str_replace(' ', '', $drawing->getIndexedFilename())
                 );
 
-                $this->writeDrawingHyperLink($objWriter,$drawing, $i);
+                $this->writeDrawingHyperLink($objWriter, $drawing, $i);
             }
 
             $iterator->next();
@@ -407,10 +407,12 @@ class Rels extends WriterPart
      * @param $objWriter
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $drawing
      * @param &$i
+     *
      * @throws WriterException
      */
-    private function writeDrawingHyperLink($objWriter, $drawing, &$i){
-        if ($drawing->getHyperlink() !== null){
+    private function writeDrawingHyperLink($objWriter, $drawing, &$i)
+    {
+        if ($drawing->getHyperlink() !== null) {
             ++$i;
             $this->writeRelationship(
                 $objWriter,

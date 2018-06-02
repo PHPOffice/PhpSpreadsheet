@@ -525,9 +525,6 @@ class BaseDrawing implements IComparable
         $this->hyperlink = $pHyperlink;
     }
 
-    /**
-     * @return null | Hyperlink
-     */
     public function getHyperlink()
     {
         return $this->hyperlink;
