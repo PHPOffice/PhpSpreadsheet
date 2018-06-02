@@ -1973,12 +1973,6 @@ class Xlsx extends BaseReader
                     }
 
                     if ((!$this->readDataOnly) || (!empty($this->loadSheetsOnly))) {
-                        if ($xmlWorkbook->bookViews->workbookView) {
-                            foreach ($xmlWorkbook->bookViews->workbookView->attributes() as $attr => $value) {
-                                $excel->setWorkbookViewAttribute((string) $attr, (string) $value);
-                            }
-                        }
-
                         // active sheet index
                         $activeTab = (int) ($xmlWorkbook->bookViews->workbookView['activeTab']); // refers to old sheet index
 
