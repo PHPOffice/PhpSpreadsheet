@@ -307,4 +307,20 @@ class FunctionsTest extends TestCase
     {
         return require 'data/Calculation/Functions/ISFORMULA.php';
     }
+
+    /**
+     * @dataProvider providerIfCondition
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIfCondition($expectedResult, ...$args)
+    {
+        $result = Functions::ifCondition(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerIfCondition()
+    {
+        return require 'data/Calculation/Functions/IF_CONDITION.php';
+    }
 }
