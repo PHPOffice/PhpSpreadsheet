@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Xlsx reader do not read rows and columns filtered out in readFilter at all - [#370](https://github.com/PHPOffice/PhpSpreadsheet/issues/370)
 - Make newer Excel versions properly recalculate formulas on document open - [#456](https://github.com/PHPOffice/PhpSpreadsheet/issues/456)
 - `Coordinate::extractAllCellReferencesInRange()` throws an exception for an invalid range – [#519](https://github.com/PHPOffice/PhpSpreadsheet/issues/519)
+- Fixed parsing of conditionals in COUNTIF functions - [#526](https://github.com/PHPOffice/PhpSpreadsheet/issues/526)
 
 ## [1.2.1] - 2018-04-10
 
