@@ -124,13 +124,6 @@ class Spreadsheet
     private $unparsedLoadedData = [];
 
     /**
-     * workbookViewAttributes : null if workbook isn't Excel 2007 or doesn't have any workbook bookviews.
-     *
-     * @var null|array
-     */
-    private $workbookViewAttributes;
-
-    /**
      * The workbook has macros ?
      *
      * @return bool
@@ -1222,37 +1215,5 @@ class Spreadsheet
     public function getID()
     {
         return $this->uniqueID;
-    }
-
-    /**
-     * Get a workbook bookview attribute.
-     *
-     * @param string $attr            Name of attribute to read
-     * @param null|string $default    Value to return if attribute doesn't exist
-     *
-     * @return string                 Value of attribute
-     */
-    public function getWorkbookViewAttribute($attr, $default = null)
-    {
-        if ($this->workbookViewAttributes && isset($this->workbookViewAttributes[$attr])) {
-            return $this->workbookViewAttributes[$attr];
-        }
-
-        return $default;
-    }
-
-    /**
-     * Set a workbook bookview attribute.
-     *
-     * @param string $attr            Name of attribute to set
-     * @param string $value           Value of the attribute
-     */
-    public function setWorkbookViewAttribute($attr, $value)
-    {
-        if ($this->workbookViewAttributes === null) {
-            $this->workbookViewAttributes = [];
-        }
-
-        $this->workbookViewAttributes[$attr] = $value;
     }
 }
