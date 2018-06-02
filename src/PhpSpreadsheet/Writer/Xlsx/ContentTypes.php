@@ -57,7 +57,8 @@ class ContentTypes extends WriterPart
             // Yes : not standard content but "macroEnabled"
             $this->writeOverrideContentType($objWriter, '/xl/workbook.xml', 'application/vnd.ms-excel.sheet.macroEnabled.main+xml');
             //... and define a new type for the VBA project
-            $this->writeDefaultContentType($objWriter, 'bin', 'application/vnd.ms-office.vbaProject');
+            // Better use Override, because we can use 'bin' also for xl\printerSettings\printerSettings1.bin
+            $this->writeOverrideContentType($objWriter, '/xl/vbaProject.bin', 'application/vnd.ms-office.vbaProject');
             if ($spreadsheet->hasMacrosCertificate()) {
                 // signed macros ?
                 // Yes : add needed information
@@ -88,14 +89,16 @@ class ContentTypes extends WriterPart
         $this->writeOverrideContentType($objWriter, '/xl/sharedStrings.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml');
 
         // Add worksheet relationship content types
+        $unparsedLoadedData = $spreadsheet->getUnparsedLoadedData();
         $chart = 1;
         for ($i = 0; $i < $sheetCount; ++$i) {
             $drawings = $spreadsheet->getSheet($i)->getDrawingCollection();
             $drawingCount = count($drawings);
             $chartCount = ($includeCharts) ? $spreadsheet->getSheet($i)->getChartCount() : 0;
+            $hasUnparsedDrawing = isset($unparsedLoadedData['sheets'][$spreadsheet->getSheet($i)->getCodeName()]['drawingOriginalIds']);
 
             //    We need a drawing relationship for the worksheet if we have either drawings or charts
-            if (($drawingCount > 0) || ($chartCount > 0)) {
+            if (($drawingCount > 0) || ($chartCount > 0) || $hasUnparsedDrawing) {
                 $this->writeOverrideContentType($objWriter, '/xl/drawings/drawing' . ($i + 1) . '.xml', 'application/vnd.openxmlformats-officedocument.drawing+xml');
             }
 
@@ -157,6 +160,20 @@ class ContentTypes extends WriterPart
                         $this->writeDefaultContentType($objWriter, strtolower($image->getExtension()), $aMediaContentTypes[strtolower($image->getExtension())]);
                     }
                 }
+            }
+        }
+
+        // unparsed defaults
+        if (isset($unparsedLoadedData['default_content_types'])) {
+            foreach ($unparsedLoadedData['default_content_types'] as $extName => $contentType) {
+                $this->writeDefaultContentType($objWriter, $extName, $contentType);
+            }
+        }
+
+        // unparsed overrides
+        if (isset($unparsedLoadedData['override_content_types'])) {
+            foreach ($unparsedLoadedData['override_content_types'] as $partName => $overrideType) {
+                $this->writeOverrideContentType($objWriter, $partName, $overrideType);
             }
         }
 

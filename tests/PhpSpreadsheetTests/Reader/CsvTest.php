@@ -89,4 +89,19 @@ class CsvTest extends TestCase
             [true, '../samples/Reader/sampleData/example2.csv'],
         ];
     }
+
+    public function testEscapeCharacters()
+    {
+        $reader = (new Csv())->setEscapeCharacter('"');
+        $worksheet = $reader->load(__DIR__ . '/../../data/Reader/CSV/backslash.csv')
+            ->getActiveSheet();
+
+        $expected = [
+            ['field 1', 'field 2\\'],
+            ['field 3\\', 'field 4'],
+        ];
+
+        $this->assertSame('"', $reader->getEscapeCharacter());
+        $this->assertSame($expected, $worksheet->toArray());
+    }
 }

@@ -1081,30 +1081,55 @@ class MathTrig
         );
     }
 
+    protected static function filterFormulaArgs($cellReference, $args)
+    {
+        return array_filter(
+            $args,
+            function ($index) use ($cellReference) {
+                list(, $row, $column) = explode('.', $index);
+                if ($cellReference->getWorksheet()->cellExists($column . $row)) {
+                    //take this cell out if it contains the SUBTOTAL formula
+                    $isFormula = $cellReference->getWorksheet()->getCell($column . $row)->isFormula();
+                    $cellFormula = !preg_match('/^=.*\bSUBTOTAL\s*\(/', strtoupper($cellReference->getWorksheet()->getCell($column . $row)->getValue()));
+
+                    return !$isFormula || $cellFormula;
+                }
+
+                return true;
+            },
+            ARRAY_FILTER_USE_KEY
+        );
+    }
+
     /**
      * SUBTOTAL.
      *
      * Returns a subtotal in a list or database.
      *
      * @param int the number 1 to 11 that specifies which function to
-     *                    use in calculating subtotals within a list
+     *                    use in calculating subtotals within a range
+     *                    list
+     *            Numbers 101 to 111 shadow the functions of 1 to 11
+     *                    but ignore any values in the range that are
+     *                    in hidden rows or columns
      * @param array of mixed Data Series
      *
      * @return float
      */
     public static function SUBTOTAL(...$args)
     {
+        $cellReference = array_pop($args);
         $aArgs = Functions::flattenArrayIndexed($args);
-        $cellReference = array_pop($aArgs);
         $subtotal = array_shift($aArgs);
 
         // Calculate
         if ((is_numeric($subtotal)) && (!is_string($subtotal))) {
             if ($subtotal > 100) {
                 $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
-                $subtotal = $subtotal - 100;
+                $subtotal -= 100;
             }
 
+            $aArgs = self::filterFormulaArgs($cellReference, $aArgs);
             switch ($subtotal) {
                 case 1:
                     return Statistical::AVERAGE($aArgs);
