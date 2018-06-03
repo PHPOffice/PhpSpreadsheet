@@ -62,7 +62,7 @@ class CoordinateTest extends TestCase
      * @dataProvider providerColumnIndex
      *
      * @param mixed $expectedResult
-     * @param int   $columnIndex
+     * @param int $columnIndex
      */
     public function testStringFromColumnIndex($expectedResult, $columnIndex)
     {
@@ -70,8 +70,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($expectedResult, $string);
 
         $columnIndexBack = Coordinate::columnIndexFromString($string);
-        self::assertEquals($columnIndexBack, $columnIndex,
-            'should be able to get the original input with opposite method');
+        self::assertEquals($columnIndexBack, $columnIndex, 'should be able to get the original input with opposite method');
     }
 
     public function providerColumnIndex()
