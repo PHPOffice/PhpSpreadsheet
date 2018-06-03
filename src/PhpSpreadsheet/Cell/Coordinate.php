@@ -393,9 +393,7 @@ abstract class Coordinate
             $currentCol = $startCol;
             $currentRow = $startRow;
 
-            if ($startCol >= $endCol || $currentRow > $endRow) {
-                throw new Exception('Invalid range: "' . $cellBlock . '"');
-            }
+            static::validateRange($cellBlock, $startCol, $endCol, $currentRow, $endRow);
 
             // Loop cells
             while ($currentCol < $endCol) {
@@ -519,5 +517,24 @@ abstract class Coordinate
     protected static function getCellBlocksFromRangeString($pRange)
     {
         return explode(' ', str_replace('$', '', strtoupper($pRange)));
+    }
+
+    /**
+     * Check that the given range is valid, i.e. that the start column and row are not greater than the end column and
+     * row.
+     *
+     * @param string $cellBlock The original range, for displaying a meaningful error message
+     * @param string $startCol
+     * @param string $endCol
+     * @param int $currentRow
+     * @param int $endRow
+     *
+     * @throws Exception
+     */
+    protected static function validateRange($cellBlock, $startCol, $endCol, $currentRow, $endRow)
+    {
+        if ($startCol >= $endCol || $currentRow > $endRow) {
+            throw new Exception('Invalid range: "' . $cellBlock . '"');
+        }
     }
 }
