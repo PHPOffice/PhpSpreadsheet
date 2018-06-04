@@ -52,7 +52,7 @@ jobs:
       deploy:
         provider: pages
         skip-cleanup: true
-        local-dir: docs
+        local-dir: build
         github-token: $GITHUB_TOKEN
         on:
           all_branches: true
