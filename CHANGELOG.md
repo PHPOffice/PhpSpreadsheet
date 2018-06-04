@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `Helper\Html` support UTF-8 HTML input - [#444](https://github.com/PHPOffice/PhpSpreadsheet/issues/444)
 - Xlsx loaded an extra empty comment for each real comment - [#375](https://github.com/PHPOffice/PhpSpreadsheet/issues/375)
 - Xlsx reader do not read rows and columns filtered out in readFilter at all - [#370](https://github.com/PHPOffice/PhpSpreadsheet/issues/370)
+- Fixed parsing of conditionals in COUNTIF functions - [#526](https://github.com/PHPOffice/PhpSpreadsheet/issues/526)
 
 ## [1.2.1] - 2018-04-10
 
