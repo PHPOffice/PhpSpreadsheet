@@ -1334,6 +1334,21 @@ class Xlsx extends BaseReader
                             }
 
                             if ($xmlSheet && $xmlSheet->dataValidations && !$this->readDataOnly) {
+                                // handle Microsoft extension if present
+                                if (isset ($xmlSheet->extLst, $xmlSheet->extLst->ext, $xmlSheet->extLst->ext['uri'])
+                                && $xmlSheet->extLst->ext['uri'] == "{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}" )
+                                {
+                                  // retreive MS extension data to create a node that matches expectations.
+                                  foreach ($xmlSheet->extLst->ext->children('x14', TRUE)->dataValidations->dataValidation as $item)
+                                  {
+                                    $node = $xmlSheet->dataValidations->addChild('dataValidation');
+                                    foreach ($item->attributes() as $attr)
+                                      $node->addAttribute($attr->getName(), $attr);
+                                    $node->addAttribute('sqref', $item->children('xm',TRUE)->sqref);
+                                    $node->addChild('formula1', $item->formula1->children('xm',TRUE)->f);
+                                  }
+                                }
+
                                 foreach ($xmlSheet->dataValidations->dataValidation as $dataValidation) {
                                     // Uppercase coordinate
                                     $range = strtoupper($dataValidation['sqref']);
@@ -1973,6 +1988,12 @@ class Xlsx extends BaseReader
                     }
 
                     if ((!$this->readDataOnly) || (!empty($this->loadSheetsOnly))) {
+                        if ($xmlWorkbook->bookViews->workbookView) {
+                            foreach ($xmlWorkbook->bookViews->workbookView->attributes() as $attr => $value) {
+                                $excel->setWorkbookViewAttribute((string) $attr, (string) $value);
+                            }
+                        }
+
                         // active sheet index
                         $activeTab = (int) ($xmlWorkbook->bookViews->workbookView['activeTab']); // refers to old sheet index
 

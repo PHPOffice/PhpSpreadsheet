@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Support to read Xlsm templates with form elements, macros, printer settings, protected elements and back compatibility drawing, and save result without losing important elements of document - [#435](https://github.com/PHPOffice/PhpSpreadsheet/issues/435)
 - Expose sheet title maximum length as `Worksheet::SHEET_TITLE_MAXIMUM_LENGTH` - [#482](https://github.com/PHPOffice/PhpSpreadsheet/issues/482)
 - Allow escape character to be set in CSV reader – [#492](https://github.com/PHPOffice/PhpSpreadsheet/issues/492)
+- Preserve Xlsx workbook attributes on update - [#523](https://github.com/PHPOffice/PhpSpreadsheet/issues/523)
 
 ### Fixed
 
@@ -20,6 +21,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `Helper\Html` support UTF-8 HTML input - [#444](https://github.com/PHPOffice/PhpSpreadsheet/issues/444)
 - Xlsx loaded an extra empty comment for each real comment - [#375](https://github.com/PHPOffice/PhpSpreadsheet/issues/375)
 - Xlsx reader do not read rows and columns filtered out in readFilter at all - [#370](https://github.com/PHPOffice/PhpSpreadsheet/issues/370)
+- Fixed parsing of conditionals in COUNTIF functions - [#526](https://github.com/PHPOffice/PhpSpreadsheet/issues/526)
+- Corruption errors for saved Xlsx docs with frozen panes [#532](https://github.com/PHPOffice/PhpSpreadsheet/issues/532)
 
 ## [1.2.1] - 2018-04-10
 
