@@ -634,16 +634,16 @@ $writer->setSheetIndex(0);
 #### Setting the images root of the HTML file
 
 There might be situations where you want to explicitly set the included
-images root. For example, one might want to see
+images root. For example, instead of:
+
+ ``` html
+ <img src="./images/logo.jpg">
+ ```
+
+You might want to see:
 
 ``` html
-<img style="position: relative; left: 0px; top: 0px; width: 140px; height: 78px;" src="http://www.domain.com/*images/logo.jpg" border="0">
-```
-
-instead of
-
-``` html
-<img style="position: relative; left: 0px; top: 0px; width: 140px; height: 78px;" src="./images/logo.jpg" border="0">.
+<img src="http://www.domain.com/images/logo.jpg">
 ```
 
 You can use the following code to achieve this result:
