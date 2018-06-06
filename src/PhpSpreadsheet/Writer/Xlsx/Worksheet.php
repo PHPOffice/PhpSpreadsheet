@@ -246,6 +246,7 @@ class Worksheet extends WriterPart
         }
 
         $activeCell = $pSheet->getActiveCell();
+        $sqref = $pSheet->getSelectedCells();
 
         // Pane
         $pane = '';
@@ -257,6 +258,7 @@ class Worksheet extends WriterPart
 
             $topLeftCell = $pSheet->getTopLeftCell();
             $activeCell = $topLeftCell;
+            $sqref = $topLeftCell;
 
             // pane
             $pane = 'topRight';
@@ -292,7 +294,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('pane', $pane);
         }
         $objWriter->writeAttribute('activeCell', $activeCell);
-        $objWriter->writeAttribute('sqref', $pSheet->getSelectedCells());
+        $objWriter->writeAttribute('sqref', $sqref);
         $objWriter->endElement();
 
         $objWriter->endElement();
