@@ -340,7 +340,7 @@ abstract class Coordinate
         // Explode spaces
         $cellBlocks = self::getCellBlocksFromRangeString($pRange);
         foreach ($cellBlocks as $cellBlock) {
-            $returnValue = array_merge($returnValue, static::getReferencesForCellBlock($cellBlock));
+            $returnValue = array_merge($returnValue, self::getReferencesForCellBlock($cellBlock));
         }
 
         //    Sort the result by column and row
@@ -359,8 +359,6 @@ abstract class Coordinate
      * Get all cell references for an individual cell block.
      *
      * @param string $cellBlock A cell range e.g. A4:B5
-     *
-     * @throws Exception
      *
      * @return array All individual cells in that range
      */
@@ -385,40 +383,30 @@ abstract class Coordinate
 
             // Range...
             list($rangeStart, $rangeEnd) = $range;
-            list($startCol, $startRow) = static::extractColumnAndRow($rangeStart);
-            list($endCol, $endRow) = static::extractColumnAndRow($rangeEnd);
-            ++$endCol;
+            list($startColumn, $startRow) = self::coordinateFromString($rangeStart);
+            list($endColumn, $endRow) = self::coordinateFromString($rangeEnd);
+            $startColumnIndex = self::columnIndexFromString($startColumn);
+            $endColumnIndex = self::columnIndexFromString($endColumn);
+            ++$endColumnIndex;
 
             // Current data
-            $currentCol = $startCol;
+            $currentColumnIndex = $startColumnIndex;
             $currentRow = $startRow;
 
-            static::validateRange($cellBlock, $startCol, $endCol, $currentRow, $endRow);
+            self::validateRange($cellBlock, $startColumnIndex, $endColumnIndex, $currentRow, $endRow);
 
             // Loop cells
-            while ($currentCol < $endCol) {
+            while ($currentColumnIndex < $endColumnIndex) {
                 while ($currentRow <= $endRow) {
-                    $returnValue[] = $currentCol . $currentRow;
+                    $returnValue[] = self::stringFromColumnIndex($currentColumnIndex) . $currentRow;
                     ++$currentRow;
                 }
-                ++$currentCol;
+                ++$currentColumnIndex;
                 $currentRow = $startRow;
             }
         }
 
         return $returnValue;
-    }
-
-    /**
-     * Extract the column and row from a cell reference in the format [$column, $row].
-     *
-     * @param string $cell
-     *
-     * @return array
-     */
-    private static function extractColumnAndRow($cell)
-    {
-        return sscanf($cell, '%[A-Z]%d');
     }
 
     /**
@@ -524,16 +512,14 @@ abstract class Coordinate
      * row.
      *
      * @param string $cellBlock The original range, for displaying a meaningful error message
-     * @param string $startCol
-     * @param string $endCol
+     * @param int $startColumnIndex
+     * @param int $endColumnIndex
      * @param int $currentRow
      * @param int $endRow
-     *
-     * @throws Exception
      */
-    private static function validateRange($cellBlock, $startCol, $endCol, $currentRow, $endRow)
+    private static function validateRange($cellBlock, $startColumnIndex, $endColumnIndex, $currentRow, $endRow)
     {
-        if ($startCol >= $endCol || $currentRow > $endRow) {
+        if ($startColumnIndex >= $endColumnIndex || $currentRow > $endRow) {
             throw new Exception('Invalid range: "' . $cellBlock . '"');
         }
     }
