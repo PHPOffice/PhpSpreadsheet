@@ -1406,7 +1406,7 @@ class Spreadsheet
      *
      * @param int $firstSheetIndex First sheet in book view
      *
-     * @throws PhpSpreadsheetException  if the given value is invalid
+     * @throws Exception  if the given value is invalid
      */
     public function setFirstSheetIndex($firstSheetIndex)
     {
@@ -1445,7 +1445,7 @@ class Spreadsheet
      *
      * @param string $visibility visibility status of the workbook
      *
-     * @throws PhpSpreadsheetException  if the given value is invalid
+     * @throws Exception  if the given value is invalid
      */
     public function setVisibility($visibility)
     {
@@ -1456,7 +1456,7 @@ class Spreadsheet
         if (in_array($visibility, self::$workbookViewVisibilityValues)) {
             $this->visibility = $visibility;
         } else {
-            throw new PhpSpreadsheetException('Invalid visibility value.');
+            throw new Exception('Invalid visibility value.');
         }
     }
 
@@ -1477,14 +1477,14 @@ class Spreadsheet
      *
      * @param int $tabRatio Ratio between the tabs bar and the horizontal scroll bar
      *
-     * @throws PhpSpreadsheetException  if the given value is invalid
+     * @throws Exception  if the given value is invalid
      */
     public function setTabRatio($tabRatio)
     {
         if ($tabRatio >= 0 || $tabRatio <= 1000) {
             $this->tabRatio = (int) $tabRatio;
         } else {
-            throw new PhpSpreadsheetException('Tab ratio must be between 0 and 1000.');
+            throw new Exception('Tab ratio must be between 0 and 1000.');
         }
     }
 }
