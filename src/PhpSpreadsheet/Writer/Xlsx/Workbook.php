@@ -13,24 +13,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 class Workbook extends WriterPart
 {
     /**
-     * Constant associative array listing the bookview attributes to write.
-     * Keys are the atttribute names and values are the default value for
-     * those attributes.
-     *
-     * @var array
-     */
-    private static $bookViewAttributes = [
-        'autoFilterDateGrouping' => '1',
-        'firstSheet' => '0',
-        'minimized' => '0',
-        'showHorizontalScroll' => '1',
-        'showSheetTabs' => '1',
-        'showVerticalScroll' => '1',
-        'tabRatio' => '600',
-        'visibility' => 'visible',
-    ];
-
-    /**
      * Write workbook to XML format.
      *
      * @param Spreadsheet $spreadsheet
@@ -135,10 +117,14 @@ class Workbook extends WriterPart
         $objWriter->startElement('workbookView');
 
         $objWriter->writeAttribute('activeTab', $spreadsheet->getActiveSheetIndex());
-
-        foreach (self::$bookViewAttributes as $attribute => $defaultValue) {
-            $objWriter->writeAttribute($attribute, $spreadsheet->getWorkbookViewAttribute($attribute, $defaultValue));
-        }
+        $objWriter->writeAttribute('autoFilterDateGrouping', ($spreadsheet->getAutoFilterDateGrouping() ? 'true' : 'false'));
+        $objWriter->writeAttribute('firstSheet', $spreadsheet->getFirstSheetIndex());
+        $objWriter->writeAttribute('minimized', ($spreadsheet->getMinimized() ? 'true' : 'false'));
+        $objWriter->writeAttribute('showHorizontalScroll', ($spreadsheet->getShowHorizontalScroll() ? 'true' : 'false'));
+        $objWriter->writeAttribute('showSheetTabs', ($spreadsheet->getShowSheetTabs() ? 'true' : 'false'));
+        $objWriter->writeAttribute('showVerticalScroll', ($spreadsheet->getShowVerticalScroll() ? 'true' : 'false'));
+        $objWriter->writeAttribute('tabRatio', $spreadsheet->getTabRatio());
+        $objWriter->writeAttribute('visibility', $spreadsheet->getVisibility());
 
         $objWriter->endElement();
 
