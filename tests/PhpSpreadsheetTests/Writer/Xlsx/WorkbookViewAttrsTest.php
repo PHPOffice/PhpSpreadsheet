@@ -95,7 +95,7 @@ class WorkbookViewAttrsTest extends TestCase
             $this->assertSame(700, $workbook2->getTabRatio());
             $this->assertSame(Spreadsheet::VISIBILITY_HIDDEN, $workbook2->getVisibility());
         } finally {
-            // unlink($targetFilename);
+            unlink($targetFilename);
         }
     }
 }
