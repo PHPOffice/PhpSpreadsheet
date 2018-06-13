@@ -10,6 +10,7 @@ php:
 
 cache:
   directories:
+    - cache
     - vendor
     - $HOME/.composer/cache
 
@@ -40,6 +41,7 @@ jobs:
         - php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml
 
     - stage: API documentation
+      php: 7.1
       before_script:
       - curl -O http://get.sensiolabs.org/sami.phar
       script:
@@ -50,7 +52,7 @@ jobs:
       deploy:
         provider: pages
         skip-cleanup: true
-        local-dir: docs
+        local-dir: build
         github-token: $GITHUB_TOKEN
         on:
           all_branches: true
