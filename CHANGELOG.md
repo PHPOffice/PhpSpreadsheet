@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+- Preserve Xlsx workbook attributes on update - [#523](https://github.com/PHPOffice/PhpSpreadsheet/issues/523)
+
 ## [1.3.1] - 2018-06-12
 
 ### Fixed

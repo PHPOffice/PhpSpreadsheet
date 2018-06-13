@@ -9,6 +9,17 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Spreadsheet
 {
+    // Allowable values for workbook window visilbity
+    const VISIBILITY_VISIBLE = 'visible';
+    const VISIBILITY_HIDDEN = 'hidden';
+    const VISIBILITY_VERY_HIDDEN = 'veryHidden';
+
+    private static $workbookViewVisibilityValues = [
+        self::VISIBILITY_VISIBLE,
+        self::VISIBILITY_HIDDEN,
+        self::VISIBILITY_VERY_HIDDEN,
+    ];
+
     /**
      * Unique ID.
      *
@@ -122,6 +133,67 @@ class Spreadsheet
      * @var array
      */
     private $unparsedLoadedData = [];
+
+    /**
+     * Controls visibility of the horizonal scroll bar in the application.
+     *
+     * @var bool
+     */
+    private $showHorizontalScroll = true;
+
+    /**
+     * Controls visibility of the horizonal scroll bar in the application.
+     *
+     * @var bool
+     */
+    private $showVerticalScroll = true;
+
+    /**
+     * Controls visibility of the sheet tabs in the application.
+     *
+     * @var bool
+     */
+    private $showSheetTabs = true;
+
+    /**
+     * Specifies a boolean value that indicates whether the workbook window
+     * is minimized.
+     *
+     * @var bool
+     */
+    private $minimized = false;
+
+    /**
+     * Specifies a boolean value that indicates whether to group dates
+     * when presenting the user with filtering optiomd in the user
+     * interface.
+     *
+     * @var bool
+     */
+    private $autoFilterDateGrouping = true;
+
+    /**
+     * Specifies the index to the first sheet in the book view.
+     *
+     * @var int
+     */
+    private $firstSheetIndex = 0;
+
+    /**
+     * Specifies the visible status of the workbook.
+     *
+     * @var string
+     */
+    private $visibility = self::VISIBILITY_VISIBLE;
+
+    /**
+     * Specifies the ratio between the workbook tabs bar and the horizontal
+     * scroll bar.  TabRatio is assumed to be out of 1000 of the horizontal
+     * window width.
+     *
+     * @var int
+     */
+    private $tabRatio = 600;
 
     /**
      * The workbook has macros ?
@@ -1215,5 +1287,204 @@ class Spreadsheet
     public function getID()
     {
         return $this->uniqueID;
+    }
+
+    /**
+     * Get the visibility of the horizonal scroll bar in the application.
+     *
+     * @return bool True if horizonal scroll bar is visible
+     */
+    public function getShowHorizontalScroll()
+    {
+        return $this->showHorizontalScroll;
+    }
+
+    /**
+     * Set the visibility of the horizonal scroll bar in the application.
+     *
+     * @param bool $showHorizontalScroll True if horizonal scroll bar is visible
+     */
+    public function setShowHorizontalScroll($showHorizontalScroll)
+    {
+        $this->showHorizontalScroll = (bool) $showHorizontalScroll;
+    }
+
+    /**
+     * Get the visibility of the vertical scroll bar in the application.
+     *
+     * @return bool True if vertical scroll bar is visible
+     */
+    public function getShowVerticalScroll()
+    {
+        return $this->showVerticalScroll;
+    }
+
+    /**
+     * Set the visibility of the vertical scroll bar in the application.
+     *
+     * @param bool $showVerticalScroll True if vertical scroll bar is visible
+     */
+    public function setShowVerticalScroll($showVerticalScroll)
+    {
+        $this->showVerticalScroll = (bool) $showVerticalScroll;
+    }
+
+    /**
+     * Get the visibility of the sheet tabs in the application.
+     *
+     * @return bool True if the sheet tabs are visible
+     */
+    public function getShowSheetTabs()
+    {
+        return $this->showSheetTabs;
+    }
+
+    /**
+     * Set the visibility of the sheet tabs  in the application.
+     *
+     * @param bool $showSheetTabs True if sheet tabs are visible
+     */
+    public function setShowSheetTabs($showSheetTabs)
+    {
+        $this->showSheetTabs = (bool) $showSheetTabs;
+    }
+
+    /**
+     * Return whether the workbook window is minimized.
+     *
+     * @return bool true if workbook window is minimized
+     */
+    public function getMinimized()
+    {
+        return $this->minimized;
+    }
+
+    /**
+     * Set whether the workbook window is minimized.
+     *
+     * @param bool $minimized true if workbook window is minimized
+     */
+    public function setMinimized($minimized)
+    {
+        $this->minimized = (bool) $minimized;
+    }
+
+    /**
+     * Return whether to group dates when presenting the user with
+     * filtering optiomd in the user interface.
+     *
+     * @return bool true if workbook window is minimized
+     */
+    public function getAutoFilterDateGrouping()
+    {
+        return $this->autoFilterDateGrouping;
+    }
+
+    /**
+     * Set whether to group dates when presenting the user with
+     * filtering optiomd in the user interface.
+     *
+     * @param bool $autoFilterDateGrouping true if workbook window is minimized
+     */
+    public function setAutoFilterDateGrouping($autoFilterDateGrouping)
+    {
+        $this->autoFilterDateGrouping = (bool) $autoFilterDateGrouping;
+    }
+
+    /**
+     * Return the first sheet in the book view.
+     *
+     * @return int First sheet in book view
+     */
+    public function getFirstSheetIndex()
+    {
+        return $this->firstSheetIndex;
+    }
+
+    /**
+     * Set the first sheet in the book view.
+     *
+     * @param int $firstSheetIndex First sheet in book view
+     *
+     * @throws Exception  if the given value is invalid
+     */
+    public function setFirstSheetIndex($firstSheetIndex)
+    {
+        if ($firstSheetIndex >= 0) {
+            $this->firstSheetIndex = (int) $firstSheetIndex;
+        } else {
+            throw new Exception('First sheet index must be a positive integer.');
+        }
+    }
+
+    /**
+     * Return the visibility status of the workbook.
+     *
+     * This may be one of the following three values:
+     * - visibile
+     *
+     * @return string Visible status
+     */
+    public function getVisibility()
+    {
+        return $this->visibility;
+    }
+
+    /**
+     * Set the visibility status of the workbook.
+     *
+     * Valid values are:
+     *  - 'visible' (self::VISIBILITY_VISIBLE):
+     *       Workbook window is visible
+     *  - 'hidden' (self::VISIBILITY_HIDDEN):
+     *       Workbook window is hidden, but can be shown by the user
+     *       via the user interface
+     *  - 'veryHidden' (self::VISIBILITY_VERY_HIDDEN):
+     *       Workbook window is hidden and cannot be shown in the
+     *       user interface.
+     *
+     * @param string $visibility visibility status of the workbook
+     *
+     * @throws Exception  if the given value is invalid
+     */
+    public function setVisibility($visibility)
+    {
+        if ($visibility === null) {
+            $visibility = self::VISIBILITY_VISIBLE;
+        }
+
+        if (in_array($visibility, self::$workbookViewVisibilityValues)) {
+            $this->visibility = $visibility;
+        } else {
+            throw new Exception('Invalid visibility value.');
+        }
+    }
+
+    /**
+     * Get the ratio between the workbook tabs bar and the horizontal scroll bar.
+     * TabRatio is assumed to be out of 1000 of the horizontal window width.
+     *
+     * @return int Ratio between the workbook tabs bar and the horizontal scroll bar
+     */
+    public function getTabRatio()
+    {
+        return $this->tabRatio;
+    }
+
+    /**
+     * Set the ratio between the workbook tabs bar and the horizontal scroll bar
+     * TabRatio is assumed to be out of 1000 of the horizontal window width.
+     *
+     * @param int $tabRatio Ratio between the tabs bar and the horizontal scroll bar
+     *
+     * @throws Exception  if the given value is invalid
+     */
+    public function setTabRatio($tabRatio)
+    {
+        if ($tabRatio >= 0 || $tabRatio <= 1000) {
+            $this->tabRatio = (int) $tabRatio;
+        } else {
+            throw new Exception('Tab ratio must be between 0 and 1000.');
+        }
     }
 }
