@@ -1973,8 +1973,10 @@ class Xlsx extends BaseReader
                     }
 
                     if ((!$this->readDataOnly) || (!empty($this->loadSheetsOnly))) {
+                        $workbookView = $xmlWorkbook->bookViews->workbookView;
+
                         // active sheet index
-                        $activeTab = (int) ($xmlWorkbook->bookViews->workbookView['activeTab']); // refers to old sheet index
+                        $activeTab = (int) ($workbookView['activeTab']); // refers to old sheet index
 
                         // keep active sheet index if sheet is still loaded, else first sheet is set as the active
                         if (isset($mapSheetId[$activeTab]) && $mapSheetId[$activeTab] !== null) {
@@ -1984,6 +1986,46 @@ class Xlsx extends BaseReader
                                 $excel->createSheet();
                             }
                             $excel->setActiveSheetIndex(0);
+                        }
+
+                        if (isset($workbookView['showHorizontalScroll'])) {
+                            $showHorizontalScroll = (string) $workbookView['showHorizontalScroll'];
+                            $excel->setShowHorizontalScroll($this->castXsdBooleanToBool($showHorizontalScroll));
+                        }
+
+                        if (isset($workbookView['showVerticalScroll'])) {
+                            $showVerticalScroll = (string) $workbookView['showVerticalScroll'];
+                            $excel->setShowVerticalScroll($this->castXsdBooleanToBool($showVerticalScroll));
+                        }
+
+                        if (isset($workbookView['showSheetTabs'])) {
+                            $showSheetTabs = (string) $workbookView['showSheetTabs'];
+                            $excel->setShowSheetTabs($this->castXsdBooleanToBool($showSheetTabs));
+                        }
+
+                        if (isset($workbookView['minimized'])) {
+                            $minimized = (string) $workbookView['minimized'];
+                            $excel->setMinimized($this->castXsdBooleanToBool($minimized));
+                        }
+
+                        if (isset($workbookView['autoFilterDateGrouping'])) {
+                            $autoFilterDateGrouping = (string) $workbookView['autoFilterDateGrouping'];
+                            $excel->setAutoFilterDateGrouping($this->castXsdBooleanToBool($autoFilterDateGrouping));
+                        }
+
+                        if (isset($workbookView['firstSheet'])) {
+                            $firstSheet = (string) $workbookView['firstSheet'];
+                            $excel->setFirstSheetIndex((int) $firstSheet);
+                        }
+
+                        if (isset($workbookView['visibility'])) {
+                            $visibility = (string) $workbookView['visibility'];
+                            $excel->setVisibility($visibility);
+                        }
+
+                        if (isset($workbookView['tabRatio'])) {
+                            $tabRatio = (string) $workbookView['tabRatio'];
+                            $excel->setTabRatio((int) $tabRatio);
                         }
                     }
 
@@ -2474,5 +2516,28 @@ class Xlsx extends BaseReader
             $unparsedPrinterSettings[$rId]['content'] = $this->securityScan($this->getFromZipArchive($zip, $unparsedPrinterSettings[$rId]['filePath']));
         }
         unset($unparsedPrinterSettings);
+    }
+
+    /**
+     * Convert an 'xsd:boolean' XML value to a PHP boolean value.
+     * A valid 'xsd:boolean' XML value can be one of the following
+     * four values: 'true', 'false', '1', '0'.  It is case sensitive.
+     *
+     * Note that just doing '(bool) $xsdBoolean' is not safe,
+     * since '(bool) "false"' returns true.
+     *
+     * @see https://www.w3.org/TR/xmlschema11-2/#boolean
+     *
+     * @param string $xsdBoolean An XML string value of type 'xsd:boolean'
+     *
+     * @return bool  Boolean value
+     */
+    private function castXsdBooleanToBool($xsdBoolean)
+    {
+        if ($xsdBoolean === 'false') {
+            return false;
+        }
+
+        return (bool) $xsdBoolean;
     }
 }
