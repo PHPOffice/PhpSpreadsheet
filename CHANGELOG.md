@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.3.1] - 2018-06-12
 
+### Added
+- Preserve Xlsx workbook attributes on update - [#523](https://github.com/PHPOffice/PhpSpreadsheet/issues/523)
+
 ### Fixed
 
 - Ranges across Z and AA columns incorrectly threw an exception - [#545](https://github.com/PHPOffice/PhpSpreadsheet/issues/545)
