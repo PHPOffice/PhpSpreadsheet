@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Xlsx reader crashed when reading a file with workbook protection - [#553](https://github.com/PHPOffice/PhpSpreadsheet/pull/553)
+
 ## [1.3.1] - 2018-06-12
 
 ### Fixed
