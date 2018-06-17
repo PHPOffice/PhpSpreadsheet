@@ -2404,7 +2404,7 @@ class Xlsx extends BaseReader
         }
 
         if ($xmlWorkbook->workbookProtection['revisionsPassword']) {
-            $excel->getSecurity()->setRevisionPassword((string) $xmlWorkbook->workbookProtection['revisionsPassword'], true);
+            $excel->getSecurity()->setRevisionsPassword((string) $xmlWorkbook->workbookProtection['revisionsPassword'], true);
         }
 
         if ($xmlWorkbook->workbookProtection['workbookPassword']) {
