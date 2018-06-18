@@ -175,6 +175,7 @@ class Workbook extends WriterPart
         //    fullCalcOnLoad isn't needed if we've recalculating for the save
         $objWriter->writeAttribute('calcCompleted', ($recalcRequired) ? 1 : 0);
         $objWriter->writeAttribute('fullCalcOnLoad', ($recalcRequired) ? 0 : 1);
+        $objWriter->writeAttribute('forceFullCalc', ($recalcRequired) ? 0 : 1);
 
         $objWriter->endElement();
     }

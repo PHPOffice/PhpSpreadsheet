@@ -10,6 +10,7 @@ php:
 
 cache:
   directories:
+    - cache
     - vendor
     - $HOME/.composer/cache
 
@@ -38,3 +39,21 @@ jobs:
       after_script:
         - wget https://scrutinizer-ci.com/ocular.phar
         - php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml
+
+    - stage: API documentation
+      php: 7.1
+      before_script:
+      - curl -O http://get.sensiolabs.org/sami.phar
+      script:
+      - git fetch origin master:master
+      - git fetch origin --tags
+      - php sami.phar update .sami.php
+      - echo '<html><head><meta http-equiv="Refresh" content="0; url=master/"></head><body><p>If you are not automatically redirected, please go to <a href="master/">the latest stable API documentation</a>.</p></body></html>' > build/index.html
+      deploy:
+        provider: pages
+        skip-cleanup: true
+        local-dir: build
+        github-token: $GITHUB_TOKEN
+        on:
+          all_branches: true
+          condition: $TRAVIS_BRANCH =~ ^master|develop$

@@ -9,7 +9,32 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-- GH-332 Subtotal Calculation
+- Xlsx reader crashed when reading a file with workbook protection - [#553](https://github.com/PHPOffice/PhpSpreadsheet/pull/553)
+
+## [1.3.1] - 2018-06-12
+
+### Fixed
+
+- Ranges across Z and AA columns incorrectly threw an exception - [#545](https://github.com/PHPOffice/PhpSpreadsheet/issues/545)
+
+## [1.3.0] - 2018-06-10
+
+### Added
+
+- Support to read Xlsm templates with form elements, macros, printer settings, protected elements and back compatibility drawing, and save result without losing important elements of document - [#435](https://github.com/PHPOffice/PhpSpreadsheet/issues/435)
+- Expose sheet title maximum length as `Worksheet::SHEET_TITLE_MAXIMUM_LENGTH` - [#482](https://github.com/PHPOffice/PhpSpreadsheet/issues/482)
+- Allow escape character to be set in CSV reader – [#492](https://github.com/PHPOffice/PhpSpreadsheet/issues/492)
+
+### Fixed
+
+- Subtotal 9 in a group that has other subtotals 9 exclude the totals of the other subtotals in the range - [#332](https://github.com/PHPOffice/PhpSpreadsheet/issues/332)
+- `Helper\Html` support UTF-8 HTML input - [#444](https://github.com/PHPOffice/PhpSpreadsheet/issues/444)
+- Xlsx loaded an extra empty comment for each real comment - [#375](https://github.com/PHPOffice/PhpSpreadsheet/issues/375)
+- Xlsx reader do not read rows and columns filtered out in readFilter at all - [#370](https://github.com/PHPOffice/PhpSpreadsheet/issues/370)
+- Make newer Excel versions properly recalculate formulas on document open - [#456](https://github.com/PHPOffice/PhpSpreadsheet/issues/456)
+- `Coordinate::extractAllCellReferencesInRange()` throws an exception for an invalid range – [#519](https://github.com/PHPOffice/PhpSpreadsheet/issues/519)
+- Fixed parsing of conditionals in COUNTIF functions - [#526](https://github.com/PHPOffice/PhpSpreadsheet/issues/526)
+- Corruption errors for saved Xlsx docs with frozen panes - [#532](https://github.com/PHPOffice/PhpSpreadsheet/issues/532)
 
 ## [1.2.1] - 2018-04-10
 

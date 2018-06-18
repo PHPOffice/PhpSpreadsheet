@@ -217,7 +217,7 @@ class DataSeries
     /**
      * Get Plot Order.
      *
-     * @return string
+     * @return int[]
      */
     public function getPlotOrder()
     {

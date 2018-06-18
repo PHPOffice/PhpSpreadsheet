@@ -26,6 +26,7 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use SimpleXMLElement;
 use XMLReader;
 use ZipArchive;
 
@@ -116,15 +117,17 @@ class Xlsx extends BaseReader
         $zip->open($pFilename);
 
         //    The files we're looking at here are small enough that simpleXML is more efficient than XMLReader
+        //~ http://schemas.openxmlformats.org/package/2006/relationships");
         $rels = simplexml_load_string(
             $this->securityScan($this->getFromZipArchive($zip, '_rels/.rels'))
-        ); //~ http://schemas.openxmlformats.org/package/2006/relationships");
+        );
         foreach ($rels->Relationship as $rel) {
             switch ($rel['Type']) {
                 case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument':
+                    //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                     $xmlWorkbook = simplexml_load_string(
                         $this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}"))
-                    ); //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+                    );
 
                     if ($xmlWorkbook->sheets) {
                         foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
@@ -158,8 +161,8 @@ class Xlsx extends BaseReader
         $zip = new ZipArchive();
         $zip->open($pFilename);
 
+        //~ http://schemas.openxmlformats.org/package/2006/relationships"
         $rels = simplexml_load_string(
-            //~ http://schemas.openxmlformats.org/package/2006/relationships"
             $this->securityScan($this->getFromZipArchive($zip, '_rels/.rels')),
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
@@ -167,8 +170,9 @@ class Xlsx extends BaseReader
         foreach ($rels->Relationship as $rel) {
             if ($rel['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument') {
                 $dir = dirname($rel['Target']);
+
+                //~ http://schemas.openxmlformats.org/package/2006/relationships"
                 $relsWorkbook = simplexml_load_string(
-                    //~ http://schemas.openxmlformats.org/package/2006/relationships"
                     $this->securityScan(
                         $this->getFromZipArchive($zip, "$dir/_rels/" . basename($rel['Target']) . '.rels')
                     ),
@@ -184,8 +188,8 @@ class Xlsx extends BaseReader
                     }
                 }
 
+                //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                 $xmlWorkbook = simplexml_load_string(
-                    //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                     $this->securityScan(
                         $this->getFromZipArchive($zip, "{$rel['Target']}")
                     ),
@@ -194,7 +198,7 @@ class Xlsx extends BaseReader
                 );
                 if ($xmlWorkbook->sheets) {
                     $dir = dirname($rel['Target']);
-                    /** @var \SimpleXMLElement $eleSheet */
+                    /** @var SimpleXMLElement $eleSheet */
                     foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
                         $tmpInfo = [
                             'worksheetName' => (string) $eleSheet['name'],
@@ -318,6 +322,60 @@ class Xlsx extends BaseReader
     }
 
     /**
+     * Set Worksheet column attributes by attributes array passed.
+     *
+     * @param Worksheet $docSheet
+     * @param string $column A, B, ... DX, ...
+     * @param array $columnAttributes array of attributes (indexes are attribute name, values are value)
+     *                               'xfIndex', 'visible', 'collapsed', 'outlineLevel', 'width', ... ?
+     */
+    private function setColumnAttributes(Worksheet $docSheet, $column, array $columnAttributes)
+    {
+        if (isset($columnAttributes['xfIndex'])) {
+            $docSheet->getColumnDimension($column)->setXfIndex($columnAttributes['xfIndex']);
+        }
+        if (isset($columnAttributes['visible'])) {
+            $docSheet->getColumnDimension($column)->setVisible($columnAttributes['visible']);
+        }
+        if (isset($columnAttributes['collapsed'])) {
+            $docSheet->getColumnDimension($column)->setCollapsed($columnAttributes['collapsed']);
+        }
+        if (isset($columnAttributes['outlineLevel'])) {
+            $docSheet->getColumnDimension($column)->setOutlineLevel($columnAttributes['outlineLevel']);
+        }
+        if (isset($columnAttributes['width'])) {
+            $docSheet->getColumnDimension($column)->setWidth($columnAttributes['width']);
+        }
+    }
+
+    /**
+     * Set Worksheet row attributes by attributes array passed.
+     *
+     * @param Worksheet $docSheet
+     * @param int $row 1, 2, 3, ... 99, ...
+     * @param array $rowAttributes array of attributes (indexes are attribute name, values are value)
+     *                               'xfIndex', 'visible', 'collapsed', 'outlineLevel', 'rowHeight', ... ?
+     */
+    private function setRowAttributes(Worksheet $docSheet, $row, array $rowAttributes)
+    {
+        if (isset($rowAttributes['xfIndex'])) {
+            $docSheet->getRowDimension($row)->setXfIndex($rowAttributes['xfIndex']);
+        }
+        if (isset($rowAttributes['visible'])) {
+            $docSheet->getRowDimension($row)->setVisible($rowAttributes['visible']);
+        }
+        if (isset($rowAttributes['collapsed'])) {
+            $docSheet->getRowDimension($row)->setCollapsed($rowAttributes['collapsed']);
+        }
+        if (isset($rowAttributes['outlineLevel'])) {
+            $docSheet->getRowDimension($row)->setOutlineLevel($rowAttributes['outlineLevel']);
+        }
+        if (isset($rowAttributes['rowHeight'])) {
+            $docSheet->getRowDimension($row)->setRowHeight($rowAttributes['rowHeight']);
+        }
+    }
+
+    /**
      * Loads Spreadsheet from file.
      *
      * @param string $pFilename
@@ -337,13 +395,14 @@ class Xlsx extends BaseReader
             $excel->removeCellStyleXfByIndex(0); // remove the default style
             $excel->removeCellXfByIndex(0); // remove the default style
         }
+        $unparsedLoadedData = [];
 
         $zip = new ZipArchive();
         $zip->open($pFilename);
 
         //    Read the theme first, because we need the colour scheme when reading the styles
+        //~ http://schemas.openxmlformats.org/package/2006/relationships"
         $wbRels = simplexml_load_string(
-            //~ http://schemas.openxmlformats.org/package/2006/relationships"
             $this->securityScan($this->getFromZipArchive($zip, 'xl/_rels/workbook.xml.rels')),
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
@@ -389,8 +448,8 @@ class Xlsx extends BaseReader
             }
         }
 
+        //~ http://schemas.openxmlformats.org/package/2006/relationships"
         $rels = simplexml_load_string(
-            //~ http://schemas.openxmlformats.org/package/2006/relationships"
             $this->securityScan($this->getFromZipArchive($zip, '_rels/.rels')),
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
@@ -445,7 +504,7 @@ class Xlsx extends BaseReader
                     );
                     if (is_object($xmlCore)) {
                         $docProps = $excel->getProperties();
-                        /** @var \SimpleXMLElement $xmlProperty */
+                        /** @var SimpleXMLElement $xmlProperty */
                         foreach ($xmlCore as $xmlProperty) {
                             $cellDataOfficeAttributes = $xmlProperty->attributes();
                             if (isset($cellDataOfficeAttributes['name'])) {
@@ -471,8 +530,8 @@ class Xlsx extends BaseReader
                     break;
                 case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument':
                     $dir = dirname($rel['Target']);
+                    //~ http://schemas.openxmlformats.org/package/2006/relationships"
                     $relsWorkbook = simplexml_load_string(
-                        //~ http://schemas.openxmlformats.org/package/2006/relationships"
                         $this->securityScan($this->getFromZipArchive($zip, "$dir/_rels/" . basename($rel['Target']) . '.rels')),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
@@ -481,8 +540,8 @@ class Xlsx extends BaseReader
 
                     $sharedStrings = [];
                     $xpath = self::getArrayItem($relsWorkbook->xpath("rel:Relationship[@Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings']"));
+                    //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                     $xmlStrings = simplexml_load_string(
-                        //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                         $this->securityScan($this->getFromZipArchive($zip, "$dir/$xpath[Target]")),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
@@ -528,8 +587,8 @@ class Xlsx extends BaseReader
                     $styles = [];
                     $cellStyles = [];
                     $xpath = self::getArrayItem($relsWorkbook->xpath("rel:Relationship[@Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles']"));
+                    //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                     $xmlStyles = simplexml_load_string(
-                        //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                         $this->securityScan($this->getFromZipArchive($zip, "$dir/$xpath[Target]")),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
@@ -639,8 +698,8 @@ class Xlsx extends BaseReader
                         }
                     }
 
+                    //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                     $xmlWorkbook = simplexml_load_string(
-                        //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                         $this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}")),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
@@ -656,6 +715,9 @@ class Xlsx extends BaseReader
                         }
                     }
 
+                    // Set protection
+                    $this->readProtection($excel, $xmlWorkbook);
+
                     $sheetId = 0; // keep track of new sheet id in final workbook
                     $oldSheetId = -1; // keep track of old sheet id in final workbook
                     $countSkippedSheets = 0; // keep track of number of skipped sheets
@@ -664,7 +726,7 @@ class Xlsx extends BaseReader
                     $charts = $chartDetails = [];
 
                     if ($xmlWorkbook->sheets) {
-                        /** @var \SimpleXMLElement $eleSheet */
+                        /** @var SimpleXMLElement $eleSheet */
                         foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
                             ++$oldSheetId;
 
@@ -688,8 +750,8 @@ class Xlsx extends BaseReader
                             //        reverse
                             $docSheet->setTitle((string) $eleSheet['name'], false, false);
                             $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id')];
+                            //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                             $xmlSheet = simplexml_load_string(
-                                //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                                 $this->securityScan($this->getFromZipArchive($zip, "$dir/$fileWorksheet")),
                                 'SimpleXMLElement',
                                 Settings::getLibXmlLoaderOptions()
@@ -812,30 +874,6 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            if (isset($xmlSheet->cols) && !$this->readDataOnly) {
-                                foreach ($xmlSheet->cols->col as $col) {
-                                    for ($i = (int) ($col['min']); $i <= (int) ($col['max']); ++$i) {
-                                        if ($col['style'] && !$this->readDataOnly) {
-                                            $docSheet->getColumnDimension(Coordinate::stringFromColumnIndex($i))->setXfIndex((int) ($col['style']));
-                                        }
-                                        if (self::boolean($col['hidden'])) {
-                                            $docSheet->getColumnDimension(Coordinate::stringFromColumnIndex($i))->setVisible(false);
-                                        }
-                                        if (self::boolean($col['collapsed'])) {
-                                            $docSheet->getColumnDimension(Coordinate::stringFromColumnIndex($i))->setCollapsed(true);
-                                        }
-                                        if ($col['outlineLevel'] > 0) {
-                                            $docSheet->getColumnDimension(Coordinate::stringFromColumnIndex($i))->setOutlineLevel((int) ($col['outlineLevel']));
-                                        }
-                                        $docSheet->getColumnDimension(Coordinate::stringFromColumnIndex($i))->setWidth((float) ($col['width']));
-
-                                        if ((int) ($col['max']) == 16384) {
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-
                             if (isset($xmlSheet->printOptions) && !$this->readDataOnly) {
                                 if (self::boolean((string) $xmlSheet->printOptions['gridLinesSet'])) {
                                     $docSheet->setShowGridlines(true);
@@ -851,25 +889,77 @@ class Xlsx extends BaseReader
                                 }
                             }
 
+                            $columnsAttributes = [];
+                            $rowsAttributes = [];
+                            if (isset($xmlSheet->cols) && !$this->readDataOnly) {
+                                foreach ($xmlSheet->cols->col as $col) {
+                                    for ($i = (int) ($col['min']); $i <= (int) ($col['max']); ++$i) {
+                                        if ($col['style'] && !$this->readDataOnly) {
+                                            $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['xfIndex'] = (int) $col['style'];
+                                        }
+                                        if (self::boolean($col['hidden'])) {
+                                            $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['visible'] = false;
+                                        }
+                                        if (self::boolean($col['collapsed'])) {
+                                            $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['collapsed'] = true;
+                                        }
+                                        if ($col['outlineLevel'] > 0) {
+                                            $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['outlineLevel'] = (int) $col['outlineLevel'];
+                                        }
+                                        $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['width'] = (float) $col['width'];
+
+                                        if ((int) ($col['max']) == 16384) {
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if ($xmlSheet && $xmlSheet->sheetData && $xmlSheet->sheetData->row) {
+                                foreach ($xmlSheet->sheetData->row as $row) {
+                                    if ($row['ht'] && !$this->readDataOnly) {
+                                        $rowsAttributes[(int) $row['r']]['rowHeight'] = (float) $row['ht'];
+                                    }
+                                    if (self::boolean($row['hidden']) && !$this->readDataOnly) {
+                                        $rowsAttributes[(int) $row['r']]['visible'] = false;
+                                    }
+                                    if (self::boolean($row['collapsed'])) {
+                                        $rowsAttributes[(int) $row['r']]['collapsed'] = true;
+                                    }
+                                    if ($row['outlineLevel'] > 0) {
+                                        $rowsAttributes[(int) $row['r']]['outlineLevel'] = (int) $row['outlineLevel'];
+                                    }
+                                    if ($row['s'] && !$this->readDataOnly) {
+                                        $rowsAttributes[(int) $row['r']]['xfIndex'] = (int) $row['s'];
+                                    }
+                                }
+                            }
+
+                            // set columns/rows attributes
+                            $columnsAttributesSet = [];
+                            $rowsAttributesSet = [];
+                            foreach ($columnsAttributes as $coordColumn => $columnAttributes) {
+                                foreach ($rowsAttributes as $coordRow => $rowAttributes) {
+                                    if ($this->getReadFilter() !== null) {
+                                        if (!$this->getReadFilter()->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
+                                            continue;
+                                        }
+                                    }
+
+                                    if (!isset($columnsAttributesSet[$coordColumn])) {
+                                        $this->setColumnAttributes($docSheet, $coordColumn, $columnAttributes);
+                                        $columnsAttributesSet[$coordColumn] = true;
+                                    }
+                                    if (!isset($rowsAttributesSet[$coordRow])) {
+                                        $this->setRowAttributes($docSheet, $coordRow, $rowAttributes);
+                                        $rowsAttributesSet[$coordRow] = true;
+                                    }
+                                }
+                            }
+
                             if ($xmlSheet && $xmlSheet->sheetData && $xmlSheet->sheetData->row) {
                                 $cIndex = 1; // Cell Start from 1
                                 foreach ($xmlSheet->sheetData->row as $row) {
-                                    if ($row['ht'] && !$this->readDataOnly) {
-                                        $docSheet->getRowDimension((int) ($row['r']))->setRowHeight((float) ($row['ht']));
-                                    }
-                                    if (self::boolean($row['hidden']) && !$this->readDataOnly) {
-                                        $docSheet->getRowDimension((int) ($row['r']))->setVisible(false);
-                                    }
-                                    if (self::boolean($row['collapsed'])) {
-                                        $docSheet->getRowDimension((int) ($row['r']))->setCollapsed(true);
-                                    }
-                                    if ($row['outlineLevel'] > 0) {
-                                        $docSheet->getRowDimension((int) ($row['r']))->setOutlineLevel((int) ($row['outlineLevel']));
-                                    }
-                                    if ($row['s'] && !$this->readDataOnly) {
-                                        $docSheet->getRowDimension((int) ($row['r']))->setXfIndex((int) ($row['s']));
-                                    }
-
                                     $rowIndex = 1;
                                     foreach ($row->c as $c) {
                                         $r = (string) $c['r'];
@@ -884,7 +974,7 @@ class Xlsx extends BaseReader
                                         if ($this->getReadFilter() !== null) {
                                             $coordinates = Coordinate::coordinateFromString($r);
 
-                                            if (!$this->getReadFilter()->readCell($coordinates[0], $coordinates[1], $docSheet->getTitle())) {
+                                            if (!$this->getReadFilter()->readCell($coordinates[0], (int) $coordinates[1], $docSheet->getTitle())) {
                                                 continue;
                                             }
                                         }
@@ -1069,8 +1159,8 @@ class Xlsx extends BaseReader
                                             }
                                             //    Or Date Group elements
                                             foreach ($filters->dateGroupItem as $dateGroupItem) {
+                                                //    Operator is undefined, but always treated as EQUAL
                                                 $column->createRule()->setRule(
-                                                    //    Operator is undefined, but always treated as EQUAL
                                                     null,
                                                     [
                                                         'year' => (string) $dateGroupItem['year'],
@@ -1107,8 +1197,8 @@ class Xlsx extends BaseReader
                                             $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
                                             //    We should only ever have one dynamic filter
                                             foreach ($filterColumn->dynamicFilter as $filterRule) {
+                                                //    Operator is undefined, but always treated as EQUAL
                                                 $column->createRule()->setRule(
-                                                    //    Operator is undefined, but always treated as EQUAL
                                                     null,
                                                     (string) $filterRule['val'],
                                                     (string) $filterRule['type']
@@ -1185,6 +1275,11 @@ class Xlsx extends BaseReader
                                 if (isset($xmlSheet->pageSetup['firstPageNumber'], $xmlSheet->pageSetup['useFirstPageNumber']) &&
                                     self::boolean((string) $xmlSheet->pageSetup['useFirstPageNumber'])) {
                                     $docPageSetup->setFirstPageNumber((int) ($xmlSheet->pageSetup['firstPageNumber']));
+                                }
+
+                                $relAttributes = $xmlSheet->pageSetup->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+                                if (isset($relAttributes['id'])) {
+                                    $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['pageSetupRelId'] = (string) $relAttributes['id'];
                                 }
                             }
 
@@ -1269,13 +1364,23 @@ class Xlsx extends BaseReader
                                 }
                             }
 
+                            // unparsed sheet AlternateContent
+                            if ($xmlSheet && !$this->readDataOnly) {
+                                $mc = $xmlSheet->children('http://schemas.openxmlformats.org/markup-compatibility/2006');
+                                if ($mc->AlternateContent) {
+                                    foreach ($mc->AlternateContent as $alternateContent) {
+                                        $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['AlternateContents'][] = $alternateContent->asXML();
+                                    }
+                                }
+                            }
+
                             // Add hyperlinks
                             $hyperlinks = [];
                             if (!$this->readDataOnly) {
                                 // Locate hyperlink relations
                                 if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                                    //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                     $relsWorksheet = simplexml_load_string(
-                                        //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                         $this->securityScan(
                                             $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
                                         ),
@@ -1291,7 +1396,7 @@ class Xlsx extends BaseReader
 
                                 // Loop through hyperlinks
                                 if ($xmlSheet && $xmlSheet->hyperlinks) {
-                                    /** @var \SimpleXMLElement $hyperlink */
+                                    /** @var SimpleXMLElement $hyperlink */
                                     foreach ($xmlSheet->hyperlinks->hyperlink as $hyperlink) {
                                         // Link url
                                         $linkRel = $hyperlink->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
@@ -1323,8 +1428,8 @@ class Xlsx extends BaseReader
                             if (!$this->readDataOnly) {
                                 // Locate comment relations
                                 if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                                    //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                     $relsWorksheet = simplexml_load_string(
-                                        //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                         $this->securityScan(
                                             $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
                                         ),
@@ -1368,6 +1473,9 @@ class Xlsx extends BaseReader
                                     }
                                 }
 
+                                // later we will remove from it real vmlComments
+                                $unparsedVmlDrawings = $vmlComments;
+
                                 // Loop through VML comments
                                 foreach ($vmlComments as $relName => $relPath) {
                                     // Load VML comments file
@@ -1408,7 +1516,7 @@ class Xlsx extends BaseReader
 
                                             if (($column !== null) && ($row !== null)) {
                                                 // Set comment properties
-                                                $comment = $docSheet->getCommentByColumnAndRow((string) $column, $row + 1);
+                                                $comment = $docSheet->getCommentByColumnAndRow($column + 1, $row + 1);
                                                 $comment->getFillColor()->setRGB($fillColor);
 
                                                 // Parse style
@@ -1432,16 +1540,31 @@ class Xlsx extends BaseReader
                                                         $comment->setVisible($stylePair[1] == 'visible');
                                                     }
                                                 }
+
+                                                unset($unparsedVmlDrawings[$relName]);
                                             }
                                         }
+                                    }
+                                }
+
+                                // unparsed vmlDrawing
+                                if ($unparsedVmlDrawings) {
+                                    foreach ($unparsedVmlDrawings as $rId => $relPath) {
+                                        $rId = substr($rId, 3); // rIdXXX
+                                        $unparsedVmlDrawing = &$unparsedLoadedData['sheets'][$docSheet->getCodeName()]['vmlDrawings'];
+                                        $unparsedVmlDrawing[$rId] = [];
+                                        $unparsedVmlDrawing[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $relPath);
+                                        $unparsedVmlDrawing[$rId]['relFilePath'] = $relPath;
+                                        $unparsedVmlDrawing[$rId]['content'] = $this->securityScan($this->getFromZipArchive($zip, $unparsedVmlDrawing[$rId]['filePath']));
+                                        unset($unparsedVmlDrawing);
                                     }
                                 }
 
                                 // Header/footer images
                                 if ($xmlSheet && $xmlSheet->legacyDrawingHF && !$this->readDataOnly) {
                                     if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                                        //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                         $relsWorksheet = simplexml_load_string(
-                                            //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                             $this->securityScan(
                                                 $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
                                             ),
@@ -1458,8 +1581,8 @@ class Xlsx extends BaseReader
 
                                         if ($vmlRelationship != '') {
                                             // Fetch linked images
+                                            //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                             $relsVML = simplexml_load_string(
-                                                //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                                 $this->securityScan(
                                                     $this->getFromZipArchive($zip, dirname($vmlRelationship) . '/_rels/' . basename($vmlRelationship) . '.rels')
                                                 ),
@@ -1521,8 +1644,8 @@ class Xlsx extends BaseReader
 
                             // TODO: Autoshapes from twoCellAnchors!
                             if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                                //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                 $relsWorksheet = simplexml_load_string(
-                                    //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                     $this->securityScan(
                                         $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
                                     ),
@@ -1538,8 +1661,8 @@ class Xlsx extends BaseReader
                                 if ($xmlSheet->drawing && !$this->readDataOnly) {
                                     foreach ($xmlSheet->drawing as $drawing) {
                                         $fileDrawing = $drawings[(string) self::getArrayItem($drawing->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id')];
+                                        //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                         $relsDrawing = simplexml_load_string(
-                                            //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                             $this->securityScan(
                                                 $this->getFromZipArchive($zip, dirname($fileDrawing) . '/_rels/' . basename($fileDrawing) . '.rels')
                                             ),
@@ -1574,11 +1697,11 @@ class Xlsx extends BaseReader
                                         if ($xmlDrawing->oneCellAnchor) {
                                             foreach ($xmlDrawing->oneCellAnchor as $oneCellAnchor) {
                                                 if ($oneCellAnchor->pic->blipFill) {
-                                                    /** @var \SimpleXMLElement $blip */
+                                                    /** @var SimpleXMLElement $blip */
                                                     $blip = $oneCellAnchor->pic->blipFill->children('http://schemas.openxmlformats.org/drawingml/2006/main')->blip;
-                                                    /** @var \SimpleXMLElement $xfrm */
+                                                    /** @var SimpleXMLElement $xfrm */
                                                     $xfrm = $oneCellAnchor->pic->spPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->xfrm;
-                                                    /** @var \SimpleXMLElement $outerShdw */
+                                                    /** @var SimpleXMLElement $outerShdw */
                                                     $outerShdw = $oneCellAnchor->pic->spPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->effectLst->outerShdw;
                                                     /** @var \SimpleXMLElement $hlinkClick */
                                                     $hlinkClick = $oneCellAnchor->pic->nvPicPr->cNvPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->hlinkClick;
@@ -1677,7 +1800,7 @@ class Xlsx extends BaseReader
                                                     $toOffsetX = Drawing::EMUToPixels($twoCellAnchor->to->colOff);
                                                     $toOffsetY = Drawing::EMUToPixels($twoCellAnchor->to->rowOff);
                                                     $graphic = $twoCellAnchor->graphicFrame->children('http://schemas.openxmlformats.org/drawingml/2006/main')->graphic;
-                                                    /** @var \SimpleXMLElement $chartRef */
+                                                    /** @var SimpleXMLElement $chartRef */
                                                     $chartRef = $graphic->graphicData->children('http://schemas.openxmlformats.org/drawingml/2006/chart')->chart;
                                                     $thisChart = (string) $chartRef->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
 
@@ -1694,8 +1817,32 @@ class Xlsx extends BaseReader
                                             }
                                         }
                                     }
+
+                                    // store original rId of drawing files
+                                    $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['drawingOriginalIds'] = [];
+                                    foreach ($relsWorksheet->Relationship as $ele) {
+                                        if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing') {
+                                            $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['drawingOriginalIds'][(string) $ele['Target']] = (string) $ele['Id'];
+                                        }
+                                    }
+
+                                    // unparsed drawing AlternateContent
+                                    $xmlAltDrawing = simplexml_load_string(
+                                        $this->securityScan($this->getFromZipArchive($zip, $fileDrawing)),
+                                        'SimpleXMLElement',
+                                        Settings::getLibXmlLoaderOptions()
+                                    )->children('http://schemas.openxmlformats.org/markup-compatibility/2006');
+
+                                    if ($xmlAltDrawing->AlternateContent) {
+                                        foreach ($xmlAltDrawing->AlternateContent as $alternateContent) {
+                                            $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['drawingAlternateContents'][] = $alternateContent->asXML();
+                                        }
+                                    }
                                 }
                             }
+
+                            $this->readFormControlProperties($excel, $zip, $dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
+                            $this->readPrinterSettings($excel, $zip, $dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
 
                             // Loop through definedNames
                             if ($xmlWorkbook->definedNames) {
@@ -1866,6 +2013,18 @@ class Xlsx extends BaseReader
                 'SimpleXMLElement',
                 Settings::getLibXmlLoaderOptions()
             );
+
+            // Default content types
+            foreach ($contentTypes->Default as $contentType) {
+                switch ($contentType['ContentType']) {
+                    case 'application/vnd.openxmlformats-officedocument.spreadsheetml.printerSettings':
+                        $unparsedLoadedData['default_content_types'][(string) $contentType['Extension']] = (string) $contentType['ContentType'];
+
+                        break;
+                }
+            }
+
+            // Override content types
             foreach ($contentTypes->Override as $contentType) {
                 switch ($contentType['ContentType']) {
                     case 'application/vnd.openxmlformats-officedocument.drawingml.chart+xml':
@@ -1890,9 +2049,19 @@ class Xlsx extends BaseReader
                                 }
                             }
                         }
+
+                        break;
+
+                    // unparsed
+                    case 'application/vnd.ms-excel.controlproperties+xml':
+                        $unparsedLoadedData['override_content_types'][(string) $contentType['PartName']] = (string) $contentType['ContentType'];
+
+                        break;
                 }
             }
         }
+
+        $excel->setUnparsedLoadedData($unparsedLoadedData);
 
         $zip->close();
 
@@ -1926,7 +2095,7 @@ class Xlsx extends BaseReader
 
     /**
      * @param Style $docStyle
-     * @param \SimpleXMLElement|\stdClass $style
+     * @param SimpleXMLElement|\stdClass $style
      */
     private static function readStyle(Style $docStyle, $style)
     {
@@ -1967,7 +2136,7 @@ class Xlsx extends BaseReader
         // fill
         if (isset($style->fill)) {
             if ($style->fill->gradientFill) {
-                /** @var \SimpleXMLElement $gradientFill */
+                /** @var SimpleXMLElement $gradientFill */
                 $gradientFill = $style->fill->gradientFill[0];
                 if (!empty($gradientFill['type'])) {
                     $docStyle->getFill()->setFillType((string) $gradientFill['type']);
@@ -2056,7 +2225,7 @@ class Xlsx extends BaseReader
 
     /**
      * @param Border $docBorder
-     * @param \SimpleXMLElement $eleBorder
+     * @param SimpleXMLElement $eleBorder
      */
     private static function readBorder(Border $docBorder, $eleBorder)
     {
@@ -2069,7 +2238,7 @@ class Xlsx extends BaseReader
     }
 
     /**
-     * @param \SimpleXMLElement | null $is
+     * @param SimpleXMLElement | null $is
      *
      * @return RichText
      */
@@ -2230,6 +2399,7 @@ class Xlsx extends BaseReader
         return $value === 'true' || $value === 'TRUE';
     }
 
+
     /**
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $objDrawing
      * @param \SimpleXMLElement $cellAnchor
@@ -2246,5 +2416,96 @@ class Xlsx extends BaseReader
             );
             $objDrawing->setHyperlink($hyperlink);
         }
+
+    private function readProtection(Spreadsheet $excel, SimpleXMLElement $xmlWorkbook)
+    {
+        if (!$xmlWorkbook->workbookProtection) {
+            return;
+        }
+
+        if ($xmlWorkbook->workbookProtection['lockRevision']) {
+            $excel->getSecurity()->setLockRevision((bool) $xmlWorkbook->workbookProtection['lockRevision']);
+        }
+
+        if ($xmlWorkbook->workbookProtection['lockStructure']) {
+            $excel->getSecurity()->setLockStructure((bool) $xmlWorkbook->workbookProtection['lockStructure']);
+        }
+
+        if ($xmlWorkbook->workbookProtection['lockWindows']) {
+            $excel->getSecurity()->setLockWindows((bool) $xmlWorkbook->workbookProtection['lockWindows']);
+        }
+
+        if ($xmlWorkbook->workbookProtection['revisionsPassword']) {
+            $excel->getSecurity()->setRevisionsPassword((string) $xmlWorkbook->workbookProtection['revisionsPassword'], true);
+        }
+
+        if ($xmlWorkbook->workbookProtection['workbookPassword']) {
+            $excel->getSecurity()->setWorkbookPassword((string) $xmlWorkbook->workbookProtection['workbookPassword'], true);
+        }
+    }
+
+    private function readFormControlProperties(Spreadsheet $excel, ZipArchive $zip, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData)
+    {
+        if (!$zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+            return;
+        }
+
+        //~ http://schemas.openxmlformats.org/package/2006/relationships"
+        $relsWorksheet = simplexml_load_string(
+            $this->securityScan(
+                $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
+            ),
+            'SimpleXMLElement',
+            Settings::getLibXmlLoaderOptions()
+        );
+        $ctrlProps = [];
+        foreach ($relsWorksheet->Relationship as $ele) {
+            if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/ctrlProp') {
+                $ctrlProps[(string) $ele['Id']] = $ele;
+            }
+        }
+
+        $unparsedCtrlProps = &$unparsedLoadedData['sheets'][$docSheet->getCodeName()]['ctrlProps'];
+        foreach ($ctrlProps as $rId => $ctrlProp) {
+            $rId = substr($rId, 3); // rIdXXX
+            $unparsedCtrlProps[$rId] = [];
+            $unparsedCtrlProps[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $ctrlProp['Target']);
+            $unparsedCtrlProps[$rId]['relFilePath'] = (string) $ctrlProp['Target'];
+            $unparsedCtrlProps[$rId]['content'] = $this->securityScan($this->getFromZipArchive($zip, $unparsedCtrlProps[$rId]['filePath']));
+        }
+        unset($unparsedCtrlProps);
+    }
+
+    private function readPrinterSettings(Spreadsheet $excel, ZipArchive $zip, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData)
+    {
+        if (!$zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+            return;
+        }
+
+        //~ http://schemas.openxmlformats.org/package/2006/relationships"
+        $relsWorksheet = simplexml_load_string(
+            $this->securityScan(
+                $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
+            ),
+            'SimpleXMLElement',
+            Settings::getLibXmlLoaderOptions()
+        );
+        $sheetPrinterSettings = [];
+        foreach ($relsWorksheet->Relationship as $ele) {
+            if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/printerSettings') {
+                $sheetPrinterSettings[(string) $ele['Id']] = $ele;
+            }
+        }
+
+        $unparsedPrinterSettings = &$unparsedLoadedData['sheets'][$docSheet->getCodeName()]['printerSettings'];
+        foreach ($sheetPrinterSettings as $rId => $printerSettings) {
+            $rId = substr($rId, 3); // rIdXXX
+            $unparsedPrinterSettings[$rId] = [];
+            $unparsedPrinterSettings[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $printerSettings['Target']);
+            $unparsedPrinterSettings[$rId]['relFilePath'] = (string) $printerSettings['Target'];
+            $unparsedPrinterSettings[$rId]['content'] = $this->securityScan($this->getFromZipArchive($zip, $unparsedPrinterSettings[$rId]['filePath']));
+        }
+        unset($unparsedPrinterSettings);
+
     }
 }

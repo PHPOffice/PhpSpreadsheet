@@ -51,6 +51,12 @@ class Worksheet extends WriterPart
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
         $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
 
+        $objWriter->writeAttribute('xmlns:xdr', 'http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing');
+        $objWriter->writeAttribute('xmlns:x14', 'http://schemas.microsoft.com/office/spreadsheetml/2009/9/main');
+        $objWriter->writeAttribute('xmlns:mc', 'http://schemas.openxmlformats.org/markup-compatibility/2006');
+        $objWriter->writeAttribute('mc:Ignorable', 'x14ac');
+        $objWriter->writeAttribute('xmlns:x14ac', 'http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac');
+
         // sheetPr
         $this->writeSheetPr($objWriter, $pSheet);
 
@@ -113,6 +119,9 @@ class Worksheet extends WriterPart
 
         // LegacyDrawingHF
         $this->writeLegacyDrawingHF($objWriter, $pSheet);
+
+        // AlternateContent
+        $this->writeAlternateContent($objWriter, $pSheet);
 
         $objWriter->endElement();
 
@@ -237,6 +246,7 @@ class Worksheet extends WriterPart
         }
 
         $activeCell = $pSheet->getActiveCell();
+        $sqref = $pSheet->getSelectedCells();
 
         // Pane
         $pane = '';
@@ -248,6 +258,7 @@ class Worksheet extends WriterPart
 
             $topLeftCell = $pSheet->getTopLeftCell();
             $activeCell = $topLeftCell;
+            $sqref = $topLeftCell;
 
             // pane
             $pane = 'topRight';
@@ -283,7 +294,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('pane', $pane);
         }
         $objWriter->writeAttribute('activeCell', $activeCell);
-        $objWriter->writeAttribute('sqref', $activeCell);
+        $objWriter->writeAttribute('sqref', $sqref);
         $objWriter->endElement();
 
         $objWriter->endElement();
@@ -843,6 +854,11 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('useFirstPageNumber', '1');
         }
 
+        $getUnparsedLoadedData = $pSheet->getParent()->getUnparsedLoadedData();
+        if (isset($getUnparsedLoadedData['sheets'][$pSheet->getCodeName()]['pageSetupRelId'])) {
+            $objWriter->writeAttribute('r:id', $getUnparsedLoadedData['sheets'][$pSheet->getCodeName()]['pageSetupRelId']);
+        }
+
         $objWriter->endElement();
     }
 
@@ -1142,16 +1158,27 @@ class Worksheet extends WriterPart
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      */
-    private function writeDrawings(XMLWriter $objWriter = null, PhpspreadsheetWorksheet $pSheet = null, $includeCharts = false)
+    private function writeDrawings(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, $includeCharts = false)
     {
+        $unparsedLoadedData = $pSheet->getParent()->getUnparsedLoadedData();
+        $hasUnparsedDrawing = isset($unparsedLoadedData['sheets'][$pSheet->getCodeName()]['drawingOriginalIds']);
         $chartCount = ($includeCharts) ? $pSheet->getChartCollection()->count() : 0;
-        // If sheet contains drawings, add the relationships
-        if (($pSheet->getDrawingCollection()->count() > 0) ||
-            ($chartCount > 0)) {
-            $objWriter->startElement('drawing');
-            $objWriter->writeAttribute('r:id', 'rId1');
-            $objWriter->endElement();
+        if ($chartCount == 0 && $pSheet->getDrawingCollection()->count() == 0 && !$hasUnparsedDrawing) {
+            return;
         }
+
+        // If sheet contains drawings, add the relationships
+        $objWriter->startElement('drawing');
+
+        $rId = 'rId1';
+        if (isset($unparsedLoadedData['sheets'][$pSheet->getCodeName()]['drawingOriginalIds'])) {
+            $drawingOriginalIds = $unparsedLoadedData['sheets'][$pSheet->getCodeName()]['drawingOriginalIds'];
+            // take first. In future can be overriten
+            $rId = reset($drawingOriginalIds);
+        }
+
+        $objWriter->writeAttribute('r:id', $rId);
+        $objWriter->endElement();
     }
 
     /**
@@ -1183,6 +1210,17 @@ class Worksheet extends WriterPart
             $objWriter->startElement('legacyDrawingHF');
             $objWriter->writeAttribute('r:id', 'rId_headerfooter_vml1');
             $objWriter->endElement();
+        }
+    }
+
+    private function writeAlternateContent(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    {
+        if (empty($pSheet->getParent()->getUnparsedLoadedData()['sheets'][$pSheet->getCodeName()]['AlternateContents'])) {
+            return;
+        }
+
+        foreach ($pSheet->getParent()->getUnparsedLoadedData()['sheets'][$pSheet->getCodeName()]['AlternateContents'] as $alternateContent) {
+            $objWriter->writeRaw($alternateContent);
         }
     }
 }

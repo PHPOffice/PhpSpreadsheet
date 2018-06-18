@@ -195,18 +195,31 @@ class Rels extends WriterPart
 
         // Write drawing relationships?
         $d = 0;
+        $drawingOriginalIds = [];
+        $unparsedLoadedData = $pWorksheet->getParent()->getUnparsedLoadedData();
+        if (isset($unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['drawingOriginalIds'])) {
+            $drawingOriginalIds = $unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['drawingOriginalIds'];
+        }
+
         if ($includeCharts) {
             $charts = $pWorksheet->getChartCollection();
         } else {
             $charts = [];
         }
-        if (($pWorksheet->getDrawingCollection()->count() > 0) ||
-            (count($charts) > 0)) {
+
+        if (($pWorksheet->getDrawingCollection()->count() > 0) || (count($charts) > 0) || $drawingOriginalIds) {
+            $relPath = '../drawings/drawing' . $pWorksheetId . '.xml';
+            $rId = ++$d;
+
+            if (isset($drawingOriginalIds[$relPath])) {
+                $rId = (int) (substr($drawingOriginalIds[$relPath], 3));
+            }
+
             $this->writeRelationship(
                 $objWriter,
-                ++$d,
+                $rId,
                 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing',
-                '../drawings/drawing' . $pWorksheetId . '.xml'
+                $relPath
             );
         }
 
@@ -255,9 +268,30 @@ class Rels extends WriterPart
             );
         }
 
+        $this->writeUnparsedRelationship($pWorksheet, $objWriter, 'ctrlProps', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/ctrlProp');
+        $this->writeUnparsedRelationship($pWorksheet, $objWriter, 'vmlDrawings', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/vmlDrawing');
+        $this->writeUnparsedRelationship($pWorksheet, $objWriter, 'printerSettings', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/printerSettings');
+
         $objWriter->endElement();
 
         return $objWriter->getData();
+    }
+
+    private function writeUnparsedRelationship(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet, XMLWriter $objWriter, $relationship, $type)
+    {
+        $unparsedLoadedData = $pWorksheet->getParent()->getUnparsedLoadedData();
+        if (!isset($unparsedLoadedData['sheets'][$pWorksheet->getCodeName()][$relationship])) {
+            return;
+        }
+
+        foreach ($unparsedLoadedData['sheets'][$pWorksheet->getCodeName()][$relationship] as $rId => $value) {
+            $this->writeRelationship(
+                $objWriter,
+                $rId,
+                $type,
+                $value['relFilePath']
+            );
+        }
     }
 
     /**
