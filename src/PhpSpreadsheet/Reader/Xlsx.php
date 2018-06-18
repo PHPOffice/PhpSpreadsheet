@@ -2409,13 +2409,14 @@ class Xlsx extends BaseReader
     {
         $hlinkClick = $cellAnchor->pic->nvPicPr->cNvPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->hlinkClick;
         if ($hlinkClick) {
-            $hlinkId = (string) $hlinkClick->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships')['id'];
+            $hlinkId = (string)$hlinkClick->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships')['id'];
             $hyperlink = new Hyperlink(
                 $hyperlinks[$hlinkId],
-                (string) self::getArrayItem($cellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name')
+                (string)self::getArrayItem($cellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name')
             );
             $objDrawing->setHyperlink($hyperlink);
         }
+    }
 
     private function readProtection(Spreadsheet $excel, SimpleXMLElement $xmlWorkbook)
     {

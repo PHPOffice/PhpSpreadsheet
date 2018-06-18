@@ -46,7 +46,7 @@ class Drawing extends WriterPart
             /** @var BaseDrawing $pDrawing */
             $pDrawing = $iterator->current();
             $pRelationId = $i;
-            $pHlinkClickId = empty($pDrawing->getHyperlink()->getUrl()) ? -1 : ++$i;
+            $pHlinkClickId = ($pDrawing->getHyperlink() === null ) ? null : ++$i;
 
             $this->writeDrawing($objWriter, $pDrawing, $pRelationId, $pHlinkClickId);
 
