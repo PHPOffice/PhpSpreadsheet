@@ -266,7 +266,9 @@ class Xlsx extends BaseReader
 
     private static function castToString($c)
     {
-        return isset($c->v) ? (string) $c->v : null;
+      if(strstr(strtolower($c->v), 'e') && !strstr(strtolower($c->v), 'e+')) { return $c->v; }
+      // TODO: Should check cell type here and convert to string. It does not go well scientific notion "8.2276843555001E+18" etc. 
+      return isset($c->v) ? (string) $c->v : null;
     }
 
     private function castToFormula($c, $r, &$cellDataType, &$value, &$calculatedValue, &$sharedFormulas, $castBaseType)
