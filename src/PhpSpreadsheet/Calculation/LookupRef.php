@@ -355,6 +355,8 @@ class LookupRef
             return 0;
         }
 
+        $args = func_get_args();
+        $pCell = array_pop($args);
         if (!is_object($pCell)) {
             return Functions::REF();
         }
