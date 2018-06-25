@@ -83,6 +83,8 @@ class CsvTest extends TestCase
             [false, 'data/Reader/Xml/WithoutStyle.xml'],
             [true, 'data/Reader/CSV/enclosure.csv'],
             [true, 'data/Reader/CSV/semicolon_separated.csv'],
+            [true, 'data/Reader/CSV/contains_html.csv'],
+            [true, 'data/Reader/CSV/csv_without_extension'],
             [true, 'data/Reader/HTML/csv_with_angle_bracket.csv'],
             [true, 'data/Reader/CSV/empty.csv'],
             [true, '../samples/Reader/sampleData/example1.csv'],

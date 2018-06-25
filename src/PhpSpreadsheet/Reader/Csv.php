@@ -507,6 +507,12 @@ class Csv extends BaseReader
 
         fclose($this->fileHandle);
 
+        // Trust file extension if any
+        if (strtolower(pathinfo($pFilename, PATHINFO_EXTENSION)) === 'csv') {
+            return true;
+        }
+
+        // Attempt to guess mimetype
         $type = mime_content_type($pFilename);
         $supportedTypes = [
             'text/csv',
