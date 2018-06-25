@@ -338,7 +338,7 @@ class Rels extends WriterPart
                     '../media/' . str_replace(' ', '', $drawing->getIndexedFilename())
                 );
 
-                $this->writeDrawingHyperLink($objWriter, $drawing, $i);
+                $i = $this->writeDrawingHyperLink($objWriter, $drawing, $i);
             }
 
             $iterator->next();
@@ -440,21 +440,27 @@ class Rels extends WriterPart
     /**
      * @param $objWriter
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $drawing
-     * @param &$i
+     * @param $i
      *
      * @throws WriterException
+     *
+     * @return int
      */
-    private function writeDrawingHyperLink($objWriter, $drawing, &$i)
+    private function writeDrawingHyperLink($objWriter, $drawing, $i)
     {
-        if ($drawing->getHyperlink() !== null) {
-            ++$i;
-            $this->writeRelationship(
-                $objWriter,
-                $i,
-                'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink',
-                $drawing->getHyperlink()->getUrl(),
-                $drawing->getHyperlink()->getTypeHyperlink()
-            );
+        if ($drawing->getHyperlink() === null) {
+            return $i;
         }
+
+        ++$i;
+        $this->writeRelationship(
+            $objWriter,
+            $i,
+            'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink',
+            $drawing->getHyperlink()->getUrl(),
+            $drawing->getHyperlink()->getTypeHyperlink()
+        );
+
+        return $i;
     }
 }

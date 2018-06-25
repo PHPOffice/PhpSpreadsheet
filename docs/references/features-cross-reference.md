@@ -765,8 +765,8 @@
         <td></td>
         <td></td>
         <td></td>
-        <td>$Drawing->getHyperlink()->getUrl($url)</td>
-        <td>$Drawing->setHyperlink()->setUrl($url)</td>
+        <td>$drawing->getHyperlink()->getUrl()</td>
+        <td>$drawing->setHyperlink()->setUrl($url)</td>
     </tr>
     <tr>
         <td><strong>Cell Formatting</strong></td>

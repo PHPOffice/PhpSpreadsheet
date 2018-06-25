@@ -2399,23 +2399,24 @@ class Xlsx extends BaseReader
         return $value === 'true' || $value === 'TRUE';
     }
 
-
     /**
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $objDrawing
      * @param \SimpleXMLElement $cellAnchor
      * @param array $hyperlinks
      */
-    private function readHyperLinkDrawing(&$objDrawing, $cellAnchor, $hyperlinks)
+    private function readHyperLinkDrawing($objDrawing, $cellAnchor, $hyperlinks)
     {
         $hlinkClick = $cellAnchor->pic->nvPicPr->cNvPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->hlinkClick;
-        if ($hlinkClick) {
-            $hlinkId = (string)$hlinkClick->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships')['id'];
-            $hyperlink = new Hyperlink(
-                $hyperlinks[$hlinkId],
-                (string)self::getArrayItem($cellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name')
-            );
-            $objDrawing->setHyperlink($hyperlink);
+        if ($hlinkClick == false) {
+            return;
         }
+
+        $hlinkId = (string) $hlinkClick->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships')['id'];
+        $hyperlink = new Hyperlink(
+            $hyperlinks[$hlinkId],
+            (string) self::getArrayItem($cellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name')
+        );
+        $objDrawing->setHyperlink($hyperlink);
     }
 
     private function readProtection(Spreadsheet $excel, SimpleXMLElement $xmlWorkbook)
@@ -2507,6 +2508,5 @@ class Xlsx extends BaseReader
             $unparsedPrinterSettings[$rId]['content'] = $this->securityScan($this->getFromZipArchive($zip, $unparsedPrinterSettings[$rId]['filePath']));
         }
         unset($unparsedPrinterSettings);
-
     }
 }

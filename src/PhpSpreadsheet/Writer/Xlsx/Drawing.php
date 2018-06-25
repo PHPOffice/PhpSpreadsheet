@@ -46,7 +46,7 @@ class Drawing extends WriterPart
             /** @var BaseDrawing $pDrawing */
             $pDrawing = $iterator->current();
             $pRelationId = $i;
-            $pHlinkClickId = ($pDrawing->getHyperlink() === null ) ? null : ++$i;
+            $pHlinkClickId = $pDrawing->getHyperlink() === null ? null : ++$i;
 
             $this->writeDrawing($objWriter, $pDrawing, $pRelationId, $pHlinkClickId);
 
@@ -155,7 +155,7 @@ class Drawing extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param BaseDrawing $pDrawing
      * @param int $pRelationId
-     * @param int $pHlinkClickId
+     * @param null|int $pHlinkClickId
      *
      * @throws WriterException
      */
@@ -195,7 +195,7 @@ class Drawing extends WriterPart
             $objWriter->writeAttribute('descr', $pDrawing->getDescription());
 
             //a:hlinkClick
-            $this->writeHyperLinkDriwing($objWriter, $pHlinkClickId);
+            $this->writeHyperLinkDrawing($objWriter, $pHlinkClickId);
 
             $objWriter->endElement();
 
@@ -503,15 +503,17 @@ class Drawing extends WriterPart
 
     /**
      * @param XMLWriter $objWriter
-     * @param $pHlinkClickId
+     * @param null | int $pHlinkClickId
      */
-    private function writeHyperLinkDriwing(XMLWriter &$objWriter, $pHlinkClickId)
+    private function writeHyperLinkDrawing(XMLWriter $objWriter, $pHlinkClickId)
     {
-        if ($pHlinkClickId !== null) {
-            $objWriter->startElement('a:hlinkClick');
-            $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
-            $objWriter->writeAttribute('r:id', 'rId' . $pHlinkClickId);
-            $objWriter->endElement();
+        if ($pHlinkClickId === null) {
+            return;
         }
+
+        $objWriter->startElement('a:hlinkClick');
+        $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+        $objWriter->writeAttribute('r:id', 'rId' . $pHlinkClickId);
+        $objWriter->endElement();
     }
 }

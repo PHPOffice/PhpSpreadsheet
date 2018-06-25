@@ -8,13 +8,12 @@ use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
 class DrawingImageHyperlinkTest extends AbstractFunctional
 {
-    const BASE_URL = 'https://github.com/PHPOffice/PhpSpreadsheet';
-
     /**
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testDrawingImageHyperlinkTest()
     {
+        $baseUrl = 'https://github.com/PHPOffice/PhpSpreadsheet';
         $spreadsheet = new Spreadsheet();
 
         $aSheet = $spreadsheet->getActiveSheet();
@@ -33,14 +32,14 @@ class DrawingImageHyperlinkTest extends AbstractFunctional
         );
         $drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
         $drawing->setHeight(36);
-        $hyperLink = new Hyperlink(self::BASE_URL, 'test image');
+        $hyperLink = new Hyperlink($baseUrl, 'test image');
         $drawing->setHyperlink($hyperLink);
         $drawing->setWorksheet($aSheet);
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
 
         foreach ($reloadedSpreadsheet->getActiveSheet()->getDrawingCollection() as $pDrawing) {
-            self::assertEquals(self::BASE_URL, $pDrawing->getHyperlink()->getUrl(), 'functional test drawing hyperlink');
+            self::assertEquals($baseUrl, $pDrawing->getHyperlink()->getUrl(), 'functional test drawing hyperlink');
         }
     }
 }
