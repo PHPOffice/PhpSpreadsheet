@@ -2407,7 +2407,8 @@ class Xlsx extends BaseReader
     private function readHyperLinkDrawing($objDrawing, $cellAnchor, $hyperlinks)
     {
         $hlinkClick = $cellAnchor->pic->nvPicPr->cNvPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->hlinkClick;
-        if ($hlinkClick == false) {
+
+        if($hlinkClick->count() === 0){
             return;
         }
 
