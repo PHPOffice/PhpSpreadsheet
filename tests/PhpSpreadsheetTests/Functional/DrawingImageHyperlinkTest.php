@@ -45,7 +45,7 @@ class DrawingImageHyperlinkTest extends AbstractFunctional
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
 
         foreach ($reloadedSpreadsheet->getActiveSheet()->getDrawingCollection() as $pDrawing) {
-            self::assertEquals($baseUrl, $pDrawing->getHyperlink()->getUrl(), 'functional test drawing hyperlink');
+            self::assertEquals("https://github.com/PHPOffice/PhpSpreadsheet", $pDrawing->getHyperlink()->getUrl(), 'functional test drawing hyperlink');
         }
     }
 }
