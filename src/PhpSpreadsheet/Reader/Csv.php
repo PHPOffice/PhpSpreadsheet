@@ -20,7 +20,7 @@ class Csv extends BaseReader
      *
      * @var string
      */
-    private $delimiter;
+    private $delimiter = ',';
 
     /**
      * Enclosure.
