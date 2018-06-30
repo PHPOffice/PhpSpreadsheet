@@ -561,7 +561,7 @@ class Xlsx extends BaseReader
                     foreach ($relsWorkbook->Relationship as $ele) {
                         switch ($ele['Type']) {
                             case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet':
-                                $worksheets[(stif($hlinkClick->count() === 0){ring) $ele['Id']] = $ele['Target'];
+                                $worksheets[(string) $ele['Id']] = $ele['Target'];
 
                                 break;
                             // a vbaProject ? (: some macros)
