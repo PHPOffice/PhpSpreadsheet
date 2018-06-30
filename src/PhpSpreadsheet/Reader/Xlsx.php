@@ -561,7 +561,7 @@ class Xlsx extends BaseReader
                     foreach ($relsWorkbook->Relationship as $ele) {
                         switch ($ele['Type']) {
                             case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet':
-                                $worksheets[(string) $ele['Id']] = $ele['Target'];
+                                $worksheets[(stif($hlinkClick->count() === 0){ring) $ele['Id']] = $ele['Target'];
 
                                 break;
                             // a vbaProject ? (: some macros)
@@ -2408,7 +2408,7 @@ class Xlsx extends BaseReader
     {
         $hlinkClick = $cellAnchor->pic->nvPicPr->cNvPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->hlinkClick;
 
-        if($hlinkClick->count() === 0){
+        if ($hlinkClick->count() === 0) {
             return;
         }
 
