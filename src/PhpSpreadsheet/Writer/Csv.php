@@ -312,31 +312,27 @@ class Csv extends BaseWriter
      */
     private function writeLine($pFileHandle, array $pValues)
     {
-        // No leading delimiter
-        $writeDelimiter = false;
+        // For no leading delimiter
+		$_delimiter = "";
 
-        // Build the line
-        $line = '';
+		// Build the line
+		$line = '';
 
-        foreach ($pValues as $element) {
-            // Escape enclosures
-            $element = str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
+		foreach ( $pValues as $element ) {
+			// Escape enclosures
+			$element = str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
 
-            // Add delimiter
-            if ($writeDelimiter) {
-                $line .= $this->delimiter;
-            } else {
-                $writeDelimiter = true;
-            }
+			// Add delimiter & enclosed string
+			$line .= $_delimiter . $this->enclosure . $element . $this->enclosure;
 
-            // Add enclosed string
-            $line .= $this->enclosure . $element . $this->enclosure;
-        }
+			// set delimiter
+			$_delimiter = $this->delimiter;
+		}
 
-        // Add line ending
-        $line .= $this->lineEnding;
+		// Add line ending
+		$line .= $this->lineEnding;
 
-        // Write to file
-        fwrite($pFileHandle, $line);
+		// Write to file
+		fwrite($pFileHandle, $line);
     }
 }
