@@ -76,7 +76,7 @@ class Xml extends BaseReader
         // Read sample data (first 2 KB will do)
         $data = fread($fileHandle, 2048);
         fclose($fileHandle);
-        $data = strtr($data, "'", '"'); // fix headers with single quote
+        $data = str_replace("'", '"', $data); // fix headers with single quote
 
         $valid = true;
         foreach ($signature as $match) {
