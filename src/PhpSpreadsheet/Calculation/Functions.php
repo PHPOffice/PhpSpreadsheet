@@ -355,7 +355,7 @@ class Functions
             return false;
         }
 
-        return in_array($value, array_values(self::$errorCodes));
+        return in_array($value, self::$errorCodes);
     }
 
     /**

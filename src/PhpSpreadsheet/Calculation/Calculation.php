@@ -2395,10 +2395,10 @@ class Calculation
 
         if (self::$functionReplaceToLocale === null) {
             self::$functionReplaceToLocale = [];
-            foreach (array_values(self::$localeFunctions) as $localeFunctionName) {
+            foreach (self::$localeFunctions as $localeFunctionName) {
                 self::$functionReplaceToLocale[] = '$1' . trim($localeFunctionName) . '$2';
             }
-            foreach (array_values(self::$localeBoolean) as $localeBoolean) {
+            foreach (self::$localeBoolean as $localeBoolean) {
                 self::$functionReplaceToLocale[] = '$1' . trim($localeBoolean) . '$2';
             }
         }
@@ -2414,10 +2414,10 @@ class Calculation
     {
         if (self::$functionReplaceFromLocale === null) {
             self::$functionReplaceFromLocale = [];
-            foreach (array_values(self::$localeFunctions) as $localeFunctionName) {
+            foreach (self::$localeFunctions as $localeFunctionName) {
                 self::$functionReplaceFromLocale[] = '/(@?[^\w\.])' . preg_quote($localeFunctionName, '/') . '([\s]*\()/Ui';
             }
-            foreach (array_values(self::$localeBoolean) as $excelBoolean) {
+            foreach (self::$localeBoolean as $excelBoolean) {
                 self::$functionReplaceFromLocale[] = '/(@?[^\w\.])' . preg_quote($excelBoolean, '/') . '([^\w\.])/Ui';
             }
         }
