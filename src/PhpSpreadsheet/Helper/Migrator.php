@@ -248,11 +248,12 @@ class Migrator
     private function recursiveReplace($path)
     {
         $patterns = [
-            '/*.md',
             '/*.php',
+            '/*.phpt',
+            '/*.php3',
+            '/*.php4',
+            '/*.php5',
             '/*.phtml',
-            '/*.txt',
-            '/*.TXT',
         ];
 
         $from = array_keys($this->getMapping());
@@ -260,6 +261,9 @@ class Migrator
 
         foreach ($patterns as $pattern) {
             foreach (glob($path . $pattern) as $file) {
+                if (strpos($path, '/vendor/') !== false) {
+                    continue;
+                }
                 $original = file_get_contents($file);
                 $converted = str_replace($from, $to, $original);
 
