@@ -249,10 +249,14 @@ class Migrator
     {
         $patterns = [
             '/*.md',
-            '/*.php',
-            '/*.phtml',
             '/*.txt',
             '/*.TXT',
+            '/*.php',
+            '/*.phpt',
+            '/*.php3',
+            '/*.php4',
+            '/*.php5',
+            '/*.phtml',
         ];
 
         $from = array_keys($this->getMapping());
@@ -260,6 +264,11 @@ class Migrator
 
         foreach ($patterns as $pattern) {
             foreach (glob($path . $pattern) as $file) {
+                if (strpos($path, '/vendor/') !== false) {
+                    echo $file . " skipped\n";
+
+                    continue;
+                }
                 $original = file_get_contents($file);
                 $converted = str_replace($from, $to, $original);
 
