@@ -248,6 +248,9 @@ class Migrator
     private function recursiveReplace($path)
     {
         $patterns = [
+            '/*.md',
+            '/*.txt',
+            '/*.TXT',
             '/*.php',
             '/*.phpt',
             '/*.php3',
@@ -262,6 +265,7 @@ class Migrator
         foreach ($patterns as $pattern) {
             foreach (glob($path . $pattern) as $file) {
                 if (strpos($path, '/vendor/') !== false) {
+                    echo $file . " skipped\n";
                     continue;
                 }
                 $original = file_get_contents($file);
