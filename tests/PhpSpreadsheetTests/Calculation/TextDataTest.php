@@ -359,4 +359,24 @@ class TextDataTest extends TestCase
     {
         return require 'data/Calculation/TextData/VALUE.php';
     }
+
+    public function providerEXACT(){
+        return require 'data/Calculation/TextData/EXACT.php';
+    }
+
+    /**
+     * @dataProvider providerEXACT
+     *
+     * @param mixed $expectedResult
+     * @param array $args
+     */
+    public function testEXACT($expectedResult, ...$args)
+    {
+        StringHelper::setDecimalSeparator('.');
+        StringHelper::setThousandsSeparator(' ');
+        StringHelper::setCurrencyCode('$');
+
+        $result = TextData::EXACT(...$args);
+        self::assertSame($expectedResult, $result, null);
+    }
 }

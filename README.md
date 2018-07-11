@@ -31,3 +31,46 @@ Because all efforts have shifted to PhpSpreadsheet, PHPExcel will no longer be m
 ## License
 
 PhpSpreadsheet is licensed under [LGPL (GNU LESSER GENERAL PUBLIC LICENSE)](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/LICENSE)
+
+### TODO
+
+To make this lib more compatible with excel there are some things, that should be done.
+
+#### There are contribution wanted on implementing some excel functions:
+
+- [ ] AREAS
+- [ ] ASC
+- [ ] AVERAGEIFS
+- [ ] BAHTTEXT
+- [ ] CELL
+- [ ] CHITEST
+- [ ] COUNTIFS
+- [ ] CUBEKPIMEMBER
+- [ ] CUBEMEMBER
+- [ ] CUBEMEMBERPROPERTY
+- [ ] CUBERANKEDMEMBER
+- [ ] CUBESET
+- [ ] CUBESETCOUNT
+- [ ] CUBEVALUE
+- [ ] DURATION
+- [ ] FDIST
+- [ ] FINV
+- [ ] FREQUENCY
+- [ ] FTEST
+- [ ] GETPIVOTDATA
+- [ ] INFO
+- [ ] ISREF
+- [ ] JIS
+- [ ] MDURATION
+- [ ] MEDIANIF
+- [ ] ODDFPRICE
+- [ ] ODDFYIELD
+- [ ] ODDLPRICE
+- [ ] ODDLYIELD
+- [ ] PHONETIC
+- [ ] PROB
+- [ ] RTD
+- [ ] TTEST
+- [ ] USDOLLAR
+- [ ] VDB
+- [ ] YIELD
