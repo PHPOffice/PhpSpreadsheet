@@ -360,10 +360,6 @@ class TextDataTest extends TestCase
         return require 'data/Calculation/TextData/VALUE.php';
     }
 
-    public function providerEXACT(){
-        return require 'data/Calculation/TextData/EXACT.php';
-    }
-
     /**
      * @dataProvider providerEXACT
      *
@@ -378,5 +374,12 @@ class TextDataTest extends TestCase
 
         $result = TextData::EXACT(...$args);
         self::assertSame($expectedResult, $result, null);
+    }
+
+    /**
+     * @return array
+     */
+    public function providerEXACT(){
+        return require 'data/Calculation/TextData/EXACT.php';
     }
 }
