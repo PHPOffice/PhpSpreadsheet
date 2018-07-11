@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Add the DAYS() function - [#594](https://github.com/PHPOffice/PhpSpreadsheet/pull/594)
+
 ### Fixed
 
 - Sheet title can contain exclamation mark - [#325](https://github.com/PHPOffice/PhpSpreadsheet/issues/325)
