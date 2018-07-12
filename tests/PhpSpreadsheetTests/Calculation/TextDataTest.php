@@ -379,7 +379,8 @@ class TextDataTest extends TestCase
     /**
      * @return array
      */
-    public function providerEXACT(){
+    public function providerEXACT()
+    {
         return require 'data/Calculation/TextData/EXACT.php';
     }
 }
