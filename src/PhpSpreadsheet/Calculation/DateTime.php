@@ -779,7 +779,7 @@ class DateTime
      * @param mixed $startDate Excel date serial value (float), PHP date timestamp (integer),
      *                                        PHP DateTime object, or a standard date string
      *
-     * @return int Number of days between start date and end date
+     * @return int|string Number of days between start date and end date or an error
      */
     public static function DAYS($endDate = 0, $startDate = 0)
     {
