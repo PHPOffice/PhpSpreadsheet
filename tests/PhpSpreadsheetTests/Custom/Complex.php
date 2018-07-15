@@ -31,17 +31,17 @@ class Complex
         $`uix';
 
     /**
-     * @var  float  The value of of this complex number on the real plane.
+     * @var  float  the value of of this complex number on the real plane
      */
     protected $realPart = 0.0;
 
     /**
-     * @var  float  The value of of this complex number on the imaginary plane.
+     * @var  float  the value of of this complex number on the imaginary plane
      */
     protected $imaginaryPart = 0.0;
 
     /**
-     * @var  string  The suffix for this complex number (i or j).
+     * @var  string  the suffix for this complex number (i or j)
      */
     protected $suffix;
 
@@ -138,7 +138,7 @@ class Complex
     /**
      * Gets the real part of this complex number.
      *
-     * @return Float
+     * @return float
      */
     public function getReal()
     {
@@ -148,7 +148,7 @@ class Complex
     /**
      * Gets the imaginary part of this complex number.
      *
-     * @return Float
+     * @return float
      */
     public function getImaginary()
     {
@@ -158,7 +158,7 @@ class Complex
     /**
      * Gets the suffix of this complex number.
      *
-     * @return String
+     * @return string
      */
     public function getSuffix()
     {
