@@ -31,17 +31,17 @@ class Complex
         $`uix';
 
     /**
-     * @var    float    $realPart    The value of of this complex number on the real plane.
+     * @var float $realPart The value of of this complex number on the real plane.
      */
     protected $realPart = 0.0;
 
     /**
-     * @var    float    $imaginaryPart    The value of of this complex number on the imaginary plane.
+     * @var float $imaginaryPart The value of of this complex number on the imaginary plane.
      */
     protected $imaginaryPart = 0.0;
 
     /**
-     * @var    string    $suffix    The suffix for this complex number (i or j).
+     * @var string $suffix The suffix for this complex number (i or j).
      */
     protected $suffix;
 
@@ -49,9 +49,9 @@ class Complex
     /**
      * Validates whether the argument is a valid complex number, converting scalar or array values if possible
      *
-     * @param     mixed    $complexNumber   The value to parse
-     * @return    array
-     * @throws    Exception    If the argument isn't a Complex number or cannot be converted to one
+     * @param mixed $complexNumber The value to parse
+     * @return array
+     * @throws Exception If the argument isn't a Complex number or cannot be converted to one
      */
     private static function parseComplex($complexNumber)
     {
