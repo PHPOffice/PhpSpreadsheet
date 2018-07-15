@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yuzhakov
- * Date: 08.05.18
- * Time: 12:00.
- */
 
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
