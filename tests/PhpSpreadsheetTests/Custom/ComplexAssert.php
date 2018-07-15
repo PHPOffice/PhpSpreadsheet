@@ -8,9 +8,11 @@ class ComplexAssert
 
     public function assertComplexEquals($expected, $actual, $delta = 0)
     {
-        if ($expected[0] === '#') {
+        if ($expected === INF || $expected[0] === '#') {
             //    Expecting an error, so we do a straight string comparison
             if ($expected === $actual) {
+                return true;
+            } elseif ($expected === INF && $actual === 'INF') {
                 return true;
             }
             $this->errorMessage = 'Expected Error: ' . $actual . ' !== ' . $expected;

@@ -202,6 +202,102 @@ class EngineeringTest extends TestCase
     }
 
     /**
+     * @dataProvider providerIMCOSH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMCOSH($expectedResult, ...$args)
+    {
+        $result = Engineering::IMCOSH(...$args);
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+    }
+
+    public function providerIMCOSH()
+    {
+        return require 'data/Calculation/Engineering/IMCOSH.php';
+    }
+
+    /**
+     * @dataProvider providerIMCOT
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMCOT($expectedResult, ...$args)
+    {
+        $result = Engineering::IMCOT(...$args);
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+    }
+
+    public function providerIMCOT()
+    {
+        return require 'data/Calculation/Engineering/IMCOT.php';
+    }
+
+    /**
+     * @dataProvider providerIMCSC
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMCSC($expectedResult, ...$args)
+    {
+        $result = Engineering::IMCSC(...$args);
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+    }
+
+    public function providerIMCSC()
+    {
+        return require 'data/Calculation/Engineering/IMCSC.php';
+    }
+
+    /**
+     * @dataProvider providerIMCSCH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMCSCH($expectedResult, ...$args)
+    {
+        $result = Engineering::IMCSCH(...$args);
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+    }
+
+    public function providerIMCSCH()
+    {
+        return require 'data/Calculation/Engineering/IMCSCH.php';
+    }
+
+    /**
+     * @dataProvider providerIMSEC
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMSEC($expectedResult, ...$args)
+    {
+        $result = Engineering::IMSEC(...$args);
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+    }
+
+    public function providerIMSEC()
+    {
+        return require 'data/Calculation/Engineering/IMSEC.php';
+    }
+
+    /**
+     * @dataProvider providerIMSECH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMSECH($expectedResult, ...$args)
+    {
+        $result = Engineering::IMSECH(...$args);
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+    }
+
+    public function providerIMSECH()
+    {
+        return require 'data/Calculation/Engineering/IMSECH.php';
+    }
+
+    /**
      * @dataProvider providerIMDIV
      *
      * @param mixed $expectedResult
@@ -331,6 +427,38 @@ class EngineeringTest extends TestCase
     public function providerIMSIN()
     {
         return require 'data/Calculation/Engineering/IMSIN.php';
+    }
+
+    /**
+     * @dataProvider providerIMSINH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMSINH($expectedResult, ...$args)
+    {
+        $result = Engineering::IMSINH(...$args);
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+    }
+
+    public function providerIMSINH()
+    {
+        return require 'data/Calculation/Engineering/IMSINH.php';
+    }
+
+    /**
+     * @dataProvider providerIMTAN
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMTAN($expectedResult, ...$args)
+    {
+        $result = Engineering::IMTAN(...$args);
+        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+    }
+
+    public function providerIMTAN()
+    {
+        return require 'data/Calculation/Engineering/IMTAN.php';
     }
 
     /**
