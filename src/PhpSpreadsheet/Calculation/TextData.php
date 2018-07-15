@@ -577,4 +577,22 @@ class TextData
 
         return (float) $value;
     }
+
+    /**
+     * Compares two text strings and returns TRUE if they are exactly the same, FALSE otherwise.
+     * EXACT is case-sensitive but ignores formatting differences.
+     * Use EXACT to test text being entered into a document.
+     *
+     * @param $value1
+     * @param $value2
+     *
+     * @return bool
+     */
+    public static function EXACT($value1, $value2)
+    {
+        $value1 = Functions::flattenSingleValue($value1);
+        $value2 = Functions::flattenSingleValue($value2);
+
+        return (string) $value2 === (string) $value1;
+    }
 }
