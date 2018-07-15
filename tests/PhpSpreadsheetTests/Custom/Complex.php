@@ -177,7 +177,7 @@ class Complex
         }
         if ($this->realPart != 0.0) {
             if (($str) && ($this->imaginaryPart > 0.0)) {
-                $str = '+' . $str
+                $str = '+' . $str;
             }
             $str = $this->realPart . $str;
         }
