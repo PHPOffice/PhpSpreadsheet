@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Cell formats with escaped spaces were causing incorrect date formatting - [#557](https://github.com/PHPOffice/PhpSpreadsheet/issues/557)
 - Could not open CSV file containing HTML fragment - [#564](https://github.com/PHPOffice/PhpSpreadsheet/issues/564)
 - Exclude the vendor folder in migration - [#481](https://github.com/PHPOffice/PhpSpreadsheet/issues/481)
+- Chained operations on cell ranges involving borders operated on last cell only [#428](https://github.com/PHPOffice/PhpSpreadsheet/issues/428)
 
 ## [1.3.1] - 2018-06-12
 
