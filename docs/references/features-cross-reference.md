@@ -751,6 +751,24 @@
         <td></td>
     </tr>
     <tr>
+        <td style="padding-left: 1em;">Drawing hyperlink</td>
+        <td></td>
+        <td style="text-align: center; color: green;">✔</td> 
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="text-align: center; color: green;">✔</td> 
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>$drawing->getHyperlink()->getUrl()</td>
+        <td>$drawing->setHyperlink()->setUrl($url)</td>
+    </tr>
+    <tr>
         <td><strong>Cell Formatting</strong></td>
         <td></td>
         <td></td>

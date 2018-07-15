@@ -329,12 +329,16 @@ class Rels extends WriterPart
             if ($iterator->current() instanceof \PhpOffice\PhpSpreadsheet\Worksheet\Drawing
                 || $iterator->current() instanceof MemoryDrawing) {
                 // Write relationship for image drawing
+                /** @var \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $drawing */
+                $drawing = $iterator->current();
                 $this->writeRelationship(
                     $objWriter,
                     $i,
                     'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image',
-                    '../media/' . str_replace(' ', '', $iterator->current()->getIndexedFilename())
+                    '../media/' . str_replace(' ', '', $drawing->getIndexedFilename())
                 );
+
+                $i = $this->writeDrawingHyperLink($objWriter, $drawing, $i);
             }
 
             $iterator->next();
@@ -431,5 +435,32 @@ class Rels extends WriterPart
         } else {
             throw new WriterException('Invalid parameters passed.');
         }
+    }
+
+    /**
+     * @param $objWriter
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $drawing
+     * @param $i
+     *
+     * @throws WriterException
+     *
+     * @return int
+     */
+    private function writeDrawingHyperLink($objWriter, $drawing, $i)
+    {
+        if ($drawing->getHyperlink() === null) {
+            return $i;
+        }
+
+        ++$i;
+        $this->writeRelationship(
+            $objWriter,
+            $i,
+            'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink',
+            $drawing->getHyperlink()->getUrl(),
+            $drawing->getHyperlink()->getTypeHyperlink()
+        );
+
+        return $i;
     }
 }
