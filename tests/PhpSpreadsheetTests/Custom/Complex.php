@@ -86,6 +86,7 @@ class Complex
             if ($complexParts[1] === '-') {
                 $imaginary = 0 - $imaginary;
             }
+
             return [0, $imaginary, $complexParts[2]];
         }
 
