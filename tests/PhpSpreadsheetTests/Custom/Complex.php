@@ -31,27 +31,29 @@ class Complex
         $`uix';
 
     /**
-     * @var float $realPart The value of of this complex number on the real plane.
+     * @var  float  The value of of this complex number on the real plane.
      */
     protected $realPart = 0.0;
 
     /**
-     * @var float $imaginaryPart The value of of this complex number on the imaginary plane.
+     * @var  float  The value of of this complex number on the imaginary plane.
      */
     protected $imaginaryPart = 0.0;
 
     /**
-     * @var string $suffix The suffix for this complex number (i or j).
+     * @var  string  The suffix for this complex number (i or j).
      */
     protected $suffix;
 
 
     /**
-     * Validates whether the argument is a valid complex number, converting scalar or array values if possible
+     * Validates whether the argument is a valid complex number, converting scalar or array values if possible.
      *
      * @param mixed $complexNumber The value to parse
-     * @return array
+     *
      * @throws Exception If the argument isn't a Complex number or cannot be converted to one
+     *
+     * @return array
      */
     private static function parseComplex($complexNumber)
     {
@@ -107,7 +109,7 @@ class Complex
         return [
             $complexParts[1],
             $complexParts[4],
-            !empty($complexParts[9]) ? $complexParts[9] : 'i'
+            !empty($complexParts[9]) ? $complexParts[9] : 'i',
         ];
     }
 
@@ -117,7 +119,7 @@ class Complex
         if ($imaginaryPart === null) {
             if (is_array($realPart)) {
                 // We have an array of (potentially) real and imaginary parts, and any suffix
-                list ($realPart, $imaginaryPart, $suffix) = array_values($realPart) + [0.0, 0.0, 'i'];
+                list($realPart, $imaginaryPart, $suffix) = array_values($realPart) + [0.0, 0.0, 'i'];
                 if ($suffix === null) {
                     $suffix = 'i';
                 }
@@ -134,7 +136,7 @@ class Complex
     }
 
     /**
-     * Gets the real part of this complex number
+     * Gets the real part of this complex number.
      *
      * @return Float
      */
@@ -144,7 +146,7 @@ class Complex
     }
 
     /**
-     * Gets the imaginary part of this complex number
+     * Gets the imaginary part of this complex number.
      *
      * @return Float
      */
@@ -154,7 +156,7 @@ class Complex
     }
 
     /**
-     * Gets the suffix of this complex number
+     * Gets the suffix of this complex number.
      *
      * @return String
      */
@@ -165,7 +167,7 @@ class Complex
 
     public function format()
     {
-        $str = "";
+        $str = '';
         if ($this->imaginaryPart != 0.0) {
             if (\abs($this->imaginaryPart) != 1.0) {
                 $str .= $this->imaginaryPart . $this->suffix;
@@ -175,12 +177,12 @@ class Complex
         }
         if ($this->realPart != 0.0) {
             if (($str) && ($this->imaginaryPart > 0.0)) {
-                $str = "+" . $str;
+                $str = '+' . $str
             }
             $str = $this->realPart . $str;
         }
         if (!$str) {
-            $str = "0.0";
+            $str = '0.0';
         }
 
         return $str;
