@@ -8,9 +8,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
 class DrawingImageHyperlinkTest extends AbstractFunctional
 {
-    /**
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testDrawingImageHyperlinkTest()
     {
         $baseUrl = 'https://github.com/PHPOffice/PhpSpreadsheet';
