@@ -27,6 +27,8 @@ class ColumnDimension extends Dimension
      */
     private $autoSize = false;
 
+    const MAX_WIDTH = 255;
+
     /**
      * Create a new ColumnDimension.
      *
