@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Support workbook view attributes for Xlsx format - [#523](https://github.com/PHPOffice/PhpSpreadsheet/issues/523)
+- Refactored Complex Engineering Functions to use external complex number library
+- Added calculation engine support for the new complex number functions that were added in MS Excel 2013
+    - IMCOSH()  Returns the hyperbolic cosine of a complex number
+    - IMCOT()   Returns the cotangent of a complex number
+    - IMCSC()   Returns the cosecant of a complex number
+    - IMCSCH()  Returns the hyperbolic cosecant of a complex number
+    - IMSEC()   Returns the secant of a complex number
+    - IMSECH()  Returns the hyperbolic secant of a complex number
+    - IMSINH()  Returns the hyperbolic sine of a complex number
+    - IMTAN()   Returns the tangent of a complex number 
 
 ### Fixed
 
