@@ -752,7 +752,7 @@ class Calculation
         ],
         'EXACT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [TextData::class, 'EXACT'],
             'argumentCount' => '2',
         ],
         'EXP' => [

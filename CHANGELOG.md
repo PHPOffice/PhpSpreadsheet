@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Add excel function EXACT(value1, value2) support - [595](https://github.com/PHPOffice/PhpSpreadsheet/pull/595)
 - Support workbook view attributes for Xlsx format - [#523](https://github.com/PHPOffice/PhpSpreadsheet/issues/523)
+- Read and write hyperlink for drawing image - [#490](https://github.com/PHPOffice/PhpSpreadsheet/pull/490)
 - Refactored Complex Engineering Functions to use external complex number library
 - Added calculation engine support for the new complex number functions that were added in MS Excel 2013
     - IMCOSH()  Returns the hyperbolic cosine of a complex number
@@ -27,6 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Cell formats with escaped spaces were causing incorrect date formatting - [#557](https://github.com/PHPOffice/PhpSpreadsheet/issues/557)
 - Could not open CSV file containing HTML fragment - [#564](https://github.com/PHPOffice/PhpSpreadsheet/issues/564)
 - Exclude the vendor folder in migration - [#481](https://github.com/PHPOffice/PhpSpreadsheet/issues/481)
+- Chained operations on cell ranges involving borders operated on last cell only [#428](https://github.com/PHPOffice/PhpSpreadsheet/issues/428)
 
 ## [1.3.1] - 2018-06-12
 

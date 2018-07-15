@@ -333,6 +333,9 @@ class Style extends Supervisor
                     }
                 }
 
+                // restore initial cell selection range
+                $this->getActiveSheet()->getStyle($pRange);
+
                 return $this;
             }
 
