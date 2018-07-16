@@ -2433,7 +2433,7 @@ class Engineering
                 return false;
             }
 
-            return ($value);
+            return $value;
         }
 
         return false;

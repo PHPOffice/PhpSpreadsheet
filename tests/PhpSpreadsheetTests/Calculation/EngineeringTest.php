@@ -611,6 +611,7 @@ class EngineeringTest extends TestCase
      * @dataProvider providerBITAND
      *
      * @param mixed $expectedResult
+     * @param mixed $args
      */
     public function testBITAND($expectedResult, $args)
     {
@@ -627,6 +628,7 @@ class EngineeringTest extends TestCase
      * @dataProvider providerBITOR
      *
      * @param mixed $expectedResult
+     * @param mixed $args
      */
     public function testBITOR($expectedResult, $args)
     {
@@ -643,6 +645,7 @@ class EngineeringTest extends TestCase
      * @dataProvider providerBITXOR
      *
      * @param mixed $expectedResult
+     * @param mixed $args
      */
     public function testBITXOR($expectedResult, $args)
     {
@@ -659,6 +662,7 @@ class EngineeringTest extends TestCase
      * @dataProvider providerBITLSHIFT
      *
      * @param mixed $expectedResult
+     * @param mixed $args
      */
     public function testBITLSHIFT($expectedResult, $args)
     {
@@ -675,6 +679,7 @@ class EngineeringTest extends TestCase
      * @dataProvider providerBITRSHIFT
      *
      * @param mixed $expectedResult
+     * @param mixed $args
      */
     public function testBITRSHIFT($expectedResult, $args)
     {
