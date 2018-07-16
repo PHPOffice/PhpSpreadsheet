@@ -2425,15 +2425,17 @@ class Engineering
 
     protected static function validateBitwiseArgument($value)
     {
-        if (is_integer($value)) {
+        if (is_int($value)) {
             return $value;
-        } elseif (is_numeric($value) && $value == (integer) ($value)) {
-            $value = (integer) ($value);
+        } elseif (is_numeric($value) && $value == (int) ($value)) {
+            $value = (int) ($value);
             if ($value > pow(2, 48) - 1) {
                 return false;
             }
+
             return ($value);
         }
+
         return false;
     }
 
@@ -2447,10 +2449,10 @@ class Engineering
      *
      * @category Engineering Functions
      *
-     * @param integer $number1
-     * @param integer $number2
+     * @param int $number1
+     * @param int $number2
      *
-     * @return integer
+     * @return int
      */
     public static function BITAND($number1, $number2)
     {
@@ -2477,10 +2479,10 @@ class Engineering
      *
      * @category Engineering Functions
      *
-     * @param integer $number1
-     * @param integer $number2
+     * @param int $number1
+     * @param int $number2
      *
-     * @return integer
+     * @return int
      */
     public static function BITOR($number1, $number2)
     {
@@ -2507,10 +2509,10 @@ class Engineering
      *
      * @category Engineering Functions
      *
-     * @param integer $number1
-     * @param integer $number2
+     * @param int $number1
+     * @param int $number2
      *
-     * @return integer
+     * @return int
      */
     public static function BITXOR($number1, $number2)
     {
@@ -2537,10 +2539,10 @@ class Engineering
      *
      * @category Engineering Functions
      *
-     * @param integer $number
-     * @param integer $shiftAmount
+     * @param int $number
+     * @param int $shiftAmount
      *
-     * @return integer
+     * @return int
      */
     public static function BITLSHIFT($number, $shiftAmount)
     {
@@ -2554,6 +2556,10 @@ class Engineering
         }
 
         $result = $number << $shiftAmount;
+        if ($result > pow(2, 48) - 1) {
+            return Functions::NAN();
+        }
+
         return $result;
     }
 
@@ -2567,10 +2573,10 @@ class Engineering
      *
      * @category Engineering Functions
      *
-     * @param integer $number
-     * @param integer $shiftAmount
+     * @param int $number
+     * @param int $shiftAmount
      *
-     * @return integer
+     * @return int
      */
     public static function BITRSHIFT($number, $shiftAmount)
     {
