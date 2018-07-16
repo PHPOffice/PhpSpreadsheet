@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add excel function EXACT(value1, value2) support - [595](https://github.com/PHPOffice/PhpSpreadsheet/pull/595)
 - Support workbook view attributes for Xlsx format - [#523](https://github.com/PHPOffice/PhpSpreadsheet/issues/523)
 - Read and write hyperlink for drawing image - [#490](https://github.com/PHPOffice/PhpSpreadsheet/pull/490)
+- Added calculation engine support for the new bitwise functions that were added in MS Excel 2013
+  - BITAND()     Returns a Bitwise 'And' of two numbers
+  - BITOR()      Returns a Bitwise 'Or' of two number
+  - BITXOR()     Returns a Bitwise 'Exclusive Or' of two numbers
+  - BITLSHIFT()  Returns a number shifted left by a specified number of bits
+  - BITRSHIFT()  Returns a number shifted right by a specified number of bits
 
 ### Fixed
 

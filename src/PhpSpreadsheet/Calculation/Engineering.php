@@ -2423,6 +2423,169 @@ class Engineering
         return self::$twoSqrtPi * $sum;
     }
 
+    protected static function validateBitwiseArgument($value)
+    {
+        if (is_integer($value)) {
+            return $value;
+        } elseif (is_numeric($value) && $value == (integer) ($value)) {
+            $value = (integer) ($value);
+            if ($value > pow(2, 48) - 1) {
+                return false;
+            }
+            return ($value);
+        }
+        return false;
+    }
+
+    /**
+     * BITAND.
+     *
+     * Returns the bitwise AND of two integer values
+     *
+     * Excel Function:
+     *        BITAND(number1, number2)
+     *
+     * @category Engineering Functions
+     *
+     * @param integer $number1
+     * @param integer $number2
+     *
+     * @return integer
+     */
+    public static function BITAND($number1, $number2)
+    {
+        $number1 = Functions::flattenSingleValue($number1);
+        $number2 = Functions::flattenSingleValue($number2);
+
+        $number1 = self::validateBitwiseArgument($number1);
+        $number2 = self::validateBitwiseArgument($number2);
+
+        if ($number1 === false || $number2 === false) {
+            return Functions::NAN();
+        }
+
+        return $number1 & $number2;
+    }
+
+    /**
+     * BITOR.
+     *
+     * Returns the bitwise OR of two integer values
+     *
+     * Excel Function:
+     *        BITOR(number1, number2)
+     *
+     * @category Engineering Functions
+     *
+     * @param integer $number1
+     * @param integer $number2
+     *
+     * @return integer
+     */
+    public static function BITOR($number1, $number2)
+    {
+        $number1 = Functions::flattenSingleValue($number1);
+        $number2 = Functions::flattenSingleValue($number2);
+
+        $number1 = self::validateBitwiseArgument($number1);
+        $number2 = self::validateBitwiseArgument($number2);
+
+        if ($number1 === false || $number2 === false) {
+            return Functions::NAN();
+        }
+
+        return $number1 | $number2;
+    }
+
+    /**
+     * BITXOR.
+     *
+     * Returns the bitwise XOR of two integer values
+     *
+     * Excel Function:
+     *        BITXOR(number1, number2)
+     *
+     * @category Engineering Functions
+     *
+     * @param integer $number1
+     * @param integer $number2
+     *
+     * @return integer
+     */
+    public static function BITXOR($number1, $number2)
+    {
+        $number1 = Functions::flattenSingleValue($number1);
+        $number2 = Functions::flattenSingleValue($number2);
+
+        $number1 = self::validateBitwiseArgument($number1);
+        $number2 = self::validateBitwiseArgument($number2);
+
+        if ($number1 === false || $number2 === false) {
+            return Functions::NAN();
+        }
+
+        return $number1 ^ $number2;
+    }
+
+    /**
+     * BITLSHIFT.
+     *
+     * Returns the number value shifted left by shift_amount bits
+     *
+     * Excel Function:
+     *        BITLSHIFT(number, shift_amount)
+     *
+     * @category Engineering Functions
+     *
+     * @param integer $number
+     * @param integer $shiftAmount
+     *
+     * @return integer
+     */
+    public static function BITLSHIFT($number, $shiftAmount)
+    {
+        $number = Functions::flattenSingleValue($number);
+        $shiftAmount = Functions::flattenSingleValue($shiftAmount);
+
+        $number = (int) self::validateBitwiseArgument($number);
+
+        if ($number === false || $number < 0) {
+            return Functions::NAN();
+        }
+
+        $result = $number << $shiftAmount;
+        return $result;
+    }
+
+    /**
+     * BITRSHIFT.
+     *
+     * Returns the number value shifted right by shift_amount bits
+     *
+     * Excel Function:
+     *        BITRSHIFT(number, shift_amount)
+     *
+     * @category Engineering Functions
+     *
+     * @param integer $number
+     * @param integer $shiftAmount
+     *
+     * @return integer
+     */
+    public static function BITRSHIFT($number, $shiftAmount)
+    {
+        $number = Functions::flattenSingleValue($number);
+        $shiftAmount = Functions::flattenSingleValue($shiftAmount);
+
+        $number = (int) self::validateBitwiseArgument($number);
+
+        if ($number === false || $number < 0) {
+            return Functions::NAN();
+        }
+
+        return $number >> $shiftAmount;
+    }
+
     /**
      * ERF.
      *
