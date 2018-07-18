@@ -14,12 +14,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Read and write hyperlink for drawing image - [#490](https://github.com/PHPOffice/PhpSpreadsheet/pull/490)
 - Added calculation engine support for the new functions that were added in MS Excel 2013 and MS Excel 2016
   - Text Functions
-    - CONCAT()     Synonym for CONCATENATE()
-    - UNICHAR()    Synonym for CHAR() in PHPSpreadsheet, which has always used UTF-8 internally
-    - UNIORD()     Synonym for ORD() in PHPSpreadsheet, which has always used UTF-8 internally
-    - TEXTJOIN()   Joins together two or more text strings, separated by a delimiter
+    - CONCAT()      Synonym for CONCATENATE()
+    - UNICHAR()     Synonym for CHAR() in PHPSpreadsheet, which has always used UTF-8 internally
+    - UNIORD()      Synonym for ORD() in PHPSpreadsheet, which has always used UTF-8 internally
+    - TEXTJOIN()    Joins together two or more text strings, separated by a delimiter
   - Logical Functions
-    - XOR()        Returns a logical Exclusive Or of all arguments
+    - XOR()         Returns a logical Exclusive Or of all arguments
+  - Date/Time Functions
+    - ISOWEEKNUM()  Returns the ISO 8601 week number of the year for a given date
 
 ### Fixed
 

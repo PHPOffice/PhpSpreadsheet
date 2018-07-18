@@ -1287,6 +1287,37 @@ class DateTime
     }
 
     /**
+     * ISOWEEKNUM.
+     *
+     * Returns the ISO 8601 week number of the year for a specified date.
+     *
+     * Excel Function:
+     *        ISOWEEKNUM(dateValue)
+     *
+     * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     *                                    PHP DateTime object, or a standard date string
+     *
+     * @return int Week Number
+     */
+    public static function ISOWEEKNUM($dateValue = 1)
+    {
+        $dateValue = Functions::flattenSingleValue($dateValue);
+
+        if ($dateValue === null) {
+            $dateValue = 1;
+        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
+            return Functions::VALUE();
+        } elseif ($dateValue < 0.0) {
+            return Functions::NAN();
+        }
+
+        // Execute function
+        $PHPDateObject = Date::excelToDateTimeObject($dateValue);
+
+        return (int) $PHPDateObject->format('W');
+    }
+
+    /**
      * MONTHOFYEAR.
      *
      * Returns the month of a date represented by a serial number.

@@ -1119,6 +1119,11 @@ class Calculation
             'functionCall' => [Functions::class, 'isOdd'],
             'argumentCount' => '1',
         ],
+        'ISOWEEKNUM' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [DateTime::class, 'ISOWEEKNUM'],
+            'argumentCount' => '1',
+        ],
         'ISPMT' => [
             'category' => Category::CATEGORY_FINANCIAL,
             'functionCall' => [Financial::class, 'ISPMT'],
