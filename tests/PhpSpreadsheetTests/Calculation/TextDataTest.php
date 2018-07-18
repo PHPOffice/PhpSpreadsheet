@@ -388,6 +388,7 @@ class TextDataTest extends TestCase
      * @dataProvider providerTEXTJOIN
      *
      * @param mixed $expectedResult
+     * @param array $args
      */
     public function testTEXTJOIN($expectedResult, $args)
     {
@@ -399,5 +400,4 @@ class TextDataTest extends TestCase
     {
         return require 'data/Calculation/TextData/TEXTJOIN.php';
     }
-
 }

@@ -23,6 +23,6 @@ return [
     ],
     [
         'C:\\Users\\Mark\\Documents\\notes.doc',
-        ['\\', true, 'C:', 'Users', 'Mark', 'Documents', 'notes.doc']
-    ]
+        ['\\', true, 'C:', 'Users', 'Mark', 'Documents', 'notes.doc'],
+    ],
 ];

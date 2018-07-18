@@ -599,6 +599,10 @@ class TextData
     /**
      * TEXTJOIN.
      *
+     * @param mixed $delimiter
+     * @param mixed $ignoreEmpty
+     * @param mixed $args
+     *
      * @return string
      */
     public static function TEXTJOIN($delimiter, $ignoreEmpty, ...$args)
