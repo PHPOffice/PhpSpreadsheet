@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
@@ -283,8 +284,8 @@ class FunctionsTest extends TestCase
             $remoteCell = $this->getMockBuilder(Cell::class)
                 ->disableOriginalConstructor()
                 ->getMock();
-            $remoteCell->method('getValue')
-                ->will($this->returnValue($value));
+            $remoteCell->method('getDataType')
+                ->will($this->returnValue(substr($value, 0, 1) == '=' ? 'f' : 's'));
 
             $sheet = $this->getMockBuilder(Worksheet::class)
                 ->disableOriginalConstructor()

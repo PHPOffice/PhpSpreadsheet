@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 class Functions
 {
@@ -659,6 +660,6 @@ class Functions
             return self::REF();
         }
 
-        return substr($pCell->getWorksheet()->getCell($value)->getValue(), 0, 1) === '=';
+        return $pCell->getWorksheet()->getCell($value)->getDataType() === DataType::TYPE_FORMULA;
     }
 }
