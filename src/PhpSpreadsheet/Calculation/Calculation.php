@@ -425,6 +425,11 @@ class Calculation
             'functionCall' => [Engineering::class, 'COMPLEX'],
             'argumentCount' => '2,3',
         ],
+        'CONCAT' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [TextData::class, 'CONCATENATE'],
+            'argumentCount' => '1+',
+        ],
         'CONCATENATE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData::class, 'CONCATENATE'],
@@ -1838,6 +1843,11 @@ class Calculation
             'functionCall' => [TextData::class, 'TEXTFORMAT'],
             'argumentCount' => '2',
         ],
+        'TEXTJOIN' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [TextData::class, 'TEXTJOIN'],
+            'argumentCount' => '3+',
+        ],
         'TIME' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTime::class, 'TIME'],
@@ -1896,6 +1906,16 @@ class Calculation
         'TYPE' => [
             'category' => Category::CATEGORY_INFORMATION,
             'functionCall' => [Functions::class, 'TYPE'],
+            'argumentCount' => '1',
+        ],
+        'UNICHAR' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [TextData::class, 'CHARACTER'],
+            'argumentCount' => '1',
+        ],
+        'UNICODE' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [TextData::class, 'ASCIICODE'],
             'argumentCount' => '1',
         ],
         'UPPER' => [
@@ -1972,6 +1992,11 @@ class Calculation
             'category' => Category::CATEGORY_FINANCIAL,
             'functionCall' => [Financial::class, 'XNPV'],
             'argumentCount' => '3',
+        ],
+        'XOR' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Logical::class, 'logicalXor'],
+            'argumentCount' => '1+',
         ],
         'YEAR' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,

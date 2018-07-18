@@ -595,4 +595,28 @@ class TextData
 
         return (string) $value2 === (string) $value1;
     }
+
+    /**
+     * TEXTJOIN.
+     *
+     * @return string
+     */
+    public static function TEXTJOIN($delimiter, $ignoreEmpty, ...$args)
+    {
+        // Loop through arguments
+        $aArgs = Functions::flattenArray($args);
+        foreach ($aArgs as $key => &$arg) {
+            if ($ignoreEmpty && trim($arg) == '') {
+                unset($aArgs[$key]);
+            } elseif (is_bool($arg)) {
+                if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
+                    $arg = (int) $arg;
+                } else {
+                    $arg = ($arg) ? Calculation::getTRUE() : Calculation::getFALSE();
+                }
+            }
+        }
+
+        return implode($delimiter, $aArgs);
+    }
 }

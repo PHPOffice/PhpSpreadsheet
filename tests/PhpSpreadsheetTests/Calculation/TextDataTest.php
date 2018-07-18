@@ -383,4 +383,21 @@ class TextDataTest extends TestCase
     {
         return require 'data/Calculation/TextData/EXACT.php';
     }
+
+    /**
+     * @dataProvider providerTEXTJOIN
+     *
+     * @param mixed $expectedResult
+     */
+    public function testTEXTJOIN($expectedResult, $args)
+    {
+        $result = TextData::TEXTJOIN(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerTEXTJOIN()
+    {
+        return require 'data/Calculation/TextData/TEXTJOIN.php';
+    }
+
 }
