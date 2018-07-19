@@ -678,4 +678,132 @@ class MathTrigTest extends TestCase
     {
         return require 'data/Calculation/MathTrig/SUBTOTALNESTED.php';
     }
+
+    /**
+     * @dataProvider providerSEC
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSEC($expectedResult, $angle)
+    {
+        $result = MathTrig::SEC($angle);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerSEC()
+    {
+        return require 'data/Calculation/MathTrig/SEC.php';
+    }
+
+    /**
+     * @dataProvider providerSECH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSECH($expectedResult, $angle)
+    {
+        $result = MathTrig::SECH($angle);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerSECH()
+    {
+        return require 'data/Calculation/MathTrig/SECH.php';
+    }
+
+    /**
+     * @dataProvider providerCSC
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCSC($expectedResult, $angle)
+    {
+        $result = MathTrig::CSC($angle);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerCSC()
+    {
+        return require 'data/Calculation/MathTrig/CSC.php';
+    }
+
+    /**
+     * @dataProvider providerCSCH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCSCH($expectedResult, $angle)
+    {
+        $result = MathTrig::CSCH($angle);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerCSCH()
+    {
+        return require 'data/Calculation/MathTrig/CSCH.php';
+    }
+
+    /**
+     * @dataProvider providerCOT
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCOT($expectedResult, $angle)
+    {
+        $result = MathTrig::COT($angle);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerCOT()
+    {
+        return require 'data/Calculation/MathTrig/COT.php';
+    }
+
+    /**
+     * @dataProvider providerCOTH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCOTH($expectedResult, $angle)
+    {
+        $result = MathTrig::COTH($angle);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerCOTH()
+    {
+        return require 'data/Calculation/MathTrig/COTH.php';
+    }
+
+    /**
+     * @dataProvider providerACOT
+     *
+     * @param mixed $expectedResult
+     */
+    public function testACOT($expectedResult, $angle)
+    {
+        $result = MathTrig::ACOT($angle);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerACOT()
+    {
+        return require 'data/Calculation/MathTrig/ACOT.php';
+    }
+
+    /**
+     * @dataProvider providerACOTH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testACOTH($expectedResult, $angle)
+    {
+        $result = MathTrig::ACOTH($angle);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerACOTH()
+    {
+        return require 'data/Calculation/MathTrig/ACOTH.php';
+    }
 }

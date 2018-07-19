@@ -25,6 +25,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     - ISOWEEKNUM()   Returns the ISO 8601 week number of the year for a given date
   - Lookup and Reference Functions
     - FORMULATEXT()  Returns a formula as a string
+  - Math and Trig Functions
+    - SEC()          Returns the secant of an angle
+    - SECH()         Returns the hyperbolic secant of an angle
+    - CSC()          Returns the cosecant of an angle
+    - CSCH()         Returns the hyperbolic cosecant of an angle
+    - COT()          Returns the cotangent of an angle
+    - COTH()         Returns the hyperbolic cotangent of an angle
+    - ACOT()         Returns the cotangent of an angle
+    - ACOTH()        Returns the hyperbolic cotangent of an angle
 
 ### Fixed
 
