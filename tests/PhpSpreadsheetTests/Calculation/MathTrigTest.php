@@ -683,6 +683,7 @@ class MathTrigTest extends TestCase
      * @dataProvider providerSEC
      *
      * @param mixed $expectedResult
+     * @param mixed $angle
      */
     public function testSEC($expectedResult, $angle)
     {
@@ -699,6 +700,7 @@ class MathTrigTest extends TestCase
      * @dataProvider providerSECH
      *
      * @param mixed $expectedResult
+     * @param mixed $angle
      */
     public function testSECH($expectedResult, $angle)
     {
@@ -715,6 +717,7 @@ class MathTrigTest extends TestCase
      * @dataProvider providerCSC
      *
      * @param mixed $expectedResult
+     * @param mixed $angle
      */
     public function testCSC($expectedResult, $angle)
     {
@@ -731,6 +734,7 @@ class MathTrigTest extends TestCase
      * @dataProvider providerCSCH
      *
      * @param mixed $expectedResult
+     * @param mixed $angle
      */
     public function testCSCH($expectedResult, $angle)
     {
@@ -747,6 +751,7 @@ class MathTrigTest extends TestCase
      * @dataProvider providerCOT
      *
      * @param mixed $expectedResult
+     * @param mixed $angle
      */
     public function testCOT($expectedResult, $angle)
     {
@@ -763,6 +768,7 @@ class MathTrigTest extends TestCase
      * @dataProvider providerCOTH
      *
      * @param mixed $expectedResult
+     * @param mixed $angle
      */
     public function testCOTH($expectedResult, $angle)
     {
@@ -779,10 +785,11 @@ class MathTrigTest extends TestCase
      * @dataProvider providerACOT
      *
      * @param mixed $expectedResult
+     * @param mixed $number
      */
-    public function testACOT($expectedResult, $angle)
+    public function testACOT($expectedResult, $number)
     {
-        $result = MathTrig::ACOT($angle);
+        $result = MathTrig::ACOT($number);
         self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -795,10 +802,11 @@ class MathTrigTest extends TestCase
      * @dataProvider providerACOTH
      *
      * @param mixed $expectedResult
+     * @param mixed $number
      */
-    public function testACOTH($expectedResult, $angle)
+    public function testACOTH($expectedResult, $number)
     {
-        $result = MathTrig::ACOTH($angle);
+        $result = MathTrig::ACOTH($number);
         self::assertEquals($expectedResult, $result, null, 1E-12);
     }
 
