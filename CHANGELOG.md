@@ -15,14 +15,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fix ISFORMULA() function to work with a cell reference to another worksheet
 - Added calculation engine support for the new functions that were added in MS Excel 2013 and MS Excel 2016
   - Text Functions
-    - CONCAT()      Synonym for CONCATENATE()
-    - UNICHAR()     Synonym for CHAR() in PHPSpreadsheet, which has always used UTF-8 internally
-    - UNIORD()      Synonym for ORD() in PHPSpreadsheet, which has always used UTF-8 internally
-    - TEXTJOIN()    Joins together two or more text strings, separated by a delimiter
+    - CONCAT()       Synonym for CONCATENATE()
+    - UNICHAR()      Synonym for CHAR() in PHPSpreadsheet, which has always used UTF-8 internally
+    - UNIORD()       Synonym for ORD() in PHPSpreadsheet, which has always used UTF-8 internally
+    - TEXTJOIN()     Joins together two or more text strings, separated by a delimiter
   - Logical Functions
-    - XOR()         Returns a logical Exclusive Or of all arguments
+    - XOR()          Returns a logical Exclusive Or of all arguments
   - Date/Time Functions
-    - ISOWEEKNUM()  Returns the ISO 8601 week number of the year for a given date
+    - ISOWEEKNUM()   Returns the ISO 8601 week number of the year for a given date
+  - Lookup and Reference Functions
+    - FORMULATEXT()  Returns a formula as a string
 
 ### Fixed
 

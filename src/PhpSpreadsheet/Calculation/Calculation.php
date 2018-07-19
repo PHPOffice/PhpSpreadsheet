@@ -830,6 +830,13 @@ class Calculation
             'functionCall' => [Statistical::class, 'FORECAST'],
             'argumentCount' => '3',
         ],
+        'FORMULATEXT' => [
+            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
+            'functionCall' => [LookupRef::class, 'FORMULATEXT'],
+            'argumentCount' => '1',
+            'passCellReference' => true,
+            'passByReference' => [true],
+        ],
         'FREQUENCY' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Functions::class, 'DUMMY'],
