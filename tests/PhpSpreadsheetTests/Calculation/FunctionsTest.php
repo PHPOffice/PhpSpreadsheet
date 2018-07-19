@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
@@ -276,7 +275,8 @@ class FunctionsTest extends TestCase
      * @dataProvider providerIsFormula
      *
      * @param mixed $expectedResult
-     * @param mixed $value
+     * @param mixed $reference       Reference to the cell we wish to test
+     * @param mixed $value           Value of the cell we wish to test
      */
     public function testIsFormula($expectedResult, $reference, $value = 'undefined')
     {

@@ -2,11 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -119,7 +119,8 @@ class LookupRefTest extends TestCase
      * @dataProvider providerFormulaText
      *
      * @param mixed $expectedResult
-     * @param mixed $value
+     * @param mixed $reference       Reference to the cell we wish to test
+     * @param mixed $value           Value of the cell we wish to test
      */
     public function testFormulaText($expectedResult, $reference, $value = 'undefined')
     {
