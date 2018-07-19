@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
@@ -277,21 +278,35 @@ class FunctionsTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIsFormula($expectedResult, $value = 'undefined')
+    public function testIsFormula($expectedResult, $reference, $value = 'undefined')
     {
         $ourCell = null;
         if ($value !== 'undefined') {
             $remoteCell = $this->getMockBuilder(Cell::class)
                 ->disableOriginalConstructor()
                 ->getMock();
-            $remoteCell->method('getDataType')
-                ->will($this->returnValue(substr($value, 0, 1) == '=' ? 'f' : 's'));
+            $remoteCell->method('isFormula')
+                ->will($this->returnValue(substr($value, 0, 1) == '='));
+
+            $remoteSheet = $this->getMockBuilder(Worksheet::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+            $remoteSheet->method('getCell')
+                ->will($this->returnValue($remoteCell));
+
+            $workbook = $this->getMockBuilder(Spreadsheet::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+            $workbook->method('getSheetByName')
+                ->will($this->returnValue($remoteSheet));
 
             $sheet = $this->getMockBuilder(Worksheet::class)
                 ->disableOriginalConstructor()
                 ->getMock();
             $sheet->method('getCell')
                 ->will($this->returnValue($remoteCell));
+            $sheet->method('getParent')
+                ->will($this->returnValue($workbook));
 
             $ourCell = $this->getMockBuilder(Cell::class)
                 ->disableOriginalConstructor()
@@ -300,7 +315,7 @@ class FunctionsTest extends TestCase
                 ->will($this->returnValue($sheet));
         }
 
-        $result = Functions::isFormula($value, $ourCell);
+        $result = Functions::isFormula($reference, $ourCell);
         self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 

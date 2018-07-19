@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add excel function EXACT(value1, value2) support - [595](https://github.com/PHPOffice/PhpSpreadsheet/pull/595)
 - Support workbook view attributes for Xlsx format - [#523](https://github.com/PHPOffice/PhpSpreadsheet/issues/523)
 - Read and write hyperlink for drawing image - [#490](https://github.com/PHPOffice/PhpSpreadsheet/pull/490)
+- Fix ISFORMULA() function to work with a cell reference to another worksheet
 - Added calculation engine support for the new functions that were added in MS Excel 2013 and MS Excel 2016
   - Text Functions
     - CONCAT()      Synonym for CONCATENATE()
