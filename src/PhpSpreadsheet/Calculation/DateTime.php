@@ -61,7 +61,7 @@ class DateTime
      *
      * @param string $dateValue
      *
-     * @return mixed Excel date/time serial value, or string if error
+     * @return int|string Excel date/time serial value, or string if error
      */
     public static function getDateValue($dateValue)
     {
@@ -88,7 +88,7 @@ class DateTime
      *
      * @param string $timeValue
      *
-     * @return mixed Excel date/time serial value, or string if error
+     * @return int|string Excel date/time serial value, or string if error
      */
     private static function getTimeValue($timeValue)
     {
@@ -650,7 +650,7 @@ class DateTime
      *                                    or a standard date string
      * @param string $unit
      *
-     * @return int Interval between the dates
+     * @return int|string Interval between the dates
      */
     public static function DATEDIF($startDate = 0, $endDate = 0, $unit = 'D')
     {
@@ -792,7 +792,7 @@ class DateTime
      *                                        occur on the 31st of a month become equal to the 30th of the
      *                                        same month.
      *
-     * @return int Number of days between start date and end date
+     * @return int|string Number of days between start date and end date
      */
     public static function DAYS360($startDate = 0, $endDate = 0, $method = false)
     {
@@ -942,7 +942,7 @@ class DateTime
      * @param mixed $endDate Excel date serial value (float), PHP date timestamp (integer),
      *                                            PHP DateTime object, or a standard date string
      *
-     * @return int Interval between the dates
+     * @return int|string Interval between the dates
      */
     public static function NETWORKDAYS($startDate, $endDate, ...$dateArgs)
     {
@@ -1127,7 +1127,7 @@ class DateTime
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int Day of the month
+     * @return int|string Day of the month
      */
     public static function DAYOFMONTH($dateValue = 1)
     {
@@ -1169,7 +1169,7 @@ class DateTime
      *                                        2                Numbers 1 (Monday) through 7 (Sunday).
      *                                        3                Numbers 0 (Monday) through 6 (Sunday).
      *
-     * @return int Day of the week value
+     * @return int|string Day of the week value
      */
     public static function WEEKDAY($dateValue = 1, $style = 1)
     {
@@ -1248,7 +1248,7 @@ class DateTime
      *                                        1 or omitted    Week begins on Sunday.
      *                                        2                Week begins on Monday.
      *
-     * @return int Week Number
+     * @return int|string Week Number
      */
     public static function WEEKNUM($dateValue = 1, $method = 1)
     {
@@ -1297,7 +1297,7 @@ class DateTime
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int Week Number
+     * @return int|string Week Number
      */
     public static function ISOWEEKNUM($dateValue = 1)
     {
@@ -1329,7 +1329,7 @@ class DateTime
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int Month of the year
+     * @return int|string Month of the year
      */
     public static function MONTHOFYEAR($dateValue = 1)
     {
@@ -1362,7 +1362,7 @@ class DateTime
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int Year
+     * @return int|string Year
      */
     public static function YEAR($dateValue = 1)
     {
@@ -1394,7 +1394,7 @@ class DateTime
      * @param mixed $timeValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard time string
      *
-     * @return int Hour
+     * @return int|string Hour
      */
     public static function HOUROFDAY($timeValue = 0)
     {
@@ -1435,7 +1435,7 @@ class DateTime
      * @param mixed $timeValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard time string
      *
-     * @return int Minute
+     * @return int|string Minute
      */
     public static function MINUTE($timeValue = 0)
     {
@@ -1476,7 +1476,7 @@ class DateTime
      * @param mixed $timeValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard time string
      *
-     * @return int Second
+     * @return int|string Second
      */
     public static function SECOND($timeValue = 0)
     {

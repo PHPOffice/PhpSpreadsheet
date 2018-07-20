@@ -160,9 +160,9 @@ class DateTimeTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testISOWEEKNUM($expectedResult, ...$args)
+    public function testISOWEEKNUM($expectedResult, $dateValue)
     {
-        $result = DateTime::ISOWEEKNUM(...$args);
+        $result = DateTime::ISOWEEKNUM($dateValue);
         self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
