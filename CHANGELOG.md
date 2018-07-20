@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add excel function EXACT(value1, value2) support - [595](https://github.com/PHPOffice/PhpSpreadsheet/pull/595)
 - Support workbook view attributes for Xlsx format - [#523](https://github.com/PHPOffice/PhpSpreadsheet/issues/523)
 - Read and write hyperlink for drawing image - [#490](https://github.com/PHPOffice/PhpSpreadsheet/pull/490)
+- Add php unit test for xls file
 
 ### Fixed
 
@@ -20,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Could not open CSV file containing HTML fragment - [#564](https://github.com/PHPOffice/PhpSpreadsheet/issues/564)
 - Exclude the vendor folder in migration - [#481](https://github.com/PHPOffice/PhpSpreadsheet/issues/481)
 - Chained operations on cell ranges involving borders operated on last cell only [#428](https://github.com/PHPOffice/PhpSpreadsheet/issues/428)
+- Xls reader has incorrect data for last column with relative/absolute flags on tAreaN https://github.com/PHPOffice/PhpSpreadsheet/pull/607
 
 ## [1.3.1] - 2018-06-12
 
