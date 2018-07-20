@@ -13,6 +13,49 @@ class FunctionsTest extends TestCase
     public function setUp()
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
+    }
+
+    public function tearDown()
+    {
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
+    }
+
+    public function testCompatibilityMode()
+    {
+        $result = Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
+        // Test for a true response for success
+        $this->assertTrue($result);
+        // Test that mode has been changed
+        $this->assertEquals(Functions::COMPATIBILITY_GNUMERIC, Functions::getCompatibilityMode());
+    }
+
+    public function testInvalidCompatibilityMode()
+    {
+        $result = Functions::setCompatibilityMode('INVALIDMODE');
+        // Test for a false response for failure
+        $this->assertFalse($result);
+        // Test that mode has not been changed
+        $this->assertEquals(Functions::COMPATIBILITY_EXCEL, Functions::getCompatibilityMode());
+    }
+
+    public function testReturnDateType()
+    {
+        $result = Functions::setReturnDateType(Functions::RETURNDATE_PHP_OBJECT);
+        // Test for a true response for success
+        $this->assertTrue($result);
+        // Test that mode has been changed
+        $this->assertEquals(Functions::RETURNDATE_PHP_OBJECT, Functions::getReturnDateType());
+    }
+
+    public function testInvalidReturnDateType()
+    {
+        $result = Functions::setReturnDateType('INVALIDTYPE');
+        // Test for a false response for failure
+        $this->assertFalse($result);
+        // Test that mode has not been changed
+        $this->assertEquals(Functions::RETURNDATE_EXCEL, Functions::getReturnDateType());
     }
 
     public function testDUMMY()

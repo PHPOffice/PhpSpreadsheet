@@ -33,4 +33,20 @@ return [
         true,
         1 > 0, 2 > 0, 3 > 0, 0 > 1,
     ],
+    [
+        false,
+        'TRUE',
+        1,
+        0.5,
+    ],
+    [
+        true,
+        'FALSE',
+        1.5,
+        0,
+    ],
+    [
+        '#VALUE!',
+        'HELLO WORLD',
+    ],
 ];

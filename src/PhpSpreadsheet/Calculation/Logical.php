@@ -73,7 +73,7 @@ class Logical
             if (is_bool($arg)) {
                 $returnValue = $returnValue && $arg;
             } elseif ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue = $returnValue && ($arg != 0);
+                $returnValue = $returnValue && ((int) $arg != 0);
             } elseif (is_string($arg)) {
                 $arg = strtoupper($arg);
                 if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
@@ -130,7 +130,7 @@ class Logical
             if (is_bool($arg)) {
                 $returnValue = $returnValue || $arg;
             } elseif ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue = $returnValue || ($arg != 0);
+                $returnValue = $returnValue || ((int) $arg != 0);
             } elseif (is_string($arg)) {
                 $arg = strtoupper($arg);
                 if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
@@ -188,7 +188,7 @@ class Logical
             if (is_bool($arg)) {
                 $returnValue += $arg;
             } elseif ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue += ($arg != 0);
+                $returnValue += ((int) $arg != 0);
             } elseif (is_string($arg)) {
                 $arg = strtoupper($arg);
                 if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
