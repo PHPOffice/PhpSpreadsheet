@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Exclude the vendor folder in migration - [#481](https://github.com/PHPOffice/PhpSpreadsheet/issues/481)
 - Chained operations on cell ranges involving borders operated on last cell only [#428](https://github.com/PHPOffice/PhpSpreadsheet/issues/428)
 - Xls reader has incorrect data for last column with relative/absolute flags on tAreaN https://github.com/PHPOffice/PhpSpreadsheet/pull/607
+- Update dompdf to improve fixed bug [#908][https://github.com/dompdf/dompdf/issues/902] from dompdf
 
 ## [1.3.1] - 2018-06-12
 
