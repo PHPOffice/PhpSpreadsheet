@@ -38,6 +38,32 @@ class Logical
         return false;
     }
 
+    private static function countTrueValues(array $args)
+    {
+        $returnValue = 0;
+
+        foreach ($args as $arg) {
+            // Is it a boolean value?
+            if (is_bool($arg)) {
+                $returnValue += $arg;
+            } elseif ((is_numeric($arg)) && (!is_string($arg))) {
+                $returnValue += ((int) $arg != 0);
+            } elseif (is_string($arg)) {
+                $arg = strtoupper($arg);
+                if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
+                    $arg = true;
+                } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
+                    $arg = false;
+                } else {
+                    return Functions::VALUE();
+                }
+                $returnValue += ($arg != 0);
+            }
+        }
+
+        return $returnValue;
+    }
+
     /**
      * LOGICAL_AND.
      *
@@ -62,37 +88,23 @@ class Logical
      */
     public static function logicalAnd(...$args)
     {
-        // Return value
-        $returnValue = true;
+        $args = Functions::flattenArray($args);
 
-        // Loop through the arguments
-        $aArgs = Functions::flattenArray($args);
-        $argCount = -1;
-        foreach ($aArgs as $argCount => $arg) {
-            // Is it a boolean value?
-            if (is_bool($arg)) {
-                $returnValue = $returnValue && $arg;
-            } elseif ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue = $returnValue && ((int) $arg != 0);
-            } elseif (is_string($arg)) {
-                $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
-                    $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
-                    $arg = false;
-                } else {
-                    return Functions::VALUE();
-                }
-                $returnValue = $returnValue && ($arg != 0);
-            }
-        }
-
-        // Return
-        if ($argCount < 0) {
+        if (count($args) == 0) {
             return Functions::VALUE();
         }
 
-        return $returnValue;
+        $args = array_filter($args, function ($value) {
+            return $value !== null || (is_string($value) && trim($value) == '');
+        });
+        $argCount = count($args);
+
+        $returnValue = self::countTrueValues($args);
+        if (is_string($returnValue)) {
+            return $returnValue;
+        }
+
+        return ($returnValue > 0) && ($returnValue == $argCount);
     }
 
     /**
@@ -119,37 +131,22 @@ class Logical
      */
     public static function logicalOr(...$args)
     {
-        // Return value
-        $returnValue = false;
+        $args = Functions::flattenArray($args);
 
-        // Loop through the arguments
-        $aArgs = Functions::flattenArray($args);
-        $argCount = -1;
-        foreach ($aArgs as $argCount => $arg) {
-            // Is it a boolean value?
-            if (is_bool($arg)) {
-                $returnValue = $returnValue || $arg;
-            } elseif ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue = $returnValue || ((int) $arg != 0);
-            } elseif (is_string($arg)) {
-                $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
-                    $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
-                    $arg = false;
-                } else {
-                    return Functions::VALUE();
-                }
-                $returnValue = $returnValue || ($arg != 0);
-            }
-        }
-
-        // Return
-        if ($argCount < 0) {
+        if (count($args) == 0) {
             return Functions::VALUE();
         }
 
-        return $returnValue;
+        $args = array_filter($args, function ($value) {
+            return $value !== null || (is_string($value) && trim($value) == '');
+        });
+
+        $returnValue = self::countTrueValues($args);
+        if (is_string($returnValue)) {
+            return $returnValue;
+        }
+
+        return $returnValue > 0;
     }
 
     /**
@@ -177,34 +174,19 @@ class Logical
      */
     public static function logicalXor(...$args)
     {
-        // Return value
-        $returnValue = 0;
+        $args = Functions::flattenArray($args);
 
-        // Loop through the arguments
-        $aArgs = Functions::flattenArray($args);
-        $argCount = -1;
-        foreach ($aArgs as $argCount => $arg) {
-            // Is it a boolean value?
-            if (is_bool($arg)) {
-                $returnValue += $arg;
-            } elseif ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue += ((int) $arg != 0);
-            } elseif (is_string($arg)) {
-                $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
-                    $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
-                    $arg = false;
-                } else {
-                    return Functions::VALUE();
-                }
-                $returnValue += ($arg != 0);
-            }
+        if (count($args) == 0) {
+            return Functions::VALUE();
         }
 
-        // Return
-        if ($argCount < 0) {
-            return Functions::VALUE();
+        $args = array_filter($args, function ($value) {
+            return $value !== null || (is_string($value) && trim($value) == '');
+        });
+
+        $returnValue = self::countTrueValues($args);
+        if (is_string($returnValue)) {
+            return $returnValue;
         }
 
         return $returnValue % 2 == 1;
@@ -234,6 +216,7 @@ class Logical
     public static function NOT($logical = false)
     {
         $logical = Functions::flattenSingleValue($logical);
+
         if (is_string($logical)) {
             $logical = strtoupper($logical);
             if (($logical == 'TRUE') || ($logical == Calculation::getTRUE())) {
