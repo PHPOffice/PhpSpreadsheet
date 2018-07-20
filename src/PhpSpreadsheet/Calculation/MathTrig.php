@@ -1466,7 +1466,7 @@ class MathTrig
      *
      * @param float $angle Number
      *
-     * @return string|float The secant of the angle
+     * @return float|string The secant of the angle
      */
     public static function SEC($angle)
     {
@@ -1488,7 +1488,7 @@ class MathTrig
      *
      * @param float $angle Number
      *
-     * @return string|float The hyperbolic secant of the angle
+     * @return float|string The hyperbolic secant of the angle
      */
     public static function SECH($angle)
     {
@@ -1510,7 +1510,7 @@ class MathTrig
      *
      * @param float $angle Number
      *
-     * @return string|float The cosecant of the angle
+     * @return float|string The cosecant of the angle
      */
     public static function CSC($angle)
     {
@@ -1532,7 +1532,7 @@ class MathTrig
      *
      * @param float $angle Number
      *
-     * @return string|float The hyperbolic cosecant of the angle
+     * @return float|string The hyperbolic cosecant of the angle
      */
     public static function CSCH($angle)
     {
@@ -1554,7 +1554,7 @@ class MathTrig
      *
      * @param float $angle Number
      *
-     * @return string|float The cotangent of the angle
+     * @return float|string The cotangent of the angle
      */
     public static function COT($angle)
     {
@@ -1576,7 +1576,7 @@ class MathTrig
      *
      * @param float $angle Number
      *
-     * @return string|float The hyperbolic cotangent of the angle
+     * @return float|string The hyperbolic cotangent of the angle
      */
     public static function COTH($angle)
     {
@@ -1598,7 +1598,7 @@ class MathTrig
      *
      * @param float $number Number
      *
-     * @return string|float The arccotangent of the number
+     * @return float|string The arccotangent of the number
      */
     public static function ACOT($number)
     {
@@ -1618,7 +1618,7 @@ class MathTrig
      *
      * @param float $number Number
      *
-     * @return string|float The hyperbolic arccotangent of the number
+     * @return float|string The hyperbolic arccotangent of the number
      */
     public static function ACOTH($number)
     {
