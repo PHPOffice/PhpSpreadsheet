@@ -67,10 +67,14 @@ class XlsTest extends TestCase
             $sheet = $spreadSheet->getSheetByName($sheetName);
 
             foreach ($testsForSheet as $cellCoordinate => $result) {
-                $calculatedValue = round($sheet->getCell($cellCoordinate)->getCalculatedValue());
+                $calculatedValue = $sheet->getCell($cellCoordinate)->getCalculatedValue();
 
                 if ($calculatedValue != $result) {
-                    throw new \Exception($cellCoordinate . ' != ' . $result . ' result in sheet with name ' . $sheetName . ' is ' . (($calculatedValue != '') ? $calculatedValue : 'empty'));
+                    if (empty($calculatedValue) === true) {
+                        $calculatedValue = 'empty';
+                    }
+
+                    throw new \Exception($cellCoordinate . ' != ' . $result . ' - Result in sheet with name ' . $sheetName . ' is ' . $calculatedValue . '.');
                 }
             }
         }
