@@ -60,7 +60,7 @@ class XlsTest extends TestCase
                 'C8' => 18,
                 'C9' => 20,
                 'C10' => 22,
-            ]
+            ],
         ];
 
         foreach ($tests as $sheetName => $testsForSheet) {
