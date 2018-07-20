@@ -70,7 +70,7 @@ class XlsTest extends TestCase
                 $calculatedValue = round($sheet->getCell($cellCoordinate)->getCalculatedValue());
 
                 if ($calculatedValue != $result) {
-                    throw new \Exception($cellCoordinate . ' != ' . $result . ' result in sheet with name ' . $sheetName . ' is ' . ($calculatedValue ?? 'empty'));
+                    throw new \Exception($cellCoordinate . ' != ' . $result . ' result in sheet with name ' . $sheetName . ' is ' . (($calculatedValue != '') ? $calculatedValue : 'empty'));
                 }
             }
         }
