@@ -159,6 +159,7 @@ class DateTimeTest extends TestCase
      * @dataProvider providerISOWEEKNUM
      *
      * @param mixed $expectedResult
+     * @param mixed $dateValue
      */
     public function testISOWEEKNUM($expectedResult, $dateValue)
     {

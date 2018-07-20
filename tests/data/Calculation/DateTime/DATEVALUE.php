@@ -293,5 +293,5 @@ return [
     [
         '#VALUE!',
         'ABCDEFGHIJKMNOPQRSTUVWXYZ',
-    ]
+    ],
 ];
