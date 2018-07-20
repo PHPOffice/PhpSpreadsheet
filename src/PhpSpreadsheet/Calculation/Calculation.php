@@ -1441,6 +1441,11 @@ class Calculation
             'functionCall' => [Financial::class, 'NPV'],
             'argumentCount' => '2+',
         ],
+        'NUMBERVALUE' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [TextData::class, 'NUMBERVALUE'],
+            'argumentCount' => '1+',
+        ],
         'OCT2BIN' => [
             'category' => Category::CATEGORY_ENGINEERING,
             'functionCall' => [Engineering::class, 'OCTTOBIN'],

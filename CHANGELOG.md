@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added calculation engine support for the new functions that were added in MS Excel 2013 and MS Excel 2016
   - Text Functions
     - CONCAT()       Synonym for CONCATENATE()
+    - NUMBERVALUE()  Converts text to a number, in a locale-independent way
     - UNICHAR()      Synonym for CHAR() in PHPSpreadsheet, which has always used UTF-8 internally
     - UNIORD()       Synonym for ORD() in PHPSpreadsheet, which has always used UTF-8 internally
     - TEXTJOIN()     Joins together two or more text strings, separated by a delimiter
