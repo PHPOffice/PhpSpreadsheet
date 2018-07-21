@@ -400,6 +400,22 @@ class EngineeringTest extends TestCase
     }
 
     /**
+     * @dataProvider providerERFPRECISE
+     *
+     * @param mixed $expectedResult
+     */
+    public function testERFPRECISE($expectedResult, ...$args)
+    {
+        $result = Engineering::ERFPRECISE(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerERFPRECISE()
+    {
+        return require 'data/Calculation/Engineering/ERFPRECISE.php';
+    }
+
+    /**
      * @dataProvider providerERFC
      *
      * @param mixed $expectedResult

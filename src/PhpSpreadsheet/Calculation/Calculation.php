@@ -770,7 +770,17 @@ class Calculation
             'functionCall' => [Engineering::class, 'ERF'],
             'argumentCount' => '1,2',
         ],
+        'ERF.PRECISE' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'ERFPRECISE'],
+            'argumentCount' => '1',
+        ],
         'ERFC' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'ERFC'],
+            'argumentCount' => '1',
+        ],
+        'ERFC.PRECISE' => [
             'category' => Category::CATEGORY_ENGINEERING,
             'functionCall' => [Engineering::class, 'ERFC'],
             'argumentCount' => '1',

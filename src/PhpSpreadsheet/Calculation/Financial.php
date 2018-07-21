@@ -144,7 +144,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string
      */
     public static function ACCRINT($issue, $firstinterest, $settlement, $rate, $par = 1000, $frequency = 1, $basis = 0)
     {
@@ -197,7 +197,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string
      */
     public static function ACCRINTM($issue, $settlement, $rate, $par = 1000, $basis = 0)
     {
@@ -401,7 +401,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string
      */
     public static function COUPDAYBS($settlement, $maturity, $frequency, $basis = 0)
     {
@@ -460,7 +460,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string
      */
     public static function COUPDAYS($settlement, $maturity, $frequency, $basis = 0)
     {
@@ -534,7 +534,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string
      */
     public static function COUPDAYSNC($settlement, $maturity, $frequency, $basis = 0)
     {
@@ -651,7 +651,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return int
+     * @return int|string
      */
     public static function COUPNUM($settlement, $maturity, $frequency, $basis = 0)
     {
@@ -769,7 +769,7 @@ class Financial
      *                                0 or omitted    At the end of the period.
      *                                1                At the beginning of the period.
      *
-     * @return float
+     * @return float|string
      */
     public static function CUMIPMT($rate, $nper, $pv, $start, $end, $type = 0)
     {
@@ -817,7 +817,7 @@ class Financial
      *                                0 or omitted    At the end of the period.
      *                                1                At the beginning of the period.
      *
-     * @return float
+     * @return float|string
      */
     public static function CUMPRINC($rate, $nper, $pv, $start, $end, $type = 0)
     {
@@ -870,7 +870,7 @@ class Financial
      * @param int $month Number of months in the first year. If month is omitted,
      *                                it defaults to 12.
      *
-     * @return float
+     * @return float|string
      */
     public static function DB($cost, $salvage, $life, $period, $month = 12)
     {
@@ -940,7 +940,7 @@ class Financial
      *                                If factor is omitted, it is assumed to be 2 (the
      *                                double-declining balance method).
      *
-     * @return float
+     * @return float|string
      */
     public static function DDB($cost, $salvage, $life, $period, $factor = 2.0)
     {
@@ -1004,7 +1004,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string
      */
     public static function DISC($settlement, $maturity, $price, $redemption, $basis = 0)
     {
@@ -1049,7 +1049,7 @@ class Financial
      * @param float $fractional_dollar Fractional Dollar
      * @param int $fraction Fraction
      *
-     * @return float
+     * @return float|string
      */
     public static function DOLLARDE($fractional_dollar = null, $fraction = 0)
     {
@@ -1087,7 +1087,7 @@ class Financial
      * @param float $decimal_dollar Decimal Dollar
      * @param int $fraction Fraction
      *
-     * @return float
+     * @return float|string
      */
     public static function DOLLARFR($decimal_dollar = null, $fraction = 0)
     {
@@ -1124,7 +1124,7 @@ class Financial
      * @param float $nominal_rate Nominal interest rate
      * @param int $npery Number of compounding payments per year
      *
-     * @return float
+     * @return float|string
      */
     public static function EFFECT($nominal_rate = 0, $npery = 0)
     {
@@ -1160,7 +1160,7 @@ class Financial
      *                                0 or omitted    At the end of the period.
      *                                1                At the beginning of the period.
      *
-     * @return float
+     * @return float|string
      */
     public static function FV($rate = 0, $nper = 0, $pmt = 0, $pv = 0, $type = 0)
     {
@@ -1230,7 +1230,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string
      */
     public static function INTRATE($settlement, $maturity, $investment, $redemption, $basis = 0)
     {
@@ -1275,7 +1275,7 @@ class Financial
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
-     * @return float
+     * @return float|string
      */
     public static function IPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
     {
@@ -1318,7 +1318,7 @@ class Financial
      *                                    calculate the internal rate of return.
      * @param float $guess A number that you guess is close to the result of IRR
      *
-     * @return float
+     * @return float|string
      */
     public static function IRR($values, $guess = 0.1)
     {
@@ -1428,7 +1428,7 @@ class Financial
      * @param float $finance_rate The interest rate you pay on the money used in the cash flows
      * @param float $reinvestment_rate The interest rate you receive on the cash flows as you reinvest them
      *
-     * @return float
+     * @return float|string
      */
     public static function MIRR($values, $finance_rate, $reinvestment_rate)
     {
@@ -1470,7 +1470,7 @@ class Financial
      * @param float $effect_rate Effective interest rate
      * @param int $npery Number of compounding payments per year
      *
-     * @return float
+     * @return float|string
      */
     public static function NOMINAL($effect_rate = 0, $npery = 0)
     {
@@ -1497,7 +1497,7 @@ class Financial
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
-     * @return float
+     * @return float|string
      */
     public static function NPER($rate = 0, $pmt = 0, $pv = 0, $fv = 0, $type = 0)
     {
@@ -1565,7 +1565,7 @@ class Financial
      * @param float $pv Present Value
      * @param float $fv Future Value
      *
-     * @return float
+     * @return float|string
      */
     public static function PDURATION($rate = 0, $pv = 0, $fv = 0)
     {
@@ -1969,7 +1969,7 @@ class Financial
      * @param float $pv Present Value
      * @param float $fv Future Value
      *
-     * @return float
+     * @return float|string
      */
     public static function RRI($nper = 0, $pv = 0, $fv = 0)
     {
@@ -1996,7 +1996,7 @@ class Financial
      * @param mixed $salvage Value at the end of the depreciation
      * @param mixed $life Number of periods over which the asset is depreciated
      *
-     * @return float
+     * @return float|string
      */
     public static function SLN($cost, $salvage, $life)
     {
@@ -2026,7 +2026,7 @@ class Financial
      * @param mixed $life Number of periods over which the asset is depreciated
      * @param mixed $period Period
      *
-     * @return float
+     * @return float|string
      */
     public static function SYD($cost, $salvage, $life, $period)
     {
