@@ -1694,6 +1694,11 @@ class Calculation
             'functionCall' => [LookupRef::class, 'ROWS'],
             'argumentCount' => '1',
         ],
+        'RRI' => [
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => [Financial::class, 'RRI'],
+            'argumentCount' => '3',
+        ],
         'RSQ' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'RSQ'],
@@ -2006,6 +2011,16 @@ class Calculation
             'argumentCount' => '1',
         ],
         'VAR' => [
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => [Statistical::class, 'VARFunc'],
+            'argumentCount' => '1+',
+        ],
+        'VAR.P' => [
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => [Statistical::class, 'VARP'],
+            'argumentCount' => '1+',
+        ],
+        'VAR.S' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'VARFunc'],
             'argumentCount' => '1+',
