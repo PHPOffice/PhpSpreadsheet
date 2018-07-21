@@ -514,4 +514,36 @@ class FinancialTest extends TestCase
     {
         return require 'data/Calculation/Financial/XIRR.php';
     }
+
+    /**
+     * @dataProvider providerPDURATION
+     *
+     * @param mixed $expectedResult
+     */
+    public function testPDURATION($expectedResult, array $args)
+    {
+        $result = Financial::PDURATION(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerPDURATION()
+    {
+        return require 'data/Calculation/Financial/PDURATION.php';
+    }
+
+    /**
+     * @dataProvider providerRRI
+     *
+     * @param mixed $expectedResult
+     */
+    public function testRRI($expectedResult, array $args)
+    {
+        $result = Financial::RRI(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerRRI()
+    {
+        return require 'data/Calculation/Financial/RRI.php';
+    }
 }

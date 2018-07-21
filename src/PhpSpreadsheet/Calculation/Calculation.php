@@ -1498,6 +1498,11 @@ class Calculation
             'functionCall' => [Logical::class, 'logicalOr'],
             'argumentCount' => '1+',
         ],
+        'PDURATION' => [
+            'category' => Category::CATEGORY_FINANCIAL,
+            'functionCall' => [Financial::class, 'PDURATION'],
+            'argumentCount' => '3',
+        ],
         'PEARSON' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'CORREL'],

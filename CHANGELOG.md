@@ -26,6 +26,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     - ISOWEEKNUM()   Returns the ISO 8601 week number of the year for a given date
   - Lookup and Reference Functions
     - FORMULATEXT()  Returns a formula as a string
+  - Financial Functions
+    - PDURATION()    Calculates the number of periods required for an investment to reach a specified value
+    - RRI()          Calculates the interest rate required for an investment to grow to a specified future value
   - Math and Trig Functions
     - SEC()          Returns the secant of an angle
     - SECH()         Returns the hyperbolic secant of an angle

@@ -1557,6 +1557,33 @@ class Financial
     }
 
     /**
+     * PDURATION.
+     *
+     * Calculates the number of periods required for an investment to reach a specified value.
+     *
+     * @param float $rate Interest rate per period
+     * @param float $pv Present Value
+     * @param float $fv Future Value
+     *
+     * @return float
+     */
+    public static function PDURATION($rate = 0, $pv = 0, $fv = 0)
+    {
+        $rate = Functions::flattenSingleValue($rate);
+        $pv = Functions::flattenSingleValue($pv);
+        $fv = Functions::flattenSingleValue($fv);
+
+        // Validate parameters
+        if (!is_numeric($rate) || !is_numeric($pv) || !is_numeric($fv)) {
+            return Functions::VALUE();
+        } elseif ($rate <= 0.0 || $pv <= 0.0 || $fv <= 0.0) {
+            return Functions::NAN();
+        }
+
+        return (log($fv) - log($pv)) / log(1 + $rate);
+    }
+
+    /**
      * PMT.
      *
      * Returns the constant payment (annuity) for a cash flow with a constant interest rate.
@@ -1931,6 +1958,33 @@ class Financial
         }
 
         return Functions::VALUE();
+    }
+
+    /**
+     * RRI.
+     *
+     * Calculates the interest rate required for an investment to grow to a specified future value .
+     *
+     * @param float $nper The number of periods over which the investment is made
+     * @param float $pv Present Value
+     * @param float $fv Future Value
+     *
+     * @return float
+     */
+    public static function RRI($nper = 0, $pv = 0, $fv = 0)
+    {
+        $nper = Functions::flattenSingleValue($nper);
+        $pv = Functions::flattenSingleValue($pv);
+        $fv = Functions::flattenSingleValue($fv);
+
+        // Validate parameters
+        if (!is_numeric($nper) || !is_numeric($pv) || !is_numeric($fv)) {
+            return Functions::VALUE();
+        } elseif ($nper <= 0.0 || $pv <= 0.0 || $fv < 0.0) {
+            return Functions::NAN();
+        }
+
+        return pow($fv / $pv, 1 / $nper) - 1;
     }
 
     /**
