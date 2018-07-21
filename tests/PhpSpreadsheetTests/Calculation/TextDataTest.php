@@ -401,7 +401,7 @@ class TextDataTest extends TestCase
      * @param mixed $expectedResult
      * @param array $args
      */
-    public function testTEXTJOIN($expectedResult, $args)
+    public function testTEXTJOIN($expectedResult, array $args)
     {
         $result = TextData::TEXTJOIN(...$args);
         self::assertEquals($expectedResult, $result);
@@ -418,7 +418,7 @@ class TextDataTest extends TestCase
      * @param mixed $expectedResult
      * @param array $args
      */
-    public function testNUMBERVALUE($expectedResult, $args)
+    public function testNUMBERVALUE($expectedResult, array $args)
     {
         $result = TextData::NUMBERVALUE(...$args);
         self::assertEquals($expectedResult, $result);

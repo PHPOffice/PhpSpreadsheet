@@ -61,7 +61,7 @@ class DateTime
      *
      * @param string $dateValue
      *
-     * @return int|string Excel date/time serial value, or string if error
+     * @return mixed Excel date/time serial value, or string if error
      */
     public static function getDateValue($dateValue)
     {
@@ -70,7 +70,7 @@ class DateTime
                 (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)) {
                 return Functions::VALUE();
             }
-            if ((is_object($dateValue)) && ($dateValue instanceof \DateTime)) {
+            if ((is_object($dateValue)) && ($dateValue instanceof \DateTimeImmutable)) {
                 $dateValue = Date::PHPToExcel($dateValue);
             } else {
                 $saveReturnDateType = Functions::getReturnDateType();
@@ -88,7 +88,7 @@ class DateTime
      *
      * @param string $timeValue
      *
-     * @return int|string Excel date/time serial value, or string if error
+     * @return mixed Excel date/time serial value, or string if error
      */
     private static function getTimeValue($timeValue)
     {
