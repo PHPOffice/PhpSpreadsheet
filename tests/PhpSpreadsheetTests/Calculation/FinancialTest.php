@@ -480,6 +480,38 @@ class FinancialTest extends TestCase
     }
 
     /**
+     * @dataProvider providerPRICEDISC
+     *
+     * @param mixed $expectedResult
+     */
+    public function testPRICEDISC($expectedResult, array $args)
+    {
+        $result = Financial::PRICEDISC(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerPRICEDISC()
+    {
+        return require 'data/Calculation/Financial/PRICEDISC.php';
+    }
+
+    /**
+     * @dataProvider providerPV
+     *
+     * @param mixed $expectedResult
+     */
+    public function testPV($expectedResult, array $args)
+    {
+        $result = Financial::PV(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerPV()
+    {
+        return require 'data/Calculation/Financial/PV.php';
+    }
+
+    /**
      * @dataProvider providerRATE
      *
      * @param mixed $expectedResult
@@ -513,5 +545,69 @@ class FinancialTest extends TestCase
     public function providerXIRR()
     {
         return require 'data/Calculation/Financial/XIRR.php';
+    }
+
+    /**
+     * @dataProvider providerPDURATION
+     *
+     * @param mixed $expectedResult
+     */
+    public function testPDURATION($expectedResult, array $args)
+    {
+        $result = Financial::PDURATION(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerPDURATION()
+    {
+        return require 'data/Calculation/Financial/PDURATION.php';
+    }
+
+    /**
+     * @dataProvider providerRRI
+     *
+     * @param mixed $expectedResult
+     */
+    public function testRRI($expectedResult, array $args)
+    {
+        $result = Financial::RRI(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerRRI()
+    {
+        return require 'data/Calculation/Financial/RRI.php';
+    }
+
+    /**
+     * @dataProvider providerSLN
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSLN($expectedResult, array $args)
+    {
+        $result = Financial::SLN(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerSLN()
+    {
+        return require 'data/Calculation/Financial/SLN.php';
+    }
+
+    /**
+     * @dataProvider providerSYD
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSYD($expectedResult, array $args)
+    {
+        $result = Financial::SYD(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerSYD()
+    {
+        return require 'data/Calculation/Financial/SYD.php';
     }
 }

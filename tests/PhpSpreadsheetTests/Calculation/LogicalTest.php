@@ -58,6 +58,22 @@ class LogicalTest extends TestCase
     }
 
     /**
+     * @dataProvider providerXOR
+     *
+     * @param mixed $expectedResult
+     */
+    public function testXOR($expectedResult, ...$args)
+    {
+        $result = Logical::logicalXor(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerXOR()
+    {
+        return require 'data/Calculation/Logical/XOR.php';
+    }
+
+    /**
      * @dataProvider providerNOT
      *
      * @param mixed $expectedResult

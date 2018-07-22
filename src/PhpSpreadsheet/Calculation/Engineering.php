@@ -2604,7 +2604,7 @@ class Engineering
      *    Note: In Excel 2007 or earlier, if you input a negative value for the upper or lower bound arguments,
      *            the function would return a #NUM! error. However, in Excel 2010, the function algorithm was
      *            improved, so that it can now calculate the function for both positive and negative ranges.
-     *            PhpSpreadsheet follows Excel 2010 behaviour, and accepts nagative arguments.
+     *            PhpSpreadsheet follows Excel 2010 behaviour, and accepts negative arguments.
      *
      *    Excel Function:
      *        ERF(lower[,upper])
@@ -2613,7 +2613,7 @@ class Engineering
      * @param float $upper upper bound for integrating ERF.
      *                                If omitted, ERF integrates between zero and lower_limit
      *
-     * @return float
+     * @return float|string
      */
     public static function ERF($lower, $upper = null)
     {
@@ -2630,6 +2630,25 @@ class Engineering
         }
 
         return Functions::VALUE();
+    }
+
+    /**
+     * ERFPRECISE.
+     *
+     * Returns the error function integrated between the lower and upper bound arguments.
+     *
+     *    Excel Function:
+     *        ERF.PRECISE(limit)
+     *
+     * @param float $limit bound for integrating ERF
+     *
+     * @return float|string
+     */
+    public static function ERFPRECISE($limit)
+    {
+        $limit = Functions::flattenSingleValue($limit);
+
+        return self::ERF($limit);
     }
 
     //
@@ -2680,7 +2699,7 @@ class Engineering
      *
      * @param float $x The lower bound for integrating ERFC
      *
-     * @return float
+     * @return float|string
      */
     public static function ERFC($x)
     {
