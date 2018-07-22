@@ -489,7 +489,7 @@ class Financial
             case 1:
                 // Actual/actual
                 if ($frequency == 1) {
-                    $daysPerYear = self::daysPerYear(DateTime::YEAR($maturity), $basis);
+                    $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
 
                     return $daysPerYear / $frequency;
                 }
