@@ -7,7 +7,7 @@ return [
     ],
     // NULL
     [
-        true,
+        false,
         null,
     ],
     // Boolean TRUE and NULL

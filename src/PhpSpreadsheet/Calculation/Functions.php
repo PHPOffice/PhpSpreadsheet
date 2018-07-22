@@ -648,17 +648,26 @@ class Functions
     /**
      * ISFORMULA.
      *
-     * @param mixed $value The cell to check
+     * @param mixed $cellReference The cell to check
      * @param Cell $pCell The current cell (containing this formula)
      *
      * @return bool|string
      */
-    public static function isFormula($value = '', Cell $pCell = null)
+    public static function isFormula($cellReference = '', Cell $pCell = null)
     {
         if ($pCell === null) {
             return self::REF();
         }
 
-        return substr($pCell->getWorksheet()->getCell($value)->getValue(), 0, 1) === '=';
+        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
+
+        $cellReference = $matches[6] . $matches[7];
+        $worksheetName = trim($matches[3], "'");
+
+        $worksheet = (!empty($worksheetName))
+            ? $pCell->getWorksheet()->getParent()->getSheetByName($worksheetName)
+            : $pCell->getWorksheet();
+
+        return $worksheet->getCell($cellReference)->isFormula();
     }
 }

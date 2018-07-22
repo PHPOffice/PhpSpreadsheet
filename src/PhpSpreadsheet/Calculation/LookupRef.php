@@ -866,4 +866,33 @@ class LookupRef
 
         return self::VLOOKUP($lookup_value, $lookup_vector, 2);
     }
+
+    /**
+     * FORMULATEXT.
+     *
+     * @param mixed $cellReference The cell to check
+     * @param Cell $pCell The current cell (containing this formula)
+     *
+     * @return string
+     */
+    public static function FORMULATEXT($cellReference = '', Cell $pCell = null)
+    {
+        if ($pCell === null) {
+            return Functions::REF();
+        }
+
+        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
+
+        $cellReference = $matches[6] . $matches[7];
+        $worksheetName = trim($matches[3], "'");
+        $worksheet = (!empty($worksheetName))
+            ? $pCell->getWorksheet()->getParent()->getSheetByName($worksheetName)
+            : $pCell->getWorksheet();
+
+        if (!$worksheet->getCell($cellReference)->isFormula()) {
+            return Functions::NA();
+        }
+
+        return $worksheet->getCell($cellReference)->getValue();
+    }
 }

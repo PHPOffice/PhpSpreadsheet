@@ -21,4 +21,8 @@ return [
         'CDXCIX',
         499,
     ],
+    [
+        'MMXVIII',
+        2018,
+    ],
 ];
