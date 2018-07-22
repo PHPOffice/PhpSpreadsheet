@@ -716,6 +716,28 @@ class Engineering
     ];
 
     /**
+     * parseComplex.
+     *
+     * Parses a complex number into its real and imaginary parts, and an I or J suffix
+     *
+     * @deprecated 2.0.0 No longer used by internal code. Please use the Complex\Complex class instead
+     *
+     * @param string $complexNumber The complex number
+     *
+     * @return string[] Indexed on "real", "imaginary" and "suffix"
+     */
+    public static function parseComplex($complexNumber)
+    {
+        $complex = new Complex($complexNumber);
+
+        return [
+            'real' => $complex->getReal(),
+            'imaginary' => $complex->getImaginary(),
+            'suffix' => $complex->getSuffix(),
+        ];
+    }
+
+    /**
      * Formats a number base string value with leading zeroes.
      *
      * @param string $xVal The "number" to pad
