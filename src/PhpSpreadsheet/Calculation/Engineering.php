@@ -2467,7 +2467,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int
+     * @return int|string
      */
     public static function BITAND($number1, $number2)
     {
@@ -2494,7 +2494,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int
+     * @return int|string
      */
     public static function BITOR($number1, $number2)
     {
@@ -2521,7 +2521,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int
+     * @return int|string
      */
     public static function BITXOR($number1, $number2)
     {
@@ -2548,7 +2548,7 @@ class Engineering
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return int
+     * @return int|string
      */
     public static function BITLSHIFT($number, $shiftAmount)
     {
@@ -2581,7 +2581,7 @@ class Engineering
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return int
+     * @return int|string
      */
     public static function BITRSHIFT($number, $shiftAmount)
     {
