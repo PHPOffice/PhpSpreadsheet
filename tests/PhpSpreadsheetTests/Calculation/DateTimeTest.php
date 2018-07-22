@@ -156,6 +156,23 @@ class DateTimeTest extends TestCase
     }
 
     /**
+     * @dataProvider providerISOWEEKNUM
+     *
+     * @param mixed $expectedResult
+     * @param mixed $dateValue
+     */
+    public function testISOWEEKNUM($expectedResult, $dateValue)
+    {
+        $result = DateTime::ISOWEEKNUM($dateValue);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerISOWEEKNUM()
+    {
+        return require 'data/Calculation/DateTime/ISOWEEKNUM.php';
+    }
+
+    /**
      * @dataProvider providerWEEKDAY
      *
      * @param mixed $expectedResult
