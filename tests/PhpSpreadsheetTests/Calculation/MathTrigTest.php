@@ -441,6 +441,70 @@ class MathTrigTest extends TestCase
     }
 
     /**
+     * @dataProvider providerSUMPRODUCT
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSUMPRODUCT($expectedResult, ...$args)
+    {
+        $result = MathTrig::SUMPRODUCT(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerSUMPRODUCT()
+    {
+        return require 'data/Calculation/MathTrig/SUMPRODUCT.php';
+    }
+
+    /**
+     * @dataProvider providerSUMX2MY2
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSUMX2MY2($expectedResult, ...$args)
+    {
+        $result = MathTrig::SUMX2MY2(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerSUMX2MY2()
+    {
+        return require 'data/Calculation/MathTrig/SUMX2MY2.php';
+    }
+
+    /**
+     * @dataProvider providerSUMX2PY2
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSUMX2PY2($expectedResult, ...$args)
+    {
+        $result = MathTrig::SUMX2PY2(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerSUMX2PY2()
+    {
+        return require 'data/Calculation/MathTrig/SUMX2PY2.php';
+    }
+
+    /**
+     * @dataProvider providerSUMXMY2
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSUMXMY2($expectedResult, ...$args)
+    {
+        $result = MathTrig::SUMXMY2(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-12);
+    }
+
+    public function providerSUMXMY2()
+    {
+        return require 'data/Calculation/MathTrig/SUMXMY2.php';
+    }
+
+    /**
      * @dataProvider providerTRUNC
      *
      * @param mixed $expectedResult
