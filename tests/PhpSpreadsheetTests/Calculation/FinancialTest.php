@@ -480,6 +480,38 @@ class FinancialTest extends TestCase
     }
 
     /**
+     * @dataProvider providerPRICEDISC
+     *
+     * @param mixed $expectedResult
+     */
+    public function testPRICEDISC($expectedResult, array $args)
+    {
+        $result = Financial::PRICEDISC(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerPRICEDISC()
+    {
+        return require 'data/Calculation/Financial/PRICEDISC.php';
+    }
+
+    /**
+     * @dataProvider providerPV
+     *
+     * @param mixed $expectedResult
+     */
+    public function testPV($expectedResult, array $args)
+    {
+        $result = Financial::PV(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerPV()
+    {
+        return require 'data/Calculation/Financial/PV.php';
+    }
+
+    /**
      * @dataProvider providerRATE
      *
      * @param mixed $expectedResult
