@@ -369,6 +369,31 @@ class Calculation
             'functionCall' => [Statistical::class, 'BINOMDIST'],
             'argumentCount' => '4',
         ],
+        'BITAND' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'BITAND'],
+            'argumentCount' => '2',
+        ],
+        'BITOR' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'BITOR'],
+            'argumentCount' => '2',
+        ],
+        'BITXOR' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'BITOR'],
+            'argumentCount' => '2',
+        ],
+        'BITLSHIFT' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'BITLSHIFT'],
+            'argumentCount' => '2',
+        ],
+        'BITRSHIFT' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'BITRSHIFT'],
+            'argumentCount' => '2',
+        ],
         'CEILING' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig::class, 'CEILING'],

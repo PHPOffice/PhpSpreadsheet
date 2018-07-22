@@ -624,6 +624,91 @@ class EngineeringTest extends TestCase
     }
 
     /**
+     * @dataProvider providerBITAND
+     *
+     * @param mixed $expectedResult
+     * @param mixed[] $args
+     */
+    public function testBITAND($expectedResult, array $args)
+    {
+        $result = Engineering::BITAND(...$args);
+        self::assertEquals($expectedResult, $result, null);
+    }
+
+    public function providerBITAND()
+    {
+        return require 'data/Calculation/Engineering/BITAND.php';
+    }
+
+    /**
+     * @dataProvider providerBITOR
+     *
+     * @param mixed $expectedResult
+     * @param mixed[] $args
+     */
+    public function testBITOR($expectedResult, array $args)
+    {
+        $result = Engineering::BITOR(...$args);
+        self::assertEquals($expectedResult, $result, null);
+    }
+
+    public function providerBITOR()
+    {
+        return require 'data/Calculation/Engineering/BITOR.php';
+    }
+
+    /**
+     * @dataProvider providerBITXOR
+     *
+     * @param mixed $expectedResult
+     * @param mixed[] $args
+     */
+    public function testBITXOR($expectedResult, array $args)
+    {
+        $result = Engineering::BITXOR(...$args);
+        self::assertEquals($expectedResult, $result, null);
+    }
+
+    public function providerBITXOR()
+    {
+        return require 'data/Calculation/Engineering/BITXOR.php';
+    }
+
+    /**
+     * @dataProvider providerBITLSHIFT
+     *
+     * @param mixed $expectedResult
+     * @param mixed[] $args
+     */
+    public function testBITLSHIFT($expectedResult, array $args)
+    {
+        $result = Engineering::BITLSHIFT(...$args);
+        self::assertEquals($expectedResult, $result, null);
+    }
+
+    public function providerBITLSHIFT()
+    {
+        return require 'data/Calculation/Engineering/BITLSHIFT.php';
+    }
+
+    /**
+     * @dataProvider providerBITRSHIFT
+     *
+     * @param mixed $expectedResult
+     * @param mixed[] $args
+     */
+    public function testBITRSHIFT($expectedResult, array $args)
+    {
+        $result = Engineering::BITRSHIFT(...$args);
+        self::assertEquals($expectedResult, $result, null);
+    }
+
+    public function providerBITRSHIFT()
+    {
+        return require 'data/Calculation/Engineering/BITRSHIFT.php';
+    }
+
+    /**
      * @dataProvider providerDELTA
      *
      * @param mixed $expectedResult
