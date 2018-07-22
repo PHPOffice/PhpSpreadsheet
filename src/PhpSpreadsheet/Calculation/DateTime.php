@@ -10,7 +10,7 @@ class DateTime
     /**
      * Identify if a year is a leap year or not.
      *
-     * @param int $year The year to test
+     * @param int|string $year The year to test
      *
      * @return bool TRUE if the year is a leap year, otherwise FALSE
      */

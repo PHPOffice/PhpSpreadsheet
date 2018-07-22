@@ -63,8 +63,8 @@ class Financial
      *
      * Returns the number of days in a specified year, as defined by the "basis" value
      *
-     * @param int $year The year against which we're testing
-     * @param int $basis The type of day count:
+     * @param int|string $year The year against which we're testing
+     * @param int|string $basis The type of day count:
      *                                    0 or omitted US (NASD)    360
      *                                    1                        Actual (365 or 366 in a leap year)
      *                                    2                        360
