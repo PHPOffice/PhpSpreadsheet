@@ -546,4 +546,36 @@ class FinancialTest extends TestCase
     {
         return require 'data/Calculation/Financial/RRI.php';
     }
+
+    /**
+     * @dataProvider providerSLN
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSLN($expectedResult, array $args)
+    {
+        $result = Financial::SLN(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerSLN()
+    {
+        return require 'data/Calculation/Financial/SLN.php';
+    }
+
+    /**
+     * @dataProvider providerSYD
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSYD($expectedResult, array $args)
+    {
+        $result = Financial::SYD(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerSYD()
+    {
+        return require 'data/Calculation/Financial/SYD.php';
+    }
 }

@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class Financial
 {
-    const FINANCIAL_MAX_ITERATIONS = 128;
+    const FINANCIAL_MAX_ITERATIONS = 32;
 
     const FINANCIAL_PRECISION = 1.0e-08;
 
