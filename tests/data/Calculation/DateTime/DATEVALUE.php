@@ -290,4 +290,8 @@ return [
         0,
         '15:30:25',
     ],
+    [
+        '#VALUE!',
+        'ABCDEFGHIJKMNOPQRSTUVWXYZ',
+    ],
 ];
