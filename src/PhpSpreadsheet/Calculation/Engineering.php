@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use Complex\Complex;
+use Complex\Exception as ComplexException;
 
 class Engineering
 {
@@ -1791,7 +1792,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the argument theta
      *
-     * @return float
+     * @return float|string
      */
     public static function IMARGUMENT($complexNumber)
     {
@@ -2172,7 +2173,11 @@ class Engineering
         $complexDividend = Functions::flattenSingleValue($complexDividend);
         $complexDivisor = Functions::flattenSingleValue($complexDivisor);
 
-        return (string) (new Complex($complexDividend))->divideby(new Complex($complexDivisor));
+        try {
+            return (string) (new Complex($complexDividend))->divideby(new Complex($complexDivisor));
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
     }
 
     /**
@@ -2193,7 +2198,11 @@ class Engineering
         $complexNumber1 = Functions::flattenSingleValue($complexNumber1);
         $complexNumber2 = Functions::flattenSingleValue($complexNumber2);
 
-        return (string) (new Complex($complexNumber1))->subtract(new Complex($complexNumber2));
+        try {
+            return (string) (new Complex($complexNumber1))->subtract(new Complex($complexNumber2));
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
     }
 
     /**
@@ -2212,19 +2221,15 @@ class Engineering
     {
         // Return value
         $returnValue = new Complex(0.0);
-        $activeSuffix = '';
-
-        // Loop through the arguments
         $aArgs = Functions::flattenArray($complexNumbers);
-        foreach ($aArgs as $complex) {
-            $complex = new Complex($complex);
-            if ($activeSuffix == '') {
-                $activeSuffix = $complex->getSuffix();
-            } elseif (($complex->getSuffix() != '') && ($activeSuffix != $complex->getSuffix())) {
-                return Functions::NAN();
-            }
 
-            $returnValue = $returnValue->add($complex);
+        try {
+            // Loop through the arguments
+            foreach ($aArgs as $complex) {
+                $returnValue = $returnValue->add(new Complex($complex));
+            }
+        } catch (ComplexException $e) {
+            return Functions::NAN();
         }
 
         return (string) $returnValue;
@@ -2246,19 +2251,15 @@ class Engineering
     {
         // Return value
         $returnValue = new Complex(1.0);
-        $activeSuffix = '';
-
-        // Loop through the arguments
         $aArgs = Functions::flattenArray($complexNumbers);
-        foreach ($aArgs as $complex) {
-            $complex = new Complex($complex);
-            if ($activeSuffix == '') {
-                $activeSuffix = $complex->getSuffix();
-            } elseif (($complex->getSuffix() != '') && ($activeSuffix != $complex->getSuffix())) {
-                return Functions::NAN();
-            }
 
-            $returnValue = $returnValue->multiply($complex);
+        try {
+            // Loop through the arguments
+            foreach ($aArgs as $complex) {
+                $returnValue = $returnValue->multiply(new Complex($complex));
+            }
+        } catch (ComplexException $e) {
+            return Functions::NAN();
         }
 
         return (string) $returnValue;

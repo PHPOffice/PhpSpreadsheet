@@ -304,8 +304,6 @@ class EngineeringTest extends TestCase
      */
     public function testIMDIV($expectedResult, ...$args)
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $result = Engineering::IMDIV(...$args);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
@@ -484,8 +482,6 @@ class EngineeringTest extends TestCase
      */
     public function testIMSUB($expectedResult, ...$args)
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $result = Engineering::IMSUB(...$args);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
