@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4317eac63959b226b73aa73441b25038",
+    "content-hash": "1aba55e3ac36d8d5015f9b3193f93c23",
     "packages": [
         {
             "name": "markbaker/complex",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MarkBaker/PHPComplex.git",
-                "reference": "77d01e85d064ab9ec1c7bc20fe9383de2f27367b"
+                "reference": "615f5443473cf37729666e2354fd8dfa2cb48e91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MarkBaker/PHPComplex/zipball/77d01e85d064ab9ec1c7bc20fe9383de2f27367b",
-                "reference": "77d01e85d064ab9ec1c7bc20fe9383de2f27367b",
+                "url": "https://api.github.com/repos/MarkBaker/PHPComplex/zipball/615f5443473cf37729666e2354fd8dfa2cb48e91",
+                "reference": "615f5443473cf37729666e2354fd8dfa2cb48e91",
                 "shasum": ""
             },
             "require": {
@@ -99,7 +99,7 @@
                 "complex",
                 "mathematics"
             ],
-            "time": "2018-07-23T12:00:43+00:00"
+            "time": "2018-07-24T19:47:28+00:00"
         },
         {
             "name": "psr/simple-cache",
