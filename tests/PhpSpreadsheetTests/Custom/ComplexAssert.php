@@ -33,7 +33,7 @@ class ComplexAssert
         return $adjustedDelta > 1.0 ? 1.0 : $adjustedDelta;
     }
 
-    public function assertComplexEquals($expected, $actual, $delta = 0, $log = false)
+    public function assertComplexEquals($expected, $actual, $delta = 0)
     {
         if ($expected === INF || $expected[0] === '#') {
             return $this->testExpectedExceptions($expected, $actual);

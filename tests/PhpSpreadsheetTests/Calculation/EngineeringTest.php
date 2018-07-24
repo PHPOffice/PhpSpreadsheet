@@ -445,7 +445,7 @@ class EngineeringTest extends TestCase
     {
         $result = Engineering::IMPOWER(...$args);
         self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION, true),
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
     }
