@@ -21,7 +21,19 @@ class ComplexAssert
         return false;
     }
 
-    public function assertComplexEquals($expected, $actual, $delta = 0)
+    private function adjustDelta($expected, $actual, $delta)
+    {
+        $adjustedDelta = $delta;
+
+        if (abs($actual) > 10 && abs($expected) > 10) {
+            $variance = floor(log10(abs($expected)));
+            $adjustedDelta *= pow(10, $variance);
+        }
+
+        return $adjustedDelta > 1.0 ? 1.0 : $adjustedDelta;
+    }
+
+    public function assertComplexEquals($expected, $actual, $delta = 0, $log = false)
     {
         if ($expected === INF || $expected[0] === '#') {
             return $this->testExpectedExceptions($expected, $actual);
@@ -40,13 +52,15 @@ class ComplexAssert
             return true;
         }
 
-        if (abs($actualComplex->getReal() - $expectedComplex->getReal()) > $delta) {
+        $adjustedDelta = $this->adjustDelta($expectedComplex->getReal(), $actualComplex->getReal(), $delta);
+        if (abs($actualComplex->getReal() - $expectedComplex->getReal()) > $adjustedDelta) {
             $this->errorMessage = 'Mismatched Real part: ' . $actualComplex->getReal() . ' != ' . $expectedComplex->getReal();
 
             return false;
         }
 
-        if (abs($actualComplex->getImaginary() - $expectedComplex->getImaginary()) > $delta) {
+        $adjustedDelta = $this->adjustDelta($expectedComplex->getImaginary(), $actualComplex->getImaginary(), $delta);
+        if (abs($actualComplex->getImaginary() - $expectedComplex->getImaginary()) > $adjustedDelta) {
             $this->errorMessage = 'Mismatched Imaginary part: ' . $actualComplex->getImaginary() . ' != ' . $expectedComplex->getImaginary();
 
             return false;

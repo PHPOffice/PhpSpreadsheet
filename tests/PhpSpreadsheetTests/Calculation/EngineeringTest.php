@@ -443,11 +443,9 @@ class EngineeringTest extends TestCase
      */
     public function testIMPOWER($expectedResult, ...$args)
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $result = Engineering::IMPOWER(...$args);
         self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION, true),
             $this->complexAssert->getErrorMessage()
         );
     }
