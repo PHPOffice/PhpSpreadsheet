@@ -426,9 +426,9 @@ for ($row = 1; $row <= $highestRow; ++$row) {
 echo '</table>' . PHP_EOL;
 ```
 
-Note that we can't use a &lt;= comparison here, because 'AA' would match
-as &lt;= 'B', so we increment the highest column letter and then loop
-while \$col != the incremented highest column.
+Note that we can't use a `<=` comparison here, because `'AA'` would match
+as `<= 'B'`, so we increment the highest column letter and then loop
+while `$col !=` the incremented highest column.
 
 ## Using value binders to facilitate data entry
 
