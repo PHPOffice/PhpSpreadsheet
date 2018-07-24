@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class DrawingTest extends TestCase
 {
-
     public function testCloningWorksheetWithImages()
     {
         $filename = './data/Reader/XLSX/with_images.xlsx';
@@ -20,5 +19,4 @@ class DrawingTest extends TestCase
         $clonedDrawingCount = count($clonedWorksheet->getDrawingCollection());
         self::assertEquals($originDrawingCount, $clonedDrawingCount);
     }
-
 }

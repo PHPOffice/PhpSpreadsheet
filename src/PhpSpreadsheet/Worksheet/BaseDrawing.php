@@ -511,7 +511,7 @@ class BaseDrawing implements IComparable
         foreach ($vars as $key => $value) {
             if ($value instanceof Worksheet) {
                 $this->$key = $value;
-            } else if (is_object($value)) {
+            } elseif (is_object($value)) {
                 $this->$key = clone $value;
             } else {
                 $this->$key = $value;
