@@ -14,6 +14,10 @@ class EngineeringTest extends TestCase
      */
     protected $complexAssert;
 
+    const BESSEL_PRECISION = 1E-8;
+    const COMPLEX_PRECISION = 1E-8;
+    const ERF_PRECISION = 1E-12;
+
     public function setUp()
     {
         $this->complexAssert = new ComplexAssert();
@@ -33,7 +37,7 @@ class EngineeringTest extends TestCase
     public function testBESSELI($expectedResult, ...$args)
     {
         $result = Engineering::BESSELI(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, self::BESSEL_PRECISION);
     }
 
     public function providerBESSELI()
@@ -49,7 +53,7 @@ class EngineeringTest extends TestCase
     public function testBESSELJ($expectedResult, ...$args)
     {
         $result = Engineering::BESSELJ(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, self::BESSEL_PRECISION);
     }
 
     public function providerBESSELJ()
@@ -65,7 +69,7 @@ class EngineeringTest extends TestCase
     public function testBESSELK($expectedResult, ...$args)
     {
         $result = Engineering::BESSELK(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, self::BESSEL_PRECISION);
     }
 
     public function providerBESSELK()
@@ -81,7 +85,7 @@ class EngineeringTest extends TestCase
     public function testBESSELY($expectedResult, ...$args)
     {
         $result = Engineering::BESSELY(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, self::BESSEL_PRECISION);
     }
 
     public function providerBESSELY()
@@ -114,7 +118,7 @@ class EngineeringTest extends TestCase
     public function testIMAGINARY($expectedResult, $value)
     {
         $result = Engineering::IMAGINARY($value);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, self::COMPLEX_PRECISION);
     }
 
     public function providerIMAGINARY()
@@ -131,7 +135,7 @@ class EngineeringTest extends TestCase
     public function testIMREAL($expectedResult, $value)
     {
         $result = Engineering::IMREAL($value);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, self::COMPLEX_PRECISION);
     }
 
     public function providerIMREAL()
@@ -148,7 +152,7 @@ class EngineeringTest extends TestCase
     public function testIMABS($expectedResult, $value)
     {
         $result = Engineering::IMABS($value);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, self::COMPLEX_PRECISION);
     }
 
     public function providerIMABS()
@@ -165,7 +169,7 @@ class EngineeringTest extends TestCase
     public function testIMARGUMENT($expectedResult, $value)
     {
         $result = Engineering::IMARGUMENT($value);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, null, self::COMPLEX_PRECISION);
     }
 
     public function providerIMARGUMENT()
@@ -182,7 +186,10 @@ class EngineeringTest extends TestCase
     public function testIMCONJUGATE($expectedResult, $value)
     {
         $result = Engineering::IMCONJUGATE($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMCONJUGATE()
@@ -199,7 +206,10 @@ class EngineeringTest extends TestCase
     public function testIMCOS($expectedResult, $value)
     {
         $result = Engineering::IMCOS($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMCOS()
@@ -216,7 +226,10 @@ class EngineeringTest extends TestCase
     public function testIMCOSH($expectedResult, $value)
     {
         $result = Engineering::IMCOSH($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMCOSH()
@@ -233,7 +246,10 @@ class EngineeringTest extends TestCase
     public function testIMCOT($expectedResult, $value)
     {
         $result = Engineering::IMCOT($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMCOT()
@@ -250,7 +266,10 @@ class EngineeringTest extends TestCase
     public function testIMCSC($expectedResult, $value)
     {
         $result = Engineering::IMCSC($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMCSC()
@@ -267,7 +286,10 @@ class EngineeringTest extends TestCase
     public function testIMCSCH($expectedResult, $value)
     {
         $result = Engineering::IMCSCH($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMCSCH()
@@ -284,7 +306,10 @@ class EngineeringTest extends TestCase
     public function testIMSEC($expectedResult, $value)
     {
         $result = Engineering::IMSEC($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMSEC()
@@ -301,7 +326,10 @@ class EngineeringTest extends TestCase
     public function testIMSECH($expectedResult, $value)
     {
         $result = Engineering::IMSECH($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMSECH()
@@ -317,7 +345,10 @@ class EngineeringTest extends TestCase
     public function testIMDIV($expectedResult, ...$args)
     {
         $result = Engineering::IMDIV(...$args);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMDIV()
@@ -334,7 +365,10 @@ class EngineeringTest extends TestCase
     public function testIMEXP($expectedResult, $value)
     {
         $result = Engineering::IMEXP($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMEXP()
@@ -351,7 +385,10 @@ class EngineeringTest extends TestCase
     public function testIMLN($expectedResult, $value)
     {
         $result = Engineering::IMLN($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMLN()
@@ -368,7 +405,10 @@ class EngineeringTest extends TestCase
     public function testIMLOG2($expectedResult, $value)
     {
         $result = Engineering::IMLOG2($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMLOG2()
@@ -385,7 +425,10 @@ class EngineeringTest extends TestCase
     public function testIMLOG10($expectedResult, $value)
     {
         $result = Engineering::IMLOG10($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMLOG10()
@@ -403,7 +446,10 @@ class EngineeringTest extends TestCase
         $this->markTestIncomplete('TODO: This test should be fixed');
 
         $result = Engineering::IMPOWER(...$args);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMPOWER()
@@ -419,7 +465,10 @@ class EngineeringTest extends TestCase
     public function testIMPRODUCT($expectedResult, ...$args)
     {
         $result = Engineering::IMPRODUCT(...$args);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMPRODUCT()
@@ -436,7 +485,10 @@ class EngineeringTest extends TestCase
     public function testIMSIN($expectedResult, $value)
     {
         $result = Engineering::IMSIN($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMSIN()
@@ -453,7 +505,10 @@ class EngineeringTest extends TestCase
     public function testIMSINH($expectedResult, $value)
     {
         $result = Engineering::IMSINH($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMSINH()
@@ -470,7 +525,10 @@ class EngineeringTest extends TestCase
     public function testIMTAN($expectedResult, $value)
     {
         $result = Engineering::IMTAN($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMTAN()
@@ -487,7 +545,10 @@ class EngineeringTest extends TestCase
     public function testIMSQRT($expectedResult, $value)
     {
         $result = Engineering::IMSQRT($value);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMSQRT()
@@ -503,7 +564,10 @@ class EngineeringTest extends TestCase
     public function testIMSUB($expectedResult, ...$args)
     {
         $result = Engineering::IMSUB(...$args);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMSUB()
@@ -519,7 +583,10 @@ class EngineeringTest extends TestCase
     public function testIMSUM($expectedResult, ...$args)
     {
         $result = Engineering::IMSUM(...$args);
-        self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
     }
 
     public function providerIMSUM()
@@ -535,7 +602,7 @@ class EngineeringTest extends TestCase
     public function testERF($expectedResult, ...$args)
     {
         $result = Engineering::ERF(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, self::ERF_PRECISION);
     }
 
     public function providerERF()
@@ -551,7 +618,7 @@ class EngineeringTest extends TestCase
     public function testERFPRECISE($expectedResult, ...$args)
     {
         $result = Engineering::ERFPRECISE(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, self::ERF_PRECISION);
     }
 
     public function providerERFPRECISE()
@@ -567,7 +634,7 @@ class EngineeringTest extends TestCase
     public function testERFC($expectedResult, ...$args)
     {
         $result = Engineering::ERFC(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, null, self::ERF_PRECISION);
     }
 
     public function providerERFC()

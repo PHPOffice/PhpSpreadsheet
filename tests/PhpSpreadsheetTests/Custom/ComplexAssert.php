@@ -2,11 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Custom;
 
+use Complex\Complex;
+
 class ComplexAssert
 {
     private $errorMessage = '';
 
-    private function testExceptions($expected, $actual)
+    private function testExpectedExceptions($expected, $actual)
     {
         //    Expecting an error, so we do a straight string comparison
         if ($expected === $actual) {
@@ -22,7 +24,7 @@ class ComplexAssert
     public function assertComplexEquals($expected, $actual, $delta = 0)
     {
         if ($expected === INF || $expected[0] === '#') {
-            return $this->testExceptions($expected, $actual);
+            return $this->testExpectedExceptions($expected, $actual);
         }
 
         $expectedComplex = new Complex($expected);
@@ -38,15 +40,13 @@ class ComplexAssert
             return true;
         }
 
-        if ($actualComplex->getReal() < ($expectedComplex->getReal() - $delta) ||
-            $actualComplex->getReal() > ($expectedComplex->getReal() + $delta)) {
+        if (abs($actualComplex->getReal() - $expectedComplex->getReal()) > $delta) {
             $this->errorMessage = 'Mismatched Real part: ' . $actualComplex->getReal() . ' != ' . $expectedComplex->getReal();
 
             return false;
         }
 
-        if ($actualComplex->getImaginary() < ($expectedComplex->getImaginary() - $delta) ||
-            $actualComplex->getImaginary() > ($expectedComplex->getImaginary() + $delta)) {
+        if (abs($actualComplex->getImaginary() - $expectedComplex->getImaginary()) > $delta) {
             $this->errorMessage = 'Mismatched Imaginary part: ' . $actualComplex->getImaginary() . ' != ' . $expectedComplex->getImaginary();
 
             return false;
