@@ -109,10 +109,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMAGINARY
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMAGINARY($expectedResult, ...$args)
+    public function testIMAGINARY($expectedResult, $value)
     {
-        $result = Engineering::IMAGINARY(...$args);
+        $result = Engineering::IMAGINARY($value);
         self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -125,10 +126,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMREAL
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMREAL($expectedResult, ...$args)
+    public function testIMREAL($expectedResult, $value)
     {
-        $result = Engineering::IMREAL(...$args);
+        $result = Engineering::IMREAL($value);
         self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -141,10 +143,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMABS
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMABS($expectedResult, ...$args)
+    public function testIMABS($expectedResult, $value)
     {
-        $result = Engineering::IMABS(...$args);
+        $result = Engineering::IMABS($value);
         self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -157,10 +160,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMARGUMENT
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMARGUMENT($expectedResult, ...$args)
+    public function testIMARGUMENT($expectedResult, $value)
     {
-        $result = Engineering::IMARGUMENT(...$args);
+        $result = Engineering::IMARGUMENT($value);
         self::assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -173,10 +177,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMCONJUGATE
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMCONJUGATE($expectedResult, ...$args)
+    public function testIMCONJUGATE($expectedResult, $value)
     {
-        $result = Engineering::IMCONJUGATE(...$args);
+        $result = Engineering::IMCONJUGATE($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -189,10 +194,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMCOS
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMCOS($expectedResult, ...$args)
+    public function testIMCOS($expectedResult, $value)
     {
-        $result = Engineering::IMCOS(...$args);
+        $result = Engineering::IMCOS($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -205,10 +211,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMCOSH
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMCOSH($expectedResult, ...$args)
+    public function testIMCOSH($expectedResult, $value)
     {
-        $result = Engineering::IMCOSH(...$args);
+        $result = Engineering::IMCOSH($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -221,10 +228,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMCOT
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMCOT($expectedResult, ...$args)
+    public function testIMCOT($expectedResult, $value)
     {
-        $result = Engineering::IMCOT(...$args);
+        $result = Engineering::IMCOT($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -237,10 +245,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMCSC
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMCSC($expectedResult, ...$args)
+    public function testIMCSC($expectedResult, $value)
     {
-        $result = Engineering::IMCSC(...$args);
+        $result = Engineering::IMCSC($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -253,10 +262,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMCSCH
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMCSCH($expectedResult, ...$args)
+    public function testIMCSCH($expectedResult, $value)
     {
-        $result = Engineering::IMCSCH(...$args);
+        $result = Engineering::IMCSCH($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -269,10 +279,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMSEC
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMSEC($expectedResult, ...$args)
+    public function testIMSEC($expectedResult, $value)
     {
-        $result = Engineering::IMSEC(...$args);
+        $result = Engineering::IMSEC($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -285,10 +296,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMSECH
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMSECH($expectedResult, ...$args)
+    public function testIMSECH($expectedResult, $value)
     {
-        $result = Engineering::IMSECH(...$args);
+        $result = Engineering::IMSECH($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -317,10 +329,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMEXP
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMEXP($expectedResult, ...$args)
+    public function testIMEXP($expectedResult, $value)
     {
-        $result = Engineering::IMEXP(...$args);
+        $result = Engineering::IMEXP($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -333,10 +346,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMLN
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMLN($expectedResult, ...$args)
+    public function testIMLN($expectedResult, $value)
     {
-        $result = Engineering::IMLN(...$args);
+        $result = Engineering::IMLN($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -349,10 +363,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMLOG2
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMLOG2($expectedResult, ...$args)
+    public function testIMLOG2($expectedResult, $value)
     {
-        $result = Engineering::IMLOG2(...$args);
+        $result = Engineering::IMLOG2($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -365,10 +380,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMLOG10
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMLOG10($expectedResult, ...$args)
+    public function testIMLOG10($expectedResult, $value)
     {
-        $result = Engineering::IMLOG10(...$args);
+        $result = Engineering::IMLOG10($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -415,10 +431,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMSIN
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMSIN($expectedResult, ...$args)
+    public function testIMSIN($expectedResult, $value)
     {
-        $result = Engineering::IMSIN(...$args);
+        $result = Engineering::IMSIN($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -431,10 +448,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMSINH
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMSINH($expectedResult, ...$args)
+    public function testIMSINH($expectedResult, $value)
     {
-        $result = Engineering::IMSINH(...$args);
+        $result = Engineering::IMSINH($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -447,10 +465,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMTAN
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMTAN($expectedResult, ...$args)
+    public function testIMTAN($expectedResult, $value)
     {
-        $result = Engineering::IMTAN(...$args);
+        $result = Engineering::IMTAN($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -463,10 +482,11 @@ class EngineeringTest extends TestCase
      * @dataProvider providerIMSQRT
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testIMSQRT($expectedResult, ...$args)
+    public function testIMSQRT($expectedResult, $value)
     {
-        $result = Engineering::IMSQRT(...$args);
+        $result = Engineering::IMSQRT($value);
         self::assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
