@@ -17,7 +17,8 @@ class XlsxTest extends TestCase
         $reader->load($filename);
     }
 
-    public function testReadColumnWidth() {
+    public function testReadColumnWidth()
+    {
 
         $testFile = './data/Reader/XLSX/test.xlsx';
         @unlink($testFile);
@@ -32,7 +33,7 @@ class XlsxTest extends TestCase
         $writer->save($testFile);
 
         $columnDimensions = $sheet->getColumnDimensions();
-        $this->assertArrayHasKey("A", $columnDimensions);
+        $this->assertArrayHasKey('A', $columnDimensions);
         $column = array_shift($columnDimensions);
         $this->assertEquals(20, $column->getWidth());
 
@@ -42,7 +43,7 @@ class XlsxTest extends TestCase
 
         // check column width
         $columnDimensions = $sheet->getColumnDimensions();
-        $this->assertArrayHasKey("A", $columnDimensions);
+        $this->assertArrayHasKey('A', $columnDimensions);
         $column = array_shift($columnDimensions);
         $this->assertEquals(20, $column->getWidth());
     }

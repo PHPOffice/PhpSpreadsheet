@@ -940,8 +940,8 @@ class Xlsx extends BaseReader
                             $rowsAttributesSet = [];
                             foreach ($columnsAttributes as $coordColumn => $columnAttributes) {
                                 foreach ($rowsAttributes as $coordRow => $rowAttributes) {
-                                    if($this->getReadFilter() !== null) {
-                                        if(!$this->getReadFilter()->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
+                                    if ($this->getReadFilter() !== null) {
+                                        if (!$this->getReadFilter()->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
                                             continue 2;
                                         }
                                     }
@@ -953,8 +953,8 @@ class Xlsx extends BaseReader
                             }
                             foreach ($rowsAttributes as $coordRow => $rowAttributes) {
                                 foreach ($columnsAttributes as $coordColumn => $columnAttributes) {
-                                    if($this->getReadFilter() !== null) {
-                                        if(!$this->getReadFilter()->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
+                                    if ($this->getReadFilter() !== null) {
+                                        if (!$this->getReadFilter()->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
                                             continue 2;
                                         }
                                     }
