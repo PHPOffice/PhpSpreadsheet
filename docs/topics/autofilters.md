@@ -285,8 +285,8 @@ $columnFilter->createRule()
 
 We also set the rule type to CUSTOMFILTER.
 
-This defined two rules, filtering numbers that are &gt;= -20 OR &lt;=
-20, so we also need to modify the join condition to reflect AND rather
+This defined two rules, filtering numbers that are `>= -20` OR `<=
+20`, so we also need to modify the join condition to reflect AND rather
 than OR.
 
 ``` php

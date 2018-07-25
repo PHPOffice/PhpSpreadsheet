@@ -69,7 +69,7 @@ $spreadsheet->createSheet();
 ```
 
 A new worksheet created using this method will be called
-"Worksheet&lt;n&gt;" where "&lt;n&gt;" is the lowest number possible to
+`Worksheet<n>` where `<n>` is the lowest number possible to
 guarantee that the title is unique.
 
 Alternatively, you can instantiate a new worksheet (setting the title to
