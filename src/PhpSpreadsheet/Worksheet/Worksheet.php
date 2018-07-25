@@ -2963,13 +2963,14 @@ class Worksheet implements IComparable
                     $newCollection = $this->cellCollection->cloneCellCollection($this);
                     $this->cellCollection = $newCollection;
                 } elseif ($key == 'drawingCollection') {
-                    $newCollection = new ArrayObject();
-                    foreach ($this->drawingCollection as $id => $item) {
+                    $currentCollection = $this->drawingCollection;
+                    $this->drawingCollection = new ArrayObject();
+                    foreach ($currentCollection as $item) {
                         if (is_object($item)) {
-                            $newCollection[$id] = clone $this->drawingCollection[$id];
+                            $newDrawing = clone $item;
+                            $newDrawing->setWorksheet($this);
                         }
                     }
-                    $this->drawingCollection = $newCollection;
                 } elseif (($key == 'autoFilter') && ($this->autoFilter instanceof AutoFilter)) {
                     $newAutoFilter = clone $this->autoFilter;
                     $this->autoFilter = $newAutoFilter;
