@@ -206,6 +206,10 @@ IMAGINARY           | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet
 IMARGUMENT          | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMARGUMENT
 IMCONJUGATE         | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCONJUGATE
 IMCOS               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCOS
+IMCOSH              | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCOSH
+IMCOT               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCOT
+IMCSC               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCSC
+IMCSCH              | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCSCH
 IMDIV               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMDIV
 IMEXP               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMEXP
 IMLN                | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMLN
@@ -214,10 +218,14 @@ IMLOG2              | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet
 IMPOWER             | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMPOWER
 IMPRODUCT           | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMPRODUCT
 IMREAL              | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMREAL
+IMSEC               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSEC
+IMSECH              | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSECH
 IMSIN               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSIN
+IMSINH              | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSINH
 IMSQRT              | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSQRT
 IMSUB               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSUB
 IMSUM               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSUM
+IMTAN               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMTAN
 INDEX               | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::INDEX
 INDIRECT            | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::INDIRECT
 INFO                | CATEGORY_INFORMATION           | **Not yet Implemented**

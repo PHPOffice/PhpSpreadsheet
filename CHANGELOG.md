@@ -13,11 +13,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Support workbook view attributes for Xlsx format - [#523](https://github.com/PHPOffice/PhpSpreadsheet/issues/523)
 - Read and write hyperlink for drawing image - [#490](https://github.com/PHPOffice/PhpSpreadsheet/pull/490)
 - Added calculation engine support for the new bitwise functions that were added in MS Excel 2013
-  - BITAND()     Returns a Bitwise 'And' of two numbers
-  - BITOR()      Returns a Bitwise 'Or' of two number
-  - BITXOR()     Returns a Bitwise 'Exclusive Or' of two numbers
-  - BITLSHIFT()  Returns a number shifted left by a specified number of bits
-  - BITRSHIFT()  Returns a number shifted right by a specified number of bits
+  - BITAND()          Returns a Bitwise 'And' of two numbers
+  - BITOR()           Returns a Bitwise 'Or' of two number
+  - BITXOR()          Returns a Bitwise 'Exclusive Or' of two numbers
+  - BITLSHIFT()       Returns a number shifted left by a specified number of bits
+  - BITRSHIFT()       Returns a number shifted right by a specified number of bits
 - Added calculation engine support for other new functions that were added in MS Excel 2013 and MS Excel 2016
   - Text Functions
     - CONCAT()        Synonym for CONCATENATE()
@@ -46,6 +46,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     - COTH()          Returns the hyperbolic cotangent of an angle
     - ACOT()          Returns the cotangent of an angle
     - ACOTH()         Returns the hyperbolic cotangent of an angle
+- Refactored Complex Engineering Functions to use external complex number library
+- Added calculation engine support for the new complex number functions that were added in MS Excel 2013
+    - IMCOSH()        Returns the hyperbolic cosine of a complex number
+    - IMCOT()         Returns the cotangent of a complex number
+    - IMCSC()         Returns the cosecant of a complex number
+    - IMCSCH()        Returns the hyperbolic cosecant of a complex number
+    - IMSEC()         Returns the secant of a complex number
+    - IMSECH()        Returns the hyperbolic secant of a complex number
+    - IMSINH()        Returns the hyperbolic sine of a complex number
+    - IMTAN()         Returns the tangent of a complex number 
 
 ### Fixed
 

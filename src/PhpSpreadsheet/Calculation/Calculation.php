@@ -1038,6 +1038,26 @@ class Calculation
             'functionCall' => [Engineering::class, 'IMCOS'],
             'argumentCount' => '1',
         ],
+        'IMCOSH' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'IMCOSH'],
+            'argumentCount' => '1',
+        ],
+        'IMCOT' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'IMCOT'],
+            'argumentCount' => '1',
+        ],
+        'IMCSC' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'IMCSC'],
+            'argumentCount' => '1',
+        ],
+        'IMCSCH' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'IMCSCH'],
+            'argumentCount' => '1',
+        ],
         'IMDIV' => [
             'category' => Category::CATEGORY_ENGINEERING,
             'functionCall' => [Engineering::class, 'IMDIV'],
@@ -1078,9 +1098,24 @@ class Calculation
             'functionCall' => [Engineering::class, 'IMREAL'],
             'argumentCount' => '1',
         ],
+        'IMSEC' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'IMSEC'],
+            'argumentCount' => '1',
+        ],
+        'IMSECH' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'IMSECH'],
+            'argumentCount' => '1',
+        ],
         'IMSIN' => [
             'category' => Category::CATEGORY_ENGINEERING,
             'functionCall' => [Engineering::class, 'IMSIN'],
+            'argumentCount' => '1',
+        ],
+        'IMSINH' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'IMSINH'],
             'argumentCount' => '1',
         ],
         'IMSQRT' => [
@@ -1097,6 +1132,11 @@ class Calculation
             'category' => Category::CATEGORY_ENGINEERING,
             'functionCall' => [Engineering::class, 'IMSUM'],
             'argumentCount' => '1+',
+        ],
+        'IMTAN' => [
+            'category' => Category::CATEGORY_ENGINEERING,
+            'functionCall' => [Engineering::class, 'IMTAN'],
+            'argumentCount' => '1',
         ],
         'INDEX' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
