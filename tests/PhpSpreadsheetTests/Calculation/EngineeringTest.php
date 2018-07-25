@@ -98,6 +98,24 @@ class EngineeringTest extends TestCase
      *
      * @param mixed $expectedResult
      */
+    public function testParseComplex()
+    {
+        list($real, $imaginary, $suffix) = [1.23e-4, 5.67e+8, 'j'];
+
+        $result = Engineering::parseComplex('1.23e-4+5.67e+8j');
+        $this->assertArrayHasKey('real', $result);
+        $this->assertEquals($real, $result['real']);
+        $this->assertArrayHasKey('imaginary', $result);
+        $this->assertEquals($imaginary, $result['imaginary']);
+        $this->assertArrayHasKey('suffix', $result);
+        $this->assertEquals($suffix, $result['suffix']);
+    }
+
+    /**
+     * @dataProvider providerCOMPLEX
+     *
+     * @param mixed $expectedResult
+     */
     public function testCOMPLEX($expectedResult, ...$args)
     {
         $result = Engineering::COMPLEX(...$args);

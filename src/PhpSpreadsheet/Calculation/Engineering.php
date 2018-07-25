@@ -725,7 +725,7 @@ class Engineering
      *
      * @param string $complexNumber The complex number
      *
-     * @return string[] Indexed on "real", "imaginary" and "suffix"
+     * @return mixed[] Indexed on "real", "imaginary" and "suffix"
      */
     public static function parseComplex($complexNumber)
     {
