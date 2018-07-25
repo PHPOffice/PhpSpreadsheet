@@ -940,20 +940,28 @@ class Xlsx extends BaseReader
                             $rowsAttributesSet = [];
                             foreach ($columnsAttributes as $coordColumn => $columnAttributes) {
                                 foreach ($rowsAttributes as $coordRow => $rowAttributes) {
-                                    if ($this->getReadFilter() !== null) {
-                                        if (!$this->getReadFilter()->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
-                                            continue;
+                                    if($this->getReadFilter() !== null) {
+                                        if(!$this->getReadFilter()->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
+                                            continue 2;
                                         }
                                     }
-
-                                    if (!isset($columnsAttributesSet[$coordColumn])) {
-                                        $this->setColumnAttributes($docSheet, $coordColumn, $columnAttributes);
-                                        $columnsAttributesSet[$coordColumn] = true;
+                                }
+                                if (!isset($columnsAttributesSet[$coordColumn])) {
+                                    $this->setColumnAttributes($docSheet, $coordColumn, $columnAttributes);
+                                    $columnsAttributesSet[$coordColumn] = true;
+                                }
+                            }
+                            foreach ($rowsAttributes as $coordRow => $rowAttributes) {
+                                foreach ($columnsAttributes as $coordColumn => $columnAttributes) {
+                                    if($this->getReadFilter() !== null) {
+                                        if(!$this->getReadFilter()->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
+                                            continue 2;
+                                        }
                                     }
-                                    if (!isset($rowsAttributesSet[$coordRow])) {
-                                        $this->setRowAttributes($docSheet, $coordRow, $rowAttributes);
-                                        $rowsAttributesSet[$coordRow] = true;
-                                    }
+                                }
+                                if (!isset($rowsAttributesSet[$coordRow])) {
+                                    $this->setRowAttributes($docSheet, $coordRow, $rowAttributes);
+                                    $rowsAttributesSet[$coordRow] = true;
                                 }
                             }
 
