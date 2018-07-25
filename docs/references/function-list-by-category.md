@@ -86,6 +86,10 @@ IMAGINARY           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMAGINA
 IMARGUMENT          | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMARGUMENT
 IMCONJUGATE         | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCONJUGATE
 IMCOS               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCOS
+IMCOSH              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCOSH
+IMCOT               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCOT
+IMCSC               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCSC
+IMCSCH              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCSCH
 IMDIV               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMDIV
 IMEXP               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMEXP
 IMLN                | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMLN
@@ -94,10 +98,14 @@ IMLOG2              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMLOG2
 IMPOWER             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMPOWER
 IMPRODUCT           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMPRODUCT
 IMREAL              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMREAL
+IMSEC               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSEC
+IMSECH              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSECH
 IMSIN               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSIN
+IMSINH              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSINH
 IMSQRT              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSQRT
 IMSUB               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSUB
 IMSUM               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSUM
+IMTAN               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMTAN
 OCT2BIN             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::OCTTOBIN
 OCT2DEC             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::OCTTODEC
 OCT2HEX             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::OCTTOHEX
