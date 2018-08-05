@@ -204,7 +204,6 @@ class Migrator
             'PHPExcel_Settings' => \PhpOffice\PhpSpreadsheet\Settings::class,
             'PHPExcel_Style' => \PhpOffice\PhpSpreadsheet\Style\Style::class,
             'PHPExcel_Worksheet' => \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::class,
-            'PHPExcel' => \PhpOffice\PhpSpreadsheet\Spreadsheet::class,
         ];
 
         $methods = [
@@ -271,6 +270,11 @@ class Migrator
                 }
                 $original = file_get_contents($file);
                 $converted = str_replace($from, $to, $original);
+
+                // The string "PHPExcel" gets special treatment because of how common it might be.
+                // This regex requires a word boundary around the string, and it can't be
+                // preceded by $ or -> (goal is to filter out cases where a variable is named $PHPExcel or similar)
+                $converted = preg_replace('/(?<!\$|->)\bPHPExcel\b/', \PhpOffice\PhpSpreadsheet\Spreadsheet::class, $original);
 
                 if ($original !== $converted) {
                     echo $file . " converted\n";
