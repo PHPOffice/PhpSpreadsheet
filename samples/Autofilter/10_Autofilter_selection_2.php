@@ -108,7 +108,7 @@ $spreadsheet->getActiveSheet()->setAutoFilter($spreadsheet->getActiveSheet()->ca
 $autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
 $helper->log('Set active filters');
 // Filter the Country column on a filter value of Germany
-//	As it's just a simple value filter, we can use FILTERTYPE_FILTER
+// As it's just a simple value filter, we can use FILTERTYPE_FILTER
 $autoFilter->getColumn('C')
     ->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER)
     ->createRule()

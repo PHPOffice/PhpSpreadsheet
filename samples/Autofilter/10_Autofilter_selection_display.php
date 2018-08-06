@@ -125,7 +125,7 @@ $autoFilter->getColumn('C')
     )
     ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 // Filter the Date column on a filter value of the first day of every period of the current year
-//	We us a dateGroup ruletype for this, although it is still a standard filter
+// We us a dateGroup ruletype for this, although it is still a standard filter
 foreach ($periods as $period) {
     $endDate = date('t', mktime(0, 0, 0, $period, 1, $currentYear));
 
