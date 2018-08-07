@@ -3,33 +3,10 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\IComparable;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-class Color extends Supervisor implements IComparable
+class Color extends Supervisor
 {
-    /* Colors */
+    // Colors
     const COLOR_BLACK = 'FF000000';
     const COLOR_WHITE = 'FFFFFFFF';
     const COLOR_RED = 'FFFF0000';
@@ -53,14 +30,7 @@ class Color extends Supervisor implements IComparable
      *
      * @var string
      */
-    protected $argb = null;
-
-    /**
-     * Parent property name.
-     *
-     * @var string
-     */
-    protected $parentPropertyName;
+    protected $argb;
 
     /**
      * Create a new Color.
@@ -82,22 +52,6 @@ class Color extends Supervisor implements IComparable
         if (!$isConditional) {
             $this->argb = $pARGB;
         }
-    }
-
-    /**
-     * Bind parent. Only used for supervisor.
-     *
-     * @param mixed $parent
-     * @param string $parentPropertyName
-     *
-     * @return Color
-     */
-    public function bindParent($parent, $parentPropertyName = null)
-    {
-        $this->parent = $parent;
-        $this->parentPropertyName = $parentPropertyName;
-
-        return $this;
     }
 
     /**
@@ -127,26 +81,15 @@ class Color extends Supervisor implements IComparable
      */
     public function getStyleArray($array)
     {
-        switch ($this->parentPropertyName) {
-            case 'endColor':
-                $key = 'endcolor';
-                break;
-            case 'color':
-                $key = 'color';
-                break;
-            case 'startColor':
-                $key = 'startcolor';
-                break;
-        }
-
-        return $this->parent->getStyleArray([$key => $array]);
+        return $this->parent->getStyleArray([$this->parentPropertyName => $array]);
     }
 
     /**
      * Apply styles from array.
+     *
      * <code>
-     * $spreadsheet->getActiveSheet()->getStyle('B2')->getFont()->getColor()->applyFromArray( array('rgb' => '808080') );
-     * </code>.
+     * $spreadsheet->getActiveSheet()->getStyle('B2')->getFont()->getColor()->applyFromArray(['rgb' => '808080']);
+     * </code>
      *
      * @param array $pStyles Array containing style information
      *
@@ -244,8 +187,6 @@ class Color extends Supervisor implements IComparable
 
     /**
      * Get a specified colour component of an RGB value.
-     *
-     * @private
      *
      * @param string $RGB The colour as an RGB value (e.g. FF00CCCC or CCDDEE
      * @param int $offset Position within the RGB value to extract
@@ -371,7 +312,7 @@ class Color extends Supervisor implements IComparable
         $pIndex = (int) $pIndex;
 
         // Indexed colors
-        if (is_null(self::$indexedColors)) {
+        if (self::$indexedColors === null) {
             self::$indexedColors = [
                 1 => 'FF000000', //  System Colour #1 - Black
                 2 => 'FFFFFFFF', //  System Colour #2 - White

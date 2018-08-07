@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
+// vim: set expandtab tabstop=4 shiftwidth=4:
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -21,14 +21,16 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 // +----------------------------------------------------------------------+
 //
 
-/*
-* Array for storing OLE instances that are accessed from
-* OLE_ChainedBlockStream::stream_open().
-* @var  array
-*/
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\ChainedBlockStream;
+use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\Root;
 
+/*
+ * Array for storing OLE instances that are accessed from
+ * OLE_ChainedBlockStream::stream_open().
+ *
+ * @var array
+ */
 $GLOBALS['_OLE_INSTANCES'] = [];
 
 /**
@@ -65,7 +67,7 @@ class OLE
     /**
      * Root directory of OLE container.
      *
-     * @var OLE_PPS_Root
+     * @var Root
      */
     public $root;
 
@@ -96,6 +98,13 @@ class OLE
      * @var int number of octets per block
      */
     public $smallBlockSize;
+
+    /**
+     * Threshold for big blocks.
+     *
+     * @var int
+     */
+    public $bigBlockThreshold;
 
     /**
      * Reads an OLE container from the contents of the file given.
@@ -193,9 +202,9 @@ class OLE
     }
 
     /**
-     * @param int block id
-     * @param int byte offset from beginning of file
-     * @param mixed $blockId
+     * @param int $blockId byte offset from beginning of file
+     *
+     * @return int
      */
     public function _getBlockOffset($blockId)
     {
@@ -206,8 +215,7 @@ class OLE
      * Returns a stream for use with fread() etc. External callers should
      * use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().
      *
-     * @param int|PPS block id or PPS
-     * @param mixed $blockIdOrPps
+     * @param int|OLE\PPS $blockIdOrPps block id or PPS
      *
      * @return resource read-only stream
      */
@@ -299,14 +307,17 @@ class OLE
             $type = self::_readInt1($fh);
             switch ($type) {
                 case self::OLE_PPS_TYPE_ROOT:
-                    $pps = new OLE\PPS_Root(null, null, []);
+                    $pps = new OLE\PPS\Root(null, null, []);
                     $this->root = $pps;
+
                     break;
                 case self::OLE_PPS_TYPE_DIR:
                     $pps = new OLE\PPS(null, null, null, null, null, null, null, null, null, []);
+
                     break;
                 case self::OLE_PPS_TYPE_FILE:
                     $pps = new OLE\PPS\File($name);
+
                     break;
                 default:
                     continue;
@@ -363,12 +374,12 @@ class OLE
     public function _ppsTreeComplete($index)
     {
         return isset($this->_list[$index]) &&
-               ($pps = $this->_list[$index]) &&
-               ($pps->PrevPps == -1 ||
+            ($pps = $this->_list[$index]) &&
+            ($pps->PrevPps == -1 ||
                 $this->_ppsTreeComplete($pps->PrevPps)) &&
-               ($pps->NextPps == -1 ||
+            ($pps->NextPps == -1 ||
                 $this->_ppsTreeComplete($pps->NextPps)) &&
-               ($pps->DirPps == -1 ||
+            ($pps->DirPps == -1 ||
                 $this->_ppsTreeComplete($pps->DirPps));
     }
 
@@ -462,8 +473,6 @@ class OLE
     /**
      * Utility function to transform ASCII text to Unicode.
      *
-     * @static
-     *
      * @param string $ascii The ASCII string to transform
      *
      * @return string The string in Unicode
@@ -471,9 +480,10 @@ class OLE
     public static function ascToUcs($ascii)
     {
         $rawname = '';
-        for ($i = 0; $i < strlen($ascii); ++$i) {
+        $iMax = strlen($ascii);
+        for ($i = 0; $i < $iMax; ++$i) {
             $rawname .= $ascii[$i]
-            . "\x00";
+                . "\x00";
         }
 
         return $rawname;
@@ -482,8 +492,6 @@ class OLE
     /**
      * Utility function
      * Returns a string for the OLE container with the date given.
-     *
-     * @static
      *
      * @param int $date A timestamp
      *
@@ -529,8 +537,6 @@ class OLE
     /**
      * Returns a timestamp from an OLE container's date.
      *
-     * @static
-     *
      * @param int $string A binary string with the encoded date
      *
      * @return string The timestamp corresponding to the string
@@ -538,7 +544,7 @@ class OLE
     public static function OLE2LocalDate($string)
     {
         if (strlen($string) != 8) {
-            return new PEAR_Error('Expecting 8 byte string');
+            throw new ReaderException('Expecting 8 byte string');
         }
 
         // factor used for separating numbers into 4 bytes parts

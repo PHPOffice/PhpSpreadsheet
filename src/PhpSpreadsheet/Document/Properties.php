@@ -2,28 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Document;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Properties
 {
     /** constants */
@@ -190,23 +168,23 @@ class Properties
     /**
      * Set Created.
      *
-     * @param datetime $pValue
+     * @param int|string $time
      *
      * @return Properties
      */
-    public function setCreated($pValue)
+    public function setCreated($time)
     {
-        if ($pValue === null) {
-            $pValue = time();
-        } elseif (is_string($pValue)) {
-            if (is_numeric($pValue)) {
-                $pValue = (int) $pValue;
+        if ($time === null) {
+            $time = time();
+        } elseif (is_string($time)) {
+            if (is_numeric($time)) {
+                $time = (int) $time;
             } else {
-                $pValue = strtotime($pValue);
+                $time = strtotime($time);
             }
         }
 
-        $this->created = $pValue;
+        $this->created = $time;
 
         return $this;
     }
@@ -224,23 +202,23 @@ class Properties
     /**
      * Set Modified.
      *
-     * @param datetime $pValue
+     * @param int|string $time
      *
      * @return Properties
      */
-    public function setModified($pValue)
+    public function setModified($time)
     {
-        if ($pValue === null) {
-            $pValue = time();
-        } elseif (is_string($pValue)) {
-            if (is_numeric($pValue)) {
-                $pValue = (int) $pValue;
+        if ($time === null) {
+            $time = time();
+        } elseif (is_string($time)) {
+            if (is_numeric($time)) {
+                $time = (int) $time;
             } else {
-                $pValue = strtotime($pValue);
+                $time = strtotime($time);
             }
         }
 
-        $this->modified = $pValue;
+        $this->modified = $time;
 
         return $this;
     }
@@ -525,9 +503,11 @@ class Properties
         switch ($propertyType) {
             case 'empty':     //    Empty
                 return '';
+
                 break;
             case 'null':      //    Null
                 return null;
+
                 break;
             case 'i1':        //    1-Byte Signed Integer
             case 'i2':        //    2-Byte Signed Integer
@@ -535,6 +515,7 @@ class Properties
             case 'i8':        //    8-Byte Signed Integer
             case 'int':       //    Integer
                 return (int) $propertyValue;
+
                 break;
             case 'ui1':       //    1-Byte Unsigned Integer
             case 'ui2':       //    2-Byte Unsigned Integer
@@ -542,23 +523,28 @@ class Properties
             case 'ui8':       //    8-Byte Unsigned Integer
             case 'uint':      //    Unsigned Integer
                 return abs((int) $propertyValue);
+
                 break;
             case 'r4':        //    4-Byte Real Number
             case 'r8':        //    8-Byte Real Number
             case 'decimal':   //    Decimal
                 return (float) $propertyValue;
+
                 break;
             case 'lpstr':     //    LPSTR
             case 'lpwstr':    //    LPWSTR
             case 'bstr':      //    Basic String
                 return $propertyValue;
+
                 break;
             case 'date':      //    Date and Time
             case 'filetime':  //    File Time
                 return strtotime($propertyValue);
+
                 break;
             case 'bool':     //    Boolean
                 return ($propertyValue == 'true') ? true : false;
+
                 break;
             case 'cy':       //    Currency
             case 'error':    //    Error Status Code
@@ -574,6 +560,7 @@ class Properties
             case 'clsid':    //    Class ID
             case 'cf':       //    Clipboard Data
                 return $propertyValue;
+
                 break;
         }
 
@@ -594,11 +581,13 @@ class Properties
             case 'ui8':      //    8-Byte Unsigned Integer
             case 'uint':     //    Unsigned Integer
                 return self::PROPERTY_TYPE_INTEGER;
+
                 break;
             case 'r4':       //    4-Byte Real Number
             case 'r8':       //    8-Byte Real Number
             case 'decimal':  //    Decimal
                 return self::PROPERTY_TYPE_FLOAT;
+
                 break;
             case 'empty':    //    Empty
             case 'null':     //    Null
@@ -606,13 +595,16 @@ class Properties
             case 'lpwstr':   //    LPWSTR
             case 'bstr':     //    Basic String
                 return self::PROPERTY_TYPE_STRING;
+
                 break;
             case 'date':     //    Date and Time
             case 'filetime': //    File Time
                 return self::PROPERTY_TYPE_DATE;
+
                 break;
             case 'bool':     //    Boolean
                 return self::PROPERTY_TYPE_BOOLEAN;
+
                 break;
             case 'cy':       //    Currency
             case 'error':    //    Error Status Code
@@ -628,6 +620,7 @@ class Properties
             case 'clsid':    //    Class ID
             case 'cf':       //    Clipboard Data
                 return self::PROPERTY_TYPE_UNKNOWN;
+
                 break;
         }
 

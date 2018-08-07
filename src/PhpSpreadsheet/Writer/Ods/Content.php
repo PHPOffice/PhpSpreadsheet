@@ -2,38 +2,15 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
-/*
- * PhpSpreadsheet.
- *
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
-use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Row;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Comment;
@@ -136,7 +113,7 @@ class Content extends WriterPart
      */
     private function writeSheets(XMLWriter $objWriter)
     {
-        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /* @var $spreadsheet Spreadsheet */
+        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); // @var $spreadsheet Spreadsheet
 
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
@@ -191,22 +168,23 @@ class Content extends WriterPart
      * Write cells of the specified row.
      *
      * @param XMLWriter $objWriter
-     * @param Worksheet\Row $row
+     * @param Row $row
      *
      * @throws Exception
      */
-    private function writeCells(XMLWriter $objWriter, Worksheet\Row $row)
+    private function writeCells(XMLWriter $objWriter, Row $row)
     {
         $numberColsRepeated = self::NUMBER_COLS_REPEATED_MAX;
         $prevColumn = -1;
         $cells = $row->getCellIterator();
         while ($cells->valid()) {
-            /** @var Cell $cell */
+            /** @var \PhpOffice\PhpSpreadsheet\Cell\Cell $cell */
             $cell = $cells->current();
-            $column = Cell::columnIndexFromString($cell->getColumn()) - 1;
+            $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
 
             $this->writeCellSpan($objWriter, $column, $prevColumn);
             $objWriter->startElement('table:table-cell');
+            $this->writeCellMerge($objWriter, $cell);
 
             // Style XF
             $style = $cell->getXfIndex();
@@ -219,9 +197,11 @@ class Content extends WriterPart
                     $objWriter->writeAttribute('office:value-type', 'boolean');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
+
                     break;
                 case DataType::TYPE_ERROR:
                     throw new Exception('Writing of error not implemented yet.');
+
                     break;
                 case DataType::TYPE_FORMULA:
                     $formulaValue = $cell->getValue();
@@ -240,18 +220,22 @@ class Content extends WriterPart
                     }
                     $objWriter->writeAttribute('office:value', $formulaValue);
                     $objWriter->writeElement('text:p', $formulaValue);
+
                     break;
                 case DataType::TYPE_INLINE:
                     throw new Exception('Writing of inline not implemented yet.');
+
                     break;
                 case DataType::TYPE_NUMERIC:
                     $objWriter->writeAttribute('office:value-type', 'float');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
+
                     break;
                 case DataType::TYPE_STRING:
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $objWriter->writeElement('text:p', $cell->getValue());
+
                     break;
             }
             Comment::write($objWriter, $cell);
@@ -304,9 +288,7 @@ class Content extends WriterPart
             $writer->writeAttribute('style:family', 'table-cell');
             $writer->writeAttribute('style:parent-style-name', 'Default');
 
-            /*
-             * style:text-properties
-             */
+            // style:text-properties
 
             // Font
             $writer->startElement('style:text-properties');
@@ -343,18 +325,18 @@ class Content extends WriterPart
                 switch ($font->getUnderline()) {
                     case Font::UNDERLINE_DOUBLE:
                         $writer->writeAttribute('style:text-underline-type', 'double');
+
                         break;
                     case Font::UNDERLINE_SINGLE:
                         $writer->writeAttribute('style:text-underline-type', 'single');
+
                         break;
                 }
             }
 
             $writer->endElement(); // Close style:text-properties
 
-            /*
-             * style:table-cell-properties
-             */
+            // style:table-cell-properties
 
             $writer->startElement('style:table-cell-properties');
             $writer->writeAttribute('style:rotation-align', 'none');
@@ -367,6 +349,7 @@ class Content extends WriterPart
                             '#%s',
                             strtolower($fill->getStartColor()->getRGB())
                         ));
+
                         break;
                     case Fill::FILL_GRADIENT_LINEAR:
                     case Fill::FILL_GRADIENT_PATH:
@@ -379,11 +362,34 @@ class Content extends WriterPart
 
             $writer->endElement(); // Close style:table-cell-properties
 
-            /*
-             * End
-             */
+            // End
 
             $writer->endElement(); // Close style:style
         }
+    }
+
+    /**
+     * Write attributes for merged cell.
+     *
+     * @param XMLWriter $objWriter
+     * @param Cell $cell
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    private function writeCellMerge(XMLWriter $objWriter, Cell $cell)
+    {
+        if (!$cell->isMergeRangeValueCell()) {
+            return;
+        }
+
+        $mergeRange = Coordinate::splitRange($cell->getMergeRange());
+        list($startCell, $endCell) = $mergeRange[0];
+        $start = Coordinate::coordinateFromString($startCell);
+        $end = Coordinate::coordinateFromString($endCell);
+        $columnSpan = Coordinate::columnIndexFromString($end[0]) - Coordinate::columnIndexFromString($start[0]) + 1;
+        $rowSpan = $end[1] - $start[1] + 1;
+
+        $objWriter->writeAttribute('table:number-columns-spanned', $columnSpan);
+        $objWriter->writeAttribute('table:number-rows-spanned', $rowSpan);
     }
 }

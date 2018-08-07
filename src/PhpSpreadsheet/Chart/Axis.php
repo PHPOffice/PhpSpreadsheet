@@ -212,7 +212,7 @@ class Axis extends Properties
      */
     public function setAxisOrientation($orientation)
     {
-        $this->orientation = (string) $orientation;
+        $this->axisOptions['orientation'] = (string) $orientation;
     }
 
     /**
@@ -278,15 +278,15 @@ class Axis extends Properties
      */
     public function setLineStyleProperties($line_width = null, $compound_type = null, $dash_type = null, $cap_type = null, $join_type = null, $head_arrow_type = null, $head_arrow_size = null, $end_arrow_type = null, $end_arrow_size = null)
     {
-        (!is_null($line_width)) ? $this->lineStyleProperties['width'] = $this->getExcelPointsWidth((float) $line_width) : null;
-        (!is_null($compound_type)) ? $this->lineStyleProperties['compound'] = (string) $compound_type : null;
-        (!is_null($dash_type)) ? $this->lineStyleProperties['dash'] = (string) $dash_type : null;
-        (!is_null($cap_type)) ? $this->lineStyleProperties['cap'] = (string) $cap_type : null;
-        (!is_null($join_type)) ? $this->lineStyleProperties['join'] = (string) $join_type : null;
-        (!is_null($head_arrow_type)) ? $this->lineStyleProperties['arrow']['head']['type'] = (string) $head_arrow_type : null;
-        (!is_null($head_arrow_size)) ? $this->lineStyleProperties['arrow']['head']['size'] = (string) $head_arrow_size : null;
-        (!is_null($end_arrow_type)) ? $this->lineStyleProperties['arrow']['end']['type'] = (string) $end_arrow_type : null;
-        (!is_null($end_arrow_size)) ? $this->lineStyleProperties['arrow']['end']['size'] = (string) $end_arrow_size : null;
+        ($line_width !== null) ? $this->lineStyleProperties['width'] = $this->getExcelPointsWidth((float) $line_width) : null;
+        ($compound_type !== null) ? $this->lineStyleProperties['compound'] = (string) $compound_type : null;
+        ($dash_type !== null) ? $this->lineStyleProperties['dash'] = (string) $dash_type : null;
+        ($cap_type !== null) ? $this->lineStyleProperties['cap'] = (string) $cap_type : null;
+        ($join_type !== null) ? $this->lineStyleProperties['join'] = (string) $join_type : null;
+        ($head_arrow_type !== null) ? $this->lineStyleProperties['arrow']['head']['type'] = (string) $head_arrow_type : null;
+        ($head_arrow_size !== null) ? $this->lineStyleProperties['arrow']['head']['size'] = (string) $head_arrow_size : null;
+        ($end_arrow_type !== null) ? $this->lineStyleProperties['arrow']['end']['type'] = (string) $end_arrow_type : null;
+        ($end_arrow_size !== null) ? $this->lineStyleProperties['arrow']['end']['size'] = (string) $end_arrow_size : null;
     }
 
     /**
@@ -340,9 +340,9 @@ class Axis extends Properties
     {
         $this->setShadowPresetsProperties((int) $sh_presets)
             ->setShadowColor(
-                is_null($sh_color_value) ? $this->shadowProperties['color']['value'] : $sh_color_value,
-                is_null($sh_color_alpha) ? (int) $this->shadowProperties['color']['alpha'] : $sh_color_alpha,
-                is_null($sh_color_type) ? $this->shadowProperties['color']['type'] : $sh_color_type
+                $sh_color_value === null ? $this->shadowProperties['color']['value'] : $sh_color_value,
+                $sh_color_alpha === null ? (int) $this->shadowProperties['color']['alpha'] : $sh_color_alpha,
+                $sh_color_type === null ? $this->shadowProperties['color']['type'] : $sh_color_type
             )
             ->setShadowBlur($sh_blur)
             ->setShadowAngle($sh_angle)
@@ -462,7 +462,9 @@ class Axis extends Properties
     /**
      * Get Shadow Property.
      *
-     * @param mixed $elements
+     * @param string|string[] $elements
+     *
+     * @return null|array|int|string
      */
     public function getShadowProperty($elements)
     {
@@ -481,9 +483,9 @@ class Axis extends Properties
     {
         $this->setGlowSize($size)
             ->setGlowColor(
-                is_null($color_value) ? $this->glowProperties['color']['value'] : $color_value,
-                is_null($color_alpha) ? (int) $this->glowProperties['color']['alpha'] : $color_alpha,
-                is_null($color_type) ? $this->glowProperties['color']['type'] : $color_type
+                $color_value === null ? $this->glowProperties['color']['value'] : $color_value,
+                $color_alpha === null ? (int) $this->glowProperties['color']['alpha'] : $color_alpha,
+                $color_type === null ? $this->glowProperties['color']['type'] : $color_type
             );
     }
 
@@ -508,7 +510,7 @@ class Axis extends Properties
      */
     private function setGlowSize($size)
     {
-        if (!is_null($size)) {
+        if ($size !== null) {
             $this->glowProperties['size'] = $this->getExcelPointsWidth($size);
         }
 
@@ -538,7 +540,7 @@ class Axis extends Properties
      */
     public function setSoftEdges($size)
     {
-        if (!is_null($size)) {
+        if ($size !== null) {
             $softEdges['size'] = (string) $this->getExcelPointsWidth($size);
         }
     }

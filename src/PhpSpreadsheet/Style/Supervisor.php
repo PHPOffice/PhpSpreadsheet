@@ -2,29 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-abstract class Supervisor
+use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+
+abstract class Supervisor implements IComparable
 {
     /**
      * Supervisor?
@@ -36,9 +18,16 @@ abstract class Supervisor
     /**
      * Parent. Only used for supervisor.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Style
+     * @var Spreadsheet|Style
      */
     protected $parent;
+
+    /**
+     * Parent property name.
+     *
+     * @var null|string
+     */
+    protected $parentPropertyName;
 
     /**
      * Create a new Supervisor.
@@ -56,14 +45,15 @@ abstract class Supervisor
     /**
      * Bind parent. Only used for supervisor.
      *
-     * @param Style $parent
-     * @param null|mixed $parentPropertyName
+     * @param Spreadsheet|Style $parent
+     * @param null|string $parentPropertyName
      *
      * @return Supervisor
      */
     public function bindParent($parent, $parentPropertyName = null)
     {
         $this->parent = $parent;
+        $this->parentPropertyName = $parentPropertyName;
 
         return $this;
     }
@@ -81,7 +71,7 @@ abstract class Supervisor
     /**
      * Get the currently active sheet. Only used for supervisor.
      *
-     * @return \PhpOffice\PhpSpreadsheet\Worksheet
+     * @return Worksheet
      */
     public function getActiveSheet()
     {

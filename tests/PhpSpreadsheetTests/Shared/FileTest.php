@@ -3,16 +3,16 @@
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class FileTest extends PHPUnit_Framework_TestCase
+class FileTest extends TestCase
 {
     public function testGetUseUploadTempDirectory()
     {
         $expectedResult = false;
 
         $result = File::getUseUploadTempDirectory();
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function testSetUseUploadTempDirectory()
@@ -26,7 +26,7 @@ class FileTest extends PHPUnit_Framework_TestCase
             File::setUseUploadTempDirectory($useUploadTempDirectoryValue);
 
             $result = File::getUseUploadTempDirectory();
-            $this->assertEquals($useUploadTempDirectoryValue, $result);
+            self::assertEquals($useUploadTempDirectoryValue, $result);
         }
     }
 }

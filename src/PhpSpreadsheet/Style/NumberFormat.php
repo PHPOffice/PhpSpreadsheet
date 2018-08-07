@@ -4,35 +4,12 @@ namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\IComparable;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-class NumberFormat extends Supervisor implements IComparable
+class NumberFormat extends Supervisor
 {
-    /* Pre-defined formats */
+    // Pre-defined formats
     const FORMAT_GENERAL = 'General';
 
     const FORMAT_TEXT = '@';
@@ -48,16 +25,16 @@ class NumberFormat extends Supervisor implements IComparable
     const FORMAT_DATE_YYYYMMDD2 = 'yyyy-mm-dd';
     const FORMAT_DATE_YYYYMMDD = 'yy-mm-dd';
     const FORMAT_DATE_DDMMYYYY = 'dd/mm/yy';
-    const FORMAT_DATE_DMYSLASH = 'd/m/y';
-    const FORMAT_DATE_DMYMINUS = 'd-m-y';
+    const FORMAT_DATE_DMYSLASH = 'd/m/yy';
+    const FORMAT_DATE_DMYMINUS = 'd-m-yy';
     const FORMAT_DATE_DMMINUS = 'd-m';
-    const FORMAT_DATE_MYMINUS = 'm-y';
+    const FORMAT_DATE_MYMINUS = 'm-yy';
     const FORMAT_DATE_XLSX14 = 'mm-dd-yy';
     const FORMAT_DATE_XLSX15 = 'd-mmm-yy';
     const FORMAT_DATE_XLSX16 = 'd-mmm';
     const FORMAT_DATE_XLSX17 = 'mmm-yy';
     const FORMAT_DATE_XLSX22 = 'm/d/yy h:mm';
-    const FORMAT_DATE_DATETIME = 'd/m/y h:mm';
+    const FORMAT_DATE_DATETIME = 'd/m/yy h:mm';
     const FORMAT_DATE_TIME1 = 'h:mm AM/PM';
     const FORMAT_DATE_TIME2 = 'h:mm:ss AM/PM';
     const FORMAT_DATE_TIME3 = 'h:mm';
@@ -70,7 +47,8 @@ class NumberFormat extends Supervisor implements IComparable
 
     const FORMAT_CURRENCY_USD_SIMPLE = '"$"#,##0.00_-';
     const FORMAT_CURRENCY_USD = '$#,##0_-';
-    const FORMAT_CURRENCY_EUR_SIMPLE = '[$EUR ]#,##0.00_-';
+    const FORMAT_CURRENCY_EUR_SIMPLE = '#,##0.00_-"€"';
+    const FORMAT_CURRENCY_EUR = '#,##0_-"€"';
 
     /**
      * Excel built-in number formats.
@@ -141,18 +119,19 @@ class NumberFormat extends Supervisor implements IComparable
      */
     public function getStyleArray($array)
     {
-        return ['numberformat' => $array];
+        return ['numberFormat' => $array];
     }
 
     /**
      * Apply styles from array.
+     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArray(
-     *        array(
-     *            'code' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
-     *        )
+     *     [
+     *         'formatCode' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
+     *     ]
      * );
-     * </code>.
+     * </code>
      *
      * @param array $pStyles Array containing style information
      *
@@ -165,8 +144,8 @@ class NumberFormat extends Supervisor implements IComparable
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            if (isset($pStyles['code'])) {
-                $this->setFormatCode($pStyles['code']);
+            if (isset($pStyles['formatCode'])) {
+                $this->setFormatCode($pStyles['formatCode']);
             }
         }
 
@@ -203,7 +182,7 @@ class NumberFormat extends Supervisor implements IComparable
             $pValue = self::FORMAT_GENERAL;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['code' => $pValue]);
+            $styleArray = $this->getStyleArray(['formatCode' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->formatCode = $pValue;
@@ -237,7 +216,7 @@ class NumberFormat extends Supervisor implements IComparable
     public function setBuiltInFormatCode($pValue)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['code' => self::builtInFormatCode($pValue)]);
+            $styleArray = $this->getStyleArray(['formatCode' => self::builtInFormatCode($pValue)]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->builtInFormatCode = $pValue;
@@ -275,7 +254,7 @@ class NumberFormat extends Supervisor implements IComparable
         //      KOR fmt 55: "yyyy/mm/dd"
 
         // Built-in format codes
-        if (is_null(self::$builtInFormats)) {
+        if (self::$builtInFormats === null) {
             self::$builtInFormats = [];
 
             // General
@@ -362,7 +341,7 @@ class NumberFormat extends Supervisor implements IComparable
      *
      * @param string $formatCode
      *
-     * @return int|bool
+     * @return bool|int
      */
     public static function builtInFormatCodeIndex($formatCode)
     {
@@ -438,6 +417,7 @@ class NumberFormat extends Supervisor implements IComparable
             //    fractional seconds - no php equivalent
             '.s' => '',
         ];
+
     /**
      * Search/replace values to convert Excel date/time format masks hours to PHP format masks (24 hr clock).
      *
@@ -447,6 +427,7 @@ class NumberFormat extends Supervisor implements IComparable
             'hh' => 'H',
             'h' => 'G',
         ];
+
     /**
      * Search/replace values to convert Excel date/time format masks hours to PHP format masks (12 hr clock).
      *
@@ -507,7 +488,7 @@ class NumberFormat extends Supervisor implements IComparable
         if ($format === self::FORMAT_PERCENTAGE) {
             $value = round((100 * $value), 0) . '%';
         } else {
-            if (preg_match('/\.[#0]+/i', $format, $m)) {
+            if (preg_match('/\.[#0]+/', $format, $m)) {
                 $s = substr($m[0], 0, 1) . (strlen($m[0]) - 1);
                 $format = str_replace($m[0], $s, $format);
             }
@@ -545,15 +526,15 @@ class NumberFormat extends Supervisor implements IComparable
         }
     }
 
-    private static function complexNumberFormatMask($number, $mask, $level = 0)
+    private static function complexNumberFormatMask($number, $mask)
     {
         $sign = ($number < 0.0);
         $number = abs($number);
         if (strpos($mask, '.') !== false) {
             $numbers = explode('.', $number . '.0');
             $masks = explode('.', $mask . '.0');
-            $result1 = self::complexNumberFormatMask($numbers[0], $masks[0], 1);
-            $result2 = strrev(self::complexNumberFormatMask(strrev($numbers[1]), strrev($masks[1]), 1));
+            $result1 = self::complexNumberFormatMask($numbers[0], $masks[0]);
+            $result2 = strrev(self::complexNumberFormatMask(strrev($numbers[1]), strrev($masks[1])));
 
             return (($sign) ? '-' : '') . $result1 . '.' . $result2;
         }
@@ -608,7 +589,7 @@ class NumberFormat extends Supervisor implements IComparable
         }
 
         // Convert any other escaped characters to quoted strings, e.g. (\T to "T")
-        $format = preg_replace('/(\\\(.))(?=(?:[^"]|"[^"]*")*$)/u', '"${2}"', $format);
+        $format = preg_replace('/(\\\([^ ]))(?=(?:[^"]|"[^"]*")*$)/u', '"${2}"', $format);
 
         // Get the sections, there can be up to four sections, separated with a semi-colon (but only if not a quoted literal)
         $sections = preg_split('/(;)(?=(?:[^"]|"[^"]*")*$)/u', $format);
@@ -623,6 +604,7 @@ class NumberFormat extends Supervisor implements IComparable
         switch (count($sections)) {
             case 1:
                 $format = $sections[0];
+
                 break;
             case 2:
                 $format = ($value >= 0) ? $sections[0] : $sections[1];
@@ -643,6 +625,7 @@ class NumberFormat extends Supervisor implements IComparable
             default:
                 // something is wrong, just use first section
                 $format = $sections[0];
+
                 break;
         }
 
@@ -708,9 +691,9 @@ class NumberFormat extends Supervisor implements IComparable
                     // Strip #
                     $format = preg_replace('/\\#/', '0', $format);
 
-                    $n = "/\[[^\]]+\]/";
+                    $n = '/\\[[^\\]]+\\]/';
                     $m = preg_replace($n, '', $format);
-                    $number_regex = "/(0+)(\.?)(0*)/";
+                    $number_regex = '/(0+)(\\.?)(0*)/';
                     if (preg_match($number_regex, $m, $matches)) {
                         $left = $matches[1];
                         $dec = $matches[2];
@@ -742,7 +725,6 @@ class NumberFormat extends Supervisor implements IComparable
                 }
                 if (preg_match('/\[\$(.*)\]/u', $format, $m)) {
                     //  Currency or Accounting
-                    $currencyFormat = $m[0];
                     $currencyCode = $m[1];
                     list($currencyCode) = explode('-', $currencyCode);
                     if ($currencyCode == '') {
@@ -752,9 +734,6 @@ class NumberFormat extends Supervisor implements IComparable
                 }
             }
         }
-
-        // Escape any escaped slashes to a single slash
-        $format = preg_replace('/\\\\/u', '\\', $format);
 
         // Additional formatting provided by callback function
         if ($callBack !== null) {

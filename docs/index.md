@@ -19,7 +19,7 @@ spreadsheet file formats, like Excel and LibreOffice Calc.
 |HTML                                        |   ✓   |   ✓   |
 |SYLK                                        |   ✓   |       |
 |CSV                                         |   ✓   |   ✓   |
-|PDF (using either the tcPDF, DomPDF or mPDF libraries, which need to be installed separately)|       |   ✓   |
+|PDF (using either the TCPDF, Dompdf or mPDF libraries, which need to be installed separately)|       |   ✓   |
 
 # Getting started
 
@@ -83,7 +83,7 @@ Then point your browser to:
 The samples may also be run directly from the command line, for example:
 
 ```sh
-php vendor/phpoffice/phpspreadsheet/samples/01_Simple.php
+php vendor/phpoffice/phpspreadsheet/samples/Basic/01_Simple.php
 ```
 
 ## Learn by documentation
@@ -94,6 +94,8 @@ architecture](./topics/architecture.md),
 [worksheets](./topics/worksheets.md),
 [accessing cells](./topics/accessing-cells.md) and
 [reading and writing to files](./topics/reading-and-writing-to-file.md).
+
+Or browse the [API documentation](https://phpoffice.github.io/PhpSpreadsheet/master).
 
 # Credits
 

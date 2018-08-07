@@ -112,6 +112,8 @@ abstract class Properties
 
     /**
      * @param float $width
+     *
+     * @return float
      */
     protected function getExcelPointsWidth($width)
     {
@@ -120,6 +122,8 @@ abstract class Properties
 
     /**
      * @param float $angle
+     *
+     * @return float
      */
     protected function getExcelPointsAngle($angle)
     {
@@ -355,11 +359,11 @@ abstract class Properties
         if (!is_array($elements)) {
             return $reference[$elements];
         }
+
         foreach ($elements as $keys) {
             $reference = &$reference[$keys];
         }
 
         return $reference;
-        return $this;
     }
 }

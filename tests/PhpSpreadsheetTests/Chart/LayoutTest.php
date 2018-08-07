@@ -3,9 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class LayoutTest extends PHPUnit_Framework_TestCase
+class LayoutTest extends TestCase
 {
     public function testSetLayoutTarget()
     {
@@ -14,7 +14,7 @@ class LayoutTest extends PHPUnit_Framework_TestCase
         $testInstance = new Layout();
 
         $result = $testInstance->setLayoutTarget($LayoutTargetValue);
-        $this->assertTrue($result instanceof Layout);
+        self::assertInstanceOf(Layout::class, $result);
     }
 
     public function testGetLayoutTarget()
@@ -22,9 +22,9 @@ class LayoutTest extends PHPUnit_Framework_TestCase
         $LayoutTargetValue = 'String';
 
         $testInstance = new Layout();
-        $setValue = $testInstance->setLayoutTarget($LayoutTargetValue);
+        $testInstance->setLayoutTarget($LayoutTargetValue);
 
         $result = $testInstance->getLayoutTarget();
-        $this->assertEquals($LayoutTargetValue, $result);
+        self::assertEquals($LayoutTargetValue, $result);
     }
 }

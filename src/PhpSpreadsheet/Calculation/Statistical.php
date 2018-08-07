@@ -2,31 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Statistical
 {
     const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
@@ -48,12 +25,12 @@ class Statistical
         $array1 = Functions::flattenArray($array1);
         $array2 = Functions::flattenArray($array2);
         foreach ($array1 as $key => $value) {
-            if ((is_bool($value)) || (is_string($value)) || (is_null($value))) {
+            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
                 unset($array1[$key], $array2[$key]);
             }
         }
         foreach ($array2 as $key => $value) {
-            if ((is_bool($value)) || (is_string($value)) || (is_null($value))) {
+            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
                 unset($array1[$key], $array2[$key]);
             }
         }
@@ -64,27 +41,6 @@ class Statistical
     }
 
     /**
-     * Beta function.
-     *
-     * @author Jaco van Kooten
-     *
-     * @param p require p>0
-     * @param q require q>0
-     * @param mixed $p
-     * @param mixed $q
-     *
-     * @return 0 if p<=0, q<=0 or p+q>2.55E305 to avoid errors and over/underflow
-     */
-    private static function beta($p, $q)
-    {
-        if ($p <= 0.0 || $q <= 0.0 || ($p + $q) > self::LOG_GAMMA_X_MAX_VALUE) {
-            return 0.0;
-        }
-
-        return exp(self::logBeta($p, $q));
-    }
-
-    /**
      * Incomplete beta function.
      *
      * @author Jaco van Kooten
@@ -92,14 +48,11 @@ class Statistical
      *
      * The computation is based on formulas from Numerical Recipes, Chapter 6.4 (W.H. Press et al, 1992).
      *
-     * @param x require 0<=x<=1
-     * @param p require p>0
-     * @param q require q>0
-     * @param mixed $x
-     * @param mixed $p
-     * @param mixed $q
+     * @param mixed $x require 0<=x<=1
+     * @param mixed $p require p>0
+     * @param mixed $q require q>0
      *
-     * @return 0 if x<0, p<=0, q<=0 or p+q>2.55E305 and 1 if x>1 to avoid errors and over/underflow
+     * @return float 0 if x<0, p<=0, q<=0 or p+q>2.55E305 and 1 if x>1 to avoid errors and over/underflow
      */
     private static function incompleteBeta($x, $p, $q)
     {
@@ -120,18 +73,18 @@ class Statistical
 
     // Function cache for logBeta function
     private static $logBetaCacheP = 0.0;
+
     private static $logBetaCacheQ = 0.0;
+
     private static $logBetaCacheResult = 0.0;
 
     /**
      * The natural logarithm of the beta function.
      *
-     * @param p require p>0
-     * @param q require q>0
-     * @param mixed $p
-     * @param mixed $q
+     * @param mixed $p require p>0
+     * @param mixed $q require q>0
      *
-     * @return 0 if p<=0, q<=0 or p+q>2.55E305 to avoid errors and over/underflow
+     * @return float 0 if p<=0, q<=0 or p+q>2.55E305 to avoid errors and over/underflow
      *
      * @author Jaco van Kooten
      */
@@ -159,6 +112,8 @@ class Statistical
      * @param mixed $x
      * @param mixed $p
      * @param mixed $q
+     *
+     * @return float
      */
     private static function betaFraction($x, $p, $q)
     {
@@ -249,11 +204,12 @@ class Statistical
      * The computation is believed to be free of underflow and overflow.
      * </p>
      *
-     * @return MAX_VALUE for x < 0.0 or when overflow would occur, i.e. x > 2.55E305
+     * @return float MAX_VALUE for x < 0.0 or when overflow would occur, i.e. x > 2.55E305
      */
 
     // Function cache for logGamma
     private static $logGammaCacheResult = 0.0;
+
     private static $logGammaCacheX = 0.0;
 
     private static function logGamma($x)
@@ -343,7 +299,7 @@ class Statistical
         $y = $x;
         if ($y > 0.0 && $y <= self::LOG_GAMMA_X_MAX_VALUE) {
             if ($y <= self::EPS) {
-                $res = -log(y);
+                $res = -log($y);
             } elseif ($y <= 1.5) {
                 // ---------------------
                 //    EPS .LT. X .LE. 1.5
@@ -478,14 +434,14 @@ class Statistical
         return exp(0 - $tmp + log(self::SQRT2PI * $summer / $x));
     }
 
-    /***************************************************************************
+    /*
      *                                inverse_ncdf.php
      *                            -------------------
      *    begin                : Friday, January 16, 2004
      *    copyright            : (C) 2004 Michael Nickerson
      *    email                : nickersonm@yahoo.com
      *
-     ***************************************************************************/
+     */
     private static function inverseNcdf($p)
     {
         //    Inverse ncdf approximation by Peter J. Acklam, implementation adapted to
@@ -562,153 +518,6 @@ class Statistical
         return Functions::NULL();
     }
 
-    private static function inverseNcdf2($prob)
-    {
-        //    Approximation of inverse standard normal CDF developed by
-        //    B. Moro, "The Full Monte," Risk 8(2), Feb 1995, 57-58.
-
-        $a1 = 2.50662823884;
-        $a2 = -18.61500062529;
-        $a3 = 41.39119773534;
-        $a4 = -25.44106049637;
-
-        $b1 = -8.4735109309;
-        $b2 = 23.08336743743;
-        $b3 = -21.06224101826;
-        $b4 = 3.13082909833;
-
-        $c1 = 0.337475482272615;
-        $c2 = 0.976169019091719;
-        $c3 = 0.160797971491821;
-        $c4 = 2.76438810333863E-02;
-        $c5 = 3.8405729373609E-03;
-        $c6 = 3.951896511919E-04;
-        $c7 = 3.21767881768E-05;
-        $c8 = 2.888167364E-07;
-        $c9 = 3.960315187E-07;
-
-        $y = $prob - 0.5;
-        if (abs($y) < 0.42) {
-            $z = ($y * $y);
-            $z = $y * ((($a4 * $z + $a3) * $z + $a2) * $z + $a1) / (((($b4 * $z + $b3) * $z + $b2) * $z + $b1) * $z + 1);
-        } else {
-            if ($y > 0) {
-                $z = log(-log(1 - $prob));
-            } else {
-                $z = log(-log($prob));
-            }
-            $z = $c1 + $z * ($c2 + $z * ($c3 + $z * ($c4 + $z * ($c5 + $z * ($c6 + $z * ($c7 + $z * ($c8 + $z * $c9)))))));
-            if ($y < 0) {
-                $z = -$z;
-            }
-        }
-
-        return $z;
-    }
-
-    //    function inverseNcdf2()
-
-    private static function inverseNcdf3($p)
-    {
-        //    ALGORITHM AS241 APPL. STATIST. (1988) VOL. 37, NO. 3.
-        //    Produces the normal deviate Z corresponding to a given lower
-        //    tail area of P; Z is accurate to about 1 part in 10**16.
-        //
-        //    This is a PHP version of the original FORTRAN code that can
-        //    be found at http://lib.stat.cmu.edu/apstat/
-        $split1 = 0.425;
-        $split2 = 5;
-        $const1 = 0.180625;
-        $const2 = 1.6;
-
-        //    coefficients for p close to 0.5
-        $a0 = 3.3871328727963666080;
-        $a1 = 1.3314166789178437745E+2;
-        $a2 = 1.9715909503065514427E+3;
-        $a3 = 1.3731693765509461125E+4;
-        $a4 = 4.5921953931549871457E+4;
-        $a5 = 6.7265770927008700853E+4;
-        $a6 = 3.3430575583588128105E+4;
-        $a7 = 2.5090809287301226727E+3;
-
-        $b1 = 4.2313330701600911252E+1;
-        $b2 = 6.8718700749205790830E+2;
-        $b3 = 5.3941960214247511077E+3;
-        $b4 = 2.1213794301586595867E+4;
-        $b5 = 3.9307895800092710610E+4;
-        $b6 = 2.8729085735721942674E+4;
-        $b7 = 5.2264952788528545610E+3;
-
-        //    coefficients for p not close to 0, 0.5 or 1.
-        $c0 = 1.42343711074968357734;
-        $c1 = 4.63033784615654529590;
-        $c2 = 5.76949722146069140550;
-        $c3 = 3.64784832476320460504;
-        $c4 = 1.27045825245236838258;
-        $c5 = 2.41780725177450611770E-1;
-        $c6 = 2.27238449892691845833E-2;
-        $c7 = 7.74545014278341407640E-4;
-
-        $d1 = 2.05319162663775882187;
-        $d2 = 1.67638483018380384940;
-        $d3 = 6.89767334985100004550E-1;
-        $d4 = 1.48103976427480074590E-1;
-        $d5 = 1.51986665636164571966E-2;
-        $d6 = 5.47593808499534494600E-4;
-        $d7 = 1.05075007164441684324E-9;
-
-        //    coefficients for p near 0 or 1.
-        $e0 = 6.65790464350110377720;
-        $e1 = 5.46378491116411436990;
-        $e2 = 1.78482653991729133580;
-        $e3 = 2.96560571828504891230E-1;
-        $e4 = 2.65321895265761230930E-2;
-        $e5 = 1.24266094738807843860E-3;
-        $e6 = 2.71155556874348757815E-5;
-        $e7 = 2.01033439929228813265E-7;
-
-        $f1 = 5.99832206555887937690E-1;
-        $f2 = 1.36929880922735805310E-1;
-        $f3 = 1.48753612908506148525E-2;
-        $f4 = 7.86869131145613259100E-4;
-        $f5 = 1.84631831751005468180E-5;
-        $f6 = 1.42151175831644588870E-7;
-        $f7 = 2.04426310338993978564E-15;
-
-        $q = $p - 0.5;
-
-        //    computation for p close to 0.5
-        if (abs($q) <= split1) {
-            $R = $const1 - $q * $q;
-            $z = $q * ((((((($a7 * $R + $a6) * $R + $a5) * $R + $a4) * $R + $a3) * $R + $a2) * $R + $a1) * $R + $a0) /
-                      ((((((($b7 * $R + $b6) * $R + $b5) * $R + $b4) * $R + $b3) * $R + $b2) * $R + $b1) * $R + 1);
-        } else {
-            if ($q < 0) {
-                $R = $p;
-            } else {
-                $R = 1 - $p;
-            }
-            $R = pow(-log($R), 2);
-
-            //    computation for p not close to 0, 0.5 or 1.
-            if ($R <= $split2) {
-                $R = $R - $const2;
-                $z = ((((((($c7 * $R + $c6) * $R + $c5) * $R + $c4) * $R + $c3) * $R + $c2) * $R + $c1) * $R + $c0) /
-                     ((((((($d7 * $R + $d6) * $R + $d5) * $R + $d4) * $R + $d3) * $R + $d2) * $R + $d1) * $R + 1);
-            } else {
-                //    computation for p near 0 or 1.
-                $R = $R - $split2;
-                $z = ((((((($e7 * $R + $e6) * $R + $e5) * $R + $e4) * $R + $e3) * $R + $e2) * $R + $e1) * $R + $e0) /
-                     ((((((($f7 * $R + $f6) * $R + $f5) * $R + $f4) * $R + $f3) * $R + $f2) * $R + $f1) * $R + 1);
-            }
-            if ($q < 0) {
-                $z = -$z;
-            }
-        }
-
-        return $z;
-    }
-
     /**
      * AVEDEV.
      *
@@ -741,7 +550,7 @@ class Statistical
                 }
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = abs($arg - $aMean);
                     } else {
                         $returnValue += abs($arg - $aMean);
@@ -787,7 +596,7 @@ class Statistical
             }
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if (is_null($returnValue)) {
+                if ($returnValue === null) {
                     $returnValue = $arg;
                 } else {
                     $returnValue += $arg;
@@ -834,7 +643,7 @@ class Statistical
                     } elseif (is_string($arg)) {
                         $arg = 0;
                     }
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = $arg;
                     } else {
                         $returnValue += $arg;
@@ -885,7 +694,7 @@ class Statistical
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if ((is_null($returnValue)) || ($arg > $returnValue)) {
+                if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue += $arg;
                     ++$aCount;
                 }
@@ -1168,16 +977,14 @@ class Statistical
      *
      * Returns covariance, the average of the products of deviations for each data point pair.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $yValues
-     * @param null|mixed $xValues
+     * @param mixed $yValues array of mixed Data Series Y
+     * @param null|mixed $xValues array of mixed Data Series X
      *
      * @return float
      */
     public static function CORREL($yValues, $xValues = null)
     {
-        if ((is_null($xValues)) || (!is_array($yValues)) || (!is_array($xValues))) {
+        if (($xValues === null) || (!is_array($yValues)) || (!is_array($xValues))) {
             return Functions::VALUE();
         }
         if (!self::checkTrendArrays($yValues, $xValues)) {
@@ -1283,7 +1090,7 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a blank cell?
-            if ((is_null($arg)) || ((is_string($arg)) && ($arg == ''))) {
+            if (($arg === null) || ((is_string($arg)) && ($arg == ''))) {
                 ++$returnValue;
             }
         }
@@ -1332,10 +1139,8 @@ class Statistical
      *
      * Returns covariance, the average of the products of deviations for each data point pair.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $yValues
-     * @param mixed $xValues
+     * @param mixed $yValues array of mixed Data Series Y
+     * @param mixed $xValues array of mixed Data Series X
      *
      * @return float
      */
@@ -1513,7 +1318,7 @@ class Statistical
                     $arg = (int) $arg;
                 }
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = pow(($arg - $aMean), 2);
                     } else {
                         $returnValue += pow(($arg - $aMean), 2);
@@ -1523,7 +1328,7 @@ class Statistical
             }
 
             // Return
-            if (is_null($returnValue)) {
+            if ($returnValue === null) {
                 return Functions::NAN();
             }
 
@@ -1621,12 +1426,9 @@ class Statistical
      *
      * Calculates, or predicts, a future value by using existing values. The predicted value is a y-value for a given x-value.
      *
-     * @param float Value of X for which we want to find Y
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $xValue
-     * @param mixed $yValues
-     * @param mixed $xValues
+     * @param float $xValue Value of X for which we want to find Y
+     * @param mixed $yValues array of mixed Data Series Y
+     * @param mixed $xValues of mixed Data Series X
      *
      * @return float
      */
@@ -1809,14 +1611,10 @@ class Statistical
      *
      * Returns values along a predicted emponential Trend
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param array of mixed Values of X for which we want to find Y
-     * @param bool a logical value specifying whether to force the intersect to equal 0
-     * @param mixed $yValues
-     * @param mixed $xValues
-     * @param mixed $newValues
-     * @param mixed $const
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
+     * @param mixed[] $newValues Values of X for which we want to find Y
+     * @param bool $const a logical value specifying whether to force the intersect to equal 0
      *
      * @return array of float
      */
@@ -1825,7 +1623,7 @@ class Statistical
         $yValues = Functions::flattenArray($yValues);
         $xValues = Functions::flattenArray($xValues);
         $newValues = Functions::flattenArray($newValues);
-        $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
 
         $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
         if (empty($newValues)) {
@@ -1872,7 +1670,7 @@ class Statistical
                 if ($arg <= 0) {
                     return Functions::NAN();
                 }
-                if (is_null($returnValue)) {
+                if ($returnValue === null) {
                     $returnValue = (1 / $arg);
                 } else {
                     $returnValue += (1 / $arg);
@@ -1933,10 +1731,8 @@ class Statistical
      *
      * Calculates the point at which a line will intersect the y-axis by using existing x-values and y-values.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $yValues
-     * @param mixed $xValues
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
      *
      * @return float
      */
@@ -2051,22 +1847,18 @@ class Statistical
      * Calculates the statistics for a line by using the "least squares" method to calculate a straight line that best fits your data,
      *        and then returns an array that describes the line.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param bool a logical value specifying whether to force the intersect to equal 0
-     * @param bool a logical value specifying whether to return additional regression statistics
-     * @param mixed $yValues
-     * @param null|mixed $xValues
-     * @param mixed $const
-     * @param mixed $stats
+     * @param mixed[] $yValues Data Series Y
+     * @param null|mixed[] $xValues Data Series X
+     * @param bool $const a logical value specifying whether to force the intersect to equal 0
+     * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
      * @return array
      */
     public static function LINEST($yValues, $xValues = null, $const = true, $stats = false)
     {
-        $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
-        $stats = (is_null($stats)) ? false : (bool) Functions::flattenSingleValue($stats);
-        if (is_null($xValues)) {
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
+        $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
+        if ($xValues === null) {
             $xValues = range(1, count(Functions::flattenArray($yValues)));
         }
 
@@ -2114,22 +1906,18 @@ class Statistical
      * Calculates an exponential curve that best fits the X and Y data series,
      *        and then returns an array that describes the line.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param bool a logical value specifying whether to force the intersect to equal 0
-     * @param bool a logical value specifying whether to return additional regression statistics
-     * @param mixed $yValues
-     * @param null|mixed $xValues
-     * @param mixed $const
-     * @param mixed $stats
+     * @param mixed[] $yValues Data Series Y
+     * @param null|mixed[] $xValues Data Series X
+     * @param bool $const a logical value specifying whether to force the intersect to equal 0
+     * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
      * @return array
      */
     public static function LOGEST($yValues, $xValues = null, $const = true, $stats = false)
     {
-        $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
-        $stats = (is_null($stats)) ? false : (bool) Functions::flattenSingleValue($stats);
-        if (is_null($xValues)) {
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
+        $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
+        if ($xValues === null) {
             $xValues = range(1, count(Functions::flattenArray($yValues)));
         }
 
@@ -2262,13 +2050,13 @@ class Statistical
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if ((is_null($returnValue)) || ($arg > $returnValue)) {
+                if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
             }
         }
 
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -2303,13 +2091,13 @@ class Statistical
                 } elseif (is_string($arg)) {
                     $arg = 0;
                 }
-                if ((is_null($returnValue)) || ($arg > $returnValue)) {
+                if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
             }
         }
 
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -2349,7 +2137,7 @@ class Statistical
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if ((is_null($returnValue)) || ($arg > $returnValue)) {
+                if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
             }
@@ -2425,13 +2213,13 @@ class Statistical
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if ((is_null($returnValue)) || ($arg < $returnValue)) {
+                if (($returnValue === null) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
             }
         }
 
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -2466,13 +2254,13 @@ class Statistical
                 } elseif (is_string($arg)) {
                     $arg = 0;
                 }
-                if ((is_null($returnValue)) || ($arg < $returnValue)) {
+                if (($returnValue === null) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
             }
         }
 
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -2512,7 +2300,7 @@ class Statistical
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if ((is_null($returnValue)) || ($arg < $returnValue)) {
+                if (($returnValue === null) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
             }
@@ -2534,6 +2322,7 @@ class Statistical
                 if ((string) $value['value'] == (string) $datum) {
                     ++$frequencyArray[$key]['frequency'];
                     $found = true;
+
                     break;
                 }
             }
@@ -2789,12 +2578,9 @@ class Statistical
      *
      * Returns the rank of a value in a data set as a percentage of the data set.
      *
-     * @param array of number        An array of, or a reference to, a list of numbers
-     * @param number the number whose rank you want to find
-     * @param number the number of significant digits for the returned percentage value
-     * @param mixed $valueSet
-     * @param mixed $value
-     * @param mixed $significance
+     * @param float[] $valueSet An array of, or a reference to, a list of numbers
+     * @param int $value the number whose rank you want to find
+     * @param int $significance the number of significant digits for the returned percentage value
      *
      * @return float
      */
@@ -2802,7 +2588,7 @@ class Statistical
     {
         $valueSet = Functions::flattenArray($valueSet);
         $value = Functions::flattenSingleValue($value);
-        $significance = (is_null($significance)) ? 3 : (int) Functions::flattenSingleValue($significance);
+        $significance = ($significance === null) ? 3 : (int) Functions::flattenSingleValue($significance);
 
         foreach ($valueSet as $key => $valueEntry) {
             if (!is_numeric($valueEntry)) {
@@ -2890,7 +2676,8 @@ class Statistical
             if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
                 if ($cumulative) {
                     $summer = 0;
-                    for ($i = 0; $i <= floor($value); ++$i) {
+                    $floor = floor($value);
+                    for ($i = 0; $i <= $floor; ++$i) {
                         $summer += pow($mean, $i) / MathTrig::FACT($i);
                     }
 
@@ -2943,12 +2730,9 @@ class Statistical
      *
      * Returns the rank of a number in a list of numbers.
      *
-     * @param number the number whose rank you want to find
-     * @param array of number        An array of, or a reference to, a list of numbers
-     * @param mixed Order to sort the values in the value set
-     * @param mixed $value
-     * @param mixed $valueSet
-     * @param mixed $order
+     * @param int $value the number whose rank you want to find
+     * @param float[] $valueSet An array of, or a reference to, a list of numbers
+     * @param int $order Order to sort the values in the value set
      *
      * @return float
      */
@@ -2956,7 +2740,7 @@ class Statistical
     {
         $value = Functions::flattenSingleValue($value);
         $valueSet = Functions::flattenArray($valueSet);
-        $order = (is_null($order)) ? 0 : (int) Functions::flattenSingleValue($order);
+        $order = ($order === null) ? 0 : (int) Functions::flattenSingleValue($order);
 
         foreach ($valueSet as $key => $valueEntry) {
             if (!is_numeric($valueEntry)) {
@@ -2982,10 +2766,8 @@ class Statistical
      *
      * Returns the square of the Pearson product moment correlation coefficient through data points in known_y's and known_x's.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $yValues
-     * @param mixed $xValues
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
      *
      * @return float
      */
@@ -3052,10 +2834,8 @@ class Statistical
      *
      * Returns the slope of the linear regression line through data points in known_y's and known_x's.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $yValues
-     * @param mixed $xValues
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
      *
      * @return float
      */
@@ -3173,7 +2953,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGE($aArgs);
-        if (!is_null($aMean)) {
+        if ($aMean !== null) {
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
                 if ((is_bool($arg)) &&
@@ -3182,7 +2962,7 @@ class Statistical
                 }
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = pow(($arg - $aMean), 2);
                     } else {
                         $returnValue += pow(($arg - $aMean), 2);
@@ -3221,7 +3001,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGEA($aArgs);
-        if (!is_null($aMean)) {
+        if ($aMean !== null) {
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
                 if ((is_bool($arg)) &&
@@ -3234,7 +3014,7 @@ class Statistical
                         } elseif (is_string($arg)) {
                             $arg = 0;
                         }
-                        if (is_null($returnValue)) {
+                        if ($returnValue === null) {
                             $returnValue = pow(($arg - $aMean), 2);
                         } else {
                             $returnValue += pow(($arg - $aMean), 2);
@@ -3273,7 +3053,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGE($aArgs);
-        if (!is_null($aMean)) {
+        if ($aMean !== null) {
             $aCount = 0;
             foreach ($aArgs as $k => $arg) {
                 if ((is_bool($arg)) &&
@@ -3282,7 +3062,7 @@ class Statistical
                 }
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if (is_null($returnValue)) {
+                    if ($returnValue === null) {
                         $returnValue = pow(($arg - $aMean), 2);
                     } else {
                         $returnValue += pow(($arg - $aMean), 2);
@@ -3320,7 +3100,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGEA($aArgs);
-        if (!is_null($aMean)) {
+        if ($aMean !== null) {
             $aCount = 0;
             foreach ($aArgs as $k => $arg) {
                 if ((is_bool($arg)) &&
@@ -3333,7 +3113,7 @@ class Statistical
                         } elseif (is_string($arg)) {
                             $arg = 0;
                         }
-                        if (is_null($returnValue)) {
+                        if ($returnValue === null) {
                             $returnValue = pow(($arg - $aMean), 2);
                         } else {
                             $returnValue += pow(($arg - $aMean), 2);
@@ -3356,10 +3136,8 @@ class Statistical
      *
      * Returns the standard error of the predicted y-value for each x in the regression.
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param mixed $yValues
-     * @param mixed $xValues
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
      *
      * @return float
      */
@@ -3510,14 +3288,10 @@ class Statistical
      *
      * Returns values along a linear Trend
      *
-     * @param array of mixed Data Series Y
-     * @param array of mixed Data Series X
-     * @param array of mixed Values of X for which we want to find Y
-     * @param bool a logical value specifying whether to force the intersect to equal 0
-     * @param mixed $yValues
-     * @param mixed $xValues
-     * @param mixed $newValues
-     * @param mixed $const
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
+     * @param mixed[] $newValues Values of X for which we want to find Y
+     * @param bool $const a logical value specifying whether to force the intersect to equal 0
      *
      * @return array of float
      */
@@ -3526,7 +3300,7 @@ class Statistical
         $yValues = Functions::flattenArray($yValues);
         $xValues = Functions::flattenArray($xValues);
         $newValues = Functions::flattenArray($newValues);
-        $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
         if (empty($newValues)) {
@@ -3837,7 +3611,7 @@ class Statistical
         $m0 = Functions::flattenSingleValue($m0);
         $sigma = Functions::flattenSingleValue($sigma);
 
-        if (is_null($sigma)) {
+        if ($sigma === null) {
             $sigma = self::STDEV($dataSet);
         }
         $n = count($dataSet);

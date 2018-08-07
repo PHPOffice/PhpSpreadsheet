@@ -167,7 +167,7 @@ $spreadsheet->getActiveSheet()->getStyle('A10')
 
 ![07-simple-example-1.png](./images/07-simple-example-1.png)
 
-**Note** that not all complex format masks such as this one will work
+**Note:** that not all complex format masks such as this one will work
 when retrieving a formatted value to display "on screen", or for certain
 writers such as HTML or PDF, but it will work with the true spreadsheet
 writers (Xlsx and Xls).
@@ -178,13 +178,13 @@ It is also possible to set a range of cell values in a single call by
 passing an array of values to the `fromArray()` method.
 
 ``` php
-$arrayData = array(
-    array(NULL, 2010, 2011, 2012),
-    array('Q1',   12,   15,   21),
-    array('Q2',   56,   73,   86),
-    array('Q3',   52,   61,   69),
-    array('Q4',   30,   32,    0),
-);
+$arrayData = [
+    [NULL, 2010, 2011, 2012],
+    ['Q1',   12,   15,   21],
+    ['Q2',   56,   73,   86],
+    ['Q3',   52,   61,   69],
+    ['Q4',   30,   32,    0],
+];
 $spreadsheet->getActiveSheet()
     ->fromArray(
         $arrayData,  // The data to set
@@ -201,7 +201,7 @@ and columns. A 1-d array will be treated as a single row, which is
 particularly useful if you're fetching an array of data from a database.
 
 ``` php
-$rowArray = array('Value1', 'Value2', 'Value3', 'Value4');
+$rowArray = ['Value1', 'Value2', 'Value3', 'Value4'];
 $spreadsheet->getActiveSheet()
     ->fromArray(
         $rowArray,   // The data to set
@@ -218,7 +218,7 @@ the following will convert it into an appropriately structured 2-d array
 that can be fed to the `fromArray()` method:
 
 ``` php
-$rowArray = array('Value1', 'Value2', 'Value3', 'Value4');
+$rowArray = ['Value1', 'Value2', 'Value3', 'Value4'];
 $columnArray = array_chunk($rowArray, 1);
 $spreadsheet->getActiveSheet()
     ->fromArray(
@@ -238,21 +238,20 @@ the worksheet using the `getCell()` method. A cell's value can be read
 using the `getValue()` method.
 
 ``` php
-// Get the value fom cell A1
-$cellValue = $spreadsheet->getActiveSheet()->getCell('A1')
-    ->getValue();
+// Get the value from cell A1
+$cellValue = $spreadsheet->getActiveSheet()->getCell('A1')->getValue();
 ```
 
 This will retrieve the raw, unformatted value contained in the cell.
 
 If a cell contains a formula, and you need to retrieve the calculated
 value rather than the formula itself, then use the cell's
-`getCalculatedValue()` method. This is further explained in .
+`getCalculatedValue()` method. This is further explained in
+[the calculation engine](./calculation-engine.md).
 
 ``` php
-// Get the value fom cell A4
-$cellValue = $spreadsheet->getActiveSheet()->getCell('A4')
-    ->getCalculatedValue();
+// Get the value from cell A4
+$cellValue = $spreadsheet->getActiveSheet()->getCell('A4')->getCalculatedValue();
 ```
 
 Alternatively, if you want to see the value with any cell formatting
@@ -260,9 +259,8 @@ applied (e.g. for a human-readable date or time value), then you can use
 the cell's `getFormattedValue()` method.
 
 ``` php
-// Get the value fom cell A6
-$cellValue = $spreadsheet->getActiveSheet()->getCell('A6')
-    ->getFormattedValue();
+// Get the value from cell A6
+$cellValue = $spreadsheet->getActiveSheet()->getCell('A6')->getFormattedValue();
 ```
 
 ## Setting a cell value by column and row
@@ -271,32 +269,29 @@ Setting a cell value by coordinate can be done using the worksheet's
 `setCellValueByColumnAndRow()` method.
 
 ``` php
-// Set cell B5 with a string value
+// Set cell A5 with a string value
 $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(1, 5, 'PhpSpreadsheet');
 ```
 
-**Note** that column references start with `0` for column `A`, rather
-than from `1`.
+**Note:** that column references start with `1` for column `A`.
 
 ## Retrieving a cell value by column and row
 
 To retrieve the value of a cell, the cell should first be retrieved from
-the worksheet using the getCellByColumnAndRow method. A cell’s value can
+the worksheet using the `getCellByColumnAndRow()` method. A cell’s value can
 be read again using the following line of code:
 
 ``` php
-// Get the value fom cell B5
-$cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, 5)
-    ->getValue();
+// Get the value from cell B5
+$cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, 5)->getValue();
 ```
 
 If you need the calculated value of a cell, use the following code. This
-is further explained in .
+is further explained in [the calculation engine](./calculation-engine.md).
 
 ``` php
-// Get the value fom cell A4
-$cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(0, 4)
-    ->getCalculatedValue();
+// Get the value from cell A4
+$cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, 4)->getCalculatedValue();
 ```
 
 ## Retrieving a range of cell values to an array
@@ -361,9 +356,9 @@ Note that we have set the cell iterator's
 `setIterateOnlyExistingCells()` to FALSE. This makes the iterator loop
 all cells within the worksheet range, even if they have not been set.
 
-The cell iterator will return a **NULL** as the cell value if it is not
+The cell iterator will return a `null` as the cell value if it is not
 set in the worksheet. Setting the cell iterator's
-setIterateOnlyExistingCells() to FALSE will loop all cells in the
+`setIterateOnlyExistingCells()` to `false` will loop all cells in the
 worksheet that can be available at that moment. This will create new
 cells if required and increase memory usage! Only use it if it is
 intended to loop all cells that are possibly available.
@@ -371,11 +366,10 @@ intended to loop all cells that are possibly available.
 ### Looping through cells using indexes
 
 One can use the possibility to access cell values by column and row
-index like (0,1) instead of 'A1' for reading and writing cell values in
+index like `[1, 1]` instead of `'A1'` for reading and writing cell values in
 loops.
 
-Note: In PhpSpreadsheet column index is 0-based while row index is
-1-based. That means 'A1' \~ (0,1)
+**Note:** In PhpSpreadsheet column index and row index are 1-based. That means `'A1'` ~ `[1, 1]`
 
 Below is an example where we read all the values in a worksheet and
 display them in a table.
@@ -389,16 +383,14 @@ $worksheet = $spreadsheet->getActiveSheet();
 // Get the highest row and column numbers referenced in the worksheet
 $highestRow = $worksheet->getHighestRow(); // e.g. 10
 $highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
-$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($highestColumn); // e.g. 5
+$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
 
 echo '<table>' . "\n";
 for ($row = 1; $row <= $highestRow; ++$row) {
     echo '<tr>' . PHP_EOL;
-    for ($col = 0; $col <= $highestColumnIndex; ++$col) {
-        echo '<td>' .
-             $worksheet->getCellByColumnAndRow($col, $row)
-                 ->getValue() .
-             '</td>' . PHP_EOL;
+    for ($col = 1; $col <= $highestColumnIndex; ++$col) {
+        $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+        echo '<td>' . $value . '</td>' . PHP_EOL;
     }
     echo '</tr>' . PHP_EOL;
 }
@@ -434,21 +426,21 @@ for ($row = 1; $row <= $highestRow; ++$row) {
 echo '</table>' . PHP_EOL;
 ```
 
-Note that we can't use a &lt;= comparison here, because 'AA' would match
-as &lt;= 'B', so we increment the highest column letter and then loop
-while \$col != the incremented highest column.
+Note that we can't use a `<=` comparison here, because `'AA'` would match
+as `<= 'B'`, so we increment the highest column letter and then loop
+while `$col !=` the incremented highest column.
 
 ## Using value binders to facilitate data entry
 
 Internally, PhpSpreadsheet uses a default
-\PhpOffice\PhpSpreadsheet\Cell\IValueBinder implementation
+`\PhpOffice\PhpSpreadsheet\Cell\IValueBinder` implementation
 (\PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder) to determine data
 types of entered data using a cell's `setValue()` method (the
 `setValueExplicit()` method bypasses this check).
 
 Optionally, the default behaviour of PhpSpreadsheet can be modified,
 allowing easier data entry. For example, a
-\PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder class is available.
+`\PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder` class is available.
 It automatically converts percentages, number in scientific format, and
 dates entered as strings to the correct format, also setting the cell's
 style information. The following example demonstrates how to set the
@@ -459,7 +451,7 @@ value binder in PhpSpreadsheet:
 require_once 'src/Boostrap.php';
 
 // Set value binder
-\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+\PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 // Create new Spreadsheet object
 $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
@@ -477,6 +469,6 @@ $spreadsheet->getActiveSheet()->setCellValue('B5', '21 December 1983');
 
 **Creating your own value binder is easy.** When advanced value binding
 is required, you can implement the
-\PhpOffice\PhpSpreadsheet\Cell\IValueBinder interface or extend the
-\PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder or
-\PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder classes.
+`\PhpOffice\PhpSpreadsheet\Cell\IValueBinder` interface or extend the
+`\PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder` or
+`\PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder` classes.

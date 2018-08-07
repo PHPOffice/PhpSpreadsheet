@@ -1,7 +1,9 @@
 This is:
 
+```
 - [ ] a bugfix
 - [ ] a new feature
+```
 
 Checklist:
 
@@ -11,4 +13,4 @@ Checklist:
 - [ ] CHANGELOG.md contains a short summary of the change
 - [ ] Documentation is updated as necessary
 
-What does it change?
+### Why this change is needed?

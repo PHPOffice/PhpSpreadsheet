@@ -3,33 +3,10 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\IComparable;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-class Border extends Supervisor implements IComparable
+class Border extends Supervisor
 {
-    /* Border style */
+    // Border style
     const BORDER_NONE = 'none';
     const BORDER_DASHDOT = 'dashDot';
     const BORDER_DASHDOTDOT = 'dashDotDot';
@@ -60,11 +37,9 @@ class Border extends Supervisor implements IComparable
     protected $color;
 
     /**
-     * Parent property name.
-     *
-     * @var string
+     * @var int
      */
-    protected $parentPropertyName;
+    public $colorIndex;
 
     /**
      * Create a new Border.
@@ -91,22 +66,6 @@ class Border extends Supervisor implements IComparable
     }
 
     /**
-     * Bind parent. Only used for supervisor.
-     *
-     * @param Borders $parent
-     * @param string $parentPropertyName
-     *
-     * @return Border
-     */
-    public function bindParent($parent, $parentPropertyName = null)
-    {
-        $this->parent = $parent;
-        $this->parentPropertyName = $parentPropertyName;
-
-        return $this;
-    }
-
-    /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
      *
@@ -123,6 +82,7 @@ class Border extends Supervisor implements IComparable
             case 'outline':
             case 'vertical':
                 throw new PhpSpreadsheetException('Cannot get shared component for a pseudo-border.');
+
                 break;
             case 'bottom':
                 return $this->parent->getSharedComponent()->getBottom();
@@ -146,22 +106,7 @@ class Border extends Supervisor implements IComparable
      */
     public function getStyleArray($array)
     {
-        switch ($this->parentPropertyName) {
-            case 'allborders':
-            case 'bottom':
-            case 'diagonal':
-            case 'horizontal':
-            case 'inside':
-            case 'left':
-            case 'outline':
-            case 'right':
-            case 'top':
-            case 'vertical':
-                $key = strtolower($this->parentPropertyName);
-                break;
-        }
-
-        return $this->parent->getStyleArray([$key => $array]);
+        return $this->parent->getStyleArray([$this->parentPropertyName => $array]);
     }
 
     /**
@@ -169,12 +114,12 @@ class Border extends Supervisor implements IComparable
      *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->getTop()->applyFromArray(
-     *        array(
-     *            'style' => Border::BORDER_DASHDOT,
-     *            'color' => array(
+     *        [
+     *            'borderStyle' => Border::BORDER_DASHDOT,
+     *            'color' => [
      *                'rgb' => '808080'
-     *            )
-     *        )
+     *            ]
+     *        ]
      * );
      * </code>
      *
@@ -189,8 +134,8 @@ class Border extends Supervisor implements IComparable
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            if (isset($pStyles['style'])) {
-                $this->setBorderStyle($pStyles['style']);
+            if (isset($pStyles['borderStyle'])) {
+                $this->setBorderStyle($pStyles['borderStyle']);
             }
             if (isset($pStyles['color'])) {
                 $this->getColor()->applyFromArray($pStyles['color']);
@@ -217,7 +162,7 @@ class Border extends Supervisor implements IComparable
     /**
      * Set Border style.
      *
-     * @param string|bool $pValue
+     * @param bool|string $pValue
      *                            When passing a boolean, FALSE equates Border::BORDER_NONE
      *                                and TRUE to Border::BORDER_MEDIUM
      *
@@ -231,7 +176,7 @@ class Border extends Supervisor implements IComparable
             $pValue = self::BORDER_MEDIUM;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['style' => $pValue]);
+            $styleArray = $this->getStyleArray(['borderStyle' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->borderStyle = $pValue;

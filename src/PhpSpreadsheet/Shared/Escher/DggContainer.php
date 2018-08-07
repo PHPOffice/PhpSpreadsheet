@@ -2,28 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\Escher;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class DggContainer
 {
     /**
@@ -81,8 +59,7 @@ class DggContainer
     /**
      * Set maximum shape index of all shapes in all drawings (plus one).
      *
-     * @param int
-     * @param mixed $value
+     * @param int $value
      */
     public function setSpIdMax($value)
     {
@@ -102,8 +79,7 @@ class DggContainer
     /**
      * Set total number of drawings saved.
      *
-     * @param int
-     * @param mixed $value
+     * @param int $value
      */
     public function setCDgSaved($value)
     {
@@ -123,8 +99,7 @@ class DggContainer
     /**
      * Set total number of shapes saved (including group shapes).
      *
-     * @param int
-     * @param mixed $value
+     * @param int $value
      */
     public function setCSpSaved($value)
     {
@@ -189,7 +164,7 @@ class DggContainer
     }
 
     /**
-     * Set identifier clusters. array(<drawingId> => <max shape id>, ...).
+     * Set identifier clusters. [<drawingId> => <max shape id>, ...].
      *
      * @param array $pValue
      */

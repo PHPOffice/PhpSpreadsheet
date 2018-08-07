@@ -2,31 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
-use PhpOffice\PhpSpreadsheet\Cell;
-use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Xls
 {
     /**
@@ -133,10 +111,10 @@ class Xls
         $distanceX = 0;
 
         // add the widths of the spanning columns
-        $startColumnIndex = Cell::columnIndexFromString($startColumn) - 1; // 1-based
-        $endColumnIndex = Cell::columnIndexFromString($endColumn) - 1; // 1-based
+        $startColumnIndex = Coordinate::columnIndexFromString($startColumn);
+        $endColumnIndex = Coordinate::columnIndexFromString($endColumn);
         for ($i = $startColumnIndex; $i <= $endColumnIndex; ++$i) {
-            $distanceX += self::sizeCol($sheet, Cell::stringFromColumnIndex($i));
+            $distanceX += self::sizeCol($sheet, Coordinate::stringFromColumnIndex($i));
         }
 
         // correct for offsetX in startcell
@@ -233,8 +211,8 @@ class Xls
      */
     public static function oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height)
     {
-        list($column, $row) = Cell::coordinateFromString($coordinates);
-        $col_start = Cell::columnIndexFromString($column) - 1;
+        list($column, $row) = Coordinate::coordinateFromString($coordinates);
+        $col_start = Coordinate::columnIndexFromString($column);
         $row_start = $row - 1;
 
         $x1 = $offsetX;
@@ -245,7 +223,7 @@ class Xls
         $row_end = $row_start; // Row containing bottom right corner of object
 
         // Zero the specified offset if greater than the cell dimensions
-        if ($x1 >= self::sizeCol($sheet, Cell::stringFromColumnIndex($col_start))) {
+        if ($x1 >= self::sizeCol($sheet, Coordinate::stringFromColumnIndex($col_start))) {
             $x1 = 0;
         }
         if ($y1 >= self::sizeRow($sheet, $row_start + 1)) {
@@ -256,8 +234,8 @@ class Xls
         $height = $height + $y1 - 1;
 
         // Subtract the underlying cell widths to find the end cell of the image
-        while ($width >= self::sizeCol($sheet, Cell::stringFromColumnIndex($col_end))) {
-            $width -= self::sizeCol($sheet, Cell::stringFromColumnIndex($col_end));
+        while ($width >= self::sizeCol($sheet, Coordinate::stringFromColumnIndex($col_end))) {
+            $width -= self::sizeCol($sheet, Coordinate::stringFromColumnIndex($col_end));
             ++$col_end;
         }
 
@@ -269,10 +247,10 @@ class Xls
 
         // Bitmap isn't allowed to start or finish in a hidden cell, i.e. a cell
         // with zero height or width.
-        if (self::sizeCol($sheet, Cell::stringFromColumnIndex($col_start)) == 0) {
+        if (self::sizeCol($sheet, Coordinate::stringFromColumnIndex($col_start)) == 0) {
             return;
         }
-        if (self::sizeCol($sheet, Cell::stringFromColumnIndex($col_end)) == 0) {
+        if (self::sizeCol($sheet, Coordinate::stringFromColumnIndex($col_end)) == 0) {
             return;
         }
         if (self::sizeRow($sheet, $row_start + 1) == 0) {
@@ -283,13 +261,13 @@ class Xls
         }
 
         // Convert the pixel values to the percentage value expected by Excel
-        $x1 = $x1 / self::sizeCol($sheet, Cell::stringFromColumnIndex($col_start)) * 1024;
+        $x1 = $x1 / self::sizeCol($sheet, Coordinate::stringFromColumnIndex($col_start)) * 1024;
         $y1 = $y1 / self::sizeRow($sheet, $row_start + 1) * 256;
-        $x2 = ($width + 1) / self::sizeCol($sheet, Cell::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
+        $x2 = ($width + 1) / self::sizeCol($sheet, Coordinate::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
         $y2 = ($height + 1) / self::sizeRow($sheet, $row_end + 1) * 256; // Distance to bottom of object
 
-        $startCoordinates = Cell::stringFromColumnIndex($col_start) . ($row_start + 1);
-        $endCoordinates = Cell::stringFromColumnIndex($col_end) . ($row_end + 1);
+        $startCoordinates = Coordinate::stringFromColumnIndex($col_start) . ($row_start + 1);
+        $endCoordinates = Coordinate::stringFromColumnIndex($col_end) . ($row_end + 1);
 
         $twoAnchor = [
             'startCoordinates' => $startCoordinates,

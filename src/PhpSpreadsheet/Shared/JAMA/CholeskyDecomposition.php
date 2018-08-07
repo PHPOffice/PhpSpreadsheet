@@ -47,8 +47,7 @@ class CholeskyDecomposition
      *
      *    Class constructor - decomposes symmetric positive definite matrix
      *
-     * @param mixed Matrix square symmetric positive definite matrix
-     * @param null|mixed $A
+     * @param Matrix $A Matrix square symmetric positive definite matrix
      */
     public function __construct(Matrix $A)
     {
@@ -139,8 +138,10 @@ class CholeskyDecomposition
 
                 return new Matrix($X, $this->m, $nx);
             }
+
             throw new CalculationException(Matrix::MATRIX_SPD_EXCEPTION);
         }
+
         throw new CalculationException(Matrix::MATRIX_DIMENSION_EXCEPTION);
     }
 }

@@ -8,28 +8,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class ContentTypes extends WriterPart
 {
     /**
@@ -79,7 +57,8 @@ class ContentTypes extends WriterPart
             // Yes : not standard content but "macroEnabled"
             $this->writeOverrideContentType($objWriter, '/xl/workbook.xml', 'application/vnd.ms-excel.sheet.macroEnabled.main+xml');
             //... and define a new type for the VBA project
-            $this->writeDefaultContentType($objWriter, 'bin', 'application/vnd.ms-office.vbaProject');
+            // Better use Override, because we can use 'bin' also for xl\printerSettings\printerSettings1.bin
+            $this->writeOverrideContentType($objWriter, '/xl/vbaProject.bin', 'application/vnd.ms-office.vbaProject');
             if ($spreadsheet->hasMacrosCertificate()) {
                 // signed macros ?
                 // Yes : add needed information
@@ -110,14 +89,16 @@ class ContentTypes extends WriterPart
         $this->writeOverrideContentType($objWriter, '/xl/sharedStrings.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml');
 
         // Add worksheet relationship content types
+        $unparsedLoadedData = $spreadsheet->getUnparsedLoadedData();
         $chart = 1;
         for ($i = 0; $i < $sheetCount; ++$i) {
             $drawings = $spreadsheet->getSheet($i)->getDrawingCollection();
             $drawingCount = count($drawings);
             $chartCount = ($includeCharts) ? $spreadsheet->getSheet($i)->getChartCount() : 0;
+            $hasUnparsedDrawing = isset($unparsedLoadedData['sheets'][$spreadsheet->getSheet($i)->getCodeName()]['drawingOriginalIds']);
 
             //    We need a drawing relationship for the worksheet if we have either drawings or charts
-            if (($drawingCount > 0) || ($chartCount > 0)) {
+            if (($drawingCount > 0) || ($chartCount > 0) || $hasUnparsedDrawing) {
                 $this->writeOverrideContentType($objWriter, '/xl/drawings/drawing' . ($i + 1) . '.xml', 'application/vnd.openxmlformats-officedocument.drawing+xml');
             }
 
@@ -182,6 +163,20 @@ class ContentTypes extends WriterPart
             }
         }
 
+        // unparsed defaults
+        if (isset($unparsedLoadedData['default_content_types'])) {
+            foreach ($unparsedLoadedData['default_content_types'] as $extName => $contentType) {
+                $this->writeDefaultContentType($objWriter, $extName, $contentType);
+            }
+        }
+
+        // unparsed overrides
+        if (isset($unparsedLoadedData['override_content_types'])) {
+            foreach ($unparsedLoadedData['override_content_types'] as $partName => $overrideType) {
+                $this->writeOverrideContentType($objWriter, $partName, $overrideType);
+            }
+        }
+
         $objWriter->endElement();
 
         // Return
@@ -204,6 +199,7 @@ class ContentTypes extends WriterPart
 
             return image_type_to_mime_type($image[2]);
         }
+
         throw new WriterException("File $pFile does not exist");
     }
 

@@ -1,0 +1,25 @@
+##
+## PhpSpreadsheet
+##
+
+ArgumentSeparator	= ;
+
+
+##
+##	(For future use)
+##
+currencySymbol	= kr
+
+
+
+##
+##	Excel Error Codes	(For future use)
+
+##
+NULL	= #NUL!
+DIV0	= #DIVISION/0!
+VALUE	= #VÆRDI!
+REF	= #REFERENCE!
+NAME	= #NAVN?
+NUM	= #NUM!
+NA	= #I/T

@@ -1,8 +1,10 @@
 This is:
 
+```
 - [ ] a bug report
 - [ ] a feature request
 - [ ] **not** a usage question (ask them on https://stackoverflow.com/questions/tagged/phpspreadsheet or https://gitter.im/PHPOffice/PhpSpreadsheet)
+```
 
 ### What is the expected behavior?
 

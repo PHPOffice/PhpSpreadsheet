@@ -3,17 +3,18 @@
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use DateTime;
-use PhpOffice\PhpSpreadsheet\Cell;
+use DateTimeImmutable;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
-use PhpOffice\PhpSpreadsheet\RichText;
-use PHPUnit_Framework_TestCase;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PHPUnit\Framework\TestCase;
 
-class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
+class DefaultValueBinderTest extends TestCase
 {
-    protected $cellStub;
+    private $cellStub;
 
-    protected function createCellStub()
+    private function createCellStub()
     {
         // Create a stub for the Cell class.
         $this->cellStub = $this->getMockBuilder(Cell::class)
@@ -35,7 +36,7 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
         $this->createCellStub();
         $binder = new DefaultValueBinder();
         $result = $binder->bindValue($this->cellStub, $value);
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function binderProvider()
@@ -53,6 +54,7 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
             ['-123.456'],
             ['#REF!'],
             [new DateTime()],
+            [new DateTimeImmutable()],
         ];
     }
 
@@ -64,7 +66,7 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
     public function testDataTypeForValue($expectedResult, ...$args)
     {
         $result = DefaultValueBinder::dataTypeForValue(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerDataTypeForValue()
@@ -79,6 +81,6 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
 
         $expectedResult = DataType::TYPE_INLINE;
         $result = DefaultValueBinder::dataTypeForValue($objRichText);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 }

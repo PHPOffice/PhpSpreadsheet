@@ -4,33 +4,33 @@ As you already know from the [architecture](./architecture.md#readers-and-writer
 reading and writing to a
 persisted storage is not possible using the base PhpSpreadsheet classes.
 For this purpose, PhpSpreadsheet provides readers and writers, which are
-implementations of \PhpOffice\PhpSpreadsheet\Reader\IReader and
-\PhpOffice\PhpSpreadsheet\Writer\IWriter.
+implementations of `\PhpOffice\PhpSpreadsheet\Reader\IReader` and
+`\PhpOffice\PhpSpreadsheet\Writer\IWriter`.
 
 ## \PhpOffice\PhpSpreadsheet\IOFactory
 
 The PhpSpreadsheet API offers multiple methods to create a
-\PhpOffice\PhpSpreadsheet\Reader\IReader or
-\PhpOffice\PhpSpreadsheet\Writer\IWriter instance:
+`\PhpOffice\PhpSpreadsheet\Reader\IReader` or
+`\PhpOffice\PhpSpreadsheet\Writer\IWriter` instance:
 
-Direct creation via \PhpOffice\PhpSpreadsheet\IOFactory. All examples
+Direct creation via `\PhpOffice\PhpSpreadsheet\IOFactory`. All examples
 underneath demonstrate the direct creation method. Note that you can
-also use the \PhpOffice\PhpSpreadsheet\IOFactory class to do this.
+also use the `\PhpOffice\PhpSpreadsheet\IOFactory` class to do this.
 
-### Creating \PhpOffice\PhpSpreadsheet\Reader\IReader using \PhpOffice\PhpSpreadsheet\IOFactory
+### Creating `\PhpOffice\PhpSpreadsheet\Reader\IReader` using `\PhpOffice\PhpSpreadsheet\IOFactory`
 
 There are 2 methods for reading in a file into PhpSpreadsheet: using
 automatic file type resolving or explicitly.
 
 Automatic file type resolving checks the different
-\PhpOffice\PhpSpreadsheet\Reader\IReader distributed with
+`\PhpOffice\PhpSpreadsheet\Reader\IReader` distributed with
 PhpSpreadsheet. If one of them can load the specified file name, the
-file is loaded using that \PhpOffice\PhpSpreadsheet\Reader\IReader.
+file is loaded using that `\PhpOffice\PhpSpreadsheet\Reader\IReader`.
 Explicit mode requires you to specify which
-\PhpOffice\PhpSpreadsheet\Reader\IReader should be used.
+`\PhpOffice\PhpSpreadsheet\Reader\IReader` should be used.
 
-You can create a \PhpOffice\PhpSpreadsheet\Reader\IReader instance using
-\PhpOffice\PhpSpreadsheet\IOFactory in automatic file type resolving
+You can create a `\PhpOffice\PhpSpreadsheet\Reader\IReader` instance using
+`\PhpOffice\PhpSpreadsheet\IOFactory` in automatic file type resolving
 mode using the following code sample:
 
 ``` php
@@ -51,8 +51,8 @@ $reader->setReadDataOnly(true);
 $reader->load("05featuredemo.xlsx");
 ```
 
-You can create a \PhpOffice\PhpSpreadsheet\Reader\IReader instance using
-\PhpOffice\PhpSpreadsheet\IOFactory in explicit mode using the following
+You can create a `\PhpOffice\PhpSpreadsheet\Reader\IReader` instance using
+`\PhpOffice\PhpSpreadsheet\IOFactory` in explicit mode using the following
 code sample:
 
 ``` php
@@ -63,10 +63,10 @@ $spreadsheet = $reader->load("05featuredemo.xlsx");
 Note that automatic type resolving mode is slightly slower than explicit
 mode.
 
-### Creating \PhpOffice\PhpSpreadsheet\Writer\IWriter using \PhpOffice\PhpSpreadsheet\IOFactory
+### Creating `\PhpOffice\PhpSpreadsheet\Writer\IWriter` using `\PhpOffice\PhpSpreadsheet\IOFactory`
 
-You can create a PhpOffice\PhpSpreadsheet\Writer\IWriter instance using
-\PhpOffice\PhpSpreadsheet\IOFactory:
+You can create a `\PhpOffice\PhpSpreadsheet\Writer\IWriter` instance using
+`\PhpOffice\PhpSpreadsheet\IOFactory`:
 
 ``` php
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, "Xlsx");
@@ -107,7 +107,7 @@ reader to only load the sheets with a given name:
 
 ``` php
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-$reader->setLoadSheetsOnly( array("Sheet 1", "My special sheet") );
+$reader->setLoadSheetsOnly(["Sheet 1", "My special sheet"]);
 $spreadsheet = $reader->load("05featuredemo.xlsx");
 ```
 
@@ -116,8 +116,8 @@ $spreadsheet = $reader->load("05featuredemo.xlsx");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
-read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
+`\PhpOffice\PhpSpreadsheet\Reader\IReadFilter`. By default, all cells are
+read using the `\PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter`.
 
 The following code will only read row 1 and rows 20 – 30 of any sheet in
 the Excel file:
@@ -225,7 +225,7 @@ reader to only load the sheets with a given name:
 
 ``` php
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-$reader->setLoadSheetsOnly( array("Sheet 1", "My special sheet") );
+$reader->setLoadSheetsOnly(["Sheet 1", "My special sheet"]);
 $spreadsheet = $reader->load("05featuredemo.xls");
 ```
 
@@ -234,8 +234,8 @@ $spreadsheet = $reader->load("05featuredemo.xls");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
-read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
+`\PhpOffice\PhpSpreadsheet\Reader\IReadFilter`. By default, all cells are
+read using the `\PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter`.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the Excel file:
@@ -293,8 +293,8 @@ $spreadsheet = $reader->load("05featuredemo.xml");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
-read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
+`\PhpOffice\PhpSpreadsheet\Reader\IReadFilter`. By default, all cells are
+read using the `\PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter`.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the Excel file:
@@ -344,8 +344,8 @@ $spreadsheet = $reader->load("05featuredemo.slk");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
-read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
+`\PhpOffice\PhpSpreadsheet\Reader\IReadFilter`. By default, all cells are
+read using the `\PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter`.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the SYLK file:
@@ -389,8 +389,8 @@ $spreadsheet = $reader->load("05featuredemo.ods");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
-read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
+`\PhpOffice\PhpSpreadsheet\Reader\IReadFilter`. By default, all cells are
+read using the `\PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter`.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the Calc file:
@@ -437,14 +437,14 @@ $spreadsheet = $reader->load("sample.csv");
 
 Often, CSV files are not really "comma separated", or use semicolon (`;`)
 as a separator. You can instruct
-\PhpOffice\PhpSpreadsheet\Reader\Csv some options before reading a CSV
+`\PhpOffice\PhpSpreadsheet\Reader\Csv` some options before reading a CSV
 file.
 
 The separator will be auto-detected, so in most cases it should not be necessary
 to specify it. But in cases where auto-detection does not fit the use-case, then
 it can be set manually.
 
-Note that \PhpOffice\PhpSpreadsheet\Reader\Csv by default assumes that
+Note that `\PhpOffice\PhpSpreadsheet\Reader\Csv` by default assumes that
 the loaded CSV file is UTF-8 encoded. If you are reading CSV files that
 were created in Microsoft Office Excel the correct input encoding may
 rather be Windows-1252 (CP1252). Always make sure that the input
@@ -455,7 +455,6 @@ $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $reader->setInputEncoding('CP1252');
 $reader->setDelimiter(';');
 $reader->setEnclosure('');
-$reader->setLineEnding("\r\n");
 $reader->setSheetIndex(0);
 
 $spreadsheet = $reader->load("sample.csv");
@@ -481,7 +480,6 @@ imports onto the 6th sheet:
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $reader->setDelimiter(';');
 $reader->setEnclosure('');
-$reader->setLineEnding("\r\n");
 $reader->setSheetIndex(5);
 
 $reader->loadIntoExisting("05featuredemo.csv", $spreadsheet);
@@ -502,7 +500,7 @@ $writer->save("05featuredemo.csv");
 
 Often, CSV files are not really "comma separated", or use semicolon (`;`)
 as a separator. You can instruct
-\PhpOffice\PhpSpreadsheet\Writer\Csv some options before writing a CSV
+`\PhpOffice\PhpSpreadsheet\Writer\Csv` some options before writing a CSV
 file:
 
 ``` php
@@ -602,7 +600,7 @@ and does not yet support merged cells or nested tables cleanly
 
 ### \PhpOffice\PhpSpreadsheet\Writer\Html
 
-Please note that \PhpOffice\PhpSpreadsheet\Writer\Html only outputs the
+Please note that `\PhpOffice\PhpSpreadsheet\Writer\Html` only outputs the
 first worksheet by default.
 
 #### Writing a spreadsheet
@@ -636,16 +634,16 @@ $writer->setSheetIndex(0);
 #### Setting the images root of the HTML file
 
 There might be situations where you want to explicitly set the included
-images root. For example, one might want to see
+images root. For example, instead of:
+
+ ``` html
+ <img src="./images/logo.jpg">
+ ```
+
+You might want to see:
 
 ``` html
-<img style="position: relative; left: 0px; top: 0px; width: 140px; height: 78px;" src="http://www.domain.com/*images/logo.jpg" border="0">
-```
-
-instead of
-
-``` html
-<img style="position: relative; left: 0px; top: 0px; width: 140px; height: 78px;" src="./images/logo.jpg" border="0">.
+<img src="http://www.domain.com/images/logo.jpg">
 ```
 
 You can use the following code to achieve this result:
@@ -725,7 +723,7 @@ $writer->save("05featuredemo.htm");
 
 #### Decimal and thousands separators
 
-See section \PhpOffice\PhpSpreadsheet\Writer\Csv how to control the
+See section `\PhpOffice\PhpSpreadsheet\Writer\Csv` how to control the
 appearance of these.
 
 ## PDF
@@ -739,17 +737,17 @@ regarding to styling cells, number formatting, ...
 ### \PhpOffice\PhpSpreadsheet\Writer\Pdf
 
 PhpSpreadsheet’s PDF Writer is a wrapper for a 3rd-Party PDF Rendering
-library such as tcPDF, mPDF or DomPDF. You must now install a PDF
+library such as TCPDF, mPDF or Dompdf. You must now install a PDF
 rendering library yourself; but PhpSpreadsheet will work with a number
 of different libraries.
 
 Currently, the following libraries are supported:
 
-Library | Downloadable from                   | PhpSpreadsheet Internal Constant
---------|-------------------------------------|---------------------------------
-tcPDF   | https://github.com/tecnickcom/tcpdf | PDF_RENDERER_TCPDF
-mPDF    | https://github.com/mpdf/mpdf        | PDF_RENDERER_MPDF
-domPDF  | https://github.com/dompdf/dompdf    | PDF_RENDERER_DOMPDF
+Library | Downloadable from                   | PhpSpreadsheet writer
+--------|-------------------------------------|----------------------
+TCPDF   | https://github.com/tecnickcom/tcpdf | Tcpdf
+mPDF    | https://github.com/mpdf/mpdf        | Mpdf
+Dompdf  | https://github.com/dompdf/dompdf    | Dompdf
 
 The different libraries have different strengths and weaknesses. Some
 generate better formatted output than others, some are faster or use
@@ -757,12 +755,52 @@ less memory than others, while some generate smaller .pdf files. It is
 the developers choice which one they wish to use, appropriate to their
 own circumstances.
 
-Before instantiating a Writer to generate PDF output, you will need to
-indicate which Rendering library you are using.
+You can instantiate a writer with its specific name, like so:
 
 ``` php
-$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
-\PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
+```
+
+Or you can register which writer you are using with a more generic name,
+so you don't need to remember which library you chose, only that you want
+to write PDF files:
+
+``` php
+$class = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class;
+\PhpOffice\PhpSpreadsheet\IOFactory::registerWriter('Pdf', $class);
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Pdf');
+```
+
+Or you can instantiate directly the writer of your choice like so:
+
+``` php
+$writer = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
+```
+
+#### Custom implementation or configuration
+
+If you need a custom implementation, or custom configuration, of a supported
+PDF library. You can extends the PDF library, and the PDF writer like so:
+
+``` php
+class My_Custom_TCPDF extends TCPDF
+{
+	// ...
+}
+
+class My_Custom_TCPDF_Writer extends \PhpOffice\PhpSpreadsheet\Writer\Pdf\Tcpdf
+{
+	protected function createExternalWriterInstance($orientation, $unit, $paperSize)
+	{
+		$instance = new My_Custom_TCPDF($orientation, $unit, $paperSize);
+
+		// more configuration of $instance
+
+		return $instance;
+	}
+}
+
+\PhpOffice\PhpSpreadsheet\IOFactory::registerWriter('Pdf', MY_TCPDF_WRITER::class);
 ```
 
 #### Writing a spreadsheet
@@ -771,11 +809,11 @@ Once you have identified the Renderer that you wish to use for PDF
 generation, you can write a .pdf file using the following code:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
 $writer->save("05featuredemo.pdf");
 ```
 
-Please note that \PhpOffice\PhpSpreadsheet\Writer\Pdf only outputs the
+Please note that `\PhpOffice\PhpSpreadsheet\Writer\Pdf` only outputs the
 first worksheet by default.
 
 #### Write all worksheets
@@ -803,7 +841,7 @@ This can be slow on large spreadsheets, and maybe even unwanted. You can
 however disable formula pre-calculation:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
 $writer->setPreCalculateFormulas(false);
 
 $writer->save("05featuredemo.pdf");
@@ -811,7 +849,7 @@ $writer->save("05featuredemo.pdf");
 
 #### Decimal and thousands separators
 
-See section \PhpOffice\PhpSpreadsheet\Writer\Csv how to control the
+See section `\PhpOffice\PhpSpreadsheet\Writer\Csv` how to control the
 appearance of these.
 
 ## Generating Excel files from templates (read, modify, write)

@@ -4,11 +4,11 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use DateTime;
 use DateTimeZone;
-use PhpOffice\PhpSpreadsheet\Calculation;
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -17,37 +17,8 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use XMLReader;
 use ZipArchive;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-class Ods extends BaseReader implements IReader
+class Ods extends BaseReader
 {
-    /**
-     * Formats.
-     *
-     * @var array
-     */
-    private $styles = [];
-
     /**
      * Create a new Ods Reader instance.
      */
@@ -92,6 +63,7 @@ class Ods extends BaseReader implements IReader
                         $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
                         if ($manifestAttributes->{'full-path'} == '/') {
                             $mimeType = (string) $manifestAttributes->{'media-type'};
+
                             break;
                         }
                     }
@@ -181,7 +153,7 @@ class Ods extends BaseReader implements IReader
         }
 
         $xml = new XMLReader();
-        $res = $xml->xml(
+        $xml->xml(
             $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
             Settings::getLibXmlLoaderOptions()
@@ -199,7 +171,7 @@ class Ods extends BaseReader implements IReader
                     $xml->next();
                 }
             }
-                // Now read each node until we find our first table:table node
+            // Now read each node until we find our first table:table node
             while ($xml->read()) {
                 if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
                     $worksheetNames[] = $xml->getAttribute('table:name');
@@ -234,7 +206,7 @@ class Ods extends BaseReader implements IReader
                                     }
                                 } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                     $mergeSize = $xml->getAttribute('table:number-columns-repeated');
-                                    $currCells += $mergeSize;
+                                    $currCells += (int) $mergeSize;
                                     $xml->read();
                                 }
                             } while ($xml->name != 'table:table-row');
@@ -243,7 +215,7 @@ class Ods extends BaseReader implements IReader
 
                     $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                     $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
-                    $tmpInfo['lastColumnLetter'] = Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+                    $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
                     $worksheetInfo[] = $tmpInfo;
                 }
             }
@@ -270,20 +242,6 @@ class Ods extends BaseReader implements IReader
         return $this->loadIntoExisting($pFilename, $spreadsheet);
     }
 
-    private static function identifyFixedStyleValue($styleList, &$styleAttributeValue)
-    {
-        $styleAttributeValue = strtolower($styleAttributeValue);
-        foreach ($styleList as $style) {
-            if ($styleAttributeValue == strtolower($style)) {
-                $styleAttributeValue = $style;
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
@@ -306,9 +264,7 @@ class Ods extends BaseReader implements IReader
             throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
 
-        /*
-         * Meta
-         */
+        // Meta
 
         $xml = simplexml_load_string(
             $this->securityScan($zip->getFromName('meta.xml')),
@@ -329,21 +285,26 @@ class Ods extends BaseReader implements IReader
                 switch ($propertyName) {
                     case 'title':
                         $docProps->setTitle($propertyValue);
+
                         break;
                     case 'subject':
                         $docProps->setSubject($propertyValue);
+
                         break;
                     case 'creator':
                         $docProps->setCreator($propertyValue);
                         $docProps->setLastModifiedBy($propertyValue);
+
                         break;
                     case 'date':
                         $creationDate = strtotime($propertyValue);
                         $docProps->setCreated($creationDate);
                         $docProps->setModified($creationDate);
+
                         break;
                     case 'description':
                         $docProps->setDescription($propertyValue);
+
                         break;
                 }
             }
@@ -357,13 +318,16 @@ class Ods extends BaseReader implements IReader
                 switch ($propertyName) {
                     case 'initial-creator':
                         $docProps->setCreator($propertyValue);
+
                         break;
                     case 'keyword':
                         $docProps->setKeywords($propertyValue);
+
                         break;
                     case 'creation-date':
                         $creationDate = strtotime($propertyValue);
                         $docProps->setCreated($creationDate);
+
                         break;
                     case 'user-defined':
                         $propertyValueType = Properties::PROPERTY_TYPE_STRING;
@@ -375,14 +339,17 @@ class Ods extends BaseReader implements IReader
                                     case 'date':
                                         $propertyValue = Properties::convertProperty($propertyValue, 'date');
                                         $propertyValueType = Properties::PROPERTY_TYPE_DATE;
+
                                         break;
                                     case 'boolean':
                                         $propertyValue = Properties::convertProperty($propertyValue, 'bool');
                                         $propertyValueType = Properties::PROPERTY_TYPE_BOOLEAN;
+
                                         break;
                                     case 'float':
                                         $propertyValue = Properties::convertProperty($propertyValue, 'r4');
                                         $propertyValueType = Properties::PROPERTY_TYPE_FLOAT;
+
                                         break;
                                     default:
                                         $propertyValueType = Properties::PROPERTY_TYPE_STRING;
@@ -390,14 +357,13 @@ class Ods extends BaseReader implements IReader
                             }
                         }
                         $docProps->setCustomProperty($propertyValueName, $propertyValue, $propertyValueType);
+
                         break;
                 }
             }
         }
 
-        /*
-         * Content
-         */
+        // Content
 
         $dom = new \DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
@@ -481,11 +447,12 @@ class Ods extends BaseReader implements IReader
 
                             $columnID = 'A';
                             foreach ($childNode->childNodes as $key => $cellData) {
-                                /* @var \DOMElement $cellData */
+                                // @var \DOMElement $cellData
 
                                 if ($this->getReadFilter() !== null) {
                                     if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
                                         ++$columnID;
+
                                         continue;
                                     }
                                 }
@@ -562,6 +529,7 @@ class Ods extends BaseReader implements IReader
                                         case 'boolean':
                                             $type = DataType::TYPE_BOOL;
                                             $dataValue = ($allCellDataText == 'TRUE') ? true : false;
+
                                             break;
                                         case 'percentage':
                                             $type = DataType::TYPE_NUMERIC;
@@ -571,6 +539,7 @@ class Ods extends BaseReader implements IReader
                                                 $dataValue = (int) $dataValue;
                                             }
                                             $formatting = NumberFormat::FORMAT_PERCENTAGE_00;
+
                                             break;
                                         case 'currency':
                                             $type = DataType::TYPE_NUMERIC;
@@ -580,6 +549,7 @@ class Ods extends BaseReader implements IReader
                                                 $dataValue = (int) $dataValue;
                                             }
                                             $formatting = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+
                                             break;
                                         case 'float':
                                             $type = DataType::TYPE_NUMERIC;
@@ -592,6 +562,7 @@ class Ods extends BaseReader implements IReader
                                                     $dataValue = (float) $dataValue;
                                                 }
                                             }
+
                                             break;
                                         case 'date':
                                             $type = DataType::TYPE_NUMERIC;
@@ -620,6 +591,7 @@ class Ods extends BaseReader implements IReader
                                             } else {
                                                 $formatting = NumberFormat::FORMAT_DATE_XLSX15;
                                             }
+
                                             break;
                                         case 'time':
                                             $type = DataType::TYPE_NUMERIC;
@@ -632,6 +604,7 @@ class Ods extends BaseReader implements IReader
                                                 )
                                             );
                                             $formatting = NumberFormat::FORMAT_DATE_TIME4;
+
                                             break;
                                         default:
                                             $dataValue = null;
@@ -650,16 +623,16 @@ class Ods extends BaseReader implements IReader
                                         // Only replace in alternate array entries (i.e. non-quoted blocks)
                                         if ($tKey = !$tKey) {
                                             // Cell range reference in another sheet
-                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/Ui', '$1!$2:$3', $value);
+                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/U', '$1!$2:$3', $value);
 
                                             // Cell reference in another sheet
-                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/Ui', '$1!$2', $value);
+                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/U', '$1!$2', $value);
 
                                             // Cell range reference
-                                            $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/Ui', '$1:$2', $value);
+                                            $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/U', '$1:$2', $value);
 
                                             // Simple cell reference
-                                            $value = preg_replace('/\[\.([^\.]+)\]/Ui', '$1', $value);
+                                            $value = preg_replace('/\[\.([^\.]+)\]/U', '$1', $value);
 
                                             $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
                                         }
@@ -687,7 +660,7 @@ class Ods extends BaseReader implements IReader
                                                 $rID = $rowID + $rowAdjust;
 
                                                 $cell = $spreadsheet->getActiveSheet()
-                                                            ->getCell($columnID . $rID);
+                                                    ->getCell($columnID . $rID);
 
                                                 // Set value
                                                 if ($hasCalculatedValue) {
@@ -723,18 +696,18 @@ class Ods extends BaseReader implements IReader
                                 }
 
                                 // Merged cells
-                                if ($childNode->hasAttributeNS($tableNs, 'number-columns-spanned')
-                                    || $childNode->hasAttributeNS($tableNs, 'number-rows-spanned')
+                                if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')
+                                    || $cellData->hasAttributeNS($tableNs, 'number-rows-spanned')
                                 ) {
                                     if (($type !== DataType::TYPE_NULL) || (!$this->readDataOnly)) {
                                         $columnTo = $columnID;
 
                                         if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')) {
-                                            $columnIndex = Cell::columnIndexFromString($columnID);
+                                            $columnIndex = Coordinate::columnIndexFromString($columnID);
                                             $columnIndex += (int) $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
                                             $columnIndex -= 2;
 
-                                            $columnTo = Cell::stringFromColumnIndex($columnIndex);
+                                            $columnTo = Coordinate::stringFromColumnIndex($columnIndex + 1);
                                         }
 
                                         $rowTo = $rowID;
@@ -751,6 +724,7 @@ class Ods extends BaseReader implements IReader
                                 ++$columnID;
                             }
                             $rowID += $rowRepeats;
+
                             break;
                     }
                 }

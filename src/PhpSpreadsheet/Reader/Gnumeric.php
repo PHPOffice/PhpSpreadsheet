@@ -2,11 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use DateTimeZone;
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -18,37 +18,8 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use XMLReader;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-class Gnumeric extends BaseReader implements IReader
+class Gnumeric extends BaseReader
 {
-    /**
-     * Formats.
-     *
-     * @var array
-     */
-    private $styles = [];
-
     /**
      * Shared Expressions.
      *
@@ -56,7 +27,7 @@ class Gnumeric extends BaseReader implements IReader
      */
     private $expressions = [];
 
-    private $referenceHelper = null;
+    private $referenceHelper;
 
     /**
      * Create a new Gnumeric.
@@ -90,11 +61,7 @@ class Gnumeric extends BaseReader implements IReader
         $data = fread($fh, 2);
         fclose($fh);
 
-        if ($data != chr(0x1F) . chr(0x8B)) {
-            return false;
-        }
-
-        return true;
+        return $data == chr(0x1F) . chr(0x8B);
     }
 
     /**
@@ -102,7 +69,7 @@ class Gnumeric extends BaseReader implements IReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
+     * @return array
      */
     public function listWorksheetNames($pFilename)
     {
@@ -131,7 +98,7 @@ class Gnumeric extends BaseReader implements IReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
+     * @return array
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -163,10 +130,11 @@ class Gnumeric extends BaseReader implements IReader
                     } elseif ($xml->name == 'gnm:MaxRow' && $xml->nodeType == XMLReader::ELEMENT) {
                         $xml->read(); //    Move onto the value node
                         $tmpInfo['totalRows'] = (int) $xml->value + 1;
+
                         break;
                     }
                 }
-                $tmpInfo['lastColumnLetter'] = Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+                $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
                 $worksheetInfo[] = $tmpInfo;
             }
         }
@@ -176,12 +144,14 @@ class Gnumeric extends BaseReader implements IReader
 
     /**
      * @param string $filename
+     *
+     * @return string
      */
     private function gzfileGetContents($filename)
     {
         $file = @gzopen($filename, 'rb');
+        $data = '';
         if ($file !== false) {
-            $data = '';
             while (!gzeof($file)) {
                 $data .= gzread($file, 1024);
             }
@@ -223,9 +193,6 @@ class Gnumeric extends BaseReader implements IReader
     {
         File::assertFile($pFilename);
 
-        $timezoneObj = new DateTimeZone('Europe/London');
-        $GMT = new DateTimeZone('UTC');
-
         $gFileData = $this->gzfileGetContents($pFilename);
 
         $xml = simplexml_load_string($this->securityScan($gFileData), 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
@@ -250,21 +217,26 @@ class Gnumeric extends BaseReader implements IReader
                     switch ($propertyName) {
                         case 'title':
                             $docProps->setTitle(trim($propertyValue));
+
                             break;
                         case 'subject':
                             $docProps->setSubject(trim($propertyValue));
+
                             break;
                         case 'creator':
                             $docProps->setCreator(trim($propertyValue));
                             $docProps->setLastModifiedBy(trim($propertyValue));
+
                             break;
                         case 'date':
                             $creationDate = strtotime(trim($propertyValue));
                             $docProps->setCreated($creationDate);
                             $docProps->setModified($creationDate);
+
                             break;
                         case 'description':
                             $docProps->setDescription(trim($propertyValue));
+
                             break;
                     }
                 }
@@ -278,29 +250,36 @@ class Gnumeric extends BaseReader implements IReader
                     switch ($propertyName) {
                         case 'keyword':
                             $docProps->setKeywords(trim($propertyValue));
+
                             break;
                         case 'initial-creator':
                             $docProps->setCreator(trim($propertyValue));
                             $docProps->setLastModifiedBy(trim($propertyValue));
+
                             break;
                         case 'creation-date':
                             $creationDate = strtotime(trim($propertyValue));
                             $docProps->setCreated($creationDate);
                             $docProps->setModified($creationDate);
+
                             break;
                         case 'user-defined':
                             list(, $attrName) = explode(':', $attributes['name']);
                             switch ($attrName) {
                                 case 'publisher':
                                     $docProps->setCompany(trim($propertyValue));
+
                                     break;
                                 case 'category':
                                     $docProps->setCategory(trim($propertyValue));
+
                                     break;
                                 case 'manager':
                                     $docProps->setManager(trim($propertyValue));
+
                                     break;
                             }
+
                             break;
                     }
                 }
@@ -312,25 +291,32 @@ class Gnumeric extends BaseReader implements IReader
                 switch ($propertyName) {
                     case 'title':
                         $docProps->setTitle(trim($propertyValue));
+
                         break;
                     case 'comments':
                         $docProps->setDescription(trim($propertyValue));
+
                         break;
                     case 'keywords':
                         $docProps->setKeywords(trim($propertyValue));
+
                         break;
                     case 'category':
                         $docProps->setCategory(trim($propertyValue));
+
                         break;
                     case 'manager':
                         $docProps->setManager(trim($propertyValue));
+
                         break;
                     case 'author':
                         $docProps->setCreator(trim($propertyValue));
                         $docProps->setLastModifiedBy(trim($propertyValue));
+
                         break;
                     case 'company':
                         $docProps->setCompany(trim($propertyValue));
+
                         break;
                 }
             }
@@ -361,26 +347,33 @@ class Gnumeric extends BaseReader implements IReader
                         switch ($marginAttributes['PrefUnit']) {
                             case 'mm':
                                 $marginSize = (int) ($marginAttributes['Points']) / 100;
+
                                 break;
                         }
                         switch ($key) {
                             case 'top':
                                 $spreadsheet->getActiveSheet()->getPageMargins()->setTop($marginSize);
+
                                 break;
                             case 'bottom':
                                 $spreadsheet->getActiveSheet()->getPageMargins()->setBottom($marginSize);
+
                                 break;
                             case 'left':
                                 $spreadsheet->getActiveSheet()->getPageMargins()->setLeft($marginSize);
+
                                 break;
                             case 'right':
                                 $spreadsheet->getActiveSheet()->getPageMargins()->setRight($marginSize);
+
                                 break;
                             case 'header':
                                 $spreadsheet->getActiveSheet()->getPageMargins()->setHeader($marginSize);
+
                                 break;
                             case 'footer':
                                 $spreadsheet->getActiveSheet()->getPageMargins()->setFooter($marginSize);
+
                                 break;
                         }
                     }
@@ -399,7 +392,7 @@ class Gnumeric extends BaseReader implements IReader
                     $maxCol = $column;
                 }
 
-                $column = Cell::stringFromColumnIndex($column);
+                $column = Coordinate::stringFromColumnIndex($column + 1);
 
                 // Read cell?
                 if ($this->getReadFilter() !== null) {
@@ -410,7 +403,7 @@ class Gnumeric extends BaseReader implements IReader
 
                 $ValueType = $cellAttributes->ValueType;
                 $ExprID = (string) $cellAttributes->ExprID;
-                $type = Cell\DataType::TYPE_FORMULA;
+                $type = DataType::TYPE_FORMULA;
                 if ($ExprID > '') {
                     if (((string) $cell) > '') {
                         $this->expressions[$ExprID] = [
@@ -429,27 +422,33 @@ class Gnumeric extends BaseReader implements IReader
                             $worksheetName
                         );
                     }
-                    $type = Cell\DataType::TYPE_FORMULA;
+                    $type = DataType::TYPE_FORMULA;
                 } else {
                     switch ($ValueType) {
                         case '10':        //    NULL
-                            $type = Cell\DataType::TYPE_NULL;
+                            $type = DataType::TYPE_NULL;
+
                             break;
                         case '20':        //    Boolean
-                            $type = Cell\DataType::TYPE_BOOL;
+                            $type = DataType::TYPE_BOOL;
                             $cell = ($cell == 'TRUE') ? true : false;
+
                             break;
                         case '30':        //    Integer
                             $cell = (int) $cell;
                             // Excel 2007+ doesn't differentiate between integer and float, so set the value and dropthru to the next (numeric) case
+                            // no break
                         case '40':        //    Float
-                            $type = Cell\DataType::TYPE_NUMERIC;
+                            $type = DataType::TYPE_NUMERIC;
+
                             break;
                         case '50':        //    Error
-                            $type = Cell\DataType::TYPE_ERROR;
+                            $type = DataType::TYPE_ERROR;
+
                             break;
                         case '60':        //    String
-                            $type = Cell\DataType::TYPE_STRING;
+                            $type = DataType::TYPE_STRING;
+
                             break;
                         case '70':        //    Cell Range
                         case '80':        //    Array
@@ -471,11 +470,11 @@ class Gnumeric extends BaseReader implements IReader
                 $styleAttributes = $styleRegion->attributes();
                 if (($styleAttributes['startRow'] <= $maxRow) &&
                     ($styleAttributes['startCol'] <= $maxCol)) {
-                    $startColumn = Cell::stringFromColumnIndex((int) $styleAttributes['startCol']);
+                    $startColumn = Coordinate::stringFromColumnIndex((int) $styleAttributes['startCol'] + 1);
                     $startRow = $styleAttributes['startRow'] + 1;
 
                     $endColumn = ($styleAttributes['endCol'] > $maxCol) ? $maxCol : (int) $styleAttributes['endCol'];
-                    $endColumn = Cell::stringFromColumnIndex($endColumn);
+                    $endColumn = Coordinate::stringFromColumnIndex($endColumn + 1);
                     $endRow = ($styleAttributes['endRow'] > $maxRow) ? $maxRow : $styleAttributes['endRow'];
                     $endRow += 1;
                     $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
@@ -486,47 +485,57 @@ class Gnumeric extends BaseReader implements IReader
                     if ((!$this->readDataOnly) ||
                         (Date::isDateTimeFormatCode((string) $styleAttributes['Format']))) {
                         $styleArray = [];
-                        $styleArray['numberformat']['code'] = (string) $styleAttributes['Format'];
+                        $styleArray['numberFormat']['formatCode'] = (string) $styleAttributes['Format'];
                         //    If readDataOnly is false, we set all formatting information
                         if (!$this->readDataOnly) {
                             switch ($styleAttributes['HAlign']) {
                                 case '1':
                                     $styleArray['alignment']['horizontal'] = Alignment::HORIZONTAL_GENERAL;
+
                                     break;
                                 case '2':
                                     $styleArray['alignment']['horizontal'] = Alignment::HORIZONTAL_LEFT;
+
                                     break;
                                 case '4':
                                     $styleArray['alignment']['horizontal'] = Alignment::HORIZONTAL_RIGHT;
+
                                     break;
                                 case '8':
                                     $styleArray['alignment']['horizontal'] = Alignment::HORIZONTAL_CENTER;
+
                                     break;
                                 case '16':
                                 case '64':
                                     $styleArray['alignment']['horizontal'] = Alignment::HORIZONTAL_CENTER_CONTINUOUS;
+
                                     break;
                                 case '32':
                                     $styleArray['alignment']['horizontal'] = Alignment::HORIZONTAL_JUSTIFY;
+
                                     break;
                             }
 
                             switch ($styleAttributes['VAlign']) {
                                 case '1':
                                     $styleArray['alignment']['vertical'] = Alignment::VERTICAL_TOP;
+
                                     break;
                                 case '2':
                                     $styleArray['alignment']['vertical'] = Alignment::VERTICAL_BOTTOM;
+
                                     break;
                                 case '4':
                                     $styleArray['alignment']['vertical'] = Alignment::VERTICAL_CENTER;
+
                                     break;
                                 case '8':
                                     $styleArray['alignment']['vertical'] = Alignment::VERTICAL_JUSTIFY;
+
                                     break;
                             }
 
-                            $styleArray['alignment']['wrap'] = ($styleAttributes['WrapText'] == '1') ? true : false;
+                            $styleArray['alignment']['wrapText'] = ($styleAttributes['WrapText'] == '1') ? true : false;
                             $styleArray['alignment']['shrinkToFit'] = ($styleAttributes['ShrinkToFit'] == '1') ? true : false;
                             $styleArray['alignment']['indent'] = ((int) ($styleAttributes['Indent']) > 0) ? $styleAttributes['indent'] : 0;
 
@@ -535,69 +544,89 @@ class Gnumeric extends BaseReader implements IReader
                             $RGB = self::parseGnumericColour($styleAttributes['Back']);
                             $shade = $styleAttributes['Shade'];
                             if (($RGB != '000000') || ($shade != '0')) {
-                                $styleArray['fill']['color']['rgb'] = $styleArray['fill']['startcolor']['rgb'] = $RGB;
+                                $styleArray['fill']['color']['rgb'] = $styleArray['fill']['startColor']['rgb'] = $RGB;
                                 $RGB2 = self::parseGnumericColour($styleAttributes['PatternColor']);
-                                $styleArray['fill']['endcolor']['rgb'] = $RGB2;
+                                $styleArray['fill']['endColor']['rgb'] = $RGB2;
                                 switch ($shade) {
                                     case '1':
-                                        $styleArray['fill']['type'] = Fill::FILL_SOLID;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_SOLID;
+
                                         break;
                                     case '2':
-                                        $styleArray['fill']['type'] = Fill::FILL_GRADIENT_LINEAR;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_GRADIENT_LINEAR;
+
                                         break;
                                     case '3':
-                                        $styleArray['fill']['type'] = Fill::FILL_GRADIENT_PATH;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_GRADIENT_PATH;
+
                                         break;
                                     case '4':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKDOWN;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKDOWN;
+
                                         break;
                                     case '5':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKGRAY;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKGRAY;
+
                                         break;
                                     case '6':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKGRID;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKGRID;
+
                                         break;
                                     case '7':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKHORIZONTAL;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKHORIZONTAL;
+
                                         break;
                                     case '8':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKTRELLIS;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKTRELLIS;
+
                                         break;
                                     case '9':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKUP;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKUP;
+
                                         break;
                                     case '10':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKVERTICAL;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKVERTICAL;
+
                                         break;
                                     case '11':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_GRAY0625;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_GRAY0625;
+
                                         break;
                                     case '12':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_GRAY125;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_GRAY125;
+
                                         break;
                                     case '13':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTDOWN;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTDOWN;
+
                                         break;
                                     case '14':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTGRAY;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTGRAY;
+
                                         break;
                                     case '15':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTGRID;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTGRID;
+
                                         break;
                                     case '16':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTHORIZONTAL;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTHORIZONTAL;
+
                                         break;
                                     case '17':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTTRELLIS;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTTRELLIS;
+
                                         break;
                                     case '18':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTUP;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTUP;
+
                                         break;
                                     case '19':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTVERTICAL;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTVERTICAL;
+
                                         break;
                                     case '20':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_MEDIUMGRAY;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_MEDIUMGRAY;
+
                                         break;
                                 }
                             }
@@ -607,30 +636,37 @@ class Gnumeric extends BaseReader implements IReader
                             $styleArray['font']['size'] = (int) ($fontAttributes['Unit']);
                             $styleArray['font']['bold'] = ($fontAttributes['Bold'] == '1') ? true : false;
                             $styleArray['font']['italic'] = ($fontAttributes['Italic'] == '1') ? true : false;
-                            $styleArray['font']['strike'] = ($fontAttributes['StrikeThrough'] == '1') ? true : false;
+                            $styleArray['font']['strikethrough'] = ($fontAttributes['StrikeThrough'] == '1') ? true : false;
                             switch ($fontAttributes['Underline']) {
                                 case '1':
                                     $styleArray['font']['underline'] = Font::UNDERLINE_SINGLE;
+
                                     break;
                                 case '2':
                                     $styleArray['font']['underline'] = Font::UNDERLINE_DOUBLE;
+
                                     break;
                                 case '3':
                                     $styleArray['font']['underline'] = Font::UNDERLINE_SINGLEACCOUNTING;
+
                                     break;
                                 case '4':
                                     $styleArray['font']['underline'] = Font::UNDERLINE_DOUBLEACCOUNTING;
+
                                     break;
                                 default:
                                     $styleArray['font']['underline'] = Font::UNDERLINE_NONE;
+
                                     break;
                             }
                             switch ($fontAttributes['Script']) {
                                 case '1':
-                                    $styleArray['font']['superScript'] = true;
+                                    $styleArray['font']['superscript'] = true;
+
                                     break;
                                 case '-1':
-                                    $styleArray['font']['subScript'] = true;
+                                    $styleArray['font']['subscript'] = true;
+
                                     break;
                             }
 
@@ -649,13 +685,13 @@ class Gnumeric extends BaseReader implements IReader
                                 }
                                 if ((isset($styleRegion->Style->StyleBorder->Diagonal)) && (isset($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}))) {
                                     $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
-                                    $styleArray['borders']['diagonaldirection'] = Borders::DIAGONAL_BOTH;
+                                    $styleArray['borders']['diagonalDirection'] = Borders::DIAGONAL_BOTH;
                                 } elseif (isset($styleRegion->Style->StyleBorder->Diagonal)) {
                                     $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
-                                    $styleArray['borders']['diagonaldirection'] = Borders::DIAGONAL_UP;
+                                    $styleArray['borders']['diagonalDirection'] = Borders::DIAGONAL_UP;
                                 } elseif (isset($styleRegion->Style->StyleBorder->{'Rev-Diagonal'})) {
                                     $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}->attributes());
-                                    $styleArray['borders']['diagonaldirection'] = Borders::DIAGONAL_DOWN;
+                                    $styleArray['borders']['diagonalDirection'] = Borders::DIAGONAL_DOWN;
                                 }
                             }
                             if (isset($styleRegion->Style->HyperLink)) {
@@ -680,19 +716,19 @@ class Gnumeric extends BaseReader implements IReader
                     $hidden = ((isset($columnAttributes['Hidden'])) && ($columnAttributes['Hidden'] == '1')) ? true : false;
                     $columnCount = (isset($columnAttributes['Count'])) ? $columnAttributes['Count'] : 1;
                     while ($c < $column) {
-                        $spreadsheet->getActiveSheet()->getColumnDimension(Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
+                        $spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c + 1))->setWidth($defaultWidth);
                         ++$c;
                     }
                     while (($c < ($column + $columnCount)) && ($c <= $maxCol)) {
-                        $spreadsheet->getActiveSheet()->getColumnDimension(Cell::stringFromColumnIndex($c))->setWidth($columnWidth);
+                        $spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c + 1))->setWidth($columnWidth);
                         if ($hidden) {
-                            $spreadsheet->getActiveSheet()->getColumnDimension(Cell::stringFromColumnIndex($c))->setVisible(false);
+                            $spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c + 1))->setVisible(false);
                         }
                         ++$c;
                     }
                 }
                 while ($c <= $maxCol) {
-                    $spreadsheet->getActiveSheet()->getColumnDimension(Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
+                    $spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c + 1))->setWidth($defaultWidth);
                     ++$c;
                 }
             }
@@ -770,46 +806,60 @@ class Gnumeric extends BaseReader implements IReader
 
         switch ($borderAttributes['Style']) {
             case '0':
-                $styleArray['style'] = Border::BORDER_NONE;
+                $styleArray['borderStyle'] = Border::BORDER_NONE;
+
                 break;
             case '1':
-                $styleArray['style'] = Border::BORDER_THIN;
+                $styleArray['borderStyle'] = Border::BORDER_THIN;
+
                 break;
             case '2':
-                $styleArray['style'] = Border::BORDER_MEDIUM;
+                $styleArray['borderStyle'] = Border::BORDER_MEDIUM;
+
                 break;
             case '3':
-                $styleArray['style'] = Border::BORDER_SLANTDASHDOT;
+                $styleArray['borderStyle'] = Border::BORDER_SLANTDASHDOT;
+
                 break;
             case '4':
-                $styleArray['style'] = Border::BORDER_DASHED;
+                $styleArray['borderStyle'] = Border::BORDER_DASHED;
+
                 break;
             case '5':
-                $styleArray['style'] = Border::BORDER_THICK;
+                $styleArray['borderStyle'] = Border::BORDER_THICK;
+
                 break;
             case '6':
-                $styleArray['style'] = Border::BORDER_DOUBLE;
+                $styleArray['borderStyle'] = Border::BORDER_DOUBLE;
+
                 break;
             case '7':
-                $styleArray['style'] = Border::BORDER_DOTTED;
+                $styleArray['borderStyle'] = Border::BORDER_DOTTED;
+
                 break;
             case '8':
-                $styleArray['style'] = Border::BORDER_MEDIUMDASHED;
+                $styleArray['borderStyle'] = Border::BORDER_MEDIUMDASHED;
+
                 break;
             case '9':
-                $styleArray['style'] = Border::BORDER_DASHDOT;
+                $styleArray['borderStyle'] = Border::BORDER_DASHDOT;
+
                 break;
             case '10':
-                $styleArray['style'] = Border::BORDER_MEDIUMDASHDOT;
+                $styleArray['borderStyle'] = Border::BORDER_MEDIUMDASHDOT;
+
                 break;
             case '11':
-                $styleArray['style'] = Border::BORDER_DASHDOTDOT;
+                $styleArray['borderStyle'] = Border::BORDER_DASHDOTDOT;
+
                 break;
             case '12':
-                $styleArray['style'] = Border::BORDER_MEDIUMDASHDOTDOT;
+                $styleArray['borderStyle'] = Border::BORDER_MEDIUMDASHDOTDOT;
+
                 break;
             case '13':
-                $styleArray['style'] = Border::BORDER_MEDIUMDASHDOTDOT;
+                $styleArray['borderStyle'] = Border::BORDER_MEDIUMDASHDOTDOT;
+
                 break;
         }
 

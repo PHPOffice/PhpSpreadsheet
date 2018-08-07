@@ -2,30 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
-use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class StringHelper
 {
     /**    Constants                */
@@ -155,7 +133,7 @@ class StringHelper
             "\x1BNz" => 'œ', // 156 in CP1252
             "\x1B)>" => 'ž', // 158 in CP1252
             "\x1B)?" => 'Ÿ', // 159 in CP1252
-            "\x1B*0" => ' ', // 160 in CP1252
+            "\x1B*0" => ' ', // 160 in CP1252
             "\x1BN!" => '¡', // 161 in CP1252
             "\x1BN\"" => '¢', // 162 in CP1252
             "\x1BN#" => '£', // 163 in CP1252
@@ -300,11 +278,12 @@ class StringHelper
         return true;
     }
 
-    public static function buildCharacterSets()
+    private static function buildCharacterSets()
     {
         if (empty(self::$controlCharacters)) {
             self::buildControlCharacters();
         }
+
         if (empty(self::$SYLKCharacters)) {
             self::buildSYLKCharacters();
         }
@@ -327,6 +306,8 @@ class StringHelper
      */
     public static function controlCharacterOOXML2PHP($value)
     {
+        self::buildCharacterSets();
+
         return str_replace(array_keys(self::$controlCharacters), array_values(self::$controlCharacters), $value);
     }
 
@@ -347,6 +328,8 @@ class StringHelper
      */
     public static function controlCharacterPHP2OOXML($value)
     {
+        self::buildCharacterSets();
+
         return str_replace(array_values(self::$controlCharacters), array_keys(self::$controlCharacters), $value);
     }
 
@@ -713,6 +696,8 @@ class StringHelper
      */
     public static function SYLKtoUTF8($pValue)
     {
+        self::buildCharacterSets();
+
         // If there is no escape character in the string there is nothing to do
         if (strpos($pValue, '') === false) {
             return $pValue;

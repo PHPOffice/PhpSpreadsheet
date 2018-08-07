@@ -2,30 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Calculation;
-
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Logical
 {
     /**
@@ -62,6 +38,32 @@ class Logical
         return false;
     }
 
+    private static function countTrueValues(array $args)
+    {
+        $returnValue = 0;
+
+        foreach ($args as $arg) {
+            // Is it a boolean value?
+            if (is_bool($arg)) {
+                $returnValue += $arg;
+            } elseif ((is_numeric($arg)) && (!is_string($arg))) {
+                $returnValue += ((int) $arg != 0);
+            } elseif (is_string($arg)) {
+                $arg = strtoupper($arg);
+                if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
+                    $arg = true;
+                } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
+                    $arg = false;
+                } else {
+                    return Functions::VALUE();
+                }
+                $returnValue += ($arg != 0);
+            }
+        }
+
+        return $returnValue;
+    }
+
     /**
      * LOGICAL_AND.
      *
@@ -82,41 +84,27 @@ class Logical
      *
      * @param mixed ...$args Data values
      *
-     * @return string|bool the logical AND of the arguments
+     * @return bool|string the logical AND of the arguments
      */
     public static function logicalAnd(...$args)
     {
-        // Return value
-        $returnValue = true;
+        $args = Functions::flattenArray($args);
 
-        // Loop through the arguments
-        $aArgs = Functions::flattenArray($args);
-        $argCount = -1;
-        foreach ($aArgs as $argCount => $arg) {
-            // Is it a boolean value?
-            if (is_bool($arg)) {
-                $returnValue = $returnValue && $arg;
-            } elseif ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue = $returnValue && ($arg != 0);
-            } elseif (is_string($arg)) {
-                $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
-                    $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
-                    $arg = false;
-                } else {
-                    return Functions::VALUE();
-                }
-                $returnValue = $returnValue && ($arg != 0);
-            }
-        }
-
-        // Return
-        if ($argCount < 0) {
+        if (count($args) == 0) {
             return Functions::VALUE();
         }
 
-        return $returnValue;
+        $args = array_filter($args, function ($value) {
+            return $value !== null || (is_string($value) && trim($value) == '');
+        });
+        $argCount = count($args);
+
+        $returnValue = self::countTrueValues($args);
+        if (is_string($returnValue)) {
+            return $returnValue;
+        }
+
+        return ($returnValue > 0) && ($returnValue == $argCount);
     }
 
     /**
@@ -139,41 +127,69 @@ class Logical
      *
      * @param mixed $args Data values
      *
-     * @return string|bool the logical OR of the arguments
+     * @return bool|string the logical OR of the arguments
      */
     public static function logicalOr(...$args)
     {
-        // Return value
-        $returnValue = false;
+        $args = Functions::flattenArray($args);
 
-        // Loop through the arguments
-        $aArgs = Functions::flattenArray($args);
-        $argCount = -1;
-        foreach ($aArgs as $argCount => $arg) {
-            // Is it a boolean value?
-            if (is_bool($arg)) {
-                $returnValue = $returnValue || $arg;
-            } elseif ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue = $returnValue || ($arg != 0);
-            } elseif (is_string($arg)) {
-                $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
-                    $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
-                    $arg = false;
-                } else {
-                    return Functions::VALUE();
-                }
-                $returnValue = $returnValue || ($arg != 0);
-            }
-        }
-
-        // Return
-        if ($argCount < 0) {
+        if (count($args) == 0) {
             return Functions::VALUE();
         }
 
-        return $returnValue;
+        $args = array_filter($args, function ($value) {
+            return $value !== null || (is_string($value) && trim($value) == '');
+        });
+
+        $returnValue = self::countTrueValues($args);
+        if (is_string($returnValue)) {
+            return $returnValue;
+        }
+
+        return $returnValue > 0;
+    }
+
+    /**
+     * LOGICAL_XOR.
+     *
+     * Returns the Exclusive Or logical operation for one or more supplied conditions.
+     * i.e. the Xor function returns TRUE if an odd number of the supplied conditions evaluate to TRUE, and FALSE otherwise.
+     *
+     * Excel Function:
+     *        =XOR(logical1[,logical2[, ...]])
+     *
+     *        The arguments must evaluate to logical values such as TRUE or FALSE, or the arguments must be arrays
+     *            or references that contain logical values.
+     *
+     *        Boolean arguments are treated as True or False as appropriate
+     *        Integer or floating point arguments are treated as True, except for 0 or 0.0 which are False
+     *        If any argument value is a string, or a Null, the function returns a #VALUE! error, unless the string holds
+     *            the value TRUE or FALSE, in which case it is evaluated as the corresponding boolean value
+     *
+     * @category Logical Functions
+     *
+     * @param mixed $args Data values
+     *
+     * @return bool|string the logical XOR of the arguments
+     */
+    public static function logicalXor(...$args)
+    {
+        $args = Functions::flattenArray($args);
+
+        if (count($args) == 0) {
+            return Functions::VALUE();
+        }
+
+        $args = array_filter($args, function ($value) {
+            return $value !== null || (is_string($value) && trim($value) == '');
+        });
+
+        $returnValue = self::countTrueValues($args);
+        if (is_string($returnValue)) {
+            return $returnValue;
+        }
+
+        return $returnValue % 2 == 1;
     }
 
     /**
@@ -200,6 +216,7 @@ class Logical
     public static function NOT($logical = false)
     {
         $logical = Functions::flattenSingleValue($logical);
+
         if (is_string($logical)) {
             $logical = strtoupper($logical);
             if (($logical == 'TRUE') || ($logical == Calculation::getTRUE())) {
@@ -249,9 +266,9 @@ class Logical
      */
     public static function statementIf($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
-        $condition = (is_null($condition)) ? true : (bool) Functions::flattenSingleValue($condition);
-        $returnIfTrue = (is_null($returnIfTrue)) ? 0 : Functions::flattenSingleValue($returnIfTrue);
-        $returnIfFalse = (is_null($returnIfFalse)) ? false : Functions::flattenSingleValue($returnIfFalse);
+        $condition = ($condition === null) ? true : (bool) Functions::flattenSingleValue($condition);
+        $returnIfTrue = ($returnIfTrue === null) ? 0 : Functions::flattenSingleValue($returnIfTrue);
+        $returnIfFalse = ($returnIfFalse === null) ? false : Functions::flattenSingleValue($returnIfFalse);
 
         return ($condition) ? $returnIfTrue : $returnIfFalse;
     }
@@ -271,8 +288,8 @@ class Logical
      */
     public static function IFERROR($testValue = '', $errorpart = '')
     {
-        $testValue = (is_null($testValue)) ? '' : Functions::flattenSingleValue($testValue);
-        $errorpart = (is_null($errorpart)) ? '' : Functions::flattenSingleValue($errorpart);
+        $testValue = ($testValue === null) ? '' : Functions::flattenSingleValue($testValue);
+        $errorpart = ($errorpart === null) ? '' : Functions::flattenSingleValue($errorpart);
 
         return self::statementIf(Functions::isError($testValue), $errorpart, $testValue);
     }

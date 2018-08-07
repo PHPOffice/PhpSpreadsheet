@@ -61,10 +61,8 @@ In Excel `+` wins over `&`, just like `*` wins over `+` in ordinary
 algebra. The former rule is not what one finds using the calculation
 engine shipped with PhpSpreadsheet.
 
-Reference for operator precedence in Excel:
-<http://support.microsoft.com/kb/25189>
-
-Reference for operator precedence in PHP: <http://www.php.net/operators>
+- [Reference for Excel](https://support.office.com/en-us/article/Calculation-operators-and-precedence-in-Excel-48be406d-4975-4d31-b2b8-7af9e0e2878a)
+- [Reference for PHP](http://php.net/manual/en/language.operators.php)
 
 #### Formulas involving numbers and text
 
@@ -76,13 +74,12 @@ formula is evaluated as 3 instead of evaluating as an error. This also
 causes the Excel document being generated as containing unreadable
 content.
 
-Reference for this behaviour in PHP:
-<http://php.net/manual/en/language.types.string.php#language.types.string.conversion>
+- [Reference for this behaviour in PHP](http://php.net/manual/en/language.types.string.php#language.types.string.conversion)
 
 #### Formulas don’t seem to be calculated in Excel2003 using compatibility pack?
 
 This is normal behaviour of the compatibility pack, Xlsx displays this
-correctly. Use \PhpOffice\PhpSpreadsheet\Writer\Xls if you really need
+correctly. Use `\PhpOffice\PhpSpreadsheet\Writer\Xls` if you really need
 calculated values, or force recalculation in Excel2003.
 
 ## Handling Date and Time Values
@@ -110,7 +107,7 @@ where the following constants can be used for `$returnDateType`:
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in for the return date type).
 
-The \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()
+The `\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`
 method can be used to determine the current value of this setting:
 
 ``` php
@@ -149,7 +146,7 @@ base date for the Mac 1904 calendar.
 
 It is possible for scripts to change the calendar used for calculating
 Excel date values by calling the
-\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar() method:
+`\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar()` method:
 
 ``` php
 \PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar($baseDate);
@@ -163,7 +160,7 @@ where the following constants can be used for `$baseDate`:
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in).
 
-The \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar() method can
+The `\PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar()` method can
 be used to determine the current value of this setting:
 
 ``` php
@@ -240,7 +237,7 @@ rather than converted to Excel date timestamp values.
 
 In addition to the `setExcelCalendar()` and `getExcelCalendar()` methods, a
 number of other methods are available in the
-\PhpOffice\PhpSpreadsheet\Shared\Date class that can help when working
+`\PhpOffice\PhpSpreadsheet\Shared\Date` class that can help when working
 with dates:
 
 #### \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($excelDate)
@@ -265,6 +262,28 @@ return an Excel date timestamp.
 
 Takes year, month and day values (and optional hour, minute and second
 values) and returns an Excel date timestamp value.
+
+### Timezone support for Excel date timestamp conversions
+
+The default timezone for the date functions in PhpSpreadsheet is UST (Universal Standard Time).
+If a different timezone needs to be used, these methods are available:
+
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::getDefaultTimezone()
+
+Returns the current timezone value PhpSpeadsheet is using to handle dates and times.
+
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::setDefaultTimezone($timeZone)
+
+Sets the timezone for Excel date timestamp conversions to $timeZone,
+which must be a valid PHP DateTimeZone value.
+The return value is a Boolean, where true is success,
+and false is failure (e.g. an invalid DateTimeZone value was passed.)
+
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($excelDate, $timeZone)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimeStamp($excelDate, $timeZone)
+
+These functions support a timezone as an optional second parameter.
+This applies a specific timezone to that function call without affecting the default PhpSpreadsheet Timezone.
 
 ## Function Reference
 
@@ -311,21 +330,21 @@ This is the statistical mean.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -379,21 +398,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -450,21 +469,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -521,21 +540,21 @@ in which you specify a condition for the column.
 #### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -589,21 +608,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -657,21 +676,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -725,21 +744,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -794,21 +813,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -863,21 +882,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -931,21 +950,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -1027,7 +1046,7 @@ February 27, 2008.
 
 This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1049,7 +1068,7 @@ $retVal = $worksheet->getCell('D1')->getCalculatedValue();
 ``` php
 // We're going to be calling the same cell calculation multiple times,
 //    and expecting different return values, so disable calculation cacheing
-\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
+\PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
 
 $saveFormat = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
 
@@ -1058,8 +1077,8 @@ $saveFormat = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType
 );
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATE'),
-    array(2008, 12, 31)
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATE'],
+    [2008, 12, 31]
 );
 // $retVal = 39813.0
 
@@ -1068,8 +1087,8 @@ $retVal = call_user_func_array(
 );
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATE'),
-    array(2008, 12, 31)
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATE'],
+    [2008, 12, 31]
 );
 // $retVal = 1230681600
 
@@ -1170,38 +1189,38 @@ $date1 = 1193317015; // PHP timestamp for 25-Oct-2007
 $date2 = 1449579415; // PHP timestamp for 8-Dec-2015
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
-    array($date1, $date2, 'd')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'],
+    [$date1, $date2, 'd']
 );
 // $retVal = 2966
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
-    array($date1, $date2, 'm')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'],
+    [$date1, $date2, 'm']
 );
 // $retVal = 97
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
-    array($date1, $date2, 'y')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'],
+    [$date1, $date2, 'y']
 );
 // $retVal = 8
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
-    array($date1, $date2, 'ym')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'],
+    [$date1, $date2, 'ym']
 );
 // $retVal = 1
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
-    array($date1, $date2, 'yd')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'],
+    [$date1, $date2, 'yd']
 );
 // $retVal = 44
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
-    array($date1, $date2, 'md')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'],
+    [$date1, $date2, 'md']
 );
 // $retVal = 13
 ```
@@ -1232,7 +1251,7 @@ A string, representing a date value.
 
 This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1261,7 +1280,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 ``` php
 // We're going to be calling the same cell calculation multiple times,
 //    and expecting different return values, so disable calculation cacheing
-\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
+\PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
 
 $saveFormat = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
 
@@ -1270,8 +1289,8 @@ $saveFormat = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType
 );
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEVALUE'),
-    array('31-Dec-2008')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEVALUE'],
+    ['31-Dec-2008']
 );
 // $retVal = 39813.0
 
@@ -1280,8 +1299,8 @@ $retVal = call_user_func_array(
 );
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEVALUE'),
-    array('31-Dec-2008')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEVALUE'],
+    ['31-Dec-2008']
 );
 // $retVal = 1230681600
 
@@ -1345,8 +1364,8 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYOFMONTH'),
-    array('25-Dec-2008')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYOFMONTH'],
+    ['25-Dec-2008']
 );
 // $retVal = 25
 ```
@@ -1354,7 +1373,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::DAYOFMONTH() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::DAYOFMONTH()` when the
 method is called statically.
 
 #### DAYS360
@@ -1431,14 +1450,14 @@ $date1 = 37655.0; // Excel timestamp for 25-Oct-2007
 $date2 = 39233.0; // Excel timestamp for 8-Dec-2015
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYS360'),
-    array($date1, $date2)
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYS360'],
+    [$date1, $date2]
 );
 // $retVal = 1558
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYS360'),
-    array($date1, $date2, TRUE)
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYS360'],
+    [$date1, $date2, TRUE]
 );
 // $retVal = 1557
 ```
@@ -1482,7 +1501,7 @@ value yields a past date.
 
 This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1511,8 +1530,8 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 );
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'EDATE'),
-    array('31-Oct-2008',25)
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'EDATE'],
+    ['31-Oct-2008', 25]
 );
 // $retVal = 40512.0 (30-Nov-2010)
 ```
@@ -1555,7 +1574,7 @@ value yields a past date.
 
 This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1582,8 +1601,8 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 );
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'EOMONTH'),
-    array('31-Oct-2008',13)
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'EOMONTH'],
+    ['31-Oct-2008', 13]
 );
 // $retVal = 40147.0 (30-Nov-2010)
 ```
@@ -1640,8 +1659,8 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'HOUROFDAY'),
-    array('09:30')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'HOUROFDAY'],
+    ['09:30']
 );
 // $retVal = 9
 ```
@@ -1649,7 +1668,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::HOUROFDAY() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::HOUROFDAY()` when the
 method is called statically.
 
 #### MINUTE
@@ -1698,8 +1717,8 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'MINUTE'),
-    array('09:30')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'MINUTE'],
+    ['09:30']
 );
 // $retVal = 30
 ```
@@ -1707,7 +1726,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::MINUTE() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::MINUTE()` when the
 method is called statically.
 
 #### MONTH
@@ -1751,8 +1770,8 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'MONTHOFYEAR'),
-    array('14-July-2008')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'MONTHOFYEAR'],
+    ['14-July-2008']
 );
 // $retVal = 7
 ```
@@ -1760,7 +1779,7 @@ $retVal = call_user_func_array(
 #### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::MONTHOFYEAR() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::MONTHOFYEAR()` when the
 method is called statically.
 
 #### NETWORKDAYS
@@ -1833,7 +1852,7 @@ time.
 
 This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1846,7 +1865,7 @@ or an Excel timestamp value (real), depending on the value of
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::DATETIMENOW() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::DATETIMENOW()` when the
 method is called statically.
 
 #### SECOND
@@ -1896,8 +1915,8 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'SECOND'),
-    array('09:30:17')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'SECOND'],
+    ['09:30:17']
 );
 // $retVal = 17
 ```
@@ -1905,7 +1924,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::SECOND() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::SECOND()` when the
 method is called statically.
 
 #### TIME
@@ -1980,8 +1999,8 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'WEEKDAY'),
-    array('14-July-2008')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'WEEKDAY'],
+    ['14-July-2008']
 );
 // $retVal = 7
 ```
@@ -1989,7 +2008,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::WEEKDAY() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::WEEKDAY()` when the
 method is called statically.
 
 #### WEEKNUM
@@ -2040,8 +2059,8 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'YEAR'),
-    array('14-July-2001')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'YEAR'],
+    ['14-July-2001']
 );
 // $retVal = 2001
 ```

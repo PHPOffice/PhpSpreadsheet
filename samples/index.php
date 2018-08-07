@@ -3,7 +3,7 @@
 require_once 'Header.php';
 
 $requirements = [
-    'PHP 5.6.0' => version_compare(phpversion(), '5.6.0', '>='),
+    'PHP 5.6.0' => version_compare(PHP_VERSION, '5.6.0', '>='),
     'PHP extension XML' => extension_loaded('xml'),
     'PHP extension xmlwriter' => extension_loaded('xmlwriter'),
     'PHP extension mbstring' => extension_loaded('mbstring'),
@@ -23,7 +23,7 @@ if (!$helper->isCli()) {
         </p>
     </div>
     <?php
-    echo '<h3>Requirement check:</h3>';
+    echo '<h3>Requirement check</h3>';
     echo '<ul>';
     foreach ($requirements as $label => $result) {
         $status = $result ? 'passed' : 'failed';

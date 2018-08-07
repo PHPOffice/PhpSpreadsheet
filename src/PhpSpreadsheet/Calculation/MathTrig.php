@@ -2,32 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class MathTrig
 {
     //
@@ -130,7 +107,7 @@ class MathTrig
         $number = Functions::flattenSingleValue($number);
         $significance = Functions::flattenSingleValue($significance);
 
-        if ((is_null($significance)) &&
+        if (($significance === null) &&
             (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)) {
             $significance = $number / abs($number);
         }
@@ -204,7 +181,7 @@ class MathTrig
     {
         $number = Functions::flattenSingleValue($number);
 
-        if (is_null($number)) {
+        if ($number === null) {
             return 0;
         } elseif (is_bool($number)) {
             $number = (int) $number;
@@ -315,7 +292,7 @@ class MathTrig
         $number = Functions::flattenSingleValue($number);
         $significance = Functions::flattenSingleValue($significance);
 
-        if ((is_null($significance)) &&
+        if (($significance === null) &&
             (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)) {
             $significance = $number / abs($number);
         }
@@ -333,6 +310,11 @@ class MathTrig
         }
 
         return Functions::VALUE();
+    }
+
+    private static function evaluateGCD($a, $b)
+    {
+        return $b ? self::evaluateGCD($b, $a % $b) : $a;
     }
 
     /**
@@ -353,64 +335,22 @@ class MathTrig
      */
     public static function GCD(...$args)
     {
-        $returnValue = 1;
-        $allValuesFactors = [];
+        $args = Functions::flattenArray($args);
         // Loop through arguments
         foreach (Functions::flattenArray($args) as $value) {
             if (!is_numeric($value)) {
                 return Functions::VALUE();
-            } elseif ($value == 0) {
-                continue;
             } elseif ($value < 0) {
                 return Functions::NAN();
             }
-            $myFactors = self::factors($value);
-            $myCountedFactors = array_count_values($myFactors);
-            $allValuesFactors[] = $myCountedFactors;
-        }
-        $allValuesCount = count($allValuesFactors);
-        if ($allValuesCount == 0) {
-            return 0;
         }
 
-        $mergedArray = $allValuesFactors[0];
-        for ($i = 1; $i < $allValuesCount; ++$i) {
-            $mergedArray = array_intersect_key($mergedArray, $allValuesFactors[$i]);
-        }
-        $mergedArrayValues = count($mergedArray);
-        if ($mergedArrayValues == 0) {
-            return $returnValue;
-        } elseif ($mergedArrayValues > 1) {
-            foreach ($mergedArray as $mergedKey => $mergedValue) {
-                foreach ($allValuesFactors as $highestPowerTest) {
-                    foreach ($highestPowerTest as $testKey => $testValue) {
-                        if (($testKey == $mergedKey) && ($testValue < $mergedValue)) {
-                            $mergedArray[$mergedKey] = $testValue;
-                            $mergedValue = $testValue;
-                        }
-                    }
-                }
-            }
+        $gcd = (int) array_pop($args);
+        do {
+            $gcd = self::evaluateGCD($gcd, (int) array_pop($args));
+        } while (!empty($args));
 
-            $returnValue = 1;
-            foreach ($mergedArray as $key => $value) {
-                $returnValue *= pow($key, $value);
-            }
-
-            return $returnValue;
-        }
-        $keys = array_keys($mergedArray);
-        $key = $keys[0];
-        $value = $mergedArray[$key];
-        foreach ($allValuesFactors as $testValue) {
-            foreach ($testValue as $mergedKey => $mergedValue) {
-                if (($mergedKey == $key) && ($mergedValue < $value)) {
-                    $value = $mergedValue;
-                }
-            }
-        }
-
-        return pow($key, $value);
+        return $gcd;
     }
 
     /**
@@ -431,7 +371,7 @@ class MathTrig
     {
         $number = Functions::flattenSingleValue($number);
 
-        if (is_null($number)) {
+        if ($number === null) {
             return 0;
         } elseif (is_bool($number)) {
             return (int) $number;
@@ -515,7 +455,7 @@ class MathTrig
     public static function logBase($number = null, $base = 10)
     {
         $number = Functions::flattenSingleValue($number);
-        $base = (is_null($base)) ? 10 : (float) Functions::flattenSingleValue($base);
+        $base = ($base === null) ? 10 : (float) Functions::flattenSingleValue($base);
 
         if ((!is_numeric($base)) || (!is_numeric($number))) {
             return Functions::VALUE();
@@ -800,7 +740,7 @@ class MathTrig
     {
         $number = Functions::flattenSingleValue($number);
 
-        if (is_null($number)) {
+        if ($number === null) {
             return 1;
         } elseif (is_bool($number)) {
             return 1;
@@ -872,7 +812,7 @@ class MathTrig
         foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if (is_null($returnValue)) {
+                if ($returnValue === null) {
                     $returnValue = $arg;
                 } else {
                     $returnValue *= $arg;
@@ -881,7 +821,7 @@ class MathTrig
         }
 
         // Return
-        if (is_null($returnValue)) {
+        if ($returnValue === null) {
             return 0;
         }
 
@@ -912,7 +852,7 @@ class MathTrig
         foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if (is_null($returnValue)) {
+                if ($returnValue === null) {
                     $returnValue = ($arg == 0) ? 0 : $arg;
                 } else {
                     if (($returnValue == 0) || ($arg == 0)) {
@@ -951,7 +891,7 @@ class MathTrig
     public static function ROMAN($aValue, $style = 0)
     {
         $aValue = Functions::flattenSingleValue($aValue);
-        $style = (is_null($style)) ? 0 : (int) Functions::flattenSingleValue($style);
+        $style = ($style === null) ? 0 : (int) Functions::flattenSingleValue($style);
         if ((!is_numeric($aValue)) || ($aValue < 0) || ($aValue >= 4000)) {
             return Functions::VALUE();
         }
@@ -1127,25 +1067,69 @@ class MathTrig
         return Functions::VALUE();
     }
 
+    protected static function filterHiddenArgs($cellReference, $args)
+    {
+        return array_filter(
+            $args,
+            function ($index) use ($cellReference) {
+                list(, $row, $column) = explode('.', $index);
+
+                return $cellReference->getWorksheet()->getRowDimension($row)->getVisible() &&
+                    $cellReference->getWorksheet()->getColumnDimension($column)->getVisible();
+            },
+            ARRAY_FILTER_USE_KEY
+        );
+    }
+
+    protected static function filterFormulaArgs($cellReference, $args)
+    {
+        return array_filter(
+            $args,
+            function ($index) use ($cellReference) {
+                list(, $row, $column) = explode('.', $index);
+                if ($cellReference->getWorksheet()->cellExists($column . $row)) {
+                    //take this cell out if it contains the SUBTOTAL or AGGREGATE functions in a formula
+                    $isFormula = $cellReference->getWorksheet()->getCell($column . $row)->isFormula();
+                    $cellFormula = !preg_match('/^=.*\b(SUBTOTAL|AGGREGATE)\s*\(/i', $cellReference->getWorksheet()->getCell($column . $row)->getValue());
+
+                    return !$isFormula || $cellFormula;
+                }
+
+                return true;
+            },
+            ARRAY_FILTER_USE_KEY
+        );
+    }
+
     /**
      * SUBTOTAL.
      *
      * Returns a subtotal in a list or database.
      *
      * @param int the number 1 to 11 that specifies which function to
-     *                    use in calculating subtotals within a list
+     *                    use in calculating subtotals within a range
+     *                    list
+     *            Numbers 101 to 111 shadow the functions of 1 to 11
+     *                    but ignore any values in the range that are
+     *                    in hidden rows or columns
      * @param array of mixed Data Series
      *
      * @return float
      */
     public static function SUBTOTAL(...$args)
     {
-        $aArgs = Functions::flattenArray($args);
-
-        // Calculate
+        $cellReference = array_pop($args);
+        $aArgs = Functions::flattenArrayIndexed($args);
         $subtotal = array_shift($aArgs);
 
+        // Calculate
         if ((is_numeric($subtotal)) && (!is_string($subtotal))) {
+            if ($subtotal > 100) {
+                $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
+                $subtotal -= 100;
+            }
+
+            $aArgs = self::filterFormulaArgs($cellReference, $aArgs);
             switch ($subtotal) {
                 case 1:
                     return Statistical::AVERAGE($aArgs);
@@ -1216,7 +1200,6 @@ class MathTrig
      *
      * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be summed
-     * @param mixed $aArgs
      * @param mixed $sumArgs
      *
      * @return float
@@ -1474,5 +1457,179 @@ class MathTrig
         }
 
         return ((int) ($value * $adjust)) / $adjust;
+    }
+
+    /**
+     * SEC.
+     *
+     * Returns the secant of an angle.
+     *
+     * @param float $angle Number
+     *
+     * @return float|string The secant of the angle
+     */
+    public static function SEC($angle)
+    {
+        $angle = Functions::flattenSingleValue($angle);
+
+        if (!is_numeric($angle)) {
+            return Functions::VALUE();
+        }
+
+        $result = cos($angle);
+
+        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+    }
+
+    /**
+     * SECH.
+     *
+     * Returns the hyperbolic secant of an angle.
+     *
+     * @param float $angle Number
+     *
+     * @return float|string The hyperbolic secant of the angle
+     */
+    public static function SECH($angle)
+    {
+        $angle = Functions::flattenSingleValue($angle);
+
+        if (!is_numeric($angle)) {
+            return Functions::VALUE();
+        }
+
+        $result = cosh($angle);
+
+        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+    }
+
+    /**
+     * CSC.
+     *
+     * Returns the cosecant of an angle.
+     *
+     * @param float $angle Number
+     *
+     * @return float|string The cosecant of the angle
+     */
+    public static function CSC($angle)
+    {
+        $angle = Functions::flattenSingleValue($angle);
+
+        if (!is_numeric($angle)) {
+            return Functions::VALUE();
+        }
+
+        $result = sin($angle);
+
+        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+    }
+
+    /**
+     * CSCH.
+     *
+     * Returns the hyperbolic cosecant of an angle.
+     *
+     * @param float $angle Number
+     *
+     * @return float|string The hyperbolic cosecant of the angle
+     */
+    public static function CSCH($angle)
+    {
+        $angle = Functions::flattenSingleValue($angle);
+
+        if (!is_numeric($angle)) {
+            return Functions::VALUE();
+        }
+
+        $result = sinh($angle);
+
+        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+    }
+
+    /**
+     * COT.
+     *
+     * Returns the cotangent of an angle.
+     *
+     * @param float $angle Number
+     *
+     * @return float|string The cotangent of the angle
+     */
+    public static function COT($angle)
+    {
+        $angle = Functions::flattenSingleValue($angle);
+
+        if (!is_numeric($angle)) {
+            return Functions::VALUE();
+        }
+
+        $result = tan($angle);
+
+        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+    }
+
+    /**
+     * COTH.
+     *
+     * Returns the hyperbolic cotangent of an angle.
+     *
+     * @param float $angle Number
+     *
+     * @return float|string The hyperbolic cotangent of the angle
+     */
+    public static function COTH($angle)
+    {
+        $angle = Functions::flattenSingleValue($angle);
+
+        if (!is_numeric($angle)) {
+            return Functions::VALUE();
+        }
+
+        $result = tanh($angle);
+
+        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+    }
+
+    /**
+     * ACOT.
+     *
+     * Returns the arccotangent of a number.
+     *
+     * @param float $number Number
+     *
+     * @return float|string The arccotangent of the number
+     */
+    public static function ACOT($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return (M_PI / 2) - atan($number);
+    }
+
+    /**
+     * ACOTH.
+     *
+     * Returns the hyperbolic arccotangent of a number.
+     *
+     * @param float $number Number
+     *
+     * @return float|string The hyperbolic arccotangent of the number
+     */
+    public static function ACOTH($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        $result = log(($number + 1) / ($number - 1)) / 2;
+
+        return is_nan($result) ? Functions::NAN() : $result;
     }
 }

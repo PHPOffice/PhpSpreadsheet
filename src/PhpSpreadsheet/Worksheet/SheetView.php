@@ -4,31 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class SheetView
 {
-    /* Sheet View types */
+    // Sheet View types
     const SHEETVIEW_NORMAL = 'normal';
     const SHEETVIEW_PAGE_LAYOUT = 'pageLayout';
     const SHEETVIEW_PAGE_BREAK_PREVIEW = 'pageBreakPreview';
@@ -97,7 +75,7 @@ class SheetView
     {
         // Microsoft Office Excel 2007 only allows setting a scale between 10 and 400 via the user interface,
         // but it is apparently still able to handle any scale >= 1
-        if (($pValue >= 1) || is_null($pValue)) {
+        if (($pValue >= 1) || $pValue === null) {
             $this->zoomScale = $pValue;
         } else {
             throw new PhpSpreadsheetException('Scale must be greater than or equal to 1.');
@@ -128,7 +106,7 @@ class SheetView
      */
     public function setZoomScaleNormal($pValue)
     {
-        if (($pValue >= 1) || is_null($pValue)) {
+        if (($pValue >= 1) || $pValue === null) {
             $this->zoomScaleNormal = $pValue;
         } else {
             throw new PhpSpreadsheetException('Scale must be greater than or equal to 1.');

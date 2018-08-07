@@ -2,28 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+
 class NamedRange
 {
     /**
@@ -68,7 +48,7 @@ class NamedRange
      * @param Worksheet $pWorksheet
      * @param string $pRange
      * @param bool $pLocalOnly
-     * @param Worksheet|null $pScope Scope. Only applies when $pLocalOnly = true. Null for global scope.
+     * @param null|Worksheet $pScope Scope. Only applies when $pLocalOnly = true. Null for global scope.
      *
      * @throws Exception
      */
@@ -208,7 +188,7 @@ class NamedRange
     /**
      * Get scope.
      *
-     * @return Worksheet|null
+     * @return null|Worksheet
      */
     public function getScope()
     {
@@ -218,7 +198,7 @@ class NamedRange
     /**
      * Set scope.
      *
-     * @param Worksheet|null $value
+     * @param null|Worksheet $value
      *
      * @return NamedRange
      */
@@ -234,7 +214,7 @@ class NamedRange
      * Resolve a named range to a regular cell range.
      *
      * @param string $pNamedRange Named range
-     * @param Worksheet|null $pSheet Scope. Use null for global scope
+     * @param null|Worksheet $pSheet Scope. Use null for global scope
      *
      * @return NamedRange
      */

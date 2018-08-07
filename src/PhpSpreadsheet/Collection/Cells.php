@@ -2,33 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Collection;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Psr\SimpleCache\CacheInterface;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Cells
 {
     /**
@@ -48,14 +27,14 @@ class Cells
      *
      * @var Cell
      */
-    private $currentCell = null;
+    private $currentCell;
 
     /**
      * Coordinate of the currently active Cell.
      *
      * @var string
      */
-    private $currentCoordinate = null;
+    private $currentCoordinate;
 
     /**
      * Flag indicating whether the currently active Cell requires saving.
@@ -76,12 +55,13 @@ class Cells
      *
      * @var string
      */
-    private $cachePrefix = null;
+    private $cachePrefix;
 
     /**
      * Initialise this new cell collection.
      *
      * @param Worksheet $parent The worksheet for this cell collection
+     * @param CacheInterface $cache
      */
     public function __construct(Worksheet $parent, CacheInterface $cache)
     {
@@ -138,12 +118,10 @@ class Cells
      * Delete a cell in cache identified by coordinate.
      *
      * @param string $pCoord Coordinate of the cell to delete
-     *
-     * @throws PhpSpreadsheetException
      */
     public function delete($pCoord)
     {
-        if ($pCoord === $this->currentCoordinate && !is_null($this->currentCell)) {
+        if ($pCoord === $this->currentCoordinate && $this->currentCell !== null) {
             $this->currentCell->detach();
             $this->currentCoordinate = null;
             $this->currentCell = null;
@@ -266,10 +244,10 @@ class Cells
             if ($r != $row) {
                 continue;
             }
-            $columnList[] = Cell::columnIndexFromString($c);
+            $columnList[] = Coordinate::columnIndexFromString($c);
         }
 
-        return Cell::stringFromColumnIndex(max($columnList) - 1);
+        return Coordinate::stringFromColumnIndex(max($columnList) + 1);
     }
 
     /**
@@ -307,7 +285,7 @@ class Cells
      */
     private function getUniqueID()
     {
-        return uniqid('phpspreadsheet-', true) . '-';
+        return uniqid('phpspreadsheet.', true) . '.';
     }
 
     /**
@@ -343,6 +321,7 @@ class Cells
         $stored = $newCollection->cache->setMultiple($newValues);
         if (!$stored) {
             $newCollection->__destruct();
+
             throw new PhpSpreadsheetException('Failed to copy cells in cache');
         }
 
@@ -393,6 +372,7 @@ class Cells
             $stored = $this->cache->set($this->cachePrefix . $this->currentCoordinate, $this->currentCell);
             if (!$stored) {
                 $this->__destruct();
+
                 throw new PhpSpreadsheetException("Failed to store cell {$this->currentCoordinate} in cache");
             }
             $this->currentCellIsDirty = false;
@@ -410,7 +390,7 @@ class Cells
      *
      * @throws PhpSpreadsheetException
      *
-     * @return Cell
+     * @return \PhpOffice\PhpSpreadsheet\Cell\Cell
      */
     public function add($pCoord, Cell $cell)
     {
@@ -433,7 +413,7 @@ class Cells
      *
      * @throws PhpSpreadsheetException
      *
-     * @return Cell Cell that was found, or null if not found
+     * @return \PhpOffice\PhpSpreadsheet\Cell\Cell Cell that was found, or null if not found
      */
     public function get($pCoord)
     {
@@ -468,7 +448,7 @@ class Cells
      */
     public function unsetWorksheetCells()
     {
-        if (!is_null($this->currentCell)) {
+        if ($this->currentCell !== null) {
             $this->currentCell->detach();
             $this->currentCell = null;
             $this->currentCoordinate = null;
@@ -494,7 +474,7 @@ class Cells
     /**
      * Returns all known cache keys.
      *
-     * @return string
+     * @return string[]
      */
     private function getAllCacheKeys()
     {

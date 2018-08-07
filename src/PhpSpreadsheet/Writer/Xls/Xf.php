@@ -2,35 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
-use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
-
-/**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
+use PhpOffice\PhpSpreadsheet\Style\Style;
 
 // Original file header of PEAR::Spreadsheet_Excel_Writer_Format (used as the base for this class):
 // -----------------------------------------------------------------------------------------
@@ -141,7 +118,7 @@ class Xf
     /**
      * Constructor.
      *
-     * @param Style The XF format
+     * @param Style $style The XF format
      */
     public function __construct(Style $style)
     {
@@ -370,7 +347,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for border styles.
      *
-     * @static    array of int
+     * @var array of int
      */
     private static $mapBorderStyles = [
         Border::BORDER_NONE => 0x00,
@@ -408,7 +385,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for fill types.
      *
-     * @static    array of int
+     * @var array of int
      */
     private static $mapFillTypes = [
         Fill::FILL_NONE => 0x00,
@@ -453,7 +430,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for horizontal alignment.
      *
-     * @static    array of int
+     * @var array of int
      */
     private static $mapHAlignments = [
         Alignment::HORIZONTAL_GENERAL => 0,
@@ -484,7 +461,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for vertical alignment.
      *
-     * @static    array of int
+     * @var array of int
      */
     private static $mapVAlignments = [
         Alignment::VERTICAL_TOP => 0,
@@ -530,8 +507,7 @@ class Xf
     /**
      * Map locked.
      *
-     * @param string
-     * @param mixed $locked
+     * @param string $locked
      *
      * @return int
      */
@@ -552,8 +528,7 @@ class Xf
     /**
      * Map hidden.
      *
-     * @param string
-     * @param mixed $hidden
+     * @param string $hidden
      *
      * @return int
      */

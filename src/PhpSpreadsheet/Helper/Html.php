@@ -6,32 +6,10 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMText;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Html
 {
     protected static $colourMap = [
@@ -555,14 +533,21 @@ class Html
     ];
 
     protected $face;
+
     protected $size;
+
     protected $color;
 
     protected $bold = false;
+
     protected $italic = false;
+
     protected $underline = false;
+
     protected $superscript = false;
+
     protected $subscript = false;
+
     protected $strikethrough = false;
 
     protected $startTagCallbacks = [
@@ -603,6 +588,9 @@ class Html
 
     protected $stringData = '';
 
+    /**
+     * @var RichText
+     */
     protected $richTextObject;
 
     protected function initialise()
@@ -615,6 +603,13 @@ class Html
         $this->stringData = '';
     }
 
+    /**
+     * Parse HTML formatting and return the resulting RichText.
+     *
+     * @param string $html
+     *
+     * @return RichText
+     */
     public function toRichTextObject($html)
     {
         $this->initialise();
@@ -623,8 +618,8 @@ class Html
         $dom = new DOMDocument();
         //    Load the HTML file into the DOM object
         //  Note the use of error suppression, because typically this will be an html fragment, so not fully valid markup
-        $loaded = @$dom->loadHTML($html);
-
+        $prefix = '<?xml encoding="UTF-8">';
+        @$dom->loadHTML($prefix . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         //    Discard excess white space
         $dom->preserveWhiteSpace = false;
 
@@ -678,10 +673,10 @@ class Html
             $richtextRun->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
         }
         if ($this->superscript) {
-            $richtextRun->getFont()->setSuperScript(true);
+            $richtextRun->getFont()->setSuperscript(true);
         }
         if ($this->subscript) {
-            $richtextRun->getFont()->setSubScript(true);
+            $richtextRun->getFont()->setSubscript(true);
         }
         if ($this->strikethrough) {
             $richtextRun->getFont()->setStrikethrough(true);

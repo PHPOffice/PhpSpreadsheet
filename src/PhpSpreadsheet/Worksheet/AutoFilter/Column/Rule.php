@@ -5,28 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Rule
 {
     const AUTOFILTER_RULETYPE_FILTER = 'filter';
@@ -188,19 +166,19 @@ class Rule
         self::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM,
     ];
 
-    /* Rule Operators (Numeric, Boolean etc) */
+    // Rule Operators (Numeric, Boolean etc)
 //    const AUTOFILTER_COLUMN_RULE_BETWEEN            = 'between';        //    greaterThanOrEqual 1 && lessThanOrEqual 2
-    /* Rule Operators (Numeric Special) which are translated to standard numeric operators with calculated values */
+    // Rule Operators (Numeric Special) which are translated to standard numeric operators with calculated values
 //    const AUTOFILTER_COLUMN_RULE_TOPTEN                = 'topTen';            //    greaterThan calculated value
 //    const AUTOFILTER_COLUMN_RULE_TOPTENPERCENT        = 'topTenPercent';    //    greaterThan calculated value
 //    const AUTOFILTER_COLUMN_RULE_ABOVEAVERAGE        = 'aboveAverage';    //    Value is calculated as the average
 //    const AUTOFILTER_COLUMN_RULE_BELOWAVERAGE        = 'belowAverage';    //    Value is calculated as the average
-    /* Rule Operators (String) which are set as wild-carded values */
+    // Rule Operators (String) which are set as wild-carded values
 //    const AUTOFILTER_COLUMN_RULE_BEGINSWITH            = 'beginsWith';            // A*
 //    const AUTOFILTER_COLUMN_RULE_ENDSWITH            = 'endsWith';            // *Z
 //    const AUTOFILTER_COLUMN_RULE_CONTAINS            = 'contains';            // *B*
 //    const AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN        = 'notEqual';            //    notEqual *B*
-    /* Rule Operators (Date Special) which are translated to standard numeric operators with calculated values */
+    // Rule Operators (Date Special) which are translated to standard numeric operators with calculated values
 //    const AUTOFILTER_COLUMN_RULE_BEFORE                = 'lessThan';
 //    const AUTOFILTER_COLUMN_RULE_AFTER                = 'greaterThan';
 //    const AUTOFILTER_COLUMN_RULE_YESTERDAY            = 'yesterday';
@@ -227,7 +205,7 @@ class Rule
      *
      * @var Column
      */
-    private $parent = null;
+    private $parent;
 
     /**
      * Autofilter Rule Type.
@@ -444,7 +422,7 @@ class Rule
     /**
      * Set this Rule's AutoFilter Column Parent.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
+     * @param Column $pParent
      *
      * @return Rule
      */
