@@ -153,10 +153,6 @@ class ColumnCellIterator extends CellIterator
      */
     public function prev()
     {
-        if ($this->currentRow <= $this->startRow) {
-            throw new PhpSpreadsheetException("Row is already at the beginning of range ({$this->startRow} - {$this->endRow})");
-        }
-
         do {
             --$this->currentRow;
         } while (($this->onlyExistingCells) &&
