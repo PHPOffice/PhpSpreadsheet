@@ -61,7 +61,7 @@
     "suggest": {
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
-        "tecnick.com/tcpdf": "Option for rendering PDF with PDF Writer",
+        "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer",
         "jpgraph/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers"
     },
     "autoload": {
