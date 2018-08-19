@@ -643,7 +643,7 @@ class Xlsx extends BaseReader
                             $excel->addCellXf($objStyle);
                         }
 
-                        foreach ($xmlStyles->cellStyleXfs->xf as $xf) {
+                        foreach (isset($xmlStyles->cellStyleXfs->xf) ? $xmlStyles->cellStyleXfs->xf : [] as $xf) {
                             $numFmt = NumberFormat::FORMAT_GENERAL;
                             if ($numFmts && $xf['numFmtId']) {
                                 $tmpNumFmt = self::getArrayItem($numFmts->xpath("sml:numFmt[@numFmtId=$xf[numFmtId]]"));
