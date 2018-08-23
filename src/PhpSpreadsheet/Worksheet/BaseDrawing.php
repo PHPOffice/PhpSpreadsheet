@@ -79,6 +79,13 @@ class BaseDrawing implements IComparable
     protected $height;
 
     /**
+     * Move and resize type.
+     *
+     * @var string
+     */
+    protected $resizeType = "oneCellAnchor";
+
+    /**
      * Proportional resize.
      *
      * @var bool
@@ -431,7 +438,31 @@ class BaseDrawing implements IComparable
 
         return $this;
     }
+    
+    /**
+     * Get ResizeType.
+     *
+     * @return string
+     */
+    public function getResizeType()
+    {
+        return $this->resizeType;
+    }
 
+    /**
+     * Set ResizeType.
+     *
+     * @param string $pValue
+     *
+     * @return BaseDrawing
+     */
+    public function setResizeType($pValue)
+    {
+        $this->resizeType = $pValue;
+
+        return $this;
+    }
+    
     /**
      * Get Rotation.
      *
