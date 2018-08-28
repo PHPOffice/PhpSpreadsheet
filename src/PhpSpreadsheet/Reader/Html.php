@@ -649,7 +649,7 @@ class Html extends BaseReader
 
                     break;
                 case 'color':
-                    $sheet->getStyle($column . $row)->applyFromArray(['font' => ['color' => ['rgb' => "$style_color}"]]]);
+                    $sheet->getStyle($column . $row)->applyFromArray(['font' => ['color' => ['rgb' => "{$style_color}"]]]);
 
                     break;
             }
