@@ -320,7 +320,7 @@ class OLE
 
                     break;
                 default:
-                    continue;
+                    break;
             }
             fseek($fh, 1, SEEK_CUR);
             $pps->Type = $type;
