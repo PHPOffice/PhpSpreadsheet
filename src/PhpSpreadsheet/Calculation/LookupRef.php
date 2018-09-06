@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class LookupRef
 {
@@ -97,7 +96,9 @@ class LookupRef
                 return (int) Coordinate::columnIndexFromString($columnKey);
             }
         } else {
-            list($sheet, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
+            if (strpos($cellAddress, '!') !== false) {
+                list($sheet, $cellAddress) = explode('!', $cellAddress);
+            }
             if (strpos($cellAddress, ':') !== false) {
                 list($startAddress, $endAddress) = explode(':', $cellAddress);
                 $startAddress = preg_replace('/[^a-z]/i', '', $startAddress);
@@ -174,7 +175,9 @@ class LookupRef
                 }
             }
         } else {
-            list($sheet, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
+            if (strpos($cellAddress, '!') !== false) {
+                list($sheet, $cellAddress) = explode('!', $cellAddress);
+            }
             if (strpos($cellAddress, ':') !== false) {
                 list($startAddress, $endAddress) = explode(':', $cellAddress);
                 $startAddress = preg_replace('/\D/', '', $startAddress);
@@ -294,7 +297,7 @@ class LookupRef
             }
 
             if (strpos($cellAddress, '!') !== false) {
-                list($sheetName, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
+                list($sheetName, $cellAddress) = explode('!', $cellAddress);
                 $sheetName = trim($sheetName, "'");
                 $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
             } else {
@@ -305,7 +308,7 @@ class LookupRef
         }
 
         if (strpos($cellAddress, '!') !== false) {
-            list($sheetName, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
+            list($sheetName, $cellAddress) = explode('!', $cellAddress);
             $sheetName = trim($sheetName, "'");
             $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
         } else {
@@ -358,7 +361,7 @@ class LookupRef
 
         $sheetName = null;
         if (strpos($cellAddress, '!')) {
-            list($sheetName, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
+            list($sheetName, $cellAddress) = explode('!', $cellAddress);
             $sheetName = trim($sheetName, "'");
         }
         if (strpos($cellAddress, ':')) {

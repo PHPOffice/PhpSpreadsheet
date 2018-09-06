@@ -748,7 +748,9 @@ class Worksheet extends WriterPart
             $range = Coordinate::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref
-            list($ws, $range[0]) = PhpspreadsheetWorksheet::extractSheetTitle($range[0], true);
+            if (strpos($range[0], '!') !== false) {
+                list($ws, $range[0]) = explode('!', $range[0]);
+            }
             $range = implode(':', $range);
 
             $objWriter->writeAttribute('ref', str_replace('$', '', $range));

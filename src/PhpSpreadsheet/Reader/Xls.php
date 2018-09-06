@@ -1213,7 +1213,7 @@ class Xls extends BaseReader
                             // $range should look like one of these
                             //        Foo!$C$7:$J$66
                             //        Bar!$A$1:$IV$2
-                            $explodes = Worksheet::extractSheetTitle($range, true);
+                            $explodes = explode('!', $range); // FIXME: what if sheetname contains exclamation mark?
                             $sheetName = trim($explodes[0], "'");
                             if (count($explodes) == 2) {
                                 if (strpos($explodes[1], ':') === false) {
@@ -1243,8 +1243,8 @@ class Xls extends BaseReader
                             // $range should look like this one of these
                             //        Sheet!$A$1:$B$65536
                             //        Sheet!$A$1:$IV$2
-                            if (strpos($range, '!') !== false) {
-                                $explodes = Worksheet::extractSheetTitle($range, true);
+                            $explodes = explode('!', $range);
+                            if (count($explodes) == 2) {
                                 if ($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) {
                                     $extractedRange = $explodes[1];
                                     $extractedRange = str_replace('$', '', $extractedRange);
@@ -1270,8 +1270,9 @@ class Xls extends BaseReader
                 }
             } else {
                 // Extract range
-                if (strpos($definedName['formula'], '!') !== false) {
-                    $explodes = Worksheet::extractSheetTitle($definedName['formula'], true);
+                $explodes = explode('!', $definedName['formula']);
+
+                if (count($explodes) == 2) {
                     if (($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) ||
                         ($docSheet = $this->spreadsheet->getSheetByName(trim($explodes[0], "'")))) {
                         $extractedRange = $explodes[1];
