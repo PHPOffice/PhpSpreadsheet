@@ -1833,8 +1833,7 @@ class Xlsx extends BaseReader
                                                 $rangeSets = preg_split("/'(.*?)'(?:![A-Z0-9]+:[A-Z0-9]+,?)/", $extractedRange, PREG_SPLIT_NO_EMPTY);
                                                 $newRangeSets = [];
                                                 foreach ($rangeSets as $rangeSet) {
-                                                    $range = explode('!', $rangeSet); // FIXME: what if sheetname contains exclamation mark?
-                                                    $rangeSet = isset($range[1]) ? $range[1] : $range[0];
+                                                    list($sheetName, $rangeSet) = Worksheet::extractSheetTitle($rangeSet, true);
                                                     if (strpos($rangeSet, ':') === false) {
                                                         $rangeSet = $rangeSet . ':' . $rangeSet;
                                                     }
@@ -1881,8 +1880,8 @@ class Xlsx extends BaseReader
                                             break;
                                         default:
                                             if ($mapSheetId[(int) $definedName['localSheetId']] !== null) {
-                                                $range = explode('!', (string) $definedName);
-                                                if (count($range) == 2) {
+                                                if (strpos((string) $definedName, '!') !== false) {
+                                                    $range = Worksheet::extractSheetTitle((string) $definedName, true);
                                                     $range[0] = str_replace("''", "'", $range[0]);
                                                     $range[0] = str_replace("'", '', $range[0]);
                                                     if ($worksheet = $docSheet->getParent()->getSheetByName($range[0])) {
@@ -1908,8 +1907,7 @@ class Xlsx extends BaseReader
                                         $locatedSheet = $excel->getSheetByName($extractedSheetName);
 
                                         // Modify range
-                                        $range = explode('!', $extractedRange);
-                                        $extractedRange = isset($range[1]) ? $range[1] : $range[0];
+                                        list($worksheetName, $extractedRange) = Worksheet::extractSheetTitle($extractedRange, true);
                                     }
 
                                     if ($locatedSheet !== null) {
