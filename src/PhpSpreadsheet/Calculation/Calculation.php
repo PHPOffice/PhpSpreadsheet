@@ -3478,19 +3478,15 @@ class Calculation
                     $testPrevOp = $stack->last(1);
                     if ($testPrevOp['value'] == ':') {
                         $startRowColRef = $output[count($output) - 1]['value'];
-                        $rangeWS1 = '';
-                        if (strpos('!', $startRowColRef) !== false) {
-                            list($rangeWS1, $startRowColRef) = explode('!', $startRowColRef);
-                        }
+                        list($rangeWS1, $startRowColRef) = Worksheet::extractSheetTitle($startRowColRef, true);
                         if ($rangeWS1 != '') {
                             $rangeWS1 .= '!';
                         }
-                        $rangeWS2 = $rangeWS1;
-                        if (strpos('!', $val) !== false) {
-                            list($rangeWS2, $val) = explode('!', $val);
-                        }
+                        list($rangeWS2, $val) = Worksheet::extractSheetTitle($val, true);
                         if ($rangeWS2 != '') {
                             $rangeWS2 .= '!';
+                        } else {
+                            $rangeWS2 = $rangeWS1;
                         }
                         if ((is_int($startRowColRef)) && (ctype_digit($val)) &&
                             ($startRowColRef <= 1048576) && ($val <= 1048576)) {
@@ -3665,13 +3661,12 @@ class Calculation
                     case ':':            //    Range
                         $sheet1 = $sheet2 = '';
                         if (strpos($operand1Data['reference'], '!') !== false) {
-                            list($sheet1, $operand1Data['reference']) = explode('!', $operand1Data['reference']);
+                            list($sheet1, $operand1Data['reference']) = Worksheet::extractSheetTitle($operand1Data['reference'], true);
                         } else {
                             $sheet1 = ($pCellParent !== null) ? $pCellWorksheet->getTitle() : '';
                         }
-                        if (strpos($operand2Data['reference'], '!') !== false) {
-                            list($sheet2, $operand2Data['reference']) = explode('!', $operand2Data['reference']);
-                        } else {
+                        list($sheet2, $operand2Data['reference']) = Worksheet::extractSheetTitle($operand2Data['reference'], true);
+                        if (empty($sheet2)) {
                             $sheet2 = $sheet1;
                         }
                         if ($sheet1 == $sheet2) {
