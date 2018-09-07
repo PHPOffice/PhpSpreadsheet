@@ -1,11 +1,11 @@
-/tests/codeCoverage
-/analysis
-/vendor/
-/phpunit.xml
-/.php_cs.cache
+tests/codeCoverage
+analysis
+vendor/
+phpunit.xml.dist
+.php_cs.cache
 
 ## IDE support
 *.buildpath
 *.project
-/.settings
-/.idea
+.settings
+.idea
