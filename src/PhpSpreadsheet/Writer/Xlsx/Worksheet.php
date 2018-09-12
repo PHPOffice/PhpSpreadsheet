@@ -990,6 +990,9 @@ class Worksheet extends WriterPart
                 if ($rowDimension->getRowHeight() >= 0) {
                     $objWriter->writeAttribute('customHeight', '1');
                     $objWriter->writeAttribute('ht', StringHelper::formatNumber($rowDimension->getRowHeight()));
+                } else {
+                    $objWriter->writeAttribute('customHeight', '1');
+                    $objWriter->writeAttribute('ht', StringHelper::formatNumber($pSheet->getDefaultRowDimension()->getRowHeight()));
                 }
 
                 // Row visibility
