@@ -145,13 +145,13 @@ class DocProps extends WriterPart
         // dcterms:created
         $objWriter->startElement('dcterms:created');
         $objWriter->writeAttribute('xsi:type', 'dcterms:W3CDTF');
-        $objWriter->writeRawData(date(DATE_W3C, $spreadsheet->getProperties()->getCreated()));
+        $objWriter->writeRawData(date_default_timezone_set($spreadsheet->getProperties()->getCreated()));
         $objWriter->endElement();
 
         // dcterms:modified
         $objWriter->startElement('dcterms:modified');
         $objWriter->writeAttribute('xsi:type', 'dcterms:W3CDTF');
-        $objWriter->writeRawData(date(DATE_W3C, $spreadsheet->getProperties()->getModified()));
+        $objWriter->writeRawData(date_default_timezone_set($spreadsheet->getProperties()->getModified()));
         $objWriter->endElement();
 
         // dc:title
