@@ -270,7 +270,7 @@ class Date
     }
 
     /**
-     * formattedPHPToExcel.
+     * formattedPHPToExcel. Date range should in [1900/1/1, 9999/12/31]
      *
      * @param int $year
      * @param int $month
@@ -279,10 +279,15 @@ class Date
      * @param int $minutes
      * @param int $seconds
      *
-     * @return float Excel date/time value
+     * @return float|false Excel date/time value
      */
     public static function formattedPHPToExcel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0)
     {
+        // date range check, should in range [1900/1/1, 9999/12/31],
+        // the number is in range [0, 2958465]
+        if ($year < 1900 || $year > 9999) {
+            return false;
+        }
         if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
             //
             //    Fudge factor for the erroneous fact that the year 1900 is treated as a Leap Year in MS Excel

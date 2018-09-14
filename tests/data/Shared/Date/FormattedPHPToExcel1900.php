@@ -3,6 +3,40 @@
 // Year   Month  Day  Hours  Minutes  Seconds  Result            Comments
 
 return [
+    // 31-Dec-1899, the wrong date
+    [
+        false,
+        1899,
+        12,
+        31,
+    ],
+    // the default value for 0 in excel
+    [
+        0.0,
+        1900,
+        1,
+        0,
+    ],
+    // 1-Jan-1900 the real minimum date
+    [
+        1.0,
+        1900,
+        1,
+        1,
+    ],
+    // 31-Dec-9999 the real maximum date
+    [
+        2958465.0,
+        9999,
+        12,
+        31,
+    ],
+    [
+        false,
+        10000,
+        1,
+        1,
+    ],
     // PHP 32-bit Earliest Date 14-Dec-1901
     [
         714,

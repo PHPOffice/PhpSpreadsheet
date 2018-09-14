@@ -4,6 +4,18 @@
 return [
     // Excel 1900 base calendar date
     [
+        false,
+        new DateTime('1899-12-30'),
+    ],
+    [
+        2958465.0,
+        new DateTime('9999-12-31'),
+    ],
+    [
+        36526.416666666664,
+        new DateTime('10000-01-01'), // DateTime will convert 10000 to 2000
+    ],
+    [
         1.0,
         new DateTime('1900-01-01'),
     ],
