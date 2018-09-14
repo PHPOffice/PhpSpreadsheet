@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+ ## [Unreleased]
+ 
+ ### Fixed
+
+- Fix the date format range, it should be in [1900/1/1, 9999/12/31], but the code before is not checked! - [#675](https://github.com/PHPOffice/PhpSpreadsheet/pull/675) [issue#669](https://github.com/PHPOffice/PhpSpreadsheet/issues/669)
 ## [1.4.0] - 2018-08-06
 
 ### Added
