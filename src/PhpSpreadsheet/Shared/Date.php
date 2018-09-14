@@ -270,7 +270,7 @@ class Date
     }
 
     /**
-     * formattedPHPToExcel. Date range should in [1900/1/1, 9999/12/31]
+     * formattedPHPToExcel. Date range should in [1900/1/1, 9999/12/31].
      *
      * @param int $year
      * @param int $month
@@ -279,7 +279,7 @@ class Date
      * @param int $minutes
      * @param int $seconds
      *
-     * @return float|false Excel date/time value
+     * @return false|float Excel date/time value
      */
     public static function formattedPHPToExcel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0)
     {
