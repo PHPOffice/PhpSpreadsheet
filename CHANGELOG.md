@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Allow iterators to go out of bounds with prev - [#587](https://github.com/PHPOffice/PhpSpreadsheet/issues/587)
 - Fix warning when reading xlsx without styles - [#631](https://github.com/PHPOffice/PhpSpreadsheet/pull/631)
+- Fixed conditional formatting for BIFF file format - [#841](https://github.com/PHPOffice/PHPExcel/issues/841)
 
 ## [1.4.0] - 2018-08-06
 
