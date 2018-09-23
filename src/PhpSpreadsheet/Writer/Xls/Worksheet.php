@@ -506,23 +506,31 @@ class Worksheet extends BIFFwriter
         $arrConditionalStyles = $phpSheet->getConditionalStylesCollection();
         if (!empty($arrConditionalStyles)) {
             $arrConditional = [];
-            // @todo CFRule & CFHeader
-            // Write CFHEADER record
-            $this->writeCFHeader();
-            // Write ConditionalFormattingTable records
             foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
                 foreach ($conditionalStyles as $conditional) {
                     if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
-                        || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
-                        if (!isset($arrConditional[$conditional->getHashCode()])) {
-                            // This hash code has been handled
-                            $arrConditional[$conditional->getHashCode()] = true;
+                            || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
+                        $hash = $conditional->getHashCode();
 
-                            // Write CFRULE record
-                            $this->writeCFRule($conditional);
+                        if (!array_key_exists($hash, $arrConditional)) {
+                            $arrConditional[$hash] = [
+                                'rule' => $conditional,
+                                'cells' => [],
+                            ];
                         }
+
+                        $arrConditional[$hash]['cells'][$cellCoordinate] = '';
                     }
                 }
+            }
+
+            foreach ($arrConditional as $conditional) {
+                $ranges = Coordinate::mergeRangesInCollection($conditional['cells']);
+
+                // Write CFHEADER record
+                $this->writeCFHeader(array_keys($ranges));
+                // Write CFRULE record
+                $this->writeCFRule($conditional['rule']);
             }
         }
 
@@ -4396,52 +4404,49 @@ class Worksheet extends BIFFwriter
 
     /**
      * Write CFHeader record.
+     *
+     * @param array $ranges An array containing ranges ('A1:A5') or single cell ('A1') values
      */
-    private function writeCFHeader()
+    private function writeCFHeader($ranges)
     {
         $record = 0x01B0; // Record identifier
-        $length = 0x0016; // Bytes to follow
+        $length = 14 + 8 * count($ranges); // Bytes to follow
 
         $numColumnMin = null;
         $numColumnMax = null;
         $numRowMin = null;
         $numRowMax = null;
-        $arrConditional = [];
-        foreach ($this->phpSheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
-            foreach ($conditionalStyles as $conditional) {
-                if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
-                        || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
-                    if (!in_array($conditional->getHashCode(), $arrConditional)) {
-                        $arrConditional[] = $conditional->getHashCode();
-                    }
-                    // Cells
-                    $arrCoord = Coordinate::coordinateFromString($cellCoordinate);
-                    if (!is_numeric($arrCoord[0])) {
-                        $arrCoord[0] = Coordinate::columnIndexFromString($arrCoord[0]);
-                    }
-                    if ($numColumnMin === null || ($numColumnMin > $arrCoord[0])) {
-                        $numColumnMin = $arrCoord[0];
-                    }
-                    if ($numColumnMax === null || ($numColumnMax < $arrCoord[0])) {
-                        $numColumnMax = $arrCoord[0];
-                    }
-                    if ($numRowMin === null || ($numRowMin > $arrCoord[1])) {
-                        $numRowMin = $arrCoord[1];
-                    }
-                    if ($numRowMax === null || ($numRowMax < $arrCoord[1])) {
-                        $numRowMax = $arrCoord[1];
-                    }
-                }
+
+        $cellRanges = '';
+        //determine enclosing range
+        foreach ($ranges as $range) {
+            list($start, $end) = Coordinate::rangeBoundaries($range);
+
+            if ($numColumnMin === null || ($numColumnMin > $start[0])) {
+                $numColumnMin = $start[0];
             }
+            if ($numColumnMax === null || ($numColumnMax < $end[0])) {
+                $numColumnMax = $end[0];
+            }
+            if ($numRowMin === null || ($numRowMin > $start[1])) {
+                $numRowMin = (int) $start[1];
+            }
+            if ($numRowMax === null || ($numRowMax < $end[1])) {
+                $numRowMax = (int) $end[1];
+            }
+
+            $cellRanges .= pack('vvvv', $start[1] - 1, $end[1] - 1, $start[0] - 1, $end[0] - 1);
         }
+        $followingCFRules = 1;
         $needRedraw = 1;
         $cellRange = pack('vvvv', $numRowMin - 1, $numRowMax - 1, $numColumnMin - 1, $numColumnMax - 1);
 
         $header = pack('vv', $record, $length);
-        $data = pack('vv', count($arrConditional), $needRedraw);
+        $data = pack('vv', $followingCFRules, $needRedraw);
         $data .= $cellRange;
-        $data .= pack('v', 0x0001);
-        $data .= $cellRange;
+        $data .= pack('v', count($ranges));
+        $data .= $cellRanges;
+
         $this->append($header . $data);
     }
 }
