@@ -60,7 +60,7 @@ for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
     // Load only the rows that match our filter from $inputFileName to a PhpSpreadsheet Object
     $spreadsheet = $reader->load($inputFileName);
 
-    //	Do some processing here
+    // Do some processing here
 
     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
     var_dump($sheetData);

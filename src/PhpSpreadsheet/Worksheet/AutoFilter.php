@@ -841,7 +841,7 @@ class AutoFilter
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (is_object($value)) {
-                if ($key == 'workSheet') {
+                if ($key === 'workSheet') {
                     //    Detach from worksheet
                     $this->{$key} = null;
                 } else {

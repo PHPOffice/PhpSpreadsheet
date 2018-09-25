@@ -7,7 +7,7 @@ require __DIR__ . '/../Header.php';
 
 IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
 
-//	Change these values to select the Rendering library that you wish to use
+// Change these values to select the Rendering library that you wish to use
 Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
 
 $inputFileType = 'Xlsx';

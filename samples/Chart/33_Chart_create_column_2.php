@@ -31,42 +31,42 @@ $worksheet->fromArray(
         ]
 );
 
-//	Set the Labels for each data series we want to plot
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the Labels for each data series we want to plot
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $dataSeriesLabels = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$C$1', null, 1), //	'Budget'
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$D$1', null, 1), //	'Forecast'
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$E$1', null, 1), //	'Actual'
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$C$1', null, 1), // 'Budget'
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$D$1', null, 1), // 'Forecast'
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$E$1', null, 1), // 'Actual'
 ];
-//	Set the X-Axis Labels
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the X-Axis Labels
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $xAxisTickValues = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$A$2:$B$13', null, 12), //	Q1 to Q4 for 2010 to 2012
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$A$2:$B$13', null, 12), // Q1 to Q4 for 2010 to 2012
 ];
-//	Set the Data values for each data series we want to plot
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the Data values for each data series we want to plot
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $dataSeriesValues = [
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$C$2:$C$13', null, 12),
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$D$2:$D$13', null, 12),
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$E$2:$E$13', null, 12),
 ];
 
-//	Build the dataseries
+// Build the dataseries
 $series = new DataSeries(
     DataSeries::TYPE_BARCHART, // plotType
     DataSeries::GROUPING_CLUSTERED, // plotGrouping
@@ -75,20 +75,20 @@ $series = new DataSeries(
     $xAxisTickValues, // plotCategory
     $dataSeriesValues        // plotValues
 );
-//	Set additional dataseries parameters
-//		Make it a vertical column rather than a horizontal bar graph
+// Set additional dataseries parameters
+//     Make it a vertical column rather than a horizontal bar graph
 $series->setPlotDirection(DataSeries::DIRECTION_COL);
 
-//	Set the series in the plot area
+// Set the series in the plot area
 $plotArea = new PlotArea(null, [$series]);
-//	Set the chart legend
+// Set the chart legend
 $legend = new Legend(Legend::POSITION_BOTTOM, null, false);
 
 $title = new Title('Test Grouped Column Chart');
 $xAxisLabel = new Title('Financial Period');
 $yAxisLabel = new Title('Value ($k)');
 
-//	Create the chart
+// Create the chart
 $chart = new Chart(
     'chart1', // name
     $title, // title
@@ -100,11 +100,11 @@ $chart = new Chart(
     $yAxisLabel  // yAxisLabel
 );
 
-//	Set the position where the chart should appear in the worksheet
+// Set the position where the chart should appear in the worksheet
 $chart->setTopLeftPosition('G2');
 $chart->setBottomRightPosition('P20');
 
-//	Add the chart to the worksheet
+// Add the chart to the worksheet
 $worksheet->addChart($chart);
 
 // Save Excel 2007 file

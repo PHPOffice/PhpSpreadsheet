@@ -31,46 +31,46 @@ $worksheet->fromArray(
         ]
 );
 
-//	Set the Labels for each data series we want to plot
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the Labels for each data series we want to plot
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $dataSeriesLabels1 = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$B$1', null, 1), //	Temperature
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$B$1', null, 1), // Temperature
 ];
 $dataSeriesLabels2 = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$C$1', null, 1), //	Rainfall
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$C$1', null, 1), // Rainfall
 ];
 $dataSeriesLabels3 = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$D$1', null, 1), //	Humidity
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$D$1', null, 1), // Humidity
 ];
 
-//	Set the X-Axis Labels
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the X-Axis Labels
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $xAxisTickValues = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$A$2:$A$13', null, 12), //	Jan to Dec
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$A$2:$A$13', null, 12), // Jan to Dec
 ];
 
-//	Set the Data values for each data series we want to plot
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the Data values for each data series we want to plot
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $dataSeriesValues1 = [
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$B$2:$B$13', null, 12),
 ];
 
-//	Build the dataseries
+// Build the dataseries
 $series1 = new DataSeries(
     DataSeries::TYPE_BARCHART, // plotType
     DataSeries::GROUPING_CLUSTERED, // plotGrouping
@@ -79,22 +79,22 @@ $series1 = new DataSeries(
     $xAxisTickValues, // plotCategory
     $dataSeriesValues1        // plotValues
 );
-//	Set additional dataseries parameters
-//		Make it a vertical column rather than a horizontal bar graph
+// Set additional dataseries parameters
+//     Make it a vertical column rather than a horizontal bar graph
 $series1->setPlotDirection(DataSeries::DIRECTION_COL);
 
-//	Set the Data values for each data series we want to plot
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the Data values for each data series we want to plot
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $dataSeriesValues2 = [
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$C$2:$C$13', null, 12),
 ];
 
-//	Build the dataseries
+// Build the dataseries
 $series2 = new DataSeries(
     DataSeries::TYPE_LINECHART, // plotType
     DataSeries::GROUPING_STANDARD, // plotGrouping
@@ -104,18 +104,18 @@ $series2 = new DataSeries(
     $dataSeriesValues2        // plotValues
 );
 
-//	Set the Data values for each data series we want to plot
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the Data values for each data series we want to plot
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $dataSeriesValues3 = [
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$D$2:$D$13', null, 12),
 ];
 
-//	Build the dataseries
+// Build the dataseries
 $series3 = new DataSeries(
     DataSeries::TYPE_AREACHART, // plotType
     DataSeries::GROUPING_STANDARD, // plotGrouping
@@ -125,14 +125,14 @@ $series3 = new DataSeries(
     $dataSeriesValues3        // plotValues
 );
 
-//	Set the series in the plot area
+// Set the series in the plot area
 $plotArea = new PlotArea(null, [$series1, $series2, $series3]);
-//	Set the chart legend
+// Set the chart legend
 $legend = new Legend(Legend::POSITION_RIGHT, null, false);
 
 $title = new Title('Average Weather Chart for Crete');
 
-//	Create the chart
+// Create the chart
 $chart = new Chart(
     'chart1', // name
     $title, // title
@@ -144,11 +144,11 @@ $chart = new Chart(
     null   // yAxisLabel
 );
 
-//	Set the position where the chart should appear in the worksheet
+// Set the position where the chart should appear in the worksheet
 $chart->setTopLeftPosition('F2');
 $chart->setBottomRightPosition('O16');
 
-//	Add the chart to the worksheet
+// Add the chart to the worksheet
 $worksheet->addChart($chart);
 
 // Save Excel 2007 file

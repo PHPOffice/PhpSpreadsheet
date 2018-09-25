@@ -59,7 +59,7 @@ $conditionalStyles[] = $conditional1;
 $conditionalStyles[] = $conditional3;
 $spreadsheet->getActiveSheet()->getStyle('A1')->setConditionalStyles($conditionalStyles);
 
-//	duplicate the conditional styles across a range of cells
+// duplicate the conditional styles across a range of cells
 $helper->log('Duplicate the conditional formatting across a range of cells');
 $spreadsheet->getActiveSheet()->duplicateConditionalStyle(
     $spreadsheet->getActiveSheet()->getStyle('A1')->getConditionalStyles(),

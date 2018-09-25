@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Allow iterators to go out of bounds with prev - [#587](https://github.com/PHPOffice/PhpSpreadsheet/issues/587)
+- Fix warning when reading xlsx without styles - [#631](https://github.com/PHPOffice/PhpSpreadsheet/pull/631)
+
+## [1.4.0] - 2018-08-06
+
 ### Added
 
 - skip non numeric value in SUMIF - [#618](https://github.com/PHPOffice/PhpSpreadsheet/pull/618)
@@ -66,6 +73,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Could not open CSV file containing HTML fragment - [#564](https://github.com/PHPOffice/PhpSpreadsheet/issues/564)
 - Exclude the vendor folder in migration - [#481](https://github.com/PHPOffice/PhpSpreadsheet/issues/481)
 - Chained operations on cell ranges involving borders operated on last cell only [#428](https://github.com/PHPOffice/PhpSpreadsheet/issues/428)
+- Avoid memory exhaustion when cloning worksheet with a drawing [#437](https://github.com/PHPOffice/PhpSpreadsheet/issues/437)
+- Migration tool keep variables containing $PHPExcel untouched [#598](https://github.com/PHPOffice/PhpSpreadsheet/issues/598)
+- Rowspans/colspans were incorrect when adding worksheet using loadIntoExisting [#619](https://github.com/PHPOffice/PhpSpreadsheet/issues/619)
 
 ## [1.3.1] - 2018-06-12
 
