@@ -691,6 +691,9 @@ class NumberFormat extends Supervisor
                     // Strip #
                     $format = preg_replace('/\\#/', '0', $format);
 
+                    // Remove locale code [$-###]
+                    $format = preg_replace('/\[\$\-.*\]/', '', $format);
+
                     $n = '/\\[[^\\]]+\\]/';
                     $m = preg_replace($n, '', $format);
                     $number_regex = '/(0+)(\\.?)(0*)/';
