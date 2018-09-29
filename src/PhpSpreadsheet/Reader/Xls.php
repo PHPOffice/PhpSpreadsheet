@@ -1127,7 +1127,7 @@ class Xls extends BaseReader
                             // TODO: Why is there no BSE Index? Is this a new Office Version? Password protected field?
                             // More likely : a uncompatible picture
                             if (!$BSEindex) {
-                                continue;
+                                continue 2;
                             }
 
                             $BSECollection = $escherWorkbook->getDggContainer()->getBstoreContainer()->getBSECollection();
