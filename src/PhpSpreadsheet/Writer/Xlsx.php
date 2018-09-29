@@ -210,12 +210,12 @@ class Xlsx extends BaseWriter
             $zip = new ZipArchive();
 
             if (file_exists($pFilename)) {
-				//	Added by muhammad.begawala@gmail.com
-				//	'@' will stop displaying "Resource Unavailable" error because of file is open some where.
-				//	'unlink($pFilename) !== true' will check if file is deleted successfully.
-				//  Throwing exception so that we can handle error easily instead of displaying to users.
+                //Added by muhammad.begawala@gmail.com
+                //'@' will stop displaying "Resource Unavailable" error because of file is open some where.
+                //'unlink($pFilename) !== true' will check if file is deleted successfully.
+                //Throwing exception so that we can handle error easily instead of displaying to users.
                 if( @unlink($pFilename) !== true )
-					throw new WriterException('Could not delete file: ' . $pFilename . ' Please close all applications that are using it.');
+                    throw new WriterException('Could not delete file: ' . $pFilename . ' Please close all applications that are using it.');
             }
             // Try opening the ZIP file
             if ($zip->open($pFilename, ZipArchive::OVERWRITE) !== true) {
@@ -400,7 +400,7 @@ class Xlsx extends BaseWriter
             Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
             // Close file
-            if ( @$zip->close() === false ) { //	updated by muhammad.begawala@gmail.com
+            if (@$zip->close() === false) { // updated by muhammad.begawala@gmail.com
                 throw new WriterException("Could not close zip file $pFilename.");
             }
 
@@ -411,8 +411,8 @@ class Xlsx extends BaseWriter
                 }
                 @unlink($pFilename);
             }
-			return true;
-			//	Return True to make sure that file is created successfully with no ExceptionsAdded by muhammad.begawala@gmail.com
+            return true;
+            // Return True to make sure that file is created successfully with no ExceptionsAdded by muhammad.begawala@gmail.com
         } else {
             throw new WriterException('PhpSpreadsheet object unassigned.');
         }
