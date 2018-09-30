@@ -407,7 +407,6 @@ class Xlsx extends BaseWriter
                 }
                 @unlink($pFilename);
             }
-
         } else {
             throw new WriterException('PhpSpreadsheet object unassigned.');
         }
