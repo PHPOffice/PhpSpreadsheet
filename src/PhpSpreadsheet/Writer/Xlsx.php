@@ -209,9 +209,10 @@ class Xlsx extends BaseWriter
 
             $zip = new ZipArchive();
 
-            if (file_exists($pFilename)) {
-                unlink($pFilename);
+            if (File::deleteFile($pFilename) !== true) {
+                throw new WriterException('Could not delete file: ' . $pFilename . ' Please close all applications that are using it.');
             }
+        
             // Try opening the ZIP file
             if ($zip->open($pFilename, ZipArchive::OVERWRITE) !== true) {
                 if ($zip->open($pFilename, ZipArchive::CREATE) !== true) {
@@ -394,8 +395,8 @@ class Xlsx extends BaseWriter
             Functions::setReturnDateType($saveDateReturnType);
             Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
-            // Close file
-            if ($zip->close() === false) {
+            // Close file, If can't close Throws an Exception
+            if ( @$zip->close() === false ) {
                 throw new WriterException("Could not close zip file $pFilename.");
             }
 
@@ -406,6 +407,7 @@ class Xlsx extends BaseWriter
                 }
                 @unlink($pFilename);
             }
+
         } else {
             throw new WriterException('PhpSpreadsheet object unassigned.');
         }
