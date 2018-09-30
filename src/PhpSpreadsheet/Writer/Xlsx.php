@@ -395,7 +395,7 @@ class Xlsx extends BaseWriter
             Functions::setReturnDateType($saveDateReturnType);
             Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
-            // Close file, If can't close Throws an Exception
+            // Close file, If can't close throws an Exception
             if (@$zip->close() === false) {
                 throw new WriterException("Could not close zip file $pFilename.");
             }
