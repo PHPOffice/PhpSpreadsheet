@@ -212,7 +212,7 @@ class Xlsx extends BaseWriter
             if (File::deleteFile($pFilename) !== true) {
                 throw new WriterException('Could not delete file: ' . $pFilename . ' Please close all applications that are using it.');
             }
-        
+
             // Try opening the ZIP file
             if ($zip->open($pFilename, ZipArchive::OVERWRITE) !== true) {
                 if ($zip->open($pFilename, ZipArchive::CREATE) !== true) {
@@ -396,7 +396,7 @@ class Xlsx extends BaseWriter
             Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
             // Close file, If can't close Throws an Exception
-            if ( @$zip->close() === false ) {
+            if (@$zip->close() === false) {
                 throw new WriterException("Could not close zip file $pFilename.");
             }
 
