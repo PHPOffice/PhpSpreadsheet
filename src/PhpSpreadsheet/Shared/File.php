@@ -141,22 +141,23 @@ class File
             throw new InvalidArgumentException('Could not open "' . $filename . '" for reading.');
         }
     }
-    
+
     /**
-     * Deletes given file if its exists and is NOT BEING USED BY SOME APPLICATIONS.
+     * Deletes given file if an existing its exists and is NOT BEING USED BY SOME APPLICATIONS.
      *
-     * @param string $filename
+     * @param string $file
      *
      * @returns false If file could not be deleted.
      */
     public static function deleteFile($file)
     {
         if (file_exists($file)) {
-            // '@' will stop displaying "Resource Unavailable" error because of file is open some where.
+            // '@before unlink' will stop displaying "Resource Unavailable" error because of file is open some where.
             // 'unlink($pFilename) !== true' will check if file is deleted successfully.
             // Return so that we can handle error easily instead of displaying to users.
-            if (@unlink($file) !== true)
+            if (@unlink($file) !== true) {
                 return false;
+            }
         }
         return true;
     }
