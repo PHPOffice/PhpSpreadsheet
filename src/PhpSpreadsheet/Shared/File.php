@@ -159,6 +159,7 @@ class File
                 return false;
             }
         }
+
         return true;
     }
 }
