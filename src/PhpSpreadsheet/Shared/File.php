@@ -143,23 +143,21 @@ class File
     }
 
     /**
-     * Deletes given file if an existing its exists and is NOT BEING USED BY SOME APPLICATIONS.
+     * Deletes given file if its exists with proper permissions and is NOT BEING USED BY SOME APPLICATIONS.
      *
      * @param string $file
      *
-     * @returns false If file could not be deleted.
+     * @throws InvalidArgumentException
      */
-    public static function deleteFile($file)
+    public static function delete($file)
     {
         if (file_exists($file)) {
             // '@before unlink' will stop displaying "Resource Unavailable" error because of file is open some where.
-            // 'unlink($pFilename) !== true' will check if file is deleted successfully.
-            // Return so that we can handle error easily instead of displaying to users.
+            // 'unlink($file) !== true' will check if file is deleted successfully.
+            // throws Exception so that we can handle error easily instead of displaying to users.
             if (@unlink($file) !== true) {
-                return false;
+                throw new InvalidArgumentException('Could not delete file: ' . $file . ' Please check for file permissions and make sure  file is not being used by some applications.');
             }
         }
-
-        return true;
     }
 }
