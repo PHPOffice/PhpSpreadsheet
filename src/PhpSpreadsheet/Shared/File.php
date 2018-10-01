@@ -154,7 +154,7 @@ class File
         if (file_exists($file)) {
             // '@before unlink' will stop displaying "Resource Unavailable" error because of file is open some where.
             // 'unlink($file) !== true' will check if file is deleted successfully.
-            // throws Exception so that we can handle error easily instead of displaying to users.
+            // throws Exception so that we can handle Error easily instead of displaying to users.
             if (@unlink($file) !== true) {
                 throw new InvalidArgumentException('Could not delete file: ' . $file . ' Please check for file permissions and make sure  file is not being used by some applications.');
             }
