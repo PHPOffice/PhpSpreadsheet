@@ -276,16 +276,11 @@ class OLERead
             // type of entry
             $type = ord($d[self::TYPE_POS]);
 
-            try {
-                // sectorID of first sector or short sector, if this entry refers to a stream (the case with workbook)
-                // sectorID of first sector of the short-stream container stream, if this entry is root entry
-                $startBlock = self::getInt4d($d, self::START_BLOCK_POS);
+            // sectorID of first sector or short sector, if this entry refers to a stream (the case with workbook)
+            // sectorID of first sector of the short-stream container stream, if this entry is root entry
+            $startBlock = self::getInt4d($d, self::START_BLOCK_POS);
 
-                $size = self::getInt4d($d, self::SIZE_POS);
-            } catch (ReaderException $e) {
-                // skip invalid parameters, break loop
-                break;
-            }
+            $size = self::getInt4d($d, self::SIZE_POS);
 
             $name = str_replace("\x00", '', substr($d, 0, $nameSize));
 
@@ -331,14 +326,6 @@ class OLERead
      */
     private static function getInt4d($data, $pos)
     {
-        if (trim($data) == '') {
-            // No data provided
-            throw new ReaderException('Parameter data is empty.');
-        } elseif ($pos < 0) {
-            // Invalid position
-            throw new ReaderException('Parameter pos=' . $pos . ' is invalid.');
-        }
-
         $len = strlen($data);
         if ($len < $pos + 4) {
             $data .= str_repeat("\0", $pos + 4 - $len);
