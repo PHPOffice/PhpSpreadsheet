@@ -267,7 +267,7 @@ class Functions
     public static function ifCondition($condition)
     {
         $condition = self::flattenSingleValue($condition);
-        if (!isset($condition[0])) {
+        if (!isset($condition[0]) && !is_numeric($condition)) {
             $condition = '=""';
         }
         if (!in_array($condition[0], ['>', '<', '='])) {
