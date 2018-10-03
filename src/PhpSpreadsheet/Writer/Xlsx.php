@@ -209,9 +209,8 @@ class Xlsx extends BaseWriter
 
             $zip = new ZipArchive();
 
-            if (file_exists($pFilename)) {
-                unlink($pFilename);
-            }
+            File::delete($pFilename);
+
             // Try opening the ZIP file
             if ($zip->open($pFilename, ZipArchive::OVERWRITE) !== true) {
                 if ($zip->open($pFilename, ZipArchive::CREATE) !== true) {
@@ -394,8 +393,8 @@ class Xlsx extends BaseWriter
             Functions::setReturnDateType($saveDateReturnType);
             Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
-            // Close file
-            if ($zip->close() === false) {
+            // Close file, If can't close Throws an Exception
+            if (@$zip->close() === false) {
                 throw new WriterException("Could not close zip file $pFilename.");
             }
 

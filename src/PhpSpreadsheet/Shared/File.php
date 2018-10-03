@@ -141,4 +141,23 @@ class File
             throw new InvalidArgumentException('Could not open "' . $filename . '" for reading.');
         }
     }
+
+    /**
+     * Deletes given file if its exists with proper permissions and is NOT BEING USED BY SOME APPLICATIONS.
+     *
+     * @param string $file
+     *
+     * @throws InvalidArgumentException
+     */
+    public static function delete($file)
+    {
+        if (file_exists($file)) {
+            // '@before unlink' will stop displaying "Resource Unavailable" error because of file is open some where.
+            // 'unlink($file) !== true' will check if file is deleted successfully.
+            // throws Exception so that we can handle Error easily instead of displaying to users.
+            if (@unlink($file) !== true) {
+                throw new InvalidArgumentException('Could not delete file: ' . $file . ' Please check for file permissions and make sure  file is not being used by some applications.');
+            }
+        }
+    }
 }
