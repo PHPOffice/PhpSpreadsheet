@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class XlsTest extends TestCase
 {
     /**
-     * Test load Xls file
+     * Test load Xls file.
      */
     public function testLoadXlsSample()
     {
