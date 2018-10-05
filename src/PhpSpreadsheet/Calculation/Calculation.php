@@ -3659,16 +3659,17 @@ class Calculation
                         break;
                     //    Binary Operators
                     case ':':            //    Range
-                        $sheet1 = $sheet2 = '';
                         if (strpos($operand1Data['reference'], '!') !== false) {
                             list($sheet1, $operand1Data['reference']) = Worksheet::extractSheetTitle($operand1Data['reference'], true);
                         } else {
                             $sheet1 = ($pCellParent !== null) ? $pCellWorksheet->getTitle() : '';
                         }
+
                         list($sheet2, $operand2Data['reference']) = Worksheet::extractSheetTitle($operand2Data['reference'], true);
                         if (empty($sheet2)) {
                             $sheet2 = $sheet1;
                         }
+
                         if ($sheet1 == $sheet2) {
                             if ($operand1Data['reference'] === null) {
                                 if ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
