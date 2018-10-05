@@ -325,7 +325,7 @@ class LookupRef
      * Excel Function:
      *        =OFFSET(cellAddress, rows, cols, [height], [width])
      *
-     * @param null|array|string $cellAddress The reference from which you want to base the offset. Reference must refer to a cell or
+     * @param null|string $cellAddress The reference from which you want to base the offset. Reference must refer to a cell or
      *                                range of adjacent cells; otherwise, OFFSET returns the #VALUE! error value.
      * @param mixed $rows The number of rows, up or down, that you want the upper-left cell to refer to.
      *                                Using 5 as the rows argument specifies that the upper-left cell in the reference is
@@ -348,7 +348,7 @@ class LookupRef
         $columns = Functions::flattenSingleValue($columns);
         $height = Functions::flattenSingleValue($height);
         $width = Functions::flattenSingleValue($width);
-        if ($cellAddress == null) {
+        if ($cellAddress === null) {
             return 0;
         }
 
