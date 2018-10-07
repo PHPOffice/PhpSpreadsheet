@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - Sheet title can contain exclamation mark - [#325](https://github.com/PHPOffice/PhpSpreadsheet/issues/325)
+- Xls file cause the exception during open by Xls reader - [#402](https://github.com/PHPOffice/PhpSpreadsheet/issues/402)
 
 ## [1.4.1] - 2018-09-30
 
