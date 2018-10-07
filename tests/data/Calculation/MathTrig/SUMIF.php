@@ -40,7 +40,7 @@ return [
             ['"text with quotes"'],
             [''],
         ],
-        '>"', // Compare to the single characater " (double quote)
+        '>"', // Compare to the single character " (double quote)
         [
             [10],
             [100],
@@ -52,10 +52,23 @@ return [
             [''],
             ['anything'],
         ],
-        '>"', // Compare to the single characater " (double quote)
+        '>"', // Compare to the single character " (double quote)
         [
             [10],
             [100],
         ],
     ],
+    [
+        10,
+        [
+            [1],
+            [2],
+        ],
+        '<>', // any content
+        [
+            ['non-numeric value'], // ignored in SUM
+            [10],
+        ],
+    ],
+
 ];
