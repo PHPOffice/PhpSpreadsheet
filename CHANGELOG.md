@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Sheet title can contain exclamation mark - [#325](https://github.com/PHPOffice/PhpSpreadsheet/issues/325)
 - Xls file cause the exception during open by Xls reader - [#402](https://github.com/PHPOffice/PhpSpreadsheet/issues/402)
 - Skip non numeric value in SUMIF - [#618](https://github.com/PHPOffice/PhpSpreadsheet/pull/618)
+- Mpdf export can exceed pcre.backtrack_limit - [#637](https://github.com/PHPOffice/PhpSpreadsheet/issues/637)
 
 ## [1.4.1] - 2018-09-30
 
