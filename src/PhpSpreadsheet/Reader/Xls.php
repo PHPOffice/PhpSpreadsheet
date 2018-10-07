@@ -4687,7 +4687,7 @@ class Xls extends BaseReader
                     $offset += 4;
                     // offset: var; size: $us; character array of the URL, no Unicode string header, always 16-bit characters, zero-terminated
                     $url = self::encodeUTF16(substr($recordData, $offset, $us - 2), false);
-                    $nullOffset = strpos($url, 0x00);
+                    $nullOffset = strpos($url, chr(0x00));
                     if ($nullOffset) {
                         $url = substr($url, 0, $nullOffset);
                     }
