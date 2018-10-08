@@ -765,6 +765,49 @@ class DateTime
     }
 
     /**
+     * DAYS.
+     *
+     * Returns the number of days between two dates
+     *
+     * Excel Function:
+     *        DAYS(endDate, startDate)
+     *
+     * @category Date/Time Functions
+     *
+     * @param mixed $endDate Excel date serial value (float), PHP date timestamp (integer),
+     *                                        PHP DateTime object, or a standard date string
+     * @param mixed $startDate Excel date serial value (float), PHP date timestamp (integer),
+     *                                        PHP DateTime object, or a standard date string
+     *
+     * @return int|string Number of days between start date and end date or an error
+     */
+    public static function DAYS($endDate = 0, $startDate = 0)
+    {
+        $startDate = Functions::flattenSingleValue($startDate);
+        $endDate = Functions::flattenSingleValue($endDate);
+
+        if (is_string($startDate = self::getDateValue($startDate))) {
+            return Functions::VALUE();
+        }
+        if (is_string($endDate = self::getDateValue($endDate))) {
+            return Functions::VALUE();
+        }
+
+        // Execute function
+        $PHPStartDateObject = Date::excelToDateTimeObject($startDate);
+        $PHPEndDateObject = Date::excelToDateTimeObject($endDate);
+
+        $diff = $PHPStartDateObject->diff($PHPEndDateObject);
+        $days = $diff->days;
+
+        if ($diff->invert) {
+            $days = -$days;
+        }
+
+        return $days;
+    }
+
+    /**
      * DAYS360.
      *
      * Returns the number of days between two dates based on a 360-day year (twelve 30-day months),

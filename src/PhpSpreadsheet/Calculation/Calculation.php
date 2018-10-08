@@ -650,6 +650,11 @@ class Calculation
             'functionCall' => [DateTime::class, 'DAYOFMONTH'],
             'argumentCount' => '1',
         ],
+        'DAYS' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [DateTime::class, 'DAYS'],
+            'argumentCount' => '2',
+        ],
         'DAYS360' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTime::class, 'DAYS360'],
