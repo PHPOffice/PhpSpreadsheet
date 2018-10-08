@@ -1256,26 +1256,36 @@ class MathTrig
         $returnValue = 0;
 
         $sumArgs = Functions::flattenArray(array_shift($arrayList));
+        $aArgsArray = [];
+        $conditions = [];
 
         while (count($arrayList) > 0) {
             $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
             $conditions[] = Functions::ifCondition(array_shift($arrayList));
         }
 
-        // Loop through each set of arguments and conditions
-        foreach ($conditions as $index => $condition) {
-            $aArgs = $aArgsArray[$index];
+        // Loop through each sum and see if arguments and conditions are true
+        foreach ($sumArgs as $index => $value) {
+            $valid = true;
 
-            // Loop through arguments
-            foreach ($aArgs as $key => $arg) {
+            foreach ($conditions as $cidx => $condition) {
+                $arg = $aArgsArray[$cidx][$index];
+
+                // Loop through arguments
                 if (!is_numeric($arg)) {
                     $arg = Calculation::wrapResult(strtoupper($arg));
                 }
                 $testCondition = '=' . $arg . $condition;
-                if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                    // Is it a value within our criteria
-                    $returnValue += $sumArgs[$key];
+                if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+                    // Is not a value within our criteria
+                    $valid = false;
+
+                    break; // if false found, don't need to check other conditions
                 }
+            }
+
+            if ($valid) {
+                $returnValue += $value;
             }
         }
 

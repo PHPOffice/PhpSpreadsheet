@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-- Support numeric condition in SUMIF, SUMIFS, AVERAGEIF, COUNTIF, MAXIF and MINIF [#683](https://github.com/PHPOffice/PhpSpreadsheet/issues/683)
+- Support numeric condition in SUMIF, SUMIFS, AVERAGEIF, COUNTIF, MAXIF and MINIF - [#683](https://github.com/PHPOffice/PhpSpreadsheet/issues/683)
+- SUMIFS containing multiple conditions - [#704](https://github.com/PHPOffice/PhpSpreadsheet/issues/704)
 
 ## [1.5.0] - 2018-10-21
 
