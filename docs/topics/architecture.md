@@ -73,3 +73,63 @@ $spreadsheet->getProperties()
 > number of calls to PhpSpreadsheet methods: in the above example, the
 > `getProperties()` method is being called only once rather than 7 times
 > in the non-fluent version.
+ 
+اللغة : php
+dist : مضمونة
+سودو : خطأ
+
+php :
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+
+ذاكرة التخزين المؤقت :
+  الدلائل :
+    - مخبأ
+    - بائع
+    - $ HOME / .composer / cache
+
+before_script :
+  # إلغاء تنشيط xdebug
+  - إذا كانت [-z "$ KEEP_XDEBUG"]؛ ثم rm -rfv /home/travis/.phpenv/versions/$ (اسم الإصدار fppenv) /etc/conf.d/xdebug.ini؛ فاي
+  - تثبيت الملحن - reign reigns
+
+النص البرمجي :
+  - ./vendor/bin/phpunit
+
+وظائف :
+  تشمل :
+
+    - المرحلة : نمط الرمز
+      php : 7.1
+      النص البرمجي :
+        - ./vendor/bin/php-cs- fixer fix --diff --verbose - dry-run
+        - ./vendor/bin/phpcs - report-width = 200 sample / src / tests / --ignore = samples / Header.php --standard = PSR2 -n
+
+    - المرحلة : التغطية
+      php : 7.1
+      env : KEEP_XDEBUG = 1
+      النص البرمجي :
+        - travis_wait 40 ./vendor/bin/phpunit - debug - coverage-clover coverage-clover.xml
+      after_script :
+        - wget https://scrutinizer-ci.com/ocular.phar
+        - php ocular.phar code-coverage: upload --format = php-clover tests / coverage-clover.xml
+
+    - المرحلة : وثائق API
+      php : 7.1
+      before_script :
+      - حليقة -O http://get.sensiolabs.org/sami.phar
+      النص البرمجي :
+      - أصل الجذر من بوابة جيت: سيد
+      - أصل الجلب أصل - علامات
+      - php sami.phar update .sami.php
+      - echo '<html> <head> <meta http-equiv = "تحديث" content = "0؛ url = master /"> </ head> <body> <p> إذا لم تتم إعادة توجيهك تلقائيًا ، يرجى الانتقال إلى < a href = "master /"> أحدث وثائق واجهة برمجة التطبيقات الثابتة </a>. </ p> </ body> </ html> '> build / index.html
+      نشر :
+        مزود : صفحات
+        تخطي التنظيف : صحيح
+        المحلي دير : بناء
+        رمز github : $ GITHUB_TOKEN
+        على :
+          all_branches : صحيح
+          الشرط : $ TRAVIS_BRANCH = ~ ^ master | بحث $
