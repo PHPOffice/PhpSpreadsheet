@@ -49,6 +49,8 @@ class NumberFormat extends Supervisor
     const FORMAT_CURRENCY_USD = '$#,##0_-';
     const FORMAT_CURRENCY_EUR_SIMPLE = '#,##0.00_-"€"';
     const FORMAT_CURRENCY_EUR = '#,##0_-"€"';
+    const FORMAT_CURRENCY_GBP_SIMPLE = '"£"#,##0.00_-';
+    const FORMAT_CURRENCY_GBP = '"£"#,##0_-';
 
     /**
      * Excel built-in number formats.
