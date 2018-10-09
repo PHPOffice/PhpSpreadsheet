@@ -1,3 +1,4 @@
+
 # Migration from PHPExcel
 
 PhpSpreadsheet introduced many breaking changes by introducing
@@ -22,7 +23,19 @@ backup everything, and double check the result before committing.
 
 ## Manual changes
 
-In addition to automated changes, a few things need to be migrated manually.
+In addition to automated changes, many things need to be migrated manually.
+
+For convenience, you may run the `manual-migrate-helper` on each page that 
+uses the library to help quickly identify things that may need your attention. Assuming 
+it was installed with composer, it can be run like so:
+
+``` sh
+cd /project/to/migrate/vendor/phpoffice/phpspreadsheet/bin/
+./manual-migrate-helper /script/to/migrate.php
+```
+
+This will tell you what line numbers to look at and where on this page to look for details
+about manually migrating the code.
 
 ### Renamed readers and writers
 
