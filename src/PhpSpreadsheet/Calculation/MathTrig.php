@@ -1256,6 +1256,8 @@ class MathTrig
         $returnValue = 0;
 
         $sumArgs = Functions::flattenArray(array_shift($arrayList));
+        $aArgsArray = array();
+        $conditions = array();
 
         while (count($arrayList) > 0) {
             $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
@@ -1278,7 +1280,7 @@ class MathTrig
                     // Is not a value within our criteria
                     $valid = false;
 
-                    break;  // if false found, don't need to check other conditions
+                    break; // if false found, don't need to check other conditions
                 }
             }
 
