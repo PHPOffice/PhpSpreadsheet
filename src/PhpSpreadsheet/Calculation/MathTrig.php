@@ -1277,6 +1277,7 @@ class MathTrig
                 if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                     // Is not a value within our criteria
                     $valid = false;
+
                     break;  // if false found, don't need to check other conditions
                 }
             }
