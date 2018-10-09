@@ -1281,7 +1281,7 @@ class MathTrig
                 }
             }
 
-            if ($valid) { 
+            if ($valid) {
                 $returnValue += $value;
             }
         }
