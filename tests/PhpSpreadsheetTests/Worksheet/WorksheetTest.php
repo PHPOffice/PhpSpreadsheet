@@ -130,4 +130,30 @@ class WorksheetTest extends TestCase
         $worksheet->freezePane('B2');
         self::assertSame('B2', $worksheet->getTopLeftCell());
     }
+
+    public function extractSheetTitleProvider()
+    {
+        return [
+            ['B2', '', '', 'B2'],
+            ['testTitle!B2', 'testTitle', 'B2', 'B2'],
+            ['test!Title!B2', 'test!Title', 'B2', 'B2'],
+        ];
+    }
+
+    /**
+     * @param string $range
+     * @param string $expectTitle
+     * @param string $expectCell
+     * @param string $expectCell2
+     * @dataProvider extractSheetTitleProvider
+     */
+    public function testExtractSheetTitle($range, $expectTitle, $expectCell, $expectCell2)
+    {
+        // only cell reference
+        self::assertSame($expectCell, Worksheet::extractSheetTitle($range));
+        // with title in array
+        $arRange = Worksheet::extractSheetTitle($range, true);
+        self::assertSame($expectTitle, $arRange[0]);
+        self::assertSame($expectCell2, $arRange[1]);
+    }
 }

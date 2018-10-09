@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Sheet title can contain exclamation mark - [#325](https://github.com/PHPOffice/PhpSpreadsheet/issues/325)
+- Xls file cause the exception during open by Xls reader - [#402](https://github.com/PHPOffice/PhpSpreadsheet/issues/402)
+- Skip non numeric value in SUMIF - [#618](https://github.com/PHPOffice/PhpSpreadsheet/pull/618)
+
 ## [1.4.1] - 2018-09-30
 
 ### Fixed

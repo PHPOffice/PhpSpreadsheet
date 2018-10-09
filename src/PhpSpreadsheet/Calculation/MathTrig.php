@@ -1222,8 +1222,10 @@ class MathTrig
             }
 
             $testCondition = '=' . $arg . $condition;
-            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                // Is it a value within our criteria
+
+            if (is_numeric($sumArgs[$key]) &&
+                Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+                // Is it a value within our criteria and only numeric can be added to the result
                 $returnValue += $sumArgs[$key];
             }
         }
