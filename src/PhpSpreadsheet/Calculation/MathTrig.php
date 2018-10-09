@@ -1256,8 +1256,8 @@ class MathTrig
         $returnValue = 0;
 
         $sumArgs = Functions::flattenArray(array_shift($arrayList));
-        $aArgsArray = array();
-        $conditions = array();
+        $aArgsArray = [];
+        $conditions = [];
 
         while (count($arrayList) > 0) {
             $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
