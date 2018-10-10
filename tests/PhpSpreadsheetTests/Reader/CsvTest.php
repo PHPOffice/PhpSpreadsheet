@@ -44,6 +44,12 @@ class CsvTest extends TestCase
                 '25,5',
             ],
             [
+                __DIR__ . '/../../data/Reader/CSV/line_break_in_enclosure.csv',
+                ',',
+                'A3',
+                'Test',
+            ],
+            [
                 __DIR__ . '/../../data/Reader/HTML/csv_with_angle_bracket.csv',
                 ',',
                 'B1',
