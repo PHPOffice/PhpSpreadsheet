@@ -227,7 +227,7 @@ class Csv extends BaseReader
     }
 
     /**
-     * Get the next full line from the file
+     * Get the next full line from the file.
      *
      * @param string $line
      *
@@ -479,7 +479,7 @@ class Csv extends BaseReader
      */
     public function setContiguous($contiguous)
     {
-        $this->contiguous = (bool)$contiguous;
+        $this->contiguous = (bool) $contiguous;
         if (!$contiguous) {
             $this->contiguousRow = -1;
         }
