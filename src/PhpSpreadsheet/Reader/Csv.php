@@ -239,7 +239,7 @@ class Csv extends BaseReader
         $newLine = fgets($this->fileHandle);
 
         // Return false if there is no next line
-        if ($newLine == false) {
+        if ($newLine === false) {
             return false;
         }
 
