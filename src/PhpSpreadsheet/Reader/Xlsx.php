@@ -1073,6 +1073,7 @@ class Xlsx extends BaseReader
                                 $autoFilterRange = (string) $xmlSheet->autoFilter['ref'];
                                 if (strpos($autoFilterRange, ':') !== false) {
                                     $autoFilter = $docSheet->getAutoFilter();
+                                    $autoFilterRange = str_replace('$', '', $autoFilterRange);
                                     $autoFilter->setRange($autoFilterRange);
 
                                     foreach ($xmlSheet->autoFilter->filterColumn as $filterColumn) {

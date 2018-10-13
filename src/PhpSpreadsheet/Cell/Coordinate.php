@@ -255,6 +255,10 @@ abstract class Coordinate
      */
     public static function columnIndexFromString($pString)
     {
+        if (preg_match('/[^a-z]+/i', $pString)) {
+            throw new Exception('Column string index can not have symbols in the name');
+        }
+
         //    Using a lookup cache adds a slight memory overhead, but boosts speed
         //    caching using a static within the method is faster than a class static,
         //        though it's additional memory overhead

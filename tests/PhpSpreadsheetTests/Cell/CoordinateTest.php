@@ -43,6 +43,29 @@ class CoordinateTest extends TestCase
         $this->fail('An expected exception has not been raised.');
     }
 
+    /**
+     * @dataProvider providerColumnStringInvalidSymbols
+     *
+     * @param $cellAddress
+     */
+    public function testColumnIndexFromStringInvalidSymbol($cellAddress)
+    {
+        try {
+            Coordinate::columnIndexFromString($cellAddress);
+        } catch (\Exception $e) {
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), 'Column string index can not have symbols in the name');
+
+            return;
+        }
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    public function providerColumnStringInvalidSymbols()
+    {
+        return require 'data/ColumnStringInvalidSymbols.php';
+    }
+
     public function testColumnIndexFromStringTooShort()
     {
         $cellAddress = '';
