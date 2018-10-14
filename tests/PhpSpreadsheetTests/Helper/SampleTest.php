@@ -35,6 +35,12 @@ class SampleTest extends TestCase
             $skipped[] = 'Pdf/21_Pdf_TCPDF.php';
         }
 
+        // DomPDF does not support PHP 7.3
+        if (version_compare(PHP_VERSION, '7.3.0') >= 0) {
+            $skipped[] = 'Basic/26_Utf8.php';
+            $skipped[] = 'Pdf/21_Pdf_Domdf.php';
+        }
+
         // Unfortunately some tests are too long be ran with code-coverage
         // analysis on Travis, so we need to exclude them
         global $argv;
