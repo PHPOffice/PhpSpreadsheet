@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class LookupRef
 {
@@ -96,9 +97,7 @@ class LookupRef
                 return (int) Coordinate::columnIndexFromString($columnKey);
             }
         } else {
-            if (strpos($cellAddress, '!') !== false) {
-                list($sheet, $cellAddress) = explode('!', $cellAddress);
-            }
+            list($sheet, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
             if (strpos($cellAddress, ':') !== false) {
                 list($startAddress, $endAddress) = explode(':', $cellAddress);
                 $startAddress = preg_replace('/[^a-z]/i', '', $startAddress);
@@ -175,9 +174,7 @@ class LookupRef
                 }
             }
         } else {
-            if (strpos($cellAddress, '!') !== false) {
-                list($sheet, $cellAddress) = explode('!', $cellAddress);
-            }
+            list($sheet, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
             if (strpos($cellAddress, ':') !== false) {
                 list($startAddress, $endAddress) = explode(':', $cellAddress);
                 $startAddress = preg_replace('/\D/', '', $startAddress);
@@ -297,7 +294,7 @@ class LookupRef
             }
 
             if (strpos($cellAddress, '!') !== false) {
-                list($sheetName, $cellAddress) = explode('!', $cellAddress);
+                list($sheetName, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
                 $sheetName = trim($sheetName, "'");
                 $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
             } else {
@@ -308,7 +305,7 @@ class LookupRef
         }
 
         if (strpos($cellAddress, '!') !== false) {
-            list($sheetName, $cellAddress) = explode('!', $cellAddress);
+            list($sheetName, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
             $sheetName = trim($sheetName, "'");
             $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
         } else {
@@ -328,7 +325,7 @@ class LookupRef
      * Excel Function:
      *        =OFFSET(cellAddress, rows, cols, [height], [width])
      *
-     * @param null|array|string $cellAddress The reference from which you want to base the offset. Reference must refer to a cell or
+     * @param null|string $cellAddress The reference from which you want to base the offset. Reference must refer to a cell or
      *                                range of adjacent cells; otherwise, OFFSET returns the #VALUE! error value.
      * @param mixed $rows The number of rows, up or down, that you want the upper-left cell to refer to.
      *                                Using 5 as the rows argument specifies that the upper-left cell in the reference is
@@ -351,7 +348,7 @@ class LookupRef
         $columns = Functions::flattenSingleValue($columns);
         $height = Functions::flattenSingleValue($height);
         $width = Functions::flattenSingleValue($width);
-        if ($cellAddress == null) {
+        if ($cellAddress === null) {
             return 0;
         }
 
@@ -361,7 +358,7 @@ class LookupRef
 
         $sheetName = null;
         if (strpos($cellAddress, '!')) {
-            list($sheetName, $cellAddress) = explode('!', $cellAddress);
+            list($sheetName, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
             $sheetName = trim($sheetName, "'");
         }
         if (strpos($cellAddress, ':')) {

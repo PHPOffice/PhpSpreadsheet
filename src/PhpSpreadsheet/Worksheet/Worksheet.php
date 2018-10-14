@@ -2729,12 +2729,12 @@ class Worksheet implements IComparable
     public static function extractSheetTitle($pRange, $returnRange = false)
     {
         // Sheet title included?
-        if (($sep = strpos($pRange, '!')) === false) {
-            return '';
+        if (($sep = strrpos($pRange, '!')) === false) {
+            return $returnRange ? ['', $pRange] : '';
         }
 
         if ($returnRange) {
-            return [trim(substr($pRange, 0, $sep), "'"), substr($pRange, $sep + 1)];
+            return [substr($pRange, 0, $sep), substr($pRange, $sep + 1)];
         }
 
         return substr($pRange, $sep + 1);

@@ -80,9 +80,8 @@ class RowCellIteratorTest extends TestCase
 
     public function testPrevOutOfRange()
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
-
         $iterator = new RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
         $iterator->prev();
+        self::assertFalse($iterator->valid());
     }
 }

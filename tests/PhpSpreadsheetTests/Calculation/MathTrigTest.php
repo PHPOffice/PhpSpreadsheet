@@ -558,7 +558,7 @@ class MathTrigTest extends TestCase
     public function testSUMIF($expectedResult, ...$args)
     {
         $result = MathTrig::SUMIF(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-12);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerSUMIF()
