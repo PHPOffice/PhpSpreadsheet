@@ -76,9 +76,11 @@ return [
             [ 3.2, 2.1 ],
         ],
     ],
-    // Mismatched dimensions (2x2) and (2x1)
     [
-        '#VALUE!',
+        [
+            [ 17 ],
+            [ 39 ],
+        ],
         [
             [ 1, 2 ],
             [ 3, 4 ],
