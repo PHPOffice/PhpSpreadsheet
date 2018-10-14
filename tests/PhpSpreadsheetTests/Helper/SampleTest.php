@@ -36,7 +36,7 @@ class SampleTest extends TestCase
         }
 
         // DomPDF does not support PHP 7.3
-        if (version_compare(PHP_VERSION, '7.3.0') >= 0) {
+        if (version_compare(PHP_VERSION, '7.2.99') >= 0) {
             $skipped[] = 'Basic/26_Utf8.php';
             $skipped[] = 'Pdf/21_Pdf_Domdf.php';
         }
