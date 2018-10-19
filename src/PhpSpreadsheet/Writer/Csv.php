@@ -106,7 +106,6 @@ class Csv extends BaseWriter
         return $this->outputEncoding;
     }
 
-
     /**
      * Save PhpSpreadsheet to file.
      *
@@ -361,7 +360,7 @@ class Csv extends BaseWriter
             } else {
                 $writeDelimiter = true;
             }
-            
+
             // Convert encoding if necessary
             if ($this->outputEncoding !== 'UTF-8') {
                 $element = StringHelper::convertEncoding($element, $this->outputEncoding, 'UTF-8');
