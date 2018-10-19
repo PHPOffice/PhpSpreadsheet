@@ -3,10 +3,18 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Csv extends BaseWriter
 {
+    /**
+     * Output encoding.
+     *
+     * @var string
+     */
+    private $outputEncoding = 'UTF-8';
+
     /**
      * PhpSpreadsheet object.
      *
@@ -73,6 +81,31 @@ class Csv extends BaseWriter
     {
         $this->spreadsheet = $spreadsheet;
     }
+
+    /**
+     * Set output encoding.
+     *
+     * @param string $pValue Output encoding, eg: 'UTF-8'
+     *
+     * @return Csv
+     */
+    public function setOutputEncoding($pValue)
+    {
+        $this->outputEncoding = $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Get output encoding.
+     *
+     * @return string
+     */
+    public function getOutputEncoding()
+    {
+        return $this->outputEncoding;
+    }
+
 
     /**
      * Save PhpSpreadsheet to file.
@@ -327,6 +360,11 @@ class Csv extends BaseWriter
                 $line .= $this->delimiter;
             } else {
                 $writeDelimiter = true;
+            }
+            
+            // Convert encoding if necessary
+            if ($this->outputEncoding !== 'UTF-8') {
+                $element = StringHelper::convertEncoding($element, $this->outputEncoding, 'UTF-8');
             }
 
             // Add enclosed string
