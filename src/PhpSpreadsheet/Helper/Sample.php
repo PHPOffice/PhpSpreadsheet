@@ -82,7 +82,7 @@ class Sample
 
         $files = [];
         foreach ($regex as $file) {
-            $file = str_replace($baseDir . '/', '', $file[0]);
+            $file = str_replace(str_replace('\\', '/', $baseDir) . '/', '', str_replace('\\', '/', $file[0]));
             $info = pathinfo($file);
             $category = str_replace('_', ' ', $info['dirname']);
             $name = str_replace('_', ' ', preg_replace('/(|\.php)/', '', $info['filename']));
@@ -141,7 +141,9 @@ class Sample
     {
         $tempFolder = sys_get_temp_dir() . '/phpspreadsheet';
         if (!is_dir($tempFolder)) {
-            mkdir($tempFolder);
+            if (!mkdir($tempFolder) && !is_dir($tempFolder)) {
+                throw new \RuntimeException(sprintf('Directory "%s" was not created', $tempFolder));
+            }
         }
 
         return $tempFolder;
@@ -198,8 +200,6 @@ class Sample
      * @param IWriter $writer
      * @param string $path
      * @param float $callStartTime
-     *
-     * @throws \ReflectionException
      */
     public function logWrite(IWriter $writer, $path, $callStartTime)
     {

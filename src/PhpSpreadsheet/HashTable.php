@@ -7,14 +7,14 @@ class HashTable
     /**
      * HashTable elements.
      *
-     * @var mixed[]
+     * @var IComparable[]
      */
     protected $items = [];
 
     /**
      * HashTable key map.
      *
-     * @var mixed[]
+     * @var string[]
      */
     protected $keyMap = [];
 
@@ -56,8 +56,6 @@ class HashTable
      * Add HashTable item.
      *
      * @param IComparable $pSource Item to add
-     *
-     * @throws Exception
      */
     public function add(IComparable $pSource)
     {
@@ -72,8 +70,6 @@ class HashTable
      * Remove HashTable item.
      *
      * @param IComparable $pSource Item to remove
-     *
-     * @throws Exception
      */
     public function remove(IComparable $pSource)
     {

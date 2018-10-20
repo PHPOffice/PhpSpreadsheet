@@ -62,7 +62,7 @@ class XMLWriter extends \XMLWriter
     /**
      * Get written data.
      *
-     * @return $data
+     * @return string
      */
     public function getData()
     {

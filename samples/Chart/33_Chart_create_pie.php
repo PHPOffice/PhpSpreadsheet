@@ -24,38 +24,38 @@ $worksheet->fromArray(
         ]
 );
 
-//	Set the Labels for each data series we want to plot
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the Labels for each data series we want to plot
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $dataSeriesLabels1 = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$C$1', null, 1), //	2011
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$C$1', null, 1), // 2011
 ];
-//	Set the X-Axis Labels
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the X-Axis Labels
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $xAxisTickValues1 = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$A$2:$A$5', null, 4), //	Q1 to Q4
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$A$2:$A$5', null, 4), // Q1 to Q4
 ];
-//	Set the Data values for each data series we want to plot
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the Data values for each data series we want to plot
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $dataSeriesValues1 = [
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$C$2:$C$5', null, 4),
 ];
 
-//	Build the dataseries
+// Build the dataseries
 $series1 = new DataSeries(
     DataSeries::TYPE_PIECHART, // plotType
     null, // plotGrouping (Pie charts don't have any grouping)
@@ -65,19 +65,19 @@ $series1 = new DataSeries(
     $dataSeriesValues1          // plotValues
 );
 
-//	Set up a layout object for the Pie chart
+// Set up a layout object for the Pie chart
 $layout1 = new Layout();
 $layout1->setShowVal(true);
 $layout1->setShowPercent(true);
 
-//	Set the series in the plot area
+// Set the series in the plot area
 $plotArea1 = new PlotArea($layout1, [$series1]);
-//	Set the chart legend
+// Set the chart legend
 $legend1 = new Legend(Legend::POSITION_RIGHT, null, false);
 
 $title1 = new Title('Test Pie Chart');
 
-//	Create the chart
+// Create the chart
 $chart1 = new Chart(
     'chart1', // name
     $title1, // title
@@ -86,48 +86,48 @@ $chart1 = new Chart(
     true, // plotVisibleOnly
     0, // displayBlanksAs
     null, // xAxisLabel
-    null   // yAxisLabel		- Pie charts don't have a Y-Axis
+    null   // yAxisLabel - Pie charts don't have a Y-Axis
 );
 
-//	Set the position where the chart should appear in the worksheet
+// Set the position where the chart should appear in the worksheet
 $chart1->setTopLeftPosition('A7');
 $chart1->setBottomRightPosition('H20');
 
-//	Add the chart to the worksheet
+// Add the chart to the worksheet
 $worksheet->addChart($chart1);
 
-//	Set the Labels for each data series we want to plot
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the Labels for each data series we want to plot
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $dataSeriesLabels2 = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$C$1', null, 1), //	2011
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$C$1', null, 1), // 2011
 ];
-//	Set the X-Axis Labels
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the X-Axis Labels
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $xAxisTickValues2 = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$A$2:$A$5', null, 4), //	Q1 to Q4
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$A$2:$A$5', null, 4), // Q1 to Q4
 ];
-//	Set the Data values for each data series we want to plot
-//		Datatype
-//		Cell reference for data
-//		Format Code
-//		Number of datapoints in series
-//		Data values
-//		Data Marker
+// Set the Data values for each data series we want to plot
+//     Datatype
+//     Cell reference for data
+//     Format Code
+//     Number of datapoints in series
+//     Data values
+//     Data Marker
 $dataSeriesValues2 = [
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$C$2:$C$5', null, 4),
 ];
 
-//	Build the dataseries
+// Build the dataseries
 $series2 = new DataSeries(
     DataSeries::TYPE_DONUTCHART, // plotType
     null, // plotGrouping (Donut charts don't have any grouping)
@@ -137,17 +137,17 @@ $series2 = new DataSeries(
     $dataSeriesValues2        // plotValues
 );
 
-//	Set up a layout object for the Pie chart
+// Set up a layout object for the Pie chart
 $layout2 = new Layout();
 $layout2->setShowVal(true);
 $layout2->setShowCatName(true);
 
-//	Set the series in the plot area
+// Set the series in the plot area
 $plotArea2 = new PlotArea($layout2, [$series2]);
 
 $title2 = new Title('Test Donut Chart');
 
-//	Create the chart
+// Create the chart
 $chart2 = new Chart(
     'chart2', // name
     $title2, // title
@@ -156,14 +156,14 @@ $chart2 = new Chart(
     true, // plotVisibleOnly
     0, // displayBlanksAs
     null, // xAxisLabel
-    null   // yAxisLabel		- Like Pie charts, Donut charts don't have a Y-Axis
+    null   // yAxisLabel - Like Pie charts, Donut charts don't have a Y-Axis
 );
 
-//	Set the position where the chart should appear in the worksheet
+// Set the position where the chart should appear in the worksheet
 $chart2->setTopLeftPosition('I7');
 $chart2->setBottomRightPosition('P20');
 
-//	Add the chart to the worksheet
+// Add the chart to the worksheet
 $worksheet->addChart($chart2);
 
 // Save Excel 2007 file

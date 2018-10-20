@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
 
 class Conditional implements IComparable
@@ -33,14 +32,14 @@ class Conditional implements IComparable
      *
      * @var string
      */
-    private $conditionType;
+    private $conditionType = self::CONDITION_NONE;
 
     /**
      * Operator type.
      *
      * @var string
      */
-    private $operatorType;
+    private $operatorType = self::OPERATOR_NONE;
 
     /**
      * Text.
@@ -48,6 +47,13 @@ class Conditional implements IComparable
      * @var string
      */
     private $text;
+
+    /**
+     * Stop on this condition, if it matches.
+     *
+     * @var bool
+     */
+    private $stopIfTrue = false;
 
     /**
      * Condition.
@@ -69,10 +75,6 @@ class Conditional implements IComparable
     public function __construct()
     {
         // Initialise values
-        $this->conditionType = self::CONDITION_NONE;
-        $this->operatorType = self::OPERATOR_NONE;
-        $this->text = null;
-        $this->condition = [];
         $this->style = new Style(false, true);
     }
 
@@ -149,6 +151,30 @@ class Conditional implements IComparable
     }
 
     /**
+     * Get StopIfTrue.
+     *
+     * @return bool
+     */
+    public function getStopIfTrue()
+    {
+        return $this->stopIfTrue;
+    }
+
+    /**
+     * Set StopIfTrue.
+     *
+     * @param bool $value
+     *
+     * @return Conditional
+     */
+    public function setStopIfTrue($value)
+    {
+        $this->stopIfTrue = $value;
+
+        return $this;
+    }
+
+    /**
      * Get Conditions.
      *
      * @return string[]
@@ -203,8 +229,6 @@ class Conditional implements IComparable
      * Set Style.
      *
      * @param Style $pValue
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return Conditional
      */

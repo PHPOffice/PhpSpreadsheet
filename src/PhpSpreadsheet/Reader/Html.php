@@ -197,6 +197,8 @@ class Html extends BaseReader
      * Set input encoding.
      *
      * @param string $pValue Input encoding, eg: 'ANSI'
+     *
+     * @return Html
      */
     public function setInputEncoding($pValue)
     {
@@ -217,7 +219,9 @@ class Html extends BaseReader
 
     //    Data Array used for testing only, should write to Spreadsheet object on completion of tests
     protected $dataArray = [];
+
     protected $tableLevel = 0;
+
     protected $nestedColumn = ['A'];
 
     protected function setTableStartColumn($column)
@@ -312,6 +316,14 @@ class Html extends BaseReader
                     case 'em':
                     case 'strong':
                     case 'b':
+                        if (isset($attributeArray['class']) && $attributeArray['class'] === 'comment') {
+                            $sheet->getComment($column . $row)
+                                ->getText()
+                                ->createTextRun($child->textContent);
+
+                            break;
+                        }
+
                         if ($cellContent > '') {
                             $cellContent .= ' ';
                         }
@@ -354,6 +366,10 @@ class Html extends BaseReader
                                     }
 
                                     break;
+                                case 'class':
+                                    if ($attributeValue === 'comment-indicator') {
+                                        break; // Ignore - it's just a red square.
+                                    }
                             }
                         }
                         $cellContent .= ' ';
@@ -538,6 +554,7 @@ class Html extends BaseReader
         $row = 0;
         $column = 'A';
         $content = '';
+        $this->rowspan = [];
         $this->processDomElement($dom, $spreadsheet->getActiveSheet(), $row, $column, $content);
 
         // Return
@@ -573,7 +590,7 @@ class Html extends BaseReader
      *
      * @param string $xml
      *
-     * @throws Exception
+     * @return string
      */
     public function securityScan($xml)
     {
@@ -596,9 +613,9 @@ class Html extends BaseReader
      * - Implement to other propertie, such as border
      *
      * @param Worksheet $sheet
-     * @param array $attributeArray
      * @param int $row
      * @param string $column
+     * @param array $attributeArray
      */
     private function applyInlineStyle(&$sheet, $row, $column, $attributeArray)
     {

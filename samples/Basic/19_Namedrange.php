@@ -12,22 +12,22 @@ $spreadsheet = new Spreadsheet();
 // Set document properties
 $helper->log('Set document properties');
 $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
-        ->setLastModifiedBy('Maarten Balliauw')
-        ->setTitle('Office 2007 XLSX Test Document')
-        ->setSubject('Office 2007 XLSX Test Document')
-        ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
-        ->setKeywords('office 2007 openxml php')
-        ->setCategory('Test result file');
+    ->setLastModifiedBy('Maarten Balliauw')
+    ->setTitle('Office 2007 XLSX Test Document')
+    ->setSubject('Office 2007 XLSX Test Document')
+    ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
+    ->setKeywords('office 2007 openxml php')
+    ->setCategory('Test result file');
 
 // Add some data
 $helper->log('Add some data');
 $spreadsheet->setActiveSheetIndex(0);
 $spreadsheet->getActiveSheet()->setCellValue('A1', 'Firstname:')
-        ->setCellValue('A2', 'Lastname:')
-        ->setCellValue('A3', 'Fullname:')
-        ->setCellValue('B1', 'Maarten')
-        ->setCellValue('B2', 'Balliauw')
-        ->setCellValue('B3', '=B1 & " " & B2');
+    ->setCellValue('A2', 'Lastname:')
+    ->setCellValue('A3', 'Fullname:')
+    ->setCellValue('B1', 'Maarten')
+    ->setCellValue('B2', 'Balliauw')
+    ->setCellValue('B3', '=B1 & " " & B2');
 
 // Define named ranges
 $helper->log('Define named ranges');
@@ -50,11 +50,11 @@ $spreadsheet->createSheet();
 $helper->log('Add some data');
 $spreadsheet->setActiveSheetIndex(1);
 $spreadsheet->getActiveSheet()->setCellValue('A1', 'Firstname:')
-        ->setCellValue('A2', 'Lastname:')
-        ->setCellValue('A3', 'Fullname:')
-        ->setCellValue('B1', '=PersonFN')
-        ->setCellValue('B2', '=PersonLN')
-        ->setCellValue('B3', '=PersonFN & " " & PersonLN');
+    ->setCellValue('A2', 'Lastname:')
+    ->setCellValue('A3', 'Fullname:')
+    ->setCellValue('B1', '=PersonFN')
+    ->setCellValue('B2', '=PersonLN')
+    ->setCellValue('B3', '=PersonFN & " " & PersonLN');
 
 // Resolve range
 $helper->log('Resolve range');

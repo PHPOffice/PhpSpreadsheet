@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use Complex\Complex;
+use Complex\Exception as ComplexException;
+
 class Engineering
 {
     /**
@@ -718,81 +721,21 @@ class Engineering
      *
      * Parses a complex number into its real and imaginary parts, and an I or J suffix
      *
+     * @deprecated 2.0.0 No longer used by internal code. Please use the Complex\Complex class instead
+     *
      * @param string $complexNumber The complex number
      *
-     * @return string[] Indexed on "real", "imaginary" and "suffix"
+     * @return mixed[] Indexed on "real", "imaginary" and "suffix"
      */
     public static function parseComplex($complexNumber)
     {
-        $workString = (string) $complexNumber;
-
-        $realNumber = $imaginary = 0;
-        //    Extract the suffix, if there is one
-        $suffix = substr($workString, -1);
-        if (!is_numeric($suffix)) {
-            $workString = substr($workString, 0, -1);
-        } else {
-            $suffix = '';
-        }
-
-        //    Split the input into its Real and Imaginary components
-        $leadingSign = 0;
-        if (strlen($workString) > 0) {
-            $leadingSign = (($workString[0] == '+') || ($workString[0] == '-')) ? 1 : 0;
-        }
-        $power = '';
-        $realNumber = strtok($workString, '+-');
-        if (strtoupper(substr($realNumber, -1)) == 'E') {
-            $power = strtok('+-');
-            ++$leadingSign;
-        }
-
-        $realNumber = substr($workString, 0, strlen($realNumber) + strlen($power) + $leadingSign);
-
-        if ($suffix != '') {
-            $imaginary = substr($workString, strlen($realNumber));
-
-            if (($imaginary == '') && (($realNumber == '') || ($realNumber == '+') || ($realNumber == '-'))) {
-                $imaginary = $realNumber . '1';
-                $realNumber = '0';
-            } elseif ($imaginary == '') {
-                $imaginary = $realNumber;
-                $realNumber = '0';
-            } elseif (($imaginary == '+') || ($imaginary == '-')) {
-                $imaginary .= '1';
-            }
-        }
+        $complex = new Complex($complexNumber);
 
         return [
-            'real' => $realNumber,
-            'imaginary' => $imaginary,
-            'suffix' => $suffix,
+            'real' => $complex->getReal(),
+            'imaginary' => $complex->getImaginary(),
+            'suffix' => $complex->getSuffix(),
         ];
-    }
-
-    /**
-     * Cleans the leading characters in a complex number string.
-     *
-     * @param string $complexNumber The complex number to clean
-     *
-     * @return string The "cleaned" complex number
-     */
-    private static function cleanComplex($complexNumber)
-    {
-        if ($complexNumber[0] == '+') {
-            $complexNumber = substr($complexNumber, 1);
-        }
-        if ($complexNumber[0] == '0') {
-            $complexNumber = substr($complexNumber, 1);
-        }
-        if ($complexNumber[0] == '.') {
-            $complexNumber = '0' . $complexNumber;
-        }
-        if ($complexNumber[0] == '+') {
-            $complexNumber = substr($complexNumber, 1);
-        }
-
-        return $complexNumber;
     }
 
     /**
@@ -1745,10 +1688,10 @@ class Engineering
     /**
      * COMPLEX.
      *
-     * Converts real and imaginary coefficients into a complex number of the form x + yi or x + yj.
+     * Converts real and imaginary coefficients into a complex number of the form x +/- yi or x +/- yj.
      *
      * Excel Function:
-     *        COMPLEX(realNumber,imaginary[,places])
+     *        COMPLEX(realNumber,imaginary[,suffix])
      *
      * @category Engineering Functions
      *
@@ -1768,34 +1711,9 @@ class Engineering
         if (((is_numeric($realNumber)) && (is_numeric($imaginary))) &&
             (($suffix == 'i') || ($suffix == 'j') || ($suffix == ''))
         ) {
-            $realNumber = (float) $realNumber;
-            $imaginary = (float) $imaginary;
+            $complex = new Complex($realNumber, $imaginary, $suffix);
 
-            if ($suffix == '') {
-                $suffix = 'i';
-            }
-            if ($realNumber == 0.0) {
-                if ($imaginary == 0.0) {
-                    return (string) '0';
-                } elseif ($imaginary == 1.0) {
-                    return (string) $suffix;
-                } elseif ($imaginary == -1.0) {
-                    return (string) '-' . $suffix;
-                }
-
-                return (string) $imaginary . $suffix;
-            } elseif ($imaginary == 0.0) {
-                return (string) $realNumber;
-            } elseif ($imaginary == 1.0) {
-                return (string) $realNumber . '+' . $suffix;
-            } elseif ($imaginary == -1.0) {
-                return (string) $realNumber . '-' . $suffix;
-            }
-            if ($imaginary > 0) {
-                $imaginary = (string) '+' . $imaginary;
-            }
-
-            return (string) $realNumber . $imaginary . $suffix;
+            return (string) $complex;
         }
 
         return Functions::VALUE();
@@ -1820,9 +1738,7 @@ class Engineering
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $parsedComplex = self::parseComplex($complexNumber);
-
-        return $parsedComplex['imaginary'];
+        return (new Complex($complexNumber))->getImaginary();
     }
 
     /**
@@ -1843,9 +1759,7 @@ class Engineering
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $parsedComplex = self::parseComplex($complexNumber);
-
-        return $parsedComplex['real'];
+        return (new Complex($complexNumber))->getReal();
     }
 
     /**
@@ -1864,12 +1778,7 @@ class Engineering
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $parsedComplex = self::parseComplex($complexNumber);
-
-        return sqrt(
-            ($parsedComplex['real'] * $parsedComplex['real']) +
-            ($parsedComplex['imaginary'] * $parsedComplex['imaginary'])
-        );
+        return (new Complex($complexNumber))->abs();
     }
 
     /**
@@ -1883,27 +1792,18 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the argument theta
      *
-     * @return float
+     * @return float|string
      */
     public static function IMARGUMENT($complexNumber)
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
-        $parsedComplex = self::parseComplex($complexNumber);
-        if ($parsedComplex['real'] == 0.0) {
-            if ($parsedComplex['imaginary'] == 0.0) {
-                return Functions::DIV0();
-            } elseif ($parsedComplex['imaginary'] < 0.0) {
-                return M_PI / -2;
-            }
 
-            return M_PI / 2;
-        } elseif ($parsedComplex['real'] > 0.0) {
-            return atan($parsedComplex['imaginary'] / $parsedComplex['real']);
-        } elseif ($parsedComplex['imaginary'] < 0.0) {
-            return 0 - (M_PI - atan(abs($parsedComplex['imaginary']) / abs($parsedComplex['real'])));
+        $complex = new Complex($complexNumber);
+        if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
+            return Functions::DIV0();
         }
 
-        return M_PI - atan($parsedComplex['imaginary'] / abs($parsedComplex['real']));
+        return $complex->argument();
     }
 
     /**
@@ -1922,19 +1822,7 @@ class Engineering
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $parsedComplex = self::parseComplex($complexNumber);
-
-        if ($parsedComplex['imaginary'] == 0.0) {
-            return $parsedComplex['real'];
-        }
-
-        return self::cleanComplex(
-            self::COMPLEX(
-                $parsedComplex['real'],
-                0 - $parsedComplex['imaginary'],
-                $parsedComplex['suffix']
-            )
-        );
+        return (string) (new Complex($complexNumber))->conjugate();
     }
 
     /**
@@ -1953,19 +1841,83 @@ class Engineering
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $parsedComplex = self::parseComplex($complexNumber);
+        return (string) (new Complex($complexNumber))->cos();
+    }
 
-        if ($parsedComplex['imaginary'] == 0.0) {
-            return cos($parsedComplex['real']);
-        }
+    /**
+     * IMCOSH.
+     *
+     * Returns the hyperbolic cosine of a complex number in x + yi or x + yj text format.
+     *
+     * Excel Function:
+     *        IMCOSH(complexNumber)
+     *
+     * @param string $complexNumber the complex number for which you want the hyperbolic cosine
+     *
+     * @return float|string
+     */
+    public static function IMCOSH($complexNumber)
+    {
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return self::IMCONJUGATE(
-            self::COMPLEX(
-                cos($parsedComplex['real']) * cosh($parsedComplex['imaginary']),
-                sin($parsedComplex['real']) * sinh($parsedComplex['imaginary']),
-                $parsedComplex['suffix']
-            )
-        );
+        return (string) (new Complex($complexNumber))->cosh();
+    }
+
+    /**
+     * IMCOT.
+     *
+     * Returns the cotangent of a complex number in x + yi or x + yj text format.
+     *
+     * Excel Function:
+     *        IMCOT(complexNumber)
+     *
+     * @param string $complexNumber the complex number for which you want the cotangent
+     *
+     * @return float|string
+     */
+    public static function IMCOT($complexNumber)
+    {
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
+
+        return (string) (new Complex($complexNumber))->cot();
+    }
+
+    /**
+     * IMCSC.
+     *
+     * Returns the cosecant of a complex number in x + yi or x + yj text format.
+     *
+     * Excel Function:
+     *        IMCSC(complexNumber)
+     *
+     * @param string $complexNumber the complex number for which you want the cosecant
+     *
+     * @return float|string
+     */
+    public static function IMCSC($complexNumber)
+    {
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
+
+        return (string) (new Complex($complexNumber))->csc();
+    }
+
+    /**
+     * IMCSCH.
+     *
+     * Returns the hyperbolic cosecant of a complex number in x + yi or x + yj text format.
+     *
+     * Excel Function:
+     *        IMCSCH(complexNumber)
+     *
+     * @param string $complexNumber the complex number for which you want the hyperbolic cosecant
+     *
+     * @return float|string
+     */
+    public static function IMCSCH($complexNumber)
+    {
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
+
+        return (string) (new Complex($complexNumber))->csch();
     }
 
     /**
@@ -1984,17 +1936,83 @@ class Engineering
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $parsedComplex = self::parseComplex($complexNumber);
+        return (string) (new Complex($complexNumber))->sin();
+    }
 
-        if ($parsedComplex['imaginary'] == 0.0) {
-            return sin($parsedComplex['real']);
-        }
+    /**
+     * IMSINH.
+     *
+     * Returns the hyperbolic sine of a complex number in x + yi or x + yj text format.
+     *
+     * Excel Function:
+     *        IMSINH(complexNumber)
+     *
+     * @param string $complexNumber the complex number for which you want the hyperbolic sine
+     *
+     * @return float|string
+     */
+    public static function IMSINH($complexNumber)
+    {
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return self::COMPLEX(
-            sin($parsedComplex['real']) * cosh($parsedComplex['imaginary']),
-            cos($parsedComplex['real']) * sinh($parsedComplex['imaginary']),
-            $parsedComplex['suffix']
-        );
+        return (string) (new Complex($complexNumber))->sinh();
+    }
+
+    /**
+     * IMSEC.
+     *
+     * Returns the secant of a complex number in x + yi or x + yj text format.
+     *
+     * Excel Function:
+     *        IMSEC(complexNumber)
+     *
+     * @param string $complexNumber the complex number for which you want the secant
+     *
+     * @return float|string
+     */
+    public static function IMSEC($complexNumber)
+    {
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
+
+        return (string) (new Complex($complexNumber))->sec();
+    }
+
+    /**
+     * IMSECH.
+     *
+     * Returns the hyperbolic secant of a complex number in x + yi or x + yj text format.
+     *
+     * Excel Function:
+     *        IMSECH(complexNumber)
+     *
+     * @param string $complexNumber the complex number for which you want the hyperbolic secant
+     *
+     * @return float|string
+     */
+    public static function IMSECH($complexNumber)
+    {
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
+
+        return (string) (new Complex($complexNumber))->sech();
+    }
+
+    /**
+     * IMTAN.
+     *
+     * Returns the tangent of a complex number in x + yi or x + yj text format.
+     *
+     * Excel Function:
+     *        IMTAN(complexNumber)
+     *
+     * @param string $complexNumber the complex number for which you want the tangent
+     *
+     * @return float|string
+     */
+    public static function IMTAN($complexNumber)
+    {
+        $complexNumber = Functions::flattenSingleValue($complexNumber);
+
+        return (string) (new Complex($complexNumber))->tan();
     }
 
     /**
@@ -2013,22 +2031,12 @@ class Engineering
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $parsedComplex = self::parseComplex($complexNumber);
-
         $theta = self::IMARGUMENT($complexNumber);
         if ($theta === Functions::DIV0()) {
             return '0';
         }
 
-        $d1 = cos($theta / 2);
-        $d2 = sin($theta / 2);
-        $r = sqrt(sqrt(($parsedComplex['real'] * $parsedComplex['real']) + ($parsedComplex['imaginary'] * $parsedComplex['imaginary'])));
-
-        if ($parsedComplex['suffix'] == '') {
-            return self::COMPLEX($d1 * $r, $d2 * $r);
-        }
-
-        return self::COMPLEX($d1 * $r, $d2 * $r, $parsedComplex['suffix']);
+        return (string) (new Complex($complexNumber))->sqrt();
     }
 
     /**
@@ -2047,20 +2055,12 @@ class Engineering
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $parsedComplex = self::parseComplex($complexNumber);
-
-        if (($parsedComplex['real'] == 0.0) && ($parsedComplex['imaginary'] == 0.0)) {
+        $complex = new Complex($complexNumber);
+        if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
             return Functions::NAN();
         }
 
-        $logR = log(sqrt(($parsedComplex['real'] * $parsedComplex['real']) + ($parsedComplex['imaginary'] * $parsedComplex['imaginary'])));
-        $t = self::IMARGUMENT($complexNumber);
-
-        if ($parsedComplex['suffix'] == '') {
-            return self::COMPLEX($logR, $t);
-        }
-
-        return self::COMPLEX($logR, $t, $parsedComplex['suffix']);
+        return (string) (new Complex($complexNumber))->ln();
     }
 
     /**
@@ -2079,15 +2079,12 @@ class Engineering
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $parsedComplex = self::parseComplex($complexNumber);
-
-        if (($parsedComplex['real'] == 0.0) && ($parsedComplex['imaginary'] == 0.0)) {
+        $complex = new Complex($complexNumber);
+        if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
             return Functions::NAN();
-        } elseif (($parsedComplex['real'] > 0.0) && ($parsedComplex['imaginary'] == 0.0)) {
-            return log10($parsedComplex['real']);
         }
 
-        return self::IMPRODUCT(log10(self::EULER), self::IMLN($complexNumber));
+        return (string) (new Complex($complexNumber))->log10();
     }
 
     /**
@@ -2106,15 +2103,12 @@ class Engineering
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $parsedComplex = self::parseComplex($complexNumber);
-
-        if (($parsedComplex['real'] == 0.0) && ($parsedComplex['imaginary'] == 0.0)) {
+        $complex = new Complex($complexNumber);
+        if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
             return Functions::NAN();
-        } elseif (($parsedComplex['real'] > 0.0) && ($parsedComplex['imaginary'] == 0.0)) {
-            return log($parsedComplex['real'], 2);
         }
 
-        return self::IMPRODUCT(log(self::EULER, 2), self::IMLN($complexNumber));
+        return (string) (new Complex($complexNumber))->log2();
     }
 
     /**
@@ -2133,21 +2127,7 @@ class Engineering
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $parsedComplex = self::parseComplex($complexNumber);
-
-        if (($parsedComplex['real'] == 0.0) && ($parsedComplex['imaginary'] == 0.0)) {
-            return '1';
-        }
-
-        $e = exp($parsedComplex['real']);
-        $eX = $e * cos($parsedComplex['imaginary']);
-        $eY = $e * sin($parsedComplex['imaginary']);
-
-        if ($parsedComplex['suffix'] == '') {
-            return self::COMPLEX($eX, $eY);
-        }
-
-        return self::COMPLEX($eX, $eY, $parsedComplex['suffix']);
+        return (string) (new Complex($complexNumber))->exp();
     }
 
     /**
@@ -2172,18 +2152,7 @@ class Engineering
             return Functions::VALUE();
         }
 
-        $parsedComplex = self::parseComplex($complexNumber);
-
-        $r = sqrt(($parsedComplex['real'] * $parsedComplex['real']) + ($parsedComplex['imaginary'] * $parsedComplex['imaginary']));
-        $rPower = pow($r, $realNumber);
-        $theta = self::IMARGUMENT($complexNumber) * $realNumber;
-        if ($theta == 0) {
-            return 1;
-        } elseif ($parsedComplex['imaginary'] == 0.0) {
-            return self::COMPLEX($rPower * cos($theta), $rPower * sin($theta), $parsedComplex['suffix']);
-        }
-
-        return self::COMPLEX($rPower * cos($theta), $rPower * sin($theta), $parsedComplex['suffix']);
+        return (string) (new Complex($complexNumber))->pow($realNumber);
     }
 
     /**
@@ -2204,32 +2173,11 @@ class Engineering
         $complexDividend = Functions::flattenSingleValue($complexDividend);
         $complexDivisor = Functions::flattenSingleValue($complexDivisor);
 
-        $parsedComplexDividend = self::parseComplex($complexDividend);
-        $parsedComplexDivisor = self::parseComplex($complexDivisor);
-
-        if (($parsedComplexDividend['suffix'] != '') && ($parsedComplexDivisor['suffix'] != '') &&
-            ($parsedComplexDividend['suffix'] != $parsedComplexDivisor['suffix'])
-        ) {
+        try {
+            return (string) (new Complex($complexDividend))->divideby(new Complex($complexDivisor));
+        } catch (ComplexException $e) {
             return Functions::NAN();
         }
-        if (($parsedComplexDividend['suffix'] != '') && ($parsedComplexDivisor['suffix'] == '')) {
-            $parsedComplexDivisor['suffix'] = $parsedComplexDividend['suffix'];
-        }
-
-        $d1 = ($parsedComplexDividend['real'] * $parsedComplexDivisor['real']) + ($parsedComplexDividend['imaginary'] * $parsedComplexDivisor['imaginary']);
-        $d2 = ($parsedComplexDividend['imaginary'] * $parsedComplexDivisor['real']) - ($parsedComplexDividend['real'] * $parsedComplexDivisor['imaginary']);
-        $d3 = ($parsedComplexDivisor['real'] * $parsedComplexDivisor['real']) + ($parsedComplexDivisor['imaginary'] * $parsedComplexDivisor['imaginary']);
-
-        $r = $d1 / $d3;
-        $i = $d2 / $d3;
-
-        if ($i > 0.0) {
-            return self::cleanComplex($r . '+' . $i . $parsedComplexDivisor['suffix']);
-        } elseif ($i < 0.0) {
-            return self::cleanComplex($r . $i . $parsedComplexDivisor['suffix']);
-        }
-
-        return $r;
     }
 
     /**
@@ -2250,21 +2198,11 @@ class Engineering
         $complexNumber1 = Functions::flattenSingleValue($complexNumber1);
         $complexNumber2 = Functions::flattenSingleValue($complexNumber2);
 
-        $parsedComplex1 = self::parseComplex($complexNumber1);
-        $parsedComplex2 = self::parseComplex($complexNumber2);
-
-        if ((($parsedComplex1['suffix'] != '') && ($parsedComplex2['suffix'] != '')) &&
-            ($parsedComplex1['suffix'] != $parsedComplex2['suffix'])
-        ) {
+        try {
+            return (string) (new Complex($complexNumber1))->subtract(new Complex($complexNumber2));
+        } catch (ComplexException $e) {
             return Functions::NAN();
-        } elseif (($parsedComplex1['suffix'] == '') && ($parsedComplex2['suffix'] != '')) {
-            $parsedComplex1['suffix'] = $parsedComplex2['suffix'];
         }
-
-        $d1 = $parsedComplex1['real'] - $parsedComplex2['real'];
-        $d2 = $parsedComplex1['imaginary'] - $parsedComplex2['imaginary'];
-
-        return self::COMPLEX($d1, $d2, $parsedComplex1['suffix']);
     }
 
     /**
@@ -2282,29 +2220,19 @@ class Engineering
     public static function IMSUM(...$complexNumbers)
     {
         // Return value
-        $returnValue = self::parseComplex('0');
-        $activeSuffix = '';
-
-        // Loop through the arguments
+        $returnValue = new Complex(0.0);
         $aArgs = Functions::flattenArray($complexNumbers);
-        foreach ($aArgs as $arg) {
-            $parsedComplex = self::parseComplex($arg);
 
-            if ($activeSuffix == '') {
-                $activeSuffix = $parsedComplex['suffix'];
-            } elseif (($parsedComplex['suffix'] != '') && ($activeSuffix != $parsedComplex['suffix'])) {
-                return Functions::NAN();
+        try {
+            // Loop through the arguments
+            foreach ($aArgs as $complex) {
+                $returnValue = $returnValue->add(new Complex($complex));
             }
-
-            $returnValue['real'] += $parsedComplex['real'];
-            $returnValue['imaginary'] += $parsedComplex['imaginary'];
+        } catch (ComplexException $e) {
+            return Functions::NAN();
         }
 
-        if ($returnValue['imaginary'] == 0.0) {
-            $activeSuffix = '';
-        }
-
-        return self::COMPLEX($returnValue['real'], $returnValue['imaginary'], $activeSuffix);
+        return (string) $returnValue;
     }
 
     /**
@@ -2322,29 +2250,19 @@ class Engineering
     public static function IMPRODUCT(...$complexNumbers)
     {
         // Return value
-        $returnValue = self::parseComplex('1');
-        $activeSuffix = '';
-
-        // Loop through the arguments
+        $returnValue = new Complex(1.0);
         $aArgs = Functions::flattenArray($complexNumbers);
-        foreach ($aArgs as $arg) {
-            $parsedComplex = self::parseComplex($arg);
 
-            $workValue = $returnValue;
-            if (($parsedComplex['suffix'] != '') && ($activeSuffix == '')) {
-                $activeSuffix = $parsedComplex['suffix'];
-            } elseif (($parsedComplex['suffix'] != '') && ($activeSuffix != $parsedComplex['suffix'])) {
-                return Functions::NAN();
+        try {
+            // Loop through the arguments
+            foreach ($aArgs as $complex) {
+                $returnValue = $returnValue->multiply(new Complex($complex));
             }
-            $returnValue['real'] = ($workValue['real'] * $parsedComplex['real']) - ($workValue['imaginary'] * $parsedComplex['imaginary']);
-            $returnValue['imaginary'] = ($workValue['real'] * $parsedComplex['imaginary']) + ($workValue['imaginary'] * $parsedComplex['real']);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
         }
 
-        if ($returnValue['imaginary'] == 0.0) {
-            $activeSuffix = '';
-        }
-
-        return self::COMPLEX($returnValue['real'], $returnValue['imaginary'], $activeSuffix);
+        return (string) $returnValue;
     }
 
     /**
@@ -2424,6 +2342,179 @@ class Engineering
     }
 
     /**
+     * Validate arguments passed to the bitwise functions.
+     *
+     * @param mixed $value
+     *
+     * @throws Exception
+     *
+     * @return int
+     */
+    private static function validateBitwiseArgument($value)
+    {
+        $value = Functions::flattenSingleValue($value);
+
+        if (is_int($value)) {
+            return $value;
+        } elseif (is_numeric($value)) {
+            if ($value == (int) ($value)) {
+                $value = (int) ($value);
+                if (($value > pow(2, 48) - 1) || ($value < 0)) {
+                    throw new Exception(Functions::NAN());
+                }
+
+                return $value;
+            }
+
+            throw new Exception(Functions::NAN());
+        }
+
+        throw new Exception(Functions::VALUE());
+    }
+
+    /**
+     * BITAND.
+     *
+     * Returns the bitwise AND of two integer values.
+     *
+     * Excel Function:
+     *        BITAND(number1, number2)
+     *
+     * @category Engineering Functions
+     *
+     * @param int $number1
+     * @param int $number2
+     *
+     * @return int|string
+     */
+    public static function BITAND($number1, $number2)
+    {
+        try {
+            $number1 = self::validateBitwiseArgument($number1);
+            $number2 = self::validateBitwiseArgument($number2);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        return $number1 & $number2;
+    }
+
+    /**
+     * BITOR.
+     *
+     * Returns the bitwise OR of two integer values.
+     *
+     * Excel Function:
+     *        BITOR(number1, number2)
+     *
+     * @category Engineering Functions
+     *
+     * @param int $number1
+     * @param int $number2
+     *
+     * @return int|string
+     */
+    public static function BITOR($number1, $number2)
+    {
+        try {
+            $number1 = self::validateBitwiseArgument($number1);
+            $number2 = self::validateBitwiseArgument($number2);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        return $number1 | $number2;
+    }
+
+    /**
+     * BITXOR.
+     *
+     * Returns the bitwise XOR of two integer values.
+     *
+     * Excel Function:
+     *        BITXOR(number1, number2)
+     *
+     * @category Engineering Functions
+     *
+     * @param int $number1
+     * @param int $number2
+     *
+     * @return int|string
+     */
+    public static function BITXOR($number1, $number2)
+    {
+        try {
+            $number1 = self::validateBitwiseArgument($number1);
+            $number2 = self::validateBitwiseArgument($number2);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        return $number1 ^ $number2;
+    }
+
+    /**
+     * BITLSHIFT.
+     *
+     * Returns the number value shifted left by shift_amount bits.
+     *
+     * Excel Function:
+     *        BITLSHIFT(number, shift_amount)
+     *
+     * @category Engineering Functions
+     *
+     * @param int $number
+     * @param int $shiftAmount
+     *
+     * @return int|string
+     */
+    public static function BITLSHIFT($number, $shiftAmount)
+    {
+        try {
+            $number = self::validateBitwiseArgument($number);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        $shiftAmount = Functions::flattenSingleValue($shiftAmount);
+
+        $result = $number << $shiftAmount;
+        if ($result > pow(2, 48) - 1) {
+            return Functions::NAN();
+        }
+
+        return $result;
+    }
+
+    /**
+     * BITRSHIFT.
+     *
+     * Returns the number value shifted right by shift_amount bits.
+     *
+     * Excel Function:
+     *        BITRSHIFT(number, shift_amount)
+     *
+     * @category Engineering Functions
+     *
+     * @param int $number
+     * @param int $shiftAmount
+     *
+     * @return int|string
+     */
+    public static function BITRSHIFT($number, $shiftAmount)
+    {
+        try {
+            $number = self::validateBitwiseArgument($number);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        $shiftAmount = Functions::flattenSingleValue($shiftAmount);
+
+        return $number >> $shiftAmount;
+    }
+
+    /**
      * ERF.
      *
      * Returns the error function integrated between the lower and upper bound arguments.
@@ -2431,7 +2522,7 @@ class Engineering
      *    Note: In Excel 2007 or earlier, if you input a negative value for the upper or lower bound arguments,
      *            the function would return a #NUM! error. However, in Excel 2010, the function algorithm was
      *            improved, so that it can now calculate the function for both positive and negative ranges.
-     *            PhpSpreadsheet follows Excel 2010 behaviour, and accepts nagative arguments.
+     *            PhpSpreadsheet follows Excel 2010 behaviour, and accepts negative arguments.
      *
      *    Excel Function:
      *        ERF(lower[,upper])
@@ -2440,7 +2531,7 @@ class Engineering
      * @param float $upper upper bound for integrating ERF.
      *                                If omitted, ERF integrates between zero and lower_limit
      *
-     * @return float
+     * @return float|string
      */
     public static function ERF($lower, $upper = null)
     {
@@ -2457,6 +2548,25 @@ class Engineering
         }
 
         return Functions::VALUE();
+    }
+
+    /**
+     * ERFPRECISE.
+     *
+     * Returns the error function integrated between the lower and upper bound arguments.
+     *
+     *    Excel Function:
+     *        ERF.PRECISE(limit)
+     *
+     * @param float $limit bound for integrating ERF
+     *
+     * @return float|string
+     */
+    public static function ERFPRECISE($limit)
+    {
+        $limit = Functions::flattenSingleValue($limit);
+
+        return self::ERF($limit);
     }
 
     //
@@ -2507,7 +2617,7 @@ class Engineering
      *
      * @param float $x The lower bound for integrating ERFC
      *
-     * @return float
+     * @return float|string
      */
     public static function ERFC($x)
     {

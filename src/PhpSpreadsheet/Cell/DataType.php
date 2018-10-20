@@ -45,10 +45,9 @@ class DataType
     /**
      * Check a string that it satisfies Excel requirements.
      *
-     * @param mixed Value to sanitize to an Excel string
-     * @param null|mixed $pValue
+     * @param null|RichText|string $pValue Value to sanitize to an Excel string
      *
-     * @return mixed Sanitized value
+     * @return null|RichText|string Sanitized value
      */
     public static function checkString($pValue)
     {
@@ -69,8 +68,7 @@ class DataType
     /**
      * Check a value that it is a valid error code.
      *
-     * @param mixed Value to sanitize to an Excel error code
-     * @param null|mixed $pValue
+     * @param mixed $pValue Value to sanitize to an Excel error code
      *
      * @return string Sanitized value
      */

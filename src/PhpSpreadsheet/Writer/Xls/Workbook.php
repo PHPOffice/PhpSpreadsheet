@@ -222,10 +222,8 @@ class Workbook extends BIFFwriter
     /**
      * Add a new XF writer.
      *
-     * @param Style
-     * @param bool Is it a style XF?
      * @param Style $style
-     * @param bool $isStyleXf
+     * @param bool $isStyleXf Is it a style XF?
      *
      * @return int Index to XF record
      */
@@ -543,7 +541,8 @@ class Workbook extends BIFFwriter
             foreach ($namedRanges as $namedRange) {
                 // Create absolute coordinate
                 $range = Coordinate::splitRange($namedRange->getRange());
-                for ($i = 0; $i < count($range); ++$i) {
+                $iMax = count($range);
+                for ($i = 0; $i < $iMax; ++$i) {
                     $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteCoordinate($range[$i][0]);
                     if (isset($range[$i][1])) {
                         $range[$i][1] = Coordinate::absoluteCoordinate($range[$i][1]);
@@ -600,7 +599,7 @@ class Workbook extends BIFFwriter
                 // store the DEFINEDNAME record
                 $chunk .= $this->writeData($this->writeDefinedNameBiff8(pack('C', 0x07), $formulaData, $i + 1, true));
 
-                // (exclusive) either repeatColumns or repeatRows
+            // (exclusive) either repeatColumns or repeatRows
             } elseif ($sheetSetup->isColumnsToRepeatAtLeftSet() || $sheetSetup->isRowsToRepeatAtTopSet()) {
                 // Columns to repeat
                 if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
@@ -1067,7 +1066,7 @@ class Workbook extends BIFFwriter
                         // and start new record data block where we start writing the string
                         $recordData = '';
 
-                        // 2. space remaining is greater than or equal to minimum space needed
+                    // 2. space remaining is greater than or equal to minimum space needed
                     } else {
                         // initialize effective remaining space, for Unicode strings this may need to be reduced by 1, see below
                         $effective_space_remaining = $space_remaining;

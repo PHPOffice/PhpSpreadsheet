@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\RichText;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class Run extends TextElement implements ITextElement
@@ -21,8 +20,8 @@ class Run extends TextElement implements ITextElement
      */
     public function __construct($pText = '')
     {
+        parent::__construct($pText);
         // Initialise variables
-        $this->setText($pText);
         $this->font = new Font();
     }
 
@@ -40,8 +39,6 @@ class Run extends TextElement implements ITextElement
      * Set font.
      *
      * @param Font $pFont Font
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return ITextElement
      */
@@ -64,20 +61,5 @@ class Run extends TextElement implements ITextElement
             $this->font->getHashCode() .
             __CLASS__
         );
-    }
-
-    /**
-     * Implement PHP __clone to create a deep clone, not just a shallow copy.
-     */
-    public function __clone()
-    {
-        $vars = get_object_vars($this);
-        foreach ($vars as $key => $value) {
-            if (is_object($value)) {
-                $this->$key = clone $value;
-            } else {
-                $this->$key = $value;
-            }
-        }
     }
 }

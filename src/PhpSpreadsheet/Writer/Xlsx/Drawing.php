@@ -43,7 +43,12 @@ class Drawing extends WriterPart
         $i = 1;
         $iterator = $pWorksheet->getDrawingCollection()->getIterator();
         while ($iterator->valid()) {
-            $this->writeDrawing($objWriter, $iterator->current(), $i);
+            /** @var BaseDrawing $pDrawing */
+            $pDrawing = $iterator->current();
+            $pRelationId = $i;
+            $hlinkClickId = $pDrawing->getHyperlink() === null ? null : ++$i;
+
+            $this->writeDrawing($objWriter, $pDrawing, $pRelationId, $hlinkClickId);
 
             $iterator->next();
             ++$i;
@@ -59,6 +64,14 @@ class Drawing extends WriterPart
             }
         }
 
+        // unparsed AlternateContent
+        $unparsedLoadedData = $pWorksheet->getParent()->getUnparsedLoadedData();
+        if (isset($unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['drawingAlternateContents'])) {
+            foreach ($unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['drawingAlternateContents'] as $drawingAlternateContent) {
+                $objWriter->writeRaw($drawingAlternateContent);
+            }
+        }
+
         $objWriter->endElement();
 
         // Return
@@ -71,8 +84,6 @@ class Drawing extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param \PhpOffice\PhpSpreadsheet\Chart\Chart $pChart
      * @param int $pRelationId
-     *
-     * @throws WriterException
      */
     public function writeChart(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Chart\Chart $pChart, $pRelationId = -1)
     {
@@ -144,10 +155,11 @@ class Drawing extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param BaseDrawing $pDrawing
      * @param int $pRelationId
+     * @param null|int $hlinkClickId
      *
      * @throws WriterException
      */
-    public function writeDrawing(XMLWriter $objWriter, BaseDrawing $pDrawing, $pRelationId = -1)
+    public function writeDrawing(XMLWriter $objWriter, BaseDrawing $pDrawing, $pRelationId = -1, $hlinkClickId = null)
     {
         if ($pRelationId >= 0) {
             // xdr:oneCellAnchor
@@ -181,6 +193,10 @@ class Drawing extends WriterPart
             $objWriter->writeAttribute('id', $pRelationId);
             $objWriter->writeAttribute('name', $pDrawing->getName());
             $objWriter->writeAttribute('descr', $pDrawing->getDescription());
+
+            //a:hlinkClick
+            $this->writeHyperLinkDrawing($objWriter, $hlinkClickId);
+
             $objWriter->endElement();
 
             // xdr:cNvPicPr
@@ -423,8 +439,6 @@ class Drawing extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param string $pReference Reference
      * @param HeaderFooterDrawing $pImage Image
-     *
-     * @throws WriterException
      */
     private function writeVMLHeaderFooterImage(XMLWriter $objWriter, $pReference, HeaderFooterDrawing $pImage)
     {
@@ -465,8 +479,6 @@ class Drawing extends WriterPart
      *
      * @param Spreadsheet $spreadsheet
      *
-     * @throws WriterException
-     *
      * @return \PhpOffice\PhpSpreadsheet\Worksheet\Drawing[] All drawings in PhpSpreadsheet
      */
     public function allDrawings(Spreadsheet $spreadsheet)
@@ -487,5 +499,21 @@ class Drawing extends WriterPart
         }
 
         return $aDrawings;
+    }
+
+    /**
+     * @param XMLWriter $objWriter
+     * @param null|int $hlinkClickId
+     */
+    private function writeHyperLinkDrawing(XMLWriter $objWriter, $hlinkClickId)
+    {
+        if ($hlinkClickId === null) {
+            return;
+        }
+
+        $objWriter->startElement('a:hlinkClick');
+        $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+        $objWriter->writeAttribute('r:id', 'rId' . $hlinkClickId);
+        $objWriter->endElement();
     }
 }

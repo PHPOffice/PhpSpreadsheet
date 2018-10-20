@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class MergedCells extends AbstractFunctional
+class MergedCellsTest extends AbstractFunctional
 {
     public function providerFormats()
     {

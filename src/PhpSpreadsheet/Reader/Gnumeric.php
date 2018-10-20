@@ -16,6 +16,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use XMLReader;
 
 class Gnumeric extends BaseReader
@@ -61,11 +62,7 @@ class Gnumeric extends BaseReader
         $data = fread($fh, 2);
         fclose($fh);
 
-        if ($data != chr(0x1F) . chr(0x8B)) {
-            return false;
-        }
-
-        return true;
+        return $data == chr(0x1F) . chr(0x8B);
     }
 
     /**
@@ -73,7 +70,7 @@ class Gnumeric extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
+     * @return array
      */
     public function listWorksheetNames($pFilename)
     {
@@ -102,7 +99,7 @@ class Gnumeric extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
+     * @return array
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -148,12 +145,14 @@ class Gnumeric extends BaseReader
 
     /**
      * @param string $filename
+     *
+     * @return string
      */
     private function gzfileGetContents($filename)
     {
         $file = @gzopen($filename, 'rb');
+        $data = '';
         if ($file !== false) {
-            $data = '';
             while (!gzeof($file)) {
                 $data .= gzread($file, 1024);
             }
@@ -786,7 +785,7 @@ class Gnumeric extends BaseReader
                     continue;
                 }
 
-                $range = explode('!', $range);
+                $range = Worksheet::extractSheetTitle($range, true);
                 $range[0] = trim($range[0], "'");
                 if ($worksheet = $spreadsheet->getSheetByName($range[0])) {
                     $extractedRange = str_replace('$', '', $range[1]);

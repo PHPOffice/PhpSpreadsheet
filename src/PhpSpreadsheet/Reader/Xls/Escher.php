@@ -57,7 +57,7 @@ class Escher
     /**
      * The object to be returned by the reader. Modified during load.
      *
-     * @var mixed
+     * @var BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
      */
     private $object;
 
@@ -75,6 +75,8 @@ class Escher
      * Load Escher stream data. May be a partial Escher stream.
      *
      * @param string $data
+     *
+     * @return BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
      */
     public function load($data)
     {

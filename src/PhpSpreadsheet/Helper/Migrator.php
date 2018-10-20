@@ -5,6 +5,22 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 class Migrator
 {
     /**
+     * @var string[]
+     */
+    private $from;
+
+    /**
+     * @var string[]
+     */
+    private $to;
+
+    public function __construct()
+    {
+        $this->from = array_keys($this->getMapping());
+        $this->to = array_values($this->getMapping());
+    }
+
+    /**
      * Return the ordered mapping from old PHPExcel class names to new PhpSpreadsheet one.
      *
      * @return string[]
@@ -12,7 +28,7 @@ class Migrator
     public function getMapping()
     {
         // Order matters here, we should have the deepest namespaces first (the most "unique" strings)
-        $mapping = [
+        $classes = [
             'PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip' => \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip::class,
             'PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer' => \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer::class,
             'PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE' => \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::class,
@@ -204,8 +220,9 @@ class Migrator
             'PHPExcel_Settings' => \PhpOffice\PhpSpreadsheet\Settings::class,
             'PHPExcel_Style' => \PhpOffice\PhpSpreadsheet\Style\Style::class,
             'PHPExcel_Worksheet' => \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::class,
-            'PHPExcel' => \PhpOffice\PhpSpreadsheet\Spreadsheet::class,
-            // methods
+        ];
+
+        $methods = [
             'MINUTEOFHOUR' => 'MINUTE',
             'SECONDOFMINUTE' => 'SECOND',
             'DAYOFWEEK' => 'WEEKDAY',
@@ -213,7 +230,27 @@ class Migrator
             'ExcelToPHPObject' => 'excelToDateTimeObject',
             'ExcelToPHP' => 'excelToTimestamp',
             'FormattedPHPToExcel' => 'formattedPHPToExcel',
+            'Cell::absoluteCoordinate' => 'Coordinate::absoluteCoordinate',
+            'Cell::absoluteReference' => 'Coordinate::absoluteReference',
+            'Cell::buildRange' => 'Coordinate::buildRange',
+            'Cell::columnIndexFromString' => 'Coordinate::columnIndexFromString',
+            'Cell::coordinateFromString' => 'Coordinate::coordinateFromString',
+            'Cell::extractAllCellReferencesInRange' => 'Coordinate::extractAllCellReferencesInRange',
+            'Cell::getRangeBoundaries' => 'Coordinate::getRangeBoundaries',
+            'Cell::mergeRangesInCollection' => 'Coordinate::mergeRangesInCollection',
+            'Cell::rangeBoundaries' => 'Coordinate::rangeBoundaries',
+            'Cell::rangeDimension' => 'Coordinate::rangeDimension',
+            'Cell::splitRange' => 'Coordinate::splitRange',
+            'Cell::stringFromColumnIndex' => 'Coordinate::stringFromColumnIndex',
         ];
+
+        // Keep '\' prefix for class names
+        $prefixedClasses = [];
+        foreach ($classes as $key => &$value) {
+            $value = str_replace('PhpOffice\\', '\\PhpOffice\\', $value);
+            $prefixedClasses['\\' . $key] = $value;
+        }
+        $mapping = $prefixedClasses + $classes + $methods;
 
         return $mapping;
     }
@@ -227,18 +264,25 @@ class Migrator
     {
         $patterns = [
             '/*.md',
-            '/*.php',
             '/*.txt',
             '/*.TXT',
+            '/*.php',
+            '/*.phpt',
+            '/*.php3',
+            '/*.php4',
+            '/*.php5',
+            '/*.phtml',
         ];
-
-        $from = array_keys($this->getMapping());
-        $to = array_values($this->getMapping());
 
         foreach ($patterns as $pattern) {
             foreach (glob($path . $pattern) as $file) {
+                if (strpos($path, '/vendor/') !== false) {
+                    echo $file . " skipped\n";
+
+                    continue;
+                }
                 $original = file_get_contents($file);
-                $converted = str_replace($from, $to, $original);
+                $converted = $this->replace($original);
 
                 if ($original !== $converted) {
                     echo $file . " converted\n";
@@ -266,5 +310,24 @@ class Migrator
         if ($confirm === 'y') {
             $this->recursiveReplace($path);
         }
+    }
+
+    /**
+     * Migrate the given code from PHPExcel to PhpSpreadsheet.
+     *
+     * @param string $original
+     *
+     * @return string
+     */
+    public function replace($original)
+    {
+        $converted = str_replace($this->from, $this->to, $original);
+
+        // The string "PHPExcel" gets special treatment because of how common it might be.
+        // This regex requires a word boundary around the string, and it can't be
+        // preceded by $ or -> (goal is to filter out cases where a variable is named $PHPExcel or similar)
+        $converted = preg_replace('~(?<!\$|->)(\b|\\\\)PHPExcel\b~', '\\' . \PhpOffice\PhpSpreadsheet\Spreadsheet::class, $converted);
+
+        return $converted;
     }
 }

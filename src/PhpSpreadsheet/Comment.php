@@ -71,8 +71,6 @@ class Comment implements IComparable
 
     /**
      * Create a new Comment.
-     *
-     * @throws Exception
      */
     public function __construct()
     {

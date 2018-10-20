@@ -89,11 +89,8 @@ class AutoFilter
      */
     public function setRange($pRange)
     {
-        // Uppercase coordinate
-        $cellAddress = explode('!', strtoupper($pRange));
-        if (count($cellAddress) > 1) {
-            list($worksheet, $pRange) = $cellAddress;
-        }
+        // extract coordinate
+        list($worksheet, $pRange) = Worksheet::extractSheetTitle($pRange, true);
 
         if (strpos($pRange, ':') !== false) {
             $this->range = $pRange;
@@ -122,8 +119,6 @@ class AutoFilter
 
     /**
      * Get all AutoFilter Columns.
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return AutoFilter\Column[]
      */
@@ -471,6 +466,7 @@ class AutoFilter
      * @var array
      */
     private static $fromReplace = ['\*', '\?', '~~', '~.*', '~.?'];
+
     private static $toReplace = ['.*', '.', '~', '\*', '\?'];
 
     /**
@@ -842,7 +838,7 @@ class AutoFilter
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (is_object($value)) {
-                if ($key == 'workSheet') {
+                if ($key === 'workSheet') {
                     //    Detach from worksheet
                     $this->{$key} = null;
                 } else {

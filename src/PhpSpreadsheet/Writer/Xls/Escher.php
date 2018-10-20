@@ -40,7 +40,6 @@ class Escher
     /**
      * Constructor.
      *
-     * @param mixed
      * @param mixed $object
      */
     public function __construct($object)

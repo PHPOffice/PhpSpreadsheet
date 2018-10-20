@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+
 class Functions
 {
     const PRECISION = 8.88E-016;
@@ -275,7 +277,7 @@ class Functions
 
             return '=' . $condition;
         }
-        preg_match('/([<>=]+)(.*)/', $condition, $matches);
+        preg_match('/(=|<[>=]?|>=?)(.*)/', $condition, $matches);
         list(, $operator, $operand) = $matches;
 
         if (!is_numeric($operand)) {
@@ -353,7 +355,7 @@ class Functions
             return false;
         }
 
-        return in_array($value, array_values(self::$errorCodes));
+        return in_array($value, self::$errorCodes);
     }
 
     /**
@@ -473,8 +475,7 @@ class Functions
      *
      * Returns a value converted to a number
      *
-     * @param value The value you want converted
-     * @param null|mixed $value
+     * @param null|mixed $value The value you want converted
      *
      * @return number N converts values listed in the following table
      *        If value is or refers to N returns
@@ -515,8 +516,7 @@ class Functions
      *
      * Returns a number that identifies the type of a value
      *
-     * @param value The value you want tested
-     * @param null|mixed $value
+     * @param null|mixed $value The value you want tested
      *
      * @return number N converts values listed in the following table
      *        If value is or refers to N returns
@@ -535,7 +535,7 @@ class Functions
             //    Range of cells is an error
             if (self::isCellValue($a)) {
                 return 16;
-                //    Test for Matrix
+            //    Test for Matrix
             } elseif (self::isMatrixValue($a)) {
                 return 64;
             }
@@ -643,5 +643,31 @@ class Functions
         }
 
         return $value;
+    }
+
+    /**
+     * ISFORMULA.
+     *
+     * @param mixed $cellReference The cell to check
+     * @param Cell $pCell The current cell (containing this formula)
+     *
+     * @return bool|string
+     */
+    public static function isFormula($cellReference = '', Cell $pCell = null)
+    {
+        if ($pCell === null) {
+            return self::REF();
+        }
+
+        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
+
+        $cellReference = $matches[6] . $matches[7];
+        $worksheetName = trim($matches[3], "'");
+
+        $worksheet = (!empty($worksheetName))
+            ? $pCell->getWorksheet()->getParent()->getSheetByName($worksheetName)
+            : $pCell->getWorksheet();
+
+        return $worksheet->getCell($cellReference)->isFormula();
     }
 }

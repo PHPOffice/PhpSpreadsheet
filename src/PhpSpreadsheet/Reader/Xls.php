@@ -420,8 +420,6 @@ class Xls extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return bool
      */
     public function canRead($pFilename)
@@ -447,6 +445,8 @@ class Xls extends BaseReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
+     * @return array
      */
     public function listWorksheetNames($pFilename)
     {
@@ -505,6 +505,8 @@ class Xls extends BaseReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
+     * @return array
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -1125,7 +1127,7 @@ class Xls extends BaseReader
                             // TODO: Why is there no BSE Index? Is this a new Office Version? Password protected field?
                             // More likely : a uncompatible picture
                             if (!$BSEindex) {
-                                continue;
+                                continue 2;
                             }
 
                             $BSECollection = $escherWorkbook->getDggContainer()->getBstoreContainer()->getBSECollection();
@@ -1211,7 +1213,7 @@ class Xls extends BaseReader
                             // $range should look like one of these
                             //        Foo!$C$7:$J$66
                             //        Bar!$A$1:$IV$2
-                            $explodes = explode('!', $range); // FIXME: what if sheetname contains exclamation mark?
+                            $explodes = Worksheet::extractSheetTitle($range, true);
                             $sheetName = trim($explodes[0], "'");
                             if (count($explodes) == 2) {
                                 if (strpos($explodes[1], ':') === false) {
@@ -1241,8 +1243,8 @@ class Xls extends BaseReader
                             // $range should look like this one of these
                             //        Sheet!$A$1:$B$65536
                             //        Sheet!$A$1:$IV$2
-                            $explodes = explode('!', $range);
-                            if (count($explodes) == 2) {
+                            if (strpos($range, '!') !== false) {
+                                $explodes = Worksheet::extractSheetTitle($range, true);
                                 if ($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) {
                                     $extractedRange = $explodes[1];
                                     $extractedRange = str_replace('$', '', $extractedRange);
@@ -1268,9 +1270,8 @@ class Xls extends BaseReader
                 }
             } else {
                 // Extract range
-                $explodes = explode('!', $definedName['formula']);
-
-                if (count($explodes) == 2) {
+                if (strpos($definedName['formula'], '!') !== false) {
+                    $explodes = Worksheet::extractSheetTitle($definedName['formula'], true);
                     if (($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) ||
                         ($docSheet = $this->spreadsheet->getSheetByName(trim($explodes[0], "'")))) {
                         $extractedRange = $explodes[1];
@@ -1844,9 +1845,8 @@ class Xls extends BaseReader
     /**
      * Make an RC4 decryptor for the given block.
      *
-     * @param int Block for which to create decrypto
+     * @param int $block Block for which to create decrypto
      * @param string $valContext MD5 context state
-     * @param mixed $block
      *
      * @return Xls\RC4
      */
@@ -1889,7 +1889,8 @@ class Xls extends BaseReader
     {
         $pwarray = str_repeat("\0", 64);
 
-        for ($i = 0; $i < strlen($password); ++$i) {
+        $iMax = strlen($password);
+        for ($i = 0; $i < $iMax; ++$i) {
             $o = ord(substr($password, $i, 1));
             $pwarray[2 * $i] = chr($o & 0xff);
             $pwarray[2 * $i + 1] = chr(($o >> 8) & 0xff);
@@ -2961,7 +2962,7 @@ class Xls extends BaseReader
      *
      * --    "OpenOffice.org's Documentation of the Microsoft
      *         Excel File Format"
-     **/
+     */
     private function readSst()
     {
         // offset within (spliced) record data
@@ -3087,7 +3088,8 @@ class Xls extends BaseReader
                         // 1st fragment compressed
                         // this fragment uncompressed
                         $newstr = '';
-                        for ($j = 0; $j < strlen($retstr); ++$j) {
+                        $jMax = strlen($retstr);
+                        for ($j = 0; $j < $jMax; ++$j) {
                             $newstr .= $retstr[$j] . chr(0);
                         }
                         $retstr = $newstr;
@@ -4546,8 +4548,8 @@ class Xls extends BaseReader
             }
 
             // first column 'A' + last column 'IV' indicates that full row is selected
-            if (preg_match('/^(A[0-9]+\:)IV([0-9]+)$/', $selectedCells)) {
-                $selectedCells = preg_replace('/^(A[0-9]+\:)IV([0-9]+)$/', '${1}XFD${2}', $selectedCells);
+            if (preg_match('/^(A\d+\:)IV(\d+)$/', $selectedCells)) {
+                $selectedCells = preg_replace('/^(A\d+\:)IV(\d+)$/', '${1}XFD${2}', $selectedCells);
             }
 
             $this->phpSheet->setSelectedCells($selectedCells);
@@ -4685,7 +4687,7 @@ class Xls extends BaseReader
                     $offset += 4;
                     // offset: var; size: $us; character array of the URL, no Unicode string header, always 16-bit characters, zero-terminated
                     $url = self::encodeUTF16(substr($recordData, $offset, $us - 2), false);
-                    $nullOffset = strpos($url, 0x00);
+                    $nullOffset = strpos($url, chr(0x00));
                     if ($nullOffset) {
                         $url = substr($url, 0, $nullOffset);
                     }
@@ -5032,6 +5034,7 @@ class Xls extends BaseReader
                 case 0x28:
                     // TODO: Investigate structure for .xls SHEETLAYOUT record as saved by MS Office Excel 2007
                     return;
+
                     break;
             }
         }
@@ -5723,6 +5726,7 @@ class Xls extends BaseReader
                                 break;
                             default:
                                 throw new Exception('Unrecognized space type in tAttrSpace token');
+
                                 break;
                         }
                         // offset: 3; size: 1; number of inserted spaces/carriage returns
@@ -5733,6 +5737,7 @@ class Xls extends BaseReader
                         break;
                     default:
                         throw new Exception('Unrecognized attribute flag in tAttr token');
+
                         break;
                 }
 
@@ -6583,6 +6588,7 @@ class Xls extends BaseReader
                         break;
                     default:
                         throw new Exception('Unrecognized function in formula');
+
                         break;
                 }
                 $data = ['function' => $function, 'args' => $args];
@@ -6952,6 +6958,7 @@ class Xls extends BaseReader
                         break;
                     default:
                         throw new Exception('Unrecognized function in formula');
+
                         break;
                 }
                 $data = ['function' => $function, 'args' => $args];
@@ -7085,6 +7092,7 @@ class Xls extends BaseReader
             // Unknown cases    // don't know how to deal with
             default:
                 throw new Exception('Unrecognized token ' . sprintf('%02X', $id) . ' in formula');
+
                 break;
         }
 
@@ -7498,10 +7506,12 @@ class Xls extends BaseReader
                     }
 
                     return $sheetRange;
+
                     break;
                 default:
                     // TODO: external sheet support
-                    throw new Exception('Xls reader only supports internal sheets in fomulas');
+                    throw new Exception('Xls reader only supports internal sheets in formulas');
+
                     break;
             }
         }
@@ -7511,7 +7521,7 @@ class Xls extends BaseReader
 
     /**
      * read BIFF8 constant value array from array data
-     * returns e.g. array('value' => '{1,2;3,4}', 'size' => 40}
+     * returns e.g. ['value' => '{1,2;3,4}', 'size' => 40]
      * section 2.5.8.
      *
      * @param string $arrayData
@@ -7551,7 +7561,7 @@ class Xls extends BaseReader
     /**
      * read BIFF8 constant value which may be 'Empty Value', 'Number', 'String Value', 'Boolean Value', 'Error Value'
      * section 2.5.7
-     * returns e.g. array('value' => '5', 'size' => 9).
+     * returns e.g. ['value' => '5', 'size' => 9].
      *
      * @param string $valueData
      *
@@ -7803,6 +7813,8 @@ class Xls extends BaseReader
 
     /**
      * @param int $rknum
+     *
+     * @return float
      */
     private static function getIEEE754($rknum)
     {

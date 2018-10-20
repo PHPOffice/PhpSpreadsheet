@@ -234,6 +234,7 @@ class Cell
                 break;
             default:
                 throw new Exception('Invalid datatype: ' . $pDataType);
+
                 break;
         }
 
@@ -307,7 +308,7 @@ class Cell
      *    Get old calculated value (cached)
      *    This returns the value last calculated by MS Excel or whichever spreadsheet program was used to
      *        create the original spreadsheet file.
-     *    Note that this value is not guaranteed to refelect the actual calculated value because it is
+     *    Note that this value is not guaranteed to reflect the actual calculated value because it is
      *        possible that auto-calculation was disabled in the original spreadsheet, and underlying data
      *        values used by the formula have changed since it was last calculated.
      *
@@ -587,7 +588,7 @@ class Cell
      *
      * @return int Result of comparison (always -1 or 1, never zero!)
      */
-    public static function compareCells(Cell $a, Cell $b)
+    public static function compareCells(self $a, self $b)
     {
         if ($a->getRow() < $b->getRow()) {
             return -1;
@@ -618,8 +619,6 @@ class Cell
      * Set value binder to use.
      *
      * @param IValueBinder $binder
-     *
-     * @throws Exception
      */
     public static function setValueBinder(IValueBinder $binder)
     {
@@ -669,6 +668,8 @@ class Cell
      * Set the formula attributes.
      *
      * @param mixed $pAttributes
+     *
+     * @return Cell
      */
     public function setFormulaAttributes($pAttributes)
     {

@@ -25,24 +25,24 @@ foreach ($customPropertyList as $customPropertyName) {
 
     // Manipulate properties as appropriate for display purposes
     switch ($propertyType) {
-        case 'i':    //	integer
+        case 'i':    // integer
             $propertyType = 'integer number';
 
             break;
-        case 'f':    //	float
+        case 'f':    // float
             $propertyType = 'floating point number';
 
             break;
-        case 's':    //	string
+        case 's':    // string
             $propertyType = 'string';
 
             break;
-        case 'd':    //	date
+        case 'd':    // date
             $propertyValue = date('l, d<\s\up>S</\s\up> F Y g:i A', $propertyValue);
             $propertyType = 'date';
 
             break;
-        case 'b':    //	boolean
+        case 'b':    // boolean
             $propertyValue = ($propertyValue) ? 'TRUE' : 'FALSE';
             $propertyType = 'boolean';
 

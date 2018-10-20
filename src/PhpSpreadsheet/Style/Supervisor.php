@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 abstract class Supervisor implements IComparable
 {
@@ -16,7 +18,7 @@ abstract class Supervisor implements IComparable
     /**
      * Parent. Only used for supervisor.
      *
-     * @var Style
+     * @var Spreadsheet|Style
      */
     protected $parent;
 
@@ -43,7 +45,7 @@ abstract class Supervisor implements IComparable
     /**
      * Bind parent. Only used for supervisor.
      *
-     * @param Style $parent
+     * @param Spreadsheet|Style $parent
      * @param null|string $parentPropertyName
      *
      * @return Supervisor

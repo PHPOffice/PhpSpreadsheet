@@ -7,8 +7,8 @@ $spreadsheet = require __DIR__ . '/../templates/sampleSpreadsheet.php';
 
 $helper->log('Write to CSV format');
 $writer = IOFactory::createWriter($spreadsheet, 'Csv')->setDelimiter(',')
-        ->setEnclosure('"')
-        ->setSheetIndex(0);
+    ->setEnclosure('"')
+    ->setSheetIndex(0);
 
 $callStartTime = microtime(true);
 $filename = $helper->getTemporaryFilename('csv');
@@ -18,8 +18,8 @@ $helper->logWrite($writer, $filename, $callStartTime);
 $helper->log('Read from CSV format');
 
 $reader = IOFactory::createReader('Csv')->setDelimiter(',')
-        ->setEnclosure('"')
-        ->setSheetIndex(0);
+    ->setEnclosure('"')
+    ->setSheetIndex(0);
 
 $callStartTime = microtime(true);
 $spreadsheetFromCSV = $reader->load($filename);

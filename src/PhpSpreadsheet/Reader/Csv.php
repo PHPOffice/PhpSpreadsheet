@@ -51,6 +51,13 @@ class Csv extends BaseReader
     private $contiguousRow = -1;
 
     /**
+     * The character that can escape the enclosure.
+     *
+     * @var string
+     */
+    private $escapeCharacter = '\\';
+
+    /**
      * Create a new CSV Reader instance.
      */
     public function __construct()
@@ -62,6 +69,8 @@ class Csv extends BaseReader
      * Set input encoding.
      *
      * @param string $pValue Input encoding, eg: 'UTF-8'
+     *
+     * @return Csv
      */
     public function setInputEncoding($pValue)
     {
@@ -155,6 +164,10 @@ class Csv extends BaseReader
         // Count how many times each of the potential delimiters appears in each line
         $numberLines = 0;
         while (($line = fgets($this->fileHandle)) !== false && (++$numberLines < 1000)) {
+            // Drop everything that is enclosed to avoid counting false positives in enclosures
+            $enclosure = preg_quote($this->enclosure, '/');
+            $line = preg_replace('/(' . $enclosure . '.*' . $enclosure . ')/U', '', $line);
+
             $countLine = [];
             for ($i = strlen($line) - 1; $i >= 0; --$i) {
                 $char = $line[$i];
@@ -223,6 +236,8 @@ class Csv extends BaseReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
+     * @return array
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -246,7 +261,7 @@ class Csv extends BaseReader
         $worksheetInfo[0]['totalColumns'] = 0;
 
         // Loop through each line of the file in turn
-        while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure)) !== false) {
+        while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure, $this->escapeCharacter)) !== false) {
             ++$worksheetInfo[0]['totalRows'];
             $worksheetInfo[0]['lastColumnIndex'] = max($worksheetInfo[0]['lastColumnIndex'], count($rowData) - 1);
         }
@@ -318,7 +333,7 @@ class Csv extends BaseReader
         }
 
         // Loop through each line of the file in turn
-        while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure)) !== false) {
+        while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure, $this->escapeCharacter)) !== false) {
             $columnLetter = 'A';
             foreach ($rowData as $rowDatum) {
                 if ($rowDatum != '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
@@ -427,6 +442,8 @@ class Csv extends BaseReader
      * Set Contiguous.
      *
      * @param bool $contiguous
+     *
+     * @return Csv
      */
     public function setContiguous($contiguous)
     {
@@ -449,11 +466,33 @@ class Csv extends BaseReader
     }
 
     /**
+     * Set escape backslashes.
+     *
+     * @param string $escapeCharacter
+     *
+     * @return $this
+     */
+    public function setEscapeCharacter($escapeCharacter)
+    {
+        $this->escapeCharacter = $escapeCharacter;
+
+        return $this;
+    }
+
+    /**
+     * Get escape backslashes.
+     *
+     * @return string
+     */
+    public function getEscapeCharacter()
+    {
+        return $this->escapeCharacter;
+    }
+
+    /**
      * Can the current IReader read the file?
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      *
      * @return bool
      */
@@ -468,6 +507,19 @@ class Csv extends BaseReader
 
         fclose($this->fileHandle);
 
-        return true;
+        // Trust file extension if any
+        if (strtolower(pathinfo($pFilename, PATHINFO_EXTENSION)) === 'csv') {
+            return true;
+        }
+
+        // Attempt to guess mimetype
+        $type = mime_content_type($pFilename);
+        $supportedTypes = [
+            'text/csv',
+            'text/plain',
+            'inode/x-empty',
+        ];
+
+        return in_array($type, $supportedTypes, true);
     }
 }

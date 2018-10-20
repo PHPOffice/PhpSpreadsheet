@@ -4,15 +4,17 @@
 
 XML-based formats such as OfficeOpen XML, Excel2003 XML, OASIS and
 Gnumeric are susceptible to XML External Entity Processing (XXE)
-injection attacks (for an explanation of XXE injection see
-http://websec.io/2012/08/27/Preventing-XEE-in-PHP.html) when reading
-spreadsheet files. This can lead to:
+injection attacks when reading spreadsheet files. This can lead to:
 
 -   Disclosure whether a file is existent
 -   Server Side Request Forgery
 -   Command Execution (depending on the installed PHP wrappers)
 
-To prevent this, by default every XML-based Reader looks for XML entities declared inside the DOCTYPE and if any is found an exception is raised.
+To prevent this, by default every XML-based Reader looks for XML
+entities declared inside the DOCTYPE and if any is found an exception
+is raised.
+
+Read more [about of XXE injection](https://websec.io/2012/08/27/Preventing-XXE-in-PHP.html).
 
 ## Loading a Spreadsheet File
 
@@ -98,9 +100,9 @@ $spreadsheet = $reader->load($inputFileName);
 See `samples/Reader/03_Simple_file_reader_using_the_IOFactory_to_return_a_reader.php`
 for a working example of this code.
 
-If you're uncertain of the filetype, you can use the IO Factory's
-identify() method to identify the reader that you need, before using the
-createReader() method to instantiate the reader object.
+If you're uncertain of the filetype, you can use the `IOFactory::identify()`
+method to identify the reader that you need, before using the
+`createReader()` method to instantiate the reader object.
 
 ``` php
 $inputFileName = './sampleData/example1.xls';
@@ -127,7 +129,7 @@ executing the `load()` method.
 If you're only interested in the cell values in a workbook, but don't
 need any of the cell formatting information, then you can set the reader
 to read only the data values and any formulae from each cell using the
-setReadDataOnly() method.
+`setReadDataOnly()` method.
 
 ``` php
 $inputFileType = 'Xls';
@@ -168,7 +170,7 @@ CSV       | NO  | HTML   | NO
 
 If your workbook contains a number of worksheets, but you are only
 interested in reading some of those, then you can use the
-setLoadSheetsOnly() method to identify those sheets you are interested
+`setLoadSheetsOnly()` method to identify those sheets you are interested
 in reading.
 
 To read a single sheet, you can pass that sheet name as a parameter to
@@ -196,7 +198,7 @@ of sheet names as an array parameter to the `setLoadSheetsOnly()` method.
 ``` php
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
-$sheetnames = array('Data Sheet #1','Data Sheet #3');
+$sheetnames = ['Data Sheet #1','Data Sheet #3'];
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
@@ -240,8 +242,8 @@ CSV       | NO  | HTML   | NO
 If you are only interested in reading part of a worksheet, then you can
 write a filter class that identifies whether or not individual cells
 should be read by the loader. A read filter must implement the
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter interface, and contain a
-readCell() method that accepts arguments of `$column`, `$row` and
+`\PhpOffice\PhpSpreadsheet\Reader\IReadFilter` interface, and contain a
+`readCell()` method that accepts arguments of `$column`, `$row` and
 `$worksheetName`, and return a boolean true or false that indicates
 whether a workbook cell identified by those arguments should be read or
 not.
@@ -250,7 +252,6 @@ not.
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #3';
-
 
 /**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
@@ -291,7 +292,7 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
     private $startRow = 0;
     private $endRow   = 0;
-    private $columns  = array();
+    private $columns  = [];
 
     /**  Get the list of rows and columns to read  */
     public function __construct($startRow, $endRow, $columns) {
@@ -327,7 +328,6 @@ database.
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
 
-
 /**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
 class ChunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
@@ -349,10 +349,8 @@ class ChunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
     }
 }
 
-
 /**  Create a new Reader of the type defined in $inputFileType  **/
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-
 
 /**  Define how many rows we want to read for each "chunk"  **/
 $chunkSize = 2048;
@@ -397,14 +395,14 @@ the file into that worksheet.
 
 ``` php
 $inputFileType = 'Csv';
-$inputFileNames = array('./sampleData/example1.csv',
+$inputFileNames = [
+    './sampleData/example1.csv',
     './sampleData/example2.csv'
     './sampleData/example3.csv'
-);
+];
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-
 
 /**  Extract the first named file from the array list  **/
 $inputFileName = array_shift($inputFileNames);
@@ -413,7 +411,6 @@ $spreadsheet = $reader->load($inputFileName);
 /**  Set the worksheet title (to the filename that we've loaded)  **/
 $spreadsheet->getActiveSheet()
     ->setTitle(pathinfo($inputFileName,PATHINFO_BASENAME));
-
 
 /**  Loop through all the remaining files in the list  **/
 foreach($inputFileNames as $sheet => $inputFileName) {
@@ -442,7 +439,7 @@ Xlsx      | NO  | Xls    | NO  | Xml | NO  |
 Ods       | NO  | SYLK   | YES | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
-### Combining Read Filters with the setSheetIndex() method to split a large CSV file across multiple Worksheets
+### Combining Read Filters with the `setSheetIndex()` method to split a large CSV file across multiple Worksheets
 
 An Xls BIFF .xls file is limited to 65536 rows in a worksheet, while the
 Xlsx Microsoft Office Open XML SpreadsheetML .xlsx file is limited to
@@ -459,11 +456,9 @@ file across several individual worksheets.
 $inputFileType = 'Csv';
 $inputFileName = './sampleData/example2.csv';
 
-
 echo 'Loading file ',pathinfo($inputFileName,PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 /**  Create a new Reader of the type defined in $inputFileType  **/
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-
 
 /**  Define how many rows we want to read for each "chunk"  **/
 $chunkSize = 65530;
@@ -566,16 +561,16 @@ CSV       | YES | HTML   | NO
 When loading data from a file that contains no formatting information,
 such as a CSV file, then data is read either as strings or numbers
 (float or integer). This means that PhpSpreadsheet does not
-automatically recognise dates/times (such as "16-Apr-2009" or "13:30"),
-booleans ("TRUE" or "FALSE"), percentages ("75%"), hyperlinks
-("http://www.phpexcel.net"), etc as anything other than simple strings.
+automatically recognise dates/times (such as `16-Apr-2009` or `13:30`),
+booleans (`true` or `false`), percentages (`75%`), hyperlinks
+(`https://www.example.com`), etc as anything other than simple strings.
 However, you can apply additional processing that is executed against
 these values during the load process within a Value Binder.
 
 A Value Binder is a class that implement the
-\PhpOffice\PhpSpreadsheet\Cell\IValueBinder interface. It must contain a
-bindValue() method that accepts a `\PhpOffice\PhpSpreadsheet\Cell\Cell` and a
-value as arguments, and return a boolean true or false that indicates
+`\PhpOffice\PhpSpreadsheet\Cell\IValueBinder` interface. It must contain a
+`bindValue()` method that accepts a `\PhpOffice\PhpSpreadsheet\Cell\Cell` and a
+value as arguments, and return a boolean `true` or `false` that indicates
 whether the workbook cell has been populated with the value or not. The
 Advanced Value Binder implements such a class: amongst other tests, it
 identifies a string comprising "TRUE" or "FALSE" (based on locale
@@ -622,7 +617,7 @@ any problems that are encountered, and deal with them in an appropriate
 manner.
 
 The PhpSpreadsheet Readers throw a
-\PhpOffice\PhpSpreadsheet\Reader\Exception.
+`\PhpOffice\PhpSpreadsheet\Reader\Exception`.
 
 ``` php
 $inputFileName = './sampleData/example-1.xls';

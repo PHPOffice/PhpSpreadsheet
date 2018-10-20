@@ -51,8 +51,6 @@ class Slk extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return bool
      */
     public function canRead($pFilename)
@@ -84,6 +82,8 @@ class Slk extends BaseReader
      * Set input encoding.
      *
      * @param string $pValue Input encoding, eg: 'ANSI'
+     *
+     * @return Slk
      */
     public function setInputEncoding($pValue)
     {
@@ -108,6 +108,8 @@ class Slk extends BaseReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
+     * @return array
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -250,7 +252,8 @@ class Slk extends BaseReader
                             break;
                         case 'S':
                             $styleSettings = substr($rowDatum, 1);
-                            for ($i = 0; $i < strlen($styleSettings); ++$i) {
+                            $iMax = strlen($styleSettings);
+                            for ($i = 0; $i < $iMax; ++$i) {
                                 switch ($styleSettings[$i]) {
                                     case 'I':
                                         $formatArray['font']['italic'] = true;
@@ -283,7 +286,7 @@ class Slk extends BaseReader
                     }
                 }
                 $this->formats['P' . $this->format++] = $formatArray;
-                //    Read cell value data
+            //    Read cell value data
             } elseif ($dataType == 'C') {
                 $hasCalculatedValue = false;
                 $cellData = $cellDataFormula = '';
@@ -386,7 +389,8 @@ class Slk extends BaseReader
                             break;
                         case 'S':
                             $styleSettings = substr($rowDatum, 1);
-                            for ($i = 0; $i < strlen($styleSettings); ++$i) {
+                            $iMax = strlen($styleSettings);
+                            for ($i = 0; $i < $iMax; ++$i) {
                                 switch ($styleSettings[$i]) {
                                     case 'I':
                                         $styleData['font']['italic'] = true;

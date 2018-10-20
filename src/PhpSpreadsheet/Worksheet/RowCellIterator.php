@@ -53,14 +53,6 @@ class RowCellIterator extends CellIterator
     }
 
     /**
-     * Destructor.
-     */
-    public function __destruct()
-    {
-        unset($this->worksheet);
-    }
-
-    /**
      * (Re)Set the start column and the current column pointer.
      *
      * @param string $startColumn The column address at which to start iterating
@@ -163,9 +155,6 @@ class RowCellIterator extends CellIterator
      */
     public function prev()
     {
-        if ($this->currentColumnIndex <= $this->startColumnIndex) {
-            throw new PhpSpreadsheetException('Column is already at the beginning of range (' . Coordinate::stringFromColumnIndex($this->endColumnIndex) . ' - ' . Coordinate::stringFromColumnIndex($this->endColumnIndex) . ')');
-        }
         do {
             --$this->currentColumnIndex;
         } while (($this->onlyExistingCells) && (!$this->worksheet->cellExistsByColumnAndRow($this->currentColumnIndex, $this->rowIndex)) && ($this->currentColumnIndex >= $this->startColumnIndex));
@@ -178,7 +167,7 @@ class RowCellIterator extends CellIterator
      */
     public function valid()
     {
-        return $this->currentColumnIndex <= $this->endColumnIndex;
+        return $this->currentColumnIndex <= $this->endColumnIndex && $this->currentColumnIndex >= $this->startColumnIndex;
     }
 
     /**

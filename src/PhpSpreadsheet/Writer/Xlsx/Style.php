@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -151,8 +152,6 @@ class Style extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param Fill $pFill Fill style
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeFill(XMLWriter $objWriter, Fill $pFill)
     {
@@ -172,8 +171,6 @@ class Style extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param Fill $pFill Fill style
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeGradientFill(XMLWriter $objWriter, Fill $pFill)
     {
@@ -217,8 +214,6 @@ class Style extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param Fill $pFill Fill style
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writePatternFill(XMLWriter $objWriter, Fill $pFill)
     {
@@ -256,8 +251,6 @@ class Style extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param Font $pFont Font style
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeFont(XMLWriter $objWriter, Font $pFont)
     {
@@ -337,8 +330,6 @@ class Style extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param Borders $pBorders Borders style
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeBorder(XMLWriter $objWriter, Borders $pBorders)
     {
@@ -454,8 +445,6 @@ class Style extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param \PhpOffice\PhpSpreadsheet\Style\Style $pStyle Style
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeCellStyleDxf(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style\Style $pStyle)
     {
@@ -520,8 +509,6 @@ class Style extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param string $pName Element name
      * @param Border $pBorder Border style
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeBorderPr(XMLWriter $objWriter, $pName, Border $pBorder)
     {
@@ -545,8 +532,6 @@ class Style extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param NumberFormat $pNumberFormat Number Format
      * @param int $pId Number Format identifier
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeNumFmt(XMLWriter $objWriter, NumberFormat $pNumberFormat, $pId = 0)
     {
@@ -567,8 +552,6 @@ class Style extends WriterPart
      *
      * @param Spreadsheet $spreadsheet
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @return \PhpOffice\PhpSpreadsheet\Style\Style[] All styles in PhpSpreadsheet
      */
     public function allStyles(Spreadsheet $spreadsheet)
@@ -580,8 +563,6 @@ class Style extends WriterPart
      * Get an array of all conditional styles.
      *
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return Conditional[] All conditional styles in PhpSpreadsheet
      */
@@ -606,8 +587,6 @@ class Style extends WriterPart
      * Get an array of all fills.
      *
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return Fill[] All fills in PhpSpreadsheet
      */
@@ -641,8 +620,6 @@ class Style extends WriterPart
      *
      * @param Spreadsheet $spreadsheet
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @return Font[] All fonts in PhpSpreadsheet
      */
     public function allFonts(Spreadsheet $spreadsheet)
@@ -666,8 +643,6 @@ class Style extends WriterPart
      *
      * @param Spreadsheet $spreadsheet
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @return Borders[] All borders in PhpSpreadsheet
      */
     public function allBorders(Spreadsheet $spreadsheet)
@@ -690,8 +665,6 @@ class Style extends WriterPart
      * Get an array of all number formats.
      *
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return NumberFormat[] All number formats in PhpSpreadsheet
      */

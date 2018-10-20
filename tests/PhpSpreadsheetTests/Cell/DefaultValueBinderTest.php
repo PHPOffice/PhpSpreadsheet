@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use DateTime;
+use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
@@ -11,9 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultValueBinderTest extends TestCase
 {
-    protected $cellStub;
+    private $cellStub;
 
-    protected function createCellStub()
+    private function createCellStub()
     {
         // Create a stub for the Cell class.
         $this->cellStub = $this->getMockBuilder(Cell::class)
@@ -53,6 +54,7 @@ class DefaultValueBinderTest extends TestCase
             ['-123.456'],
             ['#REF!'],
             [new DateTime()],
+            [new DateTimeImmutable()],
         ];
     }
 

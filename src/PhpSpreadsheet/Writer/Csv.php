@@ -309,8 +309,6 @@ class Csv extends BaseWriter
      *
      * @param resource $pFileHandle PHP filehandle
      * @param array $pValues Array containing values in a row
-     *
-     * @throws Exception
      */
     private function writeLine($pFileHandle, array $pValues)
     {

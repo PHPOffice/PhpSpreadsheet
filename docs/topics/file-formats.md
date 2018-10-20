@@ -11,21 +11,18 @@ Currently, PhpSpreadsheet supports the following File Types for Reading:
 ### Xls
 
 The Microsoft Excel™ Binary file format (BIFF5 and BIFF8) is a binary
-file format that was used by Microsoft Excel™ between versions 95 and
-2003. The format is supported (to various extents) by most spreadsheet
+file format that was used by Microsoft Excel™ between versions 95 and 2003.
+The format is supported (to various extents) by most spreadsheet
 programs. BIFF files normally have an extension of .xls. Documentation
-describing the format can be found online at
-<http://msdn.microsoft.com/en-us/library/cc313154(v=office.12).aspx> or
-from [as a downloadable
-PDF](http://download.microsoft.com/download/2/4/8/24862317-78F0-4C4B-B355-C7B2C1D997DB/%5BMS-XLS%5D.pdf).
+describing the format can be [read online](https://msdn.microsoft.com/en-us/library/cc313154(v=office.12).aspx)
+or [downloaded as PDF](http://download.microsoft.com/download/2/4/8/24862317-78F0-4C4B-B355-C7B2C1D997DB/%5BMS-XLS%5D.pdf).
 
 ### Xml
 
 Microsoft Excel™ 2003 included options for a file format called
 SpreadsheetML. This file is a zipped XML document. It is not very
 common, but its core features are supported. Documentation for the
-format can be found at
-<http://msdn.microsoft.com/en-us/library/aa140066%28office.10%29.aspx>
+format can be [read online](https://msdn.microsoft.com/en-us/library/aa140066(office.10).aspx)
 though it’s sadly rather sparse in its detail.
 
 ### Xlsx
@@ -35,23 +32,21 @@ Office Open XML SpreadsheetML, and Excel 2010 extended this still
 further with its new features such as sparklines. These files typically
 have an extension of .xlsx. This format is based around a zipped
 collection of eXtensible Markup Language (XML) files. Microsoft Office
-Open XML SpreadsheetML is mostly standardized in ECMA 376
-(<http://www.ecma-international.org/news/TC45_current_work/TC45_available_docs.htm>)
+Open XML SpreadsheetML is mostly standardized in [ECMA 376](http://www.ecma-international.org/news/TC45_current_work/TC45_available_docs.htm)
 and ISO 29500.
 
 ### Ods
 
 aka Open Document Format (ODF) or OASIS, this is the OpenOffice.org XML
-File Format for spreadsheets. It comprises a zip archive including
+file format for spreadsheets. It comprises a zip archive including
 several components all of which are text files, most of these with
 markup in the eXtensible Markup Language (XML). It is the standard file
 format for OpenOffice.org Calc and StarCalc, and files typically have an
 extension of .ods. The published specification for the file format is
-available from the OASIS Open Office XML Format Technical Committee web
-page
-(<http://www.oasis-open.org/committees/tc_home.php?wg_abbrev=office#technical>).
-Other information is available from the OpenOffice.org XML File Format
-web page (<http://xml.openoffice.org/general.html>), part of the
+available from [the OASIS Open Office XML Format Technical Committee web
+page](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=office).
+Other information is available from [the OpenOffice.org XML File Format
+web page](http://www.openoffice.org/xml/), part of the
 OpenOffice.org project.
 
 ### Slk
@@ -66,12 +61,12 @@ options (unlike CSV files).
 
 ### Gnumeric
 
-The Gnumeric file format is used by the Gnome Gnumeric spreadsheet
-application, and typically files have an extension of .gnumeric. The
+The [Gnumeric file format](https://help.gnome.org/users/gnumeric/stable/sect-file-formats.html.en#file-format-gnumeric)
+is used by the Gnome Gnumeric spreadsheet
+application, and typically files have an extension of `.gnumeric`. The
 file contents are stored using eXtensible Markup Language (XML) markup,
 and the file is then compressed using the GNU project's gzip compression
 library.
-<http://projects.gnome.org/gnumeric/doc/file-format-gnumeric.shtml>
 
 ### Csv
 

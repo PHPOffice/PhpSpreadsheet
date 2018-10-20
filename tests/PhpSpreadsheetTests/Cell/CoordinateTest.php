@@ -239,11 +239,10 @@ class CoordinateTest extends TestCase
         return require 'data/CellBuildRange.php';
     }
 
-    /**
-     * @expectedException \TypeError
-     */
     public function testBuildRangeInvalid()
     {
+        $this->expectException(\TypeError::class);
+
         if (PHP_MAJOR_VERSION < 7) {
             $this->markTestSkipped('Cannot catch type hinting error with PHP 5.6');
         }
@@ -317,6 +316,24 @@ class CoordinateTest extends TestCase
     }
 
     /**
+     * @dataProvider providerInvalidRange
+     *
+     * @param string $range
+     */
+    public function testExtractAllCellReferencesInRangeInvalidRange($range)
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid range: "' . $range . '"');
+
+        Coordinate::extractAllCellReferencesInRange($range);
+    }
+
+    public function providerInvalidRange()
+    {
+        return [['Z1:A1'], ['A4:A1'], ['B1:A1'], ['AA1:Z1']];
+    }
+
+    /**
      * @dataProvider providerMergeRangesInCollection
      *
      * @param mixed $expectedResult
@@ -330,5 +347,21 @@ class CoordinateTest extends TestCase
     public function providerMergeRangesInCollection()
     {
         return require 'data/CellMergeRangesInCollection.php';
+    }
+
+    /**
+     * @dataProvider providerCoordinateIsRange
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCoordinateIsRange($expectedResult, ...$args)
+    {
+        $result = Coordinate::coordinateIsRange(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerCoordinateIsRange()
+    {
+        return require 'data/CoordinateIsRange.php';
     }
 }

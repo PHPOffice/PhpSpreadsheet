@@ -63,14 +63,4 @@ class File extends PPS
     {
         $this->_data .= $data;
     }
-
-    /**
-     * Returns a stream for reading this file using fread() etc.
-     *
-     * @return resource a read-only stream
-     */
-    public function getStream()
-    {
-        $this->ole->getStream($this);
-    }
 }

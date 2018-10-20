@@ -67,6 +67,13 @@ class DataSeriesValues
     private $fillColor;
 
     /**
+     * Line Width.
+     *
+     * @var int
+     */
+    private $lineWidth = 12700;
+
+    /**
      * Create a new DataSeriesValues object.
      *
      * @param string $dataType
@@ -232,6 +239,31 @@ class DataSeriesValues
     }
 
     /**
+     * Get line width for series.
+     *
+     * @return int
+     */
+    public function getLineWidth()
+    {
+        return $this->lineWidth;
+    }
+
+    /**
+     * Set line width for the series.
+     *
+     * @param int $width
+     *
+     * @return DataSeriesValues
+     */
+    public function setLineWidth($width)
+    {
+        $minWidth = 12700;
+        $this->lineWidth = max($minWidth, $width);
+
+        return $this;
+    }
+
+    /**
      * Identify if the Data Series is a multi-level or a simple series.
      *
      * @return null|bool
@@ -322,11 +354,7 @@ class DataSeriesValues
                 }
                 unset($dataValue);
             } else {
-                $cellRange = explode('!', $this->dataSource);
-                if (count($cellRange) > 1) {
-                    list(, $cellRange) = $cellRange;
-                }
-
+                list($worksheet, $cellRange) = Worksheet::extractSheetTitle($this->dataSource, true);
                 $dimensions = Coordinate::rangeDimension(str_replace('$', '', $cellRange));
                 if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
                     $this->dataValues = Functions::flattenArray($newDataValues);

@@ -80,8 +80,7 @@ class BSE
     /**
      * Set the BLIP type.
      *
-     * @param int
-     * @param mixed $blipType
+     * @param int $blipType
      */
     public function setBlipType($blipType)
     {

@@ -8,7 +8,9 @@ use PHPUnit\Framework\TestCase;
 class ColumnTest extends TestCase
 {
     private $testInitialColumn = 'H';
+
     private $testAutoFilterColumnObject;
+
     private $mockAutoFilterObject;
 
     public function setUp()
@@ -70,11 +72,10 @@ class ColumnTest extends TestCase
         self::assertEquals(AutoFilter\Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER, $result);
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testSetInvalidFilterTypeThrowsException()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         $expectedResult = 'Unfiltered';
 
         $this->testAutoFilterColumnObject->setFilterType($expectedResult);
@@ -95,11 +96,10 @@ class ColumnTest extends TestCase
         self::assertEquals(AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND, $result);
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testSetInvalidJoinThrowsException()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         $expectedResult = 'Neither';
 
         $this->testAutoFilterColumnObject->setJoin($expectedResult);

@@ -9,7 +9,7 @@ class LogarithmicBestFit extends BestFit
      * (Name of this Trend class).
      *
      * @var string
-     **/
+     */
     protected $bestFitType = 'logarithmic';
 
     /**
@@ -18,7 +18,7 @@ class LogarithmicBestFit extends BestFit
      * @param float $xValue X-Value
      *
      * @return float Y-Value
-     **/
+     */
     public function getValueOfYForX($xValue)
     {
         return $this->getIntersect() + $this->getSlope() * log($xValue - $this->xOffset);
@@ -30,7 +30,7 @@ class LogarithmicBestFit extends BestFit
      * @param float $yValue Y-Value
      *
      * @return float X-Value
-     **/
+     */
     public function getValueOfXForY($yValue)
     {
         return exp(($yValue - $this->getIntersect()) / $this->getSlope());
@@ -42,7 +42,7 @@ class LogarithmicBestFit extends BestFit
      * @param int $dp Number of places of decimal precision to display
      *
      * @return string
-     **/
+     */
     public function getEquation($dp = 0)
     {
         $slope = $this->getSlope($dp);

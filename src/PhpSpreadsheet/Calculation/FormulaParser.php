@@ -2,28 +2,28 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-/*
-PARTLY BASED ON:
-    Copyright (c) 2007 E. W. Bachtal, Inc.
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software
-    and associated documentation files (the "Software"), to deal in the Software without restriction,
-    including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
-    and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
-    subject to the following conditions:
-
-      The above copyright notice and this permission notice shall be included in all copies or substantial
-      portions of the Software.
-
-    The software is provided "as is", without warranty of any kind, express or implied, including but not
-    limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In
-    no event shall the authors or copyright holders be liable for any claim, damages or other liability,
-    whether in an action of contract, tort or otherwise, arising from, out of or in connection with the
-    software or the use or other dealings in the software.
-
-    http://ewbi.blogs.com/develops/2007/03/excel_formula_p.html
-    http://ewbi.blogs.com/develops/2004/12/excel_formula_p.html
-*/
+/**
+ * PARTLY BASED ON:
+ * Copyright (c) 2007 E. W. Bachtal, Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * The software is provided "as is", without warranty of any kind, express or implied, including but not
+ * limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In
+ * no event shall the authors or copyright holders be liable for any claim, damages or other liability,
+ * whether in an action of contract, tort or otherwise, arising from, out of or in connection with the
+ * software or the use or other dealings in the software.
+ *
+ * http://ewbi.blogs.com/develops/2007/03/excel_formula_p.html
+ * http://ewbi.blogs.com/develops/2004/12/excel_formula_p.html
+ */
 class FormulaParser
 {
     // Character constants
@@ -224,7 +224,7 @@ class FormulaParser
             // scientific notation check
             if (strpos(self::OPERATORS_SN, $this->formula[$index]) !== false) {
                 if (strlen($value) > 1) {
-                    if (preg_match("/^[1-9]{1}(\.[0-9]+)?E{1}$/", $this->formula[$index]) != 0) {
+                    if (preg_match('/^[1-9]{1}(\\.\\d+)?E{1}$/', $this->formula[$index]) != 0) {
                         $value .= $this->formula[$index];
                         ++$index;
 
@@ -495,10 +495,10 @@ class FormulaParser
             }
 
             if (!(
-                    (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION) && ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
-                    (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_SUBEXPRESSION) && ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
-                    ($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND)
-                    )) {
+                (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION) && ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
+                (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_SUBEXPRESSION) && ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
+                ($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND)
+            )) {
                 continue;
             }
 
@@ -507,10 +507,10 @@ class FormulaParser
             }
 
             if (!(
-                    (($nextToken->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION) && ($nextToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_START)) ||
-                    (($nextToken->getTokenType() == FormulaToken::TOKEN_TYPE_SUBEXPRESSION) && ($nextToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_START)) ||
-                    ($nextToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND)
-                    )) {
+                (($nextToken->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION) && ($nextToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_START)) ||
+                (($nextToken->getTokenType() == FormulaToken::TOKEN_TYPE_SUBEXPRESSION) && ($nextToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_START)) ||
+                ($nextToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND)
+            )) {
                 continue;
             }
 
@@ -543,9 +543,9 @@ class FormulaParser
                 if ($i == 0) {
                     $token->setTokenType(FormulaToken::TOKEN_TYPE_OPERATORPREFIX);
                 } elseif ((($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION) &&
-                    ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
+                        ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
                     (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_SUBEXPRESSION) &&
-                    ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
+                        ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
                     ($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERATORPOSTFIX) ||
                     ($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND)) {
                     $token->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_MATH);
@@ -562,9 +562,9 @@ class FormulaParser
                 if ($i == 0) {
                     continue;
                 } elseif ((($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION) &&
-                    ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
+                        ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
                     (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_SUBEXPRESSION) &&
-                    ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
+                        ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP)) ||
                     ($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERATORPOSTFIX) ||
                     ($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND)) {
                     $token->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_MATH);

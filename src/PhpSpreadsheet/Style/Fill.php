@@ -121,20 +121,21 @@ class Fill extends Supervisor
 
     /**
      * Apply styles from array.
+     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFill()->applyFromArray(
-     *        array(
-     *            'fillType'       => Fill::FILL_GRADIENT_LINEAR,
-     *            'rotation'   => 0,
-     *            'startColor' => array(
-     *                'rgb' => '000000'
-     *            ),
-     *            'endColor'   => array(
-     *                'argb' => 'FFFFFFFF'
-     *            )
-     *        )
+     *     [
+     *         'fillType' => Fill::FILL_GRADIENT_LINEAR,
+     *         'rotation' => 0,
+     *         'startColor' => [
+     *             'rgb' => '000000'
+     *         ],
+     *         'endColor' => [
+     *             'argb' => 'FFFFFFFF'
+     *         ]
+     *     ]
      * );
-     * </code>.
+     * </code>
      *
      * @param array $pStyles Array containing style information
      *

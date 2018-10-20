@@ -43,14 +43,13 @@ usage of PhpSpreadsheet.
 ## Common use cases
 
 PhpSpreadsheet does not ship with alternative cache implementation. It is up to
-you to select the most appropriate implementation for your environnement. You
+you to select the most appropriate implementation for your environment. You
 can either implement [PSR-16](http://www.php-fig.org/psr/psr-16/) from scratch,
 or use [pre-existing libraries](https://packagist.org/search/?q=psr-16).
 
-One such library is [PHP Cache](http://www.php-cache.com/) which
+One such library is [PHP Cache](https://www.php-cache.com/) which
 provides a wide range of alternatives. Refers to their documentation for
 details, but here are a few suggestions that should get you started.
-
 
 ### APCu
 

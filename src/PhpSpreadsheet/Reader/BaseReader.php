@@ -210,8 +210,6 @@ abstract class BaseReader implements IReader
      * @param string $pFilename
      *
      * @throws Exception
-     *
-     * @return resource
      */
     protected function openFile($pFilename)
     {
@@ -230,6 +228,8 @@ abstract class BaseReader implements IReader
      * @param string $xml
      *
      * @throws Exception
+     *
+     * @return string
      */
     public function securityScan($xml)
     {
@@ -247,6 +247,8 @@ abstract class BaseReader implements IReader
      * @param string $filestream
      *
      * @throws Exception
+     *
+     * @return string
      */
     public function securityScanFile($filestream)
     {

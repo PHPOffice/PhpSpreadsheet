@@ -201,6 +201,7 @@ class Content extends WriterPart
                     break;
                 case DataType::TYPE_ERROR:
                     throw new Exception('Writing of error not implemented yet.');
+
                     break;
                 case DataType::TYPE_FORMULA:
                     $formulaValue = $cell->getValue();
@@ -223,6 +224,7 @@ class Content extends WriterPart
                     break;
                 case DataType::TYPE_INLINE:
                     throw new Exception('Writing of inline not implemented yet.');
+
                     break;
                 case DataType::TYPE_NUMERIC:
                     $objWriter->writeAttribute('office:value-type', 'float');

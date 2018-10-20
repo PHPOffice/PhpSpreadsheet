@@ -15,6 +15,7 @@ $inputFileName = __DIR__ . '/sampleData/example2.csv';
 class ChunkReadFilter implements IReadFilter
 {
     private $startRow = 0;
+
     private $endRow = 0;
 
     /**

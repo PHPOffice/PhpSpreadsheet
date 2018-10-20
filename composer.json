@@ -4,7 +4,7 @@
     "keywords": ["PHP", "OpenXML", "Excel", "xlsx", "xls", "ods", "gnumeric", "spreadsheet"],
     "homepage": "https://github.com/PHPOffice/PhpSpreadsheet",
     "type": "library",
-    "license": "LGPL-2.1",
+    "license": "LGPL-2.1-or-later",
     "authors": [
         {
             "name": "Maarten Balliauw",
@@ -25,7 +25,7 @@
     "scripts": {
         "check": [
             "php-cs-fixer fix --ansi --dry-run --diff",
-            "phpcs --report-width=200 --report-summary  --report-full samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n",
+            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n",
             "phpunit --color=always"
         ],
         "fix": [
@@ -46,23 +46,22 @@
         "ext-xmlwriter": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
-        "psr/simple-cache": "^1.0"
+        "psr/simple-cache": "^1.0",
+        "markbaker/complex": "^1.4.1"
     },
     "require-dev": {
         "tecnickcom/tcpdf": "^6.2",
-        "squizlabs/php_codesniffer": "^2.7",
         "phpunit/phpunit": "^5.7",
         "dompdf/dompdf": "^0.8.0",
         "mpdf/mpdf": "^7.0.0",
-        "friendsofphp/php-cs-fixer": "^2.7",
-        "jpgraph/jpgraph": "^4.0"
+        "jpgraph/jpgraph": "^4.0",
+        "friendsofphp/php-cs-fixer": "@stable",
+        "squizlabs/php_codesniffer": "^3.3"
     },
     "suggest": {
-        "ext-gd": "Required for exact column width autocalculation",
-        "ext-dom": "Option to read and write HTML files",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
-        "tecnick.com/tcpdf": "Option for rendering PDF with PDF Writer",
+        "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer",
         "jpgraph/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers"
     },
     "autoload": {

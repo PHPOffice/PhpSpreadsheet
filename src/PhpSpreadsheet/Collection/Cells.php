@@ -61,6 +61,7 @@ class Cells
      * Initialise this new cell collection.
      *
      * @param Worksheet $parent The worksheet for this cell collection
+     * @param CacheInterface $cache
      */
     public function __construct(Worksheet $parent, CacheInterface $cache)
     {
@@ -117,8 +118,6 @@ class Cells
      * Delete a cell in cache identified by coordinate.
      *
      * @param string $pCoord Coordinate of the cell to delete
-     *
-     * @throws PhpSpreadsheetException
      */
     public function delete($pCoord)
     {
@@ -286,7 +285,7 @@ class Cells
      */
     private function getUniqueID()
     {
-        return uniqid('phpspreadsheet-', true) . '-';
+        return uniqid('phpspreadsheet.', true) . '.';
     }
 
     /**
@@ -475,7 +474,7 @@ class Cells
     /**
      * Returns all known cache keys.
      *
-     * @return string
+     * @return string[]
      */
     private function getAllCacheKeys()
     {

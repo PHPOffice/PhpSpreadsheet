@@ -85,11 +85,10 @@ class CellsTest extends TestCase
         self::assertNotNull($collection->get('A2'), 'should be able to get back the cell even when another cell was deleted while this one was the current one');
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testThrowsWhenCellCannotBeRetrievedFromCache()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         $collection = $this->getMockBuilder(Cells::class)
             ->setConstructorArgs([new Worksheet(), new Memory()])
             ->setMethods(['has'])
@@ -101,11 +100,10 @@ class CellsTest extends TestCase
         $collection->get('A2');
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testThrowsWhenCellCannotBeStoredInCache()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         $cache = $this->createMock(Memory::class);
         $cell = $this->createMock(Cell::class);
         $cache->method('set')

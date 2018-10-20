@@ -149,6 +149,8 @@ abstract class Pdf extends Html
      *      'arialunicid0-japanese'.
      *
      * @param string $fontName
+     *
+     * @return Pdf
      */
     public function setFont($fontName)
     {
@@ -241,6 +243,8 @@ abstract class Pdf extends Html
      * @param string $pFilename Name of the file to save as
      *
      * @throws WriterException
+     *
+     * @return resource
      */
     protected function prepareForSave($pFilename)
     {
@@ -268,8 +272,6 @@ abstract class Pdf extends Html
      * Save PhpSpreadsheet to PDF file, post-save.
      *
      * @param resource $fileHandle
-     *
-     * @throws WriterException
      */
     protected function restoreStateAfterSave($fileHandle)
     {

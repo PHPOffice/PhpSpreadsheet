@@ -11,11 +11,14 @@ use PHPUnit\Framework\TestCase;
 class AutoFilterTest extends TestCase
 {
     private $testInitialRange = 'H2:O256';
+
     /**
      * @var AutoFilter
      */
     private $testAutoFilterObject;
+
     private $mockWorksheetObject;
+
     private $cellCollection;
 
     public function setUp()
@@ -95,11 +98,10 @@ class AutoFilterTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testSetRangeInvalidRange()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         $expectedResult = 'A1';
 
         $this->testAutoFilterObject->setRange($expectedResult);
@@ -129,11 +131,10 @@ class AutoFilterTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testGetInvalidColumnOffset()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         $invalidColumn = 'G';
 
         $this->testAutoFilterObject->getColumnOffset($invalidColumn);
@@ -156,11 +157,10 @@ class AutoFilterTest extends TestCase
         self::assertInstanceOf(Column::class, $result[$expectedResult]);
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testSetInvalidColumnWithString()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         $invalidColumn = 'A';
 
         $this->testAutoFilterObject->setColumn($invalidColumn);
@@ -184,20 +184,18 @@ class AutoFilterTest extends TestCase
         self::assertInstanceOf(Column::class, $result[$expectedResult]);
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testSetInvalidColumnWithObject()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         $invalidColumn = 'E';
         $this->testAutoFilterObject->setColumn($invalidColumn);
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testSetColumnWithInvalidDataType()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         $invalidColumn = 123.456;
         $this->testAutoFilterObject->setColumn($invalidColumn);
     }
@@ -262,11 +260,10 @@ class AutoFilterTest extends TestCase
         self::assertInstanceOf(Column::class, $result);
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testGetColumnWithoutRangeSet()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         //  Clear the range
         $this->testAutoFilterObject->setRange('');
         $this->testAutoFilterObject->getColumn('A');

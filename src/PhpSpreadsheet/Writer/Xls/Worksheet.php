@@ -552,8 +552,8 @@ class Worksheet extends BIFFwriter
             $lastCell = $explodes[1];
         }
 
-        $firstCellCoordinates = Coordinate::coordinateFromString($firstCell); // e.g. array(0, 1)
-        $lastCellCoordinates = Coordinate::coordinateFromString($lastCell); // e.g. array(1, 6)
+        $firstCellCoordinates = Coordinate::coordinateFromString($firstCell); // e.g. [0, 1]
+        $lastCellCoordinates = Coordinate::coordinateFromString($lastCell); // e.g. [1, 6]
 
         return pack('vvvv', $firstCellCoordinates[1] - 1, $lastCellCoordinates[1] - 1, Coordinate::columnIndexFromString($firstCellCoordinates[0]) - 1, Coordinate::columnIndexFromString($lastCellCoordinates[0]) - 1);
     }
@@ -687,16 +687,11 @@ class Worksheet extends BIFFwriter
      * Write a string to the specified row and column (zero indexed).
      * This is the BIFF8 version (no 255 chars limit).
      * $format is optional.
-     * Returns  0 : normal termination
-     *         -2 : row or column out of range
-     *         -3 : long string truncated to 255 chars.
      *
      * @param int $row Zero indexed row
      * @param int $col Zero indexed column
      * @param string $str The string to write
      * @param mixed $xfIndex The XF format index for the cell
-     *
-     * @return int
      */
     private function writeLabelSst($row, $col, $str, $xfIndex)
     {
@@ -731,6 +726,8 @@ class Worksheet extends BIFFwriter
      * @param int $row Zero indexed row
      * @param int $col Zero indexed column
      * @param mixed $xfIndex The XF format index
+     *
+     * @return int
      */
     public function writeBlank($row, $col, $xfIndex)
     {
@@ -752,6 +749,8 @@ class Worksheet extends BIFFwriter
      * @param int $value
      * @param bool $isError Error or Boolean?
      * @param int $xfIndex
+     *
+     * @return int
      */
     private function writeBoolErr($row, $col, $value, $isError, $xfIndex)
     {
@@ -828,7 +827,7 @@ class Worksheet extends BIFFwriter
             $formula = substr($formula, 1);
         } else {
             // Error handling
-            $this->writeString($row, $col, 'Unrecognised character for formula');
+            $this->writeString($row, $col, 'Unrecognised character for formula', 0);
 
             return -1;
         }
@@ -1075,7 +1074,7 @@ class Worksheet extends BIFFwriter
         // parameters accordingly.
         // Split the dir name and sheet name (if it exists)
         $dir_long = $url;
-        if (preg_match("/\#/", $url)) {
+        if (preg_match('/\\#/', $url)) {
             $link_type |= 0x08;
         }
 
@@ -1083,11 +1082,11 @@ class Worksheet extends BIFFwriter
         $link_type = pack('V', $link_type);
 
         // Calculate the up-level dir count e.g.. (..\..\..\ == 3)
-        $up_count = preg_match_all("/\.\.\\\/", $dir_long, $useless);
+        $up_count = preg_match_all("/\\.\\.\\\/", $dir_long, $useless);
         $up_count = pack('v', $up_count);
 
         // Store the short dos dir name (null terminated)
-        $dir_short = preg_replace("/\.\.\\\/", '', $dir_long) . "\0";
+        $dir_short = preg_replace("/\\.\\.\\\/", '', $dir_long) . "\0";
 
         // Store the long dir name as a wchar string (non-null terminated)
         $dir_long = $dir_long . "\0";
@@ -1603,8 +1602,8 @@ class Worksheet extends BIFFwriter
             return;
         }
 
-        $y = isset($panes[0]) ? $panes[0] : null;
-        $x = isset($panes[1]) ? $panes[1] : null;
+        $x = isset($panes[0]) ? $panes[0] : null;
+        $y = isset($panes[1]) ? $panes[1] : null;
         $rwTop = isset($panes[2]) ? $panes[2] : null;
         $colLeft = isset($panes[3]) ? $panes[3] : null;
         if (count($panes) > 4) { // if Active pane was received
@@ -2659,8 +2658,6 @@ class Worksheet extends BIFFwriter
 
     /**
      * Store the DATAVALIDATIONS and DATAVALIDATION records.
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeDataValidity()
     {

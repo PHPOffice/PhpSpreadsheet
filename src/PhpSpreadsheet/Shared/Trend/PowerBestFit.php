@@ -9,7 +9,7 @@ class PowerBestFit extends BestFit
      * (Name of this Trend class).
      *
      * @var string
-     **/
+     */
     protected $bestFitType = 'power';
 
     /**
@@ -18,7 +18,7 @@ class PowerBestFit extends BestFit
      * @param float $xValue X-Value
      *
      * @return float Y-Value
-     **/
+     */
     public function getValueOfYForX($xValue)
     {
         return $this->getIntersect() * pow(($xValue - $this->xOffset), $this->getSlope());
@@ -30,7 +30,7 @@ class PowerBestFit extends BestFit
      * @param float $yValue Y-Value
      *
      * @return float X-Value
-     **/
+     */
     public function getValueOfXForY($yValue)
     {
         return pow((($yValue + $this->yOffset) / $this->getIntersect()), (1 / $this->getSlope()));
@@ -42,7 +42,7 @@ class PowerBestFit extends BestFit
      * @param int $dp Number of places of decimal precision to display
      *
      * @return string
-     **/
+     */
     public function getEquation($dp = 0)
     {
         $slope = $this->getSlope($dp);
@@ -57,7 +57,7 @@ class PowerBestFit extends BestFit
      * @param int $dp Number of places of decimal precision to display
      *
      * @return float
-     **/
+     */
     public function getIntersect($dp = 0)
     {
         if ($dp != 0) {

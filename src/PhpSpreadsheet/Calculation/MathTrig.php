@@ -1081,30 +1081,55 @@ class MathTrig
         );
     }
 
+    protected static function filterFormulaArgs($cellReference, $args)
+    {
+        return array_filter(
+            $args,
+            function ($index) use ($cellReference) {
+                list(, $row, $column) = explode('.', $index);
+                if ($cellReference->getWorksheet()->cellExists($column . $row)) {
+                    //take this cell out if it contains the SUBTOTAL or AGGREGATE functions in a formula
+                    $isFormula = $cellReference->getWorksheet()->getCell($column . $row)->isFormula();
+                    $cellFormula = !preg_match('/^=.*\b(SUBTOTAL|AGGREGATE)\s*\(/i', $cellReference->getWorksheet()->getCell($column . $row)->getValue());
+
+                    return !$isFormula || $cellFormula;
+                }
+
+                return true;
+            },
+            ARRAY_FILTER_USE_KEY
+        );
+    }
+
     /**
      * SUBTOTAL.
      *
      * Returns a subtotal in a list or database.
      *
      * @param int the number 1 to 11 that specifies which function to
-     *                    use in calculating subtotals within a list
+     *                    use in calculating subtotals within a range
+     *                    list
+     *            Numbers 101 to 111 shadow the functions of 1 to 11
+     *                    but ignore any values in the range that are
+     *                    in hidden rows or columns
      * @param array of mixed Data Series
      *
      * @return float
      */
     public static function SUBTOTAL(...$args)
     {
+        $cellReference = array_pop($args);
         $aArgs = Functions::flattenArrayIndexed($args);
-        $cellReference = array_pop($aArgs);
         $subtotal = array_shift($aArgs);
 
         // Calculate
         if ((is_numeric($subtotal)) && (!is_string($subtotal))) {
             if ($subtotal > 100) {
                 $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
-                $subtotal = $subtotal - 100;
+                $subtotal -= 100;
             }
 
+            $aArgs = self::filterFormulaArgs($cellReference, $aArgs);
             switch ($subtotal) {
                 case 1:
                     return Statistical::AVERAGE($aArgs);
@@ -1175,7 +1200,6 @@ class MathTrig
      *
      * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be summed
-     * @param mixed $aArgs
      * @param mixed $sumArgs
      *
      * @return float
@@ -1198,8 +1222,10 @@ class MathTrig
             }
 
             $testCondition = '=' . $arg . $condition;
-            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                // Is it a value within our criteria
+
+            if (is_numeric($sumArgs[$key]) &&
+                Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+                // Is it a value within our criteria and only numeric can be added to the result
                 $returnValue += $sumArgs[$key];
             }
         }
@@ -1433,5 +1459,179 @@ class MathTrig
         }
 
         return ((int) ($value * $adjust)) / $adjust;
+    }
+
+    /**
+     * SEC.
+     *
+     * Returns the secant of an angle.
+     *
+     * @param float $angle Number
+     *
+     * @return float|string The secant of the angle
+     */
+    public static function SEC($angle)
+    {
+        $angle = Functions::flattenSingleValue($angle);
+
+        if (!is_numeric($angle)) {
+            return Functions::VALUE();
+        }
+
+        $result = cos($angle);
+
+        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+    }
+
+    /**
+     * SECH.
+     *
+     * Returns the hyperbolic secant of an angle.
+     *
+     * @param float $angle Number
+     *
+     * @return float|string The hyperbolic secant of the angle
+     */
+    public static function SECH($angle)
+    {
+        $angle = Functions::flattenSingleValue($angle);
+
+        if (!is_numeric($angle)) {
+            return Functions::VALUE();
+        }
+
+        $result = cosh($angle);
+
+        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+    }
+
+    /**
+     * CSC.
+     *
+     * Returns the cosecant of an angle.
+     *
+     * @param float $angle Number
+     *
+     * @return float|string The cosecant of the angle
+     */
+    public static function CSC($angle)
+    {
+        $angle = Functions::flattenSingleValue($angle);
+
+        if (!is_numeric($angle)) {
+            return Functions::VALUE();
+        }
+
+        $result = sin($angle);
+
+        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+    }
+
+    /**
+     * CSCH.
+     *
+     * Returns the hyperbolic cosecant of an angle.
+     *
+     * @param float $angle Number
+     *
+     * @return float|string The hyperbolic cosecant of the angle
+     */
+    public static function CSCH($angle)
+    {
+        $angle = Functions::flattenSingleValue($angle);
+
+        if (!is_numeric($angle)) {
+            return Functions::VALUE();
+        }
+
+        $result = sinh($angle);
+
+        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+    }
+
+    /**
+     * COT.
+     *
+     * Returns the cotangent of an angle.
+     *
+     * @param float $angle Number
+     *
+     * @return float|string The cotangent of the angle
+     */
+    public static function COT($angle)
+    {
+        $angle = Functions::flattenSingleValue($angle);
+
+        if (!is_numeric($angle)) {
+            return Functions::VALUE();
+        }
+
+        $result = tan($angle);
+
+        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+    }
+
+    /**
+     * COTH.
+     *
+     * Returns the hyperbolic cotangent of an angle.
+     *
+     * @param float $angle Number
+     *
+     * @return float|string The hyperbolic cotangent of the angle
+     */
+    public static function COTH($angle)
+    {
+        $angle = Functions::flattenSingleValue($angle);
+
+        if (!is_numeric($angle)) {
+            return Functions::VALUE();
+        }
+
+        $result = tanh($angle);
+
+        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+    }
+
+    /**
+     * ACOT.
+     *
+     * Returns the arccotangent of a number.
+     *
+     * @param float $number Number
+     *
+     * @return float|string The arccotangent of the number
+     */
+    public static function ACOT($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return (M_PI / 2) - atan($number);
+    }
+
+    /**
+     * ACOTH.
+     *
+     * Returns the hyperbolic arccotangent of a number.
+     *
+     * @param float $number Number
+     *
+     * @return float|string The hyperbolic arccotangent of the number
+     */
+    public static function ACOTH($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        $result = log(($number + 1) / ($number - 1)) / 2;
+
+        return is_nan($result) ? Functions::NAN() : $result;
     }
 }

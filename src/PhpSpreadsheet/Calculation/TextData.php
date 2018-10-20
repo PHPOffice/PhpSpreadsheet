@@ -577,4 +577,96 @@ class TextData
 
         return (float) $value;
     }
+
+    /**
+     * NUMBERVALUE.
+     *
+     * @param mixed $value Value to check
+     * @param string $decimalSeparator decimal separator, defaults to locale defined value
+     * @param string $groupSeparator group/thosands separator, defaults to locale defined value
+     *
+     * @return float|string
+     */
+    public static function NUMBERVALUE($value = '', $decimalSeparator = null, $groupSeparator = null)
+    {
+        $value = Functions::flattenSingleValue($value);
+        $decimalSeparator = Functions::flattenSingleValue($decimalSeparator);
+        $groupSeparator = Functions::flattenSingleValue($groupSeparator);
+
+        if (!is_numeric($value)) {
+            $decimalSeparator = empty($decimalSeparator) ? StringHelper::getDecimalSeparator() : $decimalSeparator;
+            $groupSeparator = empty($groupSeparator) ? StringHelper::getThousandsSeparator() : $groupSeparator;
+
+            $decimalPositions = preg_match_all('/' . preg_quote($decimalSeparator) . '/', $value, $matches, PREG_OFFSET_CAPTURE);
+            if ($decimalPositions > 1) {
+                return Functions::VALUE();
+            }
+            $decimalOffset = array_pop($matches[0])[1];
+            if (strpos($value, $groupSeparator, $decimalOffset) !== false) {
+                return Functions::VALUE();
+            }
+
+            $value = str_replace([$groupSeparator, $decimalSeparator], ['', '.'], $value);
+
+            // Handle the special case of trailing % signs
+            $percentageString = rtrim($value, '%');
+            if (!is_numeric($percentageString)) {
+                return Functions::VALUE();
+            }
+
+            $percentageAdjustment = strlen($value) - strlen($percentageString);
+            if ($percentageAdjustment) {
+                $value = (float) $percentageString;
+                $value /= pow(10, $percentageAdjustment * 2);
+            }
+        }
+
+        return (float) $value;
+    }
+
+    /**
+     * Compares two text strings and returns TRUE if they are exactly the same, FALSE otherwise.
+     * EXACT is case-sensitive but ignores formatting differences.
+     * Use EXACT to test text being entered into a document.
+     *
+     * @param $value1
+     * @param $value2
+     *
+     * @return bool
+     */
+    public static function EXACT($value1, $value2)
+    {
+        $value1 = Functions::flattenSingleValue($value1);
+        $value2 = Functions::flattenSingleValue($value2);
+
+        return (string) $value2 === (string) $value1;
+    }
+
+    /**
+     * TEXTJOIN.
+     *
+     * @param mixed $delimiter
+     * @param mixed $ignoreEmpty
+     * @param mixed $args
+     *
+     * @return string
+     */
+    public static function TEXTJOIN($delimiter, $ignoreEmpty, ...$args)
+    {
+        // Loop through arguments
+        $aArgs = Functions::flattenArray($args);
+        foreach ($aArgs as $key => &$arg) {
+            if ($ignoreEmpty && trim($arg) == '') {
+                unset($aArgs[$key]);
+            } elseif (is_bool($arg)) {
+                if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
+                    $arg = (int) $arg;
+                } else {
+                    $arg = ($arg) ? Calculation::getTRUE() : Calculation::getFALSE();
+                }
+            }
+        }
+
+        return implode($delimiter, $aArgs);
+    }
 }

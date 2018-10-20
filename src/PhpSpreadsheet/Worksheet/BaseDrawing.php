@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
 
@@ -97,6 +98,13 @@ class BaseDrawing implements IComparable
      * @var Drawing\Shadow
      */
     protected $shadow;
+
+    /**
+     * Image hyperlink.
+     *
+     * @var null|Hyperlink
+     */
+    private $hyperlink;
 
     /**
      * Create a new BaseDrawing.
@@ -223,7 +231,7 @@ class BaseDrawing implements IComparable
                 // Set new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
                 $this->setWorksheet($pValue);
             } else {
-                throw new PhpSpreadsheetException("A Worksheet has already been assigned. Drawings can only exist on one \PhpOffice\PhpSpreadsheet\Worksheet.");
+                throw new PhpSpreadsheetException('A Worksheet has already been assigned. Drawings can only exist on one \\PhpOffice\\PhpSpreadsheet\\Worksheet.');
             }
         }
 
@@ -365,12 +373,13 @@ class BaseDrawing implements IComparable
     }
 
     /**
-     * Set width and height with proportional resize
+     * Set width and height with proportional resize.
+     *
      * Example:
      * <code>
      * $objDrawing->setResizeProportional(true);
      * $objDrawing->setWidthAndHeight(160,120);
-     * </code>.
+     * </code>
      *
      * @author Vincent@luo MSN:kele_100@hotmail.com
      *
@@ -462,8 +471,6 @@ class BaseDrawing implements IComparable
      *
      * @param Drawing\Shadow $pValue
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return BaseDrawing
      */
     public function setShadow(Drawing\Shadow $pValue = null)
@@ -502,11 +509,29 @@ class BaseDrawing implements IComparable
     {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if (is_object($value)) {
+            if ($key == 'worksheet') {
+                $this->worksheet = null;
+            } elseif (is_object($value)) {
                 $this->$key = clone $value;
             } else {
                 $this->$key = $value;
             }
         }
+    }
+
+    /**
+     * @param null|Hyperlink $pHyperlink
+     */
+    public function setHyperlink(Hyperlink $pHyperlink = null)
+    {
+        $this->hyperlink = $pHyperlink;
+    }
+
+    /**
+     * @return null|Hyperlink
+     */
+    public function getHyperlink()
+    {
+        return $this->hyperlink;
     }
 }

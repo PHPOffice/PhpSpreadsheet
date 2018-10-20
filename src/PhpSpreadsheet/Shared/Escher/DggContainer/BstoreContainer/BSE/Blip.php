@@ -31,8 +31,7 @@ class Blip
     /**
      * Set the raw image data.
      *
-     * @param string
-     * @param mixed $data
+     * @param string $data
      */
     public function setData($data)
     {

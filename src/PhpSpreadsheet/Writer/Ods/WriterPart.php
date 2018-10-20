@@ -16,8 +16,6 @@ abstract class WriterPart
     /**
      * Get Ods writer.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @return Ods
      */
     public function getParentWriter()

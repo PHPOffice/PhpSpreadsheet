@@ -660,7 +660,7 @@ class Ods extends BaseReader
                                                 $rID = $rowID + $rowAdjust;
 
                                                 $cell = $spreadsheet->getActiveSheet()
-                                                            ->getCell($columnID . $rID);
+                                                    ->getCell($columnID . $rID);
 
                                                 // Set value
                                                 if ($hasCalculatedValue) {

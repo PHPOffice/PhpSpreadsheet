@@ -171,8 +171,6 @@ class Comments extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param string $pCellReference Cell reference, eg: 'A1'
      * @param Comment $pComment Comment
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeVMLComment(XMLWriter $objWriter, $pCellReference, Comment $pComment)
     {

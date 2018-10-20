@@ -21,14 +21,16 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 // +----------------------------------------------------------------------+
 //
 
-/*
-* Array for storing OLE instances that are accessed from
-* OLE_ChainedBlockStream::stream_open().
-* @var  array
-*/
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\ChainedBlockStream;
+use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\Root;
 
+/*
+ * Array for storing OLE instances that are accessed from
+ * OLE_ChainedBlockStream::stream_open().
+ *
+ * @var array
+ */
 $GLOBALS['_OLE_INSTANCES'] = [];
 
 /**
@@ -65,7 +67,7 @@ class OLE
     /**
      * Root directory of OLE container.
      *
-     * @var OLE_PPS_Root
+     * @var Root
      */
     public $root;
 
@@ -102,7 +104,7 @@ class OLE
      *
      * @var int
      */
-    private $bigBlockThreshold;
+    public $bigBlockThreshold;
 
     /**
      * Reads an OLE container from the contents of the file given.
@@ -200,9 +202,9 @@ class OLE
     }
 
     /**
-     * @param int block id
-     * @param int byte offset from beginning of file
-     * @param mixed $blockId
+     * @param int $blockId byte offset from beginning of file
+     *
+     * @return int
      */
     public function _getBlockOffset($blockId)
     {
@@ -213,8 +215,7 @@ class OLE
      * Returns a stream for use with fread() etc. External callers should
      * use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().
      *
-     * @param int|PPS block id or PPS
-     * @param mixed $blockIdOrPps
+     * @param int|OLE\PPS $blockIdOrPps block id or PPS
      *
      * @return resource read-only stream
      */
@@ -319,7 +320,7 @@ class OLE
 
                     break;
                 default:
-                    continue;
+                    break;
             }
             fseek($fh, 1, SEEK_CUR);
             $pps->Type = $type;
@@ -373,12 +374,12 @@ class OLE
     public function _ppsTreeComplete($index)
     {
         return isset($this->_list[$index]) &&
-               ($pps = $this->_list[$index]) &&
-               ($pps->PrevPps == -1 ||
+            ($pps = $this->_list[$index]) &&
+            ($pps->PrevPps == -1 ||
                 $this->_ppsTreeComplete($pps->PrevPps)) &&
-               ($pps->NextPps == -1 ||
+            ($pps->NextPps == -1 ||
                 $this->_ppsTreeComplete($pps->NextPps)) &&
-               ($pps->DirPps == -1 ||
+            ($pps->DirPps == -1 ||
                 $this->_ppsTreeComplete($pps->DirPps));
     }
 
@@ -479,9 +480,10 @@ class OLE
     public static function ascToUcs($ascii)
     {
         $rawname = '';
-        for ($i = 0; $i < strlen($ascii); ++$i) {
+        $iMax = strlen($ascii);
+        for ($i = 0; $i < $iMax; ++$i) {
             $rawname .= $ascii[$i]
-            . "\x00";
+                . "\x00";
         }
 
         return $rawname;

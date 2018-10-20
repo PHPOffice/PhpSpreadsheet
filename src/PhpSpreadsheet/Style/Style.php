@@ -82,8 +82,7 @@ class Style extends Supervisor
      */
     public function __construct($isSupervisor = false, $isConditional = false)
     {
-        // Supervisor?
-        $this->isSupervisor = $isSupervisor;
+        parent::__construct($isSupervisor);
 
         // Initialise values
         $this->conditionalStyles = [];
@@ -152,40 +151,38 @@ class Style extends Supervisor
      *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->applyFromArray(
-     *         array(
-     *             'font'    => array(
-     *                 'name'      => 'Arial',
-     *                 'bold'      => true,
-     *                 'italic'    => false,
-     *                 'underline' => Font::UNDERLINE_DOUBLE,
-     *                 'strikethrough'    => false,
-     *                 'color'     => array(
+     *     [
+     *         'font' => [
+     *             'name' => 'Arial',
+     *             'bold' => true,
+     *             'italic' => false,
+     *             'underline' => Font::UNDERLINE_DOUBLE,
+     *             'strikethrough' => false,
+     *             'color' => [
+     *                 'rgb' => '808080'
+     *             ]
+     *         ],
+     *         'borders' => [
+     *             'bottom' => [
+     *                 'borderStyle' => Border::BORDER_DASHDOT,
+     *                 'color' => [
      *                     'rgb' => '808080'
-     *                 )
-     *             ),
-     *             'borders' => array(
-     *                 'bottom'     => array(
-     *                     'borderStyle' => Border::BORDER_DASHDOT,
-     *                     'color' => array(
-     *                         'rgb' => '808080'
-     *                     )
-     *                 ),
-     *                 'top'     => array(
-     *                     'borderStyle' => Border::BORDER_DASHDOT,
-     *                     'color' => array(
-     *                         'rgb' => '808080'
-     *                     )
-     *                 )
-     *             ),
-     *             'quotePrefix'    => true
-     *         )
+     *                 ]
+     *             ],
+     *             'top' => [
+     *                 'borderStyle' => Border::BORDER_DASHDOT,
+     *                 'color' => [
+     *                     'rgb' => '808080'
+     *                 ]
+     *             ]
+     *         ],
+     *         'quotePrefix'    => true
+     *     ]
      * );
      * </code>
      *
      * @param array $pStyles Array containing style information
      * @param bool $pAdvanced advanced mode for setting borders
-     *
-     * @throws Exception
      *
      * @return Style
      */
@@ -336,6 +333,9 @@ class Style extends Supervisor
                     }
                 }
 
+                // restore initial cell selection range
+                $this->getActiveSheet()->getStyle($pRange);
+
                 return $this;
             }
 
@@ -343,7 +343,7 @@ class Style extends Supervisor
             // Selection type, inspect
             if (preg_match('/^[A-Z]+1:[A-Z]+1048576$/', $pRange)) {
                 $selectionType = 'COLUMN';
-            } elseif (preg_match('/^A[0-9]+:XFD[0-9]+$/', $pRange)) {
+            } elseif (preg_match('/^A\d+:XFD\d+$/', $pRange)) {
                 $selectionType = 'ROW';
             } else {
                 $selectionType = 'CELL';
@@ -571,6 +571,8 @@ class Style extends Supervisor
      * Set quote prefix.
      *
      * @param bool $pValue
+     *
+     * @return Style
      */
     public function setQuotePrefix($pValue)
     {

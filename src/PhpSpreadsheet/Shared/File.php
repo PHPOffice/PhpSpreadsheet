@@ -7,13 +7,11 @@ use ZipArchive;
 
 class File
 {
-    /*
-     * Use Temp or File Upload Temp for temporary files
+    /**
+     * Use Temp or File Upload Temp for temporary files.
      *
-     * @protected
-     * @var boolean
+     * @var bool
      */
-
     protected static $useUploadTempDirectory = false;
 
     /**
@@ -88,7 +86,8 @@ class File
         if ($returnValue == '' || ($returnValue === null)) {
             $pathArray = explode('/', $pFilename);
             while (in_array('..', $pathArray) && $pathArray[0] != '..') {
-                for ($i = 0; $i < count($pathArray); ++$i) {
+                $iMax = count($pathArray);
+                for ($i = 0; $i < $iMax; ++$i) {
                     if ($pathArray[$i] == '..' && $i > 0) {
                         unset($pathArray[$i], $pathArray[$i - 1]);
 

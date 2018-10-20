@@ -118,7 +118,7 @@ class Xf
     /**
      * Constructor.
      *
-     * @param Style The XF format
+     * @param Style $style The XF format
      */
     public function __construct(Style $style)
     {
@@ -507,8 +507,7 @@ class Xf
     /**
      * Map locked.
      *
-     * @param string
-     * @param mixed $locked
+     * @param string $locked
      *
      * @return int
      */
@@ -529,8 +528,7 @@ class Xf
     /**
      * Map hidden.
      *
-     * @param string
-     * @param mixed $hidden
+     * @param string $hidden
      *
      * @return int
      */
