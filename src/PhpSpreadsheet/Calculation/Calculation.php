@@ -3942,7 +3942,7 @@ class Calculation
                     }
 
                     //    Process the argument with the appropriate function call
-                    $args = $this->addCellReference($args, $passCellReference, $pCell, $functionCall);
+                    $args = $this->addCellReference($args, $passCellReference, $functionCall, $pCell);
 
                     if (!is_array($functionCall)) {
                         foreach ($args as &$arg) {
@@ -4440,21 +4440,23 @@ class Calculation
      *
      * @param array $args
      * @param bool $passCellReference
-     * @param Cell $pCell
-     * @param array $functionCall
+     * @param array|string $functionCall
+     * @param null|Cell $pCell
      *
      * @return array
      */
-    private function addCellReference(array $args, $passCellReference, Cell $pCell, array $functionCall)
+    private function addCellReference(array $args, $passCellReference, $functionCall, Cell $pCell = null)
     {
         if ($passCellReference) {
-            $className = $functionCall[0];
-            $methodName = $functionCall[1];
+            if (is_array($functionCall)) {
+                $className = $functionCall[0];
+                $methodName = $functionCall[1];
 
-            $reflectionMethod = new \ReflectionMethod($className, $methodName);
-            $argumentCount = count($reflectionMethod->getParameters());
-            while (count($args) < $argumentCount - 1) {
-                $args[] = null;
+                $reflectionMethod = new \ReflectionMethod($className, $methodName);
+                $argumentCount = count($reflectionMethod->getParameters());
+                while (count($args) < $argumentCount - 1) {
+                    $args[] = null;
+                }
             }
 
             $args[] = $pCell;
