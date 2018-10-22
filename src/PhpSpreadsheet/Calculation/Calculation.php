@@ -650,6 +650,11 @@ class Calculation
             'functionCall' => [DateTime::class, 'DAYOFMONTH'],
             'argumentCount' => '1',
         ],
+        'DAYS' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [DateTime::class, 'DAYS'],
+            'argumentCount' => '2',
+        ],
         'DAYS360' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTime::class, 'DAYS360'],
@@ -3937,9 +3942,7 @@ class Calculation
                     }
 
                     //    Process the argument with the appropriate function call
-                    if ($passCellReference) {
-                        $args[] = $pCell;
-                    }
+                    $args = $this->addCellReference($args, $passCellReference, $functionCall, $pCell);
 
                     if (!is_array($functionCall)) {
                         foreach ($args as &$arg) {
@@ -4430,5 +4433,35 @@ class Calculation
         }
 
         return $returnValue;
+    }
+
+    /**
+     * Add cell reference if needed while making sure that it is the last argument.
+     *
+     * @param array $args
+     * @param bool $passCellReference
+     * @param array|string $functionCall
+     * @param null|Cell $pCell
+     *
+     * @return array
+     */
+    private function addCellReference(array $args, $passCellReference, $functionCall, Cell $pCell = null)
+    {
+        if ($passCellReference) {
+            if (is_array($functionCall)) {
+                $className = $functionCall[0];
+                $methodName = $functionCall[1];
+
+                $reflectionMethod = new \ReflectionMethod($className, $methodName);
+                $argumentCount = count($reflectionMethod->getParameters());
+                while (count($args) < $argumentCount - 1) {
+                    $args[] = null;
+                }
+            }
+
+            $args[] = $pCell;
+        }
+
+        return $args;
     }
 }
