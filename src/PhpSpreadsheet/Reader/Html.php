@@ -18,17 +18,17 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class Html extends BaseReader
 {
     /**
-     * Sample size to read to determine if it's HTML or not.
-     */
-    const TEST_SAMPLE_SIZE = 2048;
-
-    /**
      * Maximum 31 characters allowed for sheet title.
      *
      * @var int
      */
     const SHEET_TITLE_MAXIMUM_LENGTH = 31;
 
+    /**
+     * Sample size to read to determine if it's HTML or not.
+     */
+    const TEST_SAMPLE_SIZE = 2048;
+    
     /**
      * Input encoding.
      *
