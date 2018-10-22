@@ -567,6 +567,22 @@ class MathTrigTest extends TestCase
     {
         return require 'data/Calculation/MathTrig/SUMIF.php';
     }
+    
+    /**
+     * @dataProvider providerSUMIFS
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSUMIFS($expectedResult, ...$args)
+    {
+        $result = MathTrig::SUMIFS(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerSUMIFS()
+    {
+        return require 'data/Calculation/MathTrig/SUMIFS.php';
+    }
 
     /**
      * @dataProvider providerSUBTOTAL
