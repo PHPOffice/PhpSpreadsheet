@@ -44,7 +44,7 @@ jobs:
     - stage: API documentation
       php: 7.2
       before_script:
-      - curl -O http://get.sensiolabs.org/sami.phar
+      - curl -O https://get.sensiolabs.org/sami.phar
       script:
       - git fetch origin master:master
       - git fetch origin --tags

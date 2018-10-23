@@ -103,7 +103,7 @@ confused with PhpSpreadsheet versions.
 
 - Convert properties to string in OOCalc reader - @infojunkie [#276](https://github.com/PHPOffice/PHPExcel/issues/276)
 - Disable libxml external entity loading by default. - @maartenba [#322](https://github.com/PHPOffice/PHPExcel/issues/322)
-    - This is to prevent XML External Entity Processing (XXE) injection attacks (see http://websec.io/2012/08/27/Preventing-XEE-in-PHP.html for an explanation of XXE injection).
+    - This is to prevent XML External Entity Processing (XXE) injection attacks (see https://websec.io/2012/08/27/Preventing-XEE-in-PHP.html for an explanation of XXE injection).
     - Reference CVE-2014-2054
 
 ## [1.7.9] - 2013-06-02

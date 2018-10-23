@@ -14,7 +14,7 @@ This is:
 
 ### What are the steps to reproduce?
 
-Please provide a [Minimal, Complete, and Verifiable example](http://stackoverflow.com/help/mcve) of code that exhibits the issue without relying on an external Excel file or a web server:
+Please provide a [Minimal, Complete, and Verifiable example](https://stackoverflow.com/help/mcve) of code that exhibits the issue without relying on an external Excel file or a web server:
 
 ```php
 <?php

@@ -15,7 +15,7 @@ file format that was used by Microsoft Excel™ between versions 95 and 2003.
 The format is supported (to various extents) by most spreadsheet
 programs. BIFF files normally have an extension of .xls. Documentation
 describing the format can be [read online](https://msdn.microsoft.com/en-us/library/cc313154(v=office.12).aspx)
-or [downloaded as PDF](http://download.microsoft.com/download/2/4/8/24862317-78F0-4C4B-B355-C7B2C1D997DB/%5BMS-XLS%5D.pdf).
+or [downloaded as PDF](https://download.microsoft.com/download/2/4/8/24862317-78F0-4C4B-B355-C7B2C1D997DB/%5BMS-XLS%5D.pdf).
 
 ### Xml
 
@@ -32,7 +32,7 @@ Office Open XML SpreadsheetML, and Excel 2010 extended this still
 further with its new features such as sparklines. These files typically
 have an extension of .xlsx. This format is based around a zipped
 collection of eXtensible Markup Language (XML) files. Microsoft Office
-Open XML SpreadsheetML is mostly standardized in [ECMA 376](http://www.ecma-international.org/news/TC45_current_work/TC45_available_docs.htm)
+Open XML SpreadsheetML is mostly standardized in [ECMA 376](https://www.ecma-international.org/news/TC45_current_work/TC45_available_docs.htm)
 and ISO 29500.
 
 ### Ods
@@ -46,7 +46,7 @@ extension of .ods. The published specification for the file format is
 available from [the OASIS Open Office XML Format Technical Committee web
 page](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=office).
 Other information is available from [the OpenOffice.org XML File Format
-web page](http://www.openoffice.org/xml/), part of the
+web page](https://www.openoffice.org/xml/), part of the
 OpenOffice.org project.
 
 ### Slk
