@@ -2782,7 +2782,7 @@ class Calculation
      *
      * @param string $formula Formula to parse
      *
-     * @return array
+     * @return array|bool
      */
     public function parseFormula($formula)
     {
@@ -4278,6 +4278,8 @@ class Calculation
             throw new Exception($errorMessage);
         }
         trigger_error($errorMessage, E_USER_ERROR);
+
+        return false;
     }
 
     /**
@@ -4305,6 +4307,8 @@ class Calculation
             $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
             $pRange = $pSheetName . '!' . $pRange;
             if (!isset($aReferences[1])) {
+                $currentCol = '';
+                $currentRow = 0;
                 //    Single cell in range
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
                 if ($pSheet->cellExists($aReferences[0])) {
@@ -4315,6 +4319,8 @@ class Calculation
             } else {
                 // Extract cell data for all cells in the range
                 foreach ($aReferences as $reference) {
+                    $currentCol = '';
+                    $currentRow = 0;
                     // Extract range
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
                     if ($pSheet->cellExists($reference)) {

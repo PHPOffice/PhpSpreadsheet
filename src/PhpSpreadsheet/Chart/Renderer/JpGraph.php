@@ -134,6 +134,7 @@ class JpGraph implements IRenderer
 
     private function percentageSumCalculation($groupID, $seriesCount)
     {
+        $sumValues = [];
         //    Adjust our values to a percentage value across all series in the group
         for ($i = 0; $i < $seriesCount; ++$i) {
             if ($i == 0) {
@@ -614,8 +615,9 @@ class JpGraph implements IRenderer
         for ($groupID = 0; $groupID < $iLimit; ++$groupID) {
             $grouping = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
             $exploded = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotStyle();
+            $datasetLabels = [];
             if ($groupID == 0) {
-                $labelCount = count($this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex(0)->getPointCount());
+                $labelCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex(0)->getPointCount();
                 if ($labelCount > 0) {
                     $datasetLabels = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
                     $datasetLabels = $this->formatDataSetLabels($groupID, $datasetLabels, $labelCount);

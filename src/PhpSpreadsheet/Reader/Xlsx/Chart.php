@@ -278,6 +278,7 @@ class Chart
                     break;
                 case 'ser':
                     $marker = null;
+                    $seriesIndex = '';
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
                         switch ($seriesKey) {
                             case 'idx':
@@ -433,7 +434,7 @@ class Chart
     private static function parseRichText(SimpleXMLElement $titleDetailPart)
     {
         $value = new RichText();
-
+        $objText = null;
         foreach ($titleDetailPart as $titleDetailElementKey => $titleDetailElement) {
             if (isset($titleDetailElement->t)) {
                 $objText = $value->createTextRun((string) $titleDetailElement->t);
