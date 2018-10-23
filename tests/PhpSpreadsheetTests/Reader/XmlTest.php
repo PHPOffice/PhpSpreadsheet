@@ -93,7 +93,7 @@ class XmlTest extends TestCase
 
         self::assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
         self::assertEquals('PhpSpreadsheet', $hyperlink->getValue());
-        self::assertEquals('http://phpspreadsheet.readthedocs.io/', $hyperlink->getHyperlink()->getUrl());
+        self::assertEquals('https://phpspreadsheet.readthedocs.io', $hyperlink->getHyperlink()->getUrl());
     }
 
     public function testReadWithoutStyle()

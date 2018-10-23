@@ -10,7 +10,7 @@ Master:
 [![Join the chat at https://gitter.im/PHPOffice/PhpSpreadsheet](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/PHPOffice/PhpSpreadsheet)
 
 Develop:
-[![Build Status](https://travis-ci.org/PHPOffice/PhpSpreadsheet.png?branch=develop)](http://travis-ci.org/PHPOffice/PhpSpreadsheet)
+[![Build Status](https://travis-ci.org/PHPOffice/PhpSpreadsheet.png?branch=develop)](https://travis-ci.org/PHPOffice/PhpSpreadsheet)
 [![Code Quality](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/?branch=develop)
 [![Code Coverage](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/?branch=develop)
 
@@ -20,7 +20,7 @@ PhpSpreadsheet is a library written in pure PHP and providing a set of classes t
 
 Read more about it, including install instructions, in the [official documentation](https://phpspreadsheet.readthedocs.io). Or check out the [API documentation](https://phpoffice.github.io/PhpSpreadsheet/master).
 
-Please ask your support questions on [StackOverflow](http://stackoverflow.com/questions/tagged/phpspreadsheet), or have a quick chat on [Gitter](https://gitter.im/PHPOffice/PhpSpreadsheet).
+Please ask your support questions on [StackOverflow](https://stackoverflow.com/questions/tagged/phpspreadsheet), or have a quick chat on [Gitter](https://gitter.im/PHPOffice/PhpSpreadsheet).
 
 ## PHPExcel vs PhpSpreadsheet ?
 

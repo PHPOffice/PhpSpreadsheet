@@ -1169,7 +1169,7 @@ class Statistical
      * Returns the smallest value for which the cumulative binomial distribution is greater
      *        than or equal to a criterion value
      *
-     * See http://support.microsoft.com/kb/828117/ for details of the algorithm used
+     * See https://support.microsoft.com/en-us/help/828117/ for details of the algorithm used
      *
      * @param float $trials number of Bernoulli trials
      * @param float $probability probability of a success on each trial

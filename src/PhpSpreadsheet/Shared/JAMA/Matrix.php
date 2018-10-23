@@ -16,7 +16,7 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
  *
  * @version 1.8
  *
- * @see http://math.nist.gov/javanumerics/jama/
+ * @see https://math.nist.gov/javanumerics/jama/
  */
 class Matrix
 {

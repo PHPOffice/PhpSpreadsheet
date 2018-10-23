@@ -9,7 +9,7 @@ workbooks, although at a cost of speed to access cell data.
 
 By default, PhpSpreadsheet holds all cell objects in memory, but
 you can specify alternatives by providing your own
-[PSR-16](http://www.php-fig.org/psr/psr-16/) implementation. PhpSpreadsheet keys
+[PSR-16](https://www.php-fig.org/psr/psr-16/) implementation. PhpSpreadsheet keys
 are automatically namespaced, and cleaned up after use, so a single cache
 instance may be shared across several usage of PhpSpreadsheet or even with other
 cache usages.
@@ -44,7 +44,7 @@ usage of PhpSpreadsheet.
 
 PhpSpreadsheet does not ship with alternative cache implementation. It is up to
 you to select the most appropriate implementation for your environment. You
-can either implement [PSR-16](http://www.php-fig.org/psr/psr-16/) from scratch,
+can either implement [PSR-16](https://www.php-fig.org/psr/psr-16/) from scratch,
 or use [pre-existing libraries](https://packagist.org/search/?q=psr-16).
 
 One such library is [PHP Cache](https://www.php-cache.com/) which
