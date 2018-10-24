@@ -318,7 +318,6 @@ class Html extends BaseReader
                             $cellContent = Shared\StringHelper::substring($cellContent, 0, self::SHEET_TITLE_MAXIMUM_LENGTH);
                         }
                         $sheet->setTitle($cellContent, true, false);
-                        $sheet->setTitle($cellContent, true, false);
                         $cellContent = '';
 
                         break;
