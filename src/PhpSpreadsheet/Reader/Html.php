@@ -315,7 +315,7 @@ class Html extends BaseReader
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
                         //cut the title if too long
                         if (Shared\StringHelper::countCharacters($cellContent) > self::SHEET_TITLE_MAXIMUM_LENGTH) {
-                            $pValue = Shared\StringHelper::substring($cellContent, 0, self::SHEET_TITLE_MAXIMUM_LENGTH);
+                            $cellContent = Shared\StringHelper::substring($cellContent, 0, self::SHEET_TITLE_MAXIMUM_LENGTH);
                         }
                         $sheet->setTitle($cellContent, true, false);
                         $sheet->setTitle($cellContent, true, false);
