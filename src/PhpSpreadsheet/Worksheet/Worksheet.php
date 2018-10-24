@@ -859,19 +859,19 @@ class Worksheet implements IComparable
                 if ($this->parent->sheetNameExists($pValue)) {
                     // Use name, but append with lowest possible integer
 
-                    if (Shared\StringHelper::countCharacters($pValue) > 29) {
-                        $pValue = Shared\StringHelper::substring($pValue, 0, 29);
+                    if (Shared\StringHelper::countCharacters($pValue) > (self::SHEET_TITLE_MAXIMUM_LENGTH - 2)) {
+                        $pValue = Shared\StringHelper::substring($pValue, 0, (self::SHEET_TITLE_MAXIMUM_LENGTH - 2));
                     }
                     $i = 1;
                     while ($this->parent->sheetNameExists($pValue . ' ' . $i)) {
                         ++$i;
                         if ($i == 10) {
-                            if (Shared\StringHelper::countCharacters($pValue) > 28) {
-                                $pValue = Shared\StringHelper::substring($pValue, 0, 28);
+                            if (Shared\StringHelper::countCharacters($pValue) > (self::SHEET_TITLE_MAXIMUM_LENGTH - 3)) {
+                                $pValue = Shared\StringHelper::substring($pValue, 0, (self::SHEET_TITLE_MAXIMUM_LENGTH - 3));
                             }
                         } elseif ($i == 100) {
-                            if (Shared\StringHelper::countCharacters($pValue) > 27) {
-                                $pValue = Shared\StringHelper::substring($pValue, 0, 27);
+                            if (Shared\StringHelper::countCharacters($pValue) > (self::SHEET_TITLE_MAXIMUM_LENGTH - 4)) {
+                                $pValue = Shared\StringHelper::substring($pValue, 0, (self::SHEET_TITLE_MAXIMUM_LENGTH - 4));
                             }
                         }
                     }

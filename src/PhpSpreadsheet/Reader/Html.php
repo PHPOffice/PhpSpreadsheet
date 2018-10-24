@@ -7,6 +7,7 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -20,6 +21,13 @@ class Html extends BaseReader
      * Sample size to read to determine if it's HTML or not.
      */
     const TEST_SAMPLE_SIZE = 2048;
+
+    /**
+     * Maximum 31 characters allowed for sheet title.
+     *
+     * @var int
+     */
+    const SHEET_TITLE_MAXIMUM_LENGTH = 31;
 
     /**
      * Input encoding.
@@ -305,6 +313,11 @@ class Html extends BaseReader
                         break;
                     case 'title':
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
+                        //cut the title if too long
+                        if (Shared\StringHelper::countCharacters($cellContent) > self::SHEET_TITLE_MAXIMUM_LENGTH) {
+                            $pValue = Shared\StringHelper::substring($cellContent, 0, self::SHEET_TITLE_MAXIMUM_LENGTH);
+                        }
+                        $sheet->setTitle($cellContent, true, false);
                         $sheet->setTitle($cellContent, true, false);
                         $cellContent = '';
 
