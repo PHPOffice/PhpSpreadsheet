@@ -67,6 +67,18 @@ class CsvTest extends TestCase
                 'D8',
                 -58.373161,
             ],
+            [
+                'data/Reader/CSV/empty.csv',
+                ',',
+                'A1',
+                null,
+            ],
+            [
+                'data/Reader/CSV/no_delimiter.csv',
+                ',',
+                'A1',
+                'SingleLine',
+            ],
         ];
     }
 
