@@ -5,6 +5,7 @@
     syntaxCheck="true"
     disallowTestOutput="true">
     <php>
+        <ini name="error_reporting" value="-1"/>
         <ini name="memory_limit" value="2048M"/>
     </php>
     <testsuite name="PhpSpreadsheet Unit Test Suite">
