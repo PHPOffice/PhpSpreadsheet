@@ -181,6 +181,13 @@ class Csv extends BaseReader
             }
         }
 
+        // If number of lines is 0, nothing to infer : fall back to the default
+        if ($numberLines === 0) {
+            $this->delimiter = reset($potentialDelimiters);
+
+            return $this->skipBOM();
+        }
+
         // Calculate the mean square deviations for each delimiter (ignoring delimiters that haven't been found consistently)
         $meanSquareDeviations = [];
         $middleIdx = floor(($numberLines - 1) / 2);
