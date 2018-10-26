@@ -2734,7 +2734,14 @@ class Worksheet implements IComparable
         }
 
         if ($returnRange) {
-            return [substr($pRange, 0, $sep), substr($pRange, $sep + 1)];
+            $sheet = substr($pRange, 0, $sep);
+            if (($pos = strpos($sheet, "'")) !== false) {
+                $sheet = substr_replace($sheet, '', $pos, 1);
+            }
+            if (($pos = strrpos($sheet, "'")) !== false) {
+                $sheet = substr_replace($sheet, '', $pos, 1);
+            }
+            return [$sheet, substr($pRange, $sep + 1)];
         }
 
         return substr($pRange, $sep + 1);
