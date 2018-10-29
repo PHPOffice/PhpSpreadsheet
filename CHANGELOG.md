@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix print area parser for XLSX reader - [#734](https://github.com/PHPOffice/PhpSpreadsheet/pull/734)
 - Support overriding `DefaultValueBinder::dataTypeForValue()` without overriding `DefaultValueBinder::bindValue()` - [#735](https://github.com/PHPOffice/PhpSpreadsheet/pull/735)
 - Mpdf export can exceed pcre.backtrack_limit - [#637](https://github.com/PHPOffice/PhpSpreadsheet/issues/637)
+- Fix index overflow on data values array - [#748](https://github.com/PHPOffice/PhpSpreadsheet/pull/748)
 
 ## [1.5.0] - 2018-10-21
 
