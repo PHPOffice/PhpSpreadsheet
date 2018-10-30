@@ -73,9 +73,9 @@ class Mpdf extends Pdf
         $pdf->AddPageByArray([
             'orientation' => $orientation,
             'margin-left' => $this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft(),
-            'margin-right' => $this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft(),
-            'margin-top' => $this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft(),
-            'margin-bottom' => $this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft(),
+            'margin-right' => $this->spreadsheet->getActiveSheet()->getPageMargins()->getRight(),
+            'margin-top' => $this->spreadsheet->getActiveSheet()->getPageMargins()->getTop(),
+            'margin-bottom' => $this->spreadsheet->getActiveSheet()->getPageMargins()->getBottom(),
         ]);
 
         //  Document info
