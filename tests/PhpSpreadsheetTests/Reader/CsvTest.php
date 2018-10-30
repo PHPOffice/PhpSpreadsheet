@@ -65,7 +65,7 @@ class CsvTest extends TestCase
                 __DIR__ . '/../../../samples/Reader/sampleData/example2.csv',
                 ',',
                 'D8',
-                -58.373161,
+                '-58.373161',
             ],
             [
                 'data/Reader/CSV/empty.csv',

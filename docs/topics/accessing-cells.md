@@ -46,14 +46,10 @@ MS Excel supports 7 basic datatypes:
 - error
 - Inline (or rich text) string
 
-By default, when you call the worksheet's `setCellValue()` method or the
-cell's `setValue()` method, PhpSpreadsheet will use the appropriate
-datatype for PHP nulls, booleans, floats or integers; or cast any string
-data value that you pass to the method into the most appropriate
-datatype, so numeric strings will be cast to numbers, while string
-values beginning with `=` will be converted to a formula. Strings that
-aren't numeric, or that don't begin with a leading `=` will be treated
-as genuine string values.
+By default, when you call the worksheet's `setCellValue()` method or the cell's
+`setValue()` method, PhpSpreadsheet will use the appropriate datatype for PHP
+nulls, booleans, floats, integers, and strings. String values beginning with
+`=` will be converted to a formula.
 
 This "conversion" is handled by a cell "value binder", and you can write
 custom "value binders" to change the behaviour of these "conversions".

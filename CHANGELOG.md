@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### BREAKING CHANGE
+
+- Strings are now always stored on cell with type TYPE_STRING. Numerically
+  formatted strings are no longer stored with type TYPE_NUMERIC.
+
 ### Fixed
 
 - Support numeric condition in SUMIF, SUMIFS, AVERAGEIF, COUNTIF, MAXIF and MINIF - [#683](https://github.com/PHPOffice/PhpSpreadsheet/issues/683)

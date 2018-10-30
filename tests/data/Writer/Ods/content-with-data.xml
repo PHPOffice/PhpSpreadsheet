@@ -61,7 +61,7 @@
                     <table:table-cell table:style-name="ce3" office:value-type="float" office:value="12345.6789">
                         <text:p>12345.6789</text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce9" office:value-type="float" office:value="1">
+                    <table:table-cell table:style-name="ce9" office:value-type="string">
                         <text:p>1</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce0" office:value-type="string">

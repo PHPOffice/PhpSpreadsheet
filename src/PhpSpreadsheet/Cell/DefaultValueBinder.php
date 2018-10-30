@@ -59,15 +59,6 @@ class DefaultValueBinder implements IValueBinder
             return DataType::TYPE_BOOL;
         } elseif (is_float($pValue) || is_int($pValue)) {
             return DataType::TYPE_NUMERIC;
-        } elseif (preg_match('/^[\+\-]?(\d+\\.?\d*|\d*\\.?\d+)([Ee][\-\+]?[0-2]?\d{1,3})?$/', $pValue)) {
-            $tValue = ltrim($pValue, '+-');
-            if (is_string($pValue) && $tValue[0] === '0' && strlen($tValue) > 1 && $tValue[1] !== '.') {
-                return DataType::TYPE_STRING;
-            } elseif ((strpos($pValue, '.') === false) && ($pValue > PHP_INT_MAX)) {
-                return DataType::TYPE_STRING;
-            }
-
-            return DataType::TYPE_NUMERIC;
         } elseif (is_string($pValue)) {
             $errorCodes = DataType::getErrorCodes();
             if (isset($errorCodes[$pValue])) {
