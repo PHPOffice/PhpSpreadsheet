@@ -70,7 +70,13 @@ class Mpdf extends Pdf
         $ortmp = $orientation;
         $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
         $pdf->DefOrientation = $orientation;
-        $pdf->AddPage($orientation);
+        $pdf->AddPageByArray([
+            'orientation' => $orientation,
+            'margin-left' => $this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft(),
+            'margin-right' => $this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft(),
+            'margin-top' => $this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft(),
+            'margin-bottom' => $this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft(),
+        ]);
 
         //  Document info
         $pdf->SetTitle($this->spreadsheet->getProperties()->getTitle());
