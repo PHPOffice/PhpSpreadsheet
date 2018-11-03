@@ -12,18 +12,20 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultValueBinderTest extends TestCase
 {
-    private $cellStub;
-
     private function createCellStub()
     {
         // Create a stub for the Cell class.
-        $this->cellStub = $this->getMockBuilder(Cell::class)
+        /** @var Cell $cellStub */
+        $cellStub = $this->getMockBuilder(Cell::class)
             ->disableOriginalConstructor()
             ->getMock();
+
         // Configure the stub.
-        $this->cellStub->expects($this->any())
+        $cellStub->expects($this->any())
             ->method('setValueExplicit')
             ->will($this->returnValue(true));
+
+        return $cellStub;
     }
 
     /**
@@ -33,9 +35,9 @@ class DefaultValueBinderTest extends TestCase
      */
     public function testBindValue($value)
     {
-        $this->createCellStub();
+        $cellStub = $this->createCellStub();
         $binder = new DefaultValueBinder();
-        $result = $binder->bindValue($this->cellStub, $value);
+        $result = $binder->bindValue($cellStub, $value);
         self::assertTrue($result);
     }
 
@@ -82,5 +84,15 @@ class DefaultValueBinderTest extends TestCase
         $expectedResult = DataType::TYPE_INLINE;
         $result = DefaultValueBinder::dataTypeForValue($objRichText);
         self::assertEquals($expectedResult, $result);
+    }
+
+    public function testCanOverrideStaticMethodWithoutOverridingBindValue()
+    {
+        $cellStub = $this->createCellStub();
+        $binder = new ValueBinderWithOverriddenDataTypeForValue();
+
+        self::assertFalse($binder::$called);
+        $binder->bindValue($cellStub, 123);
+        self::assertTrue($binder::$called);
     }
 }

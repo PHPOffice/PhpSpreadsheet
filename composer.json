@@ -8,18 +8,21 @@
     "authors": [
         {
             "name": "Maarten Balliauw",
-            "homepage": "http://blog.maartenballiauw.be"
+            "homepage": "https://blog.maartenballiauw.be"
         },
         {
             "name": "Mark Baker",
-            "homepage": "http://markbakeruk.net"
+            "homepage": "https://markbakeruk.net"
         },
         {
             "name": "Franck Lefevre",
-            "homepage": "http://rootslabs.net"
+            "homepage": "https://rootslabs.net"
         },
         {
             "name": "Erik Tilt"
+        },
+        {
+            "name": "Adrien Crivelli"
         }
     ],
     "scripts": {
@@ -30,6 +33,9 @@
         ],
         "fix": [
             "php-cs-fixer fix --ansi"
+        ],
+        "versions": [
+            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 5.6- -n"
         ]
     },
     "require": {
@@ -56,6 +62,7 @@
         "mpdf/mpdf": "^7.0.0",
         "jpgraph/jpgraph": "^4.0",
         "friendsofphp/php-cs-fixer": "@stable",
+        "phpcompatibility/php-compatibility": "^8.0",
         "squizlabs/php_codesniffer": "^3.3"
     },
     "suggest": {

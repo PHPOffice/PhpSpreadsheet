@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class CalculationTest extends TestCase
@@ -116,5 +117,27 @@ class CalculationTest extends TestCase
         self::assertCount(5, $tree);
         $function = $tree[4];
         self::assertEquals('Function', $function['type']);
+    }
+
+    public function testFormulaWithOptionalArgumentsAndRequiredCellReferenceShouldPassNullForMissingArguments()
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->fromArray(
+            [
+                [1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9],
+            ]
+        );
+
+        $cell = $sheet->getCell('E5');
+        $cell->setValue('=OFFSET(D3, -1, -2, 1, 1)');
+        self::assertEquals(5, $cell->getCalculatedValue(), 'with all arguments');
+
+        $cell = $sheet->getCell('F6');
+        $cell->setValue('=OFFSET(D3, -1, -2)');
+        self::assertEquals(5, $cell->getCalculatedValue(), 'missing arguments should be filled with null');
     }
 }

@@ -15,7 +15,7 @@ $gdImage = @imagecreatetruecolor(120, 20);
 $textColor = imagecolorallocate($gdImage, 255, 255, 255);
 imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 
-$baseUrl = 'https://phpspreadsheet.readthedocs.io/';
+$baseUrl = 'https://phpspreadsheet.readthedocs.io';
 
 $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
 $drawing->setName('In-Memory image 1');

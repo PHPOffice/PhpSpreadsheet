@@ -126,7 +126,7 @@ class PolynomialBestFit extends BestFit
         // calculate sums
         $x_sum = array_sum($xValues);
         $y_sum = array_sum($yValues);
-        $xx_sum = $xy_sum = 0;
+        $xx_sum = $xy_sum = $yy_sum = 0;
         for ($i = 0; $i < $this->valueCount; ++$i) {
             $xy_sum += $xValues[$i] * $yValues[$i];
             $xx_sum += $xValues[$i] * $xValues[$i];
@@ -140,6 +140,8 @@ class PolynomialBestFit extends BestFit
          *    a series of x-y data points using least squares.
          *
          */
+        $A = [];
+        $B = [];
         for ($i = 0; $i < $this->valueCount; ++$i) {
             for ($j = 0; $j <= $order; ++$j) {
                 $A[$i][$j] = pow($xValues[$i], $j);
