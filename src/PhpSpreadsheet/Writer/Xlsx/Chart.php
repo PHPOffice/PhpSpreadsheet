@@ -1114,7 +1114,7 @@ class Chart extends WriterPart
                         $objWriter->startElement('c:spPr');
                         $objWriter->startElement('a:solidFill');
                         $objWriter->startElement('a:srgbClr');
-                        $objWriter->writeAttribute('val', ($fillColorValues[$dataKey] ?? 'FF9900'));
+                        $objWriter->writeAttribute('val', (isset($fillColorValues[$dataKey]) ? $fillColorValues[$dataKey] : 'FF9900'));
                         $objWriter->endElement();
                         $objWriter->endElement();
                         $objWriter->endElement();
