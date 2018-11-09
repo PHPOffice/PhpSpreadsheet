@@ -15,7 +15,6 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *    rank can be computed from this decomposition.
  *
  *    @author  Paul Meagher
- *    @license PHP v3.0
  *
  *    @version 1.1
  */
@@ -61,10 +60,7 @@ class SingularValueDecomposition
      *
      * Derived from LINPACK code.
      *
-     * @param $A Rectangular matrix
-     * @param mixed $Arg
-     *
-     * @return Structure to access U, S and V
+     * @param mixed $Arg Rectangular matrix
      */
     public function __construct($Arg)
     {
@@ -82,7 +78,8 @@ class SingularValueDecomposition
 
         // Reduce A to bidiagonal form, storing the diagonal elements
         // in s and the super-diagonal elements in e.
-        for ($k = 0; $k < max($nct, $nrt); ++$k) {
+        $kMax = max($nct, $nrt);
+        for ($k = 0; $k < $kMax; ++$k) {
             if ($k < $nct) {
                 // Compute the transformation for the k-th column and
                 // place the k-th diagonal in s[$k].
@@ -264,6 +261,7 @@ class SingularValueDecomposition
                 }
                 if (abs($e[$k]) <= $eps * (abs($this->s[$k]) + abs($this->s[$k + 1]))) {
                     $e[$k] = 0.0;
+
                     break;
                 }
             }
@@ -277,6 +275,7 @@ class SingularValueDecomposition
                     $t = ($ks != $p ? abs($e[$ks]) : 0.) + ($ks != $k + 1 ? abs($e[$ks - 1]) : 0.);
                     if (abs($this->s[$ks]) <= $eps * $t) {
                         $this->s[$ks] = 0.0;
+
                         break;
                     }
                 }
@@ -314,6 +313,7 @@ class SingularValueDecomposition
                             }
                         }
                     }
+
                     break;
                 // Split at negligible s(k).
                 case 2:
@@ -334,6 +334,7 @@ class SingularValueDecomposition
                             }
                         }
                     }
+
                     break;
                 // Perform one qr step.
                 case 3:
@@ -393,6 +394,7 @@ class SingularValueDecomposition
                     }
                     $e[$p - 2] = $f;
                     $iter = $iter + 1;
+
                     break;
                 // Convergence.
                 case 4:
@@ -431,17 +433,16 @@ class SingularValueDecomposition
                     }
                     $iter = 0;
                     --$p;
+
                     break;
             } // end switch
         } // end while
     }
 
- // end constructor
-
     /**
      * Return the left singular vectors.
      *
-     * @return U
+     * @return Matrix U
      */
     public function getU()
     {
@@ -451,7 +452,7 @@ class SingularValueDecomposition
     /**
      * Return the right singular vectors.
      *
-     * @return V
+     * @return Matrix V
      */
     public function getV()
     {
@@ -461,7 +462,7 @@ class SingularValueDecomposition
     /**
      * Return the one-dimensional array of singular values.
      *
-     * @return diagonal of S
+     * @return array diagonal of S
      */
     public function getSingularValues()
     {
@@ -471,7 +472,7 @@ class SingularValueDecomposition
     /**
      * Return the diagonal matrix of singular values.
      *
-     * @return S
+     * @return Matrix S
      */
     public function getS()
     {
@@ -488,7 +489,7 @@ class SingularValueDecomposition
     /**
      * Two norm.
      *
-     * @return max(S)
+     * @return float max(S)
      */
     public function norm2()
     {
@@ -498,7 +499,7 @@ class SingularValueDecomposition
     /**
      * Two norm condition number.
      *
-     * @return max(S)/min(S)
+     * @return float max(S)/min(S)
      */
     public function cond()
     {
@@ -508,14 +509,15 @@ class SingularValueDecomposition
     /**
      * Effective numerical matrix rank.
      *
-     * @return Number of nonnegligible singular values
+     * @return int Number of nonnegligible singular values
      */
     public function rank()
     {
         $eps = pow(2.0, -52.0);
         $tol = max($this->m, $this->n) * $this->s[0] * $eps;
         $r = 0;
-        for ($i = 0; $i < count($this->s); ++$i) {
+        $iMax = count($this->s);
+        for ($i = 0; $i < $iMax; ++$i) {
             if ($this->s[$i] > $tol) {
                 ++$r;
             }

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
@@ -12,28 +12,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Escher
 {
     const DGGCONTAINER = 0xF000;
@@ -79,7 +57,7 @@ class Escher
     /**
      * The object to be returned by the reader. Modified during load.
      *
-     * @var mixed
+     * @var BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
      */
     private $object;
 
@@ -97,6 +75,8 @@ class Escher
      * Load Escher stream data. May be a partial Escher stream.
      *
      * @param string $data
+     *
+     * @return BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
      */
     public function load($data)
     {
@@ -110,65 +90,84 @@ class Escher
         // Parse Escher stream
         while ($this->pos < $this->dataSize) {
             // offset: 2; size: 2: Record Type
-            $fbt = Xls::getInt2d($this->data, $this->pos + 2);
+            $fbt = Xls::getUInt2d($this->data, $this->pos + 2);
 
             switch ($fbt) {
                 case self::DGGCONTAINER:
                     $this->readDggContainer();
+
                     break;
                 case self::DGG:
                     $this->readDgg();
+
                     break;
                 case self::BSTORECONTAINER:
                     $this->readBstoreContainer();
+
                     break;
                 case self::BSE:
                     $this->readBSE();
+
                     break;
                 case self::BLIPJPEG:
                     $this->readBlipJPEG();
+
                     break;
                 case self::BLIPPNG:
                     $this->readBlipPNG();
+
                     break;
                 case self::OPT:
                     $this->readOPT();
+
                     break;
                 case self::TERTIARYOPT:
                     $this->readTertiaryOPT();
+
                     break;
                 case self::SPLITMENUCOLORS:
                     $this->readSplitMenuColors();
+
                     break;
                 case self::DGCONTAINER:
                     $this->readDgContainer();
+
                     break;
                 case self::DG:
                     $this->readDg();
+
                     break;
                 case self::SPGRCONTAINER:
                     $this->readSpgrContainer();
+
                     break;
                 case self::SPCONTAINER:
                     $this->readSpContainer();
+
                     break;
                 case self::SPGR:
                     $this->readSpgr();
+
                     break;
                 case self::SP:
                     $this->readSp();
+
                     break;
                 case self::CLIENTTEXTBOX:
                     $this->readClientTextbox();
+
                     break;
                 case self::CLIENTANCHOR:
                     $this->readClientAnchor();
+
                     break;
                 case self::CLIENTDATA:
                     $this->readClientData();
+
                     break;
                 default:
                     $this->readDefault();
+
                     break;
             }
         }
@@ -182,10 +181,10 @@ class Escher
     private function readDefault()
     {
         // offset 0; size: 2; recVer and recInstance
-        $verInstance = Xls::getInt2d($this->data, $this->pos);
+        $verInstance = Xls::getUInt2d($this->data, $this->pos);
 
         // offset: 2; size: 2: Record Type
-        $fbt = Xls::getInt2d($this->data, $this->pos + 2);
+        $fbt = Xls::getUInt2d($this->data, $this->pos + 2);
 
         // bit: 0-3; mask: 0x000F; recVer
         $recVer = (0x000F & $verInstance) >> 0;
@@ -253,7 +252,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -277,7 +276,7 @@ class Escher
         $rgbUid = substr($recordData, 2, 16);
 
         // offset: 18; size: 2; tag
-        $tag = Xls::getInt2d($recordData, 18);
+        $tag = Xls::getUInt2d($recordData, 18);
 
         // offset: 20; size: 4; size of BLIP in bytes
         $size = Xls::getInt4d($recordData, 20);
@@ -319,7 +318,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -360,7 +359,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -401,7 +400,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -420,7 +419,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -539,7 +538,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -556,7 +555,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -577,31 +576,31 @@ class Escher
         $this->pos += 8 + $length;
 
         // offset: 2; size: 2; upper-left corner column index (0-based)
-        $c1 = Xls::getInt2d($recordData, 2);
+        $c1 = Xls::getUInt2d($recordData, 2);
 
         // offset: 4; size: 2; upper-left corner horizontal offset in 1/1024 of column width
-        $startOffsetX = Xls::getInt2d($recordData, 4);
+        $startOffsetX = Xls::getUInt2d($recordData, 4);
 
         // offset: 6; size: 2; upper-left corner row index (0-based)
-        $r1 = Xls::getInt2d($recordData, 6);
+        $r1 = Xls::getUInt2d($recordData, 6);
 
         // offset: 8; size: 2; upper-left corner vertical offset in 1/256 of row height
-        $startOffsetY = Xls::getInt2d($recordData, 8);
+        $startOffsetY = Xls::getUInt2d($recordData, 8);
 
         // offset: 10; size: 2; bottom-right corner column index (0-based)
-        $c2 = Xls::getInt2d($recordData, 10);
+        $c2 = Xls::getUInt2d($recordData, 10);
 
         // offset: 12; size: 2; bottom-right corner horizontal offset in 1/1024 of column width
-        $endOffsetX = Xls::getInt2d($recordData, 12);
+        $endOffsetX = Xls::getUInt2d($recordData, 12);
 
         // offset: 14; size: 2; bottom-right corner row index (0-based)
-        $r2 = Xls::getInt2d($recordData, 14);
+        $r2 = Xls::getUInt2d($recordData, 14);
 
         // offset: 16; size: 2; bottom-right corner vertical offset in 1/256 of row height
-        $endOffsetY = Xls::getInt2d($recordData, 16);
+        $endOffsetY = Xls::getUInt2d($recordData, 16);
 
         // set the start coordinates
-        $this->object->setStartCoordinates(Cell::stringFromColumnIndex($c1) . ($r1 + 1));
+        $this->object->setStartCoordinates(Coordinate::stringFromColumnIndex($c1 + 1) . ($r1 + 1));
 
         // set the start offsetX
         $this->object->setStartOffsetX($startOffsetX);
@@ -610,7 +609,7 @@ class Escher
         $this->object->setStartOffsetY($startOffsetY);
 
         // set the end coordinates
-        $this->object->setEndCoordinates(Cell::stringFromColumnIndex($c2) . ($r2 + 1));
+        $this->object->setEndCoordinates(Coordinate::stringFromColumnIndex($c2 + 1) . ($r2 + 1));
 
         // set the end offsetX
         $this->object->setEndOffsetX($endOffsetX);
@@ -647,7 +646,7 @@ class Escher
             $fopte = substr($data, 6 * $i, 6);
 
             // offset: 0; size: 2; opid
-            $opid = Xls::getInt2d($fopte, 0);
+            $opid = Xls::getUInt2d($fopte, 0);
 
             // bit: 0-13; mask: 0x3FFF; opid.opid
             $opidOpid = (0x3FFF & $opid) >> 0;

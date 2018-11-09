@@ -1,0 +1,24 @@
+##
+## PhpSpreadsheet
+##
+
+ArgumentSeparator	= ;
+
+
+##
+##	(For future use)
+##
+currencySymbol	= р
+
+
+##
+##	Excel Error Codes	(For future use)
+
+##
+NULL	= #ПУСТО!
+DIV0	= #ДЕЛ/0!
+VALUE	= #ЗНАЧ!
+REF	= #ССЫЛ!
+NAME	= #ИМЯ?
+NUM	= #ЧИСЛО!
+NA	= #Н/Д

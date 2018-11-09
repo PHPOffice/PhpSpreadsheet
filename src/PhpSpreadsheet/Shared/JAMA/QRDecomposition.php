@@ -16,7 +16,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
  *    returns false.
  *
  *    @author  Paul Meagher
- *    @license PHP v3.0
  *
  *    @version 1.1
  */
@@ -56,8 +55,6 @@ class QRDecomposition
      * QR Decomposition computed by Householder reflections.
      *
      * @param matrix $A Rectangular matrix
-     *
-     * @return Structure to access R and the Householder vectors and compute Q
      */
     public function __construct($A)
     {
@@ -128,6 +125,7 @@ class QRDecomposition
      */
     public function getH()
     {
+        $H = [];
         for ($i = 0; $i < $this->m; ++$i) {
             for ($j = 0; $j < $this->n; ++$j) {
                 if ($i >= $j) {
@@ -150,6 +148,7 @@ class QRDecomposition
      */
     public function getR()
     {
+        $R = [];
         for ($i = 0; $i < $this->n; ++$i) {
             for ($j = 0; $j < $this->n; ++$j) {
                 if ($i < $j) {
@@ -174,6 +173,7 @@ class QRDecomposition
      */
     public function getQ()
     {
+        $Q = [];
         for ($k = $this->n - 1; $k >= 0; --$k) {
             for ($i = 0; $i < $this->m; ++$i) {
                 $Q[$i][$k] = 0.0;
@@ -192,15 +192,7 @@ class QRDecomposition
                 }
             }
         }
-        /*
-        for($i = 0; $i < count($Q); ++$i) {
-            for($j = 0; $j < count($Q); ++$j) {
-                if (! isset($Q[$i][$j]) ) {
-                    $Q[$i][$j] = 0;
-                }
-            }
-        }
-        */
+
         return new Matrix($Q);
     }
 
@@ -248,8 +240,10 @@ class QRDecomposition
 
                 return $X->getMatrix(0, $this->n - 1, 0, $nx);
             }
+
             throw new CalculationException(self::MATRIX_RANK_EXCEPTION);
         }
+
         throw new CalculationException(Matrix::MATRIX_DIMENSION_EXCEPTION);
     }
 }

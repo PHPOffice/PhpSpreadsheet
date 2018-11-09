@@ -2,41 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
-/*
- * PhpSpreadsheet
- *
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
-
-defined('IDENTIFIER_OLE') ||
-    define('IDENTIFIER_OLE', pack('CCCCCCCC', 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1));
 
 class OLERead
 {
     private $data = '';
-
-    // OLE identifier
-    const IDENTIFIER_OLE = IDENTIFIER_OLE;
 
     // Size of a sector = 512 bytes
     const BIG_BLOCK_SIZE = 0x200;
@@ -64,9 +34,61 @@ class OLERead
     const START_BLOCK_POS = 0x74;
     const SIZE_POS = 0x78;
 
-    public $wrkbook = null;
-    public $summaryInformation = null;
-    public $documentSummaryInformation = null;
+    public $wrkbook;
+
+    public $summaryInformation;
+
+    public $documentSummaryInformation;
+
+    /**
+     * @var int
+     */
+    private $numBigBlockDepotBlocks;
+
+    /**
+     * @var int
+     */
+    private $rootStartBlock;
+
+    /**
+     * @var int
+     */
+    private $sbdStartBlock;
+
+    /**
+     * @var int
+     */
+    private $extensionBlock;
+
+    /**
+     * @var int
+     */
+    private $numExtensionBlocks;
+
+    /**
+     * @var string
+     */
+    private $bigBlockChain;
+
+    /**
+     * @var string
+     */
+    private $smallBlockChain;
+
+    /**
+     * @var string
+     */
+    private $entry;
+
+    /**
+     * @var int
+     */
+    private $rootentry;
+
+    /**
+     * @var array
+     */
+    private $props = [];
 
     /**
      * Read the file.
@@ -84,7 +106,8 @@ class OLERead
         $this->data = file_get_contents($pFilename, false, null, 0, 8);
 
         // Check OLE identifier
-        if ($this->data != self::IDENTIFIER_OLE) {
+        $identifierOle = pack('CCCCCCCC', 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1);
+        if ($this->data != $identifierOle) {
             throw new ReaderException('The filename ' . $pFilename . ' is not recognised as an OLE file');
         }
 
@@ -303,10 +326,7 @@ class OLERead
      */
     private static function getInt4d($data, $pos)
     {
-        if (trim($data) == '') {
-            // No data provided
-            throw new ReaderException('Parameter data is empty.');
-        } elseif ($pos < 0) {
+        if ($pos < 0) {
             // Invalid position
             throw new ReaderException('Parameter pos=' . $pos . ' is invalid.');
         }

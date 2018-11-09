@@ -1,7 +1,7 @@
 <?php
 
 // Create new Spreadsheet object
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -20,12 +20,12 @@ $spreadsheet = new Spreadsheet();
 // Set document properties
 $helper->log('Set document properties');
 $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
-        ->setLastModifiedBy('Maarten Balliauw')
-        ->setTitle('Office 2007 XLSX Test Document')
-        ->setSubject('Office 2007 XLSX Test Document')
-        ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
-        ->setKeywords('office 2007 openxml php')
-        ->setCategory('Test result file');
+    ->setLastModifiedBy('Maarten Balliauw')
+    ->setTitle('Office 2007 XLSX Test Document')
+    ->setSubject('Office 2007 XLSX Test Document')
+    ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
+    ->setKeywords('office 2007 openxml php')
+    ->setCategory('Test result file');
 
 // Create a first sheet, representing sales data
 $helper->log('Add some data');
@@ -156,7 +156,7 @@ $helper->log('Set thin black border outline around column');
 $styleThinBlackBorderOutline = [
     'borders' => [
         'outline' => [
-            'style' => Border::BORDER_THIN,
+            'borderStyle' => Border::BORDER_THIN,
             'color' => ['argb' => 'FF000000'],
         ],
     ],
@@ -168,7 +168,7 @@ $helper->log('Set thick brown border outline around Total');
 $styleThickBrownBorderOutline = [
     'borders' => [
         'outline' => [
-            'style' => Border::BORDER_THICK,
+            'borderStyle' => Border::BORDER_THICK,
             'color' => ['argb' => 'FF993300'],
         ],
     ],
@@ -192,16 +192,16 @@ $spreadsheet->getActiveSheet()->getStyle('A3:E3')->applyFromArray(
             ],
             'borders' => [
                 'top' => [
-                    'style' => Border::BORDER_THIN,
+                    'borderStyle' => Border::BORDER_THIN,
                 ],
             ],
             'fill' => [
-                'type' => Fill::FILL_GRADIENT_LINEAR,
+                'fillType' => Fill::FILL_GRADIENT_LINEAR,
                 'rotation' => 90,
-                'startcolor' => [
+                'startColor' => [
                     'argb' => 'FFA0A0A0',
                 ],
-                'endcolor' => [
+                'endColor' => [
                     'argb' => 'FFFFFFFF',
                 ],
             ],
@@ -215,7 +215,7 @@ $spreadsheet->getActiveSheet()->getStyle('A3')->applyFromArray(
             ],
             'borders' => [
                 'left' => [
-                    'style' => Border::BORDER_THIN,
+                    'borderStyle' => Border::BORDER_THIN,
                 ],
             ],
         ]
@@ -233,7 +233,7 @@ $spreadsheet->getActiveSheet()->getStyle('E3')->applyFromArray(
     [
             'borders' => [
                 'right' => [
-                    'style' => Border::BORDER_THIN,
+                    'borderStyle' => Border::BORDER_THIN,
                 ],
             ],
         ]
@@ -246,7 +246,7 @@ $spreadsheet->getActiveSheet()->getStyle('B1')->getProtection()->setLocked(Prote
 // Add a hyperlink to the sheet
 $helper->log('Add a hyperlink to an external website');
 $spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
-$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('http://www.phpexcel.net');
+$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('https://www.example.com');
 $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setTooltip('Navigate to website');
 $spreadsheet->getActiveSheet()->getStyle('E26')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 

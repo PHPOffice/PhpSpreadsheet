@@ -3,31 +3,31 @@
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class HyperlinkTest extends PHPUnit_Framework_TestCase
+class HyperlinkTest extends TestCase
 {
     public function testGetUrl()
     {
-        $urlValue = 'http://www.phpexcel.net';
+        $urlValue = 'https://www.example.com';
 
         $testInstance = new Hyperlink($urlValue);
 
         $result = $testInstance->getUrl();
-        $this->assertEquals($urlValue, $result);
+        self::assertEquals($urlValue, $result);
     }
 
     public function testSetUrl()
     {
-        $initialUrlValue = 'http://www.phpexcel.net';
+        $initialUrlValue = 'https://www.example.com';
         $newUrlValue = 'http://github.com/PHPOffice/PhpSpreadsheet';
 
         $testInstance = new Hyperlink($initialUrlValue);
         $result = $testInstance->setUrl($newUrlValue);
-        $this->assertTrue($result instanceof Hyperlink);
+        self::assertInstanceOf(Hyperlink::class, $result);
 
         $result = $testInstance->getUrl();
-        $this->assertEquals($newUrlValue, $result);
+        self::assertEquals($newUrlValue, $result);
     }
 
     public function testGetTooltip()
@@ -37,7 +37,7 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         $testInstance = new Hyperlink(null, $tooltipValue);
 
         $result = $testInstance->getTooltip();
-        $this->assertEquals($tooltipValue, $result);
+        self::assertEquals($tooltipValue, $result);
     }
 
     public function testSetTooltip()
@@ -47,35 +47,35 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
 
         $testInstance = new Hyperlink(null, $initialTooltipValue);
         $result = $testInstance->setTooltip($newTooltipValue);
-        $this->assertTrue($result instanceof Hyperlink);
+        self::assertInstanceOf(Hyperlink::class, $result);
 
         $result = $testInstance->getTooltip();
-        $this->assertEquals($newTooltipValue, $result);
+        self::assertEquals($newTooltipValue, $result);
     }
 
     public function testIsInternal()
     {
-        $initialUrlValue = 'http://www.phpexcel.net';
+        $initialUrlValue = 'https://www.example.com';
         $newUrlValue = 'sheet://Worksheet1!A1';
 
         $testInstance = new Hyperlink($initialUrlValue);
         $result = $testInstance->isInternal();
-        $this->assertFalse($result);
+        self::assertFalse($result);
 
         $testInstance->setUrl($newUrlValue);
         $result = $testInstance->isInternal();
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testGetHashCode()
     {
-        $urlValue = 'http://www.phpexcel.net';
+        $urlValue = 'https://www.example.com';
         $tooltipValue = 'PhpSpreadsheet Web Site';
-        $initialExpectedHash = '6f1d4cbf40034b9ddc3fbf6019506e91';
+        $initialExpectedHash = '3a8d5a682dba27276dce538c39402437';
 
         $testInstance = new Hyperlink($urlValue, $tooltipValue);
 
         $result = $testInstance->getHashCode();
-        $this->assertEquals($initialExpectedHash, $result);
+        self::assertEquals($initialExpectedHash, $result);
     }
 }

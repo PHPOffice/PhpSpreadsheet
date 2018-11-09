@@ -11,21 +11,11 @@ with PHP's `iconv()` or `mb_convert_encoding()` functions.
 PhpSpreadsheet holds an "in memory" representation of a spreadsheet, so
 it is susceptible to PHP's memory limitations. The memory made available
 to PHP can be increased by editing the value of the `memory_limit`
-directive in your php.ini file, or by using
+directive in your `php.ini` file, or by using
 `ini_set('memory_limit', '128M')` within your code.
 
 Some Readers and Writers are faster than others, and they also use
-differing amounts of memory. You can find some indication of the
-relative performance and memory usage for the different Readers and
-Writers, over the different versions of PhpSpreadsheet, on the
-[discussion
-board](http://phpexcel.codeplex.com/Thread/View.aspx?ThreadId=234150).
-
-If you've already increased memory to a maximum, or can't change your
-memory limit, then [this
-discussion](http://phpexcel.codeplex.com/Thread/View.aspx?ThreadId=242712)
-on the board describes some of the methods that can be applied to reduce
-the memory usage of your scripts using PhpSpreadsheet.
+differing amounts of memory.
 
 ## Protection on my worksheet is not working?
 
@@ -63,34 +53,5 @@ Trying to set column width, I experience one problem. When I open the
 file in Excel, the actual width is 0.71 less than it should be.
 
 The short answer is that PhpSpreadsheet uses a measure where padding is
-included. See [how to seta column's width](./topics/recipes.md#setting-a-columns-width)
+included. See [how to set a column's width](./topics/recipes.md#setting-a-columns-width)
 for more details.
-
-## How do I use PhpSpreadsheet with my framework
-
--   There are some instructions for using PhpSpreadsheet with Joomla on
-    the [Joomla message
-    board](http://http:/forum.joomla.org/viewtopic.php?f=304&t=433060)
--   A page of advice on using [PhpSpreadsheet in the Yii
-    framework](http://www.yiiframework.com/wiki/101/how-to-use-phpexcel-external-library-with-yii/)
--   [The
-    Bakery](http://bakery.cakephp.org/articles/melgior/2010/01/26/simple-excel-spreadsheet-helper)
-    has some helper classes for reading and writing with PhpSpreadsheet
-    within CakePHP
--   Integrating [PhpSpreadsheet into Kohana
-    3](http://www.flynsarmy.com/2010/07/phpexcel-module-for-kohana-3/)
-    and [Интеграция PHPExcel и Kohana
-    Framework](http://szpargalki.blogspot.com/2011/02/phpexcel-kohana-framework.html)
--   Using [PhpSpreadsheet with
-    TYPO3](http://typo3.org/documentation/document-library/extension-manuals/phpexcel_library/1.1.1/view/toc/0/)
-
-### Tutorials
-
--   [English PHPExcel tutorial](http://openxmldeveloper.org)
--   [French PHPExcel
-    tutorial](http://g-ernaelsten.developpez.com/tutoriels/excel2007/)
--   [Russian PHPExcel Blog
-    Postings](http://www.web-junior.net/sozdanie-excel-fajjlov-s-pomoshhyu-phpexcel/)
--   [A Japanese-language introduction to
-    PHPExcel](http://journal.mycom.co.jp/articles/2009/03/06/phpexcel/index.html)
-

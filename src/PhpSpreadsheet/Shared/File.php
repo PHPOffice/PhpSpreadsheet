@@ -5,37 +5,13 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 use InvalidArgumentException;
 use ZipArchive;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class File
 {
-    /*
-     * Use Temp or File Upload Temp for temporary files
+    /**
+     * Use Temp or File Upload Temp for temporary files.
      *
-     * @protected
-     * @var boolean
+     * @var bool
      */
-
     protected static $useUploadTempDirectory = false;
 
     /**
@@ -110,7 +86,8 @@ class File
         if ($returnValue == '' || ($returnValue === null)) {
             $pathArray = explode('/', $pFilename);
             while (in_array('..', $pathArray) && $pathArray[0] != '..') {
-                for ($i = 0; $i < count($pathArray); ++$i) {
+                $iMax = count($pathArray);
+                for ($i = 0; $i < $iMax; ++$i) {
                     if ($pathArray[$i] == '..' && $i > 0) {
                         unset($pathArray[$i], $pathArray[$i - 1]);
 

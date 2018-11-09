@@ -2,32 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
-use PhpOffice\PhpSpreadsheet\Worksheet;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class BaseDrawing implements IComparable
 {
     /**
@@ -61,7 +39,7 @@ class BaseDrawing implements IComparable
     /**
      * Worksheet.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Worksheet
+     * @var Worksheet
      */
     protected $worksheet;
 
@@ -122,6 +100,13 @@ class BaseDrawing implements IComparable
     protected $shadow;
 
     /**
+     * Image hyperlink.
+     *
+     * @var null|Hyperlink
+     */
+    private $hyperlink;
+
+    /**
      * Create a new BaseDrawing.
      */
     public function __construct()
@@ -139,7 +124,8 @@ class BaseDrawing implements IComparable
         $this->rotation = 0;
         $this->shadow = new Drawing\Shadow();
 
-        // Set image index++self::$imageCounter;
+        // Set image index
+        ++self::$imageCounter;
         $this->imageIndex = self::$imageCounter;
     }
 
@@ -204,7 +190,7 @@ class BaseDrawing implements IComparable
     /**
      * Get Worksheet.
      *
-     * @return \PhpOffice\PhpSpreadsheet\Worksheet
+     * @return Worksheet
      */
     public function getWorksheet()
     {
@@ -223,28 +209,29 @@ class BaseDrawing implements IComparable
      */
     public function setWorksheet(Worksheet $pValue = null, $pOverrideOld = false)
     {
-        if (is_null($this->worksheet)) {
-            // Add drawing to \PhpOffice\PhpSpreadsheet\Worksheet
+        if ($this->worksheet === null) {
+            // Add drawing to \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
             $this->worksheet = $pValue;
             $this->worksheet->getCell($this->coordinates);
             $this->worksheet->getDrawingCollection()->append($this);
         } else {
             if ($pOverrideOld) {
-                // Remove drawing from old \PhpOffice\PhpSpreadsheet\Worksheet
+                // Remove drawing from old \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
                 $iterator = $this->worksheet->getDrawingCollection()->getIterator();
 
                 while ($iterator->valid()) {
                     if ($iterator->current()->getHashCode() == $this->getHashCode()) {
                         $this->worksheet->getDrawingCollection()->offsetUnset($iterator->key());
                         $this->worksheet = null;
+
                         break;
                     }
                 }
 
-                // Set new \PhpOffice\PhpSpreadsheet\Worksheet
+                // Set new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
                 $this->setWorksheet($pValue);
             } else {
-                throw new PhpSpreadsheetException("A Worksheet has already been assigned. Drawings can only exist on one \PhpOffice\PhpSpreadsheet\Worksheet.");
+                throw new PhpSpreadsheetException('A Worksheet has already been assigned. Drawings can only exist on one \\PhpOffice\\PhpSpreadsheet\\Worksheet.');
             }
         }
 
@@ -386,12 +373,13 @@ class BaseDrawing implements IComparable
     }
 
     /**
-     * Set width and height with proportional resize
+     * Set width and height with proportional resize.
+     *
      * Example:
      * <code>
      * $objDrawing->setResizeProportional(true);
      * $objDrawing->setWidthAndHeight(160,120);
-     * </code>.
+     * </code>
      *
      * @author Vincent@luo MSN:kele_100@hotmail.com
      *
@@ -483,8 +471,6 @@ class BaseDrawing implements IComparable
      *
      * @param Drawing\Shadow $pValue
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return BaseDrawing
      */
     public function setShadow(Drawing\Shadow $pValue = null)
@@ -523,11 +509,29 @@ class BaseDrawing implements IComparable
     {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if (is_object($value)) {
+            if ($key == 'worksheet') {
+                $this->worksheet = null;
+            } elseif (is_object($value)) {
                 $this->$key = clone $value;
             } else {
                 $this->$key = $value;
             }
         }
+    }
+
+    /**
+     * @param null|Hyperlink $pHyperlink
+     */
+    public function setHyperlink(Hyperlink $pHyperlink = null)
+    {
+        $this->hyperlink = $pHyperlink;
+    }
+
+    /**
+     * @return null|Hyperlink
+     */
+    public function getHyperlink()
+    {
+        return $this->hyperlink;
     }
 }

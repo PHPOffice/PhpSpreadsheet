@@ -2,15 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Cell;
-use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Worksheet\ColumnCellIterator;
-use PHPUnit_Framework_TestCase;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\TestCase;
 
-class ColumnCellIteratorTest extends PHPUnit_Framework_TestCase
+class ColumnCellIteratorTest extends TestCase
 {
     public $mockWorksheet;
-    public $mockColumnCell;
+
+    public $mockCell;
 
     public function setUp()
     {
@@ -34,11 +35,11 @@ class ColumnCellIteratorTest extends PHPUnit_Framework_TestCase
     {
         $iterator = new ColumnCellIterator($this->mockWorksheet, 'A');
         $ColumnCellIndexResult = 1;
-        $this->assertEquals($ColumnCellIndexResult, $iterator->key());
+        self::assertEquals($ColumnCellIndexResult, $iterator->key());
 
         foreach ($iterator as $key => $ColumnCell) {
-            $this->assertEquals($ColumnCellIndexResult++, $key);
-            $this->assertInstanceOf(Cell::class, $ColumnCell);
+            self::assertEquals($ColumnCellIndexResult++, $key);
+            self::assertInstanceOf(Cell::class, $ColumnCell);
         }
     }
 
@@ -46,11 +47,11 @@ class ColumnCellIteratorTest extends PHPUnit_Framework_TestCase
     {
         $iterator = new ColumnCellIterator($this->mockWorksheet, 'A', 2, 4);
         $ColumnCellIndexResult = 2;
-        $this->assertEquals($ColumnCellIndexResult, $iterator->key());
+        self::assertEquals($ColumnCellIndexResult, $iterator->key());
 
         foreach ($iterator as $key => $ColumnCell) {
-            $this->assertEquals($ColumnCellIndexResult++, $key);
-            $this->assertInstanceOf(Cell::class, $ColumnCell);
+            self::assertEquals($ColumnCellIndexResult++, $key);
+            self::assertInstanceOf(Cell::class, $ColumnCell);
         }
     }
 
@@ -59,29 +60,26 @@ class ColumnCellIteratorTest extends PHPUnit_Framework_TestCase
         $iterator = new ColumnCellIterator($this->mockWorksheet, 'A', 2, 4);
         $columnIndexResult = 4;
         $iterator->seek(4);
-        $this->assertEquals($columnIndexResult, $iterator->key());
+        self::assertEquals($columnIndexResult, $iterator->key());
 
         for ($i = 1; $i < $columnIndexResult - 1; ++$i) {
             $iterator->prev();
-            $this->assertEquals($columnIndexResult - $i, $iterator->key());
+            self::assertEquals($columnIndexResult - $i, $iterator->key());
         }
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testSeekOutOfRange()
     {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
         $iterator = new ColumnCellIterator($this->mockWorksheet, 'A', 2, 4);
         $iterator->seek(1);
     }
 
-    /**
-     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
-     */
     public function testPrevOutOfRange()
     {
         $iterator = new ColumnCellIterator($this->mockWorksheet, 'A', 2, 4);
         $iterator->prev();
+        self::assertFalse($iterator->valid());
     }
 }

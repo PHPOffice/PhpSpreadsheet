@@ -1,8 +1,10 @@
 This is:
 
+```
 - [ ] a bug report
 - [ ] a feature request
 - [ ] **not** a usage question (ask them on https://stackoverflow.com/questions/tagged/phpspreadsheet or https://gitter.im/PHPOffice/PhpSpreadsheet)
+```
 
 ### What is the expected behavior?
 
@@ -12,7 +14,7 @@ This is:
 
 ### What are the steps to reproduce?
 
-Please provide a [Minimal, Complete, and Verifiable example](http://stackoverflow.com/help/mcve) of code that exhibits the issue without relying on an external Excel file or a web server:
+Please provide a [Minimal, Complete, and Verifiable example](https://stackoverflow.com/help/mcve) of code that exhibits the issue without relying on an external Excel file or a web server:
 
 ```php
 <?php

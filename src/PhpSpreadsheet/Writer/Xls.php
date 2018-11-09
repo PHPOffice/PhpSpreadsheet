@@ -2,10 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
-use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Cell;
-use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 use PhpOffice\PhpSpreadsheet\Shared\Escher;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer;
@@ -24,29 +25,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use RuntimeException;
 
-/**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
-class Xls extends BaseWriter implements IWriter
+class Xls extends BaseWriter
 {
     /**
      * PhpSpreadsheet object.
@@ -110,6 +89,16 @@ class Xls extends BaseWriter implements IWriter
      * @var array
      */
     private $documentSummaryInformation;
+
+    /**
+     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook
+     */
+    private $writerWorkbook;
+
+    /**
+     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Worksheet[]
+     */
+    private $writerWorksheets;
 
     /**
      * Create a new Xls Writer.
@@ -176,7 +165,7 @@ class Xls extends BaseWriter implements IWriter
                 if ($cVal instanceof RichText) {
                     $elements = $cVal->getRichTextElements();
                     foreach ($elements as $element) {
-                        if ($element instanceof RichText\Run) {
+                        if ($element instanceof Run) {
                             $font = $element->getFont();
                             $this->writerWorksheets[$i]->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
                         }
@@ -232,7 +221,7 @@ class Xls extends BaseWriter implements IWriter
 
         $root = new Root(time(), time(), $arrRootData);
         // save the OLE file
-        $res = $root->save($pFilename);
+        $root->save($pFilename);
 
         Functions::setReturnDateType($saveDateReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
@@ -334,7 +323,7 @@ class Xls extends BaseWriter implements IWriter
 
             // AutoFilters
             if (!empty($filterRange)) {
-                $rangeBounds = Cell::rangeBoundaries($filterRange);
+                $rangeBounds = Coordinate::rangeBoundaries($filterRange);
                 $iNumColStart = $rangeBounds[0][0];
                 $iNumColEnd = $rangeBounds[1][0];
 
@@ -345,7 +334,7 @@ class Xls extends BaseWriter implements IWriter
                     // create an Drawing Object for the dropdown
                     $oDrawing = new BaseDrawing();
                     // get the coordinates of drawing
-                    $cDrawing = Cell::stringFromColumnIndex($iInc - 1) . $rangeBounds[0][1];
+                    $cDrawing = Coordinate::stringFromColumnIndex($iInc) . $rangeBounds[0][1];
                     $oDrawing->setCoordinates($cDrawing);
                     $oDrawing->setWorksheet($sheet);
 
@@ -374,7 +363,7 @@ class Xls extends BaseWriter implements IWriter
                     $spContainer->setOPT(0x03BF, 0x000A0000); // Group Shape -> fPrint
 
                     // set coordinates and offsets, client anchor
-                    $endCoordinates = Cell::stringFromColumnIndex($iInc - 1);
+                    $endCoordinates = Coordinate::stringFromColumnIndex($iInc);
                     $endCoordinates .= $rangeBounds[0][1] + 1;
 
                     $spContainer->setStartCoordinates($cDrawing);
@@ -412,6 +401,7 @@ class Xls extends BaseWriter implements IWriter
         foreach ($this->spreadsheet->getAllSheets() as $sheet) {
             if (count($sheet->getDrawingCollection()) > 0) {
                 $found = true;
+
                 break;
             }
         }
@@ -478,14 +468,17 @@ class Xls extends BaseWriter implements IWriter
                             imagepng(imagecreatefromgif($filename));
                             $blipData = ob_get_contents();
                             ob_end_clean();
+
                             break;
                         case 2: // JPEG
                             $blipType = BSE::BLIPTYPE_JPEG;
                             $blipData = file_get_contents($filename);
+
                             break;
                         case 3: // PNG
                             $blipType = BSE::BLIPTYPE_PNG;
                             $blipData = file_get_contents($filename);
+
                             break;
                         case 6: // Windows DIB (BMP), we convert to PNG
                             $blipType = BSE::BLIPTYPE_PNG;
@@ -493,6 +486,7 @@ class Xls extends BaseWriter implements IWriter
                             imagepng(SharedDrawing::imagecreatefrombmp($filename));
                             $blipData = ob_get_contents();
                             ob_end_clean();
+
                             break;
                         default:
                             continue 2;
@@ -511,12 +505,14 @@ class Xls extends BaseWriter implements IWriter
                         case MemoryDrawing::RENDERING_JPEG:
                             $blipType = BSE::BLIPTYPE_JPEG;
                             $renderingFunction = 'imagejpeg';
+
                             break;
                         case MemoryDrawing::RENDERING_GIF:
                         case MemoryDrawing::RENDERING_PNG:
                         case MemoryDrawing::RENDERING_DEFAULT:
                             $blipType = BSE::BLIPTYPE_PNG;
                             $renderingFunction = 'imagepng';
+
                             break;
                     }
 
@@ -930,7 +926,7 @@ class Xls extends BaseWriter implements IWriter
 
                 $dataSection_Content_Offset += 4 + 8;
             }
-                // Data Type Not Used at the moment
+            // Data Type Not Used at the moment
         }
         // Now $dataSection_Content_Offset contains the size of the content
 

@@ -2,28 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class ExponentialBestFit extends BestFit
 {
     /**
@@ -31,7 +9,7 @@ class ExponentialBestFit extends BestFit
      * (Name of this Trend class).
      *
      * @var string
-     **/
+     */
     protected $bestFitType = 'exponential';
 
     /**
@@ -40,7 +18,7 @@ class ExponentialBestFit extends BestFit
      * @param float $xValue X-Value
      *
      * @return float Y-Value
-     **/
+     */
     public function getValueOfYForX($xValue)
     {
         return $this->getIntersect() * pow($this->getSlope(), ($xValue - $this->xOffset));
@@ -52,7 +30,7 @@ class ExponentialBestFit extends BestFit
      * @param float $yValue Y-Value
      *
      * @return float X-Value
-     **/
+     */
     public function getValueOfXForY($yValue)
     {
         return log(($yValue + $this->yOffset) / $this->getIntersect()) / log($this->getSlope());
@@ -64,7 +42,7 @@ class ExponentialBestFit extends BestFit
      * @param int $dp Number of places of decimal precision to display
      *
      * @return string
-     **/
+     */
     public function getEquation($dp = 0)
     {
         $slope = $this->getSlope($dp);
@@ -79,14 +57,14 @@ class ExponentialBestFit extends BestFit
      * @param int $dp Number of places of decimal precision to display
      *
      * @return float
-     **/
+     */
     public function getSlope($dp = 0)
     {
         if ($dp != 0) {
-            return round(exp($this->_slope), $dp);
+            return round(exp($this->slope), $dp);
         }
 
-        return exp($this->_slope);
+        return exp($this->slope);
     }
 
     /**
@@ -95,7 +73,7 @@ class ExponentialBestFit extends BestFit
      * @param int $dp Number of places of decimal precision to display
      *
      * @return float
-     **/
+     */
     public function getIntersect($dp = 0)
     {
         if ($dp != 0) {

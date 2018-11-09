@@ -19,7 +19,6 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *    A = V*D*inverse(V) depends upon V.cond().
  *
  *    @author  Paul Meagher
- *    @license PHP v3.0
  *
  *    @version 1.1
  */
@@ -33,18 +32,12 @@ class EigenvalueDecomposition
     private $n;
 
     /**
-     * Internal symmetry flag.
-     *
-     * @var int
-     */
-    private $issymmetric;
-
-    /**
      * Arrays for internal storage of eigenvalues.
      *
      * @var array
      */
     private $d = [];
+
     private $e = [];
 
     /**
@@ -74,6 +67,7 @@ class EigenvalueDecomposition
      * @var float
      */
     private $cdivr;
+
     private $cdivi;
 
     /**
@@ -91,7 +85,7 @@ class EigenvalueDecomposition
             $i_ = $i - 1;
             // Scale to avoid under/overflow.
             $h = $scale = 0.0;
-            $scale += array_sum(array_map(abs, $this->d));
+            $scale += array_sum(array_map('abs', $this->d));
             if ($scale == 0.0) {
                 $this->e[$i] = $this->d[$i_];
                 $this->d = array_slice($this->V[$i_], 0, $i_);
@@ -256,7 +250,7 @@ class EigenvalueDecomposition
                     $p = -$s * $s2 * $c3 * $el1 * $this->e[$l] / $dl1;
                     $this->e[$l] = $s * $p;
                     $this->d[$l] = $c * $p;
-                // Check for convergence.
+                    // Check for convergence.
                 } while (abs($this->e[$l]) > $eps * $tst1);
             }
             $this->d[$l] = $this->d[$l] + $f;
@@ -495,7 +489,7 @@ class EigenvalueDecomposition
                         $this->V[$i][$n - 1] = $q * $z + $p * $this->V[$i][$n];
                         $this->V[$i][$n] = $q * $this->V[$i][$n] - $p * $z;
                     }
-                // Complex pair
+                    // Complex pair
                 } else {
                     $this->d[$n - 1] = $x + $p;
                     $this->d[$n] = $x + $p;
@@ -615,7 +609,8 @@ class EigenvalueDecomposition
                             $this->H[$k + 1][$j] = $this->H[$k + 1][$j] - $p * $y;
                         }
                         // Column modification
-                        for ($i = 0; $i <= min($n, $k + 3); ++$i) {
+                        $iMax = min($n, $k + 3);
+                        for ($i = 0; $i <= $iMax; ++$i) {
                             $p = $x * $this->H[$i][$k] + $y * $this->H[$i][$k + 1];
                             if ($notlast) {
                                 $p = $p + $z * $this->H[$i][$k + 2];
@@ -668,7 +663,7 @@ class EigenvalueDecomposition
                             } else {
                                 $this->H[$i][$n] = -$r / ($eps * $norm);
                             }
-                        // Solve real equations
+                            // Solve real equations
                         } else {
                             $x = $this->H[$i][$i + 1];
                             $y = $this->H[$i + 1][$i];
@@ -690,7 +685,7 @@ class EigenvalueDecomposition
                         }
                     }
                 }
-            // Complex vector
+                // Complex vector
             } elseif ($q < 0) {
                 $l = $n - 1;
                 // Last vector component imaginary so matrix is triangular
@@ -770,7 +765,8 @@ class EigenvalueDecomposition
         for ($j = $nn - 1; $j >= $low; --$j) {
             for ($i = $low; $i <= $high; ++$i) {
                 $z = 0.0;
-                for ($k = $low; $k <= min($j, $high); ++$k) {
+                $kMax = min($j, $high);
+                for ($k = $low; $k <= $kMax; ++$k) {
                     $z = $z + $this->V[$i][$k] * $this->H[$k][$j];
                 }
                 $this->V[$i][$j] = $z;
@@ -778,15 +774,12 @@ class EigenvalueDecomposition
         }
     }
 
- // end hqr2
+    // end hqr2
 
     /**
      * Constructor: Check for symmetry, then construct the eigenvalue decomposition.
      *
-     * @param A Square matrix
-     * @param mixed $Arg
-     *
-     * @return Structure to access D and V
+     * @param mixed $Arg A Square matrix
      */
     public function __construct($Arg)
     {
@@ -819,7 +812,7 @@ class EigenvalueDecomposition
     /**
      * Return the eigenvector matrix.
      *
-     * @return V
+     * @return Matrix V
      */
     public function getV()
     {
@@ -829,7 +822,7 @@ class EigenvalueDecomposition
     /**
      * Return the real parts of the eigenvalues.
      *
-     * @return real(diag(D))
+     * @return array real(diag(D))
      */
     public function getRealEigenvalues()
     {
@@ -839,7 +832,7 @@ class EigenvalueDecomposition
     /**
      * Return the imaginary parts of the eigenvalues.
      *
-     * @return imag(diag(D))
+     * @return array imag(diag(D))
      */
     public function getImagEigenvalues()
     {
@@ -849,7 +842,7 @@ class EigenvalueDecomposition
     /**
      * Return the block diagonal eigenvalue matrix.
      *
-     * @return D
+     * @return Matrix D
      */
     public function getD()
     {

@@ -6,37 +6,15 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMText;
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 /** PhpSpreadsheet root directory */
-class Html extends BaseReader implements IReader
+class Html extends BaseReader
 {
     /**
      * Sample size to read to determine if it's HTML or not.
@@ -110,7 +88,7 @@ class Html extends BaseReader implements IReader
         'hr' => [
             'borders' => [
                 'bottom' => [
-                    'style' => Border::BORDER_THIN,
+                    'borderStyle' => Border::BORDER_THIN,
                     'color' => [
                         Color::COLOR_BLACK,
                     ],
@@ -133,8 +111,6 @@ class Html extends BaseReader implements IReader
      * Validate that the current file is an HTML file.
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      *
      * @return bool
      */
@@ -170,7 +146,14 @@ class Html extends BaseReader implements IReader
         $filename = $meta['uri'];
 
         $size = filesize($filename);
+        if ($size === 0) {
+            return '';
+        }
+
         $blockSize = self::TEST_SAMPLE_SIZE;
+        if ($size < $blockSize) {
+            $blockSize = $size;
+        }
 
         fseek($this->fileHandle, $size - $blockSize);
 
@@ -214,6 +197,8 @@ class Html extends BaseReader implements IReader
      * Set input encoding.
      *
      * @param string $pValue Input encoding, eg: 'ANSI'
+     *
+     * @return Html
      */
     public function setInputEncoding($pValue)
     {
@@ -234,7 +219,9 @@ class Html extends BaseReader implements IReader
 
     //    Data Array used for testing only, should write to Spreadsheet object on completion of tests
     protected $dataArray = [];
+
     protected $tableLevel = 0;
+
     protected $nestedColumn = ['A'];
 
     protected function setTableStartColumn($column)
@@ -260,7 +247,7 @@ class Html extends BaseReader implements IReader
         return array_pop($this->nestedColumn);
     }
 
-    protected function flushCell($sheet, $column, $row, &$cellContent)
+    protected function flushCell(Worksheet $sheet, $column, $row, &$cellContent)
     {
         if (is_string($cellContent)) {
             //    Simple String content
@@ -295,7 +282,7 @@ class Html extends BaseReader implements IReader
                     //    simply append the text if the cell content is a plain text string
                     $cellContent .= $domText;
                 }
-                    //    but if we have a rich text run instead, we need to append it correctly
+                //    but if we have a rich text run instead, we need to append it correctly
                     //    TODO
             } elseif ($child instanceof DOMElement) {
                 $attributeArray = [];
@@ -314,11 +301,13 @@ class Html extends BaseReader implements IReader
                             }
                         }
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
+
                         break;
                     case 'title':
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-                        $sheet->setTitle($cellContent);
+                        $sheet->setTitle($cellContent, true, false);
                         $cellContent = '';
+
                         break;
                     case 'span':
                     case 'div':
@@ -327,6 +316,14 @@ class Html extends BaseReader implements IReader
                     case 'em':
                     case 'strong':
                     case 'b':
+                        if (isset($attributeArray['class']) && $attributeArray['class'] === 'comment') {
+                            $sheet->getComment($column . $row)
+                                ->getText()
+                                ->createTextRun($child->textContent);
+
+                            break;
+                        }
+
                         if ($cellContent > '') {
                             $cellContent .= ' ';
                         }
@@ -334,6 +331,7 @@ class Html extends BaseReader implements IReader
                         if ($cellContent > '') {
                             $cellContent .= ' ';
                         }
+
                         break;
                     case 'hr':
                         $this->flushCell($sheet, $column, $row, $cellContent);
@@ -346,6 +344,7 @@ class Html extends BaseReader implements IReader
                         }
                         ++$row;
                         // Add a break after a horizontal rule, simply by allowing the code to dropthru
+                        // no break
                     case 'br':
                         if ($this->tableLevel > 0) {
                             //    If we're inside a table, replace with a \n
@@ -355,6 +354,7 @@ class Html extends BaseReader implements IReader
                             $this->flushCell($sheet, $column, $row, $cellContent);
                             ++$row;
                         }
+
                         break;
                     case 'a':
                         foreach ($attributeArray as $attributeName => $attributeValue) {
@@ -364,11 +364,17 @@ class Html extends BaseReader implements IReader
                                     if (isset($this->formats[$child->nodeName])) {
                                         $sheet->getStyle($column . $row)->applyFromArray($this->formats[$child->nodeName]);
                                     }
+
                                     break;
+                                case 'class':
+                                    if ($attributeValue === 'comment-indicator') {
+                                        break; // Ignore - it's just a red square.
+                                    }
                             }
                         }
                         $cellContent .= ' ';
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
+
                         break;
                     case 'h1':
                     case 'h2':
@@ -398,6 +404,7 @@ class Html extends BaseReader implements IReader
                             ++$row;
                             $column = 'A';
                         }
+
                         break;
                     case 'li':
                         if ($this->tableLevel > 0) {
@@ -413,6 +420,7 @@ class Html extends BaseReader implements IReader
                             $this->flushCell($sheet, $column, $row, $cellContent);
                             $column = 'A';
                         }
+
                         break;
                     case 'table':
                         $this->flushCell($sheet, $column, $row, $cellContent);
@@ -427,20 +435,26 @@ class Html extends BaseReader implements IReader
                         } else {
                             ++$row;
                         }
+
                         break;
                     case 'thead':
                     case 'tbody':
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
+
                         break;
                     case 'tr':
                         $column = $this->getTableStartColumn();
                         $cellContent = '';
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
                         ++$row;
+
                         break;
                     case 'th':
                     case 'td':
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
+
+                        // apply inline style
+                        $this->applyInlineStyle($sheet, $row, $column, $attributeArray);
 
                         while (isset($this->rowspan[$column . $row])) {
                             ++$column;
@@ -448,14 +462,14 @@ class Html extends BaseReader implements IReader
 
                         $this->flushCell($sheet, $column, $row, $cellContent);
 
-                        if (isset($attributeArray['rowspan']) && isset($attributeArray['colspan'])) {
+                        if (isset($attributeArray['rowspan'], $attributeArray['colspan'])) {
                             //create merging rowspan and colspan
                             $columnTo = $column;
                             for ($i = 0; $i < $attributeArray['colspan'] - 1; ++$i) {
                                 ++$columnTo;
                             }
                             $range = $column . $row . ':' . $columnTo . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (Coordinate::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -463,7 +477,7 @@ class Html extends BaseReader implements IReader
                         } elseif (isset($attributeArray['rowspan'])) {
                             //create merging rowspan
                             $range = $column . $row . ':' . $column . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (Coordinate::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -479,20 +493,22 @@ class Html extends BaseReader implements IReader
                             $sheet->getStyle($column . $row)->applyFromArray(
                                 [
                                     'fill' => [
-                                        'type' => Fill::FILL_SOLID,
+                                        'fillType' => Fill::FILL_SOLID,
                                         'color' => ['rgb' => $attributeArray['bgcolor']],
                                     ],
                                 ]
                             );
                         }
                         ++$column;
+
                         break;
                     case 'body':
                         $row = 1;
                         $column = 'A';
-                        $content = '';
+                        $cellContent = '';
                         $this->tableLevel = 0;
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
+
                         break;
                     default:
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
@@ -538,6 +554,7 @@ class Html extends BaseReader implements IReader
         $row = 0;
         $column = 'A';
         $content = '';
+        $this->rowspan = [];
         $this->processDomElement($dom, $spreadsheet->getActiveSheet(), $row, $column, $content);
 
         // Return
@@ -573,7 +590,7 @@ class Html extends BaseReader implements IReader
      *
      * @param string $xml
      *
-     * @throws Exception
+     * @return string
      */
     public function securityScan($xml)
     {
@@ -583,5 +600,59 @@ class Html extends BaseReader implements IReader
         }
 
         return $xml;
+    }
+
+    /**
+     * Apply inline css inline style.
+     *
+     * NOTES :
+     * Currently only intended for td & th element,
+     * and only takes 'background-color' and 'color'; property with HEX color
+     *
+     * TODO :
+     * - Implement to other propertie, such as border
+     *
+     * @param Worksheet $sheet
+     * @param int $row
+     * @param string $column
+     * @param array $attributeArray
+     */
+    private function applyInlineStyle(&$sheet, $row, $column, $attributeArray)
+    {
+        if (!isset($attributeArray['style'])) {
+            return;
+        }
+
+        $supported_styles = ['background-color', 'color'];
+
+        // add color styles (background & text) from dom element,currently support : td & th, using ONLY inline css style with RGB color
+        $styles = explode(';', $attributeArray['style']);
+        foreach ($styles as $st) {
+            $value = explode(':', $st);
+
+            if (empty(trim($value[0])) || !in_array(trim($value[0]), $supported_styles)) {
+                continue;
+            }
+
+            //check if has #, so we can get clean hex
+            if (substr(trim($value[1]), 0, 1) == '#') {
+                $style_color = substr(trim($value[1]), 1);
+            }
+
+            if (empty($style_color)) {
+                continue;
+            }
+
+            switch (trim($value[0])) {
+                case 'background-color':
+                    $sheet->getStyle($column . $row)->applyFromArray(['fill' => ['fillType' => Fill::FILL_SOLID, 'color' => ['rgb' => "{$style_color}"]]]);
+
+                    break;
+                case 'color':
+                    $sheet->getStyle($column . $row)->applyFromArray(['font' => ['color' => ['rgb' => "$style_color}"]]]);
+
+                    break;
+            }
+        }
     }
 }

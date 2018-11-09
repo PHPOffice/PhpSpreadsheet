@@ -6,6 +6,21 @@ PhpSpreadsheet is a library written in pure PHP and providing a set of
 classes that allow you to read from and to write to different
 spreadsheet file formats, like Excel and LibreOffice Calc.
 
+## File formats supported
+
+|Format                                      |Reading|Writing|
+|--------------------------------------------|:-----:|:-----:|
+|Open Document Format/OASIS (.ods)           |   ✓   |   ✓   |
+|Office Open XML (.xlsx) Excel 2007 and above|   ✓   |   ✓   |
+|BIFF 8 (.xls) Excel 97 and above            |   ✓   |   ✓   |
+|BIFF 5 (.xls) Excel 95                      |   ✓   |       |
+|SpreadsheetML (.xml) Excel 2003             |   ✓   |       |
+|Gnumeric                                    |   ✓   |       |
+|HTML                                        |   ✓   |   ✓   |
+|SYLK                                        |   ✓   |       |
+|CSV                                         |   ✓   |   ✓   |
+|PDF (using either the TCPDF, Dompdf or mPDF libraries, which need to be installed separately)|       |   ✓   |
+
 # Getting started
 
 ## Software requirements
@@ -17,9 +32,13 @@ The following software is required to develop using PhpSpreadsheet:
 -   PHP extension php\_xml enabled
 -   PHP extension php\_gd2 enabled (if not compiled in)
 
+### PHP version support
+
+Support for PHP versions will only be maintained for a period of six months beyond the end-of-life of that PHP version
+
 ## Installation
 
-Use [composer](https://getcomposer.org/) to install PhpSpreadsheet into your project:
+Use [composer](https://getcomposer.org) to install PhpSpreadsheet into your project:
 
 ```sh
 composer require phpoffice/phpspreadsheet
@@ -64,7 +83,7 @@ Then point your browser to:
 The samples may also be run directly from the command line, for example:
 
 ```sh
-php vendor/phpoffice/phpspreadsheet/samples/01_Simple.php
+php vendor/phpoffice/phpspreadsheet/samples/Basic/01_Simple.php
 ```
 
 ## Learn by documentation
@@ -75,6 +94,8 @@ architecture](./topics/architecture.md),
 [worksheets](./topics/worksheets.md),
 [accessing cells](./topics/accessing-cells.md) and
 [reading and writing to files](./topics/reading-and-writing-to-file.md).
+
+Or browse the [API documentation](https://phpoffice.github.io/PhpSpreadsheet/master).
 
 # Credits
 

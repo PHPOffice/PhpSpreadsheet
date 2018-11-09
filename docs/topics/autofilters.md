@@ -185,10 +185,10 @@ DateGroup rule identifying the selected year and month:
 $columnFilter->createRule()
     ->setRule(
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-        array(
+        [
             'year' => 2012,
             'month' => 1
-        )
+        ]
     )
     ->setRuleType(
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP
@@ -285,8 +285,8 @@ $columnFilter->createRule()
 
 We also set the rule type to CUSTOMFILTER.
 
-This defined two rules, filtering numbers that are &gt;= -20 OR &lt;=
-20, so we also need to modify the join condition to reflect AND rather
+This defined two rules, filtering numbers that are `>= -20` OR `<=
+20`, so we also need to modify the join condition to reflect AND rather
 than OR.
 
 ``` php
@@ -296,7 +296,7 @@ $columnFilter->setAndOr(
 ```
 
 The valid set of operators for Custom Filters are defined in the
-\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule class, and
+`\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule` class, and
 comprise:
 
 Operator Constant                         | Value
@@ -345,7 +345,7 @@ $columnFilter->createRule()
 We also set the rule type to DYNAMICFILTER.
 
 The valid set of dynamic filter categories is defined in the
-\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule class, and
+`\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule` class, and
 comprises:
 
 Operator Constant                        | Value
@@ -458,7 +458,7 @@ $columnFilter->createRule()
 
 The option values for TopTen Filters top/bottom value/percent are all
 defined in the
-\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule class, and
+`\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule` class, and
 comprise:
 
 Operator Constant                      | Value
@@ -519,7 +519,7 @@ foreach ($spreadsheet->getActiveSheet()->getRowIterator() as $row) {
             ->getCell(
                 'D'.$row->getRowIndex()
             )->getFormattedValue(), ' ';
-        echo EOL;
+        echo PHP_EOL;
     }
 }
 ```

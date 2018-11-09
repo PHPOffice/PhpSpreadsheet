@@ -3,7 +3,7 @@
 require_once 'Header.php';
 
 $requirements = [
-    'PHP 5.6.0' => version_compare(phpversion(), '5.6.0', '>='),
+    'PHP 5.6.0' => version_compare(PHP_VERSION, '5.6.0', '>='),
     'PHP extension XML' => extension_loaded('xml'),
     'PHP extension xmlwriter' => extension_loaded('xmlwriter'),
     'PHP extension mbstring' => extension_loaded('mbstring'),
@@ -19,11 +19,11 @@ if (!$helper->isCli()) {
         <p>&nbsp;</p>
         <p>
             <a class="btn btn-lg btn-primary" href="https://github.com/PHPOffice/PHPSpreadsheet" role="button"><i class="fa fa-github fa-lg" title="GitHub"></i>  Fork us on Github!</a>
-            <a class="btn btn-lg btn-primary" href="http://phpspreadsheet.readthedocs.org/en/develop/" role="button"><i class="fa fa-book fa-lg" title="Docs"></i>  Read the Docs</a>
+            <a class="btn btn-lg btn-primary" href="https://phpspreadsheet.readthedocs.io" role="button"><i class="fa fa-book fa-lg" title="Docs"></i>  Read the Docs</a>
         </p>
     </div>
     <?php
-    echo '<h3>Requirement check:</h3>';
+    echo '<h3>Requirement check</h3>';
     echo '<ul>';
     foreach ($requirements as $label => $result) {
         $status = $result ? 'passed' : 'failed';

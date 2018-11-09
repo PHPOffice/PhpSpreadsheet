@@ -1,0 +1,24 @@
+##
+## PhpSpreadsheet
+##
+
+ArgumentSeparator	= ;
+
+
+##
+##	(For future use)
+##
+currencySymbol	= $	#	Symbol not known, should it be a € (Euro)?
+
+
+##
+##	Excel Error Codes	(For future use)
+
+##
+NULL	= #TYHJÄ!
+DIV0	= #JAKO/0!
+VALUE	= #ARVO!
+REF	= #VIITTAUS!
+NAME	= #NIMI?
+NUM	= #LUKU!
+NA	= #PUUTTUU

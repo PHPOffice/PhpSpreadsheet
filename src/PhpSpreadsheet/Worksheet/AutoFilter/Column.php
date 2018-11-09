@@ -5,28 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 
-/**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category    PhpSpreadsheet
- *
- * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Column
 {
     const AUTOFILTER_FILTERTYPE_FILTER = 'filters';
@@ -54,7 +32,7 @@ class Column
         self::AUTOFILTER_FILTERTYPE_TOPTENFILTER,
     ];
 
-    /* Multiple Rule Connections */
+    // Multiple Rule Connections
     const AUTOFILTER_COLUMN_JOIN_AND = 'and';
     const AUTOFILTER_COLUMN_JOIN_OR = 'or';
 
@@ -167,7 +145,7 @@ class Column
     /**
      * Set this Column's AutoFilter Parent.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter
+     * @param AutoFilter $pParent
      *
      * @return Column
      */
@@ -245,8 +223,6 @@ class Column
      *
      * @param string[] $attributes
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return Column
      */
     public function setAttributes(array $attributes)
@@ -261,8 +237,6 @@ class Column
      *
      * @param string $pName Attribute Name
      * @param string $pValue Attribute Value
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return Column
      */
@@ -301,8 +275,6 @@ class Column
 
     /**
      * Get all AutoFilter Column Rules.
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return Column\Rule[]
      */
@@ -399,7 +371,7 @@ class Column
                 // Detach from autofilter parent
                 $this->parent = null;
             } elseif ($key === 'ruleset') {
-                // The columns array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter objects
+                // The columns array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter objects
                 $this->ruleset = [];
                 foreach ($value as $k => $v) {
                     $cloned = clone $v;

@@ -3,12 +3,12 @@
 The following pages offer you some widely-used PhpSpreadsheet recipes.
 Please note that these do NOT offer complete documentation on specific
 PhpSpreadsheet API functions, but just a bump to get you started. If you
-need specific API functions, please refer to the API documentation.
+need specific API functions, please refer to the [API documentation](https://phpoffice.github.io/PhpSpreadsheet/master).
 
 For example, [setting a worksheet's page orientation and size
 ](#setting-a-worksheets-page-orientation-and-size) covers setting a page
 orientation to A4. Other paper formats, like US Letter, are not covered
-in this document, but in the PhpSpreadsheet API documentation.
+in this document, but in the PhpSpreadsheet [API documentation](https://phpoffice.github.io/PhpSpreadsheet/master).
 
 ## Setting a spreadsheet's metadata
 
@@ -71,7 +71,7 @@ method that suits you the best. Here are some examples:
 ``` php
 
 // MySQL-like timestamp '2008-12-31' or date string
-\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+\PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('D1', '2008-12-31');
@@ -96,16 +96,16 @@ $spreadsheet->getActiveSheet()->getStyle('D1')
 ```
 
 The above methods for entering a date all yield the same result.
-\PhpOffice\PhpSpreadsheet\Style\NumberFormat provides a lot of
+`\PhpOffice\PhpSpreadsheet\Style\NumberFormat` provides a lot of
 pre-defined date formats.
 
-The \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel() method will also
+The `\PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel()` method will also
 work with a PHP DateTime object.
 
 Similarly, times (or date and time values) can be entered in the same
 fashion: just remember to use an appropriate format code.
 
-**Notes:**
+**Note:**
 
 See section "Using value binders to facilitate data entry" to learn more
 about the AdvancedValueBinder used in the first example. Excel can also
@@ -132,7 +132,7 @@ will take care of displaying the formula according the applications
 language. Translation is taken care of by the application!
 
 The following line of code writes the formula
-`=IF(C4&gt;500,"profit","loss")` into the cell B8. Note that the
+`=IF(C4>500,"profit","loss")` into the cell B8. Note that the
 formula must start with `=` to make PhpSpreadsheet recognise this as a
 formula.
 
@@ -187,7 +187,7 @@ internal English coding.
 
 ``` php
 $formula = $spreadsheet->getActiveSheet()->getCell('B8')->getValue();
-$translatedFormula = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_translateFormulaToLocale($formula);
+$translatedFormula = \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->_translateFormulaToLocale($formula);
 ```
 
 You can also create a formula using the function names and argument
@@ -196,7 +196,7 @@ English before setting the cell value:
 
 ``` php
 $formula = '=ДНЕЙ360(ДАТА(2010;2;5);ДАТА(2010;12;31);ИСТИНА)';
-$internalFormula = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->translateFormulaToEnglish($formula);
+$internalFormula = \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->translateFormulaToEnglish($formula);
 $spreadsheet->getActiveSheet()->setCellValue('B8',$internalFormula);
 ```
 
@@ -248,7 +248,7 @@ when it sees a newline character in a string that you are inserting in a
 cell. Just like Microsoft Office Excel. Try this:
 
 ``` php
-\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+\PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()->getCell('A1')->setValue("hello\nworld");
 ```
@@ -275,7 +275,7 @@ You can make a cell a clickable URL by setting its hyperlink property:
 
 ``` php
 $spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
-$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('http://www.phpexcel.net');
+$spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('https://www.example.com');
 ```
 
 If you want to make a hyperlink to another worksheet/cell, use the
@@ -301,7 +301,7 @@ $spreadsheet->getActiveSheet()->getPageSetup()
 ```
 
 Note that there are additional page settings available. Please refer to
-the API documentation for all possible options.
+the [API documentation](https://phpoffice.github.io/PhpSpreadsheet/master) for all possible options.
 
 ### Page Setup: Scaling options
 
@@ -333,7 +333,7 @@ As you can see, it is not necessary to call setFitToPage(TRUE) since
 setFitToWidth(...) and setFitToHeight(...) triggers this.
 
 If you use `setFitToWidth()` you should in general also specify
-setFitToHeight() explicitly like in the example. Be careful relying on
+`setFitToHeight()` explicitly like in the example. Be careful relying on
 the initial values.
 
 ### Page margins
@@ -461,13 +461,13 @@ To set a print break, use the following code, which sets a row break on
 row 10.
 
 ``` php
-$spreadsheet->getActiveSheet()->setBreak( 'A10' , \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_ROW );
+$spreadsheet->getActiveSheet()->setBreak('A10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW);
 ```
 
 The following line of code sets a print break on column D:
 
 ``` php
-$spreadsheet->getActiveSheet()->setBreak( 'D10' , \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN );
+$spreadsheet->getActiveSheet()->setBreak('D10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN);
 ```
 
 ### Show/hide gridlines when printing
@@ -549,29 +549,29 @@ sets a cell's style to font bold, alignment right, top border thin and a
 gradient fill:
 
 ``` php
-$styleArray = array(
-    'font' => array(
+$styleArray = [
+    'font' => [
         'bold' => true,
-    ),
-    'alignment' => array(
+    ],
+    'alignment' => [
         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
-    ),
-    'borders' => array(
-        'top' => array(
-            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-        ),
-    ),
-    'fill' => array(
-        'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+    ],
+    'borders' => [
+        'top' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+        ],
+    ],
+    'fill' => [
+        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
         'rotation' => 90,
-        'startcolor' => array(
+        'startColor' => [
             'argb' => 'FFA0A0A0',
-        ),
-        'endcolor' => array(
+        ],
+        'endColor' => [
             'argb' => 'FFFFFFFF',
-        ),
-    ),
-);
+        ],
+    ],
+];
 
 $spreadsheet->getActiveSheet()->getStyle('A3')->applyFromArray($styleArray);
 ```
@@ -690,14 +690,14 @@ selection. Here is how to apply a thick red border outline around cells
 B2:G8.
 
 ``` php
-$styleArray = array(
-    'borders' => array(
-        'outline' => array(
-            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-            'color' => array('argb' => 'FFFF0000'),
-        ),
-    ),
-);
+$styleArray = [
+    'borders' => [
+        'outline' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+            'color' => ['argb' => 'FFFF0000'],
+        ],
+    ],
+];
 
 $worksheet->getStyle('B2:G8')->applyFromArray($styleArray);
 ```
@@ -721,7 +721,7 @@ operating on a single cell at a time:
 Additional shortcut borders come in handy like in the example above.
 These are the shortcut borders available:
 
--   allborders
+-   allBorders
 -   outline
 -   inside
 -   vertical
@@ -731,10 +731,10 @@ An overview of all border shortcuts can be seen in the following image:
 
 ![08-styling-border-options.png](./images/08-styling-border-options.png)
 
-If you simultaneously set e.g. allborders and vertical, then we have
+If you simultaneously set e.g. allBorders and vertical, then we have
 "overlapping" borders, and one of the components has to win over the
 other where there is border overlap. In PhpSpreadsheet, from weakest to
-strongest borders, the list is as follows: allborders, outline/inside,
+strongest borders, the list is as follows: allBorders, outline/inside,
 vertical/horizontal, left/right/top/bottom/diagonal.
 
 This border hierarchy can be utilized to achieve various effects in an
@@ -743,13 +743,13 @@ easy manner.
 ### Valid array keys for style `applyFromArray()`
 
 The following table lists the valid array keys for
-\PhpOffice\PhpSpreadsheet\Style applyFromArray() classes. If the "Maps
+`\PhpOffice\PhpSpreadsheet\Style\Style::applyFromArray()` classes. If the "Maps
 to property" column maps a key to a setter, the value provided for that
 key will be applied directly. If the "Maps to property" column maps a
 key to a getter, the value provided for that key will be applied as
 another style array.
 
-**\PhpOffice\PhpSpreadsheet\Style**
+**\PhpOffice\PhpSpreadsheet\Style\Style**
 
 Array key    | Maps to property
 -------------|-------------------
@@ -757,19 +757,18 @@ fill         | getFill()
 font         | getFont()
 borders      | getBorders()
 alignment    | getAlignment()
-numberformat | getNumberFormat()
+numberFormat | getNumberFormat()
 protection   | getProtection()
 
 **\PhpOffice\PhpSpreadsheet\Style\Fill**
 
 Array key  | Maps to property
 -----------|-------------------
-type       | setFillType()
+fillType   | setFillType()
 rotation   | setRotation()
-startcolor | getStartColor()
-endcolor   | getEndColor()
+startColor | getStartColor()
+endColor   | getEndColor()
 color      | getStartColor()
-
 
 **\PhpOffice\PhpSpreadsheet\Style\Font**
 
@@ -779,17 +778,17 @@ name        | setName()
 bold        | setBold()
 italic      | setItalic()
 underline   | setUnderline()
-strike      | setStrikethrough()
+strikethrough | setStrikethrough()
 color       | getColor()
 size        | setSize()
-superScript | setSuperScript()
-subScript   | setSubScript()
+superscript | setSuperscript()
+subscript   | setSubscript()
 
 **\PhpOffice\PhpSpreadsheet\Style\Borders**
 
 Array key         | Maps to property
 ------------------|-------------------
-allborders        | getLeft(); getRight(); getTop(); getBottom()
+allBorders        | getLeft(); getRight(); getTop(); getBottom()
 left              | getLeft()
 right             | getRight()
 top               | getTop()
@@ -797,15 +796,15 @@ bottom            | getBottom()
 diagonal          | getDiagonal()
 vertical          | getVertical()
 horizontal        | getHorizontal()
-diagonaldirection | setDiagonalDirection()
+diagonalDirection | setDiagonalDirection()
 outline           | setOutline()
 
 **\PhpOffice\PhpSpreadsheet\Style\Border**
 
-Array key | Maps to property
-----------|-------------------
-style     | setBorderStyle()
-color     | getColor()
+Array key   | Maps to property
+------------|-------------------
+borderStyle | setBorderStyle()
+color       | getColor()
 
 **\PhpOffice\PhpSpreadsheet\Style\Alignment**
 
@@ -813,8 +812,8 @@ Array key   | Maps to property
 ------------|-------------------
 horizontal  | setHorizontal()
 vertical    | setVertical()
-rotation    | setTextRotation()
-wrap        | setWrapText()
+textRotation| setTextRotation()
+wrapText    | setWrapText()
 shrinkToFit | setShrinkToFit()
 indent      | setIndent()
 
@@ -822,7 +821,7 @@ indent      | setIndent()
 
 Array key | Maps to property
 ----------|-------------------
-code      | setFormatCode()
+formatCode      | setFormatCode()
 
 **\PhpOffice\PhpSpreadsheet\Style\Protection**
 
@@ -856,8 +855,8 @@ $conditional2->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsh
 $conditional2->getStyle()->getFont()->setBold(true);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('B2')->getConditionalStyles();
-array_push($conditionalStyles, $conditional1);
-array_push($conditionalStyles, $conditional2);
+$conditionalStyles[] = $conditional1;
+$conditionalStyles[] = $conditional2;
 
 $spreadsheet->getActiveSheet()->getStyle('B2')->setConditionalStyles($conditionalStyles);
 ```
@@ -910,15 +909,17 @@ practice...
 
 ## Setting security on a spreadsheet
 
-Excel offers 3 levels of "protection": document security, sheet security
-and cell security.
+Excel offers 3 levels of "protection":
 
-Document security allows you to set a password on a complete
+- Document: allows you to set a password on a complete
 spreadsheet, allowing changes to be made only when that password is
-entered.Worksheet security offers other security options: you can
-disallow inserting rows on a specific sheet, disallow sorting, ... Cell
-security offers the option to lock/unlock a cell as well as show/hide
-the internal formulaAn example on setting document security:
+entered.
+- Worksheet: offers other security options: you can
+disallow inserting rows on a specific sheet, disallow sorting, ...
+- Cell: offers the option to lock/unlock a cell as well as show/hide
+the internal formula.
+
+An example on setting document security:
 
 ``` php
 $spreadsheet->getSecurity()->setLockWindows(true);
@@ -1194,7 +1195,7 @@ $spreadsheet->getActiveSheet()->insertNewRowBefore(7, 2);
 
 A drawing is always represented as a separate object, which can be added
 to a worksheet. Therefore, you must first instantiate a new
-\PhpOffice\PhpSpreadsheet\Worksheet\Drawing, and assign its properties a
+`\PhpOffice\PhpSpreadsheet\Worksheet\Drawing`, and assign its properties a
 meaningful value:
 
 ``` php
@@ -1296,14 +1297,14 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
 ## Add rich text to a cell
 
 Adding rich text to a cell can be done using
-\PhpOffice\PhpSpreadsheet\RichText instances. Here''s an example, which
+`\PhpOffice\PhpSpreadsheet\RichText\RichText` instances. Here''s an example, which
 creates the following rich text string:
 
 > This invoice is ***payable within thirty days after the end of the
 > month*** unless specified otherwise on the invoice.
 
 ``` php
-$richText = new \PhpOffice\PhpSpreadsheet\RichText();
+$richText = new \PhpOffice\PhpSpreadsheet\RichText\RichText();
 $richText->createText('This invoice is ');
 $payable = $richText->createTextRun('payable within thirty days after the end of the month');
 $payable->getFont()->setBold(true);
@@ -1343,18 +1344,18 @@ steps that can be followed to do this:
 
 1.  Create your PhpSpreadsheet spreadsheet
 2.  Output HTTP headers for the type of document you wish to output
-3.  Use the \PhpOffice\PhpSpreadsheet\Writer\* of your choice, and save
-    to "php://output"
+3.  Use the `\PhpOffice\PhpSpreadsheet\Writer\*` of your choice, and save
+    to `'php://output'`
 
-\PhpOffice\PhpSpreadsheet\Writer\Xlsx uses temporary storage when
-writing to php://output. By default, temporary files are stored in the
+`\PhpOffice\PhpSpreadsheet\Writer\Xlsx` uses temporary storage when
+writing to `php://output`. By default, temporary files are stored in the
 script's working directory. When there is no access, it falls back to
 the operating system's temporary files location.
 
 **This may not be safe for unauthorized viewing!** Depending on the
 configuration of your operating system, temporary storage can be read by
 anyone using the same temporary storage folder. When confidentiality of
-your document is needed, it is recommended not to use php://output.
+your document is needed, it is recommended not to use `php://output`.
 
 ### HTTP headers
 
@@ -1469,7 +1470,7 @@ $worksheet1 = $spreadsheet->createSheet();
 $worksheet1->setTitle('Another sheet');
 ```
 
-Think of createSheet() as the "Insert sheet" button in Excel. When you
+Think of `createSheet()` as the "Insert sheet" button in Excel. When you
 hit that button a new sheet is appended to the existing collection of
 worksheets in the workbook.
 
@@ -1479,15 +1480,15 @@ Set a worksheet to be **hidden** using this code:
 
 ``` php
 $spreadsheet->getActiveSheet()
-    ->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN);
+    ->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
 ```
 
 Sometimes you may even want the worksheet to be **"very hidden"**. The
 available sheet states are :
 
--   `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE`
--   `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN`
--   `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN`
+-   `\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VISIBLE`
+-   `\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN`
+-   `\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VERYHIDDEN`
 
 In Excel the sheet state "very hidden" can only be set programmatically,
 e.g. with Visual Basic Macro. It is not possible to make such a sheet
@@ -1503,13 +1504,3 @@ right-to-left.
 // right-to-left worksheet
 $spreadsheet->getActiveSheet()->setRightToLeft(true);
 ```
-
-[^1]: z
-
-    ``` php
-    $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
-    $drawing->setName('PhpSpreadsheet logo');
-    $drawing->setPath('./images/PhpSpreadsheet_logo.png');
-    $drawing->setHeight(36);
-    $spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
-    ```

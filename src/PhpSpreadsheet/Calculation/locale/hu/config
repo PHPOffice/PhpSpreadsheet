@@ -1,0 +1,23 @@
+##
+## PhpSpreadsheet
+##
+
+ArgumentSeparator	= ;
+
+
+##
+##	(For future use)
+##
+currencySymbol	= Ft
+
+
+##
+##	Excel Error Codes	(For future use)
+##
+NULL	= #NULLA!
+DIV0	= #ZÉRÓOSZTÓ!
+VALUE	= #ÉRTÉK!
+REF	= #HIV!
+NAME	= #NÉV?
+NUM	= #SZÁM!
+NA	= #HIÁNYZIK

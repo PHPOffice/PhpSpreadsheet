@@ -2,32 +2,24 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
-/**
- * PhpSpreadsheet.
- *
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PHPSpreadsheet
- *
- * @copyright  Copyright (c) 2006 PHPOffice (http://www.github.com/PHPOffice)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+
 class Spreadsheet
 {
+    // Allowable values for workbook window visilbity
+    const VISIBILITY_VISIBLE = 'visible';
+    const VISIBILITY_HIDDEN = 'hidden';
+    const VISIBILITY_VERY_HIDDEN = 'veryHidden';
+
+    private static $workbookViewVisibilityValues = [
+        self::VISIBILITY_VISIBLE,
+        self::VISIBILITY_HIDDEN,
+        self::VISIBILITY_VERY_HIDDEN,
+    ];
+
     /**
      * Unique ID.
      *
@@ -106,15 +98,16 @@ class Spreadsheet
     private $hasMacros = false;
 
     /**
-     * macrosCode : all macros code (the vbaProject.bin file, this include form, code,  etc.), null if no macro.
+     * macrosCode : all macros code as binary data (the vbaProject.bin file, this include form, code,  etc.), null if no macro.
      *
-     * @var binary
+     * @var string
      */
     private $macrosCode;
+
     /**
-     * macrosCertificate : if macros are signed, contains vbaProjectSignature.bin file, null if not signed.
+     * macrosCertificate : if macros are signed, contains binary data vbaProjectSignature.bin file, null if not signed.
      *
-     * @var binary
+     * @var string
      */
     private $macrosCertificate;
 
@@ -132,6 +125,75 @@ class Spreadsheet
      * @var null|array
      */
     private $ribbonBinObjects;
+
+    /**
+     * List of unparsed loaded data for export to same format with better compatibility.
+     * It has to be minimized when the library start to support currently unparsed data.
+     *
+     * @var array
+     */
+    private $unparsedLoadedData = [];
+
+    /**
+     * Controls visibility of the horizonal scroll bar in the application.
+     *
+     * @var bool
+     */
+    private $showHorizontalScroll = true;
+
+    /**
+     * Controls visibility of the horizonal scroll bar in the application.
+     *
+     * @var bool
+     */
+    private $showVerticalScroll = true;
+
+    /**
+     * Controls visibility of the sheet tabs in the application.
+     *
+     * @var bool
+     */
+    private $showSheetTabs = true;
+
+    /**
+     * Specifies a boolean value that indicates whether the workbook window
+     * is minimized.
+     *
+     * @var bool
+     */
+    private $minimized = false;
+
+    /**
+     * Specifies a boolean value that indicates whether to group dates
+     * when presenting the user with filtering optiomd in the user
+     * interface.
+     *
+     * @var bool
+     */
+    private $autoFilterDateGrouping = true;
+
+    /**
+     * Specifies the index to the first sheet in the book view.
+     *
+     * @var int
+     */
+    private $firstSheetIndex = 0;
+
+    /**
+     * Specifies the visible status of the workbook.
+     *
+     * @var string
+     */
+    private $visibility = self::VISIBILITY_VISIBLE;
+
+    /**
+     * Specifies the ratio between the workbook tabs bar and the horizontal
+     * scroll bar.  TabRatio is assumed to be out of 1000 of the horizontal
+     * window width.
+     *
+     * @var int
+     */
+    private $tabRatio = 600;
 
     /**
      * The workbook has macros ?
@@ -161,13 +223,13 @@ class Spreadsheet
     public function setMacrosCode($macroCode)
     {
         $this->macrosCode = $macroCode;
-        $this->setHasMacros(!is_null($macroCode));
+        $this->setHasMacros($macroCode !== null);
     }
 
     /**
      * Return the macros code.
      *
-     * @return string|null
+     * @return null|string
      */
     public function getMacrosCode()
     {
@@ -177,7 +239,7 @@ class Spreadsheet
     /**
      * Set the macros certificate.
      *
-     * @param string|null $certificate
+     * @param null|string $certificate
      */
     public function setMacrosCertificate($certificate)
     {
@@ -191,13 +253,13 @@ class Spreadsheet
      */
     public function hasMacrosCertificate()
     {
-        return !is_null($this->macrosCertificate);
+        return $this->macrosCertificate !== null;
     }
 
     /**
      * Return the macros certificate.
      *
-     * @return string|null
+     * @return null|string
      */
     public function getMacrosCertificate()
     {
@@ -222,7 +284,7 @@ class Spreadsheet
      */
     public function setRibbonXMLData($target, $xmlData)
     {
-        if (!is_null($target) && !is_null($xmlData)) {
+        if ($target !== null && $xmlData !== null) {
             $this->ribbonXMLData = ['target' => $target, 'data' => $xmlData];
         } else {
             $this->ribbonXMLData = null;
@@ -245,12 +307,14 @@ class Spreadsheet
         switch ($what) {
             case 'all':
                 $returnData = $this->ribbonXMLData;
+
                 break;
             case 'target':
             case 'data':
                 if (is_array($this->ribbonXMLData) && isset($this->ribbonXMLData[$what])) {
                     $returnData = $this->ribbonXMLData[$what];
                 }
+
                 break;
         }
 
@@ -265,7 +329,7 @@ class Spreadsheet
      */
     public function setRibbonBinObjects($BinObjectsNames, $BinObjectsData)
     {
-        if (!is_null($BinObjectsNames) && !is_null($BinObjectsData)) {
+        if ($BinObjectsNames !== null && $BinObjectsData !== null) {
             $this->ribbonBinObjects = ['names' => $BinObjectsNames, 'data' => $BinObjectsData];
         } else {
             $this->ribbonBinObjects = null;
@@ -273,19 +337,49 @@ class Spreadsheet
     }
 
     /**
+     * List of unparsed loaded data for export to same format with better compatibility.
+     * It has to be minimized when the library start to support currently unparsed data.
+     *
+     * @internal
+     *
+     * @return array
+     */
+    public function getUnparsedLoadedData()
+    {
+        return $this->unparsedLoadedData;
+    }
+
+    /**
+     * List of unparsed loaded data for export to same format with better compatibility.
+     * It has to be minimized when the library start to support currently unparsed data.
+     *
+     * @internal
+     *
+     * @param array $unparsedLoadedData
+     */
+    public function setUnparsedLoadedData(array $unparsedLoadedData)
+    {
+        $this->unparsedLoadedData = $unparsedLoadedData;
+    }
+
+    /**
      * return the extension of a filename. Internal use for a array_map callback (php<5.3 don't like lambda function).
      *
-     * @param mixed $ThePath
+     * @param mixed $path
+     *
+     * @return string
      */
-    private function getExtensionOnly($ThePath)
+    private function getExtensionOnly($path)
     {
-        return pathinfo($ThePath, PATHINFO_EXTENSION);
+        return pathinfo($path, PATHINFO_EXTENSION);
     }
 
     /**
      * retrieve Binaries Ribbon Objects.
      *
-     * @param mixed $what
+     * @param string $what
+     *
+     * @return null|array
      */
     public function getRibbonBinObjects($what = 'all')
     {
@@ -294,12 +388,14 @@ class Spreadsheet
         switch ($what) {
             case 'all':
                 return $this->ribbonBinObjects;
+
                 break;
             case 'names':
             case 'data':
                 if (is_array($this->ribbonBinObjects) && isset($this->ribbonBinObjects[$what])) {
                     $ReturnData = $this->ribbonBinObjects[$what];
                 }
+
                 break;
             case 'types':
                 if (is_array($this->ribbonBinObjects) &&
@@ -309,6 +405,7 @@ class Spreadsheet
                 } else {
                     $ReturnData = []; // the caller want an array... not null if empty
                 }
+
                 break;
         }
 
@@ -322,7 +419,7 @@ class Spreadsheet
      */
     public function hasRibbon()
     {
-        return !is_null($this->ribbonXMLData);
+        return $this->ribbonXMLData !== null;
     }
 
     /**
@@ -332,7 +429,7 @@ class Spreadsheet
      */
     public function hasRibbonBinObjects()
     {
-        return !is_null($this->ribbonBinObjects);
+        return $this->ribbonBinObjects !== null;
     }
 
     /**
@@ -371,7 +468,7 @@ class Spreadsheet
      */
     public function __construct()
     {
-        $this->uniqueID = uniqid();
+        $this->uniqueID = uniqid('', true);
         $this->calculationEngine = new Calculation($this);
 
         // Initialise worksheet collection and add one worksheet
@@ -486,7 +583,7 @@ class Spreadsheet
     /**
      * Create sheet and add it to this workbook.
      *
-     * @param int|null $sheetIndex Index where sheet should go (0,1,..., or null for last)
+     * @param null|int $sheetIndex Index where sheet should go (0,1,..., or null for last)
      *
      * @throws Exception
      *
@@ -516,7 +613,7 @@ class Spreadsheet
      * Add sheet.
      *
      * @param Worksheet $pSheet
-     * @param int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
+     * @param null|int $iSheetIndex Index where sheet should go (0,1,..., or null for last)
      *
      * @throws Exception
      *
@@ -594,6 +691,7 @@ class Spreadsheet
     {
         if (!isset($this->workSheetCollection[$pIndex])) {
             $numSheets = $this->getSheetCount();
+
             throw new Exception(
                 "Your requested sheet index: {$pIndex} is out of bounds. The actual number of sheets is {$numSheets}."
             );
@@ -762,7 +860,7 @@ class Spreadsheet
      * Add external sheet.
      *
      * @param Worksheet $pSheet External sheet to add
-     * @param int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
+     * @param null|int $iSheetIndex Index where sheet should go (0,1,..., or null for last)
      *
      * @throws Exception
      *
@@ -828,9 +926,9 @@ class Spreadsheet
      * Get named range.
      *
      * @param string $namedRange
-     * @param Worksheet|null $pSheet Scope. Use null for global scope
+     * @param null|Worksheet $pSheet Scope. Use null for global scope
      *
-     * @return NamedRange|null
+     * @return null|NamedRange
      */
     public function getNamedRange($namedRange, Worksheet $pSheet = null)
     {
@@ -855,7 +953,7 @@ class Spreadsheet
      * Remove named range.
      *
      * @param string $namedRange
-     * @param Worksheet|null $pSheet scope: use null for global scope
+     * @param null|Worksheet $pSheet scope: use null for global scope
      *
      * @return Spreadsheet
      */
@@ -877,11 +975,11 @@ class Spreadsheet
     /**
      * Get worksheet iterator.
      *
-     * @return Worksheet\Iterator
+     * @return Iterator
      */
     public function getWorksheetIterator()
     {
-        return new Worksheet\Iterator($this);
+        return new Iterator($this);
     }
 
     /**
@@ -941,7 +1039,7 @@ class Spreadsheet
      *
      * @param string $pValue
      *
-     * @return Style|false
+     * @return false|Style
      */
     public function getCellXfByHashCode($pValue)
     {
@@ -978,6 +1076,7 @@ class Spreadsheet
         if (isset($this->cellXfCollection[0])) {
             return $this->cellXfCollection[0];
         }
+
         throw new Exception('No default style found for this workbook');
     }
 
@@ -1061,7 +1160,7 @@ class Spreadsheet
      *
      * @param string $pValue
      *
-     * @return Style|false
+     * @return false|Style
      */
     public function getCellStyleXfByHashCode($pValue)
     {
@@ -1188,5 +1287,204 @@ class Spreadsheet
     public function getID()
     {
         return $this->uniqueID;
+    }
+
+    /**
+     * Get the visibility of the horizonal scroll bar in the application.
+     *
+     * @return bool True if horizonal scroll bar is visible
+     */
+    public function getShowHorizontalScroll()
+    {
+        return $this->showHorizontalScroll;
+    }
+
+    /**
+     * Set the visibility of the horizonal scroll bar in the application.
+     *
+     * @param bool $showHorizontalScroll True if horizonal scroll bar is visible
+     */
+    public function setShowHorizontalScroll($showHorizontalScroll)
+    {
+        $this->showHorizontalScroll = (bool) $showHorizontalScroll;
+    }
+
+    /**
+     * Get the visibility of the vertical scroll bar in the application.
+     *
+     * @return bool True if vertical scroll bar is visible
+     */
+    public function getShowVerticalScroll()
+    {
+        return $this->showVerticalScroll;
+    }
+
+    /**
+     * Set the visibility of the vertical scroll bar in the application.
+     *
+     * @param bool $showVerticalScroll True if vertical scroll bar is visible
+     */
+    public function setShowVerticalScroll($showVerticalScroll)
+    {
+        $this->showVerticalScroll = (bool) $showVerticalScroll;
+    }
+
+    /**
+     * Get the visibility of the sheet tabs in the application.
+     *
+     * @return bool True if the sheet tabs are visible
+     */
+    public function getShowSheetTabs()
+    {
+        return $this->showSheetTabs;
+    }
+
+    /**
+     * Set the visibility of the sheet tabs  in the application.
+     *
+     * @param bool $showSheetTabs True if sheet tabs are visible
+     */
+    public function setShowSheetTabs($showSheetTabs)
+    {
+        $this->showSheetTabs = (bool) $showSheetTabs;
+    }
+
+    /**
+     * Return whether the workbook window is minimized.
+     *
+     * @return bool true if workbook window is minimized
+     */
+    public function getMinimized()
+    {
+        return $this->minimized;
+    }
+
+    /**
+     * Set whether the workbook window is minimized.
+     *
+     * @param bool $minimized true if workbook window is minimized
+     */
+    public function setMinimized($minimized)
+    {
+        $this->minimized = (bool) $minimized;
+    }
+
+    /**
+     * Return whether to group dates when presenting the user with
+     * filtering optiomd in the user interface.
+     *
+     * @return bool true if workbook window is minimized
+     */
+    public function getAutoFilterDateGrouping()
+    {
+        return $this->autoFilterDateGrouping;
+    }
+
+    /**
+     * Set whether to group dates when presenting the user with
+     * filtering optiomd in the user interface.
+     *
+     * @param bool $autoFilterDateGrouping true if workbook window is minimized
+     */
+    public function setAutoFilterDateGrouping($autoFilterDateGrouping)
+    {
+        $this->autoFilterDateGrouping = (bool) $autoFilterDateGrouping;
+    }
+
+    /**
+     * Return the first sheet in the book view.
+     *
+     * @return int First sheet in book view
+     */
+    public function getFirstSheetIndex()
+    {
+        return $this->firstSheetIndex;
+    }
+
+    /**
+     * Set the first sheet in the book view.
+     *
+     * @param int $firstSheetIndex First sheet in book view
+     *
+     * @throws Exception  if the given value is invalid
+     */
+    public function setFirstSheetIndex($firstSheetIndex)
+    {
+        if ($firstSheetIndex >= 0) {
+            $this->firstSheetIndex = (int) $firstSheetIndex;
+        } else {
+            throw new Exception('First sheet index must be a positive integer.');
+        }
+    }
+
+    /**
+     * Return the visibility status of the workbook.
+     *
+     * This may be one of the following three values:
+     * - visibile
+     *
+     * @return string Visible status
+     */
+    public function getVisibility()
+    {
+        return $this->visibility;
+    }
+
+    /**
+     * Set the visibility status of the workbook.
+     *
+     * Valid values are:
+     *  - 'visible' (self::VISIBILITY_VISIBLE):
+     *       Workbook window is visible
+     *  - 'hidden' (self::VISIBILITY_HIDDEN):
+     *       Workbook window is hidden, but can be shown by the user
+     *       via the user interface
+     *  - 'veryHidden' (self::VISIBILITY_VERY_HIDDEN):
+     *       Workbook window is hidden and cannot be shown in the
+     *       user interface.
+     *
+     * @param string $visibility visibility status of the workbook
+     *
+     * @throws Exception  if the given value is invalid
+     */
+    public function setVisibility($visibility)
+    {
+        if ($visibility === null) {
+            $visibility = self::VISIBILITY_VISIBLE;
+        }
+
+        if (in_array($visibility, self::$workbookViewVisibilityValues)) {
+            $this->visibility = $visibility;
+        } else {
+            throw new Exception('Invalid visibility value.');
+        }
+    }
+
+    /**
+     * Get the ratio between the workbook tabs bar and the horizontal scroll bar.
+     * TabRatio is assumed to be out of 1000 of the horizontal window width.
+     *
+     * @return int Ratio between the workbook tabs bar and the horizontal scroll bar
+     */
+    public function getTabRatio()
+    {
+        return $this->tabRatio;
+    }
+
+    /**
+     * Set the ratio between the workbook tabs bar and the horizontal scroll bar
+     * TabRatio is assumed to be out of 1000 of the horizontal window width.
+     *
+     * @param int $tabRatio Ratio between the tabs bar and the horizontal scroll bar
+     *
+     * @throws Exception  if the given value is invalid
+     */
+    public function setTabRatio($tabRatio)
+    {
+        if ($tabRatio >= 0 || $tabRatio <= 1000) {
+            $this->tabRatio = (int) $tabRatio;
+        } else {
+            throw new Exception('Tab ratio must be between 0 and 1000.');
+        }
     }
 }

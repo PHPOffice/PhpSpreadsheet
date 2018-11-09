@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
+// vim: set expandtab tabstop=4 shiftwidth=4:
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -62,15 +62,5 @@ class File extends PPS
     public function append($data)
     {
         $this->_data .= $data;
-    }
-
-    /**
-     * Returns a stream for reading this file using fread() etc.
-     *
-     * @return resource a read-only stream
-     */
-    public function getStream()
-    {
-        $this->ole->getStream($this);
     }
 }

@@ -61,10 +61,8 @@ In Excel `+` wins over `&`, just like `*` wins over `+` in ordinary
 algebra. The former rule is not what one finds using the calculation
 engine shipped with PhpSpreadsheet.
 
-Reference for operator precedence in Excel:
-<http://support.microsoft.com/kb/25189>
-
-Reference for operator precedence in PHP: <http://www.php.net/operators>
+- [Reference for Excel](https://support.office.com/en-us/article/Calculation-operators-and-precedence-in-Excel-48be406d-4975-4d31-b2b8-7af9e0e2878a)
+- [Reference for PHP](https://php.net/manual/en/language.operators.php)
 
 #### Formulas involving numbers and text
 
@@ -76,13 +74,12 @@ formula is evaluated as 3 instead of evaluating as an error. This also
 causes the Excel document being generated as containing unreadable
 content.
 
-Reference for this behaviour in PHP:
-<http://php.net/manual/en/language.types.string.php#language.types.string.conversion>
+- [Reference for this behaviour in PHP](https://php.net/manual/en/language.types.string.php#language.types.string.conversion)
 
 #### Formulas don’t seem to be calculated in Excel2003 using compatibility pack?
 
 This is normal behaviour of the compatibility pack, Xlsx displays this
-correctly. Use \PhpOffice\PhpSpreadsheet\Writer\Xls if you really need
+correctly. Use `\PhpOffice\PhpSpreadsheet\Writer\Xls` if you really need
 calculated values, or force recalculation in Excel2003.
 
 ## Handling Date and Time Values
@@ -90,7 +87,7 @@ calculated values, or force recalculation in Excel2003.
 ### Excel functions that return a Date and Time value
 
 Any of the Date and Time functions that return a date value in Excel can
-return either an Excel timestamp or a PHP timestamp or date object.
+return either an Excel timestamp or a PHP timestamp or `DateTime` object.
 
 It is possible for scripts to change the data type used for returning
 date values by calling the
@@ -103,25 +100,25 @@ method:
 
 where the following constants can be used for `$returnDateType`:
 
--   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_NUMERIC`
--   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_OBJECT`
--   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL`
+- `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_NUMERIC`
+- `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_OBJECT`
+- `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL`
 
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in for the return date type).
 
-The \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()
+The `\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`
 method can be used to determine the current value of this setting:
 
 ``` php
 $returnDateType = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
 ```
 
-The default is RETURNDATE\_PHP\_NUMERIC.
+The default is `RETURNDATE_PHP_NUMERIC`.
 
 #### PHP Timestamps
 
-If RETURNDATE\_PHP\_NUMERIC is set for the Return Date Type, then any
+If `RETURNDATE_PHP_NUMERIC` is set for the Return Date Type, then any
 date value returned to the calling script by any access to the Date and
 Time functions in Excel will be an integer value that represents the
 number of seconds from the PHP/Unix base date. The PHP/Unix base date
@@ -131,15 +128,15 @@ while a value of +3600 would be 01:00 hrs on 1st January 1970. This
 gives PHP a date range of between 14th December 1901 and 19th January
 2038.
 
-#### PHP DateTime Objects
+#### PHP `DateTime` Objects
 
-If the Return Date Type is set for RETURNDATE\_PHP\_NUMERIC, then any
+If the Return Date Type is set for `RETURNDATE_PHP_OBJECT`, then any
 date value returned to the calling script by any access to the Date and
-Time functions in Excel will be a PHP date/time object.
+Time functions in Excel will be a PHP `DateTime` object.
 
 #### Excel Timestamps
 
-If RETURNDATE\_EXCEL is set for the Return Date Type, then the returned
+If `RETURNDATE_EXCEL` is set for the Return Date Type, then the returned
 date value by any access to the Date and Time functions in Excel will be
 a floating point value that represents a number of days from the Excel
 base date. The Excel base date is determined by which calendar Excel
@@ -149,7 +146,7 @@ base date for the Mac 1904 calendar.
 
 It is possible for scripts to change the calendar used for calculating
 Excel date values by calling the
-\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar() method:
+`\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar()` method:
 
 ``` php
 \PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar($baseDate);
@@ -157,44 +154,44 @@ Excel date values by calling the
 
 where the following constants can be used for `$baseDate`:
 
--   \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR\_WINDOWS\_1900
--   \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR\_MAC\_1904
+- `\PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR_WINDOWS_1900`
+- `\PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR_MAC_1904`
 
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in).
 
-The \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar() method can
+The `\PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar()` method can
 be used to determine the current value of this setting:
 
 ``` php
 $baseDate = \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar();
 ```
 
-The default is CALENDAR\_WINDOWS\_1900.
+The default is `CALENDAR_WINDOWS_1900`.
 
 #### Functions that return a Date/Time Value
 
--   DATE
--   DATEVALUE
--   EDATE
--   EOMONTH
--   NOW
--   TIME
--   TIMEVALUE
--   TODAY
+- DATE
+- DATEVALUE
+- EDATE
+- EOMONTH
+- NOW
+- TIME
+- TIMEVALUE
+- TODAY
 
 ### Excel functions that accept Date and Time values as parameters
 
 Date values passed in as parameters to a function can be an Excel
-timestamp or a PHP timestamp; or date object; or a string containing a
+timestamp or a PHP timestamp; or `DateTime` object; or a string containing a
 date value (e.g. '1-Jan-2009'). PhpSpreadsheet will attempt to identify
 their type based on the PHP datatype:
 
 An integer numeric value will be treated as a PHP/Unix timestamp. A real
 (floating point) numeric value will be treated as an Excel
-date/timestamp. Any PHP DateTime object will be treated as a DateTime
+date/timestamp. Any PHP `DateTime` object will be treated as a `DateTime`
 object. Any string value (even one containing straight numeric data)
-will be converted to a date/time object for validation as a date value
+will be converted to a `DateTime` object for validation as a date value
 based on the server locale settings, so passing through an ambiguous
 value of '07/08/2008' will be treated as 7th August 2008 if your server
 settings are UK, but as 8th July 2008 if your server settings are US.
@@ -202,7 +199,7 @@ However, if you pass through a value such as '31/12/2008' that would be
 considered an error by a US-based server, but which is not ambiguous,
 then PhpSpreadsheet will attempt to correct this to 31st December 2008.
 If the content of the string doesn’t match any of the formats recognised
-by the php date/time object implementation of `strtotime()` (which can
+by the php `DateTime` object implementation of `strtotime()` (which can
 handle a wider range of formats than the normal `strtotime()` function),
 then the function will return a `#VALUE` error. However, Excel
 recommends that you should always use date/timestamps for your date
@@ -213,37 +210,37 @@ The same principle applies when data is being written to Excel. Cells
 containing date actual values (rather than Excel functions that return a
 date value) are always written as Excel dates, converting where
 necessary. If a cell formatted as a date contains an integer or
-date/time object value, then it is converted to an Excel value for
+`DateTime` object value, then it is converted to an Excel value for
 writing: if a cell formatted as a date contains a real value, then no
 conversion is required. Note that string values are written as strings
 rather than converted to Excel date timestamp values.
 
 #### Functions that expect a Date/Time Value
 
--   DATEDIF
--   DAY
--   DAYS360
--   EDATE
--   EOMONTH
--   HOUR
--   MINUTE
--   MONTH
--   NETWORKDAYS
--   SECOND
--   WEEKDAY
--   WEEKNUM
--   WORKDAY
--   YEAR
--   YEARFRAC
+- DATEDIF
+- DAY
+- DAYS360
+- EDATE
+- EOMONTH
+- HOUR
+- MINUTE
+- MONTH
+- NETWORKDAYS
+- SECOND
+- WEEKDAY
+- WEEKNUM
+- WORKDAY
+- YEAR
+- YEARFRAC
 
 ### Helper Methods
 
 In addition to the `setExcelCalendar()` and `getExcelCalendar()` methods, a
 number of other methods are available in the
-\PhpOffice\PhpSpreadsheet\Shared\Date class that can help when working
+`\PhpOffice\PhpSpreadsheet\Shared\Date` class that can help when working
 with dates:
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHP($excelDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($excelDate)
 
 Converts a date/time from an Excel date timestamp to return a PHP
 serialized date/timestamp.
@@ -251,20 +248,42 @@ serialized date/timestamp.
 Note that this method does not trap for Excel dates that fall outside of
 the valid range for a PHP date timestamp.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHPObject($excelDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($excelDate)
 
-Converts a date from an Excel date/timestamp to return a PHP DateTime
+Converts a date from an Excel date/timestamp to return a PHP `DateTime`
 object.
 
 #### \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($PHPDate)
 
-Converts a PHP serialized date/timestamp or a PHP DateTime object to
+Converts a PHP serialized date/timestamp or a PHP `DateTime` object to
 return an Excel date timestamp.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::FormattedPHPToExcel($year, $month, $day, $hours=0, $minutes=0, $seconds=0)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel($year, $month, $day, $hours=0, $minutes=0, $seconds=0)
 
 Takes year, month and day values (and optional hour, minute and second
 values) and returns an Excel date timestamp value.
+
+### Timezone support for Excel date timestamp conversions
+
+The default timezone for the date functions in PhpSpreadsheet is UST (Universal Standard Time).
+If a different timezone needs to be used, these methods are available:
+
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::getDefaultTimezone()
+
+Returns the current timezone value PhpSpeadsheet is using to handle dates and times.
+
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::setDefaultTimezone($timeZone)
+
+Sets the timezone for Excel date timestamp conversions to $timeZone,
+which must be a valid PHP DateTimeZone value.
+The return value is a Boolean, where true is success,
+and false is failure (e.g. an invalid DateTimeZone value was passed.)
+
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($excelDate, $timeZone)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimeStamp($excelDate, $timeZone)
+
+These functions support a timezone as an optional second parameter.
+This applies a specific timezone to that function call without affecting the default PhpSpreadsheet Timezone.
 
 ## Function Reference
 
@@ -311,21 +330,21 @@ This is the statistical mean.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -379,21 +398,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -450,21 +469,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -521,21 +540,21 @@ in which you specify a condition for the column.
 #### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -589,21 +608,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -657,21 +676,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -725,21 +744,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -794,21 +813,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -863,21 +882,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -931,21 +950,21 @@ in which you specify a condition for the column.
 ##### Examples
 
 ``` php
-$database = array(
-    array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
-    array( 'Apple',  18,       20,    14,      105.00  ),
-    array( 'Pear',   12,       12,    10,       96.00  ),
-    array( 'Cherry', 13,       14,     9,      105.00  ),
-    array( 'Apple',  14,       15,    10,       75.00  ),
-    array( 'Pear',    9,        8,     8,       76.80  ),
-    array( 'Apple',   8,        9,     6,       45.00  ),
-);
+$database = [
+    [ 'Tree',  'Height', 'Age', 'Yield', 'Profit' ],
+    [ 'Apple',  18,       20,    14,      105.00  ],
+    [ 'Pear',   12,       12,    10,       96.00  ],
+    [ 'Cherry', 13,       14,     9,      105.00  ],
+    [ 'Apple',  14,       15,    10,       75.00  ],
+    [ 'Pear',    9,        8,     8,       76.80  ],
+    [ 'Apple',   8,        9,     6,       45.00  ],
+];
 
-$criteria = array(
-    array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
-    array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
-    array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
-);
+$criteria = [
+    [ 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ],
+    [ '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ],
+    [ '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ],
+];
 
 $worksheet->fromArray( $criteria, NULL, 'A1' )
     ->fromArray( $database, NULL, 'A4' );
@@ -979,7 +998,7 @@ Excel and in PHP.
 
 #### DATE
 
-The DATE function returns an Excel timestamp or a PHP timestamp or date
+The DATE function returns an Excel timestamp or a PHP timestamp or `DateTime`
 object representing the date that is referenced by the parameters.
 
 ##### Syntax
@@ -1025,9 +1044,9 @@ February 27, 2008.
 
 **mixed** A date/time stamp that corresponds to the given date.
 
-This could be a PHP timestamp value (integer), a PHP date/time object,
+This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1049,7 +1068,7 @@ $retVal = $worksheet->getCell('D1')->getCalculatedValue();
 ``` php
 // We're going to be calling the same cell calculation multiple times,
 //    and expecting different return values, so disable calculation cacheing
-\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
+\PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
 
 $saveFormat = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
 
@@ -1058,8 +1077,8 @@ $saveFormat = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType
 );
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATE'),
-    array(2008, 12, 31)
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATE'],
+    [2008, 12, 31]
 );
 // $retVal = 39813.0
 
@@ -1068,8 +1087,8 @@ $retVal = call_user_func_array(
 );
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATE'),
-    array(2008, 12, 31)
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATE'],
+    [2008, 12, 31]
 );
 // $retVal = 1230681600
 
@@ -1093,12 +1112,12 @@ variety of different intervals, such number of years, months, or days.
 
 **date1** First Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **date2** Second Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **unit** The interval type to use for the calculation
@@ -1170,38 +1189,38 @@ $date1 = 1193317015; // PHP timestamp for 25-Oct-2007
 $date2 = 1449579415; // PHP timestamp for 8-Dec-2015
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
-    array($date1, $date2, 'd')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'],
+    [$date1, $date2, 'd']
 );
 // $retVal = 2966
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
-    array($date1, $date2, 'm')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'],
+    [$date1, $date2, 'm']
 );
 // $retVal = 97
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
-    array($date1, $date2, 'y')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'],
+    [$date1, $date2, 'y']
 );
 // $retVal = 8
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
-    array($date1, $date2, 'ym')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'],
+    [$date1, $date2, 'ym']
 );
 // $retVal = 1
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
-    array($date1, $date2, 'yd')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'],
+    [$date1, $date2, 'yd']
 );
 // $retVal = 44
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
-    array($date1, $date2, 'md')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'],
+    [$date1, $date2, 'md']
 );
 // $retVal = 13
 ```
@@ -1230,9 +1249,9 @@ A string, representing a date value.
 
 **mixed** A date/time stamp that corresponds to the given date.
 
-This could be a PHP timestamp value (integer), a PHP date/time object,
+This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1261,7 +1280,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 ``` php
 // We're going to be calling the same cell calculation multiple times,
 //    and expecting different return values, so disable calculation cacheing
-\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
+\PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
 
 $saveFormat = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
 
@@ -1270,8 +1289,8 @@ $saveFormat = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType
 );
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEVALUE'),
-    array('31-Dec-2008')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEVALUE'],
+    ['31-Dec-2008']
 );
 // $retVal = 39813.0
 
@@ -1280,8 +1299,8 @@ $retVal = call_user_func_array(
 );
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEVALUE'),
-    array('31-Dec-2008')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEVALUE'],
+    ['31-Dec-2008']
 );
 // $retVal = 1230681600
 
@@ -1290,7 +1309,7 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-DATEVALUE uses the php date/time object implementation of `strtotime()`
+DATEVALUE uses the php `DateTime` object implementation of `strtotime()`
 (which can handle a wider range of formats than the normal `strtotime()`
 function), and it is also called for any date parameter passed to other
 date functions (such as DATEDIF) when the parameter value is a string.
@@ -1317,7 +1336,7 @@ integer ranging from 1 to 31.
 
 **datetime** Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 ##### Return Value
@@ -1345,8 +1364,8 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYOFMONTH'),
-    array('25-Dec-2008')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYOFMONTH'],
+    ['25-Dec-2008']
 );
 // $retVal = 25
 ```
@@ -1354,7 +1373,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::DAYOFMONTH() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::DAYOFMONTH()` when the
 method is called statically.
 
 #### DAYS360
@@ -1371,12 +1390,12 @@ accounting systems.
 
 **date1** First Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **date2** Second Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **method** A boolean flag (TRUE or FALSE)
@@ -1431,14 +1450,14 @@ $date1 = 37655.0; // Excel timestamp for 25-Oct-2007
 $date2 = 39233.0; // Excel timestamp for 8-Dec-2015
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYS360'),
-    array($date1, $date2)
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYS360'],
+    [$date1, $date2]
 );
 // $retVal = 1558
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYS360'),
-    array($date1, $date2, TRUE)
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYS360'],
+    [$date1, $date2, TRUE]
 );
 // $retVal = 1557
 ```
@@ -1453,7 +1472,7 @@ Excel `TRUE()` and `FALSE()` functions are used instead.
 
 #### EDATE
 
-The EDATE function returns an Excel timestamp or a PHP timestamp or date
+The EDATE function returns an Excel timestamp or a PHP timestamp or `DateTime`
 object representing the date that is the indicated number of months
 before or after a specified date (the start\_date). Use EDATE to
 calculate maturity dates or due dates that fall on the same day of the
@@ -1467,7 +1486,7 @@ month as the date of issue.
 
 **baseDate** Start Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **months** Number of months to add.
@@ -1480,9 +1499,9 @@ value yields a past date.
 
 **mixed** A date/time stamp that corresponds to the basedate + months.
 
-This could be a PHP timestamp value (integer), a PHP date/time object,
+This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1511,8 +1530,8 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 );
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'EDATE'),
-    array('31-Oct-2008',25)
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'EDATE'],
+    ['31-Oct-2008', 25]
 );
 // $retVal = 40512.0 (30-Nov-2010)
 ```
@@ -1526,7 +1545,7 @@ the Analysis ToolPak.
 #### EOMONTH
 
 The EOMONTH function returns an Excel timestamp or a PHP timestamp or
-date object representing the date of the last day of the month that is
+`DateTime` object representing the date of the last day of the month that is
 the indicated number of months before or after a specified date (the
 start\_date). Use EOMONTH to calculate maturity dates or due dates that
 fall on the last day of the month.
@@ -1539,7 +1558,7 @@ fall on the last day of the month.
 
 **baseDate** Start Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **months** Number of months to add.
@@ -1553,9 +1572,9 @@ value yields a past date.
 **mixed** A date/time stamp that corresponds to the last day of basedate
 + months.
 
-This could be a PHP timestamp value (integer), a PHP date/time object,
+This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1582,8 +1601,8 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 );
 
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'EOMONTH'),
-    array('31-Oct-2008',13)
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'EOMONTH'],
+    ['31-Oct-2008', 13]
 );
 // $retVal = 40147.0 (30-Nov-2010)
 ```
@@ -1607,7 +1626,7 @@ an integer, ranging from 0 (12:00 A.M.) to 23 (11:00 P.M.).
 
 **datetime** Time.
 
-An Excel date/time value, PHP date timestamp, PHP date object, or a
+An Excel date/time value, PHP date timestamp, PHP `DateTime` object, or a
 date/time represented as a string.
 
 ##### Return Value
@@ -1640,8 +1659,8 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'HOUROFDAY'),
-    array('09:30')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'HOUROFDAY'],
+    ['09:30']
 );
 // $retVal = 9
 ```
@@ -1649,7 +1668,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::HOUROFDAY() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::HOUROFDAY()` when the
 method is called statically.
 
 #### MINUTE
@@ -1665,7 +1684,7 @@ given as an integer, ranging from 0 to 59.
 
 **datetime** Time.
 
-An Excel date/time value, PHP date timestamp, PHP date object, or a
+An Excel date/time value, PHP date timestamp, PHP `DateTime` object, or a
 date/time represented as a string.
 
 ##### Return Value
@@ -1698,8 +1717,8 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'MINUTE'),
-    array('09:30')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'MINUTE'],
+    ['09:30']
 );
 // $retVal = 30
 ```
@@ -1707,7 +1726,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::MINUTE() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::MINUTE()` when the
 method is called statically.
 
 #### MONTH
@@ -1723,7 +1742,7 @@ integer ranging from 1 to 12.
 
 **datetime** Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 ##### Return Value
@@ -1751,8 +1770,8 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'MONTHOFYEAR'),
-    array('14-July-2008')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'MONTHOFYEAR'],
+    ['14-July-2008']
 );
 // $retVal = 7
 ```
@@ -1760,7 +1779,7 @@ $retVal = call_user_func_array(
 #### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::MONTHOFYEAR() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::MONTHOFYEAR()` when the
 method is called statically.
 
 #### NETWORKDAYS
@@ -1779,12 +1798,12 @@ a specific term.
 
 **startDate** Start Date of the period.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **endDate** End Date of the period.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **holidays** Optional array of Holiday dates.
@@ -1831,9 +1850,9 @@ There are no parameters for the `NOW()` function.
 **mixed** A date/time stamp that corresponds to the current date and
 time.
 
-This could be a PHP timestamp value (integer), a PHP date/time object,
+This could be a PHP timestamp value (integer), a PHP `DateTime` object,
 or an Excel timestamp value (real), depending on the value of
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()`.
 
 ##### Examples
 
@@ -1846,7 +1865,7 @@ or an Excel timestamp value (real), depending on the value of
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::DATETIMENOW() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::DATETIMENOW()` when the
 method is called statically.
 
 #### SECOND
@@ -1862,7 +1881,7 @@ given as an integer, ranging from 0 to 59.
 
 **datetime** Time.
 
-An Excel date/time value, PHP date timestamp, PHP date object, or a
+An Excel date/time value, PHP date timestamp, PHP `DateTime` object, or a
 date/time represented as a string.
 
 ##### Return Value
@@ -1896,8 +1915,8 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'SECOND'),
-    array('09:30:17')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'SECOND'],
+    ['09:30:17']
 );
 // $retVal = 17
 ```
@@ -1905,7 +1924,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::SECOND() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::SECOND()` when the
 method is called statically.
 
 #### TIME
@@ -1934,7 +1953,7 @@ modified to return a value between 0 and 6.
 
 **datetime** Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 **method** An integer flag (values 0, 1 or 2)
@@ -1980,8 +1999,8 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'WEEKDAY'),
-    array('14-July-2008')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'WEEKDAY'],
+    ['14-July-2008']
 );
 // $retVal = 7
 ```
@@ -1989,7 +2008,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::WEEKDAY() when the
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::WEEKDAY()` when the
 method is called statically.
 
 #### WEEKNUM
@@ -2012,7 +2031,7 @@ The YEAR function returns the year of a date.
 
 **datetime** Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date
+An Excel date value, PHP date timestamp, PHP `DateTime` object, or a date
 represented as a string.
 
 ##### Return Value
@@ -2040,8 +2059,8 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'YEAR'),
-    array('14-July-2001')
+    ['\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'YEAR'],
+    ['14-July-2001']
 );
 // $retVal = 2001
 ```

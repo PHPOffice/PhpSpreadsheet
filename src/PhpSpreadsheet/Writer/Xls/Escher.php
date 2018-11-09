@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
-use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer;
@@ -11,28 +11,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip;
 
-/**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- */
 class Escher
 {
     /**
@@ -62,7 +40,6 @@ class Escher
     /**
      * Constructor.
      *
-     * @param mixed
      * @param mixed $object
      */
     public function __construct($object)
@@ -91,6 +68,7 @@ class Escher
                     $this->spOffsets = $writer->getSpOffsets();
                     $this->spTypes = $writer->getSpTypes();
                 }
+
                 break;
             case DggContainer::class:
                 // this is a container record
@@ -144,6 +122,7 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
                 $this->data = $header . $innerData;
+
                 break;
             case BstoreContainer::class:
                 // this is a container record
@@ -171,6 +150,7 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
                 $this->data = $header . $innerData;
+
                 break;
             case BSE::class:
                 // this is a semi-container record
@@ -220,6 +200,7 @@ class Escher
                 $this->data = $header;
 
                 $this->data .= $data;
+
                 break;
             case Blip::class:
                 // this is an atom record
@@ -251,6 +232,7 @@ class Escher
                         $this->data = $header;
 
                         $this->data .= $innerData;
+
                         break;
                     case BSE::BLIPTYPE_PNG:
                         // initialize
@@ -277,8 +259,10 @@ class Escher
                         $this->data = $header;
 
                         $this->data .= $innerData;
+
                         break;
                 }
+
                 break;
             case DgContainer::class:
                 // this is a container record
@@ -331,6 +315,7 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
                 $this->data = $header . $innerData;
+
                 break;
             case SpgrContainer::class:
                 // this is a container record
@@ -370,6 +355,7 @@ class Escher
                 $this->data = $header . $innerData;
                 $this->spOffsets = $spOffsets;
                 $this->spTypes = $spTypes;
+
                 break;
             case SpContainer::class:
                 // initialize
@@ -434,8 +420,8 @@ class Escher
                     $recType = 0xF010;
 
                     // start coordinates
-                    list($column, $row) = Cell::coordinateFromString($this->object->getStartCoordinates());
-                    $c1 = Cell::columnIndexFromString($column) - 1;
+                    list($column, $row) = Coordinate::coordinateFromString($this->object->getStartCoordinates());
+                    $c1 = Coordinate::columnIndexFromString($column) - 1;
                     $r1 = $row - 1;
 
                     // start offsetX
@@ -445,8 +431,8 @@ class Escher
                     $startOffsetY = $this->object->getStartOffsetY();
 
                     // end coordinates
-                    list($column, $row) = Cell::coordinateFromString($this->object->getEndCoordinates());
-                    $c2 = Cell::columnIndexFromString($column) - 1;
+                    list($column, $row) = Coordinate::coordinateFromString($this->object->getEndCoordinates());
+                    $c2 = Coordinate::columnIndexFromString($column) - 1;
                     $r2 = $row - 1;
 
                     // end offsetX
@@ -495,6 +481,7 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
                 $this->data = $header . $data;
+
                 break;
         }
 
