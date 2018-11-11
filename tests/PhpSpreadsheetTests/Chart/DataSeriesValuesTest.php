@@ -60,23 +60,29 @@ class DataSeriesValuesTest extends TestCase
         self::assertEquals(12700, $testInstance->getLineWidth(), 'should enforce minimum width');
     }
 
-    public function testFillColor()
+    public function testFillColorCorrectInput()
     {
         $testInstance = new DataSeriesValues();
 
-        try {
-            $testInstance->setFillColor('WRONG COLOR');
-        } catch (Exception $e) {
-            self::assertEquals($e->getMessage(), 'Invalid hex color for chart series');
-        }
-
-        try {
-            $testInstance->setFillColor(['b8292f', 'WRONG COLOR']);
-        } catch (Exception $e) {
-            self::assertEquals($e->getMessage(), 'Invalid hex color for chart series (color: "WRONG COLOR")');
-        }
-
         self::assertEquals($testInstance, $testInstance->setFillColor('00abb8'));
         self::assertEquals($testInstance, $testInstance->setFillColor(['00abb8', 'b8292f']));
+    }
+
+    public function testFillColorInvalidInput()
+    {
+        $testInstance = new DataSeriesValues();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Invalid hex color for chart series');
+
+        $testInstance->setFillColor('WRONG COLOR');
+    }
+
+    public function testFillColorInvalidInputInArray()
+    {
+        $testInstance = new DataSeriesValues();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Invalid hex color for chart series (color: "WRONG COLOR")');
+
+        $testInstance->setFillColor(['b8292f', 'WRONG COLOR']);
     }
 }
