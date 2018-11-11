@@ -3059,6 +3059,6 @@ class Worksheet implements IComparable
      */
     public function hasCodeName()
     {
-        return !($this->codeName === null);
+        return $this->codeName !== null;
     }
 }

@@ -229,7 +229,7 @@ class JpGraph implements IRenderer
 
         //    Rotate for bar rather than column chart
         $rotation = $this->chart->getPlotArea()->getPlotGroupByIndex(0)->getPlotDirection();
-        $reverse = ($rotation == 'bar') ? true : false;
+        $reverse = $rotation == 'bar';
 
         $xAxisLabel = $this->chart->getXAxisLabel();
         if ($xAxisLabel !== null) {
