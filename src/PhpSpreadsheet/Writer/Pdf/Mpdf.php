@@ -70,7 +70,13 @@ class Mpdf extends Pdf
         $ortmp = $orientation;
         $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
         $pdf->DefOrientation = $orientation;
-        $pdf->AddPage($orientation);
+        $pdf->AddPageByArray([
+            'orientation' => $orientation,
+            'margin-left' => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft()),
+            'margin-right' => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getRight()),
+            'margin-top' => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getTop()),
+            'margin-bottom' => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getBottom()),
+        ]);
 
         //  Document info
         $pdf->SetTitle($this->spreadsheet->getProperties()->getTitle());
@@ -79,15 +85,28 @@ class Mpdf extends Pdf
         $pdf->SetKeywords($this->spreadsheet->getProperties()->getKeywords());
         $pdf->SetCreator($this->spreadsheet->getProperties()->getCreator());
 
-        $pdf->WriteHTML(
-            $this->generateHTMLHeader(false) .
-            $this->generateSheetData() .
-            $this->generateHTMLFooter()
-        );
+        $pdf->WriteHTML($this->generateHTMLHeader(false));
+        $html = $this->generateSheetData();
+        foreach (\array_chunk(\explode(PHP_EOL, $html), 1000) as $lines) {
+            $pdf->WriteHTML(\implode(PHP_EOL, $lines));
+        }
+        $pdf->WriteHTML($this->generateHTMLFooter());
 
         //  Write to file
         fwrite($fileHandle, $pdf->Output('', 'S'));
 
         parent::restoreStateAfterSave($fileHandle);
+    }
+
+    /**
+     * Convert inches to mm.
+     *
+     * @param float $inches
+     *
+     * @return float
+     */
+    private function inchesToMm($inches)
+    {
+        return $inches * 25.4;
     }
 }

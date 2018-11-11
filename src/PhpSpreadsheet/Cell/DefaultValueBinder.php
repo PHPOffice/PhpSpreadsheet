@@ -31,7 +31,7 @@ class DefaultValueBinder implements IValueBinder
         }
 
         // Set value explicit
-        $cell->setValueExplicit($value, self::dataTypeForValue($value));
+        $cell->setValueExplicit($value, static::dataTypeForValue($value));
 
         // Done!
         return true;
