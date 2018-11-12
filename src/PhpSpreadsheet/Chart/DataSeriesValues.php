@@ -62,7 +62,7 @@ class DataSeriesValues
     /**
      * Fill color (can be array with colors if dataseries have custom colors).
      *
-     * @var string[]|string
+     * @var string|string[]
      */
     private $fillColor;
 
@@ -82,7 +82,7 @@ class DataSeriesValues
      * @param int $pointCount
      * @param mixed $dataValues
      * @param null|mixed $marker
-     * @param null|string[]|string $fillColor
+     * @param null|string|string[] $fillColor
      */
     public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null)
     {
@@ -214,7 +214,7 @@ class DataSeriesValues
     /**
      * Get fill color.
      *
-     * @return string[]|string HEX color or array with HEX colors
+     * @return string|string[] HEX color or array with HEX colors
      */
     public function getFillColor()
     {
@@ -224,7 +224,7 @@ class DataSeriesValues
     /**
      * Set fill color for series.
      *
-     * @param string[]|string $color HEX color or array with HEX colors
+     * @param string|string[] $color HEX color or array with HEX colors
      *
      * @return   DataSeriesValues
      */
@@ -247,9 +247,9 @@ class DataSeriesValues
      *
      * @param string $color value for color
      *
-     * @return bool true if validation was successful
-     *
      * @throws \Exception thrown if color is invalid
+     *
+     * @return bool true if validation was successful
      */
     private function validateColor($color)
     {
