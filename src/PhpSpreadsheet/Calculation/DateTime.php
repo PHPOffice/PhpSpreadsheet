@@ -1090,7 +1090,7 @@ class DateTime
             return $startDate;
         }
 
-        $decrementing = ($endDays < 0) ? true : false;
+        $decrementing = $endDays < 0;
 
         //    Adjust the start date if it falls over a weekend
 
