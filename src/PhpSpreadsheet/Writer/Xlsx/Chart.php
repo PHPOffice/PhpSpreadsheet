@@ -1024,6 +1024,38 @@ class Chart extends WriterPart
     }
 
     /**
+     * Method writing plot series values.
+     *
+     * @param XMLWriter $objWriter XML Writer
+     * @param int       $val       value for idx (default: 3)
+     * @param string    $fillColor hex color (default: FF9900)
+     *
+     * @return XMLWriter XML Writer
+     */
+    private function writePlotSeriesValuesElement($objWriter, $val = 3, $fillColor = 'FF9900')
+    {
+        $objWriter->startElement('c:dPt');
+        $objWriter->startElement('c:idx');
+        $objWriter->writeAttribute('val', $val);
+        $objWriter->endElement();
+
+        $objWriter->startElement('c:bubble3D');
+        $objWriter->writeAttribute('val', 0);
+        $objWriter->endElement();
+
+        $objWriter->startElement('c:spPr');
+        $objWriter->startElement('a:solidFill');
+        $objWriter->startElement('a:srgbClr');
+        $objWriter->writeAttribute('val', $fillColor);
+        $objWriter->endElement();
+        $objWriter->endElement();
+        $objWriter->endElement();
+        $objWriter->endElement();
+
+        return $objWriter;
+    }
+
+    /**
      * Write Plot Group (series of related plots).
      *
      * @param DataSeries $plotGroup
@@ -1104,40 +1136,10 @@ class Chart extends WriterPart
                 $fillColorValues = $plotSeriesValues->getFillColor();
                 if ($fillColorValues !== null && is_array($fillColorValues)) {
                     foreach ($plotSeriesValues->getDataValues() as $dataKey => $dataValue) {
-                        $objWriter->startElement('c:dPt');
-                        $objWriter->startElement('c:idx');
-                        $objWriter->writeAttribute('val', $dataKey);
-                        $objWriter->endElement();
-                        $objWriter->startElement('c:bubble3D');
-                        $objWriter->writeAttribute('val', 0);
-                        $objWriter->endElement();
-                        $objWriter->startElement('c:spPr');
-                        $objWriter->startElement('a:solidFill');
-                        $objWriter->startElement('a:srgbClr');
-                        $objWriter->writeAttribute('val', (isset($fillColorValues[$dataKey]) ? $fillColorValues[$dataKey] : 'FF9900'));
-                        $objWriter->endElement();
-                        $objWriter->endElement();
-                        $objWriter->endElement();
-                        $objWriter->endElement();
+                        $this->writePlotSeriesValuesElement($objWriter, $dataKey, (isset($fillColorValues[$dataKey]) ? $fillColorValues[$dataKey] : 'FF9900'));
                     }
                 } else {
-                    $objWriter->startElement('c:dPt');
-                    $objWriter->startElement('c:idx');
-                    $objWriter->writeAttribute('val', 3);
-                    $objWriter->endElement();
-
-                    $objWriter->startElement('c:bubble3D');
-                    $objWriter->writeAttribute('val', 0);
-                    $objWriter->endElement();
-
-                    $objWriter->startElement('c:spPr');
-                    $objWriter->startElement('a:solidFill');
-                    $objWriter->startElement('a:srgbClr');
-                    $objWriter->writeAttribute('val', 'FF9900');
-                    $objWriter->endElement();
-                    $objWriter->endElement();
-                    $objWriter->endElement();
-                    $objWriter->endElement();
+                    $this->writePlotSeriesValuesElement($objWriter);
                 }
             }
 
