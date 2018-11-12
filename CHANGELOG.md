@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Added
+
+- Possibility to specify custom colors of values for pie and donut charts (https://github.com/PHPOffice/PhpSpreadsheet/pull/768)
+
 ### Fixed
 
 - Support numeric condition in SUMIF, SUMIFS, AVERAGEIF, COUNTIF, MAXIF and MINIF - [#683](https://github.com/PHPOffice/PhpSpreadsheet/issues/683)
