@@ -4,8 +4,6 @@ namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
-use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ReferenceHelper
@@ -818,39 +816,6 @@ class ReferenceHelper
                         $formula = str_replace("'" . $oldName . "'!", "'" . $newName . "'!", $formula);
                         $formula = str_replace($oldName . '!', $newName . '!', $formula);
                         $cell->setValueExplicit($formula, DataType::TYPE_FORMULA);
-                    }
-                }
-            }
-
-            foreach ($sheet->getChartCollection() as $chart) {
-                /** @var DataSeries $plotGroup */
-                foreach ($chart->getPlotArea()->getPlotGroup() as $plotGroup) {
-                    /** @var DataSeriesValues $plotCategory */
-                    foreach ($plotGroup->getPlotCategories() as $plotCategory) {
-                        $dataSource = $plotCategory->getDataSource();
-                        if (strpos($dataSource, $oldName) !== false) {
-                            $dataSource = str_replace("'" . $oldName . "'!", "'" . $newName . "'!", $dataSource);
-                            $dataSource = str_replace($oldName . '!', $newName . '!', $dataSource);
-                            $plotCategory->setDataSource($dataSource);
-                        }
-                    }
-                    /** @var DataSeriesValues $plotLabel */
-                    foreach ($plotGroup->getPlotLabels() as $plotLabel) {
-                        $dataSource = $plotLabel->getDataSource();
-                        if (strpos($dataSource, $oldName) !== false) {
-                            $dataSource = str_replace("'" . $oldName . "'!", "'" . $newName . "'!", $dataSource);
-                            $dataSource = str_replace($oldName . '!', $newName . '!', $dataSource);
-                            $plotLabel->setDataSource($dataSource);
-                        }
-                    }
-                    /** @var DataSeriesValues $plotValue */
-                    foreach ($plotGroup->getPlotValues() as $plotValue) {
-                        $dataSource = $plotValue->getDataSource();
-                        if (strpos($dataSource, $oldName) !== false) {
-                            $dataSource = str_replace("'" . $oldName . "'!", "'" . $newName . "'!", $dataSource);
-                            $dataSource = str_replace($oldName . '!', $newName . '!', $dataSource);
-                            $plotValue->setDataSource($dataSource);
-                        }
                     }
                 }
             }

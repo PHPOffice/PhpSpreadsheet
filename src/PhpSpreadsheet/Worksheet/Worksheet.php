@@ -885,6 +885,39 @@ class Worksheet implements IComparable
         $this->title = $pValue;
         $this->dirty = true;
 
+        foreach ($this->getChartCollection() as $chart) {
+            /** @var DataSeries $plotGroup */
+            foreach ($chart->getPlotArea()->getPlotGroup() as $plotGroup) {
+                /** @var DataSeriesValues $plotCategory */
+                foreach ($plotGroup->getPlotCategories() as $plotCategory) {
+                    $dataSource = $plotCategory->getDataSource();
+                    if (strpos($dataSource, $oldTitle) !== false) {
+                        $dataSource = str_replace("'" . $oldTitle . "'!", "'" . $pValue . "'!", $dataSource);
+                        $dataSource = str_replace($oldTitle . '!', $pValue . '!', $dataSource);
+                        $plotCategory->setDataSource($dataSource);
+                    }
+                }
+                /** @var DataSeriesValues $plotLabel */
+                foreach ($plotGroup->getPlotLabels() as $plotLabel) {
+                    $dataSource = $plotLabel->getDataSource();
+                    if (strpos($dataSource, $oldTitle) !== false) {
+                        $dataSource = str_replace("'" . $oldTitle . "'!", "'" . $pValue . "'!", $dataSource);
+                        $dataSource = str_replace($oldTitle . '!', $pValue . '!', $dataSource);
+                        $plotLabel->setDataSource($dataSource);
+                    }
+                }
+                /** @var DataSeriesValues $plotValue */
+                foreach ($plotGroup->getPlotValues() as $plotValue) {
+                    $dataSource = $plotValue->getDataSource();
+                    if (strpos($dataSource, $oldTitle) !== false) {
+                        $dataSource = str_replace("'" . $oldTitle . "'!", "'" . $pValue . "'!", $dataSource);
+                        $dataSource = str_replace($oldTitle . '!', $pValue . '!', $dataSource);
+                        $plotValue->setDataSource($dataSource);
+                    }
+                }
+            }
+        }
+
         if ($this->parent && $this->parent->getCalculationEngine()) {
             // New title
             $newTitle = $this->getTitle();
