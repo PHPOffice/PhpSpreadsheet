@@ -2,6 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Chart\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
+use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
@@ -155,5 +159,87 @@ class WorksheetTest extends TestCase
         $arRange = Worksheet::extractSheetTitle($range, true);
         self::assertSame($expectTitle, $arRange[0]);
         self::assertSame($expectCell2, $arRange[1]);
+    }
+
+    public function testCopySheet()
+    {
+        // Create a Spreadsheet
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getSheet(0);
+        $sheet->setTitle('TestSheet1');
+
+        // Create a Chart
+        $dataSeries = new DataSeries(
+            DataSeries::TYPE_BARCHART,
+            DataSeries::GROUPING_CLUSTERED,
+            [],
+            [
+                new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, "TestSheet1!A1"),
+                new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, "TestSheet1!A2"),
+            ],
+            [
+                new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, "TestSheet1!B1"),
+                new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, "TestSheet1!B2"),
+            ],
+            [
+                new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, "TestSheet1!C1"),
+                new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, "TestSheet1!C2"),
+            ]
+        );
+        $plotArea = new PlotArea(null, [$dataSeries]);
+        $chart = new Chart('Chart 1', null, null, $plotArea);
+        $sheet->addChart($chart);
+
+        // Duplicate the Worksheet
+        $newSheet = $sheet->copy();
+        $newSheet->setTitle('TestSheet2');
+        $spreadsheet->addSheet($newSheet);
+
+        // Chart 1 on TestSheet1 and Chart 1 on TestSheet2 should not be the same object
+        $sheetOne = $spreadsheet->getSheet(0);
+        $chartOne = $sheetOne->getChartByName('Chart 1');
+        $sheetTwo = $spreadsheet->getSheet(1);
+        $chartTwo = $sheetTwo->getChartByName('Chart 1');
+        self::assertNotSame($chartOne, $chartTwo);
+
+        // Chart 1 on TestSheet1 should be unchanged
+        /** @var DataSeries $plotGroup */
+        foreach ($chartOne->getPlotArea()->getPlotGroup() as $plotGroup) {
+            /** @var DataSeriesValues $plotCategory */
+            foreach ($plotGroup->getPlotCategories() as $plotCategory) {
+                $sheetTitle = Worksheet::extractSheetTitle($plotCategory->getDataSource(), true);
+                self::assertEquals('TestSheet1', $sheetTitle[0]);
+            }
+            /** @var DataSeriesValues $plotLabel */
+            foreach ($plotGroup->getPlotLabels() as $plotLabel) {
+                $sheetTitle = Worksheet::extractSheetTitle($plotLabel->getDataSource(), true);
+                self::assertEquals('TestSheet1', $sheetTitle[0]);
+            }
+            /** @var DataSeriesValues $plotValue */
+            foreach ($plotGroup->getPlotValues() as $plotValue) {
+                $sheetTitle = Worksheet::extractSheetTitle($plotValue->getDataSource(), true);
+                self::assertEquals('TestSheet1', $sheetTitle[0]);
+            }
+        }
+
+        // Chart 1 on TestSheet2 should be changed
+        /** @var DataSeries $plotGroup */
+        foreach ($chartTwo->getPlotArea()->getPlotGroup() as $plotGroup) {
+            /** @var DataSeriesValues $plotCategory */
+            foreach ($plotGroup->getPlotCategories() as $plotCategory) {
+                $sheetTitle = Worksheet::extractSheetTitle($plotCategory->getDataSource(), true);
+                self::assertEquals('TestSheet2', $sheetTitle[0]);
+            }
+            /** @var DataSeriesValues $plotLabel */
+            foreach ($plotGroup->getPlotLabels() as $plotLabel) {
+                $sheetTitle = Worksheet::extractSheetTitle($plotLabel->getDataSource(), true);
+                self::assertEquals('TestSheet2', $sheetTitle[0]);
+            }
+            /** @var DataSeriesValues $plotValue */
+            foreach ($plotGroup->getPlotValues() as $plotValue) {
+                $sheetTitle = Worksheet::extractSheetTitle($plotValue->getDataSource(), true);
+                self::assertEquals('TestSheet2', $sheetTitle[0]);
+            }
+        }
     }
 }
