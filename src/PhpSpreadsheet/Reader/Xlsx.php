@@ -2562,13 +2562,15 @@ class Xlsx extends BaseReader
             }
         }
 
+        $readFilter = (\get_class($this->getReadFilter()) !== DefaultReadFilter::class ? $this->getReadFilter() : null);
+
         // set columns/rows attributes
         $columnsAttributesSet = [];
         $rowsAttributesSet = [];
         foreach ($columnsAttributes as $coordColumn => $columnAttributes) {
-            foreach ($rowsAttributes as $coordRow => $rowAttributes) {
-                if ($this->getReadFilter() !== null) {
-                    if (!$this->getReadFilter()->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
+            if ($readFilter !== null) {
+                foreach ($rowsAttributes as $coordRow => $rowAttributes) {
+                    if (!$readFilter->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
                         continue 2;
                     }
                 }
@@ -2581,9 +2583,9 @@ class Xlsx extends BaseReader
         }
 
         foreach ($rowsAttributes as $coordRow => $rowAttributes) {
-            foreach ($columnsAttributes as $coordColumn => $columnAttributes) {
-                if ($this->getReadFilter() !== null) {
-                    if (!$this->getReadFilter()->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
+            if ($readFilter !== null) {
+                foreach ($columnsAttributes as $coordColumn => $columnAttributes) {
+                    if (!$readFilter->readCell($coordColumn, $coordRow, $docSheet->getTitle())) {
                         continue 2;
                     }
                 }
