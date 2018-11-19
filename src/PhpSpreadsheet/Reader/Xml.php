@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
@@ -36,11 +37,17 @@ class Xml extends BaseReader
     protected $charSet = 'UTF-8';
 
     /**
+     * @var XmlScanner
+     */
+    private $securityScanner;
+
+    /**
      * Create a new Excel2003XML Reader instance.
      */
     public function __construct()
     {
         $this->readFilter = new DefaultReadFilter();
+        $this->securityScanner = new XmlScanner();
     }
 
     /**
@@ -109,7 +116,7 @@ class Xml extends BaseReader
     {
         try {
             $xml = simplexml_load_string(
-                $this->securityScan(file_get_contents($pFilename)),
+                $this->securityScanner->scan(file_get_contents($pFilename)),
                 'SimpleXMLElement',
                 Settings::getLibXmlLoaderOptions()
             );
