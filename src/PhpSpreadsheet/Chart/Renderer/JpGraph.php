@@ -401,7 +401,7 @@ class JpGraph implements IRenderer
             $seriesPlots[] = $seriesPlot;
         }
         //    Reverse the plot order for bar rather than column chart
-        if (($rotation == 'bar') && (!($grouping == 'percentStacked'))) {
+        if (($rotation == 'bar') && ($grouping != 'percentStacked')) {
             $seriesPlots = array_reverse($seriesPlots);
         }
 
