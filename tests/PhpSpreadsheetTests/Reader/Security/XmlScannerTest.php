@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Security;
 
 use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 
 class XmlScannerTest extends TestCase
 {
@@ -22,7 +23,7 @@ class XmlScannerTest extends TestCase
     public function providerValidXML()
     {
         $tests = [];
-        foreach (glob(__DIR__ . '/../../data/Reader/Xml/XEETestValid*.xml') as $file) {
+        foreach (glob(__DIR__ . '/../../../data/Reader/Xml/XEETestValid*.xml') as $file) {
             $tests[basename($file)] = [realpath($file), file_get_contents($file)];
         }
 
@@ -48,7 +49,7 @@ class XmlScannerTest extends TestCase
     public function providerInvalidXML()
     {
         $tests = [];
-        foreach (glob(__DIR__ . '/../../data/Reader/Xml/XEETestInvalidUTF*.xml') as $file) {
+        foreach (glob(__DIR__ . '/../../../data/Reader/Xml/XEETestInvalidUTF*.xml') as $file) {
             $tests[basename($file)] = [realpath($file)];
         }
 
