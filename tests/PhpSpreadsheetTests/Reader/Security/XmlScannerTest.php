@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Security;
 
-use PHPUnit\Framework\TestCase;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
+use PHPUnit\Framework\TestCase;
 
 class XmlScannerTest extends TestCase
 {
@@ -29,7 +29,6 @@ class XmlScannerTest extends TestCase
 
         return $tests;
     }
-
 
     /**
      * @dataProvider providerInvalidXML

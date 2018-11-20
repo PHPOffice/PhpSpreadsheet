@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception;
 class XmlScanner
 {
     /**
-     * Identifies whether the thread-safe libxmlDisableEntityLoader() function is available
+     * Identifies whether the thread-safe libxmlDisableEntityLoader() function is available.
      *
      * @var bool
      */
@@ -30,12 +30,13 @@ class XmlScanner
         if (PHP_MAJOR_VERSION > 7) {
             switch (PHP_MINOR_VERSION) {
                 case 2:
-                    return (PHP_RELEASE_VERSION >= 1);
+                    return PHP_RELEASE_VERSION >= 1;
                 case 1:
-                    return (PHP_RELEASE_VERSION >= 13);
+                    return PHP_RELEASE_VERSION >= 13;
                 case 0:
-                    return (PHP_RELEASE_VERSION >= 27);
+                    return PHP_RELEASE_VERSION >= 27;
             }
+
             return true;
         }
 
@@ -45,13 +46,14 @@ class XmlScanner
     /**
      * Scan the XML for use of <!ENTITY to prevent XXE/XEE attacks.
      *
-     * @param string $filestream
+     * @param mixed $xml
      *
      * @throws Exception
      *
      * @return string
      */
-    public function scan($xml) {
+    public function scan($xml)
+    {
         $pattern = '/encoding="(.*?)"/';
         $result = preg_match($pattern, $xml, $matches);
         $charset = $result ? $matches[1] : 'UTF-8';
