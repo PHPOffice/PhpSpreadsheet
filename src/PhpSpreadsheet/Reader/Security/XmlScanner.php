@@ -18,7 +18,7 @@ class XmlScanner
     public function __construct($pattern = '<!DOCTYPE')
     {
         $this->pattern = $pattern;
-        $this->libxmlDisableEntityLoader = $this->IdentifyLibxmlDisableEntityLoaderAvailability();
+        $this->libxmlDisableEntityLoader = $this->identifyLibxmlDisableEntityLoaderAvailability();
 
         if ($this->libxmlDisableEntityLoader) {
             libxml_disable_entity_loader(false);
