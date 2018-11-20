@@ -18,7 +18,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class Html extends BaseReader
 {
     /**
-     * @var XmlScannerscan
+     * @var XmlScanner
      */
     private $securityScanner;
 
