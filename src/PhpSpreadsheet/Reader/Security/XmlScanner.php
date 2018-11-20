@@ -21,13 +21,13 @@ class XmlScanner
         $this->libxmlDisableEntityLoader = $this->identifyLibxmlDisableEntityLoaderAvailability();
 
         if ($this->libxmlDisableEntityLoader) {
-            libxml_disable_entity_loader(false);
+            libxml_disable_entity_loader(true);
         }
     }
 
     private function identifyLibxmlDisableEntityLoaderAvailability()
     {
-        if (PHP_MAJOR_VERSION > 7) {
+        if (PHP_MAJOR_VERSION == 7) {
             switch (PHP_MINOR_VERSION) {
                 case 2:
                     return PHP_RELEASE_VERSION >= 1;
