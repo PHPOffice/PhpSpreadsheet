@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
@@ -31,12 +32,18 @@ class Gnumeric extends BaseReader
     private $referenceHelper;
 
     /**
+     * @var XmlScanner
+     */
+    private $securityScanner;
+
+    /**
      * Create a new Gnumeric.
      */
     public function __construct()
     {
         $this->readFilter = new DefaultReadFilter();
         $this->referenceHelper = ReferenceHelper::getInstance();
+        $this->securityScanner = new XmlScanner();
     }
 
     /**
@@ -77,7 +84,7 @@ class Gnumeric extends BaseReader
         File::assertFile($pFilename);
 
         $xml = new XMLReader();
-        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, Settings::getLibXmlLoaderOptions());
+        $xml->xml($this->securityScanner->scanFile('compress.zlib://' . realpath($pFilename)), null, Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
         $worksheetNames = [];
@@ -106,7 +113,7 @@ class Gnumeric extends BaseReader
         File::assertFile($pFilename);
 
         $xml = new XMLReader();
-        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, Settings::getLibXmlLoaderOptions());
+        $xml->xml($this->securityScanner->scanFile('compress.zlib://' . realpath($pFilename)), null, Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
         $worksheetInfo = [];
@@ -196,7 +203,7 @@ class Gnumeric extends BaseReader
 
         $gFileData = $this->gzfileGetContents($pFilename);
 
-        $xml = simplexml_load_string($this->securityScan($gFileData), 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        $xml = simplexml_load_string($this->securityScanner->scan($gFileData), 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
         $namespacesMeta = $xml->getNamespaces(true);
 
         $gnmXML = $xml->children($namespacesMeta['gnm']);
