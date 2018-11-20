@@ -25,7 +25,7 @@ class XmlScanner
         }
     }
 
-    private function IdentifyLibxmlDisableEntityLoaderAvailability()
+    private function identifyLibxmlDisableEntityLoaderAvailability()
     {
         if (PHP_MAJOR_VERSION > 7) {
             switch (PHP_MINOR_VERSION) {
