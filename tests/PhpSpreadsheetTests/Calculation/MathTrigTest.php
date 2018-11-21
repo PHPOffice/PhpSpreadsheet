@@ -10,7 +10,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
-use Matrix\Matrix;
 
 class MathTrigTest extends TestCase
 {
@@ -298,7 +297,6 @@ class MathTrigTest extends TestCase
      */
     public function testMMULT($expectedResult, ...$args)
     {
-
         $result = MathTrig::MMULT(...$args);
         self::assertEquals($expectedResult, $result, null, 1E-8);
     }
