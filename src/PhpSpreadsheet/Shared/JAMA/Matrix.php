@@ -16,7 +16,7 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
  *
  * @version 1.8
  *
- * @see http://math.nist.gov/javanumerics/jama/
+ * @see https://math.nist.gov/javanumerics/jama/
  */
 class Matrix
 {
@@ -234,7 +234,7 @@ class Matrix
                     $R = new self($m, $n);
                     for ($i = 0; $i < $m; ++$i) {
                         for ($j = 0; $j < $n; ++$j) {
-                            $R->set($i - $i0, $j - $j0, $this->A[$RL[$i]][$CL[$j]]);
+                            $R->set($i, $j, $this->A[$RL[$i]][$CL[$j]]);
                         }
                     }
 
@@ -257,7 +257,7 @@ class Matrix
                     $R = new self($m, $n);
                     for ($i = $i0; $i < $iF; ++$i) {
                         for ($j = 0; $j < $n; ++$j) {
-                            $R->set($i - $i0, $j, $this->A[$RL[$i]][$j]);
+                            $R->set($i - $i0, $j, $this->A[$i][$CL[$j]]);
                         }
                     }
 
@@ -1013,6 +1013,7 @@ class Matrix
                     if ($this->n == $B->m) {
                         $C = new self($this->m, $B->n);
                         for ($j = 0; $j < $B->n; ++$j) {
+                            $Bcolj = [];
                             for ($k = 0; $k < $this->n; ++$k) {
                                 $Bcolj[$k] = $B->A[$k][$j];
                             }

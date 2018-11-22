@@ -3,7 +3,7 @@
 PhpSpreadsheet introduced many breaking changes by introducing
 namespaces and renaming some classes. To help you migrate existing
 project, a tool was written to replace all references to PHPExcel
-classes to their new names. But they are also manual changes that
+classes to their new names. But there are also manual changes that
 need to be done.
 
 ## Automated tool
@@ -236,7 +236,7 @@ Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::cla
 ### PclZip and ZipArchive
 
 Support for PclZip were dropped in favor of the more complete and modern
-[PHP extension ZipArchive](http://php.net/manual/en/book.zip.php).
+[PHP extension ZipArchive](https://php.net/manual/en/book.zip.php).
 So the following were removed:
 
 - `PclZip`
@@ -248,7 +248,7 @@ So the following were removed:
 ### Cell caching
 
 Cell caching was heavily refactored to leverage
-[PSR-16](http://www.php-fig.org/psr/psr-16/). That means most classes
+[PSR-16](https://www.php-fig.org/psr/psr-16/). That means most classes
 related to that feature were removed:
 
 - `PHPExcel_CachedObjectStorage_APC`

@@ -1,5 +1,5 @@
 ChartDirector
-	http://www.advsofteng.com/cdphp.html
+	https://www.advsofteng.com/cdphp.html
 
 GraPHPite
 	http://graphpite.sourceforge.net/
@@ -8,13 +8,13 @@ JpGraph
 	http://www.aditus.nu/jpgraph/
 
 LibChart
-	http://naku.dohcrew.com/libchart/pages/introduction/
+	https://naku.dohcrew.com/libchart/pages/introduction/
 
 pChart
 	http://pchart.sourceforge.net/
 
 TeeChart
-	http://www.steema.com/products/teechart/overview.html
+	https://www.steema.com/
 
 PHPGraphLib
     http://www.ebrueggeman.com/phpgraphlib

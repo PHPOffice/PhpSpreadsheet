@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -20,11 +21,17 @@ use ZipArchive;
 class Ods extends BaseReader
 {
     /**
+     * @var XmlScanner
+     */
+    private $securityScanner;
+
+    /**
      * Create a new Ods Reader instance.
      */
     public function __construct()
     {
         $this->readFilter = new DefaultReadFilter();
+        $this->securityScanner = new XmlScanner();
     }
 
     /**
@@ -52,7 +59,7 @@ class Ods extends BaseReader
                 $mimeType = $zip->getFromName($stat['name']);
             } elseif ($stat = $zip->statName('META-INF/manifest.xml')) {
                 $xml = simplexml_load_string(
-                    $this->securityScan($zip->getFromName('META-INF/manifest.xml')),
+                    $this->securityScanner->scan($zip->getFromName('META-INF/manifest.xml')),
                     'SimpleXMLElement',
                     Settings::getLibXmlLoaderOptions()
                 );
@@ -100,7 +107,7 @@ class Ods extends BaseReader
 
         $xml = new XMLReader();
         $xml->xml(
-            $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
+            $this->securityScanner->scanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
             Settings::getLibXmlLoaderOptions()
         );
@@ -154,7 +161,7 @@ class Ods extends BaseReader
 
         $xml = new XMLReader();
         $xml->xml(
-            $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
+            $this->securityScanner->scanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
             Settings::getLibXmlLoaderOptions()
         );
@@ -267,7 +274,7 @@ class Ods extends BaseReader
         // Meta
 
         $xml = simplexml_load_string(
-            $this->securityScan($zip->getFromName('meta.xml')),
+            $this->securityScanner->scan($zip->getFromName('meta.xml')),
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
         );
@@ -367,7 +374,7 @@ class Ods extends BaseReader
 
         $dom = new \DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
-            $this->securityScan($zip->getFromName('content.xml')),
+            $this->securityScanner->scan($zip->getFromName('content.xml')),
             Settings::getLibXmlLoaderOptions()
         );
 

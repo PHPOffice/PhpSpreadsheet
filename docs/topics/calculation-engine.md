@@ -62,7 +62,7 @@ algebra. The former rule is not what one finds using the calculation
 engine shipped with PhpSpreadsheet.
 
 - [Reference for Excel](https://support.office.com/en-us/article/Calculation-operators-and-precedence-in-Excel-48be406d-4975-4d31-b2b8-7af9e0e2878a)
-- [Reference for PHP](http://php.net/manual/en/language.operators.php)
+- [Reference for PHP](https://php.net/manual/en/language.operators.php)
 
 #### Formulas involving numbers and text
 
@@ -74,7 +74,7 @@ formula is evaluated as 3 instead of evaluating as an error. This also
 causes the Excel document being generated as containing unreadable
 content.
 
-- [Reference for this behaviour in PHP](http://php.net/manual/en/language.types.string.php#language.types.string.conversion)
+- [Reference for this behaviour in PHP](https://php.net/manual/en/language.types.string.php#language.types.string.conversion)
 
 #### Formulas don’t seem to be calculated in Excel2003 using compatibility pack?
 

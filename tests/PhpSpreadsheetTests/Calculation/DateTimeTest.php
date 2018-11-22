@@ -454,6 +454,22 @@ class DateTimeTest extends TestCase
     }
 
     /**
+     * @dataProvider providerDAYS
+     *
+     * @param mixed $expectedResult
+     */
+    public function testDAYS($expectedResult, ...$args)
+    {
+        $result = DateTime::DAYS(...$args);
+        self::assertEquals($expectedResult, $result, null, 1E-8);
+    }
+
+    public function providerDAYS()
+    {
+        return require 'data/Calculation/DateTime/DAYS.php';
+    }
+
+    /**
      * @dataProvider providerDAYS360
      *
      * @param mixed $expectedResult

@@ -70,5 +70,28 @@ return [
             [10],
         ],
     ],
-
+    [
+        100,
+        [
+            ['0'],
+            ['some text'],
+        ],
+        0, // Compare integer with string
+        [
+            [100],
+            [1],
+        ],
+    ],
+    [
+        100,
+        [
+            [0],
+            ['some text'],
+        ],
+        0, // Compare integer with integer
+        [
+            [100],
+            [1],
+        ],
+    ],
 ];

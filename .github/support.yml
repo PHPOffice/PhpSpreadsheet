@@ -4,7 +4,7 @@ supportLabel: question
 # to a support page, or set to `false` to disable
 supportComment: >
   This looks like a support question. Please ask your support questions on
-  [StackOverflow](http://stackoverflow.com/questions/tagged/phpspreadsheet),
+  [StackOverflow](https://stackoverflow.com/questions/tagged/phpspreadsheet),
   or [Gitter](https://gitter.im/PHPOffice/PhpSpreadsheet).
 
   Thank you for your contributions.

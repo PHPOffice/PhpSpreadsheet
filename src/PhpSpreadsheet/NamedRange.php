@@ -205,7 +205,7 @@ class NamedRange
     public function setScope(Worksheet $value = null)
     {
         $this->scope = $value;
-        $this->localOnly = ($value == null) ? false : true;
+        $this->localOnly = $value != null;
 
         return $this;
     }

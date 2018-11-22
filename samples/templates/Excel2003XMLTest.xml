@@ -549,7 +549,7 @@
                     <Data ss:Type="String">AE</Data>
                 </Cell>
                 <Cell ss:StyleID="ce5"/>
-                <Cell ss:StyleID="ce5" ss:HRef="http://phpspreadsheet.readthedocs.io/">
+                <Cell ss:StyleID="ce5" ss:HRef="https://phpspreadsheet.readthedocs.io">
                     <Data ss:Type="String">PhpSpreadsheet</Data>
                 </Cell>
                 <Cell ss:StyleID="ce5"/>
@@ -22310,7 +22310,7 @@
                 <Cell ss:StyleID="ce16"/>
             </Row>
             <Row ss:Height="13.4079">
-                <Cell ss:MergeAcross="2" ss:HRef="https://www.example.com/" ss:StyleID="ce17">
+                <Cell ss:MergeAcross="2" ss:HRef="https://www.example.com" ss:StyleID="ce17">
                     <Data ss:Type="String">PhpSpreadsheet</Data>
                 </Cell>
                 <Cell ss:Index="1024" ss:StyleID="ce13"/>
