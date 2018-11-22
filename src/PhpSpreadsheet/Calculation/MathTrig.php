@@ -571,7 +571,6 @@ class MathTrig
         try {
             return $matrix->inverse()->toArray();
         } catch (MatrixException $ex) {
-            echo $ex->getMessage(), PHP_EOL;
             return Functions::VALUE();
         }
     }
