@@ -1106,7 +1106,7 @@ class Xlsx extends BaseReader
                                                     ],
                                                     (string) $dateGroupItem['dateTimeGrouping']
                                                 )
-                                                ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP);
+                                                    ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP);
                                             }
                                         }
                                         //    Check for custom filters
@@ -1123,7 +1123,7 @@ class Xlsx extends BaseReader
                                                     (string) $filterRule['operator'],
                                                     (string) $filterRule['val']
                                                 )
-                                                ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+                                                    ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
                                             }
                                         }
                                         //    Check for dynamic filters
@@ -1137,7 +1137,7 @@ class Xlsx extends BaseReader
                                                     (string) $filterRule['val'],
                                                     (string) $filterRule['type']
                                                 )
-                                                ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
+                                                    ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
                                                 if (isset($filterRule['val'])) {
                                                     $column->setAttribute('val', (string) $filterRule['val']);
                                                 }
@@ -1162,7 +1162,7 @@ class Xlsx extends BaseReader
                                                         : Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM
                                                     )
                                                 )
-                                                ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_TOPTENFILTER);
+                                                    ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_TOPTENFILTER);
                                             }
                                         }
                                     }
