@@ -207,6 +207,7 @@ Excel Function      | Category                       | PhpSpreadsheet Function
 --------------------|--------------------------------|-------------------------------------------
 IF                  | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::STATEMENT_IF
 IFERROR             | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFERROR
+IFS                 | CATEGORY_LOGICAL               | **Not yet Implemented**
 IMABS               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMABS
 IMAGINARY           | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMAGINARY
 IMARGUMENT          | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMARGUMENT
@@ -442,6 +443,7 @@ SUMSQ               | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet
 SUMX2MY2            | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMX2MY2
 SUMX2PY2            | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMX2PY2
 SUMXMY2             | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMXMY2
+SWITCH              | CATEGORY_LOGICAL               | **Not yet Implemented**
 SYD                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::SYD
 
 ## T
