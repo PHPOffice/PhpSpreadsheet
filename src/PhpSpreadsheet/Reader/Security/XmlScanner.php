@@ -14,6 +14,7 @@ class XmlScanner
     private $libxmlDisableEntityLoader = false;
 
     private $previousLibxmlDisableEntityLoaderValue;
+
     private $pattern;
 
     private function __construct($pattern = '<!DOCTYPE')
