@@ -43,6 +43,11 @@ BIN2DEC             | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet
 BIN2HEX             | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BINTOHEX
 BIN2OCT             | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BINTOOCT
 BINOMDIST           | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BINOMDIST
+BITAND              | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITAND
+BITLSHIFT           | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITLSHIFT
+BITOR               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITOR
+BITRSHIFT           | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITRSHIFT
+BITXOR              | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITXOR
 
 ## C
 
@@ -104,6 +109,7 @@ DATEDIF             | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet
 DATEVALUE           | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATEVALUE
 DAVERAGE            | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database::DAVERAGE
 DAY                 | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYOFMONTH
+DAYS                | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYS
 DAYS360             | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYS360
 DB                  | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::DB
 DCOUNT              | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database::DCOUNT
@@ -317,6 +323,7 @@ N                   | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet
 NA                  | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::NA
 NEGBINOMDIST        | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NEGBINOMDIST
 NETWORKDAYS         | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::NETWORKDAYS
+NETWORKDAYS.INTL    | CATEGORY_DATE_AND_TIME         | **Not yet Implemented**
 NOMINAL             | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::NOMINAL
 NORMDIST            | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMDIST
 NORMINV             | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMINV
@@ -494,6 +501,7 @@ WEEKDAY             | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet
 WEEKNUM             | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKNUM
 WEIBULL             | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::WEIBULL
 WORKDAY             | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WORKDAY
+WORKDAY.INTL        | CATEGORY_DATE_AND_TIME         | **Not yet Implemented**
 
 ## X
 
