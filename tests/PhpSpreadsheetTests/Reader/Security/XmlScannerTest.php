@@ -15,7 +15,7 @@ class XmlScannerTest extends TestCase
      */
     public function testValidXML($filename, $expectedResult)
     {
-        $reader = new XmlScanner();
+        $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $result = $reader->scanFile($filename);
         self::assertEquals($expectedResult, $result);
     }
@@ -39,7 +39,7 @@ class XmlScannerTest extends TestCase
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
-        $reader = new XmlScanner();
+        $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $expectedResult = 'FAILURE: Should throw an Exception rather than return a value';
         $result = $reader->scanFile($filename);
         self::assertEquals($expectedResult, $result);

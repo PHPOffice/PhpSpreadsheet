@@ -111,7 +111,7 @@ class Html extends BaseReader
     public function __construct()
     {
         $this->readFilter = new DefaultReadFilter();
-        $this->securityScanner = new XmlScanner('<!ENTITY');
+        $this->securityScanner = XmlScanner::getInstance($this);
     }
 
     /**

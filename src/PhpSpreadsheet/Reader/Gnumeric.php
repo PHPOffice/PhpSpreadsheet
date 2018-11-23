@@ -43,7 +43,7 @@ class Gnumeric extends BaseReader
     {
         $this->readFilter = new DefaultReadFilter();
         $this->referenceHelper = ReferenceHelper::getInstance();
-        $this->securityScanner = new XmlScanner();
+        $this->securityScanner = XmlScanner::getInstance($this);
     }
 
     /**

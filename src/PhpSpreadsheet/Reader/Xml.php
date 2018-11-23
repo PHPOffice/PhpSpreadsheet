@@ -47,7 +47,7 @@ class Xml extends BaseReader
     public function __construct()
     {
         $this->readFilter = new DefaultReadFilter();
-        $this->securityScanner = new XmlScanner();
+        $this->securityScanner = XmlScanner::getInstance($this);
     }
 
     /**
