@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [1.5.1] - 2018-11-20
+
+### Security
+
+- Fix and improve XXE security scanning for XML-based and HTML Readers - [#771](https://github.com/PHPOffice/PhpSpreadsheet/issues/771)
+
 ### Added
 
 - Support page margin in mPDF - [#750](https://github.com/PHPOffice/PhpSpreadsheet/issues/750)
