@@ -35,7 +35,7 @@ class XmlScanner
 
     public static function getInstance(Reader\IReader $reader)
     {
-        switch(true) {
+        switch (true) {
             case $reader instanceof Reader\Html:
                 return new self('<!ENTITY');
             case $reader instanceof Reader\Xlsx:
