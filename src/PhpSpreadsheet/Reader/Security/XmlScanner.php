@@ -27,6 +27,8 @@ class XmlScanner
      */
     private $pattern;
 
+    private $callback;
+
     private function __construct($pattern = '<!DOCTYPE')
     {
         $this->pattern = $pattern;
@@ -77,6 +79,11 @@ class XmlScanner
         return false;
     }
 
+    public function setAdditionalCallback(callable $callback)
+    {
+        $this->callback = $callback;
+    }
+
     /**
      * Scan the XML for use of <!ENTITY to prevent XXE/XEE attacks.
      *
@@ -100,6 +107,10 @@ class XmlScanner
         $pattern = '/\\0?' . implode('\\0?', str_split($this->pattern)) . '\\0?/';
         if (preg_match($pattern, $xml)) {
             throw new Reader\Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
+        }
+
+        if ($this->callback !== null && is_callable($this->callback)) {
+            $xml = call_user_func($this->callback, $xml);
         }
 
         return $xml;

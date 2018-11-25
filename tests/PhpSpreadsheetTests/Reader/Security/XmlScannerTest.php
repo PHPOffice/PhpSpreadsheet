@@ -75,4 +75,29 @@ class XmlScannerTest extends TestCase
         //    Must return a null...
         $this->assertNull($scanner);
     }
+
+    /**
+     * @dataProvider providerValidXMLForCallback
+     *
+     * @param mixed $filename
+     */
+    public function testSecurityScanWithCallback($filename, $expectedResult)
+    {
+        $fileReader = new Xlsx();
+        $scanner = $fileReader->getSecuritySCanner();
+        $scanner->setAdditionalCallback('strrev');
+        $xml = $scanner->scanFile($filename);
+
+        $this->assertEquals(strrev($expectedResult), $xml);
+    }
+
+    public function providerValidXMLForCallback()
+    {
+        $tests = [];
+        foreach (glob(__DIR__ . '/../../../data/Reader/Xml/SecurityScannerWithCallback*.xml') as $file) {
+            $tests[basename($file)] = [realpath($file), file_get_contents($file)];
+        }
+
+        return $tests;
+    }
 }
