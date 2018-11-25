@@ -32,11 +32,6 @@ class Gnumeric extends BaseReader
     private $referenceHelper;
 
     /**
-     * @var XmlScanner
-     */
-    private $securityScanner;
-
-    /**
      * Create a new Gnumeric.
      */
     public function __construct()

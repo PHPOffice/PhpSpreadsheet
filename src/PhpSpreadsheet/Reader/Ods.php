@@ -21,11 +21,6 @@ use ZipArchive;
 class Ods extends BaseReader
 {
     /**
-     * @var XmlScanner
-     */
-    private $securityScanner;
-
-    /**
      * Create a new Ods Reader instance.
      */
     public function __construct()

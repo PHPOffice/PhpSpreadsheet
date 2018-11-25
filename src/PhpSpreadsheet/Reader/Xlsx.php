@@ -48,11 +48,6 @@ class Xlsx extends BaseReader
     private static $theme = null;
 
     /**
-     * @var XmlScanner
-     */
-    private $securityScanner;
-
-    /**
      * Create a new Xlsx Reader instance.
      */
     public function __construct()

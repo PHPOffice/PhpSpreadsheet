@@ -37,11 +37,6 @@ class Xml extends BaseReader
     protected $charSet = 'UTF-8';
 
     /**
-     * @var XmlScanner
-     */
-    private $securityScanner;
-
-    /**
      * Create a new Excel2003XML Reader instance.
      */
     public function __construct()

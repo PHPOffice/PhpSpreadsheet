@@ -13,8 +13,18 @@ class XmlScanner
      */
     private $libxmlDisableEntityLoader = false;
 
+    /**
+     * Store the initial setting of libxmlDisableEntityLoader so that we can resore t later.
+     *
+     * @var bool
+     */
     private $previousLibxmlDisableEntityLoaderValue;
 
+    /**
+     * String used to identify risky xml elements.
+     *
+     * @var string
+     */
     private $pattern;
 
     private function __construct($pattern = '<!DOCTYPE')

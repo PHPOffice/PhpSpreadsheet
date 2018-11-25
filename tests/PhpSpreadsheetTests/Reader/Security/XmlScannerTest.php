@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Security;
 
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PHPUnit\Framework\TestCase;
 
 class XmlScannerTest extends TestCase
@@ -53,5 +55,24 @@ class XmlScannerTest extends TestCase
         }
 
         return $tests;
+    }
+
+    public function testGetSecurityScannerForXmlBasedReader()
+    {
+        $fileReader = new Xlsx();
+        $scanner = $fileReader->getSecuritySCanner();
+
+        //    Must return an object...
+        $this->assertTrue(is_object($scanner));
+        //    ... of the correct type
+        $this->assertInstanceOf(XmlScanner::class, $scanner);
+    }
+
+    public function testGetSecurityScannerForNonXmlBasedReader()
+    {
+        $fileReader = new Xls();
+        $scanner = $fileReader->getSecuritySCanner();
+        //    Must return a null...
+        $this->assertNull($scanner);
     }
 }
