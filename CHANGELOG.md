@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [1.5.2] - 2018-11-25
+
+### Security
+
+- Improvements to the design of the XML Security Scanner - [#771](https://github.com/PHPOffice/PhpSpreadsheet/issues/771)
+
 ## [1.5.1] - 2018-11-20
 
 ### Security
