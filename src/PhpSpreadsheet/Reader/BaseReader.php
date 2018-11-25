@@ -215,6 +215,7 @@ abstract class BaseReader implements IReader
         if (property_exists($this, 'securityScanner')) {
             return $this->securityScanner;
         }
+
         return null;
     }
 

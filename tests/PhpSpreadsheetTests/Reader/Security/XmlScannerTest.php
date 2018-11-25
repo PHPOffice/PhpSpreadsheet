@@ -3,8 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Security;
 
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PHPUnit\Framework\TestCase;
 
 class XmlScannerTest extends TestCase
@@ -80,6 +80,7 @@ class XmlScannerTest extends TestCase
      * @dataProvider providerValidXMLForCallback
      *
      * @param mixed $filename
+     * @param mixed $expectedResult
      */
     public function testSecurityScanWithCallback($filename, $expectedResult)
     {
