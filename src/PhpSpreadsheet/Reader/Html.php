@@ -18,11 +18,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class Html extends BaseReader
 {
     /**
-     * @var XmlScanner
-     */
-    private $securityScanner;
-
-    /**
      * Sample size to read to determine if it's HTML or not.
      */
     const TEST_SAMPLE_SIZE = 2048;
@@ -111,7 +106,7 @@ class Html extends BaseReader
     public function __construct()
     {
         $this->readFilter = new DefaultReadFilter();
-        $this->securityScanner = new XmlScanner('<!ENTITY');
+        $this->securityScanner = XmlScanner::getInstance($this);
     }
 
     /**

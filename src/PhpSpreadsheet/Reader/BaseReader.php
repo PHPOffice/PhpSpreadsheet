@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 
 abstract class BaseReader implements IReader
@@ -48,6 +49,11 @@ abstract class BaseReader implements IReader
     protected $readFilter;
 
     protected $fileHandle;
+
+    /**
+     * @var XmlScanner
+     */
+    protected $securityScanner;
 
     /**
      * Read data only?
@@ -202,6 +208,15 @@ abstract class BaseReader implements IReader
         $this->readFilter = $pValue;
 
         return $this;
+    }
+
+    public function getSecuritySCanner()
+    {
+        if (property_exists($this, 'securityScanner')) {
+            return $this->securityScanner;
+        }
+
+        return null;
     }
 
     /**

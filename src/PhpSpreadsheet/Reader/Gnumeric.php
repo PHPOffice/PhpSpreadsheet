@@ -32,18 +32,13 @@ class Gnumeric extends BaseReader
     private $referenceHelper;
 
     /**
-     * @var XmlScanner
-     */
-    private $securityScanner;
-
-    /**
      * Create a new Gnumeric.
      */
     public function __construct()
     {
         $this->readFilter = new DefaultReadFilter();
         $this->referenceHelper = ReferenceHelper::getInstance();
-        $this->securityScanner = new XmlScanner();
+        $this->securityScanner = XmlScanner::getInstance($this);
     }
 
     /**
