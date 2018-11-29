@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix;
+use Matrix\Exception as MatrixException;
+use Matrix\Matrix;
 
 class MathTrig
 {
@@ -498,7 +498,7 @@ class MathTrig
                 if ((is_string($matrixCell)) || ($matrixCell === null)) {
                     return Functions::VALUE();
                 }
-                $matrixData[$column][$row] = $matrixCell;
+                $matrixData[$row][$column] = $matrixCell;
                 ++$column;
             }
             if ($column > $maxColumn) {
@@ -506,15 +506,15 @@ class MathTrig
             }
             ++$row;
         }
-        if ($row != $maxColumn) {
+
+        $matrix = new Matrix($matrixData);
+        if (!$matrix->isSquare()) {
             return Functions::VALUE();
         }
 
         try {
-            $matrix = new Matrix($matrixData);
-
-            return $matrix->det();
-        } catch (PhpSpreadsheetException $ex) {
+            return $matrix->determinant();
+        } catch (MatrixException $ex) {
             return Functions::VALUE();
         }
     }
@@ -550,7 +550,7 @@ class MathTrig
                 if ((is_string($matrixCell)) || ($matrixCell === null)) {
                     return Functions::VALUE();
                 }
-                $matrixData[$column][$row] = $matrixCell;
+                $matrixData[$row][$column] = $matrixCell;
                 ++$column;
             }
             if ($column > $maxColumn) {
@@ -558,17 +558,19 @@ class MathTrig
             }
             ++$row;
         }
-        foreach ($matrixValues as $matrixRow) {
-            if (count($matrixRow) != $maxColumn) {
-                return Functions::VALUE();
-            }
+
+        $matrix = new Matrix($matrixData);
+        if (!$matrix->isSquare()) {
+            return Functions::VALUE();
+        }
+
+        if ($matrix->determinant() == 0.0) {
+            return Functions::NAN();
         }
 
         try {
-            $matrix = new Matrix($matrixData);
-
-            return $matrix->inverse()->getArray();
-        } catch (PhpSpreadsheetException $ex) {
+            return $matrix->inverse()->toArray();
+        } catch (MatrixException $ex) {
             return Functions::VALUE();
         }
     }
@@ -629,8 +631,8 @@ class MathTrig
                 return Functions::VALUE();
             }
 
-            return $matrixA->times($matrixB)->getArray();
-        } catch (PhpSpreadsheetException $ex) {
+            return $matrixA->multiply($matrixB)->toArray();
+        } catch (MatrixException $ex) {
             return Functions::VALUE();
         }
     }

@@ -37,6 +37,7 @@ DATE                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATE
 DATEDIF             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATEDIF
 DATEVALUE           | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATEVALUE
 DAY                 | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYOFMONTH
+DAYS                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYS
 DAYS360             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYS360
 EDATE               | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::EDATE
 EOMONTH             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::EOMONTH
@@ -45,6 +46,7 @@ ISOWEEKNUM          | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::ISOWEEKNUM
 MINUTE              | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::MINUTE
 MONTH               | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::MONTHOFYEAR
 NETWORKDAYS         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::NETWORKDAYS
+NETWORKDAYS.INTL    | **Not yet Implemented**
 NOW                 | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATETIMENOW
 SECOND              | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::SECOND
 TIME                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::TIME
@@ -53,6 +55,7 @@ TODAY               | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATENOW
 WEEKDAY             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKDAY
 WEEKNUM             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKNUM
 WORKDAY             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WORKDAY
+WORKDAY.INTL        | **Not yet Implemented**
 YEAR                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::YEAR
 YEARFRAC            | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::YEARFRAC
 
@@ -66,7 +69,12 @@ BESSELK             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BESSELK
 BESSELY             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BESSELY
 BIN2DEC             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BINTODEC
 BIN2HEX             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BINTOHEX
-BIN2OCT             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BINTOOCT
+BIN2OCT             | \PhpOffice\PhpSpreadsheet\Calculation\Engineeri
+BITAND              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITAND
+BITLSHIFT           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITLSHIFT
+BITOR               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITOR
+BITRSHIFT           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITRSHIFT
+BITXOR              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITXOR
 COMPLEX             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::COMPLEX
 CONVERT             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::CONVERTUOM
 DEC2BIN             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::DECTOBIN

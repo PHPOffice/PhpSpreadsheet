@@ -53,11 +53,13 @@
         "ext-zip": "*",
         "ext-zlib": "*",
         "psr/simple-cache": "^1.0",
-        "markbaker/complex": "^1.4.1"
+        "markbaker/complex": "^1.4",
+        "markbaker/matrix": "^1.1"
     },
     "require-dev": {
         "tecnickcom/tcpdf": "^6.2",
         "phpunit/phpunit": "^5.7",
+        "doctrine/instantiator": "^1.0.0",
         "dompdf/dompdf": "^0.8.0",
         "mpdf/mpdf": "^7.0.0",
         "jpgraph/jpgraph": "^4.0",

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Added
+
+- Refactored Matrix Functions to use external Matrix library
+
+
 ## [1.5.2] - 2018-11-25
 
 ### Security
