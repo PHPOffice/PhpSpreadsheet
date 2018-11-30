@@ -2253,6 +2253,7 @@ class Calculation
     public function flushInstance()
     {
         $this->clearCalculationCache();
+        $this->storeKeyCounter = 0;
     }
 
     /**
@@ -3339,14 +3340,27 @@ class Calculation
             $currentCondition = null;
             $currentOnlyIf = null;
             $currentOnlyIfNot = null;
-            if ($expectingConditionMap[$pendingStoreKey] ?? false) {
+            $previousStoreKey = null;
+            if ($expectingConditionMap[$pendingStoreKey] ?? false) { // this is a condition
                 $currentCondition = $pendingStoreKey;
+                $stackDepth = count($pendingStoreKeysStack);
+                if ($stackDepth > 1) { // nested if
+                    $previousStoreKey = $pendingStoreKeysStack[$stackDepth - 2];
+                }
             }
             if ($expectingThenMap[$pendingStoreKey] ?? false) {
                 $currentOnlyIf = $pendingStoreKey;
+            } elseif (isset($previousStoreKey)) {
+                if ($expectingThenMap[$previousStoreKey] ?? false) {
+                    $currentOnlyIf = $previousStoreKey;
+                }
             }
             if ($expectingElseMap[$pendingStoreKey] ?? false) {
                 $currentOnlyIfNot = $pendingStoreKey;
+            } elseif (isset($previousStoreKey)) {
+                if ($expectingElseMap[$previousStoreKey] ?? false) {
+                    $currentOnlyIfNot = $previousStoreKey;
+                }
             }
             $pendingStoreKey = end($pendingStoreKeysStack);
 
@@ -3378,6 +3392,7 @@ class Calculation
                     @(self::$operatorAssociativity[$opCharacter] ? self::$operatorPrecedence[$opCharacter] < self::$operatorPrecedence[$o2['value']] : self::$operatorPrecedence[$opCharacter] <= self::$operatorPrecedence[$o2['value']])) {
                     $output[] = $stack->pop(); //    Swap operands and higher precedence operators from the stack to the output
                 }
+
                 //    Finally put our current operator onto the stack
                 // HCK we inject context information
                 $stack->push('Binary Operator', $opCharacter, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
@@ -3392,10 +3407,17 @@ class Calculation
                     $output[] = $o2;
                 }
                 $d = $stack->last(2);
+
+                // HCK we decrease the depth whether is it a function call or a
+                // parenthesis
+                if (isset($pendingStoreKey)) {
+                    $parenthesisDepthMap[$pendingStoreKey] -= 1;
+                }
+
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $d['value'], $matches)) {    //    Did this parenthesis just close a function?
-                    
+
                     // HCK
-                    if (isset($pendingStoreKey) && $parenthesisDepthMap[$pendingStoreKey] == 0) {
+                    if (isset($pendingStoreKey) && $parenthesisDepthMap[$pendingStoreKey] == -1) {
                         // we are closing an IF(
                         if ($d['value'] != 'IF(') {
                             return $this->raiseFormulaError('Parser bug we should be in an "IF("');
@@ -3467,12 +3489,6 @@ class Calculation
                     if ($argumentCountError) {
                         return $this->raiseFormulaError("Formula Error: Wrong number of arguments for $functionName() function: $argumentCount given, " . $expectedArgumentCountString . ' expected');
                     }
-                } else {
-                    // HCK we decrease the depth whether is it a function call or a
-                    // parenthesis
-                    if (isset($pendingStoreKey)) {
-                        $parenthesisDepthMap[$pendingStoreKey] -= 1;
-                    }
                 }
                 ++$index;
             } elseif ($opCharacter == ',') {            //    Is this the separator for function arguments?
@@ -3542,17 +3558,18 @@ class Calculation
                             $parenthesisDepthMap[$pendingStoreKey] += 1;
                         }
 
-                        $stack->push('Function', $valToUpper);
+                        $stack->push('Function', $valToUpper, null,
+                            $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
                         // tests if the function is closed right after opening
                         $ax = preg_match('/^\s*(\s*\))/ui', substr($formula, $index + $length), $amatch);
                         if ($ax) {
-                            $stack->push('Operand Count for Function ' . $valToUpper . ')', 0);
+                            $stack->push('Operand Count for Function ' . $valToUpper . ')', 0, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
                             $expectingOperator = true;
 
                             // HCK (this is a closed function we don't go deeper)
                             $parenthesisDepthMap[$pendingStoreKey] -= 1;
                         } else {
-                            $stack->push('Operand Count for Function ' . $valToUpper . ')', 1);
+                            $stack->push('Operand Count for Function ' . $valToUpper . ')', 1, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
                             $expectingOperator = false;
                         }
                         $stack->push('Brace', '(');
@@ -3739,7 +3756,7 @@ class Calculation
         $pCellParent = ($pCell !== null) ? $pCell->getParent() : null;
         $stack = new Stack();
 
-        //var_dump($tokens);die;
+        $fakedForBranchPruning = [];
 
         //    Loop through each token in turn
         foreach ($tokens as $tokenData) {
@@ -3751,18 +3768,34 @@ class Calculation
             if (isset($tokenData['onlyIf'])) {
                 $onlyIfStoreKey = $tokenData['onlyIf'];
                 $this->getValueFromCache($onlyIfStoreKey, $storeValue);
-                if (isset($storeValue) && $storeValue) {
-                    // ... now ... how do we bypass this ? :/
-                    // continue;
+                if (is_array($storeValue)) {
+                    $wrappedItem = end($storeValue);
+                    $storeValue = end($wrappedItem);
+                }
+                if (isset($storeValue) && !$storeValue) {
+                    // If branching value is not true, we don't need to compute
+                    if (!isset($fakedForBranchPruning['onlyIf-' . $onlyIfStoreKey])) {
+                        $stack->push('Value', 'Branch pruned (only if ' . $onlyIfStoreKey . ')');
+                        $fakedForBranchPruning['onlyIf-' . $onlyIfStoreKey] = true;
+                    }
+                    continue;
                 }
             }
 
             if (isset($tokenData['onlyIfNot'])) {
                 $onlyIfNotStoreKey = $tokenData['onlyIfNot'];
                 $this->getValueFromCache($onlyIfNotStoreKey, $storeValue);
-                if (isset($storeValue) && !$storeValue) {
-                    // ... now ... how do we bypass this ? :/
-                    // continue;
+                if (is_array($storeValue)) {
+                    $wrappedItem = end($storeValue);
+                    $storeValue = end($wrappedItem);
+                }
+                if (isset($storeValue) && $storeValue) {
+                    // If branching value is true, we don't need to compute
+                    if (!isset($fakedForBranchPruning['onlyIfNot-' . $onlyIfNotStoreKey])) {
+                        $stack->push('Value', 'Branch pruned (only if not ' . $onlyIfNotStoreKey . ')');
+                        $fakedForBranchPruning['onlyIfNot-' . $onlyIfNotStoreKey] = true;
+                    }
+                    continue;
                 }
             }
 
@@ -4137,6 +4170,8 @@ class Calculation
         $output = $output['value'];
 
         var_dump('case N end process stack for ' . $cellID);
+
+        var_dump($tokens, $fakedForBranchPruning);
 
         return $output;
     }
