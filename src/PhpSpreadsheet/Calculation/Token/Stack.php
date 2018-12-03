@@ -132,4 +132,19 @@ class Stack
         $this->stack = [];
         $this->count = 0;
     }
+
+    public function __toString() {
+        $str = 'Stack: ';
+        foreach ($this->stack as $index => $item) {
+            if ($index > $this->count - 1) {
+                break;
+            }
+            $value = $item['value'] ?? 'no value';
+            while (is_array($value)) {
+                $value = array_pop($value);
+            }
+            $str .= $value . ' |> ' ;
+        }
+        return $str;
+    }
 }
