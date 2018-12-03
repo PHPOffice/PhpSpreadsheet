@@ -145,19 +145,6 @@ class CalculationTest extends TestCase
     {
         $calculation = Calculation::getInstance();
 
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $sheet->fromArray(
-            [
-                ['please +', 'please *', 'increment'],
-                [1, 1, 1], // sum is 3
-                [3, 3, 3], // product is 27
-            ]
-        );
-
-        $cell = $sheet->getCell('E5');
-
         // Very simple formula
         $formula = '=IF(A1="please +",B1)';
         $tokens = $calculation->parseFormula($formula);
@@ -180,11 +167,10 @@ class CalculationTest extends TestCase
         $this->assertTrue($foundEqualAssociatedToStoreKey);
         $this->assertTrue($foundConditionalOnB1);
 
-        
         $calculation->flushInstance(); // resets the ids
 
         //
-        // Internal opeartio
+        // Internal operation
         $formula = '=IF(A1="please +",SUM(B1:B3))+IF(A2="please *",PRODUCT(C1:C3), C1)';
         $tokens = $calculation->parseFormula($formula);
 
@@ -219,11 +205,13 @@ class CalculationTest extends TestCase
         $plusCorrectlyTagged = false;
         $productFunctionCorrectlyTagged = false;
         $notFunctionCorrectlyTagged = false;
+        $findOneOperandCountTagged = false;
         foreach($tokens as $token) {
             $value = $token['value'];
             $isPlus = $value == '+';
             $isProductFunction = $value == 'PRODUCT(';
             $isNotFunction = $value == 'NOT(';
+            $isIfOperand = $token['type'] == 'Operand Count for Function IF()';
             $isOnlyIfNotDepth1 = $token['onlyIfNot'] == 'storeKey-1';
             $isStoreKeyDepth1 = $token['storeKey'] == 'storeKey-1';
             $isOnlyIfNotDepth0 = $token['onlyIfNot'] == 'storeKey-0';
@@ -234,9 +222,90 @@ class CalculationTest extends TestCase
                 ($isNotFunction && $isOnlyIfNotDepth0 && $isStoreKeyDepth1);
             $productFunctionCorrectlyTagged = $productFunctionCorrectlyTagged ||
                 ($isProductFunction && $isOnlyIfNotDepth1 && !$isStoreKeyDepth1 && !$isOnlyIfNotDepth0);
+            $findOneOperandCountTagged = $findOneOperandCountTagged ||
+                ($isIfOperand && $isOnlyIfNotDepth0);
         }
         $this->assertTrue($plusCorrectlyTagged);
         $this->assertTrue($productFunctionCorrectlyTagged);
         $this->assertTrue($notFunctionCorrectlyTagged);
+
+
+        $calculation->flushInstance(); // resets the ids
+
+        $formula = '=IF(AND(TRUE(),A1="please +"),2,3)';
+        // this used to raise a parser error, we keep it even though we don't
+        // test the output
+        $tokens = $calculation->parseFormula($formula);
+
+        $calculation->flushInstance(); // resets the ids
+
+        $formula = '=IF(A1="flag",IF(A2<10, 0) + IF(A3<10000, 0))';
+        $tokens = $calculation->parseFormula($formula);
+        $properlyTaggedPlus = false;
+        foreach ($tokens as $token) {
+            $isPlus = $token['value'] === '+';
+            $hasOnlyIf = !empty($token['onlyIf'] ?? null);
+
+            $properlyTaggedPlus = $properlyTaggedPlus ||
+                ($isPlus && $hasOnlyIf);
+        }
+        $this->assertTrue($properlyTaggedPlus);
     }
+
+    /**
+     * @param $expectedResult
+     * @param $dataArray
+     * @param string $formula
+     * @param string $cellCoordinates where to put the formula
+     * @param string[] $shouldBeSetInCacheCells coordinates of cells that must
+     *  be set in cache
+     * @param string[] $shouldNotBeSetInCacheCells coordinates of cells that must
+     *  not be set in cache because of pruning
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @dataProvider dataProviderBranchPruningFullExecution
+     */
+    public function testBranchPruningFullExecution(
+        $expectedResult,
+        $dataArray,
+        string $formula,
+        $cellCoordinates,
+        $shouldBeSetInCacheCells = [],
+        $shouldNotBeSetInCacheCells = [])
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->fromArray($dataArray);
+        $cell = $sheet->getCell($cellCoordinates);
+        $calculation = Calculation::getInstance(
+            $cell->getWorksheet()->getParent()
+        );
+
+        $cell->setValue($formula);
+        $calculated = $cell->getCalculatedValue();
+        $this->assertEquals($expectedResult, $calculated);
+
+        // this mostly to ensure that at least some cells are cached
+        foreach ($shouldBeSetInCacheCells as $setCell) {
+            unset($inCache);
+            $calculation->getValueFromCache('Worksheet!' . $setCell, $inCache);
+            $this->assertNotEmpty($inCache);
+        }
+
+        foreach ($shouldNotBeSetInCacheCells as $notSetCell) {
+            unset($inCache);
+            $calculation->getValueFromCache('Worksheet!' . $notSetCell,
+                $inCache);
+            $this->assertEmpty($inCache);
+        }
+
+        $calculation->disableBranchPruning();
+        $calculated = $cell->getCalculatedValue();
+        $this->assertEquals($expectedResult, $calculated);
+    }
+
+    public function dataProviderBranchPruningFullExecution() {
+        return require 'data/Calculation/Calculation.php';
+    }
+
 }

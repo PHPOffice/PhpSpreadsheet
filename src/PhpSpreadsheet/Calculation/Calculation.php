@@ -71,7 +71,9 @@ class Calculation
      *
      * @var int
      */
-    private $storeKeyCounter = 0;
+    private $branchStoreKeyCounter = 0;
+
+    private $branchPruningEnabled = false;
 
     /**
      * List of operators that can be used within formulae
@@ -2253,7 +2255,9 @@ class Calculation
     public function flushInstance()
     {
         $this->clearCalculationCache();
-        $this->storeKeyCounter = 0;
+        $this->clearBranchStore();
+        $this->branchStoreKeyCounter = 0;
+
     }
 
     /**
@@ -2395,6 +2399,30 @@ class Calculation
             $this->calculationCache[$toWorksheetName] = &$this->calculationCache[$fromWorksheetName];
             unset($this->calculationCache[$fromWorksheetName]);
         }
+    }
+
+    /**
+     * Enable/disable calculation cache.
+     *
+     * @param bool $pValue
+     */
+    public function setBranchPruningEnabled($enabled)
+    {
+        $this->branchPruningEnabled = $enabled;
+    }
+
+    public function enableBranchPruning()
+    {
+        $this->setBranchPruningEnabled(true);
+    }
+
+    public function disableBranchPruning()
+    {
+        $this->setBranchPruningEnabled(false);
+    }
+
+    public function clearBranchStore() {
+        $this->branchStoreKeyCounter = 0;
     }
 
     /**
@@ -2718,7 +2746,6 @@ class Calculation
      */
     public function calculateCellValue(Cell $pCell = null, $resetLog = true)
     {
-        var_dump('calculateCellValue start: Working on ' . $pCell->getCoordinate());
         if ($pCell === null) {
             return null;
         }
@@ -2783,8 +2810,6 @@ class Calculation
         } elseif ((is_float($result)) && ((is_nan($result)) || (is_infinite($result)))) {
             return Functions::NAN();
         }
-
-        var_dump('calculateCellValue end: Resolving ' . $pCell->getCoordinate() . ' at ' . $result);
 
         return $result;
     }
@@ -2870,7 +2895,15 @@ class Calculation
         if (($this->calculationCacheEnabled) && (isset($this->calculationCache[$cellReference]))) {
             $this->debugLog->writeDebugLog('Retrieving value for cell ', $cellReference, ' from cache');
             // Return the cached result
+
             $cellValue = $this->calculationCache[$cellReference];
+
+            // @todo remove
+            /*$v = $cellValue;
+            while (is_array($v)) {
+                $v = end($v);
+            }
+            var_dump('retrieveing ' . $cellReference . ' => ' . $v);*/
 
             return true;
         }
@@ -2884,6 +2917,11 @@ class Calculation
      */
     public function saveValueToCache($cellReference, $cellValue)
     {
+        // @todo remove
+        if ($cellReference == 'Main!AC99') {
+            var_dump('die'); // die;
+        }
+
         if ($this->calculationCacheEnabled) {
             $this->calculationCache[$cellReference] = $cellValue;
         }
@@ -3341,28 +3379,31 @@ class Calculation
             $currentOnlyIf = null;
             $currentOnlyIfNot = null;
             $previousStoreKey = null;
-            if ($expectingConditionMap[$pendingStoreKey] ?? false) { // this is a condition
-                $currentCondition = $pendingStoreKey;
-                $stackDepth = count($pendingStoreKeysStack);
-                if ($stackDepth > 1) { // nested if
-                    $previousStoreKey = $pendingStoreKeysStack[$stackDepth - 2];
-                }
-            }
-            if ($expectingThenMap[$pendingStoreKey] ?? false) {
-                $currentOnlyIf = $pendingStoreKey;
-            } elseif (isset($previousStoreKey)) {
-                if ($expectingThenMap[$previousStoreKey] ?? false) {
-                    $currentOnlyIf = $previousStoreKey;
-                }
-            }
-            if ($expectingElseMap[$pendingStoreKey] ?? false) {
-                $currentOnlyIfNot = $pendingStoreKey;
-            } elseif (isset($previousStoreKey)) {
-                if ($expectingElseMap[$previousStoreKey] ?? false) {
-                    $currentOnlyIfNot = $previousStoreKey;
-                }
-            }
             $pendingStoreKey = end($pendingStoreKeysStack);
+
+            if ($this->branchPruningEnabled) {
+                if ($expectingConditionMap[$pendingStoreKey] ?? false) { // this is a condition
+                    $currentCondition = $pendingStoreKey;
+                    $stackDepth = count($pendingStoreKeysStack);
+                    if ($stackDepth > 1) { // nested if
+                        $previousStoreKey = $pendingStoreKeysStack[$stackDepth - 2];
+                    }
+                }
+                if ($expectingThenMap[$pendingStoreKey] ?? false) {
+                    $currentOnlyIf = $pendingStoreKey;
+                } elseif (isset($previousStoreKey)) {
+                    if ($expectingThenMap[$previousStoreKey] ?? false) {
+                        $currentOnlyIf = $previousStoreKey;
+                    }
+                }
+                if ($expectingElseMap[$pendingStoreKey] ?? false) {
+                    $currentOnlyIfNot = $pendingStoreKey;
+                } elseif (isset($previousStoreKey)) {
+                    if ($expectingElseMap[$previousStoreKey] ?? false) {
+                        $currentOnlyIfNot = $previousStoreKey;
+                    }
+                }
+            }
 
             $opCharacter = $formula[$index]; //    Get the first character of the value at the current index position
             if ((isset(self::$comparisonOperators[$opCharacter])) && (strlen($formula) > $index) && (isset(self::$comparisonOperators[$formula[$index + 1]]))) {
@@ -3396,6 +3437,7 @@ class Calculation
                 //    Finally put our current operator onto the stack
                 // HCK we inject context information
                 $stack->push('Binary Operator', $opCharacter, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+
                 ++$index;
                 $expectingOperator = false;
             } elseif ($opCharacter == ')' && $expectingOperator) {            //    Are we expecting to close a parenthesis?
@@ -3410,14 +3452,14 @@ class Calculation
 
                 // HCK we decrease the depth whether is it a function call or a
                 // parenthesis
-                if (isset($pendingStoreKey)) {
+                if (!empty($pendingStoreKey)) {
                     $parenthesisDepthMap[$pendingStoreKey] -= 1;
                 }
 
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $d['value'], $matches)) {    //    Did this parenthesis just close a function?
 
                     // HCK
-                    if (isset($pendingStoreKey) && $parenthesisDepthMap[$pendingStoreKey] == -1) {
+                    if (!empty($pendingStoreKey) && $parenthesisDepthMap[$pendingStoreKey] == -1) {
                         // we are closing an IF(
                         if ($d['value'] != 'IF(') {
                             return $this->raiseFormulaError('Parser bug we should be in an "IF("');
@@ -3494,7 +3536,7 @@ class Calculation
             } elseif ($opCharacter == ',') {            //    Is this the separator for function arguments?
 
                 if (
-                    isset($pendingStoreKey) &&
+                    !empty($pendingStoreKey) &&
                     $parenthesisDepthMap[$pendingStoreKey] == 0
                 ) {
                     // HCK we must step to the IF next step
@@ -3525,16 +3567,16 @@ class Calculation
                     return $this->raiseFormulaError('Formula Error: Unexpected ,');
                 }
                 $d = $stack->pop();
-                $stack->push($d['type'], ++$d['value'], $d['reference']); // increment the argument count
-                $stack->push('Brace', '('); // put the ( back on, we'll need to pop back to it again
+                $stack->push($d['type'], ++$d['value'], $d['reference'], $d['storeKey'] ?? null, $d['onlyIf'] ?? null, $d['onlyIfNot'] ?? null); // increment the argument count
+                $stack->push('Brace', '(', null, $d['storeKey'] ?? null, $d['onlyIf'] ?? null, $d['onlyIfNot'] ?? null); // put the ( back on, we'll need to pop back to it again
                 $expectingOperator = false;
                 $expectingOperand = true;
                 ++$index;
             } elseif ($opCharacter == '(' && !$expectingOperator) {
-                if (isset($pendingStoreKey)) { // HCK we go deeper
+                if (!empty($pendingStoreKey)) { // HCK we go deeper
                     $parenthesisDepthMap[$pendingStoreKey] += 1;
                 }
-                $stack->push('Brace', '(');
+                $stack->push('Brace', '(', null, $currentCondition, $currentOnlyIf, $currentOnlyIf);
                 ++$index;
             } elseif ($isOperandOrFunction && !$expectingOperator) {    // do we now have a function/variable/number?
                 $expectingOperator = true;
@@ -3549,13 +3591,15 @@ class Calculation
                         $valToUpper = strtoupper($val);
                         // HCK: here $matches[1] will contain values like IF, and $val IF(
                         $injectStoreKey = null;
-                        if ($valToUpper == 'IF(') { // we handle a new if
-                            $pendingStoreKey = $this->getUnusedStoreKey();
+                        if ($this->branchPruningEnabled && ($valToUpper == 'IF(')) { // we handle a new if
+                            $pendingStoreKey = $this->getUnusedBranchStoreKey();
                             $pendingStoreKeysStack[] = $pendingStoreKey;
                             $expectingConditionMap[$pendingStoreKey] = true;
                             $parenthesisDepthMap[$pendingStoreKey] = 0;
                         } else { // this is not a if but we good deeper
-                            $parenthesisDepthMap[$pendingStoreKey] += 1;
+                            if (!empty($pendingStoreKey) && array_key_exists($pendingStoreKey, $parenthesisDepthMap)) {
+                                $parenthesisDepthMap[$pendingStoreKey] += 1;
+                            }
                         }
 
                         $stack->push('Function', $valToUpper, null,
@@ -3567,7 +3611,9 @@ class Calculation
                             $expectingOperator = true;
 
                             // HCK (this is a closed function we don't go deeper)
-                            $parenthesisDepthMap[$pendingStoreKey] -= 1;
+                            if (!empty($pendingStoreKey) && array_key_exists($pendingStoreKey, $parenthesisDepthMap)) {
+                                //$parenthesisDepthMap[$pendingStoreKey] -= 1;
+                            }
                         } else {
                             $stack->push('Operand Count for Function ' . $valToUpper . ')', 1, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
                             $expectingOperator = false;
@@ -3743,12 +3789,11 @@ class Calculation
      */
     private function processTokenStack($tokens, $cellID = null, Cell $pCell = null)
     {
-
-        var_dump('begin process stack for ' . $cellID);
-
         if ($tokens == false) {
             return false;
         }
+
+        var_dump('resolving ' . $cellID);
 
         //    If we're using cell caching, then $pCell may well be flushed back to the cache (which detaches the parent cell collection),
         //        so we store the parent cell collection so that we can re-attach it when necessary
@@ -3757,51 +3802,86 @@ class Calculation
         $stack = new Stack();
 
         $fakedForBranchPruning = [];
+        $branchStore = [];
+
+        // var_dump('Tokens: ' . $this->getTokensAsString($tokens));
 
         //    Loop through each token in turn
         foreach ($tokens as $tokenData) {
 
             $token = $tokenData['value'];
-            // HCK skip useless keys
-            $storeKey = $tokenData['storeKey'] ?? null;
 
-            if (isset($tokenData['onlyIf'])) {
+            // HCK skip useless keys, branch pruning in practice
+            $storeKey = $tokenData['storeKey'] ?? null;
+            $tokenValue = $token;
+            while (is_array($tokenValue)) {
+                $tokenValue = array_pop($tokenValue);
+            }
+
+            // @todo remove useless string generation
+            /*$stackStr = $stack . '';
+            while (strlen($stackStr) < 70) {
+                $stackStr .= ' ';
+            }*/
+            // var_dump($stackStr . ' ' . $cellID. ' current tok -> ' . $tokenValue);
+
+            if ($this->branchPruningEnabled && isset($tokenData['onlyIf'])) {
                 $onlyIfStoreKey = $tokenData['onlyIf'];
-                $this->getValueFromCache($onlyIfStoreKey, $storeValue);
+                $storeValue = $branchStore[$onlyIfStoreKey] ?? null;
                 if (is_array($storeValue)) {
                     $wrappedItem = end($storeValue);
                     $storeValue = end($wrappedItem);
                 }
-                if (isset($storeValue) && !$storeValue) {
+
+                if (isset($storeValue) && (($storeValue !== true) || ($storeValue === 'Pruned branch'))) {
+
                     // If branching value is not true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIf-' . $onlyIfStoreKey])) {
-                        $stack->push('Value', 'Branch pruned (only if ' . $onlyIfStoreKey . ')');
+                        $stack->push('Value', 'Pruned branch (only if ' . $onlyIfStoreKey . ') ' . $token);
                         $fakedForBranchPruning['onlyIf-' . $onlyIfStoreKey] = true;
                     }
+
+                    if (isset($storeKey)) {
+                        // We are processing an if condition
+                        // We cascade the pruning to the depending branches
+                        $branchStore[$storeKey] = 'Pruned branch';
+                        $fakedForBranchPruning['onlyIfNot-' . $storeKey] = true;
+                        $fakedForBranchPruning['onlyIf-' . $storeKey] = true;
+                    }
+
                     continue;
                 }
             }
 
-            if (isset($tokenData['onlyIfNot'])) {
+            if ($this->branchPruningEnabled && isset($tokenData['onlyIfNot'])) {
                 $onlyIfNotStoreKey = $tokenData['onlyIfNot'];
-                $this->getValueFromCache($onlyIfNotStoreKey, $storeValue);
+                $storeValue = $branchStore[$onlyIfNotStoreKey] ?? null;
                 if (is_array($storeValue)) {
                     $wrappedItem = end($storeValue);
                     $storeValue = end($wrappedItem);
                 }
-                if (isset($storeValue) && $storeValue) {
+                if (isset($storeValue) && ($storeValue || ($storeValue === 'Pruned branch'))) {
+
                     // If branching value is true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIfNot-' . $onlyIfNotStoreKey])) {
-                        $stack->push('Value', 'Branch pruned (only if not ' . $onlyIfNotStoreKey . ')');
+                        $stack->push('Value', 'Pruned branch (only if not ' . $onlyIfNotStoreKey . ') ' . $token);
                         $fakedForBranchPruning['onlyIfNot-' . $onlyIfNotStoreKey] = true;
                     }
+
+
+                    if (isset($storeKey)) {
+                        // We are processing an if condition
+                        // We cascade the pruning to the depending branches
+                        $branchStore[$storeKey] = 'Pruned branch';
+                        $fakedForBranchPruning['onlyIfNot-' . $storeKey] = true;
+                        $fakedForBranchPruning['onlyIf-' . $storeKey] = true;
+                    }
+
+
                     continue;
                 }
             }
 
-            var_dump('');
-            var_dump('processing ', $token);
-            var_dump('');
 
             // if the token is a binary operator, pop the top two values off the stack, do the operation, and push the result back on the stack
             if (isset(self::$binaryOperators[$token])) {
@@ -3833,7 +3913,7 @@ class Calculation
                     case '=':            //    Equality
                     case '<>':            //    Inequality
                         $result = $this->executeBinaryComparisonOperation($cellID, $operand1, $operand2, $token, $stack);
-                        if (isset($storeKey)) { $this->saveValueToCache($storeKey, $result); }
+                        if (isset($storeKey)) { $branchStore[$storeKey] = $result; }
                         break;
                     //    Binary Operators
                     case ':':            //    Range
@@ -3889,23 +3969,23 @@ class Calculation
                         break;
                     case '+':            //    Addition
                         $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'plusEquals', $stack);
-                        if (isset($storeKey)) { $this->saveValueToCache($storeKey, $result); }
+                        if (isset($storeKey)) { $branchStore[$storeKey] = $result; }
                         break;
                     case '-':            //    Subtraction
                         $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'minusEquals', $stack);
-                        if (isset($storeKey)) { $this->saveValueToCache($storeKey, $result); }
+                        if (isset($storeKey)) { $branchStore[$storeKey] = $result; }
                         break;
                     case '*':            //    Multiplication
                         $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'arrayTimesEquals', $stack);
-                        if (isset($storeKey)) { $this->saveValueToCache($storeKey, $result); }
+                        if (isset($storeKey)) { $branchStore[$storeKey] = $result; }
                         break;
                     case '/':            //    Division
                         $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'arrayRightDivide', $stack);
-                        if (isset($storeKey)) { $this->saveValueToCache($storeKey, $result); }
+                        if (isset($storeKey)) { $branchStore[$storeKey] = $result; }
                         break;
                     case '^':            //    Exponential
                         $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'power', $stack);
-                        if (isset($storeKey)) { $this->saveValueToCache($storeKey, $result); }
+                        if (isset($storeKey)) { $branchStore[$storeKey] = $result; }
                         break;
                     case '&':            //    Concatenation
                         //    If either of the operands is a matrix, we need to treat them both as matrices
@@ -3937,7 +4017,7 @@ class Calculation
                         $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
                         $stack->push('Value', $result);
 
-                        if (isset($storeKey)) { $this->saveValueToCache($storeKey, $result); }
+                        if (isset($storeKey)) { $branchStore[$storeKey] = $result; }
                         break;
                     case '|':            //    Intersect
                         $rowIntersect = array_intersect_key($operand1, $operand2);
@@ -3982,7 +4062,7 @@ class Calculation
                     }
                     $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
                     $stack->push('Value', $result);
-                    if (isset($storeKey)) { $this->saveValueToCache($storeKey, $result); }
+                    if (isset($storeKey)) { $branchStore[$storeKey] = $result; }
                 } else {
                     $this->executeNumericBinaryOperation($multiplier, $arg, '*', 'arrayTimesEquals', $stack);
                 }
@@ -4056,7 +4136,7 @@ class Calculation
                     }
                 }
                 $stack->push('Value', $cellValue, $cellRef);
-                if (isset($storeKey)) { $this->saveValueToCache($storeKey, $cellValue); }
+                if (isset($storeKey)) { $branchStore[$storeKey] = $cellValue; }
 
             // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $token, $matches)) {
@@ -4080,7 +4160,6 @@ class Calculation
                     $args = $argArrayVals = [];
                     for ($i = 0; $i < $argCount; ++$i) {
                         $arg = $stack->pop();
-                        var_dump($arg);
                         $a = $argCount - $i - 1;
                         if (($passByReference) &&
                             (isset(self::$phpSpreadsheetFunctions[$functionName]['passByReference'][$a])) &&
@@ -4104,7 +4183,6 @@ class Calculation
                         }
                     }
 
-                    var_dump($functionName, 'done if');
                     //    Reverse the order of the arguments
                     krsort($args);
 
@@ -4135,18 +4213,18 @@ class Calculation
                         $this->debugLog->writeDebugLog('Evaluation Result for ', self::localeFunc($functionName), '() function call is ', $this->showTypeDetails($result));
                     }
                     $stack->push('Value', self::wrapResult($result));
-                    if (isset($storeKey)) { $this->saveValueToCache($storeKey, $result); }
+                    if (isset($storeKey)) { $branchStore[$storeKey] = $result; }
                 }
             } else {
                 // if the token is a number, boolean, string or an Excel error, push it onto the stack
                 if (isset(self::$excelConstants[strtoupper($token)])) {
                     $excelConstant = strtoupper($token);
                     $stack->push('Constant Value', self::$excelConstants[$excelConstant]);
-                    if (isset($storeKey)) { $this->saveValueToCache($storeKey, self::$excelConstants[$excelConstant]); }
+                    if (isset($storeKey)) { $branchStore[$storeKey] = self::$excelConstants[$excelConstant]; }
                     $this->debugLog->writeDebugLog('Evaluating Constant ', $excelConstant, ' as ', $this->showTypeDetails(self::$excelConstants[$excelConstant]));
                 } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == '"') || ($token[0] == '#')) {
                     $stack->push('Value', $token);
-                    if (isset($storeKey)) { $this->saveValueToCache($storeKey, $token); }
+                    if (isset($storeKey)) { $branchStore[$storeKey] = $token; }
                 // if the token is a named range, push the named range name onto the stack
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $token, $matches)) {
                     $namedRange = $matches[6];
@@ -4156,7 +4234,7 @@ class Calculation
                     $pCell->attach($pCellParent);
                     $this->debugLog->writeDebugLog('Evaluation Result for named range ', $namedRange, ' is ', $this->showTypeDetails($cellValue));
                     $stack->push('Named Range', $cellValue, $namedRange);
-                    if (isset($storeKey)) { $this->saveValueToCache($storeKey, $cellValue); }
+                    if (isset($storeKey)) { $branchStore[$storeKey] = $cellValue; }
                 } else {
                     return $this->raiseFormulaError("undefined variable '$token'");
                 }
@@ -4169,9 +4247,7 @@ class Calculation
         $output = $stack->pop();
         $output = $output['value'];
 
-        var_dump('case N end process stack for ' . $cellID);
-
-        var_dump($tokens, $fakedForBranchPruning);
+        // var_dump($this->branchPruningEnabled, $output);
 
         return $output;
     }
@@ -4349,7 +4425,7 @@ class Calculation
         //    And push the result onto the stack
         $stack->push('Value', $result);
 
-        return true;
+        return $result;
     }
 
     /**
@@ -4658,9 +4734,21 @@ class Calculation
         return $args;
     }
 
-    private function getUnusedStoreKey() {
-        $storeKeyValue = 'storeKey-' . $this->storeKeyCounter;
-        $this->storeKeyCounter++;
+    private function getUnusedBranchStoreKey() {
+        $storeKeyValue = 'storeKey-' . $this->branchStoreKeyCounter;
+        $this->branchStoreKeyCounter++;
         return $storeKeyValue;
+    }
+
+    private function getTokensAsString($tokens) {
+        $tokensStr = array_map(function($token) {
+            $value = $token['value'] ?? 'no value';
+            while (is_array($value)) {
+                $value = array_pop($value);
+            }
+            return $value;
+        }, $tokens);
+        $str = '[ ' . implode(' | ', $tokensStr) . ' ]';
+        return $str;
     }
 }
