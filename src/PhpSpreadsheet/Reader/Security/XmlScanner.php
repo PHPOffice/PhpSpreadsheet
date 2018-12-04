@@ -14,11 +14,11 @@ class XmlScanner
     private $libxmlDisableEntityLoader = false;
 
     /**
-     * Store the initial setting of libxmlDisableEntityLoader so that we can resore t later.
+     * Stores the initial setting of libxmlDisableEntityLoader so that we can restore it later.
      *
      * @var bool
      */
-    private $previousLibxmlDisableEntityLoaderValue;
+    static private $previousLibxmlDisableEntityLoaderValue;
 
     /**
      * String used to identify risky xml elements.
@@ -34,16 +34,17 @@ class XmlScanner
         $this->pattern = $pattern;
         $this->libxmlDisableEntityLoader = $this->identifyLibxmlDisableEntityLoaderAvailability();
 
-        if ($this->libxmlDisableEntityLoader) {
-            $this->previousLibxmlDisableEntityLoaderValue = libxml_disable_entity_loader(true);
+        if ($this->libxmlDisableEntityLoader && self::$previousLibxmlDisableEntityLoaderValue === null) {
+            self::$previousLibxmlDisableEntityLoaderValue = libxml_disable_entity_loader(true);
         }
     }
 
     public function __destruct()
     {
         if ($this->libxmlDisableEntityLoader) {
-            libxml_disable_entity_loader($this->previousLibxmlDisableEntityLoaderValue);
+            libxml_disable_entity_loader(self::$previousLibxmlDisableEntityLoaderValue);
         }
+        self::$previousLibxmlDisableEntityLoaderValue = null;
     }
 
     public static function getInstance(Reader\IReader $reader)
