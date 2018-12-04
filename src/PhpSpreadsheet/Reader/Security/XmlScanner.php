@@ -18,7 +18,7 @@ class XmlScanner
      *
      * @var bool
      */
-    static private $previousLibxmlDisableEntityLoaderValue;
+    private static $previousLibxmlDisableEntityLoaderValue;
 
     /**
      * String used to identify risky xml elements.
