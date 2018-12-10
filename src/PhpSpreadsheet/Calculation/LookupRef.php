@@ -421,7 +421,7 @@ class LookupRef
      * @param mixed $index_num Specifies which value argument is selected.
      *                            Index_num must be a number between 1 and 254, or a formula or reference to a cell containing a number
      *                                between 1 and 254.
-     * @param mixed $value1... Value1 is required, subsequent values are optional.
+     * @param mixed $value1 ... Value1 is required, subsequent values are optional.
      *                            Between 1 to 254 value arguments from which CHOOSE selects a value or an action to perform based on
      *                                index_num. The arguments can be numbers, cell references, defined names, formulas, functions, or
      *                                text.
@@ -709,6 +709,7 @@ class LookupRef
 
         $rowNumber = $rowValue = false;
         foreach ($lookup_array as $rowKey => $rowData) {
+            // break if we have passed possible keys
             if ((is_numeric($lookup_value) && is_numeric($rowData[$firstColumn]) && ($rowData[$firstColumn] > $lookup_value)) ||
                 (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]) && (strtolower($rowData[$firstColumn]) > strtolower($lookup_value)))) {
                 break;
@@ -716,17 +717,25 @@ class LookupRef
             // remember the last key, but only if datatypes match
             if ((is_numeric($lookup_value) && is_numeric($rowData[$firstColumn])) ||
                 (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]))) {
-                $rowNumber = $rowKey;
-                $rowValue = $rowData[$firstColumn];
+                if ($not_exact_match) {
+                    $rowNumber = $rowKey;
+                    $rowValue = $rowData[$firstColumn];
+
+                    continue;
+                } elseif ((strtolower($rowData[$firstColumn]) == strtolower($lookup_value))
+                    // Spreadsheets software returns first exact match,
+                    // we have sorted and we might have broken key orders
+                    // we want the first one (by its initial index)
+                    && (($rowNumber == false) || ($rowKey < $rowNumber))
+                ) {
+                    $rowNumber = $rowKey;
+                    $rowValue = $rowData[$firstColumn];
+                }
             }
         }
 
         if ($rowNumber !== false) {
-            if ((!$not_exact_match) && ($rowValue != $lookup_value)) {
-                //    if an exact match is required, we have what we need to return an appropriate response
-                return Functions::NA();
-            }
-            //    otherwise return the appropriate value
+            // return the appropriate value
             return $lookup_array[$rowNumber][$returnColumn];
         }
 
@@ -764,29 +773,35 @@ class LookupRef
         if ((!is_array($lookup_array[$firstRow])) || ($index_number > count($lookup_array))) {
             return Functions::REF();
         }
-        $columnKeys = array_keys($lookup_array[$firstRow]);
+
         $firstkey = $f[0] - 1;
         $returnColumn = $firstkey + $index_number;
         $firstColumn = array_shift($f);
-
-        if (!$not_exact_match) {
-            $firstRowH = asort($lookup_array[$firstColumn]);
-        }
-        $rowNumber = $rowValue = false;
+        $rowNumber = null;
         foreach ($lookup_array[$firstColumn] as $rowKey => $rowData) {
-            if ((is_numeric($lookup_value) && is_numeric($rowData) && ($rowData > $lookup_value)) ||
-                (!is_numeric($lookup_value) && !is_numeric($rowData) && (strtolower($rowData) > strtolower($lookup_value)))) {
+            // break if we have passed possible keys
+            $bothNumeric = is_numeric($lookup_value) && is_numeric($rowData);
+            $bothNotNumeric = !is_numeric($lookup_value) && !is_numeric($rowData);
+            if (($bothNumeric && $rowData > $lookup_value) ||
+                ($bothNotNumeric && strtolower($rowData) > strtolower($lookup_value))) {
                 break;
             }
-            $rowNumber = $rowKey;
-            $rowValue = $rowData;
+
+            // Remember the last key, but only if datatypes match (as in VLOOKUP)
+            if ($bothNumeric || $bothNotNumeric) {
+                if ($not_exact_match) {
+                    $rowNumber = $rowKey;
+
+                    continue;
+                } elseif (strtolower($rowData) === strtolower($lookup_value)
+                    && ($rowNumber === null || $rowKey < $rowNumber)
+                ) {
+                    $rowNumber = $rowKey;
+                }
+            }
         }
 
-        if ($rowNumber !== false) {
-            if ((!$not_exact_match) && ($rowValue != $lookup_value)) {
-                //  if an exact match is required, we have what we need to return an appropriate response
-                return Functions::NA();
-            }
+        if ($rowNumber !== null) {
             //  otherwise return the appropriate value
             return $lookup_array[$returnColumn][$rowNumber];
         }
