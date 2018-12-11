@@ -156,6 +156,7 @@ class IOFactoryTest extends TestCase
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
 
         $valueBeforeTest = libxml_disable_entity_loader($startWith);
+
         try {
             IOFactory::createReaderForFile($filename);
             self::assertFalse(true);
