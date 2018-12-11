@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer;
 use PHPUnit\Framework\TestCase;
@@ -143,5 +144,34 @@ class IOFactoryTest extends TestCase
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
         IOFactory::registerReader('foo', 'bar');
+    }
+
+    /**
+     * @dataProvider providerBoolean
+     *
+     * @param bool $startWith
+     */
+    public function testLibxmlEntityLoaderValue($startWith)
+    {
+        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+
+        $valueBeforeTest = libxml_disable_entity_loader($startWith);
+        try {
+            IOFactory::createReaderForFile($filename);
+            self::assertFalse(true);
+        } catch (\Exception $e) {
+            self::assertTrue(true);
+        }
+        $finalValue = libxml_disable_entity_loader($valueBeforeTest);
+        self::assertSame($startWith, $finalValue,
+            sprintf('Started with: %b value at the end: %b', $startWith, $finalValue)
+        );
+
+        unlink($filename);
+    }
+
+    public function providerBoolean()
+    {
+        return [[true], [false]];
     }
 }
