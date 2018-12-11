@@ -147,6 +147,7 @@ abstract class IOFactory
                 if ($reader->canRead($filename)) {
                     return $reader;
                 }
+                unset($reader);
             }
         }
 
