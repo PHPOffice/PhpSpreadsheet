@@ -41,7 +41,7 @@ class XmlScanner
 
     public function __destruct()
     {
-        if ($this->libxmlDisableEntityLoader) {
+        if ($this->libxmlDisableEntityLoader && self::$previousLibxmlDisableEntityLoaderValue !== null) {
             libxml_disable_entity_loader(self::$previousLibxmlDisableEntityLoaderValue);
         }
         self::$previousLibxmlDisableEntityLoaderValue = null;

@@ -160,7 +160,6 @@ class IOFactoryTest extends TestCase
             IOFactory::createReaderForFile($filename);
             self::assertFalse(true);
         } catch (\Exception $e) {
-            self::assertTrue(true);
         }
         $finalValue = libxml_disable_entity_loader($valueBeforeTest);
         self::assertSame($startWith, $finalValue,
