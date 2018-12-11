@@ -163,7 +163,9 @@ class IOFactoryTest extends TestCase
         } catch (\Exception $e) {
         }
         $finalValue = libxml_disable_entity_loader($valueBeforeTest);
-        self::assertSame($startWith, $finalValue,
+        self::assertSame(
+            $startWith,
+            $finalValue,
             sprintf('Started with: %b value at the end: %b', $startWith, $finalValue)
         );
 
