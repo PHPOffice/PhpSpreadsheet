@@ -453,7 +453,7 @@ class StringHelper
     public static function convertEncoding($value, $to, $from)
     {
         if (self::getIsIconvEnabled()) {
-            $result = iconv($from, $to . '//IGNORE//TRANSLIT', $value);
+            $result = @iconv($from, $to . '//IGNORE//TRANSLIT', $value);
             if (false !== $result) {
                 return $result;
             }
