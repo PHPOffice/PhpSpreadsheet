@@ -811,11 +811,13 @@ class LookupRef
         if (!is_array($lookup_vector)) {
             return Functions::NA();
         }
+        $hasResultVector = isset($result_vector);
         $lookupRows = count($lookup_vector);
         $l = array_keys($lookup_vector);
         $l = array_shift($l);
         $lookupColumns = count($lookup_vector[$l]);
-        if ((($lookupRows == 1) && ($lookupColumns > 1)) || (($lookupRows == 2) && ($lookupColumns != 2))) {
+        // we correctly orient our results
+        if (($lookupRows === 1 && $lookupColumns > 1) || (!$hasResultVector && $lookupRows === 2 && $lookupColumns !== 2)) {
             $lookup_vector = self::TRANSPOSE($lookup_vector);
             $lookupRows = count($lookup_vector);
             $l = array_keys($lookup_vector);
@@ -829,18 +831,20 @@ class LookupRef
         $l = array_keys($result_vector);
         $l = array_shift($l);
         $resultColumns = count($result_vector[$l]);
-        if ((($resultRows == 1) && ($resultColumns > 1)) || (($resultRows == 2) && ($resultColumns != 2))) {
+        // we correctly orient our results
+        if ($resultRows === 1 && $resultColumns > 1) {
             $result_vector = self::TRANSPOSE($result_vector);
             $resultRows = count($result_vector);
             $r = array_keys($result_vector);
             $resultColumns = count($result_vector[array_shift($r)]);
         }
 
-        if ($lookupRows == 2) {
+        if ($lookupRows === 2 && !$hasResultVector) {
             $result_vector = array_pop($lookup_vector);
             $lookup_vector = array_shift($lookup_vector);
         }
-        if ($lookupColumns != 2) {
+
+        if ($lookupColumns !== 2) {
             foreach ($lookup_vector as &$value) {
                 if (is_array($value)) {
                     $k = array_keys($value);
