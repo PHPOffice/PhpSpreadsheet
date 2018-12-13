@@ -972,7 +972,7 @@ class Xlsx extends BaseReader
                                                 break;
                                         }
 
-                                        if (!$this->readEmptyCells && ($value === null || $value === "")) {
+                                        if (!$this->readEmptyCells && ($value === null || $value === '')) {
                                             continue;
                                         }
 
