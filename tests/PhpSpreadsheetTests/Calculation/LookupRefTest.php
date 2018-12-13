@@ -56,7 +56,8 @@ class LookupRefTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testLOOKUP($expectedResult, ...$args) {
+    public function testLOOKUP($expectedResult, ...$args)
+    {
         $result = LookupRef::LOOKUP(...$args);
         self::assertEquals($expectedResult, $result);
     }
