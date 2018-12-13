@@ -43,7 +43,7 @@ class XlsxTest extends TestCase
         $reader->setReadEmptyCells(false);
         $data = $reader->load($filename)->getActiveSheet()->toArray();
         
-        $this->assertTrue(isset($data [0][0]));
-        $this->assertFalse(isset($data [0][1]));
+        $this->assertTrue(isset($data[0][0]));
+        $this->assertFalse(isset($data[0][1]));
     }
 }
