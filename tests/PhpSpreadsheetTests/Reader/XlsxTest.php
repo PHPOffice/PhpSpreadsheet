@@ -32,9 +32,9 @@ class XlsxTest extends TestCase
             $this->assertEquals($ref, \array_slice($data[$i], 0, 10, true));
         }
     }
-    
+
     /**
-     * Test load Xlsx file while ignoring blank cells
+     * Test load Xlsx file while ignoring blank cells.
      */
     public function testLoadIgnoringBlankCells()
     {
