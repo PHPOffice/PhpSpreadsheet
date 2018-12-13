@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Improve XLSX parsing speed if no readFilter is applied - [#772](https://github.com/PHPOffice/PhpSpreadsheet/issues/772)
 - Fix column names if read filter calls in XLSX reader skip columns - [#777](https://github.com/PHPOffice/PhpSpreadsheet/pull/777)
+- XLSX reader can now ignore blank cells, using the setReadEmptyCells(false) method. - [#810](https://github.com/PHPOffice/PhpSpreadsheet/issues/810)
 
 ## [1.5.2] - 2018-11-25
 
