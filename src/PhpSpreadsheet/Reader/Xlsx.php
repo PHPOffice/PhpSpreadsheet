@@ -972,6 +972,10 @@ class Xlsx extends BaseReader
                                                 break;
                                         }
 
+                                        if (!$this->readEmptyCells && ($value === null || $value === "")) {
+                                            continue;
+                                        }
+
                                         // Check for numeric values
                                         if (is_numeric($value) && $cellDataType != 's') {
                                             if ($value == (int) $value) {
