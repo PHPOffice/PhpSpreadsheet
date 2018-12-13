@@ -735,7 +735,7 @@ class LookupRef
         }
 
         if ($rowNumber !== false) {
-            //    otherwise return the appropriate value
+            // return the appropriate value
             return $lookup_array[$rowNumber][$returnColumn];
         }
 
@@ -783,20 +783,30 @@ class LookupRef
         }
         $rowNumber = $rowValue = false;
         foreach ($lookup_array[$firstColumn] as $rowKey => $rowData) {
+            // break if we have passed possible keys
             if ((is_numeric($lookup_value) && is_numeric($rowData) && ($rowData > $lookup_value)) ||
                 (!is_numeric($lookup_value) && !is_numeric($rowData) && (strtolower($rowData) > strtolower($lookup_value)))) {
                 break;
             }
-            $rowNumber = $rowKey;
-            $rowValue = $rowData;
+
+            // remember the last key, but only if datatypes match (as in VLOOKUP)
+            if ((is_numeric($lookup_value) && is_numeric($rowData)) ||
+                (!is_numeric($lookup_value) && !is_numeric($rowData))) {
+                if ($not_exact_match) {
+                    $rowNumber = $rowKey;
+                    $rowValue = $rowData;
+                    continue;
+                } elseif ((strtolower($rowData) == strtolower($lookup_value))
+                    && (($rowNumber == false) || ($rowKey < $rowNumber))
+                ) {
+                    $rowNumber = $rowKey;
+                    $rowValue = $rowData;
+                }
+            }
         }
 
         if ($rowNumber !== false) {
-            if ((!$not_exact_match) && ($rowValue != $lookup_value)) {
-                //  if an exact match is required, we have what we need to return an appropriate response
-                return Functions::NA();
-            }
-            //  otherwise return the appropriate value
+            // otherwise return the appropriate value
             return $lookup_array[$returnColumn][$rowNumber];
         }
 
