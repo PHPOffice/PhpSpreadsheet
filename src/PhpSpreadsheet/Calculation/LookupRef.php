@@ -795,6 +795,7 @@ class LookupRef
                 if ($not_exact_match) {
                     $rowNumber = $rowKey;
                     $rowValue = $rowData;
+
                     continue;
                 } elseif ((strtolower($rowData) == strtolower($lookup_value))
                     && (($rowNumber == false) || ($rowKey < $rowNumber))
