@@ -206,7 +206,7 @@ class CalculationTest extends TestCase
         $productFunctionCorrectlyTagged = false;
         $notFunctionCorrectlyTagged = false;
         $findOneOperandCountTagged = false;
-        foreach($tokens as $token) {
+        foreach ($tokens as $token) {
             $value = $token['value'];
             $isPlus = $value == '+';
             $isProductFunction = $value == 'PRODUCT(';
@@ -228,7 +228,6 @@ class CalculationTest extends TestCase
         $this->assertTrue($plusCorrectlyTagged);
         $this->assertTrue($productFunctionCorrectlyTagged);
         $this->assertTrue($notFunctionCorrectlyTagged);
-
 
         $calculation->flushInstance(); // resets the ids
 
@@ -261,10 +260,11 @@ class CalculationTest extends TestCase
      *  be set in cache
      * @param string[] $shouldNotBeSetInCacheCells coordinates of cells that must
      *  not be set in cache because of pruning
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @dataProvider dataProviderBranchPruningFullExecution
      */
-    public function testBranchPruningFullExecution(
+    public function testFullExecution(
         $expectedResult,
         $dataArray,
         string $formula,
@@ -304,8 +304,8 @@ class CalculationTest extends TestCase
         $this->assertEquals($expectedResult, $calculated);
     }
 
-    public function dataProviderBranchPruningFullExecution() {
+    public function dataProviderBranchPruningFullExecution()
+    {
         return require 'data/Calculation/Calculation.php';
     }
-
 }
