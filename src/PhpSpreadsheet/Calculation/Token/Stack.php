@@ -36,13 +36,11 @@ class Stack
      * @param mixed $type
      * @param mixed $value
      * @param mixed $reference
-     * @param string|null $storeKey will store the result under this alias
-     * @param string|null $onlyIf will only run computation if the matching
+     * @param null|string $storeKey will store the result under this alias
+     * @param null|string $onlyIf will only run computation if the matching
      *      store key is true
-     * @param string|null $onlyIfNot will only run computation if the matching
+     * @param null|string $onlyIfNot will only run computation if the matching
      *      store key is false
-     *
-     * 
      */
     public function push(
         $type,
@@ -133,7 +131,8 @@ class Stack
         $this->count = 0;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         $str = 'Stack: ';
         foreach ($this->stack as $index => $item) {
             if ($index > $this->count - 1) {
@@ -143,8 +142,9 @@ class Stack
             while (is_array($value)) {
                 $value = array_pop($value);
             }
-            $str .= $value . ' |> ' ;
+            $str .= $value . ' |> ';
         }
+
         return $str;
     }
 }
