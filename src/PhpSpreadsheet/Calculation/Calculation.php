@@ -2256,7 +2256,6 @@ class Calculation
     {
         $this->clearCalculationCache();
         $this->clearBranchStore();
-        $this->branchStoreKeyCounter = 0;
     }
 
     /**
@@ -3443,7 +3442,6 @@ class Calculation
                 }
 
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $d['value'], $matches)) {    //    Did this parenthesis just close a function?
-
                     if (!empty($pendingStoreKey) && $parenthesisDepthMap[$pendingStoreKey] == -1) {
                         // we are closing an IF(
                         if ($d['value'] != 'IF(') {
@@ -3519,9 +3517,7 @@ class Calculation
                 }
                 ++$index;
             } elseif ($opCharacter == ',') {            //    Is this the separator for function arguments?
-
-                if (
-                    !empty($pendingStoreKey) &&
+                if (!empty($pendingStoreKey) &&
                     $parenthesisDepthMap[$pendingStoreKey] == 0
                 ) {
                     // We must go to the IF next argument
@@ -3590,8 +3586,7 @@ class Calculation
                             }
                         }
 
-                        $stack->push('Function', $valToUpper, null,
-                            $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                        $stack->push('Function', $valToUpper, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
                         // tests if the function is closed right after opening
                         $ax = preg_match('/^\s*(\s*\))/ui', substr($formula, $index + $length), $amatch);
                         if ($ax) {
@@ -3626,9 +3621,7 @@ class Calculation
                         }
                     }
 
-                    $outputItem = $stack->getStackItem('Cell Reference', $val,
-                        $val, $currentCondition, $currentOnlyIf,
-                        $currentOnlyIfNot);
+                    $outputItem = $stack->getStackItem('Cell Reference', $val, $val, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
 
                     $output[] = $outputItem;
                 } else {    // it's a variable, constant, string, number or boolean
@@ -3802,7 +3795,6 @@ class Calculation
                 if (isset($storeValue) && (($storeValue !== true)
                     || ($storeValue === 'Pruned branch'))
                 ) {
-
                     // If branching value is not true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIf-' . $onlyIfStoreKey])) {
                         $stack->push('Value', 'Pruned branch (only if ' . $onlyIfStoreKey . ') ' . $token);
@@ -3831,7 +3823,6 @@ class Calculation
                 if (isset($storeValue) && ($storeValue
                     || ($storeValue === 'Pruned branch'))
                 ) {
-
                     // If branching value is true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIfNot-' . $onlyIfNotStoreKey])) {
                         $stack->push('Value', 'Pruned branch (only if not ' . $onlyIfNotStoreKey . ') ' . $token);

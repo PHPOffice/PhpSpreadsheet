@@ -141,9 +141,10 @@ class CalculationTest extends TestCase
         self::assertEquals(5, $cell->getCalculatedValue(), 'missing arguments should be filled with null');
     }
 
-    public function testBranchPruningFormulaParsing()
+    public function testBranchPruningFormulaParsingSimpleCase()
     {
         $calculation = Calculation::getInstance();
+        $calculation->flushInstance(); // resets the ids
 
         // Very simple formula
         $formula = '=IF(A1="please +",B1)';
@@ -166,7 +167,11 @@ class CalculationTest extends TestCase
         }
         $this->assertTrue($foundEqualAssociatedToStoreKey);
         $this->assertTrue($foundConditionalOnB1);
+    }
 
+    public function testBranchPruningFormulaParsingMultipleIfsCase()
+    {
+        $calculation = Calculation::getInstance();
         $calculation->flushInstance(); // resets the ids
 
         //
@@ -189,14 +194,15 @@ class CalculationTest extends TestCase
             $isFunction = $token['type'] == 'Function';
             $isProductFunction = $token['value'] == 'PRODUCT(';
             $correctOnlyIf = (isset($token['onlyIf']) ? $token['onlyIf'] : '') == 'storeKey-1';
-            $productFunctionCorrectlyTagged = $productFunctionCorrectlyTagged ||
-                ($isFunction && $isProductFunction && $correctOnlyIf);
+            $productFunctionCorrectlyTagged = $productFunctionCorrectlyTagged || ($isFunction && $isProductFunction && $correctOnlyIf);
         }
-        $this->assertFalse($plusGotTagged,
-            'chaining IF( should not affect the external operators');
-        $this->assertTrue($productFunctionCorrectlyTagged,
-            'function nested inside if should be tagged to be processed only if parent branching requires it');
+        $this->assertFalse($plusGotTagged, 'chaining IF( should not affect the external operators');
+        $this->assertTrue($productFunctionCorrectlyTagged, 'function nested inside if should be tagged to be processed only if parent branching requires it');
+    }
 
+    public function testBranchPruningFormulaParingNestedIfCase()
+    {
+        $calculation = Calculation::getInstance();
         $calculation->flushInstance(); // resets the ids
 
         $formula = '=IF(A1="please +",SUM(B1:B3),1+IF(NOT(A2="please *"),C2-C1,PRODUCT(C1:C3)))';
@@ -216,26 +222,30 @@ class CalculationTest extends TestCase
             $isStoreKeyDepth1 = (array_key_exists('storeKey', $token) ? $token['storeKey'] : null) == 'storeKey-1';
             $isOnlyIfNotDepth0 = (array_key_exists('onlyIfNot', $token) ? $token['onlyIfNot'] : null) == 'storeKey-0';
 
-            $plusCorrectlyTagged = $plusCorrectlyTagged ||
-                ($isPlus && $isOnlyIfNotDepth0);
-            $notFunctionCorrectlyTagged = $notFunctionCorrectlyTagged ||
-                ($isNotFunction && $isOnlyIfNotDepth0 && $isStoreKeyDepth1);
-            $productFunctionCorrectlyTagged = $productFunctionCorrectlyTagged ||
-                ($isProductFunction && $isOnlyIfNotDepth1 && !$isStoreKeyDepth1 && !$isOnlyIfNotDepth0);
-            $findOneOperandCountTagged = $findOneOperandCountTagged ||
-                ($isIfOperand && $isOnlyIfNotDepth0);
+            $plusCorrectlyTagged = $plusCorrectlyTagged || ($isPlus && $isOnlyIfNotDepth0);
+            $notFunctionCorrectlyTagged = $notFunctionCorrectlyTagged || ($isNotFunction && $isOnlyIfNotDepth0 && $isStoreKeyDepth1);
+            $productFunctionCorrectlyTagged = $productFunctionCorrectlyTagged || ($isProductFunction && $isOnlyIfNotDepth1 && !$isStoreKeyDepth1 && !$isOnlyIfNotDepth0);
+            $findOneOperandCountTagged = $findOneOperandCountTagged || ($isIfOperand && $isOnlyIfNotDepth0);
         }
         $this->assertTrue($plusCorrectlyTagged);
         $this->assertTrue($productFunctionCorrectlyTagged);
         $this->assertTrue($notFunctionCorrectlyTagged);
+    }
 
+    public function testBranchPruningFormulaParsingNoArgumentFunctionCase()
+    {
+        $calculation = Calculation::getInstance();
         $calculation->flushInstance(); // resets the ids
 
         $formula = '=IF(AND(TRUE(),A1="please +"),2,3)';
         // this used to raise a parser error, we keep it even though we don't
         // test the output
-        $tokens = $calculation->parseFormula($formula);
+        $calculation->parseFormula($formula);
+    }
 
+    public function testBranchPruningFormulaParsingInequalitiesConditionsCase()
+    {
+        $calculation = Calculation::getInstance();
         $calculation->flushInstance(); // resets the ids
 
         $formula = '=IF(A1="flag",IF(A2<10, 0) + IF(A3<10000, 0))';
@@ -270,16 +280,14 @@ class CalculationTest extends TestCase
         $formula,
         $cellCoordinates,
         $shouldBeSetInCacheCells = [],
-        $shouldNotBeSetInCacheCells = [])
-    {
+        $shouldNotBeSetInCacheCells = []
+    ) {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $sheet->fromArray($dataArray);
         $cell = $sheet->getCell($cellCoordinates);
-        $calculation = Calculation::getInstance(
-            $cell->getWorksheet()->getParent()
-        );
+        $calculation = Calculation::getInstance($cell->getWorksheet()->getParent());
 
         $cell->setValue($formula);
         $calculated = $cell->getCalculatedValue();
@@ -294,8 +302,7 @@ class CalculationTest extends TestCase
 
         foreach ($shouldNotBeSetInCacheCells as $notSetCell) {
             unset($inCache);
-            $calculation->getValueFromCache('Worksheet!' . $notSetCell,
-                $inCache);
+            $calculation->getValueFromCache('Worksheet!' . $notSetCell, $inCache);
             $this->assertEmpty($inCache);
         }
 
