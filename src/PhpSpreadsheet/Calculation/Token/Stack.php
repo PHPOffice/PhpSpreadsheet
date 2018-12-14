@@ -138,7 +138,7 @@ class Stack
             if ($index > $this->count - 1) {
                 break;
             }
-            $value = $item['value'] ?? 'no value';
+            $value = isset($item['value']) ? $item['value'] : 'no value';
             while (is_array($value)) {
                 $value = array_pop($value);
             }
