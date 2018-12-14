@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Refactored Matrix Functions to use external Matrix library
 - Possibility to specify custom colors of values for pie and donut charts - [#768](https://github.com/PHPOffice/PhpSpreadsheet/pull/768)
+- Branch pruning around IF function calls to avoid resolution of every branches
 
 ### Fixed
 
