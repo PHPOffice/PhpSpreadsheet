@@ -267,7 +267,6 @@ class Cell
                     }
                 }
             } catch (Exception $ex) {
-                throw $ex; // @todo HCK remove
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 }
