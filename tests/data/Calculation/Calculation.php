@@ -1,6 +1,6 @@
 <?php
 
-return (function() {
+function calculationTestDataGenerator() {
     $dataArray1 = [
         ['please +', 'please *', 'increment'],
         [1, 1, 1], // sum is 3
@@ -57,4 +57,6 @@ return (function() {
     $set8 = [4, $dataArray5, $formula3, 'E5', ['A3'], ['B3']];
 
     return [$set0, $set1, $set2, $set3, $set4, $set5, $set6, $set7, $set8];
-})();
+};
+
+return calculationTestDataGenerator();

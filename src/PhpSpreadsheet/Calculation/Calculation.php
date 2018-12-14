@@ -3369,24 +3369,25 @@ class Calculation
             $pendingStoreKey = end($pendingStoreKeysStack);
 
             if ($this->branchPruningEnabled) {
-                if ($expectingConditionMap[$pendingStoreKey] ?? false) { // this is a condition
+                // this is a condition ?
+                if (isset($expectingConditionMap[$pendingStoreKey]) && $expectingConditionMap[$pendingStoreKey]) {
                     $currentCondition = $pendingStoreKey;
                     $stackDepth = count($pendingStoreKeysStack);
                     if ($stackDepth > 1) { // nested if
                         $previousStoreKey = $pendingStoreKeysStack[$stackDepth - 2];
                     }
                 }
-                if ($expectingThenMap[$pendingStoreKey] ?? false) {
+                if (isset($expectingThenMap[$pendingStoreKey]) && $expectingThenMap[$pendingStoreKey]) {
                     $currentOnlyIf = $pendingStoreKey;
                 } elseif (isset($previousStoreKey)) {
-                    if ($expectingThenMap[$previousStoreKey] ?? false) {
+                    if (isset($expectingThenMap[$previousStoreKey]) && $expectingThenMap[$previousStoreKey]) {
                         $currentOnlyIf = $previousStoreKey;
                     }
                 }
-                if ($expectingElseMap[$pendingStoreKey] ?? false) {
+                if (isset($expectingElseMap[$pendingStoreKey]) && $expectingElseMap[$pendingStoreKey]) {
                     $currentOnlyIfNot = $pendingStoreKey;
                 } elseif (isset($previousStoreKey)) {
-                    if ($expectingElseMap[$previousStoreKey] ?? false) {
+                    if (isset($expectingElseMap[$previousStoreKey]) && $expectingElseMap[$previousStoreKey]) {
                         $currentOnlyIfNot = $previousStoreKey;
                     }
                 }
@@ -3551,8 +3552,11 @@ class Calculation
                     return $this->raiseFormulaError('Formula Error: Unexpected ,');
                 }
                 $d = $stack->pop();
-                $stack->push($d['type'], ++$d['value'], $d['reference'], $d['storeKey'] ?? null, $d['onlyIf'] ?? null, $d['onlyIfNot'] ?? null); // increment the argument count
-                $stack->push('Brace', '(', null, $d['storeKey'] ?? null, $d['onlyIf'] ?? null, $d['onlyIfNot'] ?? null); // put the ( back on, we'll need to pop back to it again
+                $itemStoreKey = isset($d['storeKey']) ? $d['storeKey'] : null;
+                $itemOnlyIf = isset($d['onlyIf']) ? $d['onlyIf'] : null;
+                $itemOnlyIfNot = isset($d['onlyIfNot']) ? $d['onlyIfNot'] : null;
+                $stack->push($d['type'], ++$d['value'], $d['reference'], $itemStoreKey, $itemOnlyIf, $itemOnlyIfNot); // increment the argument count
+                $stack->push('Brace', '(', null, $itemStoreKey, $itemOnlyIf, $itemOnlyIfNot); // put the ( back on, we'll need to pop back to it again
                 $expectingOperator = false;
                 $expectingOperand = true;
                 ++$index;
@@ -3786,10 +3790,10 @@ class Calculation
             $token = $tokenData['value'];
 
             // Branch pruning: skip useless resolutions
-            $storeKey = $tokenData['storeKey'] ?? null;
+            $storeKey = isset($tokenData['storeKey']) ? $tokenData['storeKey'] : null;
             if ($this->branchPruningEnabled && isset($tokenData['onlyIf'])) {
                 $onlyIfStoreKey = $tokenData['onlyIf'];
-                $storeValue = $branchStore[$onlyIfStoreKey] ?? null;
+                $storeValue = isset($branchStore[$onlyIfStoreKey]) ? $branchStore[$onlyIfStoreKey] : null;
                 if (is_array($storeValue)) {
                     $wrappedItem = end($storeValue);
                     $storeValue = end($wrappedItem);
@@ -3819,7 +3823,7 @@ class Calculation
 
             if ($this->branchPruningEnabled && isset($tokenData['onlyIfNot'])) {
                 $onlyIfNotStoreKey = $tokenData['onlyIfNot'];
-                $storeValue = $branchStore[$onlyIfNotStoreKey] ?? null;
+                $storeValue = isset($branchStore[$onlyIfNotStoreKey]) ? $branchStore[$onlyIfNotStoreKey] : null;
                 if (is_array($storeValue)) {
                     $wrappedItem = end($storeValue);
                     $storeValue = end($wrappedItem);
@@ -4747,7 +4751,7 @@ class Calculation
     private function getTokensAsString($tokens)
     {
         $tokensStr = array_map(function ($token) {
-            $value = $token['value'] ?? 'no value';
+            $value = isset($token['value']) ? $token['value'] : 'no value';
             while (is_array($value)) {
                 $value = array_pop($value);
             }

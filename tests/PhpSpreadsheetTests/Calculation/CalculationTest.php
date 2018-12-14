@@ -154,9 +154,9 @@ class CalculationTest extends TestCase
         foreach ($tokens as $token) {
             $isBinaryOperator = $token['type'] == 'Binary Operator';
             $isEqual = $token['value'] == '=';
-            $correctStoreKey = ($token['storeKey'] ?? '') == 'storeKey-0';
-            $correctOnlyIf = ($token['onlyIf'] ?? '') == 'storeKey-0';
-            $isB1Reference = ($token['reference'] ?? '') == 'B1';
+            $correctStoreKey = (isset($token['storeKey']) ? $token['storeKey'] : '') == 'storeKey-0';
+            $correctOnlyIf = (isset($token['onlyIf']) ? $token['onlyIf'] : '') == 'storeKey-0';
+            $isB1Reference = (isset($token['reference']) ? $token['reference'] : '') == 'B1';
 
             $foundEqualAssociatedToStoreKey = $foundEqualAssociatedToStoreKey ||
                 ($isBinaryOperator && $isEqual && $correctStoreKey);
@@ -188,7 +188,7 @@ class CalculationTest extends TestCase
 
             $isFunction = $token['type'] == 'Function';
             $isProductFunction = $token['value'] == 'PRODUCT(';
-            $correctOnlyIf = ($token['onlyIf'] ?? '') == 'storeKey-1';
+            $correctOnlyIf = (isset($token['onlyIf']) ? $token['onlyIf'] : '') == 'storeKey-1';
             $productFunctionCorrectlyTagged = $productFunctionCorrectlyTagged ||
                 ($isFunction && $isProductFunction && $correctOnlyIf);
         }
@@ -212,9 +212,9 @@ class CalculationTest extends TestCase
             $isProductFunction = $value == 'PRODUCT(';
             $isNotFunction = $value == 'NOT(';
             $isIfOperand = $token['type'] == 'Operand Count for Function IF()';
-            $isOnlyIfNotDepth1 = $token['onlyIfNot'] == 'storeKey-1';
-            $isStoreKeyDepth1 = $token['storeKey'] == 'storeKey-1';
-            $isOnlyIfNotDepth0 = $token['onlyIfNot'] == 'storeKey-0';
+            $isOnlyIfNotDepth1 = (array_key_exists('onlyIfNot', $token) ? $token['onlyIfNot'] : null) == 'storeKey-1';
+            $isStoreKeyDepth1 = (array_key_exists('storeKey', $token) ? $token['storeKey'] : null) == 'storeKey-1';
+            $isOnlyIfNotDepth0 = (array_key_exists('onlyIfNot', $token) ? $token['onlyIfNot'] : null) == 'storeKey-0';
 
             $plusCorrectlyTagged = $plusCorrectlyTagged ||
                 ($isPlus && $isOnlyIfNotDepth0);
@@ -243,7 +243,7 @@ class CalculationTest extends TestCase
         $properlyTaggedPlus = false;
         foreach ($tokens as $token) {
             $isPlus = $token['value'] === '+';
-            $hasOnlyIf = !empty($token['onlyIf'] ?? null);
+            $hasOnlyIf = !empty($token['onlyIf']);
 
             $properlyTaggedPlus = $properlyTaggedPlus ||
                 ($isPlus && $hasOnlyIf);
@@ -267,7 +267,7 @@ class CalculationTest extends TestCase
     public function testFullExecution(
         $expectedResult,
         $dataArray,
-        string $formula,
+        $formula,
         $cellCoordinates,
         $shouldBeSetInCacheCells = [],
         $shouldNotBeSetInCacheCells = [])
