@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Security;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Reader\Xml;
 use PHPUnit\Framework\TestCase;
 
 class XmlScannerTest extends TestCase
@@ -14,19 +15,26 @@ class XmlScannerTest extends TestCase
      *
      * @param mixed $filename
      * @param mixed $expectedResult
+     * @param $libxmlDisableEntityLoader
      */
-    public function testValidXML($filename, $expectedResult)
+    public function testValidXML($filename, $expectedResult, $libxmlDisableEntityLoader)
     {
+        libxml_disable_entity_loader($libxmlDisableEntityLoader);
+
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $result = $reader->scanFile($filename);
         self::assertEquals($expectedResult, $result);
+        self::assertEquals($libxmlDisableEntityLoader, libxml_disable_entity_loader());
     }
 
     public function providerValidXML()
     {
         $tests = [];
         foreach (glob(__DIR__ . '/../../../data/Reader/Xml/XEETestValid*.xml') as $file) {
-            $tests[basename($file)] = [realpath($file), file_get_contents($file)];
+            $filename = realpath($file);
+            $expectedResult = file_get_contents($file);
+            $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, $expectedResult, true];
+            $tests[basename($file) . '_libxml_entity_loader_enabled'] = [$filename, $expectedResult, false];
         }
 
         return $tests;
@@ -36,22 +44,28 @@ class XmlScannerTest extends TestCase
      * @dataProvider providerInvalidXML
      *
      * @param mixed $filename
+     * @param $libxmlDisableEntityLoader
      */
-    public function testInvalidXML($filename)
+    public function testInvalidXML($filename, $libxmlDisableEntityLoader)
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+
+        libxml_disable_entity_loader($libxmlDisableEntityLoader);
 
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $expectedResult = 'FAILURE: Should throw an Exception rather than return a value';
         $result = $reader->scanFile($filename);
         self::assertEquals($expectedResult, $result);
+        self::assertEquals($libxmlDisableEntityLoader, libxml_disable_entity_loader());
     }
 
     public function providerInvalidXML()
     {
         $tests = [];
         foreach (glob(__DIR__ . '/../../../data/Reader/Xml/XEETestInvalidUTF*.xml') as $file) {
-            $tests[basename($file)] = [realpath($file)];
+            $filename = realpath($file);
+            $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, true];
+            $tests[basename($file) . '_libxml_entity_loader_enabled'] = [$filename, false];
         }
 
         return $tests;
@@ -100,5 +114,27 @@ class XmlScannerTest extends TestCase
         }
 
         return $tests;
+    }
+
+    /**
+     * @dataProvider providerLibxmlSettings
+     *
+     * @param $libxmDisableLoader
+     */
+    public function testNewInstanceCreationDoesntChangeLibxmlSettings($libxmDisableLoader)
+    {
+        libxml_disable_entity_loader($libxmDisableLoader);
+
+        $reader = new Xml();
+
+        self::assertEquals($libxmDisableLoader, libxml_disable_entity_loader($libxmDisableLoader));
+    }
+
+    public function providerLibxmlSettings()
+    {
+        return [
+            [true],
+            [false],
+        ];
     }
 }

@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix LOOKUP function which was breaking on edge cases - [#796](https://github.com/PHPOffice/PhpSpreadsheet/issues/796)
 - Fix VLOOKUP with exact matches - [#809](https://github.com/PHPOffice/PhpSpreadsheet/pull/809)
 - Support COUNTIFS multiple arguments - [#830](https://github.com/PHPOffice/PhpSpreadsheet/pull/830)
+- Change `libxml_disable_entity_loader()` as shortly as possible - [#819](https://github.com/PHPOffice/PhpSpreadsheet/pull/819)
 
 ## [1.5.2] - 2018-11-25
 
