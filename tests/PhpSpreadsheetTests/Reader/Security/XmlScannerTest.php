@@ -134,7 +134,7 @@ class XmlScannerTest extends TestCase
     {
         return [
             [true],
-            [false]
+            [false],
         ];
     }
 }
