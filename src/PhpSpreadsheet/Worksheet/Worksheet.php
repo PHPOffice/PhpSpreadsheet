@@ -1191,9 +1191,12 @@ class Worksheet implements IComparable
      */
     public function getCell($pCoordinate, $createIfNotExists = true)
     {
+        // Uppercase coordinate
+        $pCoordinateUpper = strtoupper($pCoordinate);
+
         // Check cell collection
-        if ($this->cellCollection->has(strtoupper($pCoordinate))) {
-            return $this->cellCollection->get($pCoordinate);
+        if ($this->cellCollection->has($pCoordinateUpper)) {
+            return $this->cellCollection->get($pCoordinateUpper);
         }
 
         // Worksheet reference?
@@ -1214,9 +1217,6 @@ class Worksheet implements IComparable
             }
         }
 
-        // Uppercase coordinate
-        $pCoordinate = strtoupper($pCoordinate);
-
         if (Coordinate::coordinateIsRange($pCoordinate)) {
             throw new Exception('Cell coordinate can not be a range of cells.');
         } elseif (strpos($pCoordinate, '$') !== false) {
@@ -1224,7 +1224,7 @@ class Worksheet implements IComparable
         }
 
         // Create new cell object, if required
-        return $createIfNotExists ? $this->createNewCell($pCoordinate) : null;
+        return $createIfNotExists ? $this->createNewCell($pCoordinateUpper) : null;
     }
 
     /**
