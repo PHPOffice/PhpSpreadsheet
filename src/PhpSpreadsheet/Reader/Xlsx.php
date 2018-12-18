@@ -1888,6 +1888,7 @@ class Xlsx extends BaseReader
                                                     $range = Worksheet::extractSheetTitle((string) $definedName, true);
                                                     $range[0] = str_replace("''", "'", $range[0]);
                                                     $range[0] = str_replace("'", '', $range[0]);
+                                                    $range[0] = preg_replace('/^\[\d\]/', '', $range[0]);
                                                     if ($worksheet = $docSheet->getParent()->getSheetByName($range[0])) {
                                                         $extractedRange = str_replace('$', '', $range[1]);
                                                         $scope = $docSheet->getParent()->getSheet($mapSheetId[(int) $definedName['localSheetId']]);
