@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Change `libxml_disable_entity_loader()` as shortly as possible - [#819](https://github.com/PHPOffice/PhpSpreadsheet/pull/819)
 - Improved memory usage and performance when loading large spreadsheets - [#822](https://github.com/PHPOffice/PhpSpreadsheet/pull/822)
 - Improved performance when loading large spreadsheets - [#825](https://github.com/PHPOffice/PhpSpreadsheet/pull/825)
+- Improved performance when loading large spreadsheets - [#824](https://github.com/PHPOffice/PhpSpreadsheet/pull/824)
 
 ## [1.5.2] - 2018-11-25
 
