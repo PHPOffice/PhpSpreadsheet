@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix column names if read filter calls in XLSX reader skip columns - [#777](https://github.com/PHPOffice/PhpSpreadsheet/pull/777)
 - Fix LOOKUP function which was breaking on edge cases - [#796](https://github.com/PHPOffice/PhpSpreadsheet/issues/796)
 - Fix VLOOKUP with exact matches
+- Improved performance when loading large spreadsheets - [#824](https://github.com/PHPOffice/PhpSpreadsheet/pull/824)
 
 ## [1.5.2] - 2018-11-25
 

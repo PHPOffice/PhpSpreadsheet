@@ -1268,7 +1268,9 @@ class Worksheet implements IComparable
         if (Coordinate::columnIndexFromString($this->cachedHighestColumn) < Coordinate::columnIndexFromString($aCoordinates[0])) {
             $this->cachedHighestColumn = $aCoordinates[0];
         }
-        $this->cachedHighestRow = max($this->cachedHighestRow, $aCoordinates[1]);
+        if ($aCoordinates[1] > $this->cachedHighestRow) {
+            $this->cachedHighestRow = $aCoordinates[1];
+        }
 
         // Cell needs appropriate xfIndex from dimensions records
         //    but don't create dimension records if they don't already exist
