@@ -32,18 +32,4 @@ class XlsxTest extends TestCase
             $this->assertEquals($ref, \array_slice($data[$i], 0, 10, true));
         }
     }
-
-    /**
-     * Test load Xlsx file while ignoring blank cells.
-     */
-    public function testLoadIgnoringBlankCells()
-    {
-        $filename = './data/Reader/XLSX/99_empty_cells.xlsx';
-        $reader = new Xlsx();
-        $reader->setReadEmptyCells(false);
-        $data = $reader->load($filename)->getActiveSheet()->toArray();
-
-        $this->assertTrue(isset($data[0][0]));
-        $this->assertFalse(isset($data[0][1]));
-    }
 }
