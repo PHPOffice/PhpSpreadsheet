@@ -495,15 +495,12 @@ class Cells
     /**
      * Returns all known cache keys.
      *
-     * @return string[]
+     * @return \Generator|string[]
      */
     private function getAllCacheKeys()
     {
-        $keys = [];
         foreach ($this->getCoordinates() as $coordinate) {
-            $keys[] = $this->cachePrefix . $coordinate;
+            yield $this->cachePrefix . $coordinate;
         }
-
-        return $keys;
     }
 }
