@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Improved memory usage and performance when loading large spreadsheets - [#822](https://github.com/PHPOffice/PhpSpreadsheet/pull/822)
 - Improved performance when loading large spreadsheets - [#825](https://github.com/PHPOffice/PhpSpreadsheet/pull/825)
 - Improved performance when loading large spreadsheets - [#824](https://github.com/PHPOffice/PhpSpreadsheet/pull/824)
+- Fix color from CSS when reading from HTML - [#831](https://github.com/PHPOffice/PhpSpreadsheet/pull/831) 
 
 ## [1.5.2] - 2018-11-25
 

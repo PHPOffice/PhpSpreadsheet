@@ -43,4 +43,22 @@ class HtmlTest extends TestCase
 
         self::assertSame($expected, $actual);
     }
+
+    public function testBackgroundColorInRanding()
+    {
+        $html = '<table>
+                    <tr>
+                        <td style="background-color: #000000;color: #FFFFFF">Blue background</td>
+                    </tr>
+                </table>';
+        $filename = tempnam(sys_get_temp_dir(), 'html');
+        file_put_contents($filename, $html);
+        $reader = new Html();
+        $spreadsheet = $reader->load($filename);
+        $firstSheet = $spreadsheet->getSheet(0);
+        $style = $firstSheet->getCell('A1')->getStyle();
+
+        self::assertEquals('FFFFFF', $style->getFont()->getColor()->getRGB());
+        unlink($filename);
+    }
 }
