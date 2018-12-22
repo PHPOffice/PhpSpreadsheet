@@ -44,7 +44,8 @@ class HtmlTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function testBackgroundColorInRanding(){
+    public function testBackgroundColorInRanding()
+    {
         $html = '<table>
                     <tr>
                         <td style="background-color: #000000;color: #FFFFFF">Blue background</td>
