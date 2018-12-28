@@ -2,7 +2,6 @@ language: php
 dist: trusty
 
 php:
-  - 5.6
   - 7.0
   - 7.1
   - 7.2
@@ -26,13 +25,13 @@ jobs:
   include:
 
     - stage: Code style
-      php: 7.2
+      php: 7.3
       script:
         - ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run
         - ./vendor/bin/phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n
 
     - stage: Coverage
-      php: 7.2
+      php: 7.3
       env: KEEP_XDEBUG=1
       script:
         - travis_wait 40 ./vendor/bin/phpunit --debug --coverage-clover coverage-clover.xml
@@ -41,7 +40,7 @@ jobs:
         - php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml
 
     - stage: API documentation
-      php: 7.2
+      php: 7.3
       before_script:
       - curl -O https://get.sensiolabs.org/sami.phar
       script:
