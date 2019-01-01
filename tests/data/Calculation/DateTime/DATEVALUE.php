@@ -161,12 +161,12 @@ return [
     ],
     // 01/01 of the current year
     [
-        43101,
+        43466,
         '1 Jan',
     ],
     // 31/12 of the current year
     [
-        43465,
+        43830,
         '31/12',
     ],
     // Excel reads as 1st December 1931, not 31st December in current year
@@ -176,12 +176,12 @@ return [
     ],
     // 05/07 of the current year
     [
-        43286,
+        43651,
         '5-JUL',
     ],
     // 05/07 of the current year
     [
-        43286,
+        43651,
         '5 Jul',
     ],
     [
