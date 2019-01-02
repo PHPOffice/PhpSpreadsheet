@@ -28,7 +28,7 @@ class Run extends TextElement implements ITextElement
     /**
      * Get font.
      *
-     * @return Font
+     * @return null|\PhpOffice\PhpSpreadsheet\Style\Font
      */
     public function getFont()
     {
