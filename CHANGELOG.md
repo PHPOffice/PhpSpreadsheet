@@ -28,6 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix time format for duration is incorrect - [#666](https://github.com/PHPOffice/PhpSpreadsheet/pull/666)
 - Fix iconv unsupported `//IGNORE//TRANSLIT` on IBM i - [#791](https://github.com/PHPOffice/PhpSpreadsheet/issues/791)
 
+### Changed
+
+- `master` is the new default branch, `develop` does not exist anymore
+
 ## [1.5.2] - 2018-11-25
 
 ### Security

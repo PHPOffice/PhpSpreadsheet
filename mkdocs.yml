@@ -1,6 +1,6 @@
 site_name: PhpSpreadsheet Documentation
 repo_url: https://github.com/PHPOffice/phpspreadsheet
-edit_uri: edit/develop/docs/
+edit_uri: edit/master/docs/
 
 theme: readthedocs
 extra_css:
