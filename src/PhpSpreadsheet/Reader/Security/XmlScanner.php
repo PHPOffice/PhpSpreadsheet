@@ -101,7 +101,7 @@ class XmlScanner
                 $xml = call_user_func($this->callback, $xml);
             }
         } finally {
-            if ($this->libxmlDisableEntityLoader) {
+            if (isset($previousLibxmlDisableEntityLoaderValue)) {
                 libxml_disable_entity_loader($previousLibxmlDisableEntityLoaderValue);
             }
         }

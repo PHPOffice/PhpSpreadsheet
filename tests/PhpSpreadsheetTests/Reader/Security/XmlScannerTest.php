@@ -119,15 +119,15 @@ class XmlScannerTest extends TestCase
     /**
      * @dataProvider providerLibxmlSettings
      *
-     * @param $libxmDisableLoader
+     * @param $libxmlDisableLoader
      */
-    public function testNewInstanceCreationDoesntChangeLibxmlSettings($libxmDisableLoader)
+    public function testNewInstanceCreationDoesntChangeLibxmlSettings($libxmlDisableLoader)
     {
-        libxml_disable_entity_loader($libxmDisableLoader);
+        libxml_disable_entity_loader($libxmlDisableLoader);
 
         $reader = new Xml();
-
-        self::assertEquals($libxmDisableLoader, libxml_disable_entity_loader($libxmDisableLoader));
+        self::assertEquals($libxmlDisableLoader, libxml_disable_entity_loader($libxmlDisableLoader));
+        unset($reader);
     }
 
     public function providerLibxmlSettings()
