@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix color from CSS when reading from HTML - [#831](https://github.com/PHPOffice/PhpSpreadsheet/pull/831) 
 - Fix infinite loop when reading invalid ODS files - [#832](https://github.com/PHPOffice/PhpSpreadsheet/pull/832) 
 - Fix time format for duration is incorrect - [#666](https://github.com/PHPOffice/PhpSpreadsheet/pull/666)
+- Fix iconv unsupported `//IGNORE//TRANSLIT` on IBM i - [#791](https://github.com/PHPOffice/PhpSpreadsheet/issues/791)
 
 ## [1.5.2] - 2018-11-25
 
