@@ -7,6 +7,7 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Helper\Html as HtmlHelper;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -591,11 +592,11 @@ class Html extends BaseReader
      * Apply inline css inline style.
      *
      * NOTES :
-     * Currently only intended for td & th element,
-     * and only takes 'background-color' and 'color'; property with HEX color
+     * Currently only intended for td & th elements,
+     * and only takes 'background-color', 'border' and 'color' properties.
      *
      * TODO :
-     * - Implement to other propertie, such as border
+     * - Implement other properties.
      *
      * @param Worksheet $sheet
      * @param int $row
@@ -608,36 +609,96 @@ class Html extends BaseReader
             return;
         }
 
-        $supported_styles = ['background-color', 'color'];
+        $supported_styles = ['background-color', 'border', 'color'];
 
-        // add color styles (background & text) from dom element,currently support : td & th, using ONLY inline css style with RGB color
+        // Add styles (background-color, border & color) from DOM element.
         $styles = explode(';', $attributeArray['style']);
         foreach ($styles as $st) {
             $value = explode(':', $st);
+            $property = trim($value[0]);
+            $property_value = isset($value[1]) ? trim($value[1]) : null;
 
-            if (empty(trim($value[0])) || !in_array(trim($value[0]), $supported_styles)) {
+            if (empty($property) || !in_array($property, $supported_styles)) {
                 continue;
             }
 
-            //check if has #, so we can get clean hex
-            if (substr(trim($value[1]), 0, 1) == '#') {
-                $style_color = substr(trim($value[1]), 1);
-            }
-
-            if (empty($style_color)) {
-                continue;
-            }
-
-            switch (trim($value[0])) {
+            switch ($property) {
                 case 'background-color':
+                    $style_color = HtmlHelper::extractColor($property_value);
+
+                    if (empty($style_color)) {
+                        break;
+                    }
+
                     $sheet->getStyle($column . $row)->applyFromArray(['fill' => ['fillType' => Fill::FILL_SOLID, 'color' => ['rgb' => "{$style_color}"]]]);
 
                     break;
+                case 'border':
+                    $border_properties = preg_split('/\s+/', $property_value, 3);
+                    $border_style = (isset($border_properties[0], $border_properties[1])) ? $this->mapBorderStyle($border_properties[0], $border_properties[1]) : null;
+
+                    if (isset($border_properties[2])) {
+                        $border_color = HtmlHelper::extractColor($border_properties[2]);
+                    }
+
+                    if (empty($border_style) || empty($border_color)) {
+                        break;
+                    }
+
+                    $sheet->getStyle($column . $row)->applyFromArray(['borders' => ['allBorders' => [
+                        'borderStyle' => "{$border_style}",
+                        'color' => ['rgb' => "{$border_color}"],
+                    ]]]);
+
+                    break;
                 case 'color':
+                    $style_color = HtmlHelper::extractColor($property_value);
+
+                    if (empty($style_color)) {
+                        break;
+                    }
+
                     $sheet->getStyle($column . $row)->applyFromArray(['font' => ['color' => ['rgb' => "{$style_color}"]]]);
 
                     break;
             }
+        }
+    }
+
+    /**
+     * Map border style.
+     *
+     * @param string $width CSS border-width
+     * @param string $style CSS border-style
+     *
+     * @return string
+     */
+    private function mapBorderStyle($width, $style)
+    {
+        if ($style === 'none') {
+            return Border::BORDER_NONE;
+        }
+
+        $border_style = "{$width} {$style}";
+        switch ($border_style) {
+            case '1px dashed':
+                return Border::BORDER_DASHED;
+            case '1px dotted':
+                return Border::BORDER_DOTTED;
+            case '3px double':
+                return Border::BORDER_DOUBLE;
+            case '1px solid':
+                return Border::BORDER_THIN;
+            case '2px solid':
+                return Border::BORDER_MEDIUM;
+            case '2px dashed':
+                return Border::BORDER_MEDIUMDASHDOT;
+            case '2px dotted':
+                return Border::BORDER_MEDIUMDASHDOTDOT;
+            case '3px solid':
+                return Border::BORDER_THICK;
+            default:
+                return Border::BORDER_THIN;
         }
     }
 }

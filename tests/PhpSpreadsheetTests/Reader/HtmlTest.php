@@ -48,7 +48,7 @@ class HtmlTest extends TestCase
     {
         $html = '<table>
                     <tr>
-                        <td style="background-color: #000000;color: #FFFFFF">Blue background</td>
+                        <td style="background-color: #000000;color: #FFFFFF;border: 2px dashed blueviolet">Blue background</td>
                     </tr>
                 </table>';
         $filename = tempnam(sys_get_temp_dir(), 'html');
@@ -57,8 +57,11 @@ class HtmlTest extends TestCase
         $spreadsheet = $reader->load($filename);
         $firstSheet = $spreadsheet->getSheet(0);
         $style = $firstSheet->getCell('A1')->getStyle();
+        $borderTop = $style->getBorders()->getTop();
 
         self::assertEquals('FFFFFF', $style->getFont()->getColor()->getRGB());
+        self::assertEquals(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT, $borderTop->getBorderStyle());
+        self::assertEquals('8a2be2', $borderTop->getColor()->getRGB());
         unlink($filename);
     }
 }

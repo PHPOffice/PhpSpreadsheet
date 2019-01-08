@@ -684,7 +684,14 @@ class Html
         $this->stringData = '';
     }
 
-    protected function rgbToColour($rgb)
+    /**
+     * Convert CSS RGB color string to HEX color.
+     *
+     * @param string $rgb a string containing integer RGB values
+     *
+     * @return string
+     */
+    protected static function rgbToColour($rgb)
     {
         preg_match_all('/\d+/', $rgb, $values);
         foreach ($values[0] as &$value) {
@@ -694,9 +701,34 @@ class Html
         return implode($values[0]);
     }
 
-    protected function colourNameLookup($rgb)
+    /**
+     * Get the corresponding HEX color from a human-readable CSS color name.
+     *
+     * @param string $rgb a human-readable CSS color name
+     *
+     * @return null|string
+     */
+    protected static function colourNameLookup($rgb)
     {
         return self::$colourMap[$rgb];
+    }
+
+    /**
+     * Extract HEX color from its CSS representation.
+     *
+     * @param string $color CSS representation of a color
+     *
+     * @return null|string
+     */
+    public static function extractColor($color)
+    {
+        if (preg_match('/rgb\s*\(/', $color)) {
+            return self::rgbToColour($color);
+        } elseif (strpos(trim($color), '#') === 0) {
+            return ltrim($color, '#');
+        }
+
+        return self::colourNameLookup($color);
     }
 
     protected function startFontTag($tag)
@@ -706,13 +738,7 @@ class Html
             $attributeValue = $attribute->value;
 
             if ($attributeName == 'color') {
-                if (preg_match('/rgb\s*\(/', $attributeValue)) {
-                    $this->$attributeName = $this->rgbToColour($attributeValue);
-                } elseif (strpos(trim($attributeValue), '#') === 0) {
-                    $this->$attributeName = ltrim($attributeValue, '#');
-                } else {
-                    $this->$attributeName = $this->colourNameLookup($attributeValue);
-                }
+                $this->color = self::extractColor($attributeValue);
             } else {
                 $this->$attributeName = $attributeValue;
             }
