@@ -1881,33 +1881,33 @@ class Financial
         $guess = ($guess === null) ? 0.1 : Functions::flattenSingleValue($guess);
         $maxIter = 0;
 
-        $epsilon   = self::FINANCIAL_PRECISION;
-        $rate      = $guess;
-        $found     = false;
+        $epsilon = self::FINANCIAL_PRECISION;
+        $rate = $guess;
+        $found = false;
         $geoSeries = $geoSeriesPrime = 0.0;
-        $term      = $termPrime = 0.0;
-        $rateNew   = 0.0;
+        $term = $termPrime = 0.0;
+        $rateNew = 0.0;
         $isInteger = false;
 
-        if ($nper === (int)round($nper)) {
+        if ($nper === (int) round($nper)) {
             $isInteger = true;
         }
 
         while (!$found && ++$maxIter <= self::FINANCIAL_MAX_ITERATIONS) {
             if ($isInteger) {
-                $powNMinus1 = pow(1+$rate, $nper-1);
-                $powN = $powNMinus1 * (1+$rate);
+                $powNMinus1 = pow(1 + $rate, $nper - 1);
+                $powN = $powNMinus1 * (1 + $rate);
             } else {
-                $powNMinus1 = pow(1+$rate, $nper);
-                $powN = pow(1+$rate, $nper);
+                $powNMinus1 = pow(1 + $rate, $nper);
+                $powN = pow(1 + $rate, $nper);
             }
 
             if ($rate == 0) {
                 $geoSeries = $nper;
-                $geoSeriesPrime = $nper * (($nper-1)/2.0);
+                $geoSeriesPrime = $nper * (($nper - 1) / 2.0);
             } else {
-                $geoSeries = ($powN-1)/$rate;
-                $geoSeriesPrime = $nper * $powNMinus1 / $rate - ($geoSeries/$rate);
+                $geoSeries = ($powN - 1) / $rate;
+                $geoSeriesPrime = $nper * $powNMinus1 / $rate - ($geoSeries / $rate);
             }
             $term = $fv + $pv * $powN + $pmt * $geoSeries;
             $termPrime = $pv * $nper * $powNMinus1 + $pmt * $geoSeriesPrime;
@@ -1920,7 +1920,7 @@ class Financial
                     $rateNew = $rate - $term / $termPrime;
                 }
             }
-            $found  = abs($rateNew - $rate) < $epsilon;
+            $found = abs($rateNew - $rate) < $epsilon;
             $rate = $rateNew;
         }
 
