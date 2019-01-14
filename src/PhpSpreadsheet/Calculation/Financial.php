@@ -1873,43 +1873,55 @@ class Financial
      */
     public static function RATE($nper, $pmt, $pv, $fv = 0.0, $type = 0, $guess = 0.1)
     {
-        $nper = (int) Functions::flattenSingleValue($nper);
+        $nper = Functions::flattenSingleValue($nper);
         $pmt = Functions::flattenSingleValue($pmt);
         $pv = Functions::flattenSingleValue($pv);
         $fv = ($fv === null) ? 0.0 : Functions::flattenSingleValue($fv);
         $type = ($type === null) ? 0 : (int) Functions::flattenSingleValue($type);
         $guess = ($guess === null) ? 0.1 : Functions::flattenSingleValue($guess);
+        $maxIter = 0;
 
-        $rate = $guess;
-        if (abs($rate) < self::FINANCIAL_PRECISION) {
-            $y = $pv * (1 + $nper * $rate) + $pmt * (1 + $rate * $type) * $nper + $fv;
-        } else {
-            $f = exp($nper * log(1 + $rate));
-            $y = $pv * $f + $pmt * (1 / $rate + $type) * ($f - 1) + $fv;
+        $epsilon   = self::FINANCIAL_PRECISION;
+        $rate      = $guess;
+        $found     = false;
+        $geoSeries = $geoSeriesPrime = 0.0;
+        $term      = $termPrime = 0.0;
+        $rateNew   = 0.0;
+        $isInteger = false;
+
+        if ($nper === (int)round($nper)) {
+            $isInteger = true;
         }
-        $y0 = $pv + $pmt * $nper + $fv;
-        $y1 = $pv * $f + $pmt * (1 / $rate + $type) * ($f - 1) + $fv;
 
-        // find root by secant method
-        $i = $x0 = 0.0;
-        $x1 = $rate;
-        while ((abs($y0 - $y1) > self::FINANCIAL_PRECISION) && ($i < self::FINANCIAL_MAX_ITERATIONS)) {
-            $rate = ($y1 * $x0 - $y0 * $x1) / ($y1 - $y0);
-            $x0 = $x1;
-            $x1 = $rate;
-            if (($nper * abs($pmt)) > ($pv - $fv)) {
-                $x1 = abs($x1);
-            }
-            if (abs($rate) < self::FINANCIAL_PRECISION) {
-                $y = $pv * (1 + $nper * $rate) + $pmt * (1 + $rate * $type) * $nper + $fv;
+        while (!$found && ++$maxIter <= self::FINANCIAL_MAX_ITERATIONS) {
+            if ($isInteger) {
+                $powNMinus1 = pow(1+$rate, $nper-1);
+                $powN = $powNMinus1 * (1+$rate);
             } else {
-                $f = exp($nper * log(1 + $rate));
-                $y = $pv * $f + $pmt * (1 / $rate + $type) * ($f - 1) + $fv;
+                $powNMinus1 = pow(1+$rate, $nper);
+                $powN = pow(1+$rate, $nper);
             }
 
-            $y0 = $y1;
-            $y1 = $y;
-            ++$i;
+            if ($rate == 0) {
+                $geoSeries = $nper;
+                $geoSeriesPrime = $nper * (($nper-1)/2.0);
+            } else {
+                $geoSeries = ($powN-1)/$rate;
+                $geoSeriesPrime = $nper * $powNMinus1 / $rate - ($geoSeries/$rate);
+            }
+            $term = $fv + $pv * $powN + $pmt * $geoSeries;
+            $termPrime = $pv * $nper * $powNMinus1 + $pmt * $geoSeriesPrime;
+            if (abs($term) < $epsilon) {
+                $found = true;
+            } else {
+                if ($termPrime == 0) { //will catch root which is at an extreme
+                    $rateNew = $rate + 1.1 * $epsilon;
+                } else {
+                    $rateNew = $rate - $term / $termPrime;
+                }
+            }
+            $found  = abs($rateNew - $rate) < $epsilon;
+            $rate = $rateNew;
         }
 
         return $rate;

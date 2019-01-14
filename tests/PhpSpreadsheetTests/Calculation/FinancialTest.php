@@ -518,7 +518,7 @@ class FinancialTest extends TestCase
      */
     public function testRATE($expectedResult, ...$args)
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
+//        $this->markTestIncomplete('TODO: This test should be fixed');
 
         $result = Financial::RATE(...$args);
         self::assertEquals($expectedResult, $result, null, 1E-8);
