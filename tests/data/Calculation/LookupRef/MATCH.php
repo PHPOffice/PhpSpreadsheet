@@ -96,4 +96,13 @@ return [
         [8, 8, 3, 2],
         -1,
     ],
+
+    // 0s are causing errors, because things like 0 == 'x' is true. Thanks PHP!
+    [
+        3,
+        'x',
+        [[0], [0], ['x'], ['x'], ['x']],
+        0
+    ],
+
 ];
