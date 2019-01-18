@@ -106,6 +106,23 @@ return [
             ['author_100'],
             ['author_101']
         ]
+    ],
+
+    [
+        10,
+        '10y2',
+        [
+            ['5y-1'],
+            ['10y1'],
+            ['10y2'],
+        ],
+        [
+            [2.0],
+            // dropping this line creates inconsistenties with Microsoft Excel
+            // Excel returns #N/A while we return 10
+            [7.0],
+            [10.0],
+        ],
     ]
 
 ];

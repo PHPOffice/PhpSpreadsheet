@@ -703,14 +703,11 @@ class LookupRef
         $returnColumn = $columnKeys[--$index_number];
         $firstColumn = array_shift($columnKeys);
 
-        if (!$not_exact_match) {
-            uasort($lookup_array, ['self', 'vlookupSort']);
-        }
+
+        uasort($lookup_array, ['self', 'vlookupSort']);
 
         $rowNumber = $rowValue = false;
         foreach ($lookup_array as $rowKey => $rowData) {
-            var_dump($rowKey, '=>', $rowData);
-
 
             // break if we have passed possible keys
             if ((is_numeric($lookup_value) && is_numeric($rowData[$firstColumn]) && ($rowData[$firstColumn] > $lookup_value)) ||
@@ -722,7 +719,6 @@ class LookupRef
                 (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]))) {
                 if ($not_exact_match) {
                     $rowNumber = $rowKey;
-                    $rowValue = $rowData[$firstColumn];
 
                     continue;
                 } elseif ((strtolower($rowData[$firstColumn]) == strtolower($lookup_value))
@@ -732,7 +728,6 @@ class LookupRef
                     && (($rowNumber == false) || ($rowKey < $rowNumber))
                 ) {
                     $rowNumber = $rowKey;
-                    $rowValue = $rowData[$firstColumn];
                 }
             }
         }

@@ -312,13 +312,18 @@ return [
         2,
         false
     ],
+
     [
         10,
         '10y2',
         [
             ['5y-1', 2.0],
+            // dropping this line creates inconsistenties with Microsoft Excel
+            // Excel returns #N/A while we return 10
+            ['10y1', 7.0],
             ['10y2', 10.0],
         ],
         2.0
     ]
+
 ];
