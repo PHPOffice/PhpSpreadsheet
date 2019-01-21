@@ -2525,6 +2525,10 @@ class Xlsx extends BaseReader
         if (isset($xmlSheet->cols) && !$this->readDataOnly) {
             foreach ($xmlSheet->cols->col as $col) {
                 for ($i = (int) ($col['min']); $i <= (int) ($col['max']); ++$i) {
+                    if ((int) ($col['max']) == 16384) {
+                        break;
+                    }
+                    
                     if ($col['style'] && !$this->readDataOnly) {
                         $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['xfIndex'] = (int) $col['style'];
                     }
@@ -2538,10 +2542,6 @@ class Xlsx extends BaseReader
                         $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['outlineLevel'] = (int) $col['outlineLevel'];
                     }
                     $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['width'] = (float) $col['width'];
-
-                    if ((int) ($col['max']) == 16384) {
-                        break;
-                    }
                 }
             }
         }
