@@ -259,7 +259,7 @@ class Cells
             $columnList[] = Coordinate::columnIndexFromString($c);
         }
 
-        return Coordinate::stringFromColumnIndex(max($columnList));
+        return Coordinate::stringFromColumnIndex(max($columnList) + 1);
     }
 
     /**
