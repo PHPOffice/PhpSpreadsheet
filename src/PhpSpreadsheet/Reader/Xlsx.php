@@ -2538,7 +2538,7 @@ class Xlsx extends BaseReader
                         $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['outlineLevel'] = (int) $col['outlineLevel'];
                     }
                     $columnsAttributes[Coordinate::stringFromColumnIndex($i)]['width'] = (float) $col['width'];
-                    
+
                     if ((int) ($col['max']) == 16384) {
                         break;
                     }
