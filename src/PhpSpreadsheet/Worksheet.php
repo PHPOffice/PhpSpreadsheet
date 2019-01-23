@@ -2420,18 +2420,10 @@ class Worksheet implements IComparable
     {
         // Uppercase coordinate
         $pCoordinate = strtoupper($pCoordinate);
-
-        // Convert 'A' to 'A:A'
-        $pCoordinate = preg_replace('/^([A-Z]+)$/', '${1}:${1}', $pCoordinate);
-
-        // Convert '1' to '1:1'
-        $pCoordinate = preg_replace('/^([0-9]+)$/', '${1}:${1}', $pCoordinate);
-
-        // Convert 'A:C' to 'A1:C1048576'
-        $pCoordinate = preg_replace('/^([A-Z]+):([A-Z]+)$/', '${1}1:${2}1048576', $pCoordinate);
-
-        // Convert '1:3' to 'A1:XFD3'
-        $pCoordinate = preg_replace('/^([0-9]+):([0-9]+)$/', 'A${1}:XFD${2}', $pCoordinate);
+        $search = ['/^([A-Z]+)$/', '/^([0-9]+)$/', '/^([A-Z]+):([A-Z]+)$/', '/^([0-9]+):([0-9]+)$/'];
+        $replace = ['${1}:${1}', '${1}:${1}', '${1}1:${2}1048576', 'A${1}:XFD${2}'];          
+        // Convert 'A' to 'A:A', '1' to '1:1', 'A:C' to 'A1:C1048576', '1:3' to 'A1:XFD3'
+        $pCoordinate = preg_replace($search, $replace, $pCoordinate);
 
         if (strpos($pCoordinate, ':') !== false || strpos($pCoordinate, ',') !== false) {
             list($first) = Cell::splitRange($pCoordinate);
