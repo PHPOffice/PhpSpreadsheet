@@ -514,11 +514,15 @@ class Html extends BaseReader
                         }
 
                         if (isset($attributeArray['align'])) {
-                            $this->horizontallyAlignColumn($sheet, $row, $column, $attributeArray['align']);
+                            $sheet->getStyle($column . $row)->getAlignment()->setHorizontal($attributeArray['align']);
                         }
 
                         if (isset($attributeArray['valign'])) {
-                            $this->verticallyAlignColumn($sheet, $row, $column, $attributeArray['valign']);
+                            $sheet->getStyle($column . $row)->getAlignment()->setVertical($attributeArray['valign']);
+                        }
+
+                        if (isset($attributeArray['data-format'])) {
+                            $sheet->getStyle($column . $row)->getNumberFormat()->setFormatCode($attributeArray['data-format']);
                         }
 
                         ++$column;
@@ -659,37 +663,5 @@ class Html extends BaseReader
                     break;
             }
         }
-    }
-
-    /**
-     * Horizontally align a cell
-     *
-     * @param Worksheet $sheet
-     * @param int       $row
-     * @param string    $column
-     * @param string    $value
-     */
-    private function horizontallyAlignColumn(Worksheet $sheet, $row, $column, $value)
-    {
-        $sheet
-            ->getStyle($column . $row)
-            ->getAlignment()
-            ->setHorizontal($value);
-    }
-
-    /**
-     * Vertically align a cell
-     *
-     * @param Worksheet $sheet
-     * @param int       $row
-     * @param string    $column
-     * @param string    $value
-     */
-    private function verticallyAlignColumn(Worksheet $sheet, $row, $column, $value)
-    {
-        $sheet
-            ->getStyle($column . $row)
-            ->getAlignment()
-            ->setVertical($value);
     }
 }
