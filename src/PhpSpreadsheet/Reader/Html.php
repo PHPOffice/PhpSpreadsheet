@@ -96,6 +96,26 @@ class Html extends BaseReader
                 ],
             ],
         ], //    Bottom border
+        'strong' => [
+            'font' => [
+                'bold' => true,
+            ]
+        ], //    Bold
+        'b' => [
+            'font' => [
+                'bold' => true,
+            ]
+        ], //    Bold
+        'i'      => [
+            'font' => [
+                'italic' => true,
+            ]
+        ], //    Italic
+        'em'      => [
+            'font' => [
+                'italic' => true,
+            ]
+        ], //    Italic
     ];
 
     protected $rowspan = [];
@@ -330,6 +350,10 @@ class Html extends BaseReader
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
                         if ($cellContent > '') {
                             $cellContent .= ' ';
+                        }
+
+                        if (isset($this->formats[$child->nodeName])) {
+                            $sheet->getStyle($column . $row)->applyFromArray($this->formats[$child->nodeName]);
                         }
 
                         break;
