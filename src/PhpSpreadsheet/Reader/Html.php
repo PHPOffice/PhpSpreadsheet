@@ -297,7 +297,7 @@ class Html extends BaseReader
                         foreach ($attributeArray as $attributeName => $attributeValue) {
                             // Extract character set, so we can convert to UTF-8 if required
                             if ($attributeName === 'charset') {
-                                $this->setInputEncoding($attributeValue[0]);
+                                $this->setInputEncoding($attributeValue);
                             }
                         }
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
@@ -446,6 +446,11 @@ class Html extends BaseReader
                         $column = $this->getTableStartColumn();
                         $cellContent = '';
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
+
+                        if (isset($attributeArray['height'])) {
+                            $sheet->getRowDimension($row)->setRowHeight($attributeArray['height']);
+                        }
+
                         ++$row;
 
                         break;
@@ -499,6 +504,15 @@ class Html extends BaseReader
                                 ]
                             );
                         }
+
+                        if (isset($attributeArray['width'])) {
+                            $sheet->getColumnDimension($column)->setWidth($attributeArray['width']);
+                        }
+
+                        if (isset($attributeArray['height'])) {
+                            $sheet->getRowDimension($row)->setRowHeight($attributeArray['height']);
+                        }
+
                         ++$column;
 
                         break;
