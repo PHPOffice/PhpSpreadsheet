@@ -102,22 +102,22 @@ class Html extends BaseReader
         'strong' => [
             'font' => [
                 'bold' => true,
-            ]
+            ],
         ], //    Bold
         'b' => [
             'font' => [
                 'bold' => true,
-            ]
+            ],
         ], //    Bold
-        'i'      => [
+        'i' => [
             'font' => [
                 'italic' => true,
-            ]
+            ],
         ], //    Italic
-        'em'      => [
+        'em' => [
             'font' => [
                 'italic' => true,
-            ]
+            ],
         ], //    Italic
     ];
 
@@ -451,6 +451,7 @@ class Html extends BaseReader
                         break;
                     case 'img':
                         $this->insertImage($sheet, $column, $row, $attributeArray);
+
                         break;
                     case 'table':
                         $this->flushCell($sheet, $column, $row, $cellContent);
@@ -667,8 +668,8 @@ class Html extends BaseReader
         // add color styles (background & text) from dom element,currently support : td & th, using ONLY inline css style with RGB color
         $styles = explode(';', $attributeArray['style']);
         foreach ($styles as $st) {
-            $value      = explode(':', $st);
-            $styleName  = isset($value[0]) ? trim($value[0]) : null;
+            $value = explode(':', $st);
+            $styleName = isset($value[0]) ? trim($value[0]) : null;
             $styleValue = isset($value[1]) ? trim($value[1]) : null;
 
             if (!$styleName) {
@@ -685,6 +686,7 @@ class Html extends BaseReader
                     }
 
                     $cellStyle->applyFromArray(['fill' => ['fillType' => Fill::FILL_SOLID, 'color' => ['rgb' => $styleColor]]]);
+
                     break;
                 case 'color':
                     $styleColor = $this->getStyleColor($styleValue);
@@ -694,102 +696,121 @@ class Html extends BaseReader
                     }
 
                     $cellStyle->applyFromArray(['font' => ['color' => ['rgb' => $styleColor]]]);
+
                     break;
 
                 case 'border':
                     $this->setBorderStyle($cellStyle, $styleValue, 'allBorders');
+
                     break;
 
                 case 'border-top':
                     $this->setBorderStyle($cellStyle, $styleValue, 'top');
+
                     break;
 
                 case 'border-bottom':
                     $this->setBorderStyle($cellStyle, $styleValue, 'bottom');
+
                     break;
 
                 case 'border-left':
                     $this->setBorderStyle($cellStyle, $styleValue, 'left');
+
                     break;
 
                 case 'border-right':
                     $this->setBorderStyle($cellStyle, $styleValue, 'right');
+
                     break;
 
                 case 'font-size':
                     $cellStyle->getFont()->setSize(
                         (float) $styleValue
                     );
+
                     break;
 
                 case 'font-weight':
                     if ($styleValue === 'bold' || $styleValue >= 500) {
                         $cellStyle->getFont()->setBold(true);
                     }
+
                     break;
 
                 case 'font-style':
                     if ($styleValue === 'italic') {
                         $cellStyle->getFont()->setItalic(true);
                     }
+
                     break;
 
                 case 'font-family':
-                    $cellStyle->getFont()->setName($styleValue);
+                    $cellStyle->getFont()->setName(str_replace('\'', '', $styleValue));
+
                     break;
 
                 case 'text-decoration':
-                    switch ($value) {
+                    switch ($styleValue) {
                         case 'underline':
                             $cellStyle->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
+
                             break;
                         case 'line-through':
                             $cellStyle->getFont()->setStrikethrough(true);
+
                             break;
                     }
+
                     break;
 
                 case 'text-align':
                     $cellStyle->getAlignment()->setHorizontal($styleValue);
+
                     break;
 
                 case 'vertical-align':
                     $cellStyle->getAlignment()->setVertical($styleValue);
+
                     break;
 
                 case 'width':
                     $sheet->getColumnDimension($column)->setWidth(
                         str_replace('px', '', $styleValue)
                     );
+
                     break;
 
                 case 'height':
                     $sheet->getRowDimension($row)->setRowHeight(
                         str_replace('px', '', $styleValue)
                     );
+
                     break;
 
-                case 'wrap-text':
+                case 'word-wrap':
                     $cellStyle->getAlignment()->setWrapText(
-                        $styleValue === 'true'
+                        $styleValue === 'break-word'
                     );
+
                     break;
 
                 case 'text-indent':
                     $cellStyle->getAlignment()->setIndent(
-                        (int) $styleValue
+                        (int) str_replace(['px'], '', $styleValue)
                     );
+
                     break;
             }
         }
     }
 
     /**
-     * Check if has #, so we can get clean hex
+     * Check if has #, so we can get clean hex.
      *
      * @param $value
      *
-     * @return string|null
+     * @return null|string
      */
     public function getStyleColor($value)
     {
@@ -832,18 +853,18 @@ class Html extends BaseReader
         }
 
         if ($width) {
-            $drawing->setWidth($width);
+            $drawing->setWidth((int) $width);
         }
 
         if ($height) {
-            $drawing->setHeight($height);
+            $drawing->setHeight((int) $height);
         }
 
         $sheet->getColumnDimension($column)->setWidth(
             $drawing->getWidth() / 6
         );
 
-        $sheet->getRowDimension($column)->setRowHeight(
+        $sheet->getRowDimension($row)->setRowHeight(
             $drawing->getHeight() * 0.9
         );
     }
@@ -852,12 +873,13 @@ class Html extends BaseReader
      * Map html border style to PhpSpreadsheet border style.
      *
      * @param  string $style
-     * @return string|null
+     *
+     * @return null|string
      */
     public function getBorderStyle($style)
     {
         switch ($style) {
-            case 'solid';
+            case 'solid':
                 return Border::BORDER_THIN;
             case 'dashed':
                 return Border::BORDER_DASHED;
@@ -903,9 +925,9 @@ class Html extends BaseReader
             'borders' => [
                 $type => [
                     'borderStyle' => $this->getBorderStyle($borderStyle),
-                    ['color' => ['rgb' => $this->getStyleColor($color)]]
-                ]
-            ]
+                    'color' => ['rgb' => $this->getStyleColor($color)],
+                ],
+            ],
         ]);
     }
 }
