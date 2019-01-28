@@ -12,6 +12,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -660,37 +662,142 @@ class Html extends BaseReader
             return;
         }
 
-        $supported_styles = ['background-color', 'color'];
+        $cellStyle = $sheet->getStyle($column . $row);
 
         // add color styles (background & text) from dom element,currently support : td & th, using ONLY inline css style with RGB color
         $styles = explode(';', $attributeArray['style']);
         foreach ($styles as $st) {
-            $value = explode(':', $st);
+            $value      = explode(':', $st);
+            $styleName  = isset($value[0]) ? trim($value[0]) : null;
+            $styleValue = isset($value[1]) ? trim($value[1]) : null;
 
-            if (empty(trim($value[0])) || !in_array(trim($value[0]), $supported_styles)) {
+            if (!$styleName) {
                 continue;
             }
 
-            //check if has #, so we can get clean hex
-            if (substr(trim($value[1]), 0, 1) == '#') {
-                $style_color = substr(trim($value[1]), 1);
-            }
-
-            if (empty($style_color)) {
-                continue;
-            }
-
-            switch (trim($value[0])) {
+            switch ($styleName) {
+                case 'background':
                 case 'background-color':
-                    $sheet->getStyle($column . $row)->applyFromArray(['fill' => ['fillType' => Fill::FILL_SOLID, 'color' => ['rgb' => "{$style_color}"]]]);
+                    $styleColor = $this->getStyleColor($styleValue);
 
+                    if (!$styleColor) {
+                        continue 2;
+                    }
+
+                    $cellStyle->applyFromArray(['fill' => ['fillType' => Fill::FILL_SOLID, 'color' => ['rgb' => $styleColor]]]);
                     break;
                 case 'color':
-                    $sheet->getStyle($column . $row)->applyFromArray(['font' => ['color' => ['rgb' => "{$style_color}"]]]);
+                    $styleColor = $this->getStyleColor($styleValue);
 
+                    if (!$styleColor) {
+                        continue 2;
+                    }
+
+                    $cellStyle->applyFromArray(['font' => ['color' => ['rgb' => $styleColor]]]);
+                    break;
+
+                case 'border':
+                    $this->setBorderStyle($cellStyle, $styleValue, 'allBorders');
+                    break;
+
+                case 'border-top':
+                    $this->setBorderStyle($cellStyle, $styleValue, 'top');
+                    break;
+
+                case 'border-bottom':
+                    $this->setBorderStyle($cellStyle, $styleValue, 'bottom');
+                    break;
+
+                case 'border-left':
+                    $this->setBorderStyle($cellStyle, $styleValue, 'left');
+                    break;
+
+                case 'border-right':
+                    $this->setBorderStyle($cellStyle, $styleValue, 'right');
+                    break;
+
+                case 'font-size':
+                    $cellStyle->getFont()->setSize(
+                        (float) $styleValue
+                    );
+                    break;
+
+                case 'font-weight':
+                    if ($styleValue === 'bold' || $styleValue >= 500) {
+                        $cellStyle->getFont()->setBold(true);
+                    }
+                    break;
+
+                case 'font-style':
+                    if ($styleValue === 'italic') {
+                        $cellStyle->getFont()->setItalic(true);
+                    }
+                    break;
+
+                case 'font-family':
+                    $cellStyle->getFont()->setName($styleValue);
+                    break;
+
+                case 'text-decoration':
+                    switch ($value) {
+                        case 'underline':
+                            $cellStyle->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
+                            break;
+                        case 'line-through':
+                            $cellStyle->getFont()->setStrikethrough(true);
+                            break;
+                    }
+                    break;
+
+                case 'text-align':
+                    $cellStyle->getAlignment()->setHorizontal($styleValue);
+                    break;
+
+                case 'vertical-align':
+                    $cellStyle->getAlignment()->setVertical($styleValue);
+                    break;
+
+                case 'width':
+                    $sheet->getColumnDimension($column)->setWidth(
+                        str_replace('px', '', $styleValue)
+                    );
+                    break;
+
+                case 'height':
+                    $sheet->getRowDimension($row)->setRowHeight(
+                        str_replace('px', '', $styleValue)
+                    );
+                    break;
+
+                case 'wrap-text':
+                    $cellStyle->getAlignment()->setWrapText(
+                        $styleValue === 'true'
+                    );
+                    break;
+
+                case 'text-indent':
+                    $cellStyle->getAlignment()->setIndent(
+                        (int) $styleValue
+                    );
                     break;
             }
         }
+    }
+
+    /**
+     * Check if has #, so we can get clean hex
+     *
+     * @param $value
+     *
+     * @return string|null
+     */
+    public function getStyleColor($value)
+    {
+        if (strpos($value, '#') === 0) {
+            return substr($value, 1);
+        }
+
+        return null;
     }
 
     /**
@@ -739,5 +846,66 @@ class Html extends BaseReader
         $sheet->getRowDimension($column)->setRowHeight(
             $drawing->getHeight() * 0.9
         );
+    }
+
+    /**
+     * Map html border style to PhpSpreadsheet border style.
+     *
+     * @param  string $style
+     * @return string|null
+     */
+    public function getBorderStyle($style)
+    {
+        switch ($style) {
+            case 'solid';
+                return Border::BORDER_THIN;
+            case 'dashed':
+                return Border::BORDER_DASHED;
+            case 'dotted':
+                return Border::BORDER_DOTTED;
+            case 'medium':
+                return Border::BORDER_MEDIUM;
+            case 'thick':
+                return Border::BORDER_THICK;
+            case 'none':
+                return Border::BORDER_NONE;
+            case 'dash-dot':
+                return Border::BORDER_DASHDOT;
+            case 'dash-dot-dot':
+                return Border::BORDER_DASHDOTDOT;
+            case 'double':
+                return Border::BORDER_DOUBLE;
+            case 'hair':
+                return Border::BORDER_HAIR;
+            case 'medium-dash-dot':
+                return Border::BORDER_MEDIUMDASHDOT;
+            case 'medium-dash-dot-dot':
+                return Border::BORDER_MEDIUMDASHDOTDOT;
+            case 'medium-dashed':
+                return Border::BORDER_MEDIUMDASHED;
+            case 'slant-dash-dot':
+                return Border::BORDER_SLANTDASHDOT;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Style  $cellStyle
+     * @param string $styleValue
+     * @param string $type
+     */
+    private function setBorderStyle(Style $cellStyle, $styleValue, $type)
+    {
+        list(, $borderStyle, $color) = explode(' ', $styleValue);
+
+        $cellStyle->applyFromArray([
+            'borders' => [
+                $type => [
+                    'borderStyle' => $this->getBorderStyle($borderStyle),
+                    ['color' => ['rgb' => $this->getStyleColor($color)]]
+                ]
+            ]
+        ]);
     }
 }
