@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 /** PhpSpreadsheet root directory */
@@ -446,6 +447,9 @@ class Html extends BaseReader
                         }
 
                         break;
+                    case 'img':
+                        $this->insertImage($sheet, $column, $row, $attributeArray);
+                        break;
                     case 'table':
                         $this->flushCell($sheet, $column, $row, $cellContent);
                         $column = $this->setTableStartColumn($column);
@@ -687,5 +691,53 @@ class Html extends BaseReader
                     break;
             }
         }
+    }
+
+    /**
+     * @param Worksheet $sheet
+     * @param string    $column
+     * @param int       $row
+     * @param array     $attributes
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    private function insertImage(Worksheet $sheet, $column, $row, array $attributes)
+    {
+        if (!isset($attributes['src'])) {
+            return;
+        }
+
+        $src = urldecode($attributes['src']);
+        $width = isset($attributes['width']) ? (float) $attributes['width'] : null;
+        $height = isset($attributes['height']) ? (float) $attributes['height'] : null;
+        $name = isset($attributes['alt']) ? (float) $attributes['alt'] : null;
+
+        $drawing = new Drawing();
+        $drawing->setPath($src);
+        $drawing->setWorksheet($sheet);
+        $drawing->setCoordinates($column . $row);
+        $drawing->setOffsetX(0);
+        $drawing->setOffsetY(10);
+        $drawing->setResizeProportional(true);
+
+        if ($name) {
+            $drawing->setName($name);
+        }
+
+        if ($width) {
+            $drawing->setWidth($width);
+        }
+
+        if ($height) {
+            $drawing->setHeight($height);
+        }
+
+        $sheet->getColumnDimension($column)->setWidth(
+            $drawing->getWidth() / 6
+        );
+
+        $sheet->getRowDimension($column)->setRowHeight(
+            $drawing->getHeight() * 0.9
+        );
     }
 }
