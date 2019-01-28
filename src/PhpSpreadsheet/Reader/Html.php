@@ -295,11 +295,9 @@ class Html extends BaseReader
                 switch ($child->nodeName) {
                     case 'meta':
                         foreach ($attributeArray as $attributeName => $attributeValue) {
-                            switch ($attributeName) {
-                                case 'content':
-                                    //    TODO
-                                    //    Extract character set, so we can convert to UTF-8 if required
-                                    break;
+                            // Extract character set, so we can convert to UTF-8 if required
+                            if ($attributeName === 'charset') {
+                                $this->setInputEncoding($attributeValue[0]);
                             }
                         }
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
