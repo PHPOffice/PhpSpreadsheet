@@ -161,4 +161,24 @@ class WorksheetTest extends TestCase
         self::assertSame($expectTitle, $arRange[0]);
         self::assertSame($expectCell2, $arRange[1]);
     }
+
+    /**
+     * Fix https://github.com/PHPOffice/PhpSpreadsheet/issues/868 when cells are not removed correctly
+     * on row deletion.
+     */
+    public function testRemoveCellsCorrectlyWhenRemovingRow()
+    {
+        $workbook = new Spreadsheet();
+        $worksheet = $workbook->getActiveSheet();
+        $worksheet->getCell('A2')->setValue('A2');
+        $worksheet->getCell('C1')->setValue('C1');
+        $worksheet->removeRow(1);
+        $this->assertEquals(
+            'A2',
+            $worksheet->getCell('A1')->getValue()
+        );
+        $this->assertNull(
+            $worksheet->getCell('C1')->getValue()
+        );
+    }
 }
