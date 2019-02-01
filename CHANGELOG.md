@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## Pending
+
+* Fix a SUMIF warning with some versions of PHP when having different length of arrays provided as input
+
 ## [1.6.0] - 2019-01-02
 
 ### Added
