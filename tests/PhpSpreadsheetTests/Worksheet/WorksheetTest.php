@@ -158,7 +158,8 @@ class WorksheetTest extends TestCase
     }
 
     /**
-     * Fix https://github.com/PHPOffice/PhpSpreadsheet/issues/868
+     * Fix https://github.com/PHPOffice/PhpSpreadsheet/issues/868 when cells are not removed correctly
+     * on row deletion.
      */
     public function testRemoveCellsCorrectlyWhenRemovingRow()
     {
