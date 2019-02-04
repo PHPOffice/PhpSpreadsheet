@@ -1229,7 +1229,7 @@ class MathTrig
             if (is_numeric($sumValue) &&
                 Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 // Is it a value within our criteria and only numeric can be added to the result
-                $returnValue += $sumArgs[$key];
+                $returnValue += $sumValue;
             }
         }
 
