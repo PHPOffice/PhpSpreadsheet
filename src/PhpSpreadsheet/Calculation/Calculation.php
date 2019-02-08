@@ -2206,8 +2206,8 @@ class Calculation
 
     private static function loadLocales()
     {
-        $localeFileDirectory = __DIR__ . '/locale';
-        foreach (glob($localeFileDirectory . '/*', GLOB_ONLYDIR) as $filename) {
+        $localeFileDirectory = __DIR__ . '/locale/';
+        foreach (glob($localeFileDirectory . '*', GLOB_ONLYDIR) as $filename) {
             $filename = substr($filename, strlen($localeFileDirectory));
             if ($filename != 'en') {
                 self::$validLocaleLanguages[] = $filename;
