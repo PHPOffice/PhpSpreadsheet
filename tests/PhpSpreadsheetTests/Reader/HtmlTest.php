@@ -61,4 +61,13 @@ class HtmlTest extends TestCase
         self::assertEquals('FFFFFF', $style->getFont()->getColor()->getRGB());
         unlink($filename);
     }
+
+    public function testRowspanInRendering()
+    {
+        $filename = './data/Reader/HTML/rowspan.html';
+        $reader = new Html();
+        $spreadsheet = $reader->load($filename);
+        //should pass without error and get first sheet
+        self::assertEquals(1, $spreadsheet->getSheetCount());
+    }
 }
