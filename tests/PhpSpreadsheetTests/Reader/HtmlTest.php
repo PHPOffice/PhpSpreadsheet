@@ -33,7 +33,7 @@ class HtmlTest extends TestCase
     /**
      * @dataProvider providerCanReadVerySmallFile
      *
-     * @param bool   $expected
+     * @param bool $expected
      * @param string $content
      */
     public function testCanReadVerySmallFile($expected, $content)
@@ -320,5 +320,15 @@ class HtmlTest extends TestCase
     private function loadHtmlIntoSpreadsheet($filename)
     {
         return (new Html())->load($filename);
+    }
+
+    public function testRowspanInRendering()
+    {
+        $filename = './data/Reader/HTML/rowspan.html';
+        $reader = new Html();
+        $spreadsheet = $reader->load($filename);
+
+        $actual = $spreadsheet->getActiveSheet()->getMergeCells();
+        self::assertSame(['A2:C2' => 'A2:C2'], $actual);
     }
 }

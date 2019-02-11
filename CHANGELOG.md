@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - COUPNUM should not return zero when settlement is in the last period - [Issue #1020](https://github.com/PHPOffice/PhpSpreadsheet/issues/1020) and [PR #1021](https://github.com/PHPOffice/PhpSpreadsheet/pull/1021)
 - Fix handling of named ranges referencing sheets with spaces or "!" in their title
 - Cover `getSheetByName()` with tests for name with quote and spaces - [#739](https://github.com/PHPOffice/PhpSpreadsheet/issues/739)
+- Best effort to support invalid colspan values in HTML reader - [878](https://github.com/PHPOffice/PhpSpreadsheet/pull/878)
 
 ## [1.8.2] - 2019-07-08
 

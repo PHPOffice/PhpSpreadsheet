@@ -502,10 +502,10 @@ class Html extends BaseReader
                         if (isset($attributeArray['rowspan'], $attributeArray['colspan'])) {
                             //create merging rowspan and colspan
                             $columnTo = $column;
-                            for ($i = 0; $i < $attributeArray['colspan'] - 1; ++$i) {
+                            for ($i = 0; $i < (int) $attributeArray['colspan'] - 1; ++$i) {
                                 ++$columnTo;
                             }
-                            $range = $column . $row . ':' . $columnTo . ($row + $attributeArray['rowspan'] - 1);
+                            $range = $column . $row . ':' . $columnTo . ($row + (int) $attributeArray['rowspan'] - 1);
                             foreach (Coordinate::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
@@ -513,7 +513,7 @@ class Html extends BaseReader
                             $column = $columnTo;
                         } elseif (isset($attributeArray['rowspan'])) {
                             //create merging rowspan
-                            $range = $column . $row . ':' . $column . ($row + $attributeArray['rowspan'] - 1);
+                            $range = $column . $row . ':' . $column . ($row + (int) $attributeArray['rowspan'] - 1);
                             foreach (Coordinate::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
@@ -521,7 +521,7 @@ class Html extends BaseReader
                         } elseif (isset($attributeArray['colspan'])) {
                             //create merging colspan
                             $columnTo = $column;
-                            for ($i = 0; $i < $attributeArray['colspan'] - 1; ++$i) {
+                            for ($i = 0; $i < (int) $attributeArray['colspan'] - 1; ++$i) {
                                 ++$columnTo;
                             }
                             $sheet->mergeCells($column . $row . ':' . $columnTo . $row);
