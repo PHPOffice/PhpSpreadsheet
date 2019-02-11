@@ -44,6 +44,7 @@
         "ext-dom": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
+        "ext-fileinfo": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
         "ext-SimpleXML": "*",

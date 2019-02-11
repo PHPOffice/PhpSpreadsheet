@@ -56,4 +56,4 @@ jobs:
         github-token: $GITHUB_TOKEN
         on:
           all_branches: true
-          condition: $TRAVIS_BRANCH =~ ^master|develop$
+          condition: $TRAVIS_BRANCH =~ ^master$

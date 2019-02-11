@@ -23,7 +23,7 @@ interface ITextElement
     /**
      * Get font.
      *
-     * @return \PhpOffice\PhpSpreadsheet\Style\Font
+     * @return null|\PhpOffice\PhpSpreadsheet\Style\Font
      */
     public function getFont();
 

@@ -528,7 +528,7 @@ class Calculation
         'COUNTIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
+            'argumentCount' => '2+',
         ],
         'COUPDAYBS' => [
             'category' => Category::CATEGORY_FINANCIAL,
@@ -2207,8 +2207,8 @@ class Calculation
     private static function loadLocales()
     {
         $localeFileDirectory = __DIR__ . '/locale/';
-        foreach (glob($localeFileDirectory . '/*', GLOB_ONLYDIR) as $filename) {
-            $filename = substr($filename, strlen($localeFileDirectory) + 1);
+        foreach (glob($localeFileDirectory . '*', GLOB_ONLYDIR) as $filename) {
+            $filename = substr($filename, strlen($localeFileDirectory));
             if ($filename != 'en') {
                 self::$validLocaleLanguages[] = $filename;
             }
@@ -2413,7 +2413,6 @@ class Calculation
         if (strpos($locale, '_') !== false) {
             list($language) = explode('_', $locale);
         }
-
         if (count(self::$validLocaleLanguages) == 1) {
             self::loadLocales();
         }
