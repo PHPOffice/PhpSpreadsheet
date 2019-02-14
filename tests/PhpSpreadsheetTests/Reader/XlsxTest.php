@@ -3,8 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PHPUnit\Framework\TestCase;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PHPUnit\Framework\TestCase;
 
 class XlsxTest extends TestCase
 {
