@@ -539,8 +539,9 @@ class OLE
      *
      * @param string $oleTimestamp A binary string with the encoded date
      *
-     * @return int The Unix timestamp corresponding to the string
      * @throws ReaderException
+     *
+     * @return int The Unix timestamp corresponding to the string
      */
     public static function OLE2LocalDate($oleTimestamp)
     {
@@ -565,8 +566,8 @@ class OLE
 
         if ((int) $unixTimestamp == $unixTimestamp) {
             return (int) $unixTimestamp;
-        } else {
-            return $unixTimestamp >= 0.0 ? PHP_INT_MAX : PHP_INT_MIN;
         }
+
+        return $unixTimestamp >= 0.0 ? PHP_INT_MAX : PHP_INT_MIN;
     }
 }
