@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Added support for inline styles in Html reader (borders, alignment, width, height)
+- QuotedText cells no longer treated as formulae if the content begins with a `=`
+- Clean handling for DDE in formulae
 
 ## [1.6.0] - 2019-01-02
 
