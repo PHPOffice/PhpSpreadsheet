@@ -2892,7 +2892,7 @@ class Calculation
         $cellValue = null;
 
         //  Quote-Prefixed cell values cannot be formulae, but are treated as strings
-        if ($pCell->getStyle()->getQuotePrefix() === true) {
+        if ($pCell !== null && $pCell->getStyle()->getQuotePrefix() === true) {
             return self::wrapResult((string) $formula);
         }
 
