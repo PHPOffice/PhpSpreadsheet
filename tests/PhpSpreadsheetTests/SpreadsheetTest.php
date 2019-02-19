@@ -52,12 +52,6 @@ class SpreadsheetTest extends TestCase
      */
     public function testGetSheetByName($index, $sheetname)
     {
-        // Worksheet Setup
-        // create new sheet with column width
-
-        $sheet = $this->object->getActiveSheet();
-        $sheet->setTitle('someSheet1');
-
         $this->assertEquals($this->object->getSheet($index), $this->object->getSheetByName($sheetname));
     }
 }
