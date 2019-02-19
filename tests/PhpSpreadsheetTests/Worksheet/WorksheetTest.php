@@ -138,6 +138,10 @@ class WorksheetTest extends TestCase
             ['testTitle!B2', 'testTitle', 'B2', 'B2'],
             ['test!Title!B2', 'test!Title', 'B2', 'B2'],
             ['test Title!B2', 'test Title', 'B2', 'B2'],
+            ['test!Title!B2', 'test!Title', 'B2', 'B2'],
+            ["'testSheet 1'!A3", "'testSheet 1'", 'A3', 'A3'],
+            ["'testSheet1'!A2", "'testSheet1'", 'A2', 'A2'],
+            ["'testSheet 2'!A1", "'testSheet 2'", 'A1', 'A1'],
         ];
     }
 
