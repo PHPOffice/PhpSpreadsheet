@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased] - 
 
+### Fixed 
+- Fix getSheetByName function in XLSX Worksheet - [#739](https://github.com/PHPOffice/PhpSpreadsheet/issues/739)
+
 ### Added
 
 - Added support for inline styles in Html reader (borders, alignment, width, height)
