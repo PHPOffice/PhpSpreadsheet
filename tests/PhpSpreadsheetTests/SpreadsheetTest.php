@@ -15,14 +15,14 @@ class SpreadsheetTest extends TestCase
     {
         parent::setUp();
         $this->object = new Spreadsheet();
-        $sheet        = $this->object->getActiveSheet();
+        $sheet = $this->object->getActiveSheet();
 
         $sheet->setTitle('someSheet1');
         $sheet = new Worksheet();
-        $sheet->setTitle("someSheet2");
+        $sheet->setTitle('someSheet2');
         $this->object->addSheet($sheet);
         $sheet = new Worksheet();
-        $sheet->setTitle("someSheet 3");
+        $sheet->setTitle('someSheet 3');
         $this->object->addSheet($sheet);
     }
 
@@ -32,11 +32,11 @@ class SpreadsheetTest extends TestCase
     public function dataProviderForSheetNames()
     {
         $array = [
-            [0, "someSheet1"],
+            [0, 'someSheet1'],
             [0, "'someSheet1'"],
-            [1, "someSheet2"],
+            [1, 'someSheet2'],
             [1, "'someSheet2'"],
-            [2, "someSheet 3"],
+            [2, 'someSheet 3'],
             [2, "'someSheet 3'"],
         ];
 
