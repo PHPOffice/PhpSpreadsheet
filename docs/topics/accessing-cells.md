@@ -86,6 +86,33 @@ Formats handled by the advanced value binder include:
 You can read more about value binders later in this section of the
 documentation.
 
+### Setting a formula in a Cell
+
+As stated above, if you store a string value with the first character an `=`
+in a cell. PHPSpreadsheet will treat that value as a formula, and then you
+can evaluate that formula by calling `getCalculatedValue()` against the cell.
+
+There may be times though, when you wish to store a value beginning with `=`
+as a string, and that you don't want PHPSpreadsheet to evaluate as though it
+was a formula.
+
+To do this, you need to "escape" the value by setting it as "quoted text".
+
+```
+// Set cell A4 with a formula
+$spreadsheet->getActiveSheet()->setCellValue(
+    'A4',
+    '=IF(A3, CONCATENATE(A1, " ", A2), CONCATENATE(A2, " ", A1))'
+);
+$spreadsheet->getActiveSheet()->getCell('A4')
+    ->->getStyle()->setQuotePrefix(true);
+```
+
+Then, even if you ask PHPSpreadsheet to return the calculated value for cell
+`A4`, it will return `=IF(A3, CONCATENATE(A1, " ", A2), CONCATENATE(A2, " ", A1))`
+as a string, and not try to evaluate the formula.
+
+
 ### Setting a date and/or time value in a cell
 
 Date or time values are held as timestamp in Excel (a simple floating
