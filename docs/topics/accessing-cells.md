@@ -78,6 +78,10 @@ So when we try to display the value and address a second time, we can display
 its value, but trying to display its address/coordinate will throw an
 exception because that link has been set to null.
 
+__Note:__ There are some internal methods that will fetch other cells from the
+collection, and this too will detach the link to the collection from any cell
+that you might have assigned to a variable.
+
 ## Excel DataTypes
 
 MS Excel supports 7 basic datatypes:
