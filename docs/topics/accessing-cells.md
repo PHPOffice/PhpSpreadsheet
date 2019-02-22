@@ -34,6 +34,50 @@ $spreadsheet->getActiveSheet()
     ->setValue('Some value');
 ```
 
+### BEWARE: Cells assigned to variables as a Detached Reference
+
+As an "in-memory" model, PHPSpreadsheet can be very demanding of memory,
+particularly when working with large spreadsheets. One technique used to
+reduce this memory overhead is cell caching, so cells are actually
+maintained in a collection that may or may not be held in memory while you
+are working with the spreadsheet. Because of this, a call to `getCell()`
+(or any similar method) returns the cell data, and a pointer to the collection.
+While this is not normally an issue, it can become significant
+if you assign the result of a call to `getCell()` to a variable. Any
+subsequent calls to retrieve other cells will unset that pointer, although
+the cell object will still retain its data values.
+
+What does this mean? Consider the following code:
+
+```
+$spreadSheet = new Spreadsheet();
+$workSheet = $spreadSheet->getActiveSheet();
+
+// Set details for the formula that we want to evaluate, together with any data on which it depends
+$workSheet->fromArray(
+    [1, 2, 3],
+    null,
+    'A1'
+);
+
+$cellC1 = $workSheet->getCell('C1');
+echo 'Value: ', $cellC1->getValue(), '; Address: ', $cellC1->getCoordinate(), PHP_EOL;
+
+$cellA1 = $workSheet->getCell('A1');
+echo 'Value: ', $cellA1->getValue(), '; Address: ', $cellA1->getCoordinate(), PHP_EOL;
+
+echo 'Value: ', $cellC1->getValue(), '; Address: ', $cellC1->getCoordinate(), PHP_EOL;
+``` 
+
+The call to `getCell('C1')` returns the cell at `C1` containing its value (`3`),
+together with its link to the collection (used to identify its
+address/coordinate `C1`). The subsequent call to access cell `A1`
+modifies the value of `$cellC1`, detaching its link to the collection.
+
+So when we try to display the value and address a second time, we can display
+its value, but trying to display its address/coordinate will throw an
+exception because that link has been set to null.
+
 ## Excel DataTypes
 
 MS Excel supports 7 basic datatypes:
