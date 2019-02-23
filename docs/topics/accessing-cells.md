@@ -34,6 +34,13 @@ $spreadsheet->getActiveSheet()
     ->setValue('Some value');
 ```
 
+### Creating a new Cell
+
+If you make a call to `getCell()`, and the cell doesn't already exist, then
+PhpSpreadsheet will (by default) create the cell for you. If you don't want
+to create a new cell, then you can pass a second argument of false, and then
+`getCell()` will return a null if the cell doesn't exist.
+
 ### BEWARE: Cells assigned to variables as a Detached Reference
 
 As an "in-memory" model, PHPSpreadsheet can be very demanding of memory,
