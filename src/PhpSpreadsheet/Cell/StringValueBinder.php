@@ -22,7 +22,7 @@ class StringValueBinder implements IValueBinder
             $value = StringHelper::sanitizeUTF8($value);
         }
 
-        $cell->setValueExplicit($value, DataType::TYPE_STRING);
+        $cell->setValueExplicit((string) $value, DataType::TYPE_STRING);
 
         // Done!
         return true;
