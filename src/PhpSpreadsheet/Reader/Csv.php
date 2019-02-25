@@ -254,8 +254,8 @@ class Csv extends BaseReader
         $line = $line . $newLine;
 
         // Drop everything that is enclosed to avoid counting false positives in enclosures
-        $enclosure = preg_quote($this->enclosure, '/');
-        // Add 's' to the replace rule in order for '.' to also match newline.
+        $enclosure = '(?<!' . preg_quote($this->escapeCharacter, '/') . ')'
+            . preg_quote($this->enclosure, '/');
         $line = preg_replace('/(' . $enclosure . '.*' . $enclosure . ')/Us', '', $line);
 
         // See if we have any enclosures left in the line
