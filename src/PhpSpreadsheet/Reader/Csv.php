@@ -155,7 +155,7 @@ class Csv extends BaseReader
             return;
         }
 
-        $potentialDelimiters = [',', ';', "\t", '|', ':', ' '];
+        $potentialDelimiters = [',', ';', "\t", '|', ':', ' ', '~'];
         $counts = [];
         foreach ($potentialDelimiters as $delimiter) {
             $counts[$delimiter] = [];
@@ -254,15 +254,13 @@ class Csv extends BaseReader
         $line = $line . $newLine;
 
         // Drop everything that is enclosed to avoid counting false positives in enclosures
-        $enclosure = preg_quote($this->enclosure, '/');
-        $line = preg_replace('/(' . $enclosure . '.*' . $enclosure . ')/U', '', $line);
+        $enclosure = '(?<!' . preg_quote($this->escapeCharacter, '/') . ')'
+            . preg_quote($this->enclosure, '/');
+        $line = preg_replace('/(' . $enclosure . '.*' . $enclosure . ')/Us', '', $line);
 
         // See if we have any enclosures left in the line
-        $matches = [];
-        preg_match('/(' . $enclosure . ')/', $line, $matches);
-
-        // if we still have an enclosure then we need to read the next line aswell
-        if (count($matches) > 0) {
+        // if we still have an enclosure then we need to read the next line as well
+        if (preg_match('/(' . $enclosure . ')/', $line) > 0) {
             $line = $this->getNextLine($line);
         }
 

@@ -5,8 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## Pending
+## [Unreleased] - 
 
+### Added
+
+- Added support for inline styles in Html reader (borders, alignment, width, height)
+- QuotedText cells no longer treated as formulae if the content begins with a `=`
+- Clean handling for DDE in formulae
+
+### Fixed
+
+- Fix handling for escaped enclosures and new lines in CSV Separator Inference
 - Fix MATCH an error was appearing when comparing strings against 0 (always true)
 
 ## [1.6.0] - 2019-01-02

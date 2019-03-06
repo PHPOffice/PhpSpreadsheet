@@ -1,0 +1,21 @@
+Name,Copy,URL
+Test,"This is a \"test csv file\"
+with both \"line breaks\"
+and \"escaped
+quotes\" that breaks
+the delimiters",http://google.com
+Test,"This is a \"test csv file\"
+with both \"line breaks\"
+and \"escaped
+quotes\" that breaks
+the delimiters",http://google.com
+Test,"This is a \"test csv file\"
+with both \"line breaks\"
+and \"escaped
+quotes\" that breaks
+the delimiters",http://google.com
+Test,"This is a \"test csv file\"
+with both \"line breaks\"
+and \"escaped
+quotes\" that breaks
+the delimiters",http://google.com
