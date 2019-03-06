@@ -325,7 +325,8 @@ class Date
      */
     public static function isDateTime(Cell $pCell)
     {
-        return self::isDateTimeFormat(
+        return is_numeric($pCell->getValue()) &&
+            self::isDateTimeFormat(
             $pCell->getWorksheet()->getStyle(
                 $pCell->getCoordinate()
             )->getNumberFormat()
