@@ -327,10 +327,10 @@ class Date
     {
         return is_numeric($pCell->getValue()) &&
             self::isDateTimeFormat(
-            $pCell->getWorksheet()->getStyle(
-                $pCell->getCoordinate()
-            )->getNumberFormat()
-        );
+                $pCell->getWorksheet()->getStyle(
+                    $pCell->getCoordinate()
+                )->getNumberFormat()
+            );
     }
 
     /**
