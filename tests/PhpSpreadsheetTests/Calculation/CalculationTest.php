@@ -140,4 +140,27 @@ class CalculationTest extends TestCase
         $cell->setValue('=OFFSET(D3, -1, -2)');
         self::assertEquals(5, $cell->getCalculatedValue(), 'missing arguments should be filled with null');
     }
+
+    public function testCellSetAsQuotedText()
+    {
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $cell = $workSheet->getCell('A1');
+
+        $cell->setValue("=cmd|'/C calc'!A0");
+        $cell->getStyle()->setQuotePrefix(true);
+
+        self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
+    }
+
+    public function testCellWithDdeExpresion()
+    {
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $cell = $workSheet->getCell('A1');
+
+        $cell->setValue("=cmd|'/C calc'!A0");
+
+        self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
+    }
 }

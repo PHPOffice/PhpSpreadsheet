@@ -50,6 +50,12 @@ class CsvTest extends TestCase
                 'Test',
             ],
             [
+                __DIR__ . '/../../data/Reader/CSV/line_break_in_enclosure_with_escaped_quotes.csv',
+                ',',
+                'A3',
+                'Test',
+            ],
+            [
                 __DIR__ . '/../../data/Reader/HTML/csv_with_angle_bracket.csv',
                 ',',
                 'B1',

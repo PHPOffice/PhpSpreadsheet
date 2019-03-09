@@ -43,6 +43,30 @@ inserted 2 new rows), changed to "SUM(E4:E11)". Also, the inserted cells
 duplicate style information of the previous cell, just like Excel's
 behaviour. Note that you can both insert rows and columns.
 
+## Calculation Cache
+
+Once the Calculation engine has evaluated the formula in a cell, the result
+will be cached, so if you call `getCalculatedValue()` a second time for the
+same cell, the result will be returned from the cache rather than evaluating
+the formula a second time. This helps boost performance, because evaluating
+a formula is an expensive operation in terms of performance and speed.
+
+However, there may be times when you don't want this, perhaps you've changed
+the underlying data and need to re-evaluate the same formula with that new
+data.
+
+```
+Calculation::getInstance($spreadsheet)->disableCalculationCache();
+```
+
+Will disable calculation caching, and flush the current calculation cache.
+
+If you want only to flush the cache, then you can call
+
+```
+Calculation::getInstance($spreadsheet)->clearCalculationCache();
+```
+
 ## Known limitations
 
 There are some known limitations to the PhpSpreadsheet calculation
