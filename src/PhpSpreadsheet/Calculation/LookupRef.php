@@ -522,9 +522,13 @@ class LookupRef
 
         if ($matchType == 0 || $matchType == 1) {
             foreach ($lookupArray as $i => $lookupArrayValue) {
-                if (($matchType == 0) && ($lookupArrayValue == $lookupValue)) {
+                $onlyNumeric = is_numeric($lookupArrayValue) && is_numeric($lookupValue);
+                $onlyNumericExactMatch = $onlyNumeric && $lookupArrayValue == $lookupValue;
+                $nonOnlyNumericExactMatch = !$onlyNumeric && $lookupArrayValue === $lookupValue;
+                $exactMatch = $onlyNumericExactMatch || $nonOnlyNumericExactMatch;
+                if (($matchType == 0) && $exactMatch) {
                     //    exact match
-                    return ++$i;
+                    return $i + 1;
                 } elseif (($matchType == 1) && ($lookupArrayValue <= $lookupValue)) {
                     $i = array_search($i, $keySet);
 

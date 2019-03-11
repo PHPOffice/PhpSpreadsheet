@@ -626,6 +626,7 @@ class Worksheet extends WriterPart
 
                 if ($hyperlink->getTooltip() != '') {
                     $objWriter->writeAttribute('tooltip', $hyperlink->getTooltip());
+                    $objWriter->writeAttribute('display', $hyperlink->getTooltip());
                 }
 
                 $objWriter->endElement();

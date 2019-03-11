@@ -315,4 +315,27 @@ class CalculationTest extends TestCase
     {
         return require 'data/Calculation/Calculation.php';
     }
+
+    public function testCellSetAsQuotedText()
+    {
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $cell = $workSheet->getCell('A1');
+
+        $cell->setValue("=cmd|'/C calc'!A0");
+        $cell->getStyle()->setQuotePrefix(true);
+
+        self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
+    }
+
+    public function testCellWithDdeExpresion()
+    {
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $cell = $workSheet->getCell('A1');
+
+        $cell->setValue("=cmd|'/C calc'!A0");
+
+        self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
+    }
 }
