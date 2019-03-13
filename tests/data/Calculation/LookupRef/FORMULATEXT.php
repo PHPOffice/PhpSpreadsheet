@@ -22,8 +22,23 @@ return [
         '=\'Worksheet1\'!A1',
     ],
     [
+        '=\'Works heet1\'!A1',
+        'A4',
+        '=\'Works heet1\'!A1',
+    ],
+    [
         '="HELLO WORLD"',
         '\'Worksheet1\'!A5',
+        '="HELLO WORLD"',
+    ],
+    [
+        '="HELLO WORLD"',
+        '\'Work sheet1\'!A5',
+        '="HELLO WORLD"',
+    ],
+    [
+        '="HELLO WORLD"',
+        '\'Work!sheet1\'!A5',
         '="HELLO WORLD"',
     ],
     [

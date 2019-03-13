@@ -81,4 +81,14 @@ return [
         '\'Worksheet1\'!A16',
         '123',
     ],
+    [
+        true,
+        'A17',
+        '=\'Work sheet1\'!A1',
+    ],
+    [
+        true,
+        'A18',
+        '=\'Work!sheet1\'!A1',
+    ],
 ];
