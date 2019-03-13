@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix number format masks containing named colours that were being misinterpreted as date formats; and add support for masks that fully replace the value with a full text string [Issue #1009](https://github.com/PHPOffice/PhpSpreadsheet/issues/1009) 
 - Stricter-typed comparison testing in COUNTIF() and COUNTIFS() evaluation [Issue #1046](https://github.com/PHPOffice/PhpSpreadsheet/issues/1046)
 - COUPNUM should not return zero when settlement is in the last period - [Issue #1020](https://github.com/PHPOffice/PhpSpreadsheet/issues/1020) and [PR #1021](https://github.com/PHPOffice/PhpSpreadsheet/pull/1021)
+- Fix handling of named ranges referencing sheets with spaces or "!" in their title
 
 ## [1.8.2] - 2019-07-08
 
