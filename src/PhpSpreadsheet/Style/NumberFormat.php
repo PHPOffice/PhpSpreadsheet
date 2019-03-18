@@ -24,7 +24,7 @@ class NumberFormat extends Supervisor
 
     const FORMAT_DATE_YYYYMMDD2 = 'yyyy-mm-dd';
     const FORMAT_DATE_YYYYMMDD = 'yy-mm-dd';
-    const FORMAT_DATE_DDMMYYYY = 'dd/mm/yy';
+    const FORMAT_DATE_DDMMYYYY = 'dd/mm/yyyy';
     const FORMAT_DATE_DMYSLASH = 'd/m/yy';
     const FORMAT_DATE_DMYMINUS = 'd-m-yy';
     const FORMAT_DATE_DMMINUS = 'd-m';
