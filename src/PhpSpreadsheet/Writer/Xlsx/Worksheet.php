@@ -372,7 +372,7 @@ class Worksheet extends WriterPart
             $columnDimensions = [];
             $lastColumIndex = -1;
             foreach ($pSheet->getColumnDimensions() as $colDimension) {
-                $width = $colDimension->getWidth() ? : -1;
+                $width = $colDimension->getWidth() ?: -1;
                 $hidden = $colDimension->getVisible() == false;
                 $bestFit = $colDimension->getAutoSize();
                 $customWidth = $colDimension->getWidth() != $pSheet->getDefaultColumnDimension()->getWidth();
@@ -393,7 +393,7 @@ class Worksheet extends WriterPart
                         'customWidth' => $customWidth,
                         'outlineLevel' => $outlineLevel,
                     ];
-                    $lastColumIndex++;
+                    ++$lastColumIndex;
                 } else {
                     $columnDimensions[$lastColumIndex]['max'] = Coordinate::columnIndexFromString($colDimension->getColumnIndex());
                 }

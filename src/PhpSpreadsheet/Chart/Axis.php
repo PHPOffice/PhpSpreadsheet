@@ -37,6 +37,7 @@ class Axis extends Properties
         'horizontal_crosses' => self::HORIZONTAL_CROSSES_AUTOZERO,
         'horizontal_crosses_value' => null,
         'position' => 'b',
+        'delete' => 0,
     ];
 
     /**
@@ -189,7 +190,7 @@ class Axis extends Properties
      * @param string $major_unit
      * @param string $minor_unit
      * @param string $position
-     * @param integer $delete
+     * @param int $delete
      */
     public function setAxisOptionsProperties($axis_labels, $horizontal_crosses_value = null, $horizontal_crosses = null, $axis_orientation = null, $major_tmt = null, $minor_tmt = null, $minimum = null, $maximum = null, $major_unit = null, $minor_unit = null, $position = null, $delete = 0)
     {

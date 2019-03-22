@@ -211,7 +211,7 @@ class Chart extends WriterPart
      * @param Axis $xAxis
      * @param Axis $yAxis
      * @param null|GridLines $majorGridlines
-     * @param null|GridLines $minorGridlines.
+     * @param null|GridLines $minorGridlines
      * @param Title $xAxisLabelSecondary
      * @param Title $yAxisLabelSecondary
      * @param Axis $xAxisSecondary
@@ -360,12 +360,16 @@ class Chart extends WriterPart
         if ($yAxisSecondary || $xAxisSecondary) {
             if (($chartType !== DataSeries::TYPE_PIECHART) && ($chartType !== DataSeries::TYPE_PIECHART_3D) && ($chartType !== DataSeries::TYPE_DONUTCHART)) {
                 if ($chartType === DataSeries::TYPE_BUBBLECHART) {
-                    $this->writeValueAxis($objWriter, $yAxisLabelSecondary, $chartType, $id1s, $id2s, $catIsMultiLevelSeries, $xAxisSecondary, $majorGridlines, $minorGridlines);
-                } else {
+                    if ($xAxisSecondary) {
+                        $this->writeValueAxis($objWriter, $yAxisLabelSecondary, $chartType, $id1s, $id2s, $catIsMultiLevelSeries, $xAxisSecondary, $majorGridlines, $minorGridlines);
+                    }
+                } elseif ($yAxisSecondary) {
                     $this->writeCategoryAxis($objWriter, $xAxisLabelSecondary, $id1s, $id2s, $catIsMultiLevelSeries, $yAxisSecondary);
                 }
 
-                $this->writeValueAxis($objWriter, $yAxisLabelSecondary, $chartType, $id1s, $id2s, $valIsMultiLevelSeries, $xAxisSecondary, $majorGridlines, $minorGridlines);
+                if ($xAxisSecondary) {
+                    $this->writeValueAxis($objWriter, $yAxisLabelSecondary, $chartType, $id1s, $id2s, $valIsMultiLevelSeries, $xAxisSecondary, $majorGridlines, $minorGridlines);
+                }
             }
         }
 
@@ -1200,7 +1204,7 @@ class Chart extends WriterPart
                 if ($groupType == DataSeries::TYPE_STOCKCHART) {
                     $objWriter->startElement('a:noFill');
                     $objWriter->endElement();
-                } else if ($plotSeriesValues->getFillColor()) { // Write line fill color
+                } elseif ($plotSeriesValues->getFillColor()) { // Write line fill color
                     $objWriter->startElement('a:solidFill');
                     $objWriter->startElement('a:srgbClr');
                     $objWriter->writeAttribute('val', $plotSeriesValues->getFillColor());

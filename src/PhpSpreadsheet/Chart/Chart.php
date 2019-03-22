@@ -43,7 +43,7 @@ class Chart
     private $xAxisLabel;
 
     /**
-     * Secondary X-Axis Label
+     * Secondary X-Axis Label.
      *
      * @var Title
      */
@@ -57,7 +57,7 @@ class Chart
     private $yAxisLabel;
 
     /**
-     * Secondary Y-Axis Label
+     * Secondary Y-Axis Label.
      *
      * @var Title
      */

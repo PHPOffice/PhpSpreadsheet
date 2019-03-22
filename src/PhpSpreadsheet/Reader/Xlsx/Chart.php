@@ -3,14 +3,14 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Chart\Axis;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
-use PhpOffice\PhpSpreadsheet\Chart\Axis;
-use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Font;
@@ -103,7 +103,7 @@ class Chart
                                             if (isset($chartDetail->title)) {
                                                 $XaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
                                             }
-                                            /** @todo Read Yaxis and mark it as date axis */
+                                            // @todo Read Yaxis and mark it as date axis
 
                                             break;
                                         case 'valAx':
@@ -329,11 +329,11 @@ class Chart
                                 $fillOptions = $spPrItem->children($namespacesChartMeta['a']);
                                 foreach ($fillOptions as $optionKey => $optionItem) {
                                     switch ($optionKey) {
-                                        case "srgbClr":
+                                        case 'srgbClr':
                                             $fillColor = self::getAttribute($optionItem, 'val', 'string');
 
                                             break;
-                                        case "alpha":
+                                        case 'alpha':
                                             $fillAlpha = self::getAttribute($optionItem, 'val', 'integer');
 
                                             break;
@@ -370,12 +370,12 @@ class Chart
                                             break;
                                         case 'headEnd':
                                             $head_arrow_type = self::getAttribute($lnItem, 'type', 'string');
-                                            /** @todo read $head_arrow_size */
+                                            // @todo read $head_arrow_size
 
                                             break;
                                         case 'tailEnd':
                                             $end_arrow_type = self::getAttribute($lnItem, 'type', 'string');
-                                            /** @todo read $end_arrow_size */
+                                            // @todo read $end_arrow_size
 
                                             break;
                                         case 'noFill':
@@ -462,16 +462,16 @@ class Chart
                                             break;
                                         case 'headEnd':
                                             $head_arrow_type = self::getAttribute($lnItem, 'type', 'string');
-                                            /** @todo read $head_arrow_size */
+                                            // @todo read $head_arrow_size
 
                                             break;
                                         case 'tailEnd':
                                             $end_arrow_type = self::getAttribute($lnItem, 'type', 'string');
-                                            /** @todo read $end_arrow_size */
+                                            // @todo read $end_arrow_size
 
                                             break;
                                         case 'noFill':
-                                            $gridLines->setLineColorProperties("000000", 100); // emulate no fill property
+                                            $gridLines->setLineColorProperties('000000', 100); // emulate no fill property
 
                                             break;
                                         case 'solidFill':
@@ -611,7 +611,7 @@ class Chart
                                 break;
                             case 'spPr':
                                 $spPr = $seriesDetail->children($namespacesChartMeta['a']);
-                                foreach($spPr as $spPrKey => $spPrDetail) {
+                                foreach ($spPr as $spPrKey => $spPrDetail) {
                                     switch ($spPrKey) {
                                         case 'solidFill':
                                             if (isset($spPrDetail->srgbClr)) {
@@ -622,7 +622,7 @@ class Chart
                                         case 'ln':
                                             $seriesLineWidth[$seriesIndex] = self::getAttribute($spPrDetail, 'w', 'integer');
 
-                                            if (isset($spPrDetail->solidFill) && isset($spPrDetail->solidFill->srgbClr)) {
+                                            if (isset($spPrDetail->solidFill, $spPrDetail->solidFill->srgbClr)) {
                                                 $seriesColor[$seriesIndex] = self::getAttribute($spPrDetail->solidFill->srgbClr, 'val', 'string');
                                             }
 
@@ -636,7 +636,7 @@ class Chart
             }
         }
 
-        foreach($seriesValues as $seriesIndex => $seriesItem) {
+        foreach ($seriesValues as $seriesIndex => $seriesItem) {
             if (isset($seriesColor[$seriesIndex])) {
                 $seriesItem->setFillColor($seriesColor[$seriesIndex]);
             }
