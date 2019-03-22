@@ -367,48 +367,82 @@ class Worksheet extends WriterPart
 
             $pSheet->calculateColumnWidths();
 
-            // Loop through column dimensions
+            // Reduce all column dimension grouping similar columns
+            $lastColumProps = null;
+            $columnDimensions = [];
+            $lastColumIndex = -1;
             foreach ($pSheet->getColumnDimensions() as $colDimension) {
+                $width = $colDimension->getWidth() ? : -1;
+                $hidden = $colDimension->getVisible() == false;
+                $bestFit = $colDimension->getAutoSize();
+                $customWidth = $colDimension->getWidth() != $pSheet->getDefaultColumnDimension()->getWidth();
+                $collapsed = $colDimension->getCollapsed() == true;
+                $outlineLevel = $colDimension->getOutlineLevel();
+                $style = $colDimension->getXfIndex();
+
+                $columProps = "w:{$width}h:{$hidden}b:{$bestFit}cw:{$customWidth}co:{$collapsed}ol:{$outlineLevel}s:{$style}";
+
+                if ($columProps !== $lastColumProps) {
+                    $columnDimensions[] = [
+                        'min' => Coordinate::columnIndexFromString($colDimension->getColumnIndex()),
+                        'style' => $style,
+                        'width' => $width,
+                        'hidden' => $hidden,
+                        'bestFit' => $bestFit,
+                        'collapsed' => $collapsed,
+                        'customWidth' => $customWidth,
+                        'outlineLevel' => $outlineLevel,
+                    ];
+                    $lastColumIndex++;
+                } else {
+                    $columnDimensions[$lastColumIndex]['max'] = Coordinate::columnIndexFromString($colDimension->getColumnIndex());
+                }
+
+                $lastColumProps = $columProps;
+            }
+
+            // Loop through column dimensions
+            foreach ($columnDimensions as $col) {
                 // col
                 $objWriter->startElement('col');
-                $objWriter->writeAttribute('min', Coordinate::columnIndexFromString($colDimension->getColumnIndex()));
-                $objWriter->writeAttribute('max', Coordinate::columnIndexFromString($colDimension->getColumnIndex()));
+                $objWriter->writeAttribute('min', $col['min']);
+                $objWriter->writeAttribute('max', isset($col['max']) ? $col['max'] : $col['min']);
 
-                if ($colDimension->getWidth() < 0) {
+                if ($col['width'] < 0) {
                     // No width set, apply default of 10
                     $objWriter->writeAttribute('width', '9.10');
                 } else {
                     // Width set
-                    $objWriter->writeAttribute('width', StringHelper::formatNumber($colDimension->getWidth()));
+                    $objWriter->writeAttribute('width', StringHelper::formatNumber($col['width']));
                 }
 
                 // Column visibility
-                if ($colDimension->getVisible() == false) {
+                if ($col['hidden']) {
                     $objWriter->writeAttribute('hidden', 'true');
                 }
 
                 // Auto size?
-                if ($colDimension->getAutoSize()) {
+                if ($col['bestFit']) {
                     $objWriter->writeAttribute('bestFit', 'true');
                 }
 
                 // Custom width?
-                if ($colDimension->getWidth() != $pSheet->getDefaultColumnDimension()->getWidth()) {
+                if ($col['customWidth']) {
                     $objWriter->writeAttribute('customWidth', 'true');
                 }
 
                 // Collapsed
-                if ($colDimension->getCollapsed() == true) {
+                if ($col['collapsed']) {
                     $objWriter->writeAttribute('collapsed', 'true');
                 }
 
                 // Outline level
-                if ($colDimension->getOutlineLevel() > 0) {
-                    $objWriter->writeAttribute('outlineLevel', $colDimension->getOutlineLevel());
+                if ($col['outlineLevel'] > 0) {
+                    $objWriter->writeAttribute('outlineLevel', $col['outlineLevel']);
                 }
 
                 // Style
-                $objWriter->writeAttribute('style', $colDimension->getXfIndex());
+                $objWriter->writeAttribute('style', $col['style']);
 
                 $objWriter->endElement();
             }

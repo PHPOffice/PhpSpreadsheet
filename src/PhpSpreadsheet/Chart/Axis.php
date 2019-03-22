@@ -36,6 +36,7 @@ class Axis extends Properties
         'axis_labels' => self::AXIS_LABELS_NEXT_TO,
         'horizontal_crosses' => self::HORIZONTAL_CROSSES_AUTOZERO,
         'horizontal_crosses_value' => null,
+        'position' => 'b',
     ];
 
     /**
@@ -165,6 +166,16 @@ class Axis extends Properties
     }
 
     /**
+     * Set Axis Number Source Linked.
+     *
+     * @param mixed $source_linked
+     */
+    public function setAxisNumberSourceLinked($source_linked)
+    {
+        $this->axisNumber['source_linked'] = $source_linked;
+    }
+
+    /**
      * Set Axis Options Properties.
      *
      * @param string $axis_labels
@@ -177,8 +188,10 @@ class Axis extends Properties
      * @param string $maximum
      * @param string $major_unit
      * @param string $minor_unit
+     * @param string $position
+     * @param integer $delete
      */
-    public function setAxisOptionsProperties($axis_labels, $horizontal_crosses_value = null, $horizontal_crosses = null, $axis_orientation = null, $major_tmt = null, $minor_tmt = null, $minimum = null, $maximum = null, $major_unit = null, $minor_unit = null)
+    public function setAxisOptionsProperties($axis_labels, $horizontal_crosses_value = null, $horizontal_crosses = null, $axis_orientation = null, $major_tmt = null, $minor_tmt = null, $minimum = null, $maximum = null, $major_unit = null, $minor_unit = null, $position = null, $delete = 0)
     {
         $this->axisOptions['axis_labels'] = (string) $axis_labels;
         ($horizontal_crosses_value !== null) ? $this->axisOptions['horizontal_crosses_value'] = (string) $horizontal_crosses_value : null;
@@ -191,6 +204,8 @@ class Axis extends Properties
         ($maximum !== null) ? $this->axisOptions['maximum'] = (string) $maximum : null;
         ($major_unit !== null) ? $this->axisOptions['major_unit'] = (string) $major_unit : null;
         ($minor_unit !== null) ? $this->axisOptions['minor_unit'] = (string) $minor_unit : null;
+        ($position !== null) ? $this->axisOptions['position'] = (string) $position : null;
+        ($delete !== null) ? $this->axisOptions['delete'] = (string) $delete : null;
     }
 
     /**

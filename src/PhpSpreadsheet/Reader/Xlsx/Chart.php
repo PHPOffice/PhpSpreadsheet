@@ -9,6 +9,8 @@ use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
+use PhpOffice\PhpSpreadsheet\Chart\Axis;
+use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Font;
@@ -63,6 +65,8 @@ class Chart
 
         $XaxisLabel = $YaxisLabel = $legend = $title = null;
         $dispBlanksAs = $plotVisOnly = null;
+        $Xaxis = $secondaryXaxis = $Yaxis = $secondaryYaxis = null;
+        $minorGridLines = $majorGridLines = null;
 
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
@@ -84,16 +88,45 @@ class Chart
                                                 $XaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
                                             }
 
+                                            if (isset($chartDetails->catAx)) {
+                                                $axis = self::chartAxis($chartDetail->children($namespacesChartMeta['c']), $namespacesChartMeta);
+
+                                                if (isset($Yaxis)) {
+                                                    $secondaryYaxis = $axis;
+                                                } else {
+                                                    $Yaxis = $axis;
+                                                }
+                                            }
+
                                             break;
                                         case 'dateAx':
                                             if (isset($chartDetail->title)) {
                                                 $XaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
                                             }
+                                            /** @todo Read Yaxis and mark it as date axis */
 
                                             break;
                                         case 'valAx':
                                             if (isset($chartDetail->title)) {
                                                 $YaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
+                                            }
+
+                                            if (isset($chartDetails->valAx)) {
+                                                $axis = self::chartAxis($chartDetail->children($namespacesChartMeta['c']), $namespacesChartMeta);
+
+                                                if (isset($Xaxis)) {
+                                                    $secondaryXaxis = $axis;
+                                                } else {
+                                                    $Xaxis = $axis;
+                                                }
+
+                                                if (!isset($majorGridlines) && isset($chartDetail->majorGridlines)) {
+                                                    $majorGridLines = self::chartGridlines($chartDetail->majorGridlines->children($namespacesChartMeta['c']), $namespacesChartMeta);
+                                                }
+
+                                                if (!isset($minorGridLines) && isset($chartDetail->minorGridlines)) {
+                                                    $minorGridLines = self::chartGridlines($chartDetail->minorGridlines->children($namespacesChartMeta['c']), $namespacesChartMeta);
+                                                }
                                             }
 
                                             break;
@@ -214,9 +247,267 @@ class Chart
                     }
             }
         }
-        $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, $dispBlanksAs, $XaxisLabel, $YaxisLabel);
+
+        $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, $dispBlanksAs, $XaxisLabel, $YaxisLabel, $Xaxis, $Yaxis, $majorGridLines, $minorGridLines, null, null, $secondaryXaxis, $secondaryYaxis);
 
         return $chart;
+    }
+
+    private static function chartAxis(SimpleXMLElement $axisDetails, array $namespacesChartMeta)
+    {
+        $axis = new Axis();
+
+        $major_unit = $minor_unit =
+        $horizontal_crosses_value = $horizontal_crosses =
+        $axis_orientation = $axis_labels =
+        $major_tmt = $minor_tmt = $delete =
+        $minimum = $maximum = $position = null;
+
+        foreach ($axisDetails as $axisDetailKey => $axisDetail) {
+            switch ($axisDetailKey) {
+                case 'numFmt':
+                    $axis->setAxisNumberProperties(self::getAttribute($axisDetail, 'formatCode', 'string'));
+                    $axis->setAxisNumberSourceLinked(self::getAttribute($axisDetail, 'sourceLinked', 'string'));
+
+                    break;
+                case 'delete':
+                    $delete = self::getAttribute($axisDetail, 'val', 'integer');
+
+                    break;
+                case 'majorTickMark':
+                    $major_tmt = self::getAttribute($axisDetail, 'val', 'string');
+
+                    break;
+                case 'minorTickMark':
+                    $minor_tmt = self::getAttribute($axisDetail, 'val', 'string');
+
+                    break;
+                case 'tickLblPos':
+                    $axis_labels = self::getAttribute($axisDetail, 'val', 'string');
+
+                    break;
+                case 'axPos':
+                    $position = self::getAttribute($axisDetail, 'val', 'string');
+
+                    break;
+                case 'scaling':
+                    if (isset($axisDetail->maximum)) {
+                        $maximum = self::getAttribute($axisDetail->max, 'val', 'string');
+                    }
+
+                    if (isset($axisDetail->minimum)) {
+                        $minimum = self::getAttribute($axisDetail->min, 'val', 'string');
+                    }
+
+                    if (isset($axisDetail->orientation)) {
+                        $axis_orientation = self::getAttribute($axisDetail->orientation, 'val', 'string');
+                    }
+
+                    break;
+                case 'crosses':
+                    $horizontal_crosses = self::getAttribute($axisDetail, 'val', 'string');
+
+                    break;
+                case 'crossesAt':
+                    $horizontal_crosses_value = self::getAttribute($axisDetail, 'val', 'string');
+
+                    break;
+                case 'majorUnit':
+                    $major_unit = self::getAttribute($axisDetail, 'val', 'string');
+
+                    break;
+                case 'minorUnit':
+                    $minor_unit = self::getAttribute($axisDetail, 'val', 'string');
+
+                    break;
+                case 'spPr':
+                    $spPr = $axisDetail->children($namespacesChartMeta['a']);
+                    foreach ($spPr as $spPrKey => $spPrItem) {
+                        switch ($spPrKey) {
+                            case 'solidFill':
+                                $fillColor = $fillAlpha = null;
+                                $fillOptions = $spPrItem->children($namespacesChartMeta['a']);
+                                foreach ($fillOptions as $optionKey => $optionItem) {
+                                    switch ($optionKey) {
+                                        case "srgbClr":
+                                            $fillColor = self::getAttribute($optionItem, 'val', 'string');
+
+                                            break;
+                                        case "alpha":
+                                            $fillAlpha = self::getAttribute($optionItem, 'val', 'integer');
+
+                                            break;
+                                    }
+                                }
+
+                                if (isset($fillColor)) {
+                                    $axis->setFillParameters($fillColor, $fillAlpha);
+                                }
+
+                                break;
+                            case 'ln':
+                                $line_width = $compound_type = $cap_type = $dash_type = $join_type =
+                                $head_arrow_type = $head_arrow_size = $end_arrow_type = $end_arrow_size = null;
+
+                                $line_width = self::getAttribute($spPrItem, 'w', 'integer') / 12700;
+                                $cap_type = self::getAttribute($spPrItem, 'cap', 'string');
+                                $compound_type = self::getAttribute($spPrItem, 'cmpd', 'string');
+
+                                $ln = $spPrItem->children($namespacesChartMeta['a']);
+                                foreach ($ln as $lnKey => $lnItem) {
+                                    switch ($lnKey) {
+                                        case 'prstDash':
+                                            $dash_type = self::getAttribute($lnItem, 'val', 'string');
+
+                                            break;
+                                        case 'miter':
+                                            $join_type = 'miter';
+
+                                            break;
+                                        case 'bevel':
+                                            $join_type = 'bevel';
+
+                                            break;
+                                        case 'headEnd':
+                                            $head_arrow_type = self::getAttribute($lnItem, 'type', 'string');
+                                            /** @todo read $head_arrow_size */
+
+                                            break;
+                                        case 'tailEnd':
+                                            $end_arrow_type = self::getAttribute($lnItem, 'type', 'string');
+                                            /** @todo read $end_arrow_size */
+
+                                            break;
+                                        case 'noFill':
+                                            $axis->setLineParameters(null, 100); // emulate no fill property
+
+                                            break;
+                                        case 'solidFill':
+                                            $lineColor = $lineAlpha = null;
+                                            $lineOptions = $lnItem->children($namespacesChartMeta['a']);
+                                            foreach ($lineOptions as $optionKey => $optionItem) {
+                                                switch ($optionKey) {
+                                                    case 'srgbClr':
+                                                        $lineColor = self::getAttribute($optionItem, 'val', 'string');
+
+                                                        break;
+                                                    case 'alpha':
+                                                        $lineAlpha = self::getAttribute($optionItem, 'val', 'integer');
+
+                                                        break;
+                                                }
+                                            }
+
+                                            if (isset($lineColor)) {
+                                                $axis->setLineParameters($lineColor, $lineAlpha);
+                                            }
+
+                                            break;
+                                    }
+                                }
+
+                                $axis->setLineStyleProperties($line_width, $compound_type, $dash_type, $cap_type, $join_type, $head_arrow_type, $head_arrow_size, $end_arrow_type, $end_arrow_size);
+
+                                break;
+                        }
+                    }
+
+                    break;
+            }
+        }
+
+        $axis->setAxisOptionsProperties($axis_labels, $horizontal_crosses_value, $horizontal_crosses, $axis_orientation, $major_tmt, $minor_tmt, $minimum, $maximum, $major_unit, $minor_unit, $position, $delete);
+
+        return $axis;
+    }
+
+    private static function chartGridlines(SimpleXMLElement $linesDetails, array $namespacesChartMeta)
+    {
+        $gridLines = new GridLines();
+
+        $major_unit = $minor_unit =
+        $horizontal_crosses_value = $horizontal_crosses =
+        $axis_orientation = $axis_labels =
+        $major_tmt = $minor_tmt =
+        $minimum = $maximum = $position = null;
+
+        foreach ($linesDetails as $linesDetailKey => $linesDetail) {
+            switch ($linesDetailKey) {
+                case 'spPr':
+                    $spPr = $linesDetail->children($namespacesChartMeta['a']);
+                    foreach ($spPr as $spPrKey => $spPrItem) {
+                        switch ($spPrKey) {
+                            case 'ln':
+                                $line_width = $compound_type = $cap_type = $dash_type = $join_type =
+                                $head_arrow_type = $head_arrow_size = $end_arrow_type = $end_arrow_size = null;
+
+                                $line_width = self::getAttribute($spPrItem, 'w', 'integer') / 12700;
+                                $cap_type = self::getAttribute($spPrItem, 'cap', 'string');
+                                $compound_type = self::getAttribute($spPrItem, 'cmpd', 'string');
+
+                                $ln = $spPrItem->children($namespacesChartMeta['a']);
+                                foreach ($ln as $lnKey => $lnItem) {
+                                    switch ($lnKey) {
+                                        case 'prstDash':
+                                            $dash_type = self::getAttribute($lnItem, 'val', 'string');
+
+                                            break;
+                                        case 'miter':
+                                            $join_type = 'miter';
+
+                                            break;
+                                        case 'bevel':
+                                            $join_type = 'bevel';
+
+                                            break;
+                                        case 'headEnd':
+                                            $head_arrow_type = self::getAttribute($lnItem, 'type', 'string');
+                                            /** @todo read $head_arrow_size */
+
+                                            break;
+                                        case 'tailEnd':
+                                            $end_arrow_type = self::getAttribute($lnItem, 'type', 'string');
+                                            /** @todo read $end_arrow_size */
+
+                                            break;
+                                        case 'noFill':
+                                            $gridLines->setLineColorProperties("000000", 100); // emulate no fill property
+
+                                            break;
+                                        case 'solidFill':
+                                            $lineColor = $lineAlpha = null;
+                                            $lineOptions = $lnItem->children($namespacesChartMeta['a']);
+                                            foreach ($lineOptions as $optionKey => $optionItem) {
+                                                switch ($optionKey) {
+                                                    case 'srgbClr':
+                                                        $lineColor = self::getAttribute($optionItem, 'val', 'string');
+
+                                                        break;
+                                                    case 'alpha':
+                                                        $lineAlpha = self::getAttribute($optionItem, 'val', 'integer');
+
+                                                        break;
+                                                }
+                                            }
+
+                                            if (isset($lineColor)) {
+                                                $gridLines->setLineColorProperties($lineColor, $lineAlpha, 'srgbClr');
+                                            }
+
+                                            break;
+                                    }
+                                }
+                                $gridLines->setLineStyleProperties($line_width, $compound_type, $dash_type, $cap_type, $join_type, $head_arrow_type, $head_arrow_size, $end_arrow_type, $end_arrow_size);
+
+                                break;
+                        }
+                    }
+
+                    break;
+            }
+        }
+
+        return $gridLines;
     }
 
     private static function chartTitle(SimpleXMLElement $titleDetails, array $namespacesChartMeta)
@@ -267,7 +558,7 @@ class Chart
     {
         $multiSeriesType = null;
         $smoothLine = false;
-        $seriesLabel = $seriesCategory = $seriesValues = $plotOrder = [];
+        $seriesLabel = $seriesCategory = $seriesValues = $plotOrder = $seriesColor = $seriesLineWidth = [];
 
         $seriesDetailSet = $chartDetail->children($namespacesChartMeta['c']);
         foreach ($seriesDetailSet as $seriesDetailKey => $seriesDetails) {
@@ -318,8 +609,40 @@ class Chart
                                 $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker);
 
                                 break;
+                            case 'spPr':
+                                $spPr = $seriesDetail->children($namespacesChartMeta['a']);
+                                foreach($spPr as $spPrKey => $spPrDetail) {
+                                    switch ($spPrKey) {
+                                        case 'solidFill':
+                                            if (isset($spPrDetail->srgbClr)) {
+                                                $seriesColor[$seriesIndex] = self::getAttribute($spPrDetail->srgbClr, 'val', 'string');
+                                            }
+
+                                            break;
+                                        case 'ln':
+                                            $seriesLineWidth[$seriesIndex] = self::getAttribute($spPrDetail, 'w', 'integer');
+
+                                            if (isset($spPrDetail->solidFill) && isset($spPrDetail->solidFill->srgbClr)) {
+                                                $seriesColor[$seriesIndex] = self::getAttribute($spPrDetail->solidFill->srgbClr, 'val', 'string');
+                                            }
+
+                                            break;
+                                    }
+                                }
+
+                                break;
                         }
                     }
+            }
+        }
+
+        foreach($seriesValues as $seriesIndex => $seriesItem) {
+            if (isset($seriesColor[$seriesIndex])) {
+                $seriesItem->setFillColor($seriesColor[$seriesIndex]);
+            }
+
+            if (isset($seriesLineWidth[$seriesIndex])) {
+                $seriesItem->setLineWidth($seriesLineWidth[$seriesIndex]);
             }
         }
 

@@ -43,11 +43,25 @@ class Chart
     private $xAxisLabel;
 
     /**
+     * Secondary X-Axis Label
+     *
+     * @var Title
+     */
+    private $secondaryXAxisLabel;
+
+    /**
      * Y-Axis Label.
      *
      * @var Title
      */
     private $yAxisLabel;
+
+    /**
+     * Secondary Y-Axis Label
+     *
+     * @var Title
+     */
+    private $secondaryYAxisLabel;
 
     /**
      * Chart Plot Area.
@@ -78,11 +92,25 @@ class Chart
     private $yAxis;
 
     /**
+     * Secondary Chart Asix Y as.
+     *
+     * @var Title
+     */
+    private $secondaryYAxis;
+
+    /**
      * Chart Asix X as.
      *
      * @var Axis
      */
     private $xAxis;
+
+    /**
+     * Secondary Chart Asix X as.
+     *
+     * @var Title
+     */
+    private $secondaryXAxis;
 
     /**
      * Chart Major Gridlines as.
@@ -155,8 +183,12 @@ class Chart
      * @param null|Axis $yAxis
      * @param null|GridLines $majorGridlines
      * @param null|GridLines $minorGridlines
+     * @param null|Title $secondaryXAxisLabel
+     * @param null|Title $secondaryYAxisLabel
+     * @param null|Axis $secondaryXAxis
+     * @param null|Axis $secondaryYAxis
      */
-    public function __construct($name, Title $title = null, Legend $legend = null, PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = '0', Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
+    public function __construct($name, Title $title = null, Legend $legend = null, PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = '0', Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null, Title $secondaryXAxisLabel = null, Title $secondaryYAxisLabel = null, Axis $secondaryXAxis = null, Axis $secondaryYAxis = null)
     {
         $this->name = $name;
         $this->title = $title;
@@ -170,6 +202,10 @@ class Chart
         $this->yAxis = $yAxis;
         $this->majorGridlines = $majorGridlines;
         $this->minorGridlines = $minorGridlines;
+        $this->secondaryXAxisLabel = $secondaryXAxisLabel;
+        $this->secondaryYAxisLabel = $secondaryYAxisLabel;
+        $this->secondaryXAxis = $secondaryXAxis;
+        $this->secondaryYAxis = $secondaryYAxis;
     }
 
     /**
@@ -303,6 +339,54 @@ class Chart
     }
 
     /**
+     * Get Secondary X-Axis Label.
+     *
+     * @return Title
+     */
+    public function getSecondaryXAxisLabel()
+    {
+        return $this->secondaryXAxisLabel;
+    }
+
+    /**
+     * Set Secondary X-Axis Label.
+     *
+     * @param Title $label
+     *
+     * @return Chart
+     */
+    public function setSecondaryXAxisLabel(Title $label)
+    {
+        $this->secondaryXAxisLabel = $label;
+
+        return $this;
+    }
+
+    /**
+     * Get Secondary Y-Axis Label.
+     *
+     * @return Title
+     */
+    public function getSecondaryYAxisLabel()
+    {
+        return $this->secondaryYAxisLabel;
+    }
+
+    /**
+     * Set Secondary Y-Axis Label.
+     *
+     * @param Title $label
+     *
+     * @return Chart
+     */
+    public function setSecondaryYAxisLabel(Title $label)
+    {
+        $this->secondaryYAxisLabel = $label;
+
+        return $this;
+    }
+
+    /**
      * Get Plot Area.
      *
      * @return PlotArea
@@ -367,11 +451,11 @@ class Chart
      */
     public function getChartAxisY()
     {
-        if ($this->yAxis !== null) {
-            return $this->yAxis;
+        if ($this->yAxis === null) {
+            $this->yAxis = new Axis();
         }
 
-        return new Axis();
+        return $this->yAxis;
     }
 
     /**
@@ -381,11 +465,55 @@ class Chart
      */
     public function getChartAxisX()
     {
-        if ($this->xAxis !== null) {
-            return $this->xAxis;
+        if ($this->xAxis === null) {
+            $this->xAxis = new Axis();
         }
 
-        return new Axis();
+        return $this->xAxis;
+    }
+
+    /**
+     * Get Secondary yAxis.
+     *
+     * @return Axis
+     */
+    public function getChartSecondaryAxisY()
+    {
+        return $this->secondaryYAxis;
+    }
+
+    /**
+     * Set Secondary yAxis.
+     *
+     * @return Chart
+     */
+    public function setChartSecondaryAxisY(Axis $axis)
+    {
+        $this->secondaryYAxis = $axis;
+
+        return $this;
+    }
+
+    /**
+     * Get Secondary xAxis.
+     *
+     * @return Axis
+     */
+    public function getChartSecondaryAxisX()
+    {
+        return $this->secondaryXAxis;
+    }
+
+    /**
+     * Set Secondary xAxis.
+     *
+     * @return Chart
+     */
+    public function setChartSecondaryAxisX(Axis $axis)
+    {
+        $this->secondaryXAxis = $axis;
+
+        return $this;
     }
 
     /**
@@ -395,11 +523,11 @@ class Chart
      */
     public function getMajorGridlines()
     {
-        if ($this->majorGridlines !== null) {
-            return $this->majorGridlines;
+        if ($this->majorGridlines === null) {
+            $this->majorGridlines = new GridLines();
         }
 
-        return new GridLines();
+        return $this->majorGridlines;
     }
 
     /**
@@ -409,11 +537,11 @@ class Chart
      */
     public function getMinorGridlines()
     {
-        if ($this->minorGridlines !== null) {
-            return $this->minorGridlines;
+        if ($this->minorGridlines === null) {
+            $this->minorGridlines = new GridLines();
         }
 
-        return new GridLines();
+        return $this->minorGridlines;
     }
 
     /**
