@@ -63,8 +63,8 @@ class Chart
         $namespacesChartMeta = $chartElements->getNamespaces(true);
         $chartElementsC = $chartElements->children($namespacesChartMeta['c']);
 
+        $plotArea = $dispBlanksAs = $plotVisOnly = null;
         $XaxisLabel = $YaxisLabel = $legend = $title = null;
-        $dispBlanksAs = $plotVisOnly = null;
         $Xaxis = $secondaryXaxis = $Yaxis = $secondaryYaxis = null;
         $minorGridLines = $majorGridLines = null;
 
@@ -120,7 +120,7 @@ class Chart
                                                     $Xaxis = $axis;
                                                 }
 
-                                                if (!isset($majorGridlines) && isset($chartDetail->majorGridlines)) {
+                                                if (!isset($majorGridLines) && isset($chartDetail->majorGridlines)) {
                                                     $majorGridLines = self::chartGridlines($chartDetail->majorGridlines->children($namespacesChartMeta['c']), $namespacesChartMeta);
                                                 }
 
@@ -346,8 +346,7 @@ class Chart
 
                                 break;
                             case 'ln':
-                                $line_width = $compound_type = $cap_type = $dash_type = $join_type =
-                                $head_arrow_type = $head_arrow_size = $end_arrow_type = $end_arrow_size = null;
+                                $dash_type = $join_type = $head_arrow_type = $head_arrow_size = $end_arrow_type = $end_arrow_size = null;
 
                                 $line_width = self::getAttribute($spPrItem, 'w', 'integer') / 12700;
                                 $cap_type = self::getAttribute($spPrItem, 'cap', 'string');
@@ -424,12 +423,6 @@ class Chart
     private static function chartGridlines(SimpleXMLElement $linesDetails, array $namespacesChartMeta)
     {
         $gridLines = new GridLines();
-
-        $major_unit = $minor_unit =
-        $horizontal_crosses_value = $horizontal_crosses =
-        $axis_orientation = $axis_labels =
-        $major_tmt = $minor_tmt =
-        $minimum = $maximum = $position = null;
 
         foreach ($linesDetails as $linesDetailKey => $linesDetail) {
             switch ($linesDetailKey) {

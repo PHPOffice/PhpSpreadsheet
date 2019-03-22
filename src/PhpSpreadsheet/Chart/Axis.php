@@ -192,7 +192,7 @@ class Axis extends Properties
      * @param string $position
      * @param int $delete
      */
-    public function setAxisOptionsProperties($axis_labels, $horizontal_crosses_value = null, $horizontal_crosses = null, $axis_orientation = null, $major_tmt = null, $minor_tmt = null, $minimum = null, $maximum = null, $major_unit = null, $minor_unit = null, $position = null, $delete = 0)
+    public function setAxisOptionsProperties($axis_labels, $horizontal_crosses_value = null, $horizontal_crosses = null, $axis_orientation = null, $major_tmt = null, $minor_tmt = null, $minimum = null, $maximum = null, $major_unit = null, $minor_unit = null, $position = null, $delete = null)
     {
         $this->axisOptions['axis_labels'] = (string) $axis_labels;
         ($horizontal_crosses_value !== null) ? $this->axisOptions['horizontal_crosses_value'] = (string) $horizontal_crosses_value : null;
@@ -206,7 +206,7 @@ class Axis extends Properties
         ($major_unit !== null) ? $this->axisOptions['major_unit'] = (string) $major_unit : null;
         ($minor_unit !== null) ? $this->axisOptions['minor_unit'] = (string) $minor_unit : null;
         ($position !== null) ? $this->axisOptions['position'] = (string) $position : null;
-        ($delete !== null) ? $this->axisOptions['delete'] = (string) $delete : null;
+        ($delete !== null) ? $this->axisOptions['delete'] = (int) $delete : null;
     }
 
     /**

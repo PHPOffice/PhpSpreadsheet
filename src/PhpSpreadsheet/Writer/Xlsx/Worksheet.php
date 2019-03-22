@@ -373,10 +373,10 @@ class Worksheet extends WriterPart
             $lastColumIndex = -1;
             foreach ($pSheet->getColumnDimensions() as $colDimension) {
                 $width = $colDimension->getWidth() ?: -1;
-                $hidden = $colDimension->getVisible() == false;
+                $hidden = $colDimension->getVisible() === false;
                 $bestFit = $colDimension->getAutoSize();
                 $customWidth = $colDimension->getWidth() != $pSheet->getDefaultColumnDimension()->getWidth();
-                $collapsed = $colDimension->getCollapsed() == true;
+                $collapsed = $colDimension->getCollapsed() === true;
                 $outlineLevel = $colDimension->getOutlineLevel();
                 $style = $colDimension->getXfIndex();
 

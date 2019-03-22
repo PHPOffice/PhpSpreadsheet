@@ -94,7 +94,7 @@ class Chart
     /**
      * Secondary Chart Asix Y as.
      *
-     * @var Title
+     * @var Axis
      */
     private $secondaryYAxis;
 
@@ -108,7 +108,7 @@ class Chart
     /**
      * Secondary Chart Asix X as.
      *
-     * @var Title
+     * @var Axis
      */
     private $secondaryXAxis;
 

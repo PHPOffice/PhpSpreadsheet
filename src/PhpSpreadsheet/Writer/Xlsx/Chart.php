@@ -225,7 +225,7 @@ class Chart extends WriterPart
             return;
         }
 
-        $id1 = $id2 = 0;
+        $id1 = $id2 = $id1s = $id2s = 0;
         $this->seriesIndex = 0;
         $objWriter->startElement('c:plotArea');
 
@@ -307,7 +307,7 @@ class Chart extends WriterPart
             $id1 = '75091328';
             $id2 = '75089408';
 
-            // axId for secondary axis
+            //    Generate 2 unique numbers to use for axId values on secondary axis
             $id1s = '76091328';
             $id2s = '76089408';
 
@@ -1204,12 +1204,15 @@ class Chart extends WriterPart
                 if ($groupType == DataSeries::TYPE_STOCKCHART) {
                     $objWriter->startElement('a:noFill');
                     $objWriter->endElement();
-                } elseif ($plotSeriesValues->getFillColor()) { // Write line fill color
-                    $objWriter->startElement('a:solidFill');
-                    $objWriter->startElement('a:srgbClr');
-                    $objWriter->writeAttribute('val', $plotSeriesValues->getFillColor());
-                    $objWriter->endElement();
-                    $objWriter->endElement();
+                } else { // Write line fill color
+                    $fillColor = $plotSeriesValues->getFillColor();
+                    if (!empty($fillColor)) {
+                        $objWriter->startElement('a:solidFill');
+                        $objWriter->startElement('a:srgbClr');
+                        $objWriter->writeAttribute('val', is_array($fillColor) ? $fillColor[0] : $fillColor);
+                        $objWriter->endElement();
+                        $objWriter->endElement();
+                    }
                 }
 
                 $objWriter->endElement();
@@ -1225,10 +1228,11 @@ class Chart extends WriterPart
                 $objWriter->endElement();
                 $objWriter->endElement();
 
-                if ($plotSeriesValues->getFillColor()) {
+                $fillColor = $plotSeriesValues->getFillColor();
+                if (!empty($fillColor)) {
                     $objWriter->startElement('a:solidFill');
                     $objWriter->startElement('a:srgbClr');
-                    $objWriter->writeAttribute('val', $plotSeriesValues->getFillColor());
+                    $objWriter->writeAttribute('val', is_array($fillColor) ? $fillColor[0] : $fillColor);
                     $objWriter->endElement();
                     $objWriter->endElement();
                 }
