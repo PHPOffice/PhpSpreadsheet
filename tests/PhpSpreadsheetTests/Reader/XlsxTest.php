@@ -32,4 +32,14 @@ class XlsxTest extends TestCase
             $this->assertEquals($ref, \array_slice($data[$i], 0, 10, true));
         }
     }
+    
+    /**
+     * Test load Xlsx file with drawing having double attributes.
+     */
+    public function testLoadXlsxWithDoubleAttrDrawing()
+    {
+        $filename = './data/Reader/XLSX/double_attr_drawing.xlsx';
+        $reader = new Xlsx();
+        $reader->load($filename);
+    }
 }

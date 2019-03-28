@@ -1418,11 +1418,16 @@ class Xlsx extends BaseReader
                                 foreach ($vmlComments as $relName => $relPath) {
                                     // Load VML comments file
                                     $relPath = File::realpath(dirname("$dir/$fileWorksheet") . '/' . $relPath);
-                                    $vmlCommentsFile = simplexml_load_string(
-                                        $this->securityScanner->scan($this->getFromZipArchive($zip, $relPath)),
-                                        'SimpleXMLElement',
-                                        Settings::getLibXmlLoaderOptions()
-                                    );
+                                    try {
+                                        $vmlCommentsFile = simplexml_load_string(
+                                            $this->securityScanner->scan($this->getFromZipArchive($zip, $relPath)),
+                                            'SimpleXMLElement',
+                                            Settings::getLibXmlLoaderOptions()
+                                        );
+                                    } catch(\Throwable $ex) {
+                                        //Ignore unparsable vmlDrawings. Later they will be moved from $unparsedVmlDrawings to $unparsedLoadedData
+                                        continue;
+                                    }
                                     $vmlCommentsFile->registerXPathNamespace('v', 'urn:schemas-microsoft-com:vml');
 
                                     $shapes = $vmlCommentsFile->xpath('//v:shape');
