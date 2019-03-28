@@ -1424,11 +1424,11 @@ class Xlsx extends BaseReader
                                             'SimpleXMLElement',
                                             Settings::getLibXmlLoaderOptions()
                                         );
+                                        $vmlCommentsFile->registerXPathNamespace('v', 'urn:schemas-microsoft-com:vml');
                                     } catch(\Throwable $ex) {
                                         //Ignore unparsable vmlDrawings. Later they will be moved from $unparsedVmlDrawings to $unparsedLoadedData
                                         continue;
                                     }
-                                    $vmlCommentsFile->registerXPathNamespace('v', 'urn:schemas-microsoft-com:vml');
 
                                     $shapes = $vmlCommentsFile->xpath('//v:shape');
                                     foreach ($shapes as $shape) {
