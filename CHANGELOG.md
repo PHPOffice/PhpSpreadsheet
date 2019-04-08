@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Fix handling for escaped enclosures and new lines in CSV Separator Inference
 - Fix MATCH an error was appearing when comparing strings against 0 (always true)
+- Fix incorrectly handled backslash-escaped space characters in number format
 
 ## [1.6.0] - 2019-01-02
 
