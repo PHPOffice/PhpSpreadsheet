@@ -259,7 +259,7 @@ class Cells
             $columnList[] = Coordinate::columnIndexFromString($c);
         }
 
-        return Coordinate::stringFromColumnIndex(max($columnList) + 1);
+        return Coordinate::stringFromColumnIndex(max($columnList));
     }
 
     /**
@@ -495,15 +495,12 @@ class Cells
     /**
      * Returns all known cache keys.
      *
-     * @return string[]
+     * @return \Generator|string[]
      */
     private function getAllCacheKeys()
     {
-        $keys = [];
         foreach ($this->getCoordinates() as $coordinate) {
-            $keys[] = $this->cachePrefix . $coordinate;
+            yield $this->cachePrefix . $coordinate;
         }
-
-        return $keys;
     }
 }

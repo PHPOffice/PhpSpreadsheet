@@ -715,7 +715,7 @@ class Spreadsheet
      *
      * @param string $pName Sheet name
      *
-     * @return Worksheet
+     * @return null|Worksheet
      */
     public function getSheetByName($pName)
     {

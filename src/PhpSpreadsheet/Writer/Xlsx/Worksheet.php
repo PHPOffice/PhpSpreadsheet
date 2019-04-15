@@ -519,6 +519,9 @@ class Worksheet extends WriterPart
                             // Formula
                             $objWriter->writeElement('formula', $formula);
                         }
+                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSBLANKS) {
+                        // formula copied from ms xlsx xml source file
+                        $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))=0');
                     }
 
                     $objWriter->endElement();
@@ -626,6 +629,7 @@ class Worksheet extends WriterPart
 
                 if ($hyperlink->getTooltip() != '') {
                     $objWriter->writeAttribute('tooltip', $hyperlink->getTooltip());
+                    $objWriter->writeAttribute('display', $hyperlink->getTooltip());
                 }
 
                 $objWriter->endElement();

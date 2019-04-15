@@ -210,6 +210,8 @@ class Ods extends BaseReader
                                     $mergeSize = $xml->getAttribute('table:number-columns-repeated');
                                     $currCells += (int) $mergeSize;
                                     $xml->read();
+                                } else {
+                                    $xml->read();
                                 }
                             } while ($xml->name != 'table:table-row');
                         }

@@ -44,9 +44,6 @@ Use [composer](https://getcomposer.org) to install PhpSpreadsheet into your proj
 composer require phpoffice/phpspreadsheet
 ```
 
-**Note:** If you want the unreleased, unstable development version use
-`phpoffice/phpspreadsheet:dev-develop` instead.
-
 ## Hello World
 
 This would be the simplest way to write a spreadsheet:

@@ -537,31 +537,37 @@ class OLE
     /**
      * Returns a timestamp from an OLE container's date.
      *
-     * @param int $string A binary string with the encoded date
+     * @param string $oleTimestamp A binary string with the encoded date
      *
-     * @return string The timestamp corresponding to the string
+     * @throws ReaderException
+     *
+     * @return int The Unix timestamp corresponding to the string
      */
-    public static function OLE2LocalDate($string)
+    public static function OLE2LocalDate($oleTimestamp)
     {
-        if (strlen($string) != 8) {
+        if (strlen($oleTimestamp) != 8) {
             throw new ReaderException('Expecting 8 byte string');
         }
 
-        // factor used for separating numbers into 4 bytes parts
-        $factor = pow(2, 32);
-        list(, $high_part) = unpack('V', substr($string, 4, 4));
-        list(, $low_part) = unpack('V', substr($string, 0, 4));
+        // convert to units of 100 ns since 1601:
+        $unpackedTimestamp = unpack('v4', $oleTimestamp);
+        $timestampHigh = (float) $unpackedTimestamp[4] * 65536 + (float) $unpackedTimestamp[3];
+        $timestampLow = (float) $unpackedTimestamp[2] * 65536 + (float) $unpackedTimestamp[1];
 
-        $big_date = ($high_part * $factor) + $low_part;
-        // translate to seconds
-        $big_date /= 10000000;
+        // translate to seconds since 1601:
+        $timestampHigh /= 10000000;
+        $timestampLow /= 10000000;
 
-        // days from 1-1-1601 until the beggining of UNIX era
+        // days from 1601 to 1970:
         $days = 134774;
 
-        // translate to seconds from beggining of UNIX era
-        $big_date -= $days * 24 * 3600;
+        // translate to seconds since 1970:
+        $unixTimestamp = floor(65536.0 * 65536.0 * $timestampHigh + $timestampLow - $days * 24 * 3600 + 0.5);
 
-        return floor($big_date);
+        if ((int) $unixTimestamp == $unixTimestamp) {
+            return (int) $unixTimestamp;
+        }
+
+        return $unixTimestamp >= 0.0 ? PHP_INT_MAX : PHP_INT_MIN;
     }
 }

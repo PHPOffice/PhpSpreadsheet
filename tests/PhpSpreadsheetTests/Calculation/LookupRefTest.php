@@ -52,6 +52,22 @@ class LookupRefTest extends TestCase
     }
 
     /**
+     * @dataProvider providerLOOKUP
+     *
+     * @param mixed $expectedResult
+     */
+    public function testLOOKUP($expectedResult, ...$args)
+    {
+        $result = LookupRef::LOOKUP(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerLOOKUP()
+    {
+        return require 'data/Calculation/LookupRef/LOOKUP.php';
+    }
+
+    /**
      * @dataProvider providerMATCH
      *
      * @param mixed $expectedResult
