@@ -972,38 +972,41 @@ class Xlsx extends BaseReader
                                                 break;
                                         }
 
-                                        // Check for numeric values
-                                        if (is_numeric($value) && $cellDataType != 's') {
-                                            if ($value == (int) $value) {
-                                                $value = (int) $value;
-                                            } elseif ($value == (float) $value) {
-                                                $value = (float) $value;
-                                            } elseif ($value == (float) $value) {
-                                                $value = (float) $value;
+                                        // read empty cells or the cells are not empty
+                                        if ($this->readEmptyCells || ($value !== null && $value !== '')) {
+                                            // Check for numeric values
+                                            if (is_numeric($value) && $cellDataType != 's') {
+                                                if ($value == (int) $value) {
+                                                    $value = (int) $value;
+                                                } elseif ($value == (float) $value) {
+                                                    $value = (float) $value;
+                                                } elseif ($value == (float) $value) {
+                                                    $value = (float) $value;
+                                                }
                                             }
-                                        }
 
-                                        // Rich text?
-                                        if ($value instanceof RichText && $this->readDataOnly) {
-                                            $value = $value->getPlainText();
-                                        }
+                                            // Rich text?
+                                            if ($value instanceof RichText && $this->readDataOnly) {
+                                                $value = $value->getPlainText();
+                                            }
 
-                                        $cell = $docSheet->getCell($r);
-                                        // Assign value
-                                        if ($cellDataType != '') {
-                                            $cell->setValueExplicit($value, $cellDataType);
-                                        } else {
-                                            $cell->setValue($value);
-                                        }
-                                        if ($calculatedValue !== null) {
-                                            $cell->setCalculatedValue($calculatedValue);
-                                        }
+                                            $cell = $docSheet->getCell($r);
+                                            // Assign value
+                                            if ($cellDataType != '') {
+                                                $cell->setValueExplicit($value, $cellDataType);
+                                            } else {
+                                                $cell->setValue($value);
+                                            }
+                                            if ($calculatedValue !== null) {
+                                                $cell->setCalculatedValue($calculatedValue);
+                                            }
 
-                                        // Style information?
-                                        if ($c['s'] && !$this->readDataOnly) {
-                                            // no style index means 0, it seems
-                                            $cell->setXfIndex(isset($styles[(int) ($c['s'])]) ?
-                                                (int) ($c['s']) : 0);
+                                            // Style information?
+                                            if ($c['s'] && !$this->readDataOnly) {
+                                                // no style index means 0, it seems
+                                                $cell->setXfIndex(isset($styles[(int) ($c['s'])]) ?
+                                                    (int) ($c['s']) : 0);
+                                            }
                                         }
                                         $rowIndex += 1;
                                     }

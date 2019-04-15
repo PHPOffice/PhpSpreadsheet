@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Improve XLSX parsing speed if no readFilter is applied - [#772](https://github.com/PHPOffice/PhpSpreadsheet/issues/772)
 - Fix column names if read filter calls in XLSX reader skip columns - [#777](https://github.com/PHPOffice/PhpSpreadsheet/pull/777)
+- XLSX reader can now ignore blank cells, using the setReadEmptyCells(false) method. - [#810](https://github.com/PHPOffice/PhpSpreadsheet/issues/810)
 - Fix LOOKUP function which was breaking on edge cases - [#796](https://github.com/PHPOffice/PhpSpreadsheet/issues/796)
 - Fix VLOOKUP with exact matches - [#809](https://github.com/PHPOffice/PhpSpreadsheet/pull/809)
 - Support COUNTIFS multiple arguments - [#830](https://github.com/PHPOffice/PhpSpreadsheet/pull/830)
