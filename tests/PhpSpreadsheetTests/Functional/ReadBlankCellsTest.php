@@ -2,12 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
-use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ReadBlankCellsTest extends AbstractFunctional
 {
-
     public function providerSheetFormat()
     {
         return [
@@ -20,7 +18,7 @@ class ReadBlankCellsTest extends AbstractFunctional
     }
 
     /**
-     * Test generate file with some empty cells
+     * Test generate file with some empty cells.
      *
      * @dataProvider providerSheetFormat
      *
@@ -39,12 +37,11 @@ class ReadBlankCellsTest extends AbstractFunctional
         $this->assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C2'));
         $this->assertTrue($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C3'));
 
-        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function($reader) {
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function ($reader) {
             $reader->setReadEmptyCells(false);
         });
         $this->assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('B2'));
         $this->assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C2'));
         $this->assertTrue($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C3'));
     }
-
 }
