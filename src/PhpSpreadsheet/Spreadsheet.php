@@ -712,10 +712,9 @@ class Spreadsheet
 
     /**
      * Get sheet by name.
-     *
      * @param string $pName Sheet name
-     *
-     * @return null|Worksheet
+     * @return Worksheet
+     * @throws \Exception
      */
     public function getSheetByName($pName)
     {
@@ -725,8 +724,7 @@ class Spreadsheet
                 return $this->workSheetCollection[$i];
             }
         }
-
-        return null;
+        throw new \Exception('Sheet name does not exist');
     }
 
     /**
