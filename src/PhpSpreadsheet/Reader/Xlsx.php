@@ -1421,8 +1421,10 @@ class Xlsx extends BaseReader
                                 foreach ($vmlComments as $relName => $relPath) {
                                     // Load VML comments file
                                     $relPath = File::realpath(dirname("$dir/$fileWorksheet") . '/' . $relPath);
+                                    $secureXml = $this->securityScan($this->getFromZipArchive($zip, $relPath));
+                                    $cleanedXml = str_replace('<br>', '<br/>', $secureXml);
                                     $vmlCommentsFile = simplexml_load_string(
-                                        $this->securityScanner->scan($this->getFromZipArchive($zip, $relPath)),
+                                        $cleanedXml,
                                         'SimpleXMLElement',
                                         Settings::getLibXmlLoaderOptions()
                                     );
