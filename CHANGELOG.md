@@ -5,10 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased] - 
+## [Unreleased] -
 
 ### Added
 
+- Fix the hint of insertNewColumnBefore function
 - Added support for inline styles in Html reader (borders, alignment, width, height)
 - QuotedText cells no longer treated as formulae if the content begins with a `=`
 - Clean handling for DDE in formulae
@@ -18,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix handling for escaped enclosures and new lines in CSV Separator Inference
 - Fix MATCH an error was appearing when comparing strings against 0 (always true)
 - Fix wrong calculation of highest column with specified row [#700](https://github.com/PHPOffice/PhpSpreadsheet/issues/700)
-- Fix VLOOKUP 
+- Fix VLOOKUP
 - Fix return type hint
 
 ## [1.6.0] - 2019-01-02
@@ -40,8 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Improved memory usage and performance when loading large spreadsheets - [#822](https://github.com/PHPOffice/PhpSpreadsheet/pull/822)
 - Improved performance when loading large spreadsheets - [#825](https://github.com/PHPOffice/PhpSpreadsheet/pull/825)
 - Improved performance when loading large spreadsheets - [#824](https://github.com/PHPOffice/PhpSpreadsheet/pull/824)
-- Fix color from CSS when reading from HTML - [#831](https://github.com/PHPOffice/PhpSpreadsheet/pull/831) 
-- Fix infinite loop when reading invalid ODS files - [#832](https://github.com/PHPOffice/PhpSpreadsheet/pull/832) 
+- Fix color from CSS when reading from HTML - [#831](https://github.com/PHPOffice/PhpSpreadsheet/pull/831)
+- Fix infinite loop when reading invalid ODS files - [#832](https://github.com/PHPOffice/PhpSpreadsheet/pull/832)
 - Fix time format for duration is incorrect - [#666](https://github.com/PHPOffice/PhpSpreadsheet/pull/666)
 - Fix iconv unsupported `//IGNORE//TRANSLIT` on IBM i - [#791](https://github.com/PHPOffice/PhpSpreadsheet/issues/791)
 
@@ -149,7 +150,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
     - IMSEC()         Returns the secant of a complex number
     - IMSECH()        Returns the hyperbolic secant of a complex number
     - IMSINH()        Returns the hyperbolic sine of a complex number
-    - IMTAN()         Returns the tangent of a complex number 
+    - IMTAN()         Returns the tangent of a complex number
 
 ### Fixed
 
