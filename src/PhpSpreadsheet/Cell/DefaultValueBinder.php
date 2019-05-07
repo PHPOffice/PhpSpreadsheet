@@ -65,7 +65,7 @@ class DefaultValueBinder implements IValueBinder
             $tValue = ltrim($pValue, '+-');
             if (is_string($pValue) && $tValue[0] === '0' && strlen($tValue) > 1 && $tValue[1] !== '.') {
                 return DataType::TYPE_STRING;
-            } elseif ((strpos($pValue, '.') === false) && ($pValue > PHP_INT_MAX)) {
+            } elseif ((strpos($pValue, '.') === false) && ($pValue > Cell::INT_MAX)) {
                 return DataType::TYPE_STRING;
             }
 

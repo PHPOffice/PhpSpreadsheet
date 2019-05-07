@@ -12,6 +12,9 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Cell
 {
+    //数据表最大能表示的数值-超过后数据失精
+    const INT_MAX = 999999999999999;
+
     /**
      * Value binder to use.
      *
