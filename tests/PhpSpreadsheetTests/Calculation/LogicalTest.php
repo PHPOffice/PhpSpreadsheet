@@ -120,4 +120,20 @@ class LogicalTest extends TestCase
     {
         return require 'data/Calculation/Logical/IFERROR.php';
     }
+
+    /**
+     * @dataProvider providerSwitch
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSWITCH($expectedResult, ...$args)
+    {
+        $result = Logical::statementSwitch(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerSwitch()
+    {
+        return require 'data/Calculation/Logical/SWITCH.php';
+    }
 }
