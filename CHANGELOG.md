@@ -5,9 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased] - 
+## [Unreleased]
 
 ### Added
+
+- Added support for the SWITCH function - [Issue #963](https://github.com/PHPOffice/PhpSpreadsheet/issues/963) and [PR #983](https://github.com/PHPOffice/PhpSpreadsheet/pull/983)
+- Add accounting number format style [#974](https://github.com/PHPOffice/PhpSpreadsheet/pull/974)
+
+### Fixed
+
+- Whitelist `tsv` extension when opening CSV files [#429](https://github.com/PHPOffice/PhpSpreadsheet/issues/429)
+- Fix a SUMIF warning with some versions of PHP when having different length of arrays provided as input [#873](https://github.com/PHPOffice/PhpSpreadsheet/pull/873)
+
+## [1.7.0] - 2019-05-26
 
 - Added support for inline styles in Html reader (borders, alignment, width, height)
 - QuotedText cells no longer treated as formulae if the content begins with a `=`
@@ -17,6 +27,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Fix handling for escaped enclosures and new lines in CSV Separator Inference
 - Fix MATCH an error was appearing when comparing strings against 0 (always true)
+- Fix incorrectly handled backslash-escaped space characters in number format
+- Fix wrong calculation of highest column with specified row [#700](https://github.com/PHPOffice/PhpSpreadsheet/issues/700)
+- Fix VLOOKUP 
+- Fix return type hint
 
 ## [1.6.0] - 2019-01-02
 
@@ -29,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Improve XLSX parsing speed if no readFilter is applied - [#772](https://github.com/PHPOffice/PhpSpreadsheet/issues/772)
 - Fix column names if read filter calls in XLSX reader skip columns - [#777](https://github.com/PHPOffice/PhpSpreadsheet/pull/777)
+- XLSX reader can now ignore blank cells, using the setReadEmptyCells(false) method. - [#810](https://github.com/PHPOffice/PhpSpreadsheet/issues/810)
 - Fix LOOKUP function which was breaking on edge cases - [#796](https://github.com/PHPOffice/PhpSpreadsheet/issues/796)
 - Fix VLOOKUP with exact matches - [#809](https://github.com/PHPOffice/PhpSpreadsheet/pull/809)
 - Support COUNTIFS multiple arguments - [#830](https://github.com/PHPOffice/PhpSpreadsheet/pull/830)

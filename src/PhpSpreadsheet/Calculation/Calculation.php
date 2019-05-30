@@ -1945,6 +1945,11 @@ class Calculation
             'functionCall' => [MathTrig::class, 'SUMXMY2'],
             'argumentCount' => '2',
         ],
+        'SWITCH' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Logical::class, 'statementSwitch'],
+            'argumentCount' => '3+',
+        ],
         'SYD' => [
             'category' => Category::CATEGORY_FINANCIAL,
             'functionCall' => [Financial::class, 'SYD'],

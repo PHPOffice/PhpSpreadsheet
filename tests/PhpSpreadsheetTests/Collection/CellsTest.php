@@ -114,4 +114,21 @@ class CellsTest extends TestCase
         $collection->add('A1', $cell);
         $collection->add('A2', $cell);
     }
+
+    public function testGetHighestColumn()
+    {
+        $workbook = new Spreadsheet();
+        $sheet = $workbook->getActiveSheet();
+        $collection = $sheet->getCellCollection();
+
+        // check for empty sheet
+        $this->assertEquals('A', $collection->getHighestColumn());
+        $this->assertEquals('A', $collection->getHighestColumn(1));
+
+        // set a value and check again
+        $sheet->getCell('C4')->setValue(1);
+        $this->assertEquals('C', $collection->getHighestColumn());
+        $this->assertEquals('A', $collection->getHighestColumn(1));
+        $this->assertEquals('C', $collection->getHighestColumn(4));
+    }
 }

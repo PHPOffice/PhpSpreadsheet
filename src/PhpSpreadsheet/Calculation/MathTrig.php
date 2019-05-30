@@ -1224,11 +1224,12 @@ class MathTrig
             }
 
             $testCondition = '=' . $arg . $condition;
+            $sumValue = array_key_exists($key, $sumArgs) ? $sumArgs[$key] : 0;
 
-            if (is_numeric($sumArgs[$key]) &&
+            if (is_numeric($sumValue) &&
                 Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 // Is it a value within our criteria and only numeric can be added to the result
-                $returnValue += $sumArgs[$key];
+                $returnValue += $sumValue;
             }
         }
 
