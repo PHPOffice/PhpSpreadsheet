@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+- **Minimum version of PHP for the next release is now 7.0.0**
+
 ### Added
 
 - Added support for the SWITCH function - [Issue #963](https://github.com/PHPOffice/PhpSpreadsheet/issues/963) and [PR #983](https://github.com/PHPOffice/PhpSpreadsheet/pull/983)
@@ -16,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Whitelist `tsv` extension when opening CSV files [#429](https://github.com/PHPOffice/PhpSpreadsheet/issues/429)
 - Fix a SUMIF warning with some versions of PHP when having different length of arrays provided as input [#873](https://github.com/PHPOffice/PhpSpreadsheet/pull/873)
+- Fix incorrectly handled backslash-escaped space characters in number format
 
 ## [1.7.0] - 2019-05-26
 
@@ -27,7 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Fix handling for escaped enclosures and new lines in CSV Separator Inference
 - Fix MATCH an error was appearing when comparing strings against 0 (always true)
-- Fix incorrectly handled backslash-escaped space characters in number format
 - Fix wrong calculation of highest column with specified row [#700](https://github.com/PHPOffice/PhpSpreadsheet/issues/700)
 - Fix VLOOKUP 
 - Fix return type hint
