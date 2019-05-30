@@ -171,6 +171,16 @@ class RowCellIterator extends CellIterator
     }
 
     /**
+     * Return the current iterator position.
+     *
+     * @return int
+     */
+    public function getCurrentColumnIndex()
+    {
+        return $this->currentColumnIndex;
+    }
+
+    /**
      * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary.
      *
      * @throws PhpSpreadsheetException
