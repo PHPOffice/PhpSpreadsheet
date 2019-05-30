@@ -10,12 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Added support for the SWITCH function - [Issue #963](https://github.com/PHPOffice/PhpSpreadsheet/issues/963) and [PR #983](https://github.com/PHPOffice/PhpSpreadsheet/pull/983)
+- Add accounting number format style [#974](https://github.com/PHPOffice/PhpSpreadsheet/pull/974)
 
 ### Fixed
 
 - Whitelist `tsv` extension when opening CSV files [#429](https://github.com/PHPOffice/PhpSpreadsheet/issues/429)
 - Fix a SUMIF warning with some versions of PHP when having different length of arrays provided as input [#873](https://github.com/PHPOffice/PhpSpreadsheet/pull/873)
-- Add accounting number format style [#974](https://github.com/PHPOffice/PhpSpreadsheet/pull/974)
 
 ## [1.7.0] - 2019-05-26
 
