@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Fix handling for escaped enclosures and new lines in CSV Separator Inference
 - Fix MATCH an error was appearing when comparing strings against 0 (always true)
+- Fix incorrectly handled backslash-escaped space characters in number format
 - Fix wrong calculation of highest column with specified row [#700](https://github.com/PHPOffice/PhpSpreadsheet/issues/700)
 - Fix VLOOKUP 
 - Fix return type hint
