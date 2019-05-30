@@ -33,7 +33,7 @@ class XlsxTest extends TestCase
             $this->assertEquals($ref, \array_slice($data[$i], 0, 10, true));
         }
     }
-    
+
     /**
      * Test load Xlsx file with drawing having double attributes.
      */
