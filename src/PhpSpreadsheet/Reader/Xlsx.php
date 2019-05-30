@@ -1908,7 +1908,7 @@ class Xlsx extends BaseReader
                                     if (strpos((string) $definedName, '!') !== false) {
                                         // Extract sheet name
                                         $extractedSheetName = Worksheet::extractSheetTitle((string) $definedName, true);
-                                        $extractedSheetName = $extractedSheetName[0];
+                                        $extractedSheetName = trim($extractedSheetName[0],"'");
 
                                         // Locate sheet
                                         $locatedSheet = $excel->getSheetByName($extractedSheetName);
