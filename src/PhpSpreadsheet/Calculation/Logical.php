@@ -274,6 +274,60 @@ class Logical
     }
 
     /**
+     * STATEMENT_SWITCH.
+     *
+     * Returns corresponding with first match (any data type such as a string, numeric, date, etc).
+     *
+     * Excel Function:
+     *        =SWITCH (expression, value1, result1, value2, result2, ... value_n, result_n [, default])
+     *
+     *        Expression
+     *              The expression to compare to a list of values.
+     *        value1, value2, ... value_n
+     *              A list of values that are compared to expression. The SWITCH function is looking for the first value that matches the expression.
+     *        result1, result2, ... result_n
+     *              A list of results. The SWITCH function returns the corresponding result when a value matches expression.
+     *         default
+     *              Optional. It is the default to return if expression does not match any of the values (value1, value2, ... value_n).
+     *
+     * @category Logical Functions
+     *
+     * @param mixed $arguments Statement arguments
+     *
+     * @return mixed The value of matched expression
+     */
+    public static function statementSwitch(...$arguments)
+    {
+        $result = Functions::VALUE();
+
+        if (count($arguments) > 0) {
+            $targetValue = Functions::flattenSingleValue($arguments[0]);
+            $argc = count($arguments) - 1;
+            $switchCount = floor($argc / 2);
+            $switchSatisfied = false;
+            $hasDefaultClause = $argc % 2 !== 0;
+            $defaultClause = $argc % 2 === 0 ? null : $arguments[count($arguments) - 1];
+
+            if ($switchCount) {
+                for ($index = 0; $index < $switchCount; ++$index) {
+                    if ($targetValue == $arguments[$index * 2 + 1]) {
+                        $result = $arguments[$index * 2 + 2];
+                        $switchSatisfied = true;
+
+                        break;
+                    }
+                }
+            }
+
+            if (!$switchSatisfied) {
+                $result = $hasDefaultClause ? $defaultClause : Functions::NA();
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * IFERROR.
      *
      * Excel Function:
