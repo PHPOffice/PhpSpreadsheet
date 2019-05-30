@@ -980,8 +980,6 @@ class Xlsx extends BaseReader
                                                     $value = (int) $value;
                                                 } elseif ($value == (float) $value) {
                                                     $value = (float) $value;
-                                                } elseif ($value == (float) $value) {
-                                                    $value = (float) $value;
                                                 }
                                             }
 
