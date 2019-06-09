@@ -50,6 +50,10 @@ abstract class BaseReader implements IReader
 
     protected $fileHandle;
 
+    public function __construct()
+    {
+        $this->readFilter = new DefaultReadFilter();
+    }
     /**
      * @var XmlScanner
      */

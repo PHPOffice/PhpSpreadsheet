@@ -25,7 +25,7 @@ class Ods extends BaseReader
      */
     public function __construct()
     {
-        $this->readFilter = new DefaultReadFilter();
+        parent::__construct();
         $this->securityScanner = XmlScanner::getInstance($this);
     }
 
