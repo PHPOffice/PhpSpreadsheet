@@ -25,7 +25,6 @@ class Properties
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
         );
-
     }
 
     public function readCoreProperties($propertyData)
@@ -68,7 +67,6 @@ class Properties
         $xmlCore = $this->extractPropertyData($propertyData);
 
         if (is_object($xmlCore)) {
-
             foreach ($xmlCore as $xmlProperty) {
                 /** @var \SimpleXMLElement $xmlProperty */
                 $cellDataOfficeAttributes = $xmlProperty->attributes();
