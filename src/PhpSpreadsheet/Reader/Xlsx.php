@@ -463,12 +463,15 @@ class Xlsx extends BaseReader
             switch ($rel['Type']) {
                 case 'http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties':
                     $propertyReader->readCoreProperties($this->getFromZipArchive($zip, "{$rel['Target']}"));
+
                     break;
                 case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties':
                     $propertyReader->readExtendedProperties($this->getFromZipArchive($zip, "{$rel['Target']}"));
+
                     break;
                 case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties':
                     $propertyReader->readCustomProperties($this->getFromZipArchive($zip, "{$rel['Target']}"));
+
                     break;
                 //Ribbon
                 case 'http://schemas.microsoft.com/office/2006/relationships/ui/extensibility':
