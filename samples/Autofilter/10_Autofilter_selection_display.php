@@ -52,25 +52,25 @@ $row = 2;
 foreach ($years as $year) {
     foreach ($periods as $period) {
         foreach ($countries as $country) {
-            $endDays = date('t', mktime(0, 0, 0, $period, 1, $year));
+            $endDays = date('t', mktime(0, 0, 0, $period, 1, (int) $year));
             for ($i = 1; $i <= $endDays; ++$i) {
                 $eDate = Date::formattedPHPToExcel(
                     $year,
                     $period,
                     $i
                 );
-                $value = rand(500, 1000) * (1 + rand(-0.25, +0.25));
+                $value = rand(500, 1000) * (1 + (rand(-1, 1) / 4));
                 $salesValue = $invoiceValue = null;
                 $incomeOrExpenditure = rand(-1, 1);
                 if ($incomeOrExpenditure == -1) {
-                    $expenditure = rand(-500, -1000) * (1 + rand(-0.25, +0.25));
+                    $expenditure = rand(-500, -1000) * (1 + (rand(-1, 1) / 4));
                     $income = null;
                 } elseif ($incomeOrExpenditure == 1) {
-                    $expenditure = rand(-500, -1000) * (1 + rand(-0.25, +0.25));
-                    $income = rand(500, 1000) * (1 + rand(-0.25, +0.25));
+                    $expenditure = rand(-500, -1000) * (1 + (rand(-1, 1) / 4));
+                    $income = rand(500, 1000) * (1 + (rand(-1, 1) / 4));
                 } else {
                     $expenditure = null;
-                    $income = rand(500, 1000) * (1 + rand(-0.25, +0.25));
+                    $income = rand(500, 1000) * (1 + (rand(-1, 1) / 4));
                 }
                 $dataArray = [$year,
                     $period,

@@ -55,6 +55,11 @@ abstract class BaseReader implements IReader
      */
     protected $securityScanner;
 
+    public function __construct()
+    {
+        $this->readFilter = new DefaultReadFilter();
+    }
+
     /**
      * Read data only?
      *        If this is true, then the Reader will only read data values for cells, it will not read any formatting information.
