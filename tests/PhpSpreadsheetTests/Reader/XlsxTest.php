@@ -2,12 +2,37 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
+use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PHPUnit\Framework\TestCase;
 
 class XlsxTest extends TestCase
 {
+    public function testLoadWorkbookProperties()
+    {
+        $filename = './data/Reader/XLSX/propertyTest.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $properties = $spreadsheet->getProperties();
+        // Core Properties
+        $this->assertEquals('Mark Baker', $properties->getCreator());
+        $this->assertEquals('Unit Testing', $properties->getTitle());
+        $this->assertEquals('Property Test', $properties->getSubject());
+        // Extended Properties
+        $this->assertEquals('PHPOffice', $properties->getCompany());
+        $this->assertEquals('The Big Boss', $properties->getManager());
+        // Custom Properties
+        $customProperties = $properties->getCustomProperties();
+        $this->assertInternalType('array', $customProperties);
+        $customProperties = array_flip($customProperties);
+        $this->assertArrayHasKey('Publisher', $customProperties);
+        $this->assertTrue($properties->isCustomPropertySet('Publisher'));
+        $this->assertEquals(Properties::PROPERTY_TYPE_STRING, $properties->getCustomPropertyType('Publisher'));
+        $this->assertEquals('PHPOffice Suite', $properties->getCustomPropertyValue('Publisher'));
+    }
+
     /**
      * Test load Xlsx file without cell reference.
      */
