@@ -67,7 +67,7 @@ foreach ($years as $year) {
                     $income = null;
                 } elseif ($incomeOrExpenditure == 1) {
                     $expenditure = rand(-500, -1000) * (1 + (rand(-1, 1) / 4));
-                    $income = rand(500, 1000) * (1 + rand(-0.25, +0.25));
+                    $income = rand(500, 1000) * (1 + (rand(-1, 1) / 4));
                 } else {
                     $expenditure = null;
                     $income = rand(500, 1000) * (1 + (rand(-1, 1) / 4));
