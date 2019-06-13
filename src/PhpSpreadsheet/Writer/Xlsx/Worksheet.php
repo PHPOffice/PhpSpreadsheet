@@ -141,7 +141,7 @@ class Worksheet extends WriterPart
         $objWriter->startElement('sheetPr');
         if ($pSheet->getParent()->hasMacros()) {
             //if the workbook have macros, we need to have codeName for the sheet
-            if ($pSheet->hasCodeName() == false) {
+            if (!$pSheet->hasCodeName()) {
                 $pSheet->setCodeName($pSheet->getTitle());
             }
             $objWriter->writeAttribute('codeName', $pSheet->getCodeName());
@@ -428,7 +428,7 @@ class Worksheet extends WriterPart
         // sheetProtection
         $objWriter->startElement('sheetProtection');
 
-        if ($pSheet->getProtection()->getPassword() != '') {
+        if ($pSheet->getProtection()->getPassword() !== '') {
             $objWriter->writeAttribute('password', $pSheet->getProtection()->getPassword());
         }
 
@@ -627,7 +627,7 @@ class Worksheet extends WriterPart
                     $objWriter->writeAttribute('location', str_replace('sheet://', '', $hyperlink->getUrl()));
                 }
 
-                if ($hyperlink->getTooltip() != '') {
+                if ($hyperlink->getTooltip() !== '') {
                     $objWriter->writeAttribute('tooltip', $hyperlink->getTooltip());
                     $objWriter->writeAttribute('display', $hyperlink->getTooltip());
                 }
@@ -995,12 +995,12 @@ class Worksheet extends WriterPart
                 }
 
                 // Row visibility
-                if ($rowDimension->getVisible() == false) {
+                if (!$rowDimension->getVisible()) {
                     $objWriter->writeAttribute('hidden', 'true');
                 }
 
                 // Collapsed
-                if ($rowDimension->getCollapsed() == true) {
+                if ($rowDimension->getCollapsed()) {
                     $objWriter->writeAttribute('collapsed', 'true');
                 }
 
@@ -1139,7 +1139,7 @@ class Worksheet extends WriterPart
 
                     break;
                 case 'e':            // Error
-                    if (substr($cellValue, 0, 1) == '=') {
+                    if (substr($cellValue, 0, 1) === '=') {
                         $objWriter->writeElement('f', substr($cellValue, 1));
                         $objWriter->writeElement('v', substr($cellValue, 1));
                     } else {
