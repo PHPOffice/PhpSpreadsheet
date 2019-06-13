@@ -93,7 +93,7 @@ class Workbook extends WriterPart
     {
         $objWriter->startElement('workbookPr');
 
-        if (Date::getExcelCalendar() == Date::CALENDAR_MAC_1904) {
+        if (Date::getExcelCalendar() === Date::CALENDAR_MAC_1904) {
             $objWriter->writeAttribute('date1904', '1');
         }
 
@@ -225,7 +225,7 @@ class Workbook extends WriterPart
             $objWriter->startElement('sheet');
             $objWriter->writeAttribute('name', $pSheetname);
             $objWriter->writeAttribute('sheetId', $pSheetId);
-            if ($sheetState != 'visible' && $sheetState != '') {
+            if ($sheetState !== 'visible' && $sheetState != '') {
                 $objWriter->writeAttribute('state', $sheetState);
             }
             $objWriter->writeAttribute('r:id', 'rId' . $pRelId);
