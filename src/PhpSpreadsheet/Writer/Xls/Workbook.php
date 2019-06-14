@@ -267,9 +267,7 @@ class Workbook extends BIFFwriter
 
         $this->xfWriters[] = $xfWriter;
 
-        $xfIndex = count($this->xfWriters) - 1;
-
-        return $xfIndex;
+        return count($this->xfWriters) - 1;
     }
 
     /**
@@ -319,7 +317,7 @@ class Workbook extends BIFFwriter
             if ($colorIndex) {
                 $this->colors[$rgb] = $colorIndex;
             } else {
-                if (count($this->colors) == 0) {
+                if (count($this->colors) === 0) {
                     $lastColor = 7;
                 } else {
                     $lastColor = end($this->colors);
@@ -437,7 +435,7 @@ class Workbook extends BIFFwriter
 
         // Prepare part 3 of the workbook global stream, what goes after the SHEET records
         $part3 = '';
-        if ($this->countryCode != -1) {
+        if ($this->countryCode !== -1) {
             $part3 .= $this->writeCountry();
         }
         $part3 .= $this->writeRecalcId();
@@ -918,7 +916,7 @@ class Workbook extends BIFFwriter
         $record = 0x0022; // Record identifier
         $length = 0x0002; // Bytes to follow
 
-        $f1904 = (Date::getExcelCalendar() == Date::CALENDAR_MAC_1904)
+        $f1904 = (Date::getExcelCalendar() === Date::CALENDAR_MAC_1904)
             ? 1
             : 0; // Flag for 1904 date system
 
