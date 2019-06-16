@@ -843,7 +843,8 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            (new ColumnAndRowAttributes($xmlSheet, $docSheet))->load();
+                            (new ColumnAndRowAttributes($xmlSheet, $docSheet))
+                                ->load($this->getReadFilter(), $this->getReadDataOnly());
 
                             if ($xmlSheet && $xmlSheet->sheetData && $xmlSheet->sheetData->row) {
                                 $cIndex = 1; // Cell Start from 1
