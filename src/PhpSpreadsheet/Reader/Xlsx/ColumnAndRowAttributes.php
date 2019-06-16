@@ -83,7 +83,8 @@ class ColumnAndRowAttributes
     }
 
     /**
-     * @param boolean $readDataOnly
+     * @param IReadFilter $readFilter
+     * @param bool $readDataOnly
      */
     public function load(IReadFilter $readFilter = null, $readDataOnly = false)
     {

@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Chart;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\ColumnAndRowAttributes;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
@@ -780,68 +781,8 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            if (isset($xmlSheet->sheetPr, $xmlSheet->sheetPr->tabColor)) {
-                                if (isset($xmlSheet->sheetPr->tabColor['rgb'])) {
-                                    $docSheet->getTabColor()->setARGB((string) $xmlSheet->sheetPr->tabColor['rgb']);
-                                }
-                            }
-                            if (isset($xmlSheet->sheetPr, $xmlSheet->sheetPr['codeName'])) {
-                                $docSheet->setCodeName((string) $xmlSheet->sheetPr['codeName'], false);
-                            }
-                            if (isset($xmlSheet->sheetPr, $xmlSheet->sheetPr->outlinePr)) {
-                                if (isset($xmlSheet->sheetPr->outlinePr['summaryRight']) &&
-                                    !self::boolean((string) $xmlSheet->sheetPr->outlinePr['summaryRight'])) {
-                                    $docSheet->setShowSummaryRight(false);
-                                } else {
-                                    $docSheet->setShowSummaryRight(true);
-                                }
-
-                                if (isset($xmlSheet->sheetPr->outlinePr['summaryBelow']) &&
-                                    !self::boolean((string) $xmlSheet->sheetPr->outlinePr['summaryBelow'])) {
-                                    $docSheet->setShowSummaryBelow(false);
-                                } else {
-                                    $docSheet->setShowSummaryBelow(true);
-                                }
-                            }
-
-                            if (isset($xmlSheet->sheetPr, $xmlSheet->sheetPr->pageSetUpPr)) {
-                                if (isset($xmlSheet->sheetPr->pageSetUpPr['fitToPage']) &&
-                                    !self::boolean((string) $xmlSheet->sheetPr->pageSetUpPr['fitToPage'])) {
-                                    $docSheet->getPageSetup()->setFitToPage(false);
-                                } else {
-                                    $docSheet->getPageSetup()->setFitToPage(true);
-                                }
-                            }
-
-                            if (isset($xmlSheet->sheetFormatPr)) {
-                                if (isset($xmlSheet->sheetFormatPr['customHeight']) &&
-                                    self::boolean((string) $xmlSheet->sheetFormatPr['customHeight']) &&
-                                    isset($xmlSheet->sheetFormatPr['defaultRowHeight'])) {
-                                    $docSheet->getDefaultRowDimension()->setRowHeight((float) $xmlSheet->sheetFormatPr['defaultRowHeight']);
-                                }
-                                if (isset($xmlSheet->sheetFormatPr['defaultColWidth'])) {
-                                    $docSheet->getDefaultColumnDimension()->setWidth((float) $xmlSheet->sheetFormatPr['defaultColWidth']);
-                                }
-                                if (isset($xmlSheet->sheetFormatPr['zeroHeight']) &&
-                                    ((string) $xmlSheet->sheetFormatPr['zeroHeight'] == '1')) {
-                                    $docSheet->getDefaultRowDimension()->setZeroHeight(true);
-                                }
-                            }
-
-                            if (isset($xmlSheet->printOptions) && !$this->readDataOnly) {
-                                if (self::boolean((string) $xmlSheet->printOptions['gridLinesSet'])) {
-                                    $docSheet->setShowGridlines(true);
-                                }
-                                if (self::boolean((string) $xmlSheet->printOptions['gridLines'])) {
-                                    $docSheet->setPrintGridlines(true);
-                                }
-                                if (self::boolean((string) $xmlSheet->printOptions['horizontalCentered'])) {
-                                    $docSheet->getPageSetup()->setHorizontalCentered(true);
-                                }
-                                if (self::boolean((string) $xmlSheet->printOptions['verticalCentered'])) {
-                                    $docSheet->getPageSetup()->setVerticalCentered(true);
-                                }
-                            }
+                            $sheetViewOptions = new SheetViewOptions($xmlSheet, $docSheet);
+                            $sheetViewOptions->load($this->getReadDataOnly());
 
                             (new ColumnAndRowAttributes($xmlSheet, $docSheet))
                                 ->load($this->getReadFilter(), $this->getReadDataOnly());
