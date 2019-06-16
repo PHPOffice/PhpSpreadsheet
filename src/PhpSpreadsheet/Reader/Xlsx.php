@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Chart;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\ColumnAndRowAttributes;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViews;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
@@ -719,66 +720,8 @@ class Xlsx extends BaseReader
                             }
 
                             if (isset($xmlSheet->sheetViews, $xmlSheet->sheetViews->sheetView)) {
-                                if (isset($xmlSheet->sheetViews->sheetView['zoomScale'])) {
-                                    $zoomScale = (int) ($xmlSheet->sheetViews->sheetView['zoomScale']);
-                                    if ($zoomScale <= 0) {
-                                        // setZoomScale will throw an Exception if the scale is less than or equals 0
-                                        // that is OK when manually creating documents, but we should be able to read all documents
-                                        $zoomScale = 100;
-                                    }
-
-                                    $docSheet->getSheetView()->setZoomScale($zoomScale);
-                                }
-                                if (isset($xmlSheet->sheetViews->sheetView['zoomScaleNormal'])) {
-                                    $zoomScaleNormal = (int) ($xmlSheet->sheetViews->sheetView['zoomScaleNormal']);
-                                    if ($zoomScaleNormal <= 0) {
-                                        // setZoomScaleNormal will throw an Exception if the scale is less than or equals 0
-                                        // that is OK when manually creating documents, but we should be able to read all documents
-                                        $zoomScaleNormal = 100;
-                                    }
-
-                                    $docSheet->getSheetView()->setZoomScaleNormal($zoomScaleNormal);
-                                }
-                                if (isset($xmlSheet->sheetViews->sheetView['view'])) {
-                                    $docSheet->getSheetView()->setView((string) $xmlSheet->sheetViews->sheetView['view']);
-                                }
-                                if (isset($xmlSheet->sheetViews->sheetView['showGridLines'])) {
-                                    $docSheet->setShowGridLines(self::boolean((string) $xmlSheet->sheetViews->sheetView['showGridLines']));
-                                }
-                                if (isset($xmlSheet->sheetViews->sheetView['showRowColHeaders'])) {
-                                    $docSheet->setShowRowColHeaders(self::boolean((string) $xmlSheet->sheetViews->sheetView['showRowColHeaders']));
-                                }
-                                if (isset($xmlSheet->sheetViews->sheetView['rightToLeft'])) {
-                                    $docSheet->setRightToLeft(self::boolean((string) $xmlSheet->sheetViews->sheetView['rightToLeft']));
-                                }
-                                if (isset($xmlSheet->sheetViews->sheetView->pane)) {
-                                    $xSplit = 0;
-                                    $ySplit = 0;
-                                    $topLeftCell = null;
-
-                                    if (isset($xmlSheet->sheetViews->sheetView->pane['xSplit'])) {
-                                        $xSplit = (int) ($xmlSheet->sheetViews->sheetView->pane['xSplit']);
-                                    }
-
-                                    if (isset($xmlSheet->sheetViews->sheetView->pane['ySplit'])) {
-                                        $ySplit = (int) ($xmlSheet->sheetViews->sheetView->pane['ySplit']);
-                                    }
-
-                                    if (isset($xmlSheet->sheetViews->sheetView->pane['topLeftCell'])) {
-                                        $topLeftCell = (string) $xmlSheet->sheetViews->sheetView->pane['topLeftCell'];
-                                    }
-
-                                    $docSheet->freezePane(Coordinate::stringFromColumnIndex($xSplit + 1) . ($ySplit + 1), $topLeftCell);
-                                }
-
-                                if (isset($xmlSheet->sheetViews->sheetView->selection)) {
-                                    if (isset($xmlSheet->sheetViews->sheetView->selection['sqref'])) {
-                                        $sqref = (string) $xmlSheet->sheetViews->sheetView->selection['sqref'];
-                                        $sqref = explode(' ', $sqref);
-                                        $sqref = $sqref[0];
-                                        $docSheet->setSelectedCells($sqref);
-                                    }
-                                }
+                                $sheetViews = new SheetViews($xmlSheet->sheetViews->sheetView, $docSheet);
+                                $sheetViews->load();
                             }
 
                             $sheetViewOptions = new SheetViewOptions($xmlSheet, $docSheet);
