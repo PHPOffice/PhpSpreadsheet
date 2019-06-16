@@ -123,7 +123,8 @@ class SheetViews
         }
 
         $this->worksheet->freezePane(
-            Coordinate::stringFromColumnIndex($xSplit + 1) . ($ySplit + 1), $topLeftCell
+            Coordinate::stringFromColumnIndex($xSplit + 1) . ($ySplit + 1),
+            $topLeftCell
         );
     }
 
