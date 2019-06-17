@@ -16,5 +16,4 @@ class BaseParserClass
 
         return $value === strtolower('true');
     }
-
 }
