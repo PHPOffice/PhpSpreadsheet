@@ -540,8 +540,7 @@ class Xlsx extends BaseReader
                             }
                         }
                     }
-                    $styles = [];
-                    $cellStyles = [];
+
                     $xpath = self::getArrayItem($relsWorkbook->xpath("rel:Relationship[@Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles']"));
                     //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                     $xmlStyles = simplexml_load_string(
@@ -549,6 +548,9 @@ class Xlsx extends BaseReader
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
                     );
+
+                    $styles = [];
+                    $cellStyles = [];
                     $numFmts = null;
                     if ($xmlStyles && $xmlStyles->numFmts[0]) {
                         $numFmts = $xmlStyles->numFmts[0];

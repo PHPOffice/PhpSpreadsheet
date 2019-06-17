@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ColumnAndRowAttributes
+class ColumnAndRowAttributes extends BaseParserClass
 {
     private $worksheetXml;
 
@@ -16,18 +16,6 @@ class ColumnAndRowAttributes
     {
         $this->worksheetXml = $worksheetXml;
         $this->worksheet = $workSheet;
-    }
-
-    private static function boolean($value)
-    {
-        if (is_object($value)) {
-            $value = (string) $value;
-        }
-        if (is_numeric($value)) {
-            return (bool) $value;
-        }
-
-        return $value === strtolower('true');
     }
 
     /**

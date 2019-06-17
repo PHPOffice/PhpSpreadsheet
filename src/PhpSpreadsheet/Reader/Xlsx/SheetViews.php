@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class SheetViews
+class SheetViews extends BaseParserClass
 {
     private $sheetViewXml;
 
@@ -15,18 +15,6 @@ class SheetViews
     {
         $this->sheetViewXml = $sheetViewXml;
         $this->worksheet = $workSheet;
-    }
-
-    private static function boolean($value)
-    {
-        if (is_object($value)) {
-            $value = (string) $value;
-        }
-        if (is_numeric($value)) {
-            return (bool) $value;
-        }
-
-        return $value === strtolower('true');
     }
 
     public function load()

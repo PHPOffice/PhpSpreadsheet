@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class SheetViewOptions
+class SheetViewOptions extends BaseParserClass
 {
     private $worksheetXml;
 
@@ -16,28 +16,21 @@ class SheetViewOptions
         $this->worksheet = $workSheet;
     }
 
-    private static function boolean($value)
-    {
-        if (is_object($value)) {
-            $value = (string) $value;
-        }
-        if (is_numeric($value)) {
-            return (bool) $value;
-        }
-
-        return $value === strtolower('true');
-    }
-
     /**
      * @param bool $readDataOnly
      */
     public function load($readDataOnly = false)
     {
-        $this->tabColor();
-        $this->codeName();
-        $this->outlines();
-        $this->pageSetup();
-        $this->sheetFormat();
+        if (isset($this->worksheetXml->sheetPr)) {
+            $this->tabColor();
+            $this->codeName();
+            $this->outlines();
+            $this->pageSetup();
+        }
+
+        if (isset($this->worksheetXml->sheetFormatPr)) {
+            $this->sheetFormat();
+        }
 
         if (!$readDataOnly) {
             $this->printOptions();
@@ -46,7 +39,7 @@ class SheetViewOptions
 
     private function tabColor()
     {
-        if (isset($this->worksheetXml->sheetPr, $this->worksheetXml->sheetPr->tabColor)) {
+        if (isset($this->worksheetXml->sheetPr->tabColor)) {
             if (isset($this->worksheetXml->sheetPr->tabColor['rgb'])) {
                 $this->worksheet->getTabColor()->setARGB((string) $this->worksheetXml->sheetPr->tabColor['rgb']);
             }
@@ -55,14 +48,14 @@ class SheetViewOptions
 
     private function codeName()
     {
-        if (isset($this->worksheetXml->sheetPr, $this->worksheetXml->sheetPr['codeName'])) {
+        if (isset($this->worksheetXml->sheetPr['codeName'])) {
             $this->worksheet->setCodeName((string) $this->worksheetXml->sheetPr['codeName'], false);
         }
     }
 
     private function outlines()
     {
-        if (isset($this->worksheetXml->sheetPr, $this->worksheetXml->sheetPr->outlinePr)) {
+        if (isset($this->worksheetXml->sheetPr->outlinePr)) {
             if (isset($this->worksheetXml->sheetPr->outlinePr['summaryRight']) &&
                 !self::boolean((string) $this->worksheetXml->sheetPr->outlinePr['summaryRight'])) {
                 $this->worksheet->setShowSummaryRight(false);
@@ -81,7 +74,7 @@ class SheetViewOptions
 
     private function pageSetup()
     {
-        if (isset($this->worksheetXml->sheetPr, $this->worksheetXml->sheetPr->pageSetUpPr)) {
+        if (isset($this->worksheetXml->sheetPr->pageSetUpPr)) {
             if (isset($this->worksheetXml->sheetPr->pageSetUpPr['fitToPage']) &&
                 !self::boolean((string) $this->worksheetXml->sheetPr->pageSetUpPr['fitToPage'])) {
                 $this->worksheet->getPageSetup()->setFitToPage(false);
@@ -93,21 +86,21 @@ class SheetViewOptions
 
     private function sheetFormat()
     {
-        if (isset($this->worksheetXml->sheetFormatPr)) {
-            if (isset($this->worksheetXml->sheetFormatPr['customHeight']) &&
-                self::boolean((string) $this->worksheetXml->sheetFormatPr['customHeight']) &&
-                isset($this->worksheetXml->sheetFormatPr['defaultRowHeight'])) {
-                $this->worksheet->getDefaultRowDimension()
-                    ->setRowHeight((float) $this->worksheetXml->sheetFormatPr['defaultRowHeight']);
-            }
-            if (isset($this->worksheetXml->sheetFormatPr['defaultColWidth'])) {
-                $this->worksheet->getDefaultColumnDimension()
-                    ->setWidth((float) $this->worksheetXml->sheetFormatPr['defaultColWidth']);
-            }
-            if (isset($this->worksheetXml->sheetFormatPr['zeroHeight']) &&
-                ((string) $this->worksheetXml->sheetFormatPr['zeroHeight'] == '1')) {
-                $this->worksheet->getDefaultRowDimension()->setZeroHeight(true);
-            }
+        if (isset($this->worksheetXml->sheetFormatPr['customHeight']) &&
+            self::boolean((string) $this->worksheetXml->sheetFormatPr['customHeight']) &&
+            isset($this->worksheetXml->sheetFormatPr['defaultRowHeight'])) {
+            $this->worksheet->getDefaultRowDimension()
+                ->setRowHeight((float) $this->worksheetXml->sheetFormatPr['defaultRowHeight']);
+        }
+
+        if (isset($this->worksheetXml->sheetFormatPr['defaultColWidth'])) {
+            $this->worksheet->getDefaultColumnDimension()
+                ->setWidth((float) $this->worksheetXml->sheetFormatPr['defaultColWidth']);
+        }
+
+        if (isset($this->worksheetXml->sheetFormatPr['zeroHeight']) &&
+            ((string) $this->worksheetXml->sheetFormatPr['zeroHeight'] == '1')) {
+            $this->worksheet->getDefaultRowDimension()->setZeroHeight(true);
         }
     }
 
