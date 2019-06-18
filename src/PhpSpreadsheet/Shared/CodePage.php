@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 class CodePage
 {
+    public const DEFAULT_CODE_PAGE = 'CP1252';
+
     private static $pageArray = [
         0 => 'CP1252', //    CodePage is not always correctly set when the xls file was saved by Apple's Numbers program
         367 => 'ASCII', //    ASCII
@@ -66,12 +68,24 @@ class CodePage
     ];
 
     /**
+     * @param string $codePage
+     *
+     * @return bool
+     */
+    public static function validate(string $codePage): bool
+    {
+        return (in_array($codePage, self::$pageArray, true));
+    }
+
+    /**
      * Convert Microsoft Code Page Identifier to Code Page Name which iconv
      * and mbstring understands.
      *
      * @param int $codePage Microsoft Code Page Indentifier
      *
      * @return string Code Page Name
+     *
+     * @throws PhpSpreadsheetException
      */
     public static function numberToName(int $codePage): string
     {
