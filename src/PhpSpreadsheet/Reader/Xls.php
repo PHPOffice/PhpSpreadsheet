@@ -440,6 +440,14 @@ class Xls extends BaseReader
     }
 
     /**
+     * @param string $codepage
+     */
+    public function setCodepage($codepage)
+    {
+        $this->codepage = $codepage;
+    }
+
+    /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
      * @param string $pFilename
@@ -646,7 +654,7 @@ class Xls extends BaseReader
 
         // initialize
         $this->pos = 0;
-        $this->codepage = 'CP1252';
+        $this->codepage = $this->codepage == null ? 'CP1252' : $this->codepage;
         $this->formats = [];
         $this->objFonts = [];
         $this->palette = [];
