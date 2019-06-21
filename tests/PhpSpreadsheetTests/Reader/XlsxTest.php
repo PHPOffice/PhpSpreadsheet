@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -9,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class XlsxTest extends TestCase
 {
-    public function testLoadWorkbookProperties()
+    public function testLoadXlsxWorkbookProperties()
     {
         $filename = './data/Reader/XLSX/propertyTest.xlsx';
         $reader = new Xlsx();
@@ -17,20 +18,40 @@ class XlsxTest extends TestCase
 
         $properties = $spreadsheet->getProperties();
         // Core Properties
-        $this->assertEquals('Mark Baker', $properties->getCreator());
-        $this->assertEquals('Unit Testing', $properties->getTitle());
-        $this->assertEquals('Property Test', $properties->getSubject());
+        $this->assertSame('Mark Baker', $properties->getCreator());
+        $this->assertSame('Unit Testing', $properties->getTitle());
+        $this->assertSame('Property Test', $properties->getSubject());
         // Extended Properties
-        $this->assertEquals('PHPOffice', $properties->getCompany());
-        $this->assertEquals('The Big Boss', $properties->getManager());
+        $this->assertSame('PHPOffice', $properties->getCompany());
+        $this->assertSame('The Big Boss', $properties->getManager());
         // Custom Properties
         $customProperties = $properties->getCustomProperties();
-        $this->assertInternalType('array', $customProperties);
+        $this->assertIsArray($customProperties);
         $customProperties = array_flip($customProperties);
         $this->assertArrayHasKey('Publisher', $customProperties);
         $this->assertTrue($properties->isCustomPropertySet('Publisher'));
-        $this->assertEquals(Properties::PROPERTY_TYPE_STRING, $properties->getCustomPropertyType('Publisher'));
-        $this->assertEquals('PHPOffice Suite', $properties->getCustomPropertyValue('Publisher'));
+        $this->assertSame(Properties::PROPERTY_TYPE_STRING, $properties->getCustomPropertyType('Publisher'));
+        $this->assertSame('PHPOffice Suite', $properties->getCustomPropertyValue('Publisher'));
+    }
+
+    public function testLoadXlsxRowColumnAttributes()
+    {
+        $filename = './data/Reader/XLSX/rowColumnAttributeTest.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+        for ($row = 1; $row <= 4; ++$row) {
+            $this->assertEquals($row*5+10, floor($worksheet->getRowDimension($row)->getRowHeight()));
+        }
+
+        for ($column = 1; $column <= 4; ++$column) {
+            $columnAddress = Coordinate::stringFromColumnIndex($column);
+            $this->assertEquals(
+                $column*2+2,
+                floor($worksheet->getColumnDimension($columnAddress)->getWidth())
+            );
+        }
     }
 
     /**
