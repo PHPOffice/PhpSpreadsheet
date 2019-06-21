@@ -23,7 +23,7 @@ class Styles extends BaseParserClass
 
     private $cellStyles = [];
 
-    private $numFmts = null;
+    private $numFmts;
 
     private $styleXml;
 
