@@ -26,7 +26,7 @@ class XlsxTest extends TestCase
         $this->assertSame('The Big Boss', $properties->getManager());
         // Custom Properties
         $customProperties = $properties->getCustomProperties();
-        $this->assertIsArray($customProperties);
+        $this->assertInternalType('array', $customProperties);
         $customProperties = array_flip($customProperties);
         $this->assertArrayHasKey('Publisher', $customProperties);
         $this->assertTrue($properties->isCustomPropertySet('Publisher'));
