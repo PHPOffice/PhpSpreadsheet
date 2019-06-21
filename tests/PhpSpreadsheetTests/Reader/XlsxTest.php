@@ -42,7 +42,7 @@ class XlsxTest extends TestCase
 
         $worksheet = $spreadsheet->getActiveSheet();
         for ($row = 1; $row <= 4; ++$row) {
-            $this->assertEquals($row*5+10, floor($worksheet->getRowDimension($row)->getRowHeight()));
+            $this->assertEquals($row * 5 + 10, floor($worksheet->getRowDimension($row)->getRowHeight()));
         }
 
         $this->assertFalse($worksheet->getRowDimension(5)->getVisible());
@@ -50,7 +50,7 @@ class XlsxTest extends TestCase
         for ($column = 1; $column <= 4; ++$column) {
             $columnAddress = Coordinate::stringFromColumnIndex($column);
             $this->assertEquals(
-                $column*2+2,
+                $column * 2 + 2,
                 floor($worksheet->getColumnDimension($columnAddress)->getWidth())
             );
         }
