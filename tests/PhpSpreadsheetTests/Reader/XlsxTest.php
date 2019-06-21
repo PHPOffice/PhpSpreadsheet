@@ -45,6 +45,8 @@ class XlsxTest extends TestCase
             $this->assertEquals($row*5+10, floor($worksheet->getRowDimension($row)->getRowHeight()));
         }
 
+        $this->assertFalse($worksheet->getRowDimension(5)->getVisible());
+
         for ($column = 1; $column <= 4; ++$column) {
             $columnAddress = Coordinate::stringFromColumnIndex($column);
             $this->assertEquals(
@@ -52,6 +54,8 @@ class XlsxTest extends TestCase
                 floor($worksheet->getColumnDimension($columnAddress)->getWidth())
             );
         }
+
+        $this->assertFalse($worksheet->getColumnDimension('E')->getVisible());
     }
 
     /**
