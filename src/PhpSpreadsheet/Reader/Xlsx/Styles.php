@@ -20,7 +20,9 @@ class Styles extends BaseParserClass
     private static $theme = null;
 
     private $styles = [];
+
     private $cellStyles = [];
+
     private $numFmts = null;
 
     private $styleXml;
