@@ -241,7 +241,7 @@ class Cells
      */
     public function getHighestColumn($row = null)
     {
-        if ($row == null) {
+        if ($row === null) {
             $colRow = $this->getHighestRowAndColumn();
 
             return $colRow['column'];
@@ -272,7 +272,7 @@ class Cells
      */
     public function getHighestRow($column = null)
     {
-        if ($column == null) {
+        if ($column === null) {
             $colRow = $this->getHighestRowAndColumn();
 
             return $colRow['row'];
