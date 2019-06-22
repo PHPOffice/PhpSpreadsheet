@@ -161,6 +161,7 @@ abstract class Coordinate
         for ($i = 0; $i < $counter; ++$i) {
             $pRange[$i] = implode(':', $pRange[$i]);
         }
+
         return implode(',', $pRange);
     }
 
