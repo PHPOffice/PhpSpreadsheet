@@ -30,7 +30,7 @@ for ($col = 1; $col <= 50; ++$col) {
     }
 }
 $d = microtime(true) - $t;
-$helper->log('Add data (end) . time: ' . round($d . 2) . ' s');
+$helper->log('Add data (end) . time: ' . round((string) ($d . 2)) . ' s');
 
 // Save
 $helper->write($spreadsheet, __FILE__);
