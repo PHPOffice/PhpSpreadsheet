@@ -16,7 +16,7 @@ class XlsxTest extends TestCase
             'Publisher' => ['type' => Properties::PROPERTY_TYPE_STRING, 'value' => 'PHPOffice Suite'],
             'Tested' => ['type' => Properties::PROPERTY_TYPE_BOOLEAN, 'value' => true],
             'Counter' => ['type' => Properties::PROPERTY_TYPE_INTEGER, 'value' => 15],
-            'Rate' => ['type' => Properties::PROPERTY_TYPE_FLOAT, 'value' => 1.15,],
+            'Rate' => ['type' => Properties::PROPERTY_TYPE_FLOAT, 'value' => 1.15],
             'Refactor Date' => ['type' => Properties::PROPERTY_TYPE_DATE, 'value' => '2019-06-10'],
         ];
 
