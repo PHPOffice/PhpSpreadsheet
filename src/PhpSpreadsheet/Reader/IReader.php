@@ -124,8 +124,6 @@ interface IReader
      */
     public function setReadFilter(IReadFilter $pValue);
 
-
-
     /**
      * Loads PhpSpreadsheet from file.
      *
