@@ -160,7 +160,7 @@ $spreadsheet->getActiveSheet()->setCellValue(
     '=IF(A3, CONCATENATE(A1, " ", A2), CONCATENATE(A2, " ", A1))'
 );
 $spreadsheet->getActiveSheet()->getCell('A4')
-    ->->getStyle()->setQuotePrefix(true);
+    ->getStyle()->setQuotePrefix(true);
 ```
 
 Then, even if you ask PHPSpreadsheet to return the calculated value for cell
