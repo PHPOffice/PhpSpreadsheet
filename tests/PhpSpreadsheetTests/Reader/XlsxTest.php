@@ -12,6 +12,14 @@ class XlsxTest extends TestCase
 {
     public function testLoadXlsxWorkbookProperties()
     {
+        $customPropertySet = [
+            'Publisher' => ['type' => Properties::PROPERTY_TYPE_STRING, 'value' => 'PHPOffice Suite'],
+            'Tested' => ['type' => Properties::PROPERTY_TYPE_BOOLEAN, 'value' => true],
+            'Counter' => ['type' => Properties::PROPERTY_TYPE_INTEGER, 'value' => 15],
+            'Rate' => ['type' => Properties::PROPERTY_TYPE_FLOAT, 'value' => 1.15,],
+            'Refactor Date' => ['type' => Properties::PROPERTY_TYPE_DATE, 'value' => '2019-06-10'],
+        ];
+
         $filename = './data/Reader/XLSX/propertyTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
@@ -21,17 +29,26 @@ class XlsxTest extends TestCase
         $this->assertSame('Mark Baker', $properties->getCreator());
         $this->assertSame('Unit Testing', $properties->getTitle());
         $this->assertSame('Property Test', $properties->getSubject());
+
         // Extended Properties
         $this->assertSame('PHPOffice', $properties->getCompany());
         $this->assertSame('The Big Boss', $properties->getManager());
+
         // Custom Properties
         $customProperties = $properties->getCustomProperties();
         $this->assertInternalType('array', $customProperties);
         $customProperties = array_flip($customProperties);
         $this->assertArrayHasKey('Publisher', $customProperties);
-        $this->assertTrue($properties->isCustomPropertySet('Publisher'));
-        $this->assertSame(Properties::PROPERTY_TYPE_STRING, $properties->getCustomPropertyType('Publisher'));
-        $this->assertSame('PHPOffice Suite', $properties->getCustomPropertyValue('Publisher'));
+
+        foreach ($customPropertySet as $propertyName => $testData) {
+            $this->assertTrue($properties->isCustomPropertySet($propertyName));
+            $this->assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
+            if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
+                $this->assertSame($testData['value'], date('Y-m-d', $properties->getCustomPropertyValue($propertyName)));
+            } else {
+                $this->assertSame($testData['value'], $properties->getCustomPropertyValue($propertyName));
+            }
+        }
     }
 
     public function testLoadXlsxRowColumnAttributes()

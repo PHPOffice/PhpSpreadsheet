@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\ColumnAndRowAttributes;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViews;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Styles;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
@@ -630,31 +631,10 @@ class Xlsx extends BaseReader
                         }
                     }
 
-                    $dxfs = [];
-                    if (!$this->readDataOnly && $xmlStyles) {
-                        //    Conditional Styles
-                        if ($xmlStyles->dxfs) {
-                            foreach ($xmlStyles->dxfs->dxf as $dxf) {
-                                $style = new Style(false, true);
-                                self::readStyle($style, $dxf);
-                                $dxfs[] = $style;
-                            }
-                        }
-                        //    Cell Styles
-                        if ($xmlStyles->cellStyles) {
-                            foreach ($xmlStyles->cellStyles->cellStyle as $cellStyle) {
-                                if ((int) ($cellStyle['builtinId']) == 0) {
-                                    if (isset($cellStyles[(int) ($cellStyle['xfId'])])) {
-                                        // Set default style
-                                        $style = new Style();
-                                        self::readStyle($style, $cellStyles[(int) ($cellStyle['xfId'])]);
-
-                                        // normal style, currently not using it for anything
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    $styleReader = new Styles($xmlStyles);
+                    $styleReader->setStyleBaseData(self::$theme, $styles, $cellStyles);
+                    $dxfs = $styleReader->dxfs($this->readDataOnly);
+                    $styles = $styleReader->styles();
 
                     //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                     $xmlWorkbook = simplexml_load_string(
