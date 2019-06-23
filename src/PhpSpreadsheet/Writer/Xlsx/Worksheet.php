@@ -383,7 +383,7 @@ class Worksheet extends WriterPart
                 }
 
                 // Column visibility
-                if ($colDimension->getVisible() == false) {
+                if ($colDimension->getVisible() === false) {
                     $objWriter->writeAttribute('hidden', 'true');
                 }
 
@@ -398,7 +398,7 @@ class Worksheet extends WriterPart
                 }
 
                 // Collapsed
-                if ($colDimension->getCollapsed() == true) {
+                if ($colDimension->getCollapsed() === true) {
                     $objWriter->writeAttribute('collapsed', 'true');
                 }
 
@@ -995,12 +995,12 @@ class Worksheet extends WriterPart
                 }
 
                 // Row visibility
-                if (!$rowDimension->getVisible()) {
+                if (!$rowDimension->getVisible() === true) {
                     $objWriter->writeAttribute('hidden', 'true');
                 }
 
                 // Collapsed
-                if ($rowDimension->getCollapsed()) {
+                if ($rowDimension->getCollapsed() === true) {
                     $objWriter->writeAttribute('collapsed', 'true');
                 }
 
