@@ -75,6 +75,13 @@ class XlsxTest extends TestCase
         $this->assertFalse($worksheet->getColumnDimension('E')->getVisible());
     }
 
+    public function testLoadXlsxWithStyles()
+    {
+        $filename = './data/Reader/XLSX/stylesTest.xlsx';
+        $reader = new Xlsx();
+        $reader->load($filename);
+    }
+
     /**
      * Test load Xlsx file without cell reference.
      */
