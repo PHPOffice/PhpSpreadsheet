@@ -2064,7 +2064,7 @@ class Worksheet implements IComparable
     /**
      * Insert a new column, updating all possible related data.
      *
-     * @param int $pBefore Insert before this one, eg: 'A'
+     * @param string $pBefore Insert before this one, eg: 'A'
      * @param int $pNumCols Number of columns to insert
      *
      * @throws Exception

@@ -52,7 +52,7 @@ class Ods extends BaseReader
             $stat = $zip->statName('mimetype');
             if ($stat && ($stat['size'] <= 255)) {
                 $mimeType = $zip->getFromName($stat['name']);
-            } elseif ($stat = $zip->statName('META-INF/manifest.xml')) {
+            } elseif ($zip->statName('META-INF/manifest.xml')) {
                 $xml = simplexml_load_string(
                     $this->securityScanner->scan($zip->getFromName('META-INF/manifest.xml')),
                     'SimpleXMLElement',
@@ -513,7 +513,7 @@ class Ods extends BaseReader
                                     foreach ($paragraphs as $pData) {
                                         $dataArray[] = $this->scanElementForText($pData);
                                     }
-                                    $allCellDataText = implode($dataArray, "\n");
+                                    $allCellDataText = implode("\n", $dataArray);
 
                                     $type = $cellData->getAttributeNS($officeNs, 'value-type');
 
@@ -580,12 +580,12 @@ class Ods extends BaseReader
                                             );
 
                                             $dataValue = Date::formattedPHPToExcel(
-                                                $year,
-                                                $month,
-                                                $day,
-                                                $hour,
-                                                $minute,
-                                                $second
+                                                (int) $year,
+                                                (int) $month,
+                                                (int) $day,
+                                                (int) $hour,
+                                                (int) $minute,
+                                                (int) $second
                                             );
 
                                             if ($dataValue != floor($dataValue)) {
