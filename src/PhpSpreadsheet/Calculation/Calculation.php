@@ -117,7 +117,7 @@ class Calculation
     /**
      * An array of the nested cell references accessed by the calculation engine, used for the debug log.
      *
-     * @var array of string
+     * @var CyclicReferenceStack
      */
     private $cyclicReferenceStack;
 
@@ -1944,6 +1944,11 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig::class, 'SUMXMY2'],
             'argumentCount' => '2',
+        ],
+        'SWITCH' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Logical::class, 'statementSwitch'],
+            'argumentCount' => '3+',
         ],
         'SYD' => [
             'category' => Category::CATEGORY_FINANCIAL,

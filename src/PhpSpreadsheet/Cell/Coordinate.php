@@ -157,14 +157,12 @@ abstract class Coordinate
         }
 
         // Build range
-        $imploded = [];
         $counter = count($pRange);
         for ($i = 0; $i < $counter; ++$i) {
             $pRange[$i] = implode(':', $pRange[$i]);
         }
-        $imploded = implode(',', $pRange);
 
-        return $imploded;
+        return implode(',', $pRange);
     }
 
     /**

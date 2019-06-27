@@ -5,9 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased] - 
+## [Unreleased]
 
 ### Added
+
+- Added support for the SWITCH function - [Issue #963](https://github.com/PHPOffice/PhpSpreadsheet/issues/963) and [PR #983](https://github.com/PHPOffice/PhpSpreadsheet/pull/983)
+- Add accounting number format style [#974](https://github.com/PHPOffice/PhpSpreadsheet/pull/974)
+
+### Fixed
+
+- Whitelist `tsv` extension when opening CSV files [#429](https://github.com/PHPOffice/PhpSpreadsheet/issues/429)
+- Fix a SUMIF warning with some versions of PHP when having different length of arrays provided as input [#873](https://github.com/PHPOffice/PhpSpreadsheet/pull/873)
+- Fix incorrectly handled backslash-escaped space characters in number format
+
+## [1.7.0] - 2019-05-26
 
 - Added support for inline styles in Html reader (borders, alignment, width, height)
 - QuotedText cells no longer treated as formulae if the content begins with a `=`

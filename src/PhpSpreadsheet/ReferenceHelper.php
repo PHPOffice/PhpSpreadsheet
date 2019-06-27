@@ -82,13 +82,13 @@ class ReferenceHelper
      */
     public static function cellSort($a, $b)
     {
-        $ac = $bc = '';
-        $ar = $br = 0;
+        // TODO Scrutinizer doesn't like sscanf($a, '%[A-Z]%d', $ac, $ar), and we can't use short list() syntax
+        //      [$ac, $ar] = sscanf($a, '%[A-Z]%d') while retaining PHP 5.6 support.
+        //      Switch when we drop support for 5.6
+        list($ac, $ar) = sscanf($a, '%[A-Z]%d');
+        list($bc, $br) = sscanf($b, '%[A-Z]%d');
 
-        sscanf($a, '%[A-Z]%d', $ac, $ar);
-        sscanf($b, '%[A-Z]%d', $bc, $br);
-
-        if ($ar == $br) {
+        if ($ar === $br) {
             return strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
         }
 
@@ -106,13 +106,13 @@ class ReferenceHelper
      */
     public static function cellReverseSort($a, $b)
     {
-        $ac = $bc = '';
-        $ar = $br = 0;
+        // TODO Scrutinizer doesn't like sscanf($a, '%[A-Z]%d', $ac, $ar), and we can't use short list() syntax
+        //      [$ac, $ar] = sscanf($a, '%[A-Z]%d') while retaining PHP 5.6 support.
+        //      Switch when we drop support for 5.6
+        list($ac, $ar) = sscanf($a, '%[A-Z]%d');
+        list($bc, $br) = sscanf($b, '%[A-Z]%d');
 
-        sscanf($a, '%[A-Z]%d', $ac, $ar);
-        sscanf($b, '%[A-Z]%d', $bc, $br);
-
-        if ($ar == $br) {
+        if ($ar === $br) {
             return 1 - strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
         }
 
@@ -625,7 +625,7 @@ class ReferenceHelper
      * Update references within formulas.
      *
      * @param string $pFormula Formula to update
-     * @param int $pBefore Insert before this one
+     * @param string $pBefore Insert before this one
      * @param int $pNumCols Number of columns to insert
      * @param int $pNumRows Number of rows to insert
      * @param string $sheetName Worksheet name/title

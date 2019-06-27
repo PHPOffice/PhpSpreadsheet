@@ -985,7 +985,7 @@ $validation->setFormula2(20);
 ```
 
 The following piece of code only allows an item picked from a list of
-data to be entered in cell B3:
+data to be entered in cell B5:
 
 ``` php
 $validation = $spreadsheet->getActiveSheet()->getCell('B5')

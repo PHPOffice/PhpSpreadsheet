@@ -412,7 +412,7 @@ class Xls extends BaseReader
      */
     public function __construct()
     {
-        $this->readFilter = new DefaultReadFilter();
+        parent::__construct();
     }
 
     /**

@@ -62,7 +62,7 @@ class Csv extends BaseReader
      */
     public function __construct()
     {
-        $this->readFilter = new DefaultReadFilter();
+        parent::__construct();
     }
 
     /**
@@ -143,7 +143,7 @@ class Csv extends BaseReader
             return;
         }
 
-        return $this->skipBOM();
+        $this->skipBOM();
     }
 
     /**
@@ -184,8 +184,9 @@ class Csv extends BaseReader
         // If number of lines is 0, nothing to infer : fall back to the default
         if ($numberLines === 0) {
             $this->delimiter = reset($potentialDelimiters);
+            $this->skipBOM();
 
-            return $this->skipBOM();
+            return;
         }
 
         // Calculate the mean square deviations for each delimiter (ignoring delimiters that haven't been found consistently)
@@ -230,7 +231,7 @@ class Csv extends BaseReader
             $this->delimiter = reset($potentialDelimiters);
         }
 
-        return $this->skipBOM();
+        $this->skipBOM();
     }
 
     /**
@@ -545,7 +546,8 @@ class Csv extends BaseReader
         fclose($this->fileHandle);
 
         // Trust file extension if any
-        if (strtolower(pathinfo($pFilename, PATHINFO_EXTENSION)) === 'csv') {
+        $extension = strtolower(pathinfo($pFilename, PATHINFO_EXTENSION));
+        if (in_array($extension, ['csv', 'tsv'])) {
             return true;
         }
 
