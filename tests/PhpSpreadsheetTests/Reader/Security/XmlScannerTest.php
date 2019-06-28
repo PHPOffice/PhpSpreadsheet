@@ -19,12 +19,13 @@ class XmlScannerTest extends TestCase
      */
     public function testValidXML($filename, $expectedResult, $libxmlDisableEntityLoader)
     {
-        libxml_disable_entity_loader($libxmlDisableEntityLoader);
+        $oldDisableEntityLoaderState = libxml_disable_entity_loader($libxmlDisableEntityLoader);
 
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $result = $reader->scanFile($filename);
         self::assertEquals($expectedResult, $result);
-        self::assertEquals($libxmlDisableEntityLoader, libxml_disable_entity_loader());
+
+        libxml_disable_entity_loader($oldDisableEntityLoaderState);
     }
 
     public function providerValidXML()
@@ -114,27 +115,5 @@ class XmlScannerTest extends TestCase
         }
 
         return $tests;
-    }
-
-    /**
-     * @dataProvider providerLibxmlSettings
-     *
-     * @param $libxmlDisableLoader
-     */
-    public function testNewInstanceCreationDoesntChangeLibxmlSettings($libxmlDisableLoader)
-    {
-        libxml_disable_entity_loader($libxmlDisableLoader);
-
-        $reader = new Xml();
-        self::assertEquals($libxmlDisableLoader, libxml_disable_entity_loader($libxmlDisableLoader));
-        unset($reader);
-    }
-
-    public function providerLibxmlSettings()
-    {
-        return [
-            [true],
-            [false],
-        ];
     }
 }
