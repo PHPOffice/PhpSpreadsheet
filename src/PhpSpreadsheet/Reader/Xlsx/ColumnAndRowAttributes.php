@@ -87,37 +87,39 @@ class ColumnAndRowAttributes extends BaseParserClass
         }
 
         // set columns/rows attributes
-        $columnsAttributesSet = [];
-        $rowsAttributesSet = [];
+        $columnsAttributesAreSet = [];
         foreach ($columnsAttributes as $columnCoordinate => $columnAttributes) {
-            if ($readFilter !== null) {
-                foreach ($rowsAttributes as $rowCoordinate => $rowAttributes) {
-                    if (!$readFilter->readCell($columnCoordinate, $rowCoordinate, $this->worksheet->getTitle())) {
-                        continue 2;
-                    }
+            if ($readFilter === null ||
+                !$this->isFilteredColumn($readFilter, $columnCoordinate, $rowsAttributes)) {
+                if (!isset($columnsAttributesAreSet[$columnCoordinate])) {
+                    $this->setColumnAttributes($columnCoordinate, $columnAttributes);
+                    $columnsAttributesAreSet[$columnCoordinate] = true;
                 }
-            }
-
-            if (!isset($columnsAttributesSet[$columnCoordinate])) {
-                $this->setColumnAttributes($columnCoordinate, $columnAttributes);
-                $columnsAttributesSet[$columnCoordinate] = true;
             }
         }
 
+        $rowsAttributesAreSet = [];
         foreach ($rowsAttributes as $rowCoordinate => $rowAttributes) {
-            if ($readFilter !== null) {
-                foreach ($columnsAttributes as $columnCoordinate => $columnAttributes) {
-                    if (!$readFilter->readCell($columnCoordinate, $rowCoordinate, $this->worksheet->getTitle())) {
-                        continue 2;
-                    }
+            if ($readFilter === null ||
+                !$this->isFilteredRow($readFilter, $rowCoordinate, $columnsAttributes)) {
+
+                if (!isset($rowsAttributesAreSet[$rowCoordinate])) {
+                    $this->setRowAttributes($rowCoordinate, $rowAttributes);
+                    $rowsAttributesAreSet[$rowCoordinate] = true;
                 }
             }
+        }
+    }
 
-            if (!isset($rowsAttributesSet[$rowCoordinate])) {
-                $this->setRowAttributes($rowCoordinate, $rowAttributes);
-                $rowsAttributesSet[$rowCoordinate] = true;
+    private function isFilteredColumn(IReadFilter $readFilter, $columnCoordinate, array $rowsAttributes)
+    {
+        foreach ($rowsAttributes as $rowCoordinate => $rowAttributes) {
+            if (!$readFilter->readCell($columnCoordinate, $rowCoordinate, $this->worksheet->getTitle())) {
+                return true;
             }
         }
+
+        return false;
     }
 
     private function readColumnAttributes(\SimpleXMLElement $worksheetCols, $readDataOnly)
@@ -141,13 +143,24 @@ class ColumnAndRowAttributes extends BaseParserClass
                 }
                 $columnAttributes[$columnAddress]['width'] = (float) $column['width'];
 
-                if ((int)($column['max']) == 16384) {
+                if ((int) ($column['max']) == 16384) {
                     break;
                 }
             }
         }
 
         return $columnAttributes;
+    }
+
+    private function isFilteredRow(IReadFilter $readFilter, $rowCoordinate, array $columnsAttributes)
+    {
+        foreach ($columnsAttributes as $columnCoordinate => $columnAttributes) {
+            if (!$readFilter->readCell($columnCoordinate, $rowCoordinate, $this->worksheet->getTitle())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function readRowAttributes(\SimpleXMLElement $worksheetRow, $readDataOnly)
