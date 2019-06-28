@@ -78,49 +78,12 @@ class ColumnAndRowAttributes extends BaseParserClass
     {
         $columnsAttributes = [];
         $rowsAttributes = [];
-        if (isset($this->worksheetXml->cols) && !$readDataOnly) {
-            foreach ($this->worksheetXml->cols->col as $column) {
-                for ($i = (int) ($column['min']); $i <= (int) ($column['max']); ++$i) {
-                    $columnAddress = Coordinate::stringFromColumnIndex($i);
-                    if ($column['style'] && !$readDataOnly) {
-                        $columnsAttributes[$columnAddress]['xfIndex'] = (int) $column['style'];
-                    }
-                    if (self::boolean($column['hidden'])) {
-                        $columnsAttributes[$columnAddress]['visible'] = false;
-                    }
-                    if (self::boolean($column['collapsed'])) {
-                        $columnsAttributes[$columnAddress]['collapsed'] = true;
-                    }
-                    if ($column['outlineLevel'] > 0) {
-                        $columnsAttributes[$columnAddress]['outlineLevel'] = (int) $column['outlineLevel'];
-                    }
-                    $columnsAttributes[$columnAddress]['width'] = (float) $column['width'];
-
-                    if ((int) ($column['max']) == 16384) {
-                        break;
-                    }
-                }
-            }
+        if (isset($this->worksheetXml->cols)) {
+            $columnsAttributes = $this->readColumnAttributes($this->worksheetXml->cols, $readDataOnly);
         }
 
-        if ($this->worksheetXml && $this->worksheetXml->sheetData && $this->worksheetXml->sheetData->row) {
-            foreach ($this->worksheetXml->sheetData->row as $row) {
-                if ($row['ht'] && !$readDataOnly) {
-                    $rowsAttributes[(int) $row['r']]['rowHeight'] = (float) $row['ht'];
-                }
-                if (self::boolean($row['hidden']) && !$readDataOnly) {
-                    $rowsAttributes[(int) $row['r']]['visible'] = false;
-                }
-                if (self::boolean($row['collapsed'])) {
-                    $rowsAttributes[(int) $row['r']]['collapsed'] = true;
-                }
-                if ($row['outlineLevel'] > 0) {
-                    $rowsAttributes[(int) $row['r']]['outlineLevel'] = (int) $row['outlineLevel'];
-                }
-                if ($row['s'] && !$readDataOnly) {
-                    $rowsAttributes[(int) $row['r']]['xfIndex'] = (int) $row['s'];
-                }
-            }
+        if ($this->worksheetXml->sheetData && $this->worksheetXml->sheetData->row) {
+            $rowsAttributes = $this->readRowAttributes($this->worksheetXml->sheetData->row, $readDataOnly);
         }
 
         // set columns/rows attributes
@@ -155,5 +118,60 @@ class ColumnAndRowAttributes extends BaseParserClass
                 $rowsAttributesSet[$rowCoordinate] = true;
             }
         }
+    }
+
+    private function readColumnAttributes(\SimpleXMLElement $worksheetCols, $readDataOnly)
+    {
+        $columnAttributes = [];
+
+        foreach ($worksheetCols->col as $column) {
+            for ($i = (int) ($column['min']); $i <= (int) ($column['max']); ++$i) {
+                $columnAddress = Coordinate::stringFromColumnIndex($i);
+                if ($column['style'] && !$readDataOnly) {
+                    $columnAttributes[$columnAddress]['xfIndex'] = (int) $column['style'];
+                }
+                if (self::boolean($column['hidden'])) {
+                    $columnAttributes[$columnAddress]['visible'] = false;
+                }
+                if (self::boolean($column['collapsed'])) {
+                    $columnAttributes[$columnAddress]['collapsed'] = true;
+                }
+                if (((int) $column['outlineLevel']) > 0) {
+                    $columnAttributes[$columnAddress]['outlineLevel'] = (int) $column['outlineLevel'];
+                }
+                $columnAttributes[$columnAddress]['width'] = (float) $column['width'];
+
+                if ((int)($column['max']) == 16384) {
+                    break;
+                }
+            }
+        }
+
+        return $columnAttributes;
+    }
+
+    private function readRowAttributes(\SimpleXMLElement $worksheetRow, $readDataOnly)
+    {
+        $rowAttributes = [];
+
+        foreach ($worksheetRow as $row) {
+            if ($row['ht'] && !$readDataOnly) {
+                $rowAttributes[(int) $row['r']]['rowHeight'] = (float) $row['ht'];
+            }
+            if (self::boolean($row['hidden'])) {
+                $rowAttributes[(int) $row['r']]['visible'] = false;
+            }
+            if (self::boolean($row['collapsed'])) {
+                $rowAttributes[(int) $row['r']]['collapsed'] = true;
+            }
+            if ((int) $row['outlineLevel'] > 0) {
+                $rowAttributes[(int) $row['r']]['outlineLevel'] = (int) $row['outlineLevel'];
+            }
+            if ($row['s'] && !$readDataOnly) {
+                $rowAttributes[(int) $row['r']]['xfIndex'] = (int) $row['s'];
+            }
+        }
+
+        return $rowAttributes;
     }
 }
