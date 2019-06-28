@@ -102,7 +102,6 @@ class ColumnAndRowAttributes extends BaseParserClass
         foreach ($rowsAttributes as $rowCoordinate => $rowAttributes) {
             if ($readFilter === null ||
                 !$this->isFilteredRow($readFilter, $rowCoordinate, $columnsAttributes)) {
-
                 if (!isset($rowsAttributesAreSet[$rowCoordinate])) {
                     $this->setRowAttributes($rowCoordinate, $rowAttributes);
                     $rowsAttributesAreSet[$rowCoordinate] = true;
