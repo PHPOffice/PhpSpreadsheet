@@ -175,13 +175,13 @@ class Layout
     /**
      * Set X-Mode.
      *
-     * @param X-Mode $value
+     * @param string $value
      *
      * @return Layout
      */
     public function setXMode($value)
     {
-        $this->xMode = $value;
+        $this->xMode = (string) $value;
 
         return $this;
     }
@@ -199,13 +199,13 @@ class Layout
     /**
      * Set Y-Mode.
      *
-     * @param Y-Mode $value
+     * @param string $value
      *
      * @return Layout
      */
     public function setYMode($value)
     {
-        $this->yMode = $value;
+        $this->yMode = (string) $value;
 
         return $this;
     }
@@ -223,13 +223,13 @@ class Layout
     /**
      * Set X-Position.
      *
-     * @param X-Position $value
+     * @param float $value
      *
      * @return Layout
      */
     public function setXPosition($value)
     {
-        $this->xPos = $value;
+        $this->xPos = (float) $value;
 
         return $this;
     }
@@ -247,13 +247,13 @@ class Layout
     /**
      * Set Y-Position.
      *
-     * @param Y-Position $value
+     * @param float $value
      *
      * @return Layout
      */
     public function setYPosition($value)
     {
-        $this->yPos = $value;
+        $this->yPos = (float) $value;
 
         return $this;
     }

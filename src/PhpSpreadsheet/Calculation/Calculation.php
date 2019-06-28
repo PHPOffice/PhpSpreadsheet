@@ -117,7 +117,7 @@ class Calculation
     /**
      * An array of the nested cell references accessed by the calculation engine, used for the debug log.
      *
-     * @var array of string
+     * @var CyclicReferenceStack
      */
     private $cyclicReferenceStack;
 
