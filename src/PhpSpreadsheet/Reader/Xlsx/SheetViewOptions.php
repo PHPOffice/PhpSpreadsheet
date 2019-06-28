@@ -22,49 +22,47 @@ class SheetViewOptions extends BaseParserClass
     public function load($readDataOnly = false)
     {
         if (isset($this->worksheetXml->sheetPr)) {
-            $this->tabColor();
-            $this->codeName();
-            $this->outlines();
-            $this->pageSetup();
+            $this->tabColor($this->worksheetXml->sheetPr);
+            $this->codeName($this->worksheetXml->sheetPr);
+            $this->outlines($this->worksheetXml->sheetPr);
+            $this->pageSetup($this->worksheetXml->sheetPr);
         }
 
         if (isset($this->worksheetXml->sheetFormatPr)) {
-            $this->sheetFormat();
+            $this->sheetFormat($this->worksheetXml->sheetFormatPr);
         }
 
-        if (!$readDataOnly) {
-            $this->printOptions();
-        }
-    }
-
-    private function tabColor()
-    {
-        if (isset($this->worksheetXml->sheetPr->tabColor)) {
-            if (isset($this->worksheetXml->sheetPr->tabColor['rgb'])) {
-                $this->worksheet->getTabColor()->setARGB((string) $this->worksheetXml->sheetPr->tabColor['rgb']);
-            }
+        if (!$readDataOnly && isset($this->worksheetXml->printOptions)) {
+            $this->printOptions($this->worksheetXml->printOptions);
         }
     }
 
-    private function codeName()
+    private function tabColor(\SimpleXMLElement $sheetPr)
     {
-        if (isset($this->worksheetXml->sheetPr['codeName'])) {
-            $this->worksheet->setCodeName((string) $this->worksheetXml->sheetPr['codeName'], false);
+        if (isset($sheetPr->tabColor, $sheetPr->tabColor['rgb'])) {
+            $this->worksheet->getTabColor()->setARGB((string) $sheetPr->tabColor['rgb']);
         }
     }
 
-    private function outlines()
+    private function codeName(\SimpleXMLElement $sheetPr)
     {
-        if (isset($this->worksheetXml->sheetPr->outlinePr)) {
-            if (isset($this->worksheetXml->sheetPr->outlinePr['summaryRight']) &&
-                !self::boolean((string) $this->worksheetXml->sheetPr->outlinePr['summaryRight'])) {
+        if (isset($sheetPr['codeName'])) {
+            $this->worksheet->setCodeName((string) $sheetPr['codeName'], false);
+        }
+    }
+
+    private function outlines(\SimpleXMLElement $sheetPr)
+    {
+        if (isset($sheetPr->outlinePr)) {
+            if (isset($sheetPr->outlinePr['summaryRight']) &&
+                !self::boolean((string) $sheetPr->outlinePr['summaryRight'])) {
                 $this->worksheet->setShowSummaryRight(false);
             } else {
                 $this->worksheet->setShowSummaryRight(true);
             }
 
-            if (isset($this->worksheetXml->sheetPr->outlinePr['summaryBelow']) &&
-                !self::boolean((string) $this->worksheetXml->sheetPr->outlinePr['summaryBelow'])) {
+            if (isset($sheetPr->outlinePr['summaryBelow']) &&
+                !self::boolean((string) $sheetPr->outlinePr['summaryBelow'])) {
                 $this->worksheet->setShowSummaryBelow(false);
             } else {
                 $this->worksheet->setShowSummaryBelow(true);
@@ -72,11 +70,11 @@ class SheetViewOptions extends BaseParserClass
         }
     }
 
-    private function pageSetup()
+    private function pageSetup(\SimpleXMLElement $sheetPr)
     {
-        if (isset($this->worksheetXml->sheetPr->pageSetUpPr)) {
-            if (isset($this->worksheetXml->sheetPr->pageSetUpPr['fitToPage']) &&
-                !self::boolean((string) $this->worksheetXml->sheetPr->pageSetUpPr['fitToPage'])) {
+        if (isset($sheetPr->pageSetUpPr)) {
+            if (isset($sheetPr->pageSetUpPr['fitToPage']) &&
+                !self::boolean((string) $sheetPr->pageSetUpPr['fitToPage'])) {
                 $this->worksheet->getPageSetup()->setFitToPage(false);
             } else {
                 $this->worksheet->getPageSetup()->setFitToPage(true);
@@ -84,41 +82,39 @@ class SheetViewOptions extends BaseParserClass
         }
     }
 
-    private function sheetFormat()
+    private function sheetFormat(\SimpleXMLElement $sheetFormatPr)
     {
-        if (isset($this->worksheetXml->sheetFormatPr['customHeight']) &&
-            self::boolean((string) $this->worksheetXml->sheetFormatPr['customHeight']) &&
-            isset($this->worksheetXml->sheetFormatPr['defaultRowHeight'])) {
+        if (isset($sheetFormatPr['customHeight']) &&
+            self::boolean((string) $sheetFormatPr['customHeight']) &&
+            isset($sheetFormatPr['defaultRowHeight'])) {
             $this->worksheet->getDefaultRowDimension()
-                ->setRowHeight((float) $this->worksheetXml->sheetFormatPr['defaultRowHeight']);
+                ->setRowHeight((float) $sheetFormatPr['defaultRowHeight']);
         }
 
-        if (isset($this->worksheetXml->sheetFormatPr['defaultColWidth'])) {
+        if (isset($sheetFormatPr['defaultColWidth'])) {
             $this->worksheet->getDefaultColumnDimension()
-                ->setWidth((float) $this->worksheetXml->sheetFormatPr['defaultColWidth']);
+                ->setWidth((float) $sheetFormatPr['defaultColWidth']);
         }
 
-        if (isset($this->worksheetXml->sheetFormatPr['zeroHeight']) &&
-            ((string) $this->worksheetXml->sheetFormatPr['zeroHeight'] == '1')) {
+        if (isset($sheetFormatPr['zeroHeight']) &&
+            ((string) $sheetFormatPr['zeroHeight'] === '1')) {
             $this->worksheet->getDefaultRowDimension()->setZeroHeight(true);
         }
     }
 
-    private function printOptions()
+    private function printOptions(\SimpleXMLElement $printOptions)
     {
-        if (isset($this->worksheetXml->printOptions)) {
-            if (self::boolean((string) $this->worksheetXml->printOptions['gridLinesSet'])) {
-                $this->worksheet->setShowGridlines(true);
-            }
-            if (self::boolean((string) $this->worksheetXml->printOptions['gridLines'])) {
-                $this->worksheet->setPrintGridlines(true);
-            }
-            if (self::boolean((string) $this->worksheetXml->printOptions['horizontalCentered'])) {
-                $this->worksheet->getPageSetup()->setHorizontalCentered(true);
-            }
-            if (self::boolean((string) $this->worksheetXml->printOptions['verticalCentered'])) {
-                $this->worksheet->getPageSetup()->setVerticalCentered(true);
-            }
+        if (self::boolean((string) $printOptions['gridLinesSet'])) {
+            $this->worksheet->setShowGridlines(true);
+        }
+        if (self::boolean((string) $printOptions['gridLines'])) {
+            $this->worksheet->setPrintGridlines(true);
+        }
+        if (self::boolean((string) $printOptions['horizontalCentered'])) {
+            $this->worksheet->getPageSetup()->setHorizontalCentered(true);
+        }
+        if (self::boolean((string) $printOptions['verticalCentered'])) {
+            $this->worksheet->getPageSetup()->setVerticalCentered(true);
         }
     }
 }
