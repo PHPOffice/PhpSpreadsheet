@@ -90,30 +90,30 @@ class PageSetup extends BaseParserClass
                 $docHeaderFooter->setDifferentOddEven(false);
             }
             if (isset($xmlSheet->headerFooter['differentFirst']) &&
-                self::boolean((string)$xmlSheet->headerFooter['differentFirst'])) {
+                self::boolean((string) $xmlSheet->headerFooter['differentFirst'])) {
                 $docHeaderFooter->setDifferentFirst(true);
             } else {
                 $docHeaderFooter->setDifferentFirst(false);
             }
             if (isset($xmlSheet->headerFooter['scaleWithDoc']) &&
-                !self::boolean((string)$xmlSheet->headerFooter['scaleWithDoc'])) {
+                !self::boolean((string) $xmlSheet->headerFooter['scaleWithDoc'])) {
                 $docHeaderFooter->setScaleWithDocument(false);
             } else {
                 $docHeaderFooter->setScaleWithDocument(true);
             }
             if (isset($xmlSheet->headerFooter['alignWithMargins']) &&
-                !self::boolean((string)$xmlSheet->headerFooter['alignWithMargins'])) {
+                !self::boolean((string) $xmlSheet->headerFooter['alignWithMargins'])) {
                 $docHeaderFooter->setAlignWithMargins(false);
             } else {
                 $docHeaderFooter->setAlignWithMargins(true);
             }
 
-            $docHeaderFooter->setOddHeader((string)$xmlSheet->headerFooter->oddHeader);
-            $docHeaderFooter->setOddFooter((string)$xmlSheet->headerFooter->oddFooter);
-            $docHeaderFooter->setEvenHeader((string)$xmlSheet->headerFooter->evenHeader);
-            $docHeaderFooter->setEvenFooter((string)$xmlSheet->headerFooter->evenFooter);
-            $docHeaderFooter->setFirstHeader((string)$xmlSheet->headerFooter->firstHeader);
-            $docHeaderFooter->setFirstFooter((string)$xmlSheet->headerFooter->firstFooter);
+            $docHeaderFooter->setOddHeader((string) $xmlSheet->headerFooter->oddHeader);
+            $docHeaderFooter->setOddFooter((string) $xmlSheet->headerFooter->oddFooter);
+            $docHeaderFooter->setEvenHeader((string) $xmlSheet->headerFooter->evenHeader);
+            $docHeaderFooter->setEvenFooter((string) $xmlSheet->headerFooter->evenFooter);
+            $docHeaderFooter->setFirstHeader((string) $xmlSheet->headerFooter->firstHeader);
+            $docHeaderFooter->setFirstFooter((string) $xmlSheet->headerFooter->firstFooter);
         }
     }
 
@@ -122,7 +122,7 @@ class PageSetup extends BaseParserClass
         if ($xmlSheet->rowBreaks && $xmlSheet->rowBreaks->brk) {
             foreach ($xmlSheet->rowBreaks->brk as $brk) {
                 if ($brk['man']) {
-                    $worksheet->setBreak("A$brk[id]", Worksheet::BREAK_ROW);
+                    $worksheet->setBreak("A{$brk['id']}", Worksheet::BREAK_ROW);
                 }
             }
         }
@@ -130,7 +130,8 @@ class PageSetup extends BaseParserClass
             foreach ($xmlSheet->colBreaks->brk as $brk) {
                 if ($brk['man']) {
                     $worksheet->setBreak(
-                        Coordinate::stringFromColumnIndex((string) $brk['id'] + 1) . '1', Worksheet::BREAK_COLUMN
+                        Coordinate::stringFromColumnIndex((string) $brk['id'] + 1) . '1',
+                        Worksheet::BREAK_COLUMN
                     );
                 }
             }
