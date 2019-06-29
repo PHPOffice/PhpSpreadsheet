@@ -58,7 +58,7 @@ class PageSetup extends BaseParserClass
             if (isset($xmlSheet->pageSetup['scale'])) {
                 $docPageSetup->setScale((int) ($xmlSheet->pageSetup['scale']), false);
             }
-            if (isset($xmlSheet->pageSetup['fitToHeight']) && (int)($xmlSheet->pageSetup['fitToHeight']) >= 0) {
+            if (isset($xmlSheet->pageSetup['fitToHeight']) && (int) ($xmlSheet->pageSetup['fitToHeight']) >= 0) {
                 $docPageSetup->setFitToHeight((int) ($xmlSheet->pageSetup['fitToHeight']), false);
             }
             if (isset($xmlSheet->pageSetup['fitToWidth']) && (int)($xmlSheet->pageSetup['fitToWidth']) >= 0) {
