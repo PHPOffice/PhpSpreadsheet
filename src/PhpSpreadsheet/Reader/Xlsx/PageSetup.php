@@ -17,16 +17,18 @@ class PageSetup extends BaseParserClass
         $this->worksheetXml = $worksheetXml;
     }
 
-    public function load()
+    public function load(array $unparsedLoadedData)
     {
         if (!$this->worksheetXml) {
-            return;
+            return $unparsedLoadedData;
         }
 
         $this->margins($this->worksheetXml, $this->worksheet);
-        $this->pageSetup($this->worksheetXml, $this->worksheet);
+        $unparsedLoadedData = $this->pageSetup($this->worksheetXml, $this->worksheet, $unparsedLoadedData);
         $this->headerFooter($this->worksheetXml, $this->worksheet);
         $this->pageBreaks($this->worksheetXml, $this->worksheet);
+
+        return $unparsedLoadedData;
     }
 
     private function margins(\SimpleXMLElement $xmlSheet, Worksheet $worksheet)
@@ -42,7 +44,7 @@ class PageSetup extends BaseParserClass
         }
     }
 
-    private function pageSetup(\SimpleXMLElement $xmlSheet, Worksheet $worksheet)
+    private function pageSetup(\SimpleXMLElement $xmlSheet, Worksheet $worksheet, array $unparsedLoadedData)
     {
         if ($xmlSheet->pageSetup) {
             $docPageSetup = $worksheet->getPageSetup();
@@ -72,6 +74,8 @@ class PageSetup extends BaseParserClass
                 $unparsedLoadedData['sheets'][$worksheet->getCodeName()]['pageSetupRelId'] = (string) $relAttributes['id'];
             }
         }
+
+        return $unparsedLoadedData;
     }
 
     private function headerFooter(\SimpleXMLElement $xmlSheet, Worksheet $worksheet)
@@ -118,7 +122,7 @@ class PageSetup extends BaseParserClass
         if ($xmlSheet->rowBreaks && $xmlSheet->rowBreaks->brk) {
             foreach ($xmlSheet->rowBreaks->brk as $brk) {
                 if ($brk['man']) {
-                    $worksheet->setBreak("A{$brk['id']}", Worksheet::BREAK_ROW);
+                    $worksheet->setBreak("A$brk[id]", Worksheet::BREAK_ROW);
                 }
             }
         }

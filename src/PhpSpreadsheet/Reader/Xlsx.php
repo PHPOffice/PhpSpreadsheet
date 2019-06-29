@@ -1004,7 +1004,7 @@ class Xlsx extends BaseReader
                             }
 
                             if ($xmlSheet && !$this->readDataOnly) {
-                                (new PageSetup($docSheet,$xmlSheet))->load();
+                                $unparsedLoadedData = (new PageSetup($docSheet,$xmlSheet))->load($unparsedLoadedData);
                             }
 
                             if ($xmlSheet && $xmlSheet->dataValidations && !$this->readDataOnly) {
