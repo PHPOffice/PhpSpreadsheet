@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Chart;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\ColumnAndRowAttributes;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PageSetup;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViews;
@@ -1002,94 +1003,8 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            if ($xmlSheet && $xmlSheet->pageMargins && !$this->readDataOnly) {
-                                $docPageMargins = $docSheet->getPageMargins();
-                                $docPageMargins->setLeft((float) ($xmlSheet->pageMargins['left']));
-                                $docPageMargins->setRight((float) ($xmlSheet->pageMargins['right']));
-                                $docPageMargins->setTop((float) ($xmlSheet->pageMargins['top']));
-                                $docPageMargins->setBottom((float) ($xmlSheet->pageMargins['bottom']));
-                                $docPageMargins->setHeader((float) ($xmlSheet->pageMargins['header']));
-                                $docPageMargins->setFooter((float) ($xmlSheet->pageMargins['footer']));
-                            }
-
-                            if ($xmlSheet && $xmlSheet->pageSetup && !$this->readDataOnly) {
-                                $docPageSetup = $docSheet->getPageSetup();
-
-                                if (isset($xmlSheet->pageSetup['orientation'])) {
-                                    $docPageSetup->setOrientation((string) $xmlSheet->pageSetup['orientation']);
-                                }
-                                if (isset($xmlSheet->pageSetup['paperSize'])) {
-                                    $docPageSetup->setPaperSize((int) ($xmlSheet->pageSetup['paperSize']));
-                                }
-                                if (isset($xmlSheet->pageSetup['scale'])) {
-                                    $docPageSetup->setScale((int) ($xmlSheet->pageSetup['scale']), false);
-                                }
-                                if (isset($xmlSheet->pageSetup['fitToHeight']) && (int) ($xmlSheet->pageSetup['fitToHeight']) >= 0) {
-                                    $docPageSetup->setFitToHeight((int) ($xmlSheet->pageSetup['fitToHeight']), false);
-                                }
-                                if (isset($xmlSheet->pageSetup['fitToWidth']) && (int) ($xmlSheet->pageSetup['fitToWidth']) >= 0) {
-                                    $docPageSetup->setFitToWidth((int) ($xmlSheet->pageSetup['fitToWidth']), false);
-                                }
-                                if (isset($xmlSheet->pageSetup['firstPageNumber'], $xmlSheet->pageSetup['useFirstPageNumber']) &&
-                                    self::boolean((string) $xmlSheet->pageSetup['useFirstPageNumber'])) {
-                                    $docPageSetup->setFirstPageNumber((int) ($xmlSheet->pageSetup['firstPageNumber']));
-                                }
-
-                                $relAttributes = $xmlSheet->pageSetup->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
-                                if (isset($relAttributes['id'])) {
-                                    $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['pageSetupRelId'] = (string) $relAttributes['id'];
-                                }
-                            }
-
-                            if ($xmlSheet && $xmlSheet->headerFooter && !$this->readDataOnly) {
-                                $docHeaderFooter = $docSheet->getHeaderFooter();
-
-                                if (isset($xmlSheet->headerFooter['differentOddEven']) &&
-                                    self::boolean((string) $xmlSheet->headerFooter['differentOddEven'])) {
-                                    $docHeaderFooter->setDifferentOddEven(true);
-                                } else {
-                                    $docHeaderFooter->setDifferentOddEven(false);
-                                }
-                                if (isset($xmlSheet->headerFooter['differentFirst']) &&
-                                    self::boolean((string) $xmlSheet->headerFooter['differentFirst'])) {
-                                    $docHeaderFooter->setDifferentFirst(true);
-                                } else {
-                                    $docHeaderFooter->setDifferentFirst(false);
-                                }
-                                if (isset($xmlSheet->headerFooter['scaleWithDoc']) &&
-                                    !self::boolean((string) $xmlSheet->headerFooter['scaleWithDoc'])) {
-                                    $docHeaderFooter->setScaleWithDocument(false);
-                                } else {
-                                    $docHeaderFooter->setScaleWithDocument(true);
-                                }
-                                if (isset($xmlSheet->headerFooter['alignWithMargins']) &&
-                                    !self::boolean((string) $xmlSheet->headerFooter['alignWithMargins'])) {
-                                    $docHeaderFooter->setAlignWithMargins(false);
-                                } else {
-                                    $docHeaderFooter->setAlignWithMargins(true);
-                                }
-
-                                $docHeaderFooter->setOddHeader((string) $xmlSheet->headerFooter->oddHeader);
-                                $docHeaderFooter->setOddFooter((string) $xmlSheet->headerFooter->oddFooter);
-                                $docHeaderFooter->setEvenHeader((string) $xmlSheet->headerFooter->evenHeader);
-                                $docHeaderFooter->setEvenFooter((string) $xmlSheet->headerFooter->evenFooter);
-                                $docHeaderFooter->setFirstHeader((string) $xmlSheet->headerFooter->firstHeader);
-                                $docHeaderFooter->setFirstFooter((string) $xmlSheet->headerFooter->firstFooter);
-                            }
-
-                            if ($xmlSheet && $xmlSheet->rowBreaks && $xmlSheet->rowBreaks->brk && !$this->readDataOnly) {
-                                foreach ($xmlSheet->rowBreaks->brk as $brk) {
-                                    if ($brk['man']) {
-                                        $docSheet->setBreak("A$brk[id]", Worksheet::BREAK_ROW);
-                                    }
-                                }
-                            }
-                            if ($xmlSheet && $xmlSheet->colBreaks && $xmlSheet->colBreaks->brk && !$this->readDataOnly) {
-                                foreach ($xmlSheet->colBreaks->brk as $brk) {
-                                    if ($brk['man']) {
-                                        $docSheet->setBreak(Coordinate::stringFromColumnIndex((string) $brk['id'] + 1) . '1', Worksheet::BREAK_COLUMN);
-                                    }
-                                }
+                            if ($xmlSheet && !$this->readDataOnly) {
+                                (new PageSetup($docSheet,$xmlSheet))->load();
                             }
 
                             if ($xmlSheet && $xmlSheet->dataValidations && !$this->readDataOnly) {

@@ -26,7 +26,7 @@ class Styles extends BaseParserClass
 
     private $styleXml;
 
-    public function __construct(\SimpleXMLElement $styleXml = null)
+    public function __construct(\SimpleXMLElement $styleXml)
     {
         $this->styleXml = $styleXml;
     }
