@@ -6,14 +6,14 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class SheetViewOptions extends BaseParserClass
 {
-    private $worksheetXml;
-
     private $worksheet;
 
-    public function __construct(\SimpleXMLElement $worksheetXml, Worksheet $workSheet)
+    private $worksheetXml;
+
+    public function __construct(Worksheet $workSheet, \SimpleXMLElement $worksheetXml = null)
     {
-        $this->worksheetXml = $worksheetXml;
         $this->worksheet = $workSheet;
+        $this->worksheetXml = $worksheetXml;
     }
 
     /**
@@ -21,6 +21,10 @@ class SheetViewOptions extends BaseParserClass
      */
     public function load($readDataOnly = false)
     {
+        if ($this->worksheetXml === null) {
+            return;
+        }
+
         if (isset($this->worksheetXml->sheetPr)) {
             $this->tabColor($this->worksheetXml->sheetPr);
             $this->codeName($this->worksheetXml->sheetPr);

@@ -26,7 +26,7 @@ class Styles extends BaseParserClass
 
     private $styleXml;
 
-    public function __construct(\SimpleXMLElement $styleXml)
+    public function __construct(\SimpleXMLElement $styleXml = null)
     {
         $this->styleXml = $styleXml;
     }
@@ -41,7 +41,7 @@ class Styles extends BaseParserClass
     private static function readFontStyle(Font $fontStyle, \SimpleXMLElement $fontStyleXml)
     {
         $fontStyle->setName((string) $fontStyleXml->name['val']);
-        $fontStyle->setSize((string) $fontStyleXml->sz['val']);
+        $fontStyle->setSize((float) $fontStyleXml->sz['val']);
 
         if (isset($fontStyleXml->b)) {
             $fontStyle->setBold(!isset($fontStyleXml->b['val']) || self::boolean((string) $fontStyleXml->b['val']));

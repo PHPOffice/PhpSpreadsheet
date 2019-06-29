@@ -8,14 +8,14 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ColumnAndRowAttributes extends BaseParserClass
 {
-    private $worksheetXml;
-
     private $worksheet;
 
-    public function __construct(\SimpleXMLElement $worksheetXml, Worksheet $workSheet)
+    private $worksheetXml;
+
+    public function __construct(Worksheet $workSheet, \SimpleXMLElement $worksheetXml = null)
     {
-        $this->worksheetXml = $worksheetXml;
         $this->worksheet = $workSheet;
+        $this->worksheetXml = $worksheetXml;
     }
 
     /**
@@ -76,6 +76,10 @@ class ColumnAndRowAttributes extends BaseParserClass
      */
     public function load(IReadFilter $readFilter = null, $readDataOnly = false)
     {
+        if ($this->worksheetXml === null) {
+            return;
+        }
+
         $columnsAttributes = [];
         $rowsAttributes = [];
         if (isset($this->worksheetXml->cols)) {

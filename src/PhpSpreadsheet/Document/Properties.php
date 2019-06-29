@@ -418,7 +418,7 @@ class Properties
      *
      * @param string $propertyName
      *
-     * @return string
+     * @return mixed
      */
     public function getCustomPropertyValue($propertyName)
     {

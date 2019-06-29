@@ -706,10 +706,10 @@ class Xlsx extends BaseReader
                                 $sheetViews->load();
                             }
 
-                            $sheetViewOptions = new SheetViewOptions($xmlSheet, $docSheet);
+                            $sheetViewOptions = new SheetViewOptions($docSheet, $xmlSheet);
                             $sheetViewOptions->load($this->getReadDataOnly());
 
-                            (new ColumnAndRowAttributes($xmlSheet, $docSheet))
+                            (new ColumnAndRowAttributes($docSheet, $xmlSheet))
                                 ->load($this->getReadFilter(), $this->getReadDataOnly());
 
                             if ($xmlSheet && $xmlSheet->sheetData && $xmlSheet->sheetData->row) {
