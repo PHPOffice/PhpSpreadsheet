@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Chart;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\ColumnAndRowAttributes;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\ConditionalStyles;
@@ -327,60 +328,6 @@ class Xlsx extends BaseReader
         }
 
         return $contents;
-    }
-
-    /**
-     * Set Worksheet column attributes by attributes array passed.
-     *
-     * @param Worksheet $docSheet
-     * @param string $column A, B, ... DX, ...
-     * @param array $columnAttributes array of attributes (indexes are attribute name, values are value)
-     *                               'xfIndex', 'visible', 'collapsed', 'outlineLevel', 'width', ... ?
-     */
-    private function setColumnAttributes(Worksheet $docSheet, $column, array $columnAttributes)
-    {
-        if (isset($columnAttributes['xfIndex'])) {
-            $docSheet->getColumnDimension($column)->setXfIndex($columnAttributes['xfIndex']);
-        }
-        if (isset($columnAttributes['visible'])) {
-            $docSheet->getColumnDimension($column)->setVisible($columnAttributes['visible']);
-        }
-        if (isset($columnAttributes['collapsed'])) {
-            $docSheet->getColumnDimension($column)->setCollapsed($columnAttributes['collapsed']);
-        }
-        if (isset($columnAttributes['outlineLevel'])) {
-            $docSheet->getColumnDimension($column)->setOutlineLevel($columnAttributes['outlineLevel']);
-        }
-        if (isset($columnAttributes['width'])) {
-            $docSheet->getColumnDimension($column)->setWidth($columnAttributes['width']);
-        }
-    }
-
-    /**
-     * Set Worksheet row attributes by attributes array passed.
-     *
-     * @param Worksheet $docSheet
-     * @param int $row 1, 2, 3, ... 99, ...
-     * @param array $rowAttributes array of attributes (indexes are attribute name, values are value)
-     *                               'xfIndex', 'visible', 'collapsed', 'outlineLevel', 'rowHeight', ... ?
-     */
-    private function setRowAttributes(Worksheet $docSheet, $row, array $rowAttributes)
-    {
-        if (isset($rowAttributes['xfIndex'])) {
-            $docSheet->getRowDimension($row)->setXfIndex($rowAttributes['xfIndex']);
-        }
-        if (isset($rowAttributes['visible'])) {
-            $docSheet->getRowDimension($row)->setVisible($rowAttributes['visible']);
-        }
-        if (isset($rowAttributes['collapsed'])) {
-            $docSheet->getRowDimension($row)->setCollapsed($rowAttributes['collapsed']);
-        }
-        if (isset($rowAttributes['outlineLevel'])) {
-            $docSheet->getRowDimension($row)->setOutlineLevel($rowAttributes['outlineLevel']);
-        }
-        if (isset($rowAttributes['rowHeight'])) {
-            $docSheet->getRowDimension($row)->setRowHeight($rowAttributes['rowHeight']);
-        }
     }
 
     /**
@@ -856,103 +803,7 @@ class Xlsx extends BaseReader
                             }
 
                             if ($xmlSheet && $xmlSheet->autoFilter && !$this->readDataOnly) {
-                                $autoFilterRange = (string) $xmlSheet->autoFilter['ref'];
-                                if (strpos($autoFilterRange, ':') !== false) {
-                                    $autoFilter = $docSheet->getAutoFilter();
-                                    $autoFilter->setRange($autoFilterRange);
-
-                                    foreach ($xmlSheet->autoFilter->filterColumn as $filterColumn) {
-                                        $column = $autoFilter->getColumnByOffset((int) $filterColumn['colId']);
-                                        //    Check for standard filters
-                                        if ($filterColumn->filters) {
-                                            $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER);
-                                            $filters = $filterColumn->filters;
-                                            if ((isset($filters['blank'])) && ($filters['blank'] == 1)) {
-                                                //    Operator is undefined, but always treated as EQUAL
-                                                $column->createRule()->setRule(null, '')->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_FILTER);
-                                            }
-                                            //    Standard filters are always an OR join, so no join rule needs to be set
-                                            //    Entries can be either filter elements
-                                            foreach ($filters->filter as $filterRule) {
-                                                //    Operator is undefined, but always treated as EQUAL
-                                                $column->createRule()->setRule(null, (string) $filterRule['val'])->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_FILTER);
-                                            }
-                                            //    Or Date Group elements
-                                            foreach ($filters->dateGroupItem as $dateGroupItem) {
-                                                //    Operator is undefined, but always treated as EQUAL
-                                                $column->createRule()->setRule(
-                                                    null,
-                                                    [
-                                                        'year' => (string) $dateGroupItem['year'],
-                                                        'month' => (string) $dateGroupItem['month'],
-                                                        'day' => (string) $dateGroupItem['day'],
-                                                        'hour' => (string) $dateGroupItem['hour'],
-                                                        'minute' => (string) $dateGroupItem['minute'],
-                                                        'second' => (string) $dateGroupItem['second'],
-                                                    ],
-                                                    (string) $dateGroupItem['dateTimeGrouping']
-                                                )
-                                                    ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP);
-                                            }
-                                        }
-                                        //    Check for custom filters
-                                        if ($filterColumn->customFilters) {
-                                            $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
-                                            $customFilters = $filterColumn->customFilters;
-                                            //    Custom filters can an AND or an OR join;
-                                            //        and there should only ever be one or two entries
-                                            if ((isset($customFilters['and'])) && ($customFilters['and'] == 1)) {
-                                                $column->setJoin(Column::AUTOFILTER_COLUMN_JOIN_AND);
-                                            }
-                                            foreach ($customFilters->customFilter as $filterRule) {
-                                                $column->createRule()->setRule(
-                                                    (string) $filterRule['operator'],
-                                                    (string) $filterRule['val']
-                                                )
-                                                    ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
-                                            }
-                                        }
-                                        //    Check for dynamic filters
-                                        if ($filterColumn->dynamicFilter) {
-                                            $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
-                                            //    We should only ever have one dynamic filter
-                                            foreach ($filterColumn->dynamicFilter as $filterRule) {
-                                                //    Operator is undefined, but always treated as EQUAL
-                                                $column->createRule()->setRule(
-                                                    null,
-                                                    (string) $filterRule['val'],
-                                                    (string) $filterRule['type']
-                                                )
-                                                    ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
-                                                if (isset($filterRule['val'])) {
-                                                    $column->setAttribute('val', (string) $filterRule['val']);
-                                                }
-                                                if (isset($filterRule['maxVal'])) {
-                                                    $column->setAttribute('maxVal', (string) $filterRule['maxVal']);
-                                                }
-                                            }
-                                        }
-                                        //    Check for dynamic filters
-                                        if ($filterColumn->top10) {
-                                            $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER);
-                                            //    We should only ever have one top10 filter
-                                            foreach ($filterColumn->top10 as $filterRule) {
-                                                $column->createRule()->setRule(
-                                                    (((isset($filterRule['percent'])) && ($filterRule['percent'] == 1))
-                                                        ? Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT
-                                                        : Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE
-                                                    ),
-                                                    (string) $filterRule['val'],
-                                                    (((isset($filterRule['top'])) && ($filterRule['top'] == 1))
-                                                        ? Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP
-                                                        : Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM
-                                                    )
-                                                )
-                                                    ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_TOPTENFILTER);
-                                            }
-                                        }
-                                    }
-                                }
+                                (new AutoFilter($docSheet, $xmlSheet))->load();
                             }
 
                             if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->readDataOnly) {
