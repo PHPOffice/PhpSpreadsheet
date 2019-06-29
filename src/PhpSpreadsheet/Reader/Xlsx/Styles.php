@@ -169,7 +169,7 @@ class Styles extends BaseParserClass
 
         // protection
         if (isset($style->protection)) {
-            $this->ReadProtectionLocked($docStyle, $style);
+            $this->readProtectionLocked($docStyle, $style);
             $this->readProtectionHidden($docStyle, $style);
         }
 
@@ -179,7 +179,7 @@ class Styles extends BaseParserClass
         }
     }
 
-    private function ReadProtectionLocked(Style $docStyle, $style)
+    private function readProtectionLocked(Style $docStyle, $style)
     {
         if (isset($style->protection['locked'])) {
             if (self::boolean((string) $style->protection['locked'])) {
