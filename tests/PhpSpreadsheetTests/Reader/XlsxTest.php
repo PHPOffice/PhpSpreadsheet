@@ -101,6 +101,8 @@ class XlsxTest extends TestCase
 
     /**
      * Test load Xlsx file without cell reference.
+     *
+     * @doesNotPerformAssertions
      */
     public function testLoadXlsxWithoutCellReference()
     {
@@ -127,6 +129,8 @@ class XlsxTest extends TestCase
 
     /**
      * Test load Xlsx file with drawing having double attributes.
+     *
+     * @doesNotPerformAssertions
      */
     public function testLoadXlsxWithDoubleAttrDrawing()
     {

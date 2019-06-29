@@ -9,6 +9,8 @@ use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Chart;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\ColumnAndRowAttributes;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\ConditionalStyles;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\DataValidations;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PageSetup;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
@@ -702,16 +704,18 @@ class Xlsx extends BaseReader
                                 $docSheet->setSheetState((string) $eleSheet['state']);
                             }
 
-                            if (isset($xmlSheet->sheetViews, $xmlSheet->sheetViews->sheetView)) {
-                                $sheetViews = new SheetViews($xmlSheet->sheetViews->sheetView, $docSheet);
-                                $sheetViews->load();
+                            if ($xmlSheet) {
+                                if (isset($xmlSheet->sheetViews, $xmlSheet->sheetViews->sheetView)) {
+                                    $sheetViews = new SheetViews($xmlSheet->sheetViews->sheetView, $docSheet);
+                                    $sheetViews->load();
+                                }
+
+                                $sheetViewOptions = new SheetViewOptions($docSheet, $xmlSheet);
+                                $sheetViewOptions->load($this->getReadDataOnly());
+
+                                (new ColumnAndRowAttributes($docSheet, $xmlSheet))
+                                    ->load($this->getReadFilter(), $this->getReadDataOnly());
                             }
-
-                            $sheetViewOptions = new SheetViewOptions($docSheet, $xmlSheet);
-                            $sheetViewOptions->load($this->getReadDataOnly());
-
-                            (new ColumnAndRowAttributes($docSheet, $xmlSheet))
-                                ->load($this->getReadFilter(), $this->getReadDataOnly());
 
                             if ($xmlSheet && $xmlSheet->sheetData && $xmlSheet->sheetData->row) {
                                 $cIndex = 1; // Cell Start from 1
@@ -832,49 +836,8 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            $conditionals = [];
                             if (!$this->readDataOnly && $xmlSheet && $xmlSheet->conditionalFormatting) {
-                                foreach ($xmlSheet->conditionalFormatting as $conditional) {
-                                    foreach ($conditional->cfRule as $cfRule) {
-                                        if (((string) $cfRule['type'] == Conditional::CONDITION_NONE || (string) $cfRule['type'] == Conditional::CONDITION_CELLIS || (string) $cfRule['type'] == Conditional::CONDITION_CONTAINSTEXT || (string) $cfRule['type'] == Conditional::CONDITION_EXPRESSION) && isset($dxfs[(int) ($cfRule['dxfId'])])) {
-                                            $conditionals[(string) $conditional['sqref']][(int) ($cfRule['priority'])] = $cfRule;
-                                        }
-                                    }
-                                }
-
-                                foreach ($conditionals as $ref => $cfRules) {
-                                    ksort($cfRules);
-                                    $conditionalStyles = [];
-                                    foreach ($cfRules as $cfRule) {
-                                        $objConditional = new Conditional();
-                                        $objConditional->setConditionType((string) $cfRule['type']);
-                                        $objConditional->setOperatorType((string) $cfRule['operator']);
-
-                                        if ((string) $cfRule['text'] != '') {
-                                            $objConditional->setText((string) $cfRule['text']);
-                                        }
-
-                                        if (isset($cfRule['stopIfTrue']) && (int) $cfRule['stopIfTrue'] === 1) {
-                                            $objConditional->setStopIfTrue(true);
-                                        }
-
-                                        if (count($cfRule->formula) > 1) {
-                                            foreach ($cfRule->formula as $formula) {
-                                                $objConditional->addCondition((string) $formula);
-                                            }
-                                        } else {
-                                            $objConditional->addCondition((string) $cfRule->formula);
-                                        }
-                                        $objConditional->setStyle(clone $dxfs[(int) ($cfRule['dxfId'])]);
-                                        $conditionalStyles[] = $objConditional;
-                                    }
-
-                                    // Extract all cell references in $ref
-                                    $cellBlocks = explode(' ', str_replace('$', '', strtoupper($ref)));
-                                    foreach ($cellBlocks as $cellBlock) {
-                                        $docSheet->getStyle($cellBlock)->setConditionalStyles($conditionalStyles);
-                                    }
-                                }
+                                (new ConditionalStyles($docSheet, $xmlSheet, $dxfs))->load();
                             }
 
                             $aKeys = ['sheet', 'objects', 'scenarios', 'formatCells', 'formatColumns', 'formatRows', 'insertColumns', 'insertRows', 'insertHyperlinks', 'deleteColumns', 'deleteRows', 'selectLockedCells', 'sort', 'autoFilter', 'pivotTables', 'selectUnlockedCells'];
@@ -1008,33 +971,7 @@ class Xlsx extends BaseReader
                             }
 
                             if ($xmlSheet && $xmlSheet->dataValidations && !$this->readDataOnly) {
-                                foreach ($xmlSheet->dataValidations->dataValidation as $dataValidation) {
-                                    // Uppercase coordinate
-                                    $range = strtoupper($dataValidation['sqref']);
-                                    $rangeSet = explode(' ', $range);
-                                    foreach ($rangeSet as $range) {
-                                        $stRange = $docSheet->shrinkRangeToFit($range);
-
-                                        // Extract all cell references in $range
-                                        foreach (Coordinate::extractAllCellReferencesInRange($stRange) as $reference) {
-                                            // Create validation
-                                            $docValidation = $docSheet->getCell($reference)->getDataValidation();
-                                            $docValidation->setType((string) $dataValidation['type']);
-                                            $docValidation->setErrorStyle((string) $dataValidation['errorStyle']);
-                                            $docValidation->setOperator((string) $dataValidation['operator']);
-                                            $docValidation->setAllowBlank($dataValidation['allowBlank'] != 0);
-                                            $docValidation->setShowDropDown($dataValidation['showDropDown'] == 0);
-                                            $docValidation->setShowInputMessage($dataValidation['showInputMessage'] != 0);
-                                            $docValidation->setShowErrorMessage($dataValidation['showErrorMessage'] != 0);
-                                            $docValidation->setErrorTitle((string) $dataValidation['errorTitle']);
-                                            $docValidation->setError((string) $dataValidation['error']);
-                                            $docValidation->setPromptTitle((string) $dataValidation['promptTitle']);
-                                            $docValidation->setPrompt((string) $dataValidation['prompt']);
-                                            $docValidation->setFormula1((string) $dataValidation->formula1);
-                                            $docValidation->setFormula2((string) $dataValidation->formula2);
-                                        }
-                                    }
-                                }
+                                (new DataValidations($docSheet, $xmlSheet))->load();
                             }
 
                             // unparsed sheet AlternateContent
