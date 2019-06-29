@@ -77,9 +77,26 @@ class XlsxTest extends TestCase
 
     public function testLoadXlsxWithStyles()
     {
+        $expectedColours = [
+            1 => ['A' => 'C00000', 'C' => 'FF0000', 'E' => 'FFC000'],
+            3 => ['A' => '7030A0', 'C' => '000000', 'E' => 'FFFF00'],
+            5 => ['A' => '002060', 'C' => '000000', 'E' => '92D050'],
+            7 => ['A' => '0070C0', 'C' => '00B0F0', 'E' => '00B050'],
+        ];
+
         $filename = './data/Reader/XLSX/stylesTest.xlsx';
         $reader = new Xlsx();
-        $reader->load($filename);
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+        for ($row = 1; $row <= 8; $row += 2) {
+            for ($column = 'A'; $column !== 'G'; ++$column, ++$column) {
+                $this->assertEquals(
+                    $expectedColours[$row][$column],
+                    $worksheet->getStyle($column . $row)->getFill()->getStartColor()->getRGB()
+                );
+            }
+        }
     }
 
     /**
