@@ -34,7 +34,7 @@ class ConditionalStyles
         foreach ($xmlSheet->conditionalFormatting as $conditional) {
             foreach ($conditional->cfRule as $cfRule) {
                 if (((string) $cfRule['type'] == Conditional::CONDITION_NONE
-                    || (string)$cfRule['type'] == Conditional::CONDITION_CELLIS
+                    || (string) $cfRule['type'] == Conditional::CONDITION_CELLIS
                     || (string) $cfRule['type'] == Conditional::CONDITION_CONTAINSTEXT
                     || (string) $cfRule['type'] == Conditional::CONDITION_EXPRESSION)
                     && isset($this->dxfs[(int) ($cfRule['dxfId'])])) {
