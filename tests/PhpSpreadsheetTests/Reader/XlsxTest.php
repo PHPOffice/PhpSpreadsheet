@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PHPUnit\Framework\TestCase;
 
 class XlsxTest extends TestCase
@@ -97,6 +98,23 @@ class XlsxTest extends TestCase
                 );
             }
         }
+    }
+
+    public function testLoadXlsxAutofilter()
+    {
+        $filename = './data/Reader/XLSX/autofilterTest.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $autofilter = $worksheet->getAutoFilter();
+        $this->assertInstanceOf(AutoFilter::class, $autofilter);
+        $this->assertEquals('A1:D57', $autofilter->getRange());
+        $this->assertEquals(
+            AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER,
+            $autofilter->getColumn('A')->getFilterType()
+        );
     }
 
     /**
