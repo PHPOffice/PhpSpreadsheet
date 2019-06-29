@@ -61,11 +61,11 @@ class Styles extends BaseParserClass
         }
 
         if (isset($fontStyleXml->vertAlign, $fontStyleXml->vertAlign['val'])) {
-            $vertAlign = strtolower((string) $fontStyleXml->vertAlign['val']);
-            if ($vertAlign == 'superscript') {
+            $verticalAlign = strtolower((string) $fontStyleXml->vertAlign['val']);
+            if ($verticalAlign === 'superscript') {
                 $fontStyle->setSuperscript(true);
             }
-            if ($vertAlign == 'subscript') {
+            if ($verticalAlign === 'subscript') {
                 $fontStyle->setSubscript(true);
             }
         }
@@ -110,6 +110,7 @@ class Styles extends BaseParserClass
         } else {
             $borderStyle->setDiagonalDirection(Borders::DIAGONAL_BOTH);
         }
+
         self::readBorder($borderStyle->getLeft(), $borderStyleXml->left);
         self::readBorder($borderStyle->getRight(), $borderStyleXml->right);
         self::readBorder($borderStyle->getTop(), $borderStyleXml->top);
@@ -146,7 +147,7 @@ class Styles extends BaseParserClass
         $alignment->setReadOrder((int) ((string) $alignmentXml->alignment['readingOrder']) > 0 ? (int) ((string) $alignmentXml->alignment['readingOrder']) : 0);
     }
 
-    private static function readStyle(Style $docStyle, $style)
+    private function readStyle(Style $docStyle, $style)
     {
         $docStyle->getNumberFormat()->setFormatCode($style->numFmt);
 
@@ -168,26 +169,35 @@ class Styles extends BaseParserClass
 
         // protection
         if (isset($style->protection)) {
-            if (isset($style->protection['locked'])) {
-                if (self::boolean((string) $style->protection['locked'])) {
-                    $docStyle->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
-                } else {
-                    $docStyle->getProtection()->setLocked(Protection::PROTECTION_UNPROTECTED);
-                }
-            }
-
-            if (isset($style->protection['hidden'])) {
-                if (self::boolean((string) $style->protection['hidden'])) {
-                    $docStyle->getProtection()->setHidden(Protection::PROTECTION_PROTECTED);
-                } else {
-                    $docStyle->getProtection()->setHidden(Protection::PROTECTION_UNPROTECTED);
-                }
-            }
+            $this->ReadProtectionLocked($docStyle, $style);
+            $this->readProtectionHidden($docStyle, $style);
         }
 
         // top-level style settings
         if (isset($style->quotePrefix)) {
             $docStyle->setQuotePrefix(true);
+        }
+    }
+
+    private function ReadProtectionLocked(Style $docStyle, $style)
+    {
+        if (isset($style->protection['locked'])) {
+            if (self::boolean((string)$style->protection['locked'])) {
+                $docStyle->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
+            } else {
+                $docStyle->getProtection()->setLocked(Protection::PROTECTION_UNPROTECTED);
+            }
+        }
+    }
+
+    private function readProtectionHidden(Style $docStyle, $style)
+    {
+        if (isset($style->protection['hidden'])) {
+            if (self::boolean((string)$style->protection['hidden'])) {
+                $docStyle->getProtection()->setHidden(Protection::PROTECTION_PROTECTED);
+            } else {
+                $docStyle->getProtection()->setHidden(Protection::PROTECTION_UNPROTECTED);
+            }
         }
     }
 
@@ -220,7 +230,7 @@ class Styles extends BaseParserClass
             if ($this->styleXml->dxfs) {
                 foreach ($this->styleXml->dxfs->dxf as $dxf) {
                     $style = new Style(false, true);
-                    self::readStyle($style, $dxf);
+                    $this->readStyle($style, $dxf);
                     $dxfs[] = $style;
                 }
             }
@@ -231,7 +241,7 @@ class Styles extends BaseParserClass
                         if (isset($this->cellStyles[(int) ($cellStyle['xfId'])])) {
                             // Set default style
                             $style = new Style();
-                            self::readStyle($style, $this->cellStyles[(int) ($cellStyle['xfId'])]);
+                            $this->readStyle($style, $this->cellStyles[(int) ($cellStyle['xfId'])]);
 
                             // normal style, currently not using it for anything
                         }

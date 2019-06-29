@@ -130,27 +130,38 @@ class ColumnAndRowAttributes extends BaseParserClass
         $columnAttributes = [];
 
         foreach ($worksheetCols->col as $column) {
-            for ($i = (int) ($column['min']); $i <= (int) ($column['max']); ++$i) {
-                $columnAddress = Coordinate::stringFromColumnIndex($i);
-                if ($column['style'] && !$readDataOnly) {
-                    $columnAttributes[$columnAddress]['xfIndex'] = (int) $column['style'];
-                }
-                if (self::boolean($column['hidden'])) {
-                    $columnAttributes[$columnAddress]['visible'] = false;
-                }
-                if (self::boolean($column['collapsed'])) {
-                    $columnAttributes[$columnAddress]['collapsed'] = true;
-                }
-                if (((int) $column['outlineLevel']) > 0) {
-                    $columnAttributes[$columnAddress]['outlineLevel'] = (int) $column['outlineLevel'];
-                }
-                $columnAttributes[$columnAddress]['width'] = (float) $column['width'];
+            $startColumn = Coordinate::stringFromColumnIndex((int) $column['min']);
+            $endColumn = Coordinate::stringFromColumnIndex((int) $column['max']);
+            ++$endColumn;
+            for ($columnAddress = $startColumn; $columnAddress !== $endColumn; ++$columnAddress) {
+                $columnAttributes[$columnAddress] = $this->readColumnRangeAttributes($column, $readDataOnly);
 
                 if ((int) ($column['max']) == 16384) {
                     break;
                 }
             }
         }
+
+        return $columnAttributes;
+    }
+
+    private function readColumnRangeAttributes(\SimpleXMLElement $column, $readDataOnly)
+    {
+        $columnAttributes = [];
+
+        if ($column['style'] && !$readDataOnly) {
+            $columnAttributes['xfIndex'] = (int) $column['style'];
+        }
+        if (self::boolean($column['hidden'])) {
+            $columnAttributes['visible'] = false;
+        }
+        if (self::boolean($column['collapsed'])) {
+            $columnAttributes['collapsed'] = true;
+        }
+        if (((int) $column['outlineLevel']) > 0) {
+            $columnAttributes['outlineLevel'] = (int) $column['outlineLevel'];
+        }
+        $columnAttributes['width'] = (float) $column['width'];
 
         return $columnAttributes;
     }
