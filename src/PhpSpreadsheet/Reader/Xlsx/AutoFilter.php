@@ -68,12 +68,12 @@ class AutoFilter
             $column->createRule()->setRule(
                 null,
                 [
-                    'year' => (string)$dateGroupItem['year'],
-                    'month' => (string)$dateGroupItem['month'],
-                    'day' => (string)$dateGroupItem['day'],
-                    'hour' => (string)$dateGroupItem['hour'],
-                    'minute' => (string)$dateGroupItem['minute'],
-                    'second' => (string)$dateGroupItem['second'],
+                    'year' => (string) $dateGroupItem['year'],
+                    'month' => (string) $dateGroupItem['month'],
+                    'day' => (string) $dateGroupItem['day'],
+                    'hour' => (string) $dateGroupItem['hour'],
+                    'minute' => (string) $dateGroupItem['minute'],
+                    'second' => (string) $dateGroupItem['second'],
                 ],
                 (string) $dateGroupItem['dateTimeGrouping']
             )->setRuleType(Rule::AUTOFILTER_RULETYPE_DATEGROUP);
@@ -109,7 +109,7 @@ class AutoFilter
                 $column->createRule()->setRule(
                     null,
                     (string) $filterRule['val'],
-                    (string )$filterRule['type']
+                    (string) $filterRule['type']
                 )->setRuleType(Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
                 if (isset($filterRule['val'])) {
                     $column->setAttribute('val', (string) $filterRule['val']);

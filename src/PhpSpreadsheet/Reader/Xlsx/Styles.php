@@ -182,7 +182,7 @@ class Styles extends BaseParserClass
     private function ReadProtectionLocked(Style $docStyle, $style)
     {
         if (isset($style->protection['locked'])) {
-            if (self::boolean((string)$style->protection['locked'])) {
+            if (self::boolean((string) $style->protection['locked'])) {
                 $docStyle->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
             } else {
                 $docStyle->getProtection()->setLocked(Protection::PROTECTION_UNPROTECTED);
@@ -193,7 +193,7 @@ class Styles extends BaseParserClass
     private function readProtectionHidden(Style $docStyle, $style)
     {
         if (isset($style->protection['hidden'])) {
-            if (self::boolean((string)$style->protection['hidden'])) {
+            if (self::boolean((string) $style->protection['hidden'])) {
                 $docStyle->getProtection()->setHidden(Protection::PROTECTION_PROTECTED);
             } else {
                 $docStyle->getProtection()->setHidden(Protection::PROTECTION_UNPROTECTED);
