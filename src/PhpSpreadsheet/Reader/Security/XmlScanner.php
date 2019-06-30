@@ -110,7 +110,7 @@ class XmlScanner
             if ($charset !== 'UTF-8') {
                 throw new Reader\Exception('Suspicious Double-encoded XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
             }
-        };
+        }
 
         return $xml;
     }

@@ -32,7 +32,7 @@ class Settings
      *      7.0 < 7.0.27
      *      5.6 ANY
      * then you may need to disable this check to prevent unwanted behaviour in other threads
-     * SECURITY WARNING: Changing this flag is not recommended
+     * SECURITY WARNING: Changing this flag is not recommended.
      *
      * @var bool
      */
@@ -124,7 +124,7 @@ class Settings
      *      7.0 < 7.0.27
      *      5.6 ANY
      * then you may need to disable this check to prevent unwanted behaviour in other threads
-     * SECURITY WARNING: Changing this flag to false is not recommended
+     * SECURITY WARNING: Changing this flag to false is not recommended.
      *
      * @param bool $state
      */
