@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+
+## [1.8.0] - 2019-07-01
+
+### Security Fix (CVE-2019-12331)
+
+- Detect double-encoded xml in the Security scanner, and reject as suspicious.
+- This change also broadens the scope of the `libxml_disable_entity_loader` setting when reading XML-based formats, so that it is enabled while the xml is being parsed and not simply while it is loaded.
+  On some versions of PHP, this can cause problems because it is not thread-safe, and can affect other PHP scripts running on the same server. This flag is set to true when instantiating a loader, and back to its original setting when the Reader is no longer in scope, or manually unset.
+- Provide a check to identify whether libxml_disable_entity_loader is thread-safe or not.
+
+  `XmlScanner::threadSafeLibxmlDisableEntityLoaderAvailability()`
+- Provide an option to disable the libxml_disable_entity_loader call through settings. This is not recommended as it reduces the security of the XML-based readers, and should only be used if you understand the consequences and have no other choice.
+ 
 ### Added
 
 - Added support for the SWITCH function - [Issue #963](https://github.com/PHPOffice/PhpSpreadsheet/issues/963) and [PR #983](https://github.com/PHPOffice/PhpSpreadsheet/pull/983)
