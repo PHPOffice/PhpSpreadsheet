@@ -91,21 +91,26 @@ class Properties
             switch ($propertyName) {
                 case 'title':
                     $docProps->setTitle($propertyValue);
+
                     break;
                 case 'subject':
                     $docProps->setSubject($propertyValue);
+
                     break;
                 case 'creator':
                     $docProps->setCreator($propertyValue);
                     $docProps->setLastModifiedBy($propertyValue);
+
                     break;
                 case 'date':
                     $creationDate = strtotime($propertyValue);
                     $docProps->setCreated($creationDate);
                     $docProps->setModified($creationDate);
+
                     break;
                 case 'description':
                     $docProps->setDescription($propertyValue);
+
                     break;
             }
         }
