@@ -265,7 +265,7 @@ class Ods extends BaseReader
 
         $zip = new ZipArchive();
         if (!$zip->open($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
+            throw new Exception("Could not open {$pFilename} for reading! Error opening file.");
         }
 
         // Meta
@@ -275,6 +275,10 @@ class Ods extends BaseReader
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
         );
+        if ($xml === false) {
+            throw new Exception('Unable to read data from {$pFilename}');
+        }
+
         $namespacesMeta = $xml->getNamespaces(true);
 
         (new DocumentProperties($spreadsheet))->load($xml, $namespacesMeta);
