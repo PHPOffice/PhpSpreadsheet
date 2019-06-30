@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PHPUnit\Framework\TestCase;
@@ -135,6 +137,25 @@ class XlsxTest extends TestCase
 
         $this->assertEquals(PageSetup::PAPERSIZE_A4, $worksheet->getPageSetup()->getPaperSize());
         $this->assertEquals(['A10', 'A20', 'A30', 'A40', 'A50'], array_keys($worksheet->getBreaks()));
+    }
+
+    public function testLoadXlsxConditionalFormatting()
+    {
+        $filename = './data/Reader/XLSX/conditionalFormattingTest.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $conditionalStyle = $worksheet->getCell('B2')->getStyle()->getConditionalStyles();
+
+        $this->assertNotEmpty($conditionalStyle);
+        $conditionalRule = $conditionalStyle[0];
+        $this->assertNotEmpty($conditionalRule->getConditions());
+        $this->assertEquals(Conditional::CONDITION_CELLIS, $conditionalRule->getConditionType());
+        $this->assertEquals(Conditional::OPERATOR_BETWEEN, $conditionalRule->getOperatorType());
+        $this->assertEquals(['200', '400'], $conditionalRule->getConditions());
+        $this->assertInstanceOf(Style::class, $conditionalRule->getStyle());
     }
 
     /**
