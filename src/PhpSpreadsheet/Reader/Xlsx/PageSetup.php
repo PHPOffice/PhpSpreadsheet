@@ -120,20 +120,30 @@ class PageSetup extends BaseParserClass
     private function pageBreaks(\SimpleXMLElement $xmlSheet, Worksheet $worksheet)
     {
         if ($xmlSheet->rowBreaks && $xmlSheet->rowBreaks->brk) {
-            foreach ($xmlSheet->rowBreaks->brk as $brk) {
-                if ($brk['man']) {
-                    $worksheet->setBreak("A{$brk['id']}", Worksheet::BREAK_ROW);
-                }
-            }
+            $this->rowBreaks($xmlSheet, $worksheet);
         }
         if ($xmlSheet->colBreaks && $xmlSheet->colBreaks->brk) {
-            foreach ($xmlSheet->colBreaks->brk as $brk) {
-                if ($brk['man']) {
-                    $worksheet->setBreak(
-                        Coordinate::stringFromColumnIndex((string) $brk['id'] + 1) . '1',
-                        Worksheet::BREAK_COLUMN
-                    );
-                }
+            $this->columnBreaks($xmlSheet, $worksheet);
+        }
+    }
+
+    private function rowBreaks(\SimpleXMLElement $xmlSheet, Worksheet $worksheet)
+    {
+        foreach ($xmlSheet->rowBreaks->brk as $brk) {
+            if ($brk['man']) {
+                $worksheet->setBreak("A{$brk['id']}", Worksheet::BREAK_ROW);
+            }
+        }
+    }
+
+    private function columnBreaks(\SimpleXMLElement $xmlSheet, Worksheet $worksheet)
+    {
+        foreach ($xmlSheet->colBreaks->brk as $brk) {
+            if ($brk['man']) {
+                $worksheet->setBreak(
+                    Coordinate::stringFromColumnIndex(((int) $brk['id']) + 1) . '1',
+                    Worksheet::BREAK_COLUMN
+                );
             }
         }
     }
