@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PHPUnit\Framework\TestCase;
 
 class XlsxTest extends TestCase
@@ -115,6 +116,25 @@ class XlsxTest extends TestCase
             AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER,
             $autofilter->getColumn('A')->getFilterType()
         );
+    }
+
+    public function testLoadXlsxPageSetup()
+    {
+        $filename = './data/Reader/XLSX/pageSetupTest.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $pageMargins = $worksheet->getPageMargins();
+        // Convert from inches to cm for testing
+        $this->assertEquals(2.5, $pageMargins->getTop() * 2.54);
+        $this->assertEquals(3.3, $pageMargins->getLeft() * 2.54);
+        $this->assertEquals(3.3, $pageMargins->getRight() * 2.54);
+        $this->assertEquals(1.3,$pageMargins->getHeader() * 2.54);
+
+        $this->assertEquals(PageSetup::PAPERSIZE_A4, $worksheet->getPageSetup()->getPaperSize());
+        $this->assertEquals(['A10','A20','A30','A40','A50'], array_keys($worksheet->getBreaks()));
     }
 
     /**
