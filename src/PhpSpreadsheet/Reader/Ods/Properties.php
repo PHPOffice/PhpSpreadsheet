@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Reader;
+namespace PhpOffice\PhpSpreadsheet\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Document\Properties as DocumentProperties;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -84,7 +84,7 @@ class Properties
         }
     }
 
-    private function setCoreProperties(DocumentProperties $docProps, array $officePropertyDC)
+    private function setCoreProperties(DocumentProperties $docProps, \SimpleXMLElement $officePropertyDC)
     {
         foreach ($officePropertyDC as $propertyName => $propertyValue) {
             $propertyValue = (string) $propertyValue;

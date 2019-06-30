@@ -7,7 +7,7 @@ use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\Reader\Ods\Properties as DocumentProperties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
@@ -277,95 +277,7 @@ class Ods extends BaseReader
         );
         $namespacesMeta = $xml->getNamespaces(true);
 
-        $docProps = $spreadsheet->getProperties();
-        $officeProperty = $xml->children($namespacesMeta['office']);
-        foreach ($officeProperty as $officePropertyData) {
-            $officePropertyDC = [];
-            if (isset($namespacesMeta['dc'])) {
-                $officePropertyDC = $officePropertyData->children($namespacesMeta['dc']);
-            }
-            foreach ($officePropertyDC as $propertyName => $propertyValue) {
-                $propertyValue = (string) $propertyValue;
-                switch ($propertyName) {
-                    case 'title':
-                        $docProps->setTitle($propertyValue);
-
-                        break;
-                    case 'subject':
-                        $docProps->setSubject($propertyValue);
-
-                        break;
-                    case 'creator':
-                        $docProps->setCreator($propertyValue);
-                        $docProps->setLastModifiedBy($propertyValue);
-
-                        break;
-                    case 'date':
-                        $creationDate = strtotime($propertyValue);
-                        $docProps->setCreated($creationDate);
-                        $docProps->setModified($creationDate);
-
-                        break;
-                    case 'description':
-                        $docProps->setDescription($propertyValue);
-
-                        break;
-                }
-            }
-            $officePropertyMeta = [];
-            if (isset($namespacesMeta['dc'])) {
-                $officePropertyMeta = $officePropertyData->children($namespacesMeta['meta']);
-            }
-            foreach ($officePropertyMeta as $propertyName => $propertyValue) {
-                $propertyValueAttributes = $propertyValue->attributes($namespacesMeta['meta']);
-                $propertyValue = (string) $propertyValue;
-                switch ($propertyName) {
-                    case 'initial-creator':
-                        $docProps->setCreator($propertyValue);
-
-                        break;
-                    case 'keyword':
-                        $docProps->setKeywords($propertyValue);
-
-                        break;
-                    case 'creation-date':
-                        $creationDate = strtotime($propertyValue);
-                        $docProps->setCreated($creationDate);
-
-                        break;
-                    case 'user-defined':
-                        $propertyValueType = Properties::PROPERTY_TYPE_STRING;
-                        foreach ($propertyValueAttributes as $key => $value) {
-                            if ($key == 'name') {
-                                $propertyValueName = (string) $value;
-                            } elseif ($key == 'value-type') {
-                                switch ($value) {
-                                    case 'date':
-                                        $propertyValue = Properties::convertProperty($propertyValue, 'date');
-                                        $propertyValueType = Properties::PROPERTY_TYPE_DATE;
-
-                                        break;
-                                    case 'boolean':
-                                        $propertyValue = Properties::convertProperty($propertyValue, 'bool');
-                                        $propertyValueType = Properties::PROPERTY_TYPE_BOOLEAN;
-
-                                        break;
-                                    case 'float':
-                                        $propertyValue = Properties::convertProperty($propertyValue, 'r4');
-                                        $propertyValueType = Properties::PROPERTY_TYPE_FLOAT;
-
-                                        break;
-                                    default:
-                                        $propertyValueType = Properties::PROPERTY_TYPE_STRING;
-                                }
-                            }
-                        }
-                        $docProps->setCustomProperty($propertyValueName, $propertyValue, $propertyValueType);
-
-                        break;
-                }
-            }
-        }
+        (new DocumentProperties($spreadsheet))->load($xml, $namespacesMeta);
 
         // Content
 
