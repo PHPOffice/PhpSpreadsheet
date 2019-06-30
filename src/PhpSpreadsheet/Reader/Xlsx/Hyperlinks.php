@@ -9,32 +9,30 @@ class Hyperlinks
 {
     private $worksheet;
 
+    private $hyperlinks = [];
+
     public function __construct(Worksheet $workSheet)
     {
         $this->worksheet = $workSheet;
     }
 
-    public function readHyperlinks(\SimpleXMLElement $relsWorksheet, array $hyperlinks)
+    public function readHyperlinks(\SimpleXMLElement $relsWorksheet)
     {
         foreach ($relsWorksheet->Relationship as $element) {
             if ($element['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink') {
-                $hyperlinks[(string) $element['Id']] = (string) $element['Target'];
+                $this->hyperlinks[(string) $element['Id']] = (string) $element['Target'];
             }
         }
-
-        return $hyperlinks;
     }
 
-    public function load(\SimpleXMLElement $worksheetXml, array $hyperlinks)
+    public function setHyperlinks(\SimpleXMLElement $worksheetXml)
     {
         foreach ($worksheetXml->hyperlink as $hyperlink) {
-            $hyperlinks = $this->setHyperlink($hyperlink, $this->worksheet, $hyperlinks);
+            $this->setHyperlink($hyperlink, $this->worksheet);
         }
-
-        return $hyperlinks;
     }
 
-    private function setHyperlink(\SimpleXMLElement $hyperlink, Worksheet $worksheet, array $hyperlinks)
+    private function setHyperlink(\SimpleXMLElement $hyperlink, Worksheet $worksheet)
     {
         // Link url
         $linkRel = $hyperlink->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
@@ -42,7 +40,7 @@ class Hyperlinks
         foreach (Coordinate::extractAllCellReferencesInRange($hyperlink['ref']) as $cellReference) {
             $cell = $worksheet->getCell($cellReference);
             if (isset($linkRel['id'])) {
-                $hyperlinkUrl = $hyperlinks[(string) $linkRel['id']];
+                $hyperlinkUrl = $this->hyperlinks[(string) $linkRel['id']];
                 if (isset($hyperlink['location'])) {
                     $hyperlinkUrl .= '#' . (string) $hyperlink['location'];
                 }
@@ -56,7 +54,5 @@ class Hyperlinks
                 $cell->getHyperlink()->setTooltip((string) $hyperlink['tooltip']);
             }
         }
-
-        return $hyperlinks;
     }
 }

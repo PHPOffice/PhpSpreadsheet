@@ -835,7 +835,6 @@ class Xlsx extends BaseReader
                             }
 
                             // Add hyperlinks
-                            $hyperlinks = [];
                             if (!$this->readDataOnly) {
                                 $hyperlinkReader = new Hyperlinks($docSheet);
                                 // Locate hyperlink relations
@@ -849,12 +848,12 @@ class Xlsx extends BaseReader
                                         'SimpleXMLElement',
                                         Settings::getLibXmlLoaderOptions()
                                     );
-                                    $hyperlinks = $hyperlinkReader->readHyperlinks($relsWorksheet, $hyperlinks);
+                                    $hyperlinkReader->readHyperlinks($relsWorksheet);
                                 }
 
                                 // Loop through hyperlinks
                                 if ($xmlSheet && $xmlSheet->hyperlinks) {
-                                    $hyperlinks = $hyperlinkReader->load($xmlSheet->hyperlinks, $hyperlinks);
+                                    $hyperlinkReader->setHyperlinks($xmlSheet->hyperlinks);
                                 }
                             }
 
