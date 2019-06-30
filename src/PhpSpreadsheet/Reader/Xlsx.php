@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Chart;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\ColumnAndRowAttributes;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\ConditionalStyles;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\DataValidations;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Hyperlinks;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PageSetup;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
@@ -836,48 +837,24 @@ class Xlsx extends BaseReader
                             // Add hyperlinks
                             $hyperlinks = [];
                             if (!$this->readDataOnly) {
+                                $hyperlinkReader = new Hyperlinks($docSheet);
                                 // Locate hyperlink relations
-                                if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                                $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
+                                if ($zip->locateName($relationsFileName)) {
                                     //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                     $relsWorksheet = simplexml_load_string(
                                         $this->securityScanner->scan(
-                                            $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
+                                            $this->getFromZipArchive($zip, $relationsFileName)
                                         ),
                                         'SimpleXMLElement',
                                         Settings::getLibXmlLoaderOptions()
                                     );
-                                    foreach ($relsWorksheet->Relationship as $ele) {
-                                        if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink') {
-                                            $hyperlinks[(string) $ele['Id']] = (string) $ele['Target'];
-                                        }
-                                    }
+                                    $hyperlinks = $hyperlinkReader->readHyperlinks($relsWorksheet, $hyperlinks);
                                 }
 
                                 // Loop through hyperlinks
                                 if ($xmlSheet && $xmlSheet->hyperlinks) {
-                                    /** @var SimpleXMLElement $hyperlink */
-                                    foreach ($xmlSheet->hyperlinks->hyperlink as $hyperlink) {
-                                        // Link url
-                                        $linkRel = $hyperlink->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
-
-                                        foreach (Coordinate::extractAllCellReferencesInRange($hyperlink['ref']) as $cellReference) {
-                                            $cell = $docSheet->getCell($cellReference);
-                                            if (isset($linkRel['id'])) {
-                                                $hyperlinkUrl = $hyperlinks[(string) $linkRel['id']];
-                                                if (isset($hyperlink['location'])) {
-                                                    $hyperlinkUrl .= '#' . (string) $hyperlink['location'];
-                                                }
-                                                $cell->getHyperlink()->setUrl($hyperlinkUrl);
-                                            } elseif (isset($hyperlink['location'])) {
-                                                $cell->getHyperlink()->setUrl('sheet://' . (string) $hyperlink['location']);
-                                            }
-
-                                            // Tooltip
-                                            if (isset($hyperlink['tooltip'])) {
-                                                $cell->getHyperlink()->setTooltip((string) $hyperlink['tooltip']);
-                                            }
-                                        }
-                                    }
+                                    $hyperlinks = $hyperlinkReader->load($xmlSheet->hyperlinks, $hyperlinks);
                                 }
                             }
 
