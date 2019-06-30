@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ## [Unreleased]
 
 
-## [1.8.0] - 2019-06-30
+## [1.8.0] - 2019-07-01
 
 ### Security Fix (CVE-2019-12331)
 
