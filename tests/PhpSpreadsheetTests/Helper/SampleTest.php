@@ -39,6 +39,7 @@ class SampleTest extends TestCase
         if (version_compare(PHP_VERSION, '7.2.99') >= 0) {
             $skipped[] = 'Basic/26_Utf8.php';
             $skipped[] = 'Pdf/21_Pdf_Domdf.php';
+            $skipped[] = 'Pdf/21_Pdf_mPDF.php';
         }
 
         // Unfortunately some tests are too long be ran with code-coverage
