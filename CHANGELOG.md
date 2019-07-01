@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ## [Unreleased]
 
 
+## [1.8.1] - 2019-07-02
+
+### Fixed
+
+- Allow nullable theme for Xlsx Style Reader class - [Issue #1043](https://github.com/PHPOffice/PhpSpreadsheet/issues/1043)
+
 ## [1.8.0] - 2019-07-01
 
 ### Security Fix (CVE-2019-12331)
