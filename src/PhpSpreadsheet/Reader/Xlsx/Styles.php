@@ -31,7 +31,7 @@ class Styles extends BaseParserClass
         $this->styleXml = $styleXml;
     }
 
-    public function setStyleBaseData(Theme $theme, $styles, $cellStyles)
+    public function setStyleBaseData(Theme $theme = null, $styles = [], $cellStyles = [])
     {
         self::$theme = $theme;
         $this->styles = $styles;

@@ -8,13 +8,6 @@ use PhpOffice\PhpSpreadsheet\Settings;
 class XmlScanner
 {
     /**
-     * Identifies whether the thread-safe libxmlDisableEntityLoader() function is available.
-     *
-     * @var bool
-     */
-    private $libxmlDisableEntityLoader = false;
-
-    /**
      * String used to identify risky xml elements.
      *
      * @var string
