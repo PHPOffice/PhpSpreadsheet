@@ -9,6 +9,11 @@ use PHPUnit\Framework\TestCase;
 
 class XmlScannerTest extends TestCase
 {
+    protected function setUp()
+    {
+        libxml_disable_entity_loader(false);
+    }
+
     /**
      * @dataProvider providerValidXML
      *
@@ -74,7 +79,7 @@ class XmlScannerTest extends TestCase
     public function testGetSecurityScannerForXmlBasedReader()
     {
         $fileReader = new Xlsx();
-        $scanner = $fileReader->getSecuritySCanner();
+        $scanner = $fileReader->getSecurityScanner();
 
         //    Must return an object...
         $this->assertInternalType('object', $scanner);
@@ -85,7 +90,7 @@ class XmlScannerTest extends TestCase
     public function testGetSecurityScannerForNonXmlBasedReader()
     {
         $fileReader = new Xls();
-        $scanner = $fileReader->getSecuritySCanner();
+        $scanner = $fileReader->getSecurityScanner();
         //    Must return a null...
         $this->assertNull($scanner);
     }
@@ -99,7 +104,7 @@ class XmlScannerTest extends TestCase
     public function testSecurityScanWithCallback($filename, $expectedResult)
     {
         $fileReader = new Xlsx();
-        $scanner = $fileReader->getSecuritySCanner();
+        $scanner = $fileReader->getSecurityScanner();
         $scanner->setAdditionalCallback('strrev');
         $xml = $scanner->scanFile($filename);
 
@@ -114,5 +119,22 @@ class XmlScannerTest extends TestCase
         }
 
         return $tests;
+    }
+
+    public function testLibxmlDisableEntityLoaderIsRestoredWithoutShutdown()
+    {
+        $reader = new Xlsx();
+        unset($reader);
+
+        $reader = new \XMLReader();
+        $opened = $reader->open(__DIR__ . '/../../../data/Reader/Xml/SecurityScannerWithCallbackExample.xml');
+        $this->assertTrue($opened);
+    }
+
+    public function testEncodingAllowsMixedCase()
+    {
+        $scanner = new XmlScanner();
+        $output = $scanner->scan($input = '<?xml version="1.0" encoding="utf-8"?><foo>bar</foo>');
+        $this->assertSame($input, $output);
     }
 }
