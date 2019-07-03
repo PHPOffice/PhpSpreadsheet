@@ -1679,11 +1679,12 @@ class Worksheet implements IComparable
      *
      * @param string $pRange Cell range (e.g. A1:E1)
      *
-     * @throws Exception
+     * @param bool   $withAutofilter Fill merged cells for autofilter
      *
      * @return Worksheet
+     * @throws Exception
      */
-    public function mergeCells($pRange)
+    public function mergeCells($pRange, $withAutofilter = false)
     {
         // Uppercase coordinate
         $pRange = strtoupper($pRange);
@@ -1702,11 +1703,14 @@ class Worksheet implements IComparable
                 $this->getCell($upperLeft)->setValueExplicit(null, DataType::TYPE_NULL);
             }
 
-            // Blank out the rest of the cells in the range (if they exist)
-            $count = count($aReferences);
-            for ($i = 1; $i < $count; ++$i) {
-                if ($this->cellExists($aReferences[$i])) {
-                    $this->getCell($aReferences[$i])->setValueExplicit(null, DataType::TYPE_NULL);
+            // If we want to use autofilter on merged cells - we need their values
+            if (!$withAutofilter) {
+                // Blank out the rest of the cells in the range (if they exist)
+                $count = count($aReferences);
+                for ($i = 1; $i < $count; ++$i) {
+                    if ($this->cellExists($aReferences[$i])) {
+                        $this->getCell($aReferences[$i])->setValueExplicit(null, DataType::TYPE_NULL);
+                    }
                 }
             }
         } else {
