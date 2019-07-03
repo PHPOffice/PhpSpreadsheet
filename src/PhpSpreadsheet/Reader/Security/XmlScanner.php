@@ -25,7 +25,7 @@ class XmlScanner
         $this->disableEntityLoaderCheck();
 
         // A fatal error will bypass the destructor, so we register a shutdown here
-        register_shutdown_function([$this, '__destruct']);
+        register_shutdown_function([__CLASS__, 'shutdown']);
     }
 
     public static function getInstance(Reader\IReader $reader)
@@ -72,16 +72,17 @@ class XmlScanner
         }
     }
 
-    private function shutdown()
+    public static function shutdown()
     {
         if (self::$libxmlDisableEntityLoaderValue !== null) {
             libxml_disable_entity_loader(self::$libxmlDisableEntityLoaderValue);
+            self::$libxmlDisableEntityLoaderValue = null;
         }
     }
 
     public function __destruct()
     {
-        $this->shutdown();
+        self::shutdown();
     }
 
     public function setAdditionalCallback(callable $callback)
@@ -93,7 +94,7 @@ class XmlScanner
     {
         $pattern = '/encoding="(.*?)"/';
         $result = preg_match($pattern, $xml, $matches);
-        $charset = $result ? $matches[1] : 'UTF-8';
+        $charset = strtoupper($result ? $matches[1] : 'UTF-8');
 
         if ($charset !== 'UTF-8') {
             $xml = mb_convert_encoding($xml, 'UTF-8', $charset);
