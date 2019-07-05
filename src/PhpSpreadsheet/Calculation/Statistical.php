@@ -1188,7 +1188,7 @@ class Statistical
             }
 
             if ($valid) {
-                $returnValue++;
+                ++$returnValue;
             }
         }
 

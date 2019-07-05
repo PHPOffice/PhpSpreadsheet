@@ -15,6 +15,8 @@ class StatisticalTest extends TestCase
 
     /**
      * @dataProvider providerCOUNTIFS
+     *
+     * @param mixed $expectedResult
      */
     public function testCOUNTIFS($expectedResult, ...$args)
     {
@@ -29,6 +31,8 @@ class StatisticalTest extends TestCase
 
     /**
      * @dataProvider providerMAXIFS
+     *
+     * @param mixed $expectedResult
      */
     public function testMAXIFS($expectedResult, ...$args)
     {
@@ -43,6 +47,8 @@ class StatisticalTest extends TestCase
 
     /**
      * @dataProvider providerMINIFS
+     *
+     * @param mixed $expectedResult
      */
     public function testMINIFS($expectedResult, ...$args)
     {
