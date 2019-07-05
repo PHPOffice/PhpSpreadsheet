@@ -19,7 +19,7 @@ class StatisticalTest extends TestCase
     public function testMAXIFS($expectedResult, ...$args)
     {
         $result = Statistical::MAXIFS(...$args);
-        self::assertEquals('#Not Yet Implemented', $result);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerMAXIFS()
@@ -33,7 +33,7 @@ class StatisticalTest extends TestCase
     public function testMINIFS($expectedResult, ...$args)
     {
         $result = Statistical::MINIFS(...$args);
-        self::assertEquals('#Not Yet Implemented', $result);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerMINIFS()
