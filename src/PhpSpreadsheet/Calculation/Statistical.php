@@ -2105,45 +2105,22 @@ class Statistical
     }
 
     /**
-     * MAXIF.
+     * MAXIFS.
      *
      * Counts the maximum value within a range of cells that contain numbers within the list of arguments
      *
      * Excel Function:
-     *        MAXIF(value1[,value2[, ...]],condition)
+     *        MAXIFS(max_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
      *
-     * @category Mathematical and Trigonometric Functions
+     * @category Statistical Functions
      *
-     * @param mixed $aArgs Data values
-     * @param string $condition the criteria that defines which cells will be checked
-     * @param mixed $sumArgs
+     * @param mixed $args Data range and criterias
      *
      * @return float
      */
-    public static function MAXIF($aArgs, $condition, $sumArgs = [])
+    public static function MAXIFS(...$args)
     {
-        $returnValue = null;
-
-        $aArgs = Functions::flattenArray($aArgs);
-        $sumArgs = Functions::flattenArray($sumArgs);
-        if (empty($sumArgs)) {
-            $sumArgs = $aArgs;
-        }
-        $condition = Functions::ifCondition($condition);
-        // Loop through arguments
-        foreach ($aArgs as $key => $arg) {
-            if (!is_numeric($arg)) {
-                $arg = Calculation::wrapResult(strtoupper($arg));
-            }
-            $testCondition = '=' . $arg . $condition;
-            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if (($returnValue === null) || ($arg > $returnValue)) {
-                    $returnValue = $arg;
-                }
-            }
-        }
-
-        return $returnValue;
+        return Functions::DUMMY();
     }
 
     /**
@@ -2268,45 +2245,22 @@ class Statistical
     }
 
     /**
-     * MINIF.
+     * MINIFS.
      *
      * Returns the minimum value within a range of cells that contain numbers within the list of arguments
      *
      * Excel Function:
-     *        MINIF(value1[,value2[, ...]],condition)
+     *        MINIFS(min_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
      *
-     * @category Mathematical and Trigonometric Functions
+     * @category Statistical Functions
      *
-     * @param mixed $aArgs Data values
-     * @param string $condition the criteria that defines which cells will be checked
-     * @param mixed $sumArgs
+     * @param mixed $args Data range and criterias
      *
      * @return float
      */
-    public static function MINIF($aArgs, $condition, $sumArgs = [])
+    public static function MINIFS(...$args)
     {
-        $returnValue = null;
-
-        $aArgs = Functions::flattenArray($aArgs);
-        $sumArgs = Functions::flattenArray($sumArgs);
-        if (empty($sumArgs)) {
-            $sumArgs = $aArgs;
-        }
-        $condition = Functions::ifCondition($condition);
-        // Loop through arguments
-        foreach ($aArgs as $key => $arg) {
-            if (!is_numeric($arg)) {
-                $arg = Calculation::wrapResult(strtoupper($arg));
-            }
-            $testCondition = '=' . $arg . $condition;
-            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if (($returnValue === null) || ($arg < $returnValue)) {
-                    $returnValue = $arg;
-                }
-            }
-        }
-
-        return $returnValue;
+        return Functions::DUMMY();
     }
 
     //
