@@ -79,7 +79,7 @@ COUNT               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet
 COUNTA              | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTA
 COUNTBLANK          | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTBLANK
 COUNTIF             | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIF
-COUNTIFS            | CATEGORY_STATISTICAL           | **Not yet Implemented**
+COUNTIFS            | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIFS
 COUPDAYBS           | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::COUPDAYBS
 COUPDAYS            | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::COUPDAYS
 COUPDAYSNC          | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::COUPDAYSNC

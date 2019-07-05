@@ -1135,6 +1135,68 @@ class Statistical
     }
 
     /**
+     * COUNTIFS.
+     *
+     * Counts the number of cells that contain numbers within the list of arguments
+     *
+     * Excel Function:
+     *        COUNTIFS(criteria_range1, criteria1, [criteria_range2, criteria2]…)
+     *
+     * @category Statistical Functions
+     *
+     * @param mixed $args Criterias
+     *
+     * @return int
+     */
+    public static function COUNTIFS(...$args)
+    {
+        $arrayList = $args;
+
+        // Return value
+        $returnValue = 0;
+
+        if (!$arrayList) {
+            return $returnValue;
+        }
+
+        $aArgsArray = [];
+        $conditions = [];
+
+        while (count($arrayList) > 0) {
+            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
+            $conditions[] = Functions::ifCondition(array_shift($arrayList));
+        }
+
+        // Loop through each arg and see if arguments and conditions are true
+        foreach (array_keys($aArgsArray[0]) as $index) {
+            $valid = true;
+
+            foreach ($conditions as $cidx => $condition) {
+                $arg = $aArgsArray[$cidx][$index];
+
+                // Loop through arguments
+                if (!is_numeric($arg)) {
+                    $arg = Calculation::wrapResult(strtoupper($arg));
+                }
+                $testCondition = '=' . $arg . $condition;
+                if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+                    // Is not a value within our criteria
+                    $valid = false;
+
+                    break; // if false found, don't need to check other conditions
+                }
+            }
+
+            if ($valid) {
+                $returnValue++;
+            }
+        }
+
+        // Return
+        return $returnValue;
+    }
+
+    /**
      * COVAR.
      *
      * Returns covariance, the average of the products of deviations for each data point pair.

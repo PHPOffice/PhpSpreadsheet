@@ -14,6 +14,20 @@ class StatisticalTest extends TestCase
     }
 
     /**
+     * @dataProvider providerCOUNTIFS
+     */
+    public function testCOUNTIFS($expectedResult, ...$args)
+    {
+        $result = Statistical::COUNTIFS(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerCOUNTIFS()
+    {
+        return require 'data/Calculation/Statistical/COUNTIFS.php';
+    }
+
+    /**
      * @dataProvider providerMAXIFS
      */
     public function testMAXIFS($expectedResult, ...$args)

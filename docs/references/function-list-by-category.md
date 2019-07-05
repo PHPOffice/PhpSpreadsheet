@@ -333,7 +333,7 @@ COUNT               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNT
 COUNTA              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTA
 COUNTBLANK          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTBLANK
 COUNTIF             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIF
-COUNTIFS            | **Not yet Implemented**
+COUNTIFS            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIFS
 COVAR               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COVAR
 CRITBINOM           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CRITBINOM
 DEVSQ               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::DEVSQ
