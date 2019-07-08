@@ -26,7 +26,7 @@ class Properties
             }
             $this->setCoreProperties($docProps, $officePropertiesDC);
 
-            $officePropertyMeta = [];
+            $officePropertyMeta = (object) [];
             if (isset($namespacesMeta['dc'])) {
                 $officePropertyMeta = $officePropertyData->children($namespacesMeta['meta']);
             }
