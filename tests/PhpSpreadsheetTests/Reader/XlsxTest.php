@@ -158,6 +158,17 @@ class XlsxTest extends TestCase
         $this->assertInstanceOf(Style::class, $conditionalRule->getStyle());
     }
 
+    public function testLoadXlsxDataValidation()
+    {
+        $filename = './data/Reader/XLSX/dataValidationTest.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $this->assertTrue($worksheet->getCell('B3')->hasDataValidation());
+    }
+
     /**
      * Test load Xlsx file without cell reference.
      *
