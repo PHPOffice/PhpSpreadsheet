@@ -417,7 +417,7 @@ class Financial
             return Functions::VALUE();
         }
 
-        if (($settlement > $maturity) ||
+        if (($settlement >= $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
             return Functions::NAN();
@@ -476,7 +476,7 @@ class Financial
             return Functions::VALUE();
         }
 
-        if (($settlement > $maturity) ||
+        if (($settlement >= $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
             return Functions::NAN();
@@ -550,7 +550,7 @@ class Financial
             return Functions::VALUE();
         }
 
-        if (($settlement > $maturity) ||
+        if (($settlement >= $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
             return Functions::NAN();
