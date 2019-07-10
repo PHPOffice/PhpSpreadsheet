@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Fixed
+
+- COUPNUM should not return zero when settlement is in the last period - [Issue #1020](https://github.com/PHPOffice/PhpSpreadsheet/issues/1020) and [PR #1021](https://github.com/PHPOffice/PhpSpreadsheet/pull/1021)
 
 ## [1.8.2] - 2019-07-08
 
