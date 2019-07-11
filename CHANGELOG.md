@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Added
+
+- When &lt;br&gt; appears in a table cell, set the cell to wrap [Issue #1071](https://github.com/PHPOffice/PhpSpreadsheet/issues/1071) and [PR #1070](https://github.com/PHPOffice/PhpSpreadsheet/pull/1070)
+
 ### Fixed
 
 - COUPNUM should not return zero when settlement is in the last period - [Issue #1020](https://github.com/PHPOffice/PhpSpreadsheet/issues/1020) and [PR #1021](https://github.com/PHPOffice/PhpSpreadsheet/pull/1021)
