@@ -358,14 +358,15 @@ class Chart extends WriterPart
     }
 
     /**
-     * @param $plotArea
-     * @param $chartType
+     * Get a DataSeries corresponds to specific chart type.
+     *
+     * @param PlotArea $plotArea
+     * @param string $chartType
      *
      * @return DataSeries|null
      */
-    private function getPlotGroupByChartType($plotArea, $chartType)
+    private function getPlotGroupByChartType(PlotArea $plotArea, $chartType)
     {
-
         $groupCount = $plotArea->getPlotGroupCount();
         for ($i = 0; $i < $groupCount; ++$i) {
             $plotGroup = $plotArea->getPlotGroupByIndex($i);
