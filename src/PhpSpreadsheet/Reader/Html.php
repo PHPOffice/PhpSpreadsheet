@@ -374,8 +374,9 @@ class Html extends BaseReader
                         // no break
                     case 'br':
                         if ($this->tableLevel > 0) {
-                            //    If we're inside a table, replace with a \n
+                            //    If we're inside a table, replace with a \n and set the cell to wrap
                             $cellContent .= "\n";
+                            $sheet->getStyle($column . $row)->getAlignment()->setWrapText(true);
                         } else {
                             //    Otherwise flush our existing content and move the row cursor on
                             $this->flushCell($sheet, $column, $row, $cellContent);
