@@ -1119,10 +1119,16 @@ class Statistical
 
         $aArgs = Functions::flattenArray($aArgs);
         $condition = Functions::ifCondition($condition);
+        $conditionIsNumeric = strpos($condition, '"') === false;
         // Loop through arguments
         foreach ($aArgs as $arg) {
             if (!is_numeric($arg)) {
+                if ($conditionIsNumeric) {
+                    continue;
+                }
                 $arg = Calculation::wrapResult(strtoupper($arg));
+            } elseif (!$conditionIsNumeric) {
+                continue;
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
@@ -1172,11 +1178,21 @@ class Statistical
             $valid = true;
 
             foreach ($conditions as $cidx => $condition) {
+                $conditionIsNumeric = strpos($condition, '"') === false;
                 $arg = $aArgsArray[$cidx][$index];
 
                 // Loop through arguments
                 if (!is_numeric($arg)) {
+                    if ($conditionIsNumeric) {
+                        $valid = false;
+
+                        break; // if false found, don't need to check other conditions
+                    }
                     $arg = Calculation::wrapResult(strtoupper($arg));
+                } elseif (!$conditionIsNumeric) {
+                    $valid = false;
+
+                    break; // if false found, don't need to check other conditions
                 }
                 $testCondition = '=' . $arg . $condition;
                 if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
