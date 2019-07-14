@@ -1185,11 +1185,13 @@ class Statistical
                 if (!is_numeric($arg)) {
                     if ($conditionIsNumeric) {
                         $valid = false;
+
                         break; // if false found, don't need to check other conditions
                     }
                     $arg = Calculation::wrapResult(strtoupper($arg));
                 } elseif (!$conditionIsNumeric) {
                     $valid = false;
+
                     break; // if false found, don't need to check other conditions
                 }
                 $testCondition = '=' . $arg . $condition;
