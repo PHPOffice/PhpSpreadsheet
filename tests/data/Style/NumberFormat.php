@@ -34,6 +34,11 @@ return [
         '#.0#',
     ],
     [
+        '-70',
+        -70,
+        '#,##0;[Red]-#,##0'
+    ],
+    [
         '0.1',
         0.10000000000000001,
         '0.0',
@@ -113,6 +118,12 @@ return [
         12.199999999999999,
         12200000,
         '0.0,,',
+    ],
+    // Percentage
+    [
+        '12%',
+        0.12,
+        '0%',
     ],
     [
         '8%',
@@ -220,5 +231,36 @@ return [
         ' € 13.03 ',
         13.0316,
         '_("€"* #,##0.00_);_("€"* \(#,##0.00\);_("€"* "-"??_);_(@_)',
+    ],
+    // Named colours
+    // Simple color
+    [
+        '12345',
+        12345,
+        '[Green]General',
+    ],
+    // Multiple colors
+    [
+        '12345',
+        12345,
+        '[Blue]0;[Red]0',
+    ],
+    // Multiple colors
+    [
+        'Positive',
+        12,
+        '[Green]"Positive";[Red]"Negative";[Blue]"Zero"',
+    ],
+    // Multiple colors
+    [
+        'Zero',
+        0,
+        '[Green]"Positive";[Red]"Negative";[Blue]"Zero"',
+    ],
+    // Multiple colors
+    [
+        'Negative',
+        -2,
+        '[Green]"Positive";[Red]"Negative";[Blue]"Zero"',
     ],
 ];
