@@ -1155,7 +1155,7 @@ class Statistical
         // Return value
         $returnValue = 0;
 
-        if (!$arrayList) {
+        if (empty($arrayList)) {
             return $returnValue;
         }
 
