@@ -77,22 +77,4 @@ return [
         1.1354166666667,
         '[h]:mm',
     ],
-    // Percentage
-    [
-        '12%',
-        0.12,
-        '0%',
-    ],
-    // Simple color
-    [
-        '12345',
-        12345,
-        '[Green]General',
-    ],
-    // Multiple colors
-    [
-        '12345',
-        12345,
-        '[Blue]0;[Red]0',
-    ],
 ];

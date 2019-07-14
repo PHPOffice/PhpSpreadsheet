@@ -6,6 +6,17 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 class Color extends Supervisor
 {
+    const NAMED_COLORS = [
+        'Black',
+        'White',
+        'Red',
+        'Green',
+        'Blue',
+        'Yellow',
+        'Magenta',
+        'Cyan',
+    ];
+
     // Colors
     const COLOR_BLACK = 'FF000000';
     const COLOR_WHITE = 'FFFFFFFF';
