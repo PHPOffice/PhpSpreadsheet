@@ -794,8 +794,10 @@ class LookupRef
             $lookupLower = StringHelper::strToLower($lookup_value);
             $rowDataLower = StringHelper::strToLower($rowData);
 
-            if (($bothNumeric && $rowData > $lookup_value) ||
-                ($bothNotNumeric && $rowDataLower > $lookupLower)) {
+            if ($not_exact_match && (
+                ($bothNumeric && $rowData > $lookup_value) ||
+                ($bothNotNumeric && $rowDataLower > $lookupLower)
+                )) {
                 break;
             }
 
