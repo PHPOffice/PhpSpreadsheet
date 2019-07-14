@@ -14,6 +14,22 @@ class StatisticalTest extends TestCase
     }
 
     /**
+     * @dataProvider providerCOUNTIF
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCOUNTIF($expectedResult, ...$args)
+    {
+        $result = Statistical::COUNTIF(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerCOUNTIF()
+    {
+        return require 'data/Calculation/Statistical/COUNTIF.php';
+    }
+
+    /**
      * @dataProvider providerCOUNTIFS
      *
      * @param mixed $expectedResult
