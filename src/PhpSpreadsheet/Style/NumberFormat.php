@@ -660,9 +660,9 @@ class NumberFormat extends Supervisor
 
         // Save format with color information for later use below
         $formatColor = $format;
+        // Strip colour information
         $color_regex = '/\[(' . implode('|', Color::NAMED_COLORS) . ')\]/';
         $format = preg_replace($color_regex, '', $format);
-
         // Let's begin inspecting the format and converting the value to a formatted string
 
         //  Check for date/time characters (not inside quotes)
@@ -670,8 +670,9 @@ class NumberFormat extends Supervisor
             // datetime format
             self::formatAsDate($value, $format);
         } else {
-            // Strip color information
-            if (preg_match('/%$/', $format)) {
+            if (substr($format, 0, 1) === '"' && substr($format, -1, 1) === '"') {
+                $value = substr($format, 1, -1);
+            } elseif (preg_match('/%$/', $format)) {
                 // % number format
                 self::formatAsPercentage($value, $format);
             } else {

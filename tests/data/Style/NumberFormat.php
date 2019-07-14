@@ -245,4 +245,22 @@ return [
         12345,
         '[Blue]0;[Red]0',
     ],
+    // Multiple colors
+    [
+        'Positive',
+        12,
+        '[Green]"Positive";[Red]"Negative";[Blue]"Zero"',
+    ],
+    // Multiple colors
+    [
+        'Zero',
+        0,
+        '[Green]"Positive";[Red]"Negative";[Blue]"Zero"',
+    ],
+    // Multiple colors
+    [
+        'Negative',
+        -2,
+        '[Green]"Positive";[Red]"Negative";[Blue]"Zero"',
+    ],
 ];
