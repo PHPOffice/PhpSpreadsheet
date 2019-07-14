@@ -79,7 +79,7 @@ COUNT               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet
 COUNTA              | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTA
 COUNTBLANK          | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTBLANK
 COUNTIF             | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIF
-COUNTIFS            | CATEGORY_STATISTICAL           | **Not yet Implemented**
+COUNTIFS            | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIFS
 COUPDAYBS           | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::COUPDAYBS
 COUPDAYS            | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::COUPDAYS
 COUPDAYSNC          | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::COUPDAYSNC
@@ -295,7 +295,7 @@ Excel Function      | Category                       | PhpSpreadsheet Function
 MATCH               | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::MATCH
 MAX                 | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAX
 MAXA                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAXA
-MAXIF               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAXIF
+MAXIFS              | CATEGORY_STATISTICAL           | **Not yet Implemented**
 MDETERM             | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MDETERM
 MDURATION           | CATEGORY_FINANCIAL             | **Not yet Implemented**
 MEDIAN              | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MEDIAN
@@ -304,7 +304,7 @@ MID                 | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet
 MIDB                | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData::MID
 MIN                 | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MIN
 MINA                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINA
-MINIF               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINIF
+MINIFS              | CATEGORY_STATISTICAL           | **Not yet Implemented**
 MINUTE              | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::MINUTE
 MINVERSE            | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MINVERSE
 MIRR                | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::MIRR

@@ -1135,6 +1135,68 @@ class Statistical
     }
 
     /**
+     * COUNTIFS.
+     *
+     * Counts the number of cells that contain numbers within the list of arguments
+     *
+     * Excel Function:
+     *        COUNTIFS(criteria_range1, criteria1, [criteria_range2, criteria2]…)
+     *
+     * @category Statistical Functions
+     *
+     * @param mixed $args Criterias
+     *
+     * @return int
+     */
+    public static function COUNTIFS(...$args)
+    {
+        $arrayList = $args;
+
+        // Return value
+        $returnValue = 0;
+
+        if (!$arrayList) {
+            return $returnValue;
+        }
+
+        $aArgsArray = [];
+        $conditions = [];
+
+        while (count($arrayList) > 0) {
+            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
+            $conditions[] = Functions::ifCondition(array_shift($arrayList));
+        }
+
+        // Loop through each arg and see if arguments and conditions are true
+        foreach (array_keys($aArgsArray[0]) as $index) {
+            $valid = true;
+
+            foreach ($conditions as $cidx => $condition) {
+                $arg = $aArgsArray[$cidx][$index];
+
+                // Loop through arguments
+                if (!is_numeric($arg)) {
+                    $arg = Calculation::wrapResult(strtoupper($arg));
+                }
+                $testCondition = '=' . $arg . $condition;
+                if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+                    // Is not a value within our criteria
+                    $valid = false;
+
+                    break; // if false found, don't need to check other conditions
+                }
+            }
+
+            if ($valid) {
+                ++$returnValue;
+            }
+        }
+
+        // Return
+        return $returnValue;
+    }
+
+    /**
      * COVAR.
      *
      * Returns covariance, the average of the products of deviations for each data point pair.
@@ -2105,44 +2167,61 @@ class Statistical
     }
 
     /**
-     * MAXIF.
+     * MAXIFS.
      *
      * Counts the maximum value within a range of cells that contain numbers within the list of arguments
      *
      * Excel Function:
-     *        MAXIF(value1[,value2[, ...]],condition)
+     *        MAXIFS(max_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
      *
-     * @category Mathematical and Trigonometric Functions
+     * @category Statistical Functions
      *
-     * @param mixed $aArgs Data values
-     * @param string $condition the criteria that defines which cells will be checked
-     * @param mixed $sumArgs
+     * @param mixed $args Data range and criterias
      *
      * @return float
      */
-    public static function MAXIF($aArgs, $condition, $sumArgs = [])
+    public static function MAXIFS(...$args)
     {
+        $arrayList = $args;
+
+        // Return value
         $returnValue = null;
 
-        $aArgs = Functions::flattenArray($aArgs);
-        $sumArgs = Functions::flattenArray($sumArgs);
-        if (empty($sumArgs)) {
-            $sumArgs = $aArgs;
+        $maxArgs = Functions::flattenArray(array_shift($arrayList));
+        $aArgsArray = [];
+        $conditions = [];
+
+        while (count($arrayList) > 0) {
+            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
+            $conditions[] = Functions::ifCondition(array_shift($arrayList));
         }
-        $condition = Functions::ifCondition($condition);
-        // Loop through arguments
-        foreach ($aArgs as $key => $arg) {
-            if (!is_numeric($arg)) {
-                $arg = Calculation::wrapResult(strtoupper($arg));
-            }
-            $testCondition = '=' . $arg . $condition;
-            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if (($returnValue === null) || ($arg > $returnValue)) {
-                    $returnValue = $arg;
+
+        // Loop through each arg and see if arguments and conditions are true
+        foreach ($maxArgs as $index => $value) {
+            $valid = true;
+
+            foreach ($conditions as $cidx => $condition) {
+                $arg = $aArgsArray[$cidx][$index];
+
+                // Loop through arguments
+                if (!is_numeric($arg)) {
+                    $arg = Calculation::wrapResult(strtoupper($arg));
                 }
+                $testCondition = '=' . $arg . $condition;
+                if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+                    // Is not a value within our criteria
+                    $valid = false;
+
+                    break; // if false found, don't need to check other conditions
+                }
+            }
+
+            if ($valid) {
+                $returnValue = $returnValue === null ? $value : max($value, $returnValue);
             }
         }
 
+        // Return
         return $returnValue;
     }
 
@@ -2268,44 +2347,61 @@ class Statistical
     }
 
     /**
-     * MINIF.
+     * MINIFS.
      *
      * Returns the minimum value within a range of cells that contain numbers within the list of arguments
      *
      * Excel Function:
-     *        MINIF(value1[,value2[, ...]],condition)
+     *        MINIFS(min_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
      *
-     * @category Mathematical and Trigonometric Functions
+     * @category Statistical Functions
      *
-     * @param mixed $aArgs Data values
-     * @param string $condition the criteria that defines which cells will be checked
-     * @param mixed $sumArgs
+     * @param mixed $args Data range and criterias
      *
      * @return float
      */
-    public static function MINIF($aArgs, $condition, $sumArgs = [])
+    public static function MINIFS(...$args)
     {
+        $arrayList = $args;
+
+        // Return value
         $returnValue = null;
 
-        $aArgs = Functions::flattenArray($aArgs);
-        $sumArgs = Functions::flattenArray($sumArgs);
-        if (empty($sumArgs)) {
-            $sumArgs = $aArgs;
+        $minArgs = Functions::flattenArray(array_shift($arrayList));
+        $aArgsArray = [];
+        $conditions = [];
+
+        while (count($arrayList) > 0) {
+            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
+            $conditions[] = Functions::ifCondition(array_shift($arrayList));
         }
-        $condition = Functions::ifCondition($condition);
-        // Loop through arguments
-        foreach ($aArgs as $key => $arg) {
-            if (!is_numeric($arg)) {
-                $arg = Calculation::wrapResult(strtoupper($arg));
-            }
-            $testCondition = '=' . $arg . $condition;
-            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if (($returnValue === null) || ($arg < $returnValue)) {
-                    $returnValue = $arg;
+
+        // Loop through each arg and see if arguments and conditions are true
+        foreach ($minArgs as $index => $value) {
+            $valid = true;
+
+            foreach ($conditions as $cidx => $condition) {
+                $arg = $aArgsArray[$cidx][$index];
+
+                // Loop through arguments
+                if (!is_numeric($arg)) {
+                    $arg = Calculation::wrapResult(strtoupper($arg));
                 }
+                $testCondition = '=' . $arg . $condition;
+                if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+                    // Is not a value within our criteria
+                    $valid = false;
+
+                    break; // if false found, don't need to check other conditions
+                }
+            }
+
+            if ($valid) {
+                $returnValue = $returnValue === null ? $value : min($value, $returnValue);
             }
         }
 
+        // Return
         return $returnValue;
     }
 

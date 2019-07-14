@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - When &lt;br&gt; appears in a table cell, set the cell to wrap [Issue #1071](https://github.com/PHPOffice/PhpSpreadsheet/issues/1071) and [PR #1070](https://github.com/PHPOffice/PhpSpreadsheet/pull/1070)
+- Add MAXIFS, MINIFS, COUNTIFS and Remove MINIF, MAXIF - [Issue #1056](https://github.com/PHPOffice/PhpSpreadsheet/issues/1056)
 
 ### Fixed
 

@@ -527,7 +527,7 @@ class Calculation
         ],
         'COUNTIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical::class, 'COUNTIFS'],
             'argumentCount' => '2+',
         ],
         'COUPDAYBS' => [
@@ -1356,10 +1356,10 @@ class Calculation
             'functionCall' => [Statistical::class, 'MAXA'],
             'argumentCount' => '1+',
         ],
-        'MAXIF' => [
+        'MAXIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MAXIF'],
-            'argumentCount' => '2+',
+            'functionCall' => [Statistical::class, 'MAXIFS'],
+            'argumentCount' => '3+',
         ],
         'MDETERM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -1401,10 +1401,10 @@ class Calculation
             'functionCall' => [Statistical::class, 'MINA'],
             'argumentCount' => '1+',
         ],
-        'MINIF' => [
+        'MINIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MINIF'],
-            'argumentCount' => '2+',
+            'functionCall' => [Statistical::class, 'MINIFS'],
+            'argumentCount' => '3+',
         ],
         'MINUTE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
