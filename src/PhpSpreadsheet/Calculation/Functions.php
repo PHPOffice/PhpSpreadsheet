@@ -280,7 +280,7 @@ class Functions
         preg_match('/(=|<[>=]?|>=?)(.*)/', $condition, $matches);
         list(, $operator, $operand) = $matches;
 
-        if(is_numeric(trim($operand, '"'))) {
+        if (is_numeric(trim($operand, '"'))) {
             $operand = trim($operand, '"');
         } elseif (!is_numeric($operand)) {
             $operand = str_replace('"', '""', $operand);
