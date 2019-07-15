@@ -551,7 +551,7 @@ class NumberFormat extends Supervisor
         }
     }
 
-    private static function mergeComplexNumberMasks($numbers, $masks)
+    private static function mergeComplexNumberFormatMasks($numbers, $masks)
     {
         $decimalCount = strlen($numbers[1]);
         $postDecimalMasks = [];
@@ -568,27 +568,15 @@ class NumberFormat extends Supervisor
         ];
     }
 
-    private static function complexNumberFormatMask($number, $mask, $splitOnPoint = true)
+    private static function processComplexNumberFormatMask($number, $mask)
     {
-        $sign = ($number < 0.0);
-        $number = abs($number);
-        if ($splitOnPoint && strpos($mask, '.') !== false && strpos($number, '.') !== false) {
-            $numbers = explode('.', $number);
-            $masks = explode('.', $mask);
-            if (count($masks) > 2) {
-                $masks = self::mergeComplexNumberMasks($numbers, $masks);
-            }
-            $result1 = self::complexNumberFormatMask($numbers[0], $masks[0], false);
-            $result2 = strrev(self::complexNumberFormatMask(strrev($numbers[1]), strrev($masks[1]), false));
+        $result = $number;
+        $maskingBlockCount = preg_match_all('/0+/', $mask, $maskingBlocks, PREG_OFFSET_CAPTURE);
 
-            return (($sign) ? '-' : '') . $result1 . '.' . $result2;
-        }
+        if ($maskingBlockCount > 1) {
+            $maskingBlocks = array_reverse($maskingBlocks[0]);
 
-        $r = preg_match_all('/0+/', $mask, $result, PREG_OFFSET_CAPTURE);
-        if ($r > 1) {
-            $result = array_reverse($result[0]);
-
-            foreach ($result as $block) {
+            foreach ($maskingBlocks as $block) {
                 $divisor = 1 . $block[0];
                 $size = strlen($block[0]);
                 $offset = $block[1];
@@ -604,18 +592,32 @@ class NumberFormat extends Supervisor
                 $mask = substr_replace($mask, $number, $offset, 0);
             }
             $result = $mask;
-        } else {
-            $result = $number;
         }
+
+        return $result;
+    }
+
+    private static function complexNumberFormatMask($number, $mask, $splitOnPoint = true)
+    {
+        $sign = ($number < 0.0);
+        $number = abs($number);
+        if ($splitOnPoint && strpos($mask, '.') !== false && strpos($number, '.') !== false) {
+            $numbers = explode('.', $number);
+            $masks = explode('.', $mask);
+            if (count($masks) > 2) {
+                $masks = self::mergeComplexNumberFormatMasks($numbers, $masks);
+            }
+            $result1 = self::complexNumberFormatMask($numbers[0], $masks[0], false);
+            $result2 = strrev(self::complexNumberFormatMask(strrev($numbers[1]), strrev($masks[1]), false));
+
+            return (($sign) ? '-' : '') . $result1 . '.' . $result2;
+        }
+
+        $result = self::processComplexNumberFormatMask($number, $mask);
 
         return (($sign) ? '-' : '') . $result;
     }
 
-    /**
-     * @param $value
-     * @param $format
-     * @return float|int|string|string[]|null
-     */
     private static function formatAsNumber($value, $format)
     {
         if ($format === self::FORMAT_CURRENCY_EUR_SIMPLE) {
