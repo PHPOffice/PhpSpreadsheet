@@ -650,7 +650,7 @@ class NumberFormat extends Supervisor
         }
 
         if (preg_match('/#?.*\?\/\?/', $format, $m)) {
-            if ($value != (int)$value) {
+            if ($value != (int) $value) {
                 self::formatAsFraction($value, $format);
             }
         } else {
