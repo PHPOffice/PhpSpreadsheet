@@ -618,6 +618,38 @@ class NumberFormat extends Supervisor
         return (($sign) ? '-' : '') . $result;
     }
 
+    private static function formatStraightNumericValue($value, $format, array $matches, $useThousands, $number_regex)
+    {
+        $left = $matches[1];
+        $dec = $matches[2];
+        $right = $matches[3];
+
+        // minimun width of formatted number (including dot)
+        $minWidth = strlen($left) + strlen($dec) + strlen($right);
+        if ($useThousands) {
+            $value = number_format(
+                $value,
+                strlen($right),
+                StringHelper::getDecimalSeparator(),
+                StringHelper::getThousandsSeparator()
+            );
+            $value = preg_replace($number_regex, $value, $format);
+        } else {
+            if (preg_match('/[0#]E[+-]0/i', $format)) {
+                //    Scientific format
+                $value = sprintf('%5.2E', $value);
+            } elseif (preg_match('/0([^\d\.]+)0/', $format) || substr_count($format, '.') > 1) {
+                $value = self::complexNumberFormatMask($value, $format);
+            } else {
+                $sprintf_pattern = "%0$minWidth." . strlen($right) . 'f';
+                $value = sprintf($sprintf_pattern, $value);
+                $value = preg_replace($number_regex, $value, $format);
+            }
+        }
+
+        return $value;
+    }
+
     private static function formatAsNumber($value, $format)
     {
         if ($format === self::FORMAT_CURRENCY_EUR_SIMPLE) {
@@ -658,10 +690,8 @@ class NumberFormat extends Supervisor
 
             // scale number
             $value = $value / $scale;
-
             // Strip #
             $format = preg_replace('/\\#/', '0', $format);
-
             // Remove locale code [$-###]
             $format = preg_replace('/\[\$\-.*\]/', '', $format);
 
@@ -669,32 +699,7 @@ class NumberFormat extends Supervisor
             $m = preg_replace($n, '', $format);
             $number_regex = '/(0+)(\\.?)(0*)/';
             if (preg_match($number_regex, $m, $matches)) {
-                $left = $matches[1];
-                $dec = $matches[2];
-                $right = $matches[3];
-
-                // minimun width of formatted number (including dot)
-                $minWidth = strlen($left) + strlen($dec) + strlen($right);
-                if ($useThousands) {
-                    $value = number_format(
-                        $value,
-                        strlen($right),
-                        StringHelper::getDecimalSeparator(),
-                        StringHelper::getThousandsSeparator()
-                    );
-                    $value = preg_replace($number_regex, $value, $format);
-                } else {
-                    if (preg_match('/[0#]E[+-]0/i', $format)) {
-                        //    Scientific format
-                        $value = sprintf('%5.2E', $value);
-                    } elseif (preg_match('/0([^\d\.]+)0/', $format) || substr_count($format, '.') > 1) {
-                        $value = self::complexNumberFormatMask($value, $format);
-                    } else {
-                        $sprintf_pattern = "%0$minWidth." . strlen($right) . 'f';
-                        $value = sprintf($sprintf_pattern, $value);
-                        $value = preg_replace($number_regex, $value, $format);
-                    }
-                }
+                $value = self::formatStraightNumericValue($value, $format, $matches, $useThousands, $number_regex);
             }
         }
 
