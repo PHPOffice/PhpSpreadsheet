@@ -813,7 +813,7 @@ class Statistical
      * @param float $probability Probability of success on each trial
      * @param bool $cumulative
      *
-     * @return float
+     * @return float|string
      *
      * @todo    Cumulative distribution function
      */
@@ -855,7 +855,7 @@ class Statistical
      * @param float $value Value for the function
      * @param float $degrees degrees of freedom
      *
-     * @return float
+     * @return float|string
      */
     public static function CHIDIST($value, $degrees)
     {
@@ -888,7 +888,7 @@ class Statistical
      * @param float $probability Probability for the function
      * @param float $degrees degrees of freedom
      *
-     * @return float
+     * @return float|string
      */
     public static function CHIINV($probability, $degrees)
     {
@@ -947,7 +947,7 @@ class Statistical
      * @param float $stdDev Standard Deviation
      * @param float $size
      *
-     * @return float
+     * @return float|string
      */
     public static function CONFIDENCE($alpha, $stdDev, $size)
     {
@@ -977,7 +977,7 @@ class Statistical
      * @param mixed $yValues array of mixed Data Series Y
      * @param null|mixed $xValues array of mixed Data Series X
      *
-     * @return float
+     * @return float|string
      */
     public static function CORREL($yValues, $xValues = null)
     {
@@ -1505,7 +1505,7 @@ class Statistical
      * @param mixed $yValues array of mixed Data Series Y
      * @param mixed $xValues of mixed Data Series X
      *
-     * @return float
+     * @return float|string
      */
     public static function FORECAST($xValue, $yValues, $xValues)
     {
@@ -1684,7 +1684,7 @@ class Statistical
     /**
      * GROWTH.
      *
-     * Returns values along a predicted emponential Trend
+     * Returns values along a predicted exponential Trend
      *
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
