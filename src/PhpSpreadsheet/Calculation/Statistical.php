@@ -531,7 +531,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function AVEDEV(...$args)
     {
@@ -582,7 +582,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function AVERAGE(...$args)
     {
@@ -625,7 +625,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function AVERAGEA(...$args)
     {
@@ -674,7 +674,7 @@ class Statistical
      * @param string $condition the criteria that defines which cells will be checked
      * @param mixed[] $averageArgs Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function AVERAGEIF($aArgs, $condition, $averageArgs = [])
     {
@@ -694,10 +694,8 @@ class Statistical
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if (($returnValue === null) || ($arg > $returnValue)) {
-                    $returnValue += $arg;
-                    ++$aCount;
-                }
+                $returnValue += $averageArgs[$key];
+                ++$aCount;
             }
         }
 
