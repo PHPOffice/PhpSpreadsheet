@@ -254,6 +254,22 @@ class StatisticalTest extends TestCase
     }
 
     /**
+     * @dataProvider providerINTERCEPT
+     *
+     * @param mixed $expectedResult
+     */
+    public function testINTERCEPT($expectedResult, array $xargs, array $yargs)
+    {
+        $result = Statistical::INTERCEPT($xargs, $yargs);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerINTERCEPT()
+    {
+        return require 'data/Calculation/Statistical/INTERCEPT.php';
+    }
+
+    /**
      * @dataProvider providerMAXIFS
      *
      * @param mixed $expectedResult
@@ -283,5 +299,53 @@ class StatisticalTest extends TestCase
     public function providerMINIFS()
     {
         return require 'data/Calculation/Statistical/MINIFS.php';
+    }
+
+    /**
+     * @dataProvider providerRSQ
+     *
+     * @param mixed $expectedResult
+     */
+    public function testRSQ($expectedResult, array $xargs, array $yargs)
+    {
+        $result = Statistical::RSQ($xargs, $yargs);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerRSQ()
+    {
+        return require 'data/Calculation/Statistical/RSQ.php';
+    }
+
+    /**
+     * @dataProvider providerSLOPE
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSLOPE($expectedResult, array $xargs, array $yargs)
+    {
+        $result = Statistical::SLOPE($xargs, $yargs);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerSLOPE()
+    {
+        return require 'data/Calculation/Statistical/SLOPE.php';
+    }
+
+    /**
+     * @dataProvider providerSTEYX
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSTEYX($expectedResult, array $xargs, array $yargs)
+    {
+        $result = Statistical::STEYX($xargs, $yargs);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerSTEYX()
+    {
+        return require 'data/Calculation/Statistical/STEYX.php';
     }
 }
