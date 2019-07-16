@@ -596,11 +596,7 @@ class Statistical
             }
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
-                if ($returnValue === null) {
-                    $returnValue = $arg;
-                } else {
-                    $returnValue += $arg;
-                }
+                $returnValue += $arg;
                 ++$aCount;
             }
         }
@@ -643,11 +639,7 @@ class Statistical
                     } elseif (is_string($arg)) {
                         $arg = 0;
                     }
-                    if ($returnValue === null) {
-                        $returnValue = $arg;
-                    } else {
-                        $returnValue += $arg;
-                    }
+                    $returnValue += $arg;
                     ++$aCount;
                 }
             }

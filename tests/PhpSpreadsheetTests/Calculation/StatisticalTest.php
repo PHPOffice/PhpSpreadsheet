@@ -110,6 +110,54 @@ class StatisticalTest extends TestCase
     }
 
     /**
+     * @dataProvider providerBINOMDIST
+     *
+     * @param mixed $expectedResult
+     */
+    public function testBINOMDIST($expectedResult, ...$args)
+    {
+        $result = Statistical::BINOMDIST(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerBINOMDIST()
+    {
+        return require 'data/Calculation/Statistical/BINOMDIST.php';
+    }
+
+    /**
+     * @dataProvider providerCHIDIST
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCHIDIST($expectedResult, ...$args)
+    {
+        $result = Statistical::CHIDIST(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerCHIDIST()
+    {
+        return require 'data/Calculation/Statistical/CHIDIST.php';
+    }
+
+    /**
+     * @dataProvider providerCHIINV
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCHIINV($expectedResult, ...$args)
+    {
+        $result = Statistical::CHIINV(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerCHIINV()
+    {
+        return require 'data/Calculation/Statistical/CHIINV.php';
+    }
+
+    /**
      * @dataProvider providerCOUNTIF
      *
      * @param mixed $expectedResult
