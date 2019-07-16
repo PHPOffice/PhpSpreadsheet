@@ -686,11 +686,18 @@ class Statistical
             $averageArgs = $aArgs;
         }
         $condition = Functions::ifCondition($condition);
+        $conditionIsNumeric = strpos($condition, '"') === false;
+
         // Loop through arguments
         $aCount = 0;
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
+                if ($conditionIsNumeric) {
+                    continue;
+                }
                 $arg = Calculation::wrapResult(strtoupper($arg));
+            } elseif (!$conditionIsNumeric) {
+                continue;
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
@@ -1374,7 +1381,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function DEVSQ(...$args)
     {
@@ -1841,7 +1848,7 @@ class Statistical
      *
      * @param array ...$args Data Series
      *
-     * @return float
+     * @return float|string
      */
     public static function KURT(...$args)
     {
@@ -2910,7 +2917,7 @@ class Statistical
      *
      * @param array ...$args Data Series
      *
-     * @return float
+     * @return float|string
      */
     public static function SKEW(...$args)
     {
@@ -3053,7 +3060,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function STDEV(...$args)
     {
@@ -3102,7 +3109,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function STDEVA(...$args)
     {
@@ -3154,7 +3161,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function STDEVP(...$args)
     {
@@ -3201,7 +3208,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function STDEVPA(...$args)
     {
@@ -3713,7 +3720,7 @@ class Statistical
      * @param float $m0 Alpha Parameter
      * @param float $sigma Beta Parameter
      *
-     * @return float
+     * @return float|string
      */
     public static function ZTEST($dataSet, $m0, $sigma = null)
     {
