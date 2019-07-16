@@ -178,9 +178,9 @@ class StatisticalTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCORREL($expectedResult, ...$args)
+    public function testCORREL($expectedResult, array $xargs, array $yargs)
     {
-        $result = Statistical::CORREL(...$args);
+        $result = Statistical::CORREL($xargs, $yargs);
         self::assertEquals($expectedResult, $result, '', 1E-12);
     }
 

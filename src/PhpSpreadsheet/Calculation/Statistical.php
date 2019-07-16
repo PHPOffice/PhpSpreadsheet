@@ -1505,7 +1505,7 @@ class Statistical
      * @param mixed $yValues array of mixed Data Series Y
      * @param mixed $xValues of mixed Data Series X
      *
-     * @return float|string
+     * @return float|string|bool
      */
     public static function FORECAST($xValue, $yValues, $xValues)
     {
