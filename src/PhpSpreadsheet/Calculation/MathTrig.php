@@ -1116,7 +1116,7 @@ class MathTrig
      *                    in hidden rows or columns
      * @param array of mixed Data Series
      *
-     * @return float
+     * @return float|string
      */
     public static function SUBTOTAL(...$args)
     {

@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Fix to AVERAGEIF() function when called with a third argument
 - Eliminate duplicate fill none style entries [Issue #1066](https://github.com/PHPOffice/PhpSpreadsheet/issues/1066) 
 - Fix number format masks containing literal (non-decimal point) dots [Issue #1079](https://github.com/PHPOffice/PhpSpreadsheet/issues/1079) 
 - Fix number format masks containing named colours that were being misinterpreted as date formats; and add support for masks that fully replace the value with a full text string [Issue #1009](https://github.com/PHPOffice/PhpSpreadsheet/issues/1009) 

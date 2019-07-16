@@ -14,6 +14,102 @@ class StatisticalTest extends TestCase
     }
 
     /**
+     * @dataProvider providerAVEDEV
+     *
+     * @param mixed $expectedResult
+     */
+    public function testAVEDEV($expectedResult, ...$args)
+    {
+        $result = Statistical::AVEDEV(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerAVEDEV()
+    {
+        return require 'data/Calculation/Statistical/AVEDEV.php';
+    }
+
+    /**
+     * @dataProvider providerAVERAGE
+     *
+     * @param mixed $expectedResult
+     */
+    public function testAVERAGE($expectedResult, ...$args)
+    {
+        $result = Statistical::AVERAGE(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerAVERAGE()
+    {
+        return require 'data/Calculation/Statistical/AVERAGE.php';
+    }
+
+    /**
+     * @dataProvider providerAVERAGEA
+     *
+     * @param mixed $expectedResult
+     */
+    public function testAVERAGEA($expectedResult, ...$args)
+    {
+        $result = Statistical::AVERAGEA(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerAVERAGEA()
+    {
+        return require 'data/Calculation/Statistical/AVERAGEA.php';
+    }
+
+    /**
+     * @dataProvider providerAVERAGEIF
+     *
+     * @param mixed $expectedResult
+     */
+    public function testAVERAGEIF($expectedResult, ...$args)
+    {
+        $result = Statistical::AVERAGEIF(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerAVERAGEIF()
+    {
+        return require 'data/Calculation/Statistical/AVERAGEIF.php';
+    }
+
+    /**
+     * @dataProvider providerBETADIST
+     *
+     * @param mixed $expectedResult
+     */
+    public function testBETADIST($expectedResult, ...$args)
+    {
+        $result = Statistical::BETADIST(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerBETADIST()
+    {
+        return require 'data/Calculation/Statistical/BETADIST.php';
+    }
+
+    /**
+     * @dataProvider providerBETAINV
+     *
+     * @param mixed $expectedResult
+     */
+    public function testBETAINV($expectedResult, ...$args)
+    {
+        $result = Statistical::BETAINV(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerBETAINV()
+    {
+        return require 'data/Calculation/Statistical/BETAINV.php';
+    }
+
+    /**
      * @dataProvider providerCOUNTIF
      *
      * @param mixed $expectedResult

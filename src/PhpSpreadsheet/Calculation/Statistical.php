@@ -531,7 +531,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function AVEDEV(...$args)
     {
@@ -582,7 +582,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function AVERAGE(...$args)
     {
@@ -625,7 +625,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function AVERAGEA(...$args)
     {
@@ -674,7 +674,7 @@ class Statistical
      * @param string $condition the criteria that defines which cells will be checked
      * @param mixed[] $averageArgs Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function AVERAGEIF($aArgs, $condition, $averageArgs = [])
     {
@@ -686,18 +686,23 @@ class Statistical
             $averageArgs = $aArgs;
         }
         $condition = Functions::ifCondition($condition);
+        $conditionIsNumeric = strpos($condition, '"') === false;
+
         // Loop through arguments
         $aCount = 0;
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
+                if ($conditionIsNumeric) {
+                    continue;
+                }
                 $arg = Calculation::wrapResult(strtoupper($arg));
+            } elseif (!$conditionIsNumeric) {
+                continue;
             }
             $testCondition = '=' . $arg . $condition;
             if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                if (($returnValue === null) || ($arg > $returnValue)) {
-                    $returnValue += $arg;
-                    ++$aCount;
-                }
+                $returnValue += $averageArgs[$key];
+                ++$aCount;
             }
         }
 
@@ -719,7 +724,7 @@ class Statistical
      * @param mixed $rMin
      * @param mixed $rMax
      *
-     * @return float
+     * @return float|string
      */
     public static function BETADIST($value, $alpha, $beta, $rMin = 0, $rMax = 1)
     {
@@ -758,7 +763,7 @@ class Statistical
      * @param float $rMin Minimum value
      * @param float $rMax Maximum value
      *
-     * @return float
+     * @return float|string
      */
     public static function BETAINV($probability, $alpha, $beta, $rMin = 0, $rMax = 1)
     {
@@ -1376,7 +1381,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function DEVSQ(...$args)
     {
@@ -1843,7 +1848,7 @@ class Statistical
      *
      * @param array ...$args Data Series
      *
-     * @return float
+     * @return float|string
      */
     public static function KURT(...$args)
     {
@@ -2912,7 +2917,7 @@ class Statistical
      *
      * @param array ...$args Data Series
      *
-     * @return float
+     * @return float|string
      */
     public static function SKEW(...$args)
     {
@@ -3055,7 +3060,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function STDEV(...$args)
     {
@@ -3104,7 +3109,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function STDEVA(...$args)
     {
@@ -3156,7 +3161,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function STDEVP(...$args)
     {
@@ -3203,7 +3208,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function STDEVPA(...$args)
     {
@@ -3442,7 +3447,7 @@ class Statistical
      * @param mixed $args Data values
      * @param float $discard Percentage to discard
      *
-     * @return float
+     * @return float|string
      */
     public static function TRIMMEAN(...$args)
     {
@@ -3715,7 +3720,7 @@ class Statistical
      * @param float $m0 Alpha Parameter
      * @param float $sigma Beta Parameter
      *
-     * @return float
+     * @return float|string
      */
     public static function ZTEST($dataSet, $m0, $sigma = null)
     {
