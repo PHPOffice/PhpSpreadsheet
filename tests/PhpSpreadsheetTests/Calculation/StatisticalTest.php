@@ -158,6 +158,22 @@ class StatisticalTest extends TestCase
     }
 
     /**
+     * @dataProvider providerCONFIDENCE
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCONFIDENCE($expectedResult, ...$args)
+    {
+        $result = Statistical::CONFIDENCE(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerCONFIDENCE()
+    {
+        return require 'data/Calculation/Statistical/CONFIDENCE.php';
+    }
+
+    /**
      * @dataProvider providerCOUNTIF
      *
      * @param mixed $expectedResult
