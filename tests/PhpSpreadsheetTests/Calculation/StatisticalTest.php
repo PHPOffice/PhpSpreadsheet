@@ -78,6 +78,38 @@ class StatisticalTest extends TestCase
     }
 
     /**
+     * @dataProvider providerBETADIST
+     *
+     * @param mixed $expectedResult
+     */
+    public function testBETADIST($expectedResult, ...$args)
+    {
+        $result = Statistical::BETADIST(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerBETADIST()
+    {
+        return require 'data/Calculation/Statistical/BETADIST.php';
+    }
+
+    /**
+     * @dataProvider providerBETAINV
+     *
+     * @param mixed $expectedResult
+     */
+    public function testBETAINV($expectedResult, ...$args)
+    {
+        $result = Statistical::BETAINV(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerBETAINV()
+    {
+        return require 'data/Calculation/Statistical/BETAINV.php';
+    }
+
+    /**
      * @dataProvider providerCOUNTIF
      *
      * @param mixed $expectedResult

@@ -452,7 +452,7 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float
+     * @return float|string
      */
     public static function DSTDEV($database, $field, $criteria)
     {
@@ -493,7 +493,7 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float
+     * @return float|string
      */
     public static function DSTDEVP($database, $field, $criteria)
     {

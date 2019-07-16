@@ -724,7 +724,7 @@ class Statistical
      * @param mixed $rMin
      * @param mixed $rMax
      *
-     * @return float
+     * @return float|string
      */
     public static function BETADIST($value, $alpha, $beta, $rMin = 0, $rMax = 1)
     {
@@ -763,7 +763,7 @@ class Statistical
      * @param float $rMin Minimum value
      * @param float $rMax Maximum value
      *
-     * @return float
+     * @return float|string
      */
     public static function BETAINV($probability, $alpha, $beta, $rMin = 0, $rMax = 1)
     {
@@ -3447,7 +3447,7 @@ class Statistical
      * @param mixed $args Data values
      * @param float $discard Percentage to discard
      *
-     * @return float
+     * @return float|string
      */
     public static function TRIMMEAN(...$args)
     {
