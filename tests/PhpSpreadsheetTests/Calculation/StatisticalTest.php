@@ -110,6 +110,86 @@ class StatisticalTest extends TestCase
     }
 
     /**
+     * @dataProvider providerBINOMDIST
+     *
+     * @param mixed $expectedResult
+     */
+    public function testBINOMDIST($expectedResult, ...$args)
+    {
+        $result = Statistical::BINOMDIST(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerBINOMDIST()
+    {
+        return require 'data/Calculation/Statistical/BINOMDIST.php';
+    }
+
+    /**
+     * @dataProvider providerCHIDIST
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCHIDIST($expectedResult, ...$args)
+    {
+        $result = Statistical::CHIDIST(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerCHIDIST()
+    {
+        return require 'data/Calculation/Statistical/CHIDIST.php';
+    }
+
+    /**
+     * @dataProvider providerCHIINV
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCHIINV($expectedResult, ...$args)
+    {
+        $result = Statistical::CHIINV(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerCHIINV()
+    {
+        return require 'data/Calculation/Statistical/CHIINV.php';
+    }
+
+    /**
+     * @dataProvider providerCONFIDENCE
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCONFIDENCE($expectedResult, ...$args)
+    {
+        $result = Statistical::CONFIDENCE(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerCONFIDENCE()
+    {
+        return require 'data/Calculation/Statistical/CONFIDENCE.php';
+    }
+
+    /**
+     * @dataProvider providerCORREL
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCORREL($expectedResult, array $xargs, array $yargs)
+    {
+        $result = Statistical::CORREL($xargs, $yargs);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerCORREL()
+    {
+        return require 'data/Calculation/Statistical/CORREL.php';
+    }
+
+    /**
      * @dataProvider providerCOUNTIF
      *
      * @param mixed $expectedResult
@@ -139,6 +219,38 @@ class StatisticalTest extends TestCase
     public function providerCOUNTIFS()
     {
         return require 'data/Calculation/Statistical/COUNTIFS.php';
+    }
+
+    /**
+     * @dataProvider providerCOVAR
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCOVAR($expectedResult, ...$args)
+    {
+        $result = Statistical::COVAR(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerCOVAR()
+    {
+        return require 'data/Calculation/Statistical/COVAR.php';
+    }
+
+    /**
+     * @dataProvider providerFORECAST
+     *
+     * @param mixed $expectedResult
+     */
+    public function testFORECAST($expectedResult, ...$args)
+    {
+        $result = Statistical::FORECAST(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerFORECAST()
+    {
+        return require 'data/Calculation/Statistical/FORECAST.php';
     }
 
     /**
