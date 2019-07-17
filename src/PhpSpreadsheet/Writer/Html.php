@@ -645,7 +645,7 @@ class Html extends BaseWriter
                         if ($fp = fopen($filename, 'rb', 0)) {
                             $picture = '';
                             while (!feof($fp)) {
-                                $picture .= fread($fp,1024);
+                                $picture .= fread($fp, 1024);
                             }
                             fclose($fp);
                             // base64 encode the binary data, then break it
