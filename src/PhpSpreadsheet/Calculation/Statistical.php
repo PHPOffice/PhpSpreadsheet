@@ -1022,12 +1022,20 @@ class Statistical
         // Loop through arguments
         $aArgs = Functions::flattenArrayIndexed($args);
         foreach ($aArgs as $k => $arg) {
+            // MS Excel does not count Booleans if passed as cell values, but they are counted if passed as literals
+            // OpenOffice Calc always counts Booleans
+            // Gnumeric never counts Booleans
             if ((is_bool($arg)) &&
-                ((!Functions::isCellValue($k)) || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))) {
+                ((!Functions::isCellValue($k) && (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL)) ||
+                    (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE))) {
                 $arg = (int) $arg;
             }
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            // Strings containing numeric values are only counted if they are string literals (not cell values)
+            //    and then only in MS Excel and in Open Office, not in Gnumeric
+            if (((is_numeric($arg)) && (!is_string($arg))) ||
+                ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
+                    (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))) {
                 ++$returnValue;
             }
         }
