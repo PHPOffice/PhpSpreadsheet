@@ -22,6 +22,7 @@ class DataValidations
         foreach ($this->worksheetXml->dataValidations->dataValidation as $dataValidation) {
             // Uppercase coordinate
             $range = strtoupper($dataValidation['sqref']);
+            $range = str_replace('$', '', $range);
             $rangeSet = explode(' ', $range);
             foreach ($rangeSet as $range) {
                 $stRange = $this->worksheet->shrinkRangeToFit($range);
