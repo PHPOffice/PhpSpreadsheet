@@ -1022,12 +1022,20 @@ class Statistical
         // Loop through arguments
         $aArgs = Functions::flattenArrayIndexed($args);
         foreach ($aArgs as $k => $arg) {
+            // MS Excel does not count Booleans if passed as cell values, but they are counted if passed as literals
+            // OpenOffice Calc always counts Booleans
+            // Gnumeric never counts Booleans
             if ((is_bool($arg)) &&
-                ((!Functions::isCellValue($k)) || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))) {
+                ((!Functions::isCellValue($k) && (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL)) ||
+                    (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE))) {
                 $arg = (int) $arg;
             }
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            // Strings containing numeric values are only counted if they are string literals (not cell values)
+            //    and then only in MS Excel and in Open Office, not in Gnumeric
+            if (((is_numeric($arg)) && (!is_string($arg))) ||
+                ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
+                    (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))) {
                 ++$returnValue;
             }
         }
@@ -1054,10 +1062,10 @@ class Statistical
         $returnValue = 0;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        foreach ($aArgs as $arg) {
-            // Is it a numeric, boolean or string value?
-            if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
+        $aArgs = Functions::flattenArrayIndexed($args);
+        foreach ($aArgs as $k => $arg) {
+            // Nulls are counted if literals, but not if cell values
+            if ($arg !== null || (!Functions::isCellValue($k))) {
                 ++$returnValue;
             }
         }
@@ -1264,19 +1272,24 @@ class Statistical
         $alpha = Functions::flattenSingleValue($alpha);
 
         if ((is_numeric($trials)) && (is_numeric($probability)) && (is_numeric($alpha))) {
+            $trials = (int) $trials;
+            $trialsApprox = $trials;
             if ($trials < 0) {
                 return Functions::NAN();
-            } elseif (($probability < 0) || ($probability > 1)) {
+            } elseif (($probability < 0.0) || ($probability > 1.0)) {
                 return Functions::NAN();
-            } elseif (($alpha < 0) || ($alpha > 1)) {
+            } elseif (($alpha < 0.0) || ($alpha > 1.0)) {
                 return Functions::NAN();
-            } elseif ($alpha <= 0.5) {
+            }
+
+            if ($alpha <= 0.5) {
                 $t = sqrt(log(1 / ($alpha * $alpha)));
                 $trialsApprox = 0 - ($t + (2.515517 + 0.802853 * $t + 0.010328 * $t * $t) / (1 + 1.432788 * $t + 0.189269 * $t * $t + 0.001308 * $t * $t * $t));
             } else {
                 $t = sqrt(log(1 / pow(1 - $alpha, 2)));
                 $trialsApprox = $t - (2.515517 + 0.802853 * $t + 0.010328 * $t * $t) / (1 + 1.432788 * $t + 0.189269 * $t * $t + 0.001308 * $t * $t * $t);
             }
+
             $Guess = floor($trials * $probability + $trialsApprox * sqrt($trials * $probability * (1 - $probability)));
             if ($Guess < 0) {
                 $Guess = 0;
