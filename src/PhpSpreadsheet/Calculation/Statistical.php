@@ -519,9 +519,9 @@ class Statistical
     }
 
     /**
-     * MS Excel does not count Booleans if passed as cell values, but they are counted if passed as literals
-     * OpenOffice Calc always counts Booleans
-     * Gnumeric never counts Booleans
+     * MS Excel does not count Booleans if passed as cell values, but they are counted if passed as literals.
+     * OpenOffice Calc always counts Booleans.
+     * Gnumeric never counts Booleans.
      *
      * @param mixed $arg
      * @param mixed $k
