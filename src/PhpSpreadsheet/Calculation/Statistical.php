@@ -1065,7 +1065,7 @@ class Statistical
         $aArgs = Functions::flattenArrayIndexed($args);
         foreach ($aArgs as $k => $arg) {
             // Nulls are counted if literals, but not if cell values
-            if (!is_null($arg) || (!Functions::isCellValue($k))) {
+            if ($arg !== null || (!Functions::isCellValue($k))) {
                 ++$returnValue;
             }
         }

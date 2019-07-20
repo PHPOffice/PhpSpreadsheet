@@ -210,7 +210,7 @@ class Color extends Supervisor
     {
         $colour = substr($RGB, $offset, 2);
 
-        return ($hex) ? $colour: hexdec($colour);
+        return ($hex) ? $colour : hexdec($colour);
     }
 
     /**
