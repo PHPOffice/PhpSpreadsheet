@@ -1062,10 +1062,10 @@ class Statistical
         $returnValue = 0;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        foreach ($aArgs as $arg) {
-            // Is it a numeric, boolean or string value?
-            if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
+        $aArgs = Functions::flattenArrayIndexed($args);
+        foreach ($aArgs as $k => $arg) {
+            // Nulls are counted if literals, but not if cell values
+            if (!is_null($arg) || (!Functions::isCellValue($k))) {
                 ++$returnValue;
             }
         }

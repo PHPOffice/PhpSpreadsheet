@@ -258,6 +258,22 @@ class StatisticalTest extends TestCase
     }
 
     /**
+     * @dataProvider providerCOUNTA
+     *
+     * @param mixed $expectedResult
+     */
+    public function testCOUNTA($expectedResult, ...$args)
+    {
+        $result = Statistical::COUNTA(...$args);
+        self::assertEquals($expectedResult, $result, '', 1E-12);
+    }
+
+    public function providerCOUNTA()
+    {
+        return require 'data/Calculation/Statistical/COUNTA.php';
+    }
+
+    /**
      * @dataProvider providerCOUNTIF
      *
      * @param mixed $expectedResult
