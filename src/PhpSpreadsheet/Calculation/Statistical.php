@@ -534,7 +534,8 @@ class Statistical
         return $arg;
     }
 
-    private static function isAcceptedCountable($arg, $k) {
+    private static function isAcceptedCountable($arg, $k)
+    {
         if (((is_numeric($arg)) && (!is_string($arg))) ||
                 ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
                     (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))) {
