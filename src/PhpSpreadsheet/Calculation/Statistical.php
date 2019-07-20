@@ -522,6 +522,11 @@ class Statistical
      * MS Excel does not count Booleans if passed as cell values, but they are counted if passed as literals
      * OpenOffice Calc always counts Booleans
      * Gnumeric never counts Booleans
+     *
+     * @param mixed $arg
+     * @param mixed $k
+     *
+     * @return int|mixed
      */
     private static function testAcceptedBoolean($arg, $k)
     {
@@ -534,6 +539,13 @@ class Statistical
         return $arg;
     }
 
+    /**
+     *
+     * @param mixed $arg
+     * @param mixed $k
+     *
+     * @return bool
+     */
     private static function isAcceptedCountable($arg, $k)
     {
         if (((is_numeric($arg)) && (!is_string($arg))) ||
