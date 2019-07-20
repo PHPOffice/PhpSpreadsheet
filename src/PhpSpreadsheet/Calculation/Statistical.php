@@ -538,36 +538,42 @@ class Statistical
         $aArgs = Functions::flattenArrayIndexed($args);
 
         // Return value
-        $returnValue = null;
+        $returnValue = 0;
 
-        $aMean = self::AVERAGE($aArgs);
-        if ($aMean != Functions::DIV0()) {
-            $aCount = 0;
-            foreach ($aArgs as $k => $arg) {
-                if ((is_bool($arg)) &&
-                    ((!Functions::isCellValue($k)) || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))) {
-                    $arg = (int) $arg;
-                }
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if ($returnValue === null) {
-                        $returnValue = abs($arg - $aMean);
-                    } else {
-                        $returnValue += abs($arg - $aMean);
-                    }
-                    ++$aCount;
-                }
-            }
-
-            // Return
-            if ($aCount == 0) {
-                return Functions::DIV0();
-            }
-
-            return $returnValue / $aCount;
+        $aMean = self::AVERAGE(...$args);
+        if ($aMean === Functions::DIV0()) {
+            return Functions::NAN();
+        } elseif ($aMean === Functions::VALUE()) {
+            return Functions::VALUE();
         }
 
-        return Functions::NAN();
+        $aCount = 0;
+        foreach ($aArgs as $k => $arg) {
+            if ((is_bool($arg)) &&
+                ((!Functions::isCellValue($k) && (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL)) ||
+                    (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE))) {
+                $arg = (int) $arg;
+            }
+            // Is it a numeric value?
+            // Strings containing numeric values are only counted if they are string literals (not cell values)
+            //    and then only in MS Excel and in Open Office, not in Gnumeric
+            if ((is_string($arg)) && (!is_numeric($arg)) && (!Functions::isCellValue($k))) {
+                return Functions::VALUE();
+            }
+            if (((is_numeric($arg)) && (!is_string($arg))) ||
+                ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
+                    (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))) {
+                $returnValue += abs($arg - $aMean);
+                ++$aCount;
+            }
+        }
+
+        // Return
+        if ($aCount === 0) {
+            return Functions::DIV0();
+        }
+
+        return $returnValue / $aCount;
     }
 
     /**
@@ -591,11 +597,19 @@ class Statistical
         // Loop through arguments
         foreach (Functions::flattenArrayIndexed($args) as $k => $arg) {
             if ((is_bool($arg)) &&
-                ((!Functions::isCellValue($k)) || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))) {
+                ((!Functions::isCellValue($k) && (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL)) ||
+                    (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE))) {
                 $arg = (int) $arg;
             }
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            // Strings containing numeric values are only counted if they are string literals (not cell values)
+            //    and then only in MS Excel and in Open Office, not in Gnumeric
+            if ((is_string($arg)) && (!is_numeric($arg)) && (!Functions::isCellValue($k))) {
+                return Functions::VALUE();
+            }
+            if (((is_numeric($arg)) && (!is_string($arg))) ||
+                ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
+                    (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))) {
                 $returnValue += $arg;
                 ++$aCount;
             }
@@ -1273,7 +1287,6 @@ class Statistical
 
         if ((is_numeric($trials)) && (is_numeric($probability)) && (is_numeric($alpha))) {
             $trials = (int) $trials;
-            $trialsApprox = $trials;
             if ($trials < 0) {
                 return Functions::NAN();
             } elseif (($probability < 0.0) || ($probability > 1.0)) {
