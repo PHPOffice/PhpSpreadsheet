@@ -519,6 +519,32 @@ class Statistical
     }
 
     /**
+     * MS Excel does not count Booleans if passed as cell values, but they are counted if passed as literals
+     * OpenOffice Calc always counts Booleans
+     * Gnumeric never counts Booleans
+     */
+    private static function testAcceptedBoolean($arg, $k)
+    {
+        if ((is_bool($arg)) &&
+            ((!Functions::isCellValue($k) && (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL)) ||
+                (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE))) {
+            $arg = (int) $arg;
+        }
+
+        return $arg;
+    }
+
+    private static function isAcceptedCountable($arg, $k) {
+        if (((is_numeric($arg)) && (!is_string($arg))) ||
+                ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
+                    (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * AVEDEV.
      *
      * Returns the average of the absolute deviations of data points from their mean.
@@ -549,20 +575,14 @@ class Statistical
 
         $aCount = 0;
         foreach ($aArgs as $k => $arg) {
-            if ((is_bool($arg)) &&
-                ((!Functions::isCellValue($k) && (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL)) ||
-                    (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE))) {
-                $arg = (int) $arg;
-            }
+            $arg = self::testAcceptedBoolean($arg, $k);
             // Is it a numeric value?
             // Strings containing numeric values are only counted if they are string literals (not cell values)
             //    and then only in MS Excel and in Open Office, not in Gnumeric
             if ((is_string($arg)) && (!is_numeric($arg)) && (!Functions::isCellValue($k))) {
                 return Functions::VALUE();
             }
-            if (((is_numeric($arg)) && (!is_string($arg))) ||
-                ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
-                    (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))) {
+            if (self::isAcceptedCountable($arg, $k)) {
                 $returnValue += abs($arg - $aMean);
                 ++$aCount;
             }
@@ -596,20 +616,14 @@ class Statistical
 
         // Loop through arguments
         foreach (Functions::flattenArrayIndexed($args) as $k => $arg) {
-            if ((is_bool($arg)) &&
-                ((!Functions::isCellValue($k) && (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL)) ||
-                    (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE))) {
-                $arg = (int) $arg;
-            }
+            $arg = self::testAcceptedBoolean($arg, $k);
             // Is it a numeric value?
             // Strings containing numeric values are only counted if they are string literals (not cell values)
             //    and then only in MS Excel and in Open Office, not in Gnumeric
             if ((is_string($arg)) && (!is_numeric($arg)) && (!Functions::isCellValue($k))) {
                 return Functions::VALUE();
             }
-            if (((is_numeric($arg)) && (!is_string($arg))) ||
-                ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
-                    (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))) {
+            if (self::isAcceptedCountable($arg, $k)) {
                 $returnValue += $arg;
                 ++$aCount;
             }
@@ -1036,20 +1050,11 @@ class Statistical
         // Loop through arguments
         $aArgs = Functions::flattenArrayIndexed($args);
         foreach ($aArgs as $k => $arg) {
-            // MS Excel does not count Booleans if passed as cell values, but they are counted if passed as literals
-            // OpenOffice Calc always counts Booleans
-            // Gnumeric never counts Booleans
-            if ((is_bool($arg)) &&
-                ((!Functions::isCellValue($k) && (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL)) ||
-                    (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE))) {
-                $arg = (int) $arg;
-            }
+            $arg = self::testAcceptedBoolean($arg, $k);
             // Is it a numeric value?
             // Strings containing numeric values are only counted if they are string literals (not cell values)
             //    and then only in MS Excel and in Open Office, not in Gnumeric
-            if (((is_numeric($arg)) && (!is_string($arg))) ||
-                ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
-                    (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))) {
+            if (self::isAcceptedCountable($arg, $k)) {
                 ++$returnValue;
             }
         }
