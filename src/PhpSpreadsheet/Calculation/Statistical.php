@@ -2766,6 +2766,7 @@ class Statistical
             if ($numObjs < $numInSet) {
                 return Functions::NAN();
             }
+
             return round(MathTrig::FACT($numObjs) / MathTrig::FACT($numObjs - $numInSet));
         }
 
