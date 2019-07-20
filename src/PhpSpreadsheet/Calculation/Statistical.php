@@ -540,7 +540,6 @@ class Statistical
     }
 
     /**
-     *
      * @param mixed $arg
      * @param mixed $k
      *
