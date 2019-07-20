@@ -209,11 +209,8 @@ class Color extends Supervisor
     private static function getColourComponent($RGB, $offset, $hex = true)
     {
         $colour = substr($RGB, $offset, 2);
-        if (!$hex) {
-            $colour = hexdec($colour);
-        }
 
-        return $colour;
+        return ($hex) ? $colour : hexdec($colour);
     }
 
     /**
@@ -268,7 +265,7 @@ class Color extends Supervisor
      */
     public static function changeBrightness($hex, $adjustPercentage)
     {
-        $rgba = (strlen($hex) == 8);
+        $rgba = (strlen($hex) === 8);
 
         $red = self::getRed($hex, false);
         $green = self::getGreen($hex, false);
@@ -300,9 +297,9 @@ class Color extends Supervisor
         }
 
         $rgb = strtoupper(
-            str_pad(dechex($red), 2, '0', 0) .
-            str_pad(dechex($green), 2, '0', 0) .
-            str_pad(dechex($blue), 2, '0', 0)
+            str_pad(dechex((int) $red), 2, '0', 0) .
+            str_pad(dechex((int) $green), 2, '0', 0) .
+            str_pad(dechex((int) $blue), 2, '0', 0)
         );
 
         return (($rgba) ? 'FF' : '') . $rgb;
