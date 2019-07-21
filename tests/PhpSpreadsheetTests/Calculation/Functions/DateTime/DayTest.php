@@ -28,6 +28,7 @@ class DayTest extends TestCase
         $this->assertEquals($expectedResultExcel, $resultExcel, '', 1E-8);
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+
         $resultOpenOffice = DateTime::DAYOFMONTH(...$args);
         $this->assertEquals($expectedResultOpenOffice, $resultOpenOffice, '', 1E-8);
     }
