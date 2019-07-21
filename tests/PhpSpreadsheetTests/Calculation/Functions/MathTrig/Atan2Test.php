@@ -17,10 +17,12 @@ class Atan2Test extends TestCase
      * @dataProvider providerATAN2
      *
      * @param mixed $expectedResult
+     * @param mixed $x
+     * @param mixed $y
      */
-    public function testATAN2($expectedResult, ...$args)
+    public function testATAN2($expectedResult, $x, $y)
     {
-        $result = MathTrig::ATAN2(...$args);
+        $result = MathTrig::ATAN2($x, $y);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
