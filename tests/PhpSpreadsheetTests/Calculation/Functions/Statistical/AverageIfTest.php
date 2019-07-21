@@ -21,7 +21,7 @@ class AverageIfTest extends TestCase
     public function testAVERAGEIF($expectedResult, ...$args)
     {
         $result = Statistical::AVERAGEIF(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerAVERAGEIF()

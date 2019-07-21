@@ -21,7 +21,7 @@ class CovarTest extends TestCase
     public function testCOVAR($expectedResult, ...$args)
     {
         $result = Statistical::COVAR(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerCOVAR()

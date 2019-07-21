@@ -21,7 +21,7 @@ class CorrelTest extends TestCase
     public function testCORREL($expectedResult, array $xargs, array $yargs)
     {
         $result = Statistical::CORREL($xargs, $yargs);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerCORREL()

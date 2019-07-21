@@ -21,7 +21,7 @@ class PermutTest extends TestCase
     public function testPERMUT($expectedResult, ...$args)
     {
         $result = Statistical::PERMUT(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerPERMUT()

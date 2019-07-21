@@ -24,7 +24,7 @@ class TimeValueTest extends TestCase
     public function testTIMEVALUE($expectedResult, ...$args)
     {
         $result = DateTime::TIMEVALUE(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerTIMEVALUE()

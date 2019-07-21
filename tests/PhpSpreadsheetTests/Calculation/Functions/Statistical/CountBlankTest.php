@@ -21,7 +21,7 @@ class CountBlankTest extends TestCase
     public function testCOUNTBLANK($expectedResult, ...$args)
     {
         $result = Statistical::COUNTBLANK(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerCOUNTBLANK()

@@ -21,7 +21,7 @@ class CountIfsTest extends TestCase
     public function testCOUNTIFS($expectedResult, ...$args)
     {
         $result = Statistical::COUNTIFS(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerCOUNTIFS()
