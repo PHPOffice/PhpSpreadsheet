@@ -854,16 +854,16 @@ class Statistical
      * @param bool $cumulative
      *
      * @return float|string
-     *
-     * @todo    Cumulative distribution function
      */
     public static function BINOMDIST($value, $trials, $probability, $cumulative)
     {
-        $value = floor(Functions::flattenSingleValue($value));
-        $trials = floor(Functions::flattenSingleValue($trials));
+        $value = Functions::flattenSingleValue($value);
+        $trials = Functions::flattenSingleValue($trials);
         $probability = Functions::flattenSingleValue($probability);
 
         if ((is_numeric($value)) && (is_numeric($trials)) && (is_numeric($probability))) {
+            $value = floor($value);
+            $trials = floor($trials);
             if (($value < 0) || ($value > $trials)) {
                 return Functions::NAN();
             }
@@ -900,9 +900,10 @@ class Statistical
     public static function CHIDIST($value, $degrees)
     {
         $value = Functions::flattenSingleValue($value);
-        $degrees = floor(Functions::flattenSingleValue($degrees));
+        $degrees = Functions::flattenSingleValue($degrees);
 
         if ((is_numeric($value)) && (is_numeric($degrees))) {
+            $degrees = floor($degrees);
             if ($degrees < 1) {
                 return Functions::NAN();
             }
@@ -933,9 +934,11 @@ class Statistical
     public static function CHIINV($probability, $degrees)
     {
         $probability = Functions::flattenSingleValue($probability);
-        $degrees = floor(Functions::flattenSingleValue($degrees));
+        $degrees = Functions::flattenSingleValue($degrees);
 
         if ((is_numeric($probability)) && (is_numeric($degrees))) {
+            $degrees = floor($degrees);
+
             $xLo = 100;
             $xHi = 0;
 
@@ -945,7 +948,7 @@ class Statistical
 
             while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
-                $result = self::CHIDIST($x, $degrees);
+                $result = 1 - (self::incompleteGamma($degrees / 2, $x / 2) / self::gamma($degrees / 2));
                 $error = $result - $probability;
                 if ($error == 0.0) {
                     $dx = 0;
@@ -993,9 +996,10 @@ class Statistical
     {
         $alpha = Functions::flattenSingleValue($alpha);
         $stdDev = Functions::flattenSingleValue($stdDev);
-        $size = floor(Functions::flattenSingleValue($size));
+        $size = Functions::flattenSingleValue($size);
 
         if ((is_numeric($alpha)) && (is_numeric($stdDev)) && (is_numeric($size))) {
+            $size = floor($size);
             if (($alpha <= 0) || ($alpha >= 1)) {
                 return Functions::NAN();
             }
@@ -1256,7 +1260,7 @@ class Statistical
      * @param mixed $yValues array of mixed Data Series Y
      * @param mixed $xValues array of mixed Data Series X
      *
-     * @return float
+     * @return float|string
      */
     public static function COVAR($yValues, $xValues)
     {
@@ -1289,7 +1293,7 @@ class Statistical
      * @param float $probability probability of a success on each trial
      * @param float $alpha criterion value
      *
-     * @return int
+     * @return int|string
      *
      * @todo    Warning. This implementation differs from the algorithm detailed on the MS
      *            web site in that $CumPGuessMinus1 = $CumPGuess - 1 rather than $CumPGuess - $PGuess
@@ -1467,7 +1471,7 @@ class Statistical
      * @param float $lambda The parameter value
      * @param bool $cumulative
      *
-     * @return float
+     * @return float|string
      */
     public static function EXPONDIST($value, $lambda, $cumulative)
     {
@@ -1500,7 +1504,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float
+     * @return float|string
      */
     public static function FISHER($value)
     {
@@ -1526,7 +1530,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float
+     * @return float|string
      */
     public static function FISHERINV($value)
     {
@@ -1582,7 +1586,7 @@ class Statistical
      * @param float $b Parameter to the distribution
      * @param bool $cumulative
      *
-     * @return float
+     * @return float|string
      */
     public static function GAMMADIST($value, $a, $b, $cumulative)
     {
@@ -1615,7 +1619,7 @@ class Statistical
      * @param float $alpha Parameter to the distribution
      * @param float $beta Parameter to the distribution
      *
-     * @return float
+     * @return float|string
      */
     public static function GAMMAINV($probability, $alpha, $beta)
     {
@@ -1676,7 +1680,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float
+     * @return float|string
      */
     public static function GAMMALN($value)
     {
@@ -1707,7 +1711,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function GEOMEAN(...$args)
     {
@@ -1769,7 +1773,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function HARMEAN(...$args)
     {
@@ -1816,7 +1820,7 @@ class Statistical
      * @param float $populationSuccesses Number of successes in the population
      * @param float $populationNumber Population size
      *
-     * @return float
+     * @return float|string
      */
     public static function HYPGEOMDIST($sampleSuccesses, $sampleNumber, $populationSuccesses, $populationNumber)
     {
@@ -1852,7 +1856,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float
+     * @return float|string
      */
     public static function INTERCEPT($yValues, $xValues)
     {
@@ -2784,7 +2788,7 @@ class Statistical
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each permutation
      *
-     * @return int Number of permutations
+     * @return int|string Number of permutations
      */
     public static function PERMUT($numObjs, $numInSet)
     {
@@ -2921,7 +2925,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float
+     * @return float|string
      */
     public static function RSQ($yValues, $xValues)
     {
@@ -2989,7 +2993,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float
+     * @return float|string
      */
     public static function SLOPE($yValues, $xValues)
     {
@@ -3291,7 +3295,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float
+     * @return float|string
      */
     public static function STEYX($yValues, $xValues)
     {
