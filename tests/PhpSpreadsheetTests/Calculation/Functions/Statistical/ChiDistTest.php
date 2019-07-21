@@ -21,7 +21,7 @@ class ChiDistTest extends TestCase
     public function testCHIDIST($expectedResult, ...$args)
     {
         $result = Statistical::CHIDIST(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerCHIDIST()

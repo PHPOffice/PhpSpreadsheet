@@ -21,7 +21,7 @@ class AverageATest extends TestCase
     public function testAVERAGEA($expectedResult, ...$args)
     {
         $result = Statistical::AVERAGEA(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerAVERAGEA()

@@ -21,7 +21,7 @@ class ForecastTest extends TestCase
     public function testFORECAST($expectedResult, ...$args)
     {
         $result = Statistical::FORECAST(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerFORECAST()

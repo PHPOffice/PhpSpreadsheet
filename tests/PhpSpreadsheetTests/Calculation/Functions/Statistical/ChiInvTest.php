@@ -21,7 +21,7 @@ class ChiInvTest extends TestCase
     public function testCHIINV($expectedResult, ...$args)
     {
         $result = Statistical::CHIINV(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerCHIINV()

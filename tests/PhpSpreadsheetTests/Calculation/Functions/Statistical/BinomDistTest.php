@@ -21,7 +21,7 @@ class BinomDistTest extends TestCase
     public function testBINOMDIST($expectedResult, ...$args)
     {
         $result = Statistical::BINOMDIST(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerBINOMDIST()
