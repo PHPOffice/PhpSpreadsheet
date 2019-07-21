@@ -68,5 +68,4 @@ class DateTest extends TestCase
         $result = DateTime::DATE(1901, 1, 31);
         $this->assertEquals($result, '#NUM!');
     }
-
 }
