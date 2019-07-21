@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PHPUnit\Framework\TestCase;
 
-class DateDifTest extends TestCase
+class EoMonthTest extends TestCase
 {
     public function setUp()
     {
