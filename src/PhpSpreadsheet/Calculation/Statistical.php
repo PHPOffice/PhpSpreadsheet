@@ -519,6 +519,44 @@ class Statistical
     }
 
     /**
+     * MS Excel does not count Booleans if passed as cell values, but they are counted if passed as literals.
+     * OpenOffice Calc always counts Booleans.
+     * Gnumeric never counts Booleans.
+     *
+     * @param mixed $arg
+     * @param mixed $k
+     *
+     * @return int|mixed
+     */
+    private static function testAcceptedBoolean($arg, $k)
+    {
+        if ((is_bool($arg)) &&
+            ((!Functions::isCellValue($k) && (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL)) ||
+                (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE))) {
+            $arg = (int) $arg;
+        }
+
+        return $arg;
+    }
+
+    /**
+     * @param mixed $arg
+     * @param mixed $k
+     *
+     * @return bool
+     */
+    private static function isAcceptedCountable($arg, $k)
+    {
+        if (((is_numeric($arg)) && (!is_string($arg))) ||
+                ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
+                    (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * AVEDEV.
      *
      * Returns the average of the absolute deviations of data points from their mean.
@@ -538,36 +576,36 @@ class Statistical
         $aArgs = Functions::flattenArrayIndexed($args);
 
         // Return value
-        $returnValue = null;
+        $returnValue = 0;
 
-        $aMean = self::AVERAGE($aArgs);
-        if ($aMean != Functions::DIV0()) {
-            $aCount = 0;
-            foreach ($aArgs as $k => $arg) {
-                if ((is_bool($arg)) &&
-                    ((!Functions::isCellValue($k)) || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))) {
-                    $arg = (int) $arg;
-                }
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if ($returnValue === null) {
-                        $returnValue = abs($arg - $aMean);
-                    } else {
-                        $returnValue += abs($arg - $aMean);
-                    }
-                    ++$aCount;
-                }
-            }
-
-            // Return
-            if ($aCount == 0) {
-                return Functions::DIV0();
-            }
-
-            return $returnValue / $aCount;
+        $aMean = self::AVERAGE(...$args);
+        if ($aMean === Functions::DIV0()) {
+            return Functions::NAN();
+        } elseif ($aMean === Functions::VALUE()) {
+            return Functions::VALUE();
         }
 
-        return Functions::NAN();
+        $aCount = 0;
+        foreach ($aArgs as $k => $arg) {
+            $arg = self::testAcceptedBoolean($arg, $k);
+            // Is it a numeric value?
+            // Strings containing numeric values are only counted if they are string literals (not cell values)
+            //    and then only in MS Excel and in Open Office, not in Gnumeric
+            if ((is_string($arg)) && (!is_numeric($arg)) && (!Functions::isCellValue($k))) {
+                return Functions::VALUE();
+            }
+            if (self::isAcceptedCountable($arg, $k)) {
+                $returnValue += abs($arg - $aMean);
+                ++$aCount;
+            }
+        }
+
+        // Return
+        if ($aCount === 0) {
+            return Functions::DIV0();
+        }
+
+        return $returnValue / $aCount;
     }
 
     /**
@@ -590,12 +628,14 @@ class Statistical
 
         // Loop through arguments
         foreach (Functions::flattenArrayIndexed($args) as $k => $arg) {
-            if ((is_bool($arg)) &&
-                ((!Functions::isCellValue($k)) || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))) {
-                $arg = (int) $arg;
-            }
+            $arg = self::testAcceptedBoolean($arg, $k);
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            // Strings containing numeric values are only counted if they are string literals (not cell values)
+            //    and then only in MS Excel and in Open Office, not in Gnumeric
+            if ((is_string($arg)) && (!is_numeric($arg)) && (!Functions::isCellValue($k))) {
+                return Functions::VALUE();
+            }
+            if (self::isAcceptedCountable($arg, $k)) {
                 $returnValue += $arg;
                 ++$aCount;
             }
@@ -814,16 +854,16 @@ class Statistical
      * @param bool $cumulative
      *
      * @return float|string
-     *
-     * @todo    Cumulative distribution function
      */
     public static function BINOMDIST($value, $trials, $probability, $cumulative)
     {
-        $value = floor(Functions::flattenSingleValue($value));
-        $trials = floor(Functions::flattenSingleValue($trials));
+        $value = Functions::flattenSingleValue($value);
+        $trials = Functions::flattenSingleValue($trials);
         $probability = Functions::flattenSingleValue($probability);
 
         if ((is_numeric($value)) && (is_numeric($trials)) && (is_numeric($probability))) {
+            $value = floor($value);
+            $trials = floor($trials);
             if (($value < 0) || ($value > $trials)) {
                 return Functions::NAN();
             }
@@ -860,9 +900,10 @@ class Statistical
     public static function CHIDIST($value, $degrees)
     {
         $value = Functions::flattenSingleValue($value);
-        $degrees = floor(Functions::flattenSingleValue($degrees));
+        $degrees = Functions::flattenSingleValue($degrees);
 
         if ((is_numeric($value)) && (is_numeric($degrees))) {
+            $degrees = floor($degrees);
             if ($degrees < 1) {
                 return Functions::NAN();
             }
@@ -893,9 +934,11 @@ class Statistical
     public static function CHIINV($probability, $degrees)
     {
         $probability = Functions::flattenSingleValue($probability);
-        $degrees = floor(Functions::flattenSingleValue($degrees));
+        $degrees = Functions::flattenSingleValue($degrees);
 
         if ((is_numeric($probability)) && (is_numeric($degrees))) {
+            $degrees = floor($degrees);
+
             $xLo = 100;
             $xHi = 0;
 
@@ -905,7 +948,7 @@ class Statistical
 
             while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
-                $result = self::CHIDIST($x, $degrees);
+                $result = 1 - (self::incompleteGamma($degrees / 2, $x / 2) / self::gamma($degrees / 2));
                 $error = $result - $probability;
                 if ($error == 0.0) {
                     $dx = 0;
@@ -953,9 +996,10 @@ class Statistical
     {
         $alpha = Functions::flattenSingleValue($alpha);
         $stdDev = Functions::flattenSingleValue($stdDev);
-        $size = floor(Functions::flattenSingleValue($size));
+        $size = Functions::flattenSingleValue($size);
 
         if ((is_numeric($alpha)) && (is_numeric($stdDev)) && (is_numeric($size))) {
+            $size = floor($size);
             if (($alpha <= 0) || ($alpha >= 1)) {
                 return Functions::NAN();
             }
@@ -1022,20 +1066,11 @@ class Statistical
         // Loop through arguments
         $aArgs = Functions::flattenArrayIndexed($args);
         foreach ($aArgs as $k => $arg) {
-            // MS Excel does not count Booleans if passed as cell values, but they are counted if passed as literals
-            // OpenOffice Calc always counts Booleans
-            // Gnumeric never counts Booleans
-            if ((is_bool($arg)) &&
-                ((!Functions::isCellValue($k) && (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL)) ||
-                    (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE))) {
-                $arg = (int) $arg;
-            }
+            $arg = self::testAcceptedBoolean($arg, $k);
             // Is it a numeric value?
             // Strings containing numeric values are only counted if they are string literals (not cell values)
             //    and then only in MS Excel and in Open Office, not in Gnumeric
-            if (((is_numeric($arg)) && (!is_string($arg))) ||
-                ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
-                    (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))) {
+            if (self::isAcceptedCountable($arg, $k)) {
                 ++$returnValue;
             }
         }
@@ -1225,7 +1260,7 @@ class Statistical
      * @param mixed $yValues array of mixed Data Series Y
      * @param mixed $xValues array of mixed Data Series X
      *
-     * @return float
+     * @return float|string
      */
     public static function COVAR($yValues, $xValues)
     {
@@ -1258,7 +1293,7 @@ class Statistical
      * @param float $probability probability of a success on each trial
      * @param float $alpha criterion value
      *
-     * @return int
+     * @return int|string
      *
      * @todo    Warning. This implementation differs from the algorithm detailed on the MS
      *            web site in that $CumPGuessMinus1 = $CumPGuess - 1 rather than $CumPGuess - $PGuess
@@ -1273,7 +1308,6 @@ class Statistical
 
         if ((is_numeric($trials)) && (is_numeric($probability)) && (is_numeric($alpha))) {
             $trials = (int) $trials;
-            $trialsApprox = $trials;
             if ($trials < 0) {
                 return Functions::NAN();
             } elseif (($probability < 0.0) || ($probability > 1.0)) {
@@ -1437,7 +1471,7 @@ class Statistical
      * @param float $lambda The parameter value
      * @param bool $cumulative
      *
-     * @return float
+     * @return float|string
      */
     public static function EXPONDIST($value, $lambda, $cumulative)
     {
@@ -1470,7 +1504,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float
+     * @return float|string
      */
     public static function FISHER($value)
     {
@@ -1496,7 +1530,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float
+     * @return float|string
      */
     public static function FISHERINV($value)
     {
@@ -1552,7 +1586,7 @@ class Statistical
      * @param float $b Parameter to the distribution
      * @param bool $cumulative
      *
-     * @return float
+     * @return float|string
      */
     public static function GAMMADIST($value, $a, $b, $cumulative)
     {
@@ -1585,7 +1619,7 @@ class Statistical
      * @param float $alpha Parameter to the distribution
      * @param float $beta Parameter to the distribution
      *
-     * @return float
+     * @return float|string
      */
     public static function GAMMAINV($probability, $alpha, $beta)
     {
@@ -1646,7 +1680,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float
+     * @return float|string
      */
     public static function GAMMALN($value)
     {
@@ -1677,7 +1711,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function GEOMEAN(...$args)
     {
@@ -1739,7 +1773,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function HARMEAN(...$args)
     {
@@ -1786,7 +1820,7 @@ class Statistical
      * @param float $populationSuccesses Number of successes in the population
      * @param float $populationNumber Population size
      *
-     * @return float
+     * @return float|string
      */
     public static function HYPGEOMDIST($sampleSuccesses, $sampleNumber, $populationSuccesses, $populationNumber)
     {
@@ -1822,7 +1856,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float
+     * @return float|string
      */
     public static function INTERCEPT($yValues, $xValues)
     {
@@ -2754,7 +2788,7 @@ class Statistical
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each permutation
      *
-     * @return int Number of permutations
+     * @return int|string Number of permutations
      */
     public static function PERMUT($numObjs, $numInSet)
     {
@@ -2891,7 +2925,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float
+     * @return float|string
      */
     public static function RSQ($yValues, $xValues)
     {
@@ -2959,7 +2993,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float
+     * @return float|string
      */
     public static function SLOPE($yValues, $xValues)
     {
@@ -3261,7 +3295,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float
+     * @return float|string
      */
     public static function STEYX($yValues, $xValues)
     {
