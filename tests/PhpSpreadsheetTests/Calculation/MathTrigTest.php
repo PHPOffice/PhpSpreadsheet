@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
