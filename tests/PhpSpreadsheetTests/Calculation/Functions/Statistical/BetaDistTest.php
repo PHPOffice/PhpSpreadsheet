@@ -21,7 +21,7 @@ class BetaDistTest extends TestCase
     public function testBETADIST($expectedResult, ...$args)
     {
         $result = Statistical::BETADIST(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerBETADIST()

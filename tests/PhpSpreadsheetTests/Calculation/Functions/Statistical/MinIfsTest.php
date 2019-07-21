@@ -21,7 +21,7 @@ class MinIfsTest extends TestCase
     public function testMINIFS($expectedResult, ...$args)
     {
         $result = Statistical::MINIFS(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerMINIFS()

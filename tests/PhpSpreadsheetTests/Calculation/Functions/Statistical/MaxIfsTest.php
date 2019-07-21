@@ -21,7 +21,7 @@ class MaxIfsTest extends TestCase
     public function testMAXIFS($expectedResult, ...$args)
     {
         $result = Statistical::MAXIFS(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerMAXIFS()

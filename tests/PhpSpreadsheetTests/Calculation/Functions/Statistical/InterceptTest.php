@@ -21,7 +21,7 @@ class InterceptTest extends TestCase
     public function testINTERCEPT($expectedResult, array $xargs, array $yargs)
     {
         $result = Statistical::INTERCEPT($xargs, $yargs);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerINTERCEPT()

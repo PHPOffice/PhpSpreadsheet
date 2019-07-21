@@ -21,7 +21,7 @@ class RsqTest extends TestCase
     public function testRSQ($expectedResult, array $xargs, array $yargs)
     {
         $result = Statistical::RSQ($xargs, $yargs);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerRSQ()
