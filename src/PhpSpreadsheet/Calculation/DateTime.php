@@ -472,7 +472,6 @@ class DateTime
      */
     public static function DATEVALUE($dateValue = 1)
     {
-        $dateValueOrig = $dateValue;
         $dateValue = trim(Functions::flattenSingleValue($dateValue), '"');
         //    Strip any ordinals because they're allowed in Excel (English only)
         $dateValue = preg_replace('/(\d)(st|nd|rd|th)([ -\/])/Ui', '$1$3', $dateValue);
@@ -683,7 +682,6 @@ class DateTime
         $endMonths = $PHPEndDateObject->format('n');
         $endYears = $PHPEndDateObject->format('Y');
 
-        $retVal = Functions::NAN();
         switch ($unit) {
             case 'D':
                 $retVal = (int) $difference;
@@ -1239,7 +1237,7 @@ class DateTime
 
         // Execute function
         $PHPDateObject = Date::excelToDateTimeObject($dateValue);
-        $DoW = $PHPDateObject->format('w');
+        $DoW = (int) $PHPDateObject->format('w');
 
         $firstDay = 1;
         switch ($style) {
@@ -1248,13 +1246,13 @@ class DateTime
 
                 break;
             case 2:
-                if ($DoW == 0) {
+                if ($DoW === 0) {
                     $DoW = 7;
                 }
 
                 break;
             case 3:
-                if ($DoW == 0) {
+                if ($DoW === 0) {
                     $DoW = 7;
                 }
                 $firstDay = 0;
@@ -1272,7 +1270,7 @@ class DateTime
             }
         }
 
-        return (int) $DoW;
+        return $DoW;
     }
 
     /**
