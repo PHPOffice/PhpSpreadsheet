@@ -18,54 +18,6 @@ class MathTrigTest extends TestCase
     }
 
     /**
-     * @dataProvider providerMDETERM
-     *
-     * @param mixed $expectedResult
-     */
-    public function testMDETERM($expectedResult, ...$args)
-    {
-        $result = MathTrig::MDETERM(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-12);
-    }
-
-    public function providerMDETERM()
-    {
-        return require 'data/Calculation/MathTrig/MDETERM.php';
-    }
-
-    /**
-     * @dataProvider providerMINVERSE
-     *
-     * @param mixed $expectedResult
-     */
-    public function testMINVERSE($expectedResult, ...$args)
-    {
-        $result = MathTrig::MINVERSE(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
-    }
-
-    public function providerMINVERSE()
-    {
-        return require 'data/Calculation/MathTrig/MINVERSE.php';
-    }
-
-    /**
-     * @dataProvider providerMMULT
-     *
-     * @param mixed $expectedResult
-     */
-    public function testMMULT($expectedResult, ...$args)
-    {
-        $result = MathTrig::MMULT(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
-    }
-
-    public function providerMMULT()
-    {
-        return require 'data/Calculation/MathTrig/MMULT.php';
-    }
-
-    /**
      * @dataProvider providerSUMX2MY2
      *
      * @param mixed $expectedResult

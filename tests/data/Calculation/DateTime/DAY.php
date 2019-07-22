@@ -29,8 +29,8 @@ return [
         '28-Feb-1904',
     ],
     [
-        '#VALUE!',  // Result for Excel
-        '#VALUE!',  // Result for OpenOffice
+        '#VALUE!', // Result for Excel
+        '#VALUE!', // Result for OpenOffice
         'Invalid',
     ],
     [

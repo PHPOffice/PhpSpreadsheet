@@ -20,10 +20,13 @@ class DateDifTest extends TestCase
      * @dataProvider providerDATEDIF
      *
      * @param mixed $expectedResult
+     * @param $startDate
+     * @param $endDate
+     * @param $unit
      */
-    public function testDATEDIF($expectedResult, ...$args)
+    public function testDATEDIF($expectedResult, $startDate, $endDate, $unit)
     {
-        $result = DateTime::DATEDIF(...$args);
+        $result = DateTime::DATEDIF($startDate, $endDate, $unit);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 

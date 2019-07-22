@@ -20,10 +20,13 @@ class DateTest extends TestCase
      * @dataProvider providerDATE
      *
      * @param mixed $expectedResult
+     * @param $year
+     * @param $month
+     * @param $day
      */
-    public function testDATE($expectedResult, ...$args)
+    public function testDATE($expectedResult, $year, $month, $day)
     {
-        $result = DateTime::DATE(...$args);
+        $result = DateTime::DATE($year, $month, $day);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 

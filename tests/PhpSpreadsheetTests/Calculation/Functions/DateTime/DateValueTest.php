@@ -20,10 +20,11 @@ class DateValueTest extends TestCase
      * @dataProvider providerDATEVALUE
      *
      * @param mixed $expectedResult
+     * @param $dateValue
      */
-    public function testDATEVALUE($expectedResult, ...$args)
+    public function testDATEVALUE($expectedResult, $dateValue)
     {
-        $result = DateTime::DATEVALUE(...$args);
+        $result = DateTime::DATEVALUE($dateValue);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 

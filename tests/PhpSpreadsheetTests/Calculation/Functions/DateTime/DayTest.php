@@ -21,15 +21,16 @@ class DayTest extends TestCase
      *
      * @param mixed $expectedResultExcel
      * @param mixed $expectedResultOpenOffice
+     * @param $dateValue
      */
-    public function testDAY($expectedResultExcel, $expectedResultOpenOffice, ...$args)
+    public function testDAY($expectedResultExcel, $expectedResultOpenOffice, $dateValue)
     {
-        $resultExcel = DateTime::DAYOFMONTH(...$args);
+        $resultExcel = DateTime::DAYOFMONTH($dateValue);
         $this->assertEquals($expectedResultExcel, $resultExcel, '', 1E-8);
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        $resultOpenOffice = DateTime::DAYOFMONTH(...$args);
+        $resultOpenOffice = DateTime::DAYOFMONTH($dateValue);
         $this->assertEquals($expectedResultOpenOffice, $resultOpenOffice, '', 1E-8);
     }
 

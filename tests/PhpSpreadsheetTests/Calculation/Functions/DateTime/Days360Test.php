@@ -20,10 +20,13 @@ class Days360Test extends TestCase
      * @dataProvider providerDAYS360
      *
      * @param mixed $expectedResult
+     * @param $startDate
+     * @param $endDate
+     * @param $method
      */
-    public function testDAYS360($expectedResult, ...$args)
+    public function testDAYS360($expectedResult, $startDate, $endDate, $method)
     {
-        $result = DateTime::DAYS360(...$args);
+        $result = DateTime::DAYS360($startDate, $endDate, $method);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 
