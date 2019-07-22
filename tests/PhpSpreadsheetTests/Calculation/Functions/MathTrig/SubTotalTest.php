@@ -21,11 +21,13 @@ class SubTotalTest extends TestCase
     public function testSUBTOTAL($expectedResult, ...$args)
     {
         $cell = $this->getMockBuilder(Cell::class)
-            ->setMethods(['getValue'])
+            ->setMethods(['getValue', 'isFormula'])
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getValue')
             ->willReturn(null);
+        $cell->method('getValue')
+            ->willReturn(false);
         $worksheet = $this->getMockBuilder(Worksheet::class)
             ->setMethods(['cellExists', 'getCell'])
             ->disableOriginalConstructor()
@@ -86,11 +88,13 @@ class SubTotalTest extends TestCase
         $columnDimension->method('getVisible')
             ->willReturn(true);
         $cell = $this->getMockBuilder(Cell::class)
-            ->setMethods(['getValue'])
+            ->setMethods(['getValue', 'isFormula'])
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getValue')
             ->willReturn('');
+        $cell->method('getValue')
+            ->willReturn(false);
         $worksheet = $this->getMockBuilder(Worksheet::class)
             ->setMethods(['cellExists', 'getCell', 'getRowDimension', 'getColumnDimension'])
             ->disableOriginalConstructor()
