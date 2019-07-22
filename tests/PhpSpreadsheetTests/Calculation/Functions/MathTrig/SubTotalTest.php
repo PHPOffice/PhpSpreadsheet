@@ -1,100 +1,16 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Calculation;
+namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
-use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
-class MathTrigTest extends TestCase
+class SubTotalTest extends TestCase
 {
     public function setUp()
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
-    /**
-     * @dataProvider providerSUMX2MY2
-     *
-     * @param mixed $expectedResult
-     */
-    public function testSUMX2MY2($expectedResult, ...$args)
-    {
-        $result = MathTrig::SUMX2MY2(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-12);
-    }
-
-    public function providerSUMX2MY2()
-    {
-        return require 'data/Calculation/MathTrig/SUMX2MY2.php';
-    }
-
-    /**
-     * @dataProvider providerSUMX2PY2
-     *
-     * @param mixed $expectedResult
-     */
-    public function testSUMX2PY2($expectedResult, ...$args)
-    {
-        $result = MathTrig::SUMX2PY2(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-12);
-    }
-
-    public function providerSUMX2PY2()
-    {
-        return require 'data/Calculation/MathTrig/SUMX2PY2.php';
-    }
-
-    /**
-     * @dataProvider providerSUMXMY2
-     *
-     * @param mixed $expectedResult
-     */
-    public function testSUMXMY2($expectedResult, ...$args)
-    {
-        $result = MathTrig::SUMXMY2(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-12);
-    }
-
-    public function providerSUMXMY2()
-    {
-        return require 'data/Calculation/MathTrig/SUMXMY2.php';
-    }
-
-    /**
-     * @dataProvider providerSUMIF
-     *
-     * @param mixed $expectedResult
-     */
-    public function testSUMIF($expectedResult, ...$args)
-    {
-        $result = MathTrig::SUMIF(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
-    }
-
-    public function providerSUMIF()
-    {
-        return require 'data/Calculation/MathTrig/SUMIF.php';
-    }
-
-    /**
-     * @dataProvider providerSUMIFS
-     *
-     * @param mixed $expectedResult
-     */
-    public function testSUMIFS($expectedResult, ...$args)
-    {
-        $result = MathTrig::SUMIFS(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-12);
-    }
-
-    public function providerSUMIFS()
-    {
-        return require 'data/Calculation/MathTrig/SUMIFS.php';
     }
 
     /**
@@ -127,7 +43,7 @@ class MathTrigTest extends TestCase
 
         array_push($args, $cellReference);
         $result = MathTrig::SUBTOTAL(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerSUBTOTAL()
@@ -196,7 +112,7 @@ class MathTrigTest extends TestCase
 
         array_push($args, $cellReference);
         $result = MathTrig::SUBTOTAL(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerHiddenSUBTOTAL()
@@ -264,7 +180,7 @@ class MathTrigTest extends TestCase
         array_push($args, $cellReference);
 
         $result = MathTrig::SUBTOTAL(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-12);
+        $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
     public function providerNestedSUBTOTAL()
