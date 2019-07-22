@@ -4,6 +4,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
+use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class SubTotalTest extends TestCase
