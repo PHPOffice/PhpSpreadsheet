@@ -23,7 +23,7 @@ class DaysTest extends TestCase
      * @param $endDate
      * @param $startDates
      */
-    public function testDAYS($expectedResult, $endDate, $startDates)
+    public function testDAYS($expectedResult, $endDate, $startDate)
     {
         $result = DateTime::DAYS($endDate, $startDate);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
