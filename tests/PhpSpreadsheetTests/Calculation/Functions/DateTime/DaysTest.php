@@ -20,10 +20,12 @@ class DaysTest extends TestCase
      * @dataProvider providerDAYS
      *
      * @param mixed $expectedResult
+     * @param $endDate
+     * @param $startDate
      */
-    public function testDAYS($expectedResult, ...$args)
+    public function testDAYS($expectedResult, $endDate, $startDate)
     {
-        $result = DateTime::DAYS(...$args);
+        $result = DateTime::DAYS($endDate, $startDate);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 
