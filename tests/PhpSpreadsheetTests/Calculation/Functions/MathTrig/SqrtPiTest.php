@@ -18,9 +18,9 @@ class SqrtPiTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSQRTPI($expectedResult, ...$args)
+    public function testSQRTPI($expectedResult, $value)
     {
-        $result = MathTrig::SQRTPI(...$args);
+        $result = MathTrig::SQRTPI($value);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 

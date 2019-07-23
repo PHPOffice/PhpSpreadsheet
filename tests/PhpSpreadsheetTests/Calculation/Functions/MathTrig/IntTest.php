@@ -18,9 +18,9 @@ class IntTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testINT($expectedResult, ...$args)
+    public function testINT($expectedResult, $value)
     {
-        $result = MathTrig::INT(...$args);
+        $result = MathTrig::INT($value);
         $this->assertEquals($expectedResult, $result);
     }
 

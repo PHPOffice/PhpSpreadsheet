@@ -18,9 +18,9 @@ class FactTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFACT($expectedResult, ...$args)
+    public function testFACT($expectedResult, $value)
     {
-        $result = MathTrig::FACT(...$args);
+        $result = MathTrig::FACT($value);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 

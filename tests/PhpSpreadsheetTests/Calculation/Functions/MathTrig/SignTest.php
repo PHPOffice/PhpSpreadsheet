@@ -18,9 +18,9 @@ class SignTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSIGN($expectedResult, ...$args)
+    public function testSIGN($expectedResult, $value)
     {
-        $result = MathTrig::SIGN(...$args);
+        $result = MathTrig::SIGN($value);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
