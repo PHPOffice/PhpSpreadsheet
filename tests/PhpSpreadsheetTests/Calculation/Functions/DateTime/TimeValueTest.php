@@ -20,6 +20,7 @@ class TimeValueTest extends TestCase
      * @dataProvider providerTIMEVALUE
      *
      * @param mixed $expectedResult
+     * @param $timeValue
      */
     public function testTIMEVALUE($expectedResult, $timeValue)
     {

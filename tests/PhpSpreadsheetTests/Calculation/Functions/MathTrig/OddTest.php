@@ -17,6 +17,7 @@ class OddTest extends TestCase
      * @dataProvider providerODD
      *
      * @param mixed $expectedResult
+     * @param $value
      */
     public function testODD($expectedResult, $value)
     {

@@ -20,6 +20,7 @@ class YearTest extends TestCase
      * @dataProvider providerYEAR
      *
      * @param mixed $expectedResult
+     * @param $dateTimeValue
      */
     public function testYEAR($expectedResult, $dateTimeValue)
     {

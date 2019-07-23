@@ -17,6 +17,7 @@ class SignTest extends TestCase
      * @dataProvider providerSIGN
      *
      * @param mixed $expectedResult
+     * @param $value
      */
     public function testSIGN($expectedResult, $value)
     {

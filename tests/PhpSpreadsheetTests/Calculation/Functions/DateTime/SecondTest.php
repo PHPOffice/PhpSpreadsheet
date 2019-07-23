@@ -20,6 +20,7 @@ class SecondTest extends TestCase
      * @dataProvider providerSECOND
      *
      * @param mixed $expectedResult
+     * @param $dateTimeValue
      */
     public function testSECOND($expectedResult, $dateTimeValue)
     {

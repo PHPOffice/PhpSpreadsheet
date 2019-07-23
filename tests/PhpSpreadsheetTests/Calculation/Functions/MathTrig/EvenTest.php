@@ -17,6 +17,7 @@ class EvenTest extends TestCase
      * @dataProvider providerEVEN
      *
      * @param mixed $expectedResult
+     * @param $value
      */
     public function testEVEN($expectedResult, $value)
     {

@@ -17,6 +17,7 @@ class FactTest extends TestCase
      * @dataProvider providerFACT
      *
      * @param mixed $expectedResult
+     * @param $value
      */
     public function testFACT($expectedResult, $value)
     {

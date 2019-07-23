@@ -21,7 +21,7 @@ class DayTest extends TestCase
      *
      * @param mixed $expectedResultExcel
      * @param mixed $expectedResultOpenOffice
-     * @param $dateValue
+     * @param $dateTimeValue
      */
     public function testDAY($expectedResultExcel, $expectedResultOpenOffice, $dateTimeValue)
     {

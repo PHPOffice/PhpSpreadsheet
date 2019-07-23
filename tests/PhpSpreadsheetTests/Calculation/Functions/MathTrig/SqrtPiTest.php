@@ -17,6 +17,7 @@ class SqrtPiTest extends TestCase
      * @dataProvider providerSQRTPI
      *
      * @param mixed $expectedResult
+     * @param $value
      */
     public function testSQRTPI($expectedResult, $value)
     {
