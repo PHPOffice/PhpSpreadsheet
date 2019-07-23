@@ -20,10 +20,12 @@ class EDateTest extends TestCase
      * @dataProvider providerEDATE
      *
      * @param mixed $expectedResult
+     * @param $dateValue
+     * @param $adjustmentMonths
      */
-    public function testEDATE($expectedResult, ...$args)
+    public function testEDATE($expectedResult, $dateValue, $adjustmentMonths)
     {
-        $result = DateTime::EDATE(...$args);
+        $result = DateTime::EDATE($dateValue, $adjustmentMonths);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 

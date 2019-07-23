@@ -20,10 +20,12 @@ class EoMonthTest extends TestCase
      * @dataProvider providerEOMONTH
      *
      * @param mixed $expectedResult
+     * @param $dateValue
+     * @param $adjustmentMonths
      */
-    public function testEOMONTH($expectedResult, ...$args)
+    public function testEOMONTH($expectedResult, $dateValue, $adjustmentMonths)
     {
-        $result = DateTime::EOMONTH(...$args);
+        $result = DateTime::EOMONTH($dateValue, $adjustmentMonths);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 
