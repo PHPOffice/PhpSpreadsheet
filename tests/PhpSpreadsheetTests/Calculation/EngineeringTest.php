@@ -546,54 +546,6 @@ class EngineeringTest extends TestCase
     }
 
     /**
-     * @dataProvider providerERF
-     *
-     * @param mixed $expectedResult
-     */
-    public function testERF($expectedResult, ...$args)
-    {
-        $result = Engineering::ERF(...$args);
-        self::assertEquals($expectedResult, $result, null, self::ERF_PRECISION);
-    }
-
-    public function providerERF()
-    {
-        return require 'data/Calculation/Engineering/ERF.php';
-    }
-
-    /**
-     * @dataProvider providerERFPRECISE
-     *
-     * @param mixed $expectedResult
-     */
-    public function testERFPRECISE($expectedResult, ...$args)
-    {
-        $result = Engineering::ERFPRECISE(...$args);
-        self::assertEquals($expectedResult, $result, null, self::ERF_PRECISION);
-    }
-
-    public function providerERFPRECISE()
-    {
-        return require 'data/Calculation/Engineering/ERFPRECISE.php';
-    }
-
-    /**
-     * @dataProvider providerERFC
-     *
-     * @param mixed $expectedResult
-     */
-    public function testERFC($expectedResult, ...$args)
-    {
-        $result = Engineering::ERFC(...$args);
-        self::assertEquals($expectedResult, $result, null, self::ERF_PRECISION);
-    }
-
-    public function providerERFC()
-    {
-        return require 'data/Calculation/Engineering/ERFC.php';
-    }
-
-    /**
      * @dataProvider providerBIN2DEC
      *
      * @param mixed $expectedResult
@@ -786,57 +738,6 @@ class EngineeringTest extends TestCase
     }
 
     /**
-     * @dataProvider providerBITAND
-     *
-     * @param mixed $expectedResult
-     * @param mixed[] $args
-     */
-    public function testBITAND($expectedResult, array $args)
-    {
-        $result = Engineering::BITAND(...$args);
-        self::assertEquals($expectedResult, $result, null);
-    }
-
-    public function providerBITAND()
-    {
-        return require 'data/Calculation/Engineering/BITAND.php';
-    }
-
-    /**
-     * @dataProvider providerBITOR
-     *
-     * @param mixed $expectedResult
-     * @param mixed[] $args
-     */
-    public function testBITOR($expectedResult, array $args)
-    {
-        $result = Engineering::BITOR(...$args);
-        self::assertEquals($expectedResult, $result, null);
-    }
-
-    public function providerBITOR()
-    {
-        return require 'data/Calculation/Engineering/BITOR.php';
-    }
-
-    /**
-     * @dataProvider providerBITXOR
-     *
-     * @param mixed $expectedResult
-     * @param mixed[] $args
-     */
-    public function testBITXOR($expectedResult, array $args)
-    {
-        $result = Engineering::BITXOR(...$args);
-        self::assertEquals($expectedResult, $result, null);
-    }
-
-    public function providerBITXOR()
-    {
-        return require 'data/Calculation/Engineering/BITXOR.php';
-    }
-
-    /**
      * @dataProvider providerBITLSHIFT
      *
      * @param mixed $expectedResult
@@ -868,38 +769,6 @@ class EngineeringTest extends TestCase
     public function providerBITRSHIFT()
     {
         return require 'data/Calculation/Engineering/BITRSHIFT.php';
-    }
-
-    /**
-     * @dataProvider providerDELTA
-     *
-     * @param mixed $expectedResult
-     */
-    public function testDELTA($expectedResult, ...$args)
-    {
-        $result = Engineering::DELTA(...$args);
-        self::assertEquals($expectedResult, $result, null);
-    }
-
-    public function providerDELTA()
-    {
-        return require 'data/Calculation/Engineering/DELTA.php';
-    }
-
-    /**
-     * @dataProvider providerGESTEP
-     *
-     * @param mixed $expectedResult
-     */
-    public function testGESTEP($expectedResult, ...$args)
-    {
-        $result = Engineering::GESTEP(...$args);
-        self::assertEquals($expectedResult, $result, null);
-    }
-
-    public function providerGESTEP()
-    {
-        return require 'data/Calculation/Engineering/GESTEP.php';
     }
 
     public function testGetConversionGroups()
