@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
-class BesselITest extends TestCase
+class BesselYTest extends TestCase
 {
     const BESSEL_PRECISION = 1E-8;
 
