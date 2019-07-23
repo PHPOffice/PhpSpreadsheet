@@ -14,7 +14,6 @@ class EngineeringTest extends TestCase
      */
     protected $complexAssert;
 
-    const BESSEL_PRECISION = 1E-8;
     const COMPLEX_PRECISION = 1E-8;
     const ERF_PRECISION = 1E-12;
 
@@ -27,70 +26,6 @@ class EngineeringTest extends TestCase
     public function tearDown()
     {
         $this->complexAssert = null;
-    }
-
-    /**
-     * @dataProvider providerBESSELI
-     *
-     * @param mixed $expectedResult
-     */
-    public function testBESSELI($expectedResult, ...$args)
-    {
-        $result = Engineering::BESSELI(...$args);
-        self::assertEquals($expectedResult, $result, null, self::BESSEL_PRECISION);
-    }
-
-    public function providerBESSELI()
-    {
-        return require 'data/Calculation/Engineering/BESSELI.php';
-    }
-
-    /**
-     * @dataProvider providerBESSELJ
-     *
-     * @param mixed $expectedResult
-     */
-    public function testBESSELJ($expectedResult, ...$args)
-    {
-        $result = Engineering::BESSELJ(...$args);
-        self::assertEquals($expectedResult, $result, null, self::BESSEL_PRECISION);
-    }
-
-    public function providerBESSELJ()
-    {
-        return require 'data/Calculation/Engineering/BESSELJ.php';
-    }
-
-    /**
-     * @dataProvider providerBESSELK
-     *
-     * @param mixed $expectedResult
-     */
-    public function testBESSELK($expectedResult, ...$args)
-    {
-        $result = Engineering::BESSELK(...$args);
-        self::assertEquals($expectedResult, $result, null, self::BESSEL_PRECISION);
-    }
-
-    public function providerBESSELK()
-    {
-        return require 'data/Calculation/Engineering/BESSELK.php';
-    }
-
-    /**
-     * @dataProvider providerBESSELY
-     *
-     * @param mixed $expectedResult
-     */
-    public function testBESSELY($expectedResult, ...$args)
-    {
-        $result = Engineering::BESSELY(...$args);
-        self::assertEquals($expectedResult, $result, null, self::BESSEL_PRECISION);
-    }
-
-    public function providerBESSELY()
-    {
-        return require 'data/Calculation/Engineering/BESSELY.php';
     }
 
     /**

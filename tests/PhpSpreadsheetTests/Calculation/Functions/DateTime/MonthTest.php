@@ -21,9 +21,9 @@ class MonthTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMONTH($expectedResult, ...$args)
+    public function testMONTH($expectedResult, $dateTimeValue)
     {
-        $result = DateTime::MONTHOFYEAR(...$args);
+        $result = DateTime::MONTHOFYEAR($dateTimeValue);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 

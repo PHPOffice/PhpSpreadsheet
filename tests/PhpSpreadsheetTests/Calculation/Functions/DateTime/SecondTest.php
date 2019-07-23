@@ -21,9 +21,9 @@ class SecondTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSECOND($expectedResult, ...$args)
+    public function testSECOND($expectedResult, $dateTimeValue)
     {
-        $result = DateTime::SECOND(...$args);
+        $result = DateTime::SECOND($dateTimeValue);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 

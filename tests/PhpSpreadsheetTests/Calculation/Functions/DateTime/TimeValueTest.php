@@ -21,9 +21,9 @@ class TimeValueTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testTIMEVALUE($expectedResult, ...$args)
+    public function testTIMEVALUE($expectedResult, $timeValue)
     {
-        $result = DateTime::TIMEVALUE(...$args);
+        $result = DateTime::TIMEVALUE($timeValue);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 

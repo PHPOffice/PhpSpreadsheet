@@ -21,9 +21,9 @@ class MinuteTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMINUTE($expectedResult, ...$args)
+    public function testMINUTE($expectedResult, $dateTimeValue)
     {
-        $result = DateTime::MINUTE(...$args);
+        $result = DateTime::MINUTE($dateTimeValue);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 

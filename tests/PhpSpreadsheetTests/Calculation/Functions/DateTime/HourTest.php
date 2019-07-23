@@ -21,9 +21,9 @@ class HourTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testHOUR($expectedResult, ...$args)
+    public function testHOUR($expectedResult, $dateTimeValue)
     {
-        $result = DateTime::HOUROFDAY(...$args);
+        $result = DateTime::HOUROFDAY($dateTimeValue);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 
