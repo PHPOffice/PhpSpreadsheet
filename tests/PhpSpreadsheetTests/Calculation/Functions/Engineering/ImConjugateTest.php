@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
 use PHPUnit\Framework\TestCase;
 
-class ImaginaryTest extends TestCase
+class ImConjugateTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-8;
 
