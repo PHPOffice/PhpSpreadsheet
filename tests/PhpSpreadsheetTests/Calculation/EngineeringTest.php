@@ -45,6 +45,11 @@ class EngineeringTest extends TestCase
         $this->assertEquals($suffix, $result['suffix']);
     }
 
+    public function providerCOMPLEX()
+    {
+        return require 'data/Calculation/Engineering/COMPLEX.php';
+    }
+
     /**
      * @dataProvider providerIMCOS
      *
