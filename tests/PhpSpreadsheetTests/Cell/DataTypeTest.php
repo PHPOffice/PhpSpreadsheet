@@ -10,7 +10,7 @@ class DataTypeTest extends TestCase
     public function testGetErrorCodes()
     {
         $result = DataType::getErrorCodes();
-        self::assertInternalType('array', $result);
+        self::assertIsArray($result);
         self::assertGreaterThan(0, count($result));
         self::assertArrayHasKey('#NULL!', $result);
     }

@@ -178,7 +178,7 @@ class LookupRefTest extends TestCase
         }
 
         $result = LookupRef::FORMULATEXT($reference, $ourCell);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerFormulaText()

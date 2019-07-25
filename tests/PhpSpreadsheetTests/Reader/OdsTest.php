@@ -240,28 +240,28 @@ class OdsTest extends TestCase
 
         $properties = $spreadsheet->getProperties();
         // Core Properties
-//        $this->assertSame('Mark Baker', $properties->getCreator());
-        $this->assertSame('Property Test File', $properties->getTitle());
-        $this->assertSame('Testing for Properties', $properties->getSubject());
-        $this->assertSame('TEST ODS PHPSpreadsheet', $properties->getKeywords());
+//        self::assertSame('Mark Baker', $properties->getCreator());
+        self::assertSame('Property Test File', $properties->getTitle());
+        self::assertSame('Testing for Properties', $properties->getSubject());
+        self::assertSame('TEST ODS PHPSpreadsheet', $properties->getKeywords());
 
         // Extended Properties
-//        $this->assertSame('PHPOffice', $properties->getCompany());
-//        $this->assertSame('The Big Boss', $properties->getManager());
+//        self::assertSame('PHPOffice', $properties->getCompany());
+//        self::assertSame('The Big Boss', $properties->getManager());
 
         // Custom Properties
         $customProperties = $properties->getCustomProperties();
-        $this->assertInternalType('array', $customProperties);
+        self::assertIsArray($customProperties);
         $customProperties = array_flip($customProperties);
-        $this->assertArrayHasKey('TestDate', $customProperties);
+        self::assertArrayHasKey('TestDate', $customProperties);
 
         foreach ($customPropertySet as $propertyName => $testData) {
-            $this->assertTrue($properties->isCustomPropertySet($propertyName));
-            $this->assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
+            self::assertTrue($properties->isCustomPropertySet($propertyName));
+            self::assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
             if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
-                $this->assertSame($testData['value'], date('Y-m-d', $properties->getCustomPropertyValue($propertyName)));
+                self::assertSame($testData['value'], date('Y-m-d', $properties->getCustomPropertyValue($propertyName)));
             } else {
-                $this->assertSame($testData['value'], $properties->getCustomPropertyValue($propertyName));
+                self::assertSame($testData['value'], $properties->getCustomPropertyValue($propertyName));
             }
         }
     }

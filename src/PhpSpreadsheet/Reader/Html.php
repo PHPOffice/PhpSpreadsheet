@@ -920,7 +920,7 @@ class Html extends BaseReader
      */
     private function setBorderStyle(Style $cellStyle, $styleValue, $type)
     {
-        list(, $borderStyle, $color) = explode(' ', $styleValue);
+        [, $borderStyle, $color] = explode(' ', $styleValue);
 
         $cellStyle->applyFromArray([
             'borders' => [
