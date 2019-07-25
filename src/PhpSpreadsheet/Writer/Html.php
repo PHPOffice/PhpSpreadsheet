@@ -643,7 +643,10 @@ class Html extends BaseWriter
                     } else {
                         $imageDetails = getimagesize($filename);
                         if ($fp = fopen($filename, 'rb', 0)) {
-                            $picture = fread($fp, filesize($filename));
+                            $picture = '';
+                            while (!feof($fp)) {
+                                $picture .= fread($fp, 1024);
+                            }
                             fclose($fp);
                             // base64 encode the binary data, then break it
                             // into chunks according to RFC 2045 semantics
