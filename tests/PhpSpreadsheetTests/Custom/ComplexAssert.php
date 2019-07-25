@@ -35,7 +35,7 @@ class ComplexAssert
 
     public function assertComplexEquals($expected, $actual, $delta = 0)
     {
-        if ($expected === INF || $expected[0] === '#') {
+        if ($expected === INF || (is_string($expected) && $expected[0] === '#')) {
             return $this->testExpectedExceptions($expected, $actual);
         }
 
