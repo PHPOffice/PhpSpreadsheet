@@ -3644,7 +3644,7 @@ class Calculation
                 } else {    // it's a variable, constant, string, number or boolean
                     //    If the last entry on the stack was a : operator, then we may have a row or column range reference
                     $testPrevOp = $stack->last(1);
-                    if ($testPrevOp['value'] == ':') {
+                    if ($testPrevOp !== null && $testPrevOp['value'] === ':') {
                         $startRowColRef = $output[count($output) - 1]['value'];
                         [$rangeWS1, $startRowColRef] = Worksheet::extractSheetTitle($startRowColRef, true);
                         if ($rangeWS1 != '') {
