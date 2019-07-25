@@ -21,6 +21,8 @@ class SampleTest extends TestCase
         });
 
         require $sample;
+
+        self::assertTrue(true);
     }
 
     public function providerSample()

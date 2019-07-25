@@ -37,7 +37,7 @@ class EngineeringTest extends TestCase
     public function testBESSELI($expectedResult, ...$args)
     {
         $result = Engineering::BESSELI(...$args);
-        self::assertEquals($expectedResult, $result, null, self::BESSEL_PRECISION);
+        self::assertEquals($expectedResult, $result, '', self::BESSEL_PRECISION);
     }
 
     public function providerBESSELI()
@@ -53,7 +53,7 @@ class EngineeringTest extends TestCase
     public function testBESSELJ($expectedResult, ...$args)
     {
         $result = Engineering::BESSELJ(...$args);
-        self::assertEquals($expectedResult, $result, null, self::BESSEL_PRECISION);
+        self::assertEquals($expectedResult, $result, '', self::BESSEL_PRECISION);
     }
 
     public function providerBESSELJ()
@@ -69,7 +69,7 @@ class EngineeringTest extends TestCase
     public function testBESSELK($expectedResult, ...$args)
     {
         $result = Engineering::BESSELK(...$args);
-        self::assertEquals($expectedResult, $result, null, self::BESSEL_PRECISION);
+        self::assertEquals($expectedResult, $result, '', self::BESSEL_PRECISION);
     }
 
     public function providerBESSELK()
@@ -85,7 +85,7 @@ class EngineeringTest extends TestCase
     public function testBESSELY($expectedResult, ...$args)
     {
         $result = Engineering::BESSELY(...$args);
-        self::assertEquals($expectedResult, $result, null, self::BESSEL_PRECISION);
+        self::assertEquals($expectedResult, $result, '', self::BESSEL_PRECISION);
     }
 
     public function providerBESSELY()
@@ -100,7 +100,7 @@ class EngineeringTest extends TestCase
      */
     public function testParseComplex()
     {
-        list($real, $imaginary, $suffix) = [1.23e-4, 5.67e+8, 'j'];
+        [$real, $imaginary, $suffix] = [1.23e-4, 5.67e+8, 'j'];
 
         $result = Engineering::parseComplex('1.23e-4+5.67e+8j');
         $this->assertArrayHasKey('real', $result);
@@ -136,7 +136,7 @@ class EngineeringTest extends TestCase
     public function testIMAGINARY($expectedResult, $value)
     {
         $result = Engineering::IMAGINARY($value);
-        self::assertEquals($expectedResult, $result, null, self::COMPLEX_PRECISION);
+        self::assertEquals($expectedResult, $result, '', self::COMPLEX_PRECISION);
     }
 
     public function providerIMAGINARY()
@@ -153,7 +153,7 @@ class EngineeringTest extends TestCase
     public function testIMREAL($expectedResult, $value)
     {
         $result = Engineering::IMREAL($value);
-        self::assertEquals($expectedResult, $result, null, self::COMPLEX_PRECISION);
+        self::assertEquals($expectedResult, $result, '', self::COMPLEX_PRECISION);
     }
 
     public function providerIMREAL()
@@ -170,7 +170,7 @@ class EngineeringTest extends TestCase
     public function testIMABS($expectedResult, $value)
     {
         $result = Engineering::IMABS($value);
-        self::assertEquals($expectedResult, $result, null, self::COMPLEX_PRECISION);
+        self::assertEquals($expectedResult, $result, '', self::COMPLEX_PRECISION);
     }
 
     public function providerIMABS()
@@ -187,7 +187,7 @@ class EngineeringTest extends TestCase
     public function testIMARGUMENT($expectedResult, $value)
     {
         $result = Engineering::IMARGUMENT($value);
-        self::assertEquals($expectedResult, $result, null, self::COMPLEX_PRECISION);
+        self::assertEquals($expectedResult, $result, '', self::COMPLEX_PRECISION);
     }
 
     public function providerIMARGUMENT()
@@ -618,7 +618,7 @@ class EngineeringTest extends TestCase
     public function testERF($expectedResult, ...$args)
     {
         $result = Engineering::ERF(...$args);
-        self::assertEquals($expectedResult, $result, null, self::ERF_PRECISION);
+        self::assertEquals($expectedResult, $result, '', self::ERF_PRECISION);
     }
 
     public function providerERF()
@@ -634,7 +634,7 @@ class EngineeringTest extends TestCase
     public function testERFPRECISE($expectedResult, ...$args)
     {
         $result = Engineering::ERFPRECISE(...$args);
-        self::assertEquals($expectedResult, $result, null, self::ERF_PRECISION);
+        self::assertEquals($expectedResult, $result, '', self::ERF_PRECISION);
     }
 
     public function providerERFPRECISE()
@@ -650,7 +650,7 @@ class EngineeringTest extends TestCase
     public function testERFC($expectedResult, ...$args)
     {
         $result = Engineering::ERFC(...$args);
-        self::assertEquals($expectedResult, $result, null, self::ERF_PRECISION);
+        self::assertEquals($expectedResult, $result, '', self::ERF_PRECISION);
     }
 
     public function providerERFC()
@@ -714,7 +714,7 @@ class EngineeringTest extends TestCase
     public function testDEC2BIN($expectedResult, ...$args)
     {
         $result = Engineering::DECTOBIN(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerDEC2BIN()
@@ -730,7 +730,7 @@ class EngineeringTest extends TestCase
     public function testDEC2HEX($expectedResult, ...$args)
     {
         $result = Engineering::DECTOHEX(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerDEC2HEX()
@@ -746,7 +746,7 @@ class EngineeringTest extends TestCase
     public function testDEC2OCT($expectedResult, ...$args)
     {
         $result = Engineering::DECTOOCT(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerDEC2OCT()
@@ -762,7 +762,7 @@ class EngineeringTest extends TestCase
     public function testHEX2BIN($expectedResult, ...$args)
     {
         $result = Engineering::HEXTOBIN(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerHEX2BIN()
@@ -778,7 +778,7 @@ class EngineeringTest extends TestCase
     public function testHEX2DEC($expectedResult, ...$args)
     {
         $result = Engineering::HEXTODEC(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerHEX2DEC()
@@ -794,7 +794,7 @@ class EngineeringTest extends TestCase
     public function testHEX2OCT($expectedResult, ...$args)
     {
         $result = Engineering::HEXTOOCT(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerHEX2OCT()
@@ -810,7 +810,7 @@ class EngineeringTest extends TestCase
     public function testOCT2BIN($expectedResult, ...$args)
     {
         $result = Engineering::OCTTOBIN(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerOCT2BIN()
@@ -826,7 +826,7 @@ class EngineeringTest extends TestCase
     public function testOCT2DEC($expectedResult, ...$args)
     {
         $result = Engineering::OCTTODEC(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerOCT2DEC()
@@ -842,7 +842,7 @@ class EngineeringTest extends TestCase
     public function testOCT2HEX($expectedResult, ...$args)
     {
         $result = Engineering::OCTTOHEX(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerOCT2HEX()
@@ -859,7 +859,7 @@ class EngineeringTest extends TestCase
     public function testBITAND($expectedResult, array $args)
     {
         $result = Engineering::BITAND(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerBITAND()
@@ -876,7 +876,7 @@ class EngineeringTest extends TestCase
     public function testBITOR($expectedResult, array $args)
     {
         $result = Engineering::BITOR(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerBITOR()
@@ -893,7 +893,7 @@ class EngineeringTest extends TestCase
     public function testBITXOR($expectedResult, array $args)
     {
         $result = Engineering::BITXOR(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerBITXOR()
@@ -910,7 +910,7 @@ class EngineeringTest extends TestCase
     public function testBITLSHIFT($expectedResult, array $args)
     {
         $result = Engineering::BITLSHIFT(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerBITLSHIFT()
@@ -927,7 +927,7 @@ class EngineeringTest extends TestCase
     public function testBITRSHIFT($expectedResult, array $args)
     {
         $result = Engineering::BITRSHIFT(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerBITRSHIFT()
@@ -943,7 +943,7 @@ class EngineeringTest extends TestCase
     public function testDELTA($expectedResult, ...$args)
     {
         $result = Engineering::DELTA(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerDELTA()
@@ -959,7 +959,7 @@ class EngineeringTest extends TestCase
     public function testGESTEP($expectedResult, ...$args)
     {
         $result = Engineering::GESTEP(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerGESTEP()
@@ -999,7 +999,7 @@ class EngineeringTest extends TestCase
     public function testCONVERTUOM($expectedResult, ...$args)
     {
         $result = Engineering::CONVERTUOM(...$args);
-        self::assertEquals($expectedResult, $result, null);
+        self::assertEquals($expectedResult, $result, '');
     }
 
     public function providerCONVERTUOM()
