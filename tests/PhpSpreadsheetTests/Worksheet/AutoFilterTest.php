@@ -111,7 +111,7 @@ class AutoFilterTest extends TestCase
     {
         //  There should be no columns yet defined
         $result = $this->testAutoFilterObject->getColumns();
-        self::assertInternalType('array', $result);
+        self::assertIsArray($result);
         self::assertCount(0, $result);
     }
 
@@ -151,7 +151,7 @@ class AutoFilterTest extends TestCase
         $result = $this->testAutoFilterObject->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
-        self::assertInternalType('array', $result);
+        self::assertIsArray($result);
         self::assertCount(1, $result);
         self::assertArrayHasKey($expectedResult, $result);
         self::assertInstanceOf(Column::class, $result[$expectedResult]);
@@ -178,7 +178,7 @@ class AutoFilterTest extends TestCase
         $result = $this->testAutoFilterObject->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
-        self::assertInternalType('array', $result);
+        self::assertIsArray($result);
         self::assertCount(1, $result);
         self::assertArrayHasKey($expectedResult, $result);
         self::assertInstanceOf(Column::class, $result[$expectedResult]);
@@ -211,7 +211,7 @@ class AutoFilterTest extends TestCase
         $result = $this->testAutoFilterObject->getColumns();
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
-        self::assertInternalType('array', $result);
+        self::assertIsArray($result);
         self::assertCount(count($columnIndexes), $result);
         foreach ($columnIndexes as $columnIndex) {
             self::assertArrayHasKey($columnIndex, $result);
@@ -288,7 +288,7 @@ class AutoFilterTest extends TestCase
 
         //  Column array should be cleared
         $result = $this->testAutoFilterObject->getColumns();
-        self::assertInternalType('array', $result);
+        self::assertIsArray($result);
         self::assertCount(0, $result);
     }
 
@@ -318,7 +318,7 @@ class AutoFilterTest extends TestCase
         //  Only columns that existed in the original range and that
         //    still fall within the new range should be retained
         $result = $this->testAutoFilterObject->getColumns();
-        self::assertInternalType('array', $result);
+        self::assertIsArray($result);
         self::assertCount(count($columnIndexes1), $result);
     }
 

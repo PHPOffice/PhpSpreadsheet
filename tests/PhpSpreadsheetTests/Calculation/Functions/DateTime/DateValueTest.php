@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -47,9 +48,9 @@ class DateValueTest extends TestCase
 
         $result = DateTime::DATEVALUE('2012-1-31');
         //    Must return an object...
-        $this->assertInternalType('object', $result);
+        self::assertIsObject($result);
         //    ... of the correct type
-        $this->assertTrue(is_a($result, 'DateTimeInterface'));
+        $this->assertTrue(is_a($result, DateTimeInterface::class));
         //    ... with the correct value
         $this->assertEquals($result->format('d-M-Y'), '31-Jan-2012');
     }

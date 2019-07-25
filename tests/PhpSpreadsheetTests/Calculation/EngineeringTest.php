@@ -970,25 +970,25 @@ class EngineeringTest extends TestCase
     public function testGetConversionGroups()
     {
         $result = Engineering::getConversionGroups();
-        self::assertInternalType('array', $result);
+        self::assertIsArray($result);
     }
 
     public function testGetConversionGroupUnits()
     {
         $result = Engineering::getConversionGroupUnits();
-        self::assertInternalType('array', $result);
+        self::assertIsArray($result);
     }
 
     public function testGetConversionGroupUnitDetails()
     {
         $result = Engineering::getConversionGroupUnitDetails();
-        self::assertInternalType('array', $result);
+        self::assertIsArray($result);
     }
 
     public function testGetConversionMultipliers()
     {
         $result = Engineering::getConversionMultipliers();
-        self::assertInternalType('array', $result);
+        self::assertIsArray($result);
     }
 
     /**

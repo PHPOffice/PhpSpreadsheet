@@ -127,7 +127,7 @@ class ColumnTest extends TestCase
         $this->testAutoFilterColumnObject->setAttributes($attributeSet);
 
         $result = $this->testAutoFilterColumnObject->getAttributes();
-        self::assertInternalType('array', $result);
+        self::assertIsArray($result);
         self::assertCount(count($attributeSet), $result);
     }
 
