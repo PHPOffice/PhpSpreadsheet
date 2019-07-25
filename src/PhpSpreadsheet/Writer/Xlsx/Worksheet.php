@@ -251,7 +251,7 @@ class Worksheet extends WriterPart
         // Pane
         $pane = '';
         if ($pSheet->getFreezePane()) {
-            list($xSplit, $ySplit) = Coordinate::coordinateFromString($pSheet->getFreezePane());
+            [$xSplit, $ySplit] = Coordinate::coordinateFromString($pSheet->getFreezePane());
             $xSplit = Coordinate::columnIndexFromString($xSplit);
             --$xSplit;
             --$ySplit;
@@ -752,7 +752,7 @@ class Worksheet extends WriterPart
             $range = Coordinate::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref
-            list($ws, $range[0]) = PhpspreadsheetWorksheet::extractSheetTitle($range[0], true);
+            [$ws, $range[0]] = PhpspreadsheetWorksheet::extractSheetTitle($range[0], true);
             $range = implode(':', $range);
 
             $objWriter->writeAttribute('ref', str_replace('$', '', $range));

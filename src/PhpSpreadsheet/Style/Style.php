@@ -204,7 +204,7 @@ class Style extends Supervisor
                 $rangeA = $pRange;
                 $rangeB = $pRange;
             } else {
-                list($rangeA, $rangeB) = explode(':', $pRange);
+                [$rangeA, $rangeB] = explode(':', $pRange);
             }
 
             // Calculate range outer borders

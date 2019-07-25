@@ -1541,14 +1541,14 @@ class Html extends BaseWriter
 
             // loop through all Excel merged cells
             foreach ($sheet->getMergeCells() as $cells) {
-                list($cells) = Coordinate::splitRange($cells);
+                [$cells] = Coordinate::splitRange($cells);
                 $first = $cells[0];
                 $last = $cells[1];
 
-                list($fc, $fr) = Coordinate::coordinateFromString($first);
+                [$fc, $fr] = Coordinate::coordinateFromString($first);
                 $fc = Coordinate::columnIndexFromString($fc) - 1;
 
-                list($lc, $lr) = Coordinate::coordinateFromString($last);
+                [$lc, $lr] = Coordinate::coordinateFromString($last);
                 $lc = Coordinate::columnIndexFromString($lc) - 1;
 
                 // loop through the individual cells in the individual merge

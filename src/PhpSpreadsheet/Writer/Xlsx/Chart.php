@@ -1136,7 +1136,7 @@ class Chart extends WriterPart
                 $fillColorValues = $plotSeriesValues->getFillColor();
                 if ($fillColorValues !== null && is_array($fillColorValues)) {
                     foreach ($plotSeriesValues->getDataValues() as $dataKey => $dataValue) {
-                        $this->writePlotSeriesValuesElement($objWriter, $dataKey, (isset($fillColorValues[$dataKey]) ? $fillColorValues[$dataKey] : 'FF9900'));
+                        $this->writePlotSeriesValuesElement($objWriter, $dataKey, ($fillColorValues[$dataKey] ?? 'FF9900'));
                     }
                 } else {
                     $this->writePlotSeriesValuesElement($objWriter);

@@ -2416,7 +2416,7 @@ class Calculation
         //    Identify our locale and language
         $language = $locale = strtolower($locale);
         if (strpos($locale, '_') !== false) {
-            list($language) = explode('_', $locale);
+            [$language] = explode('_', $locale);
         }
         if (count(self::$validLocaleLanguages) == 1) {
             self::loadLocales();
@@ -2441,9 +2441,9 @@ class Calculation
                 //    Retrieve the list of locale or language specific function names
                 $localeFunctions = file($functionNamesFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                 foreach ($localeFunctions as $localeFunction) {
-                    list($localeFunction) = explode('##', $localeFunction); //    Strip out comments
+                    [$localeFunction] = explode('##', $localeFunction); //    Strip out comments
                     if (strpos($localeFunction, '=') !== false) {
-                        list($fName, $lfName) = explode('=', $localeFunction);
+                        [$fName, $lfName] = explode('=', $localeFunction);
                         $fName = trim($fName);
                         $lfName = trim($lfName);
                         if ((isset(self::$phpSpreadsheetFunctions[$fName])) && ($lfName != '') && ($fName != $lfName)) {
@@ -2466,9 +2466,9 @@ class Calculation
                 if (file_exists($configFile)) {
                     $localeSettings = file($configFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                     foreach ($localeSettings as $localeSetting) {
-                        list($localeSetting) = explode('##', $localeSetting); //    Strip out comments
+                        [$localeSetting] = explode('##', $localeSetting); //    Strip out comments
                         if (strpos($localeSetting, '=') !== false) {
-                            list($settingName, $settingValue) = explode('=', $localeSetting);
+                            [$settingName, $settingValue] = explode('=', $localeSetting);
                             $settingName = strtoupper(trim($settingName));
                             switch ($settingName) {
                                 case 'ARGUMENTSEPARATOR':
@@ -2977,17 +2977,17 @@ class Calculation
         //    Examine each of the two operands, and turn them into an array if they aren't one already
         //    Note that this function should only be called if one or both of the operand is already an array
         if (!is_array($operand1)) {
-            list($matrixRows, $matrixColumns) = self::getMatrixDimensions($operand2);
+            [$matrixRows, $matrixColumns] = self::getMatrixDimensions($operand2);
             $operand1 = array_fill(0, $matrixRows, array_fill(0, $matrixColumns, $operand1));
             $resize = 0;
         } elseif (!is_array($operand2)) {
-            list($matrixRows, $matrixColumns) = self::getMatrixDimensions($operand1);
+            [$matrixRows, $matrixColumns] = self::getMatrixDimensions($operand1);
             $operand2 = array_fill(0, $matrixRows, array_fill(0, $matrixColumns, $operand2));
             $resize = 0;
         }
 
-        list($matrix1Rows, $matrix1Columns) = self::getMatrixDimensions($operand1);
-        list($matrix2Rows, $matrix2Columns) = self::getMatrixDimensions($operand2);
+        [$matrix1Rows, $matrix1Columns] = self::getMatrixDimensions($operand1);
+        [$matrix2Rows, $matrix2Columns] = self::getMatrixDimensions($operand2);
         if (($matrix1Rows == $matrix2Columns) && ($matrix2Rows == $matrix1Columns)) {
             $resize = 1;
         }
@@ -3496,11 +3496,11 @@ class Calculation
                     $testPrevOp = $stack->last(1);
                     if ($testPrevOp['value'] == ':') {
                         $startRowColRef = $output[count($output) - 1]['value'];
-                        list($rangeWS1, $startRowColRef) = Worksheet::extractSheetTitle($startRowColRef, true);
+                        [$rangeWS1, $startRowColRef] = Worksheet::extractSheetTitle($startRowColRef, true);
                         if ($rangeWS1 != '') {
                             $rangeWS1 .= '!';
                         }
-                        list($rangeWS2, $val) = Worksheet::extractSheetTitle($val, true);
+                        [$rangeWS2, $val] = Worksheet::extractSheetTitle($val, true);
                         if ($rangeWS2 != '') {
                             $rangeWS2 .= '!';
                         } else {
@@ -3678,12 +3678,12 @@ class Calculation
                     //    Binary Operators
                     case ':':            //    Range
                         if (strpos($operand1Data['reference'], '!') !== false) {
-                            list($sheet1, $operand1Data['reference']) = Worksheet::extractSheetTitle($operand1Data['reference'], true);
+                            [$sheet1, $operand1Data['reference']] = Worksheet::extractSheetTitle($operand1Data['reference'], true);
                         } else {
                             $sheet1 = ($pCellParent !== null) ? $pCellWorksheet->getTitle() : '';
                         }
 
-                        list($sheet2, $operand2Data['reference']) = Worksheet::extractSheetTitle($operand2Data['reference'], true);
+                        [$sheet2, $operand2Data['reference']] = Worksheet::extractSheetTitle($operand2Data['reference'], true);
                         if (empty($sheet2)) {
                             $sheet2 = $sheet1;
                         }
@@ -4312,7 +4312,7 @@ class Calculation
         if ($pSheet !== null) {
             $pSheetName = $pSheet->getTitle();
             if (strpos($pRange, '!') !== false) {
-                list($pSheetName, $pRange) = Worksheet::extractSheetTitle($pRange, true);
+                [$pSheetName, $pRange] = Worksheet::extractSheetTitle($pRange, true);
                 $pSheet = $this->spreadsheet->getSheetByName($pSheetName);
             }
 
@@ -4365,7 +4365,7 @@ class Calculation
         if ($pSheet !== null) {
             $pSheetName = $pSheet->getTitle();
             if (strpos($pRange, '!') !== false) {
-                list($pSheetName, $pRange) = Worksheet::extractSheetTitle($pRange, true);
+                [$pSheetName, $pRange] = Worksheet::extractSheetTitle($pRange, true);
                 $pSheet = $this->spreadsheet->getSheetByName($pSheetName);
             }
 
@@ -4389,7 +4389,7 @@ class Calculation
             $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
             if (!isset($aReferences[1])) {
                 //    Single cell (or single column or row) in range
-                list($currentCol, $currentRow) = Coordinate::coordinateFromString($aReferences[0]);
+                [$currentCol, $currentRow] = Coordinate::coordinateFromString($aReferences[0]);
                 if ($pSheet->cellExists($aReferences[0])) {
                     $returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
                 } else {
@@ -4399,7 +4399,7 @@ class Calculation
                 // Extract cell data for all cells in the range
                 foreach ($aReferences as $reference) {
                     // Extract range
-                    list($currentCol, $currentRow) = Coordinate::coordinateFromString($reference);
+                    [$currentCol, $currentRow] = Coordinate::coordinateFromString($reference);
                     if ($pSheet->cellExists($reference)) {
                         $returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
                     } else {
