@@ -16,25 +16,25 @@ class ConvertUoMTest extends TestCase
     public function testGetConversionGroups()
     {
         $result = Engineering::getConversionGroups();
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
     public function testGetConversionGroupUnits()
     {
         $result = Engineering::getConversionGroupUnits();
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
     public function testGetConversionGroupUnitDetails()
     {
         $result = Engineering::getConversionGroupUnitDetails();
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
     public function testGetConversionMultipliers()
     {
         $result = Engineering::getConversionMultipliers();
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
     /**
