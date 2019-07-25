@@ -362,7 +362,7 @@ class TextDataTest extends TestCase
         StringHelper::setCurrencyCode('$');
 
         $result = TextData::VALUE(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerVALUE()
@@ -383,7 +383,7 @@ class TextDataTest extends TestCase
         StringHelper::setCurrencyCode('$');
 
         $result = TextData::EXACT(...$args);
-        self::assertSame($expectedResult, $result, null);
+        self::assertSame($expectedResult, $result);
     }
 
     /**

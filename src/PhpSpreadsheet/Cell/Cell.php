@@ -511,7 +511,7 @@ class Cell
     {
         if ($mergeRange = $this->getMergeRange()) {
             $mergeRange = Coordinate::splitRange($mergeRange);
-            list($startCell) = $mergeRange[0];
+            [$startCell] = $mergeRange[0];
             if ($this->getCoordinate() === $startCell) {
                 return true;
             }
@@ -569,7 +569,7 @@ class Cell
      */
     public function isInRange($pRange)
     {
-        list($rangeStart, $rangeEnd) = Coordinate::rangeBoundaries($pRange);
+        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($pRange);
 
         // Translate properties
         $myColumn = Coordinate::columnIndexFromString($this->getColumn());

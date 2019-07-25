@@ -86,6 +86,6 @@ class Properties
 
     private static function getArrayItem(array $array, $key = 0)
     {
-        return isset($array[$key]) ? $array[$key] : null;
+        return $array[$key] ?? null;
     }
 }
