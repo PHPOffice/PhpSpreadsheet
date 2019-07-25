@@ -17,10 +17,11 @@ class FactDoubleTest extends TestCase
      * @dataProvider providerFACTDOUBLE
      *
      * @param mixed $expectedResult
+     * @param $value
      */
-    public function testFACTDOUBLE($expectedResult, ...$args)
+    public function testFACTDOUBLE($expectedResult, $value)
     {
-        $result = MathTrig::FACTDOUBLE(...$args);
+        $result = MathTrig::FACTDOUBLE($value);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 

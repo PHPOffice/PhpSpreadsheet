@@ -20,10 +20,11 @@ class SecondTest extends TestCase
      * @dataProvider providerSECOND
      *
      * @param mixed $expectedResult
+     * @param $dateTimeValue
      */
-    public function testSECOND($expectedResult, ...$args)
+    public function testSECOND($expectedResult, $dateTimeValue)
     {
-        $result = DateTime::SECOND(...$args);
+        $result = DateTime::SECOND($dateTimeValue);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 
