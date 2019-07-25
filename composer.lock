@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d70247696f417581626dde9641b53bdc",
+    "content-hash": "844c52e10f1e289de51d2b71cb7fc1ff",
     "packages": [
         {
             "name": "markbaker/complex",
@@ -3192,7 +3192,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^5.6|^7.0",
+        "php": "^7.1",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-gd": "*",

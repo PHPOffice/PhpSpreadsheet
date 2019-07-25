@@ -243,10 +243,6 @@ class CoordinateTest extends TestCase
     {
         $this->expectException(\TypeError::class);
 
-        if (PHP_MAJOR_VERSION < 7) {
-            $this->markTestSkipped('Cannot catch type hinting error with PHP 5.6');
-        }
-
         $cellRange = '';
         Coordinate::buildRange($cellRange);
     }

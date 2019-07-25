@@ -35,11 +35,11 @@
             "php-cs-fixer fix --ansi"
         ],
         "versions": [
-            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 5.6- -n"
+            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 7.1- -n"
         ]
     },
     "require": {
-        "php": "^5.6|^7.0",
+        "php": "^7.1",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-gd": "*",
