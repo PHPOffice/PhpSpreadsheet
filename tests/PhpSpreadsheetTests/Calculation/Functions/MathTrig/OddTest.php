@@ -17,10 +17,11 @@ class OddTest extends TestCase
      * @dataProvider providerODD
      *
      * @param mixed $expectedResult
+     * @param $value
      */
-    public function testODD($expectedResult, ...$args)
+    public function testODD($expectedResult, $value)
     {
-        $result = MathTrig::ODD(...$args);
+        $result = MathTrig::ODD($value);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 

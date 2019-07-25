@@ -20,10 +20,11 @@ class YearTest extends TestCase
      * @dataProvider providerYEAR
      *
      * @param mixed $expectedResult
+     * @param $dateTimeValue
      */
-    public function testYEAR($expectedResult, ...$args)
+    public function testYEAR($expectedResult, $dateTimeValue)
     {
-        $result = DateTime::YEAR(...$args);
+        $result = DateTime::YEAR($dateTimeValue);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 
