@@ -23,7 +23,7 @@ class IfNaTest extends TestCase
     public function testIFNA($expectedResult, $value, $return)
     {
         $result = Logical::IFNA($value, $return);
-        self::assertEquals($expectedResult, $result);
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function providerIFNA()

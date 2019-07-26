@@ -21,7 +21,7 @@ class SwitchTest extends TestCase
     public function testSWITCH($expectedResult, ...$args)
     {
         $result = Logical::statementSwitch(...$args);
-        self::assertEquals($expectedResult, $result);
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function providerSwitch()

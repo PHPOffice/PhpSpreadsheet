@@ -23,7 +23,7 @@ class IfErrorTest extends TestCase
     public function testIFERROR($expectedResult, $value, $return)
     {
         $result = Logical::IFERROR($value, $return);
-        self::assertEquals($expectedResult, $result);
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function providerIFERROR()
