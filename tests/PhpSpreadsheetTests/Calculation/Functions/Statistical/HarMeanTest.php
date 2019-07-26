@@ -14,18 +14,18 @@ class HarMeanTest extends TestCase
     }
 
     /**
-     * @dataProvider providerHarMean
+     * @dataProvider providerHARMEAN
      *
      * @param mixed $expectedResult
      */
-    public function testHarMean($expectedResult, ...$args)
+    public function testHARMEAN($expectedResult, ...$args)
     {
-        $result = Statistical::HarMean(...$args);
+        $result = Statistical::HARMEAN(...$args);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
-    public function providerHarMean()
+    public function providerHARMEAN()
     {
-        return require 'data/Calculation/Statistical/HarMean.php';
+        return require 'data/Calculation/Statistical/HARMEAN.php';
     }
 }
