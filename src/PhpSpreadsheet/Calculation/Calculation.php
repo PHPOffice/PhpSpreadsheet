@@ -1018,6 +1018,11 @@ class Calculation
             'functionCall' => [Logical::class, 'IFERROR'],
             'argumentCount' => '2',
         ],
+        'IFNA' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Logical::class, 'IFNA'],
+            'argumentCount' => '2',
+        ],
         'IMABS' => [
             'category' => Category::CATEGORY_ENGINEERING,
             'functionCall' => [Engineering::class, 'IMABS'],
