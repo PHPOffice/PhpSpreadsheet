@@ -210,6 +210,7 @@ AND                 | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalAnd
 FALSE               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::FALSE
 IF                  | \PhpOffice\PhpSpreadsheet\Calculation\Logical::STATEMENT_IF
 IFERROR             | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFERROR
+IFNA                | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFNA
 NOT                 | \PhpOffice\PhpSpreadsheet\Calculation\Logical::NOT
 OR                  | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalOr
 TRUE                | \PhpOffice\PhpSpreadsheet\Calculation\Logical::TRUE
