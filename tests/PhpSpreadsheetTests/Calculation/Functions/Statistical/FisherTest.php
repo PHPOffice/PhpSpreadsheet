@@ -17,10 +17,11 @@ class FisherTest extends TestCase
      * @dataProvider providerFISHER
      *
      * @param mixed $expectedResult
+     * @param $value
      */
-    public function testFISHER($expectedResult, ...$args)
+    public function testFISHER($expectedResult, $value)
     {
-        $result = Statistical::FISHER(...$args);
+        $result = Statistical::FISHER($value);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 

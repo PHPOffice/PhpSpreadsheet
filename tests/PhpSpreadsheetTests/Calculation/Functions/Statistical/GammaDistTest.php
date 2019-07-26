@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
-class FisherInvTest extends TestCase
+class GammaDistTest extends TestCase
 {
     public function setUp()
     {
@@ -14,19 +14,18 @@ class FisherInvTest extends TestCase
     }
 
     /**
-     * @dataProvider providerFISHERINV
+     * @dataProvider providerGAMMADIST
      *
      * @param mixed $expectedResult
-     * @param $value
      */
-    public function testFISHERINV($expectedResult, $value)
+    public function testGAMMADIST($expectedResult, ...$args)
     {
-        $result = Statistical::FISHERINV($value);
+        $result = Statistical::GAMMADIST(...$args);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
-    public function providerFISHERINV()
+    public function providerGAMMADIST()
     {
-        return require 'data/Calculation/Statistical/FISHERINV.php';
+        return require 'data/Calculation/Statistical/GAMMADIST.php';
     }
 }
