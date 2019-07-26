@@ -1778,7 +1778,7 @@ class Statistical
     public static function HARMEAN(...$args)
     {
         // Return value
-        $returnValue = Functions::NA();
+        $returnValue = 0;
 
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
@@ -1792,11 +1792,7 @@ class Statistical
                 if ($arg <= 0) {
                     return Functions::NAN();
                 }
-                if ($returnValue === null) {
-                    $returnValue = (1 / $arg);
-                } else {
-                    $returnValue += (1 / $arg);
-                }
+                $returnValue += (1 / $arg);
                 ++$aCount;
             }
         }
@@ -1806,7 +1802,7 @@ class Statistical
             return 1 / ($returnValue / $aCount);
         }
 
-        return $returnValue;
+        return Functions::NA();
     }
 
     /**
