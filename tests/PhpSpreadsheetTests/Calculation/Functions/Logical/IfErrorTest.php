@@ -17,6 +17,8 @@ class IfErrorTest extends TestCase
      * @dataProvider providerIFERROR
      *
      * @param mixed $expectedResult
+     * @param $value
+     * @param $return
      */
     public function testIFERROR($expectedResult, $value, $return)
     {
