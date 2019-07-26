@@ -364,7 +364,7 @@ class Logical
     public static function IFNA($testValue = '', $napart = '')
     {
         $testValue = ($testValue === null) ? '' : Functions::flattenSingleValue($testValue);
-        $napart = (napart === null) ? '' : Functions::flattenSingleValue($napart);
+        $napart = ($napart === null) ? '' : Functions::flattenSingleValue($napart);
 
         return self::statementIf(Functions::isNa($testValue), $napart, $testValue);
     }
