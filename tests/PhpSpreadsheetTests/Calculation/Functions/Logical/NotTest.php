@@ -18,9 +18,9 @@ class NotTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNOT($expectedResult, $value)
+    public function testNOT($expectedResult, ...$args)
     {
-        $result = Logical::NOT($value);
+        $result = Logical::NOT(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 
