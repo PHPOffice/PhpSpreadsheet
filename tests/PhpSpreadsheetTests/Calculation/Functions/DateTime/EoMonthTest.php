@@ -48,7 +48,7 @@ class EoMonthTest extends TestCase
 
         $result = DateTime::EOMONTH('2012-1-26', -1);
         //    Must return an object...
-        self::assertIsObject($result);
+        $this->assertIsObject($result);
         //    ... of the correct type
         $this->assertTrue(is_a($result, 'DateTimeInterface'));
         //    ... with the correct value

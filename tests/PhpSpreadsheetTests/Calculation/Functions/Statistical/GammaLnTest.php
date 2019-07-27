@@ -17,10 +17,11 @@ class GammaLnTest extends TestCase
      * @dataProvider providerGAMMALN
      *
      * @param mixed $expectedResult
+     * @param $value
      */
-    public function testGAMMALN($expectedResult, ...$args)
+    public function testGAMMALN($expectedResult, $value)
     {
-        $result = Statistical::GAMMALN(...$args);
+        $result = Statistical::GAMMALN($value);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 

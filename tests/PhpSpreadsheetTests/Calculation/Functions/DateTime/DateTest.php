@@ -49,7 +49,7 @@ class DateTest extends TestCase
 
         $result = DateTime::DATE(2012, 1, 31);
         //    Must return an object...
-        self::assertIsObject($result);
+        $this->assertIsObject($result);
         //    ... of the correct type
         $this->assertTrue(is_a($result, 'DateTimeInterface'));
         //    ... with the correct value
