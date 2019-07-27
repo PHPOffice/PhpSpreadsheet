@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Implementation of IFNA() Logical Function
 - When &lt;br&gt; appears in a table cell, set the cell to wrap [Issue #1071](https://github.com/PHPOffice/PhpSpreadsheet/issues/1071) and [PR #1070](https://github.com/PHPOffice/PhpSpreadsheet/pull/1070)
 - Add MAXIFS, MINIFS, COUNTIFS and Remove MINIF, MAXIF - [Issue #1056](https://github.com/PHPOffice/PhpSpreadsheet/issues/1056)
 - HLookup needs an ordered list even if range_lookup is set to false [Issue #1055](https://github.com/PHPOffice/PhpSpreadsheet/issues/1055) and [PR #1076](https://github.com/PHPOffice/PhpSpreadsheet/pull/1076)
