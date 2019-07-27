@@ -87,7 +87,7 @@ class TextData
     private static function convertBooleanValue($value)
     {
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-            return (int)$value;
+            return (int) $value;
         }
 
         return ($value) ? Calculation::getTRUE() : Calculation::getFALSE();

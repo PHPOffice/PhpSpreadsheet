@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PHPUnit\Framework\TestCase;
 
-class LookupTest extends TestCase
+class MatchTest extends TestCase
 {
     public function setUp()
     {
@@ -14,18 +14,18 @@ class LookupTest extends TestCase
     }
 
     /**
-     * @dataProvider providerLOOKUP
+     * @dataProvider providerMATCH
      *
      * @param mixed $expectedResult
      */
-    public function testLOOKUP($expectedResult, ...$args)
+    public function testMATCH($expectedResult, ...$args)
     {
-        $result = LookupRef::LOOKUP(...$args);
+        $result = LookupRef::MATCH(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 
-    public function providerLOOKUP()
+    public function providerMATCH()
     {
-        return require 'data/Calculation/LookupRef/LOOKUP.php';
+        return require 'data/Calculation/LookupRef/MATCH.php';
     }
 }
