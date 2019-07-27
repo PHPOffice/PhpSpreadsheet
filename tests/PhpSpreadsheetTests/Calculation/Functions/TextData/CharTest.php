@@ -29,6 +29,7 @@ class CharTest extends TestCase
      * @dataProvider providerCHAR
      *
      * @param mixed $expectedResult
+     * @param $character
      */
     public function testCHAR($expectedResult, $character)
     {

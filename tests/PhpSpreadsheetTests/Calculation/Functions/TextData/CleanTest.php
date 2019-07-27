@@ -29,6 +29,7 @@ class CleanTest extends TestCase
      * @dataProvider providerCLEAN
      *
      * @param mixed $expectedResult
+     * @param $value
      */
     public function testCLEAN($expectedResult, $value)
     {

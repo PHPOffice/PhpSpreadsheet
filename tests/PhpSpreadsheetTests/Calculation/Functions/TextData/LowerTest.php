@@ -29,6 +29,7 @@ class LowerTest extends TestCase
      * @dataProvider providerLOWER
      *
      * @param mixed $expectedResult
+     * @param $value
      */
     public function testLOWER($expectedResult, $value)
     {

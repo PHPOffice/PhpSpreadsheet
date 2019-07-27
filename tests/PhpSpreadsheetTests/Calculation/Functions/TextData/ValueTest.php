@@ -29,6 +29,7 @@ class ValueTest extends TestCase
      * @dataProvider providerVALUE
      *
      * @param mixed $expectedResult
+     * @param $value
      */
     public function testVALUE($expectedResult, $value)
     {
