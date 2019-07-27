@@ -30,9 +30,9 @@ class UpperTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testUPPER($expectedResult, ...$args)
+    public function testUPPER($expectedResult, $value)
     {
-        $result = TextData::UPPERCASE(...$args);
+        $result = TextData::UPPERCASE($value);
         $this->assertEquals($expectedResult, $result);
     }
 

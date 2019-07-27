@@ -30,9 +30,9 @@ class CleanTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCLEAN($expectedResult, ...$args)
+    public function testCLEAN($expectedResult, $value)
     {
-        $result = TextData::TRIMNONPRINTABLE(...$args);
+        $result = TextData::TRIMNONPRINTABLE($value);
         $this->assertEquals($expectedResult, $result);
     }
 

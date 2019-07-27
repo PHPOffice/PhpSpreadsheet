@@ -30,9 +30,9 @@ class LowerTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testLOWER($expectedResult, ...$args)
+    public function testLOWER($expectedResult, $value)
     {
-        $result = TextData::LOWERCASE(...$args);
+        $result = TextData::LOWERCASE($value);
         $this->assertEquals($expectedResult, $result);
     }
 

@@ -30,9 +30,9 @@ class CharTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCHAR($expectedResult, ...$args)
+    public function testCHAR($expectedResult, $character)
     {
-        $result = TextData::CHARACTER(...$args);
+        $result = TextData::CHARACTER($character);
         $this->assertEquals($expectedResult, $result);
     }
 

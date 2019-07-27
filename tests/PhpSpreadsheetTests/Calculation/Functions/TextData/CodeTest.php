@@ -30,9 +30,9 @@ class CodeTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCODE($expectedResult, ...$args)
+    public function testCODE($expectedResult, $character)
     {
-        $result = TextData::ASCIICODE(...$args);
+        $result = TextData::ASCIICODE($character);
         $this->assertEquals($expectedResult, $result);
     }
 

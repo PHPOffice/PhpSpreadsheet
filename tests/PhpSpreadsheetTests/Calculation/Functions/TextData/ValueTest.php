@@ -30,13 +30,13 @@ class ValueTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testVALUE($expectedResult, ...$args)
+    public function testVALUE($expectedResult, $value)
     {
         StringHelper::setDecimalSeparator('.');
         StringHelper::setThousandsSeparator(' ');
         StringHelper::setCurrencyCode('$');
 
-        $result = TextData::VALUE(...$args);
+        $result = TextData::VALUE($value);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 

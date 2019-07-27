@@ -30,9 +30,9 @@ class TrimTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testTRIM($expectedResult, ...$args)
+    public function testTRIM($expectedResult, $character)
     {
-        $result = TextData::TRIMSPACES(...$args);
+        $result = TextData::TRIMSPACES($character);
         $this->assertEquals($expectedResult, $result);
     }
 

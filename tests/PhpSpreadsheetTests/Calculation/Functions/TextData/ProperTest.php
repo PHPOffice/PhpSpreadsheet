@@ -30,9 +30,9 @@ class ProperTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPROPER($expectedResult, ...$args)
+    public function testPROPER($expectedResult, $value)
     {
-        $result = TextData::PROPERCASE(...$args);
+        $result = TextData::PROPERCASE($value);
         $this->assertEquals($expectedResult, $result);
     }
 

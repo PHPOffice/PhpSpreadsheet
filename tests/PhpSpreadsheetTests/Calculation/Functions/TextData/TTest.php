@@ -30,9 +30,9 @@ class TTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testT($expectedResult, ...$args)
+    public function testT($expectedResult, $value)
     {
-        $result = TextData::RETURNSTRING(...$args);
+        $result = TextData::RETURNSTRING($value);
         $this->assertEquals($expectedResult, $result);
     }
 
