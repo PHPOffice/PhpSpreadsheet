@@ -46,7 +46,7 @@ class TimeTest extends TestCase
 
         $result = DateTime::TIME(7, 30, 20);
         //    Must return an object...
-        self::assertIsObject($result);
+        $this->assertIsObject($result);
         //    ... of the correct type
         $this->assertTrue(is_a($result, 'DateTimeInterface'));
         //    ... with the correct value
