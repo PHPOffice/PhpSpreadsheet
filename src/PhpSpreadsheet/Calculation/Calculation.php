@@ -4140,6 +4140,9 @@ class Calculation
 
                 // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $token, $matches)) {
+                if ($pCellParent) {
+                    $pCell->attach($pCellParent);
+                }
                 if (($cellID == 'AC99') || (isset($pCell) && $pCell->getCoordinate() == 'AC99')) {
                     if (defined('RESOLVING')) {
                         define('RESOLVING2', true);
@@ -4215,6 +4218,7 @@ class Calculation
                         }
                         unset($arg);
                     }
+
                     $result = call_user_func_array($functionCall, $args);
 
                     if ($functionName != 'MKMATRIX') {

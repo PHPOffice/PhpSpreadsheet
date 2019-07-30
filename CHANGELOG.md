@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Best effort to support invalid colspan values in HTML reader - [878](https://github.com/PHPOffice/PhpSpreadsheet/pull/878)
 - Fixes incorrect rows deletion [#868](https://github.com/PHPOffice/PhpSpreadsheet/issues/868)
 - MATCH function fix (value search by type, stop search when match_type=-1 and unordered element encountered) - [Issue #1116](https://github.com/PHPOffice/PhpSpreadsheet/issues/1116)
+- Fix `getCalculatedValue()` error with more than two INDIRECT [#1115](https://github.com/PHPOffice/PhpSpreadsheet/pull/1115)
 
 ## [1.8.2] - 2019-07-08
 
