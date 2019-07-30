@@ -1,7 +1,5 @@
 <?php
 
-//  Year, Month, Day, Result, Comments
-
 return [
     'Year without century specified' => [
         6890, // '11th November 1918'
@@ -32,7 +30,6 @@ return [
         1901, 12, 14,
     ],
     'Day before Excel 1904 Calendar Base Date' => [
-    [
         1461,
         1903, 12, 31,
     ],
@@ -40,8 +37,7 @@ return [
         1462,
         1904, 1, 1,
     ],
-        'Day after Excel 1904 Calendar Base Date' => [
-    [
+    'Day after Excel 1904 Calendar Base Date' => [
         1463,
         1904, 1, 2,
     ],
@@ -319,5 +315,6 @@ return [
     [
         '#VALUE!',
         2010, 3, 'GHI',
-    ],
+    ]
 ];
+
