@@ -164,6 +164,22 @@ class CalculationTest extends TestCase
         self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
     }
 
+    public function testCellWithFormulaTwoIndirect()
+    {
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $cell1 = $workSheet->getCell('A1');
+        $cell1->setValue('2');
+        $cell2 = $workSheet->getCell('B1');
+        $cell2->setValue('3');
+        $cell2 = $workSheet->getCell('C1');
+        $cell2->setValue('4');
+        $cell3 = $workSheet->getCell('D1');
+        $cell3->setValue('=SUM(INDIRECT("A"&ROW()),INDIRECT("B"&ROW()),INDIRECT("C"&ROW()))');
+
+        self::assertEquals('9', $cell3->getCalculatedValue());
+    }
+
     public function testBranchPruningFormulaParsingSimpleCase()
     {
         $calculation = Calculation::getInstance();
