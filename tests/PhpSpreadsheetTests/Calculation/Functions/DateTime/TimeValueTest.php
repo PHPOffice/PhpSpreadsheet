@@ -20,10 +20,11 @@ class TimeValueTest extends TestCase
      * @dataProvider providerTIMEVALUE
      *
      * @param mixed $expectedResult
+     * @param $timeValue
      */
-    public function testTIMEVALUE($expectedResult, ...$args)
+    public function testTIMEVALUE($expectedResult, $timeValue)
     {
-        $result = DateTime::TIMEVALUE(...$args);
+        $result = DateTime::TIMEVALUE($timeValue);
         $this->assertEquals($expectedResult, $result, '', 1E-8);
     }
 
@@ -46,7 +47,7 @@ class TimeValueTest extends TestCase
 
         $result = DateTime::TIMEVALUE('7:30:20');
         //    Must return an object...
-        $this->assertInternalType('object', $result);
+        $this->assertIsObject($result);
         //    ... of the correct type
         $this->assertTrue(is_a($result, 'DateTimeInterface'));
         //    ... with the correct value

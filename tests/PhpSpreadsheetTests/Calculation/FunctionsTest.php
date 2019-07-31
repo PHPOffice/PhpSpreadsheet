@@ -114,7 +114,7 @@ class FunctionsTest extends TestCase
     public function testIsBlank($expectedResult, ...$args)
     {
         $result = Functions::isBlank(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIsBlank()
@@ -130,7 +130,7 @@ class FunctionsTest extends TestCase
     public function testIsErr($expectedResult, ...$args)
     {
         $result = Functions::isErr(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIsErr()
@@ -146,7 +146,7 @@ class FunctionsTest extends TestCase
     public function testIsError($expectedResult, ...$args)
     {
         $result = Functions::isError(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIsError()
@@ -162,7 +162,7 @@ class FunctionsTest extends TestCase
     public function testErrorType($expectedResult, ...$args)
     {
         $result = Functions::errorType(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerErrorType()
@@ -178,7 +178,7 @@ class FunctionsTest extends TestCase
     public function testIsLogical($expectedResult, ...$args)
     {
         $result = Functions::isLogical(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIsLogical()
@@ -194,7 +194,7 @@ class FunctionsTest extends TestCase
     public function testIsNa($expectedResult, ...$args)
     {
         $result = Functions::isNa(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIsNa()
@@ -210,7 +210,7 @@ class FunctionsTest extends TestCase
     public function testIsNumber($expectedResult, ...$args)
     {
         $result = Functions::isNumber(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIsNumber()
@@ -226,7 +226,7 @@ class FunctionsTest extends TestCase
     public function testIsText($expectedResult, ...$args)
     {
         $result = Functions::isText(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIsText()
@@ -242,7 +242,7 @@ class FunctionsTest extends TestCase
     public function testIsNonText($expectedResult, ...$args)
     {
         $result = Functions::isNonText(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIsNonText()
@@ -258,7 +258,7 @@ class FunctionsTest extends TestCase
     public function testIsEven($expectedResult, ...$args)
     {
         $result = Functions::isEven(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIsEven()
@@ -274,7 +274,7 @@ class FunctionsTest extends TestCase
     public function testIsOdd($expectedResult, ...$args)
     {
         $result = Functions::isOdd(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIsOdd()
@@ -290,7 +290,7 @@ class FunctionsTest extends TestCase
     public function testTYPE($expectedResult, ...$args)
     {
         $result = Functions::TYPE(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerTYPE()
@@ -306,7 +306,7 @@ class FunctionsTest extends TestCase
     public function testN($expectedResult, ...$args)
     {
         $result = Functions::n(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerN()
@@ -359,7 +359,7 @@ class FunctionsTest extends TestCase
         }
 
         $result = Functions::isFormula($reference, $ourCell);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIsFormula()

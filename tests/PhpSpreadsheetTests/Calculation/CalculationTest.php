@@ -52,7 +52,7 @@ class CalculationTest extends TestCase
      */
     public function testGetFunctions($category, $functionCall, $argumentCount)
     {
-        self::assertInternalType('callable', $functionCall);
+        self::assertIsCallable($functionCall);
     }
 
     public function providerGetFunctions()

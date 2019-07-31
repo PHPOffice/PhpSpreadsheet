@@ -175,7 +175,7 @@ class Comments extends WriterPart
     private function writeVMLComment(XMLWriter $objWriter, $pCellReference, Comment $pComment)
     {
         // Metadata
-        list($column, $row) = Coordinate::coordinateFromString($pCellReference);
+        [$column, $row] = Coordinate::coordinateFromString($pCellReference);
         $column = Coordinate::columnIndexFromString($column);
         $id = 1024 + $column + $row;
         $id = substr($id, 0, 4);

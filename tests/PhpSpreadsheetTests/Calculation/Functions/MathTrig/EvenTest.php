@@ -17,10 +17,11 @@ class EvenTest extends TestCase
      * @dataProvider providerEVEN
      *
      * @param mixed $expectedResult
+     * @param $value
      */
-    public function testEVEN($expectedResult, ...$args)
+    public function testEVEN($expectedResult, $value)
     {
-        $result = MathTrig::EVEN(...$args);
+        $result = MathTrig::EVEN($value);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
 
