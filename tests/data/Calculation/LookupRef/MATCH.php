@@ -104,5 +104,78 @@ return [
         [[0], [0], ['x'], ['x'], ['x']],
         0
     ],
-
+    [
+        2,
+        'a',
+        [false, 'a',1],
+        -1
+    ],
+    [
+        '#N/A', // Expected
+        0,
+        ['x', true, false],
+        -1
+    ],
+    [
+        '#N/A', // Expected
+        true,
+        ['a', 'b', 'c'],
+        -1
+    ],
+    [
+        '#N/A', // Expected
+        true,
+        [0,1,2],
+        -1
+    ],
+    [
+        '#N/A', // Expected
+        true,
+        [0,1,2],
+        0
+    ],
+    [
+        '#N/A', // Expected
+        true,
+        [0,1,2],
+        1
+    ],
+    [
+        1, // Expected
+        true,
+        [true,true,true],
+        -1
+    ],
+    [
+        1, // Expected
+        true,
+        [true,true,true],
+        0
+    ],
+    [
+        3, // Expected
+        true,
+        [true,true,true],
+        1
+    ],
+    // lookup stops when value < searched one
+    [
+        5, // Expected
+        6,
+        [true, false, 'a', 'z', 222222, 2, 99999999],
+        -1
+    ],
+    // if element of same data type met and it is < than searched one #N/A - no further processing
+    [
+        '#N/A', // Expected
+        6,
+        [true, false, 'a', 'z', 2, 888 ],
+        -1
+    ],
+    [
+        '#N/A', // Expected
+        6,
+        ['6'],
+        -1
+    ],
 ];
