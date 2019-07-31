@@ -40,7 +40,7 @@ class XlsxTest extends TestCase
 
         // Custom Properties
         $customProperties = $properties->getCustomProperties();
-        $this->assertInternalType('array', $customProperties);
+        self::assertIsArray($customProperties);
         $customProperties = array_flip($customProperties);
         $this->assertArrayHasKey('Publisher', $customProperties);
 

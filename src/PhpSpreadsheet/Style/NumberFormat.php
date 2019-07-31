@@ -706,7 +706,7 @@ class NumberFormat extends Supervisor
         if (preg_match('/\[\$(.*)\]/u', $format, $m)) {
             //  Currency or Accounting
             $currencyCode = $m[1];
-            list($currencyCode) = explode('-', $currencyCode);
+            [$currencyCode] = explode('-', $currencyCode);
             if ($currencyCode == '') {
                 $currencyCode = StringHelper::getCurrencyCode();
             }
@@ -807,7 +807,7 @@ class NumberFormat extends Supervisor
 
         // Additional formatting provided by callback function
         if ($callBack !== null) {
-            list($writerInstance, $function) = $callBack;
+            [$writerInstance, $function] = $callBack;
             $value = $writerInstance->$function($value, $formatColor);
         }
 

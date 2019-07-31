@@ -260,6 +260,6 @@ class Styles extends BaseParserClass
 
     private static function getArrayItem($array, $key = 0)
     {
-        return isset($array[$key]) ? $array[$key] : null;
+        return $array[$key] ?? null;
     }
 }

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./tests/bootstrap.php"
-    backupGlobals="true"
-    colors="true"
-    syntaxCheck="true"
-    disallowTestOutput="true">
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.5/phpunit.xsd"
+        bootstrap="./tests/bootstrap.php"
+        backupGlobals="true"
+        colors="true">
     <php>
         <ini name="memory_limit" value="2048M"/>
     </php>
