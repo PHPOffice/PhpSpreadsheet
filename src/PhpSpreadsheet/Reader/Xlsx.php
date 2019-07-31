@@ -192,7 +192,12 @@ class Xlsx extends BaseReader
 
                 $worksheets = [];
                 foreach ($relsWorkbook->Relationship as $ele) {
-                    if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet') {
+                    if (
+                        in_array($ele['Type'], [
+                            'http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet',
+                            'http://schemas.openxmlformats.org/officeDocument/2006/relationships/chartsheet',
+                        ])
+                    ) {
                         $worksheets[(string) $ele['Id']] = $ele['Target'];
                     }
                 }
@@ -466,6 +471,7 @@ class Xlsx extends BaseReader
                     foreach ($relsWorkbook->Relationship as $ele) {
                         switch ($ele['Type']) {
                             case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet':
+                            case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/chartsheet':
                                 $worksheets[(string) $ele['Id']] = $ele['Target'];
 
                                 break;
