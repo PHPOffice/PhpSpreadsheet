@@ -536,7 +536,7 @@ class LookupRef
                         $splitString = $lookupValue;
                         $chars = array_map(function ($i) use ($splitString) {
                             return mb_substr($splitString, $i, 1);
-                        }, range(0, mb_strlen($splitString) -1));
+                        }, range(0, mb_strlen($splitString) - 1));
 
                         $length = count($chars);
                         $pattern = '/^';
@@ -545,10 +545,10 @@ class LookupRef
                                 if (isset($chars[$j + 1])) {
                                     if ($chars[$j + 1] === '*') {
                                         $pattern .= preg_quote($chars[$j + 1], '/');
-                                        $j++;
+                                        ++$j;
                                     } elseif ($chars[$j + 1] === '?') {
                                         $pattern .= preg_quote($chars[$j + 1], '/');
-                                        $j++;
+                                        ++$j;
                                     }
                                 } else {
                                     $pattern .= preg_quote($chars[$j], '/');
