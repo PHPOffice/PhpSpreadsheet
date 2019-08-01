@@ -467,7 +467,7 @@ class LookupRef
      * @param mixed $matchType The number -1, 0, or 1. -1 means above, 0 means exact match, 1 means below.
      *                         If match_type is 1 or -1, the list has to be ordered.
      *
-     * @return int The relative position of the found item
+     * @return string|int The relative position of the found item
      */
     public static function MATCH($lookupValue, $lookupArray, $matchType = 1)
     {
@@ -524,17 +524,54 @@ class LookupRef
         // find the match
         // **
 
-        if ($matchType == 0 || $matchType == 1) {
+        if ($matchType === 0 || $matchType === 1) {
             foreach ($lookupArray as $i => $lookupArrayValue) {
                 $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
                 $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
                 $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
                 $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
 
-                if (($matchType == 0) && $exactMatch) {
-                    //    exact match
-                    return $i + 1;
-                } elseif (($matchType == 1) && $typeMatch && ($lookupArrayValue <= $lookupValue)) {
+                if ($matchType === 0) {
+                    if ($typeMatch && is_string($lookupValue) && (bool) preg_match('/([\?\*])/', $lookupValue)) {
+                        $splitString = $lookupValue;
+                        $chars = array_map(function ($i) use ($splitString) {
+                            return mb_substr($splitString, $i, 1);
+                        }, range(0, mb_strlen($splitString) -1));
+
+                        $length = count($chars);
+                        $pattern = '/^';
+                        for ($j = 0; $j < $length; $j++) {
+                            if ($chars[$j] === '~') {
+                                if (isset($chars[$j+1])) {
+                                    if ($chars[$j+1] === '*') {
+                                        $pattern .= preg_quote($chars[$j+1], '/');
+                                        $j++;
+                                    } elseif ($chars[$j+1] === '?') {
+                                        $pattern .= preg_quote($chars[$j+1], '/');
+                                        $j++;
+                                    }
+                                } else {
+                                    $pattern .= preg_quote($chars[$j], '/');
+                                }
+                            } elseif ($chars[$j] === '*') {
+                                $pattern .='.*';
+                            } elseif ($chars[$j] === '?') {
+                                $pattern .='.{1}';
+                            } else {
+                                $pattern .= preg_quote($chars[$j], '/');
+                            }
+                        }
+
+                        $pattern .='$/';
+                        if ((bool) preg_match($pattern, $lookupArrayValue)) {
+                            // exact match
+                            return $i + 1;
+                        }
+                    } elseif ($exactMatch) {
+                        // exact match
+                        return $i + 1;
+                    }
+                } elseif (($matchType === 1) && $typeMatch && ($lookupArrayValue <= $lookupValue)) {
                     $i = array_search($i, $keySet);
 
                     // The current value is the (first) match

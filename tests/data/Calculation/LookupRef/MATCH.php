@@ -178,4 +178,71 @@ return [
         ['6'],
         -1
     ],
+    // expression match
+    [
+        2, // Expected
+        'a?b',
+        ['a', 'abb', 'axc'],
+        0
+    ],
+    [
+        1, // Expected
+        'a*',
+        ['aAAAAAAA', 'as', 'az'],
+        0
+    ],
+    [
+        3, // Expected
+        '1*11*1',
+        ['abc', 'efh', '1a11b1'],
+        0
+    ],
+    [
+        3, // Expected
+        '1*11*1',
+        ['abc', 'efh', '1a11b1'],
+        0
+    ],
+    [
+        2, // Expected
+        'a*~*c',
+        ['aAAAAA', 'a123456*c', 'az'],
+        0
+    ],
+    [
+        3, // Expected
+        'a*123*b',
+        ['aAAAAA', 'a123456*c', 'a99999123b'],
+        0
+    ],
+    [
+        1, // Expected
+        '*',
+        ['aAAAAA', 'a111123456*c', 'qq'],
+        0
+    ],
+    [
+        2, // Expected
+        '?',
+        ['aAAAAA', 'a', 'a99999123b'],
+        0
+    ],
+    [
+        '#N/A', // Expected
+        '?',
+        [1, 22,333],
+        0
+    ],
+    [
+        3, // Expected
+        '???',
+        [1, 22,'aaa'],
+        0
+    ],
+    [
+        3, // Expected
+        '*',
+        [1, 22,'aaa'],
+        0
+    ],
 ];
