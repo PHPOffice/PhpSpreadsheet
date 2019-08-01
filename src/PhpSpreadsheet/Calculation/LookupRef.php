@@ -467,7 +467,7 @@ class LookupRef
      * @param mixed $matchType The number -1, 0, or 1. -1 means above, 0 means exact match, 1 means below.
      *                         If match_type is 1 or -1, the list has to be ordered.
      *
-     * @return string|int The relative position of the found item
+     * @return int|string The relative position of the found item
      */
     public static function MATCH($lookupValue, $lookupArray, $matchType = 1)
     {
@@ -540,29 +540,29 @@ class LookupRef
 
                         $length = count($chars);
                         $pattern = '/^';
-                        for ($j = 0; $j < $length; $j++) {
+                        for ($j = 0; $j < $length; ++$j) {
                             if ($chars[$j] === '~') {
-                                if (isset($chars[$j+1])) {
-                                    if ($chars[$j+1] === '*') {
-                                        $pattern .= preg_quote($chars[$j+1], '/');
+                                if (isset($chars[$j + 1])) {
+                                    if ($chars[$j + 1] === '*') {
+                                        $pattern .= preg_quote($chars[$j + 1], '/');
                                         $j++;
-                                    } elseif ($chars[$j+1] === '?') {
-                                        $pattern .= preg_quote($chars[$j+1], '/');
+                                    } elseif ($chars[$j + 1] === '?') {
+                                        $pattern .= preg_quote($chars[$j + 1], '/');
                                         $j++;
                                     }
                                 } else {
                                     $pattern .= preg_quote($chars[$j], '/');
                                 }
                             } elseif ($chars[$j] === '*') {
-                                $pattern .='.*';
+                                $pattern .= '.*';
                             } elseif ($chars[$j] === '?') {
-                                $pattern .='.{1}';
+                                $pattern .= '.{1}';
                             } else {
                                 $pattern .= preg_quote($chars[$j], '/');
                             }
                         }
 
-                        $pattern .='$/';
+                        $pattern .= '$/';
                         if ((bool) preg_match($pattern, $lookupArrayValue)) {
                             // exact match
                             return $i + 1;
