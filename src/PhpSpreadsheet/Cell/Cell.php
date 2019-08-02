@@ -13,6 +13,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class Cell
 {
     /**
+     * The maximum integer value that the Excel cell can display without losing longitude.
+     *
+     * @var int
+     */
+    const INT_MAX = 999999999999999;
+
+    /**
      * Value binder to use.
      *
      * @var IValueBinder
