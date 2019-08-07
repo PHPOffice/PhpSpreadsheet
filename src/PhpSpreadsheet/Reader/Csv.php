@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -380,7 +381,7 @@ class Csv extends BaseReader
                     }
 
                     // Set cell value
-                    $sheet->getCell($columnLetter . $currentRow)->setValue($rowDatum);
+                    $sheet->getCell($columnLetter . $currentRow)->setValueExplicit($rowDatum, DataType::TYPE_STRING);
                 }
                 ++$columnLetter;
             }

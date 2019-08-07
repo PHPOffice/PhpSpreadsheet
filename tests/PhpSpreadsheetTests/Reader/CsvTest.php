@@ -71,7 +71,7 @@ class CsvTest extends TestCase
                 __DIR__ . '/../../../samples/Reader/sampleData/example2.csv',
                 ',',
                 'D8',
-                -58.373161,
+                '-58.373161',
             ],
             [
                 'data/Reader/CSV/empty.csv',
@@ -129,5 +129,15 @@ class CsvTest extends TestCase
 
         $this->assertSame('"', $reader->getEscapeCharacter());
         $this->assertSame($expected, $worksheet->toArray());
+    }
+
+    public function testReadNumericStrings()
+    {
+        $reader = (new Csv())->setEscapeCharacter('"');
+        $worksheet = $reader->load(__DIR__ . '/../../data/Reader/CSV/numeric_strings.csv')
+            ->getActiveSheet();
+
+        $this->assertSame('165008G4', $worksheet->getCell('A1')->getValue());
+        $this->assertSame('165008E4', $worksheet->getCell('A2')->getValue());
     }
 }
