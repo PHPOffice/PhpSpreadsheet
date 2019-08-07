@@ -173,10 +173,9 @@ code:
     $writer->setOffice2003Compatibility(true);
     $writer->save("05featuredemo.xlsx");
 
-**Office2003 compatibility should only be used when needed** Office2003
-compatibility option should only be used when needed. This option
-disables several Office2007 file format options, resulting in a
-lower-featured Office2007 spreadsheet when this option is used.
+**Office2003 compatibility option should only be used when needed** because 
+it disables several Office2007 file format options, resulting in a
+lower-featured Office2007 spreadsheet.
 
 ## Excel 5 (BIFF) file format
 
