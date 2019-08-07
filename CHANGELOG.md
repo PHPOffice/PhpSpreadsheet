@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix handling of named ranges referencing sheets with spaces or "!" in their title
 - Cover `getSheetByName()` with tests for name with quote and spaces - [#739](https://github.com/PHPOffice/PhpSpreadsheet/issues/739)
 - Best effort to support invalid colspan values in HTML reader - [878](https://github.com/PHPOffice/PhpSpreadsheet/pull/878)
+- Fix reading CSV files to read values as strings to prevent automatic guessing from data - [Issue #1132](https://github.com/PHPOffice/PhpSpreadsheet/issues/1132)
 
 ## [1.8.2] - 2019-07-08
 
