@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Add MAXIFS, MINIFS, COUNTIFS and Remove MINIF, MAXIF - [Issue #1056](https://github.com/PHPOffice/PhpSpreadsheet/issues/1056)
 - HLookup needs an ordered list even if range_lookup is set to false [Issue #1055](https://github.com/PHPOffice/PhpSpreadsheet/issues/1055) and [PR #1076](https://github.com/PHPOffice/PhpSpreadsheet/pull/1076)
 - Improve performance of IF function calls via ranch pruning to avoid resolution of every branches [#844](https://github.com/PHPOffice/PhpSpreadsheet/pull/844)
+- MATCH function supports `*?~` Excel functionality, when match_type=0 - [Issue #1116](https://github.com/PHPOffice/PhpSpreadsheet/issues/1116)
 
 ### Fixed
 
@@ -26,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Cover `getSheetByName()` with tests for name with quote and spaces - [#739](https://github.com/PHPOffice/PhpSpreadsheet/issues/739)
 - Best effort to support invalid colspan values in HTML reader - [878](https://github.com/PHPOffice/PhpSpreadsheet/pull/878)
 - Fixes incorrect rows deletion [#868](https://github.com/PHPOffice/PhpSpreadsheet/issues/868)
+- MATCH function fix (value search by type, stop search when match_type=-1 and unordered element encountered) - [Issue #1116](https://github.com/PHPOffice/PhpSpreadsheet/issues/1116)
 
 ## [1.8.2] - 2019-07-08
 
