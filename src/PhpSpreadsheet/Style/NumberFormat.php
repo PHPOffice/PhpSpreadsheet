@@ -23,7 +23,7 @@ class NumberFormat extends Supervisor
     const FORMAT_PERCENTAGE_00 = '0.00%';
 
     const FORMAT_DATE_YYYYMMDD2 = 'yyyy-mm-dd';
-    const FORMAT_DATE_YYYYMMDD = 'yy-mm-dd';
+    const FORMAT_DATE_YYYYMMDD = 'yyyy-mm-dd';
     const FORMAT_DATE_DDMMYYYY = 'dd/mm/yyyy';
     const FORMAT_DATE_DMYSLASH = 'd/m/yy';
     const FORMAT_DATE_DMYMINUS = 'd-m-yy';
@@ -43,7 +43,7 @@ class NumberFormat extends Supervisor
     const FORMAT_DATE_TIME6 = 'h:mm:ss';
     const FORMAT_DATE_TIME7 = 'i:s.S';
     const FORMAT_DATE_TIME8 = 'h:mm:ss;@';
-    const FORMAT_DATE_YYYYMMDDSLASH = 'yy/mm/dd;@';
+    const FORMAT_DATE_YYYYMMDDSLASH = 'yyyy/mm/dd;@';
 
     const FORMAT_CURRENCY_USD_SIMPLE = '"$"#,##0.00_-';
     const FORMAT_CURRENCY_USD = '$#,##0_-';
