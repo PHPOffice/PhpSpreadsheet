@@ -14,8 +14,6 @@ function calculationTestDataGenerator()
     $formula1 = '=IF(A1="please +",SUM(A2:C2),7 + IF(B1="please *", 4, 2))';
     $set2 = [3, $dataArray1, $formula1, 'E5'];
 
-    $originalDataArray = $dataArray1;
-
     $dataArray1[0][0] = 'not please + something else';
     $set3 = [11, $dataArray1, $formula1, 'E5'];
 
@@ -39,11 +37,11 @@ function calculationTestDataGenerator()
     $dataArray4 = [
         ['noflag',    0, 0],
         [127000,    0, 0],
-        [ 10000,  0.03, 0],
-        [ 20000,  0.06, 0],
-        [ 40000,  0.09, 0],
-        [ 70000,  0.12, 0],
-        [ 90000,  0.03, 0]
+        [10000,  0.03, 0],
+        [20000,  0.06, 0],
+        [40000,  0.09, 0],
+        [70000,  0.12, 0],
+        [90000,  0.03, 0],
     ];
     $formula2 = '=IF(A1="flag",IF(A2<10, 0) + IF(A3<10000, 0))';
     $set7 = [false, $dataArray4, $formula2, 'E5'];
@@ -52,12 +50,12 @@ function calculationTestDataGenerator()
         [1, 2],
         [3, 4],
         ['=A1+A2', '=SUM(B1:B2)'],
-        [ 'take A', 0]
+        ['take A', 0],
     ];
     $formula3 = '=IF(A4="take A", A3, B3)';
     $set8 = [4, $dataArray5, $formula3, 'E5', ['A3'], ['B3']];
 
     return [$set0, $set1, $set2, $set3, $set4, $set5, $set6, $set7, $set8];
-};
+}
 
 return calculationTestDataGenerator();

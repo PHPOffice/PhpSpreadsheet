@@ -3592,7 +3592,6 @@ class Calculation
                         $valToUpper = strtoupper($val);
                         // here $matches[1] will contain values like "IF"
                         // and $val "IF("
-                        $injectStoreKey = null;
                         if ($this->branchPruningEnabled && ($valToUpper == 'IF(')) { // we handle a new if
                             $pendingStoreKey = $this->getUnusedBranchStoreKey();
                             $pendingStoreKeysStack[] = $pendingStoreKey;
