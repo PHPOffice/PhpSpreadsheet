@@ -1441,7 +1441,7 @@ class Worksheet implements IComparable
         $this->parent->setActiveSheetIndex($this->parent->getIndex($this));
 
         // set cell coordinate as active
-        $this->setSelectedCells(strtoupper($pCellCoordinate));
+        $this->setSelectedCells($pCellCoordinate);
 
         return $this->parent->getCellXfSupervisor();
     }
