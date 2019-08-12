@@ -380,7 +380,7 @@ class Ods extends BaseReader
                                 if (!method_exists($cellData, 'hasAttributeNS')) {
                                     continue;
                                 }
-                                
+
                                 // Initialize variables
                                 $formatting = $hyperlink = null;
                                 $hasCalculatedValue = false;
