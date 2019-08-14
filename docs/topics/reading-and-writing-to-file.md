@@ -875,3 +875,31 @@ $writer->save('write.xls');
 ```
 
 Notice that it is ok to load an xlsx file and generate an xls file.
+
+## Generating Excel files from HTML content
+
+If you are generating an Excel file from pre-rendered HTML content you can do so
+automatically using the HTML Reader. This is most useful when you are generating 
+Excel files from web application content that would be downloaded/sent to a user.
+
+For example:
+
+```php
+$htmlString = '<table>
+                  <tr>
+                      <td>Hello World</td>
+                  </tr>
+                  <tr>
+                      <td>Hello<br />World</td>
+                  </tr>
+                  <tr>
+                      <td>Hello<br>World</td>
+                  </tr>
+              </table>';
+
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+$spreadsheet = $reader->loadFromString($htmlString);
+
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+$writer->save('write.xls'); 
+```

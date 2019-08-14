@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - HLookup needs an ordered list even if range_lookup is set to false [Issue #1055](https://github.com/PHPOffice/PhpSpreadsheet/issues/1055) and [PR #1076](https://github.com/PHPOffice/PhpSpreadsheet/pull/1076)
 - Improve performance of IF function calls via ranch pruning to avoid resolution of every branches [#844](https://github.com/PHPOffice/PhpSpreadsheet/pull/844)
 - MATCH function supports `*?~` Excel functionality, when match_type=0 - [Issue #1116](https://github.com/PHPOffice/PhpSpreadsheet/issues/1116)
+- Allow HTML Reader to accept HTML as a string [Issue #1136](https://github.com/PHPOffice/PhpSpreadsheet/pull/1136)
 
 ### Fixed
 
