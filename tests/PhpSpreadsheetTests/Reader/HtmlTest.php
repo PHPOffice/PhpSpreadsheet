@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Reader\Html;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Font;
@@ -297,6 +298,68 @@ class HtmlTest extends TestCase
         $this->assertContains("\n", $cellValue);
 
         unlink($filename);
+    }
+
+    public function testCanLoadFromString()
+    {
+        $html = '<table>
+                    <tr>
+                        <td>Hello World</td>
+                    </tr>
+                    <tr>
+                        <td>Hello<br />World</td>
+                    </tr>
+                    <tr>
+                        <td>Hello<br>World</td>
+                    </tr>
+                </table>';
+        $spreadsheet = (new Html())->loadFromString($html);
+        $firstSheet = $spreadsheet->getSheet(0);
+
+        $cellStyle = $firstSheet->getStyle('A1');
+        self::assertFalse($cellStyle->getAlignment()->getWrapText());
+
+        $cellStyle = $firstSheet->getStyle('A2');
+        self::assertTrue($cellStyle->getAlignment()->getWrapText());
+        $cellValue = $firstSheet->getCell('A2')->getValue();
+        $this->assertContains("\n", $cellValue);
+
+        $cellStyle = $firstSheet->getStyle('A3');
+        self::assertTrue($cellStyle->getAlignment()->getWrapText());
+        $cellValue = $firstSheet->getCell('A3')->getValue();
+        $this->assertContains("\n", $cellValue);
+    }
+
+    public function testCanLoadFromDomDocument()
+    {
+        $html = '<table>
+                    <tr>
+                        <td>Hello World</td>
+                    </tr>
+                    <tr>
+                        <td>Hello<br />World</td>
+                    </tr>
+                    <tr>
+                        <td>Hello<br>World</td>
+                    </tr>
+		</table>';
+        $document = new \DOMDocument();
+        $document->loadHTML($html);
+        $spreadsheet = (new Html())->loadDocument($document, new Spreadsheet());
+        $firstSheet = $spreadsheet->getSheet(0);
+
+        $cellStyle = $firstSheet->getStyle('A1');
+        self::assertFalse($cellStyle->getAlignment()->getWrapText());
+
+        $cellStyle = $firstSheet->getStyle('A2');
+        self::assertTrue($cellStyle->getAlignment()->getWrapText());
+        $cellValue = $firstSheet->getCell('A2')->getValue();
+        $this->assertContains("\n", $cellValue);
+
+        $cellStyle = $firstSheet->getStyle('A3');
+        self::assertTrue($cellStyle->getAlignment()->getWrapText());
+        $cellValue = $firstSheet->getCell('A3')->getValue();
+        $this->assertContains("\n", $cellValue);
     }
 
     /**
