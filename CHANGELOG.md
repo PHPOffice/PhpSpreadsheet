@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [1.9.0] - 2019-08-17
 
+### Changed
+
+- Drop support for PHP 5.6 and 7.0, according to https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support
+
 ### Added
 
 - When &lt;br&gt; appears in a table cell, set the cell to wrap [#1071](https://github.com/PHPOffice/PhpSpreadsheet/issues/1071) and [#1070](https://github.com/PHPOffice/PhpSpreadsheet/pull/1070)
