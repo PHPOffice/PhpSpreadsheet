@@ -9,8 +9,8 @@ class CalculateFromFileTest extends TestCase
 
     public function sampleDataProvider(): array
     {
-        return  [
-            ['AL6 0JB', TRUE, [15,16,22]],
+        return [
+            ['AL6 0JB', true, [15, 16, 22]],
         ];
     }
 
@@ -29,12 +29,13 @@ class CalculateFromFileTest extends TestCase
         if ($spreadsheet->getActiveSheet()->getCell('C1')->isFormula()) {
             $this->assertEquals(true, $spreadsheet->getActiveSheet()->getCell('C1')->getCalculatedValue());
             $spreadsheet->setActiveSheetIndexByName('Sheet2');
-            $this->assertEquals([$spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
+            $this->assertEquals([
+                $spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
                 $spreadsheet->getActiveSheet()->getCell('K12')->getCalculatedValue(),
-                $spreadsheet->getActiveSheet()->getCell('K13')->getCalculatedValue()], [15,16,22]);
+                $spreadsheet->getActiveSheet()->getCell('K13')->getCalculatedValue(),
+            ], [15, 16, 22]);
         }
     }
-
 
     /**
      * @throws \PhpOffice\PhpSpreadsheet\Exception
@@ -54,9 +55,16 @@ class CalculateFromFileTest extends TestCase
         if ($spreadsheet->getActiveSheet()->getCell('C1')->isFormula()) {
             $this->assertEquals(false, $spreadsheet->getActiveSheet()->getCell('C1')->getCalculatedValue());
             $spreadsheet->setActiveSheetIndexByName('Sheet2');
-            $this->assertEquals([$spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
+            $this->assertEquals([
+                $spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
                 $spreadsheet->getActiveSheet()->getCell('K12')->getCalculatedValue(),
-                $spreadsheet->getActiveSheet()->getCell('K13')->getCalculatedValue()], ['Pruned branch (only if storeKey-2) K3','Pruned branch (only if storeKey-3) K7','Pruned branch (only if storeKey-4) K9']);
+                $spreadsheet->getActiveSheet()->getCell('K13')->getCalculatedValue(),
+            ], [
+                    'Pruned branch (only if storeKey-2) K3',
+                    'Pruned branch (only if storeKey-3) K7',
+                    'Pruned branch (only if storeKey-4) K9',
+                ]
+            );
         }
     }
 }
