@@ -25,10 +25,15 @@ class CalculateFromFileTest extends TestCase
             $spreadsheet->setActiveSheetIndexByName('Sheet2');
             $this->assertEquals(
                 [
-                $spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
-                $spreadsheet->getActiveSheet()->getCell('K12')->getCalculatedValue(),
-                $spreadsheet->getActiveSheet()->getCell('K13')->getCalculatedValue(),
-                ], [15, 16, 22]
+                    $spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
+                    $spreadsheet->getActiveSheet()->getCell('K12')->getCalculatedValue(),
+                    $spreadsheet->getActiveSheet()->getCell('K13')->getCalculatedValue(),
+                ],
+                [
+                    15,
+                    16,
+                    22
+                ]
             );
         }
     }
