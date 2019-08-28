@@ -23,11 +23,13 @@ class CalculateFromFileTest extends TestCase
         if ($spreadsheet->getActiveSheet()->getCell('C1')->isFormula()) {
             $this->assertTrue($spreadsheet->getActiveSheet()->getCell('C1')->getCalculatedValue());
             $spreadsheet->setActiveSheetIndexByName('Sheet2');
-            $this->assertEquals([
+            $this->assertEquals(
+                [
                 $spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
                 $spreadsheet->getActiveSheet()->getCell('K12')->getCalculatedValue(),
                 $spreadsheet->getActiveSheet()->getCell('K13')->getCalculatedValue(),
-            ], [15, 16, 22]);
+                ], [15, 16, 22]
+            );
         }
     }
 
@@ -49,11 +51,13 @@ class CalculateFromFileTest extends TestCase
         if ($spreadsheet->getActiveSheet()->getCell('C1')->isFormula()) {
             $this->assertFalse($spreadsheet->getActiveSheet()->getCell('C1')->getCalculatedValue());
             $spreadsheet->setActiveSheetIndexByName('Sheet2');
-            $this->assertEquals([
-                $spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
-                $spreadsheet->getActiveSheet()->getCell('K12')->getCalculatedValue(),
-                $spreadsheet->getActiveSheet()->getCell('K13')->getCalculatedValue(),
-            ], [
+            $this->assertEquals(
+                [
+                    $spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
+                    $spreadsheet->getActiveSheet()->getCell('K12')->getCalculatedValue(),
+                    $spreadsheet->getActiveSheet()->getCell('K13')->getCalculatedValue(),
+                ],
+                [
                     'Pruned branch (only if storeKey-2) K3',
                     'Pruned branch (only if storeKey-3) K7',
                     'Pruned branch (only if storeKey-4) K9',
