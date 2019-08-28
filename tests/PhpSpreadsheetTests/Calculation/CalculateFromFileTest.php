@@ -32,7 +32,7 @@ class CalculateFromFileTest extends TestCase
                 [
                     15,
                     16,
-                    22
+                    22,
                 ]
             );
         }
