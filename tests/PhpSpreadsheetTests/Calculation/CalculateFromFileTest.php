@@ -1,4 +1,4 @@
-<?php declare (strict_types = 1);
+<?php
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\IOFactory;
