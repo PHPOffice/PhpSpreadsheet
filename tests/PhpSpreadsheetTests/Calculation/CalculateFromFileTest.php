@@ -1,5 +1,7 @@
 <?php
 
+namespace PhpOffice\PhpSpreadsheetTests\Calculation;
+
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PHPUnit\Framework\TestCase;
@@ -27,7 +29,7 @@ class CalculateFromFileTest extends TestCase
         $spreadsheet->setActiveSheetIndexByName('Sheet1');
         $spreadsheet->getActiveSheet()->setCellValue('B1', 'AL6 0JB');
         if ($spreadsheet->getActiveSheet()->getCell('C1')->isFormula()) {
-            $this->assertEquals(true, $spreadsheet->getActiveSheet()->getCell('C1')->getCalculatedValue());
+            $this->assertTrue($spreadsheet->getActiveSheet()->getCell('C1')->getCalculatedValue());
             $spreadsheet->setActiveSheetIndexByName('Sheet2');
             $this->assertEquals([
                 $spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
@@ -53,7 +55,7 @@ class CalculateFromFileTest extends TestCase
         $spreadsheet->setActiveSheetIndexByName('Sheet1');
         $spreadsheet->getActiveSheet()->setCellValue('B1', 'AL6 0JB');
         if ($spreadsheet->getActiveSheet()->getCell('C1')->isFormula()) {
-            $this->assertEquals(false, $spreadsheet->getActiveSheet()->getCell('C1')->getCalculatedValue());
+            $this->assertFalse($spreadsheet->getActiveSheet()->getCell('C1')->getCalculatedValue());
             $spreadsheet->setActiveSheetIndexByName('Sheet2');
             $this->assertEquals([
                 $spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
