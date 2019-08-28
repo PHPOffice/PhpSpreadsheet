@@ -8,14 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class CalculateFromFileTest extends TestCase
 {
-
-    public function sampleDataProvider(): array
-    {
-        return [
-            ['AL6 0JB', true, [15, 16, 22]],
-        ];
-    }
-
     /**
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
