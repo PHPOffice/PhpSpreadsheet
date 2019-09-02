@@ -183,7 +183,6 @@ class CalculationTest extends TestCase
     public function testBranchPruningFormulaParsingSimpleCase()
     {
         $calculation = Calculation::getInstance();
-        $calculation->enableBranchPruning();
         $calculation->flushInstance(); // resets the ids
 
         // Very simple formula
@@ -212,7 +211,6 @@ class CalculationTest extends TestCase
     public function testBranchPruningFormulaParsingMultipleIfsCase()
     {
         $calculation = Calculation::getInstance();
-        $calculation->enableBranchPruning();
         $calculation->flushInstance(); // resets the ids
 
         //
@@ -244,7 +242,6 @@ class CalculationTest extends TestCase
     public function testBranchPruningFormulaParingNestedIfCase()
     {
         $calculation = Calculation::getInstance();
-        $calculation->enableBranchPruning();
         $calculation->flushInstance(); // resets the ids
 
         $formula = '=IF(A1="please +",SUM(B1:B3),1+IF(NOT(A2="please *"),C2-C1,PRODUCT(C1:C3)))';
@@ -288,7 +285,6 @@ class CalculationTest extends TestCase
     public function testBranchPruningFormulaParsingInequalitiesConditionsCase()
     {
         $calculation = Calculation::getInstance();
-        $calculation->enableBranchPruning();
         $calculation->flushInstance(); // resets the ids
 
         $formula = '=IF(A1="flag",IF(A2<10, 0) + IF(A3<10000, 0))';
@@ -331,7 +327,6 @@ class CalculationTest extends TestCase
         $sheet->fromArray($dataArray);
         $cell = $sheet->getCell($cellCoordinates);
         $calculation = Calculation::getInstance($cell->getWorksheet()->getParent());
-        $calculation->enableBranchPruning();
 
         $cell->setValue($formula);
         $calculated = $cell->getCalculatedValue();

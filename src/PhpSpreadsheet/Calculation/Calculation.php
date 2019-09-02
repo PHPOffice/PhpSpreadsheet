@@ -73,7 +73,7 @@ class Calculation
      */
     private $branchStoreKeyCounter = 0;
 
-    private $branchPruningEnabled = false;
+    private $branchPruningEnabled = true;
 
     /**
      * List of operators that can be used within formulae

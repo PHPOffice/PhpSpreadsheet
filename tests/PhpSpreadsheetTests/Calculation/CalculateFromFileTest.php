@@ -8,54 +8,38 @@ use PHPUnit\Framework\TestCase;
 
 class CalculateFromFileTest extends TestCase
 {
-    /**
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
-     */
-    public function testBranchPruningOff(): void
+    public function branchPruningModeDataProvider(): array
     {
-        $reader = IOFactory::createReader('Xlsx');
-        $reader->setReadDataOnly(true);
-        $spreadsheet = $reader->load(__DIR__ . '/../../data/Reader/XLSX/calculationTest.xlsx');
-
-        $spreadsheet->setActiveSheetIndexByName('Sheet1');
-        $spreadsheet->getActiveSheet()->setCellValue('B1', 'AL6 0JB');
-        if ($spreadsheet->getActiveSheet()->getCell('C1')->isFormula()) {
-            $this->assertTrue($spreadsheet->getActiveSheet()->getCell('C1')->getCalculatedValue());
-            $spreadsheet->setActiveSheetIndexByName('Sheet2');
-            $this->assertEquals(
-                [
-                    $spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
-                    $spreadsheet->getActiveSheet()->getCell('K12')->getCalculatedValue(),
-                    $spreadsheet->getActiveSheet()->getCell('K13')->getCalculatedValue(),
-                ],
-                [
-                    15,
-                    16,
-                    22,
-                ]
-            );
-        }
+        return [
+            [false],
+            [true],
+        ];
     }
 
     /**
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     * @dataProvider branchPruningModeDataProvider
      */
-    public function testBranchPruningOn(): void
+    public function testBranchPruning(bool $mode): void
     {
         $reader = IOFactory::createReader('Xlsx');
         $reader->setReadDataOnly(true);
+
         $spreadsheet = $reader->load(__DIR__ . '/../../data/Reader/XLSX/calculationTest.xlsx');
-        // turn on branch pruning
         $cal = Calculation::getInstance($spreadsheet);
-        $cal->enableBranchPruning();
+
+        if(true === $mode){
+            $cal->enableBranchPruning();
+        }else {
+            $cal->disableBranchPruning();
+        }
 
         $spreadsheet->setActiveSheetIndexByName('Sheet1');
-        $spreadsheet->getActiveSheet()->setCellValue('B1', 'AL6 0JB');
+
+        $spreadsheet->getActiveSheet()->setCellValue('B1', 'AB10 0JB');
         if ($spreadsheet->getActiveSheet()->getCell('C1')->isFormula()) {
-            $this->assertFalse($spreadsheet->getActiveSheet()->getCell('C1')->getCalculatedValue());
-            $spreadsheet->setActiveSheetIndexByName('Sheet2');
+            $this->assertTrue($spreadsheet->getActiveSheet()->getCell('C1')->getCalculatedValue());
             $this->assertEquals(
                 [
                     $spreadsheet->getActiveSheet()->getCell('K11')->getCalculatedValue(),
@@ -63,9 +47,9 @@ class CalculateFromFileTest extends TestCase
                     $spreadsheet->getActiveSheet()->getCell('K13')->getCalculatedValue(),
                 ],
                 [
-                    'Pruned branch (only if storeKey-2) K3',
-                    'Pruned branch (only if storeKey-3) K7',
-                    'Pruned branch (only if storeKey-4) K9',
+                    '#N/A',
+                    12,
+                    '#N/A',
                 ]
             );
         }
