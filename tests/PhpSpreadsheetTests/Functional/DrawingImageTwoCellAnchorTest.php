@@ -7,7 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Functional;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
-class DrawingImageTwoCellAnchor extends AbstractFunctional
+class DrawingImageTwoCellAnchorTest extends AbstractFunctional
 {
 
   public function testDrawingImageTwoCellAnchor()
