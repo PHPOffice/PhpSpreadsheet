@@ -4,7 +4,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
 class DrawingImageTwoCellAnchorTest extends AbstractFunctional
@@ -21,15 +23,19 @@ class DrawingImageTwoCellAnchorTest extends AbstractFunctional
     imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 
 
-    $listOfModes = ['twoCell', 'absolute', 'oneCell'];
+    $listOfModes = [
+      BaseDrawing::TWO_CELL,
+      BaseDrawing::ABSOLUTE,
+      BaseDrawing::ONE_CELL
+    ];
 
     foreach ($listOfModes as $i => $mode) {
       $drawing = new MemoryDrawing();
-      $drawing->setName('In-Memory image '. $i);
-      $drawing->setDescription('In-Memory image '. $i);
+      $drawing->setName('In-Memory image ' . $i);
+      $drawing->setDescription('In-Memory image ' . $i);
 
-      $drawing->setCoordinates('A1');
-      $drawing->setBottomRightCell('D4');
+      $drawing->setCoordinates('A' . ((4 * $i) + 1));
+      $drawing->setBottomRightCell('D' . ((4 * $i) + 4));
       $drawing->editAs($mode);
 
       $drawing->setImageResource($gdImage);
@@ -41,7 +47,6 @@ class DrawingImageTwoCellAnchorTest extends AbstractFunctional
 
       $drawing->setWorksheet($aSheet);
     }
-
     $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
 
     foreach ($reloadedSpreadsheet->getActiveSheet()->getDrawingCollection() as $index => $pDrawing) {
