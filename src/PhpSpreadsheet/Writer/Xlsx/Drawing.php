@@ -163,7 +163,7 @@ class Drawing extends WriterPart
     {
         if ($pRelationId >= 0) {
           if($pDrawing->getAnchorMode() === 'twoCell'){
-            // xdr:oneCellAnchor
+            // xdr:twoCellAnchor
             $objWriter->startElement('xdr:twoCellAnchor');
             $objWriter->writeAttribute('editAs', $pDrawing->getEditAs());
           } else {
