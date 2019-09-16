@@ -174,9 +174,6 @@ class Drawing extends WriterPart
             $aCoordinates = Coordinate::coordinateFromString($pDrawing->getCoordinates());
             $aCoordinates[0] = Coordinate::columnIndexFromString($aCoordinates[0]);
 
-          $aBottomRightCoordinates = Coordinate::coordinateFromString($pDrawing->getBottomRightCell());
-          $aBottomRightCoordinates[0] = Coordinate::columnIndexFromString($aBottomRightCoordinates[0]);
-
             // xdr:from
             $objWriter->startElement('xdr:from');
             $objWriter->writeElement('xdr:col', $aCoordinates[0] - 1);
@@ -186,6 +183,8 @@ class Drawing extends WriterPart
             $objWriter->endElement();
 
           if ($pDrawing->getAnchorMode() === 'twoCell'){
+            $aBottomRightCoordinates = Coordinate::coordinateFromString($pDrawing->getBottomRightCell());
+            $aBottomRightCoordinates[0] = Coordinate::columnIndexFromString($aBottomRightCoordinates[0]);
             // xdr:to
             $objWriter->startElement('xdr:to');
             $objWriter->writeElement('xdr:col', $aBottomRightCoordinates[0] - 1);
