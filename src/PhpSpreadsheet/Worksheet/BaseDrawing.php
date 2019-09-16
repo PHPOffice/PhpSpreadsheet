@@ -114,7 +114,15 @@ class BaseDrawing implements IComparable
      *
      * @var string
      * */
-    protected $editAs;
+    protected $editAs = 'absolute';
+
+    /**
+     * Determine which kind of anchoring should be used for the drawing
+     *
+     * @var string
+     * */
+    protected $anchorMode = 'oneCell';
+
 
     /**
      * Rotation.
@@ -154,6 +162,9 @@ class BaseDrawing implements IComparable
         $this->resizeProportional = true;
         $this->rotation = 0;
         $this->shadow = new Drawing\Shadow();
+
+        $this->anchorMode = 'oneCell';
+        $this->editAs = 'oneCell';
 
         // Set image index
         ++self::$imageCounter;
@@ -581,6 +592,7 @@ class BaseDrawing implements IComparable
   public function setBottomRightCell(string $bottomRightCellRef)
   {
     $this->bottomRightCellRef = $bottomRightCellRef;
+    $this->anchorMode = 'twoCell';
     return $this;
   }
 
@@ -593,4 +605,69 @@ class BaseDrawing implements IComparable
     $this->editAs = $editAs;
     return $this;
   }
+
+
+  public function getEditAs()
+  {
+    return $this->editAs;
+  }
+
+  /**
+   * @return string
+   */
+  public function getAnchorMode()
+  {
+    return $this->anchorMode;
+  }
+
+  /**
+   * @return int
+   */
+  public function getBottomRightXOffset()
+  {
+    return $this->bottomRightXOffset;
+  }
+
+  /**
+   * @param int $bottomRightXOffset
+   * @return BaseDrawing
+   */
+  public function setBottomRightXOffset(int $bottomRightXOffset)
+  {
+    $this->bottomRightXOffset = $bottomRightXOffset;
+    return $this;
+  }
+
+  /**
+   * @return int
+   */
+  public function getBottomRightYOffset()
+  {
+    return $this->bottomRightYOffset;
+  }
+
+  /**
+   * @param int $bottomRightYOffset
+   * @return BaseDrawing
+   */
+  public function setBottomRightYOffset(int $bottomRightYOffset)
+  {
+    $this->bottomRightYOffset = $bottomRightYOffset;
+
+    return $this;
+  }
+
+  public function setBottomRightOffset($xOffset, $yOffset)
+  {
+    if ($xOffset !== null) {
+      $this->setBottomRightXOffset($xOffset);
+    }
+
+    if ($yOffset !== null) {
+      $this->setBottomRightYOffset($yOffset);
+    }
+
+    return $this;
+  }
+
 }

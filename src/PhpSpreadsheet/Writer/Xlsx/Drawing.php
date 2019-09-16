@@ -162,11 +162,20 @@ class Drawing extends WriterPart
     public function writeDrawing(XMLWriter $objWriter, BaseDrawing $pDrawing, $pRelationId = -1, $hlinkClickId = null)
     {
         if ($pRelationId >= 0) {
+          if($pDrawing->getAnchorMode() === 'twoCell'){
+            // xdr:oneCellAnchor
+            $objWriter->startElement('xdr:twoCellAnchor');
+            $objWriter->writeAttribute('editAs', $pDrawing->getEditAs());
+          } else {
             // xdr:oneCellAnchor
             $objWriter->startElement('xdr:oneCellAnchor');
+          }
             // Image location
             $aCoordinates = Coordinate::coordinateFromString($pDrawing->getCoordinates());
             $aCoordinates[0] = Coordinate::columnIndexFromString($aCoordinates[0]);
+
+          $aBottomRightCoordinates = Coordinate::coordinateFromString($pDrawing->getBottomRightCell());
+          $aBottomRightCoordinates[0] = Coordinate::columnIndexFromString($aBottomRightCoordinates[0]);
 
             // xdr:from
             $objWriter->startElement('xdr:from');
@@ -176,11 +185,22 @@ class Drawing extends WriterPart
             $objWriter->writeElement('xdr:rowOff', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getOffsetY()));
             $objWriter->endElement();
 
+          if ($pDrawing->getAnchorMode() === 'twoCell'){
+            // xdr:to
+            $objWriter->startElement('xdr:to');
+            $objWriter->writeElement('xdr:col', $aBottomRightCoordinates[0] - 1);
+            $objWriter->writeElement('xdr:colOff', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getBottomRightXOffset()));
+            $objWriter->writeElement('xdr:row', $aBottomRightCoordinates[1] - 1);
+            $objWriter->writeElement('xdr:rowOff', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getBottomRightYOffset()));
+            $objWriter->endElement();
+          } else {
             // xdr:ext
             $objWriter->startElement('xdr:ext');
             $objWriter->writeAttribute('cx', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getWidth()));
             $objWriter->writeAttribute('cy', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getHeight()));
             $objWriter->endElement();
+          }
+
 
             // xdr:pic
             $objWriter->startElement('xdr:pic');
