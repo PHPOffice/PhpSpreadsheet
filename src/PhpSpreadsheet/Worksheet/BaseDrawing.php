@@ -8,6 +8,9 @@ use PhpOffice\PhpSpreadsheet\IComparable;
 
 class BaseDrawing implements IComparable
 {
+    const TWO_CELL = 'twoCell';
+    const ONE_CELL = 'oneCell';
+    const ABSOLUTE = 'absolute';
     /**
      * Image counter.
      *
@@ -114,7 +117,7 @@ class BaseDrawing implements IComparable
      *
      * @var string
      * */
-    protected $editAs = 'absolute';
+    protected $editAs = self::ABSOLUTE;
 
     /**
      * Determine which kind of anchoring should be used for the drawing
@@ -600,9 +603,11 @@ class BaseDrawing implements IComparable
    * @param string $editAs
    * @return BaseDrawing
    */
-  public function editAs(string $editAs)
+  public function editAs($editAs)
   {
-    $this->editAs = $editAs;
+    if($editAs === self::ABSOLUTE || $editAs === self::ONE_CELL || $editAs === self::TWO_CELL){
+      $this->editAs = $editAs;
+    }
     return $this;
   }
 
