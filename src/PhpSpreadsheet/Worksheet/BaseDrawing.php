@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ReturnTypeCanBeDeclaredInspection */
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
@@ -50,12 +50,12 @@ class BaseDrawing implements IComparable
      */
     protected $coordinates;
 
-    /**
-     * Offset X.
-     *
-     * @var int
-     */
-    protected $offsetX;
+  /**
+   * Offset X.
+   *
+   * @var int
+   */
+  protected $offsetX;
 
     /**
      * Offset Y.
@@ -64,6 +64,27 @@ class BaseDrawing implements IComparable
      */
     protected $offsetY;
 
+
+  /**
+   * Bottom-Right Cell Position.
+   *
+   * @var string
+   */
+  private $bottomRightCellRef;
+
+  /**
+   * Bottom-Right X-Offset.
+   *
+   * @var int
+   */
+  private $bottomRightXOffset;
+
+  /**
+   * Bottom-Right Y-Offset.
+   *
+   * @var int
+   */
+  private $bottomRightYOffset;
     /**
      * Width.
      *
@@ -84,6 +105,16 @@ class BaseDrawing implements IComparable
      * @var bool
      */
     protected $resizeProportional;
+
+    /**
+     * Specifies how the object should be moved/resized when the rows and columns between the start and end
+     * anchors are resized, or when additional rows or columns are added
+     *
+     * values are: absolute, oneCell, twoCell
+     *
+     * @var string
+     * */
+    protected $editAs;
 
     /**
      * Rotation.
@@ -534,4 +565,32 @@ class BaseDrawing implements IComparable
     {
         return $this->hyperlink;
     }
+
+  /**
+   * @return string
+   */
+  public function getBottomRightCell()
+  {
+    return $this->bottomRightCellRef;
+  }
+
+  /**
+   * @param string $bottomRightCellRef
+   * @return BaseDrawing
+   */
+  public function setBottomRightCell(string $bottomRightCellRef)
+  {
+    $this->bottomRightCellRef = $bottomRightCellRef;
+    return $this;
+  }
+
+  /**
+   * @param string $editAs
+   * @return BaseDrawing
+   */
+  public function editAs(string $editAs)
+  {
+    $this->editAs = $editAs;
+    return $this;
+  }
 }
