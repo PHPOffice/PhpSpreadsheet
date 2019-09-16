@@ -1215,6 +1215,11 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((string) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1));
                                                     $objDrawing->setOffsetX(Drawing::EMUToPixels($twoCellAnchor->from->colOff));
                                                     $objDrawing->setOffsetY(Drawing::EMUToPixels($twoCellAnchor->from->rowOff));
+
+                                                    $objDrawing->setBottomRightCell(Coordinate::stringFromColumnIndex(((string) $twoCellAnchor->to->col) + 1) . ($twoCellAnchor->to->row + 1));
+                                                    $objDrawing->setBottomRightOffset(Drawing::EMUToPixels($twoCellAnchor->to->colOff), Drawing::EMUToPixels($twoCellAnchor->to->rowOff));
+                                                    $objDrawing->editAs(self::getArrayItem($twoCellAnchor->attributes(), 'editAs'));
+
                                                     $objDrawing->setResizeProportional(false);
 
                                                     if ($xfrm) {
