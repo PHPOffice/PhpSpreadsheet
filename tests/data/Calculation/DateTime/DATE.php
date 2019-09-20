@@ -1,52 +1,43 @@
 <?php
 
-//  Year, Month, Day, Result, Comments
-
 return [
-    [
-        6890,
+    'Year without century specified' => [
+        6890, // '11th November 1918'
         18, 11, 11,
     ],
-    // Excel 1900 Calendar Base Date
-    [
+    'Excel 1900 Calendar Base Date' => [
         1,
         1900, 1, 1,
     ],
-    // Day before Excel mythical 1900 leap day
-    [
+    'Day before Excel mythical 1900 leap day' => [
         59,
         1900, 2, 28,
     ],
-    // Excel mythical 1900 leap day
-    [
+    'Excel mythical 1900 leap day' => [
         60,
         1900, 2, 29,
     ],
-    [
-        // Day after Excel mythical 1900 leap day
+    'Day after Excel mythical 1900 leap day' => [
         61,
         1900, 3, 1,
     ],
-    // Day after Excel actual 1904 leap day
-    [
+    'Day after Excel actual 1904 leap day' => [
         713,
         1901, 12, 13,
     ],
-    // PHP 32-bit Earliest Date (unix timestamp)
-    [
+    'signed 32-bit Unix Timestamp Earliest Date' => [
         714,
         1901, 12, 14,
     ],
-    [
+    'Day before Excel 1904 Calendar Base Date' => [
         1461,
         1903, 12, 31,
     ],
-    // Excel 1904 Calendar Base Date
-    [
+    'Excel 1904 Calendar Base Date' => [
         1462,
         1904, 1, 1,
     ],
-    [
+    'Day after Excel 1904 Calendar Base Date' => [
         1463,
         1904, 1, 2,
     ],
@@ -54,8 +45,7 @@ return [
         22269,
         1960, 12, 19,
     ],
-    // PHP (unix timestamp) Base Date
-    [
+    'Unix Timestamp Base Date' => [
         25569,
         1970, 1, 1,
     ],
@@ -67,13 +57,11 @@ return [
         39611,
         2008, 6, 12,
     ],
-    // PHP (unix timestamp) 32-bit Latest Date
-    [
+    '32-bit signed Unix Timestamp Latest Date' => [
         50424,
         2038, 1, 19,
     ],
-    // Day after PHP (unix timestamp) 32-bit Latest Date
-    [
+    'Day after 32-bit signed Unix Timestamp Latest Date' => [
         50425,
         2038, 1, 20,
     ],
@@ -245,13 +233,11 @@ return [
         '#NUM!',
         -20, 6, 15,
     ],
-    // Excel Maximum Date
-    [
+    'Excel Maximum Date' => [
         2958465,
         9999, 12, 31,
     ],
-    // Exceeded Excel Maximum Date
-    [
+    'Exceeded Excel Maximum Date' => [
         '#NUM!',
         10000, 1, 1,
     ],
@@ -329,5 +315,5 @@ return [
     [
         '#VALUE!',
         2010, 3, 'GHI',
-    ],
+    ]
 ];

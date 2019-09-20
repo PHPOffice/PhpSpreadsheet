@@ -14,38 +14,6 @@ class FinancialTest extends TestCase
     }
 
     /**
-     * @dataProvider providerACCRINT
-     *
-     * @param mixed $expectedResult
-     */
-    public function testACCRINT($expectedResult, ...$args)
-    {
-        $result = Financial::ACCRINT(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
-    }
-
-    public function providerACCRINT()
-    {
-        return require 'data/Calculation/Financial/ACCRINT.php';
-    }
-
-    /**
-     * @dataProvider providerACCRINTM
-     *
-     * @param mixed $expectedResult
-     */
-    public function testACCRINTM($expectedResult, ...$args)
-    {
-        $result = Financial::ACCRINTM(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
-    }
-
-    public function providerACCRINTM()
-    {
-        return require 'data/Calculation/Financial/ACCRINTM.php';
-    }
-
-    /**
      * @dataProvider providerAMORDEGRC
      *
      * @param mixed $expectedResult

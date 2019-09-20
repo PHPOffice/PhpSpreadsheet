@@ -220,10 +220,9 @@ class MathTrig
                 return Functions::NAN();
             }
             $factLoop = floor($factVal);
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
-                if ($factVal > $factLoop) {
-                    return Functions::NAN();
-                }
+            if ((Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) &&
+                ($factVal > $factLoop)) {
+                return Functions::NAN();
             }
 
             $factorial = 1;
