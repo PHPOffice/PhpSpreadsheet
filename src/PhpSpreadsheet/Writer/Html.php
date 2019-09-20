@@ -891,8 +891,8 @@ class Html extends BaseWriter
                     $css['table.sheet' . $sheetIndex . ' col.col' . $column]['width'] = $width . 'pt';
 
                     if ($columnDimension->getVisible() === false) {
-                        $css['table.sheet' . $sheetIndex . ' col.col' . $column]['visibility'] = 'collapse';
-                        $css['table.sheet' . $sheetIndex . ' col.col' . $column]['*display'] = 'none'; // target IE6+7
+                        $css['table.sheet' . $sheetIndex . ' .column' . $column]['visibility'] = 'collapse';
+                        $css['table.sheet' . $sheetIndex . ' .column' . $column]['display'] = 'none'; // target IE6+7
                     }
                 }
             }
