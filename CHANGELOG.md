@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- IF implementation properly handles the value `#N/A` 
 - ...
 
 ## [1.9.0] - 2019-08-17
