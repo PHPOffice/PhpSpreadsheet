@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- ...
+- Fix branch pruning handling of non boolean conditions
 
 ## [1.9.0] - 2019-08-17
 
