@@ -9,6 +9,10 @@ coding_style:
             around_operators:
                 concatenation: true
 
+filter:
+    excluded_paths:
+        - "tests/"
+
 build:
     nodes:
         analysis:
