@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Call garbage collector after removing a column to prevent stale cached values
 - Trying to remove a column that doesn't exist deletes the latest column
 - Keep big integer as integer instead of lossely casting to float [#874](https://github.com/PHPOffice/PhpSpreadsheet/pull/874)
+- Fix branch pruning handling of non boolean conditions [#1167](https://github.com/PHPOffice/PhpSpreadsheet/pull/1167)
 
 ## [1.9.0] - 2019-08-17
 
