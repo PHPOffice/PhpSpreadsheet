@@ -2900,9 +2900,7 @@ class Worksheet implements IComparable
             $rangeSet = $rangeBoundaries[0][0] . $rangeBoundaries[0][1] . ':' . $rangeBoundaries[1][0] . $rangeBoundaries[1][1];
         }
         unset($rangeSet);
-        $stRange = implode(' ', $rangeBlocks);
-
-        return $stRange;
+        return implode(' ', $rangeBlocks);
     }
 
     /**
@@ -2949,9 +2947,7 @@ class Worksheet implements IComparable
      */
     public function copy()
     {
-        $copied = clone $this;
-
-        return $copied;
+        return clone $this;
     }
 
     /**
