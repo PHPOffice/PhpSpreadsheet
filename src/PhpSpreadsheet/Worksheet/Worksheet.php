@@ -690,7 +690,7 @@ class Worksheet implements IComparable
     public function calculateWorksheetDimension()
     {
         // Return
-        return 'A1' . ':' . $this->getHighestColumn() . $this->getHighestRow();
+        return 'A1:' . $this->getHighestColumn() . $this->getHighestRow();
     }
 
     /**
@@ -701,7 +701,7 @@ class Worksheet implements IComparable
     public function calculateWorksheetDataDimension()
     {
         // Return
-        return 'A1' . ':' . $this->getHighestDataColumn() . $this->getHighestDataRow();
+        return 'A1:' . $this->getHighestDataColumn() . $this->getHighestDataRow();
     }
 
     /**
