@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
-
 class Thumbnails extends WriterPart
 {
     /**
