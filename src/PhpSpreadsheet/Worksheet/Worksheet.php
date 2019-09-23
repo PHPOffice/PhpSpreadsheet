@@ -3034,7 +3034,7 @@ class Worksheet implements IComparable
                         }
                     }
 
-                    $pValue = $pValue . '_' . $i; // ok, we have a valid name
+                    $pValue .= '_' . $i; // ok, we have a valid name
                 }
             }
         }
