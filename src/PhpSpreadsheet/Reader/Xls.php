@@ -5279,12 +5279,10 @@ class Xls extends BaseReader
             $nextIdentifier = self::getUInt2d($this->data, $this->pos);
         } while ($nextIdentifier == self::XLS_TYPE_CONTINUE);
 
-        $splicedData = [
+        return [
             'recordData' => $data,
             'spliceOffsets' => $spliceOffsets,
         ];
-
-        return $splicedData;
     }
 
     /**

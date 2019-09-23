@@ -4786,8 +4786,6 @@ class Calculation
 
             return $value;
         }, $tokens);
-        $str = '[ ' . implode(' | ', $tokensStr) . ' ]';
-
-        return $str;
+        return '[ ' . implode(' | ', $tokensStr) . ' ]';
     }
 }
