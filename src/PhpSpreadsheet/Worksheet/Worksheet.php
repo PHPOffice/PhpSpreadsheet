@@ -2561,11 +2561,11 @@ class Worksheet implements IComparable
         // Loop through rows
         $r = -1;
         for ($row = $minRow; $row <= $maxRow; ++$row) {
-            $rRef = ($returnCellRef) ? $row : ++$r;
+            $rRef = $returnCellRef ? $row : ++$r;
             $c = -1;
             // Loop through columns in the current row
             for ($col = $minCol; $col != $maxCol; ++$col) {
-                $cRef = ($returnCellRef) ? $col : ++$c;
+                $cRef = $returnCellRef ? $col : ++$c;
                 //    Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
                 //        so we test and retrieve directly against cellCollection
                 if ($this->cellCollection->has($col . $row)) {
