@@ -399,7 +399,7 @@ class Gnumeric extends BaseReader
 
                 // Read cell?
                 if ($this->getReadFilter() !== null) {
-                    if (!$this->getReadFilter()->readCell($column, $row, $worksheetName)) {
+                    if (!$this->getReadFilter()->readCell($column, $row)) {
                         continue;
                     }
                 }

@@ -78,7 +78,7 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', 0);
         $objWriter->endElement();
 
-        $this->writePlotArea($objWriter, $pChart->getWorksheet(), $pChart->getPlotArea(), $pChart->getXAxisLabel(), $pChart->getYAxisLabel(), $pChart->getChartAxisX(), $pChart->getChartAxisY(), $pChart->getMajorGridlines(), $pChart->getMinorGridlines());
+        $this->writePlotArea($objWriter, $pChart->getPlotArea(), $pChart->getXAxisLabel(), $pChart->getYAxisLabel(), $pChart->getChartAxisX(), $pChart->getChartAxisY(), $pChart->getMajorGridlines(), $pChart->getMinorGridlines());
 
         $this->writeLegend($objWriter, $pChart->getLegend());
 
@@ -204,7 +204,6 @@ class Chart extends WriterPart
      * Write Chart Plot Area.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pSheet
      * @param PlotArea $plotArea
      * @param Title $xAxisLabel
      * @param Title $yAxisLabel
@@ -215,7 +214,7 @@ class Chart extends WriterPart
      *
      * @throws WriterException
      */
-    private function writePlotArea(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pSheet, PlotArea $plotArea, Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
+    private function writePlotArea(XMLWriter $objWriter, PlotArea $plotArea, Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
     {
         if ($plotArea === null) {
             return;
@@ -1135,7 +1134,7 @@ class Chart extends WriterPart
             if (($groupType == DataSeries::TYPE_PIECHART) || ($groupType == DataSeries::TYPE_PIECHART_3D) || ($groupType == DataSeries::TYPE_DONUTCHART)) {
                 $fillColorValues = $plotSeriesValues->getFillColor();
                 if ($fillColorValues !== null && is_array($fillColorValues)) {
-                    foreach ($plotSeriesValues->getDataValues() as $dataKey => $dataValue) {
+                    foreach (array_keys($plotSeriesValues->getDataValues()) as $dataKey) {
                         $this->writePlotSeriesValuesElement($objWriter, $dataKey, ($fillColorValues[$dataKey] ?? 'FF9900'));
                     }
                 } else {
@@ -1396,7 +1395,7 @@ class Chart extends WriterPart
         $dataValues = $plotSeriesValues->getDataValues();
         if (!empty($dataValues)) {
             if (is_array($dataValues)) {
-                foreach ($dataValues as $plotSeriesKey => $plotSeriesValue) {
+                foreach (array_keys($dataValues) as $plotSeriesKey) {
                     $objWriter->startElement('c:pt');
                     $objWriter->writeAttribute('idx', $plotSeriesKey);
                     $objWriter->startElement('c:v');

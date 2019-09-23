@@ -1176,7 +1176,7 @@ class Xls extends BaseReader
             if ($this->version == self::XLS_BIFF8) {
                 foreach ($this->sharedFormulaParts as $cell => $baseCell) {
                     [$column, $row] = Coordinate::coordinateFromString($cell);
-                    if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($column, $row, $this->phpSheet->getTitle())) {
+                    if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($column, $row)) {
                         $formula = $this->getFormulaFromStructure($this->sharedFormulas[$baseCell], $cell);
                         $this->phpSheet->getCell($cell)->setValueExplicit('=' . $formula, DataType::TYPE_FORMULA);
                     }
@@ -3728,7 +3728,7 @@ class Xls extends BaseReader
         $columnString = Coordinate::stringFromColumnIndex($column + 1);
 
         // Read cell?
-        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1)) {
             // offset: 4; size: 2; index to XF record
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -3773,7 +3773,7 @@ class Xls extends BaseReader
 
         $emptyCell = true;
         // Read cell?
-        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1)) {
             // offset: 4; size: 2; index to XF record
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -3865,7 +3865,7 @@ class Xls extends BaseReader
             $columnString = Coordinate::stringFromColumnIndex($colFirst + $i);
 
             // Read cell?
-            if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+            if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1)) {
                 // offset: var; size: 2; index to XF record
                 $xfIndex = self::getUInt2d($recordData, $offset);
 
@@ -3909,7 +3909,7 @@ class Xls extends BaseReader
         $columnString = Coordinate::stringFromColumnIndex($column + 1);
 
         // Read cell?
-        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1)) {
             // offset 4; size: 2; index to XF record
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -3975,7 +3975,7 @@ class Xls extends BaseReader
         }
 
         // Read cell?
-        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1)) {
             if ($isPartOfSharedFormula) {
                 // formula is added to this cell after the sheet has been read
                 $this->sharedFormulaParts[$columnString . ($row + 1)] = $this->baseCell;
@@ -4134,7 +4134,7 @@ class Xls extends BaseReader
         $columnString = Coordinate::stringFromColumnIndex($column + 1);
 
         // Read cell?
-        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1)) {
             // offset: 4; size: 2; index to XF record
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -4198,7 +4198,7 @@ class Xls extends BaseReader
                 $columnString = Coordinate::stringFromColumnIndex($fc + $i + 1);
 
                 // Read cell?
-                if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+                if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1)) {
                     $xfIndex = self::getUInt2d($recordData, 4 + 2 * $i);
                     $this->phpSheet->getCell($columnString . ($row + 1))->setXfIndex($this->mapCellXfIndex[$xfIndex]);
                 }
@@ -4234,7 +4234,7 @@ class Xls extends BaseReader
         $columnString = Coordinate::stringFromColumnIndex($column + 1);
 
         // Read cell?
-        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1)) {
             // offset: 4; size: 2; XF index
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -4278,7 +4278,7 @@ class Xls extends BaseReader
         $columnString = Coordinate::stringFromColumnIndex($col + 1);
 
         // Read cell?
-        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
+        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1)) {
             // offset: 4; size: 2; XF index
             $xfIndex = self::getUInt2d($recordData, 4);
 
@@ -4565,7 +4565,7 @@ class Xls extends BaseReader
             ++$rangeBoundaries[1][0];
             for ($row = $rangeBoundaries[0][1]; $row <= $rangeBoundaries[1][1]; ++$row) {
                 for ($column = $rangeBoundaries[0][0]; $column != $rangeBoundaries[1][0]; ++$column) {
-                    if ($this->getReadFilter()->readCell($column, $row, $this->phpSheet->getTitle())) {
+                    if ($this->getReadFilter()->readCell($column, $row)) {
                         $includeCellRange = true;
 
                         break 2;
@@ -5330,9 +5330,7 @@ class Xls extends BaseReader
             $formulaData = substr($formulaData, $token['size']);
         }
 
-        $formulaString = $this->createFormulaFromTokens($tokens, $additionalData);
-
-        return $formulaString;
+        return $this->createFormulaFromTokens($tokens, $additionalData);
     }
 
     /**
@@ -5505,9 +5503,7 @@ class Xls extends BaseReader
                     break;
             }
         }
-        $formulaString = $formulaStrings[0];
-
-        return $formulaString;
+        return $formulaStrings[0];
     }
 
     /**

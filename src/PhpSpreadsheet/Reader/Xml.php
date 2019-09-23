@@ -461,7 +461,7 @@ class Xml extends BaseReader
                         $cellRange = $columnID . $rowID;
 
                         if ($this->getReadFilter() !== null) {
-                            if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+                            if (!$this->getReadFilter()->readCell($columnID, $rowID)) {
                                 ++$columnID;
 
                                 continue;

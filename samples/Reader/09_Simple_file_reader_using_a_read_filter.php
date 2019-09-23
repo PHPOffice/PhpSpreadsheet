@@ -13,7 +13,7 @@ $sheetname = 'Data Sheet #3';
 
 class MyReadFilter implements IReadFilter
 {
-    public function readCell($column, $row, $worksheetName = '')
+    public function readCell($column, $row)
     {
         // Read rows 1 to 7 and columns A to E only
         if ($row >= 1 && $row <= 7) {

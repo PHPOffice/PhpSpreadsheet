@@ -679,7 +679,7 @@ class Xlsx extends BaseReader
                                         if ($this->getReadFilter() !== null) {
                                             $coordinates = Coordinate::coordinateFromString($r);
 
-                                            if (!$this->getReadFilter()->readCell($coordinates[0], (int) $coordinates[1], $docSheet->getTitle())) {
+                                            if (!$this->getReadFilter()->readCell($coordinates[0], (int) $coordinates[1])) {
                                                 $rowIndex += 1;
 
                                                 continue;
@@ -1294,7 +1294,7 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            $this->readFormControlProperties($excel, $zip, $dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
+                            $this->readFormControlProperties($zip, $dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
                             $this->readPrinterSettings($excel, $zip, $dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
 
                             // Loop through definedNames
@@ -1940,7 +1940,7 @@ class Xlsx extends BaseReader
         }
     }
 
-    private function readFormControlProperties(Spreadsheet $excel, ZipArchive $zip, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData)
+    private function readFormControlProperties(ZipArchive $zip, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData)
     {
         if (!$zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
             return;

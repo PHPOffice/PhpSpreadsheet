@@ -370,7 +370,7 @@ class Ods extends BaseReader
                                 // @var \DOMElement $cellData
 
                                 if ($this->getReadFilter() !== null) {
-                                    if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+                                    if (!$this->getReadFilter()->readCell($columnID, $rowID)) {
                                         ++$columnID;
 
                                         continue;

@@ -3,20 +3,17 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class RelsVBA extends WriterPart
 {
     /**
      * Write relationships for a signed VBA Project.
      *
-     * @param Spreadsheet $spreadsheet
-     *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeVBARelationships(Spreadsheet $spreadsheet)
+    public function writeVBARelationships()
     {
         // Create XML writer
         $objWriter = null;

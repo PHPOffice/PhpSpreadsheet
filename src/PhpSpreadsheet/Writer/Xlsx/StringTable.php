@@ -24,7 +24,6 @@ class StringTable extends WriterPart
     {
         // Create string lookup table
         $aStringTable = [];
-        $cellCollection = null;
         $aFlippedStringTable = null; // For faster lookup
 
         // Is an existing table given?

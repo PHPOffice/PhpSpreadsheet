@@ -96,11 +96,10 @@ class ReadFilterTest extends AbstractFunctional
      *
      * @param string $column Column address (as a string value like "A", or "IV")
      * @param int $row Row number
-     * @param string $worksheetName Optional worksheet name
      *
      * @return bool
      */
-    public function readFilterReadCell($column, $row, $worksheetName = '')
+    public function readFilterReadCell($column, $row)
     {
         // define filter range
         $rowMin = 2;

@@ -117,7 +117,7 @@ class ColumnAndRowAttributes extends BaseParserClass
     private function isFilteredColumn(IReadFilter $readFilter, $columnCoordinate, array $rowsAttributes)
     {
         foreach ($rowsAttributes as $rowCoordinate => $rowAttributes) {
-            if (!$readFilter->readCell($columnCoordinate, $rowCoordinate, $this->worksheet->getTitle())) {
+            if (!$readFilter->readCell($columnCoordinate, $rowCoordinate)) {
                 return true;
             }
         }
@@ -169,7 +169,7 @@ class ColumnAndRowAttributes extends BaseParserClass
     private function isFilteredRow(IReadFilter $readFilter, $rowCoordinate, array $columnsAttributes)
     {
         foreach ($columnsAttributes as $columnCoordinate => $columnAttributes) {
-            if (!$readFilter->readCell($columnCoordinate, $rowCoordinate, $this->worksheet->getTitle())) {
+            if (!$readFilter->readCell($columnCoordinate, $rowCoordinate)) {
                 return true;
             }
         }

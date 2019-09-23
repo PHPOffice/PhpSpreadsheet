@@ -272,7 +272,7 @@ class JpGraph implements IRenderer
         $this->renderTitle();
     }
 
-    private function renderPlotLine($groupID, $filled = false, $combination = false, $dimensions = '2d')
+    private function renderPlotLine($groupID, $filled = false, $combination = false)
     {
         $grouping = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
 
@@ -562,21 +562,21 @@ class JpGraph implements IRenderer
         $this->graph->Add($seriesPlot);
     }
 
-    private function renderAreaChart($groupCount, $dimensions = '2d')
+    private function renderAreaChart($groupCount)
     {
         $this->renderCartesianPlotArea();
 
         for ($i = 0; $i < $groupCount; ++$i) {
-            $this->renderPlotLine($i, true, false, $dimensions);
+            $this->renderPlotLine($i, true, false);
         }
     }
 
-    private function renderLineChart($groupCount, $dimensions = '2d')
+    private function renderLineChart($groupCount)
     {
         $this->renderCartesianPlotArea();
 
         for ($i = 0; $i < $groupCount; ++$i) {
-            $this->renderPlotLine($i, false, false, $dimensions);
+            $this->renderPlotLine($i, false, false);
         }
     }
 
@@ -718,7 +718,7 @@ class JpGraph implements IRenderer
                     $dimensions = '3d';
                 // no break
                 case 'areaChart':
-                    $this->renderPlotLine($i, true, true, $dimensions);
+                    $this->renderPlotLine($i, true, true);
 
                     break;
                 case 'bar3DChart':
@@ -732,7 +732,7 @@ class JpGraph implements IRenderer
                     $dimensions = '3d';
                 // no break
                 case 'lineChart':
-                    $this->renderPlotLine($i, false, true, $dimensions);
+                    $this->renderPlotLine($i, false, true);
 
                     break;
                 case 'scatterChart':

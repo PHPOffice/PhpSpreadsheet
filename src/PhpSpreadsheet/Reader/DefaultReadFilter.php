@@ -9,11 +9,10 @@ class DefaultReadFilter implements IReadFilter
      *
      * @param string $column Column address (as a string value like "A", or "IV")
      * @param int $row Row number
-     * @param string $worksheetName Optional worksheet name
      *
      * @return bool
      */
-    public function readCell($column, $row, $worksheetName = '')
+    public function readCell($column, $row)
     {
         return true;
     }
