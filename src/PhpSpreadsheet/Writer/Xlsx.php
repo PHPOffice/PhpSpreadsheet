@@ -232,6 +232,7 @@ class Xlsx extends BaseWriter
                         //signed macros ?
                         // Yes : add the certificate file and the related rels file
                         $zip->addFromString('xl/vbaProjectSignature.bin', $this->spreadSheet->getMacrosCertificate());
+                        // @scrutinizer ignore-call
                         $zip->addFromString('xl/_rels/vbaProject.bin.rels', $this->getWriterPart('RelsVBA')->writeVBARelationships());
                     }
                 }
@@ -264,6 +265,7 @@ class Xlsx extends BaseWriter
             }
 
             // Add theme to ZIP file
+            // @scrutinizer ignore-call
             $zip->addFromString('xl/theme/theme1.xml', $this->getWriterPart('Theme')->writeTheme());
 
             // Add string table to ZIP file

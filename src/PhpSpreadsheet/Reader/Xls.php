@@ -5503,6 +5503,7 @@ class Xls extends BaseReader
                     break;
             }
         }
+
         return $formulaStrings[0];
     }
 

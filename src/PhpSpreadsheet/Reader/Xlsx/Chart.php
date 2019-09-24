@@ -214,6 +214,7 @@ class Chart
                     }
             }
         }
+
         return new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, $dispBlanksAs, $XaxisLabel, $YaxisLabel);
     }
 
