@@ -501,13 +501,12 @@ class FinancialTest extends TestCase
      * @dataProvider providerXIRR
      *
      * @param mixed $expectedResult
+     * @param mixed $message
      */
-    public function testXIRR($expectedResult, ...$args)
+    public function testXIRR($expectedResult, $message, ...$args)
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $result = Financial::XIRR(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEquals($expectedResult, $result, $message, Financial::FINANCIAL_PRECISION);
     }
 
     public function providerXIRR()
