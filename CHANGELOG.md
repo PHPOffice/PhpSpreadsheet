@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Deal with VML-Comments containing an new-line written by Excel 2013
+- Allow to read xlsx files with exotic workbook names like "workbook2.xml".
 
 ## [1.9.0] - 2019-08-17
 
