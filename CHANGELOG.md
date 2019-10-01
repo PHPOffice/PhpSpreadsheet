@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- ...
+- Allow to read xlsx files with exotic workbook names like "workbook2.xml".
 
 ## [1.9.0] - 2019-08-17
 
