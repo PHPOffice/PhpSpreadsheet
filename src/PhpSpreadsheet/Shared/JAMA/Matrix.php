@@ -174,7 +174,7 @@ class Matrix
             switch ($match) {
                 //A($i0...; $j0...)
                 case 'integer,integer':
-                    list($i0, $j0) = $args;
+                    [$i0, $j0] = $args;
                     if ($i0 >= 0) {
                         $m = $this->m - $i0;
                     } else {
@@ -197,7 +197,7 @@ class Matrix
                     break;
                 //A($i0...$iF; $j0...$jF)
                 case 'integer,integer,integer,integer':
-                    list($i0, $iF, $j0, $jF) = $args;
+                    [$i0, $iF, $j0, $jF] = $args;
                     if (($iF > $i0) && ($this->m >= $iF) && ($i0 >= 0)) {
                         $m = $iF - $i0;
                     } else {
@@ -220,7 +220,7 @@ class Matrix
                     break;
                 //$R = array of row indices; $C = array of column indices
                 case 'array,array':
-                    list($RL, $CL) = $args;
+                    [$RL, $CL] = $args;
                     if (count($RL) > 0) {
                         $m = count($RL);
                     } else {
@@ -243,7 +243,7 @@ class Matrix
                     break;
                 //A($i0...$iF); $CL = array of column indices
                 case 'integer,integer,array':
-                    list($i0, $iF, $CL) = $args;
+                    [$i0, $iF, $CL] = $args;
                     if (($iF > $i0) && ($this->m >= $iF) && ($i0 >= 0)) {
                         $m = $iF - $i0;
                     } else {
@@ -266,7 +266,7 @@ class Matrix
                     break;
                 //$RL = array of row indices
                 case 'array,integer,integer':
-                    list($RL, $j0, $jF) = $args;
+                    [$RL, $j0, $jF] = $args;
                     if (count($RL) > 0) {
                         $m = count($RL);
                     } else {

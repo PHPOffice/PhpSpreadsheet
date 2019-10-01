@@ -17,8 +17,11 @@ class Functions
     const COMPATIBILITY_EXCEL = 'Excel';
     const COMPATIBILITY_GNUMERIC = 'Gnumeric';
     const COMPATIBILITY_OPENOFFICE = 'OpenOfficeCalc';
+
     const RETURNDATE_PHP_NUMERIC = 'P';
+    const RETURNDATE_UNIX_TIMESTAMP = 'P';
     const RETURNDATE_PHP_OBJECT = 'O';
+    const RETURNDATE_PHP_DATETIME_OBJECT = 'O';
     const RETURNDATE_EXCEL = 'E';
 
     /**
@@ -101,16 +104,16 @@ class Functions
      *
      * @param string $returnDateType Return Date Format
      *                                                Permitted values are:
-     *                                                    Functions::RETURNDATE_PHP_NUMERIC        'P'
-     *                                                    Functions::RETURNDATE_PHP_OBJECT        'O'
+     *                                                    Functions::RETURNDATE_UNIX_TIMESTAMP        'P'
+     *                                                    Functions::RETURNDATE_PHP_DATETIME_OBJECT        'O'
      *                                                    Functions::RETURNDATE_EXCEL            'E'
      *
      * @return bool Success or failure
      */
     public static function setReturnDateType($returnDateType)
     {
-        if (($returnDateType == self::RETURNDATE_PHP_NUMERIC) ||
-            ($returnDateType == self::RETURNDATE_PHP_OBJECT) ||
+        if (($returnDateType == self::RETURNDATE_UNIX_TIMESTAMP) ||
+            ($returnDateType == self::RETURNDATE_PHP_DATETIME_OBJECT) ||
             ($returnDateType == self::RETURNDATE_EXCEL)
         ) {
             self::$returnDateType = $returnDateType;
@@ -128,8 +131,8 @@ class Functions
      *
      * @return string Return Date Format
      *                            Possible Return values are:
-     *                                Functions::RETURNDATE_PHP_NUMERIC        'P'
-     *                                Functions::RETURNDATE_PHP_OBJECT        'O'
+     *                                Functions::RETURNDATE_UNIX_TIMESTAMP        'P'
+     *                                Functions::RETURNDATE_PHP_DATETIME_OBJECT        'O'
      *                                Functions::RETURNDATE_EXCEL            'E'
      */
     public static function getReturnDateType()
@@ -278,9 +281,11 @@ class Functions
             return '=' . $condition;
         }
         preg_match('/(=|<[>=]?|>=?)(.*)/', $condition, $matches);
-        list(, $operator, $operand) = $matches;
+        [, $operator, $operand] = $matches;
 
-        if (!is_numeric($operand)) {
+        if (is_numeric(trim($operand, '"'))) {
+            $operand = trim($operand, '"');
+        } elseif (!is_numeric($operand)) {
             $operand = str_replace('"', '""', $operand);
             $operand = Calculation::wrapResult(strtoupper($operand));
         }

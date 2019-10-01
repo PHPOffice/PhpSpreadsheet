@@ -137,6 +137,11 @@ class WorksheetTest extends TestCase
             ['B2', '', '', 'B2'],
             ['testTitle!B2', 'testTitle', 'B2', 'B2'],
             ['test!Title!B2', 'test!Title', 'B2', 'B2'],
+            ['test Title!B2', 'test Title', 'B2', 'B2'],
+            ['test!Title!B2', 'test!Title', 'B2', 'B2'],
+            ["'testSheet 1'!A3", "'testSheet 1'", 'A3', 'A3'],
+            ["'testSheet1'!A2", "'testSheet1'", 'A2', 'A2'],
+            ["'testSheet 2'!A1", "'testSheet 2'", 'A1', 'A1'],
         ];
     }
 
@@ -155,5 +160,25 @@ class WorksheetTest extends TestCase
         $arRange = Worksheet::extractSheetTitle($range, true);
         self::assertSame($expectTitle, $arRange[0]);
         self::assertSame($expectCell2, $arRange[1]);
+    }
+
+    /**
+     * Fix https://github.com/PHPOffice/PhpSpreadsheet/issues/868 when cells are not removed correctly
+     * on row deletion.
+     */
+    public function testRemoveCellsCorrectlyWhenRemovingRow()
+    {
+        $workbook = new Spreadsheet();
+        $worksheet = $workbook->getActiveSheet();
+        $worksheet->getCell('A2')->setValue('A2');
+        $worksheet->getCell('C1')->setValue('C1');
+        $worksheet->removeRow(1);
+        $this->assertEquals(
+            'A2',
+            $worksheet->getCell('A1')->getValue()
+        );
+        $this->assertNull(
+            $worksheet->getCell('C1')->getValue()
+        );
     }
 }

@@ -442,7 +442,7 @@ class JpGraph implements IRenderer
                 $seriesPlot->link->SetColor(self::$colourSet[self::$plotColour]);
             } elseif ($scatterStyle == 'smoothMarker') {
                 $spline = new \Spline($dataValuesY, $dataValuesX);
-                list($splineDataY, $splineDataX) = $spline->Get(count($dataValuesX) * self::$width / 20);
+                [$splineDataY, $splineDataX] = $spline->Get(count($dataValuesX) * self::$width / 20);
                 $lplot = new \LinePlot($splineDataX, $splineDataY);
                 $lplot->SetColor(self::$colourSet[self::$plotColour]);
 

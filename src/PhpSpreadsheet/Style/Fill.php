@@ -313,12 +313,13 @@ class Fill extends Supervisor
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHashCode();
         }
-
+        // Note that we don't care about colours for fill type NONE, but could have duplicate NONEs with
+        //  different hashes if we don't explicitly prevent this
         return md5(
             $this->getFillType() .
             $this->getRotation() .
-            $this->getStartColor()->getHashCode() .
-            $this->getEndColor()->getHashCode() .
+            ($this->getFillType() !== self::FILL_NONE ? $this->getStartColor()->getHashCode() : '') .
+            ($this->getFillType() !== self::FILL_NONE ? $this->getEndColor()->getHashCode() : '') .
             __CLASS__
         );
     }

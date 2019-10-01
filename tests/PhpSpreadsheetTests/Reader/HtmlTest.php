@@ -33,7 +33,7 @@ class HtmlTest extends TestCase
     /**
      * @dataProvider providerCanReadVerySmallFile
      *
-     * @param bool   $expected
+     * @param bool $expected
      * @param string $content
      */
     public function testCanReadVerySmallFile($expected, $content)
@@ -266,6 +266,69 @@ class HtmlTest extends TestCase
         unlink($filename);
     }
 
+    public function testCanApplyCellWrapping()
+    {
+        $html = '<table>
+                    <tr>
+                        <td>Hello World</td>
+                    </tr>
+                    <tr>
+                        <td>Hello<br />World</td>
+                    </tr>
+                    <tr>
+                        <td>Hello<br>World</td>
+                    </tr>
+                </table>';
+        $filename = $this->createHtml($html);
+        $spreadsheet = $this->loadHtmlIntoSpreadsheet($filename);
+        $firstSheet = $spreadsheet->getSheet(0);
+
+        $cellStyle = $firstSheet->getStyle('A1');
+        self::assertFalse($cellStyle->getAlignment()->getWrapText());
+
+        $cellStyle = $firstSheet->getStyle('A2');
+        self::assertTrue($cellStyle->getAlignment()->getWrapText());
+        $cellValue = $firstSheet->getCell('A2')->getValue();
+        $this->assertContains("\n", $cellValue);
+
+        $cellStyle = $firstSheet->getStyle('A3');
+        self::assertTrue($cellStyle->getAlignment()->getWrapText());
+        $cellValue = $firstSheet->getCell('A3')->getValue();
+        $this->assertContains("\n", $cellValue);
+
+        unlink($filename);
+    }
+
+    public function testCanLoadFromString()
+    {
+        $html = '<table>
+                    <tr>
+                        <td>Hello World</td>
+                    </tr>
+                    <tr>
+                        <td>Hello<br />World</td>
+                    </tr>
+                    <tr>
+                        <td>Hello<br>World</td>
+                    </tr>
+                </table>';
+        $spreadsheet = (new Html())->loadFromString($html);
+        $firstSheet = $spreadsheet->getSheet(0);
+
+        $cellStyle = $firstSheet->getStyle('A1');
+        self::assertFalse($cellStyle->getAlignment()->getWrapText());
+
+        $cellStyle = $firstSheet->getStyle('A2');
+        self::assertTrue($cellStyle->getAlignment()->getWrapText());
+        $cellValue = $firstSheet->getCell('A2')->getValue();
+        $this->assertContains("\n", $cellValue);
+
+        $cellStyle = $firstSheet->getStyle('A3');
+        self::assertTrue($cellStyle->getAlignment()->getWrapText());
+        $cellValue = $firstSheet->getCell('A3')->getValue();
+        $this->assertContains("\n", $cellValue);
+    }
+
     /**
      * @param string $html
      *
@@ -287,5 +350,15 @@ class HtmlTest extends TestCase
     private function loadHtmlIntoSpreadsheet($filename)
     {
         return (new Html())->load($filename);
+    }
+
+    public function testRowspanInRendering()
+    {
+        $filename = './data/Reader/HTML/rowspan.html';
+        $reader = new Html();
+        $spreadsheet = $reader->load($filename);
+
+        $actual = $spreadsheet->getActiveSheet()->getMergeCells();
+        self::assertSame(['A2:C2' => 'A2:C2'], $actual);
     }
 }

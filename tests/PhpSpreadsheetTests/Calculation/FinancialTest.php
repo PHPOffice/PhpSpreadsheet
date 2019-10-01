@@ -14,38 +14,6 @@ class FinancialTest extends TestCase
     }
 
     /**
-     * @dataProvider providerACCRINT
-     *
-     * @param mixed $expectedResult
-     */
-    public function testACCRINT($expectedResult, ...$args)
-    {
-        $result = Financial::ACCRINT(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
-    }
-
-    public function providerACCRINT()
-    {
-        return require 'data/Calculation/Financial/ACCRINT.php';
-    }
-
-    /**
-     * @dataProvider providerACCRINTM
-     *
-     * @param mixed $expectedResult
-     */
-    public function testACCRINTM($expectedResult, ...$args)
-    {
-        $result = Financial::ACCRINTM(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
-    }
-
-    public function providerACCRINTM()
-    {
-        return require 'data/Calculation/Financial/ACCRINTM.php';
-    }
-
-    /**
      * @dataProvider providerAMORDEGRC
      *
      * @param mixed $expectedResult
@@ -53,7 +21,7 @@ class FinancialTest extends TestCase
     public function testAMORDEGRC($expectedResult, ...$args)
     {
         $result = Financial::AMORDEGRC(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerAMORDEGRC()
@@ -69,7 +37,7 @@ class FinancialTest extends TestCase
     public function testAMORLINC($expectedResult, ...$args)
     {
         $result = Financial::AMORLINC(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerAMORLINC()
@@ -85,7 +53,7 @@ class FinancialTest extends TestCase
     public function testCOUPDAYBS($expectedResult, ...$args)
     {
         $result = Financial::COUPDAYBS(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerCOUPDAYBS()
@@ -101,7 +69,7 @@ class FinancialTest extends TestCase
     public function testCOUPDAYS($expectedResult, ...$args)
     {
         $result = Financial::COUPDAYS(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerCOUPDAYS()
@@ -117,7 +85,7 @@ class FinancialTest extends TestCase
     public function testCOUPDAYSNC($expectedResult, ...$args)
     {
         $result = Financial::COUPDAYSNC(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerCOUPDAYSNC()
@@ -133,7 +101,7 @@ class FinancialTest extends TestCase
     public function testCOUPNCD($expectedResult, ...$args)
     {
         $result = Financial::COUPNCD(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerCOUPNCD()
@@ -149,7 +117,7 @@ class FinancialTest extends TestCase
     public function testCOUPNUM($expectedResult, ...$args)
     {
         $result = Financial::COUPNUM(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerCOUPNUM()
@@ -165,7 +133,7 @@ class FinancialTest extends TestCase
     public function testCOUPPCD($expectedResult, ...$args)
     {
         $result = Financial::COUPPCD(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerCOUPPCD()
@@ -181,7 +149,7 @@ class FinancialTest extends TestCase
     public function testCUMIPMT($expectedResult, ...$args)
     {
         $result = Financial::CUMIPMT(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerCUMIPMT()
@@ -197,7 +165,7 @@ class FinancialTest extends TestCase
     public function testCUMPRINC($expectedResult, ...$args)
     {
         $result = Financial::CUMPRINC(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerCUMPRINC()
@@ -213,7 +181,7 @@ class FinancialTest extends TestCase
     public function testDB($expectedResult, ...$args)
     {
         $result = Financial::DB(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerDB()
@@ -229,7 +197,7 @@ class FinancialTest extends TestCase
     public function testDDB($expectedResult, ...$args)
     {
         $result = Financial::DDB(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerDDB()
@@ -245,7 +213,7 @@ class FinancialTest extends TestCase
     public function testDISC($expectedResult, ...$args)
     {
         $result = Financial::DISC(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerDISC()
@@ -261,7 +229,7 @@ class FinancialTest extends TestCase
     public function testDOLLARDE($expectedResult, ...$args)
     {
         $result = Financial::DOLLARDE(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerDOLLARDE()
@@ -277,7 +245,7 @@ class FinancialTest extends TestCase
     public function testDOLLARFR($expectedResult, ...$args)
     {
         $result = Financial::DOLLARFR(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerDOLLARFR()
@@ -293,7 +261,7 @@ class FinancialTest extends TestCase
     public function testEFFECT($expectedResult, ...$args)
     {
         $result = Financial::EFFECT(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerEFFECT()
@@ -309,7 +277,7 @@ class FinancialTest extends TestCase
     public function testFV($expectedResult, ...$args)
     {
         $result = Financial::FV(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerFV()
@@ -325,7 +293,7 @@ class FinancialTest extends TestCase
     public function testFVSCHEDULE($expectedResult, ...$args)
     {
         $result = Financial::FVSCHEDULE(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerFVSCHEDULE()
@@ -341,7 +309,7 @@ class FinancialTest extends TestCase
     public function testINTRATE($expectedResult, ...$args)
     {
         $result = Financial::INTRATE(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerINTRATE()
@@ -357,7 +325,7 @@ class FinancialTest extends TestCase
     public function testIPMT($expectedResult, ...$args)
     {
         $result = Financial::IPMT(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIPMT()
@@ -373,7 +341,7 @@ class FinancialTest extends TestCase
     public function testIRR($expectedResult, ...$args)
     {
         $result = Financial::IRR(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerIRR()
@@ -389,7 +357,7 @@ class FinancialTest extends TestCase
     public function testISPMT($expectedResult, ...$args)
     {
         $result = Financial::ISPMT(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerISPMT()
@@ -405,7 +373,7 @@ class FinancialTest extends TestCase
     public function testMIRR($expectedResult, ...$args)
     {
         $result = Financial::MIRR(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerMIRR()
@@ -421,7 +389,7 @@ class FinancialTest extends TestCase
     public function testNOMINAL($expectedResult, ...$args)
     {
         $result = Financial::NOMINAL(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerNOMINAL()
@@ -437,7 +405,7 @@ class FinancialTest extends TestCase
     public function testNPER($expectedResult, ...$args)
     {
         $result = Financial::NPER(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerNPER()
@@ -453,7 +421,7 @@ class FinancialTest extends TestCase
     public function testNPV($expectedResult, ...$args)
     {
         $result = Financial::NPV(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerNPV()
@@ -471,7 +439,7 @@ class FinancialTest extends TestCase
         $this->markTestIncomplete('TODO: This test should be fixed');
 
         $result = Financial::PRICE(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerPRICE()
@@ -487,7 +455,7 @@ class FinancialTest extends TestCase
     public function testPRICEDISC($expectedResult, array $args)
     {
         $result = Financial::PRICEDISC(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerPRICEDISC()
@@ -503,7 +471,7 @@ class FinancialTest extends TestCase
     public function testPV($expectedResult, array $args)
     {
         $result = Financial::PV(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerPV()
@@ -521,7 +489,7 @@ class FinancialTest extends TestCase
         $this->markTestIncomplete('TODO: This test should be fixed');
 
         $result = Financial::RATE(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerRATE()
@@ -539,7 +507,7 @@ class FinancialTest extends TestCase
         $this->markTestIncomplete('TODO: This test should be fixed');
 
         $result = Financial::XIRR(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerXIRR()
@@ -555,7 +523,7 @@ class FinancialTest extends TestCase
     public function testPDURATION($expectedResult, array $args)
     {
         $result = Financial::PDURATION(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerPDURATION()
@@ -571,7 +539,7 @@ class FinancialTest extends TestCase
     public function testRRI($expectedResult, array $args)
     {
         $result = Financial::RRI(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerRRI()
@@ -587,7 +555,7 @@ class FinancialTest extends TestCase
     public function testSLN($expectedResult, array $args)
     {
         $result = Financial::SLN(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerSLN()
@@ -603,7 +571,7 @@ class FinancialTest extends TestCase
     public function testSYD($expectedResult, array $args)
     {
         $result = Financial::SYD(...$args);
-        self::assertEquals($expectedResult, $result, null, 1E-8);
+        self::assertEquals($expectedResult, $result, '', 1E-8);
     }
 
     public function providerSYD()

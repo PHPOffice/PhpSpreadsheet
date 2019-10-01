@@ -1441,7 +1441,7 @@ class Worksheet implements IComparable
         $this->parent->setActiveSheetIndex($this->parent->getIndex($this));
 
         // set cell coordinate as active
-        $this->setSelectedCells(strtoupper($pCellCoordinate));
+        $this->setSelectedCells($pCellCoordinate);
 
         return $this->parent->getCellXfSupervisor();
     }
@@ -1561,7 +1561,7 @@ class Worksheet implements IComparable
         }
 
         // Calculate range outer borders
-        list($rangeStart, $rangeEnd) = Coordinate::rangeBoundaries($pRange . ':' . $pRange);
+        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($pRange . ':' . $pRange);
 
         // Make sure we can loop upwards on rows and columns
         if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -1601,7 +1601,7 @@ class Worksheet implements IComparable
         }
 
         // Calculate range outer borders
-        list($rangeStart, $rangeEnd) = Coordinate::rangeBoundaries($pRange . ':' . $pRange);
+        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($pRange . ':' . $pRange);
 
         // Make sure we can loop upwards on rows and columns
         if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -2064,7 +2064,7 @@ class Worksheet implements IComparable
     /**
      * Insert a new column, updating all possible related data.
      *
-     * @param int $pBefore Insert before this one, eg: 'A'
+     * @param string $pBefore Insert before this one, eg: 'A'
      * @param int $pNumCols Number of columns to insert
      *
      * @throws Exception
@@ -2115,6 +2115,10 @@ class Worksheet implements IComparable
     public function removeRow($pRow, $pNumRows = 1)
     {
         if ($pRow >= 1) {
+            for ($r = 0; $r < $pNumRows; ++$r) {
+                $this->getCellCollection()->removeRow($pRow + $r);
+            }
+
             $highestRow = $this->getHighestDataRow();
             $objReferenceHelper = ReferenceHelper::getInstance();
             $objReferenceHelper->insertNewBefore('A' . ($pRow + $pNumRows), 0, -$pNumRows, $this);
@@ -2424,7 +2428,7 @@ class Worksheet implements IComparable
         $pCoordinate = preg_replace('/^(\d+):(\d+)$/', 'A${1}:XFD${2}', $pCoordinate);
 
         if (Coordinate::coordinateIsRange($pCoordinate)) {
-            list($first) = Coordinate::splitRange($pCoordinate);
+            [$first] = Coordinate::splitRange($pCoordinate);
             $this->activeCell = $first[0];
         } else {
             $this->activeCell = $pCoordinate;
@@ -2493,7 +2497,7 @@ class Worksheet implements IComparable
         }
 
         // start coordinate
-        list($startColumn, $startRow) = Coordinate::coordinateFromString($startCell);
+        [$startColumn, $startRow] = Coordinate::coordinateFromString($startCell);
 
         // Loop through $source
         foreach ($source as $rowData) {
@@ -2535,7 +2539,7 @@ class Worksheet implements IComparable
         // Returnvalue
         $returnValue = [];
         //    Identify the range that we need to extract from the worksheet
-        list($rangeStart, $rangeEnd) = Coordinate::rangeBoundaries($pRange);
+        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($pRange);
         $minCol = Coordinate::stringFromColumnIndex($rangeStart[0]);
         $minRow = $rangeStart[1];
         $maxCol = Coordinate::stringFromColumnIndex($rangeEnd[0]);
