@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix ODS Reader when no DC namespace are defined [#1182](https://github.com/PHPOffice/PhpSpreadsheet/pull/1182)
 - Fixed Functions->ifCondition for allowing <> and empty condition [#1206](https://github.com/PHPOffice/PhpSpreadsheet/pull/1206)
 - Validate XIRR inputs and return correct error values [#1120](https://github.com/PHPOffice/PhpSpreadsheet/issues/1120)
+- Allow to read xlsx files with exotic workbook names like "workbook2.xml" [#1183](https://github.com/PHPOffice/PhpSpreadsheet/pull/1183)
 
 ## [1.9.0] - 2019-08-17
 
