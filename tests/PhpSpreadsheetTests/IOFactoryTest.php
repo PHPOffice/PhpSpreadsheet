@@ -104,6 +104,19 @@ class IOFactoryTest extends TestCase
         self::assertInstanceOf($expectedClass, $actual);
     }
 
+    /**
+     * @dataProvider providerIdentify
+     *
+     * @param string $file
+     * @param string $expectedName
+     * @param string $expectedClass
+     */
+    public function testLoad($file, $expectedName, $expectedClass)
+    {
+        $actual = IOFactory::load($file);
+        self::assertInstanceOf(Spreadsheet::class, $actual);
+    }
+
     public function providerIdentify()
     {
         return [
