@@ -44,15 +44,18 @@ class DataTypeTest extends TestCase
         for ($i = 0; $i < $length; ++$i) {
             $x = mt_rand(0, 2);
             switch ($x) {
-                case 0: $string .= chr(mt_rand(97, 122));
+                case 0:
+                    $string .= chr(mt_rand(97, 122));
 
-                break;
-                case 1: $string .= chr(mt_rand(65, 90));
+                    break;
+                case 1:
+                    $string .= chr(mt_rand(65, 90));
 
-                break;
-                case 2: $string .= chr(mt_rand(48, 57));
+                    break;
+                case 2:
+                    $string .= chr(mt_rand(48, 57));
 
-                break;
+                    break;
             }
         }
 
