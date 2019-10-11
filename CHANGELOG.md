@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Call garbage collector after removing a column to prevent stale cached values
+- Trying to remove a column that doesn't exist deletes the latest column
 
 ## [1.9.0] - 2019-08-17
 
