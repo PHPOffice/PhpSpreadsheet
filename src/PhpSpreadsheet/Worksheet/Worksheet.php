@@ -2160,8 +2160,10 @@ class Worksheet implements IComparable
         $pColumn = Coordinate::stringFromColumnIndex($pColumnIndex + $pNumCols);
         $objReferenceHelper = ReferenceHelper::getInstance();
         $objReferenceHelper->insertNewBefore($pColumn . '1', -$pNumCols, 0, $this);
-        
-        for ($c = 0; $c < $pNumCols; ++$c) {
+
+        $maxPossibleColumnsToBeRemoved = $highestColumnIndex - $pColumnIndex + 1;
+
+        for ($c = 0, $n = min($maxPossibleColumnsToBeRemoved, $pNumCols); $c < $n; ++$c) {
             $this->getCellCollection()->removeColumn($highestColumn);
             $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
         }
