@@ -221,6 +221,17 @@ class WorksheetTest extends TestCase
                 ],
                 'B',
             ],
+            'Remove a column out of range' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'D',
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'C',
         ];
     }
 
