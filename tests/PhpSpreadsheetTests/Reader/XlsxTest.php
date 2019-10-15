@@ -169,6 +169,27 @@ class XlsxTest extends TestCase
         $this->assertTrue($worksheet->getCell('B3')->hasDataValidation());
     }
 
+    public function testLoadXlsxDataValidationShrinkAndAlertTest()
+    {
+        $filename = './data/Reader/XLSX/dataValidationShrinkAndAlertTest.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $this->assertTrue($worksheet->getCell('B3')->hasDataValidation());
+        $this->assertTrue($worksheet->getCell('B25')->hasDataValidation());
+
+        $validation = $worksheet->getCell('B25')->getDataValidation();
+
+        $this->assertTrue($validation->getShowInputMessage());
+        $this->assertTrue($validation->getShowErrorMessage());
+        $this->assertEquals('Input error', $validation->getErrorTitle());
+        $this->assertEquals('Only numbers between 10 and 20 are allowed!', $validation->getError());
+        $this->assertEquals('Allowed input', $validation->getPromptTitle());
+        $this->assertEquals('Only numbers between 10 and 20 are allowed.', $validation->getPrompt());
+    }
+
     /**
      * Test load Xlsx file without cell reference.
      *

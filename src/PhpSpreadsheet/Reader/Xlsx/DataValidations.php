@@ -24,10 +24,7 @@ class DataValidations
             $range = strtoupper($dataValidation['sqref']);
             $rangeSet = explode(' ', $range);
             foreach ($rangeSet as $range) {
-                // $stRange = $this->worksheet->shrinkRangeToFit($range);
-
                 // Extract all cell references in $range
-                // foreach (Coordinate::extractAllCellReferencesInRange($stRange) as $reference) {
                 foreach (Coordinate::extractAllCellReferencesInRange($range) as $reference) {
                     // Create validation
                     $docValidation = $this->worksheet->getCell($reference)->getDataValidation();
@@ -51,6 +48,8 @@ class DataValidations
 
     private function isTrue(string $value): bool
     {
+        $value = trim($value);
+
         if ($value === 'false' || $value === '0' || $value === '') {
             return false;
         }
