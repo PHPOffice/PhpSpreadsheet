@@ -278,7 +278,7 @@ class Functions
                 $condition = Calculation::wrapResult(strtoupper($condition));
             }
 
-            return '=' . $condition;
+            return str_replace('""""', '""', '=' . $condition);
         }
         preg_match('/(=|<[>=]?|>=?)(.*)/', $condition, $matches);
         [, $operator, $operand] = $matches;
@@ -290,7 +290,7 @@ class Functions
             $operand = Calculation::wrapResult(strtoupper($operand));
         }
 
-        return $operator . $operand;
+        return str_replace('""""', '""', $operator . $operand);
     }
 
     /**
