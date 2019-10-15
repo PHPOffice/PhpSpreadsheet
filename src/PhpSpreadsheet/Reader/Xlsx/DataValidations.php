@@ -46,8 +46,12 @@ class DataValidations
         }
     }
 
-    private function isTrue(string $value): bool
+    private function isTrue(?string $value): bool
     {
+        if ($value === null) {
+            return false;
+        }
+
         $value = trim($value);
 
         if ($value === 'false' || $value === '0' || $value === '') {
