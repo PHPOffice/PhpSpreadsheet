@@ -24,19 +24,20 @@ class DataValidations
             $range = strtoupper($dataValidation['sqref']);
             $rangeSet = explode(' ', $range);
             foreach ($rangeSet as $range) {
-                $stRange = $this->worksheet->shrinkRangeToFit($range);
+                // $stRange = $this->worksheet->shrinkRangeToFit($range);
 
                 // Extract all cell references in $range
-                foreach (Coordinate::extractAllCellReferencesInRange($stRange) as $reference) {
+                // foreach (Coordinate::extractAllCellReferencesInRange($stRange) as $reference) {
+                foreach (Coordinate::extractAllCellReferencesInRange($range) as $reference) {
                     // Create validation
                     $docValidation = $this->worksheet->getCell($reference)->getDataValidation();
                     $docValidation->setType((string) $dataValidation['type']);
                     $docValidation->setErrorStyle((string) $dataValidation['errorStyle']);
                     $docValidation->setOperator((string) $dataValidation['operator']);
-                    $docValidation->setAllowBlank($dataValidation['allowBlank'] != 0);
-                    $docValidation->setShowDropDown($dataValidation['showDropDown'] == 0);
-                    $docValidation->setShowInputMessage($dataValidation['showInputMessage'] != 0);
-                    $docValidation->setShowErrorMessage($dataValidation['showErrorMessage'] != 0);
+                    $docValidation->setAllowBlank($this->isTrue($dataValidation['allowBlank']));
+                    $docValidation->setShowDropDown(!$this->isTrue($dataValidation['showDropDown']));
+                    $docValidation->setShowInputMessage($this->isTrue($dataValidation['showInputMessage']));
+                    $docValidation->setShowErrorMessage($this->isTrue($dataValidation['showErrorMessage']));
                     $docValidation->setErrorTitle((string) $dataValidation['errorTitle']);
                     $docValidation->setError((string) $dataValidation['error']);
                     $docValidation->setPromptTitle((string) $dataValidation['promptTitle']);
@@ -46,5 +47,14 @@ class DataValidations
                 }
             }
         }
+    }
+
+    private function isTrue(string $value): bool
+    {
+        if ($value === 'false' || $value === '0' || $value === '') {
+            return false;
+        }
+
+        return true;
     }
 }
