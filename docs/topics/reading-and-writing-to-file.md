@@ -902,3 +902,27 @@ $spreadsheet = $reader->loadFromString($htmlString);
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
 $writer->save('write.xls'); 
 ```
+
+Suppose you have multiple worksheets you'd like created from html. This can be 
+accomplished as follows.
+
+```php
+$firstHtmlString = '<table>
+                  <tr>
+                      <td>Hello World</td>
+                  </tr>
+              </table>';
+$secondHtmlString = '<table>
+                  <tr>
+                      <td>Hello World</td>
+                  </tr>
+              </table>';
+
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+$spreadsheet = $reader->loadFromString($firstHtmlString);
+$reader->setSheetIndex(1);
+$spreadhseet = $reader->loadFromString($secondHtmlString, $spreadsheet);
+
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+$writer->save('write.xls');
+```

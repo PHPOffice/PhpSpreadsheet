@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Improve performance of IF function calls via ranch pruning to avoid resolution of every branches [#844](https://github.com/PHPOffice/PhpSpreadsheet/pull/844)
 - MATCH function supports `*?~` Excel functionality, when match_type=0 [#1116](https://github.com/PHPOffice/PhpSpreadsheet/issues/1116)
 - Allow HTML Reader to accept HTML as a string [#1136](https://github.com/PHPOffice/PhpSpreadsheet/pull/1136)
+- Allow HTML Reader to accept HTML as a string into an existing spreadsheet [#1212](https://github.com/PHPOffice/PhpSpreadsheet/pull/1212)
 
 ### Fixed
 
