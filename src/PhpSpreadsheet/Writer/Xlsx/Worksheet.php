@@ -222,7 +222,7 @@ class Worksheet extends WriterPart
         }
 
         // Show zeros (Excel also writes this attribute only if set to false)
-        if ($pSheet->getSheetView()->isShowZeros() === false) {
+        if ($pSheet->getSheetView()->getShowZeros() === false) {
             $objWriter->writeAttribute('showZeros', 0);
         }
 

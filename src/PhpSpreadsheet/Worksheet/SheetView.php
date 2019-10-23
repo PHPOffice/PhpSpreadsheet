@@ -138,7 +138,7 @@ class SheetView
     /**
      * @return bool
      */
-    public function isShowZeros()
+    public function getShowZeros()
     {
         return $this->showZeros;
     }
