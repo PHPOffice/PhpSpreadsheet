@@ -43,3 +43,16 @@ More details of the features available once a locale has been set,
 including a list of the languages and locales currently supported, can
 be found in [Locale Settings for
 Formulae](./recipes.md#locale-settings-for-formulae).
+
+## Vertical cell merging
+
+By default, PhpSpreadsheet will merge vertical cells as expected. If you are
+utilizing cell auto-sizing and merge cells within your worksheet, disabling
+vertical cell merging can significantly speed up the time it takes to
+save the worksheet.
+
+To disable vertical cell merging, you can add the following:
+
+``` php
+\PhpOffice\PhpSpreadsheet\Settings::setMergeVerticalCells(false);
+```
