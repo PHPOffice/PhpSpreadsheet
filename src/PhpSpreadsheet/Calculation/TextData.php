@@ -273,7 +273,12 @@ class TextData
             $decimals = 0;
         }
         if (!$no_commas) {
-            $valueResult = number_format($valueResult, $decimals);
+            $valueResult = number_format(
+                $valueResult,
+                $decimals,
+                StringHelper::getDecimalSeparator(),
+                StringHelper::getThousandsSeparator()
+            );
         }
 
         return (string) $valueResult;
