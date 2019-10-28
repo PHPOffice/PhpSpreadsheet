@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Support "showZeros" setting in Excel advanced worksheet options
 - Implementation of IFNA() logical function
 - Support "showZeros" worksheet option to change how Excel shows and handles "null" values returned from a calculation
 
