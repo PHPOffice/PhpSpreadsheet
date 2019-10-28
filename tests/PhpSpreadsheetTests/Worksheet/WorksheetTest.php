@@ -191,6 +191,7 @@ class WorksheetTest extends TestCase
                     ['A2', 'B2', 'C2'],
                 ],
                 'A',
+                1,
                 [
                     ['B1', 'C1'],
                     ['B2', 'C2'],
@@ -203,6 +204,7 @@ class WorksheetTest extends TestCase
                     ['A2', 'B2', 'C2'],
                 ],
                 'B',
+                1,
                 [
                     ['A1', 'C1'],
                     ['A2', 'C2'],
@@ -215,11 +217,38 @@ class WorksheetTest extends TestCase
                     ['A2', 'B2', 'C2'],
                 ],
                 'C',
+                1,
                 [
                     ['A1', 'B1'],
                     ['A2', 'B2'],
                 ],
                 'B',
+            ],
+            'Remove a column out of range' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'D',
+                1,
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'C',
+            ],
+            'Remove multiple columns' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'B',
+                5,
+                [
+                    ['A1'],
+                    ['A2'],
+                ],
+                'A',
             ],
         ];
     }
@@ -230,6 +259,7 @@ class WorksheetTest extends TestCase
     public function testRemoveColumn(
         array $initialData,
         string $columnToBeRemoved,
+        int $columnsToBeRemoved,
         array $expectedData,
         string $expectedHighestColumn
     ) {
@@ -237,7 +267,7 @@ class WorksheetTest extends TestCase
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheet->fromArray($initialData);
 
-        $worksheet->removeColumn($columnToBeRemoved);
+        $worksheet->removeColumn($columnToBeRemoved, $columnsToBeRemoved);
 
         self::assertSame($expectedHighestColumn, $worksheet->getHighestColumn());
         self::assertSame($expectedData, $worksheet->toArray());
