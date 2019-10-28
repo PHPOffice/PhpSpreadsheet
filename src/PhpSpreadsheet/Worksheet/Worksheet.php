@@ -2145,19 +2145,30 @@ class Worksheet implements IComparable
      */
     public function removeColumn($pColumn, $pNumCols = 1)
     {
-        if (!is_numeric($pColumn)) {
-            $highestColumn = $this->getHighestDataColumn();
-            $pColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($pColumn) + $pNumCols);
-            $objReferenceHelper = ReferenceHelper::getInstance();
-            $objReferenceHelper->insertNewBefore($pColumn . '1', -$pNumCols, 0, $this);
-            for ($c = 0; $c < $pNumCols; ++$c) {
-                $this->getCellCollection()->removeColumn($highestColumn);
-                $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
-            }
-            $this->garbageCollect();
-        } else {
+        if (is_numeric($pColumn)) {
             throw new Exception('Column references should not be numeric.');
         }
+
+        $highestColumn = $this->getHighestDataColumn();
+        $highestColumnIndex = Coordinate::columnIndexFromString($highestColumn);
+        $pColumnIndex = Coordinate::columnIndexFromString($pColumn);
+
+        if ($pColumnIndex > $highestColumnIndex) {
+            return $this;
+        }
+
+        $pColumn = Coordinate::stringFromColumnIndex($pColumnIndex + $pNumCols);
+        $objReferenceHelper = ReferenceHelper::getInstance();
+        $objReferenceHelper->insertNewBefore($pColumn . '1', -$pNumCols, 0, $this);
+
+        $maxPossibleColumnsToBeRemoved = $highestColumnIndex - $pColumnIndex + 1;
+
+        for ($c = 0, $n = min($maxPossibleColumnsToBeRemoved, $pNumCols); $c < $n; ++$c) {
+            $this->getCellCollection()->removeColumn($highestColumn);
+            $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
+        }
+
+        $this->garbageCollect();
 
         return $this;
     }
