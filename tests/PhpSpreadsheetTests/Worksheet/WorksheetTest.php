@@ -181,4 +181,65 @@ class WorksheetTest extends TestCase
             $worksheet->getCell('C1')->getValue()
         );
     }
+
+    public function removeColumnProvider(): array
+    {
+        return [
+            'Remove first column' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'A',
+                [
+                    ['B1', 'C1'],
+                    ['B2', 'C2'],
+                ],
+                'B',
+            ],
+            'Remove middle column' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'B',
+                [
+                    ['A1', 'C1'],
+                    ['A2', 'C2'],
+                ],
+                'B',
+            ],
+            'Remove last column' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'C',
+                [
+                    ['A1', 'B1'],
+                    ['A2', 'B2'],
+                ],
+                'B',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider removeColumnProvider
+     */
+    public function testRemoveColumn(
+        array $initialData,
+        string $columnToBeRemoved,
+        array $expectedData,
+        string $expectedHighestColumn
+    ) {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->fromArray($initialData);
+
+        $worksheet->removeColumn($columnToBeRemoved);
+
+        self::assertSame($expectedHighestColumn, $worksheet->getHighestColumn());
+        self::assertSame($expectedData, $worksheet->toArray());
+    }
 }
