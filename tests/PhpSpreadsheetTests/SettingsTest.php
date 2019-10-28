@@ -37,4 +37,16 @@ class SettingsTest extends TestCase
         self::assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
         self::assertFalse(libxml_disable_entity_loader());
     }
+
+    public function testMergeVerticalCellsSetting()
+    {
+        // Test initial (default) case.
+        $initialSetting = Settings::shouldMergeVerticalCells();
+        self::assertTrue($initialSetting);
+
+        // Test setting / getting new value.
+        Settings::setMergeVerticalCells(false);
+        $newSetting = Settings::shouldMergeVerticalCells();
+        self::assertFalse($newSetting);
+    }
 }

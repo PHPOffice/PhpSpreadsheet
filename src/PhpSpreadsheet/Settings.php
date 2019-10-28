@@ -45,6 +45,14 @@ class Settings
     private static $cache;
 
     /**
+     * Determines if we should process vertical cell merges or not.
+     * Default value is true and will merge vertical cells.
+     *
+     * @var bool
+     */
+    private static $mergeVerticalCells = true;
+
+    /**
      * Set the locale code to use for formula translations and any special formatting.
      *
      * @param string $locale The locale code to use (e.g. "fr" or "pt_br" or "en_uk")
@@ -163,5 +171,25 @@ class Settings
         }
 
         return self::$cache;
+    }
+
+    /**
+     * Sets the vertical cell merge setting.
+     *
+     * @param bool $enable
+     */
+    public static function setMergeVerticalCells(bool $option)
+    {
+        self::$mergeVerticalCells = $option;
+    }
+
+    /**
+     * Gets the vertical cell merge setting.
+     *
+     * @return bool
+     */
+    public static function shouldMergeVerticalCells()
+    {
+        return self::$mergeVerticalCells;
     }
 }

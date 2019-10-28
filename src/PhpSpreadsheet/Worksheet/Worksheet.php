@@ -24,6 +24,7 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Settings;
 
 class Worksheet implements IComparable
 {
@@ -739,8 +740,8 @@ class Worksheet implements IComparable
                     //By default merged cells should be ignored
                     $isMergedButProceed = false;
 
-                    //The only exception is if it's a merge range value cell of a 'vertical' randge (1 column wide)
-                    if ($isMerged && $cell->isMergeRangeValueCell()) {
+                    //The only exception is if it's a merge range value cell of a 'vertical' range (1 column wide)
+                    if (Settings::shouldMergeVerticalCells() && $isMerged && $cell->isMergeRangeValueCell()) {
                         $range = $cell->getMergeRange();
                         $rangeBoundaries = Coordinate::rangeDimension($range);
                         if ($rangeBoundaries[0] == 1) {
