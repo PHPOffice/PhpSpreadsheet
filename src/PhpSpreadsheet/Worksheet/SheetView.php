@@ -36,6 +36,16 @@ class SheetView
     private $zoomScaleNormal = 100;
 
     /**
+     * ShowZeros.
+     *
+     * If true, "null" values from a calculation will be shown as "0". This is the default Excel behaviour and can be changed
+     * with the advanced worksheet option "Show a zero in cells that have zero value"
+     *
+     * @var bool
+     */
+    private $showZeros = true;
+
+    /**
      * View.
      *
      * Valid values range from 10 to 400.
@@ -113,6 +123,24 @@ class SheetView
         }
 
         return $this;
+    }
+
+    /**
+     * Set ShowZeroes setting.
+     *
+     * @param bool $pValue
+     */
+    public function setShowZeros($pValue)
+    {
+        $this->showZeros = $pValue;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getShowZeros()
+    {
+        return $this->showZeros;
     }
 
     /**
