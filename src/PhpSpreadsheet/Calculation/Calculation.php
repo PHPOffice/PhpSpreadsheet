@@ -2813,7 +2813,7 @@ class Calculation
         }
         self::$returnArrayAsType = $returnArrayAsType;
 
-        if ($result === null) {
+        if ($result === null && $pCell->getWorksheet()->getSheetView()->getShowZeros()) {
             return 0;
         } elseif ((is_float($result)) && ((is_nan($result)) || (is_infinite($result)))) {
             return Functions::NAN();
