@@ -2154,6 +2154,7 @@ class Worksheet implements IComparable
                 $this->getCellCollection()->removeColumn($highestColumn);
                 $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
             }
+            $this->garbageCollect();
         } else {
             throw new Exception('Column references should not be numeric.');
         }

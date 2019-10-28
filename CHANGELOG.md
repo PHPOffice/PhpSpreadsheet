@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- ...
+- Call garbage collector after removing a column to prevent stale cached values
 
 ## [1.9.0] - 2019-08-17
 
