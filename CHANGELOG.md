@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Formula Parser: Wrong line count for stuff like "MyOtherSheet!A:D" [#1215](https://github.com/PHPOffice/PhpSpreadsheet/issues/1215)
 - Call garbage collector after removing a column to prevent stale cached values
 - Trying to remove a column that doesn't exist deletes the latest column
 
