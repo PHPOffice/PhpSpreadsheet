@@ -163,7 +163,7 @@ class Styles extends BaseParserClass
             self::readBorderStyle($docStyle->getBorders(), $style->border);
         }
 
-        if (isset($style->alignment)) {
+        if (isset($style->alignment->alignment)) {
             self::readAlignmentStyle($docStyle->getAlignment(), $style->alignment);
         }
 
