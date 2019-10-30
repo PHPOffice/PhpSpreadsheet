@@ -1511,7 +1511,6 @@ class Html extends BaseWriter
         return $this->useEmbeddedCSS;
     }
 
-
     /**
      * Set use embedded CSS?
      *
