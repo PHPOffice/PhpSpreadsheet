@@ -261,7 +261,7 @@ class TextData
         $value = Functions::flattenSingleValue($value);
         $decimals = Functions::flattenSingleValue($decimals);
         $no_commas = Functions::flattenSingleValue($no_commas);
-var_dump($decimals);
+
         // Validate parameters
         if (!is_numeric($value) || !is_numeric($decimals)) {
             return Functions::NAN();
