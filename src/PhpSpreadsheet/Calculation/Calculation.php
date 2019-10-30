@@ -3658,8 +3658,8 @@ class Calculation
                             $rangeWS2 = $rangeWS1;
                         }
                         $refSheet = $pCellParent;
-                        if ($rangeSheetRef !== $pCellParent->getTitle()) {
-                            $refSheet = $pCell->getWorksheet()->getParent()->getSheetByName($rangeSheetRef);
+                        if ($pCellParent !== null && $rangeSheetRef !== $pCellParent->getTitle()) {
+                            $refSheet = $pCellParent->getParent()->getSheetByName($rangeSheetRef);
                         }
                         if ((is_int($startRowColRef)) && (ctype_digit($val)) &&
                             ($startRowColRef <= 1048576) && ($val <= 1048576)) {

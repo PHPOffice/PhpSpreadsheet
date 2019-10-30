@@ -259,7 +259,7 @@ class TextData
     public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = false)
     {
         $value = Functions::flattenSingleValue($value);
-        $decimals = Functions::flattenSingleValue($decimals);
+        $decimals = (int) Functions::flattenSingleValue($decimals);
         $no_commas = Functions::flattenSingleValue($no_commas);
 
         // Validate parameters
