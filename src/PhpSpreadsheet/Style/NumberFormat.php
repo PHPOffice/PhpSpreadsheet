@@ -601,6 +601,7 @@ class NumberFormat extends Supervisor
     {
         $sign = ($number < 0.0);
         $number = abs($number);
+
         if ($splitOnPoint && strpos($mask, '.') !== false && strpos($number, '.') !== false) {
             $numbers = explode('.', $number);
             $masks = explode('.', $mask);
@@ -639,6 +640,9 @@ class NumberFormat extends Supervisor
                 //    Scientific format
                 $value = sprintf('%5.2E', $value);
             } elseif (preg_match('/0([^\d\.]+)0/', $format) || substr_count($format, '.') > 1) {
+                if ($value == (int) $value && substr_count($format, '.') === 1) {
+                    $value *= 10 ** strlen(explode('.', $format)[1]);
+                }
                 $value = self::complexNumberFormatMask($value, $format);
             } else {
                 $sprintf_pattern = "%0$minWidth." . strlen($right) . 'f';
