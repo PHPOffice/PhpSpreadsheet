@@ -63,6 +63,13 @@ class Html extends BaseWriter
     private $useInlineCss = false;
 
     /**
+     * Use embedded CSS?
+     *
+     * @var bool
+     */
+    private $useEmbeddedCSS = true;
+
+    /**
      * Array of CSS styles.
      *
      * @var array
@@ -1105,7 +1112,9 @@ class Html extends BaseWriter
 
         // Construct HTML
         $html = '';
-        $html .= $this->setMargins($pSheet);
+        if ($this->useEmbeddedCSS) {
+            $html .= $this->setMargins($pSheet);
+        }
 
         if (!$this->useInlineCss) {
             $gridlines = $pSheet->getShowGridlines() ? ' gridlines' : '';
@@ -1488,6 +1497,30 @@ class Html extends BaseWriter
     public function setUseInlineCss($pValue)
     {
         $this->useInlineCss = $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Get use embedded CSS?
+     *
+     * @return bool
+     */
+    public function getUseEmbeddedCSS()
+    {
+        return $this->useEmbeddedCSS;
+    }
+
+    /**
+     * Set use embedded CSS?
+     *
+     * @param bool $pValue
+     *
+     * @return HTML
+     */
+    public function setUseEmbeddedCSS($pValue)
+    {
+        $this->useEmbeddedCSS = $pValue;
 
         return $this;
     }
