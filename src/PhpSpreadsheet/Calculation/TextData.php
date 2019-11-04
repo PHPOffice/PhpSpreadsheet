@@ -266,14 +266,19 @@ class TextData
         if (!is_numeric($value) || !is_numeric($decimals)) {
             return Functions::NAN();
         }
-        $decimals = floor($decimals);
+        $decimals = (int) floor($decimals);
 
         $valueResult = round($value, $decimals);
         if ($decimals < 0) {
             $decimals = 0;
         }
         if (!$no_commas) {
-            $valueResult = number_format($valueResult, $decimals);
+            $valueResult = number_format(
+                $valueResult,
+                $decimals,
+                StringHelper::getDecimalSeparator(),
+                StringHelper::getThousandsSeparator()
+            );
         }
 
         return (string) $valueResult;
