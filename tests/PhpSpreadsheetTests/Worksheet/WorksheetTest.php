@@ -181,4 +181,95 @@ class WorksheetTest extends TestCase
             $worksheet->getCell('C1')->getValue()
         );
     }
+
+    public function removeColumnProvider(): array
+    {
+        return [
+            'Remove first column' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'A',
+                1,
+                [
+                    ['B1', 'C1'],
+                    ['B2', 'C2'],
+                ],
+                'B',
+            ],
+            'Remove middle column' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'B',
+                1,
+                [
+                    ['A1', 'C1'],
+                    ['A2', 'C2'],
+                ],
+                'B',
+            ],
+            'Remove last column' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'C',
+                1,
+                [
+                    ['A1', 'B1'],
+                    ['A2', 'B2'],
+                ],
+                'B',
+            ],
+            'Remove a column out of range' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'D',
+                1,
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'C',
+            ],
+            'Remove multiple columns' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'B',
+                5,
+                [
+                    ['A1'],
+                    ['A2'],
+                ],
+                'A',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider removeColumnProvider
+     */
+    public function testRemoveColumn(
+        array $initialData,
+        string $columnToBeRemoved,
+        int $columnsToBeRemoved,
+        array $expectedData,
+        string $expectedHighestColumn
+    ) {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->fromArray($initialData);
+
+        $worksheet->removeColumn($columnToBeRemoved, $columnsToBeRemoved);
+
+        self::assertSame($expectedHighestColumn, $worksheet->getHighestColumn());
+        self::assertSame($expectedData, $worksheet->toArray());
+    }
 }

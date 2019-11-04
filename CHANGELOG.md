@@ -10,9 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Implementation of IFNA() logical function
+- Support "showZeros" worksheet option to change how Excel shows and handles "null" values returned from a calculation
 
 ### Fixed
 
+- Formula Parser: Wrong line count for stuff like "MyOtherSheet!A:D" [#1215](https://github.com/PHPOffice/PhpSpreadsheet/issues/1215)
+- Call garbage collector after removing a column to prevent stale cached values
+- Trying to remove a column that doesn't exist deletes the latest column
 - Deal with VML-Comments containing an new-line written by Excel 2013
 - Allow to read xlsx files with exotic workbook names like "workbook2.xml".
 
