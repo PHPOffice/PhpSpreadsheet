@@ -3825,7 +3825,7 @@ class Xls extends BaseReader
                 }
             }
 
-            if (!$this->readDataOnly && !$emptyCell) {
+            if (!$this->readDataOnly && !$emptyCell && isset($this->mapCellXfIndex[$xfIndex])) {
                 // add style information
                 $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
