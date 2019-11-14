@@ -556,6 +556,7 @@ class Csv extends BaseReader
             'text/csv',
             'text/plain',
             'inode/x-empty',
+            'text/x-Algol68'
         ];
 
         return in_array($type, $supportedTypes, true);
