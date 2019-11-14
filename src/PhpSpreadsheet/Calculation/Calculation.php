@@ -2458,6 +2458,8 @@ class Calculation
         $language = $locale = strtolower($locale);
         if (strpos($locale, '_') !== false) {
             [$language] = explode('_', $locale);
+            $exploded = explode('_', $locale);
+            $language = reset($exploded);
         }
         if (count(self::$validLocaleLanguages) == 1) {
             self::loadLocales();
