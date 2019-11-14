@@ -13,25 +13,25 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 abstract class IOFactory
 {
     private static $readers = [
-        'Xlsx' => Reader\Xlsx::class,
-        'Xls' => Reader\Xls::class,
-        'Xml' => Reader\Xml::class,
-        'Ods' => Reader\Ods::class,
-        'Slk' => Reader\Slk::class,
-        'Gnumeric' => Reader\Gnumeric::class,
-        'Html' => Reader\Html::class,
-        'Csv' => Reader\Csv::class,
+        'xlsx' => Reader\Xlsx::class,
+        'xls' => Reader\Xls::class,
+        'xml' => Reader\Xml::class,
+        'ods' => Reader\Ods::class,
+        'slk' => Reader\Slk::class,
+        'gnumeric' => Reader\Gnumeric::class,
+        'html' => Reader\Html::class,
+        'csv' => Reader\Csv::class,
     ];
 
     private static $writers = [
-        'Xls' => Writer\Xls::class,
-        'Xlsx' => Writer\Xlsx::class,
-        'Ods' => Writer\Ods::class,
-        'Csv' => Writer\Csv::class,
-        'Html' => Writer\Html::class,
-        'Tcpdf' => Writer\Pdf\Tcpdf::class,
-        'Dompdf' => Writer\Pdf\Dompdf::class,
-        'Mpdf' => Writer\Pdf\Mpdf::class,
+        'xls' => Writer\Xls::class,
+        'xlsx' => Writer\Xlsx::class,
+        'ods' => Writer\Ods::class,
+        'csv' => Writer\Csv::class,
+        'html' => Writer\Html::class,
+        'tcpdf' => Writer\Pdf\Tcpdf::class,
+        'dompdf' => Writer\Pdf\Dompdf::class,
+        'mpdf' => Writer\Pdf\Mpdf::class,
     ];
 
     /**
@@ -46,7 +46,7 @@ abstract class IOFactory
      */
     public static function createWriter(Spreadsheet $spreadsheet, $writerType)
     {
-        if (!isset(self::$writers[$writerType])) {
+        if (!isset(self::$writers[strtolower($writerType)])) {
             throw new Writer\Exception("No writer found for type $writerType");
         }
 
@@ -68,7 +68,7 @@ abstract class IOFactory
      */
     public static function createReader($readerType)
     {
-        if (!isset(self::$readers[$readerType])) {
+        if (!isset(self::$readers[strtolower($readerType)])) {
             throw new Reader\Exception("No reader found for type $readerType");
         }
 
