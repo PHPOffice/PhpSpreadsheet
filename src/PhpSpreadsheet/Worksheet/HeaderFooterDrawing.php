@@ -11,7 +11,7 @@ class HeaderFooterDrawing extends Drawing
      */
     public function getHashCode()
     {
-        return md5(
+        return \md5(
             $this->getPath() .
             $this->name .
             $this->offsetX .

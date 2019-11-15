@@ -638,10 +638,10 @@ class Html
             $text = $element->getText();
             // Trim any leading spaces on the first run
             if ($key == 0) {
-                $text = ltrim($text);
+                $text = \ltrim($text);
             }
             // Trim any spaces immediately after a line break
-            $text = preg_replace('/\n */mu', "\n", $text);
+            $text = \preg_replace('/\n */mu', "\n", $text);
             $element->setText($text);
         }
     }
@@ -649,7 +649,7 @@ class Html
     protected function buildTextRun()
     {
         $text = $this->stringData;
-        if (trim($text) === '') {
+        if (\trim($text) === '') {
             return;
         }
 
@@ -686,12 +686,12 @@ class Html
 
     protected function rgbToColour($rgb)
     {
-        preg_match_all('/\d+/', $rgb, $values);
+        \preg_match_all('/\d+/', $rgb, $values);
         foreach ($values[0] as &$value) {
-            $value = str_pad(dechex($value), 2, '0', STR_PAD_LEFT);
+            $value = \str_pad(\dechex($value), 2, '0', STR_PAD_LEFT);
         }
 
-        return implode($values[0]);
+        return \implode($values[0]);
     }
 
     protected function colourNameLookup($rgb)
@@ -702,14 +702,14 @@ class Html
     protected function startFontTag($tag)
     {
         foreach ($tag->attributes as $attribute) {
-            $attributeName = strtolower($attribute->name);
+            $attributeName = \strtolower($attribute->name);
             $attributeValue = $attribute->value;
 
             if ($attributeName == 'color') {
-                if (preg_match('/rgb\s*\(/', $attributeValue)) {
+                if (\preg_match('/rgb\s*\(/', $attributeValue)) {
                     $this->$attributeName = $this->rgbToColour($attributeValue);
-                } elseif (strpos(trim($attributeValue), '#') === 0) {
-                    $this->$attributeName = ltrim($attributeValue, '#');
+                } elseif (\strpos(\trim($attributeValue), '#') === 0) {
+                    $this->$attributeName = \ltrim($attributeValue, '#');
                 } else {
                     $this->$attributeName = $this->colourNameLookup($attributeValue);
                 }
@@ -791,10 +791,10 @@ class Html
 
     protected function parseTextNode(DOMText $textNode)
     {
-        $domText = preg_replace(
+        $domText = \preg_replace(
             '/\s+/u',
             ' ',
-            str_replace(["\r", "\n"], ' ', $textNode->nodeValue)
+            \str_replace(["\r", "\n"], ' ', $textNode->nodeValue)
         );
         $this->stringData .= $domText;
         $this->buildTextRun();
@@ -809,21 +809,21 @@ class Html
     {
         if (isset($callbacks[$callbackTag])) {
             $elementHandler = $callbacks[$callbackTag];
-            if (method_exists($this, $elementHandler)) {
-                call_user_func([$this, $elementHandler], $element);
+            if (\method_exists($this, $elementHandler)) {
+                \call_user_func([$this, $elementHandler], $element);
             }
         }
     }
 
     protected function parseElementNode(DOMElement $element)
     {
-        $callbackTag = strtolower($element->nodeName);
+        $callbackTag = \strtolower($element->nodeName);
         $this->stack[] = $callbackTag;
 
         $this->handleCallback($element, $callbackTag, $this->startTagCallbacks);
 
         $this->parseElements($element);
-        array_pop($this->stack);
+        \array_pop($this->stack);
 
         $this->handleCallback($element, $callbackTag, $this->endTagCallbacks);
     }

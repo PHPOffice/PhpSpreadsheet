@@ -137,9 +137,9 @@ class Date
      */
     protected static function validateTimeZone($timeZone)
     {
-        if (is_object($timeZone) && $timeZone instanceof DateTimeZone) {
+        if (\is_object($timeZone) && $timeZone instanceof DateTimeZone) {
             return $timeZone;
-        } elseif (is_string($timeZone)) {
+        } elseif (\is_string($timeZone)) {
             return new DateTimeZone($timeZone);
         }
 
@@ -178,13 +178,13 @@ class Date
             $baseDate = new \DateTime('1899-12-30', $timeZone);
         }
 
-        $days = floor($excelTimestamp);
+        $days = \floor($excelTimestamp);
         $partDay = $excelTimestamp - $days;
-        $hours = floor($partDay * 24);
+        $hours = \floor($partDay * 24);
         $partDay = $partDay * 24 - $hours;
-        $minutes = floor($partDay * 60);
+        $minutes = \floor($partDay * 60);
         $partDay = $partDay * 60 - $minutes;
-        $seconds = round($partDay * 60);
+        $seconds = \round($partDay * 60);
 
         if ($days >= 0) {
             $days = '+' . $days;
@@ -223,11 +223,11 @@ class Date
      */
     public static function PHPToExcel($dateValue)
     {
-        if ((is_object($dateValue)) && ($dateValue instanceof DateTimeInterface)) {
+        if ((\is_object($dateValue)) && ($dateValue instanceof DateTimeInterface)) {
             return self::dateTimeToExcel($dateValue);
-        } elseif (is_numeric($dateValue)) {
+        } elseif (\is_numeric($dateValue)) {
             return self::timestampToExcel($dateValue);
-        } elseif (is_string($dateValue)) {
+        } elseif (\is_string($dateValue)) {
             return self::stringToExcel($dateValue);
         }
 
@@ -262,7 +262,7 @@ class Date
      */
     public static function timestampToExcel($dateValue)
     {
-        if (!is_numeric($dateValue)) {
+        if (!\is_numeric($dateValue)) {
             return false;
         }
 
@@ -307,9 +307,9 @@ class Date
         }
 
         //    Calculate the Julian Date, then subtract the Excel base date (JD 2415020 = 31-Dec-1899 Giving Excel Date of 0)
-        $century = substr($year, 0, 2);
-        $decade = substr($year, 2, 2);
-        $excelDate = floor((146097 * $century) / 4) + floor((1461 * $decade) / 4) + floor((153 * $month + 2) / 5) + $day + 1721119 - $myexcelBaseDate + $excel1900isLeapYear;
+        $century = \substr($year, 0, 2);
+        $decade = \substr($year, 2, 2);
+        $excelDate = \floor((146097 * $century) / 4) + \floor((1461 * $decade) / 4) + \floor((153 * $month + 2) / 5) + $day + 1721119 - $myexcelBaseDate + $excel1900isLeapYear;
 
         $excelTime = (($hours * 3600) + ($minutes * 60) + $seconds) / 86400;
 
@@ -325,7 +325,7 @@ class Date
      */
     public static function isDateTime(Cell $pCell)
     {
-        return is_numeric($pCell->getValue()) &&
+        return \is_numeric($pCell->getValue()) &&
             self::isDateTimeFormat(
                 $pCell->getWorksheet()->getStyle(
                     $pCell->getCoordinate()
@@ -356,11 +356,11 @@ class Date
      */
     public static function isDateTimeFormatCode($pFormatCode)
     {
-        if (strtolower($pFormatCode) === strtolower(NumberFormat::FORMAT_GENERAL)) {
+        if (\strtolower($pFormatCode) === \strtolower(NumberFormat::FORMAT_GENERAL)) {
             //    "General" contains an epoch letter 'e', so we trap for it explicitly here (case-insensitive check)
             return false;
         }
-        if (preg_match('/[0#]E[+-]0/i', $pFormatCode)) {
+        if (\preg_match('/[0#]E[+-]0/i', $pFormatCode)) {
             //    Scientific format
             return false;
         }
@@ -394,19 +394,19 @@ class Date
         }
 
         //    Typically number, currency or accounting (or occasionally fraction) formats
-        if ((substr($pFormatCode, 0, 1) == '_') || (substr($pFormatCode, 0, 2) == '0 ')) {
+        if ((\substr($pFormatCode, 0, 1) == '_') || (\substr($pFormatCode, 0, 2) == '0 ')) {
             return false;
         }
         // Try checking for any of the date formatting characters that don't appear within square braces
-        if (preg_match('/(^|\])[^\[]*[' . self::$possibleDateFormatCharacters . ']/i', $pFormatCode)) {
+        if (\preg_match('/(^|\])[^\[]*[' . self::$possibleDateFormatCharacters . ']/i', $pFormatCode)) {
             //    We might also have a format mask containing quoted strings...
             //        we don't want to test for any of our characters within the quoted blocks
-            if (strpos($pFormatCode, '"') !== false) {
+            if (\strpos($pFormatCode, '"') !== false) {
                 $segMatcher = false;
-                foreach (explode('"', $pFormatCode) as $subVal) {
+                foreach (\explode('"', $pFormatCode) as $subVal) {
                     //    Only test in alternate array entries (the non-quoted blocks)
                     if (($segMatcher = !$segMatcher) &&
-                        (preg_match('/(^|\])[^\[]*[' . self::$possibleDateFormatCharacters . ']/i', $subVal))) {
+                        (\preg_match('/(^|\])[^\[]*[' . self::$possibleDateFormatCharacters . ']/i', $subVal))) {
                         return true;
                     }
                 }
@@ -430,10 +430,10 @@ class Date
      */
     public static function stringToExcel($dateValue)
     {
-        if (strlen($dateValue) < 2) {
+        if (\strlen($dateValue) < 2) {
             return false;
         }
-        if (!preg_match('/^(\d{1,4}[ \.\/\-][A-Z]{3,9}([ \.\/\-]\d{1,4})?|[A-Z]{3,9}[ \.\/\-]\d{1,4}([ \.\/\-]\d{1,4})?|\d{1,4}[ \.\/\-]\d{1,4}([ \.\/\-]\d{1,4})?)( \d{1,2}:\d{1,2}(:\d{1,2})?)?$/iu', $dateValue)) {
+        if (!\preg_match('/^(\d{1,4}[ \.\/\-][A-Z]{3,9}([ \.\/\-]\d{1,4})?|[A-Z]{3,9}[ \.\/\-]\d{1,4}([ \.\/\-]\d{1,4})?|\d{1,4}[ \.\/\-]\d{1,4}([ \.\/\-]\d{1,4})?)( \d{1,2}:\d{1,2}(:\d{1,2})?)?$/iu', $dateValue)) {
             return false;
         }
 
@@ -443,7 +443,7 @@ class Date
             return false;
         }
 
-        if (strpos($dateValue, ':') !== false) {
+        if (\strpos($dateValue, ':') !== false) {
             $timeValue = DateTime::TIMEVALUE($dateValue);
             if ($timeValue === Functions::VALUE()) {
                 return false;
@@ -483,8 +483,8 @@ class Date
      */
     public static function dayStringToNumber($day)
     {
-        $strippedDayValue = (str_replace(self::$numberSuffixes, '', $day));
-        if (is_numeric($strippedDayValue)) {
+        $strippedDayValue = (\str_replace(self::$numberSuffixes, '', $day));
+        if (\is_numeric($strippedDayValue)) {
             return (int) $strippedDayValue;
         }
 

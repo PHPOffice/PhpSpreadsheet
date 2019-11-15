@@ -131,7 +131,7 @@ class Chart extends WriterPart
         $objWriter->startElement('a:p');
 
         $caption = $title->getCaption();
-        if ((is_array($caption)) && (count($caption) > 0)) {
+        if ((\is_array($caption)) && (\count($caption) > 0)) {
             $caption = $caption[0];
         }
         $this->getParentWriter()->getWriterPart('stringtable')->writeRichTextForCharts($objWriter, $caption, 'a');
@@ -437,7 +437,7 @@ class Chart extends WriterPart
             $objWriter->startElement('a:r');
 
             $caption = $xAxisLabel->getCaption();
-            if (is_array($caption)) {
+            if (\is_array($caption)) {
                 $caption = $caption[0];
             }
             $objWriter->startElement('a:t');
@@ -787,7 +787,7 @@ class Chart extends WriterPart
             $objWriter->startElement('a:r');
 
             $caption = $yAxisLabel->getCaption();
-            if (is_array($caption)) {
+            if (\is_array($caption)) {
                 $caption = $caption[0];
             }
 
@@ -1014,8 +1014,8 @@ class Chart extends WriterPart
             for ($i = 0; $i < $groupCount; ++$i) {
                 $chartTypes[] = $plotArea->getPlotGroupByIndex($i)->getPlotType();
             }
-            $chartType = array_unique($chartTypes);
-            if (count($chartTypes) == 0) {
+            $chartType = \array_unique($chartTypes);
+            if (\count($chartTypes) == 0) {
                 throw new WriterException('Chart is not yet implemented');
             }
         }
@@ -1088,7 +1088,7 @@ class Chart extends WriterPart
 
         //    Get these details before the loop, because we can use the count to check for varyColors
         $plotSeriesOrder = $plotGroup->getPlotOrder();
-        $plotSeriesCount = count($plotSeriesOrder);
+        $plotSeriesCount = \count($plotSeriesOrder);
 
         if (($groupType !== DataSeries::TYPE_RADARCHART) && ($groupType !== DataSeries::TYPE_STOCKCHART)) {
             if ($groupType !== DataSeries::TYPE_LINECHART) {
@@ -1110,7 +1110,7 @@ class Chart extends WriterPart
             $plotLabel = $plotGroup->getPlotLabelByIndex($plotSeriesIdx);
             if ($plotLabel) {
                 $fillColor = $plotLabel->getFillColor();
-                if ($fillColor !== null && !is_array($fillColor)) {
+                if ($fillColor !== null && !\is_array($fillColor)) {
                     $objWriter->startElement('c:spPr');
                     $objWriter->startElement('a:solidFill');
                     $objWriter->startElement('a:srgbClr');
@@ -1134,7 +1134,7 @@ class Chart extends WriterPart
 
             if (($groupType == DataSeries::TYPE_PIECHART) || ($groupType == DataSeries::TYPE_PIECHART_3D) || ($groupType == DataSeries::TYPE_DONUTCHART)) {
                 $fillColorValues = $plotSeriesValues->getFillColor();
-                if ($fillColorValues !== null && is_array($fillColorValues)) {
+                if ($fillColorValues !== null && \is_array($fillColorValues)) {
                     foreach ($plotSeriesValues->getDataValues() as $dataKey => $dataValue) {
                         $this->writePlotSeriesValuesElement($objWriter, $dataKey, ($fillColorValues[$dataKey] ?? 'FF9900'));
                     }
@@ -1351,7 +1351,7 @@ class Chart extends WriterPart
 
             $dataValues = $plotSeriesValues->getDataValues();
             if (!empty($dataValues)) {
-                if (is_array($dataValues)) {
+                if (\is_array($dataValues)) {
                     foreach ($dataValues as $plotSeriesKey => $plotSeriesValue) {
                         $objWriter->startElement('c:pt');
                         $objWriter->writeAttribute('idx', $plotSeriesKey);
@@ -1395,7 +1395,7 @@ class Chart extends WriterPart
 
         $dataValues = $plotSeriesValues->getDataValues();
         if (!empty($dataValues)) {
-            if (is_array($dataValues)) {
+            if (\is_array($dataValues)) {
                 foreach ($dataValues as $plotSeriesKey => $plotSeriesValue) {
                     $objWriter->startElement('c:pt');
                     $objWriter->writeAttribute('idx', $plotSeriesKey);

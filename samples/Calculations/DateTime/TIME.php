@@ -15,7 +15,7 @@ $testDates = [[3, 15], [13, 15], [15, 15, 15], [3, 15, 30],
     [15, 15, 15], [5], [9, 15, 0], [9, 15, -1],
     [13, -14, -15], [0, 0, -1],
 ];
-$testDateCount = count($testDates);
+$testDateCount = \count($testDates);
 
 $worksheet->fromArray($testDates, null, 'A1', true);
 

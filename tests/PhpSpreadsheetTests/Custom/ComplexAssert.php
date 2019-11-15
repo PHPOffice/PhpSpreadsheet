@@ -25,9 +25,9 @@ class ComplexAssert
     {
         $adjustedDelta = $delta;
 
-        if (abs($actual) > 10 && abs($expected) > 10) {
-            $variance = floor(log10(abs($expected)));
-            $adjustedDelta *= pow(10, $variance);
+        if (\abs($actual) > 10 && \abs($expected) > 10) {
+            $variance = \floor(\log10(\abs($expected)));
+            $adjustedDelta *= \pow(10, $variance);
         }
 
         return $adjustedDelta > 1.0 ? 1.0 : $adjustedDelta;
@@ -35,14 +35,14 @@ class ComplexAssert
 
     public function assertComplexEquals($expected, $actual, $delta = 0)
     {
-        if ($expected === INF || (is_string($expected) && $expected[0] === '#')) {
+        if ($expected === INF || (\is_string($expected) && $expected[0] === '#')) {
             return $this->testExpectedExceptions($expected, $actual);
         }
 
         $expectedComplex = new Complex($expected);
         $actualComplex = new Complex($actual);
 
-        if (!is_numeric($actualComplex->getReal()) || !is_numeric($expectedComplex->getReal())) {
+        if (!\is_numeric($actualComplex->getReal()) || !\is_numeric($expectedComplex->getReal())) {
             if ($actualComplex->getReal() !== $expectedComplex->getReal()) {
                 $this->errorMessage = 'Mismatched String: ' . $actualComplex->getReal() . ' !== ' . $expectedComplex->getReal();
 
@@ -53,14 +53,14 @@ class ComplexAssert
         }
 
         $adjustedDelta = $this->adjustDelta($expectedComplex->getReal(), $actualComplex->getReal(), $delta);
-        if (abs($actualComplex->getReal() - $expectedComplex->getReal()) > $adjustedDelta) {
+        if (\abs($actualComplex->getReal() - $expectedComplex->getReal()) > $adjustedDelta) {
             $this->errorMessage = 'Mismatched Real part: ' . $actualComplex->getReal() . ' != ' . $expectedComplex->getReal();
 
             return false;
         }
 
         $adjustedDelta = $this->adjustDelta($expectedComplex->getImaginary(), $actualComplex->getImaginary(), $delta);
-        if (abs($actualComplex->getImaginary() - $expectedComplex->getImaginary()) > $adjustedDelta) {
+        if (\abs($actualComplex->getImaginary() - $expectedComplex->getImaginary()) > $adjustedDelta) {
             $this->errorMessage = 'Mismatched Imaginary part: ' . $actualComplex->getImaginary() . ' != ' . $expectedComplex->getImaginary();
 
             return false;

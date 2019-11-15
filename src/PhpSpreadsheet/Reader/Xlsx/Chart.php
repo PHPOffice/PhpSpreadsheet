@@ -341,13 +341,13 @@ class Chart
         } elseif (isset($seriesDetail->multiLvlStrRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlStrRef->f;
             $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlStrRef->multiLvlStrCache->children($namespacesChartMeta['c']), 's');
-            $seriesData['pointCount'] = count($seriesData['dataValues']);
+            $seriesData['pointCount'] = \count($seriesData['dataValues']);
 
             return new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker);
         } elseif (isset($seriesDetail->multiLvlNumRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlNumRef->f;
             $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlNumRef->multiLvlNumCache->children($namespacesChartMeta['c']), 's');
-            $seriesData['pointCount'] = count($seriesData['dataValues']);
+            $seriesData['pointCount'] = \count($seriesData['dataValues']);
 
             return new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker);
         }
@@ -446,7 +446,7 @@ class Chart
 
                 $fontSize = (self::getAttribute($titleDetailElement->rPr, 'sz', 'integer'));
                 if ($fontSize !== null) {
-                    $objText->getFont()->setSize(floor($fontSize / 100));
+                    $objText->getFont()->setSize(\floor($fontSize / 100));
                 }
 
                 $fontColor = (self::getAttribute($titleDetailElement->rPr, 'color', 'string'));

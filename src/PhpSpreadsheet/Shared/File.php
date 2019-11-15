@@ -46,10 +46,10 @@ class File
         // Sick construction, but it seems that
         // file_exists returns strange values when
         // doing the original file_exists on ZIP archives...
-        if (strtolower(substr($pFilename, 0, 3)) == 'zip') {
+        if (\strtolower(\substr($pFilename, 0, 3)) == 'zip') {
             // Open ZIP file and verify if the file exists
-            $zipFile = substr($pFilename, 6, strpos($pFilename, '#') - 6);
-            $archiveFile = substr($pFilename, strpos($pFilename, '#') + 1);
+            $zipFile = \substr($pFilename, 6, \strpos($pFilename, '#') - 6);
+            $archiveFile = \substr($pFilename, \strpos($pFilename, '#') + 1);
 
             $zip = new ZipArchive();
             if ($zip->open($zipFile) === true) {
@@ -62,7 +62,7 @@ class File
             return false;
         }
 
-        return file_exists($pFilename);
+        return \file_exists($pFilename);
     }
 
     /**
@@ -78,15 +78,15 @@ class File
         $returnValue = '';
 
         // Try using realpath()
-        if (file_exists($pFilename)) {
-            $returnValue = realpath($pFilename);
+        if (\file_exists($pFilename)) {
+            $returnValue = \realpath($pFilename);
         }
 
         // Found something?
         if ($returnValue == '' || ($returnValue === null)) {
-            $pathArray = explode('/', $pFilename);
-            while (in_array('..', $pathArray) && $pathArray[0] != '..') {
-                $iMax = count($pathArray);
+            $pathArray = \explode('/', $pFilename);
+            while (\in_array('..', $pathArray) && $pathArray[0] != '..') {
+                $iMax = \count($pathArray);
                 for ($i = 0; $i < $iMax; ++$i) {
                     if ($pathArray[$i] == '..' && $i > 0) {
                         unset($pathArray[$i], $pathArray[$i - 1]);
@@ -95,7 +95,7 @@ class File
                     }
                 }
             }
-            $returnValue = implode('/', $pathArray);
+            $returnValue = \implode('/', $pathArray);
         }
 
         // Return
@@ -112,16 +112,16 @@ class File
         if (self::$useUploadTempDirectory) {
             //  use upload-directory when defined to allow running on environments having very restricted
             //      open_basedir configs
-            if (ini_get('upload_tmp_dir') !== false) {
-                if ($temp = ini_get('upload_tmp_dir')) {
-                    if (file_exists($temp)) {
-                        return realpath($temp);
+            if (\ini_get('upload_tmp_dir') !== false) {
+                if ($temp = \ini_get('upload_tmp_dir')) {
+                    if (\file_exists($temp)) {
+                        return \realpath($temp);
                     }
                 }
             }
         }
 
-        return realpath(sys_get_temp_dir());
+        return \realpath(\sys_get_temp_dir());
     }
 
     /**
@@ -133,11 +133,11 @@ class File
      */
     public static function assertFile($filename)
     {
-        if (!is_file($filename)) {
+        if (!\is_file($filename)) {
             throw new InvalidArgumentException('File "' . $filename . '" does not exist.');
         }
 
-        if (!is_readable($filename)) {
+        if (!\is_readable($filename)) {
             throw new InvalidArgumentException('Could not open "' . $filename . '" for reading.');
         }
     }

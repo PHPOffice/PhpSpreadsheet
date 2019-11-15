@@ -33,7 +33,7 @@ class XMLWriter extends \XMLWriter
             if ($pTemporaryStorageFolder === null) {
                 $pTemporaryStorageFolder = File::sysGetTempDir();
             }
-            $this->tempFileName = @tempnam($pTemporaryStorageFolder, 'xml');
+            $this->tempFileName = @\tempnam($pTemporaryStorageFolder, 'xml');
 
             // Open storage
             if ($this->openUri($this->tempFileName) === false) {
@@ -55,7 +55,7 @@ class XMLWriter extends \XMLWriter
     {
         // Unlink temporary files
         if ($this->tempFileName != '') {
-            @unlink($this->tempFileName);
+            @\unlink($this->tempFileName);
         }
     }
 
@@ -71,7 +71,7 @@ class XMLWriter extends \XMLWriter
         }
         $this->flush();
 
-        return file_get_contents($this->tempFileName);
+        return \file_get_contents($this->tempFileName);
     }
 
     /**
@@ -83,10 +83,10 @@ class XMLWriter extends \XMLWriter
      */
     public function writeRawData($text)
     {
-        if (is_array($text)) {
-            $text = implode("\n", $text);
+        if (\is_array($text)) {
+            $text = \implode("\n", $text);
         }
 
-        return $this->writeRaw(htmlspecialchars($text));
+        return $this->writeRaw(\htmlspecialchars($text));
     }
 }

@@ -356,7 +356,7 @@ abstract class Properties
     protected function getArrayElementsValue($properties, $elements)
     {
         $reference = &$properties;
-        if (!is_array($elements)) {
+        if (!\is_array($elements)) {
             return $reference[$elements];
         }
 

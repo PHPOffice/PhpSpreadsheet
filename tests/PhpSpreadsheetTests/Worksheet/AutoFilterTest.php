@@ -212,7 +212,7 @@ class AutoFilterTest extends TestCase
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
         self::assertIsArray($result);
-        self::assertCount(count($columnIndexes), $result);
+        self::assertCount(\count($columnIndexes), $result);
         foreach ($columnIndexes as $columnIndex) {
             self::assertArrayHasKey($columnIndex, $result);
             self::assertInstanceOf(Column::class, $result[$columnIndex]);
@@ -319,7 +319,7 @@ class AutoFilterTest extends TestCase
         //    still fall within the new range should be retained
         $result = $this->testAutoFilterObject->getColumns();
         self::assertIsArray($result);
-        self::assertCount(count($columnIndexes1), $result);
+        self::assertCount(\count($columnIndexes1), $result);
     }
 
     public function testClone()

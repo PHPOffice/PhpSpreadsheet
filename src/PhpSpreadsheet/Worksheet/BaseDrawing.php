@@ -332,7 +332,7 @@ class BaseDrawing implements IComparable
         // Resize proportional?
         if ($this->resizeProportional && $pValue != 0) {
             $ratio = $this->height / ($this->width != 0 ? $this->width : 1);
-            $this->height = round($ratio * $pValue);
+            $this->height = \round($ratio * $pValue);
         }
 
         // Set width
@@ -363,7 +363,7 @@ class BaseDrawing implements IComparable
         // Resize proportional?
         if ($this->resizeProportional && $pValue != 0) {
             $ratio = $this->width / ($this->height != 0 ? $this->height : 1);
-            $this->width = round($ratio * $pValue);
+            $this->width = \round($ratio * $pValue);
         }
 
         // Set height
@@ -394,10 +394,10 @@ class BaseDrawing implements IComparable
         $yratio = $height / ($this->height != 0 ? $this->height : 1);
         if ($this->resizeProportional && !($width == 0 || $height == 0)) {
             if (($xratio * $this->height) < $height) {
-                $this->height = ceil($xratio * $this->height);
+                $this->height = \ceil($xratio * $this->height);
                 $this->width = $width;
             } else {
-                $this->width = ceil($yratio * $this->width);
+                $this->width = \ceil($yratio * $this->width);
                 $this->height = $height;
             }
         } else {
@@ -487,7 +487,7 @@ class BaseDrawing implements IComparable
      */
     public function getHashCode()
     {
-        return md5(
+        return \md5(
             $this->name .
             $this->description .
             $this->worksheet->getHashCode() .
@@ -507,11 +507,11 @@ class BaseDrawing implements IComparable
      */
     public function __clone()
     {
-        $vars = get_object_vars($this);
+        $vars = \get_object_vars($this);
         foreach ($vars as $key => $value) {
             if ($key == 'worksheet') {
                 $this->worksheet = null;
-            } elseif (is_object($value)) {
+            } elseif (\is_object($value)) {
                 $this->$key = clone $value;
             } else {
                 $this->$key = $value;

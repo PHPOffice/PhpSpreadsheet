@@ -23,7 +23,7 @@ class TimeZone
      */
     private static function validateTimeZone($timezone)
     {
-        return in_array($timezone, DateTimeZone::listIdentifiers());
+        return \in_array($timezone, DateTimeZone::listIdentifiers());
     }
 
     /**
@@ -82,6 +82,6 @@ class TimeZone
         $objTimezone = new DateTimeZone($timezone);
         $transitions = $objTimezone->getTransitions($timestamp, $timestamp);
 
-        return (count($transitions) > 0) ? $transitions[0]['offset'] : 0;
+        return (\count($transitions) > 0) ? $transitions[0]['offset'] : 0;
     }
 }

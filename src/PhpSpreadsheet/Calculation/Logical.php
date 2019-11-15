@@ -44,12 +44,12 @@ class Logical
 
         foreach ($args as $arg) {
             // Is it a boolean value?
-            if (is_bool($arg)) {
+            if (\is_bool($arg)) {
                 $returnValue += $arg;
-            } elseif ((is_numeric($arg)) && (!is_string($arg))) {
+            } elseif ((\is_numeric($arg)) && (!\is_string($arg))) {
                 $returnValue += ((int) $arg != 0);
-            } elseif (is_string($arg)) {
-                $arg = strtoupper($arg);
+            } elseif (\is_string($arg)) {
+                $arg = \strtoupper($arg);
                 if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
                     $arg = true;
                 } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
@@ -90,17 +90,17 @@ class Logical
     {
         $args = Functions::flattenArray($args);
 
-        if (count($args) == 0) {
+        if (\count($args) == 0) {
             return Functions::VALUE();
         }
 
-        $args = array_filter($args, function ($value) {
-            return $value !== null || (is_string($value) && trim($value) == '');
+        $args = \array_filter($args, function ($value) {
+            return $value !== null || (\is_string($value) && \trim($value) == '');
         });
-        $argCount = count($args);
+        $argCount = \count($args);
 
         $returnValue = self::countTrueValues($args);
-        if (is_string($returnValue)) {
+        if (\is_string($returnValue)) {
             return $returnValue;
         }
 
@@ -133,16 +133,16 @@ class Logical
     {
         $args = Functions::flattenArray($args);
 
-        if (count($args) == 0) {
+        if (\count($args) == 0) {
             return Functions::VALUE();
         }
 
-        $args = array_filter($args, function ($value) {
-            return $value !== null || (is_string($value) && trim($value) == '');
+        $args = \array_filter($args, function ($value) {
+            return $value !== null || (\is_string($value) && \trim($value) == '');
         });
 
         $returnValue = self::countTrueValues($args);
-        if (is_string($returnValue)) {
+        if (\is_string($returnValue)) {
             return $returnValue;
         }
 
@@ -176,16 +176,16 @@ class Logical
     {
         $args = Functions::flattenArray($args);
 
-        if (count($args) == 0) {
+        if (\count($args) == 0) {
             return Functions::VALUE();
         }
 
-        $args = array_filter($args, function ($value) {
-            return $value !== null || (is_string($value) && trim($value) == '');
+        $args = \array_filter($args, function ($value) {
+            return $value !== null || (\is_string($value) && \trim($value) == '');
         });
 
         $returnValue = self::countTrueValues($args);
-        if (is_string($returnValue)) {
+        if (\is_string($returnValue)) {
             return $returnValue;
         }
 
@@ -217,8 +217,8 @@ class Logical
     {
         $logical = Functions::flattenSingleValue($logical);
 
-        if (is_string($logical)) {
-            $logical = strtoupper($logical);
+        if (\is_string($logical)) {
+            $logical = \strtoupper($logical);
             if (($logical == 'TRUE') || ($logical == Calculation::getTRUE())) {
                 return false;
             } elseif (($logical == 'FALSE') || ($logical == Calculation::getFALSE())) {
@@ -300,13 +300,13 @@ class Logical
     {
         $result = Functions::VALUE();
 
-        if (count($arguments) > 0) {
+        if (\count($arguments) > 0) {
             $targetValue = Functions::flattenSingleValue($arguments[0]);
-            $argc = count($arguments) - 1;
-            $switchCount = floor($argc / 2);
+            $argc = \count($arguments) - 1;
+            $switchCount = \floor($argc / 2);
             $switchSatisfied = false;
             $hasDefaultClause = $argc % 2 !== 0;
-            $defaultClause = $argc % 2 === 0 ? null : $arguments[count($arguments) - 1];
+            $defaultClause = $argc % 2 === 0 ? null : $arguments[\count($arguments) - 1];
 
             if ($switchCount) {
                 for ($index = 0; $index < $switchCount; ++$index) {

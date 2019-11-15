@@ -53,7 +53,7 @@ class MemoryDrawing extends BaseDrawing
         $this->imageResource = null;
         $this->renderingFunction = self::RENDERING_DEFAULT;
         $this->mimeType = self::MIMETYPE_DEFAULT;
-        $this->uniqueName = md5(rand(0, 9999) . time() . rand(0, 9999));
+        $this->uniqueName = \md5(\rand(0, 9999) . \time() . \rand(0, 9999));
 
         // Initialize parent
         parent::__construct();
@@ -82,8 +82,8 @@ class MemoryDrawing extends BaseDrawing
 
         if ($this->imageResource !== null) {
             // Get width/height
-            $this->width = imagesx($this->imageResource);
-            $this->height = imagesy($this->imageResource);
+            $this->width = \imagesx($this->imageResource);
+            $this->height = \imagesy($this->imageResource);
         }
 
         return $this;
@@ -144,8 +144,8 @@ class MemoryDrawing extends BaseDrawing
      */
     public function getIndexedFilename()
     {
-        $extension = strtolower($this->getMimeType());
-        $extension = explode('/', $extension);
+        $extension = \strtolower($this->getMimeType());
+        $extension = \explode('/', $extension);
         $extension = $extension[1];
 
         return $this->uniqueName . $this->getImageIndex() . '.' . $extension;
@@ -158,7 +158,7 @@ class MemoryDrawing extends BaseDrawing
      */
     public function getHashCode()
     {
-        return md5(
+        return \md5(
             $this->renderingFunction .
             $this->mimeType .
             $this->uniqueName .

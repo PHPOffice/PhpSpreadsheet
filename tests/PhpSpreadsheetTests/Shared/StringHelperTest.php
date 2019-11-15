@@ -23,7 +23,7 @@ class StringHelperTest extends TestCase
 
     public function testGetDecimalSeparator()
     {
-        $localeconv = localeconv();
+        $localeconv = \localeconv();
 
         $expectedResult = (!empty($localeconv['decimal_point'])) ? $localeconv['decimal_point'] : ',';
         $result = StringHelper::getDecimalSeparator();
@@ -41,7 +41,7 @@ class StringHelperTest extends TestCase
 
     public function testGetThousandsSeparator()
     {
-        $localeconv = localeconv();
+        $localeconv = \localeconv();
 
         $expectedResult = (!empty($localeconv['thousands_sep'])) ? $localeconv['thousands_sep'] : ',';
         $result = StringHelper::getThousandsSeparator();
@@ -59,7 +59,7 @@ class StringHelperTest extends TestCase
 
     public function testGetCurrencyCode()
     {
-        $localeconv = localeconv();
+        $localeconv = \localeconv();
         $expectedResult = (!empty($localeconv['currency_symbol']) ? $localeconv['currency_symbol'] : (!empty($localeconv['int_curr_symbol']) ? $localeconv['int_curr_symbol'] : '$'));
         $result = StringHelper::getCurrencyCode();
         self::assertEquals($expectedResult, $result);
@@ -77,14 +77,14 @@ class StringHelperTest extends TestCase
     public function testControlCharacterPHP2OOXML()
     {
         $expectedResult = 'foo_x000B_bar';
-        $result = StringHelper::controlCharacterPHP2OOXML('foo' . chr(11) . 'bar');
+        $result = StringHelper::controlCharacterPHP2OOXML('foo' . \chr(11) . 'bar');
 
         self::assertEquals($expectedResult, $result);
     }
 
     public function testControlCharacterOOXML2PHP()
     {
-        $expectedResult = 'foo' . chr(11) . 'bar';
+        $expectedResult = 'foo' . \chr(11) . 'bar';
         $result = StringHelper::controlCharacterOOXML2PHP('foo_x000B_bar');
 
         self::assertEquals($expectedResult, $result);
@@ -92,7 +92,7 @@ class StringHelperTest extends TestCase
 
     public function testSYLKtoUTF8()
     {
-        $expectedResult = 'foo' . chr(11) . 'bar';
+        $expectedResult = 'foo' . \chr(11) . 'bar';
         $result = StringHelper::SYLKtoUTF8("foo\x1B ;bar");
 
         self::assertEquals($expectedResult, $result);

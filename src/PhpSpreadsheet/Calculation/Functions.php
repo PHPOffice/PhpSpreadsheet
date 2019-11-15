@@ -254,40 +254,40 @@ class Functions
 
     public static function isMatrixValue($idx)
     {
-        return (substr_count($idx, '.') <= 1) || (preg_match('/\.[A-Z]/', $idx) > 0);
+        return (\substr_count($idx, '.') <= 1) || (\preg_match('/\.[A-Z]/', $idx) > 0);
     }
 
     public static function isValue($idx)
     {
-        return substr_count($idx, '.') == 0;
+        return \substr_count($idx, '.') == 0;
     }
 
     public static function isCellValue($idx)
     {
-        return substr_count($idx, '.') > 1;
+        return \substr_count($idx, '.') > 1;
     }
 
     public static function ifCondition($condition)
     {
         $condition = self::flattenSingleValue($condition);
-        if (!isset($condition[0]) && !is_numeric($condition)) {
+        if (!isset($condition[0]) && !\is_numeric($condition)) {
             $condition = '=""';
         }
-        if (!in_array($condition[0], ['>', '<', '='])) {
-            if (!is_numeric($condition)) {
-                $condition = Calculation::wrapResult(strtoupper($condition));
+        if (!\in_array($condition[0], ['>', '<', '='])) {
+            if (!\is_numeric($condition)) {
+                $condition = Calculation::wrapResult(\strtoupper($condition));
             }
 
             return '=' . $condition;
         }
-        preg_match('/(=|<[>=]?|>=?)(.*)/', $condition, $matches);
+        \preg_match('/(=|<[>=]?|>=?)(.*)/', $condition, $matches);
         [, $operator, $operand] = $matches;
 
-        if (is_numeric(trim($operand, '"'))) {
-            $operand = trim($operand, '"');
-        } elseif (!is_numeric($operand)) {
-            $operand = str_replace('"', '""', $operand);
-            $operand = Calculation::wrapResult(strtoupper($operand));
+        if (\is_numeric(\trim($operand, '"'))) {
+            $operand = \trim($operand, '"');
+        } elseif (!\is_numeric($operand)) {
+            $operand = \str_replace('"', '""', $operand);
+            $operand = Calculation::wrapResult(\strtoupper($operand));
         }
 
         return $operator . $operand;
@@ -356,11 +356,11 @@ class Functions
     {
         $value = self::flattenSingleValue($value);
 
-        if (!is_string($value)) {
+        if (!\is_string($value)) {
             return false;
         }
 
-        return in_array($value, self::$errorCodes);
+        return \in_array($value, self::$errorCodes);
     }
 
     /**
@@ -390,7 +390,7 @@ class Functions
 
         if ($value === null) {
             return self::NAME();
-        } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
+        } elseif ((\is_bool($value)) || ((\is_string($value)) && (!\is_numeric($value)))) {
             return self::VALUE();
         }
 
@@ -410,11 +410,11 @@ class Functions
 
         if ($value === null) {
             return self::NAME();
-        } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
+        } elseif ((\is_bool($value)) || ((\is_string($value)) && (!\is_numeric($value)))) {
             return self::VALUE();
         }
 
-        return abs($value) % 2 == 1;
+        return \abs($value) % 2 == 1;
     }
 
     /**
@@ -428,11 +428,11 @@ class Functions
     {
         $value = self::flattenSingleValue($value);
 
-        if (is_string($value)) {
+        if (\is_string($value)) {
             return false;
         }
 
-        return is_numeric($value);
+        return \is_numeric($value);
     }
 
     /**
@@ -446,7 +446,7 @@ class Functions
     {
         $value = self::flattenSingleValue($value);
 
-        return is_bool($value);
+        return \is_bool($value);
     }
 
     /**
@@ -460,7 +460,7 @@ class Functions
     {
         $value = self::flattenSingleValue($value);
 
-        return is_string($value) && !self::isError($value);
+        return \is_string($value) && !self::isError($value);
     }
 
     /**
@@ -493,11 +493,11 @@ class Functions
      */
     public static function n($value = null)
     {
-        while (is_array($value)) {
-            $value = array_shift($value);
+        while (\is_array($value)) {
+            $value = \array_shift($value);
         }
 
-        switch (gettype($value)) {
+        switch (\gettype($value)) {
             case 'double':
             case 'float':
             case 'integer':
@@ -506,7 +506,7 @@ class Functions
                 return (int) $value;
             case 'string':
                 //    Errors
-                if ((strlen($value) > 0) && ($value[0] == '#')) {
+                if ((\strlen($value) > 0) && ($value[0] == '#')) {
                     return $value;
                 }
 
@@ -534,9 +534,9 @@ class Functions
     public static function TYPE($value = null)
     {
         $value = self::flattenArrayIndexed($value);
-        if (is_array($value) && (count($value) > 1)) {
-            end($value);
-            $a = key($value);
+        if (\is_array($value) && (\count($value) > 1)) {
+            \end($value);
+            $a = \key($value);
             //    Range of cells is an error
             if (self::isCellValue($a)) {
                 return 16;
@@ -550,15 +550,15 @@ class Functions
         }
         $value = self::flattenSingleValue($value);
 
-        if (($value === null) || (is_float($value)) || (is_int($value))) {
+        if (($value === null) || (\is_float($value)) || (\is_int($value))) {
             return 1;
-        } elseif (is_bool($value)) {
+        } elseif (\is_bool($value)) {
             return 4;
-        } elseif (is_array($value)) {
+        } elseif (\is_array($value)) {
             return 64;
-        } elseif (is_string($value)) {
+        } elseif (\is_string($value)) {
             //    Errors
-            if ((strlen($value) > 0) && ($value[0] == '#')) {
+            if ((\strlen($value) > 0) && ($value[0] == '#')) {
                 return 16;
             }
 
@@ -577,15 +577,15 @@ class Functions
      */
     public static function flattenArray($array)
     {
-        if (!is_array($array)) {
+        if (!\is_array($array)) {
             return (array) $array;
         }
 
         $arrayValues = [];
         foreach ($array as $value) {
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 foreach ($value as $val) {
-                    if (is_array($val)) {
+                    if (\is_array($val)) {
                         foreach ($val as $v) {
                             $arrayValues[] = $v;
                         }
@@ -610,15 +610,15 @@ class Functions
      */
     public static function flattenArrayIndexed($array)
     {
-        if (!is_array($array)) {
+        if (!\is_array($array)) {
             return (array) $array;
         }
 
         $arrayValues = [];
         foreach ($array as $k1 => $value) {
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 foreach ($value as $k2 => $val) {
-                    if (is_array($val)) {
+                    if (\is_array($val)) {
                         foreach ($val as $k3 => $v) {
                             $arrayValues[$k1 . '.' . $k2 . '.' . $k3] = $v;
                         }
@@ -643,8 +643,8 @@ class Functions
      */
     public static function flattenSingleValue($value = '')
     {
-        while (is_array($value)) {
-            $value = array_pop($value);
+        while (\is_array($value)) {
+            $value = \array_pop($value);
         }
 
         return $value;
@@ -664,10 +664,10 @@ class Functions
             return self::REF();
         }
 
-        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
+        \preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
 
         $cellReference = $matches[6] . $matches[7];
-        $worksheetName = trim($matches[3], "'");
+        $worksheetName = \trim($matches[3], "'");
 
         $worksheet = (!empty($worksheetName))
             ? $pCell->getWorksheet()->getParent()->getSheetByName($worksheetName)

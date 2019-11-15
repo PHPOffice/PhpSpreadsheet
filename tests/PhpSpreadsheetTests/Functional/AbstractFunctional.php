@@ -23,7 +23,7 @@ abstract class AbstractFunctional extends TestCase
      */
     protected function writeAndReload(Spreadsheet $spreadsheet, $format, callable $readerCustomizer = null)
     {
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $filename = \tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         $writer = IOFactory::createWriter($spreadsheet, $format);
         $writer->save($filename);
 
@@ -32,7 +32,7 @@ abstract class AbstractFunctional extends TestCase
             $readerCustomizer($reader);
         }
         $reloadedSpreadsheet = $reader->load($filename);
-        unlink($filename);
+        \unlink($filename);
 
         return $reloadedSpreadsheet;
     }

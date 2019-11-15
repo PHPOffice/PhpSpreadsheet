@@ -10,7 +10,7 @@ class WorksheetTest extends TestCase
 {
     public function testSetTitle()
     {
-        $testTitle = str_repeat('a', 31);
+        $testTitle = \str_repeat('a', 31);
 
         $worksheet = new Worksheet();
         $worksheet->setTitle($testTitle);
@@ -20,7 +20,7 @@ class WorksheetTest extends TestCase
     public function setTitleInvalidProvider()
     {
         return [
-            [str_repeat('a', 32), 'Maximum 31 characters allowed in sheet title.'],
+            [\str_repeat('a', 32), 'Maximum 31 characters allowed in sheet title.'],
             ['invalid*title', 'Invalid character found in sheet title'],
         ];
     }
@@ -68,7 +68,7 @@ class WorksheetTest extends TestCase
 
     public function testSetCodeName()
     {
-        $testCodeName = str_repeat('a', 31);
+        $testCodeName = \str_repeat('a', 31);
 
         $worksheet = new Worksheet();
         $worksheet->setCodeName($testCodeName);
@@ -78,7 +78,7 @@ class WorksheetTest extends TestCase
     public function setCodeNameInvalidProvider()
     {
         return [
-            [str_repeat('a', 32), 'Maximum 31 characters allowed in sheet code name.'],
+            [\str_repeat('a', 32), 'Maximum 31 characters allowed in sheet code name.'],
             ['invalid*code*name', 'Invalid character found in sheet code name'],
         ];
     }

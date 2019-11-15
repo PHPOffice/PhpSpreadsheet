@@ -12,8 +12,8 @@ class MigratorTest extends TestCase
         $migrator = new Migrator();
 
         foreach ($migrator->getMapping() as $classname) {
-            if (substr_count($classname, '\\')) {
-                self::assertTrue(class_exists($classname) || interface_exists($classname), 'mapping is wrong, class does not exists in project: ' . $classname);
+            if (\substr_count($classname, '\\')) {
+                self::assertTrue(\class_exists($classname) || \interface_exists($classname), 'mapping is wrong, class does not exists in project: ' . $classname);
             }
         }
     }

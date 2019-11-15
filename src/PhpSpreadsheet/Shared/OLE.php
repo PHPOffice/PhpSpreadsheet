@@ -119,27 +119,27 @@ class OLE
      */
     public function read($file)
     {
-        $fh = fopen($file, 'r');
+        $fh = \fopen($file, 'r');
         if (!$fh) {
             throw new ReaderException("Can't open file $file");
         }
         $this->_file_handle = $fh;
 
-        $signature = fread($fh, 8);
+        $signature = \fread($fh, 8);
         if ("\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1" != $signature) {
             throw new ReaderException("File doesn't seem to be an OLE container.");
         }
-        fseek($fh, 28);
-        if (fread($fh, 2) != "\xFE\xFF") {
+        \fseek($fh, 28);
+        if (\fread($fh, 2) != "\xFE\xFF") {
             // This shouldn't be a problem in practice
             throw new ReaderException('Only Little-Endian encoding is supported.');
         }
         // Size of blocks and short blocks in bytes
-        $this->bigBlockSize = pow(2, self::_readInt2($fh));
-        $this->smallBlockSize = pow(2, self::_readInt2($fh));
+        $this->bigBlockSize = \pow(2, self::_readInt2($fh));
+        $this->smallBlockSize = \pow(2, self::_readInt2($fh));
 
         // Skip UID, revision number and version number
-        fseek($fh, 44);
+        \fseek($fh, 44);
         // Number of blocks in Big Block Allocation Table
         $bbatBlockCount = self::_readInt4($fh);
 
@@ -147,7 +147,7 @@ class OLE
         $directoryFirstBlockId = self::_readInt4($fh);
 
         // Skip unused bytes
-        fseek($fh, 56);
+        \fseek($fh, 56);
         // Streams shorter than this are stored using small blocks
         $this->bigBlockThreshold = self::_readInt4($fh);
         // Block id of first sector in Short Block Allocation Table
@@ -170,7 +170,7 @@ class OLE
         // Read rest of Master Block Allocation Table (if any is left)
         $pos = $this->_getBlockOffset($mbatFirstBlockId);
         for ($i = 0; $i < $mbbatBlockCount; ++$i) {
-            fseek($fh, $pos);
+            \fseek($fh, $pos);
             for ($j = 0; $j < $this->bigBlockSize / 4 - 1; ++$j) {
                 $mbatBlocks[] = self::_readInt4($fh);
             }
@@ -181,7 +181,7 @@ class OLE
         // Read Big Block Allocation Table according to chain specified by $mbatBlocks
         for ($i = 0; $i < $bbatBlockCount; ++$i) {
             $pos = $this->_getBlockOffset($mbatBlocks[$i]);
-            fseek($fh, $pos);
+            \fseek($fh, $pos);
             for ($j = 0; $j < $this->bigBlockSize / 4; ++$j) {
                 $this->bbat[] = self::_readInt4($fh);
             }
@@ -194,7 +194,7 @@ class OLE
         for ($blockId = 0; $blockId < $shortBlockCount; ++$blockId) {
             $this->sbat[$blockId] = self::_readInt4($sbatFh);
         }
-        fclose($sbatFh);
+        \fclose($sbatFh);
 
         $this->_readPpsWks($directoryFirstBlockId);
 
@@ -223,7 +223,7 @@ class OLE
     {
         static $isRegistered = false;
         if (!$isRegistered) {
-            stream_wrapper_register('ole-chainedblockstream', ChainedBlockStream::class);
+            \stream_wrapper_register('ole-chainedblockstream', ChainedBlockStream::class);
             $isRegistered = true;
         }
 
@@ -231,7 +231,7 @@ class OLE
         // in OLE_ChainedBlockStream::stream_open().
         // Object is removed from self::$instances in OLE_Stream::close().
         $GLOBALS['_OLE_INSTANCES'][] = $this;
-        $instanceId = end(array_keys($GLOBALS['_OLE_INSTANCES']));
+        $instanceId = \end(\array_keys($GLOBALS['_OLE_INSTANCES']));
 
         $path = 'ole-chainedblockstream://oleInstanceId=' . $instanceId;
         if ($blockIdOrPps instanceof OLE\PPS) {
@@ -241,7 +241,7 @@ class OLE
             $path .= '&blockId=' . $blockIdOrPps;
         }
 
-        return fopen($path, 'r');
+        return \fopen($path, 'r');
     }
 
     /**
@@ -253,7 +253,7 @@ class OLE
      */
     private static function _readInt1($fh)
     {
-        [, $tmp] = unpack('c', fread($fh, 1));
+        [, $tmp] = \unpack('c', \fread($fh, 1));
 
         return $tmp;
     }
@@ -267,7 +267,7 @@ class OLE
      */
     private static function _readInt2($fh)
     {
-        [, $tmp] = unpack('v', fread($fh, 2));
+        [, $tmp] = \unpack('v', \fread($fh, 2));
 
         return $tmp;
     }
@@ -281,7 +281,7 @@ class OLE
      */
     private static function _readInt4($fh)
     {
-        [, $tmp] = unpack('V', fread($fh, 4));
+        [, $tmp] = \unpack('V', \fread($fh, 4));
 
         return $tmp;
     }
@@ -298,12 +298,12 @@ class OLE
     {
         $fh = $this->getStream($blockId);
         for ($pos = 0; true; $pos += 128) {
-            fseek($fh, $pos, SEEK_SET);
-            $nameUtf16 = fread($fh, 64);
+            \fseek($fh, $pos, SEEK_SET);
+            $nameUtf16 = \fread($fh, 64);
             $nameLength = self::_readInt2($fh);
-            $nameUtf16 = substr($nameUtf16, 0, $nameLength - 2);
+            $nameUtf16 = \substr($nameUtf16, 0, $nameLength - 2);
             // Simple conversion from UTF-16LE to ISO-8859-1
-            $name = str_replace("\x00", '', $nameUtf16);
+            $name = \str_replace("\x00", '', $nameUtf16);
             $type = self::_readInt1($fh);
             switch ($type) {
                 case self::OLE_PPS_TYPE_ROOT:
@@ -322,18 +322,18 @@ class OLE
                 default:
                     break;
             }
-            fseek($fh, 1, SEEK_CUR);
+            \fseek($fh, 1, SEEK_CUR);
             $pps->Type = $type;
             $pps->Name = $name;
             $pps->PrevPps = self::_readInt4($fh);
             $pps->NextPps = self::_readInt4($fh);
             $pps->DirPps = self::_readInt4($fh);
-            fseek($fh, 20, SEEK_CUR);
-            $pps->Time1st = self::OLE2LocalDate(fread($fh, 8));
-            $pps->Time2nd = self::OLE2LocalDate(fread($fh, 8));
+            \fseek($fh, 20, SEEK_CUR);
+            $pps->Time1st = self::OLE2LocalDate(\fread($fh, 8));
+            $pps->Time2nd = self::OLE2LocalDate(\fread($fh, 8));
             $pps->startBlock = self::_readInt4($fh);
             $pps->Size = self::_readInt4($fh);
-            $pps->No = count($this->_list);
+            $pps->No = \count($this->_list);
             $this->_list[] = $pps;
 
             // check if the PPS tree (starting from root) is complete
@@ -341,7 +341,7 @@ class OLE
                 break;
             }
         }
-        fclose($fh);
+        \fclose($fh);
 
         // Initialize $pps->children on directories
         foreach ($this->_list as $pps) {
@@ -349,7 +349,7 @@ class OLE
                 $nos = [$pps->DirPps];
                 $pps->children = [];
                 while ($nos) {
-                    $no = array_pop($nos);
+                    $no = \array_pop($nos);
                     if ($no != -1) {
                         $childPps = $this->_list[$no];
                         $nos[] = $childPps->PrevPps;
@@ -424,7 +424,7 @@ class OLE
      */
     public function ppsTotal()
     {
-        return count($this->_list);
+        return \count($this->_list);
     }
 
     /**
@@ -447,8 +447,8 @@ class OLE
             return '';
         }
         $fh = $this->getStream($this->_list[$index]);
-        $data = stream_get_contents($fh, $length, $position);
-        fclose($fh);
+        $data = \stream_get_contents($fh, $length, $position);
+        \fclose($fh);
 
         return $data;
     }
@@ -480,7 +480,7 @@ class OLE
     public static function ascToUcs($ascii)
     {
         $rawname = '';
-        $iMax = strlen($ascii);
+        $iMax = \strlen($ascii);
         for ($i = 0; $i < $iMax; ++$i) {
             $rawname .= $ascii[$i]
                 . "\x00";
@@ -504,30 +504,30 @@ class OLE
         }
 
         // factor used for separating numbers into 4 bytes parts
-        $factor = pow(2, 32);
+        $factor = \pow(2, 32);
 
         // days from 1-1-1601 until the beggining of UNIX era
         $days = 134774;
         // calculate seconds
-        $big_date = $days * 24 * 3600 + gmmktime(date('H', $date), date('i', $date), date('s', $date), date('m', $date), date('d', $date), date('Y', $date));
+        $big_date = $days * 24 * 3600 + \gmmktime(\date('H', $date), \date('i', $date), \date('s', $date), \date('m', $date), \date('d', $date), \date('Y', $date));
         // multiply just to make MS happy
         $big_date *= 10000000;
 
-        $high_part = floor($big_date / $factor);
+        $high_part = \floor($big_date / $factor);
         // lower 4 bytes
-        $low_part = floor((($big_date / $factor) - $high_part) * $factor);
+        $low_part = \floor((($big_date / $factor) - $high_part) * $factor);
 
         // Make HEX string
         $res = '';
 
         for ($i = 0; $i < 4; ++$i) {
             $hex = $low_part % 0x100;
-            $res .= pack('c', $hex);
+            $res .= \pack('c', $hex);
             $low_part /= 0x100;
         }
         for ($i = 0; $i < 4; ++$i) {
             $hex = $high_part % 0x100;
-            $res .= pack('c', $hex);
+            $res .= \pack('c', $hex);
             $high_part /= 0x100;
         }
 
@@ -545,12 +545,12 @@ class OLE
      */
     public static function OLE2LocalDate($oleTimestamp)
     {
-        if (strlen($oleTimestamp) != 8) {
+        if (\strlen($oleTimestamp) != 8) {
             throw new ReaderException('Expecting 8 byte string');
         }
 
         // convert to units of 100 ns since 1601:
-        $unpackedTimestamp = unpack('v4', $oleTimestamp);
+        $unpackedTimestamp = \unpack('v4', $oleTimestamp);
         $timestampHigh = (float) $unpackedTimestamp[4] * 65536 + (float) $unpackedTimestamp[3];
         $timestampLow = (float) $unpackedTimestamp[2] * 65536 + (float) $unpackedTimestamp[1];
 
@@ -562,7 +562,7 @@ class OLE
         $days = 134774;
 
         // translate to seconds since 1970:
-        $unixTimestamp = floor(65536.0 * 65536.0 * $timestampHigh + $timestampLow - $days * 24 * 3600 + 0.5);
+        $unixTimestamp = \floor(65536.0 * 65536.0 * $timestampHigh + $timestampLow - $days * 24 * 3600 + 0.5);
 
         if ((int) $unixTimestamp == $unixTimestamp) {
             return (int) $unixTimestamp;

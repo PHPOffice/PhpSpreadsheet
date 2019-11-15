@@ -129,7 +129,7 @@ class SheetViews extends BaseParserClass
     private function selection()
     {
         $sqref = (string) $this->sheetViewXml->selection['sqref'];
-        $sqref = explode(' ', $sqref);
+        $sqref = \explode(' ', $sqref);
         $sqref = $sqref[0];
 
         $this->worksheet->setSelectedCells($sqref);

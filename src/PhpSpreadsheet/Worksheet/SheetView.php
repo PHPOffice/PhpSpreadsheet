@@ -173,7 +173,7 @@ class SheetView
         if ($pValue === null) {
             $pValue = self::SHEETVIEW_NORMAL;
         }
-        if (in_array($pValue, self::$sheetViewTypes)) {
+        if (\in_array($pValue, self::$sheetViewTypes)) {
             $this->sheetviewType = $pValue;
         } else {
             throw new PhpSpreadsheetException('Invalid sheetview layout type.');
@@ -187,9 +187,9 @@ class SheetView
      */
     public function __clone()
     {
-        $vars = get_object_vars($this);
+        $vars = \get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if (is_object($value)) {
+            if (\is_object($value)) {
                 $this->$key = clone $value;
             } else {
                 $this->$key = $value;

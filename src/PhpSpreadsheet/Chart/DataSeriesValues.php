@@ -121,7 +121,7 @@ class DataSeriesValues
      */
     public function setDataType($dataType)
     {
-        if (!in_array($dataType, self::$dataTypeValues)) {
+        if (!\in_array($dataType, self::$dataTypeValues)) {
             throw new Exception('Invalid datatype for chart data series values');
         }
         $this->dataType = $dataType;
@@ -230,7 +230,7 @@ class DataSeriesValues
      */
     public function setFillColor($color)
     {
-        if (is_array($color)) {
+        if (\is_array($color)) {
             foreach ($color as $colorValue) {
                 $this->validateColor($colorValue);
             }
@@ -253,8 +253,8 @@ class DataSeriesValues
      */
     private function validateColor($color)
     {
-        if (!preg_match('/^[a-f0-9]{6}$/i', $color)) {
-            throw new Exception(sprintf('Invalid hex color for chart series (color: "%s")', $color));
+        if (!\preg_match('/^[a-f0-9]{6}$/i', $color)) {
+            throw new Exception(\sprintf('Invalid hex color for chart series (color: "%s")', $color));
         }
 
         return true;
@@ -280,7 +280,7 @@ class DataSeriesValues
     public function setLineWidth($width)
     {
         $minWidth = 12700;
-        $this->lineWidth = max($minWidth, $width);
+        $this->lineWidth = \max($minWidth, $width);
 
         return $this;
     }
@@ -292,8 +292,8 @@ class DataSeriesValues
      */
     public function isMultiLevelSeries()
     {
-        if (count($this->dataValues) > 0) {
-            return is_array(array_values($this->dataValues)[0]);
+        if (\count($this->dataValues) > 0) {
+            return \is_array(\array_values($this->dataValues)[0]);
         }
 
         return null;
@@ -308,7 +308,7 @@ class DataSeriesValues
     {
         $levelCount = 0;
         foreach ($this->dataValues as $dataValueSet) {
-            $levelCount = max($levelCount, count($dataValueSet));
+            $levelCount = \max($levelCount, \count($dataValueSet));
         }
 
         return $levelCount;
@@ -331,7 +331,7 @@ class DataSeriesValues
      */
     public function getDataValue()
     {
-        $count = count($this->dataValues);
+        $count = \count($this->dataValues);
         if ($count == 0) {
             return null;
         } elseif ($count == 1) {
@@ -351,7 +351,7 @@ class DataSeriesValues
     public function setDataValues($dataValues)
     {
         $this->dataValues = Functions::flattenArray($dataValues);
-        $this->pointCount = count($dataValues);
+        $this->pointCount = \count($dataValues);
 
         return $this;
     }
@@ -377,11 +377,11 @@ class DataSeriesValues
                 unset($dataValue);
             } else {
                 [$worksheet, $cellRange] = Worksheet::extractSheetTitle($this->dataSource, true);
-                $dimensions = Coordinate::rangeDimension(str_replace('$', '', $cellRange));
+                $dimensions = Coordinate::rangeDimension(\str_replace('$', '', $cellRange));
                 if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
                     $this->dataValues = Functions::flattenArray($newDataValues);
                 } else {
-                    $newArray = array_values(array_shift($newDataValues));
+                    $newArray = \array_values(\array_shift($newDataValues));
                     foreach ($newArray as $i => $newDataSet) {
                         $newArray[$i] = [$newDataSet];
                     }
@@ -389,13 +389,13 @@ class DataSeriesValues
                     foreach ($newDataValues as $newDataSet) {
                         $i = 0;
                         foreach ($newDataSet as $newDataVal) {
-                            array_unshift($newArray[$i++], $newDataVal);
+                            \array_unshift($newArray[$i++], $newDataVal);
                         }
                     }
                     $this->dataValues = $newArray;
                 }
             }
-            $this->pointCount = count($this->dataValues);
+            $this->pointCount = \count($this->dataValues);
         }
     }
 }

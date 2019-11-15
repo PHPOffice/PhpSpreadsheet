@@ -21,7 +21,7 @@ class AutoFilter
     public function load()
     {
         $autoFilterRange = (string) $this->worksheetXml->autoFilter['ref'];
-        if (strpos($autoFilterRange, ':') !== false) {
+        if (\strpos($autoFilterRange, ':') !== false) {
             $this->readAutoFilter($autoFilterRange, $this->worksheetXml);
         }
     }

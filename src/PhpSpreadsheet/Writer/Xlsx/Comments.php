@@ -178,7 +178,7 @@ class Comments extends WriterPart
         [$column, $row] = Coordinate::coordinateFromString($pCellReference);
         $column = Coordinate::columnIndexFromString($column);
         $id = 1024 + $column + $row;
-        $id = substr($id, 0, 4);
+        $id = \substr($id, 0, 4);
 
         // v:shape
         $objWriter->startElement('v:shape');

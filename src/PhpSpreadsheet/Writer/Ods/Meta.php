@@ -47,12 +47,12 @@ class Meta extends WriterPart
 
         $objWriter->writeElement('meta:initial-creator', $spreadsheet->getProperties()->getCreator());
         $objWriter->writeElement('dc:creator', $spreadsheet->getProperties()->getCreator());
-        $objWriter->writeElement('meta:creation-date', date(DATE_W3C, $spreadsheet->getProperties()->getCreated()));
-        $objWriter->writeElement('dc:date', date(DATE_W3C, $spreadsheet->getProperties()->getCreated()));
+        $objWriter->writeElement('meta:creation-date', \date(DATE_W3C, $spreadsheet->getProperties()->getCreated()));
+        $objWriter->writeElement('dc:date', \date(DATE_W3C, $spreadsheet->getProperties()->getCreated()));
         $objWriter->writeElement('dc:title', $spreadsheet->getProperties()->getTitle());
         $objWriter->writeElement('dc:description', $spreadsheet->getProperties()->getDescription());
         $objWriter->writeElement('dc:subject', $spreadsheet->getProperties()->getSubject());
-        $keywords = explode(' ', $spreadsheet->getProperties()->getKeywords());
+        $keywords = \explode(' ', $spreadsheet->getProperties()->getKeywords());
         foreach ($keywords as $keyword) {
             $objWriter->writeElement('meta:keyword', $keyword);
         }

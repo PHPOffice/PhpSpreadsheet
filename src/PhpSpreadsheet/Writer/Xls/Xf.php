@@ -230,15 +230,15 @@ class Xf
         $border2 |= self::mapBorderStyle($this->_style->getBorders()->getDiagonal()->getBorderStyle()) << 21;
         $border2 |= self::mapFillType($this->_style->getFill()->getFillType()) << 26;
 
-        $header = pack('vv', $record, $length);
+        $header = \pack('vv', $record, $length);
 
         //BIFF8 options: identation, shrinkToFit and  text direction
         $biff8_options = $this->_style->getAlignment()->getIndent();
         $biff8_options |= (int) $this->_style->getAlignment()->getShrinkToFit() << 4;
 
-        $data = pack('vvvC', $ifnt, $ifmt, $style, $align);
-        $data .= pack('CCC', self::mapTextRotation($this->_style->getAlignment()->getTextRotation()), $biff8_options, $used_attrib);
-        $data .= pack('VVv', $border1, $border2, $icv);
+        $data = \pack('vvvC', $ifnt, $ifmt, $style, $align);
+        $data .= \pack('CCC', self::mapTextRotation($this->_style->getAlignment()->getTextRotation()), $biff8_options, $used_attrib);
+        $data .= \pack('VVv', $border1, $border2, $icv);
 
         return $header . $data;
     }

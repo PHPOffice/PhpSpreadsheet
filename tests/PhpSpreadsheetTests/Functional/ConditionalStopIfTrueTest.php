@@ -56,9 +56,9 @@ class ConditionalStopIfTrueTest extends AbstractFunctional
 
         // put all three conditions in sheet
         $conditionalStyles = [];
-        array_push($conditionalStyles, $condition0);
-        array_push($conditionalStyles, $condition1);
-        array_push($conditionalStyles, $condition2);
+        \array_push($conditionalStyles, $condition0);
+        \array_push($conditionalStyles, $condition1);
+        \array_push($conditionalStyles, $condition2);
         $spreadsheet->getActiveSheet()->setConditionalStyles($pCoordinate, $conditionalStyles);
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format);

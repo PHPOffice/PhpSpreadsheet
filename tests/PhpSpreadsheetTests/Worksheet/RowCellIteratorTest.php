@@ -57,15 +57,15 @@ class RowCellIteratorTest extends TestCase
 
     public function testIteratorSeekAndPrev()
     {
-        $ranges = range('A', 'E');
+        $ranges = \range('A', 'E');
         $iterator = new RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
         $RowCellIndexResult = 'D';
         $iterator->seek('D');
         self::assertEquals($RowCellIndexResult, $iterator->key());
 
-        for ($i = 1; $i < array_search($RowCellIndexResult, $ranges); ++$i) {
+        for ($i = 1; $i < \array_search($RowCellIndexResult, $ranges); ++$i) {
             $iterator->prev();
-            $expectedResult = $ranges[array_search($RowCellIndexResult, $ranges) - $i];
+            $expectedResult = $ranges[\array_search($RowCellIndexResult, $ranges) - $i];
             self::assertEquals($expectedResult, $iterator->key());
         }
     }

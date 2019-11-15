@@ -62,7 +62,7 @@ $dataSeriesValues = [
 $series = new DataSeries(
     DataSeries::TYPE_AREACHART, // plotType
     DataSeries::GROUPING_PERCENT_STACKED, // plotGrouping
-    range(0, count($dataSeriesValues) - 1), // plotOrder
+    \range(0, \count($dataSeriesValues) - 1), // plotOrder
     $dataSeriesLabels, // plotLabel
     $xAxisTickValues, // plotCategory
     $dataSeriesValues          // plotValues
@@ -99,6 +99,6 @@ $worksheet->addChart($chart);
 $filename = $helper->getFilename(__FILE__);
 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $writer->setIncludeCharts(true);
-$callStartTime = microtime(true);
+$callStartTime = \microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);

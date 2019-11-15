@@ -33,7 +33,7 @@ class RelsRibbon extends WriterPart
         $objWriter->startElement('Relationships');
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
         $localRels = $spreadsheet->getRibbonBinObjects('names');
-        if (is_array($localRels)) {
+        if (\is_array($localRels)) {
             foreach ($localRels as $aId => $aTarget) {
                 $objWriter->startElement('Relationship');
                 $objWriter->writeAttribute('Id', $aId);

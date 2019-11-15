@@ -103,8 +103,8 @@ class Properties
     {
         // Initialise values
         $this->lastModifiedBy = $this->creator;
-        $this->created = time();
-        $this->modified = time();
+        $this->created = \time();
+        $this->modified = \time();
     }
 
     /**
@@ -175,12 +175,12 @@ class Properties
     public function setCreated($time)
     {
         if ($time === null) {
-            $time = time();
-        } elseif (is_string($time)) {
-            if (is_numeric($time)) {
+            $time = \time();
+        } elseif (\is_string($time)) {
+            if (\is_numeric($time)) {
                 $time = (int) $time;
             } else {
-                $time = strtotime($time);
+                $time = \strtotime($time);
             }
         }
 
@@ -209,12 +209,12 @@ class Properties
     public function setModified($time)
     {
         if ($time === null) {
-            $time = time();
-        } elseif (is_string($time)) {
-            if (is_numeric($time)) {
+            $time = \time();
+        } elseif (\is_string($time)) {
+            if (\is_numeric($time)) {
                 $time = (int) $time;
             } else {
-                $time = strtotime($time);
+                $time = \strtotime($time);
             }
         }
 
@@ -398,7 +398,7 @@ class Properties
      */
     public function getCustomProperties()
     {
-        return array_keys($this->customProperties);
+        return \array_keys($this->customProperties);
     }
 
     /**
@@ -457,18 +457,18 @@ class Properties
      */
     public function setCustomProperty($propertyName, $propertyValue = '', $propertyType = null)
     {
-        if (($propertyType === null) || (!in_array($propertyType, [self::PROPERTY_TYPE_INTEGER,
+        if (($propertyType === null) || (!\in_array($propertyType, [self::PROPERTY_TYPE_INTEGER,
                                                                         self::PROPERTY_TYPE_FLOAT,
                                                                         self::PROPERTY_TYPE_STRING,
                                                                         self::PROPERTY_TYPE_DATE,
                                                                         self::PROPERTY_TYPE_BOOLEAN, ]))) {
             if ($propertyValue === null) {
                 $propertyType = self::PROPERTY_TYPE_STRING;
-            } elseif (is_float($propertyValue)) {
+            } elseif (\is_float($propertyValue)) {
                 $propertyType = self::PROPERTY_TYPE_FLOAT;
-            } elseif (is_int($propertyValue)) {
+            } elseif (\is_int($propertyValue)) {
                 $propertyType = self::PROPERTY_TYPE_INTEGER;
-            } elseif (is_bool($propertyValue)) {
+            } elseif (\is_bool($propertyValue)) {
                 $propertyType = self::PROPERTY_TYPE_BOOLEAN;
             } else {
                 $propertyType = self::PROPERTY_TYPE_STRING;
@@ -488,9 +488,9 @@ class Properties
      */
     public function __clone()
     {
-        $vars = get_object_vars($this);
+        $vars = \get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if (is_object($value)) {
+            if (\is_object($value)) {
                 $this->$key = clone $value;
             } else {
                 $this->$key = $value;
@@ -522,7 +522,7 @@ class Properties
             case 'ui4':       //    4-Byte Unsigned Integer
             case 'ui8':       //    8-Byte Unsigned Integer
             case 'uint':      //    Unsigned Integer
-                return abs((int) $propertyValue);
+                return \abs((int) $propertyValue);
 
                 break;
             case 'r4':        //    4-Byte Real Number
@@ -539,7 +539,7 @@ class Properties
                 break;
             case 'date':      //    Date and Time
             case 'filetime':  //    File Time
-                return strtotime($propertyValue);
+                return \strtotime($propertyValue);
 
                 break;
             case 'bool':     //    Boolean

@@ -8,7 +8,7 @@ require __DIR__ . '/../Header.php';
 // List functions
 $helper->log('List implemented functions');
 $calc = Calculation::getInstance();
-print_r($calc->getImplementedFunctionNames());
+\print_r($calc->getImplementedFunctionNames());
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');

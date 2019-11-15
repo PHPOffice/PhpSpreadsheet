@@ -257,9 +257,9 @@ class CalculationTest extends TestCase
             $isProductFunction = $value == 'PRODUCT(';
             $isNotFunction = $value == 'NOT(';
             $isIfOperand = $token['type'] == 'Operand Count for Function IF()';
-            $isOnlyIfNotDepth1 = (array_key_exists('onlyIfNot', $token) ? $token['onlyIfNot'] : null) == 'storeKey-1';
-            $isStoreKeyDepth1 = (array_key_exists('storeKey', $token) ? $token['storeKey'] : null) == 'storeKey-1';
-            $isOnlyIfNotDepth0 = (array_key_exists('onlyIfNot', $token) ? $token['onlyIfNot'] : null) == 'storeKey-0';
+            $isOnlyIfNotDepth1 = (\array_key_exists('onlyIfNot', $token) ? $token['onlyIfNot'] : null) == 'storeKey-1';
+            $isStoreKeyDepth1 = (\array_key_exists('storeKey', $token) ? $token['storeKey'] : null) == 'storeKey-1';
+            $isOnlyIfNotDepth0 = (\array_key_exists('onlyIfNot', $token) ? $token['onlyIfNot'] : null) == 'storeKey-0';
 
             $plusCorrectlyTagged = $plusCorrectlyTagged || ($isPlus && $isOnlyIfNotDepth0);
             $notFunctionCorrectlyTagged = $notFunctionCorrectlyTagged || ($isNotFunction && $isOnlyIfNotDepth0 && $isStoreKeyDepth1);

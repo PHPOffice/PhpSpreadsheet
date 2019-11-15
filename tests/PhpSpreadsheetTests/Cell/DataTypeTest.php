@@ -11,7 +11,7 @@ class DataTypeTest extends TestCase
     {
         $result = DataType::getErrorCodes();
         self::assertIsArray($result);
-        self::assertGreaterThan(0, count($result));
+        self::assertGreaterThan(0, \count($result));
         self::assertArrayHasKey('#NULL!', $result);
     }
 }

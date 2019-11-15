@@ -443,8 +443,8 @@ class Drawing extends WriterPart
     private function writeVMLHeaderFooterImage(XMLWriter $objWriter, $pReference, HeaderFooterDrawing $pImage)
     {
         // Calculate object id
-        preg_match('{(\d+)}', md5($pReference), $m);
-        $id = 1500 + (substr($m[1], 0, 2) * 1);
+        \preg_match('{(\d+)}', \md5($pReference), $m);
+        $id = 1500 + (\substr($m[1], 0, 2) * 1);
 
         // Calculate offset
         $width = $pImage->getWidth();

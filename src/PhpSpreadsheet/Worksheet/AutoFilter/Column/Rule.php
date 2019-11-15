@@ -266,7 +266,7 @@ class Rule
      */
     public function setRuleType($pRuleType)
     {
-        if (!in_array($pRuleType, self::$ruleTypes)) {
+        if (!\in_array($pRuleType, self::$ruleTypes)) {
             throw new PhpSpreadsheetException('Invalid rule type for column AutoFilter Rule.');
         }
 
@@ -296,19 +296,19 @@ class Rule
      */
     public function setValue($pValue)
     {
-        if (is_array($pValue)) {
+        if (\is_array($pValue)) {
             $grouping = -1;
             foreach ($pValue as $key => $value) {
                 //    Validate array entries
-                if (!in_array($key, self::$dateTimeGroups)) {
+                if (!\in_array($key, self::$dateTimeGroups)) {
                     //    Remove any invalid entries from the value array
                     unset($pValue[$key]);
                 } else {
                     //    Work out what the dateTime grouping will be
-                    $grouping = max($grouping, array_search($key, self::$dateTimeGroups));
+                    $grouping = \max($grouping, \array_search($key, self::$dateTimeGroups));
                 }
             }
-            if (count($pValue) == 0) {
+            if (\count($pValue) == 0) {
                 throw new PhpSpreadsheetException('Invalid rule value for column AutoFilter Rule.');
             }
             //    Set the dateTime grouping that we've anticipated
@@ -343,8 +343,8 @@ class Rule
         if (empty($pOperator)) {
             $pOperator = self::AUTOFILTER_COLUMN_RULE_EQUAL;
         }
-        if ((!in_array($pOperator, self::$operators)) &&
-            (!in_array($pOperator, self::$topTenValue))) {
+        if ((!\in_array($pOperator, self::$operators)) &&
+            (!\in_array($pOperator, self::$topTenValue))) {
             throw new PhpSpreadsheetException('Invalid operator for column AutoFilter Rule.');
         }
         $this->operator = $pOperator;
@@ -374,9 +374,9 @@ class Rule
     public function setGrouping($pGrouping)
     {
         if (($pGrouping !== null) &&
-            (!in_array($pGrouping, self::$dateTimeGroups)) &&
-            (!in_array($pGrouping, self::$dynamicTypes)) &&
-            (!in_array($pGrouping, self::$topTenType))) {
+            (!\in_array($pGrouping, self::$dateTimeGroups)) &&
+            (!\in_array($pGrouping, self::$dynamicTypes)) &&
+            (!\in_array($pGrouping, self::$topTenType))) {
             throw new PhpSpreadsheetException('Invalid rule type for column AutoFilter Rule.');
         }
         $this->grouping = $pGrouping;
@@ -438,9 +438,9 @@ class Rule
      */
     public function __clone()
     {
-        $vars = get_object_vars($this);
+        $vars = \get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if (is_object($value)) {
+            if (\is_object($value)) {
                 if ($key == 'parent') {
                     //    Detach from autofilter column parent
                     $this->$key = null;

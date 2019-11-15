@@ -53,7 +53,7 @@ class Ods extends BaseReader
             if ($stat && ($stat['size'] <= 255)) {
                 $mimeType = $zip->getFromName($stat['name']);
             } elseif ($zip->statName('META-INF/manifest.xml')) {
-                $xml = simplexml_load_string(
+                $xml = \simplexml_load_string(
                     $this->securityScanner->scan($zip->getFromName('META-INF/manifest.xml')),
                     'SimpleXMLElement',
                     Settings::getLibXmlLoaderOptions()
@@ -102,7 +102,7 @@ class Ods extends BaseReader
 
         $xml = new XMLReader();
         $xml->xml(
-            $this->securityScanner->scanFile('zip://' . realpath($pFilename) . '#content.xml'),
+            $this->securityScanner->scanFile('zip://' . \realpath($pFilename) . '#content.xml'),
             null,
             Settings::getLibXmlLoaderOptions()
         );
@@ -156,7 +156,7 @@ class Ods extends BaseReader
 
         $xml = new XMLReader();
         $xml->xml(
-            $this->securityScanner->scanFile('zip://' . realpath($pFilename) . '#content.xml'),
+            $this->securityScanner->scanFile('zip://' . \realpath($pFilename) . '#content.xml'),
             null,
             Settings::getLibXmlLoaderOptions()
         );
@@ -194,7 +194,7 @@ class Ods extends BaseReader
                             $rowspan = $xml->getAttribute('table:number-rows-repeated');
                             $rowspan = empty($rowspan) ? 1 : $rowspan;
                             $tmpInfo['totalRows'] += $rowspan;
-                            $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
+                            $tmpInfo['totalColumns'] = \max($tmpInfo['totalColumns'], $currCells);
                             $currCells = 0;
                             // Step into the row
                             $xml->read();
@@ -217,7 +217,7 @@ class Ods extends BaseReader
                         }
                     } while ($xml->name != 'table:table');
 
-                    $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
+                    $tmpInfo['totalColumns'] = \max($tmpInfo['totalColumns'], $currCells);
                     $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
                     $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
                     $worksheetInfo[] = $tmpInfo;
@@ -270,7 +270,7 @@ class Ods extends BaseReader
 
         // Meta
 
-        $xml = simplexml_load_string(
+        $xml = \simplexml_load_string(
             $this->securityScanner->scan($zip->getFromName('meta.xml')),
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
@@ -312,7 +312,7 @@ class Ods extends BaseReader
                 // Check loadSheetsOnly
                 if (isset($this->loadSheetsOnly)
                     && $worksheetName
-                    && !in_array($worksheetName, $this->loadSheetsOnly)) {
+                    && !\in_array($worksheetName, $this->loadSheetsOnly)) {
                     continue;
                 }
 
@@ -342,9 +342,9 @@ class Ods extends BaseReader
                     $key = $childNode->nodeName;
 
                     // Remove ns from node name
-                    if (strpos($key, ':') !== false) {
-                        $keyChunks = explode(':', $key);
-                        $key = array_pop($keyChunks);
+                    if (\strpos($key, ':') !== false) {
+                        $keyChunks = \explode(':', $key);
+                        $key = \array_pop($keyChunks);
                     }
 
                     switch ($key) {
@@ -417,7 +417,7 @@ class Ods extends BaseReader
                                     }
                                 }
 
-                                if (count($paragraphs) > 0) {
+                                if (\count($paragraphs) > 0) {
                                     // Consolidate if there are multiple p records (maybe with spans as well)
                                     $dataArray = [];
 
@@ -429,7 +429,7 @@ class Ods extends BaseReader
                                     foreach ($paragraphs as $pData) {
                                         $dataArray[] = $this->scanElementForText($pData);
                                     }
-                                    $allCellDataText = implode("\n", $dataArray);
+                                    $allCellDataText = \implode("\n", $dataArray);
 
                                     $type = $cellData->getAttributeNS($officeNs, 'value-type');
 
@@ -455,7 +455,7 @@ class Ods extends BaseReader
                                             $type = DataType::TYPE_NUMERIC;
                                             $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
 
-                                            if (floor($dataValue) == $dataValue) {
+                                            if (\floor($dataValue) == $dataValue) {
                                                 $dataValue = (int) $dataValue;
                                             }
                                             $formatting = NumberFormat::FORMAT_PERCENTAGE_00;
@@ -465,7 +465,7 @@ class Ods extends BaseReader
                                             $type = DataType::TYPE_NUMERIC;
                                             $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
 
-                                            if (floor($dataValue) == $dataValue) {
+                                            if (\floor($dataValue) == $dataValue) {
                                                 $dataValue = (int) $dataValue;
                                             }
                                             $formatting = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
@@ -475,7 +475,7 @@ class Ods extends BaseReader
                                             $type = DataType::TYPE_NUMERIC;
                                             $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
 
-                                            if (floor($dataValue) == $dataValue) {
+                                            if (\floor($dataValue) == $dataValue) {
                                                 if ($dataValue == (int) $dataValue) {
                                                     $dataValue = (int) $dataValue;
                                                 } else {
@@ -490,7 +490,7 @@ class Ods extends BaseReader
 
                                             $dateObj = new DateTime($value, $GMT);
                                             $dateObj->setTimeZone($timezoneObj);
-                                            [$year, $month, $day, $hour, $minute, $second] = explode(
+                                            [$year, $month, $day, $hour, $minute, $second] = \explode(
                                                 ' ',
                                                 $dateObj->format('Y m d H i s')
                                             );
@@ -504,7 +504,7 @@ class Ods extends BaseReader
                                                 (int) $second
                                             );
 
-                                            if ($dataValue != floor($dataValue)) {
+                                            if ($dataValue != \floor($dataValue)) {
                                                 $formatting = NumberFormat::FORMAT_DATE_XLSX15
                                                     . ' '
                                                     . NumberFormat::FORMAT_DATE_TIME4;
@@ -519,8 +519,8 @@ class Ods extends BaseReader
                                             $timeValue = $cellData->getAttributeNS($officeNs, 'time-value');
 
                                             $dataValue = Date::PHPToExcel(
-                                                strtotime(
-                                                    '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS'))
+                                                \strtotime(
+                                                    '01-01-1970 ' . \implode(':', \sscanf($timeValue, 'PT%dH%dM%dS'))
                                                 )
                                             );
                                             $formatting = NumberFormat::FORMAT_DATE_TIME4;
@@ -536,23 +536,23 @@ class Ods extends BaseReader
 
                                 if ($hasCalculatedValue) {
                                     $type = DataType::TYPE_FORMULA;
-                                    $cellDataFormula = substr($cellDataFormula, strpos($cellDataFormula, ':=') + 1);
-                                    $temp = explode('"', $cellDataFormula);
+                                    $cellDataFormula = \substr($cellDataFormula, \strpos($cellDataFormula, ':=') + 1);
+                                    $temp = \explode('"', $cellDataFormula);
                                     $tKey = false;
                                     foreach ($temp as &$value) {
                                         // Only replace in alternate array entries (i.e. non-quoted blocks)
                                         if ($tKey = !$tKey) {
                                             // Cell range reference in another sheet
-                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/U', '$1!$2:$3', $value);
+                                            $value = \preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/U', '$1!$2:$3', $value);
 
                                             // Cell reference in another sheet
-                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/U', '$1!$2', $value);
+                                            $value = \preg_replace('/\[([^\.]+)\.([^\.]+)\]/U', '$1!$2', $value);
 
                                             // Cell range reference
-                                            $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/U', '$1:$2', $value);
+                                            $value = \preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/U', '$1:$2', $value);
 
                                             // Simple cell reference
-                                            $value = preg_replace('/\[\.([^\.]+)\]/U', '$1', $value);
+                                            $value = \preg_replace('/\[\.([^\.]+)\]/U', '$1', $value);
 
                                             $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
                                         }
@@ -560,7 +560,7 @@ class Ods extends BaseReader
                                     unset($value);
 
                                     // Then rebuild the formula string
-                                    $cellDataFormula = implode('"', $temp);
+                                    $cellDataFormula = \implode('"', $temp);
                                 }
 
                                 if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
@@ -682,7 +682,7 @@ class Ods extends BaseReader
                     $multiplier = 1;
                 }
 
-                $str .= str_repeat(' ', $multiplier);
+                $str .= \str_repeat(' ', $multiplier);
             }
 
             if ($child->hasChildNodes()) {

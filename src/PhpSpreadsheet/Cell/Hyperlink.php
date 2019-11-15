@@ -86,7 +86,7 @@ class Hyperlink
      */
     public function isInternal()
     {
-        return strpos($this->url, 'sheet://') !== false;
+        return \strpos($this->url, 'sheet://') !== false;
     }
 
     /**
@@ -104,7 +104,7 @@ class Hyperlink
      */
     public function getHashCode()
     {
-        return md5(
+        return \md5(
             $this->url .
             $this->tooltip .
             __CLASS__

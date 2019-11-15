@@ -68,17 +68,17 @@ class SingularValueDecomposition
         $A = $Arg->getArrayCopy();
         $this->m = $Arg->getRowDimension();
         $this->n = $Arg->getColumnDimension();
-        $nu = min($this->m, $this->n);
+        $nu = \min($this->m, $this->n);
         $e = [];
         $work = [];
         $wantu = true;
         $wantv = true;
-        $nct = min($this->m - 1, $this->n);
-        $nrt = max(0, min($this->n - 2, $this->m));
+        $nct = \min($this->m - 1, $this->n);
+        $nrt = \max(0, \min($this->n - 2, $this->m));
 
         // Reduce A to bidiagonal form, storing the diagonal elements
         // in s and the super-diagonal elements in e.
-        $kMax = max($nct, $nrt);
+        $kMax = \max($nct, $nrt);
         for ($k = 0; $k < $kMax; ++$k) {
             if ($k < $nct) {
                 // Compute the transformation for the k-th column and
@@ -171,7 +171,7 @@ class SingularValueDecomposition
         }
 
         // Set up the final bidiagonal matrix or order p.
-        $p = min($this->n, $this->m + 1);
+        $p = \min($this->n, $this->m + 1);
         if ($nct < $this->n) {
             $this->s[$nct] = $A[$nct][$nct];
         }
@@ -243,7 +243,7 @@ class SingularValueDecomposition
         // Main iteration loop for the singular values.
         $pp = $p - 1;
         $iter = 0;
-        $eps = pow(2.0, -52.0);
+        $eps = \pow(2.0, -52.0);
 
         while ($p > 0) {
             // Here is where a test for too many iterations would go.
@@ -259,7 +259,7 @@ class SingularValueDecomposition
                 if ($k == -1) {
                     break;
                 }
-                if (abs($e[$k]) <= $eps * (abs($this->s[$k]) + abs($this->s[$k + 1]))) {
+                if (\abs($e[$k]) <= $eps * (\abs($this->s[$k]) + \abs($this->s[$k + 1]))) {
                     $e[$k] = 0.0;
 
                     break;
@@ -272,8 +272,8 @@ class SingularValueDecomposition
                     if ($ks == $k) {
                         break;
                     }
-                    $t = ($ks != $p ? abs($e[$ks]) : 0.) + ($ks != $k + 1 ? abs($e[$ks - 1]) : 0.);
-                    if (abs($this->s[$ks]) <= $eps * $t) {
+                    $t = ($ks != $p ? \abs($e[$ks]) : 0.) + ($ks != $k + 1 ? \abs($e[$ks - 1]) : 0.);
+                    if (\abs($this->s[$ks]) <= $eps * $t) {
                         $this->s[$ks] = 0.0;
 
                         break;
@@ -339,7 +339,7 @@ class SingularValueDecomposition
                 // Perform one qr step.
                 case 3:
                     // Calculate the shift.
-                    $scale = max(max(max(max(abs($this->s[$p - 1]), abs($this->s[$p - 2])), abs($e[$p - 2])), abs($this->s[$k])), abs($e[$k]));
+                    $scale = \max(\max(\max(\max(\abs($this->s[$p - 1]), \abs($this->s[$p - 2])), \abs($e[$p - 2])), \abs($this->s[$k])), \abs($e[$k]));
                     $sp = $this->s[$p - 1] / $scale;
                     $spm1 = $this->s[$p - 2] / $scale;
                     $epm1 = $e[$p - 2] / $scale;
@@ -349,7 +349,7 @@ class SingularValueDecomposition
                     $c = ($sp * $epm1) * ($sp * $epm1);
                     $shift = 0.0;
                     if (($b != 0.0) || ($c != 0.0)) {
-                        $shift = sqrt($b * $b + $c);
+                        $shift = \sqrt($b * $b + $c);
                         if ($b < 0.0) {
                             $shift = -$shift;
                         }
@@ -446,7 +446,7 @@ class SingularValueDecomposition
      */
     public function getU()
     {
-        return new Matrix($this->U, $this->m, min($this->m + 1, $this->n));
+        return new Matrix($this->U, $this->m, \min($this->m + 1, $this->n));
     }
 
     /**
@@ -503,7 +503,7 @@ class SingularValueDecomposition
      */
     public function cond()
     {
-        return $this->s[0] / $this->s[min($this->m, $this->n) - 1];
+        return $this->s[0] / $this->s[\min($this->m, $this->n) - 1];
     }
 
     /**
@@ -513,10 +513,10 @@ class SingularValueDecomposition
      */
     public function rank()
     {
-        $eps = pow(2.0, -52.0);
-        $tol = max($this->m, $this->n) * $this->s[0] * $eps;
+        $eps = \pow(2.0, -52.0);
+        $tol = \max($this->m, $this->n) * $this->s[0] * $eps;
         $r = 0;
-        $iMax = count($this->s);
+        $iMax = \count($this->s);
         for ($i = 0; $i < $iMax; ++$i) {
             if ($this->s[$i] > $tol) {
                 ++$r;

@@ -49,7 +49,7 @@ class PlotArea
      */
     public function getPlotGroupCount()
     {
-        return count($this->plotSeries);
+        return \count($this->plotSeries);
     }
 
     /**

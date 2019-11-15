@@ -21,7 +21,7 @@ class PowerBestFit extends BestFit
      */
     public function getValueOfYForX($xValue)
     {
-        return $this->getIntersect() * pow(($xValue - $this->xOffset), $this->getSlope());
+        return $this->getIntersect() * \pow(($xValue - $this->xOffset), $this->getSlope());
     }
 
     /**
@@ -33,7 +33,7 @@ class PowerBestFit extends BestFit
      */
     public function getValueOfXForY($yValue)
     {
-        return pow((($yValue + $this->yOffset) / $this->getIntersect()), (1 / $this->getSlope()));
+        return \pow((($yValue + $this->yOffset) / $this->getIntersect()), (1 / $this->getSlope()));
     }
 
     /**
@@ -61,10 +61,10 @@ class PowerBestFit extends BestFit
     public function getIntersect($dp = 0)
     {
         if ($dp != 0) {
-            return round(exp($this->intersect), $dp);
+            return \round(\exp($this->intersect), $dp);
         }
 
-        return exp($this->intersect);
+        return \exp($this->intersect);
     }
 
     /**
@@ -78,17 +78,17 @@ class PowerBestFit extends BestFit
     {
         foreach ($xValues as &$value) {
             if ($value < 0.0) {
-                $value = 0 - log(abs($value));
+                $value = 0 - \log(\abs($value));
             } elseif ($value > 0.0) {
-                $value = log($value);
+                $value = \log($value);
             }
         }
         unset($value);
         foreach ($yValues as &$value) {
             if ($value < 0.0) {
-                $value = 0 - log(abs($value));
+                $value = 0 - \log(\abs($value));
             } elseif ($value > 0.0) {
-                $value = log($value);
+                $value = \log($value);
             }
         }
         unset($value);

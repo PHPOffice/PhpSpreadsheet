@@ -27,14 +27,14 @@ $helper->log('Write to CSV format');
 /** @var \PhpOffice\PhpSpreadsheet\Writer\Csv $writer */
 $writer = IOFactory::createWriter($spreadsheet, 'Csv');
 $filename = $helper->getFilename(__FILE__, 'csv');
-$callStartTime = microtime(true);
+$callStartTime = \microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
 
 // Export to CSV with BOM (.csv)
-$filename = str_replace('.csv', '-bom.csv', $filename);
+$filename = \str_replace('.csv', '-bom.csv', $filename);
 $helper->log('Write to CSV format (with BOM)');
 $writer->setUseBOM(true);
-$callStartTime = microtime(true);
+$callStartTime = \microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);

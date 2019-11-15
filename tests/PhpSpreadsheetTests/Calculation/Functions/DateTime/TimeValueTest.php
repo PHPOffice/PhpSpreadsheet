@@ -49,7 +49,7 @@ class TimeValueTest extends TestCase
         //    Must return an object...
         $this->assertIsObject($result);
         //    ... of the correct type
-        $this->assertTrue(is_a($result, 'DateTimeInterface'));
+        $this->assertTrue(\is_a($result, 'DateTimeInterface'));
         //    ... with the correct value
         $this->assertEquals($result->format('H:i:s'), '07:30:20');
     }

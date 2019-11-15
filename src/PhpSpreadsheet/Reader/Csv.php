@@ -94,32 +94,32 @@ class Csv extends BaseReader
      */
     protected function skipBOM()
     {
-        rewind($this->fileHandle);
+        \rewind($this->fileHandle);
 
         switch ($this->inputEncoding) {
             case 'UTF-8':
-                fgets($this->fileHandle, 4) == "\xEF\xBB\xBF" ?
-                    fseek($this->fileHandle, 3) : fseek($this->fileHandle, 0);
+                \fgets($this->fileHandle, 4) == "\xEF\xBB\xBF" ?
+                    \fseek($this->fileHandle, 3) : \fseek($this->fileHandle, 0);
 
                 break;
             case 'UTF-16LE':
-                fgets($this->fileHandle, 3) == "\xFF\xFE" ?
-                    fseek($this->fileHandle, 2) : fseek($this->fileHandle, 0);
+                \fgets($this->fileHandle, 3) == "\xFF\xFE" ?
+                    \fseek($this->fileHandle, 2) : \fseek($this->fileHandle, 0);
 
                 break;
             case 'UTF-16BE':
-                fgets($this->fileHandle, 3) == "\xFE\xFF" ?
-                    fseek($this->fileHandle, 2) : fseek($this->fileHandle, 0);
+                \fgets($this->fileHandle, 3) == "\xFE\xFF" ?
+                    \fseek($this->fileHandle, 2) : \fseek($this->fileHandle, 0);
 
                 break;
             case 'UTF-32LE':
-                fgets($this->fileHandle, 5) == "\xFF\xFE\x00\x00" ?
-                    fseek($this->fileHandle, 4) : fseek($this->fileHandle, 0);
+                \fgets($this->fileHandle, 5) == "\xFF\xFE\x00\x00" ?
+                    \fseek($this->fileHandle, 4) : \fseek($this->fileHandle, 0);
 
                 break;
             case 'UTF-32BE':
-                fgets($this->fileHandle, 5) == "\x00\x00\xFE\xFF" ?
-                    fseek($this->fileHandle, 4) : fseek($this->fileHandle, 0);
+                \fgets($this->fileHandle, 5) == "\x00\x00\xFE\xFF" ?
+                    \fseek($this->fileHandle, 4) : \fseek($this->fileHandle, 0);
 
                 break;
             default:
@@ -132,13 +132,13 @@ class Csv extends BaseReader
      */
     protected function checkSeparator()
     {
-        $line = fgets($this->fileHandle);
+        $line = \fgets($this->fileHandle);
         if ($line === false) {
             return;
         }
 
-        if ((strlen(trim($line, "\r\n")) == 5) && (stripos($line, 'sep=') === 0)) {
-            $this->delimiter = substr($line, 4, 1);
+        if ((\strlen(\trim($line, "\r\n")) == 5) && (\stripos($line, 'sep=') === 0)) {
+            $this->delimiter = \substr($line, 4, 1);
 
             return;
         }
@@ -165,7 +165,7 @@ class Csv extends BaseReader
         $numberLines = 0;
         while (($line = $this->getNextLine()) !== false && (++$numberLines < 1000)) {
             $countLine = [];
-            for ($i = strlen($line) - 1; $i >= 0; --$i) {
+            for ($i = \strlen($line) - 1; $i >= 0; --$i) {
                 $char = $line[$i];
                 if (isset($counts[$char])) {
                     if (!isset($countLine[$char])) {
@@ -182,7 +182,7 @@ class Csv extends BaseReader
 
         // If number of lines is 0, nothing to infer : fall back to the default
         if ($numberLines === 0) {
-            $this->delimiter = reset($potentialDelimiters);
+            $this->delimiter = \reset($potentialDelimiters);
             $this->skipBOM();
 
             return;
@@ -190,11 +190,11 @@ class Csv extends BaseReader
 
         // Calculate the mean square deviations for each delimiter (ignoring delimiters that haven't been found consistently)
         $meanSquareDeviations = [];
-        $middleIdx = floor(($numberLines - 1) / 2);
+        $middleIdx = \floor(($numberLines - 1) / 2);
 
         foreach ($potentialDelimiters as $delimiter) {
             $series = $counts[$delimiter];
-            sort($series);
+            \sort($series);
 
             $median = ($numberLines % 2)
                 ? $series[$middleIdx]
@@ -204,12 +204,12 @@ class Csv extends BaseReader
                 continue;
             }
 
-            $meanSquareDeviations[$delimiter] = array_reduce(
+            $meanSquareDeviations[$delimiter] = \array_reduce(
                 $series,
                 function ($sum, $value) use ($median) {
-                    return $sum + pow($value - $median, 2);
+                    return $sum + \pow($value - $median, 2);
                 }
-            ) / count($series);
+            ) / \count($series);
         }
 
         // ... and pick the delimiter with the smallest mean square deviation (in case of ties, the order in potentialDelimiters is respected)
@@ -227,7 +227,7 @@ class Csv extends BaseReader
 
         // If no delimiter could be detected, fall back to the default
         if ($this->delimiter === null) {
-            $this->delimiter = reset($potentialDelimiters);
+            $this->delimiter = \reset($potentialDelimiters);
         }
 
         $this->skipBOM();
@@ -243,7 +243,7 @@ class Csv extends BaseReader
     private function getNextLine($line = '')
     {
         // Get the next line in the file
-        $newLine = fgets($this->fileHandle);
+        $newLine = \fgets($this->fileHandle);
 
         // Return false if there is no next line
         if ($newLine === false) {
@@ -254,13 +254,13 @@ class Csv extends BaseReader
         $line = $line . $newLine;
 
         // Drop everything that is enclosed to avoid counting false positives in enclosures
-        $enclosure = '(?<!' . preg_quote($this->escapeCharacter, '/') . ')'
-            . preg_quote($this->enclosure, '/');
-        $line = preg_replace('/(' . $enclosure . '.*' . $enclosure . ')/Us', '', $line);
+        $enclosure = '(?<!' . \preg_quote($this->escapeCharacter, '/') . ')'
+            . \preg_quote($this->enclosure, '/');
+        $line = \preg_replace('/(' . $enclosure . '.*' . $enclosure . ')/Us', '', $line);
 
         // See if we have any enclosures left in the line
         // if we still have an enclosure then we need to read the next line as well
-        if (preg_match('/(' . $enclosure . ')/', $line) > 0) {
+        if (\preg_match('/(' . $enclosure . ')/', $line) > 0) {
             $line = $this->getNextLine($line);
         }
 
@@ -298,16 +298,16 @@ class Csv extends BaseReader
         $worksheetInfo[0]['totalColumns'] = 0;
 
         // Loop through each line of the file in turn
-        while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure, $this->escapeCharacter)) !== false) {
+        while (($rowData = \fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure, $this->escapeCharacter)) !== false) {
             ++$worksheetInfo[0]['totalRows'];
-            $worksheetInfo[0]['lastColumnIndex'] = max($worksheetInfo[0]['lastColumnIndex'], count($rowData) - 1);
+            $worksheetInfo[0]['lastColumnIndex'] = \max($worksheetInfo[0]['lastColumnIndex'], \count($rowData) - 1);
         }
 
         $worksheetInfo[0]['lastColumnLetter'] = Coordinate::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex'] + 1);
         $worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
 
         // Close file
-        fclose($fileHandle);
+        \fclose($fileHandle);
 
         return $worksheetInfo;
     }
@@ -342,8 +342,8 @@ class Csv extends BaseReader
      */
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
-        $lineEnding = ini_get('auto_detect_line_endings');
-        ini_set('auto_detect_line_endings', true);
+        $lineEnding = \ini_get('auto_detect_line_endings');
+        \ini_set('auto_detect_line_endings', true);
 
         // Open file
         if (!$this->canRead($pFilename)) {
@@ -370,7 +370,7 @@ class Csv extends BaseReader
         }
 
         // Loop through each line of the file in turn
-        while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure, $this->escapeCharacter)) !== false) {
+        while (($rowData = \fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure, $this->escapeCharacter)) !== false) {
             $columnLetter = 'A';
             foreach ($rowData as $rowDatum) {
                 if ($rowDatum != '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
@@ -388,13 +388,13 @@ class Csv extends BaseReader
         }
 
         // Close file
-        fclose($fileHandle);
+        \fclose($fileHandle);
 
         if ($this->contiguous) {
             $this->contiguousRow = $currentRow;
         }
 
-        ini_set('auto_detect_line_endings', $lineEnding);
+        \ini_set('auto_detect_line_endings', $lineEnding);
 
         // Return
         return $spreadsheet;
@@ -542,22 +542,22 @@ class Csv extends BaseReader
             return false;
         }
 
-        fclose($this->fileHandle);
+        \fclose($this->fileHandle);
 
         // Trust file extension if any
-        $extension = strtolower(pathinfo($pFilename, PATHINFO_EXTENSION));
-        if (in_array($extension, ['csv', 'tsv'])) {
+        $extension = \strtolower(\pathinfo($pFilename, PATHINFO_EXTENSION));
+        if (\in_array($extension, ['csv', 'tsv'])) {
             return true;
         }
 
         // Attempt to guess mimetype
-        $type = mime_content_type($pFilename);
+        $type = \mime_content_type($pFilename);
         $supportedTypes = [
             'text/csv',
             'text/plain',
             'inode/x-empty',
         ];
 
-        return in_array($type, $supportedTypes, true);
+        return \in_array($type, $supportedTypes, true);
     }
 }

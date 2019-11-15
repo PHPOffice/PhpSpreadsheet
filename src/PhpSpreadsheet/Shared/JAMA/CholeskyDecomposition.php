@@ -61,7 +61,7 @@ class CholeskyDecomposition
                 }
                 if ($i == $j) {
                     if ($sum >= 0) {
-                        $this->L[$i][$i] = sqrt($sum);
+                        $this->L[$i][$i] = \sqrt($sum);
                     } else {
                         $this->isspd = false;
                     }

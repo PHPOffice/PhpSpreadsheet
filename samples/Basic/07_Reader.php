@@ -11,7 +11,7 @@ $filename = $helper->getTemporaryFilename();
 $writer = new Xlsx($sampleSpreadsheet);
 $writer->save($filename);
 
-$callStartTime = microtime(true);
+$callStartTime = \microtime(true);
 $spreadsheet = IOFactory::load($filename);
 $helper->logRead('Xlsx', $filename, $callStartTime);
 

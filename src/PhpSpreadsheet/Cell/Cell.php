@@ -261,9 +261,9 @@ class Cell
                     $this->getWorksheet()->getParent()
                 )->calculateCellValue($this, $resetLog);
                 //    We don't yet handle array returns
-                if (is_array($result)) {
-                    while (is_array($result)) {
-                        $result = array_pop($result);
+                if (\is_array($result)) {
+                    while (\is_array($result)) {
+                        $result = \array_pop($result);
                     }
                 }
             } catch (Exception $ex) {
@@ -298,7 +298,7 @@ class Cell
     public function setCalculatedValue($pValue)
     {
         if ($pValue !== null) {
-            $this->calculatedValue = (is_numeric($pValue)) ? (float) $pValue : $pValue;
+            $this->calculatedValue = (\is_numeric($pValue)) ? (float) $pValue : $pValue;
         }
 
         return $this->updateInCollection();
@@ -630,9 +630,9 @@ class Cell
      */
     public function __clone()
     {
-        $vars = get_object_vars($this);
+        $vars = \get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if ((is_object($value)) && ($key != 'parent')) {
+            if ((\is_object($value)) && ($key != 'parent')) {
                 $this->$key = clone $value;
             } else {
                 $this->$key = $value;

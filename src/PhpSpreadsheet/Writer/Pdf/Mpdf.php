@@ -53,7 +53,7 @@ class Mpdf extends Pdf
                 ? PageSetup::ORIENTATION_PORTRAIT
                 : $this->getOrientation();
         }
-        $orientation = strtoupper($orientation);
+        $orientation = \strtoupper($orientation);
 
         //  Override Paper Size
         if (null !== $this->getPaperSize()) {
@@ -68,7 +68,7 @@ class Mpdf extends Pdf
         $config = ['tempDir' => $this->tempDir];
         $pdf = $this->createExternalWriterInstance($config);
         $ortmp = $orientation;
-        $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
+        $pdf->_setPageSize(\strtoupper($paperSize), $ortmp);
         $pdf->DefOrientation = $orientation;
         $pdf->AddPageByArray([
             'orientation' => $orientation,
@@ -93,7 +93,7 @@ class Mpdf extends Pdf
         $pdf->WriteHTML($this->generateHTMLFooter());
 
         //  Write to file
-        fwrite($fileHandle, $pdf->Output('', 'S'));
+        \fwrite($fileHandle, $pdf->Output('', 'S'));
 
         parent::restoreStateAfterSave($fileHandle);
     }

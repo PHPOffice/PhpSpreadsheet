@@ -430,7 +430,7 @@ class PageSetup
      */
     public function isColumnsToRepeatAtLeftSet()
     {
-        if (is_array($this->columnsToRepeatAtLeft)) {
+        if (\is_array($this->columnsToRepeatAtLeft)) {
             if ($this->columnsToRepeatAtLeft[0] != '' && $this->columnsToRepeatAtLeft[1] != '') {
                 return true;
             }
@@ -485,7 +485,7 @@ class PageSetup
      */
     public function isRowsToRepeatAtTopSet()
     {
-        if (is_array($this->rowsToRepeatAtTop)) {
+        if (\is_array($this->rowsToRepeatAtTop)) {
             if ($this->rowsToRepeatAtTop[0] != 0 && $this->rowsToRepeatAtTop[1] != 0) {
                 return true;
             }
@@ -598,7 +598,7 @@ class PageSetup
         if ($index == 0) {
             return $this->printArea;
         }
-        $printAreas = explode(',', $this->printArea);
+        $printAreas = \explode(',', $this->printArea);
         if (isset($printAreas[$index - 1])) {
             return $printAreas[$index - 1];
         }
@@ -621,7 +621,7 @@ class PageSetup
         if ($index == 0) {
             return $this->printArea !== null;
         }
-        $printAreas = explode(',', $this->printArea);
+        $printAreas = \explode(',', $this->printArea);
 
         return isset($printAreas[$index - 1]);
     }
@@ -641,10 +641,10 @@ class PageSetup
         if ($index == 0) {
             $this->printArea = null;
         } else {
-            $printAreas = explode(',', $this->printArea);
+            $printAreas = \explode(',', $this->printArea);
             if (isset($printAreas[$index - 1])) {
                 unset($printAreas[$index - 1]);
-                $this->printArea = implode(',', $printAreas);
+                $this->printArea = \implode(',', $printAreas);
             }
         }
 
@@ -675,42 +675,42 @@ class PageSetup
      */
     public function setPrintArea($value, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
     {
-        if (strpos($value, '!') !== false) {
+        if (\strpos($value, '!') !== false) {
             throw new PhpSpreadsheetException('Cell coordinate must not specify a worksheet.');
-        } elseif (strpos($value, ':') === false) {
+        } elseif (\strpos($value, ':') === false) {
             throw new PhpSpreadsheetException('Cell coordinate must be a range of cells.');
-        } elseif (strpos($value, '$') !== false) {
+        } elseif (\strpos($value, '$') !== false) {
             throw new PhpSpreadsheetException('Cell coordinate must not be absolute.');
         }
-        $value = strtoupper($value);
+        $value = \strtoupper($value);
 
         if ($method == self::SETPRINTRANGE_OVERWRITE) {
             if ($index == 0) {
                 $this->printArea = $value;
             } else {
-                $printAreas = explode(',', $this->printArea);
+                $printAreas = \explode(',', $this->printArea);
                 if ($index < 0) {
-                    $index = count($printAreas) - abs($index) + 1;
+                    $index = \count($printAreas) - \abs($index) + 1;
                 }
-                if (($index <= 0) || ($index > count($printAreas))) {
+                if (($index <= 0) || ($index > \count($printAreas))) {
                     throw new PhpSpreadsheetException('Invalid index for setting print range.');
                 }
                 $printAreas[$index - 1] = $value;
-                $this->printArea = implode(',', $printAreas);
+                $this->printArea = \implode(',', $printAreas);
             }
         } elseif ($method == self::SETPRINTRANGE_INSERT) {
             if ($index == 0) {
                 $this->printArea .= ($this->printArea == '') ? $value : ',' . $value;
             } else {
-                $printAreas = explode(',', $this->printArea);
+                $printAreas = \explode(',', $this->printArea);
                 if ($index < 0) {
-                    $index = abs($index) - 1;
+                    $index = \abs($index) - 1;
                 }
-                if ($index > count($printAreas)) {
+                if ($index > \count($printAreas)) {
                     throw new PhpSpreadsheetException('Invalid index for setting print range.');
                 }
-                $printAreas = array_merge(array_slice($printAreas, 0, $index), [$value], array_slice($printAreas, $index));
-                $this->printArea = implode(',', $printAreas);
+                $printAreas = \array_merge(\array_slice($printAreas, 0, $index), [$value], \array_slice($printAreas, $index));
+                $this->printArea = \implode(',', $printAreas);
             }
         } else {
             throw new PhpSpreadsheetException('Invalid method for setting print range.');
@@ -839,9 +839,9 @@ class PageSetup
      */
     public function __clone()
     {
-        $vars = get_object_vars($this);
+        $vars = \get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if (is_object($value)) {
+            if (\is_object($value)) {
                 $this->$key = clone $value;
             } else {
                 $this->$key = $value;

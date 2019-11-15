@@ -21,7 +21,7 @@ class ExponentialBestFit extends BestFit
      */
     public function getValueOfYForX($xValue)
     {
-        return $this->getIntersect() * pow($this->getSlope(), ($xValue - $this->xOffset));
+        return $this->getIntersect() * \pow($this->getSlope(), ($xValue - $this->xOffset));
     }
 
     /**
@@ -33,7 +33,7 @@ class ExponentialBestFit extends BestFit
      */
     public function getValueOfXForY($yValue)
     {
-        return log(($yValue + $this->yOffset) / $this->getIntersect()) / log($this->getSlope());
+        return \log(($yValue + $this->yOffset) / $this->getIntersect()) / \log($this->getSlope());
     }
 
     /**
@@ -61,10 +61,10 @@ class ExponentialBestFit extends BestFit
     public function getSlope($dp = 0)
     {
         if ($dp != 0) {
-            return round(exp($this->slope), $dp);
+            return \round(\exp($this->slope), $dp);
         }
 
-        return exp($this->slope);
+        return \exp($this->slope);
     }
 
     /**
@@ -77,10 +77,10 @@ class ExponentialBestFit extends BestFit
     public function getIntersect($dp = 0)
     {
         if ($dp != 0) {
-            return round(exp($this->intersect), $dp);
+            return \round(\exp($this->intersect), $dp);
         }
 
-        return exp($this->intersect);
+        return \exp($this->intersect);
     }
 
     /**
@@ -94,9 +94,9 @@ class ExponentialBestFit extends BestFit
     {
         foreach ($yValues as &$value) {
             if ($value < 0.0) {
-                $value = 0 - log(abs($value));
+                $value = 0 - \log(\abs($value));
             } elseif ($value > 0.0) {
-                $value = log($value);
+                $value = \log($value);
             }
         }
         unset($value);

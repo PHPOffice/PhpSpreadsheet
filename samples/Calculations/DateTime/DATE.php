@@ -17,7 +17,7 @@ $testDates = [[2012, 3, 26], [2012, 2, 29], [2012, 4, 1], [2012, 12, 25],
     [2012, 0, 0], [2012, 1, 0], [2012, 0, 1],
     [2012, -2, 2], [2012, 2, -2], [2012, -2, -2],
 ];
-$testDateCount = count($testDates);
+$testDateCount = \count($testDates);
 
 $worksheet->fromArray($testDates, null, 'A1', true);
 

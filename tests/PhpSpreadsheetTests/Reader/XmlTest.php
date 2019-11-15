@@ -24,8 +24,8 @@ class XmlTest extends TestCase
     public function providerInvalidSimpleXML()
     {
         $tests = [];
-        foreach (glob(__DIR__ . '/../../data/Reader/Xml/XEETestInvalidSimpleXML*.xml') as $file) {
-            $tests[basename($file)] = [realpath($file)];
+        foreach (\glob(__DIR__ . '/../../data/Reader/Xml/XEETestInvalidSimpleXML*.xml') as $file) {
+            $tests[\basename($file)] = [\realpath($file)];
         }
 
         return $tests;

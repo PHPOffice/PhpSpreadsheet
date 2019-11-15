@@ -209,7 +209,7 @@ class Workbook extends BIFFwriter
             $this->parser->setExtSheet($phpSheet->getTitle(), $i); // Register worksheet name with parser
 
             $supbook_index = 0x00;
-            $ref = pack('vvv', $supbook_index, $i, $i);
+            $ref = \pack('vvv', $supbook_index, $i, $i);
             $this->parser->references[] = $ref; // Register reference with parser
 
             // Sheet tab colors?
@@ -254,7 +254,7 @@ class Workbook extends BIFFwriter
             if (isset($this->addedNumberFormats[$numberFormatHashCode])) {
                 $numberFormatIndex = $this->addedNumberFormats[$numberFormatHashCode];
             } else {
-                $numberFormatIndex = 164 + count($this->numberFormats);
+                $numberFormatIndex = 164 + \count($this->numberFormats);
                 $this->numberFormats[$numberFormatIndex] = $style->getNumberFormat();
                 $this->addedNumberFormats[$numberFormatHashCode] = $numberFormatIndex;
             }
@@ -267,7 +267,7 @@ class Workbook extends BIFFwriter
 
         $this->xfWriters[] = $xfWriter;
 
-        return count($this->xfWriters) - 1;
+        return \count($this->xfWriters) - 1;
     }
 
     /**
@@ -283,7 +283,7 @@ class Workbook extends BIFFwriter
         if (isset($this->addedFonts[$fontHashCode])) {
             $fontIndex = $this->addedFonts[$fontHashCode];
         } else {
-            $countFonts = count($this->fontWriters);
+            $countFonts = \count($this->fontWriters);
             $fontIndex = ($countFonts < 4) ? $countFonts : $countFonts + 1;
 
             $fontWriter = new Font($font);
@@ -308,19 +308,19 @@ class Workbook extends BIFFwriter
         if (!isset($this->colors[$rgb])) {
             $color =
                 [
-                    hexdec(substr($rgb, 0, 2)),
-                    hexdec(substr($rgb, 2, 2)),
-                    hexdec(substr($rgb, 4)),
+                    \hexdec(\substr($rgb, 0, 2)),
+                    \hexdec(\substr($rgb, 2, 2)),
+                    \hexdec(\substr($rgb, 4)),
                     0,
                 ];
-            $colorIndex = array_search($color, $this->palette);
+            $colorIndex = \array_search($color, $this->palette);
             if ($colorIndex) {
                 $this->colors[$rgb] = $colorIndex;
             } else {
-                if (count($this->colors) === 0) {
+                if (\count($this->colors) === 0) {
                     $lastColor = 7;
                 } else {
-                    $lastColor = end($this->colors);
+                    $lastColor = \end($this->colors);
                 }
                 if ($lastColor < 57) {
                     // then we add a custom color altering the palette
@@ -473,9 +473,9 @@ class Workbook extends BIFFwriter
         $offset = $this->_datasize;
 
         // add size of Workbook globals part 2, the length of the SHEET records
-        $total_worksheets = count($this->spreadsheet->getAllSheets());
+        $total_worksheets = \count($this->spreadsheet->getAllSheets());
         foreach ($this->spreadsheet->getWorksheetIterator() as $sheet) {
-            $offset += $boundsheet_length + strlen(StringHelper::UTF8toBIFF8UnicodeShort($sheet->getTitle()));
+            $offset += $boundsheet_length + \strlen(StringHelper::UTF8toBIFF8UnicodeShort($sheet->getTitle()));
         }
 
         // add the sizes of each of the Sheet substreams, respectively
@@ -533,15 +533,15 @@ class Workbook extends BIFFwriter
         $chunk = '';
 
         // Named ranges
-        if (count($this->spreadsheet->getNamedRanges()) > 0) {
+        if (\count($this->spreadsheet->getNamedRanges()) > 0) {
             // Loop named ranges
             $namedRanges = $this->spreadsheet->getNamedRanges();
             foreach ($namedRanges as $namedRange) {
                 // Create absolute coordinate
                 $range = Coordinate::splitRange($namedRange->getRange());
-                $iMax = count($range);
+                $iMax = \count($range);
                 for ($i = 0; $i < $iMax; ++$i) {
-                    $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteCoordinate($range[$i][0]);
+                    $range[$i][0] = '\'' . \str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteCoordinate($range[$i][0]);
                     if (isset($range[$i][1])) {
                         $range[$i][1] = Coordinate::absoluteCoordinate($range[$i][1]);
                     }
@@ -555,7 +555,7 @@ class Workbook extends BIFFwriter
 
                     // make sure tRef3d is of type tRef3dR (0x3A)
                     if (isset($formulaData[0]) and ($formulaData[0] == "\x7A" or $formulaData[0] == "\x5A")) {
-                        $formulaData = "\x3A" . substr($formulaData, 1);
+                        $formulaData = "\x3A" . \substr($formulaData, 1);
                     }
 
                     if ($namedRange->getLocalOnly()) {
@@ -589,13 +589,13 @@ class Workbook extends BIFFwriter
                 $rowmax = $repeat[1] - 1;
 
                 // construct formula data manually
-                $formulaData = pack('Cv', 0x29, 0x17); // tMemFunc
-                $formulaData .= pack('Cvvvvv', 0x3B, $i, 0, 65535, $colmin, $colmax); // tArea3d
-                $formulaData .= pack('Cvvvvv', 0x3B, $i, $rowmin, $rowmax, 0, 255); // tArea3d
-                $formulaData .= pack('C', 0x10); // tList
+                $formulaData = \pack('Cv', 0x29, 0x17); // tMemFunc
+                $formulaData .= \pack('Cvvvvv', 0x3B, $i, 0, 65535, $colmin, $colmax); // tArea3d
+                $formulaData .= \pack('Cvvvvv', 0x3B, $i, $rowmin, $rowmax, 0, 255); // tArea3d
+                $formulaData .= \pack('C', 0x10); // tList
 
                 // store the DEFINEDNAME record
-                $chunk .= $this->writeData($this->writeDefinedNameBiff8(pack('C', 0x07), $formulaData, $i + 1, true));
+                $chunk .= $this->writeData($this->writeDefinedNameBiff8(\pack('C', 0x07), $formulaData, $i + 1, true));
 
             // (exclusive) either repeatColumns or repeatRows
             } elseif ($sheetSetup->isColumnsToRepeatAtLeftSet() || $sheetSetup->isRowsToRepeatAtTopSet()) {
@@ -619,10 +619,10 @@ class Workbook extends BIFFwriter
                 }
 
                 // construct formula data manually because parser does not recognize absolute 3d cell references
-                $formulaData = pack('Cvvvvv', 0x3B, $i, $rowmin, $rowmax, $colmin, $colmax);
+                $formulaData = \pack('Cvvvvv', 0x3B, $i, $rowmin, $rowmax, $colmin, $colmax);
 
                 // store the DEFINEDNAME record
-                $chunk .= $this->writeData($this->writeDefinedNameBiff8(pack('C', 0x07), $formulaData, $i + 1, true));
+                $chunk .= $this->writeData($this->writeDefinedNameBiff8(\pack('C', 0x07), $formulaData, $i + 1, true));
             }
         }
 
@@ -632,7 +632,7 @@ class Workbook extends BIFFwriter
             if ($sheetSetup->isPrintAreaSet()) {
                 // Print area, e.g. A3:J6,H1:X20
                 $printArea = Coordinate::splitRange($sheetSetup->getPrintArea());
-                $countPrintArea = count($printArea);
+                $countPrintArea = \count($printArea);
 
                 $formulaData = '';
                 for ($j = 0; $j < $countPrintArea; ++$j) {
@@ -646,15 +646,15 @@ class Workbook extends BIFFwriter
                     $print_colmax = Coordinate::columnIndexFromString($printAreaRect[1][0]) - 1;
 
                     // construct formula data manually because parser does not recognize absolute 3d cell references
-                    $formulaData .= pack('Cvvvvv', 0x3B, $i, $print_rowmin, $print_rowmax, $print_colmin, $print_colmax);
+                    $formulaData .= \pack('Cvvvvv', 0x3B, $i, $print_rowmin, $print_rowmax, $print_colmin, $print_colmax);
 
                     if ($j > 0) {
-                        $formulaData .= pack('C', 0x10); // list operator token ','
+                        $formulaData .= \pack('C', 0x10); // list operator token ','
                     }
                 }
 
                 // store the DEFINEDNAME record
-                $chunk .= $this->writeData($this->writeDefinedNameBiff8(pack('C', 0x06), $formulaData, $i + 1, true));
+                $chunk .= $this->writeData($this->writeDefinedNameBiff8(\pack('C', 0x06), $formulaData, $i + 1, true));
             }
         }
 
@@ -666,7 +666,7 @@ class Workbook extends BIFFwriter
                 $rangeBounds = Coordinate::rangeBoundaries($autoFilterRange);
 
                 //Autofilter built in name
-                $name = pack('C', 0x0D);
+                $name = \pack('C', 0x0D);
 
                 $chunk .= $this->writeData($this->writeShortNameBiff8($name, $i + 1, $rangeBounds, true));
             }
@@ -696,17 +696,17 @@ class Workbook extends BIFFwriter
         $nlen = StringHelper::countCharacters($name);
 
         // name with stripped length field
-        $name = substr(StringHelper::UTF8toBIFF8UnicodeLong($name), 2);
+        $name = \substr(StringHelper::UTF8toBIFF8UnicodeLong($name), 2);
 
         // size of the formula (in bytes)
-        $sz = strlen($formulaData);
+        $sz = \strlen($formulaData);
 
         // combine the parts
-        $data = pack('vCCvvvCCCC', $options, 0, $nlen, $sz, 0, $sheetIndex, 0, 0, 0, 0)
+        $data = \pack('vCCvvvCCCC', $options, 0, $nlen, $sz, 0, $sheetIndex, 0, 0, 0, 0)
             . $name . $formulaData;
-        $length = strlen($data);
+        $length = \strlen($data);
 
-        $header = pack('vv', $record, $length);
+        $header = \pack('vv', $record, $length);
 
         return $header . $data;
     }
@@ -728,7 +728,7 @@ class Workbook extends BIFFwriter
         // option flags
         $options = ($isHidden ? 0x21 : 0x00);
 
-        $extra = pack(
+        $extra = \pack(
             'Cvvvvv',
             0x3B,
             $sheetIndex - 1,
@@ -739,14 +739,14 @@ class Workbook extends BIFFwriter
         );
 
         // size of the formula (in bytes)
-        $sz = strlen($extra);
+        $sz = \strlen($extra);
 
         // combine the parts
-        $data = pack('vCCvvvCCCCC', $options, 0, 1, $sz, 0, $sheetIndex, 0, 0, 0, 0, 0)
+        $data = \pack('vCCvvvCCCCC', $options, 0, 1, $sz, 0, $sheetIndex, 0, 0, 0, 0, 0)
             . $name . $extra;
-        $length = strlen($data);
+        $length = \strlen($data);
 
-        $header = pack('vv', $record, $length);
+        $header = \pack('vv', $record, $length);
 
         return $header . $data;
     }
@@ -760,8 +760,8 @@ class Workbook extends BIFFwriter
         $length = 0x0002; // Number of bytes to follow
         $cv = $this->codepage; // The code page
 
-        $header = pack('vv', $record, $length);
-        $data = pack('v', $cv);
+        $header = \pack('vv', $record, $length);
+        $data = \pack('v', $cv);
 
         $this->append($header . $data);
     }
@@ -790,8 +790,8 @@ class Workbook extends BIFFwriter
         $itabFirst = 0; // 1st displayed worksheet
         $itabCur = $this->spreadsheet->getActiveSheetIndex(); // Active worksheet
 
-        $header = pack('vv', $record, $length);
-        $data = pack('vvvvvvvvv', $xWn, $yWn, $dxWn, $dyWn, $grbit, $itabCur, $itabFirst, $ctabsel, $wTabRatio);
+        $header = \pack('vv', $record, $length);
+        $data = \pack('vvvvvvvvv', $xWn, $yWn, $dxWn, $dyWn, $grbit, $itabCur, $itabFirst, $ctabsel, $wTabRatio);
         $this->append($header . $data);
     }
 
@@ -831,11 +831,11 @@ class Workbook extends BIFFwriter
 
         $grbit = 0x0000; // Visibility and sheet type
 
-        $data = pack('VCC', $offset, $ss, $st);
+        $data = \pack('VCC', $offset, $ss, $st);
         $data .= StringHelper::UTF8toBIFF8UnicodeShort($sheetname);
 
-        $length = strlen($data);
-        $header = pack('vv', $record, $length);
+        $length = \strlen($data);
+        $header = \pack('vv', $record, $length);
         $this->append($header . $data);
     }
 
@@ -847,8 +847,8 @@ class Workbook extends BIFFwriter
         $record = 0x01AE; // Record identifier
         $length = 0x0004; // Bytes to follow
 
-        $header = pack('vv', $record, $length);
-        $data = pack('vv', $this->spreadsheet->getSheetCount(), 0x0401);
+        $header = \pack('vv', $record, $length);
+        $data = \pack('vv', $this->spreadsheet->getSheetCount(), 0x0401);
 
         return $this->writeData($header . $data);
     }
@@ -859,13 +859,13 @@ class Workbook extends BIFFwriter
      */
     private function writeExternalsheetBiff8()
     {
-        $totalReferences = count($this->parser->references);
+        $totalReferences = \count($this->parser->references);
         $record = 0x0017; // Record identifier
         $length = 2 + 6 * $totalReferences; // Number of bytes to follow
 
         $supbook_index = 0; // FIXME: only using internal SUPBOOK record
-        $header = pack('vv', $record, $length);
-        $data = pack('v', $totalReferences);
+        $header = \pack('vv', $record, $length);
+        $data = \pack('v', $totalReferences);
         for ($i = 0; $i < $totalReferences; ++$i) {
             $data .= $this->parser->references[$i];
         }
@@ -885,8 +885,8 @@ class Workbook extends BIFFwriter
         $BuiltIn = 0x00; // Built-in style
         $iLevel = 0xff; // Outline style level
 
-        $header = pack('vv', $record, $length);
-        $data = pack('vCC', $ixfe, $BuiltIn, $iLevel);
+        $header = \pack('vv', $record, $length);
+        $data = \pack('vCC', $ixfe, $BuiltIn, $iLevel);
         $this->append($header . $data);
     }
 
@@ -901,10 +901,10 @@ class Workbook extends BIFFwriter
         $record = 0x041E; // Record identifier
 
         $numberFormatString = StringHelper::UTF8toBIFF8UnicodeLong($format);
-        $length = 2 + strlen($numberFormatString); // Number of bytes to follow
+        $length = 2 + \strlen($numberFormatString); // Number of bytes to follow
 
-        $header = pack('vv', $record, $length);
-        $data = pack('v', $ifmt) . $numberFormatString;
+        $header = \pack('vv', $record, $length);
+        $data = \pack('v', $ifmt) . $numberFormatString;
         $this->append($header . $data);
     }
 
@@ -920,8 +920,8 @@ class Workbook extends BIFFwriter
             ? 1
             : 0; // Flag for 1904 date system
 
-        $header = pack('vv', $record, $length);
-        $data = pack('v', $f1904);
+        $header = \pack('vv', $record, $length);
+        $data = \pack('v', $f1904);
         $this->append($header . $data);
     }
 
@@ -935,9 +935,9 @@ class Workbook extends BIFFwriter
         $record = 0x008C; // Record identifier
         $length = 4; // Number of bytes to follow
 
-        $header = pack('vv', $record, $length);
+        $header = \pack('vv', $record, $length);
         // using the same country code always for simplicity
-        $data = pack('vv', $this->countryCode, $this->countryCode);
+        $data = \pack('vv', $this->countryCode, $this->countryCode);
 
         return $this->writeData($header . $data);
     }
@@ -952,10 +952,10 @@ class Workbook extends BIFFwriter
         $record = 0x01C1; // Record identifier
         $length = 8; // Number of bytes to follow
 
-        $header = pack('vv', $record, $length);
+        $header = \pack('vv', $record, $length);
 
         // by inspection of real Excel files, MS Office Excel 2007 writes this
-        $data = pack('VV', 0x000001C1, 0x00001E667);
+        $data = \pack('VV', 0x000001C1, 0x00001E667);
 
         return $this->writeData($header . $data);
     }
@@ -968,18 +968,18 @@ class Workbook extends BIFFwriter
         $aref = $this->palette;
 
         $record = 0x0092; // Record identifier
-        $length = 2 + 4 * count($aref); // Number of bytes to follow
-        $ccv = count($aref); // Number of RGB values to follow
+        $length = 2 + 4 * \count($aref); // Number of bytes to follow
+        $ccv = \count($aref); // Number of RGB values to follow
         $data = ''; // The RGB data
 
         // Pack the RGB data
         foreach ($aref as $color) {
             foreach ($color as $byte) {
-                $data .= pack('C', $byte);
+                $data .= \pack('C', $byte);
             }
         }
 
-        $header = pack('vvv', $record, $length, $ccv);
+        $header = \pack('vvv', $record, $length, $ccv);
         $this->append($header . $data);
     }
 
@@ -1006,14 +1006,14 @@ class Workbook extends BIFFwriter
         $recordDatas = [];
 
         // start SST record data block with total number of strings, total number of unique strings
-        $recordData = pack('VV', $this->stringTotal, $this->stringUnique);
+        $recordData = \pack('VV', $this->stringTotal, $this->stringUnique);
 
         // loop through all (unique) strings in shared strings table
-        foreach (array_keys($this->stringTable) as $string) {
+        foreach (\array_keys($this->stringTable) as $string) {
             // here $string is a BIFF8 encoded string
 
             // length = character count
-            $headerinfo = unpack('vlength/Cencoding', $string);
+            $headerinfo = \unpack('vlength/Cencoding', $string);
 
             // currently, this is always 1 = uncompressed
             $encoding = $headerinfo['encoding'];
@@ -1026,11 +1026,11 @@ class Workbook extends BIFFwriter
                 // there will be need for more than one cylcle, if string longer than one record data block, there
                 // may be need for even more cycles
 
-                if (strlen($recordData) + strlen($string) <= $continue_limit) {
+                if (\strlen($recordData) + \strlen($string) <= $continue_limit) {
                     // then we can write the string (or remainder of string) without any problems
                     $recordData .= $string;
 
-                    if (strlen($recordData) + strlen($string) == $continue_limit) {
+                    if (\strlen($recordData) + \strlen($string) == $continue_limit) {
                         // we close the record data block, and initialize a new one
                         $recordDatas[] = $recordData;
                         $recordData = '';
@@ -1043,7 +1043,7 @@ class Workbook extends BIFFwriter
                     // If the string is very long it may need to be written in more than one CONTINUE record.
 
                     // check how many bytes more there is room for in the current record
-                    $space_remaining = $continue_limit - strlen($recordData);
+                    $space_remaining = $continue_limit - \strlen($recordData);
 
                     // minimum space needed
                     // uncompressed: 2 byte string length length field + 1 byte option flags + 2 byte character
@@ -1070,18 +1070,18 @@ class Workbook extends BIFFwriter
                         $effective_space_remaining = $space_remaining;
 
                         // for uncompressed strings, sometimes effective space remaining is reduced by 1
-                        if ($encoding == 1 && (strlen($string) - $space_remaining) % 2 == 1) {
+                        if ($encoding == 1 && (\strlen($string) - $space_remaining) % 2 == 1) {
                             --$effective_space_remaining;
                         }
 
                         // one block fininshed, store the block data
-                        $recordData .= substr($string, 0, $effective_space_remaining);
+                        $recordData .= \substr($string, 0, $effective_space_remaining);
 
-                        $string = substr($string, $effective_space_remaining); // for next cycle in while loop
+                        $string = \substr($string, $effective_space_remaining); // for next cycle in while loop
                         $recordDatas[] = $recordData;
 
                         // start new record data block with the repeated option flags
-                        $recordData = pack('C', $encoding);
+                        $recordData = \pack('C', $encoding);
                     }
                 }
             }
@@ -1089,7 +1089,7 @@ class Workbook extends BIFFwriter
 
         // Store the last record data block unless it is empty
         // if there was no need for any continue records, this will be the for SST record data block itself
-        if (strlen($recordData) > 0) {
+        if (\strlen($recordData) > 0) {
             $recordDatas[] = $recordData;
         }
 
@@ -1099,7 +1099,7 @@ class Workbook extends BIFFwriter
             // first block should have the SST record header, remaing should have CONTINUE header
             $record = ($i == 0) ? 0x00FC : 0x003C;
 
-            $header = pack('vv', $record, strlen($recordData));
+            $header = \pack('vv', $record, \strlen($recordData));
             $data = $header . $recordData;
 
             $chunk .= $this->writeData($data);
@@ -1119,8 +1119,8 @@ class Workbook extends BIFFwriter
             $data = $writer->close();
 
             $record = 0x00EB;
-            $length = strlen($data);
-            $header = pack('vv', $record, $length);
+            $length = \strlen($data);
+            $header = \pack('vv', $record, $length);
 
             return $this->writeData($header . $data);
         }

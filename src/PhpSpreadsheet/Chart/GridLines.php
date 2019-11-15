@@ -327,7 +327,7 @@ class GridLines extends Properties
     {
         $base_reference = $reference;
         foreach ($properties_map as $property_key => $property_val) {
-            if (is_array($property_val)) {
+            if (\is_array($property_val)) {
                 if ($reference === null) {
                     $reference = &$this->shadowProperties[$property_key];
                 } else {

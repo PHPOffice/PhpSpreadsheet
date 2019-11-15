@@ -76,14 +76,14 @@ class Xml extends BaseReader
         $fileHandle = $this->fileHandle;
 
         // Read sample data (first 2 KB will do)
-        $data = fread($fileHandle, 2048);
-        fclose($fileHandle);
-        $data = str_replace("'", '"', $data); // fix headers with single quote
+        $data = \fread($fileHandle, 2048);
+        \fclose($fileHandle);
+        $data = \str_replace("'", '"', $data); // fix headers with single quote
 
         $valid = true;
         foreach ($signature as $match) {
             // every part of the signature must be present
-            if (strpos($data, $match) === false) {
+            if (\strpos($data, $match) === false) {
                 $valid = false;
 
                 break;
@@ -91,8 +91,8 @@ class Xml extends BaseReader
         }
 
         //    Retrieve charset encoding
-        if (preg_match('/<?xml.*encoding=[\'"](.*?)[\'"].*?>/um', $data, $matches)) {
-            $this->charSet = strtoupper($matches[1]);
+        if (\preg_match('/<?xml.*encoding=[\'"](.*?)[\'"].*?>/um', $data, $matches)) {
+            $this->charSet = \strtoupper($matches[1]);
         }
 
         return $valid;
@@ -110,8 +110,8 @@ class Xml extends BaseReader
     public function trySimpleXMLLoadString($pFilename)
     {
         try {
-            $xml = simplexml_load_string(
-                $this->securityScanner->scan(file_get_contents($pFilename)),
+            $xml = \simplexml_load_string(
+                $this->securityScanner->scan(\file_get_contents($pFilename)),
                 'SimpleXMLElement',
                 Settings::getLibXmlLoaderOptions()
             );
@@ -199,7 +199,7 @@ class Xml extends BaseReader
 
                     foreach ($rowData->Cell as $cell) {
                         if (isset($cell->Data)) {
-                            $tmpInfo['lastColumnIndex'] = max($tmpInfo['lastColumnIndex'], $columnIndex);
+                            $tmpInfo['lastColumnIndex'] = \max($tmpInfo['lastColumnIndex'], $columnIndex);
                             $rowHasData = true;
                         }
 
@@ -209,7 +209,7 @@ class Xml extends BaseReader
                     ++$rowIndex;
 
                     if ($rowHasData) {
-                        $tmpInfo['totalRows'] = max($tmpInfo['totalRows'], $rowIndex);
+                        $tmpInfo['totalRows'] = \max($tmpInfo['totalRows'], $rowIndex);
                     }
                 }
             }
@@ -245,9 +245,9 @@ class Xml extends BaseReader
 
     private static function identifyFixedStyleValue($styleList, &$styleAttributeValue)
     {
-        $styleAttributeValue = strtolower($styleAttributeValue);
+        $styleAttributeValue = \strtolower($styleAttributeValue);
         foreach ($styleList as $style) {
-            if ($styleAttributeValue == strtolower($style)) {
+            if ($styleAttributeValue == \strtolower($style)) {
                 $styleAttributeValue = $style;
 
                 return true;
@@ -285,14 +285,14 @@ class Xml extends BaseReader
     {
         $pixels = ($widthUnits / 256) * 7;
         $offsetWidthUnits = $widthUnits % 256;
-        $pixels += round($offsetWidthUnits / (256 / 7));
+        $pixels += \round($offsetWidthUnits / (256 / 7));
 
         return $pixels;
     }
 
     protected static function hex2str($hex)
     {
-        return chr(hexdec($hex[1]));
+        return \chr(\hexdec($hex[1]));
     }
 
     /**
@@ -333,7 +333,7 @@ class Xml extends BaseReader
 
                         break;
                     case 'Created':
-                        $creationDate = strtotime($propertyValue);
+                        $creationDate = \strtotime($propertyValue);
                         $docProps->setCreated($creationDate);
 
                         break;
@@ -342,7 +342,7 @@ class Xml extends BaseReader
 
                         break;
                     case 'LastSaved':
-                        $lastSaveDate = strtotime($propertyValue);
+                        $lastSaveDate = \strtotime($propertyValue);
                         $docProps->setModified($lastSaveDate);
 
                         break;
@@ -372,12 +372,12 @@ class Xml extends BaseReader
         if (isset($xml->CustomDocumentProperties)) {
             foreach ($xml->CustomDocumentProperties[0] as $propertyName => $propertyValue) {
                 $propertyAttributes = $propertyValue->attributes($namespaces['dt']);
-                $propertyName = preg_replace_callback('/_x([0-9a-z]{4})_/', ['self', 'hex2str'], $propertyName);
+                $propertyName = \preg_replace_callback('/_x([0-9a-z]{4})_/', ['self', 'hex2str'], $propertyName);
                 $propertyType = Properties::PROPERTY_TYPE_UNKNOWN;
                 switch ((string) $propertyAttributes) {
                     case 'string':
                         $propertyType = Properties::PROPERTY_TYPE_STRING;
-                        $propertyValue = trim($propertyValue);
+                        $propertyValue = \trim($propertyValue);
 
                         break;
                     case 'boolean':
@@ -397,7 +397,7 @@ class Xml extends BaseReader
                         break;
                     case 'dateTime.tz':
                         $propertyType = Properties::PROPERTY_TYPE_DATE;
-                        $propertyValue = strtotime(trim($propertyValue));
+                        $propertyValue = \strtotime(\trim($propertyValue));
 
                         break;
                 }
@@ -414,7 +414,7 @@ class Xml extends BaseReader
             $worksheet_ss = $worksheet->attributes($namespaces['ss']);
 
             if ((isset($this->loadSheetsOnly)) && (isset($worksheet_ss['Name'])) &&
-                (!in_array($worksheet_ss['Name'], $this->loadSheetsOnly))) {
+                (!\in_array($worksheet_ss['Name'], $this->loadSheetsOnly))) {
                 continue;
             }
 
@@ -518,7 +518,7 @@ class Xml extends BaseReader
                                     case 'Number':
                                         $type = DataType::TYPE_NUMERIC;
                                         $cellValue = (float) $cellValue;
-                                        if (floor($cellValue) == $cellValue) {
+                                        if (\floor($cellValue) == $cellValue) {
                                             $cellValue = (int) $cellValue;
                                         }
 
@@ -530,7 +530,7 @@ class Xml extends BaseReader
                                         break;
                                     case 'DateTime':
                                         $type = DataType::TYPE_NUMERIC;
-                                        $cellValue = Date::PHPToExcel(strtotime($cellValue));
+                                        $cellValue = Date::PHPToExcel(\strtotime($cellValue));
 
                                         break;
                                     case 'Error':
@@ -543,28 +543,28 @@ class Xml extends BaseReader
                             if ($hasCalculatedValue) {
                                 $type = DataType::TYPE_FORMULA;
                                 $columnNumber = Coordinate::columnIndexFromString($columnID);
-                                if (substr($cellDataFormula, 0, 3) == 'of:') {
-                                    $cellDataFormula = substr($cellDataFormula, 3);
-                                    $temp = explode('"', $cellDataFormula);
+                                if (\substr($cellDataFormula, 0, 3) == 'of:') {
+                                    $cellDataFormula = \substr($cellDataFormula, 3);
+                                    $temp = \explode('"', $cellDataFormula);
                                     $key = false;
                                     foreach ($temp as &$value) {
                                         //    Only replace in alternate array entries (i.e. non-quoted blocks)
                                         if ($key = !$key) {
-                                            $value = str_replace(['[.', '.', ']'], '', $value);
+                                            $value = \str_replace(['[.', '.', ']'], '', $value);
                                         }
                                     }
                                 } else {
                                     //    Convert R1C1 style references to A1 style references (but only when not quoted)
-                                    $temp = explode('"', $cellDataFormula);
+                                    $temp = \explode('"', $cellDataFormula);
                                     $key = false;
                                     foreach ($temp as &$value) {
                                         //    Only replace in alternate array entries (i.e. non-quoted blocks)
                                         if ($key = !$key) {
-                                            preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/', $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
+                                            \preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/', $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
                                             //    Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
                                             //        through the formula from left to right. Reversing means that we work right to left.through
                                             //        the formula
-                                            $cellReferences = array_reverse($cellReferences);
+                                            $cellReferences = \array_reverse($cellReferences);
                                             //    Loop through each R1C1 style reference in turn, converting it to its A1 style equivalent,
                                             //        then modify the formula to use that new reference
                                             foreach ($cellReferences as $cellReference) {
@@ -575,7 +575,7 @@ class Xml extends BaseReader
                                                 }
                                                 //    Bracketed R references are relative to the current row
                                                 if ($rowReference[0] == '[') {
-                                                    $rowReference = $rowID + trim($rowReference, '[]');
+                                                    $rowReference = $rowID + \trim($rowReference, '[]');
                                                 }
                                                 $columnReference = $cellReference[4][0];
                                                 //    Empty C reference is the current column
@@ -584,17 +584,17 @@ class Xml extends BaseReader
                                                 }
                                                 //    Bracketed C references are relative to the current column
                                                 if ($columnReference[0] == '[') {
-                                                    $columnReference = $columnNumber + trim($columnReference, '[]');
+                                                    $columnReference = $columnNumber + \trim($columnReference, '[]');
                                                 }
                                                 $A1CellReference = Coordinate::stringFromColumnIndex($columnReference) . $rowReference;
-                                                $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
+                                                $value = \substr_replace($value, $A1CellReference, $cellReference[0][1], \strlen($cellReference[0][0]));
                                             }
                                         }
                                     }
                                 }
                                 unset($value);
                                 //    Then rebuild the formula string
-                                $cellDataFormula = implode('"', $temp);
+                                $cellDataFormula = \implode('"', $temp);
                             }
 
                             $spreadsheet->getActiveSheet()->getCell($columnID . $rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $cellValue), $type);
@@ -611,7 +611,7 @@ class Xml extends BaseReader
                                 $author = (string) $commentAttributes->Author;
                             }
                             $node = $cell->Comment->Data->asXML();
-                            $annotation = strip_tags($node);
+                            $annotation = \strip_tags($node);
                             $spreadsheet->getActiveSheet()->getComment($columnID . $rowID)->setAuthor(self::convertStringEncoding($author, $this->charSet))->setText($this->parseRichText($annotation));
                         }
 
@@ -771,11 +771,11 @@ class Xml extends BaseReader
                     case 'Weight':
                         break;
                     case 'Position':
-                        $borderPosition = strtolower($borderStyleValue);
+                        $borderPosition = \strtolower($borderStyleValue);
 
                         break;
                     case 'Color':
-                        $borderColour = substr($borderStyleValue, 1);
+                        $borderColour = \substr($borderStyleValue, 1);
                         $thisBorder['color']['rgb'] = $borderColour;
 
                         break;
@@ -815,7 +815,7 @@ class Xml extends BaseReader
 
                     break;
                 case 'Color':
-                    $this->styles[$styleID]['font']['color']['rgb'] = substr($styleAttributeValue, 1);
+                    $this->styles[$styleID]['font']['color']['rgb'] = \substr($styleAttributeValue, 1);
 
                     break;
                 case 'Bold':
@@ -845,11 +845,11 @@ class Xml extends BaseReader
         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
             switch ($styleAttributeKey) {
                 case 'Color':
-                    $this->styles[$styleID]['fill']['color']['rgb'] = substr($styleAttributeValue, 1);
+                    $this->styles[$styleID]['fill']['color']['rgb'] = \substr($styleAttributeValue, 1);
 
                     break;
                 case 'Pattern':
-                    $this->styles[$styleID]['fill']['fillType'] = strtolower($styleAttributeValue);
+                    $this->styles[$styleID]['fill']['fillType'] = \strtolower($styleAttributeValue);
 
                     break;
             }
@@ -866,7 +866,7 @@ class Xml extends BaseReader
         $toFormats = ['-', ' '];
 
         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
-            $styleAttributeValue = str_replace($fromFormats, $toFormats, $styleAttributeValue);
+            $styleAttributeValue = \str_replace($fromFormats, $toFormats, $styleAttributeValue);
             switch ($styleAttributeValue) {
                 case 'Short Date':
                     $styleAttributeValue = 'dd/mm/yyyy';

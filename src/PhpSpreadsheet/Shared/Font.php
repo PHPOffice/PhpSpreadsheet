@@ -169,7 +169,7 @@ class Font
      */
     public static function setAutoSizeMethod($pValue)
     {
-        if (!in_array($pValue, self::$autoSizeMethods)) {
+        if (!\in_array($pValue, self::$autoSizeMethods)) {
             return false;
         }
         self::$autoSizeMethod = $pValue;
@@ -231,20 +231,20 @@ class Font
         }
 
         // Special case if there are one or more newline characters ("\n")
-        if (strpos($cellText, "\n") !== false) {
-            $lineTexts = explode("\n", $cellText);
+        if (\strpos($cellText, "\n") !== false) {
+            $lineTexts = \explode("\n", $cellText);
             $lineWidths = [];
             foreach ($lineTexts as $lineText) {
                 $lineWidths[] = self::calculateColumnWidth($font, $lineText, $rotation = 0, $defaultFont);
             }
 
-            return max($lineWidths); // width of longest line in cell
+            return \max($lineWidths); // width of longest line in cell
         }
 
         // Try to get the exact text width in pixels
         $approximate = self::$autoSizeMethod == self::AUTOSIZE_METHOD_APPROX;
         if (!$approximate) {
-            $columnWidthAdjust = ceil(self::getTextWidthPixelsExact('n', $font, 0) * 1.07);
+            $columnWidthAdjust = \ceil(self::getTextWidthPixelsExact('n', $font, 0) * 1.07);
 
             try {
                 // Width of text in pixels excl. padding
@@ -266,7 +266,7 @@ class Font
         $columnWidth = Drawing::pixelsToCellDimension($columnWidth, $defaultFont);
 
         // Return
-        return round($columnWidth, 6);
+        return \round($columnWidth, 6);
     }
 
     /**
@@ -282,7 +282,7 @@ class Font
      */
     public static function getTextWidthPixelsExact($text, \PhpOffice\PhpSpreadsheet\Style\Font $font, $rotation = 0)
     {
-        if (!function_exists('imagettfbbox')) {
+        if (!\function_exists('imagettfbbox')) {
             throw new PhpSpreadsheetException('GD library needs to be enabled');
         }
 
@@ -298,7 +298,7 @@ class Font
         $upperLeftCornerX = $textBox[6];
 
         // Consider the rotation when calculating the width
-        $textWidth = max($lowerRightCornerX - $upperLeftCornerX, $upperRightCornerX - $lowerLeftCornerX);
+        $textWidth = \max($lowerRightCornerX - $upperLeftCornerX, $upperRightCornerX - $lowerLeftCornerX);
 
         return $textWidth;
     }
@@ -348,8 +348,8 @@ class Font
                 $columnWidth = 4; // approximation
             } else {
                 // rotated text
-                $columnWidth = $columnWidth * cos(deg2rad($rotation))
-                                + $fontSize * abs(sin(deg2rad($rotation))) / 5; // approximation
+                $columnWidth = $columnWidth * \cos(\deg2rad($rotation))
+                                + $fontSize * \abs(\sin(\deg2rad($rotation))) / 5; // approximation
             }
         }
 
@@ -402,7 +402,7 @@ class Font
      */
     public static function getTrueTypeFontFileFromFont($font)
     {
-        if (!file_exists(self::$trueTypeFontPath) || !is_dir(self::$trueTypeFontPath)) {
+        if (!\file_exists(self::$trueTypeFontPath) || !\is_dir(self::$trueTypeFontPath)) {
             throw new PhpSpreadsheetException('Valid directory to TrueType Font files not specified');
         }
 
@@ -516,7 +516,7 @@ class Font
         $fontFile = self::$trueTypeFontPath . $fontFile;
 
         // Check if file actually exists
-        if (!file_exists($fontFile)) {
+        if (!\file_exists($fontFile)) {
             throw new PhpSpreadsheetException('TrueType Font file not found');
         }
 
@@ -573,7 +573,7 @@ class Font
 
             // Round pixels to closest integer
             if ($pPixels) {
-                $columnWidth = (int) round($columnWidth);
+                $columnWidth = (int) \round($columnWidth);
             }
         }
 

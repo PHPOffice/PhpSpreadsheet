@@ -13,9 +13,9 @@ class DrawingTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $aSheet = $spreadsheet->getActiveSheet();
 
-        $gdImage = @imagecreatetruecolor(120, 20);
-        $textColor = imagecolorallocate($gdImage, 255, 255, 255);
-        imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
+        $gdImage = @\imagecreatetruecolor(120, 20);
+        $textColor = \imagecolorallocate($gdImage, 255, 255, 255);
+        \imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 
         $drawing = new MemoryDrawing();
         $drawing->setName('In-Memory image 1');
@@ -29,9 +29,9 @@ class DrawingTest extends TestCase
         $drawing->setHeight(36);
         $drawing->setWorksheet($aSheet);
 
-        $originDrawingCount = count($aSheet->getDrawingCollection());
+        $originDrawingCount = \count($aSheet->getDrawingCollection());
         $clonedWorksheet = clone $aSheet;
-        $clonedDrawingCount = count($clonedWorksheet->getDrawingCollection());
+        $clonedDrawingCount = \count($clonedWorksheet->getDrawingCollection());
 
         self::assertEquals($originDrawingCount, $clonedDrawingCount);
         self::assertNotSame($aSheet, $clonedWorksheet);

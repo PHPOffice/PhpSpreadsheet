@@ -20,7 +20,7 @@ class HtmlTest extends TestCase
 
     public function providerCanReadVerySmallFile()
     {
-        $padding = str_repeat('a', 2048);
+        $padding = \str_repeat('a', 2048);
 
         return [
             [true, ' <html> ' . $padding . ' </html> '],
@@ -44,7 +44,7 @@ class HtmlTest extends TestCase
 
         self::assertSame($expected, $actual);
 
-        unlink($filename);
+        \unlink($filename);
     }
 
     public function testBackgroundColorInRanding()
@@ -61,7 +61,7 @@ class HtmlTest extends TestCase
 
         self::assertEquals('FFFFFF', $style->getFont()->getColor()->getRGB());
 
-        unlink($filename);
+        \unlink($filename);
     }
 
     public function testCanApplyInlineBordersStyles()
@@ -107,7 +107,7 @@ class HtmlTest extends TestCase
         self::assertEquals('333333', $border->getColor()->getRGB());
         self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
 
-        unlink($filename);
+        \unlink($filename);
     }
 
     public function testCanApplyInlineFontStyles()
@@ -144,7 +144,7 @@ class HtmlTest extends TestCase
         $style = $firstSheet->getCell('F1')->getStyle();
         self::assertTrue($style->getFont()->getStrikethrough());
 
-        unlink($filename);
+        \unlink($filename);
     }
 
     public function testCanApplyInlineWidth()
@@ -165,7 +165,7 @@ class HtmlTest extends TestCase
         $dimension = $firstSheet->getColumnDimension('B');
         self::assertEquals(100, $dimension->getWidth());
 
-        unlink($filename);
+        \unlink($filename);
     }
 
     public function testCanApplyInlineHeight()
@@ -188,7 +188,7 @@ class HtmlTest extends TestCase
         $dimension = $firstSheet->getRowDimension(2);
         self::assertEquals(100, $dimension->getRowHeight());
 
-        unlink($filename);
+        \unlink($filename);
     }
 
     public function testCanApplyAlignment()
@@ -225,7 +225,7 @@ class HtmlTest extends TestCase
         $style = $firstSheet->getCell('F1')->getStyle();
         self::assertTrue($style->getAlignment()->getWrapText());
 
-        unlink($filename);
+        \unlink($filename);
     }
 
     public function testCanApplyInlineDataFormat()
@@ -242,12 +242,12 @@ class HtmlTest extends TestCase
         $style = $firstSheet->getCell('A1')->getStyle();
         self::assertEquals('mmm-yy', $style->getNumberFormat()->getFormatCode());
 
-        unlink($filename);
+        \unlink($filename);
     }
 
     public function testCanInsertImage()
     {
-        $imagePath = realpath(__DIR__ . '/../../data/Reader/HTML/image.jpg');
+        $imagePath = \realpath(__DIR__ . '/../../data/Reader/HTML/image.jpg');
 
         $html = '<table>
                     <tr>
@@ -263,7 +263,7 @@ class HtmlTest extends TestCase
         self::assertEquals($imagePath, $drawing->getPath());
         self::assertEquals('A1', $drawing->getCoordinates());
 
-        unlink($filename);
+        \unlink($filename);
     }
 
     public function testCanApplyCellWrapping()
@@ -296,7 +296,7 @@ class HtmlTest extends TestCase
         $cellValue = $firstSheet->getCell('A3')->getValue();
         $this->assertContains("\n", $cellValue);
 
-        unlink($filename);
+        \unlink($filename);
     }
 
     public function testCanLoadFromString()
@@ -336,8 +336,8 @@ class HtmlTest extends TestCase
      */
     private function createHtml($html)
     {
-        $filename = tempnam(sys_get_temp_dir(), 'html');
-        file_put_contents($filename, $html);
+        $filename = \tempnam(\sys_get_temp_dir(), 'html');
+        \file_put_contents($filename, $html);
 
         return $filename;
     }

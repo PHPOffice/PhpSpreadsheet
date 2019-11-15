@@ -47,9 +47,9 @@ $spreadsheet->setActiveSheetIndex(0);
 IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
 
 // Redirect output to a client’s web browser (PDF)
-header('Content-Type: application/pdf');
-header('Content-Disposition: attachment;filename="01simple.pdf"');
-header('Cache-Control: max-age=0');
+\header('Content-Type: application/pdf');
+\header('Content-Disposition: attachment;filename="01simple.pdf"');
+\header('Cache-Control: max-age=0');
 
 $writer = IOFactory::createWriter($spreadsheet, 'Pdf');
 $writer->save('php://output');

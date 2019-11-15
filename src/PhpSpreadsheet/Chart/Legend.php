@@ -81,7 +81,7 @@ class Legend
      */
     public function setPosition($position)
     {
-        if (!in_array($position, self::$positionXLref)) {
+        if (!\in_array($position, self::$positionXLref)) {
             return false;
         }
 
@@ -97,7 +97,7 @@ class Legend
      */
     public function getPositionXL()
     {
-        return array_search($this->position, self::$positionXLref);
+        return \array_search($this->position, self::$positionXLref);
     }
 
     /**
@@ -137,7 +137,7 @@ class Legend
      */
     public function setOverlay($overlay)
     {
-        if (!is_bool($overlay)) {
+        if (!\is_bool($overlay)) {
             return false;
         }
 

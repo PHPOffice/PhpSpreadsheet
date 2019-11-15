@@ -8,7 +8,7 @@ require __DIR__ . '/../Header.php';
 
 // Set timezone
 $helper->log('Set timezone');
-date_default_timezone_set('UTC');
+\date_default_timezone_set('UTC');
 
 // Set value binder
 $helper->log('Set value binder');

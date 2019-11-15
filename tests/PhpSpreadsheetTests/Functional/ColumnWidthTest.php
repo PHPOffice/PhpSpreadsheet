@@ -37,7 +37,7 @@ class ColumnWidthTest extends AbstractFunctional
         $columnDimensions = $sheet->getColumnDimensions();
 
         self::assertArrayHasKey('A', $columnDimensions);
-        $column = array_shift($columnDimensions);
+        $column = \array_shift($columnDimensions);
         self::assertEquals(20, $column->getWidth());
     }
 }

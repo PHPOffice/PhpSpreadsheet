@@ -78,7 +78,7 @@ class Font
             $grbit |= 0x20;
         }
 
-        $data = pack(
+        $data = \pack(
             'vvvvvCCCC',
             // Fontsize (in twips)
             $this->font->getSize() * 20,
@@ -96,8 +96,8 @@ class Font
         );
         $data .= StringHelper::UTF8toBIFF8UnicodeShort($this->font->getName());
 
-        $length = strlen($data);
-        $header = pack('vv', $record, $length);
+        $length = \strlen($data);
+        $header = \pack('vv', $record, $length);
 
         return $header . $data;
     }

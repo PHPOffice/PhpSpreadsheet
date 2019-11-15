@@ -38,7 +38,7 @@ class CommentsTest extends AbstractFunctional
         $commentsLoaded = $reloadedSpreadsheet->getSheet(0)->getComments();
         self::assertCount(1, $commentsLoaded);
 
-        $commentCoordinate = key($commentsLoaded);
+        $commentCoordinate = \key($commentsLoaded);
         self::assertSame('E10', $commentCoordinate);
     }
 }

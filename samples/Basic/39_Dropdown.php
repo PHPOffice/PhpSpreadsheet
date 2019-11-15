@@ -30,16 +30,16 @@ $continentColumn = 'D';
 $column = 'F';
 
 // Set data for dropdowns
-$continents = glob(__DIR__ . '/data/continents/*');
+$continents = \glob(__DIR__ . '/data/continents/*');
 foreach ($continents as $key => $filename) {
-    $continent = pathinfo($filename, PATHINFO_FILENAME);
+    $continent = \pathinfo($filename, PATHINFO_FILENAME);
     $helper->log("Loading $continent");
-    $continent = str_replace(' ', '_', $continent);
-    $countries = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    $countryCount = count($countries);
+    $continent = \str_replace(' ', '_', $continent);
+    $countries = \file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $countryCount = \count($countries);
 
     // Transpose $countries from a row to a column array
-    $countries = array_map('transpose', $countries);
+    $countries = \array_map('transpose', $countries);
     $spreadsheet->getActiveSheet()
         ->fromArray($countries, null, $column . '1');
     $spreadsheet->addNamedRange(
@@ -68,7 +68,7 @@ $spreadsheet->addNamedRange(
     new NamedRange(
         'Continents',
         $spreadsheet->getActiveSheet(),
-        $continentColumn . '1:' . $continentColumn . count($continents)
+        $continentColumn . '1:' . $continentColumn . \count($continents)
     )
 );
 

@@ -164,27 +164,27 @@ class Html extends BaseWriter
         $this->buildCSS(!$this->useInlineCss);
 
         // Open file
-        $fileHandle = fopen($pFilename, 'wb+');
+        $fileHandle = \fopen($pFilename, 'wb+');
         if ($fileHandle === false) {
             throw new WriterException("Could not open file $pFilename for writing.");
         }
 
         // Write headers
-        fwrite($fileHandle, $this->generateHTMLHeader(!$this->useInlineCss));
+        \fwrite($fileHandle, $this->generateHTMLHeader(!$this->useInlineCss));
 
         // Write navigation (tabs)
         if ((!$this->isPdf) && ($this->generateSheetNavigationBlock)) {
-            fwrite($fileHandle, $this->generateNavigation());
+            \fwrite($fileHandle, $this->generateNavigation());
         }
 
         // Write data
-        fwrite($fileHandle, $this->generateSheetData());
+        \fwrite($fileHandle, $this->generateSheetData());
 
         // Write footer
-        fwrite($fileHandle, $this->generateHTMLFooter());
+        \fwrite($fileHandle, $this->generateHTMLFooter());
 
         // Close file
-        fclose($fileHandle);
+        \fclose($fileHandle);
 
         Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
@@ -359,31 +359,31 @@ class Html extends BaseWriter
         $html .= '      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . PHP_EOL;
         $html .= '      <meta name="generator" content="PhpSpreadsheet, https://github.com/PHPOffice/PhpSpreadsheet">' . PHP_EOL;
         if ($properties->getTitle() > '') {
-            $html .= '      <title>' . htmlspecialchars($properties->getTitle()) . '</title>' . PHP_EOL;
+            $html .= '      <title>' . \htmlspecialchars($properties->getTitle()) . '</title>' . PHP_EOL;
         }
         if ($properties->getCreator() > '') {
-            $html .= '      <meta name="author" content="' . htmlspecialchars($properties->getCreator()) . '" />' . PHP_EOL;
+            $html .= '      <meta name="author" content="' . \htmlspecialchars($properties->getCreator()) . '" />' . PHP_EOL;
         }
         if ($properties->getTitle() > '') {
-            $html .= '      <meta name="title" content="' . htmlspecialchars($properties->getTitle()) . '" />' . PHP_EOL;
+            $html .= '      <meta name="title" content="' . \htmlspecialchars($properties->getTitle()) . '" />' . PHP_EOL;
         }
         if ($properties->getDescription() > '') {
-            $html .= '      <meta name="description" content="' . htmlspecialchars($properties->getDescription()) . '" />' . PHP_EOL;
+            $html .= '      <meta name="description" content="' . \htmlspecialchars($properties->getDescription()) . '" />' . PHP_EOL;
         }
         if ($properties->getSubject() > '') {
-            $html .= '      <meta name="subject" content="' . htmlspecialchars($properties->getSubject()) . '" />' . PHP_EOL;
+            $html .= '      <meta name="subject" content="' . \htmlspecialchars($properties->getSubject()) . '" />' . PHP_EOL;
         }
         if ($properties->getKeywords() > '') {
-            $html .= '      <meta name="keywords" content="' . htmlspecialchars($properties->getKeywords()) . '" />' . PHP_EOL;
+            $html .= '      <meta name="keywords" content="' . \htmlspecialchars($properties->getKeywords()) . '" />' . PHP_EOL;
         }
         if ($properties->getCategory() > '') {
-            $html .= '      <meta name="category" content="' . htmlspecialchars($properties->getCategory()) . '" />' . PHP_EOL;
+            $html .= '      <meta name="category" content="' . \htmlspecialchars($properties->getCategory()) . '" />' . PHP_EOL;
         }
         if ($properties->getCompany() > '') {
-            $html .= '      <meta name="company" content="' . htmlspecialchars($properties->getCompany()) . '" />' . PHP_EOL;
+            $html .= '      <meta name="company" content="' . \htmlspecialchars($properties->getCompany()) . '" />' . PHP_EOL;
         }
         if ($properties->getManager() > '') {
-            $html .= '      <meta name="manager" content="' . htmlspecialchars($properties->getManager()) . '" />' . PHP_EOL;
+            $html .= '      <meta name="manager" content="' . \htmlspecialchars($properties->getManager()) . '" />' . PHP_EOL;
         }
 
         if ($pIncludeStyles) {
@@ -429,7 +429,7 @@ class Html extends BaseWriter
             $html .= $this->generateTableHeader($sheet);
 
             // Get worksheet dimension
-            $dimension = explode(':', $sheet->calculateWorksheetDimension());
+            $dimension = \explode(':', $sheet->calculateWorksheetDimension());
             $dimension[0] = Coordinate::coordinateFromString($dimension[0]);
             $dimension[0][0] = Coordinate::columnIndexFromString($dimension[0][0]);
             $dimension[1] = Coordinate::coordinateFromString($dimension[1]);
@@ -534,7 +534,7 @@ class Html extends BaseWriter
         $html = '';
 
         // Only if there are more than 1 sheets
-        if (count($sheets) > 1) {
+        if (\count($sheets) > 1) {
             // Loop all sheets
             $sheetId = 0;
 
@@ -629,35 +629,35 @@ class Html extends BaseWriter
                     $filename = $drawing->getPath();
 
                     // Strip off eventual '.'
-                    if (substr($filename, 0, 1) == '.') {
-                        $filename = substr($filename, 1);
+                    if (\substr($filename, 0, 1) == '.') {
+                        $filename = \substr($filename, 1);
                     }
 
                     // Prepend images root
                     $filename = $this->getImagesRoot() . $filename;
 
                     // Strip off eventual '.'
-                    if (substr($filename, 0, 1) == '.' && substr($filename, 0, 2) != './') {
-                        $filename = substr($filename, 1);
+                    if (\substr($filename, 0, 1) == '.' && \substr($filename, 0, 2) != './') {
+                        $filename = \substr($filename, 1);
                     }
 
                     // Convert UTF8 data to PCDATA
-                    $filename = htmlspecialchars($filename);
+                    $filename = \htmlspecialchars($filename);
 
                     $html .= PHP_EOL;
                     if ((!$this->embedImages) || ($this->isPdf)) {
                         $imageData = $filename;
                     } else {
-                        $imageDetails = getimagesize($filename);
-                        if ($fp = fopen($filename, 'rb', 0)) {
+                        $imageDetails = \getimagesize($filename);
+                        if ($fp = \fopen($filename, 'rb', 0)) {
                             $picture = '';
-                            while (!feof($fp)) {
-                                $picture .= fread($fp, 1024);
+                            while (!\feof($fp)) {
+                                $picture .= \fread($fp, 1024);
                             }
-                            fclose($fp);
+                            \fclose($fp);
                             // base64 encode the binary data, then break it
                             // into chunks according to RFC 2045 semantics
-                            $base64 = chunk_split(base64_encode($picture));
+                            $base64 = \chunk_split(\base64_encode($picture));
                             $imageData = 'data:' . $imageDetails['mime'] . ';base64,' . $base64;
                         } else {
                             $imageData = $filename;
@@ -675,12 +675,12 @@ class Html extends BaseWriter
                 if ($drawing->getCoordinates() != $coordinates) {
                     continue;
                 }
-                ob_start(); //  Let's start output buffering.
-                imagepng($drawing->getImageResource()); //  This will normally output the image, but because of ob_start(), it won't.
-                $contents = ob_get_contents(); //  Instead, output above is saved to $contents
-                ob_end_clean(); //  End the output buffer.
+                \ob_start(); //  Let's start output buffering.
+                \imagepng($drawing->getImageResource()); //  This will normally output the image, but because of ob_start(), it won't.
+                $contents = \ob_get_contents(); //  Instead, output above is saved to $contents
+                \ob_end_clean(); //  End the output buffer.
 
-                $dataUri = 'data:image/jpeg;base64,' . base64_encode($contents);
+                $dataUri = 'data:image/jpeg;base64,' . \base64_encode($contents);
 
                 //  Because of the nature of tables, width is more important than height.
                 //  max-width: 100% ensures that image doesnt overflow containing cell
@@ -711,26 +711,26 @@ class Html extends BaseWriter
             if ($chart instanceof Chart) {
                 $chartCoordinates = $chart->getTopLeftPosition();
                 if ($chartCoordinates['cell'] == $coordinates) {
-                    $chartFileName = File::sysGetTempDir() . '/' . uniqid('', true) . '.png';
+                    $chartFileName = File::sysGetTempDir() . '/' . \uniqid('', true) . '.png';
                     if (!$chart->render($chartFileName)) {
                         return;
                     }
 
                     $html .= PHP_EOL;
-                    $imageDetails = getimagesize($chartFileName);
-                    if ($fp = fopen($chartFileName, 'rb', 0)) {
-                        $picture = fread($fp, filesize($chartFileName));
-                        fclose($fp);
+                    $imageDetails = \getimagesize($chartFileName);
+                    if ($fp = \fopen($chartFileName, 'rb', 0)) {
+                        $picture = \fread($fp, \filesize($chartFileName));
+                        \fclose($fp);
                         // base64 encode the binary data, then break it
                         // into chunks according to RFC 2045 semantics
-                        $base64 = chunk_split(base64_encode($picture));
+                        $base64 = \chunk_split(\base64_encode($picture));
                         $imageData = 'data:' . $imageDetails['mime'] . ';base64,' . $base64;
 
                         $html .= '<div style="position: relative;">';
                         $html .= '<img style="position: absolute; z-index: 1; left: ' . $chartCoordinates['xOffset'] . 'px; top: ' . $chartCoordinates['yOffset'] . 'px; width: ' . $imageDetails[0] . 'px; height: ' . $imageDetails[1] . 'px;" src="' . $imageData . '" border="0" />' . PHP_EOL;
                         $html .= '</div>';
 
-                        unlink($chartFileName);
+                        \unlink($chartFileName);
                     }
                 }
             }
@@ -960,7 +960,7 @@ class Html extends BaseWriter
     private function createCSSStyle(Style $pStyle)
     {
         // Create CSS
-        $css = array_merge(
+        $css = \array_merge(
             $this->createCSSStyleAlignment($pStyle->getAlignment()),
             $this->createCSSStyleBorders($pStyle->getBorders()),
             $this->createCSSStyleFont($pStyle->getFont()),
@@ -987,7 +987,7 @@ class Html extends BaseWriter
         $css['vertical-align'] = $this->mapVAlign($pStyle->getVertical());
         if ($textAlign = $this->mapHAlign($pStyle->getHorizontal())) {
             $css['text-align'] = $textAlign;
-            if (in_array($textAlign, ['left', 'right'])) {
+            if (\in_array($textAlign, ['left', 'right'])) {
                 $css['padding-' . $textAlign] = (string) ((int) $pStyle->getIndent() * 9) . 'px';
             }
         }
@@ -1179,7 +1179,7 @@ class Html extends BaseWriter
         $sheetIndex = $pSheet->getParent()->getIndex($pSheet);
 
         // Dompdf and breaks
-        if ($this->isPdf && count($pSheet->getBreaks()) > 0) {
+        if ($this->isPdf && \count($pSheet->getBreaks()) > 0) {
             $breaks = $pSheet->getBreaks();
 
             // check if a break is needed before this row
@@ -1254,7 +1254,7 @@ class Html extends BaseWriter
 
                         // Convert UTF8 data to PCDATA
                         $cellText = $element->getText();
-                        $cellData .= htmlspecialchars($cellText);
+                        $cellData .= \htmlspecialchars($cellText);
 
                         if ($element instanceof Run) {
                             if ($element->getFont()->getSuperscript()) {
@@ -1280,7 +1280,7 @@ class Html extends BaseWriter
                             [$this, 'formatColor']
                         );
                     }
-                    $cellData = htmlspecialchars($cellData);
+                    $cellData = \htmlspecialchars($cellData);
                     if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
                         $cellData = '<sup>' . $cellData . '</sup>';
                     } elseif ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubscript()) {
@@ -1290,10 +1290,10 @@ class Html extends BaseWriter
 
                 // Converts the cell content so that spaces occuring at beginning of each new line are replaced by &nbsp;
                 // Example: "  Hello\n to the world" is converted to "&nbsp;&nbsp;Hello\n&nbsp;to the world"
-                $cellData = preg_replace('/(?m)(?:^|\\G) /', '&nbsp;', $cellData);
+                $cellData = \preg_replace('/(?m)(?:^|\\G) /', '&nbsp;', $cellData);
 
                 // convert newline "\n" to '<br>'
-                $cellData = nl2br($cellData);
+                $cellData = \nl2br($cellData);
 
                 // Extend CSS class?
                 if (!$this->useInlineCss) {
@@ -1302,11 +1302,11 @@ class Html extends BaseWriter
                 } else {
                     if ($cellType == 'th') {
                         if (isset($this->cssStyles['th.style' . $cell->getXfIndex()])) {
-                            $cssClass = array_merge($cssClass, $this->cssStyles['th.style' . $cell->getXfIndex()]);
+                            $cssClass = \array_merge($cssClass, $this->cssStyles['th.style' . $cell->getXfIndex()]);
                         }
                     } else {
                         if (isset($this->cssStyles['td.style' . $cell->getXfIndex()])) {
-                            $cssClass = array_merge($cssClass, $this->cssStyles['td.style' . $cell->getXfIndex()]);
+                            $cssClass = \array_merge($cssClass, $this->cssStyles['td.style' . $cell->getXfIndex()]);
                         }
                     }
 
@@ -1322,7 +1322,7 @@ class Html extends BaseWriter
 
             // Hyperlink?
             if ($pSheet->hyperlinkExists($coordinate) && !$pSheet->getHyperlink($coordinate)->isInternal()) {
-                $cellData = '<a href="' . htmlspecialchars($pSheet->getHyperlink($coordinate)->getUrl()) . '" title="' . htmlspecialchars($pSheet->getHyperlink($coordinate)->getTooltip()) . '">' . $cellData . '</a>';
+                $cellData = '<a href="' . \htmlspecialchars($pSheet->getHyperlink($coordinate)->getUrl()) . '" title="' . \htmlspecialchars($pSheet->getHyperlink($coordinate)->getTooltip()) . '">' . $cellData . '</a>';
             }
 
             // Should the cell be written or is it swallowed by a rowspan or colspan?
@@ -1424,7 +1424,7 @@ class Html extends BaseWriter
         foreach ($pValue as $property => $value) {
             $pairs[] = $property . ':' . $value;
         }
-        $string = implode('; ', $pairs);
+        $string = \implode('; ', $pairs);
 
         return $string;
     }
@@ -1540,13 +1540,13 @@ class Html extends BaseWriter
         $matches = [];
 
         $color_regex = '/^\\[[a-zA-Z]+\\]/';
-        if (preg_match($color_regex, $pFormat, $matches)) {
-            $color = str_replace(['[', ']'], '', $matches[0]);
-            $color = strtolower($color);
+        if (\preg_match($color_regex, $pFormat, $matches)) {
+            $color = \str_replace(['[', ']'], '', $matches[0]);
+            $color = \strtolower($color);
         }
 
         // convert to PCDATA
-        $value = htmlspecialchars($pValue);
+        $value = \htmlspecialchars($pValue);
 
         // color span tag
         if ($color !== null) {
@@ -1565,7 +1565,7 @@ class Html extends BaseWriter
         // In HTML only the upper-left cell should be written and it should have
         //   appropriate rowspan / colspan attribute
         $sheetIndexes = $this->sheetIndex !== null ?
-            [$this->sheetIndex] : range(0, $this->spreadsheet->getSheetCount() - 1);
+            [$this->sheetIndex] : \range(0, $this->spreadsheet->getSheetCount() - 1);
 
         foreach ($sheetIndexes as $sheetIndex) {
             $sheet = $this->spreadsheet->getSheet($sheetIndex);
@@ -1615,7 +1615,7 @@ class Html extends BaseWriter
             $countColumns = Coordinate::columnIndexFromString($sheet->getHighestColumn());
             foreach ($candidateSpannedRow as $rowIndex) {
                 if (isset($this->isSpannedCell[$sheetIndex][$rowIndex])) {
-                    if (count($this->isSpannedCell[$sheetIndex][$rowIndex]) == $countColumns) {
+                    if (\count($this->isSpannedCell[$sheetIndex][$rowIndex]) == $countColumns) {
                         $this->isSpannedRow[$sheetIndex][$rowIndex] = $rowIndex;
                     }
                 }
@@ -1630,7 +1630,7 @@ class Html extends BaseWriter
                     while ($c++ < $e) {
                         $baseCell = $this->isSpannedCell[$sheetIndex][$rowIndex][$c]['baseCell'];
 
-                        if (!in_array($baseCell, $adjustedBaseCells)) {
+                        if (!\in_array($baseCell, $adjustedBaseCells)) {
                             // subtract rowspan by 1
                             --$this->isBaseCell[$sheetIndex][$baseCell[0]][$baseCell[1]]['rowspan'];
                             $adjustedBaseCells[] = $baseCell;
@@ -1685,7 +1685,7 @@ class Html extends BaseWriter
         $result = '';
         if (!$this->isPdf && isset($pSheet->getComments()[$coordinate])) {
             $result .= '<a class="comment-indicator"></a>';
-            $result .= '<div class="comment">' . nl2br($pSheet->getComment($coordinate)->getText()->getPlainText()) . '</div>';
+            $result .= '<div class="comment">' . \nl2br($pSheet->getComment($coordinate)->getText()->getPlainText()) . '</div>';
             $result .= PHP_EOL;
         }
 

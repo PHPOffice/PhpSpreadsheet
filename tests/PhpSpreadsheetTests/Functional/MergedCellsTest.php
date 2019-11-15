@@ -34,7 +34,7 @@ class MergedCellsTest extends AbstractFunctional
 
         $actual = 0;
         foreach ($reloadedSpreadsheet->getWorksheetIterator() as $worksheet) {
-            $actual += count($worksheet->getMergeCells());
+            $actual += \count($worksheet->getMergeCells());
         }
 
         self::assertSame(1, $actual, "Format $format failed, could not read 1 merged cell");

@@ -58,7 +58,7 @@ class Memory implements CacheInterface
 
     public function has($key)
     {
-        return array_key_exists($key, $this->cache);
+        return \array_key_exists($key, $this->cache);
     }
 
     public function set($key, $value, $ttl = null)

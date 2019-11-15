@@ -68,7 +68,7 @@ class SpgrContainer
 
         foreach ($this->children as $child) {
             if ($child instanceof self) {
-                $allSpContainers = array_merge($allSpContainers, $child->getAllSpContainers());
+                $allSpContainers = \array_merge($allSpContainers, $child->getAllSpContainers());
             } else {
                 $allSpContainers[] = $child;
             }

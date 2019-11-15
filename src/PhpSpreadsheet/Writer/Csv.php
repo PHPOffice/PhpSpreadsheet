@@ -92,7 +92,7 @@ class Csv extends BaseWriter
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
 
         // Open file
-        $fileHandle = fopen($pFilename, 'wb+');
+        $fileHandle = \fopen($pFilename, 'wb+');
         if ($fileHandle === false) {
             throw new Exception("Could not open file $pFilename for writing.");
         }
@@ -106,11 +106,11 @@ class Csv extends BaseWriter
         }
         if ($this->useBOM) {
             // Write the UTF-8 BOM code if required
-            fwrite($fileHandle, "\xEF\xBB\xBF");
+            \fwrite($fileHandle, "\xEF\xBB\xBF");
         }
         if ($this->includeSeparatorLine) {
             // Write the separator line if required
-            fwrite($fileHandle, 'sep=' . $this->getDelimiter() . $this->lineEnding);
+            \fwrite($fileHandle, 'sep=' . $this->getDelimiter() . $this->lineEnding);
         }
 
         //    Identify the range that we need to extract from the worksheet
@@ -126,7 +126,7 @@ class Csv extends BaseWriter
         }
 
         // Close file
-        fclose($fileHandle);
+        \fclose($fileHandle);
 
         Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
@@ -320,7 +320,7 @@ class Csv extends BaseWriter
 
         foreach ($pValues as $element) {
             // Escape enclosures
-            $element = str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
+            $element = \str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
 
             // Add delimiter
             if ($writeDelimiter) {
@@ -337,6 +337,6 @@ class Csv extends BaseWriter
         $line .= $this->lineEnding;
 
         // Write to file
-        fwrite($pFileHandle, $line);
+        \fwrite($pFileHandle, $line);
     }
 }

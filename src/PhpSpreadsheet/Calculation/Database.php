@@ -23,15 +23,15 @@ class Database
      */
     private static function fieldExtract($database, $field)
     {
-        $field = strtoupper(Functions::flattenSingleValue($field));
-        $fieldNames = array_map('strtoupper', array_shift($database));
+        $field = \strtoupper(Functions::flattenSingleValue($field));
+        $fieldNames = \array_map('strtoupper', \array_shift($database));
 
-        if (is_numeric($field)) {
-            $keys = array_keys($fieldNames);
+        if (\is_numeric($field)) {
+            $keys = \array_keys($fieldNames);
 
             return $keys[$field - 1];
         }
-        $key = array_search($field, $fieldNames);
+        $key = \array_search($field, $fieldNames);
 
         return ($key) ? $key : null;
     }
@@ -56,8 +56,8 @@ class Database
      */
     private static function filter($database, $criteria)
     {
-        $fieldNames = array_shift($database);
-        $criteriaNames = array_shift($criteria);
+        $fieldNames = \array_shift($database);
+        $criteriaNames = \array_shift($criteria);
 
         //    Convert the criteria into a set of AND/OR conditions with [:placeholders]
         $testConditions = $testValues = [];
@@ -72,7 +72,7 @@ class Database
                 }
             }
             if ($testConditionCount > 1) {
-                $testConditions[] = 'OR(' . implode(',', $testCondition) . ')';
+                $testConditions[] = 'OR(' . \implode(',', $testCondition) . ')';
                 ++$testConditionsCount;
             } elseif ($testConditionCount == 1) {
                 $testConditions[] = $testCondition[0];
@@ -81,7 +81,7 @@ class Database
         }
 
         if ($testConditionsCount > 1) {
-            $testConditionSet = 'AND(' . implode(',', $testConditions) . ')';
+            $testConditionSet = 'AND(' . \implode(',', $testConditions) . ')';
         } elseif ($testConditionsCount == 1) {
             $testConditionSet = $testConditions[0];
         }
@@ -91,11 +91,11 @@ class Database
             //    Substitute actual values from the database row for our [:placeholders]
             $testConditionList = $testConditionSet;
             foreach ($criteriaNames as $key => $criteriaName) {
-                $k = array_search($criteriaName, $fieldNames);
+                $k = \array_search($criteriaName, $fieldNames);
                 if (isset($dataValues[$k])) {
                     $dataValue = $dataValues[$k];
-                    $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
-                    $testConditionList = str_replace('[:' . $criteriaName . ']', $dataValue, $testConditionList);
+                    $dataValue = (\is_string($dataValue)) ? Calculation::wrapResult(\strtoupper($dataValue)) : $dataValue;
+                    $testConditionList = \str_replace('[:' . $criteriaName . ']', $dataValue, $testConditionList);
                 }
             }
             //    evaluate the criteria against the row data
@@ -297,7 +297,7 @@ class Database
 
         // Return
         $colData = self::getFilteredColumn($database, $field, $criteria);
-        if (count($colData) > 1) {
+        if (\count($colData) > 1) {
             return Functions::NAN();
         }
 

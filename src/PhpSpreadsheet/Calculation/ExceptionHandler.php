@@ -9,7 +9,7 @@ class ExceptionHandler
      */
     public function __construct()
     {
-        set_error_handler([Exception::class, 'errorHandlerCallback'], E_ALL);
+        \set_error_handler([Exception::class, 'errorHandlerCallback'], E_ALL);
     }
 
     /**
@@ -17,6 +17,6 @@ class ExceptionHandler
      */
     public function __destruct()
     {
-        restore_error_handler();
+        \restore_error_handler();
     }
 }

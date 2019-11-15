@@ -107,11 +107,11 @@ abstract class IOFactory
     public static function identify($pFilename)
     {
         $reader = self::createReaderForFile($pFilename);
-        $className = get_class($reader);
-        $classType = explode('\\', $className);
+        $className = \get_class($reader);
+        $classType = \explode('\\', $className);
         unset($reader);
 
-        return array_pop($classType);
+        return \array_pop($classType);
     }
 
     /**
@@ -162,12 +162,12 @@ abstract class IOFactory
      */
     private static function getReaderTypeFromExtension($filename)
     {
-        $pathinfo = pathinfo($filename);
+        $pathinfo = \pathinfo($filename);
         if (!isset($pathinfo['extension'])) {
             return null;
         }
 
-        switch (strtolower($pathinfo['extension'])) {
+        switch (\strtolower($pathinfo['extension'])) {
             case 'xlsx': // Excel (OfficeOpenXML) Spreadsheet
             case 'xlsm': // Excel (OfficeOpenXML) Macro Spreadsheet (macros will be discarded)
             case 'xltx': // Excel (OfficeOpenXML) Template
@@ -206,7 +206,7 @@ abstract class IOFactory
      */
     public static function registerWriter($writerType, $writerClass)
     {
-        if (!is_a($writerClass, Writer\IWriter::class, true)) {
+        if (!\is_a($writerClass, Writer\IWriter::class, true)) {
             throw new Writer\Exception('Registered writers must implement ' . Writer\IWriter::class);
         }
 
@@ -221,7 +221,7 @@ abstract class IOFactory
      */
     public static function registerReader($readerType, $readerClass)
     {
-        if (!is_a($readerClass, Reader\IReader::class, true)) {
+        if (!\is_a($readerClass, Reader\IReader::class, true)) {
             throw new Reader\Exception('Registered readers must implement ' . Reader\IReader::class);
         }
 

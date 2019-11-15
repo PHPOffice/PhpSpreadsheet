@@ -17,10 +17,10 @@ $sheetList = $reader->listWorksheetNames($filename);
 $sheetInfo = $reader->listWorksheetInfo($filename);
 
 $helper->log('File Type:');
-var_dump($inputFileType);
+\var_dump($inputFileType);
 
 $helper->log('Worksheet Names:');
-var_dump($sheetList);
+\var_dump($sheetList);
 
 $helper->log('Worksheet Names:');
-var_dump($sheetInfo);
+\var_dump($sheetInfo);

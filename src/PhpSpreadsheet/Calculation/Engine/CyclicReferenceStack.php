@@ -18,7 +18,7 @@ class CyclicReferenceStack
      */
     public function count()
     {
-        return count($this->stack);
+        return \count($this->stack);
     }
 
     /**
@@ -38,7 +38,7 @@ class CyclicReferenceStack
      */
     public function pop()
     {
-        return array_pop($this->stack);
+        return \array_pop($this->stack);
     }
 
     /**

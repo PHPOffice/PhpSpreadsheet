@@ -207,12 +207,12 @@ class Rels extends WriterPart
             $charts = [];
         }
 
-        if (($pWorksheet->getDrawingCollection()->count() > 0) || (count($charts) > 0) || $drawingOriginalIds) {
+        if (($pWorksheet->getDrawingCollection()->count() > 0) || (\count($charts) > 0) || $drawingOriginalIds) {
             $relPath = '../drawings/drawing' . $pWorksheetId . '.xml';
             $rId = ++$d;
 
             if (isset($drawingOriginalIds[$relPath])) {
-                $rId = (int) (substr($drawingOriginalIds[$relPath], 3));
+                $rId = (int) (\substr($drawingOriginalIds[$relPath], 3));
             }
 
             $this->writeRelationship(
@@ -241,7 +241,7 @@ class Rels extends WriterPart
 
         // Write comments relationship?
         $i = 1;
-        if (count($pWorksheet->getComments()) > 0) {
+        if (\count($pWorksheet->getComments()) > 0) {
             $this->writeRelationship(
                 $objWriter,
                 '_comments_vml' . $i,
@@ -259,7 +259,7 @@ class Rels extends WriterPart
 
         // Write header/footer relationship?
         $i = 1;
-        if (count($pWorksheet->getHeaderFooter()->getImages()) > 0) {
+        if (\count($pWorksheet->getHeaderFooter()->getImages()) > 0) {
             $this->writeRelationship(
                 $objWriter,
                 '_headerfooter_vml' . $i,
@@ -335,7 +335,7 @@ class Rels extends WriterPart
                     $objWriter,
                     $i,
                     'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image',
-                    '../media/' . str_replace(' ', '', $drawing->getIndexedFilename())
+                    '../media/' . \str_replace(' ', '', $drawing->getIndexedFilename())
                 );
 
                 $i = $this->writeDrawingHyperLink($objWriter, $drawing, $i);

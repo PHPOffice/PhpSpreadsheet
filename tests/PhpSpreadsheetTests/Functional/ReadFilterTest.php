@@ -53,7 +53,7 @@ class ReadFilterTest extends AbstractFunctional
 
         // test top left coordinate
         $sortedCoordinates = $sheet->getCellCollection()->getSortedCoordinates();
-        $coordinateTopLeft = reset($sortedCoordinates);
+        $coordinateTopLeft = \reset($sortedCoordinates);
         self::assertSame('A1', $coordinateTopLeft);
     }
 
@@ -87,7 +87,7 @@ class ReadFilterTest extends AbstractFunctional
 
         // test top left coordinate
         $sortedCoordinates = $sheet->getCellCollection()->getSortedCoordinates();
-        $coordinateTopLeft = reset($sortedCoordinates);
+        $coordinateTopLeft = \reset($sortedCoordinates);
         self::assertSame('B2', $coordinateTopLeft);
     }
 
@@ -113,9 +113,9 @@ class ReadFilterTest extends AbstractFunctional
             return false;
         }
 
-        $col = sprintf('%04s', $column);
-        if ($col > sprintf('%04s', $columnMax) ||
-            $col < sprintf('%04s', $columnMin)) {
+        $col = \sprintf('%04s', $column);
+        if ($col > \sprintf('%04s', $columnMax) ||
+            $col < \sprintf('%04s', $columnMin)) {
             return false;
         }
 

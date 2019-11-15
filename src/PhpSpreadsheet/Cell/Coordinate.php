@@ -31,7 +31,7 @@ abstract class Coordinate
      */
     public static function coordinateFromString($pCoordinateString)
     {
-        if (preg_match('/^([$]?[A-Z]{1,3})([$]?\\d{1,7})$/', $pCoordinateString, $matches)) {
+        if (\preg_match('/^([$]?[A-Z]{1,3})([$]?\\d{1,7})$/', $pCoordinateString, $matches)) {
             return [$matches[1], $matches[2]];
         } elseif (self::coordinateIsRange($pCoordinateString)) {
             throw new Exception('Cell coordinate string can not be a range of cells');
@@ -51,7 +51,7 @@ abstract class Coordinate
      */
     public static function coordinateIsRange($coord)
     {
-        return (strpos($coord, ':') !== false) || (strpos($coord, ',') !== false);
+        return (\strpos($coord, ':') !== false) || (\strpos($coord, ',') !== false);
     }
 
     /**
@@ -77,10 +77,10 @@ abstract class Coordinate
         }
 
         // Create absolute coordinate
-        if (ctype_digit($pCoordinateString)) {
+        if (\ctype_digit($pCoordinateString)) {
             return $worksheet . '$' . $pCoordinateString;
-        } elseif (ctype_alpha($pCoordinateString)) {
-            return $worksheet . '$' . strtoupper($pCoordinateString);
+        } elseif (\ctype_alpha($pCoordinateString)) {
+            return $worksheet . '$' . \strtoupper($pCoordinateString);
         }
 
         return $worksheet . self::absoluteCoordinate($pCoordinateString);
@@ -109,8 +109,8 @@ abstract class Coordinate
 
         // Create absolute coordinate
         [$column, $row] = self::coordinateFromString($pCoordinateString);
-        $column = ltrim($column, '$');
-        $row = ltrim($row, '$');
+        $column = \ltrim($column, '$');
+        $row = \ltrim($row, '$');
 
         return $worksheet . '$' . $column . '$' . $row;
     }
@@ -131,10 +131,10 @@ abstract class Coordinate
             $pRange = self::DEFAULT_RANGE;
         }
 
-        $exploded = explode(',', $pRange);
-        $counter = count($exploded);
+        $exploded = \explode(',', $pRange);
+        $counter = \count($exploded);
         for ($i = 0; $i < $counter; ++$i) {
-            $exploded[$i] = explode(':', $exploded[$i]);
+            $exploded[$i] = \explode(':', $exploded[$i]);
         }
 
         return $exploded;
@@ -152,17 +152,17 @@ abstract class Coordinate
     public static function buildRange(array $pRange)
     {
         // Verify range
-        if (empty($pRange) || !is_array($pRange[0])) {
+        if (empty($pRange) || !\is_array($pRange[0])) {
             throw new Exception('Range does not contain any information');
         }
 
         // Build range
-        $counter = count($pRange);
+        $counter = \count($pRange);
         for ($i = 0; $i < $counter; ++$i) {
-            $pRange[$i] = implode(':', $pRange[$i]);
+            $pRange[$i] = \implode(':', $pRange[$i]);
         }
 
-        return implode(',', $pRange);
+        return \implode(',', $pRange);
     }
 
     /**
@@ -181,13 +181,13 @@ abstract class Coordinate
         }
 
         // Uppercase coordinate
-        $pRange = strtoupper($pRange);
+        $pRange = \strtoupper($pRange);
 
         // Extract range
-        if (strpos($pRange, ':') === false) {
+        if (\strpos($pRange, ':') === false) {
             $rangeA = $rangeB = $pRange;
         } else {
-            [$rangeA, $rangeB] = explode(':', $pRange);
+            [$rangeA, $rangeB] = \explode(':', $pRange);
         }
 
         // Calculate range outer borders
@@ -232,13 +232,13 @@ abstract class Coordinate
         }
 
         // Uppercase coordinate
-        $pRange = strtoupper($pRange);
+        $pRange = \strtoupper($pRange);
 
         // Extract range
-        if (strpos($pRange, ':') === false) {
+        if (\strpos($pRange, ':') === false) {
             $rangeA = $rangeB = $pRange;
         } else {
-            [$rangeA, $rangeB] = explode(':', $pRange);
+            [$rangeA, $rangeB] = \explode(':', $pRange);
         }
 
         return [self::coordinateFromString($rangeA), self::coordinateFromString($rangeB)];
@@ -309,7 +309,7 @@ abstract class Coordinate
             do {
                 $characterValue = ($indexValue % 26) ?: 26;
                 $indexValue = ($indexValue - $characterValue) / 26;
-                $base26 = chr($characterValue + 64) . ($base26 ?: '');
+                $base26 = \chr($characterValue + 64) . ($base26 ?: '');
             } while ($indexValue > 0);
             $indexCache[$columnIndex] = $base26;
         }
@@ -331,22 +331,22 @@ abstract class Coordinate
         // Explode spaces
         $cellBlocks = self::getCellBlocksFromRangeString($pRange);
         foreach ($cellBlocks as $cellBlock) {
-            $returnValue = array_merge($returnValue, self::getReferencesForCellBlock($cellBlock));
+            $returnValue = \array_merge($returnValue, self::getReferencesForCellBlock($cellBlock));
         }
 
         //    Sort the result by column and row
         $sortKeys = [];
-        foreach (array_unique($returnValue) as $coord) {
+        foreach (\array_unique($returnValue) as $coord) {
             $column = '';
             $row = 0;
 
-            sscanf($coord, '%[A-Z]%d', $column, $row);
-            $sortKeys[sprintf('%3s%09d', $column, $row)] = $coord;
+            \sscanf($coord, '%[A-Z]%d', $column, $row);
+            $sortKeys[\sprintf('%3s%09d', $column, $row)] = $coord;
         }
-        ksort($sortKeys);
+        \ksort($sortKeys);
 
         // Return value
-        return array_values($sortKeys);
+        return \array_values($sortKeys);
     }
 
     /**
@@ -433,8 +433,8 @@ abstract class Coordinate
             }
 
             [$column, $row] = self::coordinateFromString($coord);
-            $row = (int) (ltrim($row, '$'));
-            $hashCode = $column . '-' . (is_object($value) ? $value->getHashCode() : $value);
+            $row = (int) (\ltrim($row, '$'));
+            $hashCode = $column . '-' . (\is_object($value) ? $value->getHashCode() : $value);
 
             if (!isset($hashedValues[$hashCode])) {
                 $hashedValues[$hashCode] = (object) [
@@ -447,10 +447,10 @@ abstract class Coordinate
             }
         }
 
-        ksort($hashedValues);
+        \ksort($hashedValues);
 
         foreach ($hashedValues as $hashedValue) {
-            sort($hashedValue->rows);
+            \sort($hashedValue->rows);
             $rowStart = null;
             $rowEnd = null;
             $ranges = [];
@@ -498,7 +498,7 @@ abstract class Coordinate
      */
     private static function getCellBlocksFromRangeString($pRange)
     {
-        return explode(' ', str_replace('$', '', strtoupper($pRange)));
+        return \explode(' ', \str_replace('$', '', \strtoupper($pRange)));
     }
 
     /**

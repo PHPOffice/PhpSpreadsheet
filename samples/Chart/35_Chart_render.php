@@ -17,12 +17,12 @@ if ((isset($argc)) && ($argc > 1)) {
         $inputFileNames[] = __DIR__ . '/../templates/' . $argv[$i];
     }
 } else {
-    $inputFileNames = glob($inputFileNames);
+    $inputFileNames = \glob($inputFileNames);
 }
 foreach ($inputFileNames as $inputFileName) {
-    $inputFileNameShort = basename($inputFileName);
+    $inputFileNameShort = \basename($inputFileName);
 
-    if (!file_exists($inputFileName)) {
+    if (!\file_exists($inputFileName)) {
         $helper->log('File ' . $inputFileNameShort . ' does not exist');
 
         continue;
@@ -43,19 +43,19 @@ foreach ($inputFileNames as $inputFileName) {
         if (empty($chartNames)) {
             $helper->log('    There are no charts in this worksheet');
         } else {
-            natsort($chartNames);
+            \natsort($chartNames);
             foreach ($chartNames as $i => $chartName) {
                 $chart = $worksheet->getChartByName($chartName);
                 if ($chart->getTitle() !== null) {
-                    $caption = '"' . implode(' ', $chart->getTitle()->getCaption()) . '"';
+                    $caption = '"' . \implode(' ', $chart->getTitle()->getCaption()) . '"';
                 } else {
                     $caption = 'Untitled';
                 }
                 $helper->log('    ' . $chartName . ' - ' . $caption);
 
                 $jpegFile = $helper->getFilename('35-' . $inputFileNameShort, 'png');
-                if (file_exists($jpegFile)) {
-                    unlink($jpegFile);
+                if (\file_exists($jpegFile)) {
+                    \unlink($jpegFile);
                 }
 
                 try {

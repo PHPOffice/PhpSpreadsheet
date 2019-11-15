@@ -197,14 +197,14 @@ class Style extends Supervisor
             $pRange = $this->getSelectedCells();
 
             // Uppercase coordinate
-            $pRange = strtoupper($pRange);
+            $pRange = \strtoupper($pRange);
 
             // Is it a cell range or a single cell?
-            if (strpos($pRange, ':') === false) {
+            if (\strpos($pRange, ':') === false) {
                 $rangeA = $pRange;
                 $rangeB = $pRange;
             } else {
-                [$rangeA, $rangeB] = explode(':', $pRange);
+                [$rangeA, $rangeB] = \explode(':', $pRange);
             }
 
             // Calculate range outer borders
@@ -255,8 +255,8 @@ class Style extends Supervisor
                     unset($pStyles['borders']['inside']); // not needed any more
                 }
                 // width and height characteristics of selection, 1, 2, or 3 (for 3 or more)
-                $xMax = min($rangeEnd[0] - $rangeStart[0] + 1, 3);
-                $yMax = min($rangeEnd[1] - $rangeStart[1] + 1, 3);
+                $xMax = \min($rangeEnd[0] - $rangeStart[0] + 1, 3);
+                $yMax = \min($rangeEnd[1] - $rangeStart[1] + 1, 3);
 
                 // loop through up to 3 x 3 = 9 regions
                 for ($x = 1; $x <= $xMax; ++$x) {
@@ -305,7 +305,7 @@ class Style extends Supervisor
                         unset($regionStyles['borders']['inside']);
 
                         // what are the inner edges of the region when looking at the selection
-                        $innerEdges = array_diff(['top', 'right', 'bottom', 'left'], $edges);
+                        $innerEdges = \array_diff(['top', 'right', 'bottom', 'left'], $edges);
 
                         // inner edges that are not touching the region should take the 'inside' border properties if they have been set
                         foreach ($innerEdges as $innerEdge) {
@@ -346,9 +346,9 @@ class Style extends Supervisor
 
             // SIMPLE MODE:
             // Selection type, inspect
-            if (preg_match('/^[A-Z]+1:[A-Z]+1048576$/', $pRange)) {
+            if (\preg_match('/^[A-Z]+1:[A-Z]+1048576$/', $pRange)) {
                 $selectionType = 'COLUMN';
-            } elseif (preg_match('/^A\d+:XFD\d+$/', $pRange)) {
+            } elseif (\preg_match('/^A\d+:XFD\d+$/', $pRange)) {
                 $selectionType = 'ROW';
             } else {
                 $selectionType = 'CELL';
@@ -606,7 +606,7 @@ class Style extends Supervisor
             $hashConditionals .= $conditional->getHashCode();
         }
 
-        return md5(
+        return \md5(
             $this->fill->getHashCode() .
             $this->font->getHashCode() .
             $this->borders->getHashCode() .

@@ -94,8 +94,8 @@ class Logger
     {
         //    Only write the debug log if logging is enabled
         if ($this->writeDebugLog) {
-            $message = implode($args);
-            $cellReference = implode(' -> ', $this->cellStack->showStack());
+            $message = \implode($args);
+            $cellReference = \implode(' -> ', $this->cellStack->showStack());
             if ($this->echoDebugLog) {
                 echo $cellReference,
                     ($this->cellStack->count() > 0 ? ' => ' : ''),

@@ -410,7 +410,7 @@ class Borders extends Supervisor
             return $this->getSharedComponent()->getHashcode();
         }
 
-        return md5(
+        return \md5(
             $this->getLeft()->getHashCode() .
             $this->getRight()->getHashCode() .
             $this->getTop()->getHashCode() .

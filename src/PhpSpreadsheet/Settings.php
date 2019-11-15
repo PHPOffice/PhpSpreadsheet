@@ -66,7 +66,7 @@ class Settings
      */
     public static function setChartRenderer($rendererClass)
     {
-        if (!is_a($rendererClass, IRenderer::class, true)) {
+        if (!\is_a($rendererClass, IRenderer::class, true)) {
             throw new Exception('Chart renderer must implement ' . IRenderer::class);
         }
 
@@ -91,7 +91,7 @@ class Settings
      */
     public static function setLibXmlLoaderOptions($options)
     {
-        if ($options === null && defined('LIBXML_DTDLOAD')) {
+        if ($options === null && \defined('LIBXML_DTDLOAD')) {
             $options = LIBXML_DTDLOAD | LIBXML_DTDATTR;
         }
         self::$libXmlLoaderOptions = $options;
@@ -105,7 +105,7 @@ class Settings
      */
     public static function getLibXmlLoaderOptions()
     {
-        if (self::$libXmlLoaderOptions === null && defined('LIBXML_DTDLOAD')) {
+        if (self::$libXmlLoaderOptions === null && \defined('LIBXML_DTDLOAD')) {
             self::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR);
         } elseif (self::$libXmlLoaderOptions === null) {
             self::$libXmlLoaderOptions = true;

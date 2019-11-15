@@ -9,7 +9,7 @@ $inputFileType = 'Xlsx';
 $inputFileName = __DIR__ . '/../templates/31docproperties.xlsx';
 
 $spreadsheetReader = IOFactory::createReader($inputFileType);
-$callStartTime = microtime(true);
+$callStartTime = \microtime(true);
 $spreadsheet = $spreadsheetReader->load($inputFileName);
 $helper->logRead($inputFileType, $inputFileName, $callStartTime);
 
@@ -22,7 +22,7 @@ $spreadsheet->getProperties()->setTitle('Office 2007 XLSX Test Document')
 // Save Excel 2007 file
 $filename = $helper->getFilename(__FILE__);
 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-$callStartTime = microtime(true);
+$callStartTime = \microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
 
@@ -37,9 +37,9 @@ $helper->log('Get properties');
 
 $helper->log('Core Properties:');
 $helper->log('    Created by - ' . $spreadsheet->getProperties()->getCreator());
-$helper->log('    Created on - ' . date('d-M-Y' . $spreadsheet->getProperties()->getCreated()) . ' at ' . date('H:i:s' . $spreadsheet->getProperties()->getCreated()));
+$helper->log('    Created on - ' . \date('d-M-Y' . $spreadsheet->getProperties()->getCreated()) . ' at ' . \date('H:i:s' . $spreadsheet->getProperties()->getCreated()));
 $helper->log('    Last Modified by - ' . $spreadsheet->getProperties()->getLastModifiedBy());
-$helper->log('    Last Modified on - ' . date('d-M-Y' . $spreadsheet->getProperties()->getModified()) . ' at ' . date('H:i:s' . $spreadsheet->getProperties()->getModified()));
+$helper->log('    Last Modified on - ' . \date('d-M-Y' . $spreadsheet->getProperties()->getModified()) . ' at ' . \date('H:i:s' . $spreadsheet->getProperties()->getModified()));
 $helper->log('    Title - ' . $spreadsheet->getProperties()->getTitle());
 $helper->log('    Subject - ' . $spreadsheet->getProperties()->getSubject());
 $helper->log('    Description - ' . $spreadsheet->getProperties()->getDescription());
@@ -56,7 +56,7 @@ foreach ($customProperties as $customProperty) {
     $propertyValue = $spreadsheet->getProperties()->getCustomPropertyValue($customProperty);
     $propertyType = $spreadsheet->getProperties()->getCustomPropertyType($customProperty);
     if ($propertyType == Properties::PROPERTY_TYPE_DATE) {
-        $formattedValue = date('d-M-Y H:i:s', (int) $propertyValue);
+        $formattedValue = \date('d-M-Y H:i:s', (int) $propertyValue);
     } elseif ($propertyType == Properties::PROPERTY_TYPE_BOOLEAN) {
         $formattedValue = $propertyValue ? 'TRUE' : 'FALSE';
     } else {

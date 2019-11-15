@@ -249,7 +249,7 @@ class Workbook extends WriterPart
         $objWriter->startElement('definedNames');
 
         // Named ranges
-        if (count($spreadsheet->getNamedRanges()) > 0) {
+        if (\count($spreadsheet->getNamedRanges()) > 0) {
             // Named ranges
             $this->writeNamedRanges($objWriter, $spreadsheet);
         }
@@ -304,9 +304,9 @@ class Workbook extends WriterPart
 
         // Create absolute coordinate and write as raw text
         $range = Coordinate::splitRange($pNamedRange->getRange());
-        $iMax = count($range);
+        $iMax = \count($range);
         for ($i = 0; $i < $iMax; ++$i) {
-            $range[$i][0] = '\'' . str_replace("'", "''", $pNamedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteReference($range[$i][0]);
+            $range[$i][0] = '\'' . \str_replace("'", "''", $pNamedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteReference($range[$i][0]);
             if (isset($range[$i][1])) {
                 $range[$i][1] = Coordinate::absoluteReference($range[$i][1]);
             }
@@ -343,9 +343,9 @@ class Workbook extends WriterPart
 
             $range[0] = Coordinate::absoluteCoordinate($range[0]);
             $range[1] = Coordinate::absoluteCoordinate($range[1]);
-            $range = implode(':', $range);
+            $range = \implode(':', $range);
 
-            $objWriter->writeRawData('\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!' . $range);
+            $objWriter->writeRawData('\'' . \str_replace("'", "''", $pSheet->getTitle()) . '\'!' . $range);
 
             $objWriter->endElement();
         }
@@ -373,7 +373,7 @@ class Workbook extends WriterPart
             if ($pSheet->getPageSetup()->isColumnsToRepeatAtLeftSet()) {
                 $repeat = $pSheet->getPageSetup()->getColumnsToRepeatAtLeft();
 
-                $settingString .= '\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!$' . $repeat[0] . ':$' . $repeat[1];
+                $settingString .= '\'' . \str_replace("'", "''", $pSheet->getTitle()) . '\'!$' . $repeat[0] . ':$' . $repeat[1];
             }
 
             // Rows to repeat
@@ -384,7 +384,7 @@ class Workbook extends WriterPart
 
                 $repeat = $pSheet->getPageSetup()->getRowsToRepeatAtTop();
 
-                $settingString .= '\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!$' . $repeat[0] . ':$' . $repeat[1];
+                $settingString .= '\'' . \str_replace("'", "''", $pSheet->getTitle()) . '\'!$' . $repeat[0] . ':$' . $repeat[1];
             }
 
             $objWriter->writeRawData($settingString);
@@ -415,10 +415,10 @@ class Workbook extends WriterPart
             foreach ($printArea as $printAreaRect) {
                 $printAreaRect[0] = Coordinate::absoluteReference($printAreaRect[0]);
                 $printAreaRect[1] = Coordinate::absoluteReference($printAreaRect[1]);
-                $chunks[] = '\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!' . implode(':', $printAreaRect);
+                $chunks[] = '\'' . \str_replace("'", "''", $pSheet->getTitle()) . '\'!' . \implode(':', $printAreaRect);
             }
 
-            $objWriter->writeRawData(implode(',', $chunks));
+            $objWriter->writeRawData(\implode(',', $chunks));
 
             $objWriter->endElement();
         }

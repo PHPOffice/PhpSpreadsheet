@@ -172,7 +172,7 @@ class Border extends Supervisor
     {
         if (empty($pValue)) {
             $pValue = self::BORDER_NONE;
-        } elseif (is_bool($pValue) && $pValue) {
+        } elseif (\is_bool($pValue) && $pValue) {
             $pValue = self::BORDER_MEDIUM;
         }
         if ($this->isSupervisor) {
@@ -230,7 +230,7 @@ class Border extends Supervisor
             return $this->getSharedComponent()->getHashCode();
         }
 
-        return md5(
+        return \md5(
             $this->borderStyle .
             $this->color->getHashCode() .
             __CLASS__

@@ -59,7 +59,7 @@ $dataSeriesValues1 = [
 $series1 = new DataSeries(
     DataSeries::TYPE_PIECHART, // plotType
     null, // plotGrouping (Pie charts don't have any grouping)
-    range(0, count($dataSeriesValues1) - 1), // plotOrder
+    \range(0, \count($dataSeriesValues1) - 1), // plotOrder
     $dataSeriesLabels1, // plotLabel
     $xAxisTickValues1, // plotCategory
     $dataSeriesValues1          // plotValues
@@ -131,7 +131,7 @@ $dataSeriesValues2 = [
 $series2 = new DataSeries(
     DataSeries::TYPE_DONUTCHART, // plotType
     null, // plotGrouping (Donut charts don't have any grouping)
-    range(0, count($dataSeriesValues2) - 1), // plotOrder
+    \range(0, \count($dataSeriesValues2) - 1), // plotOrder
     $dataSeriesLabels2, // plotLabel
     $xAxisTickValues2, // plotCategory
     $dataSeriesValues2        // plotValues
@@ -170,6 +170,6 @@ $worksheet->addChart($chart2);
 $filename = $helper->getFilename(__FILE__);
 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $writer->setIncludeCharts(true);
-$callStartTime = microtime(true);
+$callStartTime = \microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);

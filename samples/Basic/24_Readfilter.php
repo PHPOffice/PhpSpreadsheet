@@ -11,7 +11,7 @@ require __DIR__ . '/../Header.php';
 $largeSpreadsheet = require __DIR__ . '/../templates/largeSpreadsheet.php';
 $writer = new Xlsx($largeSpreadsheet);
 $filename = $helper->getTemporaryFilename();
-$callStartTime = microtime(true);
+$callStartTime = \microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
 
@@ -31,7 +31,7 @@ class MyReadFilter implements IReadFilter
 $helper->log('Load from Xlsx file');
 $reader = IOFactory::createReader('Xlsx');
 $reader->setReadFilter(new MyReadFilter());
-$callStartTime = microtime(true);
+$callStartTime = \microtime(true);
 $spreadsheet = $reader->load($filename);
 $helper->logRead('Xlsx', $filename, $callStartTime);
 $helper->log('Remove unnecessary rows');

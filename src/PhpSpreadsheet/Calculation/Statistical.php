@@ -15,27 +15,27 @@ class Statistical
 
     private static function checkTrendArrays(&$array1, &$array2)
     {
-        if (!is_array($array1)) {
+        if (!\is_array($array1)) {
             $array1 = [$array1];
         }
-        if (!is_array($array2)) {
+        if (!\is_array($array2)) {
             $array2 = [$array2];
         }
 
         $array1 = Functions::flattenArray($array1);
         $array2 = Functions::flattenArray($array2);
         foreach ($array1 as $key => $value) {
-            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
+            if ((\is_bool($value)) || (\is_string($value)) || ($value === null)) {
                 unset($array1[$key], $array2[$key]);
             }
         }
         foreach ($array2 as $key => $value) {
-            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
+            if ((\is_bool($value)) || (\is_string($value)) || ($value === null)) {
                 unset($array1[$key], $array2[$key]);
             }
         }
-        $array1 = array_merge($array1);
-        $array2 = array_merge($array2);
+        $array1 = \array_merge($array1);
+        $array2 = \array_merge($array2);
 
         return true;
     }
@@ -63,7 +63,7 @@ class Statistical
         } elseif (($p <= 0.0) || ($q <= 0.0) || (($p + $q) > self::LOG_GAMMA_X_MAX_VALUE)) {
             return 0.0;
         }
-        $beta_gam = exp((0 - self::logBeta($p, $q)) + $p * log($x) + $q * log(1.0 - $x));
+        $beta_gam = \exp((0 - self::logBeta($p, $q)) + $p * \log($x) + $q * \log(1.0 - $x));
         if ($x < ($p + 1.0) / ($p + $q + 2.0)) {
             return $beta_gam * self::betaFraction($x, $p, $q) / $p;
         }
@@ -122,36 +122,36 @@ class Statistical
         $p_plus = $p + 1.0;
         $p_minus = $p - 1.0;
         $h = 1.0 - $sum_pq * $x / $p_plus;
-        if (abs($h) < self::XMININ) {
+        if (\abs($h) < self::XMININ) {
             $h = self::XMININ;
         }
         $h = 1.0 / $h;
         $frac = $h;
         $m = 1;
         $delta = 0.0;
-        while ($m <= self::MAX_ITERATIONS && abs($delta - 1.0) > Functions::PRECISION) {
+        while ($m <= self::MAX_ITERATIONS && \abs($delta - 1.0) > Functions::PRECISION) {
             $m2 = 2 * $m;
             // even index for d
             $d = $m * ($q - $m) * $x / (($p_minus + $m2) * ($p + $m2));
             $h = 1.0 + $d * $h;
-            if (abs($h) < self::XMININ) {
+            if (\abs($h) < self::XMININ) {
                 $h = self::XMININ;
             }
             $h = 1.0 / $h;
             $c = 1.0 + $d / $c;
-            if (abs($c) < self::XMININ) {
+            if (\abs($c) < self::XMININ) {
                 $c = self::XMININ;
             }
             $frac *= $h * $c;
             // odd index for d
             $d = -($p + $m) * ($sum_pq + $m) * $x / (($p + $m2) * ($p_plus + $m2));
             $h = 1.0 + $d * $h;
-            if (abs($h) < self::XMININ) {
+            if (\abs($h) < self::XMININ) {
                 $h = self::XMININ;
             }
             $h = 1.0 / $h;
             $c = 1.0 + $d / $c;
-            if (abs($c) < self::XMININ) {
+            if (\abs($c) < self::XMININ) {
                 $c = self::XMININ;
             }
             $delta = $h * $c;
@@ -299,13 +299,13 @@ class Statistical
         $y = $x;
         if ($y > 0.0 && $y <= self::LOG_GAMMA_X_MAX_VALUE) {
             if ($y <= self::EPS) {
-                $res = -log($y);
+                $res = -\log($y);
             } elseif ($y <= 1.5) {
                 // ---------------------
                 //    EPS .LT. X .LE. 1.5
                 // ---------------------
                 if ($y < $pnt68) {
-                    $corr = -log($y);
+                    $corr = -\log($y);
                     $xm1 = $y;
                 } else {
                     $corr = 0.0;
@@ -365,8 +365,8 @@ class Statistical
                         $res = $res / $ysq + $lg_c[$i];
                     }
                     $res /= $y;
-                    $corr = log($y);
-                    $res = $res + log(self::SQRT2PI) - 0.5 * $corr;
+                    $corr = \log($y);
+                    $res = $res + \log(self::SQRT2PI) - 0.5 * $corr;
                     $res += $y * ($corr - 1.0);
                 }
             }
@@ -397,10 +397,10 @@ class Statistical
             for ($i = 1; $i <= $n; ++$i) {
                 $divisor *= ($a + $i);
             }
-            $summer += (pow($x, $n) / $divisor);
+            $summer += (\pow($x, $n) / $divisor);
         }
 
-        return pow($x, $a) * exp(0 - $x) * $summer;
+        return \pow($x, $a) * \exp(0 - $x) * $summer;
     }
 
     //
@@ -424,14 +424,14 @@ class Statistical
 
         $y = $x = $data;
         $tmp = $x + 5.5;
-        $tmp -= ($x + 0.5) * log($tmp);
+        $tmp -= ($x + 0.5) * \log($tmp);
 
         $summer = $p0;
         for ($j = 1; $j <= 6; ++$j) {
             $summer += ($p[$j] / ++$y);
         }
 
-        return exp(0 - $tmp + log(self::SQRT2PI * $summer / $x));
+        return \exp(0 - $tmp + \log(self::SQRT2PI * $summer / $x));
     }
 
     /*
@@ -496,7 +496,7 @@ class Statistical
 
         if (0 < $p && $p < $p_low) {
             //    Rational approximation for lower region.
-            $q = sqrt(-2 * log($p));
+            $q = \sqrt(-2 * \log($p));
 
             return ((((($c[1] * $q + $c[2]) * $q + $c[3]) * $q + $c[4]) * $q + $c[5]) * $q + $c[6]) /
                     (((($d[1] * $q + $d[2]) * $q + $d[3]) * $q + $d[4]) * $q + 1);
@@ -509,7 +509,7 @@ class Statistical
                    ((((($b[1] * $r + $b[2]) * $r + $b[3]) * $r + $b[4]) * $r + $b[5]) * $r + 1);
         } elseif ($p_high < $p && $p < 1) {
             //    Rational approximation for upper region.
-            $q = sqrt(-2 * log(1 - $p));
+            $q = \sqrt(-2 * \log(1 - $p));
 
             return -((((($c[1] * $q + $c[2]) * $q + $c[3]) * $q + $c[4]) * $q + $c[5]) * $q + $c[6]) /
                      (((($d[1] * $q + $d[2]) * $q + $d[3]) * $q + $d[4]) * $q + 1);
@@ -530,7 +530,7 @@ class Statistical
      */
     private static function testAcceptedBoolean($arg, $k)
     {
-        if ((is_bool($arg)) &&
+        if ((\is_bool($arg)) &&
             ((!Functions::isCellValue($k) && (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL)) ||
                 (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE))) {
             $arg = (int) $arg;
@@ -547,8 +547,8 @@ class Statistical
      */
     private static function isAcceptedCountable($arg, $k)
     {
-        if (((is_numeric($arg)) && (!is_string($arg))) ||
-                ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
+        if (((\is_numeric($arg)) && (!\is_string($arg))) ||
+                ((\is_numeric($arg)) && (!Functions::isCellValue($k)) &&
                     (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))) {
             return true;
         }
@@ -591,11 +591,11 @@ class Statistical
             // Is it a numeric value?
             // Strings containing numeric values are only counted if they are string literals (not cell values)
             //    and then only in MS Excel and in Open Office, not in Gnumeric
-            if ((is_string($arg)) && (!is_numeric($arg)) && (!Functions::isCellValue($k))) {
+            if ((\is_string($arg)) && (!\is_numeric($arg)) && (!Functions::isCellValue($k))) {
                 return Functions::VALUE();
             }
             if (self::isAcceptedCountable($arg, $k)) {
-                $returnValue += abs($arg - $aMean);
+                $returnValue += \abs($arg - $aMean);
                 ++$aCount;
             }
         }
@@ -632,7 +632,7 @@ class Statistical
             // Is it a numeric value?
             // Strings containing numeric values are only counted if they are string literals (not cell values)
             //    and then only in MS Excel and in Open Office, not in Gnumeric
-            if ((is_string($arg)) && (!is_numeric($arg)) && (!Functions::isCellValue($k))) {
+            if ((\is_string($arg)) && (!\is_numeric($arg)) && (!Functions::isCellValue($k))) {
                 return Functions::VALUE();
             }
             if (self::isAcceptedCountable($arg, $k)) {
@@ -670,13 +670,13 @@ class Statistical
         $aCount = 0;
         // Loop through arguments
         foreach (Functions::flattenArrayIndexed($args) as $k => $arg) {
-            if ((is_bool($arg)) &&
+            if ((\is_bool($arg)) &&
                 (!Functions::isMatrixValue($k))) {
             } else {
-                if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
-                    if (is_bool($arg)) {
+                if ((\is_numeric($arg)) || (\is_bool($arg)) || ((\is_string($arg) && ($arg != '')))) {
+                    if (\is_bool($arg)) {
                         $arg = (int) $arg;
-                    } elseif (is_string($arg)) {
+                    } elseif (\is_string($arg)) {
                         $arg = 0;
                     }
                     $returnValue += $arg;
@@ -718,16 +718,16 @@ class Statistical
             $averageArgs = $aArgs;
         }
         $condition = Functions::ifCondition($condition);
-        $conditionIsNumeric = strpos($condition, '"') === false;
+        $conditionIsNumeric = \strpos($condition, '"') === false;
 
         // Loop through arguments
         $aCount = 0;
         foreach ($aArgs as $key => $arg) {
-            if (!is_numeric($arg)) {
+            if (!\is_numeric($arg)) {
                 if ($conditionIsNumeric) {
                     continue;
                 }
-                $arg = Calculation::wrapResult(strtoupper($arg));
+                $arg = Calculation::wrapResult(\strtoupper($arg));
             } elseif (!$conditionIsNumeric) {
                 continue;
             }
@@ -766,7 +766,7 @@ class Statistical
         $rMin = Functions::flattenSingleValue($rMin);
         $rMax = Functions::flattenSingleValue($rMax);
 
-        if ((is_numeric($value)) && (is_numeric($alpha)) && (is_numeric($beta)) && (is_numeric($rMin)) && (is_numeric($rMax))) {
+        if ((\is_numeric($value)) && (\is_numeric($alpha)) && (\is_numeric($beta)) && (\is_numeric($rMin)) && (\is_numeric($rMax))) {
             if (($value < $rMin) || ($value > $rMax) || ($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax)) {
                 return Functions::NAN();
             }
@@ -805,7 +805,7 @@ class Statistical
         $rMin = Functions::flattenSingleValue($rMin);
         $rMax = Functions::flattenSingleValue($rMax);
 
-        if ((is_numeric($probability)) && (is_numeric($alpha)) && (is_numeric($beta)) && (is_numeric($rMin)) && (is_numeric($rMax))) {
+        if ((\is_numeric($probability)) && (\is_numeric($alpha)) && (\is_numeric($beta)) && (\is_numeric($rMin)) && (\is_numeric($rMax))) {
             if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0) || ($probability > 1)) {
                 return Functions::NAN();
             }
@@ -833,7 +833,7 @@ class Statistical
                 return Functions::NA();
             }
 
-            return round($rMin + $guess * ($rMax - $rMin), 12);
+            return \round($rMin + $guess * ($rMax - $rMin), 12);
         }
 
         return Functions::VALUE();
@@ -861,26 +861,26 @@ class Statistical
         $trials = Functions::flattenSingleValue($trials);
         $probability = Functions::flattenSingleValue($probability);
 
-        if ((is_numeric($value)) && (is_numeric($trials)) && (is_numeric($probability))) {
-            $value = floor($value);
-            $trials = floor($trials);
+        if ((\is_numeric($value)) && (\is_numeric($trials)) && (\is_numeric($probability))) {
+            $value = \floor($value);
+            $trials = \floor($trials);
             if (($value < 0) || ($value > $trials)) {
                 return Functions::NAN();
             }
             if (($probability < 0) || ($probability > 1)) {
                 return Functions::NAN();
             }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
+            if ((\is_numeric($cumulative)) || (\is_bool($cumulative))) {
                 if ($cumulative) {
                     $summer = 0;
                     for ($i = 0; $i <= $value; ++$i) {
-                        $summer += MathTrig::COMBIN($trials, $i) * pow($probability, $i) * pow(1 - $probability, $trials - $i);
+                        $summer += MathTrig::COMBIN($trials, $i) * \pow($probability, $i) * \pow(1 - $probability, $trials - $i);
                     }
 
                     return $summer;
                 }
 
-                return MathTrig::COMBIN($trials, $value) * pow($probability, $value) * pow(1 - $probability, $trials - $value);
+                return MathTrig::COMBIN($trials, $value) * \pow($probability, $value) * \pow(1 - $probability, $trials - $value);
             }
         }
 
@@ -902,8 +902,8 @@ class Statistical
         $value = Functions::flattenSingleValue($value);
         $degrees = Functions::flattenSingleValue($degrees);
 
-        if ((is_numeric($value)) && (is_numeric($degrees))) {
-            $degrees = floor($degrees);
+        if ((\is_numeric($value)) && (\is_numeric($degrees))) {
+            $degrees = \floor($degrees);
             if ($degrees < 1) {
                 return Functions::NAN();
             }
@@ -936,8 +936,8 @@ class Statistical
         $probability = Functions::flattenSingleValue($probability);
         $degrees = Functions::flattenSingleValue($degrees);
 
-        if ((is_numeric($probability)) && (is_numeric($degrees))) {
-            $degrees = floor($degrees);
+        if ((\is_numeric($probability)) && (\is_numeric($degrees))) {
+            $degrees = \floor($degrees);
 
             $xLo = 100;
             $xHi = 0;
@@ -946,7 +946,7 @@ class Statistical
             $dx = 1;
             $i = 0;
 
-            while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
+            while ((\abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
                 $result = 1 - (self::incompleteGamma($degrees / 2, $x / 2) / self::gamma($degrees / 2));
                 $error = $result - $probability;
@@ -975,7 +975,7 @@ class Statistical
                 return Functions::NA();
             }
 
-            return round($x, 12);
+            return \round($x, 12);
         }
 
         return Functions::VALUE();
@@ -998,8 +998,8 @@ class Statistical
         $stdDev = Functions::flattenSingleValue($stdDev);
         $size = Functions::flattenSingleValue($size);
 
-        if ((is_numeric($alpha)) && (is_numeric($stdDev)) && (is_numeric($size))) {
-            $size = floor($size);
+        if ((\is_numeric($alpha)) && (\is_numeric($stdDev)) && (\is_numeric($size))) {
+            $size = \floor($size);
             if (($alpha <= 0) || ($alpha >= 1)) {
                 return Functions::NAN();
             }
@@ -1007,7 +1007,7 @@ class Statistical
                 return Functions::NAN();
             }
 
-            return self::NORMSINV(1 - $alpha / 2) * $stdDev / sqrt($size);
+            return self::NORMSINV(1 - $alpha / 2) * $stdDev / \sqrt($size);
         }
 
         return Functions::VALUE();
@@ -1025,14 +1025,14 @@ class Statistical
      */
     public static function CORREL($yValues, $xValues = null)
     {
-        if (($xValues === null) || (!is_array($yValues)) || (!is_array($xValues))) {
+        if (($xValues === null) || (!\is_array($yValues)) || (!\is_array($xValues))) {
             return Functions::VALUE();
         }
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
+        $yValueCount = \count($yValues);
+        $xValueCount = \count($xValues);
 
         if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
             return Functions::NA();
@@ -1130,7 +1130,7 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a blank cell?
-            if (($arg === null) || ((is_string($arg)) && ($arg == ''))) {
+            if (($arg === null) || ((\is_string($arg)) && ($arg == ''))) {
                 ++$returnValue;
             }
         }
@@ -1159,14 +1159,14 @@ class Statistical
 
         $aArgs = Functions::flattenArray($aArgs);
         $condition = Functions::ifCondition($condition);
-        $conditionIsNumeric = strpos($condition, '"') === false;
+        $conditionIsNumeric = \strpos($condition, '"') === false;
         // Loop through arguments
         foreach ($aArgs as $arg) {
-            if (!is_numeric($arg)) {
+            if (!\is_numeric($arg)) {
                 if ($conditionIsNumeric) {
                     continue;
                 }
-                $arg = Calculation::wrapResult(strtoupper($arg));
+                $arg = Calculation::wrapResult(\strtoupper($arg));
             } elseif (!$conditionIsNumeric) {
                 continue;
             }
@@ -1208,27 +1208,27 @@ class Statistical
         $aArgsArray = [];
         $conditions = [];
 
-        while (count($arrayList) > 0) {
-            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
-            $conditions[] = Functions::ifCondition(array_shift($arrayList));
+        while (\count($arrayList) > 0) {
+            $aArgsArray[] = Functions::flattenArray(\array_shift($arrayList));
+            $conditions[] = Functions::ifCondition(\array_shift($arrayList));
         }
 
         // Loop through each arg and see if arguments and conditions are true
-        foreach (array_keys($aArgsArray[0]) as $index) {
+        foreach (\array_keys($aArgsArray[0]) as $index) {
             $valid = true;
 
             foreach ($conditions as $cidx => $condition) {
-                $conditionIsNumeric = strpos($condition, '"') === false;
+                $conditionIsNumeric = \strpos($condition, '"') === false;
                 $arg = $aArgsArray[$cidx][$index];
 
                 // Loop through arguments
-                if (!is_numeric($arg)) {
+                if (!\is_numeric($arg)) {
                     if ($conditionIsNumeric) {
                         $valid = false;
 
                         break; // if false found, don't need to check other conditions
                     }
-                    $arg = Calculation::wrapResult(strtoupper($arg));
+                    $arg = Calculation::wrapResult(\strtoupper($arg));
                 } elseif (!$conditionIsNumeric) {
                     $valid = false;
 
@@ -1267,8 +1267,8 @@ class Statistical
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
+        $yValueCount = \count($yValues);
+        $xValueCount = \count($xValues);
 
         if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
             return Functions::NA();
@@ -1302,11 +1302,11 @@ class Statistical
      */
     public static function CRITBINOM($trials, $probability, $alpha)
     {
-        $trials = floor(Functions::flattenSingleValue($trials));
+        $trials = \floor(Functions::flattenSingleValue($trials));
         $probability = Functions::flattenSingleValue($probability);
         $alpha = Functions::flattenSingleValue($alpha);
 
-        if ((is_numeric($trials)) && (is_numeric($probability)) && (is_numeric($alpha))) {
+        if ((\is_numeric($trials)) && (\is_numeric($probability)) && (\is_numeric($alpha))) {
             $trials = (int) $trials;
             if ($trials < 0) {
                 return Functions::NAN();
@@ -1317,14 +1317,14 @@ class Statistical
             }
 
             if ($alpha <= 0.5) {
-                $t = sqrt(log(1 / ($alpha * $alpha)));
+                $t = \sqrt(\log(1 / ($alpha * $alpha)));
                 $trialsApprox = 0 - ($t + (2.515517 + 0.802853 * $t + 0.010328 * $t * $t) / (1 + 1.432788 * $t + 0.189269 * $t * $t + 0.001308 * $t * $t * $t));
             } else {
-                $t = sqrt(log(1 / pow(1 - $alpha, 2)));
+                $t = \sqrt(\log(1 / \pow(1 - $alpha, 2)));
                 $trialsApprox = $t - (2.515517 + 0.802853 * $t + 0.010328 * $t * $t) / (1 + 1.432788 * $t + 0.189269 * $t * $t + 0.001308 * $t * $t * $t);
             }
 
-            $Guess = floor($trials * $probability + $trialsApprox * sqrt($trials * $probability * (1 - $probability)));
+            $Guess = \floor($trials * $probability + $trialsApprox * \sqrt($trials * $probability * (1 - $probability)));
             if ($Guess < 0) {
                 $Guess = 0;
             } elseif ($Guess > $trials) {
@@ -1334,7 +1334,7 @@ class Statistical
             $TotalUnscaledProbability = $UnscaledPGuess = $UnscaledCumPGuess = 0.0;
             $EssentiallyZero = 10e-12;
 
-            $m = floor($trials * $probability);
+            $m = \floor($trials * $probability);
             ++$TotalUnscaledProbability;
             if ($m == $Guess) {
                 ++$UnscaledPGuess;
@@ -1434,16 +1434,16 @@ class Statistical
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
                 // Is it a numeric value?
-                if ((is_bool($arg)) &&
+                if ((\is_bool($arg)) &&
                     ((!Functions::isCellValue($k)) ||
                     (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))) {
                     $arg = (int) $arg;
                 }
-                if ((is_numeric($arg)) && (!is_string($arg))) {
+                if ((\is_numeric($arg)) && (!\is_string($arg))) {
                     if ($returnValue === null) {
-                        $returnValue = pow(($arg - $aMean), 2);
+                        $returnValue = \pow(($arg - $aMean), 2);
                     } else {
-                        $returnValue += pow(($arg - $aMean), 2);
+                        $returnValue += \pow(($arg - $aMean), 2);
                     }
                     ++$aCount;
                 }
@@ -1479,16 +1479,16 @@ class Statistical
         $lambda = Functions::flattenSingleValue($lambda);
         $cumulative = Functions::flattenSingleValue($cumulative);
 
-        if ((is_numeric($value)) && (is_numeric($lambda))) {
+        if ((\is_numeric($value)) && (\is_numeric($lambda))) {
             if (($value < 0) || ($lambda < 0)) {
                 return Functions::NAN();
             }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
+            if ((\is_numeric($cumulative)) || (\is_bool($cumulative))) {
                 if ($cumulative) {
-                    return 1 - exp(0 - $value * $lambda);
+                    return 1 - \exp(0 - $value * $lambda);
                 }
 
-                return $lambda * exp(0 - $value * $lambda);
+                return $lambda * \exp(0 - $value * $lambda);
             }
         }
 
@@ -1510,12 +1510,12 @@ class Statistical
     {
         $value = Functions::flattenSingleValue($value);
 
-        if (is_numeric($value)) {
+        if (\is_numeric($value)) {
             if (($value <= -1) || ($value >= 1)) {
                 return Functions::NAN();
             }
 
-            return 0.5 * log((1 + $value) / (1 - $value));
+            return 0.5 * \log((1 + $value) / (1 - $value));
         }
 
         return Functions::VALUE();
@@ -1536,8 +1536,8 @@ class Statistical
     {
         $value = Functions::flattenSingleValue($value);
 
-        if (is_numeric($value)) {
-            return (exp(2 * $value) - 1) / (exp(2 * $value) + 1);
+        if (\is_numeric($value)) {
+            return (\exp(2 * $value) - 1) / (\exp(2 * $value) + 1);
         }
 
         return Functions::VALUE();
@@ -1557,13 +1557,13 @@ class Statistical
     public static function FORECAST($xValue, $yValues, $xValues)
     {
         $xValue = Functions::flattenSingleValue($xValue);
-        if (!is_numeric($xValue)) {
+        if (!\is_numeric($xValue)) {
             return Functions::VALUE();
         } elseif (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
+        $yValueCount = \count($yValues);
+        $xValueCount = \count($xValues);
 
         if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
             return Functions::NA();
@@ -1594,16 +1594,16 @@ class Statistical
         $a = Functions::flattenSingleValue($a);
         $b = Functions::flattenSingleValue($b);
 
-        if ((is_numeric($value)) && (is_numeric($a)) && (is_numeric($b))) {
+        if ((\is_numeric($value)) && (\is_numeric($a)) && (\is_numeric($b))) {
             if (($value < 0) || ($a <= 0) || ($b <= 0)) {
                 return Functions::NAN();
             }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
+            if ((\is_numeric($cumulative)) || (\is_bool($cumulative))) {
                 if ($cumulative) {
                     return self::incompleteGamma($a, $value / $b) / self::gamma($a);
                 }
 
-                return (1 / (pow($b, $a) * self::gamma($a))) * pow($value, $a - 1) * exp(0 - ($value / $b));
+                return (1 / (\pow($b, $a) * self::gamma($a))) * \pow($value, $a - 1) * \exp(0 - ($value / $b));
             }
         }
 
@@ -1627,7 +1627,7 @@ class Statistical
         $alpha = Functions::flattenSingleValue($alpha);
         $beta = Functions::flattenSingleValue($beta);
 
-        if ((is_numeric($probability)) && (is_numeric($alpha)) && (is_numeric($beta))) {
+        if ((\is_numeric($probability)) && (\is_numeric($alpha)) && (\is_numeric($beta))) {
             if (($alpha <= 0) || ($beta <= 0) || ($probability < 0) || ($probability > 1)) {
                 return Functions::NAN();
             }
@@ -1640,7 +1640,7 @@ class Statistical
             $dx = 1024;
             $i = 0;
 
-            while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
+            while ((\abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
                 $error = self::GAMMADIST($x, $alpha, $beta, true) - $probability;
                 if ($error < 0.0) {
@@ -1686,12 +1686,12 @@ class Statistical
     {
         $value = Functions::flattenSingleValue($value);
 
-        if (is_numeric($value)) {
+        if (\is_numeric($value)) {
             if ($value <= 0) {
                 return Functions::NAN();
             }
 
-            return log(self::gamma($value));
+            return \log(self::gamma($value));
         }
 
         return Functions::VALUE();
@@ -1718,10 +1718,10 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
 
         $aMean = MathTrig::PRODUCT($aArgs);
-        if (is_numeric($aMean) && ($aMean > 0)) {
+        if (\is_numeric($aMean) && ($aMean > 0)) {
             $aCount = self::COUNT($aArgs);
             if (self::MIN($aArgs) > 0) {
-                return pow($aMean, (1 / $aCount));
+                return \pow($aMean, (1 / $aCount));
             }
         }
 
@@ -1788,7 +1788,7 @@ class Statistical
         $aCount = 0;
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            if ((\is_numeric($arg)) && (!\is_string($arg))) {
                 if ($arg <= 0) {
                     return Functions::NAN();
                 }
@@ -1820,12 +1820,12 @@ class Statistical
      */
     public static function HYPGEOMDIST($sampleSuccesses, $sampleNumber, $populationSuccesses, $populationNumber)
     {
-        $sampleSuccesses = floor(Functions::flattenSingleValue($sampleSuccesses));
-        $sampleNumber = floor(Functions::flattenSingleValue($sampleNumber));
-        $populationSuccesses = floor(Functions::flattenSingleValue($populationSuccesses));
-        $populationNumber = floor(Functions::flattenSingleValue($populationNumber));
+        $sampleSuccesses = \floor(Functions::flattenSingleValue($sampleSuccesses));
+        $sampleNumber = \floor(Functions::flattenSingleValue($sampleNumber));
+        $populationSuccesses = \floor(Functions::flattenSingleValue($populationSuccesses));
+        $populationNumber = \floor(Functions::flattenSingleValue($populationNumber));
 
-        if ((is_numeric($sampleSuccesses)) && (is_numeric($sampleNumber)) && (is_numeric($populationSuccesses)) && (is_numeric($populationNumber))) {
+        if ((\is_numeric($sampleSuccesses)) && (\is_numeric($sampleNumber)) && (\is_numeric($populationSuccesses)) && (\is_numeric($populationNumber))) {
             if (($sampleSuccesses < 0) || ($sampleSuccesses > $sampleNumber) || ($sampleSuccesses > $populationSuccesses)) {
                 return Functions::NAN();
             }
@@ -1859,8 +1859,8 @@ class Statistical
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
+        $yValueCount = \count($yValues);
+        $xValueCount = \count($xValues);
 
         if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
             return Functions::NA();
@@ -1895,12 +1895,12 @@ class Statistical
             $count = $summer = 0;
             // Loop through arguments
             foreach ($aArgs as $k => $arg) {
-                if ((is_bool($arg)) &&
+                if ((\is_bool($arg)) &&
                     (!Functions::isMatrixValue($k))) {
                 } else {
                     // Is it a numeric value?
-                    if ((is_numeric($arg)) && (!is_string($arg))) {
-                        $summer += pow((($arg - $mean) / $stdDev), 4);
+                    if ((\is_numeric($arg)) && (!\is_string($arg))) {
+                        $summer += \pow((($arg - $mean) / $stdDev), 4);
                         ++$count;
                     }
                 }
@@ -1908,7 +1908,7 @@ class Statistical
 
             // Return
             if ($count > 3) {
-                return $summer * ($count * ($count + 1) / (($count - 1) * ($count - 2) * ($count - 3))) - (3 * pow($count - 1, 2) / (($count - 2) * ($count - 3)));
+                return $summer * ($count * ($count + 1) / (($count - 1) * ($count - 2) * ($count - 3))) - (3 * \pow($count - 1, 2) / (($count - 2) * ($count - 3)));
             }
         }
 
@@ -1936,22 +1936,22 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
 
         // Calculate
-        $entry = floor(array_pop($aArgs));
+        $entry = \floor(\array_pop($aArgs));
 
-        if ((is_numeric($entry)) && (!is_string($entry))) {
+        if ((\is_numeric($entry)) && (!\is_string($entry))) {
             $mArgs = [];
             foreach ($aArgs as $arg) {
                 // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
+                if ((\is_numeric($arg)) && (!\is_string($arg))) {
                     $mArgs[] = $arg;
                 }
             }
             $count = self::COUNT($mArgs);
-            $entry = floor(--$entry);
+            $entry = \floor(--$entry);
             if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
                 return Functions::NAN();
             }
-            rsort($mArgs);
+            \rsort($mArgs);
 
             return $mArgs[$entry];
         }
@@ -1977,14 +1977,14 @@ class Statistical
         $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
         $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
         if ($xValues === null) {
-            $xValues = range(1, count(Functions::flattenArray($yValues)));
+            $xValues = \range(1, \count(Functions::flattenArray($yValues)));
         }
 
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
+        $yValueCount = \count($yValues);
+        $xValueCount = \count($xValues);
 
         if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
             return Functions::NA();
@@ -2036,14 +2036,14 @@ class Statistical
         $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
         $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
         if ($xValues === null) {
-            $xValues = range(1, count(Functions::flattenArray($yValues)));
+            $xValues = \range(1, \count(Functions::flattenArray($yValues)));
         }
 
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
+        $yValueCount = \count($yValues);
+        $xValueCount = \count($xValues);
 
         foreach ($yValues as $value) {
             if ($value <= 0.0) {
@@ -2104,12 +2104,12 @@ class Statistical
         $mean = Functions::flattenSingleValue($mean);
         $stdDev = Functions::flattenSingleValue($stdDev);
 
-        if ((is_numeric($probability)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
+        if ((\is_numeric($probability)) && (\is_numeric($mean)) && (\is_numeric($stdDev))) {
             if (($probability < 0) || ($probability > 1) || ($stdDev <= 0)) {
                 return Functions::NAN();
             }
 
-            return exp($mean + $stdDev * self::NORMSINV($probability));
+            return \exp($mean + $stdDev * self::NORMSINV($probability));
         }
 
         return Functions::VALUE();
@@ -2133,12 +2133,12 @@ class Statistical
         $mean = Functions::flattenSingleValue($mean);
         $stdDev = Functions::flattenSingleValue($stdDev);
 
-        if ((is_numeric($value)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
+        if ((\is_numeric($value)) && (\is_numeric($mean)) && (\is_numeric($stdDev))) {
             if (($value <= 0) || ($stdDev <= 0)) {
                 return Functions::NAN();
             }
 
-            return self::NORMSDIST((log($value) - $mean) / $stdDev);
+            return self::NORMSDIST((\log($value) - $mean) / $stdDev);
         }
 
         return Functions::VALUE();
@@ -2167,7 +2167,7 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            if ((\is_numeric($arg)) && (!\is_string($arg))) {
                 if (($returnValue === null) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
@@ -2203,10 +2203,10 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
-            if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
-                if (is_bool($arg)) {
+            if ((\is_numeric($arg)) || (\is_bool($arg)) || ((\is_string($arg) && ($arg != '')))) {
+                if (\is_bool($arg)) {
                     $arg = (int) $arg;
-                } elseif (is_string($arg)) {
+                } elseif (\is_string($arg)) {
                     $arg = 0;
                 }
                 if (($returnValue === null) || ($arg > $returnValue)) {
@@ -2243,13 +2243,13 @@ class Statistical
         // Return value
         $returnValue = null;
 
-        $maxArgs = Functions::flattenArray(array_shift($arrayList));
+        $maxArgs = Functions::flattenArray(\array_shift($arrayList));
         $aArgsArray = [];
         $conditions = [];
 
-        while (count($arrayList) > 0) {
-            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
-            $conditions[] = Functions::ifCondition(array_shift($arrayList));
+        while (\count($arrayList) > 0) {
+            $aArgsArray[] = Functions::flattenArray(\array_shift($arrayList));
+            $conditions[] = Functions::ifCondition(\array_shift($arrayList));
         }
 
         // Loop through each arg and see if arguments and conditions are true
@@ -2260,8 +2260,8 @@ class Statistical
                 $arg = $aArgsArray[$cidx][$index];
 
                 // Loop through arguments
-                if (!is_numeric($arg)) {
-                    $arg = Calculation::wrapResult(strtoupper($arg));
+                if (!\is_numeric($arg)) {
+                    $arg = Calculation::wrapResult(\strtoupper($arg));
                 }
                 $testCondition = '=' . $arg . $condition;
                 if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
@@ -2273,7 +2273,7 @@ class Statistical
             }
 
             if ($valid) {
-                $returnValue = $returnValue === null ? $value : max($value, $returnValue);
+                $returnValue = $returnValue === null ? $value : \max($value, $returnValue);
             }
         }
 
@@ -2304,19 +2304,19 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            if ((\is_numeric($arg)) && (!\is_string($arg))) {
                 $mArgs[] = $arg;
             }
         }
 
-        $mValueCount = count($mArgs);
+        $mValueCount = \count($mArgs);
         if ($mValueCount > 0) {
-            sort($mArgs, SORT_NUMERIC);
+            \sort($mArgs, SORT_NUMERIC);
             $mValueCount = $mValueCount / 2;
-            if ($mValueCount == floor($mValueCount)) {
+            if ($mValueCount == \floor($mValueCount)) {
                 $returnValue = ($mArgs[$mValueCount--] + $mArgs[$mValueCount]) / 2;
             } else {
-                $mValueCount = floor($mValueCount);
+                $mValueCount = \floor($mValueCount);
                 $returnValue = $mArgs[$mValueCount];
             }
         }
@@ -2347,7 +2347,7 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            if ((\is_numeric($arg)) && (!\is_string($arg))) {
                 if (($returnValue === null) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
@@ -2383,10 +2383,10 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
-            if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
-                if (is_bool($arg)) {
+            if ((\is_numeric($arg)) || (\is_bool($arg)) || ((\is_string($arg) && ($arg != '')))) {
+                if (\is_bool($arg)) {
                     $arg = (int) $arg;
-                } elseif (is_string($arg)) {
+                } elseif (\is_string($arg)) {
                     $arg = 0;
                 }
                 if (($returnValue === null) || ($arg < $returnValue)) {
@@ -2423,13 +2423,13 @@ class Statistical
         // Return value
         $returnValue = null;
 
-        $minArgs = Functions::flattenArray(array_shift($arrayList));
+        $minArgs = Functions::flattenArray(\array_shift($arrayList));
         $aArgsArray = [];
         $conditions = [];
 
-        while (count($arrayList) > 0) {
-            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
-            $conditions[] = Functions::ifCondition(array_shift($arrayList));
+        while (\count($arrayList) > 0) {
+            $aArgsArray[] = Functions::flattenArray(\array_shift($arrayList));
+            $conditions[] = Functions::ifCondition(\array_shift($arrayList));
         }
 
         // Loop through each arg and see if arguments and conditions are true
@@ -2440,8 +2440,8 @@ class Statistical
                 $arg = $aArgsArray[$cidx][$index];
 
                 // Loop through arguments
-                if (!is_numeric($arg)) {
-                    $arg = Calculation::wrapResult(strtoupper($arg));
+                if (!\is_numeric($arg)) {
+                    $arg = Calculation::wrapResult(\strtoupper($arg));
                 }
                 $testCondition = '=' . $arg . $condition;
                 if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
@@ -2453,7 +2453,7 @@ class Statistical
             }
 
             if ($valid) {
-                $returnValue = $returnValue === null ? $value : min($value, $returnValue);
+                $returnValue = $returnValue === null ? $value : \min($value, $returnValue);
             }
         }
 
@@ -2490,7 +2490,7 @@ class Statistical
             $frequencyList[$key] = $value['frequency'];
             $valueList[$key] = $value['value'];
         }
-        array_multisort($frequencyList, SORT_DESC, $valueList, SORT_ASC, SORT_NUMERIC, $frequencyArray);
+        \array_multisort($frequencyList, SORT_DESC, $valueList, SORT_ASC, SORT_NUMERIC, $frequencyArray);
 
         if ($frequencyArray[0]['frequency'] == 1) {
             return Functions::NA();
@@ -2523,7 +2523,7 @@ class Statistical
         $mArgs = [];
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            if ((\is_numeric($arg)) && (!\is_string($arg))) {
                 $mArgs[] = $arg;
             }
         }
@@ -2552,11 +2552,11 @@ class Statistical
      */
     public static function NEGBINOMDIST($failures, $successes, $probability)
     {
-        $failures = floor(Functions::flattenSingleValue($failures));
-        $successes = floor(Functions::flattenSingleValue($successes));
+        $failures = \floor(Functions::flattenSingleValue($failures));
+        $successes = \floor(Functions::flattenSingleValue($successes));
         $probability = Functions::flattenSingleValue($probability);
 
-        if ((is_numeric($failures)) && (is_numeric($successes)) && (is_numeric($probability))) {
+        if ((\is_numeric($failures)) && (\is_numeric($successes)) && (\is_numeric($probability))) {
             if (($failures < 0) || ($successes < 1)) {
                 return Functions::NAN();
             } elseif (($probability < 0) || ($probability > 1)) {
@@ -2568,7 +2568,7 @@ class Statistical
                 }
             }
 
-            return (MathTrig::COMBIN($failures + $successes - 1, $successes - 1)) * (pow($probability, $successes)) * (pow(1 - $probability, $failures));
+            return (MathTrig::COMBIN($failures + $successes - 1, $successes - 1)) * (\pow($probability, $successes)) * (\pow(1 - $probability, $failures));
         }
 
         return Functions::VALUE();
@@ -2594,16 +2594,16 @@ class Statistical
         $mean = Functions::flattenSingleValue($mean);
         $stdDev = Functions::flattenSingleValue($stdDev);
 
-        if ((is_numeric($value)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
+        if ((\is_numeric($value)) && (\is_numeric($mean)) && (\is_numeric($stdDev))) {
             if ($stdDev < 0) {
                 return Functions::NAN();
             }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
+            if ((\is_numeric($cumulative)) || (\is_bool($cumulative))) {
                 if ($cumulative) {
-                    return 0.5 * (1 + Engineering::erfVal(($value - $mean) / ($stdDev * sqrt(2))));
+                    return 0.5 * (1 + Engineering::erfVal(($value - $mean) / ($stdDev * \sqrt(2))));
                 }
 
-                return (1 / (self::SQRT2PI * $stdDev)) * exp(0 - (pow($value - $mean, 2) / (2 * ($stdDev * $stdDev))));
+                return (1 / (self::SQRT2PI * $stdDev)) * \exp(0 - (\pow($value - $mean, 2) / (2 * ($stdDev * $stdDev))));
             }
         }
 
@@ -2627,7 +2627,7 @@ class Statistical
         $mean = Functions::flattenSingleValue($mean);
         $stdDev = Functions::flattenSingleValue($stdDev);
 
-        if ((is_numeric($probability)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
+        if ((\is_numeric($probability)) && (\is_numeric($mean)) && (\is_numeric($stdDev))) {
             if (($probability < 0) || ($probability > 1)) {
                 return Functions::NAN();
             }
@@ -2693,25 +2693,25 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
 
         // Calculate
-        $entry = array_pop($aArgs);
+        $entry = \array_pop($aArgs);
 
-        if ((is_numeric($entry)) && (!is_string($entry))) {
+        if ((\is_numeric($entry)) && (!\is_string($entry))) {
             if (($entry < 0) || ($entry > 1)) {
                 return Functions::NAN();
             }
             $mArgs = [];
             foreach ($aArgs as $arg) {
                 // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
+                if ((\is_numeric($arg)) && (!\is_string($arg))) {
                     $mArgs[] = $arg;
                 }
             }
-            $mValueCount = count($mArgs);
+            $mValueCount = \count($mArgs);
             if ($mValueCount > 0) {
-                sort($mArgs);
+                \sort($mArgs);
                 $count = self::COUNT($mArgs);
                 $index = $entry * ($count - 1);
-                $iBase = floor($index);
+                $iBase = \floor($index);
                 if ($index == $iBase) {
                     return $mArgs[$index];
                 }
@@ -2743,12 +2743,12 @@ class Statistical
         $significance = ($significance === null) ? 3 : (int) Functions::flattenSingleValue($significance);
 
         foreach ($valueSet as $key => $valueEntry) {
-            if (!is_numeric($valueEntry)) {
+            if (!\is_numeric($valueEntry)) {
                 unset($valueSet[$key]);
             }
         }
-        sort($valueSet, SORT_NUMERIC);
-        $valueCount = count($valueSet);
+        \sort($valueSet, SORT_NUMERIC);
+        $valueCount = \count($valueSet);
         if ($valueCount == 0) {
             return Functions::NAN();
         }
@@ -2758,7 +2758,7 @@ class Statistical
             return Functions::NA();
         }
 
-        $pos = array_search($value, $valueSet);
+        $pos = \array_search($value, $valueSet);
         if ($pos === false) {
             $pos = 0;
             $testValue = $valueSet[0];
@@ -2769,7 +2769,7 @@ class Statistical
             $pos += (($value - $valueSet[$pos]) / ($testValue - $valueSet[$pos]));
         }
 
-        return round($pos / $valueAdjustor, $significance);
+        return \round($pos / $valueAdjustor, $significance);
     }
 
     /**
@@ -2791,13 +2791,13 @@ class Statistical
         $numObjs = Functions::flattenSingleValue($numObjs);
         $numInSet = Functions::flattenSingleValue($numInSet);
 
-        if ((is_numeric($numObjs)) && (is_numeric($numInSet))) {
-            $numInSet = floor($numInSet);
+        if ((\is_numeric($numObjs)) && (\is_numeric($numInSet))) {
+            $numInSet = \floor($numInSet);
             if ($numObjs < $numInSet) {
                 return Functions::NAN();
             }
 
-            return round(MathTrig::FACT($numObjs) / MathTrig::FACT($numObjs - $numInSet));
+            return \round(MathTrig::FACT($numObjs) / MathTrig::FACT($numObjs - $numInSet));
         }
 
         return Functions::VALUE();
@@ -2821,22 +2821,22 @@ class Statistical
         $value = Functions::flattenSingleValue($value);
         $mean = Functions::flattenSingleValue($mean);
 
-        if ((is_numeric($value)) && (is_numeric($mean))) {
+        if ((\is_numeric($value)) && (\is_numeric($mean))) {
             if (($value < 0) || ($mean <= 0)) {
                 return Functions::NAN();
             }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
+            if ((\is_numeric($cumulative)) || (\is_bool($cumulative))) {
                 if ($cumulative) {
                     $summer = 0;
-                    $floor = floor($value);
+                    $floor = \floor($value);
                     for ($i = 0; $i <= $floor; ++$i) {
-                        $summer += pow($mean, $i) / MathTrig::FACT($i);
+                        $summer += \pow($mean, $i) / MathTrig::FACT($i);
                     }
 
-                    return exp(0 - $mean) * $summer;
+                    return \exp(0 - $mean) * $summer;
                 }
 
-                return (exp(0 - $mean) * pow($mean, $value)) / MathTrig::FACT($value);
+                return (\exp(0 - $mean) * \pow($mean, $value)) / MathTrig::FACT($value);
             }
         }
 
@@ -2863,9 +2863,9 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
 
         // Calculate
-        $entry = floor(array_pop($aArgs));
+        $entry = \floor(\array_pop($aArgs));
 
-        if ((is_numeric($entry)) && (!is_string($entry))) {
+        if ((\is_numeric($entry)) && (!\is_string($entry))) {
             $entry /= 4;
             if (($entry < 0) || ($entry > 1)) {
                 return Functions::NAN();
@@ -2895,17 +2895,17 @@ class Statistical
         $order = ($order === null) ? 0 : (int) Functions::flattenSingleValue($order);
 
         foreach ($valueSet as $key => $valueEntry) {
-            if (!is_numeric($valueEntry)) {
+            if (!\is_numeric($valueEntry)) {
                 unset($valueSet[$key]);
             }
         }
 
         if ($order == 0) {
-            rsort($valueSet, SORT_NUMERIC);
+            \rsort($valueSet, SORT_NUMERIC);
         } else {
-            sort($valueSet, SORT_NUMERIC);
+            \sort($valueSet, SORT_NUMERIC);
         }
-        $pos = array_search($value, $valueSet);
+        $pos = \array_search($value, $valueSet);
         if ($pos === false) {
             return Functions::NA();
         }
@@ -2928,8 +2928,8 @@ class Statistical
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
+        $yValueCount = \count($yValues);
+        $xValueCount = \count($xValues);
 
         if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
             return Functions::NA();
@@ -2963,12 +2963,12 @@ class Statistical
         $count = $summer = 0;
         // Loop through arguments
         foreach ($aArgs as $k => $arg) {
-            if ((is_bool($arg)) &&
+            if ((\is_bool($arg)) &&
                 (!Functions::isMatrixValue($k))) {
             } else {
                 // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $summer += pow((($arg - $mean) / $stdDev), 3);
+                if ((\is_numeric($arg)) && (!\is_string($arg))) {
+                    $summer += \pow((($arg - $mean) / $stdDev), 3);
                     ++$count;
                 }
             }
@@ -2996,8 +2996,8 @@ class Statistical
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
+        $yValueCount = \count($yValues);
+        $xValueCount = \count($xValues);
 
         if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
             return Functions::NA();
@@ -3031,22 +3031,22 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
 
         // Calculate
-        $entry = array_pop($aArgs);
+        $entry = \array_pop($aArgs);
 
-        if ((is_numeric($entry)) && (!is_string($entry))) {
+        if ((\is_numeric($entry)) && (!\is_string($entry))) {
             $mArgs = [];
             foreach ($aArgs as $arg) {
                 // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
+                if ((\is_numeric($arg)) && (!\is_string($arg))) {
                     $mArgs[] = $arg;
                 }
             }
             $count = self::COUNT($mArgs);
-            $entry = floor(--$entry);
+            $entry = \floor(--$entry);
             if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
                 return Functions::NAN();
             }
-            sort($mArgs);
+            \sort($mArgs);
 
             return $mArgs[$entry];
         }
@@ -3071,7 +3071,7 @@ class Statistical
         $mean = Functions::flattenSingleValue($mean);
         $stdDev = Functions::flattenSingleValue($stdDev);
 
-        if ((is_numeric($value)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
+        if ((\is_numeric($value)) && (\is_numeric($mean)) && (\is_numeric($stdDev))) {
             if ($stdDev <= 0) {
                 return Functions::NAN();
             }
@@ -3108,16 +3108,16 @@ class Statistical
         if ($aMean !== null) {
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
-                if ((is_bool($arg)) &&
+                if ((\is_bool($arg)) &&
                     ((!Functions::isCellValue($k)) || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))) {
                     $arg = (int) $arg;
                 }
                 // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
+                if ((\is_numeric($arg)) && (!\is_string($arg))) {
                     if ($returnValue === null) {
-                        $returnValue = pow(($arg - $aMean), 2);
+                        $returnValue = \pow(($arg - $aMean), 2);
                     } else {
-                        $returnValue += pow(($arg - $aMean), 2);
+                        $returnValue += \pow(($arg - $aMean), 2);
                     }
                     ++$aCount;
                 }
@@ -3125,7 +3125,7 @@ class Statistical
 
             // Return
             if (($aCount > 0) && ($returnValue >= 0)) {
-                return sqrt($returnValue / $aCount);
+                return \sqrt($returnValue / $aCount);
             }
         }
 
@@ -3156,20 +3156,20 @@ class Statistical
         if ($aMean !== null) {
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
-                if ((is_bool($arg)) &&
+                if ((\is_bool($arg)) &&
                     (!Functions::isMatrixValue($k))) {
                 } else {
                     // Is it a numeric value?
-                    if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) & ($arg != '')))) {
-                        if (is_bool($arg)) {
+                    if ((\is_numeric($arg)) || (\is_bool($arg)) || ((\is_string($arg) & ($arg != '')))) {
+                        if (\is_bool($arg)) {
                             $arg = (int) $arg;
-                        } elseif (is_string($arg)) {
+                        } elseif (\is_string($arg)) {
                             $arg = 0;
                         }
                         if ($returnValue === null) {
-                            $returnValue = pow(($arg - $aMean), 2);
+                            $returnValue = \pow(($arg - $aMean), 2);
                         } else {
-                            $returnValue += pow(($arg - $aMean), 2);
+                            $returnValue += \pow(($arg - $aMean), 2);
                         }
                         ++$aCount;
                     }
@@ -3177,7 +3177,7 @@ class Statistical
             }
 
             if (($aCount > 0) && ($returnValue >= 0)) {
-                return sqrt($returnValue / $aCount);
+                return \sqrt($returnValue / $aCount);
             }
         }
 
@@ -3208,23 +3208,23 @@ class Statistical
         if ($aMean !== null) {
             $aCount = 0;
             foreach ($aArgs as $k => $arg) {
-                if ((is_bool($arg)) &&
+                if ((\is_bool($arg)) &&
                     ((!Functions::isCellValue($k)) || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))) {
                     $arg = (int) $arg;
                 }
                 // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
+                if ((\is_numeric($arg)) && (!\is_string($arg))) {
                     if ($returnValue === null) {
-                        $returnValue = pow(($arg - $aMean), 2);
+                        $returnValue = \pow(($arg - $aMean), 2);
                     } else {
-                        $returnValue += pow(($arg - $aMean), 2);
+                        $returnValue += \pow(($arg - $aMean), 2);
                     }
                     ++$aCount;
                 }
             }
 
             if (($aCount > 0) && ($returnValue >= 0)) {
-                return sqrt($returnValue / $aCount);
+                return \sqrt($returnValue / $aCount);
             }
         }
 
@@ -3255,20 +3255,20 @@ class Statistical
         if ($aMean !== null) {
             $aCount = 0;
             foreach ($aArgs as $k => $arg) {
-                if ((is_bool($arg)) &&
+                if ((\is_bool($arg)) &&
                     (!Functions::isMatrixValue($k))) {
                 } else {
                     // Is it a numeric value?
-                    if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) & ($arg != '')))) {
-                        if (is_bool($arg)) {
+                    if ((\is_numeric($arg)) || (\is_bool($arg)) || ((\is_string($arg) & ($arg != '')))) {
+                        if (\is_bool($arg)) {
                             $arg = (int) $arg;
-                        } elseif (is_string($arg)) {
+                        } elseif (\is_string($arg)) {
                             $arg = 0;
                         }
                         if ($returnValue === null) {
-                            $returnValue = pow(($arg - $aMean), 2);
+                            $returnValue = \pow(($arg - $aMean), 2);
                         } else {
-                            $returnValue += pow(($arg - $aMean), 2);
+                            $returnValue += \pow(($arg - $aMean), 2);
                         }
                         ++$aCount;
                     }
@@ -3276,7 +3276,7 @@ class Statistical
             }
 
             if (($aCount > 0) && ($returnValue >= 0)) {
-                return sqrt($returnValue / $aCount);
+                return \sqrt($returnValue / $aCount);
             }
         }
 
@@ -3298,8 +3298,8 @@ class Statistical
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
+        $yValueCount = \count($yValues);
+        $xValueCount = \count($xValues);
 
         if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
             return Functions::NA();
@@ -3326,10 +3326,10 @@ class Statistical
     public static function TDIST($value, $degrees, $tails)
     {
         $value = Functions::flattenSingleValue($value);
-        $degrees = floor(Functions::flattenSingleValue($degrees));
-        $tails = floor(Functions::flattenSingleValue($tails));
+        $degrees = \floor(Functions::flattenSingleValue($degrees));
+        $tails = \floor(Functions::flattenSingleValue($tails));
 
-        if ((is_numeric($value)) && (is_numeric($degrees)) && (is_numeric($tails))) {
+        if ((\is_numeric($value)) && (\is_numeric($degrees)) && (\is_numeric($tails))) {
             if (($value < 0) || ($degrees < 1) || ($tails < 1) || ($tails > 2)) {
                 return Functions::NAN();
             }
@@ -3343,9 +3343,9 @@ class Statistical
             //    Algorithms", editied by P Griffiths and I D Hill (1985; Ellis
             //    Horwood Ltd.; W. Sussex, England).
             $tterm = $degrees;
-            $ttheta = atan2($value, sqrt($tterm));
-            $tc = cos($ttheta);
-            $ts = sin($ttheta);
+            $ttheta = \atan2($value, \sqrt($tterm));
+            $tc = \cos($ttheta);
+            $ts = \sin($ttheta);
             $tsum = 0;
 
             if (($degrees % 2) == 1) {
@@ -3368,10 +3368,10 @@ class Statistical
             }
             $tValue = 0.5 * (1 + $tsum);
             if ($tails == 1) {
-                return 1 - abs($tValue);
+                return 1 - \abs($tValue);
             }
 
-            return 1 - abs((1 - $tValue) - $tValue);
+            return 1 - \abs((1 - $tValue) - $tValue);
         }
 
         return Functions::VALUE();
@@ -3390,9 +3390,9 @@ class Statistical
     public static function TINV($probability, $degrees)
     {
         $probability = Functions::flattenSingleValue($probability);
-        $degrees = floor(Functions::flattenSingleValue($degrees));
+        $degrees = \floor(Functions::flattenSingleValue($degrees));
 
-        if ((is_numeric($probability)) && (is_numeric($degrees))) {
+        if ((\is_numeric($probability)) && (\is_numeric($degrees))) {
             $xLo = 100;
             $xHi = 0;
 
@@ -3400,7 +3400,7 @@ class Statistical
             $dx = 1;
             $i = 0;
 
-            while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
+            while ((\abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
                 $result = self::TDIST($x, $degrees, 2);
                 $error = $result - $probability;
@@ -3429,7 +3429,7 @@ class Statistical
                 return Functions::NA();
             }
 
-            return round($x, 12);
+            return \round($x, 12);
         }
 
         return Functions::VALUE();
@@ -3489,24 +3489,24 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
 
         // Calculate
-        $percent = array_pop($aArgs);
+        $percent = \array_pop($aArgs);
 
-        if ((is_numeric($percent)) && (!is_string($percent))) {
+        if ((\is_numeric($percent)) && (!\is_string($percent))) {
             if (($percent < 0) || ($percent > 1)) {
                 return Functions::NAN();
             }
             $mArgs = [];
             foreach ($aArgs as $arg) {
                 // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
+                if ((\is_numeric($arg)) && (!\is_string($arg))) {
                     $mArgs[] = $arg;
                 }
             }
-            $discard = floor(self::COUNT($mArgs) * $percent / 2);
-            sort($mArgs);
+            $discard = \floor(self::COUNT($mArgs) * $percent / 2);
+            \sort($mArgs);
             for ($i = 0; $i < $discard; ++$i) {
-                array_pop($mArgs);
-                array_shift($mArgs);
+                \array_pop($mArgs);
+                \array_shift($mArgs);
             }
 
             return self::AVERAGE($mArgs);
@@ -3539,11 +3539,11 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
         $aCount = 0;
         foreach ($aArgs as $arg) {
-            if (is_bool($arg)) {
+            if (\is_bool($arg)) {
                 $arg = (int) $arg;
             }
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            if ((\is_numeric($arg)) && (!\is_string($arg))) {
                 $summerA += ($arg * $arg);
                 $summerB += $arg;
                 ++$aCount;
@@ -3583,17 +3583,17 @@ class Statistical
         $aArgs = Functions::flattenArrayIndexed($args);
         $aCount = 0;
         foreach ($aArgs as $k => $arg) {
-            if ((is_string($arg)) &&
+            if ((\is_string($arg)) &&
                 (Functions::isValue($k))) {
                 return Functions::VALUE();
-            } elseif ((is_string($arg)) &&
+            } elseif ((\is_string($arg)) &&
                 (!Functions::isMatrixValue($k))) {
             } else {
                 // Is it a numeric value?
-                if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) & ($arg != '')))) {
-                    if (is_bool($arg)) {
+                if ((\is_numeric($arg)) || (\is_bool($arg)) || ((\is_string($arg) & ($arg != '')))) {
+                    if (\is_bool($arg)) {
                         $arg = (int) $arg;
-                    } elseif (is_string($arg)) {
+                    } elseif (\is_string($arg)) {
                         $arg = 0;
                     }
                     $summerA += ($arg * $arg);
@@ -3637,11 +3637,11 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
         $aCount = 0;
         foreach ($aArgs as $arg) {
-            if (is_bool($arg)) {
+            if (\is_bool($arg)) {
                 $arg = (int) $arg;
             }
             // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
+            if ((\is_numeric($arg)) && (!\is_string($arg))) {
                 $summerA += ($arg * $arg);
                 $summerB += $arg;
                 ++$aCount;
@@ -3681,17 +3681,17 @@ class Statistical
         $aArgs = Functions::flattenArrayIndexed($args);
         $aCount = 0;
         foreach ($aArgs as $k => $arg) {
-            if ((is_string($arg)) &&
+            if ((\is_string($arg)) &&
                 (Functions::isValue($k))) {
                 return Functions::VALUE();
-            } elseif ((is_string($arg)) &&
+            } elseif ((\is_string($arg)) &&
                 (!Functions::isMatrixValue($k))) {
             } else {
                 // Is it a numeric value?
-                if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) & ($arg != '')))) {
-                    if (is_bool($arg)) {
+                if ((\is_numeric($arg)) || (\is_bool($arg)) || ((\is_string($arg) & ($arg != '')))) {
+                    if (\is_bool($arg)) {
                         $arg = (int) $arg;
-                    } elseif (is_string($arg)) {
+                    } elseif (\is_string($arg)) {
                         $arg = 0;
                     }
                     $summerA += ($arg * $arg);
@@ -3729,16 +3729,16 @@ class Statistical
         $alpha = Functions::flattenSingleValue($alpha);
         $beta = Functions::flattenSingleValue($beta);
 
-        if ((is_numeric($value)) && (is_numeric($alpha)) && (is_numeric($beta))) {
+        if ((\is_numeric($value)) && (\is_numeric($alpha)) && (\is_numeric($beta))) {
             if (($value < 0) || ($alpha <= 0) || ($beta <= 0)) {
                 return Functions::NAN();
             }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
+            if ((\is_numeric($cumulative)) || (\is_bool($cumulative))) {
                 if ($cumulative) {
-                    return 1 - exp(0 - pow($value / $beta, $alpha));
+                    return 1 - \exp(0 - \pow($value / $beta, $alpha));
                 }
 
-                return ($alpha / pow($beta, $alpha)) * pow($value, $alpha - 1) * exp(0 - pow($value / $beta, $alpha));
+                return ($alpha / \pow($beta, $alpha)) * \pow($value, $alpha - 1) * \exp(0 - \pow($value / $beta, $alpha));
             }
         }
 
@@ -3766,8 +3766,8 @@ class Statistical
         if ($sigma === null) {
             $sigma = self::STDEV($dataSet);
         }
-        $n = count($dataSet);
+        $n = \count($dataSet);
 
-        return 1 - self::NORMSDIST((self::AVERAGE($dataSet) - $m0) / ($sigma / sqrt($n)));
+        return 1 - self::NORMSDIST((self::AVERAGE($dataSet) - $m0) / ($sigma / \sqrt($n)));
     }
 }

@@ -41,14 +41,14 @@ class XlsxTest extends TestCase
         // Custom Properties
         $customProperties = $properties->getCustomProperties();
         self::assertIsArray($customProperties);
-        $customProperties = array_flip($customProperties);
+        $customProperties = \array_flip($customProperties);
         $this->assertArrayHasKey('Publisher', $customProperties);
 
         foreach ($customPropertySet as $propertyName => $testData) {
             $this->assertTrue($properties->isCustomPropertySet($propertyName));
             $this->assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
             if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
-                $this->assertSame($testData['value'], date('Y-m-d', $properties->getCustomPropertyValue($propertyName)));
+                $this->assertSame($testData['value'], \date('Y-m-d', $properties->getCustomPropertyValue($propertyName)));
             } else {
                 $this->assertSame($testData['value'], $properties->getCustomPropertyValue($propertyName));
             }
@@ -63,7 +63,7 @@ class XlsxTest extends TestCase
 
         $worksheet = $spreadsheet->getActiveSheet();
         for ($row = 1; $row <= 4; ++$row) {
-            $this->assertEquals($row * 5 + 10, floor($worksheet->getRowDimension($row)->getRowHeight()));
+            $this->assertEquals($row * 5 + 10, \floor($worksheet->getRowDimension($row)->getRowHeight()));
         }
 
         $this->assertFalse($worksheet->getRowDimension(5)->getVisible());
@@ -72,7 +72,7 @@ class XlsxTest extends TestCase
             $columnAddress = Coordinate::stringFromColumnIndex($column);
             $this->assertEquals(
                 $column * 2 + 2,
-                floor($worksheet->getColumnDimension($columnAddress)->getWidth())
+                \floor($worksheet->getColumnDimension($columnAddress)->getWidth())
             );
         }
 
@@ -136,7 +136,7 @@ class XlsxTest extends TestCase
         $this->assertEquals(1.3, $pageMargins->getHeader() * 2.54);
 
         $this->assertEquals(PageSetup::PAPERSIZE_A4, $worksheet->getPageSetup()->getPaperSize());
-        $this->assertEquals(['A10', 'A20', 'A30', 'A40', 'A50'], array_keys($worksheet->getBreaks()));
+        $this->assertEquals(['A10', 'A20', 'A30', 'A40', 'A50'], \array_keys($worksheet->getBreaks()));
     }
 
     public function testLoadXlsxConditionalFormatting()
@@ -204,7 +204,7 @@ class XlsxTest extends TestCase
      */
     public function testLoadXlsxWithDoubleAttrDrawing()
     {
-        if (version_compare(PHP_VERSION, '7.0.0', '<')) {
+        if (\version_compare(PHP_VERSION, '7.0.0', '<')) {
             $this->markTestSkipped('Only handled in PHP version >= 7.0.0');
         }
         $filename = './data/Reader/XLSX/double_attr_drawing.xlsx';
@@ -221,7 +221,7 @@ class XlsxTest extends TestCase
         $filename = __DIR__ . '/../../data/Reader/XLSX/empty_drawing.xlsx';
         $reader = new Xlsx();
         $excel = $reader->load($filename);
-        $resultFilename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $resultFilename = \tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($excel);
         $writer->save($resultFilename);
         $excel = $reader->load($resultFilename);

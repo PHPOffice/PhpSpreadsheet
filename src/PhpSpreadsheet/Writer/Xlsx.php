@@ -156,8 +156,8 @@ class Xlsx extends BaseWriter
      */
     public function getWriterPart($pPartName)
     {
-        if ($pPartName != '' && isset($this->writerParts[strtolower($pPartName)])) {
-            return $this->writerParts[strtolower($pPartName)];
+        if ($pPartName != '' && isset($this->writerParts[\strtolower($pPartName)])) {
+            return $this->writerParts[\strtolower($pPartName)];
         }
 
         return null;
@@ -178,8 +178,8 @@ class Xlsx extends BaseWriter
 
             // If $pFilename is php://output or php://stdout, make it a temporary file...
             $originalFilename = $pFilename;
-            if (strtolower($pFilename) == 'php://output' || strtolower($pFilename) == 'php://stdout') {
-                $pFilename = @tempnam(File::sysGetTempDir(), 'phpxltmp');
+            if (\strtolower($pFilename) == 'php://output' || \strtolower($pFilename) == 'php://stdout') {
+                $pFilename = @\tempnam(File::sysGetTempDir(), 'phpxltmp');
                 if ($pFilename == '') {
                     $pFilename = $originalFilename;
                 }
@@ -209,8 +209,8 @@ class Xlsx extends BaseWriter
 
             $zip = new ZipArchive();
 
-            if (file_exists($pFilename)) {
-                unlink($pFilename);
+            if (\file_exists($pFilename)) {
+                \unlink($pFilename);
             }
             // Try opening the ZIP file
             if ($zip->open($pFilename, ZipArchive::OVERWRITE) !== true) {
@@ -241,13 +241,13 @@ class Xlsx extends BaseWriter
                 $tmpRibbonTarget = $this->spreadSheet->getRibbonXMLData('target');
                 $zip->addFromString($tmpRibbonTarget, $this->spreadSheet->getRibbonXMLData('data'));
                 if ($this->spreadSheet->hasRibbonBinObjects()) {
-                    $tmpRootPath = dirname($tmpRibbonTarget) . '/';
+                    $tmpRootPath = \dirname($tmpRibbonTarget) . '/';
                     $ribbonBinObjects = $this->spreadSheet->getRibbonBinObjects('data'); //the files to write
                     foreach ($ribbonBinObjects as $aPath => $aContent) {
                         $zip->addFromString($tmpRootPath . $aPath, $aContent);
                     }
                     //the rels for files
-                    $zip->addFromString($tmpRootPath . '_rels/' . basename($tmpRibbonTarget) . '.rels', $this->getWriterPart('RelsRibbonObjects')->writeRibbonRelationships($this->spreadSheet));
+                    $zip->addFromString($tmpRootPath . '_rels/' . \basename($tmpRibbonTarget) . '.rels', $this->getWriterPart('RelsRibbonObjects')->writeRibbonRelationships($this->spreadSheet));
                 }
             }
 
@@ -281,7 +281,7 @@ class Xlsx extends BaseWriter
                 $zip->addFromString('xl/worksheets/sheet' . ($i + 1) . '.xml', $this->getWriterPart('Worksheet')->writeWorksheet($this->spreadSheet->getSheet($i), $this->stringTable, $this->includeCharts));
                 if ($this->includeCharts) {
                     $charts = $this->spreadSheet->getSheet($i)->getChartCollection();
-                    if (count($charts) > 0) {
+                    if (\count($charts) > 0) {
                         foreach ($charts as $chart) {
                             $zip->addFromString('xl/charts/chart' . ($chartCount + 1) . '.xml', $this->getWriterPart('Chart')->writeChart($chart, $this->preCalculateFormulas));
                             ++$chartCount;
@@ -311,7 +311,7 @@ class Xlsx extends BaseWriter
                 }
 
                 $drawings = $this->spreadSheet->getSheet($i)->getDrawingCollection();
-                $drawingCount = count($drawings);
+                $drawingCount = \count($drawings);
                 if ($this->includeCharts) {
                     $chartCount = $this->spreadSheet->getSheet($i)->getChartCount();
                 }
@@ -331,16 +331,16 @@ class Xlsx extends BaseWriter
                 // Add unparsed drawings
                 if (isset($unparsedLoadedData['sheets'][$sheetCodeName]['Drawings'])) {
                     foreach ($unparsedLoadedData['sheets'][$sheetCodeName]['Drawings'] as $relId => $drawingXml) {
-                        $drawingFile = array_search($relId, $unparsedLoadedData['sheets'][$sheetCodeName]['drawingOriginalIds']);
+                        $drawingFile = \array_search($relId, $unparsedLoadedData['sheets'][$sheetCodeName]['drawingOriginalIds']);
                         if ($drawingFile !== false) {
-                            $drawingFile = ltrim($drawingFile, '.');
+                            $drawingFile = \ltrim($drawingFile, '.');
                             $zip->addFromString('xl' . $drawingFile, $drawingXml);
                         }
                     }
                 }
 
                 // Add comment relationship parts
-                if (count($this->spreadSheet->getSheet($i)->getComments()) > 0) {
+                if (\count($this->spreadSheet->getSheet($i)->getComments()) > 0) {
                     // VML Comments
                     $zip->addFromString('xl/drawings/vmlDrawing' . ($i + 1) . '.vml', $this->getWriterPart('Comments')->writeVMLComments($this->spreadSheet->getSheet($i)));
 
@@ -356,7 +356,7 @@ class Xlsx extends BaseWriter
                 }
 
                 // Add header/footer relationship parts
-                if (count($this->spreadSheet->getSheet($i)->getHeaderFooter()->getImages()) > 0) {
+                if (\count($this->spreadSheet->getSheet($i)->getHeaderFooter()->getImages()) > 0) {
                     // VML Drawings
                     $zip->addFromString('xl/drawings/vmlDrawingHF' . ($i + 1) . '.vml', $this->getWriterPart('Drawing')->writeVMLHeaderFooterImages($this->spreadSheet->getSheet($i)));
 
@@ -365,7 +365,7 @@ class Xlsx extends BaseWriter
 
                     // Media
                     foreach ($this->spreadSheet->getSheet($i)->getHeaderFooter()->getImages() as $image) {
-                        $zip->addFromString('xl/media/' . $image->getIndexedFilename(), file_get_contents($image->getPath()));
+                        $zip->addFromString('xl/media/' . $image->getIndexedFilename(), \file_get_contents($image->getPath()));
                     }
                 }
             }
@@ -375,9 +375,9 @@ class Xlsx extends BaseWriter
                 if ($this->getDrawingHashTable()->getByIndex($i) instanceof WorksheetDrawing) {
                     $imageContents = null;
                     $imagePath = $this->getDrawingHashTable()->getByIndex($i)->getPath();
-                    if (strpos($imagePath, 'zip://') !== false) {
-                        $imagePath = substr($imagePath, 6);
-                        $imagePathSplitted = explode('#', $imagePath);
+                    if (\strpos($imagePath, 'zip://') !== false) {
+                        $imagePath = \substr($imagePath, 6);
+                        $imagePathSplitted = \explode('#', $imagePath);
 
                         $imageZip = new ZipArchive();
                         $imageZip->open($imagePathSplitted[0]);
@@ -385,20 +385,20 @@ class Xlsx extends BaseWriter
                         $imageZip->close();
                         unset($imageZip);
                     } else {
-                        $imageContents = file_get_contents($imagePath);
+                        $imageContents = \file_get_contents($imagePath);
                     }
 
-                    $zip->addFromString('xl/media/' . str_replace(' ', '_', $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename()), $imageContents);
+                    $zip->addFromString('xl/media/' . \str_replace(' ', '_', $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename()), $imageContents);
                 } elseif ($this->getDrawingHashTable()->getByIndex($i) instanceof MemoryDrawing) {
-                    ob_start();
-                    call_user_func(
+                    \ob_start();
+                    \call_user_func(
                         $this->getDrawingHashTable()->getByIndex($i)->getRenderingFunction(),
                         $this->getDrawingHashTable()->getByIndex($i)->getImageResource()
                     );
-                    $imageContents = ob_get_contents();
-                    ob_end_clean();
+                    $imageContents = \ob_get_contents();
+                    \ob_end_clean();
 
-                    $zip->addFromString('xl/media/' . str_replace(' ', '_', $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename()), $imageContents);
+                    $zip->addFromString('xl/media/' . \str_replace(' ', '_', $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename()), $imageContents);
                 }
             }
 
@@ -412,10 +412,10 @@ class Xlsx extends BaseWriter
 
             // If a temporary file was used, copy it to the correct file stream
             if ($originalFilename != $pFilename) {
-                if (copy($pFilename, $originalFilename) === false) {
+                if (\copy($pFilename, $originalFilename) === false) {
                     throw new WriterException("Could not copy temporary zip file $pFilename to $originalFilename.");
                 }
-                @unlink($pFilename);
+                @\unlink($pFilename);
             }
         } else {
             throw new WriterException('PhpSpreadsheet object unassigned.');

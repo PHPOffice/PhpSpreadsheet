@@ -81,11 +81,11 @@ class WorkbookTest extends TestCase
         $paletteTestFour[10] = $newColor3;
 
         // Add all existing color
-        $colorsAdd = array_map([$this, 'paletteToColor'], $palette);
+        $colorsAdd = \array_map([$this, 'paletteToColor'], $palette);
         $paletteTestFive = $palette;
 
         // Add new color after all existing color
-        $colorsAddTwo = array_map([$this, 'paletteToColor'], $palette);
+        $colorsAddTwo = \array_map([$this, 'paletteToColor'], $palette);
         $colorsAddTwo[] = $this->paletteToColor($newColor1);
         $paletteTestSix = $palette;
 
@@ -96,8 +96,8 @@ class WorkbookTest extends TestCase
         $paletteTestHeight = $palette;
 
         // Add last existing color and add one new color
-        $keyPalette = array_keys($palette);
-        $last = end($keyPalette);
+        $keyPalette = \array_keys($palette);
+        $last = \end($keyPalette);
         $lastColor = $this->paletteToColor($palette[$last]);
         $paletteTestNine = $palette;
 
@@ -123,9 +123,9 @@ class WorkbookTest extends TestCase
      */
     private function paletteToColor($palette)
     {
-        return $this->right('00' . dechex((int) ($palette[0])), 2)
-            . $this->right('00' . dechex((int) ($palette[1])), 2)
-            . $this->right('00' . dechex((int) ($palette[2])), 2);
+        return $this->right('00' . \dechex((int) ($palette[0])), 2)
+            . $this->right('00' . \dechex((int) ($palette[1])), 2)
+            . $this->right('00' . \dechex((int) ($palette[2])), 2);
     }
 
     /**
@@ -138,6 +138,6 @@ class WorkbookTest extends TestCase
      */
     private function right($value, $nbchar)
     {
-        return mb_substr($value, mb_strlen($value) - $nbchar, $nbchar);
+        return \mb_substr($value, \mb_strlen($value) - $nbchar, $nbchar);
     }
 }

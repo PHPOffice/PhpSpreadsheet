@@ -52,7 +52,7 @@ class BorderRangeTest extends TestCase
                 $func = "get$side";
                 $b = $bs->$func(); // boo
 
-                if (strpos($borders, $sidekey) === false) {
+                if (\strpos($borders, $sidekey) === false) {
                     self::assertSame(Border::BORDER_NONE, $b->getBorderStyle(), $assertion);
                 } else {
                     self::assertSame(Border::BORDER_THIN, $b->getBorderStyle(), $assertion);

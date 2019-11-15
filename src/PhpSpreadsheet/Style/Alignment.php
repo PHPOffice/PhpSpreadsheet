@@ -452,7 +452,7 @@ class Alignment extends Supervisor
             return $this->getSharedComponent()->getHashCode();
         }
 
-        return md5(
+        return \md5(
             $this->horizontal .
             $this->vertical .
             $this->textRotation .

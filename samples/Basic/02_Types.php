@@ -72,7 +72,7 @@ $spreadsheet->getActiveSheet()
     ->setCellValue('B8', 'False')
     ->setCellValue('C8', false);
 
-$dateTimeNow = time();
+$dateTimeNow = \time();
 $spreadsheet->getActiveSheet()
     ->setCellValue('A9', 'Date/Time')
     ->setCellValue('B9', 'Date')

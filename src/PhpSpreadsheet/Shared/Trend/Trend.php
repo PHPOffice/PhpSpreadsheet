@@ -51,19 +51,19 @@ class Trend
     public static function calculate($trendType = self::TREND_BEST_FIT, $yValues = [], $xValues = [], $const = true)
     {
         //    Calculate number of points in each dataset
-        $nY = count($yValues);
-        $nX = count($xValues);
+        $nY = \count($yValues);
+        $nX = \count($xValues);
 
         //    Define X Values if necessary
         if ($nX == 0) {
-            $xValues = range(1, $nY);
+            $xValues = \range(1, $nY);
             $nX = $nY;
         } elseif ($nY != $nX) {
             //    Ensure both arrays of points are the same size
-            trigger_error('Trend(): Number of elements in coordinate arrays do not match.', E_USER_ERROR);
+            \trigger_error('Trend(): Number of elements in coordinate arrays do not match.', E_USER_ERROR);
         }
 
-        $key = md5($trendType . $const . serialize($yValues) . serialize($xValues));
+        $key = \md5($trendType . $const . \serialize($yValues) . \serialize($xValues));
         //    Determine which Trend method has been requested
         switch ($trendType) {
             //    Instantiate and return the class for the requested Trend method
@@ -83,7 +83,7 @@ class Trend
             case self::TREND_POLYNOMIAL_5:
             case self::TREND_POLYNOMIAL_6:
                 if (!isset(self::$trendCache[$key])) {
-                    $order = substr($trendType, -1);
+                    $order = \substr($trendType, -1);
                     self::$trendCache[$key] = new PolynomialBestFit($order, $yValues, $xValues, $const);
                 }
 
@@ -99,7 +99,7 @@ class Trend
                 }
                 if ($trendType != self::TREND_BEST_FIT_NO_POLY) {
                     foreach (self::$trendTypePolynomialOrders as $trendMethod) {
-                        $order = substr($trendMethod, -1);
+                        $order = \substr($trendMethod, -1);
                         $bestFit[$trendMethod] = new PolynomialBestFit($order, $yValues, $xValues, $const);
                         if ($bestFit[$trendMethod]->getError()) {
                             unset($bestFit[$trendMethod]);
@@ -109,8 +109,8 @@ class Trend
                     }
                 }
                 //    Determine which of our Trend lines is the best fit, and then we return the instance of that Trend class
-                arsort($bestFitValue);
-                $bestFitType = key($bestFitValue);
+                \arsort($bestFitValue);
+                $bestFitType = \key($bestFitValue);
 
                 return $bestFit[$bestFitType];
             default:

@@ -20,7 +20,7 @@ class Properties
 
     private function extractPropertyData($propertyData)
     {
-        return simplexml_load_string(
+        return \simplexml_load_string(
             $this->securityScanner->scan($propertyData),
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
@@ -31,15 +31,15 @@ class Properties
     {
         $xmlCore = $this->extractPropertyData($propertyData);
 
-        if (is_object($xmlCore)) {
+        if (\is_object($xmlCore)) {
             $xmlCore->registerXPathNamespace('dc', 'http://purl.org/dc/elements/1.1/');
             $xmlCore->registerXPathNamespace('dcterms', 'http://purl.org/dc/terms/');
             $xmlCore->registerXPathNamespace('cp', 'http://schemas.openxmlformats.org/package/2006/metadata/core-properties');
 
             $this->docProps->setCreator((string) self::getArrayItem($xmlCore->xpath('dc:creator')));
             $this->docProps->setLastModifiedBy((string) self::getArrayItem($xmlCore->xpath('cp:lastModifiedBy')));
-            $this->docProps->setCreated(strtotime(self::getArrayItem($xmlCore->xpath('dcterms:created')))); //! respect xsi:type
-            $this->docProps->setModified(strtotime(self::getArrayItem($xmlCore->xpath('dcterms:modified')))); //! respect xsi:type
+            $this->docProps->setCreated(\strtotime(self::getArrayItem($xmlCore->xpath('dcterms:created')))); //! respect xsi:type
+            $this->docProps->setModified(\strtotime(self::getArrayItem($xmlCore->xpath('dcterms:modified')))); //! respect xsi:type
             $this->docProps->setTitle((string) self::getArrayItem($xmlCore->xpath('dc:title')));
             $this->docProps->setDescription((string) self::getArrayItem($xmlCore->xpath('dc:description')));
             $this->docProps->setSubject((string) self::getArrayItem($xmlCore->xpath('dc:subject')));
@@ -52,7 +52,7 @@ class Properties
     {
         $xmlCore = $this->extractPropertyData($propertyData);
 
-        if (is_object($xmlCore)) {
+        if (\is_object($xmlCore)) {
             if (isset($xmlCore->Company)) {
                 $this->docProps->setCompany((string) $xmlCore->Company);
             }
@@ -66,7 +66,7 @@ class Properties
     {
         $xmlCore = $this->extractPropertyData($propertyData);
 
-        if (is_object($xmlCore)) {
+        if (\is_object($xmlCore)) {
             foreach ($xmlCore as $xmlProperty) {
                 /** @var \SimpleXMLElement $xmlProperty */
                 $cellDataOfficeAttributes = $xmlProperty->attributes();

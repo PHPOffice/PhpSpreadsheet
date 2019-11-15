@@ -34,7 +34,7 @@ class LookupRefTest extends TestCase
                 ->disableOriginalConstructor()
                 ->getMock();
             $remoteCell->method('isFormula')
-                ->will($this->returnValue(substr($value, 0, 1) == '='));
+                ->will($this->returnValue(\substr($value, 0, 1) == '='));
             $remoteCell->method('getValue')
                 ->will($this->returnValue($value));
 

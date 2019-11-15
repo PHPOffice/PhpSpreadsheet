@@ -40,7 +40,7 @@ class ChunkReadFilter implements IReadFilter
     }
 }
 
-$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Loading file ' . \pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
 // Create a new Reader of the type defined in $inputFileType
 $reader = IOFactory::createReader($inputFileType);
 
@@ -63,5 +63,5 @@ for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
     // Do some processing here
 
     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-    var_dump($sheetData);
+    \var_dump($sheetData);
 }

@@ -59,7 +59,7 @@ $dataSeriesValues = [
 $series = new DataSeries(
     DataSeries::TYPE_BARCHART, // plotType
     DataSeries::GROUPING_CLUSTERED, // plotGrouping
-    range(0, count($dataSeriesValues) - 1), // plotOrder
+    \range(0, \count($dataSeriesValues) - 1), // plotOrder
     $dataSeriesLabels, // plotLabel
     $xAxisTickValues, // plotCategory
     $dataSeriesValues        // plotValues

@@ -181,7 +181,7 @@ class Protection extends Supervisor
             return $this->getSharedComponent()->getHashCode();
         }
 
-        return md5(
+        return \md5(
             $this->locked .
             $this->hidden .
             __CLASS__

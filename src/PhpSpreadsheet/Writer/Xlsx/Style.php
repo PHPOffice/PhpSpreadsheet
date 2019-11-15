@@ -102,7 +102,7 @@ class Style extends WriterPart
 
         // cellXfs
         $objWriter->startElement('cellXfs');
-        $objWriter->writeAttribute('count', count($spreadsheet->getCellXfCollection()));
+        $objWriter->writeAttribute('count', \count($spreadsheet->getCellXfCollection()));
 
         // xf
         foreach ($spreadsheet->getCellXfCollection() as $cellXf) {

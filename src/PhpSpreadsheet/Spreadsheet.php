@@ -303,7 +303,7 @@ class Spreadsheet
     public function getRibbonXMLData($what = 'all') //we need some constants here...
     {
         $returnData = null;
-        $what = strtolower($what);
+        $what = \strtolower($what);
         switch ($what) {
             case 'all':
                 $returnData = $this->ribbonXMLData;
@@ -311,7 +311,7 @@ class Spreadsheet
                 break;
             case 'target':
             case 'data':
-                if (is_array($this->ribbonXMLData) && isset($this->ribbonXMLData[$what])) {
+                if (\is_array($this->ribbonXMLData) && isset($this->ribbonXMLData[$what])) {
                     $returnData = $this->ribbonXMLData[$what];
                 }
 
@@ -371,7 +371,7 @@ class Spreadsheet
      */
     private function getExtensionOnly($path)
     {
-        return pathinfo($path, PATHINFO_EXTENSION);
+        return \pathinfo($path, PATHINFO_EXTENSION);
     }
 
     /**
@@ -384,7 +384,7 @@ class Spreadsheet
     public function getRibbonBinObjects($what = 'all')
     {
         $ReturnData = null;
-        $what = strtolower($what);
+        $what = \strtolower($what);
         switch ($what) {
             case 'all':
                 return $this->ribbonBinObjects;
@@ -392,16 +392,16 @@ class Spreadsheet
                 break;
             case 'names':
             case 'data':
-                if (is_array($this->ribbonBinObjects) && isset($this->ribbonBinObjects[$what])) {
+                if (\is_array($this->ribbonBinObjects) && isset($this->ribbonBinObjects[$what])) {
                     $ReturnData = $this->ribbonBinObjects[$what];
                 }
 
                 break;
             case 'types':
-                if (is_array($this->ribbonBinObjects) &&
-                    isset($this->ribbonBinObjects['data']) && is_array($this->ribbonBinObjects['data'])) {
-                    $tmpTypes = array_keys($this->ribbonBinObjects['data']);
-                    $ReturnData = array_unique(array_map([$this, 'getExtensionOnly'], $tmpTypes));
+                if (\is_array($this->ribbonBinObjects) &&
+                    isset($this->ribbonBinObjects['data']) && \is_array($this->ribbonBinObjects['data'])) {
+                    $tmpTypes = \array_keys($this->ribbonBinObjects['data']);
+                    $ReturnData = \array_unique(\array_map([$this, 'getExtensionOnly'], $tmpTypes));
                 } else {
                     $ReturnData = []; // the caller want an array... not null if empty
                 }
@@ -453,7 +453,7 @@ class Spreadsheet
      */
     public function getSheetByCodeName($pName)
     {
-        $worksheetCount = count($this->workSheetCollection);
+        $worksheetCount = \count($this->workSheetCollection);
         for ($i = 0; $i < $worksheetCount; ++$i) {
             if ($this->workSheetCollection[$i]->getCodeName() == $pName) {
                 return $this->workSheetCollection[$i];
@@ -468,7 +468,7 @@ class Spreadsheet
      */
     public function __construct()
     {
-        $this->uniqueID = uniqid('', true);
+        $this->uniqueID = \uniqid('', true);
         $this->calculationEngine = new Calculation($this);
 
         // Initialise worksheet collection and add one worksheet
@@ -634,7 +634,7 @@ class Spreadsheet
             $this->workSheetCollection[] = $pSheet;
         } else {
             // Insert the sheet at the requested index
-            array_splice(
+            \array_splice(
                 $this->workSheetCollection,
                 $iSheetIndex,
                 0,
@@ -663,17 +663,17 @@ class Spreadsheet
      */
     public function removeSheetByIndex($pIndex)
     {
-        $numSheets = count($this->workSheetCollection);
+        $numSheets = \count($this->workSheetCollection);
         if ($pIndex > $numSheets - 1) {
             throw new Exception(
                 "You tried to remove a sheet by the out of bounds index: {$pIndex}. The actual number of sheets is {$numSheets}."
             );
         }
-        array_splice($this->workSheetCollection, $pIndex, 1);
+        \array_splice($this->workSheetCollection, $pIndex, 1);
 
         // Adjust active sheet index if necessary
         if (($this->activeSheetIndex >= $pIndex) &&
-            ($pIndex > count($this->workSheetCollection) - 1)) {
+            ($pIndex > \count($this->workSheetCollection) - 1)) {
             --$this->activeSheetIndex;
         }
     }
@@ -719,9 +719,9 @@ class Spreadsheet
      */
     public function getSheetByName($pName)
     {
-        $worksheetCount = count($this->workSheetCollection);
+        $worksheetCount = \count($this->workSheetCollection);
         for ($i = 0; $i < $worksheetCount; ++$i) {
-            if ($this->workSheetCollection[$i]->getTitle() === trim($pName, "'")) {
+            if ($this->workSheetCollection[$i]->getTitle() === \trim($pName, "'")) {
                 return $this->workSheetCollection[$i];
             }
         }
@@ -762,12 +762,12 @@ class Spreadsheet
     public function setIndexByName($sheetName, $newIndex)
     {
         $oldIndex = $this->getIndex($this->getSheetByName($sheetName));
-        $pSheet = array_splice(
+        $pSheet = \array_splice(
             $this->workSheetCollection,
             $oldIndex,
             1
         );
-        array_splice(
+        \array_splice(
             $this->workSheetCollection,
             $newIndex,
             0,
@@ -784,7 +784,7 @@ class Spreadsheet
      */
     public function getSheetCount()
     {
-        return count($this->workSheetCollection);
+        return \count($this->workSheetCollection);
     }
 
     /**
@@ -808,7 +808,7 @@ class Spreadsheet
      */
     public function setActiveSheetIndex($pIndex)
     {
-        $numSheets = count($this->workSheetCollection);
+        $numSheets = \count($this->workSheetCollection);
 
         if ($pIndex > $numSheets - 1) {
             throw new Exception(
@@ -873,7 +873,7 @@ class Spreadsheet
         }
 
         // count how many cellXfs there are in this workbook currently, we will need this below
-        $countCellXfs = count($this->cellXfCollection);
+        $countCellXfs = \count($this->cellXfCollection);
 
         // copy all the shared cellXfs from the external workbook and append them to the current
         foreach ($pSheet->getParent()->getCellXfCollection() as $cellXf) {
@@ -991,7 +991,7 @@ class Spreadsheet
     {
         $copied = clone $this;
 
-        $worksheetCount = count($this->workSheetCollection);
+        $worksheetCount = \count($this->workSheetCollection);
         for ($i = 0; $i < $worksheetCount; ++$i) {
             $this->workSheetCollection[$i] = $this->workSheetCollection[$i]->copy();
             $this->workSheetCollection[$i]->rebindParent($this);
@@ -1006,8 +1006,8 @@ class Spreadsheet
     public function __clone()
     {
         foreach ($this as $key => $val) {
-            if (is_object($val) || (is_array($val))) {
-                $this->{$key} = unserialize(serialize($val));
+            if (\is_object($val) || (\is_array($val))) {
+                $this->{$key} = \unserialize(\serialize($val));
             }
         }
     }
@@ -1061,7 +1061,7 @@ class Spreadsheet
      */
     public function cellXfExists($pCellStyle)
     {
-        return in_array($pCellStyle, $this->cellXfCollection, true);
+        return \in_array($pCellStyle, $this->cellXfCollection, true);
     }
 
     /**
@@ -1088,7 +1088,7 @@ class Spreadsheet
     public function addCellXf(Style $style)
     {
         $this->cellXfCollection[] = $style;
-        $style->setIndex(count($this->cellXfCollection) - 1);
+        $style->setIndex(\count($this->cellXfCollection) - 1);
     }
 
     /**
@@ -1100,12 +1100,12 @@ class Spreadsheet
      */
     public function removeCellXfByIndex($pIndex)
     {
-        if ($pIndex > count($this->cellXfCollection) - 1) {
+        if ($pIndex > \count($this->cellXfCollection) - 1) {
             throw new Exception('CellXf index is out of bounds.');
         }
 
         // first remove the cellXf
-        array_splice($this->cellXfCollection, $pIndex, 1);
+        \array_splice($this->cellXfCollection, $pIndex, 1);
 
         // then update cellXf indexes for cells
         foreach ($this->workSheetCollection as $worksheet) {
@@ -1181,7 +1181,7 @@ class Spreadsheet
     public function addCellStyleXf(Style $pStyle)
     {
         $this->cellStyleXfCollection[] = $pStyle;
-        $pStyle->setIndex(count($this->cellStyleXfCollection) - 1);
+        $pStyle->setIndex(\count($this->cellStyleXfCollection) - 1);
     }
 
     /**
@@ -1193,10 +1193,10 @@ class Spreadsheet
      */
     public function removeCellStyleXfByIndex($pIndex)
     {
-        if ($pIndex > count($this->cellStyleXfCollection) - 1) {
+        if ($pIndex > \count($this->cellStyleXfCollection) - 1) {
             throw new Exception('CellStyleXf index is out of bounds.');
         }
-        array_splice($this->cellStyleXfCollection, $pIndex, 1);
+        \array_splice($this->cellStyleXfCollection, $pIndex, 1);
     }
 
     /**
@@ -1242,7 +1242,7 @@ class Spreadsheet
             }
             $map[$index] = $countNeededCellXfs - 1;
         }
-        $this->cellXfCollection = array_values($this->cellXfCollection);
+        $this->cellXfCollection = \array_values($this->cellXfCollection);
 
         // update the index for all cellXfs
         foreach ($this->cellXfCollection as $i => $cellXf) {
@@ -1453,7 +1453,7 @@ class Spreadsheet
             $visibility = self::VISIBILITY_VISIBLE;
         }
 
-        if (in_array($visibility, self::$workbookViewVisibilityValues)) {
+        if (\in_array($visibility, self::$workbookViewVisibilityValues)) {
             $this->visibility = $visibility;
         } else {
             throw new Exception('Invalid visibility value.');

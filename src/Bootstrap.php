@@ -12,7 +12,7 @@ $paths = [
 ];
 
 foreach ($paths as $path) {
-    if (file_exists($path)) {
+    if (\file_exists($path)) {
         require_once $path;
 
         return;

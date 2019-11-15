@@ -36,13 +36,13 @@ $worksheet->setCellValue('B13', '=DAVERAGE(A4:E10,3,A1:A3)');
 $helper->log('Database');
 
 $databaseData = $worksheet->rangeToArray('A4:E10', null, true, true, true);
-var_dump($databaseData);
+\var_dump($databaseData);
 
 // Test the formulae
 $helper->log('Criteria');
 
 $criteriaData = $worksheet->rangeToArray('A1:B2', null, true, true, true);
-var_dump($criteriaData);
+\var_dump($criteriaData);
 
 $helper->log($worksheet->getCell('A12')->getValue());
 $helper->log('DAVERAGE() Result is ' . $worksheet->getCell('B12')->getCalculatedValue());
@@ -50,7 +50,7 @@ $helper->log('DAVERAGE() Result is ' . $worksheet->getCell('B12')->getCalculated
 $helper->log('Criteria');
 
 $criteriaData = $worksheet->rangeToArray('A1:A3', null, true, true, true);
-var_dump($criteriaData);
+\var_dump($criteriaData);
 
 $helper->log($worksheet->getCell('A13')->getValue());
 $helper->log('DAVERAGE() Result is ' . $worksheet->getCell('B13')->getCalculatedValue());

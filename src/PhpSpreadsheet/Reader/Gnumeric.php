@@ -55,16 +55,16 @@ class Gnumeric extends BaseReader
         File::assertFile($pFilename);
 
         // Check if gzlib functions are available
-        if (!function_exists('gzread')) {
+        if (!\function_exists('gzread')) {
             throw new Exception('gzlib library is not enabled');
         }
 
         // Read signature data (first 3 bytes)
-        $fh = fopen($pFilename, 'r');
-        $data = fread($fh, 2);
-        fclose($fh);
+        $fh = \fopen($pFilename, 'r');
+        $data = \fread($fh, 2);
+        \fclose($fh);
 
-        return $data == chr(0x1F) . chr(0x8B);
+        return $data == \chr(0x1F) . \chr(0x8B);
     }
 
     /**
@@ -79,7 +79,7 @@ class Gnumeric extends BaseReader
         File::assertFile($pFilename);
 
         $xml = new XMLReader();
-        $xml->xml($this->securityScanner->scanFile('compress.zlib://' . realpath($pFilename)), null, Settings::getLibXmlLoaderOptions());
+        $xml->xml($this->securityScanner->scanFile('compress.zlib://' . \realpath($pFilename)), null, Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
         $worksheetNames = [];
@@ -108,7 +108,7 @@ class Gnumeric extends BaseReader
         File::assertFile($pFilename);
 
         $xml = new XMLReader();
-        $xml->xml($this->securityScanner->scanFile('compress.zlib://' . realpath($pFilename)), null, Settings::getLibXmlLoaderOptions());
+        $xml->xml($this->securityScanner->scanFile('compress.zlib://' . \realpath($pFilename)), null, Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
         $worksheetInfo = [];
@@ -152,13 +152,13 @@ class Gnumeric extends BaseReader
      */
     private function gzfileGetContents($filename)
     {
-        $file = @gzopen($filename, 'rb');
+        $file = @\gzopen($filename, 'rb');
         $data = '';
         if ($file !== false) {
-            while (!gzeof($file)) {
-                $data .= gzread($file, 1024);
+            while (!\gzeof($file)) {
+                $data .= \gzread($file, 1024);
             }
-            gzclose($file);
+            \gzclose($file);
         }
 
         return $data;
@@ -198,7 +198,7 @@ class Gnumeric extends BaseReader
 
         $gFileData = $this->gzfileGetContents($pFilename);
 
-        $xml = simplexml_load_string($this->securityScanner->scan($gFileData), 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        $xml = \simplexml_load_string($this->securityScanner->scan($gFileData), 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
         $namespacesMeta = $xml->getNamespaces(true);
 
         $gnmXML = $xml->children($namespacesMeta['gnm']);
@@ -219,26 +219,26 @@ class Gnumeric extends BaseReader
                     $propertyValue = (string) $propertyValue;
                     switch ($propertyName) {
                         case 'title':
-                            $docProps->setTitle(trim($propertyValue));
+                            $docProps->setTitle(\trim($propertyValue));
 
                             break;
                         case 'subject':
-                            $docProps->setSubject(trim($propertyValue));
+                            $docProps->setSubject(\trim($propertyValue));
 
                             break;
                         case 'creator':
-                            $docProps->setCreator(trim($propertyValue));
-                            $docProps->setLastModifiedBy(trim($propertyValue));
+                            $docProps->setCreator(\trim($propertyValue));
+                            $docProps->setLastModifiedBy(\trim($propertyValue));
 
                             break;
                         case 'date':
-                            $creationDate = strtotime(trim($propertyValue));
+                            $creationDate = \strtotime(\trim($propertyValue));
                             $docProps->setCreated($creationDate);
                             $docProps->setModified($creationDate);
 
                             break;
                         case 'description':
-                            $docProps->setDescription(trim($propertyValue));
+                            $docProps->setDescription(\trim($propertyValue));
 
                             break;
                     }
@@ -252,33 +252,33 @@ class Gnumeric extends BaseReader
                     $propertyValue = (string) $propertyValue;
                     switch ($propertyName) {
                         case 'keyword':
-                            $docProps->setKeywords(trim($propertyValue));
+                            $docProps->setKeywords(\trim($propertyValue));
 
                             break;
                         case 'initial-creator':
-                            $docProps->setCreator(trim($propertyValue));
-                            $docProps->setLastModifiedBy(trim($propertyValue));
+                            $docProps->setCreator(\trim($propertyValue));
+                            $docProps->setLastModifiedBy(\trim($propertyValue));
 
                             break;
                         case 'creation-date':
-                            $creationDate = strtotime(trim($propertyValue));
+                            $creationDate = \strtotime(\trim($propertyValue));
                             $docProps->setCreated($creationDate);
                             $docProps->setModified($creationDate);
 
                             break;
                         case 'user-defined':
-                            [, $attrName] = explode(':', $attributes['name']);
+                            [, $attrName] = \explode(':', $attributes['name']);
                             switch ($attrName) {
                                 case 'publisher':
-                                    $docProps->setCompany(trim($propertyValue));
+                                    $docProps->setCompany(\trim($propertyValue));
 
                                     break;
                                 case 'category':
-                                    $docProps->setCategory(trim($propertyValue));
+                                    $docProps->setCategory(\trim($propertyValue));
 
                                     break;
                                 case 'manager':
-                                    $docProps->setManager(trim($propertyValue));
+                                    $docProps->setManager(\trim($propertyValue));
 
                                     break;
                             }
@@ -293,32 +293,32 @@ class Gnumeric extends BaseReader
                 $propertyValue = $summaryItem->{'val-string'};
                 switch ($propertyName) {
                     case 'title':
-                        $docProps->setTitle(trim($propertyValue));
+                        $docProps->setTitle(\trim($propertyValue));
 
                         break;
                     case 'comments':
-                        $docProps->setDescription(trim($propertyValue));
+                        $docProps->setDescription(\trim($propertyValue));
 
                         break;
                     case 'keywords':
-                        $docProps->setKeywords(trim($propertyValue));
+                        $docProps->setKeywords(\trim($propertyValue));
 
                         break;
                     case 'category':
-                        $docProps->setCategory(trim($propertyValue));
+                        $docProps->setCategory(\trim($propertyValue));
 
                         break;
                     case 'manager':
-                        $docProps->setManager(trim($propertyValue));
+                        $docProps->setManager(\trim($propertyValue));
 
                         break;
                     case 'author':
-                        $docProps->setCreator(trim($propertyValue));
-                        $docProps->setLastModifiedBy(trim($propertyValue));
+                        $docProps->setCreator(\trim($propertyValue));
+                        $docProps->setLastModifiedBy(\trim($propertyValue));
 
                         break;
                     case 'company':
-                        $docProps->setCompany(trim($propertyValue));
+                        $docProps->setCompany(\trim($propertyValue));
 
                         break;
                 }
@@ -328,7 +328,7 @@ class Gnumeric extends BaseReader
         $worksheetID = 0;
         foreach ($gnmXML->Sheets->Sheet as $sheet) {
             $worksheetName = (string) $sheet->Name;
-            if ((isset($this->loadSheetsOnly)) && (!in_array($worksheetName, $this->loadSheetsOnly))) {
+            if ((isset($this->loadSheetsOnly)) && (!\in_array($worksheetName, $this->loadSheetsOnly))) {
                 continue;
             }
 
@@ -769,7 +769,7 @@ class Gnumeric extends BaseReader
             //    Handle Merged Cells in this worksheet
             if (isset($sheet->MergedRegions)) {
                 foreach ($sheet->MergedRegions->Merge as $mergeCells) {
-                    if (strpos($mergeCells, ':') !== false) {
+                    if (\strpos($mergeCells, ':') !== false) {
                         $spreadsheet->getActiveSheet()->mergeCells($mergeCells);
                     }
                 }
@@ -783,14 +783,14 @@ class Gnumeric extends BaseReader
             foreach ($gnmXML->Names->Name as $namedRange) {
                 $name = (string) $namedRange->name;
                 $range = (string) $namedRange->value;
-                if (stripos($range, '#REF!') !== false) {
+                if (\stripos($range, '#REF!') !== false) {
                     continue;
                 }
 
                 $range = Worksheet::extractSheetTitle($range, true);
-                $range[0] = trim($range[0], "'");
+                $range[0] = \trim($range[0], "'");
                 if ($worksheet = $spreadsheet->getSheetByName($range[0])) {
-                    $extractedRange = str_replace('$', '', $range[1]);
+                    $extractedRange = \str_replace('$', '', $range[1]);
                     $spreadsheet->addNamedRange(new NamedRange($name, $worksheet, $extractedRange));
                 }
             }
@@ -879,10 +879,10 @@ class Gnumeric extends BaseReader
 
     private static function parseGnumericColour($gnmColour)
     {
-        [$gnmR, $gnmG, $gnmB] = explode(':', $gnmColour);
-        $gnmR = substr(str_pad($gnmR, 4, '0', STR_PAD_RIGHT), 0, 2);
-        $gnmG = substr(str_pad($gnmG, 4, '0', STR_PAD_RIGHT), 0, 2);
-        $gnmB = substr(str_pad($gnmB, 4, '0', STR_PAD_RIGHT), 0, 2);
+        [$gnmR, $gnmG, $gnmB] = \explode(':', $gnmColour);
+        $gnmR = \substr(\str_pad($gnmR, 4, '0', STR_PAD_RIGHT), 0, 2);
+        $gnmG = \substr(\str_pad($gnmG, 4, '0', STR_PAD_RIGHT), 0, 2);
+        $gnmB = \substr(\str_pad($gnmB, 4, '0', STR_PAD_RIGHT), 0, 2);
 
         return $gnmR . $gnmG . $gnmB;
     }

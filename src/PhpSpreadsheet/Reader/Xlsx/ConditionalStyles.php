@@ -49,11 +49,11 @@ class ConditionalStyles
     private function setConditionalStyles(Worksheet $worksheet, array $conditionals)
     {
         foreach ($conditionals as $ref => $cfRules) {
-            ksort($cfRules);
+            \ksort($cfRules);
             $conditionalStyles = $this->readStyleRules($cfRules);
 
             // Extract all cell references in $ref
-            $cellBlocks = explode(' ', str_replace('$', '', strtoupper($ref)));
+            $cellBlocks = \explode(' ', \str_replace('$', '', \strtoupper($ref)));
             foreach ($cellBlocks as $cellBlock) {
                 $worksheet->getStyle($cellBlock)->setConditionalStyles($conditionalStyles);
             }
@@ -76,7 +76,7 @@ class ConditionalStyles
                 $objConditional->setStopIfTrue(true);
             }
 
-            if (count($cfRule->formula) > 1) {
+            if (\count($cfRule->formula) > 1) {
                 foreach ($cfRule->formula as $formula) {
                     $objConditional->addCondition((string) $formula);
                 }

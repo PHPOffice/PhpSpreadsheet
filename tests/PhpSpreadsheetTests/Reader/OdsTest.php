@@ -252,14 +252,14 @@ class OdsTest extends TestCase
         // Custom Properties
         $customProperties = $properties->getCustomProperties();
         self::assertIsArray($customProperties);
-        $customProperties = array_flip($customProperties);
+        $customProperties = \array_flip($customProperties);
         self::assertArrayHasKey('TestDate', $customProperties);
 
         foreach ($customPropertySet as $propertyName => $testData) {
             self::assertTrue($properties->isCustomPropertySet($propertyName));
             self::assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
             if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
-                self::assertSame($testData['value'], date('Y-m-d', $properties->getCustomPropertyValue($propertyName)));
+                self::assertSame($testData['value'], \date('Y-m-d', $properties->getCustomPropertyValue($propertyName)));
             } else {
                 self::assertSame($testData['value'], $properties->getCustomPropertyValue($propertyName));
             }

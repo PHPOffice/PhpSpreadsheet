@@ -138,8 +138,8 @@ class Stack
                 break;
             }
             $value = $item['value'] ?? 'no value';
-            while (is_array($value)) {
-                $value = array_pop($value);
+            while (\is_array($value)) {
+                $value = \array_pop($value);
             }
             $str .= $value . ' |> ';
         }

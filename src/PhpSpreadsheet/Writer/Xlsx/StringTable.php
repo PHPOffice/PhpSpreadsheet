@@ -28,7 +28,7 @@ class StringTable extends WriterPart
         $aFlippedStringTable = null; // For faster lookup
 
         // Is an existing table given?
-        if (($pExistingTable !== null) && is_array($pExistingTable)) {
+        if (($pExistingTable !== null) && \is_array($pExistingTable)) {
             $aStringTable = $pExistingTable;
         }
 
@@ -39,7 +39,7 @@ class StringTable extends WriterPart
         foreach ($pSheet->getCoordinates() as $coordinate) {
             $cell = $pSheet->getCell($coordinate);
             $cellValue = $cell->getValue();
-            if (!is_object($cellValue) &&
+            if (!\is_object($cellValue) &&
                 ($cellValue !== null) &&
                 $cellValue !== '' &&
                 !isset($aFlippedStringTable[$cellValue]) &&
@@ -82,7 +82,7 @@ class StringTable extends WriterPart
         // String table
         $objWriter->startElement('sst');
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
-        $objWriter->writeAttribute('uniqueCount', count($pStringTable));
+        $objWriter->writeAttribute('uniqueCount', \count($pStringTable));
 
         // Loop through string table
         foreach ($pStringTable as $textElement) {
@@ -91,7 +91,7 @@ class StringTable extends WriterPart
             if (!$textElement instanceof RichText) {
                 $textToWrite = StringHelper::controlCharacterPHP2OOXML($textElement);
                 $objWriter->startElement('t');
-                if ($textToWrite !== trim($textToWrite)) {
+                if ($textToWrite !== \trim($textToWrite)) {
                     $objWriter->writeAttribute('xml:space', 'preserve');
                 }
                 $objWriter->writeRawData($textToWrite);

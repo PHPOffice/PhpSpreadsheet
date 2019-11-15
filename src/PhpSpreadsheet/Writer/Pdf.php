@@ -228,7 +228,7 @@ abstract class Pdf extends Html
      */
     public function setTempDir($pValue)
     {
-        if (is_dir($pValue)) {
+        if (\is_dir($pValue)) {
             $this->tempDir = $pValue;
         } else {
             throw new WriterException("Directory does not exist: $pValue");
@@ -255,7 +255,7 @@ abstract class Pdf extends Html
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
 
         //  Open file
-        $fileHandle = fopen($pFilename, 'w');
+        $fileHandle = \fopen($pFilename, 'w');
         if ($fileHandle === false) {
             throw new WriterException("Could not open file $pFilename for writing.");
         }
@@ -276,7 +276,7 @@ abstract class Pdf extends Html
     protected function restoreStateAfterSave($fileHandle)
     {
         //  Close file
-        fclose($fileHandle);
+        \fclose($fileHandle);
 
         Calculation::setArrayReturnType($this->saveArrayReturnType);
     }

@@ -44,7 +44,7 @@ class PolynomialBestFit extends BestFit
         $slope = $this->getSlope();
         foreach ($slope as $key => $value) {
             if ($value != 0.0) {
-                $retVal += $value * pow($xValue, $key + 1);
+                $retVal += $value * \pow($xValue, $key + 1);
             }
         }
 
@@ -100,7 +100,7 @@ class PolynomialBestFit extends BestFit
         if ($dp != 0) {
             $coefficients = [];
             foreach ($this->slope as $coefficient) {
-                $coefficients[] = round($coefficient, $dp);
+                $coefficients[] = \round($coefficient, $dp);
             }
 
             return $coefficients;
@@ -111,7 +111,7 @@ class PolynomialBestFit extends BestFit
 
     public function getCoefficients($dp = 0)
     {
-        return array_merge([$this->getIntersect($dp)], $this->getSlope($dp));
+        return \array_merge([$this->getIntersect($dp)], $this->getSlope($dp));
     }
 
     /**
@@ -124,8 +124,8 @@ class PolynomialBestFit extends BestFit
     private function polynomialRegression($order, $yValues, $xValues)
     {
         // calculate sums
-        $x_sum = array_sum($xValues);
-        $y_sum = array_sum($yValues);
+        $x_sum = \array_sum($xValues);
+        $y_sum = \array_sum($yValues);
         $xx_sum = $xy_sum = $yy_sum = 0;
         for ($i = 0; $i < $this->valueCount; ++$i) {
             $xy_sum += $xValues[$i] * $yValues[$i];
@@ -144,7 +144,7 @@ class PolynomialBestFit extends BestFit
         $B = [];
         for ($i = 0; $i < $this->valueCount; ++$i) {
             for ($j = 0; $j <= $order; ++$j) {
-                $A[$i][$j] = pow($xValues[$i], $j);
+                $A[$i][$j] = \pow($xValues[$i], $j);
             }
         }
         for ($i = 0; $i < $this->valueCount; ++$i) {
@@ -157,13 +157,13 @@ class PolynomialBestFit extends BestFit
         $coefficients = [];
         for ($i = 0; $i < $C->getRowDimension(); ++$i) {
             $r = $C->get($i, 0);
-            if (abs($r) <= pow(10, -9)) {
+            if (\abs($r) <= \pow(10, -9)) {
                 $r = 0;
             }
             $coefficients[] = $r;
         }
 
-        $this->intersect = array_shift($coefficients);
+        $this->intersect = \array_shift($coefficients);
         $this->slope = $coefficients;
 
         $this->calculateGoodnessOfFit($x_sum, $y_sum, $xx_sum, $yy_sum, $xy_sum, 0, 0, 0);

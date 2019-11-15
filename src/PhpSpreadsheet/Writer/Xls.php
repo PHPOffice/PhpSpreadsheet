@@ -197,14 +197,14 @@ class Xls extends BaseWriter
         $this->documentSummaryInformation = $this->writeDocumentSummaryInformation();
         // initialize OLE Document Summary Information
         if (isset($this->documentSummaryInformation) && !empty($this->documentSummaryInformation)) {
-            $OLE_DocumentSummaryInformation = new File(OLE::ascToUcs(chr(5) . 'DocumentSummaryInformation'));
+            $OLE_DocumentSummaryInformation = new File(OLE::ascToUcs(\chr(5) . 'DocumentSummaryInformation'));
             $OLE_DocumentSummaryInformation->append($this->documentSummaryInformation);
         }
 
         $this->summaryInformation = $this->writeSummaryInformation();
         // initialize OLE Summary Information
         if (isset($this->summaryInformation) && !empty($this->summaryInformation)) {
-            $OLE_SummaryInformation = new File(OLE::ascToUcs(chr(5) . 'SummaryInformation'));
+            $OLE_SummaryInformation = new File(OLE::ascToUcs(\chr(5) . 'SummaryInformation'));
             $OLE_SummaryInformation->append($this->summaryInformation);
         }
 
@@ -219,7 +219,7 @@ class Xls extends BaseWriter
             $arrRootData[] = $OLE_DocumentSummaryInformation;
         }
 
-        $root = new Root(time(), time(), $arrRootData);
+        $root = new Root(\time(), \time(), $arrRootData);
         // save the OLE file
         $root->save($pFilename);
 
@@ -245,7 +245,7 @@ class Xls extends BaseWriter
 
             // check if there are any shapes for this sheet
             $filterRange = $sheet->getAutoFilter()->getRange();
-            if (count($sheet->getDrawingCollection()) == 0 && empty($filterRange)) {
+            if (\count($sheet->getDrawingCollection()) == 0 && empty($filterRange)) {
                 continue;
             }
 
@@ -399,7 +399,7 @@ class Xls extends BaseWriter
         // any drawings in this workbook?
         $found = false;
         foreach ($this->spreadsheet->getAllSheets() as $sheet) {
-            if (count($sheet->getDrawingCollection()) > 0) {
+            if (\count($sheet->getDrawingCollection()) > 0) {
                 $found = true;
 
                 break;
@@ -429,7 +429,7 @@ class Xls extends BaseWriter
         foreach ($this->spreadsheet->getAllsheets() as $sheet) {
             $sheetCountShapes = 0; // count number of shapes (minus group shape), in sheet
 
-            if (count($sheet->getDrawingCollection()) > 0) {
+            if (\count($sheet->getDrawingCollection()) > 0) {
                 ++$countDrawings;
 
                 foreach ($sheet->getDrawingCollection() as $drawing) {
@@ -437,7 +437,7 @@ class Xls extends BaseWriter
                     ++$totalCountShapes;
 
                     $spId = $sheetCountShapes | ($this->spreadsheet->getIndex($sheet) + 1) << 10;
-                    $spIdMax = max($spId, $spIdMax);
+                    $spIdMax = \max($spId, $spIdMax);
                 }
             }
         }
@@ -453,39 +453,39 @@ class Xls extends BaseWriter
         // the BSE's (all the images)
         foreach ($this->spreadsheet->getAllsheets() as $sheet) {
             foreach ($sheet->getDrawingCollection() as $drawing) {
-                if (!extension_loaded('gd')) {
+                if (!\extension_loaded('gd')) {
                     throw new RuntimeException('Saving images in xls requires gd extension');
                 }
                 if ($drawing instanceof Drawing) {
                     $filename = $drawing->getPath();
 
-                    [$imagesx, $imagesy, $imageFormat] = getimagesize($filename);
+                    [$imagesx, $imagesy, $imageFormat] = \getimagesize($filename);
 
                     switch ($imageFormat) {
                         case 1: // GIF, not supported by BIFF8, we convert to PNG
                             $blipType = BSE::BLIPTYPE_PNG;
-                            ob_start();
-                            imagepng(imagecreatefromgif($filename));
-                            $blipData = ob_get_contents();
-                            ob_end_clean();
+                            \ob_start();
+                            \imagepng(\imagecreatefromgif($filename));
+                            $blipData = \ob_get_contents();
+                            \ob_end_clean();
 
                             break;
                         case 2: // JPEG
                             $blipType = BSE::BLIPTYPE_JPEG;
-                            $blipData = file_get_contents($filename);
+                            $blipData = \file_get_contents($filename);
 
                             break;
                         case 3: // PNG
                             $blipType = BSE::BLIPTYPE_PNG;
-                            $blipData = file_get_contents($filename);
+                            $blipData = \file_get_contents($filename);
 
                             break;
                         case 6: // Windows DIB (BMP), we convert to PNG
                             $blipType = BSE::BLIPTYPE_PNG;
-                            ob_start();
-                            imagepng(SharedDrawing::imagecreatefrombmp($filename));
-                            $blipData = ob_get_contents();
-                            ob_end_clean();
+                            \ob_start();
+                            \imagepng(SharedDrawing::imagecreatefrombmp($filename));
+                            $blipData = \ob_get_contents();
+                            \ob_end_clean();
 
                             break;
                         default:
@@ -516,10 +516,10 @@ class Xls extends BaseWriter
                             break;
                     }
 
-                    ob_start();
-                    call_user_func($renderingFunction, $drawing->getImageResource());
-                    $blipData = ob_get_contents();
-                    ob_end_clean();
+                    \ob_start();
+                    \call_user_func($renderingFunction, $drawing->getImageResource());
+                    $blipData = \ob_get_contents();
+                    \ob_end_clean();
 
                     $blip = new Blip();
                     $blip->setData($blipData);
@@ -545,22 +545,22 @@ class Xls extends BaseWriter
     private function writeDocumentSummaryInformation()
     {
         // offset: 0; size: 2; must be 0xFE 0xFF (UTF-16 LE byte order mark)
-        $data = pack('v', 0xFFFE);
+        $data = \pack('v', 0xFFFE);
         // offset: 2; size: 2;
-        $data .= pack('v', 0x0000);
+        $data .= \pack('v', 0x0000);
         // offset: 4; size: 2; OS version
-        $data .= pack('v', 0x0106);
+        $data .= \pack('v', 0x0106);
         // offset: 6; size: 2; OS indicator
-        $data .= pack('v', 0x0002);
+        $data .= \pack('v', 0x0002);
         // offset: 8; size: 16
-        $data .= pack('VVVV', 0x00, 0x00, 0x00, 0x00);
+        $data .= \pack('VVVV', 0x00, 0x00, 0x00, 0x00);
         // offset: 24; size: 4; section count
-        $data .= pack('V', 0x0001);
+        $data .= \pack('V', 0x0001);
 
         // offset: 28; size: 16; first section's class id: 02 d5 cd d5 9c 2e 1b 10 93 97 08 00 2b 2c f9 ae
-        $data .= pack('vvvvvvvv', 0xD502, 0xD5CD, 0x2E9C, 0x101B, 0x9793, 0x0008, 0x2C2B, 0xAEF9);
+        $data .= \pack('vvvvvvvv', 0xD502, 0xD5CD, 0x2E9C, 0x101B, 0x9793, 0x0008, 0x2C2B, 0xAEF9);
         // offset: 44; size: 4; offset of the start
-        $data .= pack('V', 0x30);
+        $data .= \pack('V', 0x30);
 
         // SECTION
         $dataSection = [];
@@ -584,7 +584,7 @@ class Xls extends BaseWriter
                 'summary' => ['pack' => 'V', 'data' => 0x02],
                 'offset' => ['pack' => 'V'],
                 'type' => ['pack' => 'V', 'data' => 0x1E],
-                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+                'data' => ['data' => $dataProp, 'length' => \strlen($dataProp)],
             ];
             ++$dataSection_NumProps;
         }
@@ -633,56 +633,56 @@ class Xls extends BaseWriter
         // MS-OSHARED p75 (2.3.3.2.2.1)
         // Structure is VtVecUnalignedLpstrValue (2.3.3.1.9)
         // cElements
-        $dataProp = pack('v', 0x0001);
-        $dataProp .= pack('v', 0x0000);
+        $dataProp = \pack('v', 0x0001);
+        $dataProp .= \pack('v', 0x0000);
         // array of UnalignedLpstr
         // cch
-        $dataProp .= pack('v', 0x000A);
-        $dataProp .= pack('v', 0x0000);
+        $dataProp .= \pack('v', 0x000A);
+        $dataProp .= \pack('v', 0x0000);
         // value
-        $dataProp .= 'Worksheet' . chr(0);
+        $dataProp .= 'Worksheet' . \chr(0);
 
         $dataSection[] = [
             'summary' => ['pack' => 'V', 'data' => 0x0D],
             'offset' => ['pack' => 'V'],
             'type' => ['pack' => 'V', 'data' => 0x101E],
-            'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            'data' => ['data' => $dataProp, 'length' => \strlen($dataProp)],
         ];
         ++$dataSection_NumProps;
 
         // GKPIDDSI_HEADINGPAIR
         // VtVecHeadingPairValue
         // cElements
-        $dataProp = pack('v', 0x0002);
-        $dataProp .= pack('v', 0x0000);
+        $dataProp = \pack('v', 0x0002);
+        $dataProp .= \pack('v', 0x0000);
         // Array of vtHeadingPair
         // vtUnalignedString - headingString
         // stringType
-        $dataProp .= pack('v', 0x001E);
+        $dataProp .= \pack('v', 0x001E);
         // padding
-        $dataProp .= pack('v', 0x0000);
+        $dataProp .= \pack('v', 0x0000);
         // UnalignedLpstr
         // cch
-        $dataProp .= pack('v', 0x0013);
-        $dataProp .= pack('v', 0x0000);
+        $dataProp .= \pack('v', 0x0013);
+        $dataProp .= \pack('v', 0x0000);
         // value
         $dataProp .= 'Feuilles de calcul';
         // vtUnalignedString - headingParts
         // wType : 0x0003 = 32 bit signed integer
-        $dataProp .= pack('v', 0x0300);
+        $dataProp .= \pack('v', 0x0300);
         // padding
-        $dataProp .= pack('v', 0x0000);
+        $dataProp .= \pack('v', 0x0000);
         // value
-        $dataProp .= pack('v', 0x0100);
-        $dataProp .= pack('v', 0x0000);
-        $dataProp .= pack('v', 0x0000);
-        $dataProp .= pack('v', 0x0000);
+        $dataProp .= \pack('v', 0x0100);
+        $dataProp .= \pack('v', 0x0000);
+        $dataProp .= \pack('v', 0x0000);
+        $dataProp .= \pack('v', 0x0000);
 
         $dataSection[] = [
             'summary' => ['pack' => 'V', 'data' => 0x0C],
             'offset' => ['pack' => 'V'],
             'type' => ['pack' => 'V', 'data' => 0x100C],
-            'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            'data' => ['data' => $dataProp, 'length' => \strlen($dataProp)],
         ];
         ++$dataSection_NumProps;
 
@@ -692,39 +692,39 @@ class Xls extends BaseWriter
         $dataSection_Content_Offset = 8 + $dataSection_NumProps * 8;
         foreach ($dataSection as $dataProp) {
             // Summary
-            $dataSection_Summary .= pack($dataProp['summary']['pack'], $dataProp['summary']['data']);
+            $dataSection_Summary .= \pack($dataProp['summary']['pack'], $dataProp['summary']['data']);
             // Offset
-            $dataSection_Summary .= pack($dataProp['offset']['pack'], $dataSection_Content_Offset);
+            $dataSection_Summary .= \pack($dataProp['offset']['pack'], $dataSection_Content_Offset);
             // DataType
-            $dataSection_Content .= pack($dataProp['type']['pack'], $dataProp['type']['data']);
+            $dataSection_Content .= \pack($dataProp['type']['pack'], $dataProp['type']['data']);
             // Data
             if ($dataProp['type']['data'] == 0x02) { // 2 byte signed integer
-                $dataSection_Content .= pack('V', $dataProp['data']['data']);
+                $dataSection_Content .= \pack('V', $dataProp['data']['data']);
 
                 $dataSection_Content_Offset += 4 + 4;
             } elseif ($dataProp['type']['data'] == 0x03) { // 4 byte signed integer
-                $dataSection_Content .= pack('V', $dataProp['data']['data']);
+                $dataSection_Content .= \pack('V', $dataProp['data']['data']);
 
                 $dataSection_Content_Offset += 4 + 4;
             } elseif ($dataProp['type']['data'] == 0x0B) { // Boolean
                 if ($dataProp['data']['data'] == false) {
-                    $dataSection_Content .= pack('V', 0x0000);
+                    $dataSection_Content .= \pack('V', 0x0000);
                 } else {
-                    $dataSection_Content .= pack('V', 0x0001);
+                    $dataSection_Content .= \pack('V', 0x0001);
                 }
                 $dataSection_Content_Offset += 4 + 4;
             } elseif ($dataProp['type']['data'] == 0x1E) { // null-terminated string prepended by dword string length
                 // Null-terminated string
-                $dataProp['data']['data'] .= chr(0);
+                $dataProp['data']['data'] .= \chr(0);
                 $dataProp['data']['length'] += 1;
                 // Complete the string with null string for being a %4
                 $dataProp['data']['length'] = $dataProp['data']['length'] + ((4 - $dataProp['data']['length'] % 4) == 4 ? 0 : (4 - $dataProp['data']['length'] % 4));
-                $dataProp['data']['data'] = str_pad($dataProp['data']['data'], $dataProp['data']['length'], chr(0), STR_PAD_RIGHT);
+                $dataProp['data']['data'] = \str_pad($dataProp['data']['data'], $dataProp['data']['length'], \chr(0), STR_PAD_RIGHT);
 
-                $dataSection_Content .= pack('V', $dataProp['data']['length']);
+                $dataSection_Content .= \pack('V', $dataProp['data']['length']);
                 $dataSection_Content .= $dataProp['data']['data'];
 
-                $dataSection_Content_Offset += 4 + 4 + strlen($dataProp['data']['data']);
+                $dataSection_Content_Offset += 4 + 4 + \strlen($dataProp['data']['data']);
             } elseif ($dataProp['type']['data'] == 0x40) { // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
                 $dataSection_Content .= $dataProp['data']['data'];
 
@@ -741,9 +741,9 @@ class Xls extends BaseWriter
         // section header
         // offset: $secOffset; size: 4; section length
         //         + x  Size of the content (summary + content)
-        $data .= pack('V', $dataSection_Content_Offset);
+        $data .= \pack('V', $dataSection_Content_Offset);
         // offset: $secOffset+4; size: 4; property count
-        $data .= pack('V', $dataSection_NumProps);
+        $data .= \pack('V', $dataSection_NumProps);
         // Section Summary
         $data .= $dataSection_Summary;
         // Section Content
@@ -760,22 +760,22 @@ class Xls extends BaseWriter
     private function writeSummaryInformation()
     {
         // offset: 0; size: 2; must be 0xFE 0xFF (UTF-16 LE byte order mark)
-        $data = pack('v', 0xFFFE);
+        $data = \pack('v', 0xFFFE);
         // offset: 2; size: 2;
-        $data .= pack('v', 0x0000);
+        $data .= \pack('v', 0x0000);
         // offset: 4; size: 2; OS version
-        $data .= pack('v', 0x0106);
+        $data .= \pack('v', 0x0106);
         // offset: 6; size: 2; OS indicator
-        $data .= pack('v', 0x0002);
+        $data .= \pack('v', 0x0002);
         // offset: 8; size: 16
-        $data .= pack('VVVV', 0x00, 0x00, 0x00, 0x00);
+        $data .= \pack('VVVV', 0x00, 0x00, 0x00, 0x00);
         // offset: 24; size: 4; section count
-        $data .= pack('V', 0x0001);
+        $data .= \pack('V', 0x0001);
 
         // offset: 28; size: 16; first section's class id: e0 85 9f f2 f9 4f 68 10 ab 91 08 00 2b 27 b3 d9
-        $data .= pack('vvvvvvvv', 0x85E0, 0xF29F, 0x4FF9, 0x1068, 0x91AB, 0x0008, 0x272B, 0xD9B3);
+        $data .= \pack('vvvvvvvv', 0x85E0, 0xF29F, 0x4FF9, 0x1068, 0x91AB, 0x0008, 0x272B, 0xD9B3);
         // offset: 44; size: 4; offset of the start
-        $data .= pack('V', 0x30);
+        $data .= \pack('V', 0x30);
 
         // SECTION
         $dataSection = [];
@@ -799,7 +799,7 @@ class Xls extends BaseWriter
                 'summary' => ['pack' => 'V', 'data' => 0x02],
                 'offset' => ['pack' => 'V'],
                 'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+                'data' => ['data' => $dataProp, 'length' => \strlen($dataProp)],
             ];
             ++$dataSection_NumProps;
         }
@@ -810,7 +810,7 @@ class Xls extends BaseWriter
                 'summary' => ['pack' => 'V', 'data' => 0x03],
                 'offset' => ['pack' => 'V'],
                 'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+                'data' => ['data' => $dataProp, 'length' => \strlen($dataProp)],
             ];
             ++$dataSection_NumProps;
         }
@@ -821,7 +821,7 @@ class Xls extends BaseWriter
                 'summary' => ['pack' => 'V', 'data' => 0x04],
                 'offset' => ['pack' => 'V'],
                 'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+                'data' => ['data' => $dataProp, 'length' => \strlen($dataProp)],
             ];
             ++$dataSection_NumProps;
         }
@@ -832,7 +832,7 @@ class Xls extends BaseWriter
                 'summary' => ['pack' => 'V', 'data' => 0x05],
                 'offset' => ['pack' => 'V'],
                 'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+                'data' => ['data' => $dataProp, 'length' => \strlen($dataProp)],
             ];
             ++$dataSection_NumProps;
         }
@@ -843,7 +843,7 @@ class Xls extends BaseWriter
                 'summary' => ['pack' => 'V', 'data' => 0x06],
                 'offset' => ['pack' => 'V'],
                 'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+                'data' => ['data' => $dataProp, 'length' => \strlen($dataProp)],
             ];
             ++$dataSection_NumProps;
         }
@@ -854,7 +854,7 @@ class Xls extends BaseWriter
                 'summary' => ['pack' => 'V', 'data' => 0x08],
                 'offset' => ['pack' => 'V'],
                 'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+                'data' => ['data' => $dataProp, 'length' => \strlen($dataProp)],
             ];
             ++$dataSection_NumProps;
         }
@@ -895,32 +895,32 @@ class Xls extends BaseWriter
         $dataSection_Content_Offset = 8 + $dataSection_NumProps * 8;
         foreach ($dataSection as $dataProp) {
             // Summary
-            $dataSection_Summary .= pack($dataProp['summary']['pack'], $dataProp['summary']['data']);
+            $dataSection_Summary .= \pack($dataProp['summary']['pack'], $dataProp['summary']['data']);
             // Offset
-            $dataSection_Summary .= pack($dataProp['offset']['pack'], $dataSection_Content_Offset);
+            $dataSection_Summary .= \pack($dataProp['offset']['pack'], $dataSection_Content_Offset);
             // DataType
-            $dataSection_Content .= pack($dataProp['type']['pack'], $dataProp['type']['data']);
+            $dataSection_Content .= \pack($dataProp['type']['pack'], $dataProp['type']['data']);
             // Data
             if ($dataProp['type']['data'] == 0x02) { // 2 byte signed integer
-                $dataSection_Content .= pack('V', $dataProp['data']['data']);
+                $dataSection_Content .= \pack('V', $dataProp['data']['data']);
 
                 $dataSection_Content_Offset += 4 + 4;
             } elseif ($dataProp['type']['data'] == 0x03) { // 4 byte signed integer
-                $dataSection_Content .= pack('V', $dataProp['data']['data']);
+                $dataSection_Content .= \pack('V', $dataProp['data']['data']);
 
                 $dataSection_Content_Offset += 4 + 4;
             } elseif ($dataProp['type']['data'] == 0x1E) { // null-terminated string prepended by dword string length
                 // Null-terminated string
-                $dataProp['data']['data'] .= chr(0);
+                $dataProp['data']['data'] .= \chr(0);
                 $dataProp['data']['length'] += 1;
                 // Complete the string with null string for being a %4
                 $dataProp['data']['length'] = $dataProp['data']['length'] + ((4 - $dataProp['data']['length'] % 4) == 4 ? 0 : (4 - $dataProp['data']['length'] % 4));
-                $dataProp['data']['data'] = str_pad($dataProp['data']['data'], $dataProp['data']['length'], chr(0), STR_PAD_RIGHT);
+                $dataProp['data']['data'] = \str_pad($dataProp['data']['data'], $dataProp['data']['length'], \chr(0), STR_PAD_RIGHT);
 
-                $dataSection_Content .= pack('V', $dataProp['data']['length']);
+                $dataSection_Content .= \pack('V', $dataProp['data']['length']);
                 $dataSection_Content .= $dataProp['data']['data'];
 
-                $dataSection_Content_Offset += 4 + 4 + strlen($dataProp['data']['data']);
+                $dataSection_Content_Offset += 4 + 4 + \strlen($dataProp['data']['data']);
             } elseif ($dataProp['type']['data'] == 0x40) { // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
                 $dataSection_Content .= $dataProp['data']['data'];
 
@@ -933,9 +933,9 @@ class Xls extends BaseWriter
         // section header
         // offset: $secOffset; size: 4; section length
         //         + x  Size of the content (summary + content)
-        $data .= pack('V', $dataSection_Content_Offset);
+        $data .= \pack('V', $dataSection_Content_Offset);
         // offset: $secOffset+4; size: 4; property count
-        $data .= pack('V', $dataSection_NumProps);
+        $data .= \pack('V', $dataSection_NumProps);
         // Section Summary
         $data .= $dataSection_Summary;
         // Section Content

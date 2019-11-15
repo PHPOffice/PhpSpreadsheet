@@ -11,7 +11,7 @@ $writer = IOFactory::createWriter($spreadsheet, 'Csv')->setDelimiter(',')
     ->setEnclosure('"')
     ->setSheetIndex(0);
 
-$callStartTime = microtime(true);
+$callStartTime = \microtime(true);
 $filename = $helper->getTemporaryFilename('csv');
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
@@ -23,7 +23,7 @@ $reader = IOFactory::createReader('Csv')->setDelimiter(',')
     ->setEnclosure('"')
     ->setSheetIndex(0);
 
-$callStartTime = microtime(true);
+$callStartTime = \microtime(true);
 $spreadsheetFromCSV = $reader->load($filename);
 $helper->logRead('Csv', $filename, $callStartTime);
 
@@ -36,6 +36,6 @@ $filenameCSV = $helper->getFilename(__FILE__, 'csv');
 $writerCSV = IOFactory::createWriter($spreadsheetFromCSV, 'Csv');
 $writerCSV->setExcelCompatibility(true);
 
-$callStartTime = microtime(true);
+$callStartTime = \microtime(true);
 $writerCSV->save($filenameCSV);
 $helper->logWrite($writerCSV, $filenameCSV, $callStartTime);

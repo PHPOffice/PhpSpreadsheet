@@ -16,7 +16,7 @@ class AdvancedValueBinderTest extends TestCase
     public function provider()
     {
         $currencyUSD = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
-        $currencyEURO = str_replace('$', '€', NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+        $currencyEURO = \str_replace('$', '€', NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
         return [
             ['10%', 0.1, NumberFormat::FORMAT_PERCENTAGE_00, ',', '.', '$'],

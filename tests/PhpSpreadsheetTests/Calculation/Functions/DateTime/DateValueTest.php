@@ -50,7 +50,7 @@ class DateValueTest extends TestCase
         //    Must return an object...
         $this->assertIsObject($result);
         //    ... of the correct type
-        $this->assertTrue(is_a($result, DateTimeInterface::class));
+        $this->assertTrue(\is_a($result, DateTimeInterface::class));
         //    ... with the correct value
         $this->assertEquals($result->format('d-M-Y'), '31-Jan-2012');
     }

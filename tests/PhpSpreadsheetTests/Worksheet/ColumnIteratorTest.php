@@ -54,15 +54,15 @@ class ColumnIteratorTest extends TestCase
 
     public function testIteratorSeekAndPrev()
     {
-        $ranges = range('A', 'E');
+        $ranges = \range('A', 'E');
         $iterator = new ColumnIterator($this->mockWorksheet, 'B', 'D');
         $columnIndexResult = 'D';
         $iterator->seek('D');
         self::assertEquals($columnIndexResult, $iterator->key());
 
-        for ($i = 1; $i < array_search($columnIndexResult, $ranges); ++$i) {
+        for ($i = 1; $i < \array_search($columnIndexResult, $ranges); ++$i) {
             $iterator->prev();
-            $expectedResult = $ranges[array_search($columnIndexResult, $ranges) - $i];
+            $expectedResult = $ranges[\array_search($columnIndexResult, $ranges) - $i];
             self::assertEquals($expectedResult, $iterator->key());
         }
     }

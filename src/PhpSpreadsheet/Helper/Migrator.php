@@ -16,8 +16,8 @@ class Migrator
 
     public function __construct()
     {
-        $this->from = array_keys($this->getMapping());
-        $this->to = array_values($this->getMapping());
+        $this->from = \array_keys($this->getMapping());
+        $this->to = \array_values($this->getMapping());
     }
 
     /**
@@ -247,7 +247,7 @@ class Migrator
         // Keep '\' prefix for class names
         $prefixedClasses = [];
         foreach ($classes as $key => &$value) {
-            $value = str_replace('PhpOffice\\', '\\PhpOffice\\', $value);
+            $value = \str_replace('PhpOffice\\', '\\PhpOffice\\', $value);
             $prefixedClasses['\\' . $key] = $value;
         }
         $mapping = $prefixedClasses + $classes + $methods;
@@ -275,25 +275,25 @@ class Migrator
         ];
 
         foreach ($patterns as $pattern) {
-            foreach (glob($path . $pattern) as $file) {
-                if (strpos($path, '/vendor/') !== false) {
+            foreach (\glob($path . $pattern) as $file) {
+                if (\strpos($path, '/vendor/') !== false) {
                     echo $file . " skipped\n";
 
                     continue;
                 }
-                $original = file_get_contents($file);
+                $original = \file_get_contents($file);
                 $converted = $this->replace($original);
 
                 if ($original !== $converted) {
                     echo $file . " converted\n";
-                    file_put_contents($file, $converted);
+                    \file_put_contents($file, $converted);
                 }
             }
         }
 
         // Do the recursion in subdirectory
-        foreach (glob($path . '/*', GLOB_ONLYDIR) as $subpath) {
-            if (strpos($subpath, $path . '/') === 0) {
+        foreach (\glob($path . '/*', GLOB_ONLYDIR) as $subpath) {
+            if (\strpos($subpath, $path . '/') === 0) {
                 $this->recursiveReplace($subpath);
             }
         }
@@ -301,12 +301,12 @@ class Migrator
 
     public function migrate()
     {
-        $path = realpath(getcwd());
+        $path = \realpath(\getcwd());
         echo 'This will search and replace recursively in ' . $path . PHP_EOL;
         echo 'You MUST backup your files first, or you risk losing data.' . PHP_EOL;
         echo 'Are you sure ? (y/n)';
 
-        $confirm = fread(STDIN, 1);
+        $confirm = \fread(STDIN, 1);
         if ($confirm === 'y') {
             $this->recursiveReplace($path);
         }
@@ -321,12 +321,12 @@ class Migrator
      */
     public function replace($original)
     {
-        $converted = str_replace($this->from, $this->to, $original);
+        $converted = \str_replace($this->from, $this->to, $original);
 
         // The string "PHPExcel" gets special treatment because of how common it might be.
         // This regex requires a word boundary around the string, and it can't be
         // preceded by $ or -> (goal is to filter out cases where a variable is named $PHPExcel or similar)
-        $converted = preg_replace('~(?<!\$|->)(\b|\\\\)PHPExcel\b~', '\\' . \PhpOffice\PhpSpreadsheet\Spreadsheet::class, $converted);
+        $converted = \preg_replace('~(?<!\$|->)(\b|\\\\)PHPExcel\b~', '\\' . \PhpOffice\PhpSpreadsheet\Spreadsheet::class, $converted);
 
         return $converted;
     }

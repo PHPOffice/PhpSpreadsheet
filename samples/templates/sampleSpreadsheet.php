@@ -31,7 +31,7 @@ $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
 $helper->log('Add some data');
 $spreadsheet->setActiveSheetIndex(0);
 $spreadsheet->getActiveSheet()->setCellValue('B1', 'Invoice');
-$spreadsheet->getActiveSheet()->setCellValue('D1', Date::PHPToExcel(gmmktime(0, 0, 0, date('m'), date('d'), date('Y'))));
+$spreadsheet->getActiveSheet()->setCellValue('D1', Date::PHPToExcel(\gmmktime(0, 0, 0, \date('m'), \date('d'), \date('Y'))));
 $spreadsheet->getActiveSheet()->getStyle('D1')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_XLSX15);
 $spreadsheet->getActiveSheet()->setCellValue('E1', '#12566');
 

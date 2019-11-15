@@ -7,13 +7,13 @@ require __DIR__ . '/../Header.php';
     Enter the coefficients for the Ax<sup>2</sup> + Bx + C = 0
     <table border="0" cellpadding="0" cellspacing="0">
         <tr><td><b>A&nbsp;</b></td>
-            <td><input name="A" type="text" size="8" value="<?php echo (isset($_POST['A'])) ? htmlentities($_POST['A']) : ''; ?>"></td>
+            <td><input name="A" type="text" size="8" value="<?php echo (isset($_POST['A'])) ? \htmlentities($_POST['A']) : ''; ?>"></td>
         </tr>
         <tr><td><b>B&nbsp;</b></td>
-            <td><input name="B" type="text" size="8" value="<?php echo (isset($_POST['B'])) ? htmlentities($_POST['B']) : ''; ?>"></td>
+            <td><input name="B" type="text" size="8" value="<?php echo (isset($_POST['B'])) ? \htmlentities($_POST['B']) : ''; ?>"></td>
         </tr>
         <tr><td><b>C&nbsp;</b></td>
-            <td><input name="C" type="text" size="8" value="<?php echo (isset($_POST['C'])) ? htmlentities($_POST['C']) : ''; ?>"></td>
+            <td><input name="C" type="text" size="8" value="<?php echo (isset($_POST['C'])) ? \htmlentities($_POST['C']) : ''; ?>"></td>
         </tr>
     </table>
     <input name="submit" type="submit" value="calculate"><br />
@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
 
         $helper->log(Calculation::getInstance()->calculateFormula($r1Formula));
         $helper->log(Calculation::getInstance()->calculateFormula($r2Formula));
-        $callEndTime = microtime(true);
+        $callEndTime = \microtime(true);
         $helper->logEndingNotes();
     }
 }

@@ -103,16 +103,16 @@ class OLERead
 
         // Get the file identifier
         // Don't bother reading the whole file until we know it's a valid OLE file
-        $this->data = file_get_contents($pFilename, false, null, 0, 8);
+        $this->data = \file_get_contents($pFilename, false, null, 0, 8);
 
         // Check OLE identifier
-        $identifierOle = pack('CCCCCCCC', 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1);
+        $identifierOle = \pack('CCCCCCCC', 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1);
         if ($this->data != $identifierOle) {
             throw new ReaderException('The filename ' . $pFilename . ' is not recognised as an OLE file');
         }
 
         // Get the file data
-        $this->data = file_get_contents($pFilename);
+        $this->data = \file_get_contents($pFilename);
 
         // Total number of sectors used for the SAT
         $this->numBigBlockDepotBlocks = self::getInt4d($this->data, self::NUM_BIG_BLOCK_DEPOT_BLOCKS_POS);
@@ -145,7 +145,7 @@ class OLERead
 
         for ($j = 0; $j < $this->numExtensionBlocks; ++$j) {
             $pos = ($this->extensionBlock + 1) * self::BIG_BLOCK_SIZE;
-            $blocksToRead = min($this->numBigBlockDepotBlocks - $bbdBlocks, self::BIG_BLOCK_SIZE / 4 - 1);
+            $blocksToRead = \min($this->numBigBlockDepotBlocks - $bbdBlocks, self::BIG_BLOCK_SIZE / 4 - 1);
 
             for ($i = $bbdBlocks; $i < $bbdBlocks + $blocksToRead; ++$i) {
                 $bigBlockDepotBlocks[$i] = self::getInt4d($this->data, $pos);
@@ -164,7 +164,7 @@ class OLERead
         for ($i = 0; $i < $this->numBigBlockDepotBlocks; ++$i) {
             $pos = ($bigBlockDepotBlocks[$i] + 1) * self::BIG_BLOCK_SIZE;
 
-            $this->bigBlockChain .= substr($this->data, $pos, 4 * $bbs);
+            $this->bigBlockChain .= \substr($this->data, $pos, 4 * $bbs);
             $pos += 4 * $bbs;
         }
 
@@ -174,7 +174,7 @@ class OLERead
         while ($sbdBlock != -2) {
             $pos = ($sbdBlock + 1) * self::BIG_BLOCK_SIZE;
 
-            $this->smallBlockChain .= substr($this->data, $pos, 4 * $bbs);
+            $this->smallBlockChain .= \substr($this->data, $pos, 4 * $bbs);
             $pos += 4 * $bbs;
 
             $sbdBlock = self::getInt4d($this->bigBlockChain, $sbdBlock * 4);
@@ -209,7 +209,7 @@ class OLERead
 
             while ($block != -2) {
                 $pos = $block * self::SMALL_BLOCK_SIZE;
-                $streamData .= substr($rootdata, $pos, self::SMALL_BLOCK_SIZE);
+                $streamData .= \substr($rootdata, $pos, self::SMALL_BLOCK_SIZE);
 
                 $block = self::getInt4d($this->smallBlockChain, $block * 4);
             }
@@ -229,7 +229,7 @@ class OLERead
 
         while ($block != -2) {
             $pos = ($block + 1) * self::BIG_BLOCK_SIZE;
-            $streamData .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
+            $streamData .= \substr($this->data, $pos, self::BIG_BLOCK_SIZE);
             $block = self::getInt4d($this->bigBlockChain, $block * 4);
         }
 
@@ -250,7 +250,7 @@ class OLERead
 
         while ($block != -2) {
             $pos = ($block + 1) * self::BIG_BLOCK_SIZE;
-            $data .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
+            $data .= \substr($this->data, $pos, self::BIG_BLOCK_SIZE);
             $block = self::getInt4d($this->bigBlockChain, $block * 4);
         }
 
@@ -265,16 +265,16 @@ class OLERead
         $offset = 0;
 
         // loop through entires, each entry is 128 bytes
-        $entryLen = strlen($this->entry);
+        $entryLen = \strlen($this->entry);
         while ($offset < $entryLen) {
             // entry data (128 bytes)
-            $d = substr($this->entry, $offset, self::PROPERTY_STORAGE_BLOCK_SIZE);
+            $d = \substr($this->entry, $offset, self::PROPERTY_STORAGE_BLOCK_SIZE);
 
             // size in bytes of name
-            $nameSize = ord($d[self::SIZE_OF_NAME_POS]) | (ord($d[self::SIZE_OF_NAME_POS + 1]) << 8);
+            $nameSize = \ord($d[self::SIZE_OF_NAME_POS]) | (\ord($d[self::SIZE_OF_NAME_POS + 1]) << 8);
 
             // type of entry
-            $type = ord($d[self::TYPE_POS]);
+            $type = \ord($d[self::TYPE_POS]);
 
             // sectorID of first sector or short sector, if this entry refers to a stream (the case with workbook)
             // sectorID of first sector of the short-stream container stream, if this entry is root entry
@@ -282,7 +282,7 @@ class OLERead
 
             $size = self::getInt4d($d, self::SIZE_POS);
 
-            $name = str_replace("\x00", '', substr($d, 0, $nameSize));
+            $name = \str_replace("\x00", '', \substr($d, 0, $nameSize));
 
             $this->props[] = [
                 'name' => $name,
@@ -292,24 +292,24 @@ class OLERead
             ];
 
             // tmp helper to simplify checks
-            $upName = strtoupper($name);
+            $upName = \strtoupper($name);
 
             // Workbook directory entry (BIFF5 uses Book, BIFF8 uses Workbook)
             if (($upName === 'WORKBOOK') || ($upName === 'BOOK')) {
-                $this->wrkbook = count($this->props) - 1;
+                $this->wrkbook = \count($this->props) - 1;
             } elseif ($upName === 'ROOT ENTRY' || $upName === 'R') {
                 // Root entry
-                $this->rootentry = count($this->props) - 1;
+                $this->rootentry = \count($this->props) - 1;
             }
 
             // Summary information
-            if ($name == chr(5) . 'SummaryInformation') {
-                $this->summaryInformation = count($this->props) - 1;
+            if ($name == \chr(5) . 'SummaryInformation') {
+                $this->summaryInformation = \count($this->props) - 1;
             }
 
             // Additional Document Summary information
-            if ($name == chr(5) . 'DocumentSummaryInformation') {
-                $this->documentSummaryInformation = count($this->props) - 1;
+            if ($name == \chr(5) . 'DocumentSummaryInformation') {
+                $this->documentSummaryInformation = \count($this->props) - 1;
             }
 
             $offset += self::PROPERTY_STORAGE_BLOCK_SIZE;
@@ -331,22 +331,22 @@ class OLERead
             throw new ReaderException('Parameter pos=' . $pos . ' is invalid.');
         }
 
-        $len = strlen($data);
+        $len = \strlen($data);
         if ($len < $pos + 4) {
-            $data .= str_repeat("\0", $pos + 4 - $len);
+            $data .= \str_repeat("\0", $pos + 4 - $len);
         }
 
         // FIX: represent numbers correctly on 64-bit system
         // http://sourceforge.net/tracker/index.php?func=detail&aid=1487372&group_id=99160&atid=623334
         // Changed by Andreas Rehm 2006 to ensure correct result of the <<24 block on 32 and 64bit systems
-        $_or_24 = ord($data[$pos + 3]);
+        $_or_24 = \ord($data[$pos + 3]);
         if ($_or_24 >= 128) {
             // negative number
-            $_ord_24 = -abs((256 - $_or_24) << 24);
+            $_ord_24 = -\abs((256 - $_or_24) << 24);
         } else {
             $_ord_24 = ($_or_24 & 127) << 24;
         }
 
-        return ord($data[$pos]) | (ord($data[$pos + 1]) << 8) | (ord($data[$pos + 2]) << 16) | $_ord_24;
+        return \ord($data[$pos]) | (\ord($data[$pos + 1]) << 8) | (\ord($data[$pos + 2]) << 16) | $_ord_24;
     }
 }

@@ -21,7 +21,7 @@ class LogarithmicBestFit extends BestFit
      */
     public function getValueOfYForX($xValue)
     {
-        return $this->getIntersect() + $this->getSlope() * log($xValue - $this->xOffset);
+        return $this->getIntersect() + $this->getSlope() * \log($xValue - $this->xOffset);
     }
 
     /**
@@ -33,7 +33,7 @@ class LogarithmicBestFit extends BestFit
      */
     public function getValueOfXForY($yValue)
     {
-        return exp(($yValue - $this->getIntersect()) / $this->getSlope());
+        return \exp(($yValue - $this->getIntersect()) / $this->getSlope());
     }
 
     /**
@@ -62,9 +62,9 @@ class LogarithmicBestFit extends BestFit
     {
         foreach ($xValues as &$value) {
             if ($value < 0.0) {
-                $value = 0 - log(abs($value));
+                $value = 0 - \log(\abs($value));
             } elseif ($value > 0.0) {
-                $value = log($value);
+                $value = \log($value);
             }
         }
         unset($value);

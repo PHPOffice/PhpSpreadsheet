@@ -43,12 +43,12 @@ class LookupRef
         }
 
         if ($sheetText > '') {
-            if (strpos($sheetText, ' ') !== false) {
+            if (\strpos($sheetText, ' ') !== false) {
                 $sheetText = "'" . $sheetText . "'";
             }
             $sheetText .= '!';
         }
-        if ((!is_bool($referenceStyle)) || $referenceStyle) {
+        if ((!\is_bool($referenceStyle)) || $referenceStyle) {
             $rowRelative = $columnRelative = '$';
             $column = Coordinate::stringFromColumnIndex($column);
             if (($relativity == 2) || ($relativity == 4)) {
@@ -87,22 +87,22 @@ class LookupRef
      */
     public static function COLUMN($cellAddress = null)
     {
-        if ($cellAddress === null || trim($cellAddress) === '') {
+        if ($cellAddress === null || \trim($cellAddress) === '') {
             return 0;
         }
 
-        if (is_array($cellAddress)) {
+        if (\is_array($cellAddress)) {
             foreach ($cellAddress as $columnKey => $value) {
-                $columnKey = preg_replace('/[^a-z]/i', '', $columnKey);
+                $columnKey = \preg_replace('/[^a-z]/i', '', $columnKey);
 
                 return (int) Coordinate::columnIndexFromString($columnKey);
             }
         } else {
             [$sheet, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
-            if (strpos($cellAddress, ':') !== false) {
-                [$startAddress, $endAddress] = explode(':', $cellAddress);
-                $startAddress = preg_replace('/[^a-z]/i', '', $startAddress);
-                $endAddress = preg_replace('/[^a-z]/i', '', $endAddress);
+            if (\strpos($cellAddress, ':') !== false) {
+                [$startAddress, $endAddress] = \explode(':', $cellAddress);
+                $startAddress = \preg_replace('/[^a-z]/i', '', $startAddress);
+                $endAddress = \preg_replace('/[^a-z]/i', '', $endAddress);
                 $returnValue = [];
                 do {
                     $returnValue[] = (int) Coordinate::columnIndexFromString($startAddress);
@@ -110,7 +110,7 @@ class LookupRef
 
                 return $returnValue;
             }
-            $cellAddress = preg_replace('/[^a-z]/i', '', $cellAddress);
+            $cellAddress = \preg_replace('/[^a-z]/i', '', $cellAddress);
 
             return (int) Coordinate::columnIndexFromString($cellAddress);
         }
@@ -132,12 +132,12 @@ class LookupRef
     {
         if ($cellAddress === null || $cellAddress === '') {
             return 1;
-        } elseif (!is_array($cellAddress)) {
+        } elseif (!\is_array($cellAddress)) {
             return Functions::VALUE();
         }
 
-        reset($cellAddress);
-        $isMatrix = (is_numeric(key($cellAddress)));
+        \reset($cellAddress);
+        $isMatrix = (\is_numeric(\key($cellAddress)));
         [$columns, $rows] = Calculation::getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
@@ -164,22 +164,22 @@ class LookupRef
      */
     public static function ROW($cellAddress = null)
     {
-        if ($cellAddress === null || trim($cellAddress) === '') {
+        if ($cellAddress === null || \trim($cellAddress) === '') {
             return 0;
         }
 
-        if (is_array($cellAddress)) {
+        if (\is_array($cellAddress)) {
             foreach ($cellAddress as $columnKey => $rowValue) {
                 foreach ($rowValue as $rowKey => $cellValue) {
-                    return (int) preg_replace('/\D/', '', $rowKey);
+                    return (int) \preg_replace('/\D/', '', $rowKey);
                 }
             }
         } else {
             [$sheet, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
-            if (strpos($cellAddress, ':') !== false) {
-                [$startAddress, $endAddress] = explode(':', $cellAddress);
-                $startAddress = preg_replace('/\D/', '', $startAddress);
-                $endAddress = preg_replace('/\D/', '', $endAddress);
+            if (\strpos($cellAddress, ':') !== false) {
+                [$startAddress, $endAddress] = \explode(':', $cellAddress);
+                $startAddress = \preg_replace('/\D/', '', $startAddress);
+                $endAddress = \preg_replace('/\D/', '', $endAddress);
                 $returnValue = [];
                 do {
                     $returnValue[][] = (int) $startAddress;
@@ -187,9 +187,9 @@ class LookupRef
 
                 return $returnValue;
             }
-            [$cellAddress] = explode(':', $cellAddress);
+            [$cellAddress] = \explode(':', $cellAddress);
 
-            return (int) preg_replace('/\D/', '', $cellAddress);
+            return (int) \preg_replace('/\D/', '', $cellAddress);
         }
     }
 
@@ -209,12 +209,12 @@ class LookupRef
     {
         if ($cellAddress === null || $cellAddress === '') {
             return 1;
-        } elseif (!is_array($cellAddress)) {
+        } elseif (!\is_array($cellAddress)) {
             return Functions::VALUE();
         }
 
-        reset($cellAddress);
-        $isMatrix = (is_numeric(key($cellAddress)));
+        \reset($cellAddress);
+        $isMatrix = (\is_numeric(\key($cellAddress)));
         [$columns, $rows] = Calculation::getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
@@ -243,11 +243,11 @@ class LookupRef
         $linkURL = ($linkURL === null) ? '' : Functions::flattenSingleValue($linkURL);
         $displayName = ($displayName === null) ? '' : Functions::flattenSingleValue($displayName);
 
-        if ((!is_object($pCell)) || (trim($linkURL) == '')) {
+        if ((!\is_object($pCell)) || (\trim($linkURL) == '')) {
             return Functions::REF();
         }
 
-        if ((is_object($displayName)) || trim($displayName) == '') {
+        if ((\is_object($displayName)) || \trim($displayName) == '') {
             $displayName = $linkURL;
         }
 
@@ -284,19 +284,19 @@ class LookupRef
 
         $cellAddress1 = $cellAddress;
         $cellAddress2 = null;
-        if (strpos($cellAddress, ':') !== false) {
-            [$cellAddress1, $cellAddress2] = explode(':', $cellAddress);
+        if (\strpos($cellAddress, ':') !== false) {
+            [$cellAddress1, $cellAddress2] = \explode(':', $cellAddress);
         }
 
-        if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
-            (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))) {
-            if (!preg_match('/^' . Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $cellAddress1, $matches)) {
+        if ((!\preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
+            (($cellAddress2 !== null) && (!\preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))) {
+            if (!\preg_match('/^' . Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $cellAddress1, $matches)) {
                 return Functions::REF();
             }
 
-            if (strpos($cellAddress, '!') !== false) {
+            if (\strpos($cellAddress, '!') !== false) {
                 [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
-                $sheetName = trim($sheetName, "'");
+                $sheetName = \trim($sheetName, "'");
                 $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
             } else {
                 $pSheet = $pCell->getWorksheet();
@@ -305,9 +305,9 @@ class LookupRef
             return Calculation::getInstance()->extractNamedRange($cellAddress, $pSheet, false);
         }
 
-        if (strpos($cellAddress, '!') !== false) {
+        if (\strpos($cellAddress, '!') !== false) {
             [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
-            $sheetName = trim($sheetName, "'");
+            $sheetName = \trim($sheetName, "'");
             $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
         } else {
             $pSheet = $pCell->getWorksheet();
@@ -353,17 +353,17 @@ class LookupRef
             return 0;
         }
 
-        if (!is_object($pCell)) {
+        if (!\is_object($pCell)) {
             return Functions::REF();
         }
 
         $sheetName = null;
-        if (strpos($cellAddress, '!')) {
+        if (\strpos($cellAddress, '!')) {
             [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
-            $sheetName = trim($sheetName, "'");
+            $sheetName = \trim($sheetName, "'");
         }
-        if (strpos($cellAddress, ':')) {
-            [$startCell, $endCell] = explode(':', $cellAddress);
+        if (\strpos($cellAddress, ':')) {
+            [$startCell, $endCell] = \explode(':', $cellAddress);
         } else {
             $startCell = $endCell = $cellAddress;
         }
@@ -378,14 +378,14 @@ class LookupRef
             return Functions::REF();
         }
         $endCellColumn = Coordinate::columnIndexFromString($endCellColumn) - 1;
-        if (($width != null) && (!is_object($width))) {
+        if (($width != null) && (!\is_object($width))) {
             $endCellColumn = $startCellColumn + $width - 1;
         } else {
             $endCellColumn += $columns;
         }
         $startCellColumn = Coordinate::stringFromColumnIndex($startCellColumn + 1);
 
-        if (($height != null) && (!is_object($height))) {
+        if (($height != null) && (!\is_object($height))) {
             $endCellRow = $startCellRow + $height - 1;
         } else {
             $endCellRow += $rows;
@@ -431,23 +431,23 @@ class LookupRef
      */
     public static function CHOOSE(...$chooseArgs)
     {
-        $chosenEntry = Functions::flattenArray(array_shift($chooseArgs));
-        $entryCount = count($chooseArgs) - 1;
+        $chosenEntry = Functions::flattenArray(\array_shift($chooseArgs));
+        $entryCount = \count($chooseArgs) - 1;
 
-        if (is_array($chosenEntry)) {
-            $chosenEntry = array_shift($chosenEntry);
+        if (\is_array($chosenEntry)) {
+            $chosenEntry = \array_shift($chosenEntry);
         }
-        if ((is_numeric($chosenEntry)) && (!is_bool($chosenEntry))) {
+        if ((\is_numeric($chosenEntry)) && (!\is_bool($chosenEntry))) {
             --$chosenEntry;
         } else {
             return Functions::VALUE();
         }
-        $chosenEntry = floor($chosenEntry);
+        $chosenEntry = \floor($chosenEntry);
         if (($chosenEntry < 0) || ($chosenEntry > $entryCount)) {
             return Functions::VALUE();
         }
 
-        if (is_array($chooseArgs[$chosenEntry])) {
+        if (\is_array($chooseArgs[$chosenEntry])) {
             return Functions::flattenArray($chooseArgs[$chosenEntry]);
         }
 
@@ -476,12 +476,12 @@ class LookupRef
         $matchType = ($matchType === null) ? 1 : (int) Functions::flattenSingleValue($matchType);
 
         // MATCH is not case sensitive, so we convert lookup value to be lower cased in case it's string type.
-        if (is_string($lookupValue)) {
+        if (\is_string($lookupValue)) {
             $lookupValue = StringHelper::strToLower($lookupValue);
         }
 
         // Lookup_value type has to be number, text, or logical values
-        if ((!is_numeric($lookupValue)) && (!is_string($lookupValue)) && (!is_bool($lookupValue))) {
+        if ((!\is_numeric($lookupValue)) && (!\is_string($lookupValue)) && (!\is_bool($lookupValue))) {
             return Functions::NA();
         }
 
@@ -491,7 +491,7 @@ class LookupRef
         }
 
         // Lookup_array should not be empty
-        $lookupArraySize = count($lookupArray);
+        $lookupArraySize = \count($lookupArray);
         if ($lookupArraySize <= 0) {
             return Functions::NA();
         }
@@ -499,25 +499,25 @@ class LookupRef
         // Lookup_array should contain only number, text, or logical values, or empty (null) cells
         foreach ($lookupArray as $i => $lookupArrayValue) {
             //    check the type of the value
-            if ((!is_numeric($lookupArrayValue)) && (!is_string($lookupArrayValue)) &&
-                (!is_bool($lookupArrayValue)) && ($lookupArrayValue !== null)
+            if ((!\is_numeric($lookupArrayValue)) && (!\is_string($lookupArrayValue)) &&
+                (!\is_bool($lookupArrayValue)) && ($lookupArrayValue !== null)
             ) {
                 return Functions::NA();
             }
             // Convert strings to lowercase for case-insensitive testing
-            if (is_string($lookupArrayValue)) {
+            if (\is_string($lookupArrayValue)) {
                 $lookupArray[$i] = StringHelper::strToLower($lookupArrayValue);
             }
             if (($lookupArrayValue === null) && (($matchType == 1) || ($matchType == -1))) {
-                $lookupArray = array_slice($lookupArray, 0, $i - 1);
+                $lookupArray = \array_slice($lookupArray, 0, $i - 1);
             }
         }
 
         if ($matchType == 1) {
             // If match_type is 1 the list has to be processed from last to first
 
-            $lookupArray = array_reverse($lookupArray);
-            $keySet = array_reverse(array_keys($lookupArray));
+            $lookupArray = \array_reverse($lookupArray);
+            $keySet = \array_reverse(\array_keys($lookupArray));
         }
 
         // **
@@ -526,44 +526,44 @@ class LookupRef
 
         if ($matchType === 0 || $matchType === 1) {
             foreach ($lookupArray as $i => $lookupArrayValue) {
-                $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
+                $typeMatch = \gettype($lookupValue) === \gettype($lookupArrayValue);
                 $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
                 $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
                 $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
 
                 if ($matchType === 0) {
-                    if ($typeMatch && is_string($lookupValue) && (bool) preg_match('/([\?\*])/', $lookupValue)) {
+                    if ($typeMatch && \is_string($lookupValue) && (bool) \preg_match('/([\?\*])/', $lookupValue)) {
                         $splitString = $lookupValue;
-                        $chars = array_map(function ($i) use ($splitString) {
-                            return mb_substr($splitString, $i, 1);
-                        }, range(0, mb_strlen($splitString) - 1));
+                        $chars = \array_map(function ($i) use ($splitString) {
+                            return \mb_substr($splitString, $i, 1);
+                        }, \range(0, \mb_strlen($splitString) - 1));
 
-                        $length = count($chars);
+                        $length = \count($chars);
                         $pattern = '/^';
                         for ($j = 0; $j < $length; ++$j) {
                             if ($chars[$j] === '~') {
                                 if (isset($chars[$j + 1])) {
                                     if ($chars[$j + 1] === '*') {
-                                        $pattern .= preg_quote($chars[$j + 1], '/');
+                                        $pattern .= \preg_quote($chars[$j + 1], '/');
                                         ++$j;
                                     } elseif ($chars[$j + 1] === '?') {
-                                        $pattern .= preg_quote($chars[$j + 1], '/');
+                                        $pattern .= \preg_quote($chars[$j + 1], '/');
                                         ++$j;
                                     }
                                 } else {
-                                    $pattern .= preg_quote($chars[$j], '/');
+                                    $pattern .= \preg_quote($chars[$j], '/');
                                 }
                             } elseif ($chars[$j] === '*') {
                                 $pattern .= '.*';
                             } elseif ($chars[$j] === '?') {
                                 $pattern .= '.{1}';
                             } else {
-                                $pattern .= preg_quote($chars[$j], '/');
+                                $pattern .= \preg_quote($chars[$j], '/');
                             }
                         }
 
                         $pattern .= '$/';
-                        if ((bool) preg_match($pattern, $lookupArrayValue)) {
+                        if ((bool) \preg_match($pattern, $lookupArrayValue)) {
                             // exact match
                             return $i + 1;
                         }
@@ -572,7 +572,7 @@ class LookupRef
                         return $i + 1;
                     }
                 } elseif (($matchType === 1) && $typeMatch && ($lookupArrayValue <= $lookupValue)) {
-                    $i = array_search($i, $keySet);
+                    $i = \array_search($i, $keySet);
 
                     // The current value is the (first) match
                     return $i + 1;
@@ -585,7 +585,7 @@ class LookupRef
             // Iterate and keep the highest match until the next element is smaller than the searched value.
             // Return immediately if perfect match is found
             foreach ($lookupArray as $i => $lookupArrayValue) {
-                $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
+                $typeMatch = \gettype($lookupValue) === \gettype($lookupArrayValue);
                 $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
                 $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
                 $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
@@ -634,14 +634,14 @@ class LookupRef
             return Functions::VALUE();
         }
 
-        if (!is_array($arrayValues) || ($rowNum > count($arrayValues))) {
+        if (!\is_array($arrayValues) || ($rowNum > \count($arrayValues))) {
             return Functions::REF();
         }
 
-        $rowKeys = array_keys($arrayValues);
-        $columnKeys = @array_keys($arrayValues[$rowKeys[0]]);
+        $rowKeys = \array_keys($arrayValues);
+        $columnKeys = @\array_keys($arrayValues[$rowKeys[0]]);
 
-        if ($columnNum > count($columnKeys)) {
+        if ($columnNum > \count($columnKeys)) {
             return Functions::VALUE();
         } elseif ($columnNum == 0) {
             if ($rowNum == 0) {
@@ -650,7 +650,7 @@ class LookupRef
             $rowNum = $rowKeys[--$rowNum];
             $returnArray = [];
             foreach ($arrayValues as $arrayColumn) {
-                if (is_array($arrayColumn)) {
+                if (\is_array($arrayColumn)) {
                     if (isset($arrayColumn[$rowNum])) {
                         $returnArray[] = $arrayColumn[$rowNum];
                     } else {
@@ -664,7 +664,7 @@ class LookupRef
             return $returnArray;
         }
         $columnNum = $columnKeys[--$columnNum];
-        if ($rowNum > count($rowKeys)) {
+        if ($rowNum > \count($rowKeys)) {
             return Functions::VALUE();
         } elseif ($rowNum == 0) {
             return $arrayValues[$columnNum];
@@ -686,7 +686,7 @@ class LookupRef
     public static function TRANSPOSE($matrixData)
     {
         $returnMatrix = [];
-        if (!is_array($matrixData)) {
+        if (!\is_array($matrixData)) {
             $matrixData = [[$matrixData]];
         }
 
@@ -705,8 +705,8 @@ class LookupRef
 
     private static function vlookupSort($a, $b)
     {
-        reset($a);
-        $firstColumn = key($a);
+        \reset($a);
+        $firstColumn = \key($a);
         $aLower = StringHelper::strToLower($a[$firstColumn]);
         $bLower = StringHelper::strToLower($b[$firstColumn]);
         if ($aLower == $bLower) {
@@ -739,20 +739,20 @@ class LookupRef
         }
 
         // index_number must be less than or equal to the number of columns in lookup_array
-        if ((!is_array($lookup_array)) || (empty($lookup_array))) {
+        if ((!\is_array($lookup_array)) || (empty($lookup_array))) {
             return Functions::REF();
         }
-        $f = array_keys($lookup_array);
-        $firstRow = array_pop($f);
-        if ((!is_array($lookup_array[$firstRow])) || ($index_number > count($lookup_array[$firstRow]))) {
+        $f = \array_keys($lookup_array);
+        $firstRow = \array_pop($f);
+        if ((!\is_array($lookup_array[$firstRow])) || ($index_number > \count($lookup_array[$firstRow]))) {
             return Functions::REF();
         }
-        $columnKeys = array_keys($lookup_array[$firstRow]);
+        $columnKeys = \array_keys($lookup_array[$firstRow]);
         $returnColumn = $columnKeys[--$index_number];
-        $firstColumn = array_shift($columnKeys);
+        $firstColumn = \array_shift($columnKeys);
 
         if (!$not_exact_match) {
-            uasort($lookup_array, ['self', 'vlookupSort']);
+            \uasort($lookup_array, ['self', 'vlookupSort']);
         }
 
         $lookupLower = StringHelper::strToLower($lookup_value);
@@ -761,13 +761,13 @@ class LookupRef
             $firstLower = StringHelper::strToLower($rowData[$firstColumn]);
 
             // break if we have passed possible keys
-            if ((is_numeric($lookup_value) && is_numeric($rowData[$firstColumn]) && ($rowData[$firstColumn] > $lookup_value)) ||
-                (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]) && ($firstLower > $lookupLower))) {
+            if ((\is_numeric($lookup_value) && \is_numeric($rowData[$firstColumn]) && ($rowData[$firstColumn] > $lookup_value)) ||
+                (!\is_numeric($lookup_value) && !\is_numeric($rowData[$firstColumn]) && ($firstLower > $lookupLower))) {
                 break;
             }
             // remember the last key, but only if datatypes match
-            if ((is_numeric($lookup_value) && is_numeric($rowData[$firstColumn])) ||
-                (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]))) {
+            if ((\is_numeric($lookup_value) && \is_numeric($rowData[$firstColumn])) ||
+                (!\is_numeric($lookup_value) && !\is_numeric($rowData[$firstColumn]))) {
                 if ($not_exact_match) {
                     $rowNumber = $rowKey;
 
@@ -814,23 +814,23 @@ class LookupRef
         }
 
         // index_number must be less than or equal to the number of columns in lookup_array
-        if ((!is_array($lookup_array)) || (empty($lookup_array))) {
+        if ((!\is_array($lookup_array)) || (empty($lookup_array))) {
             return Functions::REF();
         }
-        $f = array_keys($lookup_array);
-        $firstRow = array_pop($f);
-        if ((!is_array($lookup_array[$firstRow])) || ($index_number > count($lookup_array))) {
+        $f = \array_keys($lookup_array);
+        $firstRow = \array_pop($f);
+        if ((!\is_array($lookup_array[$firstRow])) || ($index_number > \count($lookup_array))) {
             return Functions::REF();
         }
 
         $firstkey = $f[0] - 1;
         $returnColumn = $firstkey + $index_number;
-        $firstColumn = array_shift($f);
+        $firstColumn = \array_shift($f);
         $rowNumber = null;
         foreach ($lookup_array[$firstColumn] as $rowKey => $rowData) {
             // break if we have passed possible keys
-            $bothNumeric = is_numeric($lookup_value) && is_numeric($rowData);
-            $bothNotNumeric = !is_numeric($lookup_value) && !is_numeric($rowData);
+            $bothNumeric = \is_numeric($lookup_value) && \is_numeric($rowData);
+            $bothNotNumeric = !\is_numeric($lookup_value) && !\is_numeric($rowData);
             $lookupLower = StringHelper::strToLower($lookup_value);
             $rowDataLower = StringHelper::strToLower($rowData);
 
@@ -877,47 +877,47 @@ class LookupRef
     {
         $lookup_value = Functions::flattenSingleValue($lookup_value);
 
-        if (!is_array($lookup_vector)) {
+        if (!\is_array($lookup_vector)) {
             return Functions::NA();
         }
         $hasResultVector = isset($result_vector);
-        $lookupRows = count($lookup_vector);
-        $l = array_keys($lookup_vector);
-        $l = array_shift($l);
-        $lookupColumns = count($lookup_vector[$l]);
+        $lookupRows = \count($lookup_vector);
+        $l = \array_keys($lookup_vector);
+        $l = \array_shift($l);
+        $lookupColumns = \count($lookup_vector[$l]);
         // we correctly orient our results
         if (($lookupRows === 1 && $lookupColumns > 1) || (!$hasResultVector && $lookupRows === 2 && $lookupColumns !== 2)) {
             $lookup_vector = self::TRANSPOSE($lookup_vector);
-            $lookupRows = count($lookup_vector);
-            $l = array_keys($lookup_vector);
-            $lookupColumns = count($lookup_vector[array_shift($l)]);
+            $lookupRows = \count($lookup_vector);
+            $l = \array_keys($lookup_vector);
+            $lookupColumns = \count($lookup_vector[\array_shift($l)]);
         }
 
         if ($result_vector === null) {
             $result_vector = $lookup_vector;
         }
-        $resultRows = count($result_vector);
-        $l = array_keys($result_vector);
-        $l = array_shift($l);
-        $resultColumns = count($result_vector[$l]);
+        $resultRows = \count($result_vector);
+        $l = \array_keys($result_vector);
+        $l = \array_shift($l);
+        $resultColumns = \count($result_vector[$l]);
         // we correctly orient our results
         if ($resultRows === 1 && $resultColumns > 1) {
             $result_vector = self::TRANSPOSE($result_vector);
-            $resultRows = count($result_vector);
-            $r = array_keys($result_vector);
-            $resultColumns = count($result_vector[array_shift($r)]);
+            $resultRows = \count($result_vector);
+            $r = \array_keys($result_vector);
+            $resultColumns = \count($result_vector[\array_shift($r)]);
         }
 
         if ($lookupRows === 2 && !$hasResultVector) {
-            $result_vector = array_pop($lookup_vector);
-            $lookup_vector = array_shift($lookup_vector);
+            $result_vector = \array_pop($lookup_vector);
+            $lookup_vector = \array_shift($lookup_vector);
         }
 
         if ($lookupColumns !== 2) {
             foreach ($lookup_vector as &$value) {
-                if (is_array($value)) {
-                    $k = array_keys($value);
-                    $key1 = $key2 = array_shift($k);
+                if (\is_array($value)) {
+                    $k = \array_keys($value);
+                    $key1 = $key2 = \array_shift($k);
                     ++$key2;
                     $dataValue1 = $value[$key1];
                 } else {
@@ -925,9 +925,9 @@ class LookupRef
                     $key2 = 1;
                     $dataValue1 = $value;
                 }
-                $dataValue2 = array_shift($result_vector);
-                if (is_array($dataValue2)) {
-                    $dataValue2 = array_shift($dataValue2);
+                $dataValue2 = \array_shift($result_vector);
+                if (\is_array($dataValue2)) {
+                    $dataValue2 = \array_shift($dataValue2);
                 }
                 $value = [$key1 => $dataValue1, $key2 => $dataValue2];
             }
@@ -951,10 +951,10 @@ class LookupRef
             return Functions::REF();
         }
 
-        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
+        \preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
 
         $cellReference = $matches[6] . $matches[7];
-        $worksheetName = trim($matches[3], "'");
+        $worksheetName = \trim($matches[3], "'");
         $worksheet = (!empty($worksheetName))
             ? $pCell->getWorksheet()->getParent()->getSheetByName($worksheetName)
             : $pCell->getWorksheet();

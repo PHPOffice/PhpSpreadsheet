@@ -16,7 +16,7 @@ class UnparsedDataTest extends TestCase
     public function testLoadSaveXlsxWithUnparsedData()
     {
         $sampleFilename = './data/Writer/XLSX/form_pass_print.xlsm';
-        $resultFilename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $resultFilename = \tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         Settings::setLibXmlLoaderOptions(null); // reset to default options
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $excel = $reader->load($sampleFilename);
@@ -42,7 +42,7 @@ class UnparsedDataTest extends TestCase
         if (false === $resultZip->close()) {
             throw new Exception("Could not close zip file \"{$resultFilename}\".");
         }
-        unlink($resultFilename);
+        \unlink($resultFilename);
 
         // [Content_Types].xml
         $this->assertContains('application/vnd.openxmlformats-officedocument.spreadsheetml.printerSettings', $resultContentTypesRaw, 'Content type for printerSettings not found!');
@@ -65,7 +65,7 @@ class UnparsedDataTest extends TestCase
         $this->assertNotEmpty($resultVbaProjectRaw, 'vbaProject.bin not found!');
 
         // xl/workbook.xml
-        $xmlWorkbook = simplexml_load_string($resultWorkbookRaw, 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        $xmlWorkbook = \simplexml_load_string($resultWorkbookRaw, 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
         if (!$xmlWorkbook->workbookProtection) {
             $this->fail('workbook.xml/workbookProtection not found!');
         } else {
@@ -84,7 +84,7 @@ class UnparsedDataTest extends TestCase
 
         // xl/worksheets/sheet1.xml
         $this->assertContains('<mc:AlternateContent', $resultSheet1Raw, 'AlternateContent at sheet1.xml not found!');
-        $xmlWorksheet = simplexml_load_string($resultSheet1Raw, 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        $xmlWorksheet = \simplexml_load_string($resultSheet1Raw, 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
         $pageSetupAttributes = $xmlWorksheet->pageSetup->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
         $this->assertNotEmpty($pageSetupAttributes['id'], 'sheet1.xml/pageSetup[r:id] not found!');
         if (!$xmlWorksheet->sheetProtection) {

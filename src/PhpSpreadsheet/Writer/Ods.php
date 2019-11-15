@@ -63,8 +63,8 @@ class Ods extends BaseWriter
      */
     public function getWriterPart($pPartName)
     {
-        if ($pPartName != '' && isset($this->writerParts[strtolower($pPartName)])) {
-            return $this->writerParts[strtolower($pPartName)];
+        if ($pPartName != '' && isset($this->writerParts[\strtolower($pPartName)])) {
+            return $this->writerParts[\strtolower($pPartName)];
         }
 
         return null;
@@ -88,8 +88,8 @@ class Ods extends BaseWriter
 
         // If $pFilename is php://output or php://stdout, make it a temporary file...
         $originalFilename = $pFilename;
-        if (strtolower($pFilename) == 'php://output' || strtolower($pFilename) == 'php://stdout') {
-            $pFilename = @tempnam(File::sysGetTempDir(), 'phpxltmp');
+        if (\strtolower($pFilename) == 'php://output' || \strtolower($pFilename) == 'php://stdout') {
+            $pFilename = @\tempnam(File::sysGetTempDir(), 'phpxltmp');
             if ($pFilename == '') {
                 $pFilename = $originalFilename;
             }
@@ -112,10 +112,10 @@ class Ods extends BaseWriter
 
         // If a temporary file was used, copy it to the correct file stream
         if ($originalFilename != $pFilename) {
-            if (copy($pFilename, $originalFilename) === false) {
+            if (\copy($pFilename, $originalFilename) === false) {
                 throw new WriterException("Could not copy temporary zip file $pFilename to $originalFilename.");
             }
-            @unlink($pFilename);
+            @\unlink($pFilename);
         }
     }
 
@@ -133,8 +133,8 @@ class Ods extends BaseWriter
         // Create new ZIP file and open it for writing
         $zip = new ZipArchive();
 
-        if (file_exists($pFilename)) {
-            unlink($pFilename);
+        if (\file_exists($pFilename)) {
+            \unlink($pFilename);
         }
         // Try opening the ZIP file
         if ($zip->open($pFilename, ZipArchive::OVERWRITE) !== true) {

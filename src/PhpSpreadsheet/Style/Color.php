@@ -171,7 +171,7 @@ class Color extends Supervisor
             return $this->getSharedComponent()->getRGB();
         }
 
-        return substr($this->argb, 2);
+        return \substr($this->argb, 2);
     }
 
     /**
@@ -208,9 +208,9 @@ class Color extends Supervisor
      */
     private static function getColourComponent($RGB, $offset, $hex = true)
     {
-        $colour = substr($RGB, $offset, 2);
+        $colour = \substr($RGB, $offset, 2);
 
-        return ($hex) ? $colour : hexdec($colour);
+        return ($hex) ? $colour : \hexdec($colour);
     }
 
     /**
@@ -224,7 +224,7 @@ class Color extends Supervisor
      */
     public static function getRed($RGB, $hex = true)
     {
-        return self::getColourComponent($RGB, strlen($RGB) - 6, $hex);
+        return self::getColourComponent($RGB, \strlen($RGB) - 6, $hex);
     }
 
     /**
@@ -238,7 +238,7 @@ class Color extends Supervisor
      */
     public static function getGreen($RGB, $hex = true)
     {
-        return self::getColourComponent($RGB, strlen($RGB) - 4, $hex);
+        return self::getColourComponent($RGB, \strlen($RGB) - 4, $hex);
     }
 
     /**
@@ -252,7 +252,7 @@ class Color extends Supervisor
      */
     public static function getBlue($RGB, $hex = true)
     {
-        return self::getColourComponent($RGB, strlen($RGB) - 2, $hex);
+        return self::getColourComponent($RGB, \strlen($RGB) - 2, $hex);
     }
 
     /**
@@ -265,7 +265,7 @@ class Color extends Supervisor
      */
     public static function changeBrightness($hex, $adjustPercentage)
     {
-        $rgba = (strlen($hex) === 8);
+        $rgba = (\strlen($hex) === 8);
 
         $red = self::getRed($hex, false);
         $green = self::getGreen($hex, false);
@@ -296,10 +296,10 @@ class Color extends Supervisor
             $blue = 255;
         }
 
-        $rgb = strtoupper(
-            str_pad(dechex((int) $red), 2, '0', 0) .
-            str_pad(dechex((int) $green), 2, '0', 0) .
-            str_pad(dechex((int) $blue), 2, '0', 0)
+        $rgb = \strtoupper(
+            \str_pad(\dechex((int) $red), 2, '0', 0) .
+            \str_pad(\dechex((int) $green), 2, '0', 0) .
+            \str_pad(\dechex((int) $blue), 2, '0', 0)
         );
 
         return (($rgba) ? 'FF' : '') . $rgb;
@@ -403,7 +403,7 @@ class Color extends Supervisor
             return $this->getSharedComponent()->getHashCode();
         }
 
-        return md5(
+        return \md5(
             $this->argb .
             __CLASS__
         );

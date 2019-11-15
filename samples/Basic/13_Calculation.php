@@ -3,14 +3,14 @@
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-mt_srand(1234567890);
+\mt_srand(1234567890);
 
 require __DIR__ . '/../Header.php';
 
 // List functions
 $helper->log('List implemented functions');
 $calc = Calculation::getInstance();
-print_r($calc->getImplementedFunctionNames());
+\print_r($calc->getImplementedFunctionNames());
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');

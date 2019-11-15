@@ -41,7 +41,7 @@ class ChunkReadFilter implements IReadFilter
     }
 }
 
-$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Loading file ' . \pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
 // Create a new Reader of the type defined in $inputFileType
 $reader = IOFactory::createReader($inputFileType);
 
@@ -82,5 +82,5 @@ foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
     $helper->log('<b>Worksheet #' . $sheetIndex . ' -> ' . $loadedSheetName . '</b>');
     $spreadsheet->setActiveSheetIndexByName($loadedSheetName);
     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, false, false, true);
-    var_dump($sheetData);
+    \var_dump($sheetData);
 }

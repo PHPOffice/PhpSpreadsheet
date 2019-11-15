@@ -15,9 +15,9 @@ class DrawingImageHyperlinkTest extends AbstractFunctional
 
         $aSheet = $spreadsheet->getActiveSheet();
 
-        $gdImage = @imagecreatetruecolor(120, 20);
-        $textColor = imagecolorallocate($gdImage, 255, 255, 255);
-        imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
+        $gdImage = @\imagecreatetruecolor(120, 20);
+        $textColor = \imagecolorallocate($gdImage, 255, 255, 255);
+        \imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 
         $drawing = new MemoryDrawing();
         $drawing->setName('In-Memory image 1');

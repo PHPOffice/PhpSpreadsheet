@@ -3,13 +3,13 @@
 require_once 'Header.php';
 
 $requirements = [
-    'PHP 7.1.0' => version_compare(PHP_VERSION, '7.1.0', '>='),
-    'PHP extension XML' => extension_loaded('xml'),
-    'PHP extension xmlwriter' => extension_loaded('xmlwriter'),
-    'PHP extension mbstring' => extension_loaded('mbstring'),
-    'PHP extension ZipArchive' => extension_loaded('zip'),
-    'PHP extension GD (optional)' => extension_loaded('gd'),
-    'PHP extension dom (optional)' => extension_loaded('dom'),
+    'PHP 7.1.0' => \version_compare(PHP_VERSION, '7.1.0', '>='),
+    'PHP extension XML' => \extension_loaded('xml'),
+    'PHP extension xmlwriter' => \extension_loaded('xmlwriter'),
+    'PHP extension mbstring' => \extension_loaded('mbstring'),
+    'PHP extension ZipArchive' => \extension_loaded('zip'),
+    'PHP extension GD (optional)' => \extension_loaded('gd'),
+    'PHP extension dom (optional)' => \extension_loaded('dom'),
 ];
 
 if (!$helper->isCli()) {

@@ -24,7 +24,7 @@ $data = [['title' => 'Excel for dummies',
     ],
 ];
 
-$spreadsheet->getActiveSheet()->setCellValue('D1', Date::PHPToExcel(time()));
+$spreadsheet->getActiveSheet()->setCellValue('D1', Date::PHPToExcel(\time()));
 
 $baseRow = 5;
 foreach ($data as $r => $dataRow) {

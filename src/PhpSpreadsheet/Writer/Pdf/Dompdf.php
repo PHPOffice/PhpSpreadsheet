@@ -61,7 +61,7 @@ class Dompdf extends Pdf
 
         //  Create PDF
         $pdf = $this->createExternalWriterInstance();
-        $pdf->setPaper(strtolower($paperSize), $orientation);
+        $pdf->setPaper(\strtolower($paperSize), $orientation);
 
         $pdf->loadHtml(
             $this->generateHTMLHeader(false) .
@@ -71,7 +71,7 @@ class Dompdf extends Pdf
         $pdf->render();
 
         //  Write to file
-        fwrite($fileHandle, $pdf->output());
+        \fwrite($fileHandle, $pdf->output());
 
         parent::restoreStateAfterSave($fileHandle);
     }

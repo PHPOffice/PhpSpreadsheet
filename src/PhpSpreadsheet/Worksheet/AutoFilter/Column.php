@@ -122,7 +122,7 @@ class Column
     public function setColumnIndex($pColumn)
     {
         // Uppercase coordinate
-        $pColumn = strtoupper($pColumn);
+        $pColumn = \strtoupper($pColumn);
         if ($this->parent !== null) {
             $this->parent->testColumnInRange($pColumn);
         }
@@ -177,7 +177,7 @@ class Column
      */
     public function setFilterType($pFilterType)
     {
-        if (!in_array($pFilterType, self::$filterTypes)) {
+        if (!\in_array($pFilterType, self::$filterTypes)) {
             throw new PhpSpreadsheetException('Invalid filter type for column AutoFilter.');
         }
 
@@ -208,8 +208,8 @@ class Column
     public function setJoin($pJoin)
     {
         // Lowercase And/Or
-        $pJoin = strtolower($pJoin);
-        if (!in_array($pJoin, self::$ruleJoins)) {
+        $pJoin = \strtolower($pJoin);
+        if (!\in_array($pJoin, self::$ruleJoins)) {
             throw new PhpSpreadsheetException('Invalid rule connection for column AutoFilter.');
         }
 
@@ -308,7 +308,7 @@ class Column
     {
         $this->ruleset[] = new Column\Rule($this);
 
-        return end($this->ruleset);
+        return \end($this->ruleset);
     }
 
     /**
@@ -339,7 +339,7 @@ class Column
         if (isset($this->ruleset[$pIndex])) {
             unset($this->ruleset[$pIndex]);
             //    If we've just deleted down to a single rule, then reset And/Or joining to Or
-            if (count($this->ruleset) <= 1) {
+            if (\count($this->ruleset) <= 1) {
                 $this->setJoin(self::AUTOFILTER_COLUMN_JOIN_OR);
             }
         }
@@ -365,7 +365,7 @@ class Column
      */
     public function __clone()
     {
-        $vars = get_object_vars($this);
+        $vars = \get_object_vars($this);
         foreach ($vars as $key => $value) {
             if ($key === 'parent') {
                 // Detach from autofilter parent
@@ -378,7 +378,7 @@ class Column
                     $cloned->setParent($this); // attach the new cloned Rule to this new cloned Autofilter Cloned object
                     $this->ruleset[$k] = $cloned;
                 }
-            } elseif (is_object($value)) {
+            } elseif (\is_object($value)) {
                 $this->$key = clone $value;
             } else {
                 $this->$key = $value;

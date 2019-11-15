@@ -69,7 +69,7 @@ abstract class BaseWriter implements IWriter
         $this->useDiskCaching = $pValue;
 
         if ($pDirectory !== null) {
-            if (is_dir($pDirectory)) {
+            if (\is_dir($pDirectory)) {
                 $this->diskCachingDirectory = $pDirectory;
             } else {
                 throw new Exception("Directory does not exist: $pDirectory");

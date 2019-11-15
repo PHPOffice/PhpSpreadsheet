@@ -17,7 +17,7 @@ class MyReadFilter implements IReadFilter
     {
         // Read rows 1 to 7 and columns A to E only
         if ($row >= 1 && $row <= 7) {
-            if (in_array($column, range('A', 'E'))) {
+            if (\in_array($column, \range('A', 'E'))) {
                 return true;
             }
         }
@@ -28,7 +28,7 @@ class MyReadFilter implements IReadFilter
 
 $filterSubset = new MyReadFilter();
 
-$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Loading file ' . \pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
 $reader = IOFactory::createReader($inputFileType);
 $helper->log('Loading Sheet "' . $sheetname . '" only');
 $reader->setLoadSheetsOnly($sheetname);
@@ -37,4 +37,4 @@ $reader->setReadFilter($filterSubset);
 $spreadsheet = $reader->load($inputFileName);
 
 $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-var_dump($sheetData);
+\var_dump($sheetData);

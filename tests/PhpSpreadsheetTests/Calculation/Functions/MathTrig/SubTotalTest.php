@@ -47,7 +47,7 @@ class SubTotalTest extends TestCase
         $cellReference->method('getWorksheet')
             ->willReturn($worksheet);
 
-        array_push($args, $cellReference);
+        \array_push($args, $cellReference);
         $result = MathTrig::SUBTOTAL(...$args);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
@@ -118,7 +118,7 @@ class SubTotalTest extends TestCase
         $cellReference->method('getWorksheet')
             ->willReturn($worksheet);
 
-        array_push($args, $cellReference);
+        \array_push($args, $cellReference);
         $result = MathTrig::SUBTOTAL(...$args);
         $this->assertEquals($expectedResult, $result, '', 1E-12);
     }
@@ -149,8 +149,8 @@ class SubTotalTest extends TestCase
      */
     public function testNestedSUBTOTAL($expectedResult, ...$args)
     {
-        $cellValueGenerator = $this->cellValues(Functions::flattenArray(array_slice($args, 1)));
-        $cellIsFormulaGenerator = $this->cellIsFormula(Functions::flattenArray(array_slice($args, 1)));
+        $cellValueGenerator = $this->cellValues(Functions::flattenArray(\array_slice($args, 1)));
+        $cellIsFormulaGenerator = $this->cellIsFormula(Functions::flattenArray(\array_slice($args, 1)));
 
         $cell = $this->getMockBuilder(Cell::class)
             ->setMethods(['getValue', 'isFormula'])
@@ -185,7 +185,7 @@ class SubTotalTest extends TestCase
         $cellReference->method('getWorksheet')
             ->willReturn($worksheet);
 
-        array_push($args, $cellReference);
+        \array_push($args, $cellReference);
 
         $result = MathTrig::SUBTOTAL(...$args);
         $this->assertEquals($expectedResult, $result, '', 1E-12);

@@ -32,7 +32,7 @@ class Drawing extends BaseDrawing
      */
     public function getFilename()
     {
-        return basename($this->path);
+        return \basename($this->path);
     }
 
     /**
@@ -43,9 +43,9 @@ class Drawing extends BaseDrawing
     public function getIndexedFilename()
     {
         $fileName = $this->getFilename();
-        $fileName = str_replace(' ', '_', $fileName);
+        $fileName = \str_replace(' ', '_', $fileName);
 
-        return str_replace('.' . $this->getExtension(), '', $fileName) . $this->getImageIndex() . '.' . $this->getExtension();
+        return \str_replace('.' . $this->getExtension(), '', $fileName) . $this->getImageIndex() . '.' . $this->getExtension();
     }
 
     /**
@@ -55,9 +55,9 @@ class Drawing extends BaseDrawing
      */
     public function getExtension()
     {
-        $exploded = explode('.', basename($this->path));
+        $exploded = \explode('.', \basename($this->path));
 
-        return $exploded[count($exploded) - 1];
+        return $exploded[\count($exploded) - 1];
     }
 
     /**
@@ -83,12 +83,12 @@ class Drawing extends BaseDrawing
     public function setPath($pValue, $pVerifyFile = true)
     {
         if ($pVerifyFile) {
-            if (file_exists($pValue)) {
+            if (\file_exists($pValue)) {
                 $this->path = $pValue;
 
                 if ($this->width == 0 && $this->height == 0) {
                     // Get width/height
-                    [$this->width, $this->height] = getimagesize($pValue);
+                    [$this->width, $this->height] = \getimagesize($pValue);
                 }
             } else {
                 throw new PhpSpreadsheetException("File $pValue not found!");
@@ -107,7 +107,7 @@ class Drawing extends BaseDrawing
      */
     public function getHashCode()
     {
-        return md5(
+        return \md5(
             $this->path .
             parent::getHashCode() .
             __CLASS__

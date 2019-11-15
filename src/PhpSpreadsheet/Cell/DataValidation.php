@@ -446,7 +446,7 @@ class DataValidation
      */
     public function getHashCode()
     {
-        return md5(
+        return \md5(
             $this->formula1 .
             $this->formula2 .
             $this->type .
@@ -469,9 +469,9 @@ class DataValidation
      */
     public function __clone()
     {
-        $vars = get_object_vars($this);
+        $vars = \get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if (is_object($value)) {
+            if (\is_object($value)) {
                 $this->$key = clone $value;
             } else {
                 $this->$key = $value;

@@ -213,7 +213,7 @@ class Content extends WriterPart
                         }
                     }
                     $objWriter->writeAttribute('table:formula', 'of:' . $cell->getValue());
-                    if (is_numeric($formulaValue)) {
+                    if (\is_numeric($formulaValue)) {
                         $objWriter->writeAttribute('office:value-type', 'float');
                     } else {
                         $objWriter->writeAttribute('office:value-type', 'string');
@@ -306,7 +306,7 @@ class Content extends WriterPart
             }
 
             if ($color = $font->getColor()) {
-                $writer->writeAttribute('fo:color', sprintf('#%s', $color->getRGB()));
+                $writer->writeAttribute('fo:color', \sprintf('#%s', $color->getRGB()));
             }
 
             if ($family = $font->getName()) {
@@ -314,7 +314,7 @@ class Content extends WriterPart
             }
 
             if ($size = $font->getSize()) {
-                $writer->writeAttribute('fo:font-size', sprintf('%.1fpt', $size));
+                $writer->writeAttribute('fo:font-size', \sprintf('%.1fpt', $size));
             }
 
             if ($font->getUnderline() && $font->getUnderline() != Font::UNDERLINE_NONE) {
@@ -345,9 +345,9 @@ class Content extends WriterPart
             if ($fill = $style->getFill()) {
                 switch ($fill->getFillType()) {
                     case Fill::FILL_SOLID:
-                        $writer->writeAttribute('fo:background-color', sprintf(
+                        $writer->writeAttribute('fo:background-color', \sprintf(
                             '#%s',
-                            strtolower($fill->getStartColor()->getRGB())
+                            \strtolower($fill->getStartColor()->getRGB())
                         ));
 
                         break;

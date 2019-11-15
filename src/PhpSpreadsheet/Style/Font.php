@@ -443,7 +443,7 @@ class Font extends Supervisor
      */
     public function setUnderline($pValue)
     {
-        if (is_bool($pValue)) {
+        if (\is_bool($pValue)) {
             $pValue = ($pValue) ? self::UNDERLINE_SINGLE : self::UNDERLINE_NONE;
         } elseif ($pValue == '') {
             $pValue = self::UNDERLINE_NONE;
@@ -540,7 +540,7 @@ class Font extends Supervisor
             return $this->getSharedComponent()->getHashCode();
         }
 
-        return md5(
+        return \md5(
             $this->name .
             $this->size .
             ($this->bold ? 't' : 'f') .

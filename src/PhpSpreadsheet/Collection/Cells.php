@@ -141,7 +141,7 @@ class Cells
      */
     public function getCoordinates()
     {
-        return array_keys($this->index);
+        return \array_keys($this->index);
     }
 
     /**
@@ -155,12 +155,12 @@ class Cells
         foreach ($this->getCoordinates() as $coord) {
             $column = '';
             $row = 0;
-            sscanf($coord, '%[A-Z]%d', $column, $row);
-            $sortKeys[sprintf('%09d%3s', $row, $column)] = $coord;
+            \sscanf($coord, '%[A-Z]%d', $column, $row);
+            $sortKeys[\sprintf('%09d%3s', $row, $column)] = $coord;
         }
-        ksort($sortKeys);
+        \ksort($sortKeys);
 
-        return array_values($sortKeys);
+        return \array_values($sortKeys);
     }
 
     /**
@@ -176,14 +176,14 @@ class Cells
         foreach ($this->getCoordinates() as $coord) {
             $c = '';
             $r = 0;
-            sscanf($coord, '%[A-Z]%d', $c, $r);
+            \sscanf($coord, '%[A-Z]%d', $c, $r);
             $row[$r] = $r;
-            $col[$c] = strlen($c) . $c;
+            $col[$c] = \strlen($c) . $c;
         }
 
         // Determine highest column and row
-        $highestRow = max($row);
-        $highestColumn = substr(max($col), 1);
+        $highestRow = \max($row);
+        $highestColumn = \substr(\max($col), 1);
 
         return [
             'row' => $highestRow,
@@ -211,7 +211,7 @@ class Cells
         $column = '';
         $row = 0;
 
-        sscanf($this->currentCoordinate, '%[A-Z]%d', $column, $row);
+        \sscanf($this->currentCoordinate, '%[A-Z]%d', $column, $row);
 
         return $column;
     }
@@ -226,7 +226,7 @@ class Cells
         $column = '';
         $row = 0;
 
-        sscanf($this->currentCoordinate, '%[A-Z]%d', $column, $row);
+        \sscanf($this->currentCoordinate, '%[A-Z]%d', $column, $row);
 
         return (int) $row;
     }
@@ -252,14 +252,14 @@ class Cells
             $c = '';
             $r = 0;
 
-            sscanf($coord, '%[A-Z]%d', $c, $r);
+            \sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($r != $row) {
                 continue;
             }
             $columnList[] = Coordinate::columnIndexFromString($c);
         }
 
-        return Coordinate::stringFromColumnIndex(max($columnList));
+        return Coordinate::stringFromColumnIndex(\max($columnList));
     }
 
     /**
@@ -283,14 +283,14 @@ class Cells
             $c = '';
             $r = 0;
 
-            sscanf($coord, '%[A-Z]%d', $c, $r);
+            \sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($c != $column) {
                 continue;
             }
             $rowList[] = $r;
         }
 
-        return max($rowList);
+        return \max($rowList);
     }
 
     /**
@@ -300,7 +300,7 @@ class Cells
      */
     private function getUniqueID()
     {
-        return uniqid('phpspreadsheet.', true) . '.';
+        return \uniqid('phpspreadsheet.', true) . '.';
     }
 
     /**
@@ -316,7 +316,7 @@ class Cells
         $newCollection = clone $this;
 
         $newCollection->parent = $parent;
-        if (($newCollection->currentCell !== null) && (is_object($newCollection->currentCell))) {
+        if (($newCollection->currentCell !== null) && (\is_object($newCollection->currentCell))) {
             $newCollection->currentCell->attach($this);
         }
 
@@ -329,7 +329,7 @@ class Cells
         // Change prefix
         $newCollection->cachePrefix = $newCollection->getUniqueID();
         foreach ($oldValues as $oldKey => $value) {
-            $newValues[str_replace($oldCachePrefix, $newCollection->cachePrefix, $oldKey)] = clone $value;
+            $newValues[\str_replace($oldCachePrefix, $newCollection->cachePrefix, $oldKey)] = clone $value;
         }
 
         // Store new values
@@ -354,7 +354,7 @@ class Cells
             $c = '';
             $r = 0;
 
-            sscanf($coord, '%[A-Z]%d', $c, $r);
+            \sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($r == $row) {
                 $this->delete($coord);
             }
@@ -372,7 +372,7 @@ class Cells
             $c = '';
             $r = 0;
 
-            sscanf($coord, '%[A-Z]%d', $c, $r);
+            \sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($c == $column) {
                 $this->delete($coord);
             }
