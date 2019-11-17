@@ -42,7 +42,7 @@ class ColumnDimension extends Dimension
     }
 
     /**
-     * Get ColumnIndex.
+     * Get column index as string eg: 'A'.
      *
      * @return string
      */
@@ -52,7 +52,7 @@ class ColumnDimension extends Dimension
     }
 
     /**
-     * Set ColumnIndex.
+     * Set column index as string eg: 'A'.
      *
      * @param string $pValue
      *

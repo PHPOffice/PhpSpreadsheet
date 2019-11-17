@@ -221,6 +221,11 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('zoomScaleNormal', $pSheet->getSheetView()->getZoomScaleNormal());
         }
 
+        // Show zeros (Excel also writes this attribute only if set to false)
+        if ($pSheet->getSheetView()->getShowZeros() === false) {
+            $objWriter->writeAttribute('showZeros', 0);
+        }
+
         // View Layout Type
         if ($pSheet->getSheetView()->getView() !== SheetView::SHEETVIEW_NORMAL) {
             $objWriter->writeAttribute('view', $pSheet->getSheetView()->getView());

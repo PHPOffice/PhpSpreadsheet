@@ -280,6 +280,7 @@ class CalculationTest extends TestCase
         // this used to raise a parser error, we keep it even though we don't
         // test the output
         $calculation->parseFormula($formula);
+        self::assertTrue(true);
     }
 
     public function testBranchPruningFormulaParsingInequalitiesConditionsCase()

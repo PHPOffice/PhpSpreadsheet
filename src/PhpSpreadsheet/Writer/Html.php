@@ -63,6 +63,13 @@ class Html extends BaseWriter
     private $useInlineCss = false;
 
     /**
+     * Use embedded CSS?
+     *
+     * @var bool
+     */
+    private $useEmbeddedCSS = true;
+
+    /**
      * Array of CSS styles.
      *
      * @var array
@@ -953,15 +960,12 @@ class Html extends BaseWriter
     private function createCSSStyle(Style $pStyle)
     {
         // Create CSS
-        $css = array_merge(
+        return array_merge(
             $this->createCSSStyleAlignment($pStyle->getAlignment()),
             $this->createCSSStyleBorders($pStyle->getBorders()),
             $this->createCSSStyleFont($pStyle->getFont()),
             $this->createCSSStyleFill($pStyle->getFill())
         );
-
-        // Return
-        return $css;
     }
 
     /**
@@ -1054,9 +1058,8 @@ class Html extends BaseWriter
     {
         //    Create CSS - add !important to non-none border styles for merged cells
         $borderStyle = $this->mapBorderStyle($pStyle->getBorderStyle());
-        $css = $borderStyle . ' #' . $pStyle->getColor()->getRGB() . (($borderStyle == 'none') ? '' : ' !important');
 
-        return $css;
+        return $borderStyle . ' #' . $pStyle->getColor()->getRGB() . (($borderStyle == 'none') ? '' : ' !important');
     }
 
     /**
@@ -1105,7 +1108,9 @@ class Html extends BaseWriter
 
         // Construct HTML
         $html = '';
-        $html .= $this->setMargins($pSheet);
+        if ($this->useEmbeddedCSS) {
+            $html .= $this->setMargins($pSheet);
+        }
 
         if (!$this->useInlineCss) {
             $gridlines = $pSheet->getShowGridlines() ? ' gridlines' : '';
@@ -1144,9 +1149,7 @@ class Html extends BaseWriter
      */
     private function generateTableFooter()
     {
-        $html = '    </table>' . PHP_EOL;
-
-        return $html;
+        return '    </table>' . PHP_EOL;
     }
 
     /**
@@ -1488,6 +1491,30 @@ class Html extends BaseWriter
     public function setUseInlineCss($pValue)
     {
         $this->useInlineCss = $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Get use embedded CSS?
+     *
+     * @return bool
+     */
+    public function getUseEmbeddedCSS()
+    {
+        return $this->useEmbeddedCSS;
+    }
+
+    /**
+     * Set use embedded CSS?
+     *
+     * @param bool $pValue
+     *
+     * @return HTML
+     */
+    public function setUseEmbeddedCSS($pValue)
+    {
+        $this->useEmbeddedCSS = $pValue;
 
         return $this;
     }

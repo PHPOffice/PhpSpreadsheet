@@ -7,12 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Changed
+
+- Change license from LGPL 2.1 to MIT [#140](https://github.com/PHPOffice/PhpSpreadsheet/issues/140)
+
 ### Added
 
 - Implementation of IFNA() logical function
+- Support "showZeros" worksheet option to change how Excel shows and handles "null" values returned from a calculation
 
 ### Fixed
 
+- IF implementation properly handles the value `#N/A` [#1165](https://github.com/PHPOffice/PhpSpreadsheet/pull/1165)
+- Formula Parser: Wrong line count for stuff like "MyOtherSheet!A:D" [#1215](https://github.com/PHPOffice/PhpSpreadsheet/issues/1215)
+- Call garbage collector after removing a column to prevent stale cached values
+- Trying to remove a column that doesn't exist deletes the latest column
+- Keep big integer as integer instead of lossely casting to float [#874](https://github.com/PHPOffice/PhpSpreadsheet/pull/874)
+- Fix branch pruning handling of non boolean conditions [#1167](https://github.com/PHPOffice/PhpSpreadsheet/pull/1167)
 - Validate XIRR inputs and return correct error values [#1120](https://github.com/PHPOffice/PhpSpreadsheet/issues/1120)
 
 ## [1.9.0] - 2019-08-17

@@ -2813,7 +2813,7 @@ class Calculation
         }
         self::$returnArrayAsType = $returnArrayAsType;
 
-        if ($result === null) {
+        if ($result === null && $pCell->getWorksheet()->getSheetView()->getShowZeros()) {
             return 0;
         } elseif ((is_float($result)) && ((is_nan($result)) || (is_infinite($result)))) {
             return Functions::NAN();
@@ -3647,6 +3647,7 @@ class Calculation
                     if ($testPrevOp !== null && $testPrevOp['value'] === ':') {
                         $startRowColRef = $output[count($output) - 1]['value'];
                         [$rangeWS1, $startRowColRef] = Worksheet::extractSheetTitle($startRowColRef, true);
+                        $rangeSheetRef = $rangeWS1;
                         if ($rangeWS1 != '') {
                             $rangeWS1 .= '!';
                         }
@@ -3656,16 +3657,20 @@ class Calculation
                         } else {
                             $rangeWS2 = $rangeWS1;
                         }
+                        $refSheet = $pCellParent;
+                        if ($pCellParent !== null && $rangeSheetRef !== $pCellParent->getTitle()) {
+                            $refSheet = $pCellParent->getParent()->getSheetByName($rangeSheetRef);
+                        }
                         if ((is_int($startRowColRef)) && (ctype_digit($val)) &&
                             ($startRowColRef <= 1048576) && ($val <= 1048576)) {
                             //    Row range
-                            $endRowColRef = ($pCellParent !== null) ? $pCellParent->getHighestColumn() : 'XFD'; //    Max 16,384 columns for Excel2007
+                            $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestColumn() : 'XFD'; //    Max 16,384 columns for Excel2007
                             $output[count($output) - 1]['value'] = $rangeWS1 . 'A' . $startRowColRef;
                             $val = $rangeWS2 . $endRowColRef . $val;
                         } elseif ((ctype_alpha($startRowColRef)) && (ctype_alpha($val)) &&
                             (strlen($startRowColRef) <= 3) && (strlen($val) <= 3)) {
                             //    Column range
-                            $endRowColRef = ($pCellParent !== null) ? $pCellParent->getHighestRow() : 1048576; //    Max 1,048,576 rows for Excel2007
+                            $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestRow() : 1048576; //    Max 1,048,576 rows for Excel2007
                             $output[count($output) - 1]['value'] = $rangeWS1 . strtoupper($startRowColRef) . '1';
                             $val = $rangeWS2 . $val . $endRowColRef;
                         }
@@ -3804,13 +3809,19 @@ class Calculation
             if ($this->branchPruningEnabled && isset($tokenData['onlyIf'])) {
                 $onlyIfStoreKey = $tokenData['onlyIf'];
                 $storeValue = $branchStore[$onlyIfStoreKey] ?? null;
+                $storeValueAsBool = ($storeValue === null) ?
+                    true : (bool) Functions::flattenSingleValue($storeValue);
                 if (is_array($storeValue)) {
                     $wrappedItem = end($storeValue);
                     $storeValue = end($wrappedItem);
                 }
 
-                if (isset($storeValue) && (($storeValue !== true)
-                    || ($storeValue === 'Pruned branch'))
+                if (isset($storeValue)
+                    && (
+                        !$storeValueAsBool
+                        || Functions::isError($storeValue)
+                        || ($storeValue === 'Pruned branch')
+                    )
                 ) {
                     // If branching value is not true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIf-' . $onlyIfStoreKey])) {
@@ -3833,12 +3844,17 @@ class Calculation
             if ($this->branchPruningEnabled && isset($tokenData['onlyIfNot'])) {
                 $onlyIfNotStoreKey = $tokenData['onlyIfNot'];
                 $storeValue = $branchStore[$onlyIfNotStoreKey] ?? null;
+                $storeValueAsBool = ($storeValue === null) ?
+                    true : (bool) Functions::flattenSingleValue($storeValue);
                 if (is_array($storeValue)) {
                     $wrappedItem = end($storeValue);
                     $storeValue = end($wrappedItem);
                 }
-                if (isset($storeValue) && ($storeValue
-                    || ($storeValue === 'Pruned branch'))
+                if (isset($storeValue)
+                    && (
+                        $storeValueAsBool
+                        || Functions::isError($storeValue)
+                        || ($storeValue === 'Pruned branch'))
                 ) {
                     // If branching value is true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIfNot-' . $onlyIfNotStoreKey])) {
@@ -4770,8 +4786,7 @@ class Calculation
 
             return $value;
         }, $tokens);
-        $str = '[ ' . implode(' | ', $tokensStr) . ' ]';
 
-        return $str;
+        return '[ ' . implode(' | ', $tokensStr) . ' ]';
     }
 }
