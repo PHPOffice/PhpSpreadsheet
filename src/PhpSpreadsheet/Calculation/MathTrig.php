@@ -301,7 +301,9 @@ class MathTrig
                 return Functions::DIV0();
             } elseif ($number == 0.0) {
                 return 0.0;
-            } elseif (self::SIGN($number) == self::SIGN($significance)) {
+            } elseif (self::SIGN($significance) == 1) {
+                return floor($number / $significance) * $significance;
+            } elseif (self::SIGN($number) == -1 && self::SIGN($significance) == -1) {
                 return floor($number / $significance) * $significance;
             }
 
