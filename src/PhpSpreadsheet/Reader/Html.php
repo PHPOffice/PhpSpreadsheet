@@ -606,8 +606,8 @@ class Html extends BaseReader
     /**
      * Spreadsheet from content.
      *
-     * @param string           $content
-     * @param Spreadsheet|null $spreadsheet
+     * @param string $content
+     * @param null|Spreadsheet $spreadsheet
      *
      * @return Spreadsheet
      */
