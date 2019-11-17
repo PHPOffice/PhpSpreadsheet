@@ -2015,8 +2015,8 @@ class Xlsx extends BaseReader
 
     /**
      * @param ZipArchive $zip Opened zip archive
+     *
      * @return string basename of the used excel workbook
-     * @throws Exception
      */
     private function getWorkbookBaseName(ZipArchive $zip)
     {
