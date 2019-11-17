@@ -1161,12 +1161,14 @@ class Parser
             // catch "-" Term
             $this->advance();
             $result2 = $this->expression();
+
             return $this->createTree('ptgUminus', $result2, '');
         // If it's a positive value
         } elseif ($this->currentToken == '+') {
             // catch "+" Term
             $this->advance();
             $result2 = $this->expression();
+
             return $this->createTree('ptgUplus', $result2, '');
         }
         $result = $this->term();

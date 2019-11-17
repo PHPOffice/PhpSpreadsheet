@@ -285,6 +285,7 @@ class Xml extends BaseReader
     {
         $pixels = ($widthUnits / 256) * 7;
         $offsetWidthUnits = $widthUnits % 256;
+
         return $pixels + round($offsetWidthUnits / (256 / 7));
     }
 
