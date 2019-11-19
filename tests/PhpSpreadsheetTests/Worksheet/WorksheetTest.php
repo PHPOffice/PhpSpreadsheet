@@ -137,6 +137,11 @@ class WorksheetTest extends TestCase
             ['B2', '', '', 'B2'],
             ['testTitle!B2', 'testTitle', 'B2', 'B2'],
             ['test!Title!B2', 'test!Title', 'B2', 'B2'],
+            ['test Title!B2', 'test Title', 'B2', 'B2'],
+            ['test!Title!B2', 'test!Title', 'B2', 'B2'],
+            ["'testSheet 1'!A3", "'testSheet 1'", 'A3', 'A3'],
+            ["'testSheet1'!A2", "'testSheet1'", 'A2', 'A2'],
+            ["'testSheet 2'!A1", "'testSheet 2'", 'A1', 'A1'],
         ];
     }
 
@@ -155,5 +160,116 @@ class WorksheetTest extends TestCase
         $arRange = Worksheet::extractSheetTitle($range, true);
         self::assertSame($expectTitle, $arRange[0]);
         self::assertSame($expectCell2, $arRange[1]);
+    }
+
+    /**
+     * Fix https://github.com/PHPOffice/PhpSpreadsheet/issues/868 when cells are not removed correctly
+     * on row deletion.
+     */
+    public function testRemoveCellsCorrectlyWhenRemovingRow()
+    {
+        $workbook = new Spreadsheet();
+        $worksheet = $workbook->getActiveSheet();
+        $worksheet->getCell('A2')->setValue('A2');
+        $worksheet->getCell('C1')->setValue('C1');
+        $worksheet->removeRow(1);
+        $this->assertEquals(
+            'A2',
+            $worksheet->getCell('A1')->getValue()
+        );
+        $this->assertNull(
+            $worksheet->getCell('C1')->getValue()
+        );
+    }
+
+    public function removeColumnProvider(): array
+    {
+        return [
+            'Remove first column' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'A',
+                1,
+                [
+                    ['B1', 'C1'],
+                    ['B2', 'C2'],
+                ],
+                'B',
+            ],
+            'Remove middle column' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'B',
+                1,
+                [
+                    ['A1', 'C1'],
+                    ['A2', 'C2'],
+                ],
+                'B',
+            ],
+            'Remove last column' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'C',
+                1,
+                [
+                    ['A1', 'B1'],
+                    ['A2', 'B2'],
+                ],
+                'B',
+            ],
+            'Remove a column out of range' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'D',
+                1,
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'C',
+            ],
+            'Remove multiple columns' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                ],
+                'B',
+                5,
+                [
+                    ['A1'],
+                    ['A2'],
+                ],
+                'A',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider removeColumnProvider
+     */
+    public function testRemoveColumn(
+        array $initialData,
+        string $columnToBeRemoved,
+        int $columnsToBeRemoved,
+        array $expectedData,
+        string $expectedHighestColumn
+    ) {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->fromArray($initialData);
+
+        $worksheet->removeColumn($columnToBeRemoved, $columnsToBeRemoved);
+
+        self::assertSame($expectedHighestColumn, $worksheet->getHighestColumn());
+        self::assertSame($expectedData, $worksheet->toArray());
     }
 }

@@ -101,7 +101,7 @@ class Column
     }
 
     /**
-     * Get AutoFilter Column Index.
+     * Get AutoFilter column index as string eg: 'A'.
      *
      * @return string
      */
@@ -111,7 +111,7 @@ class Column
     }
 
     /**
-     * Set AutoFilter Column Index.
+     * Set AutoFilter column index as string eg: 'A'.
      *
      * @param string $pColumn Column (e.g. A)
      *

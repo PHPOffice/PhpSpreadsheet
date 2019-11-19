@@ -459,7 +459,7 @@ class Xls extends BaseWriter
                 if ($drawing instanceof Drawing) {
                     $filename = $drawing->getPath();
 
-                    list($imagesx, $imagesy, $imageFormat) = getimagesize($filename);
+                    [$imagesx, $imagesy, $imageFormat] = getimagesize($filename);
 
                     switch ($imageFormat) {
                         case 1: // GIF, not supported by BIFF8, we convert to PNG

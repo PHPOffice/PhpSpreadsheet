@@ -52,7 +52,7 @@ class TextData
             return ($stringValue) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
-        if (self::$invalidChars == null) {
+        if (self::$invalidChars === null) {
             self::$invalidChars = range(chr(0), chr(31));
         }
 
@@ -84,6 +84,15 @@ class TextData
         return null;
     }
 
+    private static function convertBooleanValue($value)
+    {
+        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
+            return (int) $value;
+        }
+
+        return ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
+    }
+
     /**
      * ASCIICODE.
      *
@@ -98,11 +107,7 @@ class TextData
         }
         $characters = Functions::flattenSingleValue($characters);
         if (is_bool($characters)) {
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $characters = (int) $characters;
-            } else {
-                $characters = ($characters) ? Calculation::getTRUE() : Calculation::getFALSE();
-            }
+            $characters = self::convertBooleanValue($characters);
         }
 
         $character = $characters;
@@ -126,11 +131,7 @@ class TextData
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             if (is_bool($arg)) {
-                if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                    $arg = (int) $arg;
-                } else {
-                    $arg = ($arg) ? Calculation::getTRUE() : Calculation::getFALSE();
-                }
+                $arg = self::convertBooleanValue($arg);
             }
             $returnValue .= $arg;
         }
@@ -197,7 +198,7 @@ class TextData
             }
 
             if (($offset > 0) && (StringHelper::countCharacters($haystack) > $offset)) {
-                if (StringHelper::countCharacters($needle) == 0) {
+                if (StringHelper::countCharacters($needle) === 0) {
                     return $offset;
                 }
 
@@ -232,7 +233,7 @@ class TextData
             }
 
             if (($offset > 0) && (StringHelper::countCharacters($haystack) > $offset)) {
-                if (StringHelper::countCharacters($needle) == 0) {
+                if (StringHelper::countCharacters($needle) === 0) {
                     return $offset;
                 }
 
@@ -265,14 +266,19 @@ class TextData
         if (!is_numeric($value) || !is_numeric($decimals)) {
             return Functions::NAN();
         }
-        $decimals = floor($decimals);
+        $decimals = (int) floor($decimals);
 
         $valueResult = round($value, $decimals);
         if ($decimals < 0) {
             $decimals = 0;
         }
         if (!$no_commas) {
-            $valueResult = number_format($valueResult, $decimals);
+            $valueResult = number_format(
+                $valueResult,
+                $decimals,
+                StringHelper::getDecimalSeparator(),
+                StringHelper::getThousandsSeparator()
+            );
         }
 
         return (string) $valueResult;
@@ -659,11 +665,7 @@ class TextData
             if ($ignoreEmpty && trim($arg) == '') {
                 unset($aArgs[$key]);
             } elseif (is_bool($arg)) {
-                if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                    $arg = (int) $arg;
-                } else {
-                    $arg = ($arg) ? Calculation::getTRUE() : Calculation::getFALSE();
-                }
+                $arg = self::convertBooleanValue($arg);
             }
         }
 

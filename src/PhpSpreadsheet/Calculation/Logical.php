@@ -266,6 +266,10 @@ class Logical
      */
     public static function statementIf($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
+        if (Functions::isError($condition)) {
+            return $condition;
+        }
+
         $condition = ($condition === null) ? true : (bool) Functions::flattenSingleValue($condition);
         $returnIfTrue = ($returnIfTrue === null) ? 0 : Functions::flattenSingleValue($returnIfTrue);
         $returnIfFalse = ($returnIfFalse === null) ? false : Functions::flattenSingleValue($returnIfFalse);
@@ -346,5 +350,26 @@ class Logical
         $errorpart = ($errorpart === null) ? '' : Functions::flattenSingleValue($errorpart);
 
         return self::statementIf(Functions::isError($testValue), $errorpart, $testValue);
+    }
+
+    /**
+     * IFNA.
+     *
+     * Excel Function:
+     *        =IFNA(testValue,napart)
+     *
+     * @category Logical Functions
+     *
+     * @param mixed $testValue Value to check, is also the value returned when not an NA
+     * @param mixed $napart Value to return when testValue is an NA condition
+     *
+     * @return mixed The value of errorpart or testValue determined by error condition
+     */
+    public static function IFNA($testValue = '', $napart = '')
+    {
+        $testValue = ($testValue === null) ? '' : Functions::flattenSingleValue($testValue);
+        $napart = ($napart === null) ? '' : Functions::flattenSingleValue($napart);
+
+        return self::statementIf(Functions::isNa($testValue), $napart, $testValue);
     }
 }

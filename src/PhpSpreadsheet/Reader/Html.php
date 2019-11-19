@@ -374,8 +374,9 @@ class Html extends BaseReader
                         // no break
                     case 'br':
                         if ($this->tableLevel > 0) {
-                            //    If we're inside a table, replace with a \n
+                            //    If we're inside a table, replace with a \n and set the cell to wrap
                             $cellContent .= "\n";
+                            $sheet->getStyle($column . $row)->getAlignment()->setWrapText(true);
                         } else {
                             //    Otherwise flush our existing content and move the row cursor on
                             $this->flushCell($sheet, $column, $row, $cellContent);
@@ -501,10 +502,10 @@ class Html extends BaseReader
                         if (isset($attributeArray['rowspan'], $attributeArray['colspan'])) {
                             //create merging rowspan and colspan
                             $columnTo = $column;
-                            for ($i = 0; $i < $attributeArray['colspan'] - 1; ++$i) {
+                            for ($i = 0; $i < (int) $attributeArray['colspan'] - 1; ++$i) {
                                 ++$columnTo;
                             }
-                            $range = $column . $row . ':' . $columnTo . ($row + $attributeArray['rowspan'] - 1);
+                            $range = $column . $row . ':' . $columnTo . ($row + (int) $attributeArray['rowspan'] - 1);
                             foreach (Coordinate::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
@@ -512,7 +513,7 @@ class Html extends BaseReader
                             $column = $columnTo;
                         } elseif (isset($attributeArray['rowspan'])) {
                             //create merging rowspan
-                            $range = $column . $row . ':' . $column . ($row + $attributeArray['rowspan'] - 1);
+                            $range = $column . $row . ':' . $column . ($row + (int) $attributeArray['rowspan'] - 1);
                             foreach (Coordinate::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
@@ -520,7 +521,7 @@ class Html extends BaseReader
                         } elseif (isset($attributeArray['colspan'])) {
                             //create merging colspan
                             $columnTo = $column;
-                            for ($i = 0; $i < $attributeArray['colspan'] - 1; ++$i) {
+                            for ($i = 0; $i < (int) $attributeArray['colspan'] - 1; ++$i) {
                                 ++$columnTo;
                             }
                             $sheet->mergeCells($column . $row . ':' . $columnTo . $row);
@@ -591,28 +592,63 @@ class Html extends BaseReader
             throw new Exception($pFilename . ' is an Invalid HTML file.');
         }
 
-        // Create new sheet
-        while ($spreadsheet->getSheetCount() <= $this->sheetIndex) {
-            $spreadsheet->createSheet();
-        }
-        $spreadsheet->setActiveSheetIndex($this->sheetIndex);
-
-        //    Create a new DOM object
+        // Create a new DOM object
         $dom = new DOMDocument();
-        //    Reload the HTML file into the DOM object
+        // Reload the HTML file into the DOM object
         $loaded = $dom->loadHTML(mb_convert_encoding($this->securityScanner->scanFile($pFilename), 'HTML-ENTITIES', 'UTF-8'));
         if ($loaded === false) {
             throw new Exception('Failed to load ' . $pFilename . ' as a DOM Document');
         }
 
-        //    Discard white space
-        $dom->preserveWhiteSpace = false;
+        return $this->loadDocument($dom, $spreadsheet);
+    }
+
+    /**
+     * Spreadsheet from content.
+     *
+     * @param string $content
+     * @param null|Spreadsheet $spreadsheet
+     *
+     * @return Spreadsheet
+     */
+    public function loadFromString($content, ?Spreadsheet $spreadsheet = null): Spreadsheet
+    {
+        //    Create a new DOM object
+        $dom = new DOMDocument();
+        //    Reload the HTML file into the DOM object
+        $loaded = $dom->loadHTML(mb_convert_encoding($this->securityScanner->scan($content), 'HTML-ENTITIES', 'UTF-8'));
+        if ($loaded === false) {
+            throw new Exception('Failed to load content as a DOM Document');
+        }
+
+        return $this->loadDocument($dom, $spreadsheet ?? new Spreadsheet());
+    }
+
+    /**
+     * Loads PhpSpreadsheet from DOMDocument into PhpSpreadsheet instance.
+     *
+     * @param DOMDocument $document
+     * @param Spreadsheet $spreadsheet
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return Spreadsheet
+     */
+    private function loadDocument(DOMDocument $document, Spreadsheet $spreadsheet): Spreadsheet
+    {
+        while ($spreadsheet->getSheetCount() <= $this->sheetIndex) {
+            $spreadsheet->createSheet();
+        }
+        $spreadsheet->setActiveSheetIndex($this->sheetIndex);
+
+        // Discard white space
+        $document->preserveWhiteSpace = false;
 
         $row = 0;
         $column = 'A';
         $content = '';
         $this->rowspan = [];
-        $this->processDomElement($dom, $spreadsheet->getActiveSheet(), $row, $column, $content);
+        $this->processDomElement($document, $spreadsheet->getActiveSheet(), $row, $column, $content);
 
         // Return
         return $spreadsheet;
@@ -919,7 +955,7 @@ class Html extends BaseReader
      */
     private function setBorderStyle(Style $cellStyle, $styleValue, $type)
     {
-        list(, $borderStyle, $color) = explode(' ', $styleValue);
+        [, $borderStyle, $color] = explode(' ', $styleValue);
 
         $cellStyle->applyFromArray([
             'borders' => [

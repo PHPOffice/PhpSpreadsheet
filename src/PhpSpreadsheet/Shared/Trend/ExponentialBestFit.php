@@ -113,7 +113,9 @@ class ExponentialBestFit extends BestFit
      */
     public function __construct($yValues, $xValues = [], $const = true)
     {
-        if (parent::__construct($yValues, $xValues) !== false) {
+        parent::__construct($yValues, $xValues);
+
+        if (!$this->error) {
             $this->exponentialRegression($yValues, $xValues, $const);
         }
     }

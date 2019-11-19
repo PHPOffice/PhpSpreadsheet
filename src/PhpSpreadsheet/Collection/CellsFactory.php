@@ -16,8 +16,6 @@ abstract class CellsFactory
      * */
     public static function getInstance(Worksheet $parent)
     {
-        $instance = new Cells($parent, Settings::getCache());
-
-        return $instance;
+        return new Cells($parent, Settings::getCache());
     }
 }

@@ -98,9 +98,9 @@ class LookupRef
                 return (int) Coordinate::columnIndexFromString($columnKey);
             }
         } else {
-            list($sheet, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
+            [$sheet, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
             if (strpos($cellAddress, ':') !== false) {
-                list($startAddress, $endAddress) = explode(':', $cellAddress);
+                [$startAddress, $endAddress] = explode(':', $cellAddress);
                 $startAddress = preg_replace('/[^a-z]/i', '', $startAddress);
                 $endAddress = preg_replace('/[^a-z]/i', '', $endAddress);
                 $returnValue = [];
@@ -138,7 +138,7 @@ class LookupRef
 
         reset($cellAddress);
         $isMatrix = (is_numeric(key($cellAddress)));
-        list($columns, $rows) = Calculation::getMatrixDimensions($cellAddress);
+        [$columns, $rows] = Calculation::getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
             return $rows;
@@ -175,9 +175,9 @@ class LookupRef
                 }
             }
         } else {
-            list($sheet, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
+            [$sheet, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
             if (strpos($cellAddress, ':') !== false) {
-                list($startAddress, $endAddress) = explode(':', $cellAddress);
+                [$startAddress, $endAddress] = explode(':', $cellAddress);
                 $startAddress = preg_replace('/\D/', '', $startAddress);
                 $endAddress = preg_replace('/\D/', '', $endAddress);
                 $returnValue = [];
@@ -187,7 +187,7 @@ class LookupRef
 
                 return $returnValue;
             }
-            list($cellAddress) = explode(':', $cellAddress);
+            [$cellAddress] = explode(':', $cellAddress);
 
             return (int) preg_replace('/\D/', '', $cellAddress);
         }
@@ -215,7 +215,7 @@ class LookupRef
 
         reset($cellAddress);
         $isMatrix = (is_numeric(key($cellAddress)));
-        list($columns, $rows) = Calculation::getMatrixDimensions($cellAddress);
+        [$columns, $rows] = Calculation::getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
             return $columns;
@@ -285,7 +285,7 @@ class LookupRef
         $cellAddress1 = $cellAddress;
         $cellAddress2 = null;
         if (strpos($cellAddress, ':') !== false) {
-            list($cellAddress1, $cellAddress2) = explode(':', $cellAddress);
+            [$cellAddress1, $cellAddress2] = explode(':', $cellAddress);
         }
 
         if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
@@ -295,7 +295,7 @@ class LookupRef
             }
 
             if (strpos($cellAddress, '!') !== false) {
-                list($sheetName, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
+                [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
                 $sheetName = trim($sheetName, "'");
                 $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
             } else {
@@ -306,7 +306,7 @@ class LookupRef
         }
 
         if (strpos($cellAddress, '!') !== false) {
-            list($sheetName, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
+            [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
             $sheetName = trim($sheetName, "'");
             $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
         } else {
@@ -359,16 +359,16 @@ class LookupRef
 
         $sheetName = null;
         if (strpos($cellAddress, '!')) {
-            list($sheetName, $cellAddress) = Worksheet::extractSheetTitle($cellAddress, true);
+            [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
             $sheetName = trim($sheetName, "'");
         }
         if (strpos($cellAddress, ':')) {
-            list($startCell, $endCell) = explode(':', $cellAddress);
+            [$startCell, $endCell] = explode(':', $cellAddress);
         } else {
             $startCell = $endCell = $cellAddress;
         }
-        list($startCellColumn, $startCellRow) = Coordinate::coordinateFromString($startCell);
-        list($endCellColumn, $endCellRow) = Coordinate::coordinateFromString($endCell);
+        [$startCellColumn, $startCellRow] = Coordinate::coordinateFromString($startCell);
+        [$endCellColumn, $endCellRow] = Coordinate::coordinateFromString($endCell);
 
         $startCellRow += $rows;
         $startCellColumn = Coordinate::columnIndexFromString($startCellColumn) - 1;
@@ -464,9 +464,10 @@ class LookupRef
      *
      * @param mixed $lookupValue The value that you want to match in lookup_array
      * @param mixed $lookupArray The range of cells being searched
-     * @param mixed $matchType The number -1, 0, or 1. -1 means above, 0 means exact match, 1 means below. If match_type is 1 or -1, the list has to be ordered.
+     * @param mixed $matchType The number -1, 0, or 1. -1 means above, 0 means exact match, 1 means below.
+     *                         If match_type is 1 or -1, the list has to be ordered.
      *
-     * @return int The relative position of the found item
+     * @return int|string The relative position of the found item
      */
     public static function MATCH($lookupValue, $lookupArray, $matchType = 1)
     {
@@ -474,9 +475,10 @@ class LookupRef
         $lookupValue = Functions::flattenSingleValue($lookupValue);
         $matchType = ($matchType === null) ? 1 : (int) Functions::flattenSingleValue($matchType);
 
-        $initialLookupValue = $lookupValue;
-        // MATCH is not case sensitive
-        $lookupValue = StringHelper::strToLower($lookupValue);
+        // MATCH is not case sensitive, so we convert lookup value to be lower cased in case it's string type.
+        if (is_string($lookupValue)) {
+            $lookupValue = StringHelper::strToLower($lookupValue);
+        }
 
         // Lookup_value type has to be number, text, or logical values
         if ((!is_numeric($lookupValue)) && (!is_string($lookupValue)) && (!is_bool($lookupValue))) {
@@ -522,16 +524,54 @@ class LookupRef
         // find the match
         // **
 
-        if ($matchType == 0 || $matchType == 1) {
+        if ($matchType === 0 || $matchType === 1) {
             foreach ($lookupArray as $i => $lookupArrayValue) {
-                $onlyNumeric = is_numeric($lookupArrayValue) && is_numeric($lookupValue);
-                $onlyNumericExactMatch = $onlyNumeric && $lookupArrayValue == $lookupValue;
-                $nonOnlyNumericExactMatch = !$onlyNumeric && $lookupArrayValue === $lookupValue;
-                $exactMatch = $onlyNumericExactMatch || $nonOnlyNumericExactMatch;
-                if (($matchType == 0) && $exactMatch) {
-                    //    exact match
-                    return $i + 1;
-                } elseif (($matchType == 1) && ($lookupArrayValue <= $lookupValue)) {
+                $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
+                $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
+                $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
+                $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
+
+                if ($matchType === 0) {
+                    if ($typeMatch && is_string($lookupValue) && (bool) preg_match('/([\?\*])/', $lookupValue)) {
+                        $splitString = $lookupValue;
+                        $chars = array_map(function ($i) use ($splitString) {
+                            return mb_substr($splitString, $i, 1);
+                        }, range(0, mb_strlen($splitString) - 1));
+
+                        $length = count($chars);
+                        $pattern = '/^';
+                        for ($j = 0; $j < $length; ++$j) {
+                            if ($chars[$j] === '~') {
+                                if (isset($chars[$j + 1])) {
+                                    if ($chars[$j + 1] === '*') {
+                                        $pattern .= preg_quote($chars[$j + 1], '/');
+                                        ++$j;
+                                    } elseif ($chars[$j + 1] === '?') {
+                                        $pattern .= preg_quote($chars[$j + 1], '/');
+                                        ++$j;
+                                    }
+                                } else {
+                                    $pattern .= preg_quote($chars[$j], '/');
+                                }
+                            } elseif ($chars[$j] === '*') {
+                                $pattern .= '.*';
+                            } elseif ($chars[$j] === '?') {
+                                $pattern .= '.{1}';
+                            } else {
+                                $pattern .= preg_quote($chars[$j], '/');
+                            }
+                        }
+
+                        $pattern .= '$/';
+                        if ((bool) preg_match($pattern, $lookupArrayValue)) {
+                            // exact match
+                            return $i + 1;
+                        }
+                    } elseif ($exactMatch) {
+                        // exact match
+                        return $i + 1;
+                    }
+                } elseif (($matchType === 1) && $typeMatch && ($lookupArrayValue <= $lookupValue)) {
                     $i = array_search($i, $keySet);
 
                     // The current value is the (first) match
@@ -539,26 +579,26 @@ class LookupRef
                 }
             }
         } else {
-            // matchType = -1
-
-            // "Special" case: since the array it's supposed to be ordered in descending order, the
-            // Excel algorithm gives up immediately if the first element is smaller than the searched value
-            if ($lookupArray[0] < $lookupValue) {
-                return Functions::NA();
-            }
-
             $maxValueKey = null;
 
             // The basic algorithm is:
             // Iterate and keep the highest match until the next element is smaller than the searched value.
             // Return immediately if perfect match is found
             foreach ($lookupArray as $i => $lookupArrayValue) {
-                if ($lookupArrayValue == $lookupValue) {
+                $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
+                $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
+                $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
+                $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
+
+                if ($exactMatch) {
                     // Another "special" case. If a perfect match is found,
                     // the algorithm gives up immediately
                     return $i + 1;
-                } elseif ($lookupArrayValue >= $lookupValue) {
+                } elseif ($typeMatch & $lookupArrayValue >= $lookupValue) {
                     $maxValueKey = $i + 1;
+                } elseif ($typeMatch & $lookupArrayValue < $lookupValue) {
+                    //Excel algorithm gives up immediately if the first element is smaller than the searched value
+                    break;
                 }
             }
 
@@ -794,8 +834,10 @@ class LookupRef
             $lookupLower = StringHelper::strToLower($lookup_value);
             $rowDataLower = StringHelper::strToLower($rowData);
 
-            if (($bothNumeric && $rowData > $lookup_value) ||
-                ($bothNotNumeric && $rowDataLower > $lookupLower)) {
+            if ($not_exact_match && (
+                ($bothNumeric && $rowData > $lookup_value) ||
+                ($bothNotNumeric && $rowDataLower > $lookupLower)
+                )) {
                 break;
             }
 

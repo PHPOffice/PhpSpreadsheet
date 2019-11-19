@@ -608,15 +608,15 @@ class Parser
         // TODO: possible class value 0,1,2 check Formula.pm
         // Split the range into 2 cell refs
         if (preg_match('/^(\$)?([A-Ia-i]?[A-Za-z])(\$)?(\d+)\:(\$)?([A-Ia-i]?[A-Za-z])(\$)?(\d+)$/', $range)) {
-            list($cell1, $cell2) = explode(':', $range);
+            [$cell1, $cell2] = explode(':', $range);
         } else {
             // TODO: use real error codes
             throw new WriterException('Unknown range separator');
         }
 
         // Convert the cell references
-        list($row1, $col1) = $this->cellToPackedRowcol($cell1);
-        list($row2, $col2) = $this->cellToPackedRowcol($cell2);
+        [$row1, $col1] = $this->cellToPackedRowcol($cell1);
+        [$row2, $col2] = $this->cellToPackedRowcol($cell2);
 
         // The ptg value depends on the class of the ptg.
         if ($class == 0) {
@@ -644,20 +644,20 @@ class Parser
     private function convertRange3d($token)
     {
         // Split the ref at the ! symbol
-        list($ext_ref, $range) = PhpspreadsheetWorksheet::extractSheetTitle($token, true);
+        [$ext_ref, $range] = PhpspreadsheetWorksheet::extractSheetTitle($token, true);
 
         // Convert the external reference part (different for BIFF8)
         $ext_ref = $this->getRefIndex($ext_ref);
 
         // Split the range into 2 cell refs
-        list($cell1, $cell2) = explode(':', $range);
+        [$cell1, $cell2] = explode(':', $range);
 
         // Convert the cell references
         if (preg_match('/^(\$)?[A-Ia-i]?[A-Za-z](\$)?(\\d+)$/', $cell1)) {
-            list($row1, $col1) = $this->cellToPackedRowcol($cell1);
-            list($row2, $col2) = $this->cellToPackedRowcol($cell2);
+            [$row1, $col1] = $this->cellToPackedRowcol($cell1);
+            [$row2, $col2] = $this->cellToPackedRowcol($cell2);
         } else { // It's a rows range (like 26:27)
-            list($row1, $col1, $row2, $col2) = $this->rangeToPackedRange($cell1 . ':' . $cell2);
+            [$row1, $col1, $row2, $col2] = $this->rangeToPackedRange($cell1 . ':' . $cell2);
         }
 
         // The ptg value depends on the class of the ptg.
@@ -677,7 +677,7 @@ class Parser
     {
         // Convert the cell reference
         $cell_array = $this->cellToPackedRowcol($cell);
-        list($row, $col) = $cell_array;
+        [$row, $col] = $cell_array;
 
         // The ptg value depends on the class of the ptg.
         $ptgRef = pack('C', $this->ptg['ptgRefA']);
@@ -696,13 +696,13 @@ class Parser
     private function convertRef3d($cell)
     {
         // Split the ref at the ! symbol
-        list($ext_ref, $cell) = PhpspreadsheetWorksheet::extractSheetTitle($cell, true);
+        [$ext_ref, $cell] = PhpspreadsheetWorksheet::extractSheetTitle($cell, true);
 
         // Convert the external reference part (different for BIFF8)
         $ext_ref = $this->getRefIndex($ext_ref);
 
         // Convert the cell reference part
-        list($row, $col) = $this->cellToPackedRowcol($cell);
+        [$row, $col] = $this->cellToPackedRowcol($cell);
 
         // The ptg value depends on the class of the ptg.
         $ptgRef = pack('C', $this->ptg['ptgRef3dA']);
@@ -756,7 +756,7 @@ class Parser
 
         // Check if there is a sheet range eg., Sheet1:Sheet2.
         if (preg_match('/:/', $ext_ref)) {
-            list($sheet_name1, $sheet_name2) = explode(':', $ext_ref);
+            [$sheet_name1, $sheet_name2] = explode(':', $ext_ref);
 
             $sheet1 = $this->getSheetIndex($sheet_name1);
             if ($sheet1 == -1) {
@@ -769,7 +769,7 @@ class Parser
 
             // Reverse max and min sheet numbers if necessary
             if ($sheet1 > $sheet2) {
-                list($sheet1, $sheet2) = [$sheet2, $sheet1];
+                [$sheet1, $sheet2] = [$sheet2, $sheet1];
             }
         } else { // Single sheet name only.
             $sheet1 = $this->getSheetIndex($ext_ref);
@@ -843,7 +843,7 @@ class Parser
     private function cellToPackedRowcol($cell)
     {
         $cell = strtoupper($cell);
-        list($row, $col, $row_rel, $col_rel) = $this->cellToRowcol($cell);
+        [$row, $col, $row_rel, $col_rel] = $this->cellToRowcol($cell);
         if ($col >= 256) {
             throw new WriterException("Column in: $cell greater than 255");
         }
@@ -1078,7 +1078,7 @@ class Parser
     {
         $this->currentCharacter = 0;
         $this->formula = $formula;
-        $this->lookAhead = isset($formula[1]) ? $formula[1] : '';
+        $this->lookAhead = $formula[1] ?? '';
         $this->advance();
         $this->parseTree = $this->condition();
 
@@ -1161,17 +1161,15 @@ class Parser
             // catch "-" Term
             $this->advance();
             $result2 = $this->expression();
-            $result = $this->createTree('ptgUminus', $result2, '');
 
-            return $result;
+            return $this->createTree('ptgUminus', $result2, '');
         // If it's a positive value
         } elseif ($this->currentToken == '+') {
             // catch "+" Term
             $this->advance();
             $result2 = $this->expression();
-            $result = $this->createTree('ptgUplus', $result2, '');
 
-            return $result;
+            return $this->createTree('ptgUplus', $result2, '');
         }
         $result = $this->term();
         while (($this->currentToken == '+') or
@@ -1205,9 +1203,7 @@ class Parser
      */
     private function parenthesizedExpression()
     {
-        $result = $this->createTree('ptgParen', $this->expression(), '');
-
-        return $result;
+        return $this->createTree('ptgParen', $this->expression(), '');
     }
 
     /**
@@ -1309,9 +1305,7 @@ class Parser
             return $result;
         } elseif (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/i", $this->currentToken)) {
             // if it's a function call
-            $result = $this->func();
-
-            return $result;
+            return $this->func();
         }
 
         throw new WriterException('Syntax error: ' . $this->currentToken . ', lookahead: ' . $this->lookAhead . ', current char: ' . $this->currentCharacter);
@@ -1439,8 +1433,6 @@ class Parser
         }
         $converted_tree = $this->convert($tree['value']);
 
-        $polish .= $converted_tree;
-
-        return $polish;
+        return $polish . $converted_tree;
     }
 }

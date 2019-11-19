@@ -417,7 +417,7 @@ class Financial
             return Functions::VALUE();
         }
 
-        if (($settlement > $maturity) ||
+        if (($settlement >= $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
             return Functions::NAN();
@@ -476,7 +476,7 @@ class Financial
             return Functions::VALUE();
         }
 
-        if (($settlement > $maturity) ||
+        if (($settlement >= $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
             return Functions::NAN();
@@ -550,7 +550,7 @@ class Financial
             return Functions::VALUE();
         }
 
-        if (($settlement > $maturity) ||
+        if (($settlement >= $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
             return Functions::NAN();
@@ -610,7 +610,7 @@ class Financial
             return Functions::VALUE();
         }
 
-        if (($settlement > $maturity) ||
+        if (($settlement >= $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
             return Functions::NAN();
@@ -667,26 +667,22 @@ class Financial
             return Functions::VALUE();
         }
 
-        if (($settlement > $maturity) ||
+        if (($settlement >= $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
             return Functions::NAN();
         }
 
-        $settlement = self::couponFirstPeriodDate($settlement, $maturity, $frequency, true);
-        $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis) * 365;
+        $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
+        $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis) * $daysPerYear;
 
         switch ($frequency) {
             case 1: // annual payments
-                return ceil($daysBetweenSettlementAndMaturity / 360);
             case 2: // half-yearly
-                return ceil($daysBetweenSettlementAndMaturity / 180);
             case 4: // quarterly
-                return ceil($daysBetweenSettlementAndMaturity / 90);
             case 6: // bimonthly
-                return ceil($daysBetweenSettlementAndMaturity / 60);
             case 12: // monthly
-                return ceil($daysBetweenSettlementAndMaturity / 30);
+                return ceil($daysBetweenSettlementAndMaturity / $daysPerYear * $frequency);
         }
 
         return Functions::VALUE();
@@ -740,7 +736,7 @@ class Financial
             return Functions::VALUE();
         }
 
-        if (($settlement > $maturity) ||
+        if (($settlement >= $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
             return Functions::NAN();
@@ -2152,7 +2148,7 @@ class Financial
      *                                The maturity date is the date when the Treasury bill expires.
      * @param int $price The Treasury bill's price per $100 face value
      *
-     * @return float
+     * @return float|mixed|string
      */
     public static function TBILLYIELD($settlement, $maturity, $price)
     {
@@ -2187,6 +2183,23 @@ class Financial
         return Functions::VALUE();
     }
 
+    /**
+     * XIRR.
+     *
+     * Returns the internal rate of return for a schedule of cash flows that is not necessarily periodic.
+     *
+     * Excel Function:
+     *        =XIRR(values,dates,guess)
+     *
+     * @param float[] $values     A series of cash flow payments
+     *                                The series of values must contain at least one positive value & one negative value
+     * @param mixed[] $dates      A series of payment dates
+     *                                The first payment date indicates the beginning of the schedule of payments
+     *                                All other dates must be later than this date, but they may occur in any order
+     * @param float $guess        An optional guess at the expected answer
+     *
+     * @return float|mixed|string
+     */
     public static function XIRR($values, $dates, $guess = 0.1)
     {
         if ((!is_array($values)) && (!is_array($dates))) {
@@ -2199,11 +2212,28 @@ class Financial
             return Functions::NAN();
         }
 
+        $datesCount = count($dates);
+        for ($i = 0; $i < $datesCount; ++$i) {
+            $dates[$i] = DateTime::getDateValue($dates[$i]);
+            if (!is_numeric($dates[$i])) {
+                return Functions::VALUE();
+            }
+        }
+        if (min($dates) != $dates[0]) {
+            return Functions::NAN();
+        }
+
         // create an initial range, with a root somewhere between 0 and guess
         $x1 = 0.0;
         $x2 = $guess;
         $f1 = self::XNPV($x1, $values, $dates);
+        if (!is_numeric($f1)) {
+            return $f1;
+        }
         $f2 = self::XNPV($x2, $values, $dates);
+        if (!is_numeric($f2)) {
+            return $f2;
+        }
         for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
             if (($f1 * $f2) < 0.0) {
                 break;
@@ -2214,7 +2244,7 @@ class Financial
             }
         }
         if (($f1 * $f2) > 0.0) {
-            return Functions::VALUE();
+            return Functions::NAN();
         }
 
         $f = self::XNPV($x1, $values, $dates);
@@ -2251,15 +2281,15 @@ class Financial
      *        =XNPV(rate,values,dates)
      *
      * @param float $rate the discount rate to apply to the cash flows
-     * @param array of float    $values     A series of cash flows that corresponds to a schedule of payments in dates.
+     * @param float[] $values     A series of cash flows that corresponds to a schedule of payments in dates.
      *                                         The first payment is optional and corresponds to a cost or payment that occurs at the beginning of the investment.
      *                                         If the first value is a cost or payment, it must be a negative value. All succeeding payments are discounted based on a 365-day year.
      *                                         The series of values must contain at least one positive value and one negative value.
-     * @param array of mixed    $dates      A schedule of payment dates that corresponds to the cash flow payments.
+     * @param mixed[] $dates      A schedule of payment dates that corresponds to the cash flow payments.
      *                                         The first payment date indicates the beginning of the schedule of payments.
      *                                         All other dates must be later than this date, but they may occur in any order.
      *
-     * @return float
+     * @return float|mixed|string
      */
     public static function XNPV($rate, $values, $dates)
     {
@@ -2277,7 +2307,7 @@ class Financial
             return Functions::NAN();
         }
         if ((min($values) > 0) || (max($values) < 0)) {
-            return Functions::VALUE();
+            return Functions::NAN();
         }
 
         $xnpv = 0.0;

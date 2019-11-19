@@ -210,6 +210,7 @@ AND                 | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalAnd
 FALSE               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::FALSE
 IF                  | \PhpOffice\PhpSpreadsheet\Calculation\Logical::STATEMENT_IF
 IFERROR             | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFERROR
+IFNA                | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFNA
 NOT                 | \PhpOffice\PhpSpreadsheet\Calculation\Logical::NOT
 OR                  | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalOr
 TRUE                | \PhpOffice\PhpSpreadsheet\Calculation\Logical::TRUE
@@ -333,7 +334,7 @@ COUNT               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNT
 COUNTA              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTA
 COUNTBLANK          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTBLANK
 COUNTIF             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIF
-COUNTIFS            | **Not yet Implemented**
+COUNTIFS            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIFS
 COVAR               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COVAR
 CRITBINOM           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CRITBINOM
 DEVSQ               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::DEVSQ
@@ -361,12 +362,12 @@ LOGINV              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGINV
 LOGNORMDIST         | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGNORMDIST
 MAX                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAX
 MAXA                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAXA
-MAXIF               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAXIF
+MAXIFS              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAXIFS
 MEDIAN              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MEDIAN
 MEDIANIF            | **Not yet Implemented**
 MIN                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MIN
 MINA                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINA
-MINIF               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINIF
+MINIFS              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINIFS
 MODE                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MODE
 MODE.SNGL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MODE
 NEGBINOMDIST        | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NEGBINOMDIST

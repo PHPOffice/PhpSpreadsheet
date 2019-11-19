@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Security;
 
 use PhpOffice\PhpSpreadsheet\Reader;
+use PhpOffice\PhpSpreadsheet\Settings;
 
 class XmlScanner
 {
-    /**
-     * Identifies whether the thread-safe libxmlDisableEntityLoader() function is available.
-     *
-     * @var bool
-     */
-    private $libxmlDisableEntityLoader = false;
-
     /**
      * String used to identify risky xml elements.
      *
@@ -22,10 +16,16 @@ class XmlScanner
 
     private $callback;
 
-    private function __construct($pattern = '<!DOCTYPE')
+    private static $libxmlDisableEntityLoaderValue;
+
+    public function __construct($pattern = '<!DOCTYPE')
     {
         $this->pattern = $pattern;
-        $this->libxmlDisableEntityLoader = $this->identifyLibxmlDisableEntityLoaderAvailability();
+
+        $this->disableEntityLoaderCheck();
+
+        // A fatal error will bypass the destructor, so we register a shutdown here
+        register_shutdown_function([__CLASS__, 'shutdown']);
     }
 
     public static function getInstance(Reader\IReader $reader)
@@ -43,7 +43,7 @@ class XmlScanner
         }
     }
 
-    private function identifyLibxmlDisableEntityLoaderAvailability()
+    public static function threadSafeLibxmlDisableEntityLoaderAvailability()
     {
         if (PHP_MAJOR_VERSION == 7) {
             switch (PHP_MINOR_VERSION) {
@@ -61,9 +61,52 @@ class XmlScanner
         return false;
     }
 
+    private function disableEntityLoaderCheck()
+    {
+        if (Settings::getLibXmlDisableEntityLoader()) {
+            $libxmlDisableEntityLoaderValue = libxml_disable_entity_loader(true);
+
+            if (self::$libxmlDisableEntityLoaderValue === null) {
+                self::$libxmlDisableEntityLoaderValue = $libxmlDisableEntityLoaderValue;
+            }
+        }
+    }
+
+    public static function shutdown()
+    {
+        if (self::$libxmlDisableEntityLoaderValue !== null) {
+            libxml_disable_entity_loader(self::$libxmlDisableEntityLoaderValue);
+            self::$libxmlDisableEntityLoaderValue = null;
+        }
+    }
+
+    public function __destruct()
+    {
+        self::shutdown();
+    }
+
     public function setAdditionalCallback(callable $callback)
     {
         $this->callback = $callback;
+    }
+
+    private function toUtf8($xml)
+    {
+        $pattern = '/encoding="(.*?)"/';
+        $result = preg_match($pattern, $xml, $matches);
+        $charset = strtoupper($result ? $matches[1] : 'UTF-8');
+
+        if ($charset !== 'UTF-8') {
+            $xml = mb_convert_encoding($xml, 'UTF-8', $charset);
+
+            $result = preg_match($pattern, $xml, $matches);
+            $charset = strtoupper($result ? $matches[1] : 'UTF-8');
+            if ($charset !== 'UTF-8') {
+                throw new Reader\Exception('Suspicious Double-encoded XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
+            }
+        }
+
+        return $xml;
     }
 
     /**
@@ -77,33 +120,19 @@ class XmlScanner
      */
     public function scan($xml)
     {
-        if ($this->libxmlDisableEntityLoader) {
-            $previousLibxmlDisableEntityLoaderValue = libxml_disable_entity_loader(true);
-        }
+        $this->disableEntityLoaderCheck();
 
-        $pattern = '/encoding="(.*?)"/';
-        $result = preg_match($pattern, $xml, $matches);
-        $charset = $result ? $matches[1] : 'UTF-8';
-
-        if ($charset !== 'UTF-8') {
-            $xml = mb_convert_encoding($xml, 'UTF-8', $charset);
-        }
+        $xml = $this->toUtf8($xml);
 
         // Don't rely purely on libxml_disable_entity_loader()
         $pattern = '/\\0?' . implode('\\0?', str_split($this->pattern)) . '\\0?/';
 
-        try {
-            if (preg_match($pattern, $xml)) {
-                throw new Reader\Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
-            }
+        if (preg_match($pattern, $xml)) {
+            throw new Reader\Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
+        }
 
-            if ($this->callback !== null && is_callable($this->callback)) {
-                $xml = call_user_func($this->callback, $xml);
-            }
-        } finally {
-            if (isset($previousLibxmlDisableEntityLoaderValue)) {
-                libxml_disable_entity_loader($previousLibxmlDisableEntityLoaderValue);
-            }
+        if ($this->callback !== null && is_callable($this->callback)) {
+            $xml = call_user_func($this->callback, $xml);
         }
 
         return $xml;
