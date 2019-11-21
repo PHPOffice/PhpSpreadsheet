@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - FLOOR() function accept negative number and negative significance [#1245](https://github.com/PHPOffice/PhpSpreadsheet/pull/1245)
+- Correct column style even when using rowspan [#1249](https://github.com/PHPOffice/PhpSpreadsheet/pull/1249)
 
 ## [1.10.0] - 2019-11-18
 
