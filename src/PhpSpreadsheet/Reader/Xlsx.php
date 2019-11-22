@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use DOMDocument;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\NamedRange;
@@ -901,9 +902,8 @@ class Xlsx extends BaseReader
 
                                     try {
                                         $secureXml = $this->securityScanner->scan($this->getFromZipArchive($zip, $relPath));
-                                        $cleanedXml = str_replace('<br>', '<br/>', $secureXml);
-                                        $vmlCommentsFile = simplexml_load_string(
-                                            $cleanedXml,
+                                        $vmlCommentsFile = $this->simplexml_load_string_of_html_too(
+                                            $secureXml,
                                             'SimpleXMLElement',
                                             Settings::getLibXmlLoaderOptions()
                                         );
@@ -2044,5 +2044,56 @@ class Xlsx extends BaseReader
         }
 
         return $workbookBasename;
+    }
+
+
+    /**
+     * Tries to load a string as XML and HTML.
+     * @throws \Exception
+     */
+    protected function simplexml_load_string_of_html_too($string, $class_name = "SimpleXMLElement", $options = 0, $ns = "", $is_prefix = false) {
+
+        try {
+            $xml = $this->simplexml_load_string($string, $class_name, $options, $ns, $is_prefix);
+        } catch (\Exception $e) {
+            $dom = new DOMDocument;
+            $rc = $dom->loadHTML($string, $options);
+            if(false === $rc) {
+                throw $e;
+            }
+
+            $xml = simplexml_import_dom($dom, $class_name);
+        }
+
+        return $xml;
+    }
+
+    /**
+     * @param $string
+     * @param $class_name
+     * @param $options
+     * @param $ns
+     * @param $is_prefix
+     * @return SimpleXMLElement
+     * @throws \Exception
+     */
+    protected function simplexml_load_string($string, $class_name, $options, $ns, $is_prefix): SimpleXMLElement
+    {
+        libxml_clear_errors();
+
+        $previous = libxml_use_internal_errors(true);
+        $xml = simplexml_load_string($string, $class_name, $options, $ns, $is_prefix);
+        libxml_use_internal_errors($previous);
+
+        if (false === $xml) {
+            $message = '';
+            foreach (libxml_get_errors() as $error) {
+                $trimmedMsg = trim($error->message);
+                $message .= "$trimmedMsg on line: $error->line, column: $error->column.\n";
+            }
+            libxml_clear_errors();
+            throw new \Exception($message);
+        }
+        return $xml;
     }
 }
