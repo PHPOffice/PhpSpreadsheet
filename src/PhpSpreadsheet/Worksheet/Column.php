@@ -40,7 +40,7 @@ class Column
     }
 
     /**
-     * Get column index.
+     * Get column index as string eg: 'A'.
      *
      * @return string
      */

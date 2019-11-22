@@ -5,20 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [1.10.0] - 2019-11-18
+
+### Changed
+
+- Change license from LGPL 2.1 to MIT [#140](https://github.com/PHPOffice/PhpSpreadsheet/issues/140)
 
 ### Added
 
 - Implementation of IFNA() logical function
 - Support "showZeros" worksheet option to change how Excel shows and handles "null" values returned from a calculation
+- Allow HTML Reader to accept HTML as a string into an existing spreadsheet [#1212](https://github.com/PHPOffice/PhpSpreadsheet/pull/1212)
 
 ### Fixed
 
+- IF implementation properly handles the value `#N/A` [#1165](https://github.com/PHPOffice/PhpSpreadsheet/pull/1165)
 - Formula Parser: Wrong line count for stuff like "MyOtherSheet!A:D" [#1215](https://github.com/PHPOffice/PhpSpreadsheet/issues/1215)
 - Call garbage collector after removing a column to prevent stale cached values
 - Trying to remove a column that doesn't exist deletes the latest column
 - Deal with VML-Comments containing an new-line written by Excel 2013
-- Allow to read xlsx files with exotic workbook names like "workbook2.xml".
+- Keep big integer as integer instead of lossely casting to float [#874](https://github.com/PHPOffice/PhpSpreadsheet/pull/874)
+- Fix branch pruning handling of non boolean conditions [#1167](https://github.com/PHPOffice/PhpSpreadsheet/pull/1167)
+- Fix ODS Reader when no DC namespace are defined [#1182](https://github.com/PHPOffice/PhpSpreadsheet/pull/1182)
+- Fixed Functions->ifCondition for allowing <> and empty condition [#1206](https://github.com/PHPOffice/PhpSpreadsheet/pull/1206)
+- Validate XIRR inputs and return correct error values [#1120](https://github.com/PHPOffice/PhpSpreadsheet/issues/1120)
+- Allow to read xlsx files with exotic workbook names like "workbook2.xml" [#1183](https://github.com/PHPOffice/PhpSpreadsheet/pull/1183)
 
 ## [1.9.0] - 2019-08-17
 

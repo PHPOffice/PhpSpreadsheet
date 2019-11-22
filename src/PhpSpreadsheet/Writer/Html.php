@@ -960,15 +960,12 @@ class Html extends BaseWriter
     private function createCSSStyle(Style $pStyle)
     {
         // Create CSS
-        $css = array_merge(
+        return array_merge(
             $this->createCSSStyleAlignment($pStyle->getAlignment()),
             $this->createCSSStyleBorders($pStyle->getBorders()),
             $this->createCSSStyleFont($pStyle->getFont()),
             $this->createCSSStyleFill($pStyle->getFill())
         );
-
-        // Return
-        return $css;
     }
 
     /**
@@ -1061,9 +1058,8 @@ class Html extends BaseWriter
     {
         //    Create CSS - add !important to non-none border styles for merged cells
         $borderStyle = $this->mapBorderStyle($pStyle->getBorderStyle());
-        $css = $borderStyle . ' #' . $pStyle->getColor()->getRGB() . (($borderStyle == 'none') ? '' : ' !important');
 
-        return $css;
+        return $borderStyle . ' #' . $pStyle->getColor()->getRGB() . (($borderStyle == 'none') ? '' : ' !important');
     }
 
     /**
@@ -1153,9 +1149,7 @@ class Html extends BaseWriter
      */
     private function generateTableFooter()
     {
-        $html = '    </table>' . PHP_EOL;
-
-        return $html;
+        return '    </table>' . PHP_EOL;
     }
 
     /**

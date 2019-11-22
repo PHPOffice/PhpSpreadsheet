@@ -4,7 +4,7 @@
     "keywords": ["PHP", "OpenXML", "Excel", "xlsx", "xls", "ods", "gnumeric", "spreadsheet"],
     "homepage": "https://github.com/PHPOffice/PhpSpreadsheet",
     "type": "library",
-    "license": "LGPL-2.1-or-later",
+    "license": "MIT",
     "authors": [
         {
             "name": "Maarten Balliauw",
@@ -53,19 +53,19 @@
         "ext-xmlwriter": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
-        "psr/simple-cache": "^1.0",
         "markbaker/complex": "^1.4",
-        "markbaker/matrix": "^1.1"
+        "markbaker/matrix": "^1.2",
+        "psr/simple-cache": "^1.0"
     },
     "require-dev": {
-        "tecnickcom/tcpdf": "^6.2",
-        "dompdf/dompdf": "^0.8.0",
-        "mpdf/mpdf": "^7.0.0",
+        "dompdf/dompdf": "^0.8.3",
+        "friendsofphp/php-cs-fixer": "^2.16",
         "jpgraph/jpgraph": "^4.0",
-        "friendsofphp/php-cs-fixer": "@stable",
-        "phpcompatibility/php-compatibility": "^8.0",
-        "squizlabs/php_codesniffer": "^3.3",
-        "phpunit/phpunit": "^7.5"
+        "mpdf/mpdf": "^8.0",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpunit/phpunit": "^7.5",
+        "squizlabs/php_codesniffer": "^3.5",
+        "tecnickcom/tcpdf": "^6.3"
     },
     "suggest": {
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",

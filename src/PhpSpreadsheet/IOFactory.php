@@ -52,9 +52,8 @@ abstract class IOFactory
 
         // Instantiate writer
         $className = self::$writers[$writerType];
-        $writer = new $className($spreadsheet);
 
-        return $writer;
+        return new $className($spreadsheet);
     }
 
     /**
@@ -74,9 +73,8 @@ abstract class IOFactory
 
         // Instantiate reader
         $className = self::$readers[$readerType];
-        $reader = new $className();
 
-        return $reader;
+        return new $className();
     }
 
     /**

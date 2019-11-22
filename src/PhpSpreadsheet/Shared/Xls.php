@@ -269,7 +269,7 @@ class Xls
         $startCoordinates = Coordinate::stringFromColumnIndex($col_start) . ($row_start + 1);
         $endCoordinates = Coordinate::stringFromColumnIndex($col_end) . ($row_end + 1);
 
-        $twoAnchor = [
+        return [
             'startCoordinates' => $startCoordinates,
             'startOffsetX' => $x1,
             'startOffsetY' => $y1,
@@ -277,7 +277,5 @@ class Xls
             'endOffsetX' => $x2,
             'endOffsetY' => $y2,
         ];
-
-        return  $twoAnchor;
     }
 }

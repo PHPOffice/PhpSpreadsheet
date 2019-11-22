@@ -266,6 +266,10 @@ class Logical
      */
     public static function statementIf($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
+        if (Functions::isError($condition)) {
+            return $condition;
+        }
+
         $condition = ($condition === null) ? true : (bool) Functions::flattenSingleValue($condition);
         $returnIfTrue = ($returnIfTrue === null) ? 0 : Functions::flattenSingleValue($returnIfTrue);
         $returnIfFalse = ($returnIfFalse === null) ? false : Functions::flattenSingleValue($returnIfFalse);

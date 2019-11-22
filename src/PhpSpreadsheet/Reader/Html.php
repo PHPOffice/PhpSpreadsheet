@@ -607,12 +607,11 @@ class Html extends BaseReader
      * Spreadsheet from content.
      *
      * @param string $content
-     *
-     * @throws Exception
+     * @param null|Spreadsheet $spreadsheet
      *
      * @return Spreadsheet
      */
-    public function loadFromString($content): Spreadsheet
+    public function loadFromString($content, ?Spreadsheet $spreadsheet = null): Spreadsheet
     {
         //    Create a new DOM object
         $dom = new DOMDocument();
@@ -622,7 +621,7 @@ class Html extends BaseReader
             throw new Exception('Failed to load content as a DOM Document');
         }
 
-        return $this->loadDocument($dom, new Spreadsheet());
+        return $this->loadDocument($dom, $spreadsheet ?? new Spreadsheet());
     }
 
     /**
