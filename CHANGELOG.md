@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - FLOOR() function accept negative number and negative significance [#1245](https://github.com/PHPOffice/PhpSpreadsheet/pull/1245)
 - Correct column style even when using rowspan [#1249](https://github.com/PHPOffice/PhpSpreadsheet/pull/1249)
+- XLSX reader/writer keep decimal for floats with a zero decimal part [#1262](https://github.com/PHPOffice/PhpSpreadsheet/pull/1262)
 
 ## [1.10.0] - 2019-11-18
 

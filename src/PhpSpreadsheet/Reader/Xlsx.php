@@ -729,15 +729,6 @@ class Xlsx extends BaseReader
 
                                         // read empty cells or the cells are not empty
                                         if ($this->readEmptyCells || ($value !== null && $value !== '')) {
-                                            // Check for numeric values
-                                            if (is_numeric($value) && $cellDataType != 's') {
-                                                if ($value == (int) $value) {
-                                                    $value = (int) $value;
-                                                } elseif ($value == (float) $value) {
-                                                    $value = (float) $value;
-                                                }
-                                            }
-
                                             // Rich text?
                                             if ($value instanceof RichText && $this->readDataOnly) {
                                                 $value = $value->getPlainText();
