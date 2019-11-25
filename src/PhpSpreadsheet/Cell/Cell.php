@@ -256,6 +256,7 @@ class Cell
     public function getCalculatedValue($resetLog = true)
     {
         if ($this->dataType == DataType::TYPE_FORMULA) {
+            $result='';
             try {
                 $result = Calculation::getInstance(
                     $this->getWorksheet()->getParent()
@@ -271,15 +272,17 @@ class Cell
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 }
 
-                throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(
-                    $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
-                );
+                //throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(
+                //    $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
+                //);
             }
 
             if ($result === '#Not Yet Implemented') {
                 return $this->calculatedValue; // Fallback if calculation engine does not support the formula.
             }
-
+            if (in_array($result, DataType::getErrorCodes())) {
+                return null;
+            }
             return $result;
         } elseif ($this->value instanceof RichText) {
             return $this->value->getPlainText();
