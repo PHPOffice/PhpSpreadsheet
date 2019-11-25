@@ -271,15 +271,19 @@ class Cell
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 }
 
-                throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(
-                    $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
-                );
+                //throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(
+                //    $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
+                //);
             }
 
             if ($result === '#Not Yet Implemented') {
                 return $this->calculatedValue; // Fallback if calculation engine does not support the formula.
             }
-
+            if ($this->calculatedValue !== null) {
+                if (in_array($this->calculatedValue, DataType::getErrorCodes())) {
+                    return null;
+                }
+            }
             return $result;
         } elseif ($this->value instanceof RichText) {
             return $this->value->getPlainText();
