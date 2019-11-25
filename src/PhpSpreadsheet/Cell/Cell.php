@@ -249,8 +249,6 @@ class Cell
      *
      * @param bool $resetLog Whether the calculation engine logger should be reset or not
      *
-     * @throws Exception
-     *
      * @return mixed
      */
     public function getCalculatedValue($resetLog = true)
@@ -271,15 +269,17 @@ class Cell
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 }
 
-                throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(
-                    $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
-                );
+                //throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(
+                //    $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
+                //);
             }
 
             if ($result === '#Not Yet Implemented') {
                 return $this->calculatedValue; // Fallback if calculation engine does not support the formula.
             }
-
+            if(in_array($result, DataType::getErrorCodes())){
+                return null;
+            }
             return $result;
         } elseif ($this->value instanceof RichText) {
             return $this->value->getPlainText();
