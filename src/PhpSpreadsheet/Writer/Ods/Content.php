@@ -314,7 +314,7 @@ class Content extends WriterPart
             }
 
             if ($size = $font->getSize()) {
-                $writer->writeAttribute('fo:font-size', sprintf('%.1fpt', $size));
+                $writer->writeAttribute('fo:font-size', sprintf('%.1Fpt', $size));
             }
 
             if ($font->getUnderline() && $font->getUnderline() != Font::UNDERLINE_NONE) {
