@@ -18,8 +18,8 @@ class DefinedNameConfusedForCellTest extends TestCase
 
         try {
             $writer->save($out);
-        } catch (Exception $e) {
-            @unlink($out);
+        } catch (\Exception $e) {
+            unlink($out);
             $this->fail();
         }
         unlink($out);
