@@ -138,7 +138,7 @@ class SubTotalTest extends TestCase
     protected function cellIsFormula(array $cellValues)
     {
         foreach ($cellValues as $cellValue) {
-            yield $cellValue[0] === '=';
+            yield is_string($cellValue) && $cellValue[0] === '=';
         }
     }
 
