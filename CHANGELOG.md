@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Do not confuse defined names and cell refs [#1263](https://github.com/PHPOffice/PhpSpreadsheet/pull/1263)
 - XLSX reader/writer keep decimal for floats with a zero decimal part [#1262](https://github.com/PHPOffice/PhpSpreadsheet/pull/1262)
 - ODS writer prevent invalid numeric value if locale decimal separator is comma [#1268](https://github.com/PHPOffice/PhpSpreadsheet/pull/1268)
+- Xlsx writer actually writes plotVisOnly and dispBlanksAs from chart properties [#1266](https://github.com/PHPOffice/PhpSpreadsheet/pull/1266)
 
 ## [1.10.0] - 2019-11-18
 
