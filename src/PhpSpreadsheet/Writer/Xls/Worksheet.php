@@ -441,7 +441,23 @@ class Worksheet extends BIFFwriter
                     case DataType::TYPE_FORMULA:
                         $calculatedValue = $this->preCalculateFormulas ?
                             $cell->getCalculatedValue() : null;
-                        $this->writeFormula($row, $column, $cVal, $xfIndex, $calculatedValue);
+                        if (-3 == $this->writeFormula($row, $column, $cVal, $xfIndex, $calculatedValue)) {
+                            $calculatedValue = $cell->getCalculatedValue();
+                            $calctype = gettype($calculatedValue);
+                            switch ($calctype) {
+                                case 'integer':
+                                case 'double':
+                                    $this->writeNumber($row, $column, $calculatedValue, $xfIndex);
+
+                                    break;
+                                case 'string':
+                                    $this->writeString($row, $column, $calculatedValue, $xfIndex);
+
+                                    break;
+                                default:
+                                    $this->writeString($row, $column, $cVal, $xfIndex);
+                            }
+                        }
 
                         break;
                     case DataType::TYPE_BOOL:
@@ -772,6 +788,7 @@ class Worksheet extends BIFFwriter
      * Returns  0 : normal termination
      *         -1 : formula errors (bad formula)
      *         -2 : row or column out of range
+     *         -3 : parse raised exception, probably due to definedname
      *
      * @param int $row Zero indexed row
      * @param int $col Zero indexed column
@@ -854,7 +871,7 @@ class Worksheet extends BIFFwriter
 
             return 0;
         } catch (PhpSpreadsheetException $e) {
-            // do nothing
+            return -3;
         }
     }
 
