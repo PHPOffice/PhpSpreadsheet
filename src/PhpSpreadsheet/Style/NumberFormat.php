@@ -180,6 +180,11 @@ class NumberFormat extends Supervisor
      */
     public function setFormatCode($pValue)
     {
+        // in Xlsx.php row:570 get customer conditional format,styleXml->dxfs->dxf is SimpleXMLElement array,so this need process it. -- by PonyHu@Mulgor
+        if($pValue instanceof \SimpleXMLElement){
+            $attributes = $pValue->attributes();
+            $pValue = (String)$attributes['formatCode'];
+        }
         if ($pValue == '') {
             $pValue = self::FORMAT_GENERAL;
         }
