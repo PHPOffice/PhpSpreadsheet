@@ -149,7 +149,16 @@ class Styles extends BaseParserClass
 
     private function readStyle(Style $docStyle, $style)
     {
-        $docStyle->getNumberFormat()->setFormatCode($style->numFmt);
+        $formatCode = $style->numFmt;
+        if($formatCode instanceof \SimpleXMLElement){
+            if(isset($formatCode['formatCode'])){
+                $formatCode = (String)$formatCode['formatCode'];
+            }
+            else{
+                $formatCode = '';
+            }
+        }
+        $docStyle->getNumberFormat()->setFormatCode($formatCode);
 
         if (isset($style->font)) {
             self::readFontStyle($docStyle->getFont(), $style->font);
