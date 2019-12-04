@@ -153,8 +153,7 @@ class Styles extends BaseParserClass
         if ($formatCode instanceof \SimpleXMLElement) {
             if (isset($formatCode['formatCode'])) {
                 $formatCode = (string) $formatCode['formatCode'];
-            }
-            else {
+            } else {
                 $formatCode = '';
             }
         }
