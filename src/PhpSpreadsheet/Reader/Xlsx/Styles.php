@@ -150,11 +150,11 @@ class Styles extends BaseParserClass
     private function readStyle(Style $docStyle, $style)
     {
         $formatCode = $style->numFmt;
-        if($formatCode instanceof \SimpleXMLElement){
-            if(isset($formatCode['formatCode'])){
+        if ($formatCode instanceof \SimpleXMLElement) {
+            if (isset($formatCode['formatCode'])) {
                 $formatCode = (String)$formatCode['formatCode'];
             }
-            else{
+            else {
                 $formatCode = '';
             }
         }
