@@ -217,7 +217,10 @@ class Cell
 
                 break;
             case DataType::TYPE_NUMERIC:
-                $this->value = (int)$pValue;
+                if ($pValue === null) {
+                    $pValue = 0;
+                }
+                $this->value = 0 + $pValue;
 
                 break;
             case DataType::TYPE_FORMULA:
