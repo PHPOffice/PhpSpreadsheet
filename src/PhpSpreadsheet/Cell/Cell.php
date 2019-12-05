@@ -217,7 +217,7 @@ class Cell
 
                 break;
             case DataType::TYPE_NUMERIC:
-                if ($pValue === null) {
+                if ($pValue === null || $pValue === "") {
                     $pValue = 0;
                 }
                 $this->value = 0 + $pValue;
