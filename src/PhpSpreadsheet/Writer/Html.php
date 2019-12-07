@@ -645,7 +645,25 @@ class Html extends BaseWriter
                     $filename = htmlspecialchars($filename);
 
                     $html .= PHP_EOL;
-                    if ((!$this->embedImages) || ($this->isPdf)) {
+                    if (strpos($filename,'zip://') === 0) {
+                        $imageDetails = getimagesize($filename);
+                        if ($fp = fopen($filename, 'rb', 0)) {
+                            $picture = '';
+                            while (!feof($fp)) {
+                                $picture .= fread($fp, 1024);
+                            }
+                            fclose($fp);
+                            // base64 encode the binary data
+                            $base64 = base64_encode($picture); 
+                            // if not pdf, break it into chunks according to RFC 2045 semantics
+                            if (!$this->isPdf) {
+                                $base64 = chunk_split(base64_encode($picture));
+                            }
+                            $imageData = 'data:' . $imageDetails['mime'] . ';base64,' . $base64;
+                        } else {
+                            $imageData = $filename;
+                        }
+                    } else if ((!$this->embedImages) || ($this->isPdf)) {
                         $imageData = $filename;
                     } else {
                         $imageDetails = getimagesize($filename);
