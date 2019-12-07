@@ -663,7 +663,7 @@ class Html extends BaseWriter
                         } else {
                             $imageData = $filename;
                         }
-                    } else if ((!$this->embedImages) || ($this->isPdf)) {
+                    } elseif ((!$this->embedImages) || ($this->isPdf)) {
                         $imageData = $filename;
                     } else {
                         $imageDetails = getimagesize($filename);
