@@ -654,7 +654,7 @@ class Html extends BaseWriter
                             }
                             fclose($fp);
                             // base64 encode the binary data
-                            $base64 = base64_encode($picture); 
+                            $base64 = base64_encode($picture);
                             // if not pdf, break it into chunks according to RFC 2045 semantics
                             if (!$this->isPdf) {
                                 $base64 = chunk_split(base64_encode($picture));
