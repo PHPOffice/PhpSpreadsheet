@@ -31,9 +31,18 @@ class DefaultValueBinder implements IValueBinder
                 $value = (string) $value;
             }
         }
+        
+        $formatCode = $cell->getStyle()->getNumberFormat()->getFormatCode();
+
+        // Detect if cell is text format
+        if($formatCode === '@') {
+            $dataType = DataType::TYPE_STRING;
+        } else {
+            $dataType = static::dataTypeForValue($value);
+        }
 
         // Set value explicit
-        $cell->setValueExplicit($value, static::dataTypeForValue($value));
+        $cell->setValueExplicit($value, $dataType);
 
         // Done!
         return true;
