@@ -645,7 +645,7 @@ class Html extends BaseWriter
                     $filename = htmlspecialchars($filename);
 
                     $html .= PHP_EOL;
-                    if (strpos($filename,'zip://') === 0) {
+                    if (strpos($filename, 'zip://') === 0) {
                         $imageDetails = getimagesize($filename);
                         if ($fp = fopen($filename, 'rb', 0)) {
                             $picture = '';
