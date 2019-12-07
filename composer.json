@@ -1,15 +1,11 @@
 {
-    "name": "mulgor/phpspreadsheet",
-    "description": "PHPSpreadsheet - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine,forked from https://github.com/PHPOffice/PhpSpreadsheet, and fix bug",
+    "name": "phpoffice/phpspreadsheet",
+    "description": "PHPSpreadsheet - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
     "keywords": ["PHP", "OpenXML", "Excel", "xlsx", "xls", "ods", "gnumeric", "spreadsheet"],
-    "homepage": "https://github.com/mulgor/Mulgor-PhpSpreadsheet",
+    "homepage": "https://github.com/PHPOffice/PhpSpreadsheet",
     "type": "library",
     "license": "MIT",
     "authors": [
-        {
-            "name": "Pony Hu",
-            "homepage": "https://github.com/mulgor"
-        },
         {
             "name": "Maarten Balliauw",
             "homepage": "https://blog.maartenballiauw.be"
