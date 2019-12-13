@@ -136,7 +136,7 @@ class ColumnAndRowAttributes extends BaseParserClass
             for ($columnAddress = $startColumn; $columnAddress !== $endColumn; ++$columnAddress) {
                 $columnAttributes[$columnAddress] = $this->readColumnRangeAttributes($column, $readDataOnly);
 
-                /**
+                /*
                  * LibreOffice saves xlsx files with 1025 columns mapping,
                  * while MS Office saves it with 16384 columns mapping.
                  */
