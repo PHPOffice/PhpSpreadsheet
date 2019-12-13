@@ -136,7 +136,11 @@ class ColumnAndRowAttributes extends BaseParserClass
             for ($columnAddress = $startColumn; $columnAddress !== $endColumn; ++$columnAddress) {
                 $columnAttributes[$columnAddress] = $this->readColumnRangeAttributes($column, $readDataOnly);
 
-                if ((int) ($column['max']) == 16384) {
+                /**
+                 * LibreOffice saves xlsx files with 1025 columns mapping,
+                 * while MS Office saves it with 16384 columns mapping.
+                 */
+                if (in_array((int) $column['max'], [1025, 16384])) {
                     break;
                 }
             }
