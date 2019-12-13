@@ -59,7 +59,7 @@ interface IWriter
     /**
      * Save PhpSpreadsheet to file.
      *
-     * @param string $pFilename Name of the file to save
+     * @param resource|string $pFilename Name of the file to save
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
