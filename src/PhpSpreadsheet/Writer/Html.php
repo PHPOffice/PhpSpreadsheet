@@ -146,7 +146,7 @@ class Html extends BaseWriter
     /**
      * Save Spreadsheet to file.
      *
-     * @param string $pFilename
+     * @param resource|string $pFilename
      *
      * @throws WriterException
      */
@@ -164,7 +164,12 @@ class Html extends BaseWriter
         $this->buildCSS(!$this->useInlineCss);
 
         // Open file
-        $fileHandle = fopen($pFilename, 'wb+');
+        if (is_resource($pFilename)) {
+            $fileHandle = $pFilename;
+        } else {
+            $fileHandle = fopen($pFilename, 'wb+');
+        }
+
         if ($fileHandle === false) {
             throw new WriterException("Could not open file $pFilename for writing.");
         }
