@@ -74,11 +74,11 @@ class Styles extends BaseParserClass
 
     private static function readNumberFormat(NumberFormat $numfmtStyle, \SimpleXMLElement $numfmtStyleXml)
     {
-        if (!$numfmtStyleXml) {
+        if ($numfmtStyleXml->count() === 0) {
             return;
         }
         $numfmt = $numfmtStyleXml->attributes();
-        if ($numfmt && isset($numfmt['formatCode'])) {
+        if ($numfmt->count() > 0 && isset($numfmt['formatCode'])) {
             $numfmtStyle->setFormatCode((string) $numfmt['formatCode']);
         }
     }
