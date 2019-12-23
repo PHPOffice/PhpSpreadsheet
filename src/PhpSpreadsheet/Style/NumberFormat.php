@@ -367,7 +367,7 @@ class NumberFormat extends Supervisor
         self::fillBuiltInFormatCodes();
 
         // Lookup format code
-        if (isset(self::$flippedBuiltInFormats[$formatCode])) {
+        if (array_key_exists($formatCode, self::$flippedBuiltInFormats)) {
             return self::$flippedBuiltInFormats[$formatCode];
         }
 
