@@ -60,7 +60,7 @@ class QRDecomposition
     {
         if ($A instanceof Matrix) {
             // Initialize.
-            $this->QR = $A->getArrayCopy();
+            $this->QR = $A->getArray();
             $this->m = $A->getRowDimension();
             $this->n = $A->getColumnDimension();
             // Main loop.
