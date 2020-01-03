@@ -49,5 +49,4 @@ class CellTest extends TestCase
     {
         return require 'data/Cell/SetValueExplicitException.php';
     }
-
 }
