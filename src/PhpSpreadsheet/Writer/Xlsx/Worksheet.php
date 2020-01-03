@@ -1137,13 +1137,13 @@ class Worksheet extends WriterPart
                 case 'n':            // Numeric
                     //force a decimal to be written if the type is float
                     if (is_float($cellValue)) {
-                        $cellValue = (string) $cellValue;
+                        // force point as decimal separator in case current locale uses comma
+                        $cellValue = str_replace(',', '.', (string) $cellValue);
                         if (strpos($cellValue, '.') === false) {
                             $cellValue = $cellValue . '.0';
                         }
                     }
-                    // force point as decimal separator in case current locale uses comma
-                    $objWriter->writeElement('v', str_replace(',', '.', $cellValue));
+                    $objWriter->writeElement('v', $cellValue);
 
                     break;
                 case 'b':            // Boolean
