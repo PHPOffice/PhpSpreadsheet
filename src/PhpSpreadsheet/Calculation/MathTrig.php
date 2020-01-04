@@ -209,7 +209,7 @@ class MathTrig
      *
      * @param float $factVal Factorial Value
      *
-     * @return int| Factorial, or a string containing an error
+     * @return int|string Factorial, or a string containing an error
      */
     public static function FACT($factVal)
     {
@@ -332,7 +332,7 @@ class MathTrig
      *
      * @param mixed ...$args Data values
      *
-     * @return int|string Greatest Common Divisor, or a string containing an error
+     * @return int|mixed|string Greatest Common Divisor, or a string containing an error
      */
     public static function GCD(...$args)
     {
