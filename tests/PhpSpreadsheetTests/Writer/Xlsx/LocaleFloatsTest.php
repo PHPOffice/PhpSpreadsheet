@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 class LocaleFloatsTest extends TestCase
 {
     protected $localeAdjusted;
+
     protected $currentLocale;
 
     public function setUp()
@@ -15,6 +16,7 @@ class LocaleFloatsTest extends TestCase
 
         if (!setlocale(LC_ALL, 'fr_FR.UTF-8')) {
             $this->localeAdjusted = false;
+
             return;
         }
 
