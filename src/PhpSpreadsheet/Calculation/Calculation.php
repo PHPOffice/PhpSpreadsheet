@@ -2864,13 +2864,13 @@ class Calculation
         $this->debugLog->clearLog();
         $this->cyclicReferenceStack->clear();
 
+        $resetCache = $this->getCalculationCacheEnabled();
         if ($this->spreadsheet !== null && $cellID === null && $pCell === null) {
             $cellID = 'A1';
             $pCell = $this->spreadsheet->getActiveSheet()->getCell($cellID);
         } else {
             //    Disable calculation cacheing because it only applies to cell calculations, not straight formulae
             //    But don't actually flush any cache
-            $resetCache = $this->getCalculationCacheEnabled();
             $this->calculationCacheEnabled = false;
         }
 
@@ -3239,7 +3239,7 @@ class Calculation
     /**
      * @param string $formula
      *
-     * @return string
+     * @return false|string False indicates an error
      */
     private function convertMatrixReferences($formula)
     {

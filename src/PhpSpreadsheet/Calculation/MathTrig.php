@@ -59,7 +59,7 @@ class MathTrig
      * @param float $xCoordinate the x-coordinate of the point
      * @param float $yCoordinate the y-coordinate of the point
      *
-     * @return float the inverse tangent of the specified x- and y-coordinates
+     * @return float|string the inverse tangent of the specified x- and y-coordinates, or a string containing an error
      */
     public static function ATAN2($xCoordinate = null, $yCoordinate = null)
     {
@@ -100,7 +100,7 @@ class MathTrig
      * @param float $number the number you want to round
      * @param float $significance the multiple to which you want to round
      *
-     * @return float Rounded Number
+     * @return float|string Rounded Number, or a string containing an error
      */
     public static function CEILING($number, $significance = null)
     {
@@ -139,7 +139,7 @@ class MathTrig
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each combination
      *
-     * @return int Number of combinations
+     * @return int|string Number of combinations, or a string containing an error
      */
     public static function COMBIN($numObjs, $numInSet)
     {
@@ -175,7 +175,7 @@ class MathTrig
      *
      * @param float $number Number to round
      *
-     * @return int Rounded Number
+     * @return int|string Rounded Number, or a string containing an error
      */
     public static function EVEN($number)
     {
@@ -209,7 +209,7 @@ class MathTrig
      *
      * @param float $factVal Factorial Value
      *
-     * @return int Factorial
+     * @return int|string Factorial, or a string containing an error
      */
     public static function FACT($factVal)
     {
@@ -248,7 +248,7 @@ class MathTrig
      *
      * @param float $factVal Factorial Value
      *
-     * @return int Double Factorial
+     * @return int|string Double Factorial, or a string containing an error
      */
     public static function FACTDOUBLE($factVal)
     {
@@ -284,7 +284,7 @@ class MathTrig
      * @param float $number Number to round
      * @param float $significance Significance
      *
-     * @return float Rounded Number
+     * @return float|string Rounded Number, or a string containing an error
      */
     public static function FLOOR($number, $significance = null)
     {
@@ -332,7 +332,7 @@ class MathTrig
      *
      * @param mixed ...$args Data values
      *
-     * @return int Greatest Common Divisor
+     * @return int|mixed|string Greatest Common Divisor, or a string containing an error
      */
     public static function GCD(...$args)
     {
@@ -366,7 +366,7 @@ class MathTrig
      *
      * @param float $number Number to cast to an integer
      *
-     * @return int Integer value
+     * @return int|string Integer value, or a string containing an error
      */
     public static function INT($number)
     {
@@ -399,7 +399,7 @@ class MathTrig
      *
      * @param mixed ...$args Data values
      *
-     * @return int Lowest Common Multiplier
+     * @return int|string Lowest Common Multiplier, or a string containing an error
      */
     public static function LCM(...$args)
     {
@@ -451,7 +451,7 @@ class MathTrig
      * @param float $number The positive real number for which you want the logarithm
      * @param float $base The base of the logarithm. If base is omitted, it is assumed to be 10.
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function logBase($number = null, $base = 10)
     {
@@ -480,7 +480,7 @@ class MathTrig
      *
      * @param array $matrixValues A matrix of values
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function MDETERM($matrixValues)
     {
@@ -532,7 +532,7 @@ class MathTrig
      *
      * @param array $matrixValues A matrix of values
      *
-     * @return array
+     * @return array|string The result, or a string containing an error
      */
     public static function MINVERSE($matrixValues)
     {
@@ -582,7 +582,7 @@ class MathTrig
      * @param array $matrixData1 A matrix of values
      * @param array $matrixData2 A matrix of values
      *
-     * @return array
+     * @return array|string The result, or a string containing an error
      */
     public static function MMULT($matrixData1, $matrixData2)
     {
@@ -644,7 +644,7 @@ class MathTrig
      * @param int $a Dividend
      * @param int $b Divisor
      *
-     * @return int Remainder
+     * @return int|string Remainder, or a string containing an error
      */
     public static function MOD($a = 1, $b = 1)
     {
@@ -670,7 +670,7 @@ class MathTrig
      * @param float $number Number to round
      * @param int $multiple Multiple to which you want to round $number
      *
-     * @return float Rounded Number
+     * @return float|string Rounded Number, or a string containing an error
      */
     public static function MROUND($number, $multiple)
     {
@@ -700,7 +700,7 @@ class MathTrig
      *
      * @param array of mixed Data Series
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function MULTINOMIAL(...$args)
     {
@@ -737,7 +737,7 @@ class MathTrig
      *
      * @param float $number Number to round
      *
-     * @return int Rounded Number
+     * @return int|string Rounded Number, or a string containing an error
      */
     public static function ODD($number)
     {
@@ -772,7 +772,7 @@ class MathTrig
      * @param float $x
      * @param float $y
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function POWER($x = 0, $y = 2)
     {
@@ -931,7 +931,7 @@ class MathTrig
      * @param float $number Number to round
      * @param int $digits Number of digits to which you want to round $number
      *
-     * @return float Rounded Number
+     * @return float|string Rounded Number, or a string containing an error
      */
     public static function ROUNDUP($number, $digits)
     {
@@ -958,7 +958,7 @@ class MathTrig
      * @param float $number Number to round
      * @param int $digits Number of digits to which you want to round $number
      *
-     * @return float Rounded Number
+     * @return float|string Rounded Number, or a string containing an error
      */
     public static function ROUNDDOWN($number, $digits)
     {
@@ -987,7 +987,7 @@ class MathTrig
      * @param float $m Step by which to increase $n for each term in the series
      * @param array of mixed Data Series
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function SERIESSUM(...$args)
     {
@@ -1026,7 +1026,7 @@ class MathTrig
      *
      * @param float $number Number to round
      *
-     * @return int sign value
+     * @return int|string sign value, or a string containing an error
      */
     public static function SIGN($number)
     {
@@ -1053,7 +1053,7 @@ class MathTrig
      *
      * @param float $number Number
      *
-     * @return float Square Root of Number * Pi
+     * @return float|string Square Root of Number * Pi, or a string containing an error
      */
     public static function SQRTPI($number)
     {
@@ -1307,7 +1307,7 @@ class MathTrig
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function SUMPRODUCT(...$args)
     {
@@ -1452,7 +1452,7 @@ class MathTrig
      * @param float $value
      * @param int $digits
      *
-     * @return float Truncated value
+     * @return float|string Truncated value, or a string containing an error
      */
     public static function TRUNC($value = 0, $digits = 0)
     {
