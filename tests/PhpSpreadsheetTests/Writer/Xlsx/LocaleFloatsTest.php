@@ -46,10 +46,11 @@ class LocaleFloatsTest extends TestCase
 
         $result = $spreadsheet->getActiveSheet()->getCell('A1')->getValue();
 
-        var_dump($result);
         ob_start();
         var_dump($result);
-        $actual = explode("\n", trim(ob_get_clean()))[1];
-        $this->assertEquals('double(1,1)', $actual);
+        preg_match('/(?:double|float)\(([^\)]+)\)/mui', ob_get_clean(), $matches);
+        $this->assertArrayHasKey(1, $matches);
+        $actual = $matches[1];
+        $this->assertEquals('1,1', $actual);
     }
 }
