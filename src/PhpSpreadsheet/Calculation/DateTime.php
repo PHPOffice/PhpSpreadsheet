@@ -491,7 +491,7 @@ class DateTime
                 $yearFound = true;
             }
         }
-        if ((count($t1) == 1) && (strpos($t, ':') != false)) {
+        if ((count($t1) == 1) && (strpos($t, ':') !== false)) {
             //    We've been fed a time value without any date
             return 0.0;
         } elseif (count($t1) == 2) {
@@ -892,7 +892,7 @@ class DateTime
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float fraction of the year
+     * @return float|string fraction of the year, or a string containing an error
      */
     public static function YEARFRAC($startDate = 0, $endDate = 0, $method = 0)
     {
