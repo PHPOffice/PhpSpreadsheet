@@ -2650,7 +2650,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function NORMSDIST($value)
     {
@@ -2666,7 +2666,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function NORMSINV($value)
     {
