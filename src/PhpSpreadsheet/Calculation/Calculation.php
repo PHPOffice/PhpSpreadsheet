@@ -3239,7 +3239,7 @@ class Calculation
     /**
      * @param string $formula
      *
-     * @return string|false False indicates an error
+     * @return false|string False indicates an error
      */
     private function convertMatrixReferences($formula)
     {
