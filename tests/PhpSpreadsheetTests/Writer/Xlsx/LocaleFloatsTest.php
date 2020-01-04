@@ -46,6 +46,7 @@ class LocaleFloatsTest extends TestCase
 
         $result = $spreadsheet->getActiveSheet()->getCell('A1')->getValue();
 
+        var_dump($result);
         ob_start();
         var_dump($result);
         $actual = explode("\n", trim(ob_get_clean()))[1];
