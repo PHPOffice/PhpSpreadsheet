@@ -527,6 +527,9 @@ class Worksheet extends WriterPart
                     } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSBLANKS) {
                         // formula copied from ms xlsx xml source file
                         $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))=0');
+                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_NOTCONTAINSBLANKS) {
+                        // formula copied from ms xlsx xml source file
+                        $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))>0');
                     }
 
                     $objWriter->endElement();
