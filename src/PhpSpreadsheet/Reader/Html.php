@@ -669,7 +669,7 @@ class Html extends BaseReader
      *
      * @param int $pValue Sheet index
      *
-     * @return HTML
+     * @return Html
      */
     public function setSheetIndex($pValue)
     {

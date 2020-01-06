@@ -415,7 +415,7 @@ class Csv extends BaseReader
      *
      * @param string $delimiter Delimiter, eg: ','
      *
-     * @return CSV
+     * @return Csv
      */
     public function setDelimiter($delimiter)
     {
@@ -439,7 +439,7 @@ class Csv extends BaseReader
      *
      * @param string $enclosure Enclosure, defaults to "
      *
-     * @return CSV
+     * @return Csv
      */
     public function setEnclosure($enclosure)
     {
@@ -466,7 +466,7 @@ class Csv extends BaseReader
      *
      * @param int $pValue Sheet index
      *
-     * @return CSV
+     * @return Csv
      */
     public function setSheetIndex($pValue)
     {
