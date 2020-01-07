@@ -1929,7 +1929,7 @@ class Statistical
      * @param mixed $args Data values
      * @param int $entry Position (ordered from the largest) in the array or range of data to return
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function LARGE(...$args)
     {
@@ -1970,7 +1970,7 @@ class Statistical
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
      * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
-     * @return array
+     * @return array|int|string The result, or a string containing an error
      */
     public static function LINEST($yValues, $xValues = null, $const = true, $stats = false)
     {
@@ -2029,7 +2029,7 @@ class Statistical
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
      * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
-     * @return array
+     * @return array|int|string The result, or a string containing an error
      */
     public static function LOGEST($yValues, $xValues = null, $const = true, $stats = false)
     {
@@ -2092,7 +2092,7 @@ class Statistical
      * @param float $mean
      * @param float $stdDev
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      *
      * @todo    Try implementing P J Acklam's refinement algorithm for greater
      *            accuracy if I can get my head round the mathematics
@@ -2125,7 +2125,7 @@ class Statistical
      * @param float $mean
      * @param float $stdDev
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function LOGNORMDIST($value, $mean, $stdDev)
     {
@@ -2293,7 +2293,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function MEDIAN(...$args)
     {
@@ -2511,7 +2511,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function MODE(...$args)
     {
@@ -2548,7 +2548,7 @@ class Statistical
      * @param float $successes Threshold number of Successes
      * @param float $probability Probability of success on each trial
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function NEGBINOMDIST($failures, $successes, $probability)
     {
@@ -2586,7 +2586,7 @@ class Statistical
      * @param float $stdDev Standard Deviation
      * @param bool $cumulative
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function NORMDIST($value, $mean, $stdDev, $cumulative)
     {
@@ -2619,7 +2619,7 @@ class Statistical
      * @param float $mean Mean Value
      * @param float $stdDev Standard Deviation
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function NORMINV($probability, $mean, $stdDev)
     {
@@ -2650,7 +2650,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function NORMSDIST($value)
     {
@@ -2666,7 +2666,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function NORMSINV($value)
     {
@@ -2686,7 +2686,7 @@ class Statistical
      * @param mixed $args Data values
      * @param float $entry Percentile value in the range 0..1, inclusive.
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function PERCENTILE(...$args)
     {
@@ -2784,7 +2784,7 @@ class Statistical
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each permutation
      *
-     * @return int|string Number of permutations
+     * @return int|string Number of permutations, or a string containing an error
      */
     public static function PERMUT($numObjs, $numInSet)
     {
@@ -2814,7 +2814,7 @@ class Statistical
      * @param float $mean Mean Value
      * @param bool $cumulative
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function POISSON($value, $mean, $cumulative)
     {
@@ -2856,7 +2856,7 @@ class Statistical
      * @param mixed $args Data values
      * @param int $entry Quartile value in the range 1..3, inclusive.
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function QUARTILE(...$args)
     {
@@ -2886,7 +2886,7 @@ class Statistical
      * @param float[] $valueSet An array of, or a reference to, a list of numbers
      * @param int $order Order to sort the values in the value set
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function RANK($value, $valueSet, $order = 0)
     {
@@ -2921,7 +2921,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float|string
+     * @return float|string The result, or a string containing an error
      */
     public static function RSQ($yValues, $xValues)
     {
@@ -2952,7 +2952,7 @@ class Statistical
      *
      * @param array ...$args Data Series
      *
-     * @return float|string
+     * @return float|string The result, or a string containing an error
      */
     public static function SKEW(...$args)
     {
@@ -2989,7 +2989,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float|string
+     * @return float|string The result, or a string containing an error
      */
     public static function SLOPE($yValues, $xValues)
     {
@@ -3024,7 +3024,7 @@ class Statistical
      * @param mixed $args Data values
      * @param int $entry Position (ordered from the smallest) in the array or range of data to return
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function SMALL(...$args)
     {
@@ -3063,7 +3063,7 @@ class Statistical
      * @param float $mean Mean Value
      * @param float $stdDev Standard Deviation
      *
-     * @return float Standardized value
+     * @return float|string Standardized value, or a string containing an error
      */
     public static function STANDARDIZE($value, $mean, $stdDev)
     {
@@ -3095,7 +3095,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return float|string The result, or a string containing an error
      */
     public static function STDEV(...$args)
     {
@@ -3321,7 +3321,7 @@ class Statistical
      * @param float $degrees degrees of freedom
      * @param float $tails number of tails (1 or 2)
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function TDIST($value, $degrees, $tails)
     {
@@ -3385,7 +3385,7 @@ class Statistical
      * @param float $probability Probability for the function
      * @param float $degrees degrees of freedom
      *
-     * @return float
+     * @return float|string The result, or a string containing an error
      */
     public static function TINV($probability, $degrees)
     {

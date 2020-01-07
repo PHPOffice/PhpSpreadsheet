@@ -25,7 +25,7 @@ class Calculation
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
     const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?([A-Z][A-Z0-9\.]*)[\s]*\(';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
-    const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?([a-z]{1,3})\$?(\d{1,7})';
+    const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     //    Named Range of cells
     const CALCULATION_REGEXP_NAMEDRANGE = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_A-Z][_A-Z0-9\.]*)';
     //    Error
@@ -2864,13 +2864,13 @@ class Calculation
         $this->debugLog->clearLog();
         $this->cyclicReferenceStack->clear();
 
+        $resetCache = $this->getCalculationCacheEnabled();
         if ($this->spreadsheet !== null && $cellID === null && $pCell === null) {
             $cellID = 'A1';
             $pCell = $this->spreadsheet->getActiveSheet()->getCell($cellID);
         } else {
             //    Disable calculation cacheing because it only applies to cell calculations, not straight formulae
             //    But don't actually flush any cache
-            $resetCache = $this->getCalculationCacheEnabled();
             $this->calculationCacheEnabled = false;
         }
 
@@ -3239,7 +3239,7 @@ class Calculation
     /**
      * @param string $formula
      *
-     * @return string
+     * @return false|string False indicates an error
      */
     private function convertMatrixReferences($formula)
     {
@@ -3459,7 +3459,7 @@ class Calculation
                     $parenthesisDepthMap[$pendingStoreKey] -= 1;
                 }
 
-                if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $d['value'], $matches)) {    //    Did this parenthesis just close a function?
+                if (is_array($d) && preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $d['value'], $matches)) {    //    Did this parenthesis just close a function?
                     if (!empty($pendingStoreKey) && $parenthesisDepthMap[$pendingStoreKey] == -1) {
                         // we are closing an IF(
                         if ($d['value'] != 'IF(') {

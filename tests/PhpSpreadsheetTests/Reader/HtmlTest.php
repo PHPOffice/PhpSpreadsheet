@@ -403,4 +403,25 @@ class HtmlTest extends TestCase
         $actual = $spreadsheet->getActiveSheet()->getMergeCells();
         self::assertSame(['A2:C2' => 'A2:C2'], $actual);
     }
+
+    public function testTextIndentUseRowspan()
+    {
+        $html = '<table>
+                  <tr>
+                    <td>1</td>
+                    <td rowspan="2" style="vertical-align: center;">Center Align</td>
+                    <td>Row</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td style="text-indent:10px">Text Indent</td>
+                  </tr>
+                </table>';
+        $filename = $this->createHtml($html);
+        $spreadsheet = $this->loadHtmlIntoSpreadsheet($filename);
+        $firstSheet = $spreadsheet->getSheet(0);
+        $style = $firstSheet->getCell('C2')->getStyle();
+        self::assertEquals(10, $style->getAlignment()->getIndent());
+        unlink($filename);
+    }
 }

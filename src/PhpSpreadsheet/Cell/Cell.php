@@ -217,6 +217,9 @@ class Cell
 
                 break;
             case DataType::TYPE_NUMERIC:
+                if (is_string($pValue) && !is_numeric($pValue)) {
+                    throw new Exception('Invalid numeric value for datatype Numeric');
+                }
                 $this->value = 0 + $pValue;
 
                 break;

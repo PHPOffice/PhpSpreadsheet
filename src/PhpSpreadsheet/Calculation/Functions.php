@@ -270,10 +270,12 @@ class Functions
     public static function ifCondition($condition)
     {
         $condition = self::flattenSingleValue($condition);
-        if (!isset($condition[0]) && !is_numeric($condition)) {
+
+        if ($condition === '') {
             $condition = '=""';
         }
-        if (!in_array($condition[0], ['>', '<', '='])) {
+
+        if (!is_string($condition) || !in_array($condition[0], ['>', '<', '='])) {
             if (!is_numeric($condition)) {
                 $condition = Calculation::wrapResult(strtoupper($condition));
             }
