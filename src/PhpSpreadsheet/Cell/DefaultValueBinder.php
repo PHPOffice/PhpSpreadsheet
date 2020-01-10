@@ -59,7 +59,7 @@ class DefaultValueBinder implements IValueBinder
             return DataType::TYPE_STRING;
         } elseif ($pValue instanceof RichText) {
             return DataType::TYPE_INLINE;
-        } elseif (is_string($pValue) && $pValue[0] === '=' && strlen($pValue) > 1) {
+        } elseif (is_string($pValue) && $pValue[0] === '=' && strlen($pValue) > 1 && $pValue[1] !== '=') {
             return DataType::TYPE_FORMULA;
         } elseif (preg_match('/^[\+\-]?(\d+\\.?\d*|\d*\\.?\d+)([Ee][\-\+]?[0-2]?\d{1,3})?$/', $pValue)) {
             $tValue = ltrim($pValue, '+-');
