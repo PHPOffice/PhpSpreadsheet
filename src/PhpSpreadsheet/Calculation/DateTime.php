@@ -1312,10 +1312,7 @@ class DateTime
         if (!is_numeric($method)) {
             return Functions::VALUE();
         }
-        if (($method < 1) || ($method >= 22)) {
-            return Functions::NAN();
-        }
-        $method = (int) floor($method);
+        $method = (int) $method;
         $methodarr = [1 => 1, 2, 11 => 2, 3, 4, 5, 6, 7, 1, 21 => 21];
         if (!array_key_exists($method, $methodarr)) {
             return Functions::NaN();
@@ -1333,7 +1330,7 @@ class DateTime
         // Execute function
         $PHPDateObject = Date::excelToDateTimeObject($dateValue);
         if ($method == 21) {
-            return $PHPDateObject->format('W');
+            return (int) $PHPDateObject->format('W');
         }
         $dayOfYear = $PHPDateObject->format('z');
         $PHPDateObject->modify('-' . $dayOfYear . ' days');
