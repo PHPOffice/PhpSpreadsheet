@@ -1311,25 +1311,22 @@ class DateTime
 
         if (!is_numeric($method)) {
             return Functions::VALUE();
-        } elseif (($method < 1) || ($method >= 22)) {
+        }
+        if (($method < 1) || ($method >= 22)) {
             return Functions::NAN();
         }
         $method = (int) floor($method);
-        if ($method >= 3) {
-            if ($method < 11) {
-                return Functions::NaN();
-            } elseif ($method < 17) {
-                $method -= 9;
-            } elseif ($method == 17) {
-                $method = 1;
-            } elseif ($method != 21) {
-                return Functions::NaN();
-            }
+        $methodarr = [1 => 1, 2, 11 => 2, 3, 4, 5, 6, 7, 1, 21 => 21];
+        if (!array_key_exists($method, $methodarr)) {
+            return Functions::NaN();
         }
+        $method = $methodarr[$method];
 
-        if (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = self::getDateValue($dateValue);
+        if (is_string($dateValue)) {
             return Functions::VALUE();
-        } elseif ($dateValue < 0.0) {
+        }
+        if ($dateValue < 0.0) {
             return Functions::NAN();
         }
 
@@ -1342,9 +1339,7 @@ class DateTime
         $PHPDateObject->modify('-' . $dayOfYear . ' days');
         $firstDayOfFirstWeek = $PHPDateObject->format('w');
         $daysInFirstWeek = (6 - $firstDayOfFirstWeek + $method) % 7;
-        if ($daysInFirstWeek === 0) {
-            $daysInFirstWeek = 7;
-        }
+        $daysInFirstWeek += 7 * !$daysInFirstWeek;
         $endFirstWeek = $daysInFirstWeek - 1;
         $weekOfYear = floor(($dayOfYear - $endFirstWeek + 13) / 7);
 
