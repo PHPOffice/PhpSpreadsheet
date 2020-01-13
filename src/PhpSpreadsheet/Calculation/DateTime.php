@@ -927,21 +927,23 @@ class DateTime
                     $startDay = self::DAYOFMONTH($startDate);
                     $endMonth = self::MONTHOFYEAR($endDate);
                     $endDay = self::DAYOFMONTH($endDate);
+                    $startMonthDay = 100 * $startMonth + $startDay;
+                    $endMonthDay = 100 * $endMonth + $endDay;
                     if ($years == 1) {
                         if (self::isLeapYear($endYear)) {
                             $tmpCalcAnnualBasis = 366;
                         } else {
                             $tmpCalcAnnualBasis = 365;
                         }
-                    } elseif ($years == 2 && (($startMonth > $endMonth) || ($startMonth == $endMonth && $startDay >= $endDay))) {
+                    } elseif ($years == 2 && $startMonthDay >= $endMonthDay) {
                         if (self::isLeapYear($startYear)) {
-                            if ($startMonth < 2 || ($startMonth == 2 && $startDay <= 29)) {
+                            if ($startMonthDay <= 229) {
                                 $tmpCalcAnnualBasis = 366;
                             } else {
                                 $tmpCalcAnnualBasis = 365;
                             }
                         } elseif (self::isLeapYear($endYear)) {
-                            if ($endMonth > 2 || ($endMonth == 2 && $endDay == 29)) {
+                            if ($endMonthDay >= 229) {
                                 $tmpCalcAnnualBasis = 366;
                             } else {
                                 $tmpCalcAnnualBasis = 365;
