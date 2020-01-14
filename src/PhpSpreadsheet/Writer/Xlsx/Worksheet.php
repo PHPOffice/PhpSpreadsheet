@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
@@ -1068,14 +1069,17 @@ class Worksheet extends WriterPart
             $mappedType = $pCell->getDataType();
 
             // Write data type depending on its type
-            switch (strtolower($mappedType)) {
-                case 'inlinestr':    // Inline string
-                case 's':            // String
-                case 'b':            // Boolean
+            switch ($mappedType) {
+                case DataType::TYPE_NUMERIC:
+                    //noop - type attribute is optional and defaults to 'n'
+                    break;
+                case DataType::TYPE_INLINE:
+                case DataType::TYPE_STRING:
+                case DataType::TYPE_BOOL:
                     $objWriter->writeAttribute('t', $mappedType);
 
                     break;
-                case 'f':            // Formula
+                case DataType::TYPE_FORMULA:
                     $calculatedValue = ($this->getParentWriter()->getPreCalculateFormulas()) ?
                         $pCell->getCalculatedValue() : $cellValue;
                     if (is_string($calculatedValue)) {
@@ -1085,13 +1089,13 @@ class Worksheet extends WriterPart
                     }
 
                     break;
-                case 'e':            // Error
+                case DataType::TYPE_ERROR:
                     $objWriter->writeAttribute('t', $mappedType);
             }
 
             // Write data depending on its type
-            switch (strtolower($mappedType)) {
-                case 'inlinestr':    // Inline string
+            switch ($mappedType) {
+                case DataType::TYPE_INLINE:
                     if (!$cellValue instanceof RichText) {
                         $objWriter->writeElement('t', StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
                     } elseif ($cellValue instanceof RichText) {
@@ -1101,7 +1105,7 @@ class Worksheet extends WriterPart
                     }
 
                     break;
-                case 's':            // String
+                case DataType::TYPE_STRING:
                     if (!$cellValue instanceof RichText) {
                         if (isset($pFlippedStringTable[$cellValue])) {
                             $objWriter->writeElement('v', $pFlippedStringTable[$cellValue]);
@@ -1111,7 +1115,7 @@ class Worksheet extends WriterPart
                     }
 
                     break;
-                case 'f':            // Formula
+                case DataType::TYPE_FORMULA:
                     $attributes = $pCell->getFormulaAttributes();
                     if (($attributes['t'] ?? null) === 'array') {
                         $objWriter->startElement('f');
@@ -1137,7 +1141,7 @@ class Worksheet extends WriterPart
                     }
 
                     break;
-                case 'n':            // Numeric
+                case DataType::TYPE_NUMERIC:
                     //force a decimal to be written if the type is float
                     if (is_float($cellValue)) {
                         // force point as decimal separator in case current locale uses comma
@@ -1149,11 +1153,11 @@ class Worksheet extends WriterPart
                     $objWriter->writeElement('v', $cellValue);
 
                     break;
-                case 'b':            // Boolean
+                case DataType::TYPE_BOOL:
                     $objWriter->writeElement('v', ($cellValue ? '1' : '0'));
 
                     break;
-                case 'e':            // Error
+                case DataType::TYPE_ERROR:
                     if (substr($cellValue, 0, 1) === '=') {
                         $objWriter->writeElement('f', substr($cellValue, 1));
                         $objWriter->writeElement('v', substr($cellValue, 1));

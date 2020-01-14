@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
@@ -260,6 +261,13 @@ class Xlsx extends BaseReader
     private static function castToString($c)
     {
         return isset($c->v) ? (string) $c->v : null;
+    }
+
+    private static function castToNumeric($c)
+    {
+        $v = self::castToString($c);
+
+        return $v === null ? null : 0 + $v;
     }
 
     private function castToFormula($c, $r, &$cellDataType, &$value, &$calculatedValue, &$sharedFormulas, $castBaseType)
@@ -674,7 +682,7 @@ class Xlsx extends BaseReader
 
                                         // Read cell!
                                         switch ($cellDataType) {
-                                            case 's':
+                                            case DataType::TYPE_STRING:
                                                 if ((string) $c->v != '') {
                                                     $value = $sharedStrings[(int) ($c->v)];
 
@@ -686,7 +694,7 @@ class Xlsx extends BaseReader
                                                 }
 
                                                 break;
-                                            case 'b':
+                                            case DataType::TYPE_BOOL:
                                                 if (!isset($c->f)) {
                                                     $value = self::castToBoolean($c);
                                                 } else {
@@ -699,7 +707,7 @@ class Xlsx extends BaseReader
                                                 }
 
                                                 break;
-                                            case 'inlineStr':
+                                            case DataType::TYPE_INLINE:
                                                 if (isset($c->f)) {
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
                                                 } else {
@@ -707,7 +715,7 @@ class Xlsx extends BaseReader
                                                 }
 
                                                 break;
-                                            case 'e':
+                                            case DataType::TYPE_ERROR:
                                                 if (!isset($c->f)) {
                                                     $value = self::castToError($c);
                                                 } else {
@@ -716,12 +724,16 @@ class Xlsx extends BaseReader
                                                 }
 
                                                 break;
+
+
+                                            case DataType::TYPE_NUMERIC:
+                                                //numeric is the default cell type
                                             default:
                                                 if (!isset($c->f)) {
-                                                    $value = self::castToString($c);
+                                                    $value = self::castToNumeric($c);
                                                 } else {
                                                     // Formula
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToString');
+                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToNumeric');
                                                 }
 
                                                 break;
