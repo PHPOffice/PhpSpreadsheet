@@ -8,11 +8,7 @@ class Filter implements IReadFilter {
     private $start_row;
     private $end_row;
     private $columns;
-    private $worksheet_name
-
-    public function __construct() {
-        $this->reset();
-    }
+    private $worksheet_name;
 
     public function reset() : self {
         $this->start_row = NULL;
