@@ -7,12 +7,14 @@ class Filter implements IReadFilter {
     private $end_row;
     private $columns;
     private $worksheet_name;
+    private $callback;
 
     public function reset() : self {
         $this->start_row = NULL;
         $this->end_row = NULL;
         $this->columns = NULL;
         $this->worksheet_name = NULL;
+        $this->callback = NULL;
         return $this;
     }
 
