@@ -36,12 +36,18 @@ class Filter implements IReadFilter {
         return $this;
     }
 
+    public function setCallback(\Closure $callback) : self {
+        $this->callback = $callback;
+        return $this;
+    }
+
     public function readCell($column, $row, $worksheetName = '') {
         $start_row = $this->start_row ? $row >= $this->start_row : TRUE;
         $end_row = $this->end_row ? $row <= $this->end_row : TRUE;
         $columns = $this->columns ? in_array($column, $this->columns) : TRUE;
         $worksheet_name = $this->worksheet_name ? $this->worksheet_name ===  $worksheetName : TRUE;
+        $callback = $this->callback ? ${$this->callback}($column, $row, $worksheetName) : TRUE;
 
-        return $start_row && $end_row && $columns && $worksheet_name;
+        return $start_row && $end_row && $columns && $worksheet_name && $callback;
     }
 }
