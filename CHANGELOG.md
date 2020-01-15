@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix for issue by removing test code mistakenly left in [#1328](https://github.com/PHPOffice/PhpSpreadsheet/pull/1328)
 - Fix for Xls writer wrong selected cells and active sheet [#1256](https://github.com/PHPOffice/PhpSpreadsheet/pull/1256)
 - Fix active cell when freeze pane is used [#1323](https://github.com/PHPOffice/PhpSpreadsheet/pull/1323)
+- Fix XLSX file loading with autofilter containing '$' [#1326](https://github.com/PHPOffice/PhpSpreadsheet/pull/1326)
 
 ## [1.10.1] - 2019-12-02
 
