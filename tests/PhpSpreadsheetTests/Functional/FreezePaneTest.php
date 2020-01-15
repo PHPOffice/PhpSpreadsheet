@@ -117,7 +117,6 @@ class FreezePaneTest extends AbstractFunctional
         $callback = $this->setCallback($format, $actv);
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
-        $worksheet = $spreadsheet->getActiveSheet();
         $worksheet->setCellValue('A1', 'Header1');
         $worksheet->setCellValue('B1', 'Header2');
         $worksheet->setCellValue('C1', 'Header3');
@@ -133,7 +132,6 @@ class FreezePaneTest extends AbstractFunctional
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, null, $callback);
         // Read written file
         $reloadedActive = $reloadedSpreadsheet->getActiveSheet();
-        $selectedCell = $reloadedActive->getSelectedCells();
 
         $expected = ($format === 'Xls' || $actv === true) ? 'C3' : 'A2';
         self::assertSame($expected, $reloadedActive->getSelectedCells());
@@ -150,7 +148,6 @@ class FreezePaneTest extends AbstractFunctional
         $callback = $this->setCallback($format, $actv);
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
-        $worksheet = $spreadsheet->getActiveSheet();
         $worksheet->setCellValue('A1', 'Header1');
         $worksheet->setCellValue('B1', 'Header2');
         $worksheet->setCellValue('C1', 'Header3');
@@ -166,7 +163,6 @@ class FreezePaneTest extends AbstractFunctional
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, null, $callback);
         // Read written file
         $reloadedActive = $reloadedSpreadsheet->getActiveSheet();
-        $selectedCell = $reloadedActive->getSelectedCells();
 
         //$expected = ($format === 'Xls' || $actv === true) ? 'C3' : 'A2';
         $expected = 'C3';
