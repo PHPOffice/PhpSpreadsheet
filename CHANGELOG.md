@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix Xlsx Writer's handling of decimal commas [#1282](https://github.com/PHPOffice/PhpSpreadsheet/pull/1282)
 - Fix for issue by removing test code mistakenly left in [#1328](https://github.com/PHPOffice/PhpSpreadsheet/pull/1328)
 - Fix for Xls writer wrong selected cells and active sheet [#1256](https://github.com/PHPOffice/PhpSpreadsheet/pull/1256)
+- Fix active cell when freeze pane is used [#1323](https://github.com/PHPOffice/PhpSpreadsheet/pull/1323)
 
 ## [1.10.1] - 2019-12-02
 
