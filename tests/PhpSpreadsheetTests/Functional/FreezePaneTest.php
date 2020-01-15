@@ -38,20 +38,27 @@ class FreezePaneTest extends AbstractFunctional
         self::assertSame($topLeftCell, $actualTopLeftCell, 'should be able to set the top left cell');
     }
 
-    public function providerFormatsInvalidSelectedCells()
+    public function providerFormatsAndActiveFlag()
     {
         return [
-            ['Xlsx'],
+            ['Xls', true],
+            ['Xls', null],
+            ['Xls', false],
+            ['Xlsx', true],
+            ['Xlsx', null],
+            ['Xlsx', false],
         ];
     }
 
     /**
-     * @dataProvider providerFormatsInvalidSelectedCells
+     * @dataProvider providerFormatsAndActiveFlag
      *
      * @param string $format
+     * @param mixed $actv
      */
-    public function testFreezePaneWithInvalidSelectedCells($format)
+    public function testFreezePaneWithInvalidSelectedCells($format, $actv)
     {
+        $callback = $this->setCallback($format, $actv);
         $cellSplit = 'A7';
         $topLeftCell = 'A24';
 
@@ -61,7 +68,7 @@ class FreezePaneTest extends AbstractFunctional
         $worksheet->freezePane('A7', 'A24');
         $worksheet->setSelectedCells('F5');
 
-        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format);
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, null, $callback);
 
         // Read written file
         $reloadedActive = $reloadedSpreadsheet->getActiveSheet();
@@ -70,6 +77,99 @@ class FreezePaneTest extends AbstractFunctional
 
         self::assertSame($cellSplit, $actualCellSplit, 'should be able to set freeze pane');
         self::assertSame($topLeftCell, $actualTopLeftCell, 'should be able to set the top left cell');
-        self::assertSame('A24', $reloadedActive->getSelectedCells(), 'selected cell should default to be first cell after the freeze pane');
+        $expected = ($format === 'Xls' || $actv === true) ? 'F5' : 'A24';
+        self::assertSame($expected, $reloadedActive->getSelectedCells());
+    }
+
+    public function setActiveTrue($writer)
+    {
+        $writer->setActiveCellAnywhere(true);
+    }
+
+    public function setActiveFalse($writer)
+    {
+        $writer->setActiveCellAnywhere(false);
+    }
+
+    public function setCallback($format, $actv)
+    {
+        if ($format === 'Xls') {
+            return null;
+        }
+        if ($actv === true) {
+            return [$this, 'setActiveTrue'];
+        }
+        if ($actv === false) {
+            return [$this, 'setActiveFalse'];
+        }
+
+        return null;
+    }
+
+    /**
+     * @dataProvider providerFormatsAndActiveFlag
+     *
+     * @param string $format
+     * @param mixed $actv
+     */
+    public function testFreezePaneUserSelectedCell($format, $actv)
+    {
+        $callback = $this->setCallback($format, $actv);
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->setCellValue('A1', 'Header1');
+        $worksheet->setCellValue('B1', 'Header2');
+        $worksheet->setCellValue('C1', 'Header3');
+        $worksheet->setCellValue('A2', 'Data1');
+        $worksheet->setCellValue('B2', 'Data2');
+        $worksheet->setCellValue('C2', 'Data3');
+        $worksheet->setCellValue('A3', 'Data4');
+        $worksheet->setCellValue('B3', 'Data5');
+        $worksheet->setCellValue('C3', 'Data6');
+        $worksheet->freezePane('A2');
+        $worksheet->setSelectedCells('C3');
+
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, null, $callback);
+        // Read written file
+        $reloadedActive = $reloadedSpreadsheet->getActiveSheet();
+        $selectedCell = $reloadedActive->getSelectedCells();
+
+        $expected = ($format === 'Xls' || $actv === true) ? 'C3' : 'A2';
+        self::assertSame($expected, $reloadedActive->getSelectedCells());
+    }
+
+    /**
+     * @dataProvider providerFormatsAndActiveFlag
+     *
+     * @param string $format
+     * @param mixed $actv
+     */
+    public function testNoFreezePaneUserSelectedCell($format, $actv)
+    {
+        $callback = $this->setCallback($format, $actv);
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->setCellValue('A1', 'Header1');
+        $worksheet->setCellValue('B1', 'Header2');
+        $worksheet->setCellValue('C1', 'Header3');
+        $worksheet->setCellValue('A2', 'Data1');
+        $worksheet->setCellValue('B2', 'Data2');
+        $worksheet->setCellValue('C2', 'Data3');
+        $worksheet->setCellValue('A3', 'Data4');
+        $worksheet->setCellValue('B3', 'Data5');
+        $worksheet->setCellValue('C3', 'Data6');
+        //$worksheet->freezePane('A2');
+        $worksheet->setSelectedCells('C3');
+
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, null, $callback);
+        // Read written file
+        $reloadedActive = $reloadedSpreadsheet->getActiveSheet();
+        $selectedCell = $reloadedActive->getSelectedCells();
+
+        //$expected = ($format === 'Xls' || $actv === true) ? 'C3' : 'A2';
+        $expected = 'C3';
+        self::assertSame($expected, $reloadedActive->getSelectedCells());
     }
 }

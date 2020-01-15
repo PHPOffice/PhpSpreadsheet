@@ -262,8 +262,10 @@ class Worksheet extends WriterPart
             --$ySplit;
 
             $topLeftCell = $pSheet->getTopLeftCell();
-            $activeCell = $topLeftCell;
-            $sqref = $topLeftCell;
+            if (!$this->getParentWriter()->getActiveCellAnywhere()) {
+                $activeCell = $topLeftCell;
+                $sqref = $topLeftCell;
+            }
 
             // pane
             $pane = 'topRight';
