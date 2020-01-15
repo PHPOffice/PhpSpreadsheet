@@ -2,8 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
-
 class Filter implements IReadFilter {
     private $start_row;
     private $end_row;
