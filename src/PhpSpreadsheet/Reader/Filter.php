@@ -48,7 +48,8 @@ class Filter implements IReadFilter {
         $end_row = $this->end_row ? $row <= $this->end_row : TRUE;
         $columns = $this->columns ? in_array($column, $this->columns) : TRUE;
         $worksheet_name = $this->worksheet_name ? $this->worksheet_name ===  $worksheetName : TRUE;
-        $callback = $this->callback ? ${$this->callback}($column, $row, $worksheetName) : TRUE;
+        $callback = $this->callback;
+        $callback = $callback ? $callback($column, $row, $worksheetName) : TRUE;
 
         return $start_row && $end_row && $columns && $worksheet_name && $callback;
     }
