@@ -2235,7 +2235,7 @@ class Calculation
     private static $controlFunctions = [
         'MKMATRIX' => [
             'argumentCount' => '*',
-            'functionCall' => 'self::mkMatrix',
+            'functionCall' => [__CLASS__, 'mkMatrix'],
         ],
     ];
 

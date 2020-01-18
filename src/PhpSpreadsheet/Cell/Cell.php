@@ -266,7 +266,7 @@ class Cell
                 //    We don't yet handle array returns
                 if (is_array($result)) {
                     while (is_array($result)) {
-                        $result = array_pop($result);
+                        $result = array_shift($result);
                     }
                 }
             } catch (Exception $ex) {
