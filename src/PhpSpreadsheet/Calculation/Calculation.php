@@ -4159,13 +4159,6 @@ class Calculation
                 if ($pCellParent) {
                     $pCell->attach($pCellParent);
                 }
-                if (($cellID == 'AC99') || (isset($pCell) && $pCell->getCoordinate() == 'AC99')) {
-                    if (defined('RESOLVING')) {
-                        define('RESOLVING2', true);
-                    } else {
-                        define('RESOLVING', true);
-                    }
-                }
 
                 $functionName = $matches[1];
                 $argCount = $stack->pop();
