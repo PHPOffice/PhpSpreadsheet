@@ -35,13 +35,6 @@ class Xlsx extends BaseWriter
     private $office2003compatibility = false;
 
     /**
-     * Active cell anywhere (true) or top left cell (false).
-     *
-     * @var bool
-     */
-    private $activeCellAnywhere = false;
-
-    /**
      * Private writer parts.
      *
      * @var Xlsx\WriterPart[]
@@ -559,30 +552,6 @@ class Xlsx extends BaseWriter
     public function setOffice2003Compatibility($pValue)
     {
         $this->office2003compatibility = $pValue;
-
-        return $this;
-    }
-
-    /**
-     * Get active cell anywhere.
-     *
-     * @return bool
-     */
-    public function getActiveCellAnywhere()
-    {
-        return $this->activeCellAnywhere;
-    }
-
-    /**
-     * Set active cell anywhere.
-     *
-     * @param bool $pValue active cell anywhere?
-     *
-     * @return Xlsx
-     */
-    public function setActiveCellAnywhere($pValue)
-    {
-        $this->activeCellAnywhere = $pValue;
 
         return $this;
     }

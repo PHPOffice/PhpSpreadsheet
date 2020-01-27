@@ -150,20 +150,6 @@ $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
 $writer->save("05featuredemo.xlsx");
 ```
 
-#### Active cell
-
-By default, this writer will set the active cell on any worksheet which
-uses freeze panes to the top left cell following the freeze pane.
-You can instead set the active cell to be anywhere on the sheet
-with the Worksheet setSelectedCells method
-in conjuction with the following:
-
-``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-$writer->setActiveCellAnywhere(true);
-$writer->save("05featuredemo.xlsx");
-```
-
 #### Formula pre-calculation
 
 By default, this writer pre-calculates all formulas in the spreadsheet.

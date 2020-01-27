@@ -18,17 +18,13 @@ abstract class AbstractFunctional extends TestCase
      * @param Spreadsheet $spreadsheet
      * @param string $format
      * @param null|callable $readerCustomizer
-     * @param null|callable $writerCustomizer
      *
      * @return Spreadsheet
      */
-    protected function writeAndReload(Spreadsheet $spreadsheet, $format, callable $readerCustomizer = null, callable $writerCustomizer = null)
+    protected function writeAndReload(Spreadsheet $spreadsheet, $format, callable $readerCustomizer = null)
     {
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         $writer = IOFactory::createWriter($spreadsheet, $format);
-        if ($writerCustomizer) {
-            $writerCustomizer($writer);
-        }
         $writer->save($filename);
 
         $reader = IOFactory::createReader($format);
