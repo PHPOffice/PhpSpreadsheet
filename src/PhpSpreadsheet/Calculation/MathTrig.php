@@ -39,6 +39,64 @@ class MathTrig
     }
 
     /**
+     * ARABIC.
+     *
+     * Converts a Roman numeral to an Arabic numeral.
+     *
+     * Excel Function:
+     *        ARABIC(text)
+     *
+     * @category Mathematical and Trigonometric Functions
+     *
+     * @param string $roman
+     *
+     * @return int|string the arabic numberal contrived from the roman numeral
+     */
+    public static function ARABIC($roman)
+    {
+        // An empty string should return 0
+        $roman = substr(trim(strtoupper((string) Functions::flattenSingleValue($roman))), 0, 255);
+        if ($roman === '') {
+            return 0;
+        }
+
+        // Convert the roman numeral to an arabic number
+        $lookup = [
+            'M' => 1000, 'CM' => 900,
+            'D' => 500, 'CD' => 400,
+            'C' => 100, 'XC' => 90,
+            'L' => 50, 'XL' => 40,
+            'X' => 10, 'IX' => 9,
+            'V' => 5, 'IV' => 4, 'I' => 1,
+        ];
+
+        $negativeNumber = $roman[0] === '-';
+        if ($negativeNumber) {
+            $roman = substr($roman, 1);
+        }
+
+        $arabic = 0;
+        for ($i = 0; $i < strlen($roman); ++$i) {
+            if (!isset($lookup[$roman[$i]])) {
+                return Functions::VALUE(); // Invalid character detected
+            }
+
+            if ($i < (strlen($roman) - 1) && isset($lookup[substr($roman, $i, 2)])) {
+                $arabic += $lookup[substr($roman, $i, 2)]; // Detected a match on the next 2 characters
+                ++$i;
+            } else {
+                $arabic += $lookup[$roman[$i]]; // Detected a match on one character only
+            }
+        }
+
+        if ($negativeNumber) {
+            $arabic *= -1; // The number should be negative
+        }
+
+        return $arabic;
+    }
+
+    /**
      * ATAN2.
      *
      * This function calculates the arc tangent of the two variables x and y. It is similar to
