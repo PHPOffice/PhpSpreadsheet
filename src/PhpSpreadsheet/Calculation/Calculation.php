@@ -263,6 +263,11 @@ class Calculation
             'functionCall' => [Logical::class, 'logicalAnd'],
             'argumentCount' => '1+',
         ],
+        'ARABIC' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [MathTrig::class, 'ARABIC'],
+            'argumentCount' => '1',
+        ],
         'AREAS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [Functions::class, 'DUMMY'],
@@ -327,6 +332,11 @@ class Calculation
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '1',
+        ],
+        'BASE' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [MathTrig::class, 'BASE'],
+            'argumentCount' => '2,3',
         ],
         'BESSELI' => [
             'category' => Category::CATEGORY_ENGINEERING,
