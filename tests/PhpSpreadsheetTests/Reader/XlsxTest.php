@@ -228,4 +228,29 @@ class XlsxTest extends TestCase
         // Fake assert. The only thing we need is to ensure the file is loaded without exception
         $this->assertNotNull($excel);
     }
+
+    /**
+     * Test if all whitespace is removed from a style definition string.
+     * This is needed to parse it into properties with the correct keys.
+     *
+     * @param $string
+     * @dataProvider providerStripsWhiteSpaceFromStyleString
+     */
+    public function testStripsWhiteSpaceFromStyleString($string)
+    {
+        $string = Xlsx::stripWhiteSpaceFromStyleString($string);
+        $this->assertEquals(preg_match('/\s/', $string), 0);
+    }
+
+    public function providerStripsWhiteSpaceFromStyleString()
+    {
+        return [
+            ['position:absolute;margin-left:424.5pt;margin-top:169.5pt;width:67.5pt;
+        height:13.5pt;z-index:5;mso-wrap-style:tight'],
+            ['position:absolute;margin-left:424.5pt;margin-top:169.5pt;width:67.5pt;
+height:13.5pt;z-index:5;mso-wrap-style:tight'],
+            ['position:absolute; margin-left:424.5pt; margin-top:169.5pt; width:67.5pt;
+            height:13.5pt;z-index:5;mso-wrap-style:tight'],
+        ];
+    }
 }
