@@ -438,6 +438,80 @@ class MathTrig
         return Functions::VALUE();
     }
 
+    /**
+     * FLOOR.MATH.
+     *
+     * Round a number down to the nearest integer or to the nearest multiple of significance.
+     *
+     * Excel Function:
+     *        FLOOR.MATH(number[,significance[,mode]])
+     *
+     * @category Mathematical and Trigonometric Functions
+     *
+     * @param float $number Number to round
+     * @param float $significance Significance
+     * @param int $mode direction to round negative numbers
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     */
+    public static function FLOORMATH($number, $significance = null, $mode = 0)
+    {
+        $number = Functions::flattenSingleValue($number);
+        $significance = Functions::flattenSingleValue($significance);
+        $mode = Functions::flattenSingleValue($mode);
+
+        if (is_numeric($number) && $significance === null) {
+            $significance = $number / abs($number);
+        }
+
+        if (is_numeric($number) && is_numeric($significance) && is_numeric($mode)) {
+            if ($significance == 0.0) {
+                return Functions::DIV0();
+            } elseif ($number == 0.0) {
+                return 0.0;
+            } elseif (self::SIGN($significance) == -1 || (self::SIGN($number) == -1 && !empty($mode))) {
+                return ceil($number / $significance) * $significance;
+            }
+
+            return floor($number / $significance) * $significance;
+        }
+
+        return Functions::VALUE();
+    }
+
+    /**
+     * FLOOR.PRECISE.
+     *
+     * Rounds number down, toward zero, to the nearest multiple of significance.
+     *
+     * Excel Function:
+     *        FLOOR.PRECISE(number[,significance])
+     *
+     * @category Mathematical and Trigonometric Functions
+     *
+     * @param float $number Number to round
+     * @param float $significance Significance
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     */
+    public static function FLOORPRECISE($number, $significance = 1)
+    {
+        $number = Functions::flattenSingleValue($number);
+        $significance = Functions::flattenSingleValue($significance);
+
+        if ((is_numeric($number)) && (is_numeric($significance))) {
+            if ($significance == 0.0) {
+                return Functions::DIV0();
+            } elseif ($number == 0.0) {
+                return 0.0;
+            }
+
+            return floor($number / abs($significance)) * abs($significance);
+        }
+
+        return Functions::VALUE();
+    }
+
     private static function evaluateGCD($a, $b)
     {
         return $b ? self::evaluateGCD($b, $a % $b) : $a;

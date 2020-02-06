@@ -914,6 +914,16 @@ class Calculation
             'functionCall' => [MathTrig::class, 'FLOOR'],
             'argumentCount' => '2',
         ],
+        'FLOOR.MATH' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [MathTrig::class, 'FLOORMATH'],
+            'argumentCount' => '3',
+        ],
+        'FLOOR.PRECISE' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [MathTrig::class, 'FLOORPRECISE'],
+            'argumentCount' => '2',
+        ],
         'FORECAST' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'FORECAST'],
