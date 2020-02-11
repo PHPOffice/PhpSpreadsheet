@@ -139,13 +139,11 @@ class Worksheet extends WriterPart
     {
         // sheetPr
         $objWriter->startElement('sheetPr');
-        if ($pSheet->getParent()->hasMacros()) {
-            //if the workbook have macros, we need to have codeName for the sheet
-            if (!$pSheet->hasCodeName()) {
-                $pSheet->setCodeName($pSheet->getTitle());
-            }
-            $objWriter->writeAttribute('codeName', $pSheet->getCodeName());
+        // Set the codeName for the sheet regardless of whether the workbook has macros or not.
+        if (!$pSheet->hasCodeName()) {
+            $pSheet->setCodeName($pSheet->getTitle());
         }
+        $objWriter->writeAttribute('codeName', $pSheet->getCodeName());
         $autoFilterRange = $pSheet->getAutoFilter()->getRange();
         if (!empty($autoFilterRange)) {
             $objWriter->writeAttribute('filterMode', 1);
