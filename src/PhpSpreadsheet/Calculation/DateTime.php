@@ -1277,6 +1277,36 @@ class DateTime
         return $DoW;
     }
 
+    const STARTWEEK_SUNDAY = 1;
+    const STARTWEEK_MONDAY = 2;
+    const STARTWEEK_MONDAY_ALT = 11;
+    const STARTWEEK_TUESDAY = 12;
+    const STARTWEEK_WEDNESDAY = 13;
+    const STARTWEEK_THURSDAY = 14;
+    const STARTWEEK_FRIDAY = 15;
+    const STARTWEEK_SATURDAY = 16;
+    const STARTWEEK_SUNDAY_ALT = 17;
+    const DOW_SUNDAY = 1;
+    const DOW_MONDAY = 2;
+    const DOW_TUESDAY = 3;
+    const DOW_WEDNESDAY = 4;
+    const DOW_THURSDAY = 5;
+    const DOW_FRIDAY = 6;
+    const DOW_SATURDAY = 7;
+    const STARTWEEK_MONDAY_ISO = 21;
+    const METHODARR = [
+        self::STARTWEEK_SUNDAY => self::DOW_SUNDAY,
+        self::DOW_MONDAY,
+        self::STARTWEEK_MONDAY_ALT => self::DOW_MONDAY,
+        self::DOW_TUESDAY,
+        self::DOW_WEDNESDAY,
+        self::DOW_THURSDAY,
+        self::DOW_FRIDAY,
+        self::DOW_SATURDAY,
+        self::DOW_SUNDAY,
+        self::STARTWEEK_MONDAY_ISO => self::STARTWEEK_MONDAY_ISO,
+        ];
+
     /**
      * WEEKNUM.
      *
@@ -1306,7 +1336,7 @@ class DateTime
      *
      * @return int|string Week Number
      */
-    public static function WEEKNUM($dateValue = 1, $method = 1)
+    public static function WEEKNUM($dateValue = 1, $method = self::STARTWEEK_SUNDAY)
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
         $method = Functions::flattenSingleValue($method);
@@ -1315,11 +1345,10 @@ class DateTime
             return Functions::VALUE();
         }
         $method = (int) $method;
-        $methodarr = [1 => 1, 2, 11 => 2, 3, 4, 5, 6, 7, 1, 21 => 21];
-        if (!array_key_exists($method, $methodarr)) {
+        if (!array_key_exists($method, self::METHODARR)) {
             return Functions::NaN();
         }
-        $method = $methodarr[$method];
+        $method = self::METHODARR[$method];
 
         $dateValue = self::getDateValue($dateValue);
         if (is_string($dateValue)) {
@@ -1331,7 +1360,7 @@ class DateTime
 
         // Execute function
         $PHPDateObject = Date::excelToDateTimeObject($dateValue);
-        if ($method == 21) {
+        if ($method == self::STARTWEEK_MONDAY_ISO) {
             return (int) $PHPDateObject->format('W');
         }
         $dayOfYear = $PHPDateObject->format('z');
