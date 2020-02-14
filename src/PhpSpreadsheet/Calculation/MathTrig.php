@@ -61,32 +61,15 @@ class MathTrig
         }
 
         // Convert the roman numeral to an arabic number
-        $lookup = [
-            'M' => 1000, 'CM' => 900,
-            'D' => 500, 'CD' => 400,
-            'C' => 100, 'XC' => 90,
-            'L' => 50, 'XL' => 40,
-            'X' => 10, 'IX' => 9,
-            'V' => 5, 'IV' => 4, 'I' => 1,
-        ];
-
         $negativeNumber = $roman[0] === '-';
         if ($negativeNumber) {
             $roman = substr($roman, 1);
         }
 
-        $arabic = 0;
-        for ($i = 0; $i < strlen($roman); ++$i) {
-            if (!isset($lookup[$roman[$i]])) {
-                return Functions::VALUE(); // Invalid character detected
-            }
-
-            if ($i < (strlen($roman) - 1) && isset($lookup[substr($roman, $i, 2)])) {
-                $arabic += $lookup[substr($roman, $i, 2)]; // Detected a match on the next 2 characters
-                ++$i;
-            } else {
-                $arabic += $lookup[$roman[$i]]; // Detected a match on one character only
-            }
+        try {
+            $arabic = self::calculateArabic(str_split($roman));
+        } catch (\Exception $e) {
+            return Functions::VALUE(); // Invalid character detected
         }
 
         if ($negativeNumber) {
@@ -94,6 +77,47 @@ class MathTrig
         }
 
         return $arabic;
+    }
+
+    /**
+     * Recursively calculate the arabic value of a roman numeral.
+     *
+     * @param array $roman
+     * @param int $sum
+     * @param int $subtract
+     *
+     * @return int
+     */
+    protected static function calculateArabic(array $roman, &$sum = 0, $subtract = 0)
+    {
+        $lookup = [
+            'M' => 1000,
+            'D' => 500,
+            'C' => 100,
+            'L' => 50,
+            'X' => 10,
+            'V' => 5,
+            'I' => 1,
+        ];
+
+        $numeral = array_shift($roman);
+        if (!isset($lookup[$numeral])) {
+            throw new \Exception('Invalid character detected');
+        }
+
+        $arabic = $lookup[$numeral];
+        if (count($roman) > 0 && isset($lookup[$roman[0]]) && $arabic < $lookup[$roman[0]]) {
+            $subtract += $arabic;
+        } else {
+            $sum += ($arabic - $subtract);
+            $subtract = 0;
+        }
+
+        if (count($roman) > 0) {
+            self::calculateArabic($roman, $sum, $subtract);
+        }
+
+        return $sum;
     }
 
     /**
