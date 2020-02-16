@@ -141,7 +141,7 @@ class Fill extends Supervisor
      *
      * @throws PhpSpreadsheetException
      *
-     * @return Fill
+     * @return $this
      */
     public function applyFromArray(array $pStyles)
     {
@@ -188,7 +188,7 @@ class Fill extends Supervisor
      *
      * @param string $pValue Fill type, see self::FILL_*
      *
-     * @return Fill
+     * @return $this
      */
     public function setFillType($pValue)
     {
@@ -221,7 +221,7 @@ class Fill extends Supervisor
      *
      * @param float $pValue
      *
-     * @return Fill
+     * @return $this
      */
     public function setRotation($pValue)
     {
@@ -252,7 +252,7 @@ class Fill extends Supervisor
      *
      * @throws PhpSpreadsheetException
      *
-     * @return Fill
+     * @return $this
      */
     public function setStartColor(Color $pValue)
     {
@@ -286,7 +286,7 @@ class Fill extends Supervisor
      *
      * @throws PhpSpreadsheetException
      *
-     * @return Fill
+     * @return $this
      */
     public function setEndColor(Color $pValue)
     {
