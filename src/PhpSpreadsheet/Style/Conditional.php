@@ -94,7 +94,7 @@ class Conditional implements IComparable
      *
      * @param string $pValue Condition type, see self::CONDITION_*
      *
-     * @return Conditional
+     * @return $this
      */
     public function setConditionType($pValue)
     {
@@ -118,7 +118,7 @@ class Conditional implements IComparable
      *
      * @param string $pValue Conditional operator type, see self::OPERATOR_*
      *
-     * @return Conditional
+     * @return $this
      */
     public function setOperatorType($pValue)
     {
@@ -142,7 +142,7 @@ class Conditional implements IComparable
      *
      * @param string $value
      *
-     * @return Conditional
+     * @return $this
      */
     public function setText($value)
     {
@@ -166,7 +166,7 @@ class Conditional implements IComparable
      *
      * @param bool $value
      *
-     * @return Conditional
+     * @return $this
      */
     public function setStopIfTrue($value)
     {
@@ -190,7 +190,7 @@ class Conditional implements IComparable
      *
      * @param string[] $pValue Condition
      *
-     * @return Conditional
+     * @return $this
      */
     public function setConditions($pValue)
     {
@@ -207,7 +207,7 @@ class Conditional implements IComparable
      *
      * @param string $pValue Condition
      *
-     * @return Conditional
+     * @return $this
      */
     public function addCondition($pValue)
     {
@@ -231,7 +231,7 @@ class Conditional implements IComparable
      *
      * @param Style $pValue
      *
-     * @return Conditional
+     * @return $this
      */
     public function setStyle(Style $pValue = null)
     {
