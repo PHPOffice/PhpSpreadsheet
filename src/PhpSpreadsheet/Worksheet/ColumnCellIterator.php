@@ -59,7 +59,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @throws PhpSpreadsheetException
      *
-     * @return ColumnCellIterator
+     * @return $this
      */
     public function resetStart($startRow = 1)
     {
@@ -77,7 +77,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @throws PhpSpreadsheetException
      *
-     * @return ColumnCellIterator
+     * @return $this
      */
     public function resetEnd($endRow = null)
     {
@@ -94,7 +94,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @throws PhpSpreadsheetException
      *
-     * @return ColumnCellIterator
+     * @return $this
      */
     public function seek($row = 1)
     {

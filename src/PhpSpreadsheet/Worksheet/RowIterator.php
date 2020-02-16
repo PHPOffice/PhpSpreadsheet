@@ -64,7 +64,7 @@ class RowIterator implements \Iterator
      *
      * @throws PhpSpreadsheetException
      *
-     * @return RowIterator
+     * @return $this
      */
     public function resetStart($startRow = 1)
     {
@@ -86,7 +86,7 @@ class RowIterator implements \Iterator
      *
      * @param int $endRow The row number at which to stop iterating
      *
-     * @return RowIterator
+     * @return $this
      */
     public function resetEnd($endRow = null)
     {
@@ -102,7 +102,7 @@ class RowIterator implements \Iterator
      *
      * @throws PhpSpreadsheetException
      *
-     * @return RowIterator
+     * @return $this
      */
     public function seek($row = 1)
     {
