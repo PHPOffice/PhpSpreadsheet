@@ -2114,20 +2114,25 @@ class Worksheet implements IComparable
      */
     public function removeRow($pRow, $pNumRows = 1)
     {
-        if ($pRow >= 1) {
-            for ($r = 0; $r < $pNumRows; ++$r) {
-                $this->getCellCollection()->removeRow($pRow + $r);
-            }
-
-            $highestRow = $this->getHighestDataRow();
-            $objReferenceHelper = ReferenceHelper::getInstance();
-            $objReferenceHelper->insertNewBefore('A' . ($pRow + $pNumRows), 0, -$pNumRows, $this);
-            for ($r = 0; $r < $pNumRows; ++$r) {
-                $this->getCellCollection()->removeRow($highestRow);
-                --$highestRow;
-            }
-        } else {
+        if ($pRow < 1) {
             throw new Exception('Rows to be deleted should at least start from row 1.');
+        }
+
+        $highestRow = $this->getHighestDataRow();
+        $removedRowsCounter = 0;
+
+        for ($r = 0; $r < $pNumRows; ++$r) {
+            if ($pRow + $r <= $highestRow) {
+                $this->getCellCollection()->removeRow($pRow + $r);
+                ++$removedRowsCounter;
+            }
+        }
+
+        $objReferenceHelper = ReferenceHelper::getInstance();
+        $objReferenceHelper->insertNewBefore('A' . ($pRow + $pNumRows), 0, -$pNumRows, $this);
+        for ($r = 0; $r < $removedRowsCounter; ++$r) {
+            $this->getCellCollection()->removeRow($highestRow);
+            --$highestRow;
         }
 
         return $this;
