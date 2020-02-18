@@ -393,8 +393,8 @@ class WorksheetTest extends TestCase
         int $rowToRemove,
         int $rowsQtyToRemove,
         array $expectedData,
-        int $expectedHighestRow)
-    {
+        int $expectedHighestRow
+    ) {
         $workbook = new Spreadsheet();
         $worksheet = $workbook->getActiveSheet();
         $worksheet->fromArray($initialData);
