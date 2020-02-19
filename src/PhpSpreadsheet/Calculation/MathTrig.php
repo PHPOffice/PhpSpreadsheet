@@ -143,6 +143,49 @@ class MathTrig
     }
 
     /**
+     * BASE.
+     *
+     * Converts a number into a text representation with the given radix (base).
+     *
+     * Excel Function:
+     *        BASE(Number, Radix [Min_length])
+     *
+     * @category Mathematical and Trigonometric Functions
+     *
+     * @param float $number
+     * @param float $radix
+     * @param int $minLength
+     *
+     * @return string the text representation with the given radix (base)
+     */
+    public static function BASE($number, $radix, $minLength = null)
+    {
+        $number = Functions::flattenSingleValue($number);
+        $radix = Functions::flattenSingleValue($radix);
+        $minLength = Functions::flattenSingleValue($minLength);
+
+        if (is_numeric($number) && is_numeric($radix) && ($minLength === null || is_numeric($minLength))) {
+            // Truncate to an integer
+            $number = (int) $number;
+            $radix = (int) $radix;
+            $minLength = (int) $minLength;
+
+            if ($number < 0 || $number >= 2 ** 53 || $radix < 2 || $radix > 36) {
+                return Functions::NAN(); // Numeric range constraints
+            }
+
+            $outcome = strtoupper((string) base_convert($number, 10, $radix));
+            if ($minLength !== null) {
+                $outcome = str_pad($outcome, $minLength, '0', STR_PAD_LEFT); // String padding
+            }
+
+            return $outcome;
+        }
+
+        return Functions::VALUE();
+    }
+
+    /**
      * CEILING.
      *
      * Returns number rounded up, away from zero, to the nearest multiple of significance.
