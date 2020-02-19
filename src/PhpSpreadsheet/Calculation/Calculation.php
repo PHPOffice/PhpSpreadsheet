@@ -333,6 +333,11 @@ class Calculation
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '1',
         ],
+        'BASE' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [MathTrig::class, 'BASE'],
+            'argumentCount' => '2,3',
+        ],
         'BESSELI' => [
             'category' => Category::CATEGORY_ENGINEERING,
             'functionCall' => [Engineering::class, 'BESSELI'],
