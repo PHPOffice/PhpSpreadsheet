@@ -42,7 +42,6 @@
         "php": "^7.1",
         "ext-ctype": "*",
         "ext-dom": "*",
-        "ext-gd": "*",
         "ext-iconv": "*",
         "ext-fileinfo": "*",
         "ext-libxml": "*",
@@ -68,6 +67,7 @@
         "tecnickcom/tcpdf": "^6.3"
     },
     "suggest": {
+        "ext-gd": "Required for graphing, and exact column wide calculation",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer",
