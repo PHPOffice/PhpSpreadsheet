@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+use PhpOffice\PhpSpreadsheet\DocumentGenerator;
+
+require_once __DIR__ . '/../src/Bootstrap.php';
+
+try {
+    DocumentGenerator::generateFunctionListByCategory();
+    DocumentGenerator::generateFunctionListByName();
+} catch (ReflectionException $e) {
+    fwrite(STDERR, (string)$e);
+    exit(1);
+}
