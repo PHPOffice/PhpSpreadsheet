@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Handle ConditionalStyle NumberFormat When Reading Xlsx File [#1296](https://github.com/PHPOffice/PhpSpreadsheet/pull/1296)
 - Fix Xlsx Writer's handling of decimal commas [#1282](https://github.com/PHPOffice/PhpSpreadsheet/pull/1282)
 - Fix for issue by removing test code mistakenly left in [#1328](https://github.com/PHPOffice/PhpSpreadsheet/pull/1328)
+- Fix for issue that converts numeric-strings to float incorrectly [#1387](https://github.com/PHPOffice/PhpSpreadsheet/pull/1387)
 
 ## [1.10.1] - 2019-12-02
 

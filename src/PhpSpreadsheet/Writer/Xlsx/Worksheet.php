@@ -1071,6 +1071,7 @@ class Worksheet extends WriterPart
             switch (strtolower($mappedType)) {
                 case 'inlinestr':    // Inline string
                 case 's':            // String
+                case 'n':            // Number
                 case 'b':            // Boolean
                     $objWriter->writeAttribute('t', $mappedType);
 
