@@ -43,6 +43,18 @@ class DataType
     }
 
     /**
+     * Check if given string is an error code.
+     *
+     * @param string $possibleErrorCode Value of possible error code to check
+     *
+     * @return bool
+     */
+    public static function isErrorCode($possibleErrorCode)
+    {
+        return isset(self::$errorCodes[$possibleErrorCode]);
+    }
+
+    /**
      * Check a string that it satisfies Excel requirements.
      *
      * @param null|RichText|string $pValue Value to sanitize to an Excel string

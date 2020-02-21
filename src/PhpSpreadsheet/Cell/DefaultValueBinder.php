@@ -51,32 +51,42 @@ class DefaultValueBinder implements IValueBinder
         // Match the value against a few data types
         if ($pValue === null) {
             return DataType::TYPE_NULL;
-        } elseif (is_float($pValue) || is_int($pValue)) {
-            return DataType::TYPE_NUMERIC;
-        } elseif (is_bool($pValue)) {
-            return DataType::TYPE_BOOL;
-        } elseif ($pValue === '') {
-            return DataType::TYPE_STRING;
-        } elseif ($pValue instanceof RichText) {
-            return DataType::TYPE_INLINE;
-        } elseif (is_string($pValue) && $pValue[0] === '=' && strlen($pValue) > 1) {
-            return DataType::TYPE_FORMULA;
-        } elseif (preg_match('/^[\+\-]?(\d+\\.?\d*|\d*\\.?\d+)([Ee][\-\+]?[0-2]?\d{1,3})?$/', $pValue)) {
-            $tValue = ltrim($pValue, '+-');
-            if (is_string($pValue) && $tValue[0] === '0' && strlen($tValue) > 1 && $tValue[1] !== '.') {
-                return DataType::TYPE_STRING;
-            } elseif ((strpos($pValue, '.') === false) && ($pValue > PHP_INT_MAX)) {
-                return DataType::TYPE_STRING;
-            } elseif ($pValue <= PHP_INT_MAX && preg_match('/\.\d*0$/', $pValue)) {
-                return DataType::TYPE_STRING;
-            }
+        }
 
+        if (is_float($pValue) || is_int($pValue)) {
             return DataType::TYPE_NUMERIC;
-        } elseif (is_string($pValue)) {
-            $errorCodes = DataType::getErrorCodes();
-            if (isset($errorCodes[$pValue])) {
-                return DataType::TYPE_ERROR;
+        }
+
+        if (is_bool($pValue)) {
+            return DataType::TYPE_BOOL;
+        }
+
+        if ($pValue === '') {
+            return DataType::TYPE_STRING;
+        }
+
+        if ($pValue instanceof RichText) {
+            return DataType::TYPE_INLINE;
+        }
+
+        if ($pValue[0] === '=' && strlen($pValue) > 1) {
+            return DataType::TYPE_FORMULA;
+        }
+
+        if ($pValue > PHP_INT_MAX) {
+            if (strpos($pValue, '.') === false) {
+                return DataType::TYPE_STRING;
             }
+        } elseif (preg_match('/\.\d*0$/', $pValue)) {
+            return DataType::TYPE_STRING;
+        }
+
+        if (preg_match('/^[-+]?(?!0\d)(\d+\.?\d*|\d*\.\d+)([Ee][-+]?[0-2]?\d{1,3})?$/', $pValue)) {
+            return DataType::TYPE_NUMERIC;
+        }
+
+        if (DataType::isErrorCode($pValue)) {
+            return DataType::TYPE_ERROR;
         }
 
         return DataType::TYPE_STRING;
