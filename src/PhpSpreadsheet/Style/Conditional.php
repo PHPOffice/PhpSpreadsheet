@@ -27,7 +27,8 @@ class Conditional implements IComparable
     const OPERATOR_CONTAINSTEXT = 'containsText';
     const OPERATOR_NOTCONTAINS = 'notContains';
     const OPERATOR_BETWEEN = 'between';
-
+    const OPERATOR_NOTBETWEEN = 'notBetween';
+    
     /**
      * Condition type.
      *
@@ -270,4 +271,122 @@ class Conditional implements IComparable
             }
         }
     }
+    	 /**
+     * Checks is a conditonal formatting  is active.
+     *
+     * @return true/false
+     */
+	public function isCondtionalStyleActive($spreadsheet,$worksheet, $cellName, $multuseCol =0, $multuseRow=0){
+	
+		$return = false;
+		$referenceHelper = ReferenceHelper::getInstance(); //Update Internal References
+		$condis = $this->getConditions();
+		
+		//Adjust Multirow/MultiColumn condtions
+		for($i=0; $i < sizeof($condis); $i++){
+			if($multuseCol !== false || $multuseRow !== false ){	
+				$condis[$i] = $referenceHelper->updateFormulaReferences($condis[$i], 'A1',$multuseCol  , $multuseRow );			
+			}
+		}
+			
+		//Calc Cellvalue
+		$calcer = Calculation::getInstance($spreadsheet);
+		$calcer->disableCalculationCache();
+		$calcVal = $calcer->calculate($worksheet->getCell($cellName));
+		$valstr =$condis[0];
+		if(substr($valstr, 0, 1) != "="){
+			$valstr ="=" . $valstr;
+		}
+
+		$coords1Val =unwrapCalcFormRes($calcer->calculateFormula($valstr));
+
+		switch ($this->getOperatorType()) {
+            case self::OPERATOR_LESSTHAN:
+                if (bccomp($calcVal, $coords1Val , 8) < 0) {
+                    $return = true;
+                }
+                break;
+            case self::OPERATOR_LESSTHANOREQUAL:
+                if (bccomp($calcVal, $coords1Val , 8) <= 0) {
+                   $return = true;
+                }
+                break;
+            case self::OPERATOR_EQUAL:
+                if (bccomp($calcVal, $coords1Val , 8) == 0) {
+                     $return = true;
+                }
+				break;
+            case self::OPERATOR_NOTEQUAL:
+                if (bccomp($calcVal, $coords1Val , 8) != 0) {
+                     $return = true;
+                }
+				break;
+            case self::OPERATOR_GREATERTHANOREQUAL:
+                if (bccomp($calcVal, $coords1Val , 8) >= 0) {
+                      $return = true;;
+                }
+				break;
+             case self::OPERATOR_GREATERTHAN:
+                if (bccomp($calcVal, $coords1Val , 8) > 0) {
+					 $return = true;
+                }
+                break;
+            case self::OPERATOR_BETWEEN:
+				$valstr2 =$condis[1];
+				if(substr($valstr2, 0, 1) != "="){
+					$valstr2 ="=" . $valstr2;
+				}
+
+				$coords2Val =unwrapCalcFormRes($calcer->calculateFormula( $valstr2)) ;
+				if($coords1Val <= $coords2Val) {
+					if (bccomp($calcVal, $coords1Val, 8) >= 0 && bccomp($calcVal, $coords2Val, 8) <= 0) {
+						 $return = true;
+					}
+				}else{
+					if (bccomp($calcVal, $coords2Val, 8) >= 0 && bccomp($calcVal, $coords1Val, 8) <= 0) {
+						 $return = true;
+					}
+				}
+				break;
+            case self::OPERATOR_NOTBETWEEN:
+					$valstr2 =$condis[1];
+				if(substr($valstr2, 0, 1) != "="){
+					$valstr2 ="=" . $valstr2;
+				}
+				$coords2Val =unwrapCalcFormRes($calcer->calculateFormula( $valstr2)) ;
+
+				if($coords1Val <= $coords2Val) {
+					if (!(bccomp($calcVal, $coords1Val, 8) <= 0 || bccomp($calcVal, $coords2Val, 8) <= 0)) {
+						$return = true;			
+					}
+				}else{
+					if (!(bccomp($calcVal, $coords2Val, 8) <= 0 || bccomp($calcVal, $coords1Val, 8) <= 0)) {           
+						$return = true;							
+                 }
+				}
+                break;
+            case "":
+                break;
+			default:
+				//This Code should never be done
+				echo("Should never Happen Error: ".$this->getOperatorType());
+         }
+		return $return;
+	}
+
+
+	/**
+	*	Easyfy calculation result 
+	*
+	*	 @return Unwaped calculation result
+	*/
+	private function unwrapCalcFormRes($calcRes) {
+		$res = $calcRes;
+
+		if (is_array($res)) {
+			$newRes = array_map('array_values', array_values($res));
+			$res = $newRes[0][0];
+		}
+		return $res;
+	}
 }
