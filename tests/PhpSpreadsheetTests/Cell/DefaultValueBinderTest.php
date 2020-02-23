@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class DefaultValueBinderTest extends TestCase
@@ -84,6 +85,20 @@ class DefaultValueBinderTest extends TestCase
         $expectedResult = DataType::TYPE_INLINE;
         $result = DefaultValueBinder::dataTypeForValue($objRichText);
         self::assertEquals($expectedResult, $result);
+    }
+
+    public function testDataTypeForStringCastableObject()
+    {
+        $cellStub = new Cell('', DataType::TYPE_NULL, new Worksheet());
+
+        self::assertTrue((new DefaultValueBinder())->bindValue($cellStub, new class() {
+            public function __toString()
+            {
+                return 'string';
+            }
+        }));
+
+        self::assertSame('string', $cellStub->getValue());
     }
 
     public function testCanOverrideStaticMethodWithoutOverridingBindValue()
