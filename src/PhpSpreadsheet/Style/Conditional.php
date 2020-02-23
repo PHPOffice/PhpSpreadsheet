@@ -328,7 +328,7 @@ class Conditional implements IComparable
                 $return = bccomp($calcVal, $coords1Val, 8) >= 0;
 
                 break;
-             case self::OPERATOR_GREATERTHAN:
+            case self::OPERATOR_GREATERTHAN:
                 $return = bccomp($calcVal, $coords1Val, 8) > 0;
 
                 break;
@@ -371,11 +371,11 @@ class Conditional implements IComparable
     }
 
     /**
-     *	Easyfy calculation result.
+     * Simplify calculation result.
      *
      * @param mixed $calcRes
      *
-     *	 @return Unwaped calculation result
+     * @return Unwaped calculation result
      */
     private function unwrapCalcFormRes($calcRes)
     {
