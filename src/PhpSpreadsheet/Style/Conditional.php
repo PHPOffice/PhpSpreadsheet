@@ -292,7 +292,7 @@ class Conditional implements IComparable
         $condis = $this->getConditions();
 
         //Adjust Multirow/MultiColumn condtions
-        $count=count($condis);
+        $count = count($condis);
         for ($i = 0; $i < $count; ++$i) {
             if ($multuseCol !== false || $multuseRow !== false) {
                 $condis[$i] = $referenceHelper->updateFormulaReferences($condis[$i], 'A1', $multuseCol, $multuseRow);
@@ -308,7 +308,7 @@ class Conditional implements IComparable
             $valstr = '=' . $valstr;
         }
 
-        $coords1Val = unwrapCalcFormRes($calcer->calculateFormula($valstr));
+        $coords1Val = self::unwrapCalcFormRes($calcer->calculateFormula($valstr));
 
         switch ($this->getOperatorType()) {
             case self::OPERATOR_LESSTHAN:
@@ -341,7 +341,7 @@ class Conditional implements IComparable
                     $valstr2 = '=' . $valstr2;
                 }
 
-                $coords2Val = unwrapCalcFormRes($calcer->calculateFormula($valstr2));
+                $coords2Val = self::unwrapCalcFormRes($calcer->calculateFormula($valstr2));
                 if ($coords1Val <= $coords2Val) {
                     $return = (bccomp($calcVal, $coords1Val, 8) >= 0 && bccomp($calcVal, $coords2Val, 8) <= 0);
                 } else {
@@ -354,7 +354,7 @@ class Conditional implements IComparable
                 if (substr($valstr2, 0, 1) != '=') {
                     $valstr2 = '=' . $valstr2;
                 }
-                $coords2Val = unwrapCalcFormRes($calcer->calculateFormula($valstr2));
+                $coords2Val = self::unwrapCalcFormRes($calcer->calculateFormula($valstr2));
 
                 if ($coords1Val <= $coords2Val) {
                     $return = (!(bccomp($calcVal, $coords1Val, 8) <= 0 || bccomp($calcVal, $coords2Val, 8) <= 0));
