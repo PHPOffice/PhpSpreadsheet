@@ -27,8 +27,7 @@ class CondtionalFormattingIsActive extends TestCase
             $split = explode(':', $key);
             $col = ord(substr($split[0], 0, 1));
             $multuseCol = false;
-            
-            
+
             if (count($split) > 1) {
                 $colEnd = ord(substr($split[0], 0, 1));
             } else {
