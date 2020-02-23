@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\ReferenceHelper;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class Conditional implements IComparable
 {
@@ -290,7 +292,8 @@ class Conditional implements IComparable
         $condis = $this->getConditions();
 
         //Adjust Multirow/MultiColumn condtions
-        for ($i = 0; $i < count($condis); ++$i) {
+        $count=count($condis);
+        for ($i = 0; $i < $count; ++$i) {
             if ($multuseCol !== false || $multuseRow !== false) {
                 $condis[$i] = $referenceHelper->updateFormulaReferences($condis[$i], 'A1', $multuseCol, $multuseRow);
             }
