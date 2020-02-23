@@ -275,18 +275,24 @@ class Conditional implements IComparable
     /**
      * Checks is a conditonal formatting  is active.
      *
+     * @param mixed $spreadsheet
+     * @param mixed $worksheet
+     * @param mixed $cellName
+     * @param mixed $multuseCol
+     * @param mixed $multuseRow
+     *
      * @return true/false
      */
-    public function isCondtionalStyleActive($spreadsheet,$worksheet, $cellName, $multuseCol =0, $multuseRow=0){
+    public function isCondtionalStyleActive($spreadsheet, $worksheet, $cellName, $multuseCol = 0, $multuseRow = 0){
 	
         $return = false;
-	$referenceHelper = ReferenceHelper::getInstance(); //Update Internal References
+        $referenceHelper = ReferenceHelper::getInstance(); //Update Internal References
         $condis = $this->getConditions();
 		
-	//Adjust Multirow/MultiColumn condtions
-        for($i=0; $i < sizeof($condis); $i++){
-            if($multuseCol !== false || $multuseRow !== false ){	
-                $condis[$i] = $referenceHelper->updateFormulaReferences($condis[$i], 'A1',$multuseCol  , $multuseRow );			
+        //Adjust Multirow/MultiColumn condtions
+        for($i= 0; $i < sizeof($condis); ++$i){
+            if($multuseCol !== false || $multuseRow !== false ){
+                $condis[$i] = $referenceHelper->updateFormulaReferences($condis[$i], 'A1', $multuseCol, $multuseRow );
             }
         }
 			
@@ -294,12 +300,12 @@ class Conditional implements IComparable
         $calcer = Calculation::getInstance($spreadsheet);
         $calcer->disableCalculationCache();
         $calcVal = $calcer->calculate($worksheet->getCell($cellName));
-        $valstr =$condis[0];
-        if(substr($valstr, 0, 1) != "="){
-            $valstr ="=" . $valstr;
+        $valstr = $condis[0];
+        if(substr($valstr, 0, 1) != '='){
+            $valstr = '=' . $valstr;
         }
 
-        $coords1Val =unwrapCalcFormRes($calcer->calculateFormula($valstr));
+        $coords1Val = unwrapCalcFormRes($calcer->calculateFormula($valstr));
 
         switch ($this->getOperatorType()) {
             case self::OPERATOR_LESSTHAN:
@@ -312,37 +318,37 @@ class Conditional implements IComparable
                 $return = bccomp($calcVal, $coords1Val, 8) == 0;
                 break;
             case self::OPERATOR_NOTEQUAL:
-                $return = bccomp($calcVal, $coords1Val, 8) != 0;			
+                $return = bccomp($calcVal, $coords1Val, 8) != 0;
                 break;
             case self::OPERATOR_GREATERTHANOREQUAL:
                 $return = bccomp($calcVal, $coords1Val, 8) >= 0;
                 break;
              case self::OPERATOR_GREATERTHAN:
-                $return = bccomp($calcVal, $coords1Val, 8) > 0;			
+                $return = bccomp($calcVal, $coords1Val, 8) > 0;
                 break;
             case self::OPERATOR_BETWEEN:
-                $valstr2 =$condis[1];
-                if(substr($valstr2, 0, 1) != "="){
-                    $valstr2 ="=" . $valstr2;
+                $valstr2 = $condis[1];
+                if(substr($valstr2, 0, 1) != '='){
+                    $valstr2 = '=' . $valstr2;
                 }
 
-                $coords2Val =unwrapCalcFormRes($calcer->calculateFormula( $valstr2)) ;
+                $coords2Val = unwrapCalcFormRes($calcer->calculateFormula( $valstr2));
                 if($coords1Val <= $coords2Val) {
                     $return = (bccomp($calcVal, $coords1Val, 8) >= 0 && bccomp($calcVal, $coords2Val, 8) <= 0);
-                }else{
-                        $return = (bccomp($calcVal, $coords2Val, 8) >= 0 && bccomp($calcVal, $coords1Val, 8) <= 0);
+                } else {
+                    $return = (bccomp($calcVal, $coords2Val, 8) >= 0 && bccomp($calcVal, $coords1Val, 8) <= 0);
                 }
                 break;
             case self::OPERATOR_NOTBETWEEN:
-                $valstr2 =$condis[1];
-                if(substr($valstr2, 0, 1) != "="){
-                    $valstr2 ="=" . $valstr2;
+                $valstr2 = $condis[1];
+                if(substr($valstr2, 0, 1) != '='){
+                    $valstr2 = '=' . $valstr2;
                 }
-                $coords2Val =unwrapCalcFormRes($calcer->calculateFormula( $valstr2)) ;
+                $coords2Val = unwrapCalcFormRes($calcer->calculateFormula($valstr2));
 
                 if($coords1Val <= $coords2Val) {
-                    $return = (!(bccomp($calcVal, $coords1Val, 8) <= 0 || bccomp($calcVal, $coords2Val, 8) <= 0));			
-                }else{
+                    $return = (!(bccomp($calcVal, $coords1Val, 8) <= 0 || bccomp($calcVal, $coords2Val, 8) <= 0));
+                } else {
                     $return = (!(bccomp($calcVal, $coords2Val, 8) <= 0 || bccomp($calcVal, $coords1Val, 8) <= 0));
                 }
                 break;
@@ -350,9 +356,9 @@ class Conditional implements IComparable
                 break;
             default:
                 //This Code should never be done
-                echo("Should never Happen Error: ".$this->getOperatorType());
+                echo("Should never Happen Error: " . $this->getOperatorType());
         }
-	return $return;
+    return $return;
     }
 
 
