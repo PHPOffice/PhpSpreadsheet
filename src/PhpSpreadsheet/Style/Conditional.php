@@ -380,7 +380,7 @@ class Conditional implements IComparable
      *
      * @return Unwaped calculation result
      */
-    private function unwrapCalcFormRes($calcRes)
+    private static function unwrapCalcFormRes($calcRes)
     {
         $res = $calcRes;
         if (is_array($res)) {
