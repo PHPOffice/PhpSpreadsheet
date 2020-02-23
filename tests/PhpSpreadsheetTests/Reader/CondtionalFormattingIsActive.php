@@ -27,7 +27,8 @@ class CondtionalFormattingIsActive extends TestCase
             $split = explode(':', $key);
             $col = ord(substr($split[0], 0, 1));
             $multuseCol = false;
-
+            
+            
             if (count($split) > 1) {
                 $colEnd = ord(substr($split[0], 0, 1));
             } else {
@@ -60,8 +61,8 @@ class CondtionalFormattingIsActive extends TestCase
                 }
             }
         }
-
-        for ($i = 0; $i < count($should); ++$i) {
+        $count=count($should);
+        for ($i = 0; $i < $count; ++$i) {
             self::assertEquals($should[$i], $actual[$i]);
         }
     }
