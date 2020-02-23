@@ -61,7 +61,7 @@ class CondtionalFormattingIsActive extends TestCase
                 }
             }
         }
-        $count=count($should);
+        $count = count($should);
         for ($i = 0; $i < $count; ++$i) {
             self::assertEquals($should[$i], $actual[$i]);
         }
