@@ -283,7 +283,7 @@ class Conditional implements IComparable
      * @param mixed $multuseCol
      * @param mixed $multuseRow
      *
-     * @return true/false
+     * @return bool
      */
     public function isCondtionalStyleActive($spreadsheet, $worksheet, $cellName, $multuseCol = 0, $multuseRow = 0)
     {
@@ -378,7 +378,7 @@ class Conditional implements IComparable
      *
      * @param mixed $calcRes
      *
-     * @return Unwaped calculation result
+     * @return float
      */
     private static function unwrapCalcFormRes($calcRes)
     {
