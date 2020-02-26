@@ -230,6 +230,14 @@ class Font
             $cellText = $cellText->getPlainText();
         }
 
+        // cache for text width
+        $cacheId = $font->getHashCode() . $cellText . $rotation;
+        $cache   = \PhpOffice\PhpSpreadsheet\Settings::getCache();
+        $data    = $cache->get($cacheId);
+        if ($data) {
+            return $data;
+        }
+
         // Special case if there are one or more newline characters ("\n")
         if (strpos($cellText, "\n") !== false) {
             $lineTexts = explode("\n", $cellText);
@@ -266,7 +274,9 @@ class Font
         $columnWidth = Drawing::pixelsToCellDimension($columnWidth, $defaultFont);
 
         // Return
-        return round($columnWidth, 6);
+        $columnWidth = round($columnWidth, 6);
+        $cache->set($cacheId, $columnWidth);
+        return $columnWidth;
     }
 
     /**

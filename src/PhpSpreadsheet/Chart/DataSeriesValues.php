@@ -292,7 +292,7 @@ class DataSeriesValues
      */
     public function isMultiLevelSeries()
     {
-        if (count($this->dataValues) > 0) {
+        if (count($this->dataValues) > 0 && isset($this->dataValues[0])) {
             return is_array(array_values($this->dataValues)[0]);
         }
 
