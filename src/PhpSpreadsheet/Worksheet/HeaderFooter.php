@@ -72,6 +72,12 @@ class HeaderFooter
     const IMAGE_FOOTER_LEFT = 'LF';
     const IMAGE_FOOTER_CENTER = 'CF';
     const IMAGE_FOOTER_RIGHT = 'RF';
+    const IMAGE_HEADER_LEFT_FIRST = 'LHFIRST';
+    const IMAGE_HEADER_CENTER_FIRST = 'CHFIRST';
+    const IMAGE_HEADER_RIGHT_FIRST = 'RHFIRST';
+    const IMAGE_FOOTER_LEFT_FIRST = 'LFFIRST';
+    const IMAGE_FOOTER_CENTER_FIRST = 'CFFIRST';
+    const IMAGE_FOOTER_RIGHT_FIRST = 'RFFIRST';
 
     /**
      * OddHeader.
@@ -468,6 +474,24 @@ class HeaderFooter
         }
         if (isset($this->headerFooterImages[self::IMAGE_FOOTER_RIGHT])) {
             $images[self::IMAGE_FOOTER_RIGHT] = $this->headerFooterImages[self::IMAGE_FOOTER_RIGHT];
+        }
+        if (isset($this->headerFooterImages[self::IMAGE_HEADER_LEFT_FIRST])) {
+            $images[self::IMAGE_HEADER_LEFT_FIRST] = $this->headerFooterImages[self::IMAGE_HEADER_LEFT_FIRST];
+        }
+        if (isset($this->headerFooterImages[self::IMAGE_HEADER_CENTER_FIRST])) {
+            $images[self::IMAGE_HEADER_CENTER_FIRST] = $this->headerFooterImages[self::IMAGE_HEADER_CENTER_FIRST];
+        }
+        if (isset($this->headerFooterImages[self::IMAGE_HEADER_RIGHT_FIRST])) {
+            $images[self::IMAGE_HEADER_RIGHT_FIRST] = $this->headerFooterImages[self::IMAGE_HEADER_RIGHT_FIRST];
+        }
+        if (isset($this->headerFooterImages[self::IMAGE_FOOTER_LEFT_FIRST])) {
+            $images[self::IMAGE_FOOTER_LEFT_FIRST] = $this->headerFooterImages[self::IMAGE_FOOTER_LEFT_FIRST];
+        }
+        if (isset($this->headerFooterImages[self::IMAGE_FOOTER_CENTER_FIRST])) {
+            $images[self::IMAGE_FOOTER_CENTER_FIRST] = $this->headerFooterImages[self::IMAGE_FOOTER_CENTER_FIRST];
+        }
+        if (isset($this->headerFooterImages[self::IMAGE_FOOTER_RIGHT_FIRST])) {
+            $images[self::IMAGE_FOOTER_RIGHT_FIRST] = $this->headerFooterImages[self::IMAGE_FOOTER_RIGHT_FIRST];
         }
         $this->headerFooterImages = $images;
 
