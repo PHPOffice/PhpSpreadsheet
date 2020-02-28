@@ -434,7 +434,7 @@ class Cells
      *
      * @throws PhpSpreadsheetException
      *
-     * @return \PhpOffice\PhpSpreadsheet\Cell\Cell Cell that was found, or null if not found
+     * @return null|\PhpOffice\PhpSpreadsheet\Cell\Cell Cell that was found, or null if not found
      */
     public function get($pCoord)
     {
