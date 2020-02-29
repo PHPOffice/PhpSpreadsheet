@@ -1132,7 +1132,7 @@ class Chart extends WriterPart
             //    Values
             $plotSeriesValues = $plotGroup->getPlotValuesByIndex($plotSeriesRef);
 
-            if (($groupType == DataSeries::TYPE_PIECHART) || ($groupType == DataSeries::TYPE_PIECHART_3D) || ($groupType == DataSeries::TYPE_DONUTCHART)) {
+            if (($groupType == DataSeries::TYPE_PIECHART) || ($groupType == DataSeries::TYPE_PIECHART_3D) || ($groupType == DataSeries::TYPE_DONUTCHART) || ($groupType == DataSeries::TYPE_BARCHART)) {
                 $fillColorValues = $plotSeriesValues->getFillColor();
                 if ($fillColorValues !== null && is_array($fillColorValues)) {
                     foreach ($plotSeriesValues->getDataValues() as $dataKey => $dataValue) {
