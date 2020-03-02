@@ -754,25 +754,26 @@ class LookupRef
         if (!$not_exact_match) {
             uasort($lookup_array, ['self', 'vlookupSort']);
         }
-
-        $lookupLower = StringHelper::strToLower($lookup_value);
+        if (is_string($lookup_value)) {
+            $lookup_value = StringHelper::strToLower($lookup_value);
+        }
         $rowNumber = $rowValue = false;
         foreach ($lookup_array as $rowKey => $rowData) {
-            $firstLower = StringHelper::strToLower($rowData[$firstColumn]);
+            if (is_string($rowData[$firstColumn])) {
+                $rowData[$firstColumn] = StringHelper::strToLower($rowData[$firstColumn]);
+            }
 
             // break if we have passed possible keys
-            if ((is_numeric($lookup_value) && is_numeric($rowData[$firstColumn]) && ($rowData[$firstColumn] > $lookup_value)) ||
-                (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]) && ($firstLower > $lookupLower))) {
+            if (is_string($lookup_value) == is_string($rowData[$firstColumn]) && $rowData[$firstColumn] > $lookup_value) {
                 break;
             }
             // remember the last key, but only if datatypes match
-            if ((is_numeric($lookup_value) && is_numeric($rowData[$firstColumn])) ||
-                (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]))) {
+            if ((is_string($lookup_value) == is_string($rowData[$firstColumn]))) {
                 if ($not_exact_match) {
                     $rowNumber = $rowKey;
 
                     continue;
-                } elseif (($firstLower == $lookupLower)
+                } elseif (($rowData[$firstColumn] === $lookup_value)
                     // Spreadsheets software returns first exact match,
                     // we have sorted and we might have broken key orders
                     // we want the first one (by its initial index)
