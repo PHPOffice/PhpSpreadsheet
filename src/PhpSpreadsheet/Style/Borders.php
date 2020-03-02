@@ -197,7 +197,7 @@ class Borders extends Supervisor
      *
      * @throws PhpSpreadsheetException
      *
-     * @return Borders
+     * @return $this
      */
     public function applyFromArray(array $pStyles)
     {
@@ -382,7 +382,7 @@ class Borders extends Supervisor
      *
      * @param int $pValue see self::DIAGONAL_*
      *
-     * @return Borders
+     * @return $this
      */
     public function setDiagonalDirection($pValue)
     {
