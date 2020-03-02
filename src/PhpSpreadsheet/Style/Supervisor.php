@@ -48,7 +48,7 @@ abstract class Supervisor implements IComparable
      * @param Spreadsheet|Style $parent
      * @param null|string $parentPropertyName
      *
-     * @return Supervisor
+     * @return $this
      */
     public function bindParent($parent, $parentPropertyName = null)
     {

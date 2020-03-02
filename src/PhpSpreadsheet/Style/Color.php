@@ -106,7 +106,7 @@ class Color extends Supervisor
      *
      * @throws PhpSpreadsheetException
      *
-     * @return Color
+     * @return $this
      */
     public function applyFromArray(array $pStyles)
     {
@@ -143,7 +143,7 @@ class Color extends Supervisor
      *
      * @param string $pValue see self::COLOR_*
      *
-     * @return Color
+     * @return $this
      */
     public function setARGB($pValue)
     {
@@ -179,7 +179,7 @@ class Color extends Supervisor
      *
      * @param string $pValue RGB value
      *
-     * @return Color
+     * @return $this
      */
     public function setRGB($pValue)
     {
@@ -312,7 +312,7 @@ class Color extends Supervisor
      * @param bool $background Flag to indicate whether default background or foreground colour
      *                                            should be returned if the indexed colour doesn't exist
      *
-     * @return Color
+     * @return self
      */
     public static function indexedColor($pIndex, $background = false)
     {
