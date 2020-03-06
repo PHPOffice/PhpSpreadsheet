@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+
+### Added
+
+- Added support for short-form roman numerals to the ARABIC function
+
 ## [1.11.0] - 2020-03-02
 
 ### Added
