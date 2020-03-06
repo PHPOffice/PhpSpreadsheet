@@ -2184,6 +2184,11 @@ class Calculation
             'functionCall' => [LookupRef::class, 'VLOOKUP'],
             'argumentCount' => '3,4',
         ],
+        'WEBSERVICE' => [
+            'category' => Category::CATEGORY_WEB,
+            'functionCall' => [Web::class, 'WEBSERVICE'],
+            'argumentCount' => '1',
+        ],
         'WEEKDAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTime::class, 'WEEKDAY'],

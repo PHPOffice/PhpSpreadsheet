@@ -16,4 +16,5 @@ abstract class Category
     const CATEGORY_MATH_AND_TRIG = 'Math and Trig';
     const CATEGORY_STATISTICAL = 'Statistical';
     const CATEGORY_TEXT_AND_DATA = 'Text and Data';
+    const CATEGORY_WEB = 'Web';
 }
