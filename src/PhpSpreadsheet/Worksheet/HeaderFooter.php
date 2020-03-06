@@ -172,7 +172,7 @@ class HeaderFooter
      *
      * @param string $pValue
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function setOddHeader($pValue)
     {
@@ -196,7 +196,7 @@ class HeaderFooter
      *
      * @param string $pValue
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function setOddFooter($pValue)
     {
@@ -220,7 +220,7 @@ class HeaderFooter
      *
      * @param string $pValue
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function setEvenHeader($pValue)
     {
@@ -244,7 +244,7 @@ class HeaderFooter
      *
      * @param string $pValue
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function setEvenFooter($pValue)
     {
@@ -268,7 +268,7 @@ class HeaderFooter
      *
      * @param string $pValue
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function setFirstHeader($pValue)
     {
@@ -292,7 +292,7 @@ class HeaderFooter
      *
      * @param string $pValue
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function setFirstFooter($pValue)
     {
@@ -316,7 +316,7 @@ class HeaderFooter
      *
      * @param bool $pValue
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function setDifferentOddEven($pValue)
     {
@@ -340,7 +340,7 @@ class HeaderFooter
      *
      * @param bool $pValue
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function setDifferentFirst($pValue)
     {
@@ -364,7 +364,7 @@ class HeaderFooter
      *
      * @param bool $pValue
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function setScaleWithDocument($pValue)
     {
@@ -388,7 +388,7 @@ class HeaderFooter
      *
      * @param bool $pValue
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function setAlignWithMargins($pValue)
     {
@@ -403,7 +403,7 @@ class HeaderFooter
      * @param HeaderFooterDrawing $image
      * @param string $location
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function addImage(HeaderFooterDrawing $image, $location = self::IMAGE_HEADER_LEFT)
     {
@@ -417,7 +417,7 @@ class HeaderFooter
      *
      * @param string $location
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function removeImage($location = self::IMAGE_HEADER_LEFT)
     {
@@ -433,7 +433,7 @@ class HeaderFooter
      *
      * @param HeaderFooterDrawing[] $images
      *
-     * @return HeaderFooter
+     * @return $this
      */
     public function setImages(array $images)
     {
