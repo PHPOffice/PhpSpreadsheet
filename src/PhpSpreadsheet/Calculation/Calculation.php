@@ -1052,6 +1052,11 @@ class Calculation
             'functionCall' => [Logical::class, 'IFNA'],
             'argumentCount' => '2',
         ],
+        'IFS' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2+',
+        ],
         'IMABS' => [
             'category' => Category::CATEGORY_ENGINEERING,
             'functionCall' => [Engineering::class, 'IMABS'],
@@ -1508,7 +1513,12 @@ class Calculation
         'NETWORKDAYS' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTime::class, 'NETWORKDAYS'],
-            'argumentCount' => '2+',
+            'argumentCount' => '2-3',
+        ],
+        'NETWORKDAYS.INTL' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
         ],
         'NOMINAL' => [
             'category' => Category::CATEGORY_FINANCIAL,
@@ -2177,7 +2187,12 @@ class Calculation
         'WORKDAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTime::class, 'WORKDAY'],
-            'argumentCount' => '2+',
+            'argumentCount' => '2-3',
+        ],
+        'WORKDAY.INTL' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
         ],
         'XIRR' => [
             'category' => Category::CATEGORY_FINANCIAL,

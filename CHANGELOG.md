@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Added
+
+- Improved the ARABIC function to also hande short-hand roman numerals
 - Added support for the FLOOR.MATH and FLOOR.PRECISE functions
+
+### Fixed
+
+- Fix ROUNDUP and ROUNDDOWN for floating-point rounding error [#1404](https://github.com/PHPOffice/PhpSpreadsheet/pull/1404)
 
 ## [1.11.0] - 2020-03-02
 
