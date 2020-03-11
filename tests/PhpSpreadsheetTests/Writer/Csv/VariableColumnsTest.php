@@ -2,10 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Csv;
 
-use PHPUnit\Framework\TestCase;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PHPUnit\Framework\TestCase;
 
 class VariableColumnsTest extends TestCase
 {

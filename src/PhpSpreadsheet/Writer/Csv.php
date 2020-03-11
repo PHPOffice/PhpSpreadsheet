@@ -68,7 +68,7 @@ class Csv extends BaseWriter
      * Whether number of columns should be allowed to vary
      * between rows, or use a fixed range based on the max
      * column overall.
-     * 
+     *
      * @var bool
      */
     private $variableColumns = false;
@@ -310,7 +310,7 @@ class Csv extends BaseWriter
      * column overall.
      *
      * @param bool $pValue Set the writer to allow variable column counts
-     * 
+     *
      * @return $this
      */
     public function setVariableColumns($pValue)
