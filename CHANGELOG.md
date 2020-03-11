@@ -7,13 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Added
+
+- Improved the ARABIC function to also hande short-hand roman numerals
+
+### Fixed
+
+- Fix ROUNDUP and ROUNDDOWN for floating-point rounding error [#1404](https://github.com/PHPOffice/PhpSpreadsheet/pull/1404)
+
+## [1.11.0] - 2020-03-02
+
+### Added
+
+- Added support for the BASE function
 - Added support for the ARABIC function
 - Conditionals - Extend Support for (NOT)CONTAINSBLANKS [#1278](https://github.com/PHPOffice/PhpSpreadsheet/pull/1278)
+
+### Fixed
+
 - Handle Error in Formula Processing Better for Xls [#1267](https://github.com/PHPOffice/PhpSpreadsheet/pull/1267)
 - Handle ConditionalStyle NumberFormat When Reading Xlsx File [#1296](https://github.com/PHPOffice/PhpSpreadsheet/pull/1296)
 - Fix Xlsx Writer's handling of decimal commas [#1282](https://github.com/PHPOffice/PhpSpreadsheet/pull/1282)
 - Fix for issue by removing test code mistakenly left in [#1328](https://github.com/PHPOffice/PhpSpreadsheet/pull/1328)
-- Fix incorrect behavior when removing last row [#1364](https://github.com/PHPOffice/PhpSpreadsheet/issues/1364)
+- Fix for Xls writer wrong selected cells and active sheet [#1256](https://github.com/PHPOffice/PhpSpreadsheet/pull/1256)
+- Fix active cell when freeze pane is used [#1323](https://github.com/PHPOffice/PhpSpreadsheet/pull/1323)
+- Fix XLSX file loading with autofilter containing '$' [#1326](https://github.com/PHPOffice/PhpSpreadsheet/pull/1326)
+- PHPDoc - Use `@return $this` for fluent methods [#1362](https://github.com/PHPOffice/PhpSpreadsheet/pull/1362)
+- Fix incorrect behavior when removing last row [#1365](https://github.com/PHPOffice/PhpSpreadsheet/pull/1365)
 
 ## [1.10.1] - 2019-12-02
 

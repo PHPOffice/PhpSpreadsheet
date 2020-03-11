@@ -59,7 +59,7 @@ class AutoFilter
      *
      * @param Worksheet $pSheet
      *
-     * @return AutoFilter
+     * @return $this
      */
     public function setParent(Worksheet $pSheet = null)
     {
@@ -85,7 +85,7 @@ class AutoFilter
      *
      * @throws PhpSpreadsheetException
      *
-     * @return AutoFilter
+     * @return $this
      */
     public function setRange($pRange)
     {
@@ -210,7 +210,7 @@ class AutoFilter
      *
      * @throws PhpSpreadsheetException
      *
-     * @return AutoFilter
+     * @return $this
      */
     public function setColumn($pColumn)
     {
@@ -241,7 +241,7 @@ class AutoFilter
      *
      * @throws PhpSpreadsheetException
      *
-     * @return AutoFilter
+     * @return $this
      */
     public function clearColumn($pColumn)
     {
@@ -264,7 +264,7 @@ class AutoFilter
      * @param string $fromColumn Column name (e.g. A)
      * @param string $toColumn Column name (e.g. B)
      *
-     * @return AutoFilter
+     * @return $this
      */
     public function shiftColumn($fromColumn, $toColumn)
     {
@@ -617,7 +617,7 @@ class AutoFilter
      *
      * @throws PhpSpreadsheetException
      *
-     * @return AutoFilter
+     * @return $this
      */
     public function showHideRows()
     {

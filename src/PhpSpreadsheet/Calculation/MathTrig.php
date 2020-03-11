@@ -61,32 +61,15 @@ class MathTrig
         }
 
         // Convert the roman numeral to an arabic number
-        $lookup = [
-            'M' => 1000, 'CM' => 900,
-            'D' => 500, 'CD' => 400,
-            'C' => 100, 'XC' => 90,
-            'L' => 50, 'XL' => 40,
-            'X' => 10, 'IX' => 9,
-            'V' => 5, 'IV' => 4, 'I' => 1,
-        ];
-
         $negativeNumber = $roman[0] === '-';
         if ($negativeNumber) {
             $roman = substr($roman, 1);
         }
 
-        $arabic = 0;
-        for ($i = 0; $i < strlen($roman); ++$i) {
-            if (!isset($lookup[$roman[$i]])) {
-                return Functions::VALUE(); // Invalid character detected
-            }
-
-            if ($i < (strlen($roman) - 1) && isset($lookup[substr($roman, $i, 2)])) {
-                $arabic += $lookup[substr($roman, $i, 2)]; // Detected a match on the next 2 characters
-                ++$i;
-            } else {
-                $arabic += $lookup[$roman[$i]]; // Detected a match on one character only
-            }
+        try {
+            $arabic = self::calculateArabic(str_split($roman));
+        } catch (\Exception $e) {
+            return Functions::VALUE(); // Invalid character detected
         }
 
         if ($negativeNumber) {
@@ -94,6 +77,47 @@ class MathTrig
         }
 
         return $arabic;
+    }
+
+    /**
+     * Recursively calculate the arabic value of a roman numeral.
+     *
+     * @param array $roman
+     * @param int $sum
+     * @param int $subtract
+     *
+     * @return int
+     */
+    protected static function calculateArabic(array $roman, &$sum = 0, $subtract = 0)
+    {
+        $lookup = [
+            'M' => 1000,
+            'D' => 500,
+            'C' => 100,
+            'L' => 50,
+            'X' => 10,
+            'V' => 5,
+            'I' => 1,
+        ];
+
+        $numeral = array_shift($roman);
+        if (!isset($lookup[$numeral])) {
+            throw new \Exception('Invalid character detected');
+        }
+
+        $arabic = $lookup[$numeral];
+        if (count($roman) > 0 && isset($lookup[$roman[0]]) && $arabic < $lookup[$roman[0]]) {
+            $subtract += $arabic;
+        } else {
+            $sum += ($arabic - $subtract);
+            $subtract = 0;
+        }
+
+        if (count($roman) > 0) {
+            self::calculateArabic($roman, $sum, $subtract);
+        }
+
+        return $sum;
     }
 
     /**
@@ -137,6 +161,49 @@ class MathTrig
             }
 
             return atan2($yCoordinate, $xCoordinate);
+        }
+
+        return Functions::VALUE();
+    }
+
+    /**
+     * BASE.
+     *
+     * Converts a number into a text representation with the given radix (base).
+     *
+     * Excel Function:
+     *        BASE(Number, Radix [Min_length])
+     *
+     * @category Mathematical and Trigonometric Functions
+     *
+     * @param float $number
+     * @param float $radix
+     * @param int $minLength
+     *
+     * @return string the text representation with the given radix (base)
+     */
+    public static function BASE($number, $radix, $minLength = null)
+    {
+        $number = Functions::flattenSingleValue($number);
+        $radix = Functions::flattenSingleValue($radix);
+        $minLength = Functions::flattenSingleValue($minLength);
+
+        if (is_numeric($number) && is_numeric($radix) && ($minLength === null || is_numeric($minLength))) {
+            // Truncate to an integer
+            $number = (int) $number;
+            $radix = (int) $radix;
+            $minLength = (int) $minLength;
+
+            if ($number < 0 || $number >= 2 ** 53 || $radix < 2 || $radix > 36) {
+                return Functions::NAN(); // Numeric range constraints
+            }
+
+            $outcome = strtoupper((string) base_convert($number, 10, $radix));
+            if ($minLength !== null) {
+                $outcome = str_pad($outcome, $minLength, '0', STR_PAD_LEFT); // String padding
+            }
+
+            return $outcome;
         }
 
         return Functions::VALUE();
@@ -997,12 +1064,13 @@ class MathTrig
         $digits = Functions::flattenSingleValue($digits);
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
-            $significance = pow(10, (int) $digits);
             if ($number < 0.0) {
+                $significance = pow(10, (int) $digits);
+
                 return floor($number * $significance) / $significance;
             }
 
-            return ceil($number * $significance) / $significance;
+            return round($number + 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_DOWN);
         }
 
         return Functions::VALUE();
@@ -1024,12 +1092,13 @@ class MathTrig
         $digits = Functions::flattenSingleValue($digits);
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
-            $significance = pow(10, (int) $digits);
             if ($number < 0.0) {
+                $significance = pow(10, (int) $digits);
+
                 return ceil($number * $significance) / $significance;
             }
 
-            return floor($number * $significance) / $significance;
+            return round($number - 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_UP);
         }
 
         return Functions::VALUE();
