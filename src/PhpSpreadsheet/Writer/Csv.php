@@ -65,6 +65,15 @@ class Csv extends BaseWriter
     private $excelCompatibility = false;
 
     /**
+     * Whether number of columns should be allowed to vary
+     * between rows, or use a fixed range based on the max
+     * column overall.
+     * 
+     * @var bool
+     */
+    private $variableColumns = false;
+
+    /**
      * Create a new CSV.
      *
      * @param Spreadsheet $spreadsheet Spreadsheet object
@@ -119,6 +128,9 @@ class Csv extends BaseWriter
 
         // Write rows to file
         for ($row = 1; $row <= $maxRow; ++$row) {
+            if ($this->variableColumns) {
+                $maxCol = $sheet->getHighestDataColumn($row);
+            }
             // Convert the row to an array...
             $cellsArray = $sheet->rangeToArray('A' . $row . ':' . $maxCol . $row, '', $this->preCalculateFormulas);
             // ... and write to the file
@@ -278,6 +290,34 @@ class Csv extends BaseWriter
         $this->excelCompatibility = $pValue;
 
         return $this;
+    }
+
+    /**
+     * Get whether number of columns should be allowed to vary
+     * between rows, or use a fixed range based on the max
+     * column overall.
+     *
+     * @return bool
+     */
+    public function getVariableColumns()
+    {
+        return $this->variableColumns;
+    }
+
+    /**
+     * Set whether number of columns should be allowed to vary
+     * between rows, or use a fixed range based on the max
+     * column overall.
+     *
+     * @param bool $pValue Set the writer to allow variable column counts
+     * 
+     * @return $this
+     */
+    public function setVariableColumns($pValue)
+    {
+        $this->variableColumns = $pValue;
+
+        return  $this;
     }
 
     /**
