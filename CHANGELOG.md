@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Improved the ARABIC function to also hande short-hand roman numerals
+- Option for CSV files to have varying numbers of columns for each individual row
 
 ### Fixed
 
