@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Fix ROUNDUP and ROUNDDOWN for floating-point rounding error [#1404](https://github.com/PHPOffice/PhpSpreadsheet/pull/1404)
-- Fix ROUNDUP and ROUNDDOWN for negative number
+- Fix ROUNDUP and ROUNDDOWN for negative number [#1417](https://github.com/PHPOffice/PhpSpreadsheet/pull/1417)
 
 ## [1.11.0] - 2020-03-02
 
