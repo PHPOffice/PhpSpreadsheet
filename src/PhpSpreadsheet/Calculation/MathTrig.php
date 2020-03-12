@@ -1139,9 +1139,7 @@ class MathTrig
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
             if ($number < 0.0) {
-                $significance = pow(10, (int) $digits);
-
-                return floor($number * $significance) / $significance;
+                return round($number - 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_DOWN);
             }
 
             return round($number + 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_DOWN);
@@ -1167,9 +1165,7 @@ class MathTrig
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
             if ($number < 0.0) {
-                $significance = pow(10, (int) $digits);
-
-                return ceil($number * $significance) / $significance;
+                return round($number + 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_UP);
             }
 
             return round($number - 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_UP);
