@@ -955,7 +955,12 @@ class Html extends BaseReader
      */
     private function setBorderStyle(Style $cellStyle, $styleValue, $type)
     {
-        [, $borderStyle, $color] = explode(' ', $styleValue);
+        if (trim($styleValue) === Border::BORDER_NONE) {
+            $borderStyle = Border::BORDER_NONE;
+            $color = null;
+        } else {
+            [, $borderStyle, $color] = explode(' ', $styleValue);
+        }
 
         $cellStyle->applyFromArray([
             'borders' => [
