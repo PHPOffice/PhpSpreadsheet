@@ -1044,7 +1044,7 @@ class Calculation
         ],
         'IFS' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Logical::class, 'IFS'],
             'argumentCount' => '2+',
         ],
         'IMABS' => [
