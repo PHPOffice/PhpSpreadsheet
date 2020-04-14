@@ -178,7 +178,7 @@ class Xlsx extends BaseWriter
 
             // If $pFilename is php://output or php://stdout, make it a temporary file...
             $originalFilename = $pFilename;
-            if (strtolower($pFilename) == 'php://output' || strtolower($pFilename) == 'php://stdout') {
+            if (strtolower($pFilename) == 'php://output' || strtolower($pFilename) == 'php://stdout' || strstr($pFilename, 's3://')) {
                 $pFilename = @tempnam(File::sysGetTempDir(), 'phpxltmp');
                 if ($pFilename == '') {
                     $pFilename = $originalFilename;
