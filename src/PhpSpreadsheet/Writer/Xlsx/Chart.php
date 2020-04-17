@@ -541,7 +541,7 @@ class Chart extends WriterPart
 
         if ($xAxis->getAxisOptionsProperty('minimum') !== null) {
             $objWriter->startElement('c:min');
-            $objWriter->writeAttribute('val', $xAxis->getAxisOptionsProperty('minimum'));Chart.php
+            $objWriter->writeAttribute('val', $xAxis->getAxisOptionsProperty('minimum'));
             $objWriter->endElement();
         }
 
