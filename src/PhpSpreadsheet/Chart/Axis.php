@@ -26,6 +26,7 @@ class Axis extends Properties
      * @var array of mixed
      */
     private $axisOptions = [
+        'hide' => 0,
         'minimum' => null,
         'maximum' => null,
         'major_unit' => null,
@@ -191,6 +192,29 @@ class Axis extends Properties
         ($maximum !== null) ? $this->axisOptions['maximum'] = (string) $maximum : null;
         ($major_unit !== null) ? $this->axisOptions['major_unit'] = (string) $major_unit : null;
         ($minor_unit !== null) ? $this->axisOptions['minor_unit'] = (string) $minor_unit : null;
+    }
+
+    /**
+     * Set Axis Visibility to TRUE
+     */
+    public function showAxis () {
+        $this->axisOptions['hide'] = 0;
+    }
+
+    /**
+     * Set Axis Visibility to FALSE
+     */
+    public function hideAxis () {
+        $this->axisOptions['hide'] = 1;
+    }
+
+    /**
+     * Get Axis Visibility.
+     *
+     * @return int
+     */
+    public function getAxisVisibilty () {
+        return $this->axisOptions['hide'];
     }
 
     /**

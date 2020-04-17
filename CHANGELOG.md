@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ## [Unreleased]
 
 - Conditionals - Extend Support for (NOT)CONTAINSBLANKS [#1278](https://github.com/PHPOffice/PhpSpreadsheet/pull/1278)
+### Added
+
+- Allow chart axis to be fully hidden [#1446](https://github.com/PHPOffice/PhpSpreadsheet/issues/1446)
 
 ### Fixed
 
