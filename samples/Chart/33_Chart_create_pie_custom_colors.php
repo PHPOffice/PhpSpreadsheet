@@ -162,7 +162,7 @@ $chart2 = new Chart(
     null, // legend
     $plotArea2, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
     null   // yAxisLabel - Like Pie charts, Donut charts don't have a Y-Axis
 );

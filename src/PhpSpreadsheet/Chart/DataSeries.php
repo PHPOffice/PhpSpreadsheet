@@ -40,6 +40,8 @@ class DataSeries
     const STYLE_MARKER = 'marker';
     const STYLE_FILLED = 'filled';
 
+    const EMPTY_AS_GAP = 'gap';
+
     /**
      * Series Plot Type.
      *
