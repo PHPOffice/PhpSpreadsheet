@@ -1828,7 +1828,7 @@ class Xlsx extends BaseReader
 
     private static function toCSSArray($style)
     {
-        $style = trim(str_replace(["\r", "\n"], '', $style), ';');
+        $style = self::stripWhiteSpaceFromStyleString($style);
 
         $temp = explode(';', $style);
         $style = [];
@@ -1855,6 +1855,11 @@ class Xlsx extends BaseReader
         }
 
         return $style;
+    }
+
+    public static function stripWhiteSpaceFromStyleString($string)
+    {
+        return trim(str_replace(["\r", "\n", ' '], '', $string), ';');
     }
 
     private static function boolean($value)
