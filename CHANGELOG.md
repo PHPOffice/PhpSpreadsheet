@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Fix ROUNDUP and ROUNDDOWN for floating-point rounding error [#1404](https://github.com/PHPOffice/PhpSpreadsheet/pull/1404)
+- Fix incorrect behavior when removing last row [#1365](https://github.com/PHPOffice/PhpSpreadsheet/pull/1365)
 
 ## [1.11.0] - 2020-03-02
 
@@ -33,7 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix active cell when freeze pane is used [#1323](https://github.com/PHPOffice/PhpSpreadsheet/pull/1323)
 - Fix XLSX file loading with autofilter containing '$' [#1326](https://github.com/PHPOffice/PhpSpreadsheet/pull/1326)
 - PHPDoc - Use `@return $this` for fluent methods [#1362](https://github.com/PHPOffice/PhpSpreadsheet/pull/1362)
-- Fix incorrect behavior when removing last row [#1365](https://github.com/PHPOffice/PhpSpreadsheet/pull/1365)
 
 ## [1.10.1] - 2019-12-02
 
