@@ -9,7 +9,6 @@ php:
 
 cache:
   directories:
-    - cache
     - vendor
     - $HOME/.composer/cache
 
@@ -41,19 +40,17 @@ jobs:
         - wget https://scrutinizer-ci.com/ocular.phar
         - php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml
 
-    - stage: API documentation
-      php: 7.2
+    - stage: API documentations
+      if: tag is present
+      php: 7.4
       before_script:
-      - curl -O https://get.sensiolabs.org/sami.phar
+      - curl -O https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.0.0-rc/phpDocumentor.phar
       script:
-      - git fetch origin master:master
-      - git fetch origin --tags
-      - php sami.phar update .sami.php
-      - echo '<html><head><meta http-equiv="Refresh" content="0; url=master/"></head><body><p>If you are not automatically redirected, please go to <a href="master/">the latest stable API documentation</a>.</p></body></html>' > build/index.html
+      - php phpDocumentor.phar --directory src/ --target docs/api
       deploy:
         provider: pages
         skip-cleanup: true
-        local-dir: build
+        local-dir: docs/api
         github-token: $GITHUB_TOKEN
         on:
           all_branches: true
