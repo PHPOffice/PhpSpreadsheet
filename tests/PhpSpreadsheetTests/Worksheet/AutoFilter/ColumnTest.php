@@ -13,7 +13,7 @@ class ColumnTest extends TestCase
 
     private $mockAutoFilterObject;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->mockAutoFilterObject = $this->getMockBuilder(AutoFilter::class)
             ->disableOriginalConstructor()

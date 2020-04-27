@@ -21,7 +21,7 @@ class AutoFilterTest extends TestCase
 
     private $cellCollection;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->mockWorksheetObject = $this->getMockBuilder(Worksheet::class)
             ->disableOriginalConstructor()

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls\Workbook;
+namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xls\Parser;
@@ -14,7 +14,7 @@ class WorkbookTest extends TestCase
      */
     private $workbook;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $spreadsheet = new Spreadsheet();
         $strTotal = 0;

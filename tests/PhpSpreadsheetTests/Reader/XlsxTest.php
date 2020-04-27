@@ -204,9 +204,6 @@ class XlsxTest extends TestCase
      */
     public function testLoadXlsxWithDoubleAttrDrawing()
     {
-        if (version_compare(PHP_VERSION, '7.0.0', '<')) {
-            $this->markTestSkipped('Only handled in PHP version >= 7.0.0');
-        }
         $filename = './data/Reader/XLSX/double_attr_drawing.xlsx';
         $reader = new Xlsx();
         $reader->load($filename);

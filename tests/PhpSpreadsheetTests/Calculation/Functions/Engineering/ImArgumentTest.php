@@ -10,7 +10,7 @@ class ImArgumentTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-8;
 
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -24,7 +24,7 @@ class ImArgumentTest extends TestCase
     public function testIMARGUMENT($expectedResult, $value)
     {
         $result = Engineering::IMARGUMENT($value);
-        $this->assertEquals($expectedResult, $result, '', self::COMPLEX_PRECISION);
+        $this->assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
     public function providerIMARGUMENT()
