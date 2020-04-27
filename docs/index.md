@@ -25,13 +25,14 @@ spreadsheet file formats, like Excel and LibreOffice Calc.
 
 ## Software requirements
 
-PHP version 7.1 or newer to develop using PhpSpreadsheet. Other requirements, such as PHP extensions, are enforced by
+PHP version 7.2 or newer to develop using PhpSpreadsheet. Other requirements, such as PHP extensions, are enforced by
 composer. See the `require` section of [the composer.json file](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/composer.json)
 for details.
 
 ### PHP version support
 
-Support for PHP versions will only be maintained for a period of six months beyond the end-of-life of that PHP version
+Support for PHP versions will only be maintained for a period of six months beyond the
+[end of life of that PHP version](https://www.php.net/eol.php).
 
 ## Installation
 
