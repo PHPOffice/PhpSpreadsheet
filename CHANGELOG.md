@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [1.12.0] - 2020-04-27
 
 ### Added
 
-- Improved the ARABIC function to also hande short-hand roman numerals
+- Improved the ARABIC function to also handle short-hand roman numerals
 - Added support for the FLOOR.MATH and FLOOR.PRECISE functions [#1351](https://github.com/PHPOffice/PhpSpreadsheet/pull/1351)
 
 ### Fixed
