@@ -4,7 +4,9 @@
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.5/phpunit.xsd"
         bootstrap="./tests/bootstrap.php"
         backupGlobals="true"
-        colors="true">
+        colors="true"
+        cacheResultFile="/tmp/.phpspreadsheet.phpunit.result.cache"
+>
     <php>
         <ini name="memory_limit" value="2048M"/>
     </php>
