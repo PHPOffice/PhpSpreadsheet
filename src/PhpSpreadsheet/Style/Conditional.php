@@ -27,6 +27,7 @@ class Conditional implements IComparable
     const OPERATOR_CONTAINSTEXT = 'containsText';
     const OPERATOR_NOTCONTAINS = 'notContains';
     const OPERATOR_BETWEEN = 'between';
+    const OPERATOR_NOTBETWEEN = 'notBetween';
 
     /**
      * Condition type.
