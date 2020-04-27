@@ -32,8 +32,6 @@ jobs:
       php: 7.4
       script:
         - pecl install pcov
-        - composer require pcov/clobber --dev
-        - ./vendor/bin/pcov clobber
         - ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
       after_script:
         - wget https://scrutinizer-ci.com/ocular.phar
