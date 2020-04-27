@@ -41,7 +41,6 @@ jobs:
         - php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml
 
     - stage: API documentations
-      if: tag is present
       php: 7.4
       before_script:
       - curl -O https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.0.0-rc/phpDocumentor.phar
@@ -52,6 +51,3 @@ jobs:
         skip-cleanup: true
         local-dir: docs/api
         github-token: $GITHUB_TOKEN
-        on:
-          all_branches: true
-          condition: $TRAVIS_BRANCH =~ ^master$
