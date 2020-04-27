@@ -41,6 +41,7 @@ jobs:
         - php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml
 
     - stage: API documentations
+      if: tag is present AND branch = master
       php: 7.4
       before_script:
       - curl -O https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.0.0-rc/phpDocumentor.phar
