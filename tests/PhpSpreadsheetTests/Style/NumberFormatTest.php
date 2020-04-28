@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class NumberFormatTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         StringHelper::setDecimalSeparator('.');
         StringHelper::setThousandsSeparator(',');

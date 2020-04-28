@@ -272,4 +272,136 @@ class WorksheetTest extends TestCase
         self::assertSame($expectedHighestColumn, $worksheet->getHighestColumn());
         self::assertSame($expectedData, $worksheet->toArray());
     }
+
+    public function removeRowsProvider()
+    {
+        return [
+            'Remove all rows except first one' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                    ['A3', 'B3', 'C3'],
+                    ['A4', 'B4', 'C4'],
+                ],
+                2,
+                3,
+                [
+                    ['A1', 'B1', 'C1'],
+                ],
+                1,
+            ],
+            'Remove all rows except last one' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                    ['A3', 'B3', 'C3'],
+                    ['A4', 'B4', 'C4'],
+                ],
+                1,
+                3,
+                [
+                    ['A4', 'B4', 'C4'],
+                ],
+                1,
+            ],
+            'Remove last row' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                    ['A3', 'B3', 'C3'],
+                    ['A4', 'B4', 'C4'],
+                ],
+                4,
+                1,
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                    ['A3', 'B3', 'C3'],
+                ],
+                3,
+            ],
+            'Remove first row' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                    ['A3', 'B3', 'C3'],
+                    ['A4', 'B4', 'C4'],
+                ],
+                1,
+                1,
+                [
+                    ['A2', 'B2', 'C2'],
+                    ['A3', 'B3', 'C3'],
+                    ['A4', 'B4', 'C4'],
+                ],
+                3,
+            ],
+            'Remove all rows except first and last' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                    ['A3', 'B3', 'C3'],
+                    ['A4', 'B4', 'C4'],
+                ],
+                2,
+                2,
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A4', 'B4', 'C4'],
+                ],
+                2,
+            ],
+            'Remove non existing rows' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                    ['A3', 'B3', 'C3'],
+                    ['A4', 'B4', 'C4'],
+                ],
+                2,
+                10,
+                [
+                    ['A1', 'B1', 'C1'],
+                ],
+                1,
+            ],
+            'Remove only non existing rows' => [
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                    ['A3', 'B3', 'C3'],
+                    ['A4', 'B4', 'C4'],
+                ],
+                5,
+                10,
+                [
+                    ['A1', 'B1', 'C1'],
+                    ['A2', 'B2', 'C2'],
+                    ['A3', 'B3', 'C3'],
+                    ['A4', 'B4', 'C4'],
+                ],
+                4,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider removeRowsProvider
+     */
+    public function testRemoveRows(
+        array $initialData,
+        int $rowToRemove,
+        int $rowsQtyToRemove,
+        array $expectedData,
+        int $expectedHighestRow
+    ) {
+        $workbook = new Spreadsheet();
+        $worksheet = $workbook->getActiveSheet();
+        $worksheet->fromArray($initialData);
+
+        $worksheet->removeRow($rowToRemove, $rowsQtyToRemove);
+
+        self::assertSame($expectedData, $worksheet->toArray());
+        self::assertSame($expectedHighestRow, $worksheet->getHighestRow());
+    }
 }

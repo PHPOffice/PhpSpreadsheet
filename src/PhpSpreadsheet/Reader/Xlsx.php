@@ -1620,8 +1620,6 @@ class Xlsx extends BaseReader
                 $docStyle->getFill()->setFillType($patternType);
                 if ($style->fill->patternFill->fgColor) {
                     $docStyle->getFill()->getStartColor()->setARGB(self::readColor($style->fill->patternFill->fgColor, true));
-                } else {
-                    $docStyle->getFill()->getStartColor()->setARGB('FF000000');
                 }
                 if ($style->fill->patternFill->bgColor) {
                     $docStyle->getFill()->getEndColor()->setARGB(self::readColor($style->fill->patternFill->bgColor, true));
@@ -1828,7 +1826,7 @@ class Xlsx extends BaseReader
 
     private static function toCSSArray($style)
     {
-        $style = trim(str_replace(["\r", "\n"], '', $style), ';');
+        $style = self::stripWhiteSpaceFromStyleString($style);
 
         $temp = explode(';', $style);
         $style = [];
@@ -1855,6 +1853,11 @@ class Xlsx extends BaseReader
         }
 
         return $style;
+    }
+
+    public static function stripWhiteSpaceFromStyleString($string)
+    {
+        return trim(str_replace(["\r", "\n", ' '], '', $string), ';');
     }
 
     private static function boolean($value)

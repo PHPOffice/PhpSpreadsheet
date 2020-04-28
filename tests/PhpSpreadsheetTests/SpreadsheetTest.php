@@ -11,7 +11,7 @@ class SpreadsheetTest extends TestCase
     /** @var Spreadsheet */
     private $object;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->object = new Spreadsheet();

@@ -83,8 +83,8 @@ class XlsxTest extends TestCase
     {
         $expectedColours = [
             1 => ['A' => 'C00000', 'C' => 'FF0000', 'E' => 'FFC000'],
-            3 => ['A' => '7030A0', 'C' => '000000', 'E' => 'FFFF00'],
-            5 => ['A' => '002060', 'C' => '000000', 'E' => '92D050'],
+            3 => ['A' => '7030A0', 'C' => 'FFFFFF', 'E' => 'FFFF00'],
+            5 => ['A' => '002060', 'C' => 'FFFFFF', 'E' => '92D050'],
             7 => ['A' => '0070C0', 'C' => '00B0F0', 'E' => '00B050'],
         ];
 
@@ -204,9 +204,6 @@ class XlsxTest extends TestCase
      */
     public function testLoadXlsxWithDoubleAttrDrawing()
     {
-        if (version_compare(PHP_VERSION, '7.0.0', '<')) {
-            $this->markTestSkipped('Only handled in PHP version >= 7.0.0');
-        }
         $filename = './data/Reader/XLSX/double_attr_drawing.xlsx';
         $reader = new Xlsx();
         $reader->load($filename);
@@ -227,5 +224,30 @@ class XlsxTest extends TestCase
         $excel = $reader->load($resultFilename);
         // Fake assert. The only thing we need is to ensure the file is loaded without exception
         $this->assertNotNull($excel);
+    }
+
+    /**
+     * Test if all whitespace is removed from a style definition string.
+     * This is needed to parse it into properties with the correct keys.
+     *
+     * @param $string
+     * @dataProvider providerStripsWhiteSpaceFromStyleString
+     */
+    public function testStripsWhiteSpaceFromStyleString($string)
+    {
+        $string = Xlsx::stripWhiteSpaceFromStyleString($string);
+        $this->assertEquals(preg_match('/\s/', $string), 0);
+    }
+
+    public function providerStripsWhiteSpaceFromStyleString()
+    {
+        return [
+            ['position:absolute;margin-left:424.5pt;margin-top:169.5pt;width:67.5pt;
+        height:13.5pt;z-index:5;mso-wrap-style:tight'],
+            ['position:absolute;margin-left:424.5pt;margin-top:169.5pt;width:67.5pt;
+height:13.5pt;z-index:5;mso-wrap-style:tight'],
+            ['position:absolute; margin-left:424.5pt; margin-top:169.5pt; width:67.5pt;
+            height:13.5pt;z-index:5;mso-wrap-style:tight'],
+        ];
     }
 }

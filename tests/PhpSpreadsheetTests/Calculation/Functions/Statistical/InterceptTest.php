@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class InterceptTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -21,7 +21,7 @@ class InterceptTest extends TestCase
     public function testINTERCEPT($expectedResult, array $xargs, array $yargs)
     {
         $result = Statistical::INTERCEPT($xargs, $yargs);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerINTERCEPT()

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class SqrtPiTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -22,7 +22,7 @@ class SqrtPiTest extends TestCase
     public function testSQRTPI($expectedResult, $value)
     {
         $result = MathTrig::SQRTPI($value);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSQRTPI()

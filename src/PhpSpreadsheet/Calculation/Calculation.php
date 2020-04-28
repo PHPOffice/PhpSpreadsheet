@@ -263,6 +263,11 @@ class Calculation
             'functionCall' => [Logical::class, 'logicalAnd'],
             'argumentCount' => '1+',
         ],
+        'ARABIC' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [MathTrig::class, 'ARABIC'],
+            'argumentCount' => '1',
+        ],
         'AREAS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [Functions::class, 'DUMMY'],
@@ -327,6 +332,11 @@ class Calculation
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '1',
+        ],
+        'BASE' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [MathTrig::class, 'BASE'],
+            'argumentCount' => '2,3',
         ],
         'BESSELI' => [
             'category' => Category::CATEGORY_ENGINEERING,
@@ -904,6 +914,16 @@ class Calculation
             'functionCall' => [MathTrig::class, 'FLOOR'],
             'argumentCount' => '2',
         ],
+        'FLOOR.MATH' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [MathTrig::class, 'FLOORMATH'],
+            'argumentCount' => '3',
+        ],
+        'FLOOR.PRECISE' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [MathTrig::class, 'FLOORPRECISE'],
+            'argumentCount' => '2',
+        ],
         'FORECAST' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'FORECAST'],
@@ -1031,6 +1051,11 @@ class Calculation
             'category' => Category::CATEGORY_LOGICAL,
             'functionCall' => [Logical::class, 'IFNA'],
             'argumentCount' => '2',
+        ],
+        'IFS' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2+',
         ],
         'IMABS' => [
             'category' => Category::CATEGORY_ENGINEERING,
@@ -1488,7 +1513,12 @@ class Calculation
         'NETWORKDAYS' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTime::class, 'NETWORKDAYS'],
-            'argumentCount' => '2+',
+            'argumentCount' => '2-3',
+        ],
+        'NETWORKDAYS.INTL' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
         ],
         'NOMINAL' => [
             'category' => Category::CATEGORY_FINANCIAL,
@@ -2157,7 +2187,12 @@ class Calculation
         'WORKDAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTime::class, 'WORKDAY'],
-            'argumentCount' => '2+',
+            'argumentCount' => '2-3',
+        ],
+        'WORKDAY.INTL' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
         ],
         'XIRR' => [
             'category' => Category::CATEGORY_FINANCIAL,
@@ -2210,7 +2245,7 @@ class Calculation
     private static $controlFunctions = [
         'MKMATRIX' => [
             'argumentCount' => '*',
-            'functionCall' => 'self::mkMatrix',
+            'functionCall' => [__CLASS__, 'mkMatrix'],
         ],
     ];
 
@@ -3712,7 +3747,7 @@ class Calculation
             } elseif (isset(self::$operators[$opCharacter]) && !$expectingOperator) {
                 return $this->raiseFormulaError("Formula Error: Unexpected operator '$opCharacter'");
             } else {    // I don't even want to know what you did to get here
-                return $this->raiseFormulaError('Formula Error: An unexpected error occured');
+                return $this->raiseFormulaError('Formula Error: An unexpected error occurred');
             }
             //    Test for end of formula string
             if ($index == strlen($formula)) {
@@ -4158,13 +4193,6 @@ class Calculation
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $token, $matches)) {
                 if ($pCellParent) {
                     $pCell->attach($pCellParent);
-                }
-                if (($cellID == 'AC99') || (isset($pCell) && $pCell->getCoordinate() == 'AC99')) {
-                    if (defined('RESOLVING')) {
-                        define('RESOLVING2', true);
-                    } else {
-                        define('RESOLVING', true);
-                    }
                 }
 
                 $functionName = $matches[1];

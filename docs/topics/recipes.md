@@ -3,12 +3,12 @@
 The following pages offer you some widely-used PhpSpreadsheet recipes.
 Please note that these do NOT offer complete documentation on specific
 PhpSpreadsheet API functions, but just a bump to get you started. If you
-need specific API functions, please refer to the [API documentation](https://phpoffice.github.io/PhpSpreadsheet/master).
+need specific API functions, please refer to the [API documentation](https://phpoffice.github.io/PhpSpreadsheet).
 
 For example, [setting a worksheet's page orientation and size
 ](#setting-a-worksheets-page-orientation-and-size) covers setting a page
 orientation to A4. Other paper formats, like US Letter, are not covered
-in this document, but in the PhpSpreadsheet [API documentation](https://phpoffice.github.io/PhpSpreadsheet/master).
+in this document, but in the PhpSpreadsheet [API documentation](https://phpoffice.github.io/PhpSpreadsheet).
 
 ## Setting a spreadsheet's metadata
 
@@ -301,7 +301,7 @@ $spreadsheet->getActiveSheet()->getPageSetup()
 ```
 
 Note that there are additional page settings available. Please refer to
-the [API documentation](https://phpoffice.github.io/PhpSpreadsheet/master) for all possible options.
+the [API documentation](https://phpoffice.github.io/PhpSpreadsheet) for all possible options.
 
 ### Page Setup: Scaling options
 

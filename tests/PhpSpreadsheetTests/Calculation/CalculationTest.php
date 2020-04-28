@@ -9,12 +9,12 @@ use PHPUnit\Framework\TestCase;
 
 class CalculationTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         $calculation = Calculation::getInstance();
         $calculation->setLocale('en_us');

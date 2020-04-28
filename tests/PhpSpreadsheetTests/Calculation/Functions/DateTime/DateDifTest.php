@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class DateDifTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -27,7 +27,7 @@ class DateDifTest extends TestCase
     public function testDATEDIF($expectedResult, $startDate, $endDate, $unit)
     {
         $result = DateTime::DATEDIF($startDate, $endDate, $unit);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDATEDIF()

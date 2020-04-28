@@ -12,13 +12,13 @@ class SettingsTest extends TestCase
      */
     protected $prevValue;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->prevValue = libxml_disable_entity_loader();
         libxml_disable_entity_loader(false); // Enable entity loader
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         libxml_disable_entity_loader($this->prevValue);
     }

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class Hex2DecTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }

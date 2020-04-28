@@ -67,7 +67,7 @@ class Cell
     /**
      * Update the cell into the cell collection.
      *
-     * @return self
+     * @return $this
      */
     public function updateInCollection()
     {
@@ -177,7 +177,7 @@ class Cell
      *
      * @throws Exception
      *
-     * @return Cell
+     * @return $this
      */
     public function setValue($pValue)
     {
@@ -266,7 +266,7 @@ class Cell
                 //    We don't yet handle array returns
                 if (is_array($result)) {
                     while (is_array($result)) {
-                        $result = array_pop($result);
+                        $result = array_shift($result);
                     }
                 }
             } catch (Exception $ex) {
@@ -672,7 +672,7 @@ class Cell
      *
      * @param mixed $pAttributes
      *
-     * @return Cell
+     * @return $this
      */
     public function setFormulaAttributes($pAttributes)
     {

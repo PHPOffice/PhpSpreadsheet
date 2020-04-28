@@ -289,12 +289,12 @@ class HtmlTest extends TestCase
         $cellStyle = $firstSheet->getStyle('A2');
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A2')->getValue();
-        $this->assertContains("\n", $cellValue);
+        $this->assertStringContainsString("\n", $cellValue);
 
         $cellStyle = $firstSheet->getStyle('A3');
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A3')->getValue();
-        $this->assertContains("\n", $cellValue);
+        $this->assertStringContainsString("\n", $cellValue);
 
         unlink($filename);
     }
@@ -321,12 +321,12 @@ class HtmlTest extends TestCase
         $cellStyle = $firstSheet->getStyle('A2');
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A2')->getValue();
-        $this->assertContains("\n", $cellValue);
+        $this->assertStringContainsString("\n", $cellValue);
 
         $cellStyle = $firstSheet->getStyle('A3');
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A3')->getValue();
-        $this->assertContains("\n", $cellValue);
+        $this->assertStringContainsString("\n", $cellValue);
     }
 
     public function testCanLoadFromStringIntoExistingSpreadsheet()
@@ -352,12 +352,12 @@ class HtmlTest extends TestCase
         $cellStyle = $firstSheet->getStyle('A2');
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A2')->getValue();
-        $this->assertContains("\n", $cellValue);
+        $this->assertStringContainsString("\n", $cellValue);
 
         $cellStyle = $firstSheet->getStyle('A3');
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A3')->getValue();
-        $this->assertContains("\n", $cellValue);
+        $this->assertStringContainsString("\n", $cellValue);
 
         $reader->setSheetIndex(1);
         $html = '<table>

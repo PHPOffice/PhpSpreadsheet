@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class XmlScannerTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         libxml_disable_entity_loader(false);
     }
