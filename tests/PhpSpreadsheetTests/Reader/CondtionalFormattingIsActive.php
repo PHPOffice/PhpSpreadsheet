@@ -14,7 +14,9 @@ class CondtionalFormattingIsActive extends TestCase
         $spreadsheet = $reader->load($filename);
         $worksheet = $spreadsheet->getActiveSheet();
         $conditionalFormattings = $worksheet->getConditionalStylesCollection();
-
+		$calcer = Calculation::getInstance($spreadsheet);
+		$precision =8;
+		
         // Taken from Excel 2013 manualy
         $should = [false, true, true, false, true, false, false, true, true, false, false, true, true, false, false, true, true, false, true, false, false, false, true, true];
 
@@ -53,7 +55,9 @@ class CondtionalFormattingIsActive extends TestCase
                             if ($row != $rowEnd) {
                                 $multuseRow = ($row - $j) * (-1);
                             }
-                            $active = $formating->isCondtionalStyleActive($spreadsheet, $worksheet, chr($i) . $j, $multuseCol, $multuseRow);
+							
+							$cell =$worksheet->getCell(chr($i) . $j);
+                            $active = $formating->isActive($calcer, $cell, $precision , $multuseCol, $multuseRow);
                             $actual[$j - 1] = $active;
                         }
                     }
