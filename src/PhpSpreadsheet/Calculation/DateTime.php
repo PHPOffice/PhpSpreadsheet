@@ -59,7 +59,7 @@ class DateTime
     /**
      * getDateValue.
      *
-     * @param string $dateValue
+     * @param mixed $dateValue
      *
      * @return mixed Excel date/time serial value, or string if error
      */

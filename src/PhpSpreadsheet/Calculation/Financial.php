@@ -856,6 +856,7 @@ class Financial
 
             //    Loop through each period calculating the depreciation
             $previousDepreciation = 0;
+            $depreciation = 0;
             for ($per = 1; $per <= $period; ++$per) {
                 if ($per == 1) {
                     $depreciation = $cost * $fixedDepreciationRate * $month / 12;
@@ -921,6 +922,7 @@ class Financial
 
             //    Loop through each period calculating the depreciation
             $previousDepreciation = 0;
+            $depreciation = 0;
             for ($per = 1; $per <= $period; ++$per) {
                 $depreciation = min(($cost - $previousDepreciation) * ($factor / $life), ($cost - $salvage - $previousDepreciation));
                 $previousDepreciation += $depreciation;
@@ -1841,7 +1843,7 @@ class Financial
      * @param float $guess Your guess for what the rate will be.
      *                                    If you omit guess, it is assumed to be 10 percent.
      *
-     * @return float
+     * @return float|string
      */
     public static function RATE($nper, $pmt, $pv, $fv = 0.0, $type = 0, $guess = 0.1)
     {
@@ -2161,6 +2163,19 @@ class Financial
     }
 
     /**
+     * bothNegAndPos.
+     *
+     * @param bool $neg
+     * @param bool $pos
+     *
+     * @return bool
+     */
+    private static function bothNegAndPos($neg, $pos)
+    {
+        return $neg && $pos;
+    }
+
+    /**
      * XIRR.
      *
      * Returns the internal rate of return for a schedule of cash flows that is not necessarily periodic.
@@ -2209,7 +2224,7 @@ class Financial
                 $foundneg = true;
             }
         }
-        if (!($foundneg && $foundpos)) {
+        if (!self::bothNegAndPos($foundneg, $foundpos)) {
             return Functions::NAN();
         }
 
