@@ -55,7 +55,8 @@
         "ext-zlib": "*",
         "markbaker/complex": "^1.4",
         "markbaker/matrix": "^1.2",
-        "psr/simple-cache": "^1.0"
+        "psr/simple-cache": "^1.0",
+        "phpunit/phpunit": "7.5"
     },
     "require-dev": {
         "dompdf/dompdf": "^0.8.3",
@@ -63,7 +64,6 @@
         "jpgraph/jpgraph": "^4.0",
         "mpdf/mpdf": "^8.0",
         "phpcompatibility/php-compatibility": "^9.3",
-        "phpunit/phpunit": "^7.5",
         "squizlabs/php_codesniffer": "^3.5",
         "tecnickcom/tcpdf": "^6.3"
     },
