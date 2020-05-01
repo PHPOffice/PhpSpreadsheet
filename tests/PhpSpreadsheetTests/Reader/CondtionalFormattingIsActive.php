@@ -16,6 +16,7 @@ class CondtionalFormattingIsActive extends TestCase
         $worksheet = $spreadsheet->getActiveSheet();
         $conditionalFormattings = $worksheet->getConditionalStylesCollection();
         $calcer = Calculation::getInstance($spreadsheet);
+		$calcer->disableCalculationCache();
         $precision = 8;
 
         // Taken from Excel 2013 manualy
@@ -58,6 +59,7 @@ class CondtionalFormattingIsActive extends TestCase
                             }
 
                             $cell = $worksheet->getCell(chr($i) . $j);
+							
                             $active = $formating->isActive($calcer, $cell, $precision, $multuseCol, $multuseRow);
                             $actual[$j - 1] = $active;
                         }
@@ -68,6 +70,7 @@ class CondtionalFormattingIsActive extends TestCase
         $count = count($should);
         for ($i = 0; $i < $count; ++$i) {
             self::assertEquals($should[$i], $actual[$i]);
+			
         }
     }
 }

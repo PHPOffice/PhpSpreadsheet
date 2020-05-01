@@ -283,6 +283,7 @@ class Conditional implements IComparable
      * Excel manges to have conditions that look like for e.g. =$E$5:$E$14 NOT Between -$D$5-0.4 And $D$5+0.4
      * That means the condtion will return -$D$5-0.4 and $D$5+0.4 everytime, but this must be adjusted in case of cell $E$6 to -$D$6-0.4 And $D$6+0.4
      * bccomp is used in case of floats comparison with a precision in number of decimalplaces.
+	 * The $calcer->disableCalculationCache(); should be used, if not the cached memorys lead the second paramter to fail 
      *
      * @param Calculation $calcer
      * @param Cell $cell
@@ -329,6 +330,7 @@ class Conditional implements IComparable
                 break;
             case self::OPERATOR_BETWEEN:
                 $coords2Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[1]));
+				
                 if ($coords1Val <= $coords2Val) {
                     $return = (bccomp($calcVal, $coords1Val, $precision) >= 0 && bccomp($calcVal, $coords2Val, $precision) <= 0);
                 } else {
@@ -337,7 +339,6 @@ class Conditional implements IComparable
 
                 break;
             case self::OPERATOR_NOTBETWEEN:
-
                 $coords2Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[1]));
                 if ($coords1Val <= $coords2Val) {
                     $return = (!(bccomp($calcVal, $coords1Val, $precision) <= 0 || bccomp($calcVal, $coords2Val, $precision) <= 0));
@@ -352,7 +353,6 @@ class Conditional implements IComparable
                 // This Code should never be done
                 throw new Exception('Unknown ' . $this->getOperatorType() . ' during active check of condtional formatting.');
         }
-
         return $return;
     }
 
@@ -388,10 +388,10 @@ class Conditional implements IComparable
         $referenceHelper = ReferenceHelper::getInstance(); // Update Internal References
         $conditions = $this->getConditions();
 
-        // Adjust updateConditionalColumBy/updateConditionalColumBy condtions means condtionas that
+        // Adjust updateConditionalColumBy/updateConditionalColumBy conditions means condtionas that
         $count = count($conditions);
         for ($i = 0; $i < $count; ++$i) {
-            if ($updateConditionalColumBy !== false || $updateConditionalRowBy !== false) {
+            if ($updateConditionalColumBy != 0 || $updateConditionalRowBy !=0) {
                 $conditions[$i] = $referenceHelper->updateFormulaReferences($conditions[$i], 'A1', $updateConditionalColumBy, $updateConditionalRowBy);
             }
             if ($makeFormula == true) {
@@ -411,7 +411,7 @@ class Conditional implements IComparable
      */
     private static function makeUsableFormula(string $condition)
     {
-        // Make usable formular if needed
+        // Make usable formula if needed
         if (substr($condition, 0, 1) != '=') {
             $condition = '=' . $condition;
         }
