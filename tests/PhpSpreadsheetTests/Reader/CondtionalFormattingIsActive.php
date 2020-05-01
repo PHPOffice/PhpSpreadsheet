@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CondtionalFormattingIsActive extends TestCase
 {

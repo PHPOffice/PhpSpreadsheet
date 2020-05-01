@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
+use PhpOffice\PhpSpreadsheet\IComparable;
 
 class Conditional implements IComparable
 {
@@ -297,7 +298,7 @@ class Conditional implements IComparable
         $return = false;
 
         // There should be only one (by <, <=, ==, !=, >=, >) or two conditions (between, notBetween)
-        $conditions = updateCellConditionals($updateConditionalColumBy, $updateConditionalRowBy);
+        $conditions = self::updateCellConditionals($updateConditionalColumBy, $updateConditionalRowBy);
         $calcVal = $calcer->calculate($cell);
         $coords1Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[0]));
 
@@ -394,7 +395,7 @@ class Conditional implements IComparable
                 $conditions[$i] = $referenceHelper->updateFormulaReferences($conditions[$i], 'A1', $updateConditionalColumBy, $updateConditionalRowBy);
             }
             if ($makeFormula == true) {
-                $conditions[$i] = makeUsableFormula($conditions[$i]);
+                $conditions[$i] = self::makeUsableFormula($conditions[$i]);
             }
         }
 
