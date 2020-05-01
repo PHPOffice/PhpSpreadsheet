@@ -130,7 +130,7 @@ abstract class Coordinate
         if (empty($pRange)) {
             $pRange = self::DEFAULT_RANGE;
         }
-        
+
         if (strpos(trim($pRange), ' ') !== false) {
             $delimiter = ' ';
         } else {
