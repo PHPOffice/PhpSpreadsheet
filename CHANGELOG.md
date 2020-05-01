@@ -7,13 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
-<<<<<<< HEAD
 ### Added
 
 - Conditionals - Added Support for checking if conditional formating is active
 
-=======
->>>>>>> collie/isCondtionalStyleActive
 ### Changed
 
 - Drop support for PHP 7.1, according to https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support
