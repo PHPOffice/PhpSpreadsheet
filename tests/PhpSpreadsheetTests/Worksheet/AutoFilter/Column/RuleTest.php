@@ -11,7 +11,7 @@ class RuleTest extends TestCase
 
     private $mockAutoFilterColumnObject;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->mockAutoFilterColumnObject = $this->getMockBuilder(Column::class)
             ->disableOriginalConstructor()

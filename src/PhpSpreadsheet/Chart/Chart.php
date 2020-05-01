@@ -197,7 +197,7 @@ class Chart
      *
      * @param Worksheet $pValue
      *
-     * @return Chart
+     * @return $this
      */
     public function setWorksheet(Worksheet $pValue = null)
     {
@@ -221,7 +221,7 @@ class Chart
      *
      * @param Title $title
      *
-     * @return Chart
+     * @return $this
      */
     public function setTitle(Title $title)
     {
@@ -245,7 +245,7 @@ class Chart
      *
      * @param Legend $legend
      *
-     * @return Chart
+     * @return $this
      */
     public function setLegend(Legend $legend)
     {
@@ -269,7 +269,7 @@ class Chart
      *
      * @param Title $label
      *
-     * @return Chart
+     * @return $this
      */
     public function setXAxisLabel(Title $label)
     {
@@ -293,7 +293,7 @@ class Chart
      *
      * @param Title $label
      *
-     * @return Chart
+     * @return $this
      */
     public function setYAxisLabel(Title $label)
     {
@@ -327,7 +327,7 @@ class Chart
      *
      * @param bool $plotVisibleOnly
      *
-     * @return Chart
+     * @return $this
      */
     public function setPlotVisibleOnly($plotVisibleOnly)
     {
@@ -351,7 +351,7 @@ class Chart
      *
      * @param string $displayBlanksAs
      *
-     * @return Chart
+     * @return $this
      */
     public function setDisplayBlanksAs($displayBlanksAs)
     {
@@ -423,7 +423,7 @@ class Chart
      * @param int $xOffset
      * @param int $yOffset
      *
-     * @return Chart
+     * @return $this
      */
     public function setTopLeftPosition($cell, $xOffset = null, $yOffset = null)
     {
@@ -467,7 +467,7 @@ class Chart
      *
      * @param string $cell
      *
-     * @return Chart
+     * @return $this
      */
     public function setTopLeftCell($cell)
     {
@@ -482,7 +482,7 @@ class Chart
      * @param int $xOffset
      * @param int $yOffset
      *
-     * @return Chart
+     * @return $this
      */
     public function setTopLeftOffset($xOffset, $yOffset)
     {
@@ -541,7 +541,7 @@ class Chart
      * @param int $xOffset
      * @param int $yOffset
      *
-     * @return Chart
+     * @return $this
      */
     public function setBottomRightPosition($cell, $xOffset = null, $yOffset = null)
     {
@@ -593,7 +593,7 @@ class Chart
      * @param int $xOffset
      * @param int $yOffset
      *
-     * @return Chart
+     * @return $this
      */
     public function setBottomRightOffset($xOffset, $yOffset)
     {

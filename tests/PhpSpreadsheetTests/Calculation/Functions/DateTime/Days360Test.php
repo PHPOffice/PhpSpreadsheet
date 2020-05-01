@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class Days360Test extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -27,7 +27,7 @@ class Days360Test extends TestCase
     public function testDAYS360($expectedResult, $startDate, $endDate, $method)
     {
         $result = DateTime::DAYS360($startDate, $endDate, $method);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDAYS360()

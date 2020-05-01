@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class PowerTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -21,7 +21,7 @@ class PowerTest extends TestCase
     public function testPOWER($expectedResult, ...$args)
     {
         $result = MathTrig::POWER(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerPOWER()

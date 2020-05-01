@@ -16,13 +16,13 @@ class ImCscTest extends TestCase
      */
     protected $complexAssert;
 
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         $this->complexAssert = null;
     }

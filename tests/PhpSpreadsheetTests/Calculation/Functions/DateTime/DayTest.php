@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class DayTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -26,12 +26,12 @@ class DayTest extends TestCase
     public function testDAY($expectedResultExcel, $expectedResultOpenOffice, $dateTimeValue)
     {
         $resultExcel = DateTime::DAYOFMONTH($dateTimeValue);
-        $this->assertEquals($expectedResultExcel, $resultExcel, '', 1E-8);
+        $this->assertEqualsWithDelta($expectedResultExcel, $resultExcel, 1E-8);
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
         $resultOpenOffice = DateTime::DAYOFMONTH($dateTimeValue);
-        $this->assertEquals($expectedResultOpenOffice, $resultOpenOffice, '', 1E-8);
+        $this->assertEqualsWithDelta($expectedResultOpenOffice, $resultOpenOffice, 1E-8);
     }
 
     public function providerDAY()

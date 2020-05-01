@@ -13,7 +13,7 @@ class ColumnCellIteratorTest extends TestCase
 
     public $mockCell;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->mockCell = $this->getMockBuilder(Cell::class)
             ->disableOriginalConstructor()

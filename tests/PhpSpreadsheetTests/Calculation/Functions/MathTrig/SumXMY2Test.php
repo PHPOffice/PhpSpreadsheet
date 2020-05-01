@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class SumXMY2Test extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -21,7 +21,7 @@ class SumXMY2Test extends TestCase
     public function testSUMXMY2($expectedResult, ...$args)
     {
         $result = MathTrig::SUMXMY2(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSUMXMY2()

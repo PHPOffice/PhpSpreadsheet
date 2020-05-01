@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class Xlsx2Test extends TestCase
 {
-    public function tearDown()
+    protected function tearDown(): void
     {
         $outfile = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         if (file_exists($outfile)) {

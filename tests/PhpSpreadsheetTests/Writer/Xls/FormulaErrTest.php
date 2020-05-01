@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls\Workbook;
+namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\NamedRange;
@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class FormulaErrTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown(): void
     {
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         if (file_exists($filename)) {

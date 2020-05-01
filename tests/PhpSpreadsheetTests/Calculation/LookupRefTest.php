@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class LookupRefTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -66,7 +66,7 @@ class LookupRefTest extends TestCase
         }
 
         $result = LookupRef::FORMULATEXT($reference, $ourCell);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerFormulaText()
