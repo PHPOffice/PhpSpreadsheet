@@ -2304,14 +2304,11 @@ class Financial
         return self::xnpvOrdered($rate, $values, $dates, true);
     }
 
-    private static function xnpvOrdered($rate, $values, $dates, $ordered = true)
+    private static function validateXnpv($rate, $values, $dates)
     {
-        $rate = Functions::flattenSingleValue($rate);
         if (!is_numeric($rate)) {
             return Functions::VALUE();
         }
-        $values = Functions::flattenArray($values);
-        $dates = Functions::flattenArray($dates);
         $valCount = count($values);
         if ($valCount != count($dates)) {
             return Functions::NAN();
@@ -2319,14 +2316,28 @@ class Financial
         if ($valCount > 1 && ((min($values) > 0) || (max($values) < 0))) {
             return Functions::NAN();
         }
+        $date0 = DateTime::getDateValue($dates[0]);
+        if (is_string($date0)) {
+            return Functions::VALUE();
+        }
 
+        return '';
+    }
+
+    private static function xnpvOrdered($rate, $values, $dates, $ordered = true)
+    {
+        $rate = Functions::flattenSingleValue($rate);
+        $values = Functions::flattenArray($values);
+        $dates = Functions::flattenArray($dates);
+        $valCount = count($values);
+        $date0 = DateTime::getDateValue($dates[0]);
+        $rslt = self::validateXnpv($rate, $values, $dates);
+        if ($rslt) {
+            return $rslt;
+        }
         $xnpv = 0.0;
         for ($i = 0; $i < $valCount; ++$i) {
             if (!is_numeric($values[$i])) {
-                return Functions::VALUE();
-            }
-            $date0 = DateTime::getDateValue($dates[0]);
-            if (is_string($date0)) {
                 return Functions::VALUE();
             }
             $datei = DateTime::getDateValue($dates[$i]);
