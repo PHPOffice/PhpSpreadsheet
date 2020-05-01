@@ -131,7 +131,7 @@ abstract class Coordinate
             $pRange = self::DEFAULT_RANGE;
         }
         
-        if (strpos(trim($pRange),' ') !== false) {
+        if (strpos(trim($pRange), ' ') !== false) {
             $delimiter = ' ';
         } else {
             $delimiter = ',';
