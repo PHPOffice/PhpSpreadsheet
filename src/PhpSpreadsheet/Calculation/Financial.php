@@ -1608,6 +1608,33 @@ class Financial
         return $interestAndPrincipal[1];
     }
 
+    private static function validatePrice($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis)
+    {
+        if (is_string($settlement)) {
+            return Functions::VALUE();
+        }
+        if (is_string($maturity)) {
+            return Functions::VALUE();
+        }
+        if (!is_numeric($rate)) {
+            return Functions::VALUE();
+        }
+        if (!is_numeric($yield)) {
+            return Functions::VALUE();
+        }
+        if (!is_numeric($redemption)) {
+            return Functions::VALUE();
+        }
+        if (!is_numeric($frequency)) {
+            return Functions::VALUE();
+        }
+        if (!is_numeric($basis)) {
+            return Functions::VALUE();
+        }
+
+        return '';
+    }
+
     public static function PRICE($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis = 0)
     {
         $settlement = Functions::flattenSingleValue($settlement);
@@ -1616,33 +1643,18 @@ class Financial
         $yield = Functions::flattenSingleValue($yield);
         $redemption = Functions::flattenSingleValue($redemption);
         $frequency = Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
+        $basis = Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-        if (!is_numeric($rate)) {
-            return Functions::VALUE();
+        $settlement = DateTime::getDateValue($settlement);
+        $maturity = DateTime::getDateValue($maturity);
+        $rslt = self::validatePrice($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis);
+        if ($rslt) {
+            return $rslt;
         }
         $rate = (float) $rate;
-        if (!is_numeric($yield)) {
-            return Functions::VALUE();
-        }
         $yield = (float) $yield;
-        if (!is_numeric($redemption)) {
-            return Functions::VALUE();
-        }
         $redemption = (float) $redemption;
-        if (!is_numeric($frequency)) {
-            return Functions::VALUE();
-        }
         $frequency = (int) $frequency;
-        if (!is_numeric($basis)) {
-            return Functions::VALUE();
-        }
         $basis = (int) $basis;
 
         if (($settlement > $maturity) ||
@@ -2162,55 +2174,13 @@ class Financial
         return Functions::VALUE();
     }
 
-    /**
-     * bothNegAndPos.
-     *
-     * @param bool $neg
-     * @param bool $pos
-     *
-     * @return bool
-     */
     private static function bothNegAndPos($neg, $pos)
     {
         return $neg && $pos;
     }
 
-    /**
-     * XIRR.
-     *
-     * Returns the internal rate of return for a schedule of cash flows that is not necessarily periodic.
-     *
-     * Excel Function:
-     *        =XIRR(values,dates,guess)
-     *
-     * @param float[] $values     A series of cash flow payments
-     *                                The series of values must contain at least one positive value & one negative value
-     * @param mixed[] $dates      A series of payment dates
-     *                                The first payment date indicates the beginning of the schedule of payments
-     *                                All other dates must be later than this date, but they may occur in any order
-     * @param float $guess        An optional guess at the expected answer
-     *
-     * @return float|mixed|string
-     */
-    public static function XIRR($values, $dates, $guess = 0.1)
+    private static function xirrPart2(&$values)
     {
-        if ((!is_array($values)) && (!is_array($dates))) {
-            return Functions::NA();
-        }
-        $values = Functions::flattenArray($values);
-        $dates = Functions::flattenArray($dates);
-        $guess = Functions::flattenSingleValue($guess);
-        if (count($values) != count($dates)) {
-            return Functions::NAN();
-        }
-
-        $datesCount = count($dates);
-        for ($i = 0; $i < $datesCount; ++$i) {
-            $dates[$i] = DateTime::getDateValue($dates[$i]);
-            if (!is_numeric($dates[$i])) {
-                return Functions::VALUE();
-            }
-        }
         $valCount = count($values);
         $foundpos = false;
         $foundneg = false;
@@ -2228,30 +2198,33 @@ class Financial
             return Functions::NAN();
         }
 
-        // create an initial range, with a root somewhere between 0 and guess
-        $x1 = 0.0;
-        $x2 = $guess ? $guess : 0.1;
-        $f1 = self::xnpvOrdered($x1, $values, $dates, false);
-        $f2 = self::xnpvOrdered($x2, $values, $dates, false);
-        $found = false;
-        for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
-            if (!is_numeric($f1) || !is_numeric($f2)) {
-                break;
-            }
-            if (($f1 * $f2) < 0.0) {
-                $found = true;
+        return '';
+    }
 
-                break;
-            } elseif (abs($f1) < abs($f2)) {
-                $f1 = self::xnpvOrdered($x1 += 1.6 * ($x1 - $x2), $values, $dates, false);
-            } else {
-                $f2 = self::xnpvOrdered($x2 += 1.6 * ($x2 - $x1), $values, $dates, false);
-            }
+    private static function xirrPart1(&$values, &$dates)
+    {
+        if ((!is_array($values)) && (!is_array($dates))) {
+            return Functions::NA();
         }
-        if (!$found) {
+        $values = Functions::flattenArray($values);
+        $dates = Functions::flattenArray($dates);
+        if (count($values) != count($dates)) {
             return Functions::NAN();
         }
 
+        $datesCount = count($dates);
+        for ($i = 0; $i < $datesCount; ++$i) {
+            $dates[$i] = DateTime::getDateValue($dates[$i]);
+            if (!is_numeric($dates[$i])) {
+                return Functions::VALUE();
+            }
+        }
+
+        return self::xirrPart2($values);
+    }
+
+    private static function xirrPart3($values, $dates, $x1, $x2)
+    {
         $f = self::xnpvOrdered($x1, $values, $dates, false);
         if ($f < 0.0) {
             $rtb = $x1;
@@ -2277,6 +2250,58 @@ class Financial
         }
 
         return $rslt;
+    }
+
+    /**
+     * XIRR.
+     *
+     * Returns the internal rate of return for a schedule of cash flows that is not necessarily periodic.
+     *
+     * Excel Function:
+     *        =XIRR(values,dates,guess)
+     *
+     * @param float[] $values     A series of cash flow payments
+     *                                The series of values must contain at least one positive value & one negative value
+     * @param mixed[] $dates      A series of payment dates
+     *                                The first payment date indicates the beginning of the schedule of payments
+     *                                All other dates must be later than this date, but they may occur in any order
+     * @param float $guess        An optional guess at the expected answer
+     *
+     * @return float|mixed|string
+     */
+    public static function XIRR($values, $dates, $guess = 0.1)
+    {
+        $rslt = self::xirrPart1($values, $dates);
+        if ($rslt) {
+            return $rslt;
+        }
+
+        // create an initial range, with a root somewhere between 0 and guess
+        $guess = Functions::flattenSingleValue($guess);
+        $x1 = 0.0;
+        $x2 = $guess ? $guess : 0.1;
+        $f1 = self::xnpvOrdered($x1, $values, $dates, false);
+        $f2 = self::xnpvOrdered($x2, $values, $dates, false);
+        $found = false;
+        for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
+            if (!is_numeric($f1) || !is_numeric($f2)) {
+                break;
+            }
+            if (($f1 * $f2) < 0.0) {
+                $found = true;
+
+                break;
+            } elseif (abs($f1) < abs($f2)) {
+                $f1 = self::xnpvOrdered($x1 += 1.6 * ($x1 - $x2), $values, $dates, false);
+            } else {
+                $f2 = self::xnpvOrdered($x2 += 1.6 * ($x2 - $x1), $values, $dates, false);
+            }
+        }
+        if (!$found) {
+            return Functions::NAN();
+        }
+
+        return self::xirrPart3($values, $dates, $x1, $x2);
     }
 
     /**

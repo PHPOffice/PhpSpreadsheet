@@ -1,6 +1,6 @@
 <?php
 
-// Settlement, Maturity, Rate, Yield, Redemption, Frequency, Basis, Result
+// Result, Settlement, Maturity, Rate, Yield, Redemption, Frequency, Basis
 
 return [
     [
@@ -171,7 +171,6 @@ return [
         0.10,
         100,
         2,
-        null,
     ],
     [
         110.834537395859,
