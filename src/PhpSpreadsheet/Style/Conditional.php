@@ -292,6 +292,8 @@ class Conditional implements IComparable
      * @param int $updateColumnBy
      * @param int $updateRowBy
      *
+     * @throws Exception
+     *
      * @return bool
      */
     public function isActive(Calculation $calcer, Cell $cell, int $precision = 8, int $updateColumnBy = 0, int $updateRowBy = 0)
@@ -299,7 +301,7 @@ class Conditional implements IComparable
         $return = false;
 
         // There should be only one (by <, <=, ==, !=, >=, >) or two conditions (between, notBetween)
-        $conditions = self::getUpdatedConditions($updateColumnBy, $updateRowBy);
+        $conditions = $this->getUpdatedConditions($updateColumnBy, $updateRowBy);
         $calcVal = $calcer->calculate($cell);
         $coords0Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[0]));
 
@@ -350,7 +352,7 @@ class Conditional implements IComparable
             case '':
                 break;
             default:
-                throw new Exception('Unknown ' . $this->getOperatorType() . ' during active check of conditional formatting.');
+                throw new \Exception('Unknown ' . $this->getOperatorType() . ' during active check of conditional formatting.');
         }
 
         return $return;

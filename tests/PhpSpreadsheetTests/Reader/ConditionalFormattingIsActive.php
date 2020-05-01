@@ -104,7 +104,6 @@ class ConditionalFormattingIsActive extends TestCase
         $worksheet = $spreadsheet->getActiveSheet();
 
         $worksheet->fromArray($source, null, 'A1', false);
-        var_dump($worksheet->getCell('A1')->getValue());
         self::assertEquals(0.0, $worksheet->getCell('A1')->getValue());
         self::assertEquals('beetween', $worksheet->getCell('F24')->getValue());
 
