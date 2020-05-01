@@ -4,8 +4,8 @@ namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 
 class Conditional implements IComparable
 {
@@ -278,86 +278,86 @@ class Conditional implements IComparable
     /**
      * Checks if a conditional formatting is active.
      * Limitated to mathematical/numeric conditionals (<, <=, ==, !=, >=, >, between, notBetween )
-     * updateConditionalRowBy is the count of connected rows to the conditional formatting.
-     * updateConditionalColumBy is the count of connected colums to the conditional formatting.
-     * Excel manges to have conditions that look like for e.g. =$E$5:$E$14 NOT Between -$D$5-0.4 And $D$5+0.4
-     * That means the condtion will return -$D$5-0.4 and $D$5+0.4 everytime, but this must be adjusted in case of cell $E$6 to -$D$6-0.4 And $D$6+0.4
-     * bccomp is used in case of floats comparison with a precision in number of decimalplaces.
-	 * The $calcer->disableCalculationCache(); should be used, if not the cached memorys lead the second paramter to fail 
+     * updateRowBy is the count of connected rows to the conditional formatting.
+     * updateColumnBy is the count of connected columns to the conditional formatting.
+     * Excel manages to have conditions that looks like for e.g. =$E$5:$E$14 NOT Between -$D$5-0.4 And $D$5+0.4
+     * That means the condition will return -$D$5-0.4 and $D$5+0.4 everytime, but this must be adjusted in case of cell $E$6 to -$D$6-0.4 And $D$6+0.4
+     * bccomp is used for floats comparison with a precision in number of decimalplaces. (Excel rounds to displayed precision before comparision)
+     * The $calcer->disableCalculationCache(); should be used, if not the cached memorys lead the second paramter to fail.
      *
      * @param Calculation $calcer
      * @param Cell $cell
      * @param string $cellName
      * @param int $precision
-     * @param int $updateConditionalColumBy
-     * @param int $updateConditionalRowBy
+     * @param int $updateColumnBy
+     * @param int $updateRowBy
      *
      * @return bool
      */
-    public function isActive(Calculation $calcer, Cell $cell, int $precision = 8, int $updateConditionalColumBy = 0, int $updateConditionalRowBy = 0)
+    public function isActive(Calculation $calcer, Cell $cell, int $precision = 8, int $updateColumnBy = 0, int $updateRowBy = 0)
     {
         $return = false;
 
         // There should be only one (by <, <=, ==, !=, >=, >) or two conditions (between, notBetween)
-        $conditions = self::updateCellConditionals($updateConditionalColumBy, $updateConditionalRowBy);
+        $conditions = self::getUpdatedConditions($updateColumnBy, $updateRowBy);
         $calcVal = $calcer->calculate($cell);
-        $coords1Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[0]));
+        $coords0Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[0]));
 
         switch ($this->getOperatorType()) {
             case self::OPERATOR_LESSTHAN:
-                $return = bccomp($calcVal, $coords1Val, $precision) < 0;
+                $return = bccomp($calcVal, $coords0Val, $precision) < 0;
 
                 break;
             case self::OPERATOR_LESSTHANOREQUAL:
-                $return = bccomp($calcVal, $coords1Val, $precision) <= 0;
+                $return = bccomp($calcVal, $coords0Val, $precision) <= 0;
 
                 break;
             case self::OPERATOR_EQUAL:
-                $return = bccomp($calcVal, $coords1Val, $precision) == 0;
+                $return = bccomp($calcVal, $coords0Val, $precision) == 0;
 
                 break;
             case self::OPERATOR_NOTEQUAL:
-                $return = bccomp($calcVal, $coords1Val, $precision) != 0;
+                $return = bccomp($calcVal, $coords0Val, $precision) != 0;
 
                 break;
             case self::OPERATOR_GREATERTHANOREQUAL:
-                $return = bccomp($calcVal, $coords1Val, $precision) >= 0;
+                $return = bccomp($calcVal, $coords0Val, $precision) >= 0;
 
                 break;
             case self::OPERATOR_GREATERTHAN:
-                $return = bccomp($calcVal, $coords1Val, $precision) > 0;
+                $return = bccomp($calcVal, $coords0Val, $precision) > 0;
 
                 break;
             case self::OPERATOR_BETWEEN:
-                $coords2Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[1]));
-				
-                if ($coords1Val <= $coords2Val) {
-                    $return = (bccomp($calcVal, $coords1Val, $precision) >= 0 && bccomp($calcVal, $coords2Val, $precision) <= 0);
+                $coords1Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[1]));
+
+                if ($coords0Val <= $coords1Val) {
+                    $return = (bccomp($calcVal, $coords0Val, $precision) >= 0 && bccomp($calcVal, $coords1Val, $precision) <= 0);
                 } else {
-                    $return = (bccomp($calcVal, $coords2Val, $precision) >= 0 && bccomp($calcVal, $coords1Val, $precision) <= 0);
+                    $return = (bccomp($calcVal, $coords1Val, $precision) >= 0 && bccomp($calcVal, $coords0Val, $precision) <= 0);
                 }
 
                 break;
             case self::OPERATOR_NOTBETWEEN:
-                $coords2Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[1]));
-                if ($coords1Val <= $coords2Val) {
-                    $return = (!(bccomp($calcVal, $coords1Val, $precision) <= 0 || bccomp($calcVal, $coords2Val, $precision) <= 0));
+                $coords1Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[1]));
+                if ($coords0Val <= $coords1Val) {
+                    $return = (!(bccomp($calcVal, $coords0Val, $precision) <= 0 || bccomp($calcVal, $coords1Val, $precision) <= 0));
                 } else {
-                    $return = (!(bccomp($calcVal, $coords2Val, $precision) <= 0 || bccomp($calcVal, $coords1Val, $precision) <= 0));
+                    $return = (!(bccomp($calcVal, $coords1Val, $precision) <= 0 || bccomp($calcVal, $coords0Val, $precision) <= 0));
                 }
 
                 break;
             case '':
                 break;
             default:
-                // This Code should never be done
-                throw new Exception('Unknown ' . $this->getOperatorType() . ' during active check of condtional formatting.');
+                throw new Exception('Unknown ' . $this->getOperatorType() . ' during active check of conditional formatting.');
         }
+
         return $return;
     }
 
     /**
-     * Simplify calculation result.
+     * unwarp calculation result (if necessary).
      *
      * @param mixed $calcRes
      *
@@ -375,25 +375,23 @@ class Conditional implements IComparable
     }
 
     /**
-     * Updates References of conditions by updateConditionalColumBy/updateConditionalRowBy use of conditional statement.
+     * Updates References of conditions by updateColumnBy/updateRowBy use of conditional statement.
      *
-     * @param int $updateConditionalColumBy
-     * @param int $updateConditionalRowBy
+     * @param int $updateColumnBy
+     * @param int $updateRowBy
      * @param bool $makeFormula
      *
      * @return array
      */
-    public function updateCellConditionals(int $updateConditionalColumBy, int $updateConditionalRowBy, bool $makeFormula = true)
+    public function getUpdatedConditions(int $updateColumnBy = 0, int $updateRowBy = 0, bool $makeFormula = true)
     {
-        $referenceHelper = ReferenceHelper::getInstance(); // Update Internal References
+        $referenceHelper = ReferenceHelper::getInstance();
         $conditions = $this->getConditions();
 
-        // Adjust updateConditionalColumBy/updateConditionalColumBy conditions means condtionas that
         $count = count($conditions);
         for ($i = 0; $i < $count; ++$i) {
-            if ($updateConditionalColumBy != 0 || $updateConditionalRowBy !=0) {
-                $conditions[$i] = $referenceHelper->updateFormulaReferences($conditions[$i], 'A1', $updateConditionalColumBy, $updateConditionalRowBy);
-            }
+            $conditions[$i] = $referenceHelper->updateFormulaReferences($conditions[$i], 'A1', $updateColumnBy, $updateRowBy);
+
             if ($makeFormula == true) {
                 $conditions[$i] = self::makeUsableFormula($conditions[$i]);
             }

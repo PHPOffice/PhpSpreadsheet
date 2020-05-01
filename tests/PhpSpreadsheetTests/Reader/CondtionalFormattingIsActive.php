@@ -2,9 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PHPUnit\Framework\TestCase;
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class CondtionalFormattingIsActive extends TestCase
 {
@@ -16,7 +16,7 @@ class CondtionalFormattingIsActive extends TestCase
         $worksheet = $spreadsheet->getActiveSheet();
         $conditionalFormattings = $worksheet->getConditionalStylesCollection();
         $calcer = Calculation::getInstance($spreadsheet);
-		$calcer->disableCalculationCache();
+        $calcer->disableCalculationCache();
         $precision = 8;
 
         // Taken from Excel 2013 manualy
@@ -47,9 +47,9 @@ class CondtionalFormattingIsActive extends TestCase
             }
 
             $multuseRow = false;
-            for ($i = $col; $i <= $colEnd; ++$i) {
-                for ($j = $row; $j <= $rowEnd; ++$j) {
-                    if (isset($formatings) && count($formatings) > 0) {
+            if (isset($formatings) && count($formatings) > 0) {
+                for ($i = $col; $i <= $colEnd; ++$i) {
+                    for ($j = $row; $j <= $rowEnd; ++$j) {
                         foreach ($formatings as $formating) {
                             if ($col != $colEnd) {
                                 $multuseCol = ($col - $i) * (-1);
@@ -59,7 +59,7 @@ class CondtionalFormattingIsActive extends TestCase
                             }
 
                             $cell = $worksheet->getCell(chr($i) . $j);
-							
+
                             $active = $formating->isActive($calcer, $cell, $precision, $multuseCol, $multuseRow);
                             $actual[$j - 1] = $active;
                         }
@@ -70,7 +70,6 @@ class CondtionalFormattingIsActive extends TestCase
         $count = count($should);
         for ($i = 0; $i < $count; ++$i) {
             self::assertEquals($should[$i], $actual[$i]);
-			
         }
     }
 }
