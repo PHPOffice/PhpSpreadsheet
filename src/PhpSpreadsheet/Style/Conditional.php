@@ -387,7 +387,7 @@ class Conditional implements IComparable
     {
         $referenceHelper = ReferenceHelper::getInstance();
         $conditions = $this->getConditions();
-
+		
         $count = count($conditions);
         for ($i = 0; $i < $count; ++$i) {
             $conditions[$i] = $referenceHelper->updateFormulaReferences($conditions[$i], 'A1', $updateColumnBy, $updateRowBy);
