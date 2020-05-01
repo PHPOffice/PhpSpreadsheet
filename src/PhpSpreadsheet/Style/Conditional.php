@@ -275,99 +275,80 @@ class Conditional implements IComparable
     }
 
     /**
-     * Checks is a conditonal formatting  is active.
-     *
-     * @param mixed $spreadsheet
-     * @param mixed $worksheet
-     * @param mixed $cellName
-     * @param mixed $multuseCol
-     * @param mixed $multuseRow
+     * Checks if a conditional formatting is active.
+	 * Limitated to mathematical/numeric conditionals (<, <=, ==, !=, >=, >, between, notBetween )
+	 * updateConditionalRowBy is the count of connected rows to the conditional formatting. 
+	 * updateConditionalColumBy is the count of connected colums to the conditional formatting.  
+     * Excel manges to have conditions that look like for e.g. =$E$5:$E$14 NOT Between -$D$5-0.4 And $D$5+0.4 
+	 * That means the condtion will return -$D$5-0.4 and $D$5+0.4 everytime, but this must be adjusted in case of cell $E$6 to -$D$6-0.4 And $D$6+0.4
+	 * bccomp is used in case of floats comparison with a precision in number of decimalplaces
+	 *
+     * @param Calculation $calcer
+     * @param Cell $cell
+     * @param String $cellName
+     * @param int $precision
+     * @param int $updateConditionalColumBy
+     * @param int $updateConditionalRowBy
      *
      * @return bool
      */
-    public function isCondtionalStyleActive($spreadsheet, $worksheet, $cellName, $multuseCol = 0, $multuseRow = 0)
+    public function isActive( Calculation $calcer, Cell $cell, int $precision = 8, int $updateConditionalColumBy = 0, int $updateConditionalRowBy = 0)
     {
         $return = false;
-        $referenceHelper = ReferenceHelper::getInstance(); //Update Internal References
-        $condis = $this->getConditions();
-
-        //Adjust Multirow/MultiColumn condtions
-        $count = count($condis);
-        for ($i = 0; $i < $count; ++$i) {
-            if ($multuseCol !== false || $multuseRow !== false) {
-                $condis[$i] = $referenceHelper->updateFormulaReferences($condis[$i], 'A1', $multuseCol, $multuseRow);
-            }
-        }
-
-        //Calc Cellvalue
-        $calcer = Calculation::getInstance($spreadsheet);
-        $calcer->disableCalculationCache();
-        $calcVal = $calcer->calculate($worksheet->getCell($cellName));
-        $valstr = $condis[0];
-        if (substr($valstr, 0, 1) != '=') {
-            $valstr = '=' . $valstr;
-        }
-
-        $coords1Val = self::unwrapCalcFormRes($calcer->calculateFormula($valstr));
+		
+		// There should be only one (by <, <=, ==, !=, >=, >) or two conditions (between, notBetween)
+        $conditions = updateCellConditionals($updateConditionalColumBy, $updateConditionalRowBy);
+        $calcVal = $calcer->calculate($cell);
+        $coords1Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[0]));
 
         switch ($this->getOperatorType()) {
             case self::OPERATOR_LESSTHAN:
-                $return = bccomp($calcVal, $coords1Val, 8) < 0;
+                $return = bccomp($calcVal, $coords1Val, $precision) < 0;
 
                 break;
             case self::OPERATOR_LESSTHANOREQUAL:
-                $return = bccomp($calcVal, $coords1Val, 8) <= 0;
+                $return = bccomp($calcVal, $coords1Val, $precision) <= 0;
 
                 break;
             case self::OPERATOR_EQUAL:
-                $return = bccomp($calcVal, $coords1Val, 8) == 0;
+                $return = bccomp($calcVal, $coords1Val, $precision) == 0;
 
                 break;
             case self::OPERATOR_NOTEQUAL:
-                $return = bccomp($calcVal, $coords1Val, 8) != 0;
+                $return = bccomp($calcVal, $coords1Val, $precision) != 0;
 
                 break;
             case self::OPERATOR_GREATERTHANOREQUAL:
-                $return = bccomp($calcVal, $coords1Val, 8) >= 0;
+                $return = bccomp($calcVal, $coords1Val, $precision) >= 0;
 
                 break;
             case self::OPERATOR_GREATERTHAN:
-                $return = bccomp($calcVal, $coords1Val, 8) > 0;
+                $return = bccomp($calcVal, $coords1Val, $precision) > 0;
 
                 break;
-            case self::OPERATOR_BETWEEN:
-                $valstr2 = $condis[1];
-                if (substr($valstr2, 0, 1) != '=') {
-                    $valstr2 = '=' . $valstr2;
-                }
-
-                $coords2Val = self::unwrapCalcFormRes($calcer->calculateFormula($valstr2));
+            case self::OPERATOR_BETWEEN:    
+                $coords2Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[1]));
                 if ($coords1Val <= $coords2Val) {
-                    $return = (bccomp($calcVal, $coords1Val, 8) >= 0 && bccomp($calcVal, $coords2Val, 8) <= 0);
+                    $return = (bccomp($calcVal, $coords1Val, $precision) >= 0 && bccomp($calcVal, $coords2Val, $precision) <= 0);
                 } else {
-                    $return = (bccomp($calcVal, $coords2Val, 8) >= 0 && bccomp($calcVal, $coords1Val, 8) <= 0);
+                    $return = (bccomp($calcVal, $coords2Val, $precision) >= 0 && bccomp($calcVal, $coords1Val, $precision) <= 0);
                 }
 
                 break;
             case self::OPERATOR_NOTBETWEEN:
-                $valstr2 = $condis[1];
-                if (substr($valstr2, 0, 1) != '=') {
-                    $valstr2 = '=' . $valstr2;
-                }
-                $coords2Val = self::unwrapCalcFormRes($calcer->calculateFormula($valstr2));
 
+                $coords2Val = self::unwrapCalcFormRes($calcer->calculateFormula($conditions[1]));
                 if ($coords1Val <= $coords2Val) {
-                    $return = (!(bccomp($calcVal, $coords1Val, 8) <= 0 || bccomp($calcVal, $coords2Val, 8) <= 0));
+                    $return = (!(bccomp($calcVal, $coords1Val, $precision) <= 0 || bccomp($calcVal, $coords2Val, $precision) <= 0));
                 } else {
-                    $return = (!(bccomp($calcVal, $coords2Val, 8) <= 0 || bccomp($calcVal, $coords1Val, 8) <= 0));
+                    $return = (!(bccomp($calcVal, $coords2Val, $precision) <= 0 || bccomp($calcVal, $coords1Val, $precision) <= 0));
                 }
-
                 break;
             case '':
                 break;
             default:
-                //This Code should never be done
-                echo 'Should never Happen Error: ' . $this->getOperatorType();
+                // This Code should never be done
+                throw new Exception( 'Unknown ' . $this->getOperatorType() ." during active check of condtional formatting.");
         }
 
         return $return;
@@ -378,7 +359,7 @@ class Conditional implements IComparable
      *
      * @param mixed $calcRes
      *
-     * @return float
+     * @return mixed
      */
     private static function unwrapCalcFormRes($calcRes)
     {
@@ -390,4 +371,46 @@ class Conditional implements IComparable
 
         return $res;
     }
+	
+	 /**
+     * Updates References of conditions by updateConditionalColumBy/updateConditionalRowBy use of conditional statement 
+     *
+     * @param int $updateConditionalColumBy
+     * @param int $updateConditionalRowBy
+     * @param bool $makeFormula
+     *
+     * @return array
+     */
+	public function updateCellConditionals(int $updateConditionalColumBy,int $updateConditionalRowBy, bool $makeFormula = true){
+		$referenceHelper = ReferenceHelper::getInstance(); // Update Internal References
+		$conditions = $this->getConditions();
+
+        // Adjust updateConditionalColumBy/updateConditionalColumBy condtions means condtionas that 
+        $count = count($conditions);
+        for ($i = 0; $i < $count; ++$i) {
+            if ($updateConditionalColumBy !== false || $updateConditionalRowBy !== false) {
+                $conditions[$i] = $referenceHelper->updateFormulaReferences($conditions[$i], 'A1', $updateConditionalColumBy, $updateConditionalRowBy);
+            }
+			if($makeFormula == true){
+				$conditions[$i] = makeUsableFormula($conditions[$i]);
+			}
+        }
+		
+		return $conditions;
+	}
+	
+	/**
+     * Make a formula out of condition string if needed.
+     *
+     * @param string $condition
+     *
+     * @return string
+     */
+	private static function makeUsableFormula(string $condition){
+		// Make usable formular if needed
+		if (substr($condition, 0, 1) != '=') {
+			$condition = '=' . $condition;
+		}
+		return $condition;
+	}
 }
