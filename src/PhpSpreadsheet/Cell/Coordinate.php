@@ -130,8 +130,14 @@ abstract class Coordinate
         if (empty($pRange)) {
             $pRange = self::DEFAULT_RANGE;
         }
+        
+        if (strpos(trim($pRange),' ') !== false) {
+            $delimiter = ' ';
+        } else {
+            $delimiter = ',';
+        }
 
-        $exploded = explode(',', $pRange);
+        $exploded = explode($delimiter, $pRange);
         $counter = count($exploded);
         for ($i = 0; $i < $counter; ++$i) {
             $exploded[$i] = explode(':', $exploded[$i]);
