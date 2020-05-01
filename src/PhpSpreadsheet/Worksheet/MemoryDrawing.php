@@ -74,7 +74,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @param resource $value
      *
-     * @return MemoryDrawing
+     * @return $this
      */
     public function setImageResource($value)
     {
@@ -104,7 +104,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @param string $value see self::RENDERING_*
      *
-     * @return MemoryDrawing
+     * @return $this
      */
     public function setRenderingFunction($value)
     {
@@ -128,7 +128,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @param string $value see self::MIMETYPE_*
      *
-     * @return MemoryDrawing
+     * @return $this
      */
     public function setMimeType($value)
     {

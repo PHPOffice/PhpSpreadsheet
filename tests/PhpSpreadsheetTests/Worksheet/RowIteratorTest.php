@@ -13,7 +13,7 @@ class RowIteratorTest extends TestCase
 
     public $mockRow;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->mockRow = $this->getMockBuilder(Row::class)
             ->disableOriginalConstructor()

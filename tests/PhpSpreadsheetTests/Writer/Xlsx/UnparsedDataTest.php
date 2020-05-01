@@ -45,15 +45,15 @@ class UnparsedDataTest extends TestCase
         unlink($resultFilename);
 
         // [Content_Types].xml
-        $this->assertContains('application/vnd.openxmlformats-officedocument.spreadsheetml.printerSettings', $resultContentTypesRaw, 'Content type for printerSettings not found!');
-        $this->assertContains('application/vnd.ms-office.vbaProject', $resultContentTypesRaw, 'Content type for VbaProject not found!');
-        $this->assertContains('application/vnd.ms-excel.controlproperties+xml', $resultContentTypesRaw, 'Content type for ctrlProp not found!');
+        $this->assertStringContainsString('application/vnd.openxmlformats-officedocument.spreadsheetml.printerSettings', $resultContentTypesRaw, 'Content type for printerSettings not found!');
+        $this->assertStringContainsString('application/vnd.ms-office.vbaProject', $resultContentTypesRaw, 'Content type for VbaProject not found!');
+        $this->assertStringContainsString('application/vnd.ms-excel.controlproperties+xml', $resultContentTypesRaw, 'Content type for ctrlProp not found!');
 
         // xl/ctrlProps/ctrlProp1.xml
         $this->assertNotEmpty($resultControlPropRaw, 'ctrlProp not found!');
 
         // xl/drawings/drawing1.xml
-        $this->assertContains('<mc:AlternateContent', $resultDrawingRaw, 'AlternateContent at drawing.xml not found!');
+        $this->assertStringContainsString('<mc:AlternateContent', $resultDrawingRaw, 'AlternateContent at drawing.xml not found!');
 
         // xl/drawings/vmlDrawing1.vml
         $this->assertNotEmpty($resultVmlDrawingRaw, 'vmlDrawing not found!');
@@ -78,12 +78,12 @@ class UnparsedDataTest extends TestCase
         unset($xmlWorkbook);
 
         // xl/worksheets/_rels/sheet1.xml.rels
-        $this->assertContains('http://schemas.openxmlformats.org/officeDocument/2006/relationships/printerSettings', $resultSheet1RelsRaw, 'Sheet relation with printerSettings not found!');
-        $this->assertContains('http://schemas.openxmlformats.org/officeDocument/2006/relationships/vmlDrawing', $resultSheet1RelsRaw, 'Sheet relation with vmlDrawing not found!');
-        $this->assertContains('http://schemas.openxmlformats.org/officeDocument/2006/relationships/ctrlProp', $resultSheet1RelsRaw, 'Sheet relation with ctrlProp not found!');
+        $this->assertStringContainsString('http://schemas.openxmlformats.org/officeDocument/2006/relationships/printerSettings', $resultSheet1RelsRaw, 'Sheet relation with printerSettings not found!');
+        $this->assertStringContainsString('http://schemas.openxmlformats.org/officeDocument/2006/relationships/vmlDrawing', $resultSheet1RelsRaw, 'Sheet relation with vmlDrawing not found!');
+        $this->assertStringContainsString('http://schemas.openxmlformats.org/officeDocument/2006/relationships/ctrlProp', $resultSheet1RelsRaw, 'Sheet relation with ctrlProp not found!');
 
         // xl/worksheets/sheet1.xml
-        $this->assertContains('<mc:AlternateContent', $resultSheet1Raw, 'AlternateContent at sheet1.xml not found!');
+        $this->assertStringContainsString('<mc:AlternateContent', $resultSheet1Raw, 'AlternateContent at sheet1.xml not found!');
         $xmlWorksheet = simplexml_load_string($resultSheet1Raw, 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
         $pageSetupAttributes = $xmlWorksheet->pageSetup->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
         $this->assertTrue(isset($pageSetupAttributes->id), 'sheet1.xml/pageSetup[r:id] not found!');

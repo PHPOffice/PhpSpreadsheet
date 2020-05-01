@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class AccrintTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -21,7 +21,7 @@ class AccrintTest extends TestCase
     public function testACCRINT($expectedResult, ...$args)
     {
         $result = Financial::ACCRINT(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerACCRINT()

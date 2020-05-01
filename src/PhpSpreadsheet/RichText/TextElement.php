@@ -37,7 +37,7 @@ class TextElement implements ITextElement
      *
      * @param $text string Text
      *
-     * @return ITextElement
+     * @return $this
      */
     public function setText($text)
     {

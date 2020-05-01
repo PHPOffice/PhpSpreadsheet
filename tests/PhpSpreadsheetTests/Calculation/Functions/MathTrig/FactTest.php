@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class FactTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -22,7 +22,7 @@ class FactTest extends TestCase
     public function testFACT($expectedResult, $value)
     {
         $result = MathTrig::FACT($value);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerFACT()
