@@ -277,7 +277,7 @@ class Conditional implements IComparable
 
     /**
      * Checks if a conditional formatting is active.
-     * Limitated to mathematical/numeric conditionals (<, <=, ==, !=, >=, >, between, notBetween )
+     * This is currently limited to mathematical/numeric conditionals (<, <=, ==, !=, >=, >, between, notBetween )
      * updateRowBy is the count of connected rows to the conditional formatting.
      * updateColumnBy is the count of connected columns to the conditional formatting.
      * Excel manages to have conditions that looks like for e.g. =$E$5:$E$14 NOT Between -$D$5-0.4 And $D$5+0.4
@@ -357,7 +357,7 @@ class Conditional implements IComparable
     }
 
     /**
-     * unwarp calculation result (if necessary).
+     * unwrap calculation result (if necessary).
      *
      * @param mixed $calcRes
      *

@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PHPUnit\Framework\TestCase;
 
-class CondtionalFormattingIsActive extends TestCase
+class ConditionalFormattingIsActive extends TestCase
 {
     public function testCondtionalformattingIsActive()
     {
@@ -19,7 +19,7 @@ class CondtionalFormattingIsActive extends TestCase
         $calcer->disableCalculationCache();
         $precision = 8;
 
-        // Taken from Excel 2113 manualy
+        // Taken from Excel 2013 manualy
         $should = [false, true, true, false, true, false, false, true, true, false, false, true, true, false, false, true, true, false, true, false, false, false, true, true];
 
         $actual = [];
@@ -396,7 +396,7 @@ class CondtionalFormattingIsActive extends TestCase
         $calcer->disableCalculationCache();
         $precision = 8;
 
-        // Taken from Excel 2113 manualy
+        // Taken from Excel 2013 manualy
         $should = [false, true, true, false, true, false, false, true, true, false, false, true, true, false, false, true, true, false, true, false, false, false, true, true];
 
         $actual = [];

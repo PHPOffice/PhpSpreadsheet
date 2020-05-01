@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Added
+
+- Conditionals - Added Support for checking if conditional formating is active
+
 ### Changed
 
 - Drop support for PHP 7.1, according to https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support
@@ -33,7 +37,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Added support for the BASE function
 - Added support for the ARABIC function
-- Conditionals - Added Support for checking if condtional formating is active
 - Conditionals - Extend Support for (NOT)CONTAINSBLANKS [#1278](https://github.com/PHPOffice/PhpSpreadsheet/pull/1278)
 
 ### Fixed
