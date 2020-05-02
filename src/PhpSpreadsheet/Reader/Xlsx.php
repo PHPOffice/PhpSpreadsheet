@@ -1007,7 +1007,7 @@ class Xlsx extends BaseReader
                                                 Settings::getLibXmlLoaderOptions()
                                             );
                                             $drawings = [];
-                                            if(isset($relsVML->Relationship )){
+                                            if (isset($relsVML->Relationship)) {
                                                 foreach ($relsVML->Relationship as $ele) {
                                                     if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image') {
                                                         $drawings[(string) $ele['Id']] = self::dirAdd($vmlRelationship, $ele['Target']);
