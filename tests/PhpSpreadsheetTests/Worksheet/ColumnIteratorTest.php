@@ -13,7 +13,7 @@ class ColumnIteratorTest extends TestCase
 
     public $mockColumn;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->mockColumn = $this->getMockBuilder(Column::class)
             ->disableOriginalConstructor()

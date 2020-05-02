@@ -61,32 +61,15 @@ class MathTrig
         }
 
         // Convert the roman numeral to an arabic number
-        $lookup = [
-            'M' => 1000, 'CM' => 900,
-            'D' => 500, 'CD' => 400,
-            'C' => 100, 'XC' => 90,
-            'L' => 50, 'XL' => 40,
-            'X' => 10, 'IX' => 9,
-            'V' => 5, 'IV' => 4, 'I' => 1,
-        ];
-
         $negativeNumber = $roman[0] === '-';
         if ($negativeNumber) {
             $roman = substr($roman, 1);
         }
 
-        $arabic = 0;
-        for ($i = 0; $i < strlen($roman); ++$i) {
-            if (!isset($lookup[$roman[$i]])) {
-                return Functions::VALUE(); // Invalid character detected
-            }
-
-            if ($i < (strlen($roman) - 1) && isset($lookup[substr($roman, $i, 2)])) {
-                $arabic += $lookup[substr($roman, $i, 2)]; // Detected a match on the next 2 characters
-                ++$i;
-            } else {
-                $arabic += $lookup[$roman[$i]]; // Detected a match on one character only
-            }
+        try {
+            $arabic = self::calculateArabic(str_split($roman));
+        } catch (\Exception $e) {
+            return Functions::VALUE(); // Invalid character detected
         }
 
         if ($negativeNumber) {
@@ -94,6 +77,47 @@ class MathTrig
         }
 
         return $arabic;
+    }
+
+    /**
+     * Recursively calculate the arabic value of a roman numeral.
+     *
+     * @param array $roman
+     * @param int $sum
+     * @param int $subtract
+     *
+     * @return int
+     */
+    protected static function calculateArabic(array $roman, &$sum = 0, $subtract = 0)
+    {
+        $lookup = [
+            'M' => 1000,
+            'D' => 500,
+            'C' => 100,
+            'L' => 50,
+            'X' => 10,
+            'V' => 5,
+            'I' => 1,
+        ];
+
+        $numeral = array_shift($roman);
+        if (!isset($lookup[$numeral])) {
+            throw new \Exception('Invalid character detected');
+        }
+
+        $arabic = $lookup[$numeral];
+        if (count($roman) > 0 && isset($lookup[$roman[0]]) && $arabic < $lookup[$roman[0]]) {
+            $subtract += $arabic;
+        } else {
+            $sum += ($arabic - $subtract);
+            $subtract = 0;
+        }
+
+        if (count($roman) > 0) {
+            self::calculateArabic($roman, $sum, $subtract);
+        }
+
+        return $sum;
     }
 
     /**
@@ -409,6 +433,80 @@ class MathTrig
             }
 
             return Functions::NAN();
+        }
+
+        return Functions::VALUE();
+    }
+
+    /**
+     * FLOOR.MATH.
+     *
+     * Round a number down to the nearest integer or to the nearest multiple of significance.
+     *
+     * Excel Function:
+     *        FLOOR.MATH(number[,significance[,mode]])
+     *
+     * @category Mathematical and Trigonometric Functions
+     *
+     * @param float $number Number to round
+     * @param float $significance Significance
+     * @param int $mode direction to round negative numbers
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     */
+    public static function FLOORMATH($number, $significance = null, $mode = 0)
+    {
+        $number = Functions::flattenSingleValue($number);
+        $significance = Functions::flattenSingleValue($significance);
+        $mode = Functions::flattenSingleValue($mode);
+
+        if (is_numeric($number) && $significance === null) {
+            $significance = $number / abs($number);
+        }
+
+        if (is_numeric($number) && is_numeric($significance) && is_numeric($mode)) {
+            if ($significance == 0.0) {
+                return Functions::DIV0();
+            } elseif ($number == 0.0) {
+                return 0.0;
+            } elseif (self::SIGN($significance) == -1 || (self::SIGN($number) == -1 && !empty($mode))) {
+                return ceil($number / $significance) * $significance;
+            }
+
+            return floor($number / $significance) * $significance;
+        }
+
+        return Functions::VALUE();
+    }
+
+    /**
+     * FLOOR.PRECISE.
+     *
+     * Rounds number down, toward zero, to the nearest multiple of significance.
+     *
+     * Excel Function:
+     *        FLOOR.PRECISE(number[,significance])
+     *
+     * @category Mathematical and Trigonometric Functions
+     *
+     * @param float $number Number to round
+     * @param float $significance Significance
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     */
+    public static function FLOORPRECISE($number, $significance = 1)
+    {
+        $number = Functions::flattenSingleValue($number);
+        $significance = Functions::flattenSingleValue($significance);
+
+        if ((is_numeric($number)) && (is_numeric($significance))) {
+            if ($significance == 0.0) {
+                return Functions::DIV0();
+            } elseif ($number == 0.0) {
+                return 0.0;
+            }
+
+            return floor($number / abs($significance)) * abs($significance);
         }
 
         return Functions::VALUE();
@@ -1040,12 +1138,11 @@ class MathTrig
         $digits = Functions::flattenSingleValue($digits);
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
-            $significance = pow(10, (int) $digits);
             if ($number < 0.0) {
-                return floor($number * $significance) / $significance;
+                return round($number - 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_DOWN);
             }
 
-            return ceil($number * $significance) / $significance;
+            return round($number + 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_DOWN);
         }
 
         return Functions::VALUE();
@@ -1067,12 +1164,11 @@ class MathTrig
         $digits = Functions::flattenSingleValue($digits);
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
-            $significance = pow(10, (int) $digits);
             if ($number < 0.0) {
-                return ceil($number * $significance) / $significance;
+                return round($number + 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_UP);
             }
 
-            return floor($number * $significance) / $significance;
+            return round($number - 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_UP);
         }
 
         return Functions::VALUE();

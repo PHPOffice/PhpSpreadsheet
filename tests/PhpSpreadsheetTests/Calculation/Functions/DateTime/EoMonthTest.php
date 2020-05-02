@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class EoMonthTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -26,7 +26,7 @@ class EoMonthTest extends TestCase
     public function testEOMONTH($expectedResult, $dateValue, $adjustmentMonths)
     {
         $result = DateTime::EOMONTH($dateValue, $adjustmentMonths);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerEOMONTH()
@@ -39,7 +39,8 @@ class EoMonthTest extends TestCase
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = DateTime::EOMONTH('2012-1-26', -1);
-        $this->assertEquals(1325289600, $result, '', 1E-8);
+        $this->assertEquals(1325289600, $result);
+        $this->assertEqualsWithDelta(1325289600, $result, 1E-8);
     }
 
     public function testEOMONTHtoDateTimeObject()

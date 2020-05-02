@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CountTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -21,7 +21,7 @@ class CountTest extends TestCase
     public function testBasicCOUNT($expectedResult, ...$args)
     {
         $result = Statistical::COUNT(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerBasicCOUNT()
@@ -37,7 +37,7 @@ class CountTest extends TestCase
     public function testExcelCOUNT($expectedResult, ...$args)
     {
         $result = Statistical::COUNT(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerExcelCOUNT()
@@ -55,7 +55,7 @@ class CountTest extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
         $result = Statistical::COUNT(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerOpenOfficeCOUNT()
@@ -73,7 +73,7 @@ class CountTest extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
 
         $result = Statistical::COUNT(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerGnumericCOUNT()

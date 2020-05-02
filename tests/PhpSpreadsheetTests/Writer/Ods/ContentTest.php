@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Writer\Ods\Content;
+namespace PhpOffice\PhpSpreadsheetTests\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -23,7 +23,7 @@ class ContentTest extends TestCase
      */
     private $compatibilityMode;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -31,7 +31,7 @@ class ContentTest extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         Functions::setCompatibilityMode($this->compatibilityMode);

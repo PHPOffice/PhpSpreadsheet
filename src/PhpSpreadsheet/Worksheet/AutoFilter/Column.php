@@ -117,7 +117,7 @@ class Column
      *
      * @throws PhpSpreadsheetException
      *
-     * @return Column
+     * @return $this
      */
     public function setColumnIndex($pColumn)
     {
@@ -147,7 +147,7 @@ class Column
      *
      * @param AutoFilter $pParent
      *
-     * @return Column
+     * @return $this
      */
     public function setParent(AutoFilter $pParent = null)
     {
@@ -173,7 +173,7 @@ class Column
      *
      * @throws PhpSpreadsheetException
      *
-     * @return Column
+     * @return $this
      */
     public function setFilterType($pFilterType)
     {
@@ -203,7 +203,7 @@ class Column
      *
      * @throws PhpSpreadsheetException
      *
-     * @return Column
+     * @return $this
      */
     public function setJoin($pJoin)
     {
@@ -223,7 +223,7 @@ class Column
      *
      * @param string[] $attributes
      *
-     * @return Column
+     * @return $this
      */
     public function setAttributes(array $attributes)
     {
@@ -238,7 +238,7 @@ class Column
      * @param string $pName Attribute Name
      * @param string $pValue Attribute Value
      *
-     * @return Column
+     * @return $this
      */
     public function setAttribute($pName, $pValue)
     {
@@ -316,7 +316,7 @@ class Column
      *
      * @param Column\Rule $pRule
      *
-     * @return Column
+     * @return $this
      */
     public function addRule(Column\Rule $pRule)
     {
@@ -332,7 +332,7 @@ class Column
      *
      * @param int $pIndex Rule index in the ruleset array
      *
-     * @return Column
+     * @return $this
      */
     public function deleteRule($pIndex)
     {
@@ -350,7 +350,7 @@ class Column
     /**
      * Delete all AutoFilter Column Rules.
      *
-     * @return Column
+     * @return $this
      */
     public function clearRules()
     {

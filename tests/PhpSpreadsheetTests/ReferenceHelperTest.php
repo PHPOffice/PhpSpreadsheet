@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class ReferenceHelperTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
     }
 

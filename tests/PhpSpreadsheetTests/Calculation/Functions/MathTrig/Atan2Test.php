@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class Atan2Test extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -23,7 +23,7 @@ class Atan2Test extends TestCase
     public function testATAN2($expectedResult, $x, $y)
     {
         $result = MathTrig::ATAN2($x, $y);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerATAN2()

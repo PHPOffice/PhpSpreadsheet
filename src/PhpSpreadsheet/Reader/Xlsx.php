@@ -1007,7 +1007,7 @@ class Xlsx extends BaseReader
                                                 Settings::getLibXmlLoaderOptions()
                                             );
                                             $drawings = [];
-                                            if(isset($relsVML->Relationship )){
+                                            if (isset($relsVML->Relationship)) {
                                                 foreach ($relsVML->Relationship as $ele) {
                                                     if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image') {
                                                         $drawings[(string) $ele['Id']] = self::dirAdd($vmlRelationship, $ele['Target']);
@@ -1621,8 +1621,6 @@ class Xlsx extends BaseReader
                 $docStyle->getFill()->setFillType($patternType);
                 if ($style->fill->patternFill->fgColor) {
                     $docStyle->getFill()->getStartColor()->setARGB(self::readColor($style->fill->patternFill->fgColor, true));
-                } else {
-                    $docStyle->getFill()->getStartColor()->setARGB('FF000000');
                 }
                 if ($style->fill->patternFill->bgColor) {
                     $docStyle->getFill()->getEndColor()->setARGB(self::readColor($style->fill->patternFill->bgColor, true));
@@ -1829,7 +1827,7 @@ class Xlsx extends BaseReader
 
     private static function toCSSArray($style)
     {
-        $style = trim(str_replace(["\r", "\n"], '', $style), ';');
+        $style = self::stripWhiteSpaceFromStyleString($style);
 
         $temp = explode(';', $style);
         $style = [];
@@ -1856,6 +1854,11 @@ class Xlsx extends BaseReader
         }
 
         return $style;
+    }
+
+    public static function stripWhiteSpaceFromStyleString($string)
+    {
+        return trim(str_replace(["\r", "\n", ' '], '', $string), ';');
     }
 
     private static function boolean($value)
