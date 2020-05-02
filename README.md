@@ -22,6 +22,8 @@ PhpSpreadsheet is the next version of PHPExcel. It breaks compatibility to drama
 
 Because all efforts have shifted to PhpSpreadsheet, PHPExcel will no longer be maintained. All contributions for PHPExcel, patches and new features, should target PhpSpreadsheet `master` branch.
 
+Do you need to migrate? [Here is how](/docs/topics/migration-from-PHPExcel.md)
+
 ## License
 
 PhpSpreadsheet is licensed under [MIT](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/LICENSE).
