@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class TimeValueTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -25,7 +25,7 @@ class TimeValueTest extends TestCase
     public function testTIMEVALUE($expectedResult, $timeValue)
     {
         $result = DateTime::TIMEVALUE($timeValue);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerTIMEVALUE()
@@ -38,7 +38,8 @@ class TimeValueTest extends TestCase
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = DateTime::TIMEVALUE('7:30:20');
-        $this->assertEquals(23420, $result, '', 1E-8);
+        $this->assertEquals(23420, $result);
+        $this->assertEqualsWithDelta(23420, $result, 1E-8);
     }
 
     public function testTIMEVALUEtoDateTimeObject()

@@ -13,7 +13,7 @@ class ColumnTest extends TestCase
 
     public $mockColumn;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->mockWorksheet = $this->getMockBuilder(Worksheet::class)
             ->disableOriginalConstructor()

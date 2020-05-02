@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class MInverseTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -21,7 +21,7 @@ class MInverseTest extends TestCase
     public function testMINVERSE($expectedResult, ...$args)
     {
         $result = MathTrig::MINVERSE(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerMINVERSE()

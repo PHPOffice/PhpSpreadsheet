@@ -2,14 +2,12 @@ language: php
 dist: bionic
 
 php:
-  - 7.1
   - 7.2
   - 7.3
   - 7.4
 
 cache:
   directories:
-    - cache
     - vendor
     - $HOME/.composer/cache
 
@@ -25,36 +23,29 @@ jobs:
   include:
 
     - stage: Code style
-      php: 7.2
+      php: 7.4
       script:
         - ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run
         - ./vendor/bin/phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n
 
     - stage: Coverage
-      php: 7.2
+      php: 7.4
       script:
         - pecl install pcov
-        - composer require pcov/clobber --dev
-        - ./vendor/bin/pcov clobber
         - ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
       after_script:
         - wget https://scrutinizer-ci.com/ocular.phar
         - php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml
 
-    - stage: API documentation
-      php: 7.2
+    - stage: API documentations
+      if: tag is present AND branch = master
+      php: 7.4
       before_script:
-      - curl -O https://get.sensiolabs.org/sami.phar
+      - curl -O https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.0.0-rc/phpDocumentor.phar
       script:
-      - git fetch origin master:master
-      - git fetch origin --tags
-      - php sami.phar update .sami.php
-      - echo '<html><head><meta http-equiv="Refresh" content="0; url=master/"></head><body><p>If you are not automatically redirected, please go to <a href="master/">the latest stable API documentation</a>.</p></body></html>' > build/index.html
+      - php phpDocumentor.phar --directory src/ --target docs/api
       deploy:
         provider: pages
         skip-cleanup: true
-        local-dir: build
+        local-dir: docs/api
         github-token: $GITHUB_TOKEN
-        on:
-          all_branches: true
-          condition: $TRAVIS_BRANCH =~ ^master$

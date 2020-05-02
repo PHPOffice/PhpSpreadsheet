@@ -75,7 +75,7 @@ class Security
      *
      * @param bool $pValue
      *
-     * @return Security
+     * @return $this
      */
     public function setLockRevision($pValue)
     {
@@ -99,7 +99,7 @@ class Security
      *
      * @param bool $pValue
      *
-     * @return Security
+     * @return $this
      */
     public function setLockStructure($pValue)
     {
@@ -123,7 +123,7 @@ class Security
      *
      * @param bool $pValue
      *
-     * @return Security
+     * @return $this
      */
     public function setLockWindows($pValue)
     {
@@ -148,7 +148,7 @@ class Security
      * @param string $pValue
      * @param bool $pAlreadyHashed If the password has already been hashed, set this to true
      *
-     * @return Security
+     * @return $this
      */
     public function setRevisionsPassword($pValue, $pAlreadyHashed = false)
     {
@@ -176,7 +176,7 @@ class Security
      * @param string $pValue
      * @param bool $pAlreadyHashed If the password has already been hashed, set this to true
      *
-     * @return Security
+     * @return $this
      */
     public function setWorkbookPassword($pValue, $pAlreadyHashed = false)
     {

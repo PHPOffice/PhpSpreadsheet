@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class SteyxTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -21,7 +21,7 @@ class SteyxTest extends TestCase
     public function testSTEYX($expectedResult, array $xargs, array $yargs)
     {
         $result = Statistical::STEYX($xargs, $yargs);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSTEYX()

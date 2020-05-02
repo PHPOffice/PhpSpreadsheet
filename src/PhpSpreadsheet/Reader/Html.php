@@ -223,7 +223,7 @@ class Html extends BaseReader
      *
      * @param string $pValue Input encoding, eg: 'ANSI'
      *
-     * @return Html
+     * @return $this
      */
     public function setInputEncoding($pValue)
     {
@@ -669,7 +669,7 @@ class Html extends BaseReader
      *
      * @param int $pValue Sheet index
      *
-     * @return HTML
+     * @return $this
      */
     public function setSheetIndex($pValue)
     {

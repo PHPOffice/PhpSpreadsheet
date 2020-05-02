@@ -10,7 +10,7 @@ class LocaleFloatsTest extends TestCase
 
     protected $currentLocale;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->currentLocale = setlocale(LC_ALL, '0');
 
@@ -23,7 +23,7 @@ class LocaleFloatsTest extends TestCase
         $this->localeAdjusted = true;
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         if ($this->localeAdjusted) {
             setlocale(LC_ALL, $this->currentLocale);

@@ -82,7 +82,7 @@ class NamedRange
      *
      * @param string $value
      *
-     * @return NamedRange
+     * @return $this
      */
     public function setName($value)
     {
@@ -123,7 +123,7 @@ class NamedRange
      *
      * @param Worksheet $value
      *
-     * @return NamedRange
+     * @return $this
      */
     public function setWorksheet(Worksheet $value = null)
     {
@@ -149,7 +149,7 @@ class NamedRange
      *
      * @param string $value
      *
-     * @return NamedRange
+     * @return $this
      */
     public function setRange($value)
     {
@@ -175,7 +175,7 @@ class NamedRange
      *
      * @param bool $value
      *
-     * @return NamedRange
+     * @return $this
      */
     public function setLocalOnly($value)
     {
@@ -200,7 +200,7 @@ class NamedRange
      *
      * @param null|Worksheet $value
      *
-     * @return NamedRange
+     * @return $this
      */
     public function setScope(Worksheet $value = null)
     {

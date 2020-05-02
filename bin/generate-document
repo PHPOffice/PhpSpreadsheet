@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\DocumentGenerator;
+
+require_once __DIR__ . '/../src/Bootstrap.php';
+
+try {
+    $phpSpreadsheetFunctionsProperty = (new ReflectionClass(Calculation::class))->getProperty('phpSpreadsheetFunctions');
+    $phpSpreadsheetFunctionsProperty->setAccessible(true);
+    $phpSpreadsheetFunctions = $phpSpreadsheetFunctionsProperty->getValue();
+    ksort($phpSpreadsheetFunctions);
+
+    file_put_contents(__DIR__ . '/../docs/references/function-list-by-category.md',
+        DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions)
+    );
+    file_put_contents(__DIR__ . '/../docs/references/function-list-by-name.md',
+        DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions)
+    );
+} catch (ReflectionException $e) {
+    fwrite(STDERR, (string)$e);
+    exit(1);
+}

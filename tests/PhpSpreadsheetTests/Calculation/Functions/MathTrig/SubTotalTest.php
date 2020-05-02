@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class SubTotalTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -49,7 +49,7 @@ class SubTotalTest extends TestCase
 
         array_push($args, $cellReference);
         $result = MathTrig::SUBTOTAL(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSUBTOTAL()
@@ -120,7 +120,7 @@ class SubTotalTest extends TestCase
 
         array_push($args, $cellReference);
         $result = MathTrig::SUBTOTAL(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerHiddenSUBTOTAL()
@@ -188,7 +188,7 @@ class SubTotalTest extends TestCase
         array_push($args, $cellReference);
 
         $result = MathTrig::SUBTOTAL(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerNestedSUBTOTAL()

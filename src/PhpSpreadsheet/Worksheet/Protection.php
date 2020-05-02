@@ -172,7 +172,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setSheet($pValue)
     {
@@ -196,7 +196,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setObjects($pValue)
     {
@@ -220,7 +220,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setScenarios($pValue)
     {
@@ -244,7 +244,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setFormatCells($pValue)
     {
@@ -268,7 +268,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setFormatColumns($pValue)
     {
@@ -292,7 +292,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setFormatRows($pValue)
     {
@@ -316,7 +316,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setInsertColumns($pValue)
     {
@@ -340,7 +340,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setInsertRows($pValue)
     {
@@ -364,7 +364,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setInsertHyperlinks($pValue)
     {
@@ -388,7 +388,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setDeleteColumns($pValue)
     {
@@ -412,7 +412,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setDeleteRows($pValue)
     {
@@ -436,7 +436,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setSelectLockedCells($pValue)
     {
@@ -460,7 +460,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setSort($pValue)
     {
@@ -484,7 +484,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setAutoFilter($pValue)
     {
@@ -508,7 +508,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setPivotTables($pValue)
     {
@@ -532,7 +532,7 @@ class Protection
      *
      * @param bool $pValue
      *
-     * @return Protection
+     * @return $this
      */
     public function setSelectUnlockedCells($pValue)
     {
@@ -557,7 +557,7 @@ class Protection
      * @param string $pValue
      * @param bool $pAlreadyHashed If the password has already been hashed, set this to true
      *
-     * @return Protection
+     * @return $this
      */
     public function setPassword($pValue, $pAlreadyHashed = false)
     {

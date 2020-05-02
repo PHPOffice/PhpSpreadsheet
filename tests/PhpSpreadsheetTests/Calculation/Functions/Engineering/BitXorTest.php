@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class BitXorTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }

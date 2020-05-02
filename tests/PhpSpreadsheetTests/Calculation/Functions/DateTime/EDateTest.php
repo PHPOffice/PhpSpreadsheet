@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class EDateTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -26,7 +26,7 @@ class EDateTest extends TestCase
     public function testEDATE($expectedResult, $dateValue, $adjustmentMonths)
     {
         $result = DateTime::EDATE($dateValue, $adjustmentMonths);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerEDATE()
@@ -39,7 +39,8 @@ class EDateTest extends TestCase
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = DateTime::EDATE('2012-1-26', -1);
-        $this->assertEquals(1324857600, $result, '', 1E-8);
+        $this->assertEquals(1324857600, $result);
+        $this->assertEqualsWithDelta(1324857600, $result, 1E-8);
     }
 
     public function testEDATEtoDateTimeObject()

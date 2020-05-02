@@ -47,7 +47,7 @@ class RichText implements IComparable
      *
      * @param ITextElement $pText Rich text element
      *
-     * @return RichText
+     * @return $this
      */
     public function addText(ITextElement $pText)
     {
@@ -133,7 +133,7 @@ class RichText implements IComparable
      *
      * @param ITextElement[] $textElements Array of elements
      *
-     * @return RichText
+     * @return $this
      */
     public function setRichTextElements(array $textElements)
     {
