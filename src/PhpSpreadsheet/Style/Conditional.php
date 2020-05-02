@@ -394,7 +394,7 @@ class Conditional implements IComparable
         for ($i = 0; $i < $count; ++$i) {
             $conditions[$i] = $referenceHelper->updateFormulaReferences($conditions[$i], 'A1', $updateColumnBy, $updateRowBy);
 
-            if ($makeFormula == true) {
+            if ($makeFormula === true) {
                 $conditions[$i] = self::makeUsableFormula($conditions[$i]);
             }
         }
