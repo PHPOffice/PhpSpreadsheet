@@ -16,7 +16,7 @@ $spreadsheet->getActiveSheet()->setCellValue('A1', '=B1')
     ->setCellValue('B1', '=A1+1')
     ->setCellValue('B2', '=A2');
 
-Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 100;
+Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 15;
 
 // Calculated data
 $helper->log('Calculated data');

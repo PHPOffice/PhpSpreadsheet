@@ -454,6 +454,55 @@ class Worksheet extends WriterPart
         $objWriter->endElement();
     }
 
+    private static function writeAttributeIf($cond, $objWriter, $attr, $val)
+    {
+        if ($cond) {
+            $objWriter->writeAttribute($attr, $val);
+        }
+    }
+
+    private static function writeElementIf($cond, $objWriter, $attr, $val)
+    {
+        if ($cond) {
+            $objWriter->writeElement($attr, $val);
+        }
+    }
+
+    private static function writeOtherCondElements($objWriter, $conditional, $cellCoordinate)
+    {
+        if ($conditional->getConditionType() == Conditional::CONDITION_CELLIS
+            || $conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
+            || $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION) {
+            foreach ($conditional->getConditions() as $formula) {
+                // Formula
+                $objWriter->writeElement('formula', Xlfn::addXlfn($formula));
+            }
+        } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSBLANKS) {
+            // formula copied from ms xlsx xml source file
+            $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))=0');
+        } elseif ($conditional->getConditionType() == Conditional::CONDITION_NOTCONTAINSBLANKS) {
+            // formula copied from ms xlsx xml source file
+            $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))>0');
+        }
+    }
+
+    private static function writeTextCondElements($objWriter, $conditional, $cellCoordinate)
+    {
+        $txt = $conditional->getText();
+        if ($txt !== null) {
+            $objWriter->writeAttribute('text', $txt);
+            if ($conditional->getOperatorType() == Conditional::OPERATOR_CONTAINSTEXT) {
+                $objWriter->writeElement('formula', 'NOT(ISERROR(SEARCH("' . $txt . '",' . $cellCoordinate . ')))');
+            } elseif ($conditional->getOperatorType() == Conditional::OPERATOR_BEGINSWITH) {
+                $objWriter->writeElement('formula', 'LEFT(' . $cellCoordinate . ',' . strlen($txt) . ')="' . $txt . '"');
+            } elseif ($conditional->getOperatorType() == Conditional::OPERATOR_ENDSWITH) {
+                $objWriter->writeElement('formula', 'RIGHT(' . $cellCoordinate . ',' . strlen($txt) . ')="' . $txt . '"');
+            } elseif ($conditional->getOperatorType() == Conditional::OPERATOR_NOTCONTAINS) {
+                $objWriter->writeElement('formula', 'ISERROR(SEARCH("' . $txt . '",' . $cellCoordinate . '))');
+            }
+        }
+    }
+
     /**
      * Write ConditionalFormatting.
      *
@@ -485,49 +534,20 @@ class Worksheet extends WriterPart
                     $objWriter->writeAttribute('dxfId', $this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode()));
                     $objWriter->writeAttribute('priority', $id++);
 
-                    if (($conditional->getConditionType() == Conditional::CONDITION_CELLIS || $conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT)
-                        && $conditional->getOperatorType() != Conditional::OPERATOR_NONE) {
-                        $objWriter->writeAttribute('operator', $conditional->getOperatorType());
-                    }
+                    self::writeAttributeif(
+                        ($conditional->getConditionType() == Conditional::CONDITION_CELLIS || $conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT)
+                        && $conditional->getOperatorType() != Conditional::OPERATOR_NONE,
+                        $objWriter,
+                        'operator',
+                        $conditional->getOperatorType()
+                    );
 
-                    if ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
-                        && $conditional->getText() !== null) {
-                        $objWriter->writeAttribute('text', $conditional->getText());
-                    }
+                    self::writeAttributeIf($conditional->getStopIfTrue(), $objWriter, 'stopIfTrue', '1');
 
-                    if ($conditional->getStopIfTrue()) {
-                        $objWriter->writeAttribute('stopIfTrue', '1');
-                    }
-
-                    if ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
-                        && $conditional->getOperatorType() == Conditional::OPERATOR_CONTAINSTEXT
-                        && $conditional->getText() !== null) {
-                        $objWriter->writeElement('formula', 'NOT(ISERROR(SEARCH("' . $conditional->getText() . '",' . $cellCoordinate . ')))');
-                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
-                        && $conditional->getOperatorType() == Conditional::OPERATOR_BEGINSWITH
-                        && $conditional->getText() !== null) {
-                        $objWriter->writeElement('formula', 'LEFT(' . $cellCoordinate . ',' . strlen($conditional->getText()) . ')="' . $conditional->getText() . '"');
-                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
-                        && $conditional->getOperatorType() == Conditional::OPERATOR_ENDSWITH
-                        && $conditional->getText() !== null) {
-                        $objWriter->writeElement('formula', 'RIGHT(' . $cellCoordinate . ',' . strlen($conditional->getText()) . ')="' . $conditional->getText() . '"');
-                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
-                        && $conditional->getOperatorType() == Conditional::OPERATOR_NOTCONTAINS
-                        && $conditional->getText() !== null) {
-                        $objWriter->writeElement('formula', 'ISERROR(SEARCH("' . $conditional->getText() . '",' . $cellCoordinate . '))');
-                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_CELLIS
-                        || $conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
-                        || $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION) {
-                        foreach ($conditional->getConditions() as $formula) {
-                            // Formula
-                            $objWriter->writeElement('formula', $formula);
-                        }
-                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSBLANKS) {
-                        // formula copied from ms xlsx xml source file
-                        $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))=0');
-                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_NOTCONTAINSBLANKS) {
-                        // formula copied from ms xlsx xml source file
-                        $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))>0');
+                    if ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT) {
+                        self::writeTextCondElements($objWriter, $conditional, $cellCoordinate);
+                    } else {
+                        self::writeOtherCondElements($objWriter, $conditional, $cellCoordinate);
                     }
 
                     $objWriter->endElement();
@@ -1037,6 +1057,91 @@ class Worksheet extends WriterPart
         $objWriter->endElement();
     }
 
+    private function writeCellInlineStr($mappedType, $objWriter, $cellValue)
+    {
+        $objWriter->writeAttribute('t', $mappedType);
+        if (!$cellValue instanceof RichText) {
+            $objWriter->writeElement('t', StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
+        } elseif ($cellValue instanceof RichText) {
+            $objWriter->startElement('is');
+            $this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $cellValue);
+            $objWriter->endElement();
+        }
+    }
+
+    private function writeCellString($mappedType, $objWriter, $cellValue, $pFlippedStringTable)
+    {
+        $objWriter->writeAttribute('t', $mappedType);
+        if (!$cellValue instanceof RichText) {
+            self::writeElementIf(isset($pFlippedStringTable[$cellValue]), $objWriter, 'v', $pFlippedStringTable[$cellValue]);
+        } else {
+            $objWriter->writeElement('v', $pFlippedStringTable[$cellValue->getHashCode()]);
+        }
+    }
+
+    private function writeCellNumeric($objWriter, $cellValue)
+    {
+        //force a decimal to be written if the type is float
+        if (is_float($cellValue)) {
+            // force point as decimal separator in case current locale uses comma
+            $cellValue = str_replace(',', '.', (string) $cellValue);
+            if (strpos($cellValue, '.') === false) {
+                $cellValue = $cellValue . '.0';
+            }
+        }
+        $objWriter->writeElement('v', $cellValue);
+    }
+
+    private function writeCellBoolean($mappedType, $objWriter, $cellValue)
+    {
+        $objWriter->writeAttribute('t', $mappedType);
+        $objWriter->writeElement('v', ($cellValue ? '1' : '0'));
+    }
+
+    private function writeCellError($mappedType, $objWriter, $cellValue, $formulaerr = '#NULL!')
+    {
+        $objWriter->writeAttribute('t', $mappedType);
+        $cellIsFormula = substr($cellValue, 0, 1) === '=';
+        self::writeElementIf($cellIsFormula, $objWriter, 'f', Xlfn::addXlfnStripEquals($cellValue));
+        $objWriter->writeElement('v', $cellIsFormula ? $formulaerr : $cellValue);
+    }
+
+    private function writeCellFormula($objWriter, $cellValue, $pCell)
+    {
+        $calculatedValue = ($this->getParentWriter()->getPreCalculateFormulas()) ? $pCell->getCalculatedValue() : $cellValue;
+        if (is_string($calculatedValue)) {
+            if (substr($calculatedValue, 0, 1) === '#') {
+                $this->writeCellError('e', $objWriter, $cellValue, $calculatedValue);
+
+                return;
+            }
+            $objWriter->writeAttribute('t', 'str');
+        } elseif (is_bool($calculatedValue)) {
+            $objWriter->writeAttribute('t', 'b');
+        }
+        // array values are not yet supported
+        //$attributes = $pCell->getFormulaAttributes();
+        //if (($attributes['t'] ?? null) === 'array') {
+        //    $objWriter->startElement('f');
+        //    $objWriter->writeAttribute('t', 'array');
+        //    $objWriter->writeAttribute('ref', $pCellAddress);
+        //    $objWriter->writeAttribute('aca', '1');
+        //    $objWriter->writeAttribute('ca', '1');
+        //    $objWriter->text(substr($cellValue, 1));
+        //    $objWriter->endElement();
+        //} else {
+        //    $objWriter->writeElement('f', Xlfn::addXlfnStripEquals($cellValue));
+        //}
+        $objWriter->writeElement('f', Xlfn::addXlfnStripEquals($cellValue));
+        self::writeElementIf(
+            $this->getParentWriter()->getOffice2003Compatibility() === false,
+            $objWriter,
+            'v',
+            ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue, 0, 1) !== '#')
+            ? StringHelper::formatNumber($calculatedValue) : '0'
+        );
+    }
+
     /**
      * Write Cell.
      *
@@ -1055,9 +1160,8 @@ class Worksheet extends WriterPart
         $objWriter->writeAttribute('r', $pCellAddress);
 
         // Sheet styles
-        if ($pCell->getXfIndex() != '') {
-            $objWriter->writeAttribute('s', $pCell->getXfIndex());
-        }
+        $xfi = $pCell->getXfIndex();
+        self::writeAttributeIf($xfi, $objWriter, 's', $xfi);
 
         // If cell value is supplied, write cell value
         $cellValue = $pCell->getValue();
@@ -1065,101 +1169,30 @@ class Worksheet extends WriterPart
             // Map type
             $mappedType = $pCell->getDataType();
 
-            // Write data type depending on its type
-            switch (strtolower($mappedType)) {
-                case 'inlinestr':    // Inline string
-                case 's':            // String
-                case 'b':            // Boolean
-                    $objWriter->writeAttribute('t', $mappedType);
-
-                    break;
-                case 'f':            // Formula
-                    $calculatedValue = ($this->getParentWriter()->getPreCalculateFormulas()) ?
-                        $pCell->getCalculatedValue() : $cellValue;
-                    if (is_string($calculatedValue)) {
-                        $objWriter->writeAttribute('t', 'str');
-                    } elseif (is_bool($calculatedValue)) {
-                        $objWriter->writeAttribute('t', 'b');
-                    }
-
-                    break;
-                case 'e':            // Error
-                    $objWriter->writeAttribute('t', $mappedType);
-            }
-
             // Write data depending on its type
             switch (strtolower($mappedType)) {
                 case 'inlinestr':    // Inline string
-                    if (!$cellValue instanceof RichText) {
-                        $objWriter->writeElement('t', StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
-                    } elseif ($cellValue instanceof RichText) {
-                        $objWriter->startElement('is');
-                        $this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $cellValue);
-                        $objWriter->endElement();
-                    }
+                    $this->writeCellInlineStr($mappedType, $objWriter, $cellValue);
 
                     break;
                 case 's':            // String
-                    if (!$cellValue instanceof RichText) {
-                        if (isset($pFlippedStringTable[$cellValue])) {
-                            $objWriter->writeElement('v', $pFlippedStringTable[$cellValue]);
-                        }
-                    } elseif ($cellValue instanceof RichText) {
-                        $objWriter->writeElement('v', $pFlippedStringTable[$cellValue->getHashCode()]);
-                    }
+                    $this->writeCellString($mappedType, $objWriter, $cellValue, $pFlippedStringTable);
 
                     break;
                 case 'f':            // Formula
-                    $attributes = $pCell->getFormulaAttributes();
-                    if (($attributes['t'] ?? null) === 'array') {
-                        $objWriter->startElement('f');
-                        $objWriter->writeAttribute('t', 'array');
-                        $objWriter->writeAttribute('ref', $pCellAddress);
-                        $objWriter->writeAttribute('aca', '1');
-                        $objWriter->writeAttribute('ca', '1');
-                        $objWriter->text(substr($cellValue, 1));
-                        $objWriter->endElement();
-                    } else {
-                        $objWriter->writeElement('f', substr($cellValue, 1));
-                    }
-                    if ($this->getParentWriter()->getOffice2003Compatibility() === false) {
-                        if ($this->getParentWriter()->getPreCalculateFormulas()) {
-                            if (!is_array($calculatedValue) && substr($calculatedValue, 0, 1) !== '#') {
-                                $objWriter->writeElement('v', StringHelper::formatNumber($calculatedValue));
-                            } else {
-                                $objWriter->writeElement('v', '0');
-                            }
-                        } else {
-                            $objWriter->writeElement('v', '0');
-                        }
-                    }
+                    self::writeCellFormula($objWriter, $cellValue, $pCell);
 
                     break;
                 case 'n':            // Numeric
-                    //force a decimal to be written if the type is float
-                    if (is_float($cellValue)) {
-                        // force point as decimal separator in case current locale uses comma
-                        $cellValue = str_replace(',', '.', (string) $cellValue);
-                        if (strpos($cellValue, '.') === false) {
-                            $cellValue = $cellValue . '.0';
-                        }
-                    }
-                    $objWriter->writeElement('v', $cellValue);
+                    $this->writeCellNumeric($objWriter, $cellValue);
 
                     break;
                 case 'b':            // Boolean
-                    $objWriter->writeElement('v', ($cellValue ? '1' : '0'));
+                    $this->writeCellBoolean($mappedType, $objWriter, $cellValue);
 
                     break;
                 case 'e':            // Error
-                    if (substr($cellValue, 0, 1) === '=') {
-                        $objWriter->writeElement('f', substr($cellValue, 1));
-                        $objWriter->writeElement('v', substr($cellValue, 1));
-                    } else {
-                        $objWriter->writeElement('v', $cellValue);
-                    }
-
-                    break;
+                    $this->writeCellError($mappedType, $objWriter, $cellValue);
             }
         }
 

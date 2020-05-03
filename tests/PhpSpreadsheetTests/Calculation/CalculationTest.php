@@ -355,4 +355,18 @@ class CalculationTest extends TestCase
     {
         return require 'data/Calculation/Calculation.php';
     }
+
+    public function testUnknownFunction()
+    {
+        $workbook = new Spreadsheet();
+        $sheet = $workbook->getActiveSheet();
+        $sheet->setCellValue('A1', '=gzorg()');
+        $sheet->setCellValue('A2', '=mode.gzorg(1)');
+        $sheet->setCellValue('A3', '=gzorg(1,2)');
+        $sheet->setCellValue('A4', '=3+IF(gzorg(),1,2)');
+        self::assertEquals('#NAME?', $sheet->getCell('A1')->getCalculatedValue());
+        self::assertEquals('#NAME?', $sheet->getCell('A2')->getCalculatedValue());
+        self::assertEquals('#NAME?', $sheet->getCell('A3')->getCalculatedValue());
+        self::assertEquals('#NAME?', $sheet->getCell('A4')->getCalculatedValue());
+    }
 }
