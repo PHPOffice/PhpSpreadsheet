@@ -1180,7 +1180,7 @@ class Worksheet extends WriterPart
 
                     break;
                 case 'f':            // Formula
-                    self::writeCellFormula($objWriter, $cellValue, $pCell);
+                    $this->writeCellFormula($objWriter, $cellValue, $pCell);
 
                     break;
                 case 'n':            // Numeric
