@@ -1853,6 +1853,16 @@ class Calculation
             'functionCall' => [MathTrig::class, 'SERIESSUM'],
             'argumentCount' => '4',
         ],
+        'SHEET' => [
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '0,1',
+        ],
+        'SHEETS' => [
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '0,1',
+        ],
         'SIGN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig::class, 'SIGN'],
@@ -2246,6 +2256,10 @@ class Calculation
         'MKMATRIX' => [
             'argumentCount' => '*',
             'functionCall' => [__CLASS__, 'mkMatrix'],
+        ],
+        'NAME.ERROR' => [
+            'argumentCount' => '*',
+            'functionCall' => [Functions::class, 'NAME'],
         ],
     ];
 
@@ -3615,33 +3629,33 @@ class Calculation
                     $val = preg_replace('/\s/u', '', $val);
                     if (isset(self::$phpSpreadsheetFunctions[strtoupper($matches[1])]) || isset(self::$controlFunctions[strtoupper($matches[1])])) {    // it's a function
                         $valToUpper = strtoupper($val);
-                        // here $matches[1] will contain values like "IF"
-                        // and $val "IF("
-                        if ($this->branchPruningEnabled && ($valToUpper == 'IF(')) { // we handle a new if
-                            $pendingStoreKey = $this->getUnusedBranchStoreKey();
-                            $pendingStoreKeysStack[] = $pendingStoreKey;
-                            $expectingConditionMap[$pendingStoreKey] = true;
-                            $parenthesisDepthMap[$pendingStoreKey] = 0;
-                        } else { // this is not a if but we good deeper
-                            if (!empty($pendingStoreKey) && array_key_exists($pendingStoreKey, $parenthesisDepthMap)) {
-                                $parenthesisDepthMap[$pendingStoreKey] += 1;
-                            }
-                        }
-
-                        $stack->push('Function', $valToUpper, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
-                        // tests if the function is closed right after opening
-                        $ax = preg_match('/^\s*(\s*\))/ui', substr($formula, $index + $length), $amatch);
-                        if ($ax) {
-                            $stack->push('Operand Count for Function ' . $valToUpper . ')', 0, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
-                            $expectingOperator = true;
-                        } else {
-                            $stack->push('Operand Count for Function ' . $valToUpper . ')', 1, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
-                            $expectingOperator = false;
-                        }
-                        $stack->push('Brace', '(');
-                    } else {    // it's a var w/ implicit multiplication
-                        $output[] = ['type' => 'Value', 'value' => $matches[1], 'reference' => null];
+                    } else {
+                        $valToUpper = 'NAME.ERROR(';
                     }
+                    // here $matches[1] will contain values like "IF"
+                    // and $val "IF("
+                    if ($this->branchPruningEnabled && ($valToUpper == 'IF(')) { // we handle a new if
+                        $pendingStoreKey = $this->getUnusedBranchStoreKey();
+                        $pendingStoreKeysStack[] = $pendingStoreKey;
+                        $expectingConditionMap[$pendingStoreKey] = true;
+                        $parenthesisDepthMap[$pendingStoreKey] = 0;
+                    } else { // this is not an if but we go deeper
+                        if (!empty($pendingStoreKey) && array_key_exists($pendingStoreKey, $parenthesisDepthMap)) {
+                            $parenthesisDepthMap[$pendingStoreKey] += 1;
+                        }
+                    }
+
+                    $stack->push('Function', $valToUpper, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                    // tests if the function is closed right after opening
+                    $ax = preg_match('/^\s*\)/u', substr($formula, $index + $length));
+                    if ($ax) {
+                        $stack->push('Operand Count for Function ' . $valToUpper . ')', 0, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                        $expectingOperator = true;
+                    } else {
+                        $stack->push('Operand Count for Function ' . $valToUpper . ')', 1, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                        $expectingOperator = false;
+                    }
+                    $stack->push('Brace', '(');
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $val, $matches)) {
                     //    Watch for this case-change when modifying to allow cell references in different worksheets...
                     //    Should only be applied to the actual cell column, not the worksheet name

@@ -2468,11 +2468,27 @@ class Statistical
     private static function modeCalc($data)
     {
         $frequencyArray = [];
+        $index = 0;
+        $maxfreq = 0;
+        $maxfreqkey = '';
+        $maxfreqdatum = '';
         foreach ($data as $datum) {
             $found = false;
+            ++$index;
             foreach ($frequencyArray as $key => $value) {
                 if ((string) $value['value'] == (string) $datum) {
                     ++$frequencyArray[$key]['frequency'];
+                    $freq = $frequencyArray[$key]['frequency'];
+                    if ($freq > $maxfreq) {
+                        $maxfreq = $freq;
+                        $maxfreqkey = $key;
+                        $maxfreqdatum = $datum;
+                    } elseif ($freq == $maxfreq) {
+                        if ($frequencyArray[$key]['index'] < $frequencyArray[$maxfreqkey]['index']) {
+                            $maxfreqkey = $key;
+                            $maxfreqdatum = $datum;
+                        }
+                    }
                     $found = true;
 
                     break;
@@ -2482,21 +2498,16 @@ class Statistical
                 $frequencyArray[] = [
                     'value' => $datum,
                     'frequency' => 1,
+                    'index' => $index,
                 ];
             }
         }
 
-        foreach ($frequencyArray as $key => $value) {
-            $frequencyList[$key] = $value['frequency'];
-            $valueList[$key] = $value['value'];
-        }
-        array_multisort($frequencyList, SORT_DESC, $valueList, SORT_ASC, SORT_NUMERIC, $frequencyArray);
-
-        if ($frequencyArray[0]['frequency'] == 1) {
+        if ($maxfreq <= 1) {
             return Functions::NA();
         }
 
-        return $frequencyArray[0]['value'];
+        return $maxfreqdatum;
     }
 
     /**
