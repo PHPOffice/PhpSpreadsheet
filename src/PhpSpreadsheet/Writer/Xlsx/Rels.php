@@ -208,13 +208,16 @@ class Rels extends WriterPart
         }
 
         if (($pWorksheet->getDrawingCollection()->count() > 0) || (count($charts) > 0) || $drawingOriginalIds) {
-            $relPath = '../drawings/drawing' . $pWorksheetId . '.xml';
             $rId = ++$d;
 
+            // Use original $relPath to get original $rId
+            $relPath = key($drawingOriginalIds);
             if (isset($drawingOriginalIds[$relPath])) {
                 $rId = (int) (substr($drawingOriginalIds[$relPath], 3));
             }
 
+            // Generate new $relPath to write drawing relationship
+            $relPath = '../drawings/drawing' . $pWorksheetId . '.xml';
             $this->writeRelationship(
                 $objWriter,
                 $rId,
