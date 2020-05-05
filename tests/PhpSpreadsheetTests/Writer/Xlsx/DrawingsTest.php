@@ -2,9 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class DrawingsTest extends AbstractFunctional
 {
