@@ -51,7 +51,7 @@ abstract class Coordinate
      */
     public static function coordinateIsRange($coord)
     {
-        return (strpos($coord, ':') !== false) || (strpos($coord, ',') !== false) || (strpos(trim($coord), ' ') !== false);
+        return (strpos($coord, ':') !== false) || (strpos($coord, ',') !== false);
     }
 
     /**
