@@ -64,7 +64,7 @@ class Dompdf extends Pdf
         $pdf->setPaper(strtolower($paperSize), $orientation);
 
         $pdf->loadHtml(
-            $this->generateHTMLHeader(false) .
+            $this->generateHTMLHeader(true) .
             $this->generateSheetData() .
             $this->generateHTMLFooter()
         );

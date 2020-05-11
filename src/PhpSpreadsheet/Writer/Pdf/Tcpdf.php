@@ -2,11 +2,23 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 class Tcpdf extends Pdf
 {
+    /**
+     * Create a new PDF Writer instance.
+     *
+     * @param Spreadsheet $spreadsheet Spreadsheet object
+     */
+    public function __construct(Spreadsheet $spreadsheet)
+    {
+        parent::__construct($spreadsheet);
+        $this->setUseInlineCss(true);
+    }
+
     /**
      * Gets the implementation of external PDF library that should be used.
      *

@@ -85,7 +85,7 @@ class Mpdf extends Pdf
         $pdf->SetKeywords($this->spreadsheet->getProperties()->getKeywords());
         $pdf->SetCreator($this->spreadsheet->getProperties()->getCreator());
 
-        $pdf->WriteHTML($this->generateHTMLHeader(false));
+        $pdf->WriteHTML($this->generateHTMLHeader(true));
         $html = $this->generateSheetData();
         foreach (\array_chunk(\explode(PHP_EOL, $html), 1000) as $lines) {
             $pdf->WriteHTML(\implode(PHP_EOL, $lines));

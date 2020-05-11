@@ -127,8 +127,9 @@ abstract class Pdf extends Html
     public function __construct(Spreadsheet $spreadsheet)
     {
         parent::__construct($spreadsheet);
-        $this->setUseInlineCss(true);
+        //$this->setUseInlineCss(true);
         $this->tempDir = File::sysGetTempDir();
+        $this->isPdf = true;
     }
 
     /**
