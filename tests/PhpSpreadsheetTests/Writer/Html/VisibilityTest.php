@@ -2,9 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class VisibilityTest extends Functional\AbstractFunctional
@@ -24,7 +24,7 @@ class VisibilityTest extends Functional\AbstractFunctional
         $sheet->setCellValue('C3', 9);
         $sheet->getColumnDimension('B')->setVisible(false);
         $sheet->getRowDimension(2)->setVisible(false);
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
         $reg = '/^\\s*table[.]sheet0 tr { display:none; visibility:hidden }\\s*$/m';
         $rowsrch = preg_match($reg, $html);
@@ -57,7 +57,7 @@ class VisibilityTest extends Functional\AbstractFunctional
         $sheet->getRowDimension(1)->setVisible(true);
         $sheet->getRowDimension(3)->setVisible(true);
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
         $reg = '/^\\s*table[.]sheet0 tr { height:15pt; display:none; visibility:hidden }\\s*$/m';
         $rowsrch = preg_match($reg, $html);
@@ -91,7 +91,7 @@ class VisibilityTest extends Functional\AbstractFunctional
         $sheet->getDefaultRowDimension()->setRowHeight(20);
         $sheet->getRowDimension(2)->setRowHeight(25);
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
         self::assertEquals(1, substr_count($html, 'height:20pt'));
         self::assertEquals(1, substr_count($html, 'height:25pt'));

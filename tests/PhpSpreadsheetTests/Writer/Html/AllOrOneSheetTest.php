@@ -2,8 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Html;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf\Tcpdf;
 use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class AllOrOneSheetTest extends Functional\AbstractFunctional
@@ -16,7 +18,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $sheet2 = $spreadsheet->createSheet();
         $sheet2->setCellValue('A1', 'second');
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         self::assertFalse($writer->getEmbedImages());
         $writer->writeAllSheets();
         self::assertTrue($writer->getGenerateSheetNavigationBlock());
@@ -47,7 +49,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $sheet2 = $spreadsheet->createSheet();
         $sheet2->setCellValue('A1', 'second');
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $writer->writeAllSheets();
         $writer->setGenerateSheetNavigationBlock(false);
         $html = $writer->generateHTMLAll();
@@ -77,7 +79,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $sheet2 = $spreadsheet->createSheet();
         $sheet2->setCellValue('A1', 'second');
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Mpdf');
+        $writer = new Mpdf($spreadsheet);
         $writer->writeAllSheets();
         $html = $writer->generateHTMLAll();
         $dom = new \DOMDocument();
@@ -105,7 +107,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $sheet2 = $spreadsheet->createSheet();
         $sheet2->setCellValue('A1', 'second');
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $writer->setSheetIndex(1);
         $html = $writer->generateHTMLAll();
         $dom = new \DOMDocument();
@@ -135,7 +137,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $sheet = $spreadsheet->createSheet();
         $sheet->setCellValue('A1', 'new sheet');
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $writer->writeAllSheets();
 
         $html = $writer->generateHTMLAll();
@@ -172,7 +174,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $sheet2->setBreak('A2', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW);
         $sheet2->setCellValue('A3', 'after page break');
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Tcpdf');
+        $writer = new Tcpdf($spreadsheet);
         $writer->writeAllSheets();
         $html = $writer->generateHtmlAll();
         $dom = new \DOMDocument();

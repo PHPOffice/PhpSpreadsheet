@@ -256,7 +256,10 @@ abstract class Pdf extends Html
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
 
         //  Open file
-        $fileHandle = fopen($pFilename, 'w');
+        $fileHandle = false;
+        if ($pFilename) {
+            $fileHandle = fopen($pFilename, 'w');
+        }
         if ($fileHandle === false) {
             throw new WriterException("Could not open file $pFilename for writing.");
         }

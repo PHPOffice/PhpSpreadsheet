@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class ImagesRootTest extends Functional\AbstractFunctional
@@ -28,7 +28,7 @@ class ImagesRootTest extends Functional\AbstractFunctional
         $drawing->setCoordinates('A1');
         $sheet->setCellValue('A2', 'Image Above?');
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $writer->setImagesRoot($root);
         $html = $writer->generateHTMLAll();
         $dom = new \DOMDocument();

@@ -2,9 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class GridlinesTest extends Functional\AbstractFunctional
@@ -25,7 +25,7 @@ class GridlinesTest extends Functional\AbstractFunctional
         $sheet->setShowGridlines(false)->setPrintGridlines(false);
         $sheet->setCellValue('A1', 1);
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $writer->writeAllSheets();
 
         $html = $writer->generateHTMLAll();
@@ -67,7 +67,7 @@ class GridlinesTest extends Functional\AbstractFunctional
         $sheet->setShowGridlines(false)->setPrintGridlines(false);
         $sheet->setCellValue('A1', 1);
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $writer->writeAllSheets();
         $writer->setUseInlineCss(true);
 
@@ -107,19 +107,19 @@ class GridlinesTest extends Functional\AbstractFunctional
         $font->setSuperScript(true);
         $sheet->setCellValue('A1', $emc2);
         $h2o = new \PhpOffice\PhpSpreadsheet\RichText\RichText();
-        $part1 = $h2o->createTextRun('H');
+        $h2o->createTextRun('H');
         $part2 = $h2o->createTextRun('2');
         $font = $part2->getFont();
         $font->setSubScript(true);
         $font->getColor()->setARGB(Color::COLOR_RED);
-        $part3 = $h2o->createTextRun('O');
+        $h2o->createTextRun('O');
         $sheet->setCellValue('A2', $h2o);
         $h2so4 = new \PhpOffice\PhpSpreadsheet\RichText\RichText();
-        $part1 = $h2so4->createTextRun('H');
+        $h2so4->createTextRun('H');
         $part2 = $h2so4->createTextRun('2');
         $font = $part2->getFont();
         $font->setSubScript(true);
-        $part3 = $h2so4->createTextRun('SO');
+        $h2so4->createTextRun('SO');
         $part4 = $h2so4->createTextRun('4');
         $part4->getFont()->setSubScript(true);
         $sheet->setCellValue('A3', $h2so4);
@@ -128,7 +128,7 @@ class GridlinesTest extends Functional\AbstractFunctional
         $sheet->setCellValue('A5', '6');
         $sheet->getCell('A5')->getStyle()->getFont()->setSubScript(true);
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
         $dom = new \DOMDocument();
         $dom->loadHTML($html);
@@ -210,7 +210,7 @@ class GridlinesTest extends Functional\AbstractFunctional
         $fmt = '[Blue]$#,##0;[Red]$#,##0;$#,##0';
         $sheet->getStyle('A1:A4')->getNumberFormat()->setFormatCode($fmt);
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
         $dom = new \DOMDocument();
         $dom->loadHTML($html);

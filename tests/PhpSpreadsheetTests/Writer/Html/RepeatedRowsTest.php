@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class RepeatedRowsTest extends Functional\AbstractFunctional
@@ -19,7 +19,7 @@ class RepeatedRowsTest extends Functional\AbstractFunctional
             $sheet->setCellValue("A$row", $row);
         }
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLall();
         $dom = new \DOMDocument();
         $dom->loadHTML($html);
@@ -50,14 +50,14 @@ class RepeatedRowsTest extends Functional\AbstractFunctional
             $sheet->setCellValue("A$row", $row);
         }
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLall();
         $dom = new \DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('div');
         $tbl = $divs->item(0)->getElementsByTagName('table');
-        $thd = $divs->item(0)->getElementsByTagName('thead');
+        $thd = $tbl->item(0)->getElementsByTagName('thead');
         self::assertCount(0, $thd);
         //$trw = $thd->item(0)->getElementsByTagName('tr');
         //self::assertCount(2, $trw);
@@ -80,7 +80,7 @@ class RepeatedRowsTest extends Functional\AbstractFunctional
             $sheet->setCellValue("A$row", $row);
         }
 
-        $writer = IOFactory::createWriter($spreadsheet, 'Html');
+        $writer = new Html($spreadsheet);
         self::assertFalse($writer->getUseInlineCss());
         $writer->setUseInlineCss(true);
         $html = $writer->generateHTMLall();

@@ -164,7 +164,10 @@ class Html extends BaseWriter
         $this->buildCSS(!$this->useInlineCss);
 
         // Open file
-        $fileHandle = fopen($pFilename, 'wb+');
+        $fileHandle = false;
+        if ($pFilename) {
+            $fileHandle = fopen($pFilename, 'wb+');
+        }
         if ($fileHandle === false) {
             throw new WriterException("Could not open file $pFilename for writing.");
         }
@@ -1154,7 +1157,7 @@ class Html extends BaseWriter
         return $html;
     }
 
-    private function generateTableTagInline($pSheet, $id, $sheetIndex)
+    private function generateTableTagInline($pSheet, $id)
     {
         $style = isset($this->cssStyles['table']) ?
             $this->assembleCSS($this->cssStyles['table']) : '';
@@ -1181,7 +1184,7 @@ class Html extends BaseWriter
             $gridlinesp = $pSheet->getPrintGridlines() ? ' gridlinesp' : '';
             $html .= "    <table border='0' cellpadding='0' cellspacing='0' $id class='sheet$sheetIndex$gridlines$gridlinesp'>" . PHP_EOL;
         } else {
-            $html .= $this->generateTableTagInline($pSheet, $id, $sheetIndex);
+            $html .= $this->generateTableTagInline($pSheet, $id);
         }
     }
 
@@ -1267,7 +1270,7 @@ class Html extends BaseWriter
         return $html;
     }
 
-    private function generateRowCellCss($pSheet, $cellAddress, $pRow, $colNum, $cellType, $sheetIndex)
+    private function generateRowCellCss($pSheet, $cellAddress, $pRow, $colNum)
     {
         $cell = ($cellAddress > '') ? $pSheet->getCell($cellAddress) : '';
         $coordinate = Coordinate::stringFromColumnIndex($colNum + 1) . ($pRow + 1);
@@ -1494,7 +1497,7 @@ class Html extends BaseWriter
         // Write cells
         $colNum = 0;
         foreach ($pValues as $cellAddress) {
-            [$cell, $cssClass, $coordinate] = $this->generateRowCellCss($pSheet, $cellAddress, $pRow, $colNum, $cellType, $sheetIndex);
+            [$cell, $cssClass, $coordinate] = $this->generateRowCellCss($pSheet, $cellAddress, $pRow, $colNum);
 
             $colSpan = 1;
             $rowSpan = 1;

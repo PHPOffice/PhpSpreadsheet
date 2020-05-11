@@ -1,12 +1,12 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Writer\Html;
 
 require __DIR__ . '/../Header.php';
 $spreadsheet = require __DIR__ . '/../templates/sampleSpreadsheet.php';
 
 $filename = $helper->getFilename(__FILE__, 'html');
-$writer = IOFactory::createWriter($spreadsheet, 'Html');
+$writer = new Html($spreadsheet);
 
 $callStartTime = microtime(true);
 $writer->setEmbedImages(true);

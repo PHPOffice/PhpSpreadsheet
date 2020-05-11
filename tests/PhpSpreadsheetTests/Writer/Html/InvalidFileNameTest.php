@@ -2,40 +2,40 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
 use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class InvalidFileNameTest extends Functional\AbstractFunctional
 {
     public function testEmptyFileName()
     {
-        self::expectException(WriterException::class);
+        $this->expectException(WriterException::class);
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->getCell('A1')->setValue('Cell 1');
         $writer = new Html($spreadsheet);
-        @$writer->save('');
+        $writer->save('');
     }
 
     public function testEmptyFileNamePdf()
     {
-        self::expectException(WriterException::class);
+        $this->expectException(WriterException::class);
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->getCell('A1')->setValue('Cell 1');
-        $writer = IOFactory::createWriter($spreadsheet, 'Mpdf');
-        @$writer->save('');
+        $writer = new Mpdf($spreadsheet);
+        $writer->save('');
     }
 
     public function testEmptyTempdirNamePdf()
     {
-        self::expectException(WriterException::class);
+        $this->expectException(WriterException::class);
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->getCell('A1')->setValue('Cell 1');
-        $writer = IOFactory::createWriter($spreadsheet, 'Mpdf');
+        $writer = new Mpdf($spreadsheet);
         $writer->setFont('Helvetica');
         self::assertEquals('Helvetica', $writer->getFont());
         $writer->setPaperSize(PageSetup::PAPERSIZE_LEDGER);
