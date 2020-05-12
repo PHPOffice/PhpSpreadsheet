@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Support writing to streams in all writers [#1292](https://github.com/PHPOffice/PhpSpreadsheet/issues/1292)
+- Support CSV files with data wrapping a lot of lines [#1468](https://github.com/PHPOffice/PhpSpreadsheet/pull/1468)
 
 ### Fixed
 

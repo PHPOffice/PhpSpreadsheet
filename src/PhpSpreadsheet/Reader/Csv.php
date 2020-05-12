@@ -236,33 +236,31 @@ class Csv extends BaseReader
     /**
      * Get the next full line from the file.
      *
-     * @param string $line
-     *
-     * @return bool|string
+     * @return false|string
      */
-    private function getNextLine($line = '')
+    private function getNextLine()
     {
-        // Get the next line in the file
-        $newLine = fgets($this->fileHandle);
+        $line = '';
+        $enclosure = '(?<!' . preg_quote($this->escapeCharacter, '/') . ')' . preg_quote($this->enclosure, '/');
 
-        // Return false if there is no next line
-        if ($newLine === false) {
-            return false;
-        }
+        do {
+            // Get the next line in the file
+            $newLine = fgets($this->fileHandle);
 
-        // Add the new line to the line passed in
-        $line = $line . $newLine;
+            // Return false if there is no next line
+            if ($newLine === false) {
+                return false;
+            }
 
-        // Drop everything that is enclosed to avoid counting false positives in enclosures
-        $enclosure = '(?<!' . preg_quote($this->escapeCharacter, '/') . ')'
-            . preg_quote($this->enclosure, '/');
-        $line = preg_replace('/(' . $enclosure . '.*' . $enclosure . ')/Us', '', $line);
+            // Add the new line to the line passed in
+            $line = $line . $newLine;
 
-        // See if we have any enclosures left in the line
-        // if we still have an enclosure then we need to read the next line as well
-        if (preg_match('/(' . $enclosure . ')/', $line) > 0) {
-            $line = $this->getNextLine($line);
-        }
+            // Drop everything that is enclosed to avoid counting false positives in enclosures
+            $line = preg_replace('/(' . $enclosure . '.*' . $enclosure . ')/Us', '', $line);
+
+            // See if we have any enclosures left in the line
+            // if we still have an enclosure then we need to read the next line as well
+        } while (preg_match('/(' . $enclosure . ')/', $line) > 0);
 
         return $line;
     }
