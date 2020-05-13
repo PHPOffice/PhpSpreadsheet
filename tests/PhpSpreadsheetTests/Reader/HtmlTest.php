@@ -424,4 +424,35 @@ class HtmlTest extends TestCase
         self::assertEquals(10, $style->getAlignment()->getIndent());
         unlink($filename);
     }
+
+    public function testBorderWithRowspanAndColspan(): void
+    {
+        $html = '<table>
+                    <tr>
+                        <td style="border: 1px solid black;">NOT SPANNED</td>
+                        <td rowspan="2" colspan="2" style="border: 1px solid black;">SPANNED</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black;">NOT SPANNED</td>
+                    </tr>
+                </table>';
+
+        $reader = new Html();
+        $spreadsheet = $reader->loadFromString($html);
+        $firstSheet = $spreadsheet->getSheet(0);
+        $style = $firstSheet->getStyle('B1:C2');
+
+        $borders = $style->getBorders();
+
+        $totalBorders = [
+            $borders->getTop(),
+            $borders->getLeft(),
+            $borders->getBottom(),
+            $borders->getRight(),
+        ];
+
+        foreach ($totalBorders as $border) {
+            self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
+        }
+    }
 }

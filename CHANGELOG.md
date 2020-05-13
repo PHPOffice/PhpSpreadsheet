@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - WEBSERVICE is HTTP client agnostic and must be configured via `Settings::setHttpClient()` [#1562](https://github.com/PHPOffice/PhpSpreadsheet/issues/1562)
+- Borders were not complete on rowspanned columns using HTML reader [#1473](https://github.com/PHPOffice/PhpSpreadsheet/pull/1473)
 
 ### Changed
 
