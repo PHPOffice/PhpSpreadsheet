@@ -38,13 +38,6 @@ abstract class Pdf extends Html
     protected $paperSize;
 
     /**
-     * Temporary storage for Save Array Return type.
-     *
-     * @var string
-     */
-    private $saveArrayReturnType;
-
-    /**
      * Paper Sizes xRef List.
      *
      * @var array
