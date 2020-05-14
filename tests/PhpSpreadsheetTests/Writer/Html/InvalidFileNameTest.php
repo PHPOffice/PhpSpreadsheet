@@ -40,7 +40,7 @@ class InvalidFileNameTest extends Functional\AbstractFunctional
         self::assertEquals('Helvetica', $writer->getFont());
         $writer->setPaperSize(PageSetup::PAPERSIZE_LEDGER);
         self::assertEquals($writer->getPaperSize(), PageSetup::PAPERSIZE_LEDGER);
-        self::assertEquals(File::sysGetTempDir(), $writer->getTempDir());
+        self::assertEquals(File::sysGetTempDir() . '/phpsppdf', $writer->getTempDir());
         $writer->setTempDir('');
     }
 

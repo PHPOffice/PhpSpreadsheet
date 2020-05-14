@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
@@ -128,7 +127,7 @@ abstract class Pdf extends Html
     {
         parent::__construct($spreadsheet);
         //$this->setUseInlineCss(true);
-        $this->tempDir = File::sysGetTempDir();
+        $this->tempDir = File::sysGetTempDir() . '/phpsppdf';
         $this->isPdf = true;
     }
 
@@ -249,12 +248,6 @@ abstract class Pdf extends Html
      */
     protected function prepareForSave($pFilename)
     {
-        //  garbage collect
-        $this->spreadsheet->garbageCollect();
-
-        $this->saveArrayReturnType = Calculation::getArrayReturnType();
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
-
         //  Open file
         $fileHandle = false;
         if ($pFilename) {
@@ -263,11 +256,6 @@ abstract class Pdf extends Html
         if ($fileHandle === false) {
             throw new WriterException("Could not open file $pFilename for writing.");
         }
-
-        //  Set PDF
-        $this->isPdf = true;
-        //  Build CSS
-        $this->buildCSS(true);
 
         return $fileHandle;
     }
@@ -281,7 +269,5 @@ abstract class Pdf extends Html
     {
         //  Close file
         fclose($fileHandle);
-
-        Calculation::setArrayReturnType($this->saveArrayReturnType);
     }
 }

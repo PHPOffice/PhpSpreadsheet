@@ -89,11 +89,7 @@ class Tcpdf extends Pdf
 
         //  Set the appropriate font
         $pdf->SetFont($this->getFont());
-        $pdf->writeHTML(
-            $this->generateHTMLHeader(false) .
-            $this->generateSheetData() .
-            $this->generateHTMLFooter()
-        );
+        $pdf->writeHTML($this->generateHTMLAll());
 
         //  Document info
         $pdf->SetTitle($this->spreadsheet->getProperties()->getTitle());

@@ -152,17 +152,6 @@ class Html extends BaseWriter
      */
     public function save($pFilename)
     {
-        // garbage collect
-        $this->spreadsheet->garbageCollect();
-
-        $saveDebugLog = Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
-        Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
-        $saveArrayReturnType = Calculation::getArrayReturnType();
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
-
-        // Build CSS
-        $this->buildCSS(!$this->useInlineCss);
-
         // Open file
         $fileHandle = false;
         if ($pFilename) {
@@ -172,25 +161,11 @@ class Html extends BaseWriter
             throw new WriterException("Could not open file $pFilename for writing.");
         }
 
-        // Write headers
-        fwrite($fileHandle, $this->generateHTMLHeader(!$this->useInlineCss));
-
-        // Write navigation (tabs)
-        if ((!$this->isPdf) && ($this->generateSheetNavigationBlock)) {
-            fwrite($fileHandle, $this->generateNavigation());
-        }
-
-        // Write data
-        fwrite($fileHandle, $this->generateSheetData());
-
-        // Write footer
-        fwrite($fileHandle, $this->generateHTMLFooter());
+        // Write html
+        fwrite($fileHandle, $this->generateHTMLAll());
 
         // Close file
         fclose($fileHandle);
-
-        Calculation::setArrayReturnType($saveArrayReturnType);
-        Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
 
     /**
