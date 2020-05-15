@@ -490,12 +490,12 @@ class Html extends BaseReader
                     case 'td':
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
 
-                        // apply inline style
-                        $this->applyInlineStyle($sheet, $row, $column, $attributeArray);
-
                         while (isset($this->rowspan[$column . $row])) {
                             ++$column;
                         }
+
+                        // apply inline style
+                        $this->applyInlineStyle($sheet, $row, $column, $attributeArray);
 
                         $this->flushCell($sheet, $column, $row, $cellContent);
 

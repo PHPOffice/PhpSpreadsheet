@@ -86,7 +86,7 @@ class UnparsedDataTest extends TestCase
         $this->assertContains('<mc:AlternateContent', $resultSheet1Raw, 'AlternateContent at sheet1.xml not found!');
         $xmlWorksheet = simplexml_load_string($resultSheet1Raw, 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
         $pageSetupAttributes = $xmlWorksheet->pageSetup->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
-        $this->assertNotEmpty($pageSetupAttributes['id'], 'sheet1.xml/pageSetup[r:id] not found!');
+        $this->assertTrue(isset($pageSetupAttributes->id), 'sheet1.xml/pageSetup[r:id] not found!');
         if (!$xmlWorksheet->sheetProtection) {
             $this->fail('sheet1.xml/sheetProtection not found!');
         } else {
