@@ -785,7 +785,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
      *                                If $ord < 0, BESSELI returns the #NUM! error value.
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function BESSELI($x, $ord)
     {
@@ -839,7 +839,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELJ returns the #VALUE! error value.
      *                                If $ord < 0, BESSELJ returns the #NUM! error value.
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function BESSELJ($x, $ord)
     {
@@ -932,7 +932,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
      *                                If $ord < 0, BESSELK returns the #NUM! error value.
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function BESSELK($x, $ord)
     {
@@ -1021,7 +1021,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
      *                                If $ord < 0, BESSELK returns the #NUM! error value.
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function BESSELY($x, $ord)
     {

@@ -71,7 +71,7 @@ class Financial
      *                                    3                        365
      *                                    4                        European 360
      *
-     * @return int
+     * @return int|string Result, or a string containing an error
      */
     private static function daysPerYear($year, $basis = 0)
     {
@@ -144,7 +144,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float|string
+     * @return float|string Result, or a string containing an error
      */
     public static function ACCRINT($issue, $firstinterest, $settlement, $rate, $par = 1000, $frequency = 1, $basis = 0)
     {
@@ -197,7 +197,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float|string
+     * @return float|string Result, or a string containing an error
      */
     public static function ACCRINTM($issue, $settlement, $rate, $par = 1000, $basis = 0)
     {
@@ -1424,7 +1424,7 @@ class Financial
      * @param float $finance_rate The interest rate you pay on the money used in the cash flows
      * @param float $reinvestment_rate The interest rate you receive on the cash flows as you reinvest them
      *
-     * @return float|string
+     * @return float|string Result, or a string containing an error
      */
     public static function MIRR($values, $finance_rate, $reinvestment_rate)
     {
@@ -1466,7 +1466,7 @@ class Financial
      * @param float $effect_rate Effective interest rate
      * @param int $npery Number of compounding payments per year
      *
-     * @return float|string
+     * @return float|string Result, or a string containing an error
      */
     public static function NOMINAL($effect_rate = 0, $npery = 0)
     {
@@ -1493,7 +1493,7 @@ class Financial
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
-     * @return float|string
+     * @return float|string Result, or a string containing an error
      */
     public static function NPER($rate = 0, $pmt = 0, $pv = 0, $fv = 0, $type = 0)
     {
@@ -1561,7 +1561,7 @@ class Financial
      * @param float $pv Present Value
      * @param float $fv Future Value
      *
-     * @return float|string
+     * @return float|string Result, or a string containing an error
      */
     public static function PDURATION($rate = 0, $pv = 0, $fv = 0)
     {
@@ -1590,7 +1590,7 @@ class Financial
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function PMT($rate = 0, $nper = 0, $pv = 0, $fv = 0, $type = 0)
     {
@@ -1625,7 +1625,7 @@ class Financial
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function PPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
     {
@@ -1709,7 +1709,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function PRICEDISC($settlement, $maturity, $discount, $redemption, $basis = 0)
     {
@@ -1755,7 +1755,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function PRICEMAT($settlement, $maturity, $issue, $rate, $yield, $basis = 0)
     {
@@ -1813,7 +1813,7 @@ class Financial
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function PV($rate = 0, $nper = 0, $pmt = 0, $fv = 0, $type = 0)
     {
@@ -1929,7 +1929,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function RECEIVED($settlement, $maturity, $investment, $discount, $basis = 0)
     {
@@ -1965,7 +1965,7 @@ class Financial
      * @param float $pv Present Value
      * @param float $fv Future Value
      *
-     * @return float|string
+     * @return float|string Result, or a string containing an error
      */
     public static function RRI($nper = 0, $pv = 0, $fv = 0)
     {
@@ -1992,7 +1992,7 @@ class Financial
      * @param mixed $salvage Value at the end of the depreciation
      * @param mixed $life Number of periods over which the asset is depreciated
      *
-     * @return float|string
+     * @return float|string Result, or a string containing an error
      */
     public static function SLN($cost, $salvage, $life)
     {
@@ -2022,7 +2022,7 @@ class Financial
      * @param mixed $life Number of periods over which the asset is depreciated
      * @param mixed $period Period
      *
-     * @return float|string
+     * @return float|string Result, or a string containing an error
      */
     public static function SYD($cost, $salvage, $life, $period)
     {
@@ -2054,7 +2054,7 @@ class Financial
      *                                The maturity date is the date when the Treasury bill expires.
      * @param int $discount The Treasury bill's discount rate
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function TBILLEQ($settlement, $maturity, $discount)
     {
@@ -2093,7 +2093,7 @@ class Financial
      *                                The maturity date is the date when the Treasury bill expires.
      * @param int $discount The Treasury bill's discount rate
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function TBILLPRICE($settlement, $maturity, $discount)
     {
@@ -2339,7 +2339,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function YIELDDISC($settlement, $maturity, $price, $redemption, $basis = 0)
     {
@@ -2390,7 +2390,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string Result, or a string containing an error
      */
     public static function YIELDMAT($settlement, $maturity, $issue, $rate, $price, $basis = 0)
     {

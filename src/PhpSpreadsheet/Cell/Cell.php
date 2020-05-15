@@ -67,7 +67,7 @@ class Cell
     /**
      * Update the cell into the cell collection.
      *
-     * @return self
+     * @return $this
      */
     public function updateInCollection()
     {
@@ -177,7 +177,7 @@ class Cell
      *
      * @throws Exception
      *
-     * @return Cell
+     * @return $this
      */
     public function setValue($pValue)
     {
@@ -217,6 +217,9 @@ class Cell
 
                 break;
             case DataType::TYPE_NUMERIC:
+                if (is_string($pValue) && !is_numeric($pValue)) {
+                    throw new Exception('Invalid numeric value for datatype Numeric');
+                }
                 $this->value = 0 + $pValue;
 
                 break;
@@ -669,7 +672,7 @@ class Cell
      *
      * @param mixed $pAttributes
      *
-     * @return Cell
+     * @return $this
      */
     public function setFormulaAttributes($pAttributes)
     {

@@ -491,7 +491,7 @@ class DateTime
                 $yearFound = true;
             }
         }
-        if ((count($t1) == 1) && (strpos($t, ':') != false)) {
+        if ((count($t1) == 1) && (strpos($t, ':') !== false)) {
             //    We've been fed a time value without any date
             return 0.0;
         } elseif (count($t1) == 2) {
@@ -878,6 +878,8 @@ class DateTime
      *
      * Excel Function:
      *        YEARFRAC(startDate,endDate[,method])
+     * See https://lists.oasis-open.org/archives/office-formula/200806/msg00039.html
+     *     for description of algorithm used in Excel
      *
      * @category Date/Time Functions
      *
@@ -892,7 +894,7 @@ class DateTime
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float fraction of the year
+     * @return float|string fraction of the year, or a string containing an error
      */
     public static function YEARFRAC($startDate = 0, $endDate = 0, $method = 0)
     {
@@ -906,6 +908,11 @@ class DateTime
         if (is_string($endDate = self::getDateValue($endDate))) {
             return Functions::VALUE();
         }
+        if ($startDate > $endDate) {
+            $temp = $startDate;
+            $startDate = $endDate;
+            $endDate = $temp;
+        }
 
         if (((is_numeric($method)) && (!is_string($method))) || ($method == '')) {
             switch ($method) {
@@ -916,46 +923,43 @@ class DateTime
                     $startYear = self::YEAR($startDate);
                     $endYear = self::YEAR($endDate);
                     $years = $endYear - $startYear + 1;
-                    $leapDays = 0;
+                    $startMonth = self::MONTHOFYEAR($startDate);
+                    $startDay = self::DAYOFMONTH($startDate);
+                    $endMonth = self::MONTHOFYEAR($endDate);
+                    $endDay = self::DAYOFMONTH($endDate);
+                    $startMonthDay = 100 * $startMonth + $startDay;
+                    $endMonthDay = 100 * $endMonth + $endDay;
                     if ($years == 1) {
                         if (self::isLeapYear($endYear)) {
-                            $startMonth = self::MONTHOFYEAR($startDate);
-                            $endMonth = self::MONTHOFYEAR($endDate);
-                            $endDay = self::DAYOFMONTH($endDate);
-                            if (($startMonth < 3) ||
-                                (($endMonth * 100 + $endDay) >= (2 * 100 + 29))) {
-                                $leapDays += 1;
+                            $tmpCalcAnnualBasis = 366;
+                        } else {
+                            $tmpCalcAnnualBasis = 365;
+                        }
+                    } elseif ($years == 2 && $startMonthDay >= $endMonthDay) {
+                        if (self::isLeapYear($startYear)) {
+                            if ($startMonthDay <= 229) {
+                                $tmpCalcAnnualBasis = 366;
+                            } else {
+                                $tmpCalcAnnualBasis = 365;
                             }
+                        } elseif (self::isLeapYear($endYear)) {
+                            if ($endMonthDay >= 229) {
+                                $tmpCalcAnnualBasis = 366;
+                            } else {
+                                $tmpCalcAnnualBasis = 365;
+                            }
+                        } else {
+                            $tmpCalcAnnualBasis = 365;
                         }
                     } else {
+                        $tmpCalcAnnualBasis = 0;
                         for ($year = $startYear; $year <= $endYear; ++$year) {
-                            if ($year == $startYear) {
-                                $startMonth = self::MONTHOFYEAR($startDate);
-                                $startDay = self::DAYOFMONTH($startDate);
-                                if ($startMonth < 3) {
-                                    $leapDays += (self::isLeapYear($year)) ? 1 : 0;
-                                }
-                            } elseif ($year == $endYear) {
-                                $endMonth = self::MONTHOFYEAR($endDate);
-                                $endDay = self::DAYOFMONTH($endDate);
-                                if (($endMonth * 100 + $endDay) >= (2 * 100 + 29)) {
-                                    $leapDays += (self::isLeapYear($year)) ? 1 : 0;
-                                }
-                            } else {
-                                $leapDays += (self::isLeapYear($year)) ? 1 : 0;
-                            }
+                            $tmpCalcAnnualBasis += self::isLeapYear($year) ? 366 : 365;
                         }
-                        if ($years == 2) {
-                            if (($leapDays == 0) && (self::isLeapYear($startYear)) && ($days > 365)) {
-                                $leapDays = 1;
-                            } elseif ($days < 366) {
-                                $years = 1;
-                            }
-                        }
-                        $leapDays /= $years;
+                        $tmpCalcAnnualBasis /= $years;
                     }
 
-                    return $days / (365 + $leapDays);
+                    return $days / $tmpCalcAnnualBasis;
                 case 2:
                     return self::DATEDIF($startDate, $endDate) / 360;
                 case 3:
@@ -1273,6 +1277,36 @@ class DateTime
         return $DoW;
     }
 
+    const STARTWEEK_SUNDAY = 1;
+    const STARTWEEK_MONDAY = 2;
+    const STARTWEEK_MONDAY_ALT = 11;
+    const STARTWEEK_TUESDAY = 12;
+    const STARTWEEK_WEDNESDAY = 13;
+    const STARTWEEK_THURSDAY = 14;
+    const STARTWEEK_FRIDAY = 15;
+    const STARTWEEK_SATURDAY = 16;
+    const STARTWEEK_SUNDAY_ALT = 17;
+    const DOW_SUNDAY = 1;
+    const DOW_MONDAY = 2;
+    const DOW_TUESDAY = 3;
+    const DOW_WEDNESDAY = 4;
+    const DOW_THURSDAY = 5;
+    const DOW_FRIDAY = 6;
+    const DOW_SATURDAY = 7;
+    const STARTWEEK_MONDAY_ISO = 21;
+    const METHODARR = [
+        self::STARTWEEK_SUNDAY => self::DOW_SUNDAY,
+        self::DOW_MONDAY,
+        self::STARTWEEK_MONDAY_ALT => self::DOW_MONDAY,
+        self::DOW_TUESDAY,
+        self::DOW_WEDNESDAY,
+        self::DOW_THURSDAY,
+        self::DOW_FRIDAY,
+        self::DOW_SATURDAY,
+        self::DOW_SUNDAY,
+        self::STARTWEEK_MONDAY_ISO => self::STARTWEEK_MONDAY_ISO,
+        ];
+
     /**
      * WEEKNUM.
      *
@@ -1291,41 +1325,51 @@ class DateTime
      * @param int $method Week begins on Sunday or Monday
      *                                        1 or omitted    Week begins on Sunday.
      *                                        2                Week begins on Monday.
+     *                                        11               Week begins on Monday.
+     *                                        12               Week begins on Tuesday.
+     *                                        13               Week begins on Wednesday.
+     *                                        14               Week begins on Thursday.
+     *                                        15               Week begins on Friday.
+     *                                        16               Week begins on Saturday.
+     *                                        17               Week begins on Sunday.
+     *                                        21               ISO (Jan. 4 is week 1, begins on Monday).
      *
      * @return int|string Week Number
      */
-    public static function WEEKNUM($dateValue = 1, $method = 1)
+    public static function WEEKNUM($dateValue = 1, $method = self::STARTWEEK_SUNDAY)
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
         $method = Functions::flattenSingleValue($method);
 
         if (!is_numeric($method)) {
             return Functions::VALUE();
-        } elseif (($method < 1) || ($method > 2)) {
-            return Functions::NAN();
         }
-        $method = floor($method);
+        $method = (int) $method;
+        if (!array_key_exists($method, self::METHODARR)) {
+            return Functions::NaN();
+        }
+        $method = self::METHODARR[$method];
 
-        if ($dateValue === null) {
-            $dateValue = 1;
-        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = self::getDateValue($dateValue);
+        if (is_string($dateValue)) {
             return Functions::VALUE();
-        } elseif ($dateValue < 0.0) {
+        }
+        if ($dateValue < 0.0) {
             return Functions::NAN();
         }
 
         // Execute function
         $PHPDateObject = Date::excelToDateTimeObject($dateValue);
+        if ($method == self::STARTWEEK_MONDAY_ISO) {
+            return (int) $PHPDateObject->format('W');
+        }
         $dayOfYear = $PHPDateObject->format('z');
         $PHPDateObject->modify('-' . $dayOfYear . ' days');
         $firstDayOfFirstWeek = $PHPDateObject->format('w');
         $daysInFirstWeek = (6 - $firstDayOfFirstWeek + $method) % 7;
-        $interval = $dayOfYear - $daysInFirstWeek;
-        $weekOfYear = floor($interval / 7) + 1;
-
-        if ($daysInFirstWeek) {
-            ++$weekOfYear;
-        }
+        $daysInFirstWeek += 7 * !$daysInFirstWeek;
+        $endFirstWeek = $daysInFirstWeek - 1;
+        $weekOfYear = floor(($dayOfYear - $endFirstWeek + 13) / 7);
 
         return (int) $weekOfYear;
     }

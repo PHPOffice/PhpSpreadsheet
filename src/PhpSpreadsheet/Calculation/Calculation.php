@@ -263,6 +263,11 @@ class Calculation
             'functionCall' => [Logical::class, 'logicalAnd'],
             'argumentCount' => '1+',
         ],
+        'ARABIC' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [MathTrig::class, 'ARABIC'],
+            'argumentCount' => '1',
+        ],
         'AREAS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [Functions::class, 'DUMMY'],
@@ -327,6 +332,11 @@ class Calculation
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '1',
+        ],
+        'BASE' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [MathTrig::class, 'BASE'],
+            'argumentCount' => '2,3',
         ],
         'BESSELI' => [
             'category' => Category::CATEGORY_ENGINEERING,
@@ -2864,13 +2874,13 @@ class Calculation
         $this->debugLog->clearLog();
         $this->cyclicReferenceStack->clear();
 
+        $resetCache = $this->getCalculationCacheEnabled();
         if ($this->spreadsheet !== null && $cellID === null && $pCell === null) {
             $cellID = 'A1';
             $pCell = $this->spreadsheet->getActiveSheet()->getCell($cellID);
         } else {
             //    Disable calculation cacheing because it only applies to cell calculations, not straight formulae
             //    But don't actually flush any cache
-            $resetCache = $this->getCalculationCacheEnabled();
             $this->calculationCacheEnabled = false;
         }
 
@@ -3239,7 +3249,7 @@ class Calculation
     /**
      * @param string $formula
      *
-     * @return string
+     * @return false|string False indicates an error
      */
     private function convertMatrixReferences($formula)
     {
@@ -4158,13 +4168,6 @@ class Calculation
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $token, $matches)) {
                 if ($pCellParent) {
                     $pCell->attach($pCellParent);
-                }
-                if (($cellID == 'AC99') || (isset($pCell) && $pCell->getCoordinate() == 'AC99')) {
-                    if (defined('RESOLVING')) {
-                        define('RESOLVING2', true);
-                    } else {
-                        define('RESOLVING', true);
-                    }
                 }
 
                 $functionName = $matches[1];

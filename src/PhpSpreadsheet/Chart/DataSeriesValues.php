@@ -117,7 +117,7 @@ class DataSeriesValues
      *
      * @throws Exception
      *
-     * @return DataSeriesValues
+     * @return $this
      */
     public function setDataType($dataType)
     {
@@ -144,7 +144,7 @@ class DataSeriesValues
      *
      * @param string $dataSource
      *
-     * @return DataSeriesValues
+     * @return $this
      */
     public function setDataSource($dataSource)
     {
@@ -168,7 +168,7 @@ class DataSeriesValues
      *
      * @param string $marker
      *
-     * @return DataSeriesValues
+     * @return $this
      */
     public function setPointMarker($marker)
     {
@@ -192,7 +192,7 @@ class DataSeriesValues
      *
      * @param string $formatCode
      *
-     * @return DataSeriesValues
+     * @return $this
      */
     public function setFormatCode($formatCode)
     {
@@ -275,7 +275,7 @@ class DataSeriesValues
      *
      * @param int $width
      *
-     * @return DataSeriesValues
+     * @return $this
      */
     public function setLineWidth($width)
     {
@@ -346,7 +346,7 @@ class DataSeriesValues
      *
      * @param array $dataValues
      *
-     * @return DataSeriesValues
+     * @return $this
      */
     public function setDataValues($dataValues)
     {

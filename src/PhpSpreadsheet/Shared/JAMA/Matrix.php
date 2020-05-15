@@ -524,7 +524,7 @@ class Matrix
      *
      * @param mixed $B Matrix/Array
      *
-     * @return Matrix Sum
+     * @return $this
      */
     public function plusEquals(...$args)
     {
@@ -628,7 +628,7 @@ class Matrix
      *
      * @param mixed $B Matrix/Array
      *
-     * @return Matrix Sum
+     * @return $this
      */
     public function minusEquals(...$args)
     {
@@ -734,7 +734,7 @@ class Matrix
      *
      * @param mixed $B Matrix/Array
      *
-     * @return Matrix Matrix Aij
+     * @return $this
      */
     public function arrayTimesEquals(...$args)
     {
@@ -1091,7 +1091,7 @@ class Matrix
      *
      * @param mixed $B Matrix/Array
      *
-     * @return Matrix Sum
+     * @return $this
      */
     public function power(...$args)
     {
@@ -1150,7 +1150,7 @@ class Matrix
      *
      * @param mixed $B Matrix/Array
      *
-     * @return Matrix Sum
+     * @return $this
      */
     public function concat(...$args)
     {

@@ -262,8 +262,6 @@ class Worksheet extends WriterPart
             --$ySplit;
 
             $topLeftCell = $pSheet->getTopLeftCell();
-            $activeCell = $topLeftCell;
-            $sqref = $topLeftCell;
 
             // pane
             $pane = 'topRight';
@@ -527,6 +525,9 @@ class Worksheet extends WriterPart
                     } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSBLANKS) {
                         // formula copied from ms xlsx xml source file
                         $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))=0');
+                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_NOTCONTAINSBLANKS) {
+                        // formula copied from ms xlsx xml source file
+                        $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))>0');
                     }
 
                     $objWriter->endElement();
@@ -1137,13 +1138,13 @@ class Worksheet extends WriterPart
                 case 'n':            // Numeric
                     //force a decimal to be written if the type is float
                     if (is_float($cellValue)) {
-                        $cellValue = (string) $cellValue;
+                        // force point as decimal separator in case current locale uses comma
+                        $cellValue = str_replace(',', '.', (string) $cellValue);
                         if (strpos($cellValue, '.') === false) {
                             $cellValue = $cellValue . '.0';
                         }
                     }
-                    // force point as decimal separator in case current locale uses comma
-                    $objWriter->writeElement('v', str_replace(',', '.', $cellValue));
+                    $objWriter->writeElement('v', $cellValue);
 
                     break;
                 case 'b':            // Boolean
