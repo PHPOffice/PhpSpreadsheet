@@ -108,7 +108,7 @@ class Xlsx extends BaseWriter
     private $drawingHashTable;
 
     /**
-     * @var bool|resource
+     * @var resource
      */
     private $fileHandle;
 
@@ -196,11 +196,12 @@ class Xlsx extends BaseWriter
                     }
                 }
 
-                $this->fileHandle = fopen($pFilename, 'wb+');
-            }
+                $fileHandle = fopen($pFilename, 'wb+');
+                if ($fileHandle === false) {
+                    throw new WriterException('Could not open file ' . $pFilename . ' for writing.');
+                }
 
-            if (!is_resource($this->fileHandle)) {
-                throw new WriterException('Could not open resource for writing.');
+                $this->fileHandle = $fileHandle;
             }
 
             $saveDebugLog = Calculation::getInstance($this->spreadSheet)->getDebugLog()->getWriteDebugLog();

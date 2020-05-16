@@ -33,7 +33,7 @@ class Ods extends BaseWriter
     private $spreadSheet;
 
     /**
-     * @var bool|resource
+     * @var resource
      */
     private $fileHandle;
 
@@ -105,7 +105,12 @@ class Ods extends BaseWriter
                 }
             }
 
-            $this->fileHandle = fopen($pFilename, 'wb+');
+            $fileHandle = fopen($pFilename, 'wb+');
+            if ($fileHandle === false) {
+                throw new WriterException('Could not open file ' . $pFilename . ' for writing.');
+            }
+
+            $this->fileHandle = $fileHandle;
         }
 
         $zip = $this->createZip();
