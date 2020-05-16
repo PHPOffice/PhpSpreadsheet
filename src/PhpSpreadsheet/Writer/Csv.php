@@ -131,11 +131,6 @@ class Csv extends BaseWriter
             $this->writeLine($fileHandle, $cellsArray[0]);
         }
 
-        // Close file
-        rewind($fileHandle);
-
-        fclose($fileHandle);
-
         Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }

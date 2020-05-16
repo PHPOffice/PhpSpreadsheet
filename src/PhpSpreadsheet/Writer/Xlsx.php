@@ -108,11 +108,6 @@ class Xlsx extends BaseWriter
     private $drawingHashTable;
 
     /**
-     * @var resource
-     */
-    private $fileHandle;
-
-    /**
      * Create a new Xlsx Writer.
      *
      * @param Spreadsheet $spreadsheet
@@ -184,25 +179,7 @@ class Xlsx extends BaseWriter
             // garbage collect
             $this->spreadSheet->garbageCollect();
 
-            $originalFilename = $pFilename;
-            if (is_resource($pFilename)) {
-                $this->fileHandle = $pFilename;
-            } else {
-                // If $pFilename is php://output or php://stdout, make it a temporary file...
-                if (in_array(strtolower($pFilename), ['php://output', 'php://stdout'], true)) {
-                    $pFilename = @tempnam(File::sysGetTempDir(), 'phpxltmp');
-                    if ($pFilename === '') {
-                        $pFilename = $originalFilename;
-                    }
-                }
-
-                $fileHandle = fopen($pFilename, 'wb+');
-                if ($fileHandle === false) {
-                    throw new WriterException('Could not open file ' . $pFilename . ' for writing.');
-                }
-
-                $this->fileHandle = $fileHandle;
-            }
+            $this->openFileHandle($pFilename);
 
             $saveDebugLog = Calculation::getInstance($this->spreadSheet)->getDebugLog()->getWriteDebugLog();
             Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog(false);
@@ -425,23 +402,7 @@ class Xlsx extends BaseWriter
                 throw new WriterException('Could not close resource.');
             }
 
-            rewind($this->fileHandle);
-
-            // If a temporary file was used, copy it to the correct file stream
-            if ($originalFilename !== $pFilename) {
-                $destinationFileHandle = fopen($originalFilename, 'wb+');
-                if (!is_resource($destinationFileHandle)) {
-                    throw new WriterException("Could not open resource $originalFilename for writing.");
-                }
-
-                if (stream_copy_to_stream($this->fileHandle, $destinationFileHandle) === false) {
-                    throw new WriterException("Could not copy temporary zip file $pFilename to $originalFilename.");
-                }
-
-                if (is_string($pFilename) && !unlink($pFilename)) {
-                    throw new WriterException('Could not unlink temporary zip file.');
-                }
-            }
+            $this->maybeCloseFileHandle();
         } else {
             throw new WriterException('PhpSpreadsheet object unassigned.');
         }
