@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class Csv extends BaseWriter
 {
@@ -77,7 +78,7 @@ class Csv extends BaseWriter
     /**
      * Save PhpSpreadsheet to file.
      *
-     * @param string $pFilename
+     * @param resource|string $pFilename
      *
      * @throws Exception
      */
@@ -92,9 +93,14 @@ class Csv extends BaseWriter
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
 
         // Open file
-        $fileHandle = fopen($pFilename, 'wb+');
+        if (is_resource($pFilename)) {
+            $fileHandle = $pFilename;
+        } else {
+            $fileHandle = fopen($pFilename, 'wb+');
+        }
+
         if ($fileHandle === false) {
-            throw new Exception("Could not open file $pFilename for writing.");
+            throw new WriterException("Could not open file $pFilename for writing.");
         }
 
         if ($this->excelCompatibility) {
@@ -124,9 +130,6 @@ class Csv extends BaseWriter
             // ... and write to the file
             $this->writeLine($fileHandle, $cellsArray[0]);
         }
-
-        // Close file
-        fclose($fileHandle);
 
         Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);

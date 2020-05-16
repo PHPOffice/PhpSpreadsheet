@@ -255,28 +255,22 @@ abstract class Pdf extends Html
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
 
         //  Open file
-        $fileHandle = fopen($pFilename, 'w');
-        if ($fileHandle === false) {
-            throw new WriterException("Could not open file $pFilename for writing.");
-        }
+        $this->openFileHandle($pFilename);
 
         //  Set PDF
         $this->isPdf = true;
         //  Build CSS
         $this->buildCSS(true);
 
-        return $fileHandle;
+        return $this->fileHandle;
     }
 
     /**
      * Save PhpSpreadsheet to PDF file, post-save.
-     *
-     * @param resource $fileHandle
      */
-    protected function restoreStateAfterSave($fileHandle)
+    protected function restoreStateAfterSave(): void
     {
-        //  Close file
-        fclose($fileHandle);
+        $this->maybeCloseFileHandle();
 
         Calculation::setArrayReturnType($this->saveArrayReturnType);
     }

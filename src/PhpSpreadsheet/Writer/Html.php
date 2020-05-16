@@ -146,7 +146,7 @@ class Html extends BaseWriter
     /**
      * Save Spreadsheet to file.
      *
-     * @param string $pFilename
+     * @param resource|string $pFilename
      *
      * @throws WriterException
      */
@@ -164,27 +164,23 @@ class Html extends BaseWriter
         $this->buildCSS(!$this->useInlineCss);
 
         // Open file
-        $fileHandle = fopen($pFilename, 'wb+');
-        if ($fileHandle === false) {
-            throw new WriterException("Could not open file $pFilename for writing.");
-        }
+        $this->openFileHandle($pFilename);
 
         // Write headers
-        fwrite($fileHandle, $this->generateHTMLHeader(!$this->useInlineCss));
+        fwrite($this->fileHandle, $this->generateHTMLHeader(!$this->useInlineCss));
 
         // Write navigation (tabs)
         if ((!$this->isPdf) && ($this->generateSheetNavigationBlock)) {
-            fwrite($fileHandle, $this->generateNavigation());
+            fwrite($this->fileHandle, $this->generateNavigation());
         }
 
         // Write data
-        fwrite($fileHandle, $this->generateSheetData());
+        fwrite($this->fileHandle, $this->generateSheetData());
 
         // Write footer
-        fwrite($fileHandle, $this->generateHTMLFooter());
+        fwrite($this->fileHandle, $this->generateHTMLFooter());
 
-        // Close file
-        fclose($fileHandle);
+        $this->maybeCloseFileHandle();
 
         Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);

@@ -93,6 +93,6 @@ class Tcpdf extends Pdf
         //  Write to file
         fwrite($fileHandle, $pdf->output($pFilename, 'S'));
 
-        parent::restoreStateAfterSave($fileHandle);
+        parent::restoreStateAfterSave();
     }
 }
