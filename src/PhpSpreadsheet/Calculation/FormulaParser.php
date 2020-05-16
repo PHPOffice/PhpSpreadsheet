@@ -62,8 +62,6 @@ class FormulaParser
      * Create a new FormulaParser.
      *
      * @param string $pFormula Formula to parse
-     *
-     * @throws Exception
      */
     public function __construct($pFormula = '')
     {
@@ -92,8 +90,6 @@ class FormulaParser
      * Get Token.
      *
      * @param int $pId Token id
-     *
-     * @throws Exception
      *
      * @return string
      */

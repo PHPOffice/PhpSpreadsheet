@@ -2315,8 +2315,6 @@ class Calculation
 
     /**
      * __clone implementation. Cloning should not be allowed in a Singleton!
-     *
-     * @throws Exception
      */
     final public function __clone()
     {
@@ -2765,8 +2763,6 @@ class Calculation
      *
      * @param Cell $pCell Cell to calculate
      *
-     * @throws Exception
-     *
      * @return mixed
      */
     public function calculate(Cell $pCell = null)
@@ -2783,8 +2779,6 @@ class Calculation
      *
      * @param Cell $pCell Cell to calculate
      * @param bool $resetLog Flag indicating whether the debug log should be reset or not
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
      * @return mixed
      */
@@ -2888,8 +2882,6 @@ class Calculation
      * @param string $cellID Address of the cell to calculate
      * @param Cell $pCell Cell to calculate
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     *
      * @return mixed
      */
     public function calculateFormula($formula, $cellID = null, Cell $pCell = null)
@@ -2964,8 +2956,6 @@ class Calculation
      * @param string $formula The formula to parse and calculate
      * @param string $cellID The ID (e.g. A3) of the cell that we are calculating
      * @param Cell $pCell Cell to calculate
-     *
-     * @throws Exception
      *
      * @return mixed
      */

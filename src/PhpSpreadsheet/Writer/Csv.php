@@ -79,8 +79,6 @@ class Csv extends BaseWriter
      * Save PhpSpreadsheet to file.
      *
      * @param resource|string $pFilename
-     *
-     * @throws Exception
      */
     public function save($pFilename)
     {

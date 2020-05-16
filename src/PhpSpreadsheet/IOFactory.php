@@ -40,8 +40,6 @@ abstract class IOFactory
      * @param Spreadsheet $spreadsheet
      * @param string $writerType Example: Xlsx
      *
-     * @throws Writer\Exception
-     *
      * @return Writer\IWriter
      */
     public static function createWriter(Spreadsheet $spreadsheet, $writerType)
@@ -60,8 +58,6 @@ abstract class IOFactory
      * Create Reader\IReader.
      *
      * @param string $readerType Example: Xlsx
-     *
-     * @throws Reader\Exception
      *
      * @return Reader\IReader
      */
@@ -82,8 +78,6 @@ abstract class IOFactory
      *
      * @param string $pFilename The name of the spreadsheet file
      *
-     * @throws Reader\Exception
-     *
      * @return Spreadsheet
      */
     public static function load($pFilename)
@@ -97,8 +91,6 @@ abstract class IOFactory
      * Identify file type using automatic Reader\IReader resolution.
      *
      * @param string $pFilename The name of the spreadsheet file to identify
-     *
-     * @throws Reader\Exception
      *
      * @return string
      */
@@ -116,8 +108,6 @@ abstract class IOFactory
      * Create Reader\IReader for file using automatic Reader\IReader resolution.
      *
      * @param string $filename The name of the spreadsheet file
-     *
-     * @throws Reader\Exception
      *
      * @return Reader\IReader
      */

@@ -49,8 +49,6 @@ class NamedRange
      * @param string $pRange
      * @param bool $pLocalOnly
      * @param null|Worksheet $pScope Scope. Only applies when $pLocalOnly = true. Null for global scope.
-     *
-     * @throws Exception
      */
     public function __construct($pName, Worksheet $pWorksheet, $pRange = 'A1', $pLocalOnly = false, $pScope = null)
     {

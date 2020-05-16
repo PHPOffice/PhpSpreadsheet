@@ -170,8 +170,6 @@ class Xlsx extends BaseWriter
      * Save PhpSpreadsheet to file.
      *
      * @param resource|string $pFilename
-     *
-     * @throws WriterException
      */
     public function save($pFilename)
     {
@@ -410,8 +408,6 @@ class Xlsx extends BaseWriter
 
     /**
      * Get Spreadsheet object.
-     *
-     * @throws WriterException
      *
      * @return Spreadsheet
      */

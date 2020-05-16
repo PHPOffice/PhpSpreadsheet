@@ -18,8 +18,6 @@ class Workbook extends WriterPart
      * @param Spreadsheet $spreadsheet
      * @param bool $recalcRequired Indicate whether formulas should be recalculated before writing
      *
-     * @throws WriterException
-     *
      * @return string XML Output
      */
     public function writeWorkbook(Spreadsheet $spreadsheet, $recalcRequired = false)
@@ -185,8 +183,6 @@ class Workbook extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws WriterException
      */
     private function writeSheets(XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {
@@ -215,8 +211,6 @@ class Workbook extends WriterPart
      * @param int $pSheetId Sheet id
      * @param int $pRelId Relationship ID
      * @param string $sheetState Sheet state (visible, hidden, veryHidden)
-     *
-     * @throws WriterException
      */
     private function writeSheet(XMLWriter $objWriter, $pSheetname, $pSheetId = 1, $pRelId = 1, $sheetState = 'visible')
     {
@@ -240,8 +234,6 @@ class Workbook extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws WriterException
      */
     private function writeDefinedNames(XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {
@@ -275,8 +267,6 @@ class Workbook extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws WriterException
      */
     private function writeNamedRanges(XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {

@@ -60,8 +60,6 @@ interface IWriter
      * Save PhpSpreadsheet to file.
      *
      * @param resource|string $pFilename Name of the file to save
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename);
 
@@ -77,8 +75,6 @@ interface IWriter
      *
      * @param bool $pValue
      * @param string $pDirectory Disk caching directory
-     *
-     * @throws Exception when directory does not exist
      *
      * @return IWriter
      */

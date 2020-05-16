@@ -69,8 +69,6 @@ class Xlsx extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return bool
      */
     public function canRead($pFilename)
@@ -94,8 +92,6 @@ class Xlsx extends BaseReader
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      *
      * @return array
      */
@@ -139,8 +135,6 @@ class Xlsx extends BaseReader
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      *
      * @return array
      */
@@ -317,8 +311,6 @@ class Xlsx extends BaseReader
      * Loads Spreadsheet from file.
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      *
      * @return Spreadsheet
      */

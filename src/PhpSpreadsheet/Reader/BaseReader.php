@@ -144,8 +144,6 @@ abstract class BaseReader implements IReader
      * Open file for reading.
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      */
     protected function openFile($pFilename)
     {

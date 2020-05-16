@@ -57,8 +57,6 @@ class RowCellIterator extends CellIterator
      *
      * @param string $startColumn The column address at which to start iterating
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function resetStart($startColumn = 'A')
@@ -75,8 +73,6 @@ class RowCellIterator extends CellIterator
      *
      * @param string $endColumn The column address at which to stop iterating
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function resetEnd($endColumn = null)
@@ -92,8 +88,6 @@ class RowCellIterator extends CellIterator
      * Set the column pointer to the selected column.
      *
      * @param string $column The column address to set the current pointer at
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */
@@ -150,8 +144,6 @@ class RowCellIterator extends CellIterator
 
     /**
      * Set the iterator to its previous value.
-     *
-     * @throws PhpSpreadsheetException
      */
     public function prev()
     {
@@ -182,8 +174,6 @@ class RowCellIterator extends CellIterator
 
     /**
      * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary.
-     *
-     * @throws PhpSpreadsheetException
      */
     protected function adjustForExistingOnlyRange()
     {

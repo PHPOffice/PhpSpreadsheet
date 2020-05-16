@@ -116,8 +116,6 @@ class Xls extends BaseWriter
      * Save Spreadsheet to file.
      *
      * @param resource|string $pFilename
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename)
     {

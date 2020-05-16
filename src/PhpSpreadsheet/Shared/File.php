@@ -128,8 +128,6 @@ class File
      * Assert that given path is an existing file and is readable, otherwise throw exception.
      *
      * @param string $filename
-     *
-     * @throws InvalidArgumentException
      */
     public static function assertFile($filename)
     {

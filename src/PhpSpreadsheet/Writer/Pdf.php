@@ -222,8 +222,6 @@ abstract class Pdf extends Html
      *
      * @param string $pValue Temporary storage directory
      *
-     * @throws WriterException when directory does not exist
-     *
      * @return self
      */
     public function setTempDir($pValue)
@@ -241,8 +239,6 @@ abstract class Pdf extends Html
      * Save Spreadsheet to PDF file, pre-save.
      *
      * @param string $pFilename Name of the file to save as
-     *
-     * @throws WriterException
      *
      * @return resource
      */

@@ -23,7 +23,6 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class Html extends BaseWriter
 {
@@ -147,8 +146,6 @@ class Html extends BaseWriter
      * Save Spreadsheet to file.
      *
      * @param resource|string $pFilename
-     *
-     * @throws WriterException
      */
     public function save($pFilename)
     {
@@ -343,8 +340,6 @@ class Html extends BaseWriter
      *
      * @param bool $pIncludeStyles Include styles?
      *
-     * @throws WriterException
-     *
      * @return string
      */
     public function generateHTMLHeader($pIncludeStyles = false)
@@ -397,8 +392,6 @@ class Html extends BaseWriter
 
     /**
      * Generate sheet data.
-     *
-     * @throws WriterException
      *
      * @return string
      */
@@ -513,8 +506,6 @@ class Html extends BaseWriter
 
     /**
      * Generate sheet tabs.
-     *
-     * @throws WriterException
      *
      * @return string
      */
@@ -743,8 +734,6 @@ class Html extends BaseWriter
      *
      * @param bool $generateSurroundingHTML Generate surrounding HTML tags? (&lt;style&gt; and &lt;/style&gt;)
      *
-     * @throws WriterException
-     *
      * @return string
      */
     public function generateStyles($generateSurroundingHTML = true)
@@ -781,8 +770,6 @@ class Html extends BaseWriter
      * Build CSS styles.
      *
      * @param bool $generateSurroundingHTML Generate surrounding HTML style? (html { })
-     *
-     * @throws WriterException
      *
      * @return array
      */
@@ -1157,8 +1144,6 @@ class Html extends BaseWriter
      * @param array $pValues Array containing cells in a row
      * @param int $pRow Row number (0-based)
      * @param string $cellType eg: 'td'
-     *
-     * @throws WriterException
      *
      * @return string
      */

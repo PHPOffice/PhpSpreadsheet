@@ -8,7 +8,6 @@ use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class StringTable extends WriterPart
 {
@@ -61,8 +60,6 @@ class StringTable extends WriterPart
      * Write string table to XML format.
      *
      * @param string[] $pStringTable
-     *
-     * @throws WriterException
      *
      * @return string XML Output
      */

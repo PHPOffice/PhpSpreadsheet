@@ -17,8 +17,6 @@ class Drawing extends WriterPart
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      *
-     * @throws WriterException
-     *
      * @return string XML Output
      */
     public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet, $includeCharts = false)
@@ -156,8 +154,6 @@ class Drawing extends WriterPart
      * @param BaseDrawing $pDrawing
      * @param int $pRelationId
      * @param null|int $hlinkClickId
-     *
-     * @throws WriterException
      */
     public function writeDrawing(XMLWriter $objWriter, BaseDrawing $pDrawing, $pRelationId = -1, $hlinkClickId = null)
     {
@@ -288,8 +284,6 @@ class Drawing extends WriterPart
      * Write VML header/footer images to XML format.
      *
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
-     *
-     * @throws WriterException
      *
      * @return string XML Output
      */

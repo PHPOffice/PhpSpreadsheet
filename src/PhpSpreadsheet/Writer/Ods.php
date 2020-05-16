@@ -76,8 +76,6 @@ class Ods extends BaseWriter
      * Save PhpSpreadsheet to file.
      *
      * @param resource|string $pFilename
-     *
-     * @throws WriterException
      */
     public function save($pFilename)
     {
@@ -113,8 +111,6 @@ class Ods extends BaseWriter
     /**
      * Create zip object.
      *
-     * @throws WriterException
-     *
      * @return ZipStream
      */
     private function createZip()
@@ -134,8 +130,6 @@ class Ods extends BaseWriter
 
     /**
      * Get Spreadsheet object.
-     *
-     * @throws WriterException
      *
      * @return Spreadsheet
      */
