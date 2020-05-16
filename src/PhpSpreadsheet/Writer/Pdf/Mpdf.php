@@ -95,7 +95,7 @@ class Mpdf extends Pdf
         //  Write to file
         fwrite($fileHandle, $pdf->Output('', 'S'));
 
-        parent::restoreStateAfterSave($fileHandle);
+        parent::restoreStateAfterSave();
     }
 
     /**

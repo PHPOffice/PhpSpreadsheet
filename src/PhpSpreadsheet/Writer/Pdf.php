@@ -267,10 +267,8 @@ abstract class Pdf extends Html
 
     /**
      * Save PhpSpreadsheet to PDF file, post-save.
-     *
-     * @param resource $fileHandle
      */
-    protected function restoreStateAfterSave($fileHandle)
+    protected function restoreStateAfterSave(): void
     {
         $this->maybeCloseFileHandle();
 
