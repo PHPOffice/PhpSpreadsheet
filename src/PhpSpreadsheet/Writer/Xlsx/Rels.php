@@ -204,9 +204,10 @@ class Rels extends WriterPart
             $rId = 1;
 
             // Use original $relPath to get original $rId.
-            // take first. In future can be overriten
+            // Take first. In future can be overwritten.
             // (! synchronize with \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet::writeDrawings)
-            $relPath = array_key_first($drawingOriginalIds);
+            reset($drawingOriginalIds);
+            $relPath = key($drawingOriginalIds);
             if (isset($drawingOriginalIds[$relPath])) {
                 $rId = (int) (substr($drawingOriginalIds[$relPath], 3));
             }
