@@ -26,6 +26,6 @@ class MdeTermTest extends TestCase
 
     public function providerMDETERM()
     {
-        return require 'data/Calculation/MathTrig/MDETERM.php';
+        return require 'tests/data/Calculation/MathTrig/MDETERM.php';
     }
 }

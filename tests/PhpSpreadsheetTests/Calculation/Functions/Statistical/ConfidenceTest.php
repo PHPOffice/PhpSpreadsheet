@@ -26,6 +26,6 @@ class ConfidenceTest extends TestCase
 
     public function providerCONFIDENCE()
     {
-        return require 'data/Calculation/Statistical/CONFIDENCE.php';
+        return require 'tests/data/Calculation/Statistical/CONFIDENCE.php';
     }
 }

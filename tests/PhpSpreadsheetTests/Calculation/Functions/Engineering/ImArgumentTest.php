@@ -29,6 +29,6 @@ class ImArgumentTest extends TestCase
 
     public function providerIMARGUMENT()
     {
-        return require 'data/Calculation/Engineering/IMARGUMENT.php';
+        return require 'tests/data/Calculation/Engineering/IMARGUMENT.php';
     }
 }

@@ -27,6 +27,6 @@ class OddTest extends TestCase
 
     public function providerODD()
     {
-        return require 'data/Calculation/MathTrig/ODD.php';
+        return require 'tests/data/Calculation/MathTrig/ODD.php';
     }
 }

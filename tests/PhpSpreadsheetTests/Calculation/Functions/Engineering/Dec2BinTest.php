@@ -26,6 +26,6 @@ class Dec2BinTest extends TestCase
 
     public function providerDEC2BIN()
     {
-        return require 'data/Calculation/Engineering/DEC2BIN.php';
+        return require 'tests/data/Calculation/Engineering/DEC2BIN.php';
     }
 }

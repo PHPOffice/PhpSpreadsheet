@@ -129,8 +129,6 @@ interface IReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename);

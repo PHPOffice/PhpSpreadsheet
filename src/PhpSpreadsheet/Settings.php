@@ -59,8 +59,6 @@ class Settings
      *
      * @param string $rendererClass Class name of the chart renderer
      *    eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph
-     *
-     * @throws Exception
      */
     public static function setChartRenderer($rendererClass)
     {

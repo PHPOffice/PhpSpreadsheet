@@ -113,8 +113,6 @@ class OLE
      *
      * @param string $file
      *
-     * @throws ReaderException
-     *
      * @return bool true on success, PEAR_Error on failure
      */
     public function read($file)
@@ -538,8 +536,6 @@ class OLE
      * Returns a timestamp from an OLE container's date.
      *
      * @param string $oleTimestamp A binary string with the encoded date
-     *
-     * @throws ReaderException
      *
      * @return int The Unix timestamp corresponding to the string
      */

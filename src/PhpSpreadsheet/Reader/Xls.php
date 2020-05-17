@@ -444,8 +444,6 @@ class Xls extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return array
      */
     public function listWorksheetNames($pFilename)
@@ -503,8 +501,6 @@ class Xls extends BaseReader
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      *
      * @return array
      */
@@ -617,8 +613,6 @@ class Xls extends BaseReader
      * Loads PhpSpreadsheet from file.
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      *
      * @return Spreadsheet
      */
@@ -5516,8 +5510,6 @@ class Xls extends BaseReader
      * @param string $formulaData Formula data
      * @param string $baseCell Base cell, only needed when formula contains tRefN tokens, e.g. with shared formulas
      *
-     * @throws Exception
-     *
      * @return array
      */
     private function getNextToken($formulaData, $baseCell = 'A1')
@@ -7186,8 +7178,6 @@ class Xls extends BaseReader
      *
      * @param string $subData
      *
-     * @throws Exception
-     *
      * @return string
      */
     private function readBIFF5CellRangeAddressFixed($subData)
@@ -7226,8 +7216,6 @@ class Xls extends BaseReader
      * section 2.5.14.
      *
      * @param string $subData
-     *
-     * @throws Exception
      *
      * @return string
      */
@@ -7464,8 +7452,6 @@ class Xls extends BaseReader
      * in which case an Exception is thrown.
      *
      * @param int $index
-     *
-     * @throws Exception
      *
      * @return false|string
      */

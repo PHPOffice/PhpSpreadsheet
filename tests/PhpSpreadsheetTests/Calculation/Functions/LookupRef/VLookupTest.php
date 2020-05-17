@@ -26,6 +26,6 @@ class VLookupTest extends TestCase
 
     public function providerVLOOKUP()
     {
-        return require 'data/Calculation/LookupRef/VLOOKUP.php';
+        return require 'tests/data/Calculation/LookupRef/VLOOKUP.php';
     }
 }

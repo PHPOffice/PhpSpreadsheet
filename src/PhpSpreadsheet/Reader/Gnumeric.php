@@ -46,8 +46,6 @@ class Gnumeric extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return bool
      */
     public function canRead($pFilename)
@@ -169,8 +167,6 @@ class Gnumeric extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return Spreadsheet
      */
     public function load($pFilename)
@@ -187,8 +183,6 @@ class Gnumeric extends BaseReader
      *
      * @param string $pFilename
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws Exception
      *
      * @return Spreadsheet
      */

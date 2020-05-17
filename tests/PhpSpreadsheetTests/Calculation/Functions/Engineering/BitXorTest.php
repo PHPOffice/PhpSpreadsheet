@@ -27,6 +27,6 @@ class BitXorTest extends TestCase
 
     public function providerBITXOR()
     {
-        return require 'data/Calculation/Engineering/BITXOR.php';
+        return require 'tests/data/Calculation/Engineering/BITXOR.php';
     }
 }

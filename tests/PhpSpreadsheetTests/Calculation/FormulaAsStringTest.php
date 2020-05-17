@@ -41,6 +41,6 @@ class FormulaAsStringTest extends TestCase
 
     public function providerFunctionsAsString()
     {
-        return require 'data/Calculation/FunctionsAsString.php';
+        return require 'tests/data/Calculation/FunctionsAsString.php';
     }
 }

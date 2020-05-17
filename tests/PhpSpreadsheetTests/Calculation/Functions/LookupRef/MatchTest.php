@@ -26,6 +26,6 @@ class MatchTest extends TestCase
 
     public function providerMATCH()
     {
-        return require 'data/Calculation/LookupRef/MATCH.php';
+        return require 'tests/data/Calculation/LookupRef/MATCH.php';
     }
 }

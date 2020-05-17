@@ -29,6 +29,6 @@ class ErfCTest extends TestCase
 
     public function providerERFC()
     {
-        return require 'data/Calculation/Engineering/ERFC.php';
+        return require 'tests/data/Calculation/Engineering/ERFC.php';
     }
 }

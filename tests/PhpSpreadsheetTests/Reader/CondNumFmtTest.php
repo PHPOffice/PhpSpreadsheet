@@ -10,7 +10,7 @@ class CondNumFmtTest extends TestCase
 {
     public function testLoadCondNumFmt()
     {
-        $filename = './data/Reader/XLSX/condfmtnum.xlsx';
+        $filename = 'tests/data/Reader/XLSX/condfmtnum.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 

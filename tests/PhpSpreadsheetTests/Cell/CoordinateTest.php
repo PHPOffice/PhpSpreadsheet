@@ -25,7 +25,7 @@ class CoordinateTest extends TestCase
 
     public function providerColumnString()
     {
-        return require 'data/ColumnString.php';
+        return require 'tests/data/ColumnString.php';
     }
 
     public function testColumnIndexFromStringTooLong()
@@ -75,7 +75,7 @@ class CoordinateTest extends TestCase
 
     public function providerColumnIndex()
     {
-        return require 'data/ColumnIndex.php';
+        return require 'tests/data/ColumnIndex.php';
     }
 
     /**
@@ -91,7 +91,7 @@ class CoordinateTest extends TestCase
 
     public function providerCoordinates()
     {
-        return require 'data/CellCoordinates.php';
+        return require 'tests/data/CellCoordinates.php';
     }
 
     public function testCoordinateFromStringWithRangeAddress()
@@ -152,7 +152,7 @@ class CoordinateTest extends TestCase
 
     public function providerAbsoluteCoordinates()
     {
-        return require 'data/CellAbsoluteCoordinate.php';
+        return require 'tests/data/CellAbsoluteCoordinate.php';
     }
 
     public function testAbsoluteCoordinateFromStringWithRangeAddress()
@@ -183,7 +183,7 @@ class CoordinateTest extends TestCase
 
     public function providerAbsoluteReferences()
     {
-        return require 'data/CellAbsoluteReference.php';
+        return require 'tests/data/CellAbsoluteReference.php';
     }
 
     public function testAbsoluteReferenceFromStringWithRangeAddress()
@@ -220,7 +220,7 @@ class CoordinateTest extends TestCase
 
     public function providerSplitRange()
     {
-        return require 'data/CellSplitRange.php';
+        return require 'tests/data/CellSplitRange.php';
     }
 
     /**
@@ -236,7 +236,7 @@ class CoordinateTest extends TestCase
 
     public function providerBuildRange()
     {
-        return require 'data/CellBuildRange.php';
+        return require 'tests/data/CellBuildRange.php';
     }
 
     public function testBuildRangeInvalid()
@@ -260,7 +260,7 @@ class CoordinateTest extends TestCase
 
     public function providerRangeBoundaries()
     {
-        return require 'data/CellRangeBoundaries.php';
+        return require 'tests/data/CellRangeBoundaries.php';
     }
 
     /**
@@ -276,7 +276,7 @@ class CoordinateTest extends TestCase
 
     public function providerRangeDimension()
     {
-        return require 'data/CellRangeDimension.php';
+        return require 'tests/data/CellRangeDimension.php';
     }
 
     /**
@@ -292,7 +292,7 @@ class CoordinateTest extends TestCase
 
     public function providerGetRangeBoundaries()
     {
-        return require 'data/CellGetRangeBoundaries.php';
+        return require 'tests/data/CellGetRangeBoundaries.php';
     }
 
     /**
@@ -308,7 +308,7 @@ class CoordinateTest extends TestCase
 
     public function providerExtractAllCellReferencesInRange()
     {
-        return require 'data/CellExtractAllCellReferencesInRange.php';
+        return require 'tests/data/CellExtractAllCellReferencesInRange.php';
     }
 
     /**
@@ -342,7 +342,7 @@ class CoordinateTest extends TestCase
 
     public function providerMergeRangesInCollection()
     {
-        return require 'data/CellMergeRangesInCollection.php';
+        return require 'tests/data/CellMergeRangesInCollection.php';
     }
 
     /**
@@ -358,6 +358,6 @@ class CoordinateTest extends TestCase
 
     public function providerCoordinateIsRange()
     {
-        return require 'data/CoordinateIsRange.php';
+        return require 'tests/data/CoordinateIsRange.php';
     }
 }

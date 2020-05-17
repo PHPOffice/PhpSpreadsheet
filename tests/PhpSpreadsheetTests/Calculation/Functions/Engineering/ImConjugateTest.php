@@ -44,6 +44,6 @@ class ImConjugateTest extends TestCase
 
     public function providerIMCONJUGATE()
     {
-        return require 'data/Calculation/Engineering/IMCONJUGATE.php';
+        return require 'tests/data/Calculation/Engineering/IMCONJUGATE.php';
     }
 }

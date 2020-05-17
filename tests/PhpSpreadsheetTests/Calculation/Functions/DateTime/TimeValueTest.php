@@ -30,7 +30,7 @@ class TimeValueTest extends TestCase
 
     public function providerTIMEVALUE()
     {
-        return require 'data/Calculation/DateTime/TIMEVALUE.php';
+        return require 'tests/data/Calculation/DateTime/TIMEVALUE.php';
     }
 
     public function testTIMEVALUEtoUnixTimestamp()

@@ -26,6 +26,6 @@ class LogTest extends TestCase
 
     public function providerLOG()
     {
-        return require 'data/Calculation/MathTrig/LOG.php';
+        return require 'tests/data/Calculation/MathTrig/LOG.php';
     }
 }

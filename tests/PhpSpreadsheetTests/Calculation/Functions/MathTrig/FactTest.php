@@ -27,6 +27,6 @@ class FactTest extends TestCase
 
     public function providerFACT()
     {
-        return require 'data/Calculation/MathTrig/FACT.php';
+        return require 'tests/data/Calculation/MathTrig/FACT.php';
     }
 }

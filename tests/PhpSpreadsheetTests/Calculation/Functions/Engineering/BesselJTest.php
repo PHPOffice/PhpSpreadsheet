@@ -28,6 +28,6 @@ class BesselJTest extends TestCase
 
     public function providerBESSEJ()
     {
-        return require 'data/Calculation/Engineering/BESSELJ.php';
+        return require 'tests/data/Calculation/Engineering/BESSELJ.php';
     }
 }

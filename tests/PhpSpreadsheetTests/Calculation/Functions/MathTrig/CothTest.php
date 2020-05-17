@@ -27,6 +27,6 @@ class CothTest extends TestCase
 
     public function providerCOTH()
     {
-        return require 'data/Calculation/MathTrig/COTH.php';
+        return require 'tests/data/Calculation/MathTrig/COTH.php';
     }
 }

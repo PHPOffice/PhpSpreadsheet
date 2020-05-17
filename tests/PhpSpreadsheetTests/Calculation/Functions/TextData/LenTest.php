@@ -39,6 +39,6 @@ class LenTest extends TestCase
 
     public function providerLEN()
     {
-        return require 'data/Calculation/TextData/LEN.php';
+        return require 'tests/data/Calculation/TextData/LEN.php';
     }
 }

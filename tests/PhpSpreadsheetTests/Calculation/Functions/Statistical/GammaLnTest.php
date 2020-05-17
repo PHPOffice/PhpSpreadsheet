@@ -27,6 +27,6 @@ class GammaLnTest extends TestCase
 
     public function providerGAMMALN()
     {
-        return require 'data/Calculation/Statistical/GAMMALN.php';
+        return require 'tests/data/Calculation/Statistical/GAMMALN.php';
     }
 }

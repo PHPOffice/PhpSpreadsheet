@@ -26,6 +26,6 @@ class ChiDistTest extends TestCase
 
     public function providerCHIDIST()
     {
-        return require 'data/Calculation/Statistical/CHIDIST.php';
+        return require 'tests/data/Calculation/Statistical/CHIDIST.php';
     }
 }

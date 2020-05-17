@@ -43,6 +43,6 @@ class ImSubTest extends TestCase
 
     public function providerIMSUB()
     {
-        return require 'data/Calculation/Engineering/IMSUB.php';
+        return require 'tests/data/Calculation/Engineering/IMSUB.php';
     }
 }

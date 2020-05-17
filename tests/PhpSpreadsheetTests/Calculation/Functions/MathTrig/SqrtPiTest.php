@@ -27,6 +27,6 @@ class SqrtPiTest extends TestCase
 
     public function providerSQRTPI()
     {
-        return require 'data/Calculation/MathTrig/SQRTPI.php';
+        return require 'tests/data/Calculation/MathTrig/SQRTPI.php';
     }
 }

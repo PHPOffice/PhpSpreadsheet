@@ -27,6 +27,6 @@ class BitLShiftTest extends TestCase
 
     public function providerBITLSHIFT()
     {
-        return require 'data/Calculation/Engineering/BITLSHIFT.php';
+        return require 'tests/data/Calculation/Engineering/BITLSHIFT.php';
     }
 }

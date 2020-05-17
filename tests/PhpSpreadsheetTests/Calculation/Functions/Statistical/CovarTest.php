@@ -26,6 +26,6 @@ class CovarTest extends TestCase
 
     public function providerCOVAR()
     {
-        return require 'data/Calculation/Statistical/COVAR.php';
+        return require 'tests/data/Calculation/Statistical/COVAR.php';
     }
 }

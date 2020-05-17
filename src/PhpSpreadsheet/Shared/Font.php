@@ -276,8 +276,6 @@ class Font
      * @param \PhpOffice\PhpSpreadsheet\Style\Font
      * @param int $rotation
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return int
      */
     public static function getTextWidthPixelsExact($text, \PhpOffice\PhpSpreadsheet\Style\Font $font, $rotation = 0)

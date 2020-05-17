@@ -44,6 +44,6 @@ class ImSinhTest extends TestCase
 
     public function providerIMSINH()
     {
-        return require 'data/Calculation/Engineering/IMSINH.php';
+        return require 'tests/data/Calculation/Engineering/IMSINH.php';
     }
 }

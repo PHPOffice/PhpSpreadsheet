@@ -26,6 +26,6 @@ class MMultTest extends TestCase
 
     public function providerMMULT()
     {
-        return require 'data/Calculation/MathTrig/MMULT.php';
+        return require 'tests/data/Calculation/MathTrig/MMULT.php';
     }
 }

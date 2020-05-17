@@ -39,6 +39,6 @@ class CleanTest extends TestCase
 
     public function providerCLEAN()
     {
-        return require 'data/Calculation/TextData/CLEAN.php';
+        return require 'tests/data/Calculation/TextData/CLEAN.php';
     }
 }

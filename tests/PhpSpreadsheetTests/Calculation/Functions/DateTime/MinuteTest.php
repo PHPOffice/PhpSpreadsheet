@@ -30,6 +30,6 @@ class MinuteTest extends TestCase
 
     public function providerMINUTE()
     {
-        return require 'data/Calculation/DateTime/MINUTE.php';
+        return require 'tests/data/Calculation/DateTime/MINUTE.php';
     }
 }

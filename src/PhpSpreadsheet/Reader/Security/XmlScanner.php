@@ -114,8 +114,6 @@ class XmlScanner
      *
      * @param mixed $xml
      *
-     * @throws Reader\Exception
-     *
      * @return string
      */
     public function scan($xml)
@@ -142,8 +140,6 @@ class XmlScanner
      * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks.
      *
      * @param string $filestream
-     *
-     * @throws Reader\Exception
      *
      * @return string
      */

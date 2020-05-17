@@ -30,7 +30,7 @@ class OdsTest extends TestCase
     private function loadOdsTestFile()
     {
         if (!$this->spreadsheetOdsTest) {
-            $filename = __DIR__ . '/../../../samples/templates/OOCalcTest.ods';
+            $filename = 'samples/templates/OOCalcTest.ods';
 
             // Load into this instance
             $reader = new Ods();
@@ -46,7 +46,7 @@ class OdsTest extends TestCase
     protected function loadDataFile()
     {
         if (!$this->spreadsheetData) {
-            $filename = __DIR__ . '/../../data/Reader/Ods/data.ods';
+            $filename = 'tests/data/Reader/Ods/data.ods';
 
             // Load into this instance
             $reader = new Ods();
@@ -58,7 +58,7 @@ class OdsTest extends TestCase
 
     public function testReadFileProperties()
     {
-        $filename = __DIR__ . '/../../data/Reader/Ods/data.ods';
+        $filename = 'tests/data/Reader/Ods/data.ods';
 
         // Load into this instance
         $reader = new Ods();
@@ -234,7 +234,7 @@ class OdsTest extends TestCase
             'HereAndNow' => ['type' => Properties::PROPERTY_TYPE_DATE, 'value' => '2019-06-30'],
         ];
 
-        $filename = './data/Reader/Ods/propertyTest.ods';
+        $filename = 'tests/data/Reader/Ods/propertyTest.ods';
         $reader = new Ods();
         $spreadsheet = $reader->load($filename);
 

@@ -26,6 +26,6 @@ class CeilingTest extends TestCase
 
     public function providerCEILING()
     {
-        return require 'data/Calculation/MathTrig/CEILING.php';
+        return require 'tests/data/Calculation/MathTrig/CEILING.php';
     }
 }

@@ -20,6 +20,6 @@ class PasswordHasherTest extends TestCase
 
     public function providerHashPassword()
     {
-        return require 'data/Shared/PasswordHashes.php';
+        return require 'tests/data/Shared/PasswordHashes.php';
     }
 }

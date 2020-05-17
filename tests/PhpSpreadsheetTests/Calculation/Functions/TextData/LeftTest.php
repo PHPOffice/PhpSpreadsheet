@@ -38,6 +38,6 @@ class LeftTest extends TestCase
 
     public function providerLEFT()
     {
-        return require 'data/Calculation/TextData/LEFT.php';
+        return require 'tests/data/Calculation/TextData/LEFT.php';
     }
 }

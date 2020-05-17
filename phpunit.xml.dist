@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.5/phpunit.xsd"
+        xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
         bootstrap="./tests/bootstrap.php"
         backupGlobals="true"
         colors="true"
@@ -11,7 +11,7 @@
         <ini name="memory_limit" value="2048M"/>
     </php>
     <testsuite name="PhpSpreadsheet Unit Test Suite">
-        <directory suffix="Test.php">./tests/PhpSpreadsheetTests</directory>
+        <directory>./tests/PhpSpreadsheetTests</directory>
     </testsuite>
     <filter>
         <whitelist>

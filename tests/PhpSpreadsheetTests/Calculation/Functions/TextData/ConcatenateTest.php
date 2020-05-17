@@ -38,6 +38,6 @@ class ConcatenateTest extends TestCase
 
     public function providerCONCATENATE()
     {
-        return require 'data/Calculation/TextData/CONCATENATE.php';
+        return require 'tests/data/Calculation/TextData/CONCATENATE.php';
     }
 }

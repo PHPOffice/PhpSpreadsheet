@@ -39,6 +39,6 @@ class ProperTest extends TestCase
 
     public function providerPROPER()
     {
-        return require 'data/Calculation/TextData/PROPER.php';
+        return require 'tests/data/Calculation/TextData/PROPER.php';
     }
 }

@@ -27,6 +27,6 @@ class FisherTest extends TestCase
 
     public function providerFISHER()
     {
-        return require 'data/Calculation/Statistical/FISHER.php';
+        return require 'tests/data/Calculation/Statistical/FISHER.php';
     }
 }

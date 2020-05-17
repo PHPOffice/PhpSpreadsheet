@@ -26,6 +26,6 @@ class AccrintMTest extends TestCase
 
     public function providerACCRINTM()
     {
-        return require 'data/Calculation/Financial/ACCRINTM.php';
+        return require 'tests/data/Calculation/Financial/ACCRINTM.php';
     }
 }

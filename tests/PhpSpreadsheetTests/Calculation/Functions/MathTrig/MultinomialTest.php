@@ -26,6 +26,6 @@ class MultinomialTest extends TestCase
 
     public function providerMULTINOMIAL()
     {
-        return require 'data/Calculation/MathTrig/MULTINOMIAL.php';
+        return require 'tests/data/Calculation/MathTrig/MULTINOMIAL.php';
     }
 }

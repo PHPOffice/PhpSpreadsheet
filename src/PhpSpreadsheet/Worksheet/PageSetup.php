@@ -323,8 +323,6 @@ class PageSetup
      * @param null|int $pValue
      * @param bool $pUpdate Update fitToPage so scaling applies rather than fitToHeight / fitToWidth
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function setScale($pValue, $pUpdate = true)
@@ -589,8 +587,6 @@ class PageSetup
      *                            Otherwise, the specific range identified by the value of $index will be returned
      *                            Print areas are numbered from 1
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return string
      */
     public function getPrintArea($index = 0)
@@ -669,8 +665,6 @@ class PageSetup
      *                            Default behaviour, or the "O" method, overwrites existing print area
      *                            The "I" method, inserts the new print area before any specified index, or at the end of the list
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function setPrintArea($value, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
@@ -730,8 +724,6 @@ class PageSetup
      *                                list.
      *                            Print areas are numbered from 1
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function addPrintArea($value, $index = -1)
@@ -760,8 +752,6 @@ class PageSetup
      *                                Default behaviour, or the "O" method, overwrites existing print area
      *                                The "I" method, inserts the new print area before any specified index, or at the end of the list
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function setPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
@@ -786,8 +776,6 @@ class PageSetup
      *                                    Specifying an index value of 0, will always append the new print range at the end of the
      *                                    list.
      *                                Print areas are numbered from 1
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */

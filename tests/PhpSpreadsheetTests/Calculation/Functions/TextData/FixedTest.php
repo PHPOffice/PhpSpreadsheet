@@ -38,6 +38,6 @@ class FixedTest extends TestCase
 
     public function providerFIXED()
     {
-        return require 'data/Calculation/TextData/FIXED.php';
+        return require 'tests/data/Calculation/TextData/FIXED.php';
     }
 }

@@ -39,6 +39,6 @@ class NumberValueTest extends TestCase
 
     public function providerNUMBERVALUE()
     {
-        return require 'data/Calculation/TextData/NUMBERVALUE.php';
+        return require 'tests/data/Calculation/TextData/NUMBERVALUE.php';
     }
 }

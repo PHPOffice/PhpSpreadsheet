@@ -71,6 +71,6 @@ class LookupRefTest extends TestCase
 
     public function providerFormulaText()
     {
-        return require 'data/Calculation/LookupRef/FORMULATEXT.php';
+        return require 'tests/data/Calculation/LookupRef/FORMULATEXT.php';
     }
 }

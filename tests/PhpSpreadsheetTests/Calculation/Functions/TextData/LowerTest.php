@@ -39,6 +39,6 @@ class LowerTest extends TestCase
 
     public function providerLOWER()
     {
-        return require 'data/Calculation/TextData/LOWER.php';
+        return require 'tests/data/Calculation/TextData/LOWER.php';
     }
 }

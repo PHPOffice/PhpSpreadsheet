@@ -27,6 +27,6 @@ class CschTest extends TestCase
 
     public function providerCSCH()
     {
-        return require 'data/Calculation/MathTrig/CSCH.php';
+        return require 'tests/data/Calculation/MathTrig/CSCH.php';
     }
 }

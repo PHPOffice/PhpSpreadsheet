@@ -32,7 +32,7 @@ class DateTest extends TestCase
 
     public function providerDATE()
     {
-        return require 'data/Calculation/DateTime/DATE.php';
+        return require 'tests/data/Calculation/DateTime/DATE.php';
     }
 
     public function testDATEtoUnixTimestamp()

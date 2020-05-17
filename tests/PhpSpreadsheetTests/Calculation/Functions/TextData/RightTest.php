@@ -38,6 +38,6 @@ class RightTest extends TestCase
 
     public function providerRIGHT()
     {
-        return require 'data/Calculation/TextData/RIGHT.php';
+        return require 'tests/data/Calculation/TextData/RIGHT.php';
     }
 }

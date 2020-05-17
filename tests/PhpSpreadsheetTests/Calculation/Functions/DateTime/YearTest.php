@@ -30,6 +30,6 @@ class YearTest extends TestCase
 
     public function providerYEAR()
     {
-        return require 'data/Calculation/DateTime/YEAR.php';
+        return require 'tests/data/Calculation/DateTime/YEAR.php';
     }
 }

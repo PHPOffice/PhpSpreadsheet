@@ -26,6 +26,6 @@ class GammaInvTest extends TestCase
 
     public function providerGAMMAINV()
     {
-        return require 'data/Calculation/Statistical/GAMMAINV.php';
+        return require 'tests/data/Calculation/Statistical/GAMMAINV.php';
     }
 }

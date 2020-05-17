@@ -21,8 +21,6 @@ class Dompdf extends Pdf
      * Save Spreadsheet to file.
      *
      * @param string $pFilename Name of the file to save as
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename)
     {
@@ -69,6 +67,6 @@ class Dompdf extends Pdf
         //  Write to file
         fwrite($fileHandle, $pdf->output());
 
-        parent::restoreStateAfterSave($fileHandle);
+        parent::restoreStateAfterSave();
     }
 }

@@ -26,6 +26,6 @@ class AverageIfTest extends TestCase
 
     public function providerAVERAGEIF()
     {
-        return require 'data/Calculation/Statistical/AVERAGEIF.php';
+        return require 'tests/data/Calculation/Statistical/AVERAGEIF.php';
     }
 }

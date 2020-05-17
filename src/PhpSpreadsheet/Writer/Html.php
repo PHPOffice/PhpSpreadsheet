@@ -23,7 +23,6 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class Html extends BaseWriter
 {
@@ -146,26 +145,18 @@ class Html extends BaseWriter
     /**
      * Save Spreadsheet to file.
      *
-     * @param string $pFilename
-     *
-     * @throws WriterException
+     * @param resource|string $pFilename
      */
     public function save($pFilename)
     {
         // Open file
-        $fileHandle = false;
-        if ($pFilename) {
-            $fileHandle = fopen($pFilename, 'wb+');
-        }
-        if ($fileHandle === false) {
-            throw new WriterException("Could not open file $pFilename for writing.");
-        }
+        $this->openFileHandle($pFilename);
 
         // Write html
-        fwrite($fileHandle, $this->generateHTMLAll());
+        fwrite($this->fileHandle, $this->generateHTMLAll());
 
         // Close file
-        fclose($fileHandle);
+        $this->maybeCloseFileHandle();
     }
 
     /**
@@ -344,8 +335,6 @@ class Html extends BaseWriter
      *
      * @param bool $pIncludeStyles Include styles?
      *
-     * @throws WriterException
-     *
      * @return string
      */
     public function generateHTMLHeader($pIncludeStyles = false)
@@ -426,8 +415,6 @@ class Html extends BaseWriter
     /**
      * Generate sheet data.
      *
-     * @throws WriterException
-     *
      * @return string
      */
     public function generateSheetData()
@@ -501,8 +488,6 @@ class Html extends BaseWriter
 
     /**
      * Generate sheet tabs.
-     *
-     * @throws WriterException
      *
      * @return string
      */
@@ -787,8 +772,6 @@ class Html extends BaseWriter
      *
      * @param bool $generateSurroundingHTML Generate surrounding HTML tags? (&lt;style&gt; and &lt;/style&gt;)
      *
-     * @throws WriterException
-     *
      * @return string
      */
     public function generateStyles($generateSurroundingHTML = true)
@@ -892,8 +875,6 @@ class Html extends BaseWriter
      * Build CSS styles.
      *
      * @param bool $generateSurroundingHTML Generate surrounding HTML style? (html { })
-     *
-     * @throws WriterException
      *
      * @return array
      */
@@ -1212,7 +1193,16 @@ class Html extends BaseWriter
         return '    </tbody></table>' . PHP_EOL . '</div>' . PHP_EOL;
     }
 
-    private function generateRowStart($pSheet, $sheetIndex, $pRow)
+    /**
+     * Generate row start.
+     *
+     * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
+     * @param int $sheetIndex Sheet index (0-based)
+     * @param int $pRow row number
+     *
+     * @return string
+     */
+    private function generateRowStart(Worksheet $pSheet, $sheetIndex, $pRow)
     {
         $html = '';
         if (count($pSheet->getBreaks()) > 0) {

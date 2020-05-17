@@ -29,6 +29,6 @@ class YearFracTest extends TestCase
 
     public function providerYEARFRAC()
     {
-        return require 'data/Calculation/DateTime/YEARFRAC.php';
+        return require 'tests/data/Calculation/DateTime/YEARFRAC.php';
     }
 }

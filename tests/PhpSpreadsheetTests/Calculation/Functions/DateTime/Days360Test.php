@@ -32,6 +32,6 @@ class Days360Test extends TestCase
 
     public function providerDAYS360()
     {
-        return require 'data/Calculation/DateTime/DAYS360.php';
+        return require 'tests/data/Calculation/DateTime/DAYS360.php';
     }
 }

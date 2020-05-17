@@ -39,6 +39,6 @@ class TTest extends TestCase
 
     public function providerT()
     {
-        return require 'data/Calculation/TextData/T.php';
+        return require 'tests/data/Calculation/TextData/T.php';
     }
 }

@@ -35,7 +35,7 @@ class XmlScannerTest extends TestCase
     public function providerValidXML()
     {
         $tests = [];
-        foreach (glob(__DIR__ . '/../../../data/Reader/Xml/XEETestValid*.xml') as $file) {
+        foreach (glob('tests/data/Reader/Xml/XEETestValid*.xml') as $file) {
             $filename = realpath($file);
             $expectedResult = file_get_contents($file);
             $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, $expectedResult, true];
@@ -67,7 +67,7 @@ class XmlScannerTest extends TestCase
     public function providerInvalidXML()
     {
         $tests = [];
-        foreach (glob(__DIR__ . '/../../../data/Reader/Xml/XEETestInvalidUTF*.xml') as $file) {
+        foreach (glob('tests/data/Reader/Xml/XEETestInvalidUTF*.xml') as $file) {
             $filename = realpath($file);
             $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, true];
             $tests[basename($file) . '_libxml_entity_loader_enabled'] = [$filename, false];
@@ -114,7 +114,7 @@ class XmlScannerTest extends TestCase
     public function providerValidXMLForCallback()
     {
         $tests = [];
-        foreach (glob(__DIR__ . '/../../../data/Reader/Xml/SecurityScannerWithCallback*.xml') as $file) {
+        foreach (glob('tests/data/Reader/Xml/SecurityScannerWithCallback*.xml') as $file) {
             $tests[basename($file)] = [realpath($file), file_get_contents($file)];
         }
 
@@ -127,7 +127,7 @@ class XmlScannerTest extends TestCase
         unset($reader);
 
         $reader = new \XMLReader();
-        $opened = $reader->open(__DIR__ . '/../../../data/Reader/Xml/SecurityScannerWithCallbackExample.xml');
+        $opened = $reader->open('tests/data/Reader/Xml/SecurityScannerWithCallbackExample.xml');
         $this->assertTrue($opened);
     }
 

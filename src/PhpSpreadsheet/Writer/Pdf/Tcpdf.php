@@ -37,8 +37,6 @@ class Tcpdf extends Pdf
      * Save Spreadsheet to file.
      *
      * @param string $pFilename Name of the file to save as
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename)
     {
@@ -101,6 +99,6 @@ class Tcpdf extends Pdf
         //  Write to file
         fwrite($fileHandle, $pdf->output($pFilename, 'S'));
 
-        parent::restoreStateAfterSave($fileHandle);
+        parent::restoreStateAfterSave();
     }
 }

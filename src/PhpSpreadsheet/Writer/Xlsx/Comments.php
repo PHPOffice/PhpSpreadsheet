@@ -13,8 +13,6 @@ class Comments extends WriterPart
      *
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @return string XML Output
      */
     public function writeComments(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet)
@@ -73,8 +71,6 @@ class Comments extends WriterPart
      * @param string $pCellReference Cell reference
      * @param Comment $pComment Comment
      * @param array $pAuthors Array of authors
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeComment(XMLWriter $objWriter, $pCellReference, Comment $pComment, array $pAuthors)
     {
@@ -95,8 +91,6 @@ class Comments extends WriterPart
      * Write VML comments to XML format.
      *
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */

@@ -38,6 +38,6 @@ class SearchTest extends TestCase
 
     public function providerSEARCH()
     {
-        return require 'data/Calculation/TextData/SEARCH.php';
+        return require 'tests/data/Calculation/TextData/SEARCH.php';
     }
 }

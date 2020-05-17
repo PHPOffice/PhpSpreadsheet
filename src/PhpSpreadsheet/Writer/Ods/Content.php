@@ -32,8 +32,6 @@ class Content extends WriterPart
     /**
      * Write content.xml to XML format.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @return string XML Output
      */
     public function write()
@@ -169,8 +167,6 @@ class Content extends WriterPart
      *
      * @param XMLWriter $objWriter
      * @param Row $row
-     *
-     * @throws Exception
      */
     private function writeCells(XMLWriter $objWriter, Row $row)
     {
@@ -373,8 +369,6 @@ class Content extends WriterPart
      *
      * @param XMLWriter $objWriter
      * @param Cell $cell
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     private function writeCellMerge(XMLWriter $objWriter, Cell $cell)
     {

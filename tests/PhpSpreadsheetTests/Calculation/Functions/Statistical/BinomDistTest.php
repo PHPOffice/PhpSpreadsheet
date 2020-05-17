@@ -26,6 +26,6 @@ class BinomDistTest extends TestCase
 
     public function providerBINOMDIST()
     {
-        return require 'data/Calculation/Statistical/BINOMDIST.php';
+        return require 'tests/data/Calculation/Statistical/BINOMDIST.php';
     }
 }

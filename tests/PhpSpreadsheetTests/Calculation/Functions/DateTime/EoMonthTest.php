@@ -31,7 +31,7 @@ class EoMonthTest extends TestCase
 
     public function providerEOMONTH()
     {
-        return require 'data/Calculation/DateTime/EOMONTH.php';
+        return require 'tests/data/Calculation/DateTime/EOMONTH.php';
     }
 
     public function testEOMONTHtoUnixTimestamp()

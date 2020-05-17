@@ -26,7 +26,7 @@ class CountTest extends TestCase
 
     public function providerBasicCOUNT()
     {
-        return require 'data/Calculation/Statistical/BasicCOUNT.php';
+        return require 'tests/data/Calculation/Statistical/BasicCOUNT.php';
     }
 
     /**
@@ -42,7 +42,7 @@ class CountTest extends TestCase
 
     public function providerExcelCOUNT()
     {
-        return require 'data/Calculation/Statistical/ExcelCOUNT.php';
+        return require 'tests/data/Calculation/Statistical/ExcelCOUNT.php';
     }
 
     /**
@@ -60,7 +60,7 @@ class CountTest extends TestCase
 
     public function providerOpenOfficeCOUNT()
     {
-        return require 'data/Calculation/Statistical/OpenOfficeCOUNT.php';
+        return require 'tests/data/Calculation/Statistical/OpenOfficeCOUNT.php';
     }
 
     /**
@@ -78,6 +78,6 @@ class CountTest extends TestCase
 
     public function providerGnumericCOUNT()
     {
-        return require 'data/Calculation/Statistical/GnumericCOUNT.php';
+        return require 'tests/data/Calculation/Statistical/GnumericCOUNT.php';
     }
 }

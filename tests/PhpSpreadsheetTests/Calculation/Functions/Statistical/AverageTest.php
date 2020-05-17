@@ -26,6 +26,6 @@ class AverageTest extends TestCase
 
     public function providerAVERAGE()
     {
-        return require 'data/Calculation/Statistical/AVERAGE.php';
+        return require 'tests/data/Calculation/Statistical/AVERAGE.php';
     }
 }

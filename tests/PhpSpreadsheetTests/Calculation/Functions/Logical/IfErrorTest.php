@@ -28,6 +28,6 @@ class IfErrorTest extends TestCase
 
     public function providerIFERROR()
     {
-        return require 'data/Calculation/Logical/IFERROR.php';
+        return require 'tests/data/Calculation/Logical/IFERROR.php';
     }
 }

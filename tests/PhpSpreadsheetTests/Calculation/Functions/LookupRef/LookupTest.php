@@ -26,6 +26,6 @@ class LookupTest extends TestCase
 
     public function providerLOOKUP()
     {
-        return require 'data/Calculation/LookupRef/LOOKUP.php';
+        return require 'tests/data/Calculation/LookupRef/LOOKUP.php';
     }
 }

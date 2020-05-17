@@ -26,6 +26,6 @@ class BetaInvTest extends TestCase
 
     public function providerBETAINV()
     {
-        return require 'data/Calculation/Statistical/BETAINV.php';
+        return require 'tests/data/Calculation/Statistical/BETAINV.php';
     }
 }

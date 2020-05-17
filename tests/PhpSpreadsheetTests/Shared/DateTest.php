@@ -42,7 +42,7 @@ class DateTest extends TestCase
 
     public function providerDateTimeExcelToTimestamp1900()
     {
-        return require 'data/Shared/Date/ExcelToTimestamp1900.php';
+        return require 'tests/data/Shared/Date/ExcelToTimestamp1900.php';
     }
 
     /**
@@ -60,7 +60,7 @@ class DateTest extends TestCase
 
     public function providerDateTimeTimestampToExcel1900()
     {
-        return require 'data/Shared/Date/TimestampToExcel1900.php';
+        return require 'tests/data/Shared/Date/TimestampToExcel1900.php';
     }
 
     /**
@@ -78,7 +78,7 @@ class DateTest extends TestCase
 
     public function providerDateTimeDateTimeToExcel()
     {
-        return require 'data/Shared/Date/DateTimeToExcel.php';
+        return require 'tests/data/Shared/Date/DateTimeToExcel.php';
     }
 
     /**
@@ -96,7 +96,7 @@ class DateTest extends TestCase
 
     public function providerDateTimeFormattedPHPToExcel1900()
     {
-        return require 'data/Shared/Date/FormattedPHPToExcel1900.php';
+        return require 'tests/data/Shared/Date/FormattedPHPToExcel1900.php';
     }
 
     /**
@@ -114,7 +114,7 @@ class DateTest extends TestCase
 
     public function providerDateTimeExcelToTimestamp1904()
     {
-        return require 'data/Shared/Date/ExcelToTimestamp1904.php';
+        return require 'tests/data/Shared/Date/ExcelToTimestamp1904.php';
     }
 
     /**
@@ -132,7 +132,7 @@ class DateTest extends TestCase
 
     public function providerDateTimeTimestampToExcel1904()
     {
-        return require 'data/Shared/Date/TimestampToExcel1904.php';
+        return require 'tests/data/Shared/Date/TimestampToExcel1904.php';
     }
 
     /**
@@ -148,7 +148,7 @@ class DateTest extends TestCase
 
     public function providerIsDateTimeFormatCode()
     {
-        return require 'data/Shared/Date/FormatCodes.php';
+        return require 'tests/data/Shared/Date/FormatCodes.php';
     }
 
     /**
@@ -166,6 +166,6 @@ class DateTest extends TestCase
 
     public function providerDateTimeExcelToTimestamp1900Timezone()
     {
-        return require 'data/Shared/Date/ExcelToTimestamp1900Timezone.php';
+        return require 'tests/data/Shared/Date/ExcelToTimestamp1900Timezone.php';
     }
 }

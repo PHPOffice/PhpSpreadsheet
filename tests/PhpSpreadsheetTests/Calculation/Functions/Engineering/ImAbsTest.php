@@ -29,6 +29,6 @@ class ImAbsTest extends TestCase
 
     public function providerIMABS()
     {
-        return require 'data/Calculation/Engineering/IMABS.php';
+        return require 'tests/data/Calculation/Engineering/IMABS.php';
     }
 }

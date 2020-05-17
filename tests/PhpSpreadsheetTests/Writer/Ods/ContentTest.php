@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
 {
-    private $samplesPath = __DIR__ . '/../../../data/Writer/Ods';
+    private $samplesPath = 'tests/data/Writer/Ods';
 
     /**
      * @var string

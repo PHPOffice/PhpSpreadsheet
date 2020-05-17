@@ -26,6 +26,6 @@ class SumProductTest extends TestCase
 
     public function providerSUMPRODUCT()
     {
-        return require 'data/Calculation/MathTrig/SUMPRODUCT.php';
+        return require 'tests/data/Calculation/MathTrig/SUMPRODUCT.php';
     }
 }

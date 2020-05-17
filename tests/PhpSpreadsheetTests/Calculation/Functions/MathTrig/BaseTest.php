@@ -26,6 +26,6 @@ class BaseTest extends TestCase
 
     public function providerBASE()
     {
-        return require 'data/Calculation/MathTrig/BASE.php';
+        return require 'tests/data/Calculation/MathTrig/BASE.php';
     }
 }

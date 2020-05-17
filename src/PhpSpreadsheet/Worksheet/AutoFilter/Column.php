@@ -115,8 +115,6 @@ class Column
      *
      * @param string $pColumn Column (e.g. A)
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function setColumnIndex($pColumn)
@@ -171,8 +169,6 @@ class Column
      *
      * @param string $pFilterType
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function setFilterType($pFilterType)
@@ -200,8 +196,6 @@ class Column
      * Set AutoFilter Multiple Rules And/Or.
      *
      * @param string $pJoin And/Or
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */

@@ -115,8 +115,6 @@ class DataSeriesValues
      *                                    DataSeriesValues::DATASERIES_TYPE_NUMBER
      *                                        Normally used for chart data values
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function setDataType($dataType)
@@ -246,8 +244,6 @@ class DataSeriesValues
      * Method for validating hex color.
      *
      * @param string $color value for color
-     *
-     * @throws \Exception thrown if color is invalid
      *
      * @return bool true if validation was successful
      */
