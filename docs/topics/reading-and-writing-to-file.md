@@ -535,8 +535,12 @@ $writer->save("05featuredemo.csv");
 
 #### Writing UTF-8 CSV files
 
-A CSV file can be marked as UTF-8 by writing a BOM file header. This can
-be enabled by using the following code:
+CSV files are written in UTF-8. If they do not contain characters
+outside the ASCII range, nothing else need be done.
+However, if such characters are in the file,
+it should explicitly include a BOM file header;
+if it doesn't, Excel will not interpret those characters correctly.
+This can be enabled by using the following code:
 
 ``` php
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);

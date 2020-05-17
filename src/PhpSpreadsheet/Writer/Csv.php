@@ -92,7 +92,10 @@ class Csv extends BaseWriter
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
 
         // Open file
-        $fileHandle = fopen($pFilename, 'wb+');
+        $fileHandle = false;
+        if ($pFilename) {
+            $fileHandle = fopen($pFilename, 'wb+');
+        }
         if ($fileHandle === false) {
             throw new Exception("Could not open file $pFilename for writing.");
         }
@@ -175,10 +178,7 @@ class Csv extends BaseWriter
      */
     public function setEnclosure($pValue)
     {
-        if ($pValue == '') {
-            $pValue = null;
-        }
-        $this->enclosure = $pValue;
+        $this->enclosure = $pValue ? $pValue : '"';
 
         return $this;
     }
