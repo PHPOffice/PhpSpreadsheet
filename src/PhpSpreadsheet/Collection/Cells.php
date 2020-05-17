@@ -105,8 +105,6 @@ class Cells
      *
      * @param Cell $cell Cell to update
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return Cell
      */
     public function update(Cell $cell)
@@ -382,8 +380,6 @@ class Cells
     /**
      * Store cell data in cache for the current cell object if it's "dirty",
      * and the 'nullify' the current cell object.
-     *
-     * @throws PhpSpreadsheetException
      */
     private function storeCurrentCell()
     {
@@ -409,8 +405,6 @@ class Cells
      * @param string $pCoord Coordinate of the cell to update
      * @param Cell $cell Cell to update
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return \PhpOffice\PhpSpreadsheet\Cell\Cell
      */
     public function add($pCoord, Cell $cell)
@@ -431,8 +425,6 @@ class Cells
      * Get cell at a specific coordinate.
      *
      * @param string $pCoord Coordinate of the cell
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return \PhpOffice\PhpSpreadsheet\Cell\Cell Cell that was found, or null if not found
      */

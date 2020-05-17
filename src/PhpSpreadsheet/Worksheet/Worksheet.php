@@ -424,8 +424,6 @@ class Worksheet implements IComparable
      *
      * @param string $pValue The string to check
      *
-     * @throws Exception
-     *
      * @return string The valid string
      */
     private static function checkSheetCodeName($pValue)
@@ -453,8 +451,6 @@ class Worksheet implements IComparable
      * Check sheet title for valid Excel syntax.
      *
      * @param string $pValue The string to check
-     *
-     * @throws Exception
      *
      * @return string The valid string
      */
@@ -1185,8 +1181,6 @@ class Worksheet implements IComparable
      * @param bool $createIfNotExists Flag indicating whether a new cell should be created if it doesn't
      *                                       already exist, or a null should be returned instead
      *
-     * @throws Exception
-     *
      * @return null|Cell Cell that was found/created or null
      */
     public function getCell($pCoordinate, $createIfNotExists = true)
@@ -1292,8 +1286,6 @@ class Worksheet implements IComparable
      * Does the cell at a specific coordinate exist?
      *
      * @param string $pCoordinate Coordinate of the cell eg: 'A1'
-     *
-     * @throws Exception
      *
      * @return bool
      */
@@ -1431,8 +1423,6 @@ class Worksheet implements IComparable
      *
      * @param string $pCellCoordinate Cell coordinate (or range) to get style for, eg: 'A1'
      *
-     * @throws Exception
-     *
      * @return Style
      */
     public function getStyle($pCellCoordinate)
@@ -1543,8 +1533,6 @@ class Worksheet implements IComparable
      * @param Style $pCellStyle Cell style to duplicate
      * @param string $pRange Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function duplicateStyle(Style $pCellStyle, $pRange)
@@ -1588,8 +1576,6 @@ class Worksheet implements IComparable
      * @param Conditional[] $pCellStyle Cell style to duplicate
      * @param string $pRange Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function duplicateConditionalStyle(array $pCellStyle, $pRange = '')
@@ -1625,8 +1611,6 @@ class Worksheet implements IComparable
      *
      * @param string $pCoordinate Cell coordinate (e.g. A1)
      * @param int $pBreak Break type (type of Worksheet::BREAK_*)
-     *
-     * @throws Exception
      *
      * @return $this
      */
@@ -1679,8 +1663,6 @@ class Worksheet implements IComparable
      *
      * @param string $pRange Cell range (e.g. A1:E1)
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function mergeCells($pRange)
@@ -1724,8 +1706,6 @@ class Worksheet implements IComparable
      * @param int $columnIndex2 Numeric column coordinate of the last cell
      * @param int $row2 Numeric row coordinate of the last cell
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function mergeCellsByColumnAndRow($columnIndex1, $row1, $columnIndex2, $row2)
@@ -1739,8 +1719,6 @@ class Worksheet implements IComparable
      * Remove merge on a cell range.
      *
      * @param string $pRange Cell range (e.g. A1:E1)
-     *
-     * @throws Exception
      *
      * @return $this
      */
@@ -1769,8 +1747,6 @@ class Worksheet implements IComparable
      * @param int $row1 Numeric row coordinate of the first cell
      * @param int $columnIndex2 Numeric column coordinate of the last cell
      * @param int $row2 Numeric row coordinate of the last cell
-     *
-     * @throws Exception
      *
      * @return $this
      */
@@ -1852,8 +1828,6 @@ class Worksheet implements IComparable
      *
      * @param string $pRange Cell (e.g. A1) or cell range (e.g. A1:E1)
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function unprotectCells($pRange)
@@ -1877,8 +1851,6 @@ class Worksheet implements IComparable
      * @param int $row1 Numeric row coordinate of the first cell
      * @param int $columnIndex2 Numeric column coordinate of the last cell
      * @param int $row2 Numeric row coordinate of the last cell
-     *
-     * @throws Exception
      *
      * @return $this
      */
@@ -1915,8 +1887,6 @@ class Worksheet implements IComparable
      * @param AutoFilter|string $pValue
      *            A simple string containing a Cell range like 'A1:E10' is permitted for backward compatibility
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function setAutoFilter($pValue)
@@ -1937,8 +1907,6 @@ class Worksheet implements IComparable
      * @param int $row1 Numeric row coordinate of the first cell
      * @param int $columnIndex2 Numeric column coordinate of the second cell
      * @param int $row2 Numeric row coordinate of the second cell
-     *
-     * @throws Exception
      *
      * @return $this
      */
@@ -1984,8 +1952,6 @@ class Worksheet implements IComparable
      *
      * @param null|string $cell Position of the split
      * @param null|string $topLeftCell default position of the right bottom pane
-     *
-     * @throws Exception
      *
      * @return $this
      */
@@ -2045,8 +2011,6 @@ class Worksheet implements IComparable
      * @param int $pBefore Insert before this one
      * @param int $pNumRows Number of rows to insert
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function insertNewRowBefore($pBefore, $pNumRows = 1)
@@ -2066,8 +2030,6 @@ class Worksheet implements IComparable
      *
      * @param string $pBefore Insert before this one, eg: 'A'
      * @param int $pNumCols Number of columns to insert
-     *
-     * @throws Exception
      *
      * @return $this
      */
@@ -2089,8 +2051,6 @@ class Worksheet implements IComparable
      * @param int $beforeColumnIndex Insert before this one (numeric column coordinate of the cell)
      * @param int $pNumCols Number of columns to insert
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function insertNewColumnBeforeByIndex($beforeColumnIndex, $pNumCols = 1)
@@ -2107,8 +2067,6 @@ class Worksheet implements IComparable
      *
      * @param int $pRow Remove starting with this one
      * @param int $pNumRows Number of rows to remove
-     *
-     * @throws Exception
      *
      * @return $this
      */
@@ -2143,8 +2101,6 @@ class Worksheet implements IComparable
      *
      * @param string $pColumn Remove starting with this one, eg: 'A'
      * @param int $pNumCols Number of columns to remove
-     *
-     * @throws Exception
      *
      * @return $this
      */
@@ -2183,8 +2139,6 @@ class Worksheet implements IComparable
      *
      * @param int $columnIndex Remove starting with this one (numeric column coordinate of the cell)
      * @param int $numColumns Number of columns to remove
-     *
-     * @throws Exception
      *
      * @return $this
      */
@@ -2346,8 +2300,6 @@ class Worksheet implements IComparable
      *
      * @param string $pCellCoordinate Cell coordinate to get comment for, eg: 'A1'
      *
-     * @throws Exception
-     *
      * @return Comment
      */
     public function getComment($pCellCoordinate)
@@ -2461,8 +2413,6 @@ class Worksheet implements IComparable
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function setSelectedCellByColumnAndRow($columnIndex, $row)
@@ -2501,8 +2451,6 @@ class Worksheet implements IComparable
      * @param mixed $nullValue Value in source array that stands for blank cell
      * @param string $startCell Insert array starting from this cell address as the top left coordinate
      * @param bool $strictNullComparison Apply strict comparison when testing for null values in the array
-     *
-     * @throws Exception
      *
      * @return $this
      */
@@ -2618,8 +2566,6 @@ class Worksheet implements IComparable
      * @param bool $formatData Should formatting be applied to cell values?
      * @param bool $returnCellRef False - Return a simple array of rows and columns indexed by number counting from zero
      *                                True - Return rows and columns indexed by their actual row and column IDs
-     *
-     * @throws Exception
      *
      * @return array
      */
@@ -3009,8 +2955,6 @@ class Worksheet implements IComparable
      *                       silently space to underscore)
      * @param bool $validate False to skip validation of new title. WARNING: This should only be set
      *                       at parse time (by Readers), where titles can be assumed to be valid.
-     *
-     * @throws Exception
      *
      * @return $this
      */

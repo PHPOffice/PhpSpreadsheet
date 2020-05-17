@@ -15,8 +15,6 @@ class DocumentGeneratorTest extends TestCase
      *
      * @param array $phpSpreadsheetFunctions
      * @param string $expected
-     *
-     * @throws \ReflectionException
      */
     public function testGenerateFunctionListByName(array $phpSpreadsheetFunctions, string $expected): void
     {
@@ -28,8 +26,6 @@ class DocumentGeneratorTest extends TestCase
      *
      * @param array $phpSpreadsheetFunctions
      * @param string $expected
-     *
-     * @throws \ReflectionException
      */
     public function testGenerateFunctionListByCategory(array $phpSpreadsheetFunctions, string $expected): void
     {

@@ -310,8 +310,6 @@ class CalculationTest extends TestCase
      *  be set in cache
      * @param string[] $shouldNotBeSetInCacheCells coordinates of cells that must
      *  not be set in cache because of pruning
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @dataProvider dataProviderBranchPruningFullExecution
      */
     public function testFullExecution(

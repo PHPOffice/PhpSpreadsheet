@@ -22,8 +22,6 @@ class HashTable
      * Create a new \PhpOffice\PhpSpreadsheet\HashTable.
      *
      * @param IComparable[] $pSource Optional source array to create HashTable from
-     *
-     * @throws Exception
      */
     public function __construct($pSource = null)
     {
@@ -37,8 +35,6 @@ class HashTable
      * Add HashTable items from source.
      *
      * @param IComparable[] $pSource Source array to create HashTable from
-     *
-     * @throws Exception
      */
     public function addFromSource(array $pSource = null)
     {

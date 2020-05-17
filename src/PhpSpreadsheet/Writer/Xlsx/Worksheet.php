@@ -12,7 +12,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
-use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 /**
  * @category   PhpSpreadsheet
@@ -27,8 +26,6 @@ class Worksheet extends WriterPart
      * @param PhpspreadsheetWorksheet $pSheet
      * @param string[] $pStringTable
      * @param bool $includeCharts Flag indicating if we should write charts
-     *
-     * @throws WriterException
      *
      * @return string XML Output
      */
@@ -194,8 +191,6 @@ class Worksheet extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
-     *
-     * @throws WriterException
      */
     private function writeSheetViews(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
     {
@@ -459,8 +454,6 @@ class Worksheet extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
-     *
-     * @throws WriterException
      */
     private function writeConditionalFormatting(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
     {
@@ -956,8 +949,6 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      * @param string[] $pStringTable String table
-     *
-     * @throws WriterException
      */
     private function writeSheetData(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, array $pStringTable)
     {
@@ -1044,8 +1035,6 @@ class Worksheet extends WriterPart
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      * @param Cell $pCellAddress Cell Address
      * @param string[] $pFlippedStringTable String table (flipped), for faster index searching
-     *
-     * @throws WriterException
      */
     private function writeCell(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, $pCellAddress, array $pFlippedStringTable)
     {

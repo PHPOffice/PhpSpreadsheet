@@ -64,8 +64,6 @@ class ColumnIterator implements \Iterator
      *
      * @param string $startColumn The column address at which to start iterating
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function resetStart($startColumn = 'A')
@@ -103,8 +101,6 @@ class ColumnIterator implements \Iterator
      * Set the column pointer to the selected column.
      *
      * @param string $column The column address to set the current pointer at
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */

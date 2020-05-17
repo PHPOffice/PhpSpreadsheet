@@ -138,8 +138,6 @@ class Alignment extends Supervisor
      *
      * @param array $pStyles Array containing style information
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function applyFromArray(array $pStyles)
@@ -266,8 +264,6 @@ class Alignment extends Supervisor
      * Set TextRotation.
      *
      * @param int $pValue
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */

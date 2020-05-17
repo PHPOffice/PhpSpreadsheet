@@ -272,8 +272,6 @@ class Csv extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return array
      */
     public function listWorksheetInfo($pFilename)
@@ -317,8 +315,6 @@ class Csv extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return Spreadsheet
      */
     public function load($pFilename)
@@ -335,8 +331,6 @@ class Csv extends BaseReader
      *
      * @param string $pFilename
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws Exception
      *
      * @return Spreadsheet
      */

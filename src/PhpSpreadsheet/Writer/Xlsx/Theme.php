@@ -111,8 +111,6 @@ class Theme extends WriterPart
      *
      * @param Spreadsheet $spreadsheet
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @return string XML Output
      */
     public function writeTheme(Spreadsheet $spreadsheet)

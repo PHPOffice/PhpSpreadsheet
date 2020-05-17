@@ -50,8 +50,6 @@ class Xml extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return bool
      */
     public function canRead($pFilename)
@@ -103,8 +101,6 @@ class Xml extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return false|\SimpleXMLElement
      */
     public function trySimpleXMLLoadString($pFilename)
@@ -126,8 +122,6 @@ class Xml extends BaseReader
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      *
      * @return array
      */
@@ -157,8 +151,6 @@ class Xml extends BaseReader
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      *
      * @return array
      */
@@ -229,8 +221,6 @@ class Xml extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return Spreadsheet
      */
     public function load($pFilename)
@@ -299,8 +289,6 @@ class Xml extends BaseReader
      *
      * @param string $pFilename
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws Exception
      *
      * @return Spreadsheet
      */

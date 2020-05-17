@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
@@ -136,8 +135,6 @@ class NumberFormat extends Supervisor
      * </code>
      *
      * @param array $pStyles Array containing style information
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */
