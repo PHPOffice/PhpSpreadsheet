@@ -38,7 +38,8 @@ class CsvWriteTest extends Functional\AbstractFunctional
         $this->expectException(WriterException::class);
         $spreadsheet = new Spreadsheet();
         $writer = new CsvWriter($spreadsheet);
-        $spreadsheet = $writer->save('');
+        $filename = '';
+        $writer->save($filename);
     }
 
     public function testDefaultSettings()
