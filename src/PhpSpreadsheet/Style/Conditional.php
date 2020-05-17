@@ -352,7 +352,7 @@ class Conditional implements IComparable
             case '':
                 break;
             default:
-                throw new \Exception('Unknown ' . $this->getOperatorType() . ' during active check of conditional formatting.');
+                throw new \Exception('Unknown ' . $this->getOperatorType() . ' during check of active conditional formatting.');
         }
 
         return $return;
