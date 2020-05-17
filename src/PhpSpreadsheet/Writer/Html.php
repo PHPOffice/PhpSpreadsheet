@@ -805,7 +805,27 @@ class Html extends BaseWriter
         return $html;
     }
 
-    private function buildCssPerSheet($sheet, &$css)
+    private function buildCssRowHeights(Worksheet $sheet, array &$css, int $sheetIndex)
+    {
+        // Calculate row heights
+        foreach ($sheet->getRowDimensions() as $rowDimension) {
+            $row = $rowDimension->getRowIndex() - 1;
+
+            // table.sheetN tr.rowYYYYYY { }
+            $css['table.sheet' . $sheetIndex . ' tr.row' . $row] = [];
+
+            if ($rowDimension->getRowHeight() != -1) {
+                $pt_height = $rowDimension->getRowHeight();
+                $css['table.sheet' . $sheetIndex . ' tr.row' . $row]['height'] = $pt_height . 'pt';
+            }
+            if ($rowDimension->getVisible() === false) {
+                $css['table.sheet' . $sheetIndex . ' tr.row' . $row]['display'] = 'none';
+                $css['table.sheet' . $sheetIndex . ' tr.row' . $row]['visibility'] = 'hidden';
+            }
+        }
+    }
+
+    private function buildCssPerSheet(Worksheet $sheet, array &$css)
     {
         // Calculate hash code
         $sheetIndex = $sheet->getParent()->getIndex($sheet);
@@ -853,22 +873,7 @@ class Html extends BaseWriter
             $css['table.sheet' . $sheetIndex . ' tr']['visibility'] = 'hidden';
         }
 
-        // Calculate row heights
-        foreach ($sheet->getRowDimensions() as $rowDimension) {
-            $row = $rowDimension->getRowIndex() - 1;
-
-            // table.sheetN tr.rowYYYYYY { }
-            $css['table.sheet' . $sheetIndex . ' tr.row' . $row] = [];
-
-            if ($rowDimension->getRowHeight() != -1) {
-                $pt_height = $rowDimension->getRowHeight();
-                $css['table.sheet' . $sheetIndex . ' tr.row' . $row]['height'] = $pt_height . 'pt';
-            }
-            if ($rowDimension->getVisible() === false) {
-                $css['table.sheet' . $sheetIndex . ' tr.row' . $row]['display'] = 'none';
-                $css['table.sheet' . $sheetIndex . ' tr.row' . $row]['visibility'] = 'hidden';
-            }
-        }
+        $this->buildCssRowHeights($sheet, $css, $sheetIndex);
     }
 
     /**
