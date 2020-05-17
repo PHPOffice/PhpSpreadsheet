@@ -22,7 +22,7 @@ class Xlsx2Test extends TestCase
     public function testLoadXlsxConditionalFormatting2()
     {
         // Make sure Conditionals are read correctly from existing file
-        $filename = './data/Reader/XLSX/conditionalFormatting2Test.xlsx';
+        $filename = 'tests/data/Reader/XLSX/conditionalFormatting2Test.xlsx';
         $reader = IOFactory::createReader('Xlsx');
         $spreadsheet = $reader->load($filename);
         $worksheet = $spreadsheet->getActiveSheet();
@@ -56,7 +56,7 @@ class Xlsx2Test extends TestCase
     public function testReloadXlsxConditionalFormatting2()
     {
         // Make sure conditionals from existing file are maintained across save
-        $filename = './data/Reader/XLSX/conditionalFormatting2Test.xlsx';
+        $filename = 'tests/data/Reader/XLSX/conditionalFormatting2Test.xlsx';
         $outfile = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         $reader = IOFactory::createReader('Xlsx');
         $spreadshee1 = $reader->load($filename);

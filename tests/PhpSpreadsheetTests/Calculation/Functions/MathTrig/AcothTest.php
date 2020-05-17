@@ -27,6 +27,6 @@ class AcothTest extends TestCase
 
     public function providerACOTH()
     {
-        return require 'data/Calculation/MathTrig/ACOTH.php';
+        return require 'tests/data/Calculation/MathTrig/ACOTH.php';
     }
 }

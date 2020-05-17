@@ -27,6 +27,6 @@ class ArabicTest extends TestCase
 
     public function providerARABIC()
     {
-        return require 'data/Calculation/MathTrig/ARABIC.php';
+        return require 'tests/data/Calculation/MathTrig/ARABIC.php';
     }
 }

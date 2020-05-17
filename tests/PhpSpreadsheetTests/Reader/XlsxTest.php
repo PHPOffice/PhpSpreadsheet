@@ -24,7 +24,7 @@ class XlsxTest extends TestCase
             'Refactor Date' => ['type' => Properties::PROPERTY_TYPE_DATE, 'value' => '2019-06-10'],
         ];
 
-        $filename = './data/Reader/XLSX/propertyTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/propertyTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
@@ -57,7 +57,7 @@ class XlsxTest extends TestCase
 
     public function testLoadXlsxRowColumnAttributes()
     {
-        $filename = './data/Reader/XLSX/rowColumnAttributeTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/rowColumnAttributeTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
@@ -88,7 +88,7 @@ class XlsxTest extends TestCase
             7 => ['A' => '0070C0', 'C' => '00B0F0', 'E' => '00B050'],
         ];
 
-        $filename = './data/Reader/XLSX/stylesTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/stylesTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
@@ -105,7 +105,7 @@ class XlsxTest extends TestCase
 
     public function testLoadXlsxAutofilter()
     {
-        $filename = './data/Reader/XLSX/autofilterTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/autofilterTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
@@ -122,7 +122,7 @@ class XlsxTest extends TestCase
 
     public function testLoadXlsxPageSetup()
     {
-        $filename = './data/Reader/XLSX/pageSetupTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/pageSetupTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
@@ -141,7 +141,7 @@ class XlsxTest extends TestCase
 
     public function testLoadXlsxConditionalFormatting()
     {
-        $filename = './data/Reader/XLSX/conditionalFormattingTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/conditionalFormattingTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
@@ -160,7 +160,7 @@ class XlsxTest extends TestCase
 
     public function testLoadXlsxDataValidation()
     {
-        $filename = './data/Reader/XLSX/dataValidationTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/dataValidationTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
@@ -176,7 +176,7 @@ class XlsxTest extends TestCase
      */
     public function testLoadXlsxWithoutCellReference()
     {
-        $filename = './data/Reader/XLSX/without_cell_reference.xlsx';
+        $filename = 'tests/data/Reader/XLSX/without_cell_reference.xlsx';
         $reader = new Xlsx();
         $reader->load($filename);
     }
@@ -186,7 +186,7 @@ class XlsxTest extends TestCase
      */
     public function testLoadWithReadFilter()
     {
-        $filename = './data/Reader/XLSX/without_cell_reference.xlsx';
+        $filename = 'tests/data/Reader/XLSX/without_cell_reference.xlsx';
         $reader = new Xlsx();
         $reader->setReadFilter(new OddColumnReadFilter());
         $data = $reader->load($filename)->getActiveSheet()->toArray();
@@ -204,7 +204,7 @@ class XlsxTest extends TestCase
      */
     public function testLoadXlsxWithDoubleAttrDrawing()
     {
-        $filename = './data/Reader/XLSX/double_attr_drawing.xlsx';
+        $filename = 'tests/data/Reader/XLSX/double_attr_drawing.xlsx';
         $reader = new Xlsx();
         $reader->load($filename);
     }
@@ -215,7 +215,7 @@ class XlsxTest extends TestCase
      */
     public function testLoadSaveWithEmptyDrawings()
     {
-        $filename = __DIR__ . '/../../data/Reader/XLSX/empty_drawing.xlsx';
+        $filename = 'tests/data/Reader/XLSX/empty_drawing.xlsx';
         $reader = new Xlsx();
         $excel = $reader->load($filename);
         $resultFilename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');

@@ -30,6 +30,6 @@ class HourTest extends TestCase
 
     public function providerHOUR()
     {
-        return require 'data/Calculation/DateTime/HOUR.php';
+        return require 'tests/data/Calculation/DateTime/HOUR.php';
     }
 }

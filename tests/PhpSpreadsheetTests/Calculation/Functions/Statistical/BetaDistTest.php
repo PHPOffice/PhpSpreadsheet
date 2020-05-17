@@ -26,6 +26,6 @@ class BetaDistTest extends TestCase
 
     public function providerBETADIST()
     {
-        return require 'data/Calculation/Statistical/BETADIST.php';
+        return require 'tests/data/Calculation/Statistical/BETADIST.php';
     }
 }

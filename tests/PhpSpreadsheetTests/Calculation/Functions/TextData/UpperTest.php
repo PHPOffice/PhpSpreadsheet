@@ -39,6 +39,6 @@ class UpperTest extends TestCase
 
     public function providerUPPER()
     {
-        return require 'data/Calculation/TextData/UPPER.php';
+        return require 'tests/data/Calculation/TextData/UPPER.php';
     }
 }

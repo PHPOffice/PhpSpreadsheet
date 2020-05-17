@@ -43,6 +43,6 @@ class ValueTest extends TestCase
 
     public function providerVALUE()
     {
-        return require 'data/Calculation/TextData/VALUE.php';
+        return require 'tests/data/Calculation/TextData/VALUE.php';
     }
 }

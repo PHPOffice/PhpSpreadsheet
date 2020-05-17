@@ -26,6 +26,6 @@ class HarMeanTest extends TestCase
 
     public function providerHARMEAN()
     {
-        return require 'data/Calculation/Statistical/HARMEAN.php';
+        return require 'tests/data/Calculation/Statistical/HARMEAN.php';
     }
 }

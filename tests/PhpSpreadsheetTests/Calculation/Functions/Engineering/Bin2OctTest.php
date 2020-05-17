@@ -26,6 +26,6 @@ class Bin2OctTest extends TestCase
 
     public function providerBIN2OCT()
     {
-        return require 'data/Calculation/Engineering/BIN2OCT.php';
+        return require 'tests/data/Calculation/Engineering/BIN2OCT.php';
     }
 }

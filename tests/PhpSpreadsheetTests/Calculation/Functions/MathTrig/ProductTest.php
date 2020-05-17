@@ -26,6 +26,6 @@ class ProductTest extends TestCase
 
     public function providerPRODUCT()
     {
-        return require 'data/Calculation/MathTrig/PRODUCT.php';
+        return require 'tests/data/Calculation/MathTrig/PRODUCT.php';
     }
 }

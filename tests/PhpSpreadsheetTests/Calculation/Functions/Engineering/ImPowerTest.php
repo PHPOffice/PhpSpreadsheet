@@ -43,6 +43,6 @@ class ImPowerTest extends TestCase
 
     public function providerIMPOWER()
     {
-        return require 'data/Calculation/Engineering/IMPOWER.php';
+        return require 'tests/data/Calculation/Engineering/IMPOWER.php';
     }
 }

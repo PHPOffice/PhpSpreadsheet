@@ -12,7 +12,7 @@ class XlsTest extends TestCase
      */
     public function testLoadXlsSample()
     {
-        $filename = './data/Reader/XLS/sample.xls';
+        $filename = 'tests/data/Reader/XLS/sample.xls';
         $reader = new Xls();
         $spreadsheet = $reader->load($filename);
         self::assertEquals('Title', $spreadsheet->getSheet(0)->getCell('A1')->getValue());

@@ -26,6 +26,6 @@ class HLookupTest extends TestCase
 
     public function providerHLOOKUP()
     {
-        return require 'data/Calculation/LookupRef/HLOOKUP.php';
+        return require 'tests/data/Calculation/LookupRef/HLOOKUP.php';
     }
 }

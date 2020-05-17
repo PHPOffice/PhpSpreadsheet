@@ -13,7 +13,7 @@ class HtmlTest extends TestCase
 {
     public function testCsvWithAngleBracket()
     {
-        $filename = __DIR__ . '/../../data/Reader/HTML/csv_with_angle_bracket.csv';
+        $filename = 'tests/data/Reader/HTML/csv_with_angle_bracket.csv';
         $reader = new Html();
         self::assertFalse($reader->canRead($filename));
     }
@@ -396,7 +396,7 @@ class HtmlTest extends TestCase
 
     public function testRowspanInRendering()
     {
-        $filename = './data/Reader/HTML/rowspan.html';
+        $filename = 'tests/data/Reader/HTML/rowspan.html';
         $reader = new Html();
         $spreadsheet = $reader->load($filename);
 

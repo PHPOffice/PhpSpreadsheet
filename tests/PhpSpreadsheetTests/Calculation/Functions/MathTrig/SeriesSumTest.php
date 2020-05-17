@@ -26,6 +26,6 @@ class SeriesSumTest extends TestCase
 
     public function providerSERIESSUM()
     {
-        return require 'data/Calculation/MathTrig/SERIESSUM.php';
+        return require 'tests/data/Calculation/MathTrig/SERIESSUM.php';
     }
 }

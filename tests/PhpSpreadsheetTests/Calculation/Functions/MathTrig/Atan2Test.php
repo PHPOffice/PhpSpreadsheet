@@ -28,6 +28,6 @@ class Atan2Test extends TestCase
 
     public function providerATAN2()
     {
-        return require 'data/Calculation/MathTrig/ATAN2.php';
+        return require 'tests/data/Calculation/MathTrig/ATAN2.php';
     }
 }

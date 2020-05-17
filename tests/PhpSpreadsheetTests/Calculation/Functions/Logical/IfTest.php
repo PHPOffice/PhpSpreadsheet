@@ -26,6 +26,6 @@ class IfTest extends TestCase
 
     public function providerIF()
     {
-        return require 'data/Calculation/Logical/IF.php';
+        return require 'tests/data/Calculation/Logical/IF.php';
     }
 }

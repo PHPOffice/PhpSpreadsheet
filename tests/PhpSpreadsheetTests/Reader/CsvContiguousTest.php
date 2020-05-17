@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CsvContiguousTest extends TestCase
 {
-    private $inputFileName = __DIR__ . '/../../../samples/Reader/sampleData/example2.csv';
+    private $inputFileName = 'samples/Reader/sampleData/example2.csv';
 
     public function testContiguous()
     {

@@ -15,7 +15,7 @@ class UnparsedDataTest extends TestCase
      */
     public function testLoadSaveXlsxWithUnparsedData()
     {
-        $sampleFilename = './data/Writer/XLSX/form_pass_print.xlsm';
+        $sampleFilename = 'tests/data/Writer/XLSX/form_pass_print.xlsm';
         $resultFilename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         Settings::setLibXmlLoaderOptions(null); // reset to default options
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();

@@ -26,6 +26,6 @@ class PermutTest extends TestCase
 
     public function providerPERMUT()
     {
-        return require 'data/Calculation/Statistical/PERMUT.php';
+        return require 'tests/data/Calculation/Statistical/PERMUT.php';
     }
 }

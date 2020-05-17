@@ -46,6 +46,6 @@ class ExactTest extends TestCase
      */
     public function providerEXACT()
     {
-        return require 'data/Calculation/TextData/EXACT.php';
+        return require 'tests/data/Calculation/TextData/EXACT.php';
     }
 }

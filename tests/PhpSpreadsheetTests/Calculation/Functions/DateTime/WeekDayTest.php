@@ -29,6 +29,6 @@ class WeekDayTest extends TestCase
 
     public function providerWEEKDAY()
     {
-        return require 'data/Calculation/DateTime/WEEKDAY.php';
+        return require 'tests/data/Calculation/DateTime/WEEKDAY.php';
     }
 }

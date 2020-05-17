@@ -29,7 +29,7 @@ class TimeTest extends TestCase
 
     public function providerTIME()
     {
-        return require 'data/Calculation/DateTime/TIME.php';
+        return require 'tests/data/Calculation/DateTime/TIME.php';
     }
 
     public function testTIMEtoUnixTimestamp()

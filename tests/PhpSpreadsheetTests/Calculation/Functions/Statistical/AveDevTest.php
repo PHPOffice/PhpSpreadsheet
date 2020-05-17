@@ -26,6 +26,6 @@ class AveDevTest extends TestCase
 
     public function providerAVEDEV()
     {
-        return require 'data/Calculation/Statistical/AVEDEV.php';
+        return require 'tests/data/Calculation/Statistical/AVEDEV.php';
     }
 }

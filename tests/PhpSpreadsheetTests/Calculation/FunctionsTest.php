@@ -119,7 +119,7 @@ class FunctionsTest extends TestCase
 
     public function providerIsBlank()
     {
-        return require 'data/Calculation/Functions/IS_BLANK.php';
+        return require 'tests/data/Calculation/Functions/IS_BLANK.php';
     }
 
     /**
@@ -135,7 +135,7 @@ class FunctionsTest extends TestCase
 
     public function providerIsErr()
     {
-        return require 'data/Calculation/Functions/IS_ERR.php';
+        return require 'tests/data/Calculation/Functions/IS_ERR.php';
     }
 
     /**
@@ -151,7 +151,7 @@ class FunctionsTest extends TestCase
 
     public function providerIsError()
     {
-        return require 'data/Calculation/Functions/IS_ERROR.php';
+        return require 'tests/data/Calculation/Functions/IS_ERROR.php';
     }
 
     /**
@@ -167,7 +167,7 @@ class FunctionsTest extends TestCase
 
     public function providerErrorType()
     {
-        return require 'data/Calculation/Functions/ERROR_TYPE.php';
+        return require 'tests/data/Calculation/Functions/ERROR_TYPE.php';
     }
 
     /**
@@ -183,7 +183,7 @@ class FunctionsTest extends TestCase
 
     public function providerIsLogical()
     {
-        return require 'data/Calculation/Functions/IS_LOGICAL.php';
+        return require 'tests/data/Calculation/Functions/IS_LOGICAL.php';
     }
 
     /**
@@ -199,7 +199,7 @@ class FunctionsTest extends TestCase
 
     public function providerIsNa()
     {
-        return require 'data/Calculation/Functions/IS_NA.php';
+        return require 'tests/data/Calculation/Functions/IS_NA.php';
     }
 
     /**
@@ -215,7 +215,7 @@ class FunctionsTest extends TestCase
 
     public function providerIsNumber()
     {
-        return require 'data/Calculation/Functions/IS_NUMBER.php';
+        return require 'tests/data/Calculation/Functions/IS_NUMBER.php';
     }
 
     /**
@@ -231,7 +231,7 @@ class FunctionsTest extends TestCase
 
     public function providerIsText()
     {
-        return require 'data/Calculation/Functions/IS_TEXT.php';
+        return require 'tests/data/Calculation/Functions/IS_TEXT.php';
     }
 
     /**
@@ -247,7 +247,7 @@ class FunctionsTest extends TestCase
 
     public function providerIsNonText()
     {
-        return require 'data/Calculation/Functions/IS_NONTEXT.php';
+        return require 'tests/data/Calculation/Functions/IS_NONTEXT.php';
     }
 
     /**
@@ -263,7 +263,7 @@ class FunctionsTest extends TestCase
 
     public function providerIsEven()
     {
-        return require 'data/Calculation/Functions/IS_EVEN.php';
+        return require 'tests/data/Calculation/Functions/IS_EVEN.php';
     }
 
     /**
@@ -279,7 +279,7 @@ class FunctionsTest extends TestCase
 
     public function providerIsOdd()
     {
-        return require 'data/Calculation/Functions/IS_ODD.php';
+        return require 'tests/data/Calculation/Functions/IS_ODD.php';
     }
 
     /**
@@ -295,7 +295,7 @@ class FunctionsTest extends TestCase
 
     public function providerTYPE()
     {
-        return require 'data/Calculation/Functions/TYPE.php';
+        return require 'tests/data/Calculation/Functions/TYPE.php';
     }
 
     /**
@@ -311,7 +311,7 @@ class FunctionsTest extends TestCase
 
     public function providerN()
     {
-        return require 'data/Calculation/Functions/N.php';
+        return require 'tests/data/Calculation/Functions/N.php';
     }
 
     /**
@@ -364,7 +364,7 @@ class FunctionsTest extends TestCase
 
     public function providerIsFormula()
     {
-        return require 'data/Calculation/Functions/ISFORMULA.php';
+        return require 'tests/data/Calculation/Functions/ISFORMULA.php';
     }
 
     /**
@@ -380,6 +380,6 @@ class FunctionsTest extends TestCase
 
     public function providerIfCondition()
     {
-        return require 'data/Calculation/Functions/IF_CONDITION.php';
+        return require 'tests/data/Calculation/Functions/IF_CONDITION.php';
     }
 }

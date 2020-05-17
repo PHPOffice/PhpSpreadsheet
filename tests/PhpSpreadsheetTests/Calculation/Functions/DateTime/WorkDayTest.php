@@ -29,6 +29,6 @@ class WorkDayTest extends TestCase
 
     public function providerWORKDAY()
     {
-        return require 'data/Calculation/DateTime/WORKDAY.php';
+        return require 'tests/data/Calculation/DateTime/WORKDAY.php';
     }
 }

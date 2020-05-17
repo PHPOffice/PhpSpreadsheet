@@ -27,6 +27,6 @@ class SecTest extends TestCase
 
     public function providerSEC()
     {
-        return require 'data/Calculation/MathTrig/SEC.php';
+        return require 'tests/data/Calculation/MathTrig/SEC.php';
     }
 }

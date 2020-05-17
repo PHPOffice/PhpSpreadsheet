@@ -26,6 +26,6 @@ class MaxIfsTest extends TestCase
 
     public function providerMAXIFS()
     {
-        return require 'data/Calculation/Statistical/MAXIFS.php';
+        return require 'tests/data/Calculation/Statistical/MAXIFS.php';
     }
 }

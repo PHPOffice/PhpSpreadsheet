@@ -29,6 +29,6 @@ class ErfTest extends TestCase
 
     public function providerERF()
     {
-        return require 'data/Calculation/Engineering/ERF.php';
+        return require 'tests/data/Calculation/Engineering/ERF.php';
     }
 }

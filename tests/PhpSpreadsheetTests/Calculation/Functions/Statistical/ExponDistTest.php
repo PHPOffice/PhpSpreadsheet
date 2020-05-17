@@ -26,6 +26,6 @@ class ExponDistTest extends TestCase
 
     public function providerEXPONDIST()
     {
-        return require 'data/Calculation/Statistical/EXPONDIST.php';
+        return require 'tests/data/Calculation/Statistical/EXPONDIST.php';
     }
 }

@@ -44,6 +44,6 @@ class ImCotTest extends TestCase
 
     public function providerIMCOT()
     {
-        return require 'data/Calculation/Engineering/IMCOT.php';
+        return require 'tests/data/Calculation/Engineering/IMCOT.php';
     }
 }

@@ -26,6 +26,6 @@ class TruncTest extends TestCase
 
     public function providerTRUNC()
     {
-        return require 'data/Calculation/MathTrig/TRUNC.php';
+        return require 'tests/data/Calculation/MathTrig/TRUNC.php';
     }
 }

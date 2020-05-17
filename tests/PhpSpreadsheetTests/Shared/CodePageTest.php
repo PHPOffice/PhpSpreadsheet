@@ -21,7 +21,7 @@ class CodePageTest extends TestCase
 
     public function providerCodePage()
     {
-        return require 'data/Shared/CodePage.php';
+        return require 'tests/data/Shared/CodePage.php';
     }
 
     public function testNumberToNameWithInvalidCodePage()

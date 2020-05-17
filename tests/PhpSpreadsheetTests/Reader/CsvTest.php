@@ -33,55 +33,55 @@ class CsvTest extends TestCase
     {
         return [
             [
-                __DIR__ . '/../../data/Reader/CSV/enclosure.csv',
+                'tests/data/Reader/CSV/enclosure.csv',
                 ',',
                 'C4',
                 'username2',
             ],
             [
-                __DIR__ . '/../../data/Reader/CSV/semicolon_separated.csv',
+                'tests/data/Reader/CSV/semicolon_separated.csv',
                 ';',
                 'C2',
                 '25,5',
             ],
             [
-                __DIR__ . '/../../data/Reader/CSV/line_break_in_enclosure.csv',
+                'tests/data/Reader/CSV/line_break_in_enclosure.csv',
                 ',',
                 'A3',
                 'Test',
             ],
             [
-                __DIR__ . '/../../data/Reader/CSV/line_break_in_enclosure_with_escaped_quotes.csv',
+                'tests/data/Reader/CSV/line_break_in_enclosure_with_escaped_quotes.csv',
                 ',',
                 'A3',
                 'Test',
             ],
             [
-                __DIR__ . '/../../data/Reader/HTML/csv_with_angle_bracket.csv',
+                'tests/data/Reader/HTML/csv_with_angle_bracket.csv',
                 ',',
                 'B1',
                 'Number of items with weight <= 50kg',
             ],
             [
-                __DIR__ . '/../../../samples/Reader/sampleData/example1.csv',
+                'samples/Reader/sampleData/example1.csv',
                 ',',
                 'I4',
                 '100%',
             ],
             [
-                __DIR__ . '/../../../samples/Reader/sampleData/example2.csv',
+                'samples/Reader/sampleData/example2.csv',
                 ',',
                 'D8',
                 -58.373161,
             ],
             [
-                'data/Reader/CSV/empty.csv',
+                'tests/data/Reader/CSV/empty.csv',
                 ',',
                 'A1',
                 null,
             ],
             [
-                'data/Reader/CSV/no_delimiter.csv',
+                'tests/data/Reader/CSV/no_delimiter.csv',
                 ',',
                 'A1',
                 'SingleLine',
@@ -104,23 +104,23 @@ class CsvTest extends TestCase
     public function providerCanLoad()
     {
         return [
-            [false, 'data/Reader/Ods/data.ods'],
-            [false, 'data/Reader/Xml/WithoutStyle.xml'],
-            [true, 'data/Reader/CSV/enclosure.csv'],
-            [true, 'data/Reader/CSV/semicolon_separated.csv'],
-            [true, 'data/Reader/CSV/contains_html.csv'],
-            [true, 'data/Reader/CSV/csv_without_extension'],
-            [true, 'data/Reader/HTML/csv_with_angle_bracket.csv'],
-            [true, 'data/Reader/CSV/empty.csv'],
-            [true, '../samples/Reader/sampleData/example1.csv'],
-            [true, '../samples/Reader/sampleData/example2.csv'],
+            [false, 'tests/data/Reader/Ods/data.ods'],
+            [false, 'tests/data/Reader/Xml/WithoutStyle.xml'],
+            [true, 'tests/data/Reader/CSV/enclosure.csv'],
+            [true, 'tests/data/Reader/CSV/semicolon_separated.csv'],
+            [true, 'tests/data/Reader/CSV/contains_html.csv'],
+            [true, 'tests/data/Reader/CSV/csv_without_extension'],
+            [true, 'tests/data/Reader/HTML/csv_with_angle_bracket.csv'],
+            [true, 'tests/data/Reader/CSV/empty.csv'],
+            [true, 'samples/Reader/sampleData/example1.csv'],
+            [true, 'samples/Reader/sampleData/example2.csv'],
         ];
     }
 
     public function testEscapeCharacters()
     {
         $reader = (new Csv())->setEscapeCharacter('"');
-        $worksheet = $reader->load(__DIR__ . '/../../data/Reader/CSV/backslash.csv')
+        $worksheet = $reader->load('tests/data/Reader/CSV/backslash.csv')
             ->getActiveSheet();
 
         $expected = [
@@ -175,13 +175,13 @@ class CsvTest extends TestCase
     public function providerEncodings()
     {
         return [
-            ['data/Reader/CSV/encoding.iso88591.csv', 'ISO-8859-1'],
-            ['data/Reader/CSV/encoding.utf8.csv', 'UTF-8'],
-            ['data/Reader/CSV/encoding.utf8bom.csv', 'UTF-8'],
-            ['data/Reader/CSV/encoding.utf16be.csv', 'UTF-16BE'],
-            ['data/Reader/CSV/encoding.utf16le.csv', 'UTF-16LE'],
-            ['data/Reader/CSV/encoding.utf32be.csv', 'UTF-32BE'],
-            ['data/Reader/CSV/encoding.utf32le.csv', 'UTF-32LE'],
+            ['tests/data/Reader/CSV/encoding.iso88591.csv', 'ISO-8859-1'],
+            ['tests/data/Reader/CSV/encoding.utf8.csv', 'UTF-8'],
+            ['tests/data/Reader/CSV/encoding.utf8bom.csv', 'UTF-8'],
+            ['tests/data/Reader/CSV/encoding.utf16be.csv', 'UTF-16BE'],
+            ['tests/data/Reader/CSV/encoding.utf16le.csv', 'UTF-16LE'],
+            ['tests/data/Reader/CSV/encoding.utf32be.csv', 'UTF-32BE'],
+            ['tests/data/Reader/CSV/encoding.utf32le.csv', 'UTF-32LE'],
         ];
     }
 
@@ -189,7 +189,7 @@ class CsvTest extends TestCase
     {
         $reader = new Csv();
         $reader->setInputEncoding('UTF-16BE');
-        $spreadsheet = $reader->load('data/Reader/CSV/utf16be.line_break_in_enclosure.csv');
+        $spreadsheet = $reader->load('tests/data/Reader/CSV/utf16be.line_break_in_enclosure.csv');
         $sheet = $spreadsheet->getActiveSheet();
         $expected = <<<EOF
 This is a test
@@ -204,7 +204,7 @@ EOF;
     {
         $reader = new Csv();
         $reader->setSheetIndex(3);
-        $spreadsheet = $reader->load('data/Reader/CSV/sep.csv');
+        $spreadsheet = $reader->load('tests/data/Reader/CSV/sep.csv');
         self::assertEquals(';', $reader->getDelimiter());
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEquals(3, $reader->getSheetIndex());
@@ -238,6 +238,6 @@ EOF;
     {
         $this->expectException(ReaderException::class);
         $reader = new Csv();
-        $reader->load('data/Reader/CSV/encoding.utf8.csvxxx');
+        $reader->load('tests/data/Reader/CSV/encoding.utf8.csvxxx');
     }
 }

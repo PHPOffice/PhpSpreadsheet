@@ -26,6 +26,6 @@ class MinIfsTest extends TestCase
 
     public function providerMINIFS()
     {
-        return require 'data/Calculation/Statistical/MINIFS.php';
+        return require 'tests/data/Calculation/Statistical/MINIFS.php';
     }
 }

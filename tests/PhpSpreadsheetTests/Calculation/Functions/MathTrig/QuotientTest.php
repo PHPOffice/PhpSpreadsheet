@@ -26,6 +26,6 @@ class QuotientTest extends TestCase
 
     public function providerQUOTIENT()
     {
-        return require 'data/Calculation/MathTrig/QUOTIENT.php';
+        return require 'tests/data/Calculation/MathTrig/QUOTIENT.php';
     }
 }

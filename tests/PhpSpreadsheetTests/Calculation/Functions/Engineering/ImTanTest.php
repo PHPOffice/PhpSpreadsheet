@@ -44,6 +44,6 @@ class ImTanTest extends TestCase
 
     public function providerIMTAN()
     {
-        return require 'data/Calculation/Engineering/IMTAN.php';
+        return require 'tests/data/Calculation/Engineering/IMTAN.php';
     }
 }

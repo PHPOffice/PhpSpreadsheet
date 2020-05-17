@@ -30,6 +30,6 @@ class IsoWeekNumTest extends TestCase
 
     public function providerISOWEEKNUM()
     {
-        return require 'data/Calculation/DateTime/ISOWEEKNUM.php';
+        return require 'tests/data/Calculation/DateTime/ISOWEEKNUM.php';
     }
 }

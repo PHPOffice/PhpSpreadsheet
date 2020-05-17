@@ -26,6 +26,6 @@ class GeoMeanTest extends TestCase
 
     public function providerGEOMEAN()
     {
-        return require 'data/Calculation/Statistical/GEOMEAN.php';
+        return require 'tests/data/Calculation/Statistical/GEOMEAN.php';
     }
 }

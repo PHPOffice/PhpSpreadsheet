@@ -27,6 +27,6 @@ class SechTest extends TestCase
 
     public function providerSECH()
     {
-        return require 'data/Calculation/MathTrig/SECH.php';
+        return require 'tests/data/Calculation/MathTrig/SECH.php';
     }
 }

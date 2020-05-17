@@ -26,6 +26,6 @@ class CombinTest extends TestCase
 
     public function providerCOMBIN()
     {
-        return require 'data/Calculation/MathTrig/COMBIN.php';
+        return require 'tests/data/Calculation/MathTrig/COMBIN.php';
     }
 }

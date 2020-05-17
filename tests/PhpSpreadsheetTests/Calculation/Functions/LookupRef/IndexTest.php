@@ -26,6 +26,6 @@ class IndexTest extends TestCase
 
     public function providerINDEX()
     {
-        return require 'data/Calculation/LookupRef/INDEX.php';
+        return require 'tests/data/Calculation/LookupRef/INDEX.php';
     }
 }

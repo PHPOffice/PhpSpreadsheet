@@ -1,9 +1,4 @@
 <?php
-/**
- * @copyright   Copyright (C) 2011-2014 PhpSpreadsheet. All rights reserved.
- * @author      Mark Baker
- */
-chdir(__DIR__);
 
 setlocale(LC_ALL, 'en_US.utf8');
 

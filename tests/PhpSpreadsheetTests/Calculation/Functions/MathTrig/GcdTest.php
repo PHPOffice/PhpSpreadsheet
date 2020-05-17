@@ -26,6 +26,6 @@ class GcdTest extends TestCase
 
     public function providerGCD()
     {
-        return require 'data/Calculation/MathTrig/GCD.php';
+        return require 'tests/data/Calculation/MathTrig/GCD.php';
     }
 }

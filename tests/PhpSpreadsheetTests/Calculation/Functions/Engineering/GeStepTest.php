@@ -26,6 +26,6 @@ class GeStepTest extends TestCase
 
     public function providerGESTEP()
     {
-        return require 'data/Calculation/Engineering/GESTEP.php';
+        return require 'tests/data/Calculation/Engineering/GESTEP.php';
     }
 }

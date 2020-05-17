@@ -38,6 +38,6 @@ class SubstituteTest extends TestCase
 
     public function providerSUBSTITUTE()
     {
-        return require 'data/Calculation/TextData/SUBSTITUTE.php';
+        return require 'tests/data/Calculation/TextData/SUBSTITUTE.php';
     }
 }

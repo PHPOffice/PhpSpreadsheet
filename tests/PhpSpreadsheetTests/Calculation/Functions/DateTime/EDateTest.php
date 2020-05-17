@@ -31,7 +31,7 @@ class EDateTest extends TestCase
 
     public function providerEDATE()
     {
-        return require 'data/Calculation/DateTime/EDATE.php';
+        return require 'tests/data/Calculation/DateTime/EDATE.php';
     }
 
     public function testEDATEtoUnixTimestamp()

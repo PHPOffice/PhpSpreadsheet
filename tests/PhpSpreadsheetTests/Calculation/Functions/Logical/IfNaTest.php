@@ -28,6 +28,6 @@ class IfNaTest extends TestCase
 
     public function providerIFNA()
     {
-        return require 'data/Calculation/Logical/IFNA.php';
+        return require 'tests/data/Calculation/Logical/IFNA.php';
     }
 }

@@ -26,6 +26,6 @@ class MInverseTest extends TestCase
 
     public function providerMINVERSE()
     {
-        return require 'data/Calculation/MathTrig/MINVERSE.php';
+        return require 'tests/data/Calculation/MathTrig/MINVERSE.php';
     }
 }

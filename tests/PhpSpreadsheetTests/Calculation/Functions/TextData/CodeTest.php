@@ -39,6 +39,6 @@ class CodeTest extends TestCase
 
     public function providerCODE()
     {
-        return require 'data/Calculation/TextData/CODE.php';
+        return require 'tests/data/Calculation/TextData/CODE.php';
     }
 }

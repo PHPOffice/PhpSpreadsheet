@@ -26,6 +26,6 @@ class OrTest extends TestCase
 
     public function providerOR()
     {
-        return require 'data/Calculation/Logical/OR.php';
+        return require 'tests/data/Calculation/Logical/OR.php';
     }
 }

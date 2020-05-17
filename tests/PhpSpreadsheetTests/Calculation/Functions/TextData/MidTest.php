@@ -38,6 +38,6 @@ class MidTest extends TestCase
 
     public function providerMID()
     {
-        return require 'data/Calculation/TextData/MID.php';
+        return require 'tests/data/Calculation/TextData/MID.php';
     }
 }

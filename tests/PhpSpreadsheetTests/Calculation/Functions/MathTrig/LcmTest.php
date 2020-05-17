@@ -26,6 +26,6 @@ class LcmTest extends TestCase
 
     public function providerLCM()
     {
-        return require 'data/Calculation/MathTrig/LCM.php';
+        return require 'tests/data/Calculation/MathTrig/LCM.php';
     }
 }

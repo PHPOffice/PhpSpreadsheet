@@ -9,9 +9,9 @@ class OLEReadTest extends TestCase
 {
     public function testReadOleStreams()
     {
-        $dataDir = './data/Shared/OLERead/';
+        $dataDir = 'tests/data/Shared/OLERead/';
         $ole = new OLERead();
-        $ole->read('./data/Reader/XLS/sample.xls');
+        $ole->read('tests/data/Reader/XLS/sample.xls');
         self::assertEquals(
             file_get_contents($dataDir . 'wrkbook'),
             $ole->getStream($ole->wrkbook)

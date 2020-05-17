@@ -26,6 +26,6 @@ class AndTest extends TestCase
 
     public function providerAND()
     {
-        return require 'data/Calculation/Logical/AND.php';
+        return require 'tests/data/Calculation/Logical/AND.php';
     }
 }

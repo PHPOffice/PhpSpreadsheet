@@ -27,6 +27,6 @@ class CscTest extends TestCase
 
     public function providerCSC()
     {
-        return require 'data/Calculation/MathTrig/CSC.php';
+        return require 'tests/data/Calculation/MathTrig/CSC.php';
     }
 }

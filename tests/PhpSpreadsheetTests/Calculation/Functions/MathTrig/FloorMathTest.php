@@ -26,6 +26,6 @@ class FloorMathTest extends TestCase
 
     public function providerFLOORMATH()
     {
-        return require 'data/Calculation/MathTrig/FLOORMATH.php';
+        return require 'tests/data/Calculation/MathTrig/FLOORMATH.php';
     }
 }

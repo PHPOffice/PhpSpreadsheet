@@ -26,6 +26,6 @@ class ModTest extends TestCase
 
     public function providerMOD()
     {
-        return require 'data/Calculation/MathTrig/MOD.php';
+        return require 'tests/data/Calculation/MathTrig/MOD.php';
     }
 }

@@ -26,6 +26,6 @@ class Oct2HexTest extends TestCase
 
     public function providerOCT2HEX()
     {
-        return require 'data/Calculation/Engineering/OCT2HEX.php';
+        return require 'tests/data/Calculation/Engineering/OCT2HEX.php';
     }
 }

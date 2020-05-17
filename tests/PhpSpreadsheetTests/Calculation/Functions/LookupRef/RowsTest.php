@@ -26,6 +26,6 @@ class RowsTest extends TestCase
 
     public function providerROWS()
     {
-        return require 'data/Calculation/LookupRef/ROWS.php';
+        return require 'tests/data/Calculation/LookupRef/ROWS.php';
     }
 }

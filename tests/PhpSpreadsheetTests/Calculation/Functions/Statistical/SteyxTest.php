@@ -26,6 +26,6 @@ class SteyxTest extends TestCase
 
     public function providerSTEYX()
     {
-        return require 'data/Calculation/Statistical/STEYX.php';
+        return require 'tests/data/Calculation/Statistical/STEYX.php';
     }
 }

@@ -39,6 +39,6 @@ class CharTest extends TestCase
 
     public function providerCHAR()
     {
-        return require 'data/Calculation/TextData/CHAR.php';
+        return require 'tests/data/Calculation/TextData/CHAR.php';
     }
 }
