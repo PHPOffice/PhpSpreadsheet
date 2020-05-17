@@ -15,10 +15,12 @@ class ImagesRootTest extends Functional\AbstractFunctional
         $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
         $drawing->setName('Test');
         $drawing->setDescription('Test');
-        $stub = 'data/Reader/HTML/image.jpg';
         $root = 'http://www.example.com';
-        // for phpUnit, . is the tests directory
+        $newdir = __DIR__ . '/../../../data/Reader/HTML';
+        $stub = 'image.jpg';
         $imagePath = "./$stub";
+        $curdir = getcwd();
+        chdir($newdir);
         self::assertFileExists($imagePath);
         $drawing->setPath($imagePath);
         $desc = 'Test <img> tag';
@@ -31,6 +33,7 @@ class ImagesRootTest extends Functional\AbstractFunctional
         $writer = new Html($spreadsheet);
         $writer->setImagesRoot($root);
         $html = $writer->generateHTMLAll();
+        chdir($curdir);
         $dom = new \DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
