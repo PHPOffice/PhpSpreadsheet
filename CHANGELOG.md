@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Fix Chart samples by updating chart parameter from 0 to DataSeries::EMPTY_AS_GAP [#1448](https://github.com/PHPOffice/PhpSpreadsheet/pull/1448)
+- Fix return type in docblock for the Cells::get() [#1398](https://github.com/PHPOffice/PhpSpreadsheet/pull/1398)
 
 ### Changed
 

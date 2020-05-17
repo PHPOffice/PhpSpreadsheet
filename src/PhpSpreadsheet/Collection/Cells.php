@@ -426,7 +426,7 @@ class Cells
      *
      * @param string $pCoord Coordinate of the cell
      *
-     * @return \PhpOffice\PhpSpreadsheet\Cell\Cell Cell that was found, or null if not found
+     * @return null|\PhpOffice\PhpSpreadsheet\Cell\Cell Cell that was found, or null if not found
      */
     public function get($pCoord)
     {
