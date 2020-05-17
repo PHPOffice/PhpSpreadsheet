@@ -461,7 +461,7 @@ class FinancialTest extends TestCase
 
     public function providerPRICE3()
     {
-        return require 'data/Calculation/Financial/PRICE3.php';
+        return require 'tests/data/Calculation/Financial/PRICE3.php';
     }
 
     /**
@@ -559,7 +559,7 @@ class FinancialTest extends TestCase
 
     public function providerXNPV()
     {
-        return require 'data/Calculation/Financial/XNPV.php';
+        return require 'tests/data/Calculation/Financial/XNPV.php';
     }
 
     /**
