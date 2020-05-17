@@ -168,7 +168,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
 
     public function providerNumberFormat()
     {
-        return require 'data/Style/NumberFormat.php';
+        return require __DIR__ . '/../../../data/Style/NumberFormat.php';
     }
 
     /**
@@ -204,6 +204,6 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
 
     public function providerNumberFormatDates()
     {
-        return require 'data/Style/NumberFormatDates.php';
+        return require __DIR__ . '/../../../data/Style/NumberFormatDates.php';
     }
 }
