@@ -77,7 +77,7 @@ class Csv extends BaseWriter
     /**
      * Save PhpSpreadsheet to file.
      *
-     * @param string $pFilename
+     * @param resource|string $pFilename
      *
      * @throws Exception
      */
@@ -92,8 +92,11 @@ class Csv extends BaseWriter
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
 
         // Open file
-        $fileHandle = false;
-        if ($pFilename) {
+        if (is_resource($pFilename)) {
+            $fileHandle = $pFilename;
+        } elseif (!$pFilename) {
+            $fileHandle = false;
+        } else {
             $fileHandle = fopen($pFilename, 'wb+');
         }
         if ($fileHandle === false) {
