@@ -83,7 +83,7 @@ $chart1 = new Chart(
     $legend1, // legend
     $plotArea1, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
     $yAxisLabel1 // yAxisLabel
 );

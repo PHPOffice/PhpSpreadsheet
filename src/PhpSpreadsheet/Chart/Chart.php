@@ -68,7 +68,7 @@ class Chart
      *
      * @var string
      */
-    private $displayBlanksAs = '0';
+    private $displayBlanksAs = DataSeries::EMPTY_AS_GAP;
 
     /**
      * Chart Asix Y as.
@@ -148,7 +148,7 @@ class Chart
      * @param null|Legend $legend
      * @param null|PlotArea $plotArea
      * @param mixed $plotVisibleOnly
-     * @param mixed $displayBlanksAs
+     * @param string $displayBlanksAs
      * @param null|Title $xAxisLabel
      * @param null|Title $yAxisLabel
      * @param null|Axis $xAxis
