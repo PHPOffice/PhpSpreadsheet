@@ -32,7 +32,7 @@ class DrawingsTest extends AbstractFunctional
     public function testSaveLoadWithDrawingOn2ndWorksheet()
     {
         // Read spreadsheet from file
-        $inputFilename = './data/Writer/XLSX/drawing_on_2nd_page.xlsx';
+        $inputFilename = 'tests/data/Writer/XLSX/drawing_on_2nd_page.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($inputFilename);
 
