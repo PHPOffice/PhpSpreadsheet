@@ -296,7 +296,7 @@ class Conditional implements IComparable
      *
      * @return bool
      */
-    public function isActive(Calculation $calcer, Cell $cell, int $precision = 8, int $updateColumnBy = 0, int $updateRowBy = 0)
+    public function isActive(Calculation $calcer, Cell $cell, int $precision = 8, int $updateColumnBy = 0, int $updateRowBy = 0): bool
     {
         $return = false;
 
