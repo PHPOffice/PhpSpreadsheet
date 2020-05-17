@@ -16,8 +16,6 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
      * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     *
      * @return bool
      */
     public function bindValue(Cell $cell, $value = null)

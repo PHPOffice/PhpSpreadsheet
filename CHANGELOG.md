@@ -7,9 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Added
+
+- Support writing to streams in all writers [#1292](https://github.com/PHPOffice/PhpSpreadsheet/issues/1292)
+
+### Fixed
+
+- ...
+
 ### Changed
 
 - Drop support for PHP 7.1, according to https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support
+- Drop partial migration tool in favor of complete migration via RectorPHP [#1445](https://github.com/PHPOffice/PhpSpreadsheet/issues/1445)
+- Limit composer package to `src/` [#1424](https://github.com/PHPOffice/PhpSpreadsheet/pull/1424)
 
 ## [1.12.0] - 2020-04-27
 

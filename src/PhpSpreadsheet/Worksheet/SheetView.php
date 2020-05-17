@@ -77,8 +77,6 @@ class SheetView
      *
      * @param int $pValue
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function setZoomScale($pValue)
@@ -109,8 +107,6 @@ class SheetView
      * Valid values range from 10 to 400.
      *
      * @param int $pValue
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */
@@ -162,8 +158,6 @@ class SheetView
      *        'pageBreakPreview'  self::SHEETVIEW_PAGE_BREAK_PREVIEW
      *
      * @param string $pValue
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */

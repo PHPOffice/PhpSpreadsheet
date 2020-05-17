@@ -14,8 +14,6 @@ class Rels extends WriterPart
      *
      * @param Spreadsheet $spreadsheet
      *
-     * @throws WriterException
-     *
      * @return string XML Output
      */
     public function writeRelationships(Spreadsheet $spreadsheet)
@@ -88,8 +86,6 @@ class Rels extends WriterPart
      * Write workbook relationships to XML format.
      *
      * @param Spreadsheet $spreadsheet
-     *
-     * @throws WriterException
      *
      * @return string XML Output
      */
@@ -171,8 +167,6 @@ class Rels extends WriterPart
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      * @param int $pWorksheetId
      * @param bool $includeCharts Flag indicating if we should write charts
-     *
-     * @throws WriterException
      *
      * @return string XML Output
      */
@@ -301,8 +295,6 @@ class Rels extends WriterPart
      * @param int &$chartRef Chart ID
      * @param bool $includeCharts Flag indicating if we should write charts
      *
-     * @throws WriterException
-     *
      * @return string XML Output
      */
     public function writeDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet, &$chartRef, $includeCharts = false)
@@ -370,8 +362,6 @@ class Rels extends WriterPart
      *
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      *
-     * @throws WriterException
-     *
      * @return string XML Output
      */
     public function writeHeaderFooterDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet)
@@ -415,8 +405,6 @@ class Rels extends WriterPart
      * @param string $pType Relationship type
      * @param string $pTarget Relationship target
      * @param string $pTargetMode Relationship target mode
-     *
-     * @throws WriterException
      */
     private function writeRelationship(XMLWriter $objWriter, $pId, $pType, $pTarget, $pTargetMode = '')
     {
@@ -441,8 +429,6 @@ class Rels extends WriterPart
      * @param $objWriter
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $drawing
      * @param $i
-     *
-     * @throws WriterException
      *
      * @return int
      */

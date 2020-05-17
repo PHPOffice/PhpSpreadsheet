@@ -115,9 +115,7 @@ class Xls extends BaseWriter
     /**
      * Save Spreadsheet to file.
      *
-     * @param string $pFilename
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @param resource|string $pFilename
      */
     public function save($pFilename)
     {
@@ -221,7 +219,9 @@ class Xls extends BaseWriter
 
         $root = new Root(time(), time(), $arrRootData);
         // save the OLE file
-        $root->save($pFilename);
+        $this->openFileHandle($pFilename);
+        $root->save($this->fileHandle);
+        $this->maybeCloseFileHandle();
 
         Functions::setReturnDateType($saveDateReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);

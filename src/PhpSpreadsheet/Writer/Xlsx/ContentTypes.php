@@ -16,8 +16,6 @@ class ContentTypes extends WriterPart
      * @param Spreadsheet $spreadsheet
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      *
-     * @throws WriterException
-     *
      * @return string XML Output
      */
     public function writeContentTypes(Spreadsheet $spreadsheet, $includeCharts = false)
@@ -188,8 +186,6 @@ class ContentTypes extends WriterPart
      *
      * @param string $pFile Filename
      *
-     * @throws WriterException
-     *
      * @return string Mime Type
      */
     private function getImageMimeType($pFile)
@@ -209,8 +205,6 @@ class ContentTypes extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param string $pPartname Part name
      * @param string $pContentType Content type
-     *
-     * @throws WriterException
      */
     private function writeDefaultContentType(XMLWriter $objWriter, $pPartname, $pContentType)
     {
@@ -231,8 +225,6 @@ class ContentTypes extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param string $pPartname Part name
      * @param string $pContentType Content type
-     *
-     * @throws WriterException
      */
     private function writeOverrideContentType(XMLWriter $objWriter, $pPartname, $pContentType)
     {

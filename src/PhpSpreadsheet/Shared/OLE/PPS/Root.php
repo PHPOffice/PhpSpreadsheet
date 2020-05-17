@@ -22,7 +22,6 @@ namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 //
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
-use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 /**
  * Class for creating Root PPS's for OLE containers.
@@ -34,21 +33,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 class Root extends PPS
 {
     /**
-     * Directory for temporary files.
-     *
-     * @var string
-     */
-    protected $tempDirectory;
-
-    /**
      * @var resource
      */
     private $fileHandle;
-
-    /**
-     * @var string
-     */
-    private $tempFilename;
 
     /**
      * @var int
@@ -67,8 +54,6 @@ class Root extends PPS
      */
     public function __construct($time_1st, $time_2nd, $raChild)
     {
-        $this->tempDirectory = \PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir();
-
         parent::__construct(null, OLE::ascToUcs('Root Entry'), OLE::OLE_PPS_TYPE_ROOT, null, null, null, $time_1st, $time_2nd, null, $raChild);
     }
 
@@ -79,14 +64,14 @@ class Root extends PPS
      * If a resource pointer to a stream created by fopen() is passed
      * it will be used, but you have to close such stream by yourself.
      *
-     * @param resource|string $filename the name of the file or stream where to save the OLE container
-     *
-     * @throws WriterException
+     * @param resource $fileHandle the name of the file or stream where to save the OLE container
      *
      * @return bool true on success
      */
-    public function save($filename)
+    public function save($fileHandle)
     {
+        $this->fileHandle = $fileHandle;
+
         // Initial Setting for saving
         $this->bigBlockSize = pow(
             2,
@@ -97,23 +82,6 @@ class Root extends PPS
             (isset($this->smallBlockSize)) ? self::adjust2($this->smallBlockSize) : 6
         );
 
-        if (is_resource($filename)) {
-            $this->fileHandle = $filename;
-        } elseif ($filename == '-' || $filename == '') {
-            if ($this->tempDirectory === null) {
-                $this->tempDirectory = \PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir();
-            }
-            $this->tempFilename = tempnam($this->tempDirectory, 'OLE_PPS_Root');
-            $this->fileHandle = fopen($this->tempFilename, 'w+b');
-            if ($this->fileHandle == false) {
-                throw new WriterException("Can't create temporary file.");
-            }
-        } else {
-            $this->fileHandle = fopen($filename, 'wb');
-        }
-        if ($this->fileHandle == false) {
-            throw new WriterException("Can't open $filename. It may be in use or protected.");
-        }
         // Make an array of PPS's (for Save)
         $aList = [];
         PPS::_savePpsSetPnt($aList, [$this]);
@@ -131,10 +99,6 @@ class Root extends PPS
         $this->_savePps($aList);
         // Write Big Block Depot and BDList and Adding Header informations
         $this->_saveBbd($iSBDcnt, $iBBcnt, $iPPScnt);
-
-        if (!is_resource($filename)) {
-            fclose($this->fileHandle);
-        }
 
         return true;
     }

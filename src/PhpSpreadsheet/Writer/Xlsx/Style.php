@@ -20,8 +20,6 @@ class Style extends WriterPart
      *
      * @param Spreadsheet $spreadsheet
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @return string XML Output
      */
     public function writeStyles(Spreadsheet $spreadsheet)
@@ -369,8 +367,6 @@ class Style extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param \PhpOffice\PhpSpreadsheet\Style\Style $pStyle Style
      * @param Spreadsheet $spreadsheet Workbook
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeCellStyleXf(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style\Style $pStyle, Spreadsheet $spreadsheet)
     {

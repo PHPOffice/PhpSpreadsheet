@@ -62,8 +62,6 @@ class RowIterator implements \Iterator
      *
      * @param int $startRow The row number at which to start iterating
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function resetStart($startRow = 1)
@@ -99,8 +97,6 @@ class RowIterator implements \Iterator
      * Set the row pointer to the selected row.
      *
      * @param int $row The row number to set the current pointer at
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */

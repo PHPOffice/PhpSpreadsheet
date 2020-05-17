@@ -203,8 +203,6 @@ class BaseDrawing implements IComparable
      * @param Worksheet $pValue
      * @param bool $pOverrideOld If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function setWorksheet(Worksheet $pValue = null, $pOverrideOld = false)

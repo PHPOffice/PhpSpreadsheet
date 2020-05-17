@@ -363,8 +363,6 @@ class ReferenceHelper
      * @param int $pNumCols Number of columns to insert/delete (negative values indicate deletion)
      * @param int $pNumRows Number of rows to insert/delete (negative values indicate deletion)
      * @param Worksheet $pSheet The worksheet that we're editing
-     *
-     * @throws Exception
      */
     public function insertNewBefore($pBefore, $pNumCols, $pNumRows, Worksheet $pSheet)
     {
@@ -624,8 +622,6 @@ class ReferenceHelper
      * @param int $pNumRows Number of rows to insert
      * @param string $sheetName Worksheet name/title
      *
-     * @throws Exception
-     *
      * @return string Updated formula
      */
     public function updateFormulaReferences($pFormula = '', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, $sheetName = '')
@@ -766,8 +762,6 @@ class ReferenceHelper
      * @param int $pNumCols Number of columns to increment
      * @param int $pNumRows Number of rows to increment
      *
-     * @throws Exception
-     *
      * @return string Updated cell range
      */
     public function updateCellReference($pCellRange = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0)
@@ -824,8 +818,6 @@ class ReferenceHelper
      * @param int $pNumCols Number of columns to increment
      * @param int $pNumRows Number of rows to increment
      *
-     * @throws Exception
-     *
      * @return string Updated cell range
      */
     private function updateCellRange($pCellRange = 'A1:A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0)
@@ -864,8 +856,6 @@ class ReferenceHelper
      * @param int $pNumCols Number of columns to increment
      * @param int $pNumRows Number of rows to increment
      *
-     * @throws Exception
-     *
      * @return string Updated cell reference
      */
     private function updateSingleCellReference($pCellReference = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0)
@@ -900,8 +890,6 @@ class ReferenceHelper
 
     /**
      * __clone implementation. Cloning should not be allowed in a Singleton!
-     *
-     * @throws Exception
      */
     final public function __clone()
     {

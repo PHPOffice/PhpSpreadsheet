@@ -2,8 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-
 class Color extends Supervisor
 {
     const NAMED_COLORS = [
@@ -103,8 +101,6 @@ class Color extends Supervisor
      * </code>
      *
      * @param array $pStyles Array containing style information
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */

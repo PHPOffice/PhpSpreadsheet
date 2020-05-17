@@ -571,8 +571,6 @@ class Spreadsheet
     /**
      * Get active sheet.
      *
-     * @throws Exception
-     *
      * @return Worksheet
      */
     public function getActiveSheet()
@@ -584,8 +582,6 @@ class Spreadsheet
      * Create sheet and add it to this workbook.
      *
      * @param null|int $sheetIndex Index where sheet should go (0,1,..., or null for last)
-     *
-     * @throws Exception
      *
      * @return Worksheet
      */
@@ -614,8 +610,6 @@ class Spreadsheet
      *
      * @param Worksheet $pSheet
      * @param null|int $iSheetIndex Index where sheet should go (0,1,..., or null for last)
-     *
-     * @throws Exception
      *
      * @return Worksheet
      */
@@ -658,8 +652,6 @@ class Spreadsheet
      * Remove sheet by index.
      *
      * @param int $pIndex Active sheet index
-     *
-     * @throws Exception
      */
     public function removeSheetByIndex($pIndex)
     {
@@ -682,8 +674,6 @@ class Spreadsheet
      * Get sheet by index.
      *
      * @param int $pIndex Sheet index
-     *
-     * @throws Exception
      *
      * @return Worksheet
      */
@@ -734,8 +724,6 @@ class Spreadsheet
      *
      * @param Worksheet $pSheet
      *
-     * @throws Exception
-     *
      * @return int index
      */
     public function getIndex(Worksheet $pSheet)
@@ -754,8 +742,6 @@ class Spreadsheet
      *
      * @param string $sheetName Sheet name to modify index for
      * @param int $newIndex New index for the sheet
-     *
-     * @throws Exception
      *
      * @return int New sheet index
      */
@@ -802,8 +788,6 @@ class Spreadsheet
      *
      * @param int $pIndex Active sheet index
      *
-     * @throws Exception
-     *
      * @return Worksheet
      */
     public function setActiveSheetIndex($pIndex)
@@ -824,8 +808,6 @@ class Spreadsheet
      * Set active sheet index by name.
      *
      * @param string $pValue Sheet title
-     *
-     * @throws Exception
      *
      * @return Worksheet
      */
@@ -861,8 +843,6 @@ class Spreadsheet
      *
      * @param Worksheet $pSheet External sheet to add
      * @param null|int $iSheetIndex Index where sheet should go (0,1,..., or null for last)
-     *
-     * @throws Exception
      *
      * @return Worksheet
      */
@@ -1067,8 +1047,6 @@ class Spreadsheet
     /**
      * Get default style.
      *
-     * @throws Exception
-     *
      * @return Style
      */
     public function getDefaultStyle()
@@ -1095,8 +1073,6 @@ class Spreadsheet
      * Remove cellXf by index. It is ensured that all cells get their xf index updated.
      *
      * @param int $pIndex Index to cellXf
-     *
-     * @throws Exception
      */
     public function removeCellXfByIndex($pIndex)
     {
@@ -1188,8 +1164,6 @@ class Spreadsheet
      * Remove cellStyleXf by index.
      *
      * @param int $pIndex Index to cellXf
-     *
-     * @throws Exception
      */
     public function removeCellStyleXfByIndex($pIndex)
     {
@@ -1405,8 +1379,6 @@ class Spreadsheet
      * Set the first sheet in the book view.
      *
      * @param int $firstSheetIndex First sheet in book view
-     *
-     * @throws Exception  if the given value is invalid
      */
     public function setFirstSheetIndex($firstSheetIndex)
     {
@@ -1444,8 +1416,6 @@ class Spreadsheet
      *       user interface.
      *
      * @param string $visibility visibility status of the workbook
-     *
-     * @throws Exception  if the given value is invalid
      */
     public function setVisibility($visibility)
     {
@@ -1476,8 +1446,6 @@ class Spreadsheet
      * TabRatio is assumed to be out of 1000 of the horizontal window width.
      *
      * @param int $tabRatio Ratio between the tabs bar and the horizontal scroll bar
-     *
-     * @throws Exception  if the given value is invalid
      */
     public function setTabRatio($tabRatio)
     {

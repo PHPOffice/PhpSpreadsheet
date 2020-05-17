@@ -29,8 +29,6 @@ class Chart extends WriterPart
      * @param \PhpOffice\PhpSpreadsheet\Chart\Chart $pChart
      * @param mixed $calculateCellValues
      *
-     * @throws WriterException
-     *
      * @return string XML Output
      */
     public function writeChart(\PhpOffice\PhpSpreadsheet\Chart\Chart $pChart, $calculateCellValues = true)
@@ -109,8 +107,6 @@ class Chart extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param Title $title
-     *
-     * @throws WriterException
      */
     private function writeTitle(XMLWriter $objWriter, Title $title = null)
     {
@@ -154,8 +150,6 @@ class Chart extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param Legend $legend
-     *
-     * @throws WriterException
      */
     private function writeLegend(XMLWriter $objWriter, Legend $legend = null)
     {
@@ -212,8 +206,6 @@ class Chart extends WriterPart
      * @param Axis $yAxis
      * @param null|GridLines $majorGridlines
      * @param null|GridLines $minorGridlines
-     *
-     * @throws WriterException
      */
     private function writePlotArea(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pSheet, PlotArea $plotArea, Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
     {
@@ -395,8 +387,6 @@ class Chart extends WriterPart
      * @param string $id2
      * @param bool $isMultiLevelSeries
      * @param Axis $yAxis
-     *
-     * @throws WriterException
      */
     private function writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $isMultiLevelSeries, Axis $yAxis)
     {
@@ -518,8 +508,6 @@ class Chart extends WriterPart
      * @param Axis $xAxis
      * @param GridLines $majorGridlines
      * @param GridLines $minorGridlines
-     *
-     * @throws WriterException
      */
     private function writeValueAxis($objWriter, $yAxisLabel, $groupType, $id1, $id2, $isMultiLevelSeries, Axis $xAxis, GridLines $majorGridlines, GridLines $minorGridlines)
     {
@@ -999,8 +987,6 @@ class Chart extends WriterPart
      *
      * @param PlotArea $plotArea
      *
-     * @throws WriterException
-     *
      * @return array|string
      */
     private static function getChartType($plotArea)
@@ -1064,8 +1050,6 @@ class Chart extends WriterPart
      * @param bool &$catIsMultiLevelSeries Is category a multi-series category
      * @param bool &$valIsMultiLevelSeries Is value set a multi-series set
      * @param string &$plotGroupingType Type of grouping for multi-series values
-     *
-     * @throws WriterException
      */
     private function writePlotGroup($plotGroup, $groupType, $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries, &$plotGroupingType)
     {

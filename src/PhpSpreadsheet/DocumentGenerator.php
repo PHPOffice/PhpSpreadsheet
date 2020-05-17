@@ -5,15 +5,12 @@ namespace PhpOffice\PhpSpreadsheet;
 use PhpOffice\PhpSpreadsheet\Calculation\Category;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use ReflectionClass;
-use ReflectionException;
 use UnexpectedValueException;
 
 class DocumentGenerator
 {
     /**
      * @param array[] $phpSpreadsheetFunctions
-     *
-     * @throws ReflectionException
      *
      * @return string
      */
@@ -38,11 +35,6 @@ class DocumentGenerator
         return $result;
     }
 
-    /**
-     * @throws ReflectionException
-     *
-     * @return array
-     */
     private static function getCategories(): array
     {
         return (new ReflectionClass(Category::class))->getConstants();
@@ -81,8 +73,6 @@ class DocumentGenerator
 
     /**
      * @param array[] $phpSpreadsheetFunctions
-     *
-     * @throws ReflectionException
      *
      * @return string
      */

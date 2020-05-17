@@ -2346,8 +2346,6 @@ class Engineering
      *
      * @param mixed $value
      *
-     * @throws Exception
-     *
      * @return int
      */
     private static function validateBitwiseArgument($value)

@@ -92,8 +92,6 @@ class Cell
      * @param mixed $pValue
      * @param string $pDataType
      * @param Worksheet $pSheet
-     *
-     * @throws Exception
      */
     public function __construct($pValue, $pDataType, Worksheet $pSheet)
     {
@@ -175,8 +173,6 @@ class Cell
      *
      * @param mixed $pValue Value
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function setValue($pValue)
@@ -193,8 +189,6 @@ class Cell
      *
      * @param mixed $pValue Value
      * @param string $pDataType Explicit data type, see DataType::TYPE_*
-     *
-     * @throws Exception
      *
      * @return Cell
      */
@@ -251,8 +245,6 @@ class Cell
      * Get calculated cell value.
      *
      * @param bool $resetLog Whether the calculation engine logger should be reset or not
-     *
-     * @throws Exception
      *
      * @return mixed
      */
@@ -362,8 +354,6 @@ class Cell
     /**
      *    Does this cell contain Data validation rules?
      *
-     * @throws Exception
-     *
      * @return bool
      */
     public function hasDataValidation()
@@ -377,8 +367,6 @@ class Cell
 
     /**
      * Get Data validation rules.
-     *
-     * @throws Exception
      *
      * @return DataValidation
      */
@@ -395,8 +383,6 @@ class Cell
      * Set Data validation rules.
      *
      * @param DataValidation $pDataValidation
-     *
-     * @throws Exception
      *
      * @return Cell
      */
@@ -426,8 +412,6 @@ class Cell
     /**
      * Does this cell contain a Hyperlink?
      *
-     * @throws Exception
-     *
      * @return bool
      */
     public function hasHyperlink()
@@ -441,8 +425,6 @@ class Cell
 
     /**
      * Get Hyperlink.
-     *
-     * @throws Exception
      *
      * @return Hyperlink
      */
@@ -459,8 +441,6 @@ class Cell
      * Set Hyperlink.
      *
      * @param Hyperlink $pHyperlink
-     *
-     * @throws Exception
      *
      * @return Cell
      */

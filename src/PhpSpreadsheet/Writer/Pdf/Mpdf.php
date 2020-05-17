@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
@@ -24,9 +23,6 @@ class Mpdf extends Pdf
      * Save Spreadsheet to file.
      *
      * @param string $pFilename Name of the file to save as
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @throws PhpSpreadsheetException
      */
     public function save($pFilename)
     {
@@ -65,7 +61,7 @@ class Mpdf extends Pdf
         }
 
         //  Create PDF
-        $config = ['tempDir' => $this->tempDir];
+        $config = ['tempDir' => $this->tempDir . '/mpdf'];
         $pdf = $this->createExternalWriterInstance($config);
         $ortmp = $orientation;
         $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
@@ -95,7 +91,7 @@ class Mpdf extends Pdf
         //  Write to file
         fwrite($fileHandle, $pdf->Output('', 'S'));
 
-        parent::restoreStateAfterSave($fileHandle);
+        parent::restoreStateAfterSave();
     }
 
     /**
