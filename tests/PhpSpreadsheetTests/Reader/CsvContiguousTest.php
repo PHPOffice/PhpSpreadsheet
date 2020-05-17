@@ -46,11 +46,6 @@ class CsvContiguousTest extends TestCase
             $spreadsheet->getActiveSheet()->setTitle('Country Data #' . (++$sheet));
         }
 
-        $loadedSheetNames = $spreadsheet->getSheetNames();
-        foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
-            $spreadsheet->setActiveSheetIndexByName($loadedSheetName);
-            $sheetData = $spreadsheet->getActiveSheet()->toArray(null, false, false, true);
-        }
         $sheet = $spreadsheet->getSheetByName('Country Data #1');
         self::assertEquals('Kabul', $sheet->getCell('A2')->getValue());
         $sheet = $spreadsheet->getSheetByName('Country Data #2');
@@ -64,8 +59,6 @@ class CsvContiguousTest extends TestCase
         // Create a new Reader of the type defined in $inputFileType
         $reader = new Csv();
 
-        // Define how many rows we want to read for each "chunk"
-        $chunkSize = 100;
         // Create a new Instance of our Read Filter
         $chunkFilter = new CsvContiguousFilter();
         $chunkFilter->setFilterType(1);
