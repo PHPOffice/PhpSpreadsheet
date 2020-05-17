@@ -151,7 +151,7 @@ class CsvTest extends TestCase
     {
         $this->expectException(ReaderException::class);
         $reader = new Csv();
-        $info = $reader->listWorksheetInfo('');
+        $reader->listWorksheetInfo('');
     }
 
     /**
@@ -230,13 +230,14 @@ EOF;
     {
         $this->expectException(ReaderException::class);
         $reader = new Csv();
-        $spreadsheet = $reader->load('');
+        $filename = '';
+        $reader->load($filename);
     }
 
     public function testReadNonexistentFileName()
     {
         $this->expectException(ReaderException::class);
         $reader = new Csv();
-        $spreadsheet = $reader->load('data/Reader/CSV/encoding.utf8.csvxxx');
+        $reader->load('data/Reader/CSV/encoding.utf8.csvxxx');
     }
 }
