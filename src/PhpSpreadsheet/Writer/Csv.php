@@ -93,6 +93,8 @@ class Csv extends BaseWriter
         // Open file
         if (is_resource($pFilename)) {
             $fileHandle = $pFilename;
+        } elseif (!$pFilename) {
+            $fileHandle = false;
         } else {
             $fileHandle = fopen($pFilename, 'wb+');
         }
@@ -176,10 +178,7 @@ class Csv extends BaseWriter
      */
     public function setEnclosure($pValue)
     {
-        if ($pValue == '') {
-            $pValue = null;
-        }
-        $this->enclosure = $pValue;
+        $this->enclosure = $pValue ? $pValue : '"';
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PHPUnit\Framework\TestCase;
 
 class CsvTest extends TestCase
@@ -129,5 +130,114 @@ class CsvTest extends TestCase
 
         $this->assertSame('"', $reader->getEscapeCharacter());
         $this->assertSame($expected, $worksheet->toArray());
+    }
+
+    /**
+     * @dataProvider providerEncodings
+     *
+     * @param string $filename
+     * @param string $encoding
+     */
+    public function testEncodings($filename, $encoding)
+    {
+        $reader = new Csv();
+        $reader->setInputEncoding($encoding);
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertEquals('Å', $sheet->getCell('A1')->getValue());
+    }
+
+    public function testInvalidWorkSheetInfo()
+    {
+        $this->expectException(ReaderException::class);
+        $reader = new Csv();
+        $reader->listWorksheetInfo('');
+    }
+
+    /**
+     * @dataProvider providerEncodings
+     *
+     * @param string $filename
+     * @param string $encoding
+     */
+    public function testWorkSheetInfo($filename, $encoding)
+    {
+        $reader = new Csv();
+        $reader->setInputEncoding($encoding);
+        $info = $reader->listWorksheetInfo($filename);
+        self::assertEquals('Worksheet', $info[0]['worksheetName']);
+        self::assertEquals('B', $info[0]['lastColumnLetter']);
+        self::assertEquals(1, $info[0]['lastColumnIndex']);
+        self::assertEquals(2, $info[0]['totalRows']);
+        self::assertEquals(2, $info[0]['totalColumns']);
+    }
+
+    public function providerEncodings()
+    {
+        return [
+            ['data/Reader/CSV/encoding.iso88591.csv', 'ISO-8859-1'],
+            ['data/Reader/CSV/encoding.utf8.csv', 'UTF-8'],
+            ['data/Reader/CSV/encoding.utf8bom.csv', 'UTF-8'],
+            ['data/Reader/CSV/encoding.utf16be.csv', 'UTF-16BE'],
+            ['data/Reader/CSV/encoding.utf16le.csv', 'UTF-16LE'],
+            ['data/Reader/CSV/encoding.utf32be.csv', 'UTF-32BE'],
+            ['data/Reader/CSV/encoding.utf32le.csv', 'UTF-32LE'],
+        ];
+    }
+
+    public function testUtf16LineBreak()
+    {
+        $reader = new Csv();
+        $reader->setInputEncoding('UTF-16BE');
+        $spreadsheet = $reader->load('data/Reader/CSV/utf16be.line_break_in_enclosure.csv');
+        $sheet = $spreadsheet->getActiveSheet();
+        $expected = <<<EOF
+This is a test
+with line breaks
+that breaks the
+delimiters
+EOF;
+        self::assertEquals($expected, $sheet->getCell('B3')->getValue());
+    }
+
+    public function testSeparatorLine()
+    {
+        $reader = new Csv();
+        $reader->setSheetIndex(3);
+        $spreadsheet = $reader->load('data/Reader/CSV/sep.csv');
+        self::assertEquals(';', $reader->getDelimiter());
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertEquals(3, $reader->getSheetIndex());
+        self::assertEquals(3, $spreadsheet->getActiveSheetIndex());
+        self::assertEquals('A', $sheet->getCell('A1')->getValue());
+        self::assertEquals(1, $sheet->getCell('B1')->getValue());
+        self::assertEquals(2, $sheet->getCell('A2')->getValue());
+        self::assertEquals(3, $sheet->getCell('B2')->getValue());
+    }
+
+    public function testDefaultSettings()
+    {
+        $reader = new Csv();
+        self::assertEquals('UTF-8', $reader->getInputEncoding());
+        self::assertEquals('"', $reader->getEnclosure());
+        $reader->setEnclosure('\'');
+        self::assertEquals('\'', $reader->getEnclosure());
+        $reader->setEnclosure('');
+        self::assertEquals('"', $reader->getEnclosure());
+    }
+
+    public function testReadEmptyFileName()
+    {
+        $this->expectException(ReaderException::class);
+        $reader = new Csv();
+        $filename = '';
+        $reader->load($filename);
+    }
+
+    public function testReadNonexistentFileName()
+    {
+        $this->expectException(ReaderException::class);
+        $reader = new Csv();
+        $reader->load('data/Reader/CSV/encoding.utf8.csvxxx');
     }
 }
