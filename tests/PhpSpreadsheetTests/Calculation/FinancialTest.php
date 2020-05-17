@@ -436,15 +436,32 @@ class FinancialTest extends TestCase
      */
     public function testPRICE($expectedResult, ...$args)
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $result = Financial::PRICE(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
     }
 
     public function providerPRICE()
     {
         return require 'tests/data/Calculation/Financial/PRICE.php';
+    }
+
+    /**
+     * @dataProvider providerPRICE3
+     *
+     * @param mixed $expectedResult
+     */
+    public function testPRICE3($expectedResult, ...$args)
+    {
+        // These results (PRICE function with basis codes 2 and 3)
+        // agree with published algorithm, LibreOffice, and Gnumeric.
+        // They do not agree with Excel.
+        $result = Financial::PRICE(...$args);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
+    }
+
+    public function providerPRICE3()
+    {
+        return require 'data/Calculation/Financial/PRICE3.php';
     }
 
     /**
@@ -486,8 +503,6 @@ class FinancialTest extends TestCase
      */
     public function testRATE($expectedResult, ...$args)
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $result = Financial::RATE(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
@@ -506,12 +521,45 @@ class FinancialTest extends TestCase
     public function testXIRR($expectedResult, $message, ...$args)
     {
         $result = Financial::XIRR(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, Financial::FINANCIAL_PRECISION, $message);
+        if (is_numeric($result) && is_numeric($expectedResult)) {
+            if ($expectedResult != 0) {
+                $frac = $result / $expectedResult;
+                if ($frac > 0.999999 && $frac < 1.000001) {
+                    $result = $expectedResult;
+                }
+            }
+        }
+        self::assertEquals($expectedResult, $result, $message);
     }
 
     public function providerXIRR()
     {
         return require 'tests/data/Calculation/Financial/XIRR.php';
+    }
+
+    /**
+     * @dataProvider providerXNPV
+     *
+     * @param mixed $expectedResult
+     * @param mixed $message
+     */
+    public function testXNPV($expectedResult, $message, ...$args)
+    {
+        $result = Financial::XNPV(...$args);
+        if (is_numeric($result) && is_numeric($expectedResult)) {
+            if ($expectedResult != 0) {
+                $frac = $result / $expectedResult;
+                if ($frac > 0.999999 && $frac < 1.000001) {
+                    $result = $expectedResult;
+                }
+            }
+        }
+        self::assertEquals($expectedResult, $result, $message);
+    }
+
+    public function providerXNPV()
+    {
+        return require 'data/Calculation/Financial/XNPV.php';
     }
 
     /**

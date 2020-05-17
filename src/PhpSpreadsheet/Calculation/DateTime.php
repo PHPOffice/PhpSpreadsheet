@@ -59,17 +59,13 @@ class DateTime
     /**
      * getDateValue.
      *
-     * @param string $dateValue
+     * @param mixed $dateValue
      *
      * @return mixed Excel date/time serial value, or string if error
      */
     public static function getDateValue($dateValue)
     {
         if (!is_numeric($dateValue)) {
-            if ((is_string($dateValue)) &&
-                (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)) {
-                return Functions::VALUE();
-            }
             if ((is_object($dateValue)) && ($dateValue instanceof \DateTimeInterface)) {
                 $dateValue = Date::PHPToExcel($dateValue);
             } else {
