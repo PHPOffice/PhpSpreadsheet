@@ -68,7 +68,7 @@ class Chart
      *
      * @var string
      */
-    private $displayBlanksAs = '0';
+    private $displayBlanksAs = DataSeries::EMPTY_AS_GAP;
 
     /**
      * Chart Asix Y as.
@@ -148,7 +148,7 @@ class Chart
      * @param null|Legend $legend
      * @param null|PlotArea $plotArea
      * @param mixed $plotVisibleOnly
-     * @param mixed $displayBlanksAs
+     * @param string $displayBlanksAs
      * @param null|Title $xAxisLabel
      * @param null|Title $yAxisLabel
      * @param null|Axis $xAxis
@@ -156,7 +156,7 @@ class Chart
      * @param null|GridLines $majorGridlines
      * @param null|GridLines $minorGridlines
      */
-    public function __construct($name, Title $title = null, Legend $legend = null, PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = 'gap', Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
+    public function __construct($name, Title $title = null, Legend $legend = null, PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = DataSeries::EMPTY_AS_GAP, Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
     {
         $this->name = $name;
         $this->title = $title;

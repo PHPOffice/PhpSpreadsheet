@@ -27,6 +27,6 @@ class SignTest extends TestCase
 
     public function providerSIGN()
     {
-        return require 'data/Calculation/MathTrig/SIGN.php';
+        return require 'tests/data/Calculation/MathTrig/SIGN.php';
     }
 }

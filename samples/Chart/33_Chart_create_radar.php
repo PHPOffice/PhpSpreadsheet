@@ -96,7 +96,7 @@ $chart = new Chart(
     $legend, // legend
     $plotArea, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
     null   // yAxisLabel - Radar charts don't have a Y-Axis
 );

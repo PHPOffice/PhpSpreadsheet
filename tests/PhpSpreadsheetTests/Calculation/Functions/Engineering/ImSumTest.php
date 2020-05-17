@@ -43,6 +43,6 @@ class ImSumTest extends TestCase
 
     public function providerIMSUM()
     {
-        return require 'data/Calculation/Engineering/IMSUM.php';
+        return require 'tests/data/Calculation/Engineering/IMSUM.php';
     }
 }

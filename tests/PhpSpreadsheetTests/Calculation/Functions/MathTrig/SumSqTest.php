@@ -26,6 +26,6 @@ class SumSqTest extends TestCase
 
     public function providerSUMSQ()
     {
-        return require 'data/Calculation/MathTrig/SUMSQ.php';
+        return require 'tests/data/Calculation/MathTrig/SUMSQ.php';
     }
 }

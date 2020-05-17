@@ -26,6 +26,6 @@ class CorrelTest extends TestCase
 
     public function providerCORREL()
     {
-        return require 'data/Calculation/Statistical/CORREL.php';
+        return require 'tests/data/Calculation/Statistical/CORREL.php';
     }
 }

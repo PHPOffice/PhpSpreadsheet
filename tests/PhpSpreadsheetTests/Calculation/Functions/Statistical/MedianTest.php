@@ -26,6 +26,6 @@ class MedianTest extends TestCase
 
     public function providerMEDIAN()
     {
-        return require 'data/Calculation/Statistical/MEDIAN.php';
+        return require 'tests/data/Calculation/Statistical/MEDIAN.php';
     }
 }

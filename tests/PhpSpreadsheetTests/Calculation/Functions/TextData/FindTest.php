@@ -38,6 +38,6 @@ class FindTest extends TestCase
 
     public function providerFIND()
     {
-        return require 'data/Calculation/TextData/FIND.php';
+        return require 'tests/data/Calculation/TextData/FIND.php';
     }
 }

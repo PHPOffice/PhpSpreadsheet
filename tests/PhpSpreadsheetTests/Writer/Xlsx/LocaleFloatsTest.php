@@ -14,7 +14,7 @@ class LocaleFloatsTest extends TestCase
     {
         $this->currentLocale = setlocale(LC_ALL, '0');
 
-        if (!setlocale(LC_ALL, 'fr_FR.UTF-8')) {
+        if (!setlocale(LC_ALL, 'fr_FR.UTF-8', 'fra_fra')) {
             $this->localeAdjusted = false;
 
             return;
@@ -45,6 +45,7 @@ class LocaleFloatsTest extends TestCase
 
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $spreadsheet = $reader->load($filename);
+        unlink($filename);
 
         $result = $spreadsheet->getActiveSheet()->getCell('A1')->getValue();
 

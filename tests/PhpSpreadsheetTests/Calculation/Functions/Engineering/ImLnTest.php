@@ -44,6 +44,6 @@ class ImLnTest extends TestCase
 
     public function providerIMLN()
     {
-        return require 'data/Calculation/Engineering/IMLN.php';
+        return require 'tests/data/Calculation/Engineering/IMLN.php';
     }
 }

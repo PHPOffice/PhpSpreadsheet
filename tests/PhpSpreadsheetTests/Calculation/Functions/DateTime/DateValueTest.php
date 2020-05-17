@@ -31,7 +31,7 @@ class DateValueTest extends TestCase
 
     public function providerDATEVALUE()
     {
-        return require 'data/Calculation/DateTime/DATEVALUE.php';
+        return require 'tests/data/Calculation/DateTime/DATEVALUE.php';
     }
 
     public function testDATEVALUEtoUnixTimestamp()

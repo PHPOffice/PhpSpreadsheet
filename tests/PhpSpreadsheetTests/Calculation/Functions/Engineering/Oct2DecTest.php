@@ -26,6 +26,6 @@ class Oct2DecTest extends TestCase
 
     public function providerOCT2DEC()
     {
-        return require 'data/Calculation/Engineering/OCT2DEC.php';
+        return require 'tests/data/Calculation/Engineering/OCT2DEC.php';
     }
 }

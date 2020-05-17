@@ -26,6 +26,6 @@ class XorTest extends TestCase
 
     public function providerXOR()
     {
-        return require 'data/Calculation/Logical/XOR.php';
+        return require 'tests/data/Calculation/Logical/XOR.php';
     }
 }

@@ -26,6 +26,6 @@ class SwitchTest extends TestCase
 
     public function providerSwitch()
     {
-        return require 'data/Calculation/Logical/SWITCH.php';
+        return require 'tests/data/Calculation/Logical/SWITCH.php';
     }
 }

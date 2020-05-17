@@ -54,7 +54,7 @@ class SubTotalTest extends TestCase
 
     public function providerSUBTOTAL()
     {
-        return require 'data/Calculation/MathTrig/SUBTOTAL.php';
+        return require 'tests/data/Calculation/MathTrig/SUBTOTAL.php';
     }
 
     protected function rowVisibility()
@@ -125,7 +125,7 @@ class SubTotalTest extends TestCase
 
     public function providerHiddenSUBTOTAL()
     {
-        return require 'data/Calculation/MathTrig/SUBTOTALHIDDEN.php';
+        return require 'tests/data/Calculation/MathTrig/SUBTOTALHIDDEN.php';
     }
 
     protected function cellValues(array $cellValues)
@@ -193,6 +193,6 @@ class SubTotalTest extends TestCase
 
     public function providerNestedSUBTOTAL()
     {
-        return require 'data/Calculation/MathTrig/SUBTOTALNESTED.php';
+        return require 'tests/data/Calculation/MathTrig/SUBTOTALNESTED.php';
     }
 }

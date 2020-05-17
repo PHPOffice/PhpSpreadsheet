@@ -26,6 +26,6 @@ class Dec2HexTest extends TestCase
 
     public function providerDEC2HEX()
     {
-        return require 'data/Calculation/Engineering/DEC2HEX.php';
+        return require 'tests/data/Calculation/Engineering/DEC2HEX.php';
     }
 }

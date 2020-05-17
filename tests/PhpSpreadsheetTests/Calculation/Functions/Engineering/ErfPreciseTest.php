@@ -29,6 +29,6 @@ class ErfPreciseTest extends TestCase
 
     public function providerERFPRECISE()
     {
-        return require 'data/Calculation/Engineering/ERFPRECISE.php';
+        return require 'tests/data/Calculation/Engineering/ERFPRECISE.php';
     }
 }

@@ -26,6 +26,6 @@ class ColumnsTest extends TestCase
 
     public function providerCOLUMNS()
     {
-        return require 'data/Calculation/LookupRef/COLUMNS.php';
+        return require 'tests/data/Calculation/LookupRef/COLUMNS.php';
     }
 }

@@ -27,7 +27,7 @@ class NumberFormatTest extends TestCase
 
     public function providerNumberFormat()
     {
-        return require 'data/Style/NumberFormat.php';
+        return require 'tests/data/Style/NumberFormat.php';
     }
 
     /**
@@ -43,6 +43,6 @@ class NumberFormatTest extends TestCase
 
     public function providerNumberFormatDates()
     {
-        return require 'data/Style/NumberFormatDates.php';
+        return require 'tests/data/Style/NumberFormatDates.php';
     }
 }

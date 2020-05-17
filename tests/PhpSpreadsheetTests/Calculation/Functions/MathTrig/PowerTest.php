@@ -26,6 +26,6 @@ class PowerTest extends TestCase
 
     public function providerPOWER()
     {
-        return require 'data/Calculation/MathTrig/POWER.php';
+        return require 'tests/data/Calculation/MathTrig/POWER.php';
     }
 }

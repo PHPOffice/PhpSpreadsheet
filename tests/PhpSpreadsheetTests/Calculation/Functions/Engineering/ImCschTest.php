@@ -44,6 +44,6 @@ class ImCschTest extends TestCase
 
     public function providerIMCSCH()
     {
-        return require 'data/Calculation/Engineering/IMCSCH.php';
+        return require 'tests/data/Calculation/Engineering/IMCSCH.php';
     }
 }

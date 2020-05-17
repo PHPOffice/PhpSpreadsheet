@@ -26,6 +26,6 @@ class ForecastTest extends TestCase
 
     public function providerFORECAST()
     {
-        return require 'data/Calculation/Statistical/FORECAST.php';
+        return require 'tests/data/Calculation/Statistical/FORECAST.php';
     }
 }

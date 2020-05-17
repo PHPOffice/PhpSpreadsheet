@@ -20,7 +20,7 @@ class ColorTest extends TestCase
 
     public function providerColorGetRed()
     {
-        return require 'data/Style/ColorGetRed.php';
+        return require 'tests/data/Style/ColorGetRed.php';
     }
 
     /**
@@ -36,7 +36,7 @@ class ColorTest extends TestCase
 
     public function providerColorGetGreen()
     {
-        return require 'data/Style/ColorGetGreen.php';
+        return require 'tests/data/Style/ColorGetGreen.php';
     }
 
     /**
@@ -52,7 +52,7 @@ class ColorTest extends TestCase
 
     public function providerColorGetBlue()
     {
-        return require 'data/Style/ColorGetBlue.php';
+        return require 'tests/data/Style/ColorGetBlue.php';
     }
 
     /**
@@ -68,6 +68,6 @@ class ColorTest extends TestCase
 
     public function providerColorChangeBrightness()
     {
-        return require 'data/Style/ColorChangeBrightness.php';
+        return require 'tests/data/Style/ColorChangeBrightness.php';
     }
 }

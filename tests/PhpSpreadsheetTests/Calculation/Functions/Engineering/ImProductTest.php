@@ -43,6 +43,6 @@ class ImProductTest extends TestCase
 
     public function providerIMPRODUCT()
     {
-        return require 'data/Calculation/Engineering/IMPRODUCT.php';
+        return require 'tests/data/Calculation/Engineering/IMPRODUCT.php';
     }
 }

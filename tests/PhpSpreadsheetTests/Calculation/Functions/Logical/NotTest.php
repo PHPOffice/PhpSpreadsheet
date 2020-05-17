@@ -26,6 +26,6 @@ class NotTest extends TestCase
 
     public function providerNOT()
     {
-        return require 'data/Calculation/Logical/NOT.php';
+        return require 'tests/data/Calculation/Logical/NOT.php';
     }
 }

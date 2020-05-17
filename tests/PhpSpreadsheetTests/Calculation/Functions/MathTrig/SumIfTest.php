@@ -26,6 +26,6 @@ class SumIfTest extends TestCase
 
     public function providerSUMIF()
     {
-        return require 'data/Calculation/MathTrig/SUMIF.php';
+        return require 'tests/data/Calculation/MathTrig/SUMIF.php';
     }
 }

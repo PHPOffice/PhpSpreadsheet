@@ -26,6 +26,6 @@ class ChooseTest extends TestCase
 
     public function providerCHOOSE()
     {
-        return require 'data/Calculation/LookupRef/CHOOSE.php';
+        return require 'tests/data/Calculation/LookupRef/CHOOSE.php';
     }
 }

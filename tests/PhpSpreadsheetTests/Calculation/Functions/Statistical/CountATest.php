@@ -26,6 +26,6 @@ class CountATest extends TestCase
 
     public function providerCOUNTA()
     {
-        return require 'data/Calculation/Statistical/COUNTA.php';
+        return require 'tests/data/Calculation/Statistical/COUNTA.php';
     }
 }

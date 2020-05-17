@@ -44,6 +44,6 @@ class ImLog2Test extends TestCase
 
     public function providerIMLOG2()
     {
-        return require 'data/Calculation/Engineering/IMLOG2.php';
+        return require 'tests/data/Calculation/Engineering/IMLOG2.php';
     }
 }

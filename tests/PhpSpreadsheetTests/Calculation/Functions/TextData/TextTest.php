@@ -43,6 +43,6 @@ class TextTest extends TestCase
 
     public function providerTEXT()
     {
-        return require 'data/Calculation/TextData/TEXT.php';
+        return require 'tests/data/Calculation/TextData/TEXT.php';
     }
 }

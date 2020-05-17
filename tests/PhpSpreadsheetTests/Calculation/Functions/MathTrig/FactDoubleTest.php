@@ -27,6 +27,6 @@ class FactDoubleTest extends TestCase
 
     public function providerFACTDOUBLE()
     {
-        return require 'data/Calculation/MathTrig/FACTDOUBLE.php';
+        return require 'tests/data/Calculation/MathTrig/FACTDOUBLE.php';
     }
 }

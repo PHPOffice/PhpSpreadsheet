@@ -26,7 +26,7 @@ class FinancialTest extends TestCase
 
     public function providerAMORDEGRC()
     {
-        return require 'data/Calculation/Financial/AMORDEGRC.php';
+        return require 'tests/data/Calculation/Financial/AMORDEGRC.php';
     }
 
     /**
@@ -42,7 +42,7 @@ class FinancialTest extends TestCase
 
     public function providerAMORLINC()
     {
-        return require 'data/Calculation/Financial/AMORLINC.php';
+        return require 'tests/data/Calculation/Financial/AMORLINC.php';
     }
 
     /**
@@ -58,7 +58,7 @@ class FinancialTest extends TestCase
 
     public function providerCOUPDAYBS()
     {
-        return require 'data/Calculation/Financial/COUPDAYBS.php';
+        return require 'tests/data/Calculation/Financial/COUPDAYBS.php';
     }
 
     /**
@@ -74,7 +74,7 @@ class FinancialTest extends TestCase
 
     public function providerCOUPDAYS()
     {
-        return require 'data/Calculation/Financial/COUPDAYS.php';
+        return require 'tests/data/Calculation/Financial/COUPDAYS.php';
     }
 
     /**
@@ -90,7 +90,7 @@ class FinancialTest extends TestCase
 
     public function providerCOUPDAYSNC()
     {
-        return require 'data/Calculation/Financial/COUPDAYSNC.php';
+        return require 'tests/data/Calculation/Financial/COUPDAYSNC.php';
     }
 
     /**
@@ -106,7 +106,7 @@ class FinancialTest extends TestCase
 
     public function providerCOUPNCD()
     {
-        return require 'data/Calculation/Financial/COUPNCD.php';
+        return require 'tests/data/Calculation/Financial/COUPNCD.php';
     }
 
     /**
@@ -122,7 +122,7 @@ class FinancialTest extends TestCase
 
     public function providerCOUPNUM()
     {
-        return require 'data/Calculation/Financial/COUPNUM.php';
+        return require 'tests/data/Calculation/Financial/COUPNUM.php';
     }
 
     /**
@@ -138,7 +138,7 @@ class FinancialTest extends TestCase
 
     public function providerCOUPPCD()
     {
-        return require 'data/Calculation/Financial/COUPPCD.php';
+        return require 'tests/data/Calculation/Financial/COUPPCD.php';
     }
 
     /**
@@ -154,7 +154,7 @@ class FinancialTest extends TestCase
 
     public function providerCUMIPMT()
     {
-        return require 'data/Calculation/Financial/CUMIPMT.php';
+        return require 'tests/data/Calculation/Financial/CUMIPMT.php';
     }
 
     /**
@@ -170,7 +170,7 @@ class FinancialTest extends TestCase
 
     public function providerCUMPRINC()
     {
-        return require 'data/Calculation/Financial/CUMPRINC.php';
+        return require 'tests/data/Calculation/Financial/CUMPRINC.php';
     }
 
     /**
@@ -186,7 +186,7 @@ class FinancialTest extends TestCase
 
     public function providerDB()
     {
-        return require 'data/Calculation/Financial/DB.php';
+        return require 'tests/data/Calculation/Financial/DB.php';
     }
 
     /**
@@ -202,7 +202,7 @@ class FinancialTest extends TestCase
 
     public function providerDDB()
     {
-        return require 'data/Calculation/Financial/DDB.php';
+        return require 'tests/data/Calculation/Financial/DDB.php';
     }
 
     /**
@@ -218,7 +218,7 @@ class FinancialTest extends TestCase
 
     public function providerDISC()
     {
-        return require 'data/Calculation/Financial/DISC.php';
+        return require 'tests/data/Calculation/Financial/DISC.php';
     }
 
     /**
@@ -234,7 +234,7 @@ class FinancialTest extends TestCase
 
     public function providerDOLLARDE()
     {
-        return require 'data/Calculation/Financial/DOLLARDE.php';
+        return require 'tests/data/Calculation/Financial/DOLLARDE.php';
     }
 
     /**
@@ -250,7 +250,7 @@ class FinancialTest extends TestCase
 
     public function providerDOLLARFR()
     {
-        return require 'data/Calculation/Financial/DOLLARFR.php';
+        return require 'tests/data/Calculation/Financial/DOLLARFR.php';
     }
 
     /**
@@ -266,7 +266,7 @@ class FinancialTest extends TestCase
 
     public function providerEFFECT()
     {
-        return require 'data/Calculation/Financial/EFFECT.php';
+        return require 'tests/data/Calculation/Financial/EFFECT.php';
     }
 
     /**
@@ -282,7 +282,7 @@ class FinancialTest extends TestCase
 
     public function providerFV()
     {
-        return require 'data/Calculation/Financial/FV.php';
+        return require 'tests/data/Calculation/Financial/FV.php';
     }
 
     /**
@@ -298,7 +298,7 @@ class FinancialTest extends TestCase
 
     public function providerFVSCHEDULE()
     {
-        return require 'data/Calculation/Financial/FVSCHEDULE.php';
+        return require 'tests/data/Calculation/Financial/FVSCHEDULE.php';
     }
 
     /**
@@ -314,7 +314,7 @@ class FinancialTest extends TestCase
 
     public function providerINTRATE()
     {
-        return require 'data/Calculation/Financial/INTRATE.php';
+        return require 'tests/data/Calculation/Financial/INTRATE.php';
     }
 
     /**
@@ -330,7 +330,7 @@ class FinancialTest extends TestCase
 
     public function providerIPMT()
     {
-        return require 'data/Calculation/Financial/IPMT.php';
+        return require 'tests/data/Calculation/Financial/IPMT.php';
     }
 
     /**
@@ -346,7 +346,7 @@ class FinancialTest extends TestCase
 
     public function providerIRR()
     {
-        return require 'data/Calculation/Financial/IRR.php';
+        return require 'tests/data/Calculation/Financial/IRR.php';
     }
 
     /**
@@ -362,7 +362,7 @@ class FinancialTest extends TestCase
 
     public function providerISPMT()
     {
-        return require 'data/Calculation/Financial/ISPMT.php';
+        return require 'tests/data/Calculation/Financial/ISPMT.php';
     }
 
     /**
@@ -378,7 +378,7 @@ class FinancialTest extends TestCase
 
     public function providerMIRR()
     {
-        return require 'data/Calculation/Financial/MIRR.php';
+        return require 'tests/data/Calculation/Financial/MIRR.php';
     }
 
     /**
@@ -394,7 +394,7 @@ class FinancialTest extends TestCase
 
     public function providerNOMINAL()
     {
-        return require 'data/Calculation/Financial/NOMINAL.php';
+        return require 'tests/data/Calculation/Financial/NOMINAL.php';
     }
 
     /**
@@ -410,7 +410,7 @@ class FinancialTest extends TestCase
 
     public function providerNPER()
     {
-        return require 'data/Calculation/Financial/NPER.php';
+        return require 'tests/data/Calculation/Financial/NPER.php';
     }
 
     /**
@@ -426,7 +426,7 @@ class FinancialTest extends TestCase
 
     public function providerNPV()
     {
-        return require 'data/Calculation/Financial/NPV.php';
+        return require 'tests/data/Calculation/Financial/NPV.php';
     }
 
     /**
@@ -436,15 +436,32 @@ class FinancialTest extends TestCase
      */
     public function testPRICE($expectedResult, ...$args)
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $result = Financial::PRICE(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
     }
 
     public function providerPRICE()
     {
-        return require 'data/Calculation/Financial/PRICE.php';
+        return require 'tests/data/Calculation/Financial/PRICE.php';
+    }
+
+    /**
+     * @dataProvider providerPRICE3
+     *
+     * @param mixed $expectedResult
+     */
+    public function testPRICE3($expectedResult, ...$args)
+    {
+        // These results (PRICE function with basis codes 2 and 3)
+        // agree with published algorithm, LibreOffice, and Gnumeric.
+        // They do not agree with Excel.
+        $result = Financial::PRICE(...$args);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
+    }
+
+    public function providerPRICE3()
+    {
+        return require 'tests/data/Calculation/Financial/PRICE3.php';
     }
 
     /**
@@ -460,7 +477,7 @@ class FinancialTest extends TestCase
 
     public function providerPRICEDISC()
     {
-        return require 'data/Calculation/Financial/PRICEDISC.php';
+        return require 'tests/data/Calculation/Financial/PRICEDISC.php';
     }
 
     /**
@@ -476,7 +493,7 @@ class FinancialTest extends TestCase
 
     public function providerPV()
     {
-        return require 'data/Calculation/Financial/PV.php';
+        return require 'tests/data/Calculation/Financial/PV.php';
     }
 
     /**
@@ -486,15 +503,13 @@ class FinancialTest extends TestCase
      */
     public function testRATE($expectedResult, ...$args)
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $result = Financial::RATE(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerRATE()
     {
-        return require 'data/Calculation/Financial/RATE.php';
+        return require 'tests/data/Calculation/Financial/RATE.php';
     }
 
     /**
@@ -506,12 +521,45 @@ class FinancialTest extends TestCase
     public function testXIRR($expectedResult, $message, ...$args)
     {
         $result = Financial::XIRR(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, Financial::FINANCIAL_PRECISION, $message);
+        if (is_numeric($result) && is_numeric($expectedResult)) {
+            if ($expectedResult != 0) {
+                $frac = $result / $expectedResult;
+                if ($frac > 0.999999 && $frac < 1.000001) {
+                    $result = $expectedResult;
+                }
+            }
+        }
+        self::assertEquals($expectedResult, $result, $message);
     }
 
     public function providerXIRR()
     {
-        return require 'data/Calculation/Financial/XIRR.php';
+        return require 'tests/data/Calculation/Financial/XIRR.php';
+    }
+
+    /**
+     * @dataProvider providerXNPV
+     *
+     * @param mixed $expectedResult
+     * @param mixed $message
+     */
+    public function testXNPV($expectedResult, $message, ...$args)
+    {
+        $result = Financial::XNPV(...$args);
+        if (is_numeric($result) && is_numeric($expectedResult)) {
+            if ($expectedResult != 0) {
+                $frac = $result / $expectedResult;
+                if ($frac > 0.999999 && $frac < 1.000001) {
+                    $result = $expectedResult;
+                }
+            }
+        }
+        self::assertEquals($expectedResult, $result, $message);
+    }
+
+    public function providerXNPV()
+    {
+        return require 'tests/data/Calculation/Financial/XNPV.php';
     }
 
     /**
@@ -527,7 +575,7 @@ class FinancialTest extends TestCase
 
     public function providerPDURATION()
     {
-        return require 'data/Calculation/Financial/PDURATION.php';
+        return require 'tests/data/Calculation/Financial/PDURATION.php';
     }
 
     /**
@@ -543,7 +591,7 @@ class FinancialTest extends TestCase
 
     public function providerRRI()
     {
-        return require 'data/Calculation/Financial/RRI.php';
+        return require 'tests/data/Calculation/Financial/RRI.php';
     }
 
     /**
@@ -559,7 +607,7 @@ class FinancialTest extends TestCase
 
     public function providerSLN()
     {
-        return require 'data/Calculation/Financial/SLN.php';
+        return require 'tests/data/Calculation/Financial/SLN.php';
     }
 
     /**
@@ -575,6 +623,6 @@ class FinancialTest extends TestCase
 
     public function providerSYD()
     {
-        return require 'data/Calculation/Financial/SYD.php';
+        return require 'tests/data/Calculation/Financial/SYD.php';
     }
 }

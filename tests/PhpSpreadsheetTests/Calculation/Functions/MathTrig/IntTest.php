@@ -27,6 +27,6 @@ class IntTest extends TestCase
 
     public function providerINT()
     {
-        return require 'data/Calculation/MathTrig/INT.php';
+        return require 'tests/data/Calculation/MathTrig/INT.php';
     }
 }

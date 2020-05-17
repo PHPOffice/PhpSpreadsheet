@@ -43,6 +43,6 @@ class ImDivTest extends TestCase
 
     public function providerIMDIV()
     {
-        return require 'data/Calculation/Engineering/IMDIV.php';
+        return require 'tests/data/Calculation/Engineering/IMDIV.php';
     }
 }

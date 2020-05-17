@@ -26,6 +26,6 @@ class CountIfsTest extends TestCase
 
     public function providerCOUNTIFS()
     {
-        return require 'data/Calculation/Statistical/COUNTIFS.php';
+        return require 'tests/data/Calculation/Statistical/COUNTIFS.php';
     }
 }

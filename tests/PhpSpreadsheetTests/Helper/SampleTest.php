@@ -48,7 +48,7 @@ class SampleTest extends TestCase
         foreach ($helper->getSamples() as $samples) {
             foreach ($samples as $sample) {
                 if (!in_array($sample, $skipped)) {
-                    $file = '../samples/' . $sample;
+                    $file = 'samples/' . $sample;
                     $result[] = [$file];
                 }
             }

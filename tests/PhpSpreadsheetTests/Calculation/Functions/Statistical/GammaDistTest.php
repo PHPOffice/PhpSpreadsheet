@@ -26,6 +26,6 @@ class GammaDistTest extends TestCase
 
     public function providerGAMMADIST()
     {
-        return require 'data/Calculation/Statistical/GAMMADIST.php';
+        return require 'tests/data/Calculation/Statistical/GAMMADIST.php';
     }
 }

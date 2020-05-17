@@ -26,6 +26,6 @@ class SlopeTest extends TestCase
 
     public function providerSLOPE()
     {
-        return require 'data/Calculation/Statistical/SLOPE.php';
+        return require 'tests/data/Calculation/Statistical/SLOPE.php';
     }
 }

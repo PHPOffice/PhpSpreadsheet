@@ -38,6 +38,6 @@ class ReplaceTest extends TestCase
 
     public function providerREPLACE()
     {
-        return require 'data/Calculation/TextData/REPLACE.php';
+        return require 'tests/data/Calculation/TextData/REPLACE.php';
     }
 }

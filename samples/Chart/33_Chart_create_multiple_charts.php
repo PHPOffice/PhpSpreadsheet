@@ -83,7 +83,7 @@ $chart1 = new Chart(
     $legend1, // legend
     $plotArea1, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
     $yAxisLabel1 // yAxisLabel
 );
@@ -158,7 +158,7 @@ $chart2 = new Chart(
     $legend2, // legend
     $plotArea2, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
     $yAxisLabel2 // yAxisLabel
 );

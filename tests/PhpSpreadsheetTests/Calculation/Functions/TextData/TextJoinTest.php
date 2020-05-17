@@ -39,6 +39,6 @@ class TextJoinTest extends TestCase
 
     public function providerTEXTJOIN()
     {
-        return require 'data/Calculation/TextData/TEXTJOIN.php';
+        return require 'tests/data/Calculation/TextData/TEXTJOIN.php';
     }
 }

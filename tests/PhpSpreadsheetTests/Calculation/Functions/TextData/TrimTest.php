@@ -39,6 +39,6 @@ class TrimTest extends TestCase
 
     public function providerTRIM()
     {
-        return require 'data/Calculation/TextData/TRIM.php';
+        return require 'tests/data/Calculation/TextData/TRIM.php';
     }
 }

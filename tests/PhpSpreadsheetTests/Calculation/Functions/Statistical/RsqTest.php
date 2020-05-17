@@ -26,6 +26,6 @@ class RsqTest extends TestCase
 
     public function providerRSQ()
     {
-        return require 'data/Calculation/Statistical/RSQ.php';
+        return require 'tests/data/Calculation/Statistical/RSQ.php';
     }
 }

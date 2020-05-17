@@ -26,6 +26,6 @@ class DeltaTest extends TestCase
 
     public function providerDELTA()
     {
-        return require 'data/Calculation/Engineering/DELTA.php';
+        return require 'tests/data/Calculation/Engineering/DELTA.php';
     }
 }

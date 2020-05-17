@@ -26,6 +26,6 @@ class InterceptTest extends TestCase
 
     public function providerINTERCEPT()
     {
-        return require 'data/Calculation/Statistical/INTERCEPT.php';
+        return require 'tests/data/Calculation/Statistical/INTERCEPT.php';
     }
 }

@@ -26,6 +26,6 @@ class FloorPreciseTest extends TestCase
 
     public function providerFLOORPRECISE()
     {
-        return require 'data/Calculation/MathTrig/FLOORPRECISE.php';
+        return require 'tests/data/Calculation/MathTrig/FLOORPRECISE.php';
     }
 }

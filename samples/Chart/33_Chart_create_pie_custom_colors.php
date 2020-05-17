@@ -90,7 +90,7 @@ $chart1 = new Chart(
     $legend1, // legend
     $plotArea1, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
     null   // yAxisLabel - Pie charts don't have a Y-Axis
 );
@@ -162,7 +162,7 @@ $chart2 = new Chart(
     null, // legend
     $plotArea2, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
     null   // yAxisLabel - Like Pie charts, Donut charts don't have a Y-Axis
 );

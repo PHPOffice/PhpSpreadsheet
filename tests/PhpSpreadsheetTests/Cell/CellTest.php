@@ -26,7 +26,7 @@ class CellTest extends TestCase
 
     public function providerSetValueExplicit()
     {
-        return require 'data/Cell/SetValueExplicit.php';
+        return require 'tests/data/Cell/SetValueExplicit.php';
     }
 
     /**
@@ -47,6 +47,6 @@ class CellTest extends TestCase
 
     public function providerSetValueExplicitException()
     {
-        return require 'data/Cell/SetValueExplicitException.php';
+        return require 'tests/data/Cell/SetValueExplicitException.php';
     }
 }

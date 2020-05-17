@@ -44,6 +44,6 @@ class ImSinTest extends TestCase
 
     public function providerIMSIN()
     {
-        return require 'data/Calculation/Engineering/IMSIN.php';
+        return require 'tests/data/Calculation/Engineering/IMSIN.php';
     }
 }

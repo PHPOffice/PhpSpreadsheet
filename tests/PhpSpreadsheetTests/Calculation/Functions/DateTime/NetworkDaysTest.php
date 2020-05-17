@@ -29,6 +29,6 @@ class NetworkDaysTest extends TestCase
 
     public function providerNETWORKDAYS()
     {
-        return require 'data/Calculation/DateTime/NETWORKDAYS.php';
+        return require 'tests/data/Calculation/DateTime/NETWORKDAYS.php';
     }
 }

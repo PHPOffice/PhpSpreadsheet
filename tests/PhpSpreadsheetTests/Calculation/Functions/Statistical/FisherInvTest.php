@@ -27,6 +27,6 @@ class FisherInvTest extends TestCase
 
     public function providerFISHERINV()
     {
-        return require 'data/Calculation/Statistical/FISHERINV.php';
+        return require 'tests/data/Calculation/Statistical/FISHERINV.php';
     }
 }

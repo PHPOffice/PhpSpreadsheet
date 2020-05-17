@@ -108,9 +108,9 @@ abstract class BaseWriter implements IWriter
             return;
         }
 
-        $fileHandle = fopen($filename, 'wb+');
+        $fileHandle = $filename ? fopen($filename, 'wb+') : false;
         if ($fileHandle === false) {
-            throw new Exception('Could not open file ' . $filename . ' for writing.');
+            throw new Exception('Could not open file "' . $filename . '" for writing.');
         }
 
         $this->fileHandle = $fileHandle;
@@ -118,7 +118,7 @@ abstract class BaseWriter implements IWriter
     }
 
     /**
-     * Close file handle only we opened it ourselves.
+     * Close file handle only if we opened it ourselves.
      */
     protected function maybeCloseFileHandle(): void
     {

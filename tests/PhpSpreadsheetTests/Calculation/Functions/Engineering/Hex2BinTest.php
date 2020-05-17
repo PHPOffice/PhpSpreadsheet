@@ -26,6 +26,6 @@ class Hex2BinTest extends TestCase
 
     public function providerHEX2BIN()
     {
-        return require 'data/Calculation/Engineering/HEX2BIN.php';
+        return require 'tests/data/Calculation/Engineering/HEX2BIN.php';
     }
 }

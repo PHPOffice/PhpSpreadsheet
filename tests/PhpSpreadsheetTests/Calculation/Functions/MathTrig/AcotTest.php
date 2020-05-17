@@ -27,6 +27,6 @@ class AcotTest extends TestCase
 
     public function providerACOT()
     {
-        return require 'data/Calculation/MathTrig/ACOT.php';
+        return require 'tests/data/Calculation/MathTrig/ACOT.php';
     }
 }

@@ -49,7 +49,7 @@ class FontTest extends TestCase
 
     public function providerFontSizeToPixels()
     {
-        return require 'data/Shared/FontSizeToPixels.php';
+        return require 'tests/data/Shared/FontSizeToPixels.php';
     }
 
     /**
@@ -65,7 +65,7 @@ class FontTest extends TestCase
 
     public function providerInchSizeToPixels()
     {
-        return require 'data/Shared/InchSizeToPixels.php';
+        return require 'tests/data/Shared/InchSizeToPixels.php';
     }
 
     /**
@@ -81,6 +81,6 @@ class FontTest extends TestCase
 
     public function providerCentimeterSizeToPixels()
     {
-        return require 'data/Shared/CentimeterSizeToPixels.php';
+        return require 'tests/data/Shared/CentimeterSizeToPixels.php';
     }
 }

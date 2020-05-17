@@ -26,6 +26,6 @@ class CountBlankTest extends TestCase
 
     public function providerCOUNTBLANK()
     {
-        return require 'data/Calculation/Statistical/COUNTBLANK.php';
+        return require 'tests/data/Calculation/Statistical/COUNTBLANK.php';
     }
 }

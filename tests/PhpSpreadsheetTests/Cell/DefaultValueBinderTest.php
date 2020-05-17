@@ -73,7 +73,7 @@ class DefaultValueBinderTest extends TestCase
 
     public function providerDataTypeForValue()
     {
-        return require 'data/Cell/DefaultValueBinder.php';
+        return require 'tests/data/Cell/DefaultValueBinder.php';
     }
 
     public function testDataTypeForRichTextObject()

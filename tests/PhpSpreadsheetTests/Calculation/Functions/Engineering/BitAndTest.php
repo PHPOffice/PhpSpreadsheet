@@ -27,6 +27,6 @@ class BitAndTest extends TestCase
 
     public function providerBITAND()
     {
-        return require 'data/Calculation/Engineering/BITAND.php';
+        return require 'tests/data/Calculation/Engineering/BITAND.php';
     }
 }

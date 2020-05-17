@@ -27,6 +27,6 @@ class BitOrTest extends TestCase
 
     public function providerBITOR()
     {
-        return require 'data/Calculation/Engineering/BITOR.php';
+        return require 'tests/data/Calculation/Engineering/BITOR.php';
     }
 }

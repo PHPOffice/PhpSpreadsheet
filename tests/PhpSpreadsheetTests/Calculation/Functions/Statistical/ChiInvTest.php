@@ -26,6 +26,6 @@ class ChiInvTest extends TestCase
 
     public function providerCHIINV()
     {
-        return require 'data/Calculation/Statistical/CHIINV.php';
+        return require 'tests/data/Calculation/Statistical/CHIINV.php';
     }
 }

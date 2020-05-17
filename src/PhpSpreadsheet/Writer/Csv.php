@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class Csv extends BaseWriter
 {
@@ -91,15 +90,7 @@ class Csv extends BaseWriter
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
 
         // Open file
-        if (is_resource($pFilename)) {
-            $fileHandle = $pFilename;
-        } else {
-            $fileHandle = fopen($pFilename, 'wb+');
-        }
-
-        if ($fileHandle === false) {
-            throw new WriterException("Could not open file $pFilename for writing.");
-        }
+        $this->openFileHandle($pFilename);
 
         if ($this->excelCompatibility) {
             $this->setUseBOM(true); //  Enforce UTF-8 BOM Header
@@ -108,13 +99,15 @@ class Csv extends BaseWriter
             $this->setDelimiter(';'); //  Set delimiter to a semi-colon
             $this->setLineEnding("\r\n");
         }
+
         if ($this->useBOM) {
             // Write the UTF-8 BOM code if required
-            fwrite($fileHandle, "\xEF\xBB\xBF");
+            fwrite($this->fileHandle, "\xEF\xBB\xBF");
         }
+
         if ($this->includeSeparatorLine) {
             // Write the separator line if required
-            fwrite($fileHandle, 'sep=' . $this->getDelimiter() . $this->lineEnding);
+            fwrite($this->fileHandle, 'sep=' . $this->getDelimiter() . $this->lineEnding);
         }
 
         //    Identify the range that we need to extract from the worksheet
@@ -126,9 +119,10 @@ class Csv extends BaseWriter
             // Convert the row to an array...
             $cellsArray = $sheet->rangeToArray('A' . $row . ':' . $maxCol . $row, '', $this->preCalculateFormulas);
             // ... and write to the file
-            $this->writeLine($fileHandle, $cellsArray[0]);
+            $this->writeLine($this->fileHandle, $cellsArray[0]);
         }
 
+        $this->maybeCloseFileHandle();
         Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
@@ -176,10 +170,7 @@ class Csv extends BaseWriter
      */
     public function setEnclosure($pValue)
     {
-        if ($pValue == '') {
-            $pValue = null;
-        }
-        $this->enclosure = $pValue;
+        $this->enclosure = $pValue ? $pValue : '"';
 
         return $this;
     }

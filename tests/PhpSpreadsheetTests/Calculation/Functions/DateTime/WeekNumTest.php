@@ -29,6 +29,6 @@ class WeekNumTest extends TestCase
 
     public function providerWEEKNUM()
     {
-        return require 'data/Calculation/DateTime/WEEKNUM.php';
+        return require 'tests/data/Calculation/DateTime/WEEKNUM.php';
     }
 }

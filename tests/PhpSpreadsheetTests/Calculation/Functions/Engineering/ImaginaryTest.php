@@ -29,6 +29,6 @@ class ImaginaryTest extends TestCase
 
     public function providerIMAGINARY()
     {
-        return require 'data/Calculation/Engineering/IMAGINARY.php';
+        return require 'tests/data/Calculation/Engineering/IMAGINARY.php';
     }
 }

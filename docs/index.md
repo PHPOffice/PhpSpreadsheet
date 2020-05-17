@@ -42,6 +42,13 @@ Use [composer](https://getcomposer.org) to install PhpSpreadsheet into your proj
 composer require phpoffice/phpspreadsheet
 ```
 
+Or also download the documentation and samples if you plan to use them:
+
+```sh
+composer require phpoffice/phpspreadsheet --prefer-source
+```
+
+
 ## Hello World
 
 This would be the simplest way to write a spreadsheet:
@@ -64,8 +71,8 @@ $writer->save('hello world.xlsx');
 
 ## Learn by example
 
-A good way to get started is to run some of the samples. Serve the samples via
-PHP built-in webserver:
+A good way to get started is to run some of the samples. Don't forget to download them via `--prefer-source` composer
+flag. And then serve them via PHP built-in webserver:
 
 ```sh
 php -S localhost:8000 -t vendor/phpoffice/phpspreadsheet/samples

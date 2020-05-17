@@ -44,6 +44,6 @@ class ImSecTest extends TestCase
 
     public function providerIMSEC()
     {
-        return require 'data/Calculation/Engineering/IMSEC.php';
+        return require 'tests/data/Calculation/Engineering/IMSEC.php';
     }
 }

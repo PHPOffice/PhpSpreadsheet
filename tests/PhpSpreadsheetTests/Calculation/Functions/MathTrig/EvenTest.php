@@ -27,6 +27,6 @@ class EvenTest extends TestCase
 
     public function providerEVEN()
     {
-        return require 'data/Calculation/MathTrig/EVEN.php';
+        return require 'tests/data/Calculation/MathTrig/EVEN.php';
     }
 }

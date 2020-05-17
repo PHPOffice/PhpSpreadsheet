@@ -38,6 +38,6 @@ class DollarTest extends TestCase
 
     public function providerDOLLAR()
     {
-        return require 'data/Calculation/TextData/DOLLAR.php';
+        return require 'tests/data/Calculation/TextData/DOLLAR.php';
     }
 }

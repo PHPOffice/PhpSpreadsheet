@@ -40,7 +40,7 @@ class CalculationTest extends TestCase
 
     public function providerBinaryComparisonOperation()
     {
-        return require 'data/CalculationBinaryComparisonOperation.php';
+        return require 'tests/data/CalculationBinaryComparisonOperation.php';
     }
 
     /**
@@ -351,6 +351,6 @@ class CalculationTest extends TestCase
 
     public function dataProviderBranchPruningFullExecution()
     {
-        return require 'data/Calculation/Calculation.php';
+        return require 'tests/data/Calculation/Calculation.php';
     }
 }

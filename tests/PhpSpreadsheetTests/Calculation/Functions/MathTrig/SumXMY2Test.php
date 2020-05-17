@@ -26,6 +26,6 @@ class SumXMY2Test extends TestCase
 
     public function providerSUMXMY2()
     {
-        return require 'data/Calculation/MathTrig/SUMXMY2.php';
+        return require 'tests/data/Calculation/MathTrig/SUMXMY2.php';
     }
 }

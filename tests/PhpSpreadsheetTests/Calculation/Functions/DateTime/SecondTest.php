@@ -30,6 +30,6 @@ class SecondTest extends TestCase
 
     public function providerSECOND()
     {
-        return require 'data/Calculation/DateTime/SECOND.php';
+        return require 'tests/data/Calculation/DateTime/SECOND.php';
     }
 }
