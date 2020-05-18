@@ -35,6 +35,7 @@ $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
 $drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
 $drawing->setHeight(36);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
+$drawing->setCoordinates('C5');
 
 // Save
 $helper->write($spreadsheet, __FILE__, ['Xlsx', 'Html']);

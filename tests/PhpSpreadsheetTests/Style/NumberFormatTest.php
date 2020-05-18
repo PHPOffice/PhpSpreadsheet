@@ -45,4 +45,18 @@ class NumberFormatTest extends TestCase
     {
         return require 'tests/data/Style/NumberFormatDates.php';
     }
+
+    public function testCurrencyCode()
+    {
+        // "Currency symbol" replaces $ in some cases, not in others
+        $cur = StringHelper::getCurrencyCode();
+        StringHelper::setCurrencyCode('€');
+        $fmt1 = '#,##0.000\ [$]';
+        $rslt = NumberFormat::toFormattedString(12345.679, $fmt1);
+        self::assertEquals($rslt, '12,345.679 €');
+        $fmt2 = '$ #,##0.000';
+        $rslt = NumberFormat::toFormattedString(12345.679, $fmt2);
+        self::assertEquals($rslt, '$ 12,345.679');
+        StringHelper::setCurrencyCode($cur);
+    }
 }

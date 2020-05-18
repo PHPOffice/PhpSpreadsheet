@@ -681,35 +681,26 @@ Supported methods:
 -   `generateStyles()`
 -   `generateSheetData()`
 -   `generateHTMLFooter()`
+-   `generateHTMLAll()`
 
 Here's an example which retrieves all parts independently and merges
 them into a resulting HTML page:
 
 ``` php
-<?php
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
-echo $writer->generateHTMLHeader();
-?>
-
-<style>
-<!--
+$hdr = $writer->generateHTMLHeader();
+$sty = $writer->generateStyles(false); // do not write <style> and </style>
+$newstyle = <<<EOF
+<style type='text/css'>
+$sty
 html {
-    font-family: Times New Roman;
-    font-size: 9pt;
-    background-color: white;
+    background-color: yellow;
 }
-
-<?php
-echo $writer->generateStyles(false); // do not write <style> and </style>
-?>
-
--->
 </style>
-
-<?php
+EOF;
+echo preg_replace('@</head>@', "$newstyle\n</head>", $hdr);
 echo $writer->generateSheetData();
 echo $writer->generateHTMLFooter();
-?>
 ```
 
 #### Writing UTF-8 HTML files

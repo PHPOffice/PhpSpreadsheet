@@ -1,11 +1,12 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Functional;
+namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Functional;
 
-class HtmlCommentsTest extends AbstractFunctional
+class HtmlCommentsTest extends Functional\AbstractFunctional
 {
     private $spreadsheet;
 

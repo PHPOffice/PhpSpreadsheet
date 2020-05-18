@@ -537,7 +537,15 @@ class NumberFormat extends Supervisor
         $adjustedDecimalPart = $decimalPart / $GCD;
         $adjustedDecimalDivisor = $decimalDivisor / $GCD;
 
-        if ((strpos($format, '0') !== false) || (strpos($format, '#') !== false) || (substr($format, 0, 3) == '? ?')) {
+        if ((strpos($format, '0') !== false)) {
+            $value = "$sign$integerPart $adjustedDecimalPart/$adjustedDecimalDivisor";
+        } elseif ((strpos($format, '#') !== false)) {
+            if ($integerPart == 0) {
+                $value = "$sign$adjustedDecimalPart/$adjustedDecimalDivisor";
+            } else {
+                $value = "$sign$integerPart $adjustedDecimalPart/$adjustedDecimalDivisor";
+            }
+        } elseif ((substr($format, 0, 3) == '? ?')) {
             if ($integerPart == 0) {
                 $integerPart = '';
             }
@@ -653,9 +661,12 @@ class NumberFormat extends Supervisor
 
     private static function formatAsNumber($value, $format)
     {
-        if ($format === self::FORMAT_CURRENCY_EUR_SIMPLE) {
-            return 'EUR ' . sprintf('%1.2f', $value);
-        }
+        // The "_" in this string has already been stripped out,
+        // so this test is never true. Furthermore, testing
+        // on Excel shows this format uses Euro symbol, not "EUR".
+        //if ($format === self::FORMAT_CURRENCY_EUR_SIMPLE) {
+        //    return 'EUR ' . sprintf('%1.2f', $value);
+        //}
 
         // Some non-number strings are quoted, so we'll get rid of the quotes, likewise any positional * symbols
         $format = str_replace(['"', '*'], '', $format);
@@ -717,6 +728,89 @@ class NumberFormat extends Supervisor
         return $value;
     }
 
+    private static function splitFormatCompare($value, $cond, $val, $dfcond, $dfval)
+    {
+        if (!$cond) {
+            $cond = $dfcond;
+            $val = $dfval;
+        }
+        switch ($cond) {
+            case '>':
+                return $value > $val;
+
+            case '<':
+                return $value < $val;
+
+            case '<=':
+                return $value <= $val;
+
+            case '<>':
+                return $value != $val;
+
+            case '=':
+                return $value == $val;
+        }
+
+        return $value >= $val;
+    }
+
+    private static function splitFormat($sections, $value)
+    {
+        // Extract the relevant section depending on whether number is positive, negative, or zero?
+        // Text not supported yet.
+        // Here is how the sections apply to various values in Excel:
+        //   1 section:   [POSITIVE/NEGATIVE/ZERO/TEXT]
+        //   2 sections:  [POSITIVE/ZERO/TEXT] [NEGATIVE]
+        //   3 sections:  [POSITIVE/TEXT] [NEGATIVE] [ZERO]
+        //   4 sections:  [POSITIVE] [NEGATIVE] [ZERO] [TEXT]
+        $cnt = count($sections);
+        $color_regex = '/\\[(' . implode('|', Color::NAMED_COLORS) . ')\\]/';
+        $cond_regex = '/\\[(>|>=|<|<=|=|<>)([+-]?\\d+([.]\\d+)?)\\]/';
+        $colors = ['', '', '', '', ''];
+        $condops = ['', '', '', '', ''];
+        $condvals = [0, 0, 0, 0, 0];
+        for ($idx = 0; $idx < $cnt; ++$idx) {
+            if (preg_match($color_regex, $sections[$idx], $matches)) {
+                $colors[$idx] = $matches[0];
+                $sections[$idx] = preg_replace($color_regex, '', $sections[$idx]);
+            }
+            if (preg_match($cond_regex, $sections[$idx], $matches)) {
+                $condops[$idx] = $matches[1];
+                $condvals[$idx] = $matches[2];
+                $sections[$idx] = preg_replace($cond_regex, '', $sections[$idx]);
+            }
+        }
+        $color = $colors[0];
+        $format = $sections[0];
+        $absval = $value;
+        switch ($cnt) {
+            case 2:
+                $absval = abs($value);
+                if (!self::splitFormatCompare($value, $condops[0], $condvals[0], '>=', 0)) {
+                    $color = $colors[1];
+                    $format = $sections[1];
+                }
+
+                break;
+            case 3:
+            case 4:
+                $absval = abs($value);
+                if (!self::splitFormatCompare($value, $condops[0], $condvals[0], '>', 0)) {
+                    if (self::splitFormatCompare($value, $condops[1], $condvals[1], '<', 0)) {
+                        $color = $colors[1];
+                        $format = $sections[1];
+                    } else {
+                        $color = $colors[2];
+                        $format = $sections[2];
+                    }
+                }
+
+                break;
+        }
+
+        return [$color, $format, $absval];
+    }
+
     /**
      * Convert a value in a pre-defined format to a PHP string.
      *
@@ -745,50 +839,12 @@ class NumberFormat extends Supervisor
         // Get the sections, there can be up to four sections, separated with a semi-colon (but only if not a quoted literal)
         $sections = preg_split('/(;)(?=(?:[^"]|"[^"]*")*$)/u', $format);
 
-        // Extract the relevant section depending on whether number is positive, negative, or zero?
-        // Text not supported yet.
-        // Here is how the sections apply to various values in Excel:
-        //   1 section:   [POSITIVE/NEGATIVE/ZERO/TEXT]
-        //   2 sections:  [POSITIVE/ZERO/TEXT] [NEGATIVE]
-        //   3 sections:  [POSITIVE/TEXT] [NEGATIVE] [ZERO]
-        //   4 sections:  [POSITIVE] [NEGATIVE] [ZERO] [TEXT]
-        switch (count($sections)) {
-            case 1:
-                $format = $sections[0];
-
-                break;
-            case 2:
-                $format = ($value >= 0) ? $sections[0] : $sections[1];
-                $value = abs($value); // Use the absolute value
-                break;
-            case 3:
-                $format = ($value > 0) ?
-                    $sections[0] : (($value < 0) ?
-                        $sections[1] : $sections[2]);
-                $value = abs($value); // Use the absolute value
-                break;
-            case 4:
-                $format = ($value > 0) ?
-                    $sections[0] : (($value < 0) ?
-                        $sections[1] : $sections[2]);
-                $value = abs($value); // Use the absolute value
-                break;
-            default:
-                // something is wrong, just use first section
-                $format = $sections[0];
-
-                break;
-        }
+        [$colors, $format, $value] = self::splitFormat($sections, $value);
 
         // In Excel formats, "_" is used to add spacing,
         //    The following character indicates the size of the spacing, which we can't do in HTML, so we just use a standard space
         $format = preg_replace('/_./', ' ', $format);
 
-        // Save format with color information for later use below
-        $formatColor = $format;
-        // Strip colour information
-        $color_regex = '/\[(' . implode('|', Color::NAMED_COLORS) . ')\]/';
-        $format = preg_replace($color_regex, '', $format);
         // Let's begin inspecting the format and converting the value to a formatted string
 
         //  Check for date/time characters (not inside quotes)
@@ -809,7 +865,7 @@ class NumberFormat extends Supervisor
         // Additional formatting provided by callback function
         if ($callBack !== null) {
             [$writerInstance, $function] = $callBack;
-            $value = $writerInstance->$function($value, $formatColor);
+            $value = $writerInstance->$function($value, $colors);
         }
 
         return $value;
