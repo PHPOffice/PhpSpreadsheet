@@ -56,7 +56,7 @@ class OdsTest extends TestCase
         return $this->spreadsheetData;
     }
 
-    public function testReadFileProperties()
+    public function testReadFileProperties(): void
     {
         $filename = 'tests/data/Reader/Ods/data.ods';
 
@@ -71,7 +71,7 @@ class OdsTest extends TestCase
         ], $reader->listWorksheetNames($filename));
     }
 
-    public function testLoadWorksheets()
+    public function testLoadWorksheets(): void
     {
         $spreadsheet = $this->loadDataFile();
 
@@ -86,7 +86,7 @@ class OdsTest extends TestCase
         self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
     }
 
-    public function testReadValueAndComments()
+    public function testReadValueAndComments(): void
     {
         $spreadsheet = $this->loadOdsTestFile();
 
@@ -151,7 +151,7 @@ class OdsTest extends TestCase
         self::assertEquals(20, $firstSheet->getCell('A5')->getValue());
     }
 
-    public function testReadColors()
+    public function testReadColors(): void
     {
         $spreadsheet = $this->loadOdsTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
@@ -165,7 +165,7 @@ class OdsTest extends TestCase
         self::assertEquals('FF000000', $style->getFill()->getEndColor()->getARGB());
     }
 
-    public function testReadRichText()
+    public function testReadRichText(): void
     {
         $spreadsheet = $this->loadOdsTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
@@ -177,7 +177,7 @@ class OdsTest extends TestCase
         );
     }
 
-    public function testReadCellsWithRepeatedSpaces()
+    public function testReadCellsWithRepeatedSpaces(): void
     {
         $spreadsheet = $this->loadDataFile();
         $firstSheet = $spreadsheet->getSheet(0);
@@ -188,7 +188,7 @@ class OdsTest extends TestCase
         self::assertEquals("test with new \nLines", $firstSheet->getCell('A11')->getValue());
     }
 
-    public function testReadHyperlinks()
+    public function testReadHyperlinks(): void
     {
         $spreadsheet = $this->loadOdsTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
@@ -202,9 +202,9 @@ class OdsTest extends TestCase
 
     // Below some test for features not implemented yet
 
-    public function testReadBoldItalicUnderline()
+    public function testReadBoldItalicUnderline(): void
     {
-        $this->markTestIncomplete('Features not implemented yet');
+        self::markTestIncomplete('Features not implemented yet');
 
         $spreadsheet = $this->loadOdsTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
@@ -224,7 +224,7 @@ class OdsTest extends TestCase
         self::assertTrue($style->getFont()->getItalic());
     }
 
-    public function testLoadOdsWorkbookProperties()
+    public function testLoadOdsWorkbookProperties(): void
     {
         $customPropertySet = [
             'Owner' => ['type' => Properties::PROPERTY_TYPE_STRING, 'value' => 'PHPOffice'],

@@ -18,10 +18,10 @@ class MatchTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMATCH($expectedResult, ...$args)
+    public function testMATCH($expectedResult, ...$args): void
     {
         $result = LookupRef::MATCH(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerMATCH()

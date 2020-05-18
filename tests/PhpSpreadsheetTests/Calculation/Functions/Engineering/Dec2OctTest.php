@@ -18,10 +18,10 @@ class Dec2OctTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDEC2OCT($expectedResult, ...$args)
+    public function testDEC2OCT($expectedResult, ...$args): void
     {
         $result = Engineering::DECTOOCT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerDEC2OCT()

@@ -110,8 +110,6 @@ class Layout
 
     /**
      * Create a new Layout.
-     *
-     * @param array $layout
      */
     public function __construct(array $layout = [])
     {

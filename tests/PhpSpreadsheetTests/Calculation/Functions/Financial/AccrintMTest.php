@@ -18,7 +18,7 @@ class AccrintMTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testACCRINTM($expectedResult, ...$args)
+    public function testACCRINTM($expectedResult, ...$args): void
     {
         $result = Financial::ACCRINTM(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);

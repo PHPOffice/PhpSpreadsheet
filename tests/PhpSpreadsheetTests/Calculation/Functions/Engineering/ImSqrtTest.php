@@ -33,10 +33,10 @@ class ImSqrtTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMSQRT($expectedResult, $value)
+    public function testIMSQRT($expectedResult, $value): void
     {
         $result = Engineering::IMSQRT($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );

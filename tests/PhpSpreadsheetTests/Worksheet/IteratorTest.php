@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class IteratorTest extends TestCase
 {
-    public function testIteratorFullRange()
+    public function testIteratorFullRange(): void
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet->createSheet();

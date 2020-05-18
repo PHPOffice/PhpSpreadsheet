@@ -13,7 +13,7 @@ class Mimetype extends WriterPart
      *
      * @return string XML Output
      */
-    public function write(Spreadsheet $spreadsheet = null)
+    public function write(?Spreadsheet $spreadsheet = null)
     {
         return 'application/vnd.oasis.opendocument.spreadsheet';
     }

@@ -14,7 +14,7 @@ class Meta extends WriterPart
      *
      * @return string XML Output
      */
-    public function write(Spreadsheet $spreadsheet = null)
+    public function write(?Spreadsheet $spreadsheet = null)
     {
         if (!$spreadsheet) {
             $spreadsheet = $this->getParentWriter()->getSpreadsheet();

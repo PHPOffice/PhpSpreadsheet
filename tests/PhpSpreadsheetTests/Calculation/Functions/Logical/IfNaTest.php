@@ -20,10 +20,10 @@ class IfNaTest extends TestCase
      * @param $value
      * @param $return
      */
-    public function testIFNA($expectedResult, $value, $return)
+    public function testIFNA($expectedResult, $value, $return): void
     {
         $result = Logical::IFNA($value, $return);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerIFNA()

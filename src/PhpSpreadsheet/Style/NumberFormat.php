@@ -228,7 +228,7 @@ class NumberFormat extends Supervisor
     /**
      * Fill built-in format codes.
      */
-    private static function fillBuiltInFormatCodes()
+    private static function fillBuiltInFormatCodes(): void
     {
         //  [MS-OI29500: Microsoft Office Implementation Information for ISO/IEC-29500 Standard Compliance]
         //  18.8.30. numFmt (Number Format)
@@ -395,43 +395,43 @@ class NumberFormat extends Supervisor
      * @var array
      */
     private static $dateFormatReplacements = [
-            // first remove escapes related to non-format characters
-            '\\' => '',
-            //    12-hour suffix
-            'am/pm' => 'A',
-            //    4-digit year
-            'e' => 'Y',
-            'yyyy' => 'Y',
-            //    2-digit year
-            'yy' => 'y',
-            //    first letter of month - no php equivalent
-            'mmmmm' => 'M',
-            //    full month name
-            'mmmm' => 'F',
-            //    short month name
-            'mmm' => 'M',
-            //    mm is minutes if time, but can also be month w/leading zero
-            //    so we try to identify times be the inclusion of a : separator in the mask
-            //    It isn't perfect, but the best way I know how
-            ':mm' => ':i',
-            'mm:' => 'i:',
-            //    month leading zero
-            'mm' => 'm',
-            //    month no leading zero
-            'm' => 'n',
-            //    full day of week name
-            'dddd' => 'l',
-            //    short day of week name
-            'ddd' => 'D',
-            //    days leading zero
-            'dd' => 'd',
-            //    days no leading zero
-            'd' => 'j',
-            //    seconds
-            'ss' => 's',
-            //    fractional seconds - no php equivalent
-            '.s' => '',
-        ];
+        // first remove escapes related to non-format characters
+        '\\' => '',
+        //    12-hour suffix
+        'am/pm' => 'A',
+        //    4-digit year
+        'e' => 'Y',
+        'yyyy' => 'Y',
+        //    2-digit year
+        'yy' => 'y',
+        //    first letter of month - no php equivalent
+        'mmmmm' => 'M',
+        //    full month name
+        'mmmm' => 'F',
+        //    short month name
+        'mmm' => 'M',
+        //    mm is minutes if time, but can also be month w/leading zero
+        //    so we try to identify times be the inclusion of a : separator in the mask
+        //    It isn't perfect, but the best way I know how
+        ':mm' => ':i',
+        'mm:' => 'i:',
+        //    month leading zero
+        'mm' => 'm',
+        //    month no leading zero
+        'm' => 'n',
+        //    full day of week name
+        'dddd' => 'l',
+        //    short day of week name
+        'ddd' => 'D',
+        //    days leading zero
+        'dd' => 'd',
+        //    days no leading zero
+        'd' => 'j',
+        //    seconds
+        'ss' => 's',
+        //    fractional seconds - no php equivalent
+        '.s' => '',
+    ];
 
     /**
      * Search/replace values to convert Excel date/time format masks hours to PHP format masks (24 hr clock).
@@ -463,7 +463,7 @@ class NumberFormat extends Supervisor
         return '\\' . implode('\\', str_split($matches[1]));
     }
 
-    private static function formatAsDate(&$value, &$format)
+    private static function formatAsDate(&$value, &$format): void
     {
         // strip off first part containing e.g. [$-F800] or [$USD-409]
         // general syntax: [$<Currency string>-<language info>]
@@ -505,7 +505,7 @@ class NumberFormat extends Supervisor
         $value = $dateObj->format($format);
     }
 
-    private static function formatAsPercentage(&$value, &$format)
+    private static function formatAsPercentage(&$value, &$format): void
     {
         if ($format === self::FORMAT_PERCENTAGE) {
             $value = round((100 * $value), 0) . '%';
@@ -523,14 +523,14 @@ class NumberFormat extends Supervisor
         }
     }
 
-    private static function formatAsFraction(&$value, &$format)
+    private static function formatAsFraction(&$value, &$format): void
     {
         $sign = ($value < 0) ? '-' : '';
 
         $integerPart = floor(abs($value));
         $decimalPart = trim(fmod(abs($value), 1), '0.');
         $decimalLength = strlen($decimalPart);
-        $decimalDivisor = pow(10, $decimalLength);
+        $decimalDivisor = 10 ** $decimalLength;
 
         $GCD = MathTrig::GCD($decimalPart, $decimalDivisor);
 
@@ -686,7 +686,7 @@ class NumberFormat extends Supervisor
         $scale = 1; // same as no scale
         $matches = [];
         if (preg_match('/(#|0)(,+)/', $format, $matches)) {
-            $scale = pow(1000, strlen($matches[2]));
+            $scale = 1000 ** strlen($matches[2]);
 
             // strip the commas
             $format = preg_replace('/0,+/', '0', $format);

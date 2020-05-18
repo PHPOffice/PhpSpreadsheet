@@ -19,10 +19,10 @@ class BitRShiftTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed[] $args
      */
-    public function testBITRSHIFT($expectedResult, array $args)
+    public function testBITRSHIFT($expectedResult, array $args): void
     {
         $result = Engineering::BITRSHIFT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBITRSHIFT()

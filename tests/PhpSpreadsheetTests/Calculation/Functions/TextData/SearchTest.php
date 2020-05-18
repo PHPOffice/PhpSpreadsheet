@@ -30,10 +30,10 @@ class SearchTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSEARCH($expectedResult, ...$args)
+    public function testSEARCH($expectedResult, ...$args): void
     {
         $result = TextData::SEARCHINSENSITIVE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerSEARCH()

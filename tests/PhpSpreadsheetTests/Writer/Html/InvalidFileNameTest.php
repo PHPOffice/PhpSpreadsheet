@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class InvalidFileNameTest extends Functional\AbstractFunctional
 {
-    public function testEmptyFileName()
+    public function testEmptyFileName(): void
     {
         $this->expectException(WriterException::class);
         $spreadsheet = new Spreadsheet();
@@ -21,7 +21,7 @@ class InvalidFileNameTest extends Functional\AbstractFunctional
         $writer->save('');
     }
 
-    public function testEmptyFileNamePdf()
+    public function testEmptyFileNamePdf(): void
     {
         $this->expectException(WriterException::class);
         $spreadsheet = new Spreadsheet();
@@ -30,7 +30,7 @@ class InvalidFileNameTest extends Functional\AbstractFunctional
         $writer->save('');
     }
 
-    public function testEmptyTempdirNamePdf()
+    public function testEmptyTempdirNamePdf(): void
     {
         $this->expectException(WriterException::class);
         $spreadsheet = new Spreadsheet();
@@ -44,7 +44,7 @@ class InvalidFileNameTest extends Functional\AbstractFunctional
         $writer->setTempDir('');
     }
 
-    public function testWinFileNames()
+    public function testWinFileNames(): void
     {
         self::assertEquals('file:///C:/temp/filename.xlsx', Html::winFileToUrl('C:\\temp\filename.xlsx'));
         self::assertEquals('/tmp/filename.xlsx', Html::winFileToUrl('/tmp/filename.xlsx'));

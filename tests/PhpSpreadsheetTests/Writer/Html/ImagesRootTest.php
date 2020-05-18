@@ -2,13 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
+use DOMDocument;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class ImagesRootTest extends Functional\AbstractFunctional
 {
-    public function testImagesRoot()
+    public function testImagesRoot(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -34,7 +35,7 @@ class ImagesRootTest extends Functional\AbstractFunctional
         $writer->setImagesRoot($root);
         $html = $writer->generateHTMLAll();
         chdir($curdir);
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('div');

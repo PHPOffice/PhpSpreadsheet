@@ -13,9 +13,8 @@ class CellTest extends TestCase
      *
      * @param mixed $expected
      * @param mixed $value
-     * @param string $dataType
      */
-    public function testSetValueExplicit($expected, $value, string $dataType)
+    public function testSetValueExplicit($expected, $value, string $dataType): void
     {
         $spreadsheet = new Spreadsheet();
         $cell = $spreadsheet->getActiveSheet()->getCell('A1');
@@ -32,11 +31,9 @@ class CellTest extends TestCase
     /**
      * @dataProvider providerSetValueExplicitException
      *
-     * @param mixed $expected
      * @param mixed $value
-     * @param string $dataType
      */
-    public function testSetValueExplicitException($value, string $dataType)
+    public function testSetValueExplicitException($value, string $dataType): void
     {
         $this->expectException(Exception::class);
 

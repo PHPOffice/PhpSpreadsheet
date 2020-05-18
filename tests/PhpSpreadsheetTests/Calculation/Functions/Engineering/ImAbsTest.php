@@ -21,10 +21,10 @@ class ImAbsTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMABS($expectedResult, $value)
+    public function testIMABS($expectedResult, $value): void
     {
         $result = Engineering::IMABS($value);
-        $this->assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
     public function providerIMABS()

@@ -133,8 +133,6 @@ class Html extends BaseWriter
 
     /**
      * Create a new HTML.
-     *
-     * @param Spreadsheet $spreadsheet
      */
     public function __construct(Spreadsheet $spreadsheet)
     {
@@ -147,7 +145,7 @@ class Html extends BaseWriter
      *
      * @param resource|string $pFilename
      */
-    public function save($pFilename)
+    public function save($pFilename): void
     {
         // Open file
         $this->openFileHandle($pFilename);
@@ -204,7 +202,7 @@ class Html extends BaseWriter
         Alignment::VERTICAL_TOP => 'top',
         Alignment::VERTICAL_CENTER => 'middle',
         Alignment::VERTICAL_JUSTIFY => 'middle',
-        ];
+    ];
 
     /**
      * Map VAlign.
@@ -224,7 +222,7 @@ class Html extends BaseWriter
         Alignment::HORIZONTAL_CENTER => 'center',
         Alignment::HORIZONTAL_CENTER_CONTINUOUS => 'center',
         Alignment::HORIZONTAL_JUSTIFY => 'justify',
-        ];
+    ];
 
     /**
      * Map HAlign.
@@ -251,7 +249,7 @@ class Html extends BaseWriter
         Border::BORDER_MEDIUMDASHDOTDOT => '2px dotted',
         Border::BORDER_SLANTDASHDOT => '2px dashed',
         Border::BORDER_THICK => '3px solid',
-        ];
+    ];
 
     /**
      * Map border style.
@@ -805,7 +803,7 @@ class Html extends BaseWriter
         return $html;
     }
 
-    private function buildCssRowHeights(Worksheet $sheet, array &$css, int $sheetIndex)
+    private function buildCssRowHeights(Worksheet $sheet, array &$css, int $sheetIndex): void
     {
         // Calculate row heights
         foreach ($sheet->getRowDimensions() as $rowDimension) {
@@ -825,7 +823,7 @@ class Html extends BaseWriter
         }
     }
 
-    private function buildCssPerSheet(Worksheet $sheet, array &$css)
+    private function buildCssPerSheet(Worksheet $sheet, array &$css): void
     {
         // Calculate hash code
         $sheetIndex = $sheet->getParent()->getIndex($sheet);
@@ -975,8 +973,6 @@ class Html extends BaseWriter
     /**
      * Create CSS style.
      *
-     * @param Style $pStyle
-     *
      * @return array
      */
     private function createCSSStyle(Style $pStyle)
@@ -1017,8 +1013,6 @@ class Html extends BaseWriter
 
     /**
      * Create CSS style (\PhpOffice\PhpSpreadsheet\Style\Font).
-     *
-     * @param Font $pStyle
      *
      * @return array
      */
@@ -1138,7 +1132,7 @@ class Html extends BaseWriter
         return $html;
     }
 
-    private function generateTableTag($pSheet, $id, &$html, $sheetIndex)
+    private function generateTableTag($pSheet, $id, &$html, $sheetIndex): void
     {
         if (!$this->useInlineCss) {
             $gridlines = $pSheet->getShowGridlines() ? ' gridlines' : '';
@@ -1266,7 +1260,7 @@ class Html extends BaseWriter
         return [$cell, $cssClass, $coordinate];
     }
 
-    private function generateRowCellDataValueRich($cell, &$cellData)
+    private function generateRowCellDataValueRich($cell, &$cellData): void
     {
         // Loop through rich text elements
         $elements = $cell->getValue()->getRichTextElements();
@@ -1299,7 +1293,7 @@ class Html extends BaseWriter
         }
     }
 
-    private function generateRowCellDataValue($pSheet, $cell, &$cellData)
+    private function generateRowCellDataValue($pSheet, $cell, &$cellData): void
     {
         if ($cell->getValue() instanceof RichText) {
             $this->generateRowCellDataValueRich($cell, $cellData);
@@ -1386,7 +1380,7 @@ class Html extends BaseWriter
         return $html;
     }
 
-    private function generateRowWriteCell(&$html, $pSheet, $coordinate, $cellType, $cellData, $colSpan, $rowSpan, $cssClass, $colNum, $sheetIndex, $pRow)
+    private function generateRowWriteCell(&$html, $pSheet, $coordinate, $cellType, $cellData, $colSpan, $rowSpan, $cssClass, $colNum, $sheetIndex, $pRow): void
     {
         // Image?
         $htmlx = $this->writeImageInCell($pSheet, $coordinate);
@@ -1518,8 +1512,6 @@ class Html extends BaseWriter
 
     /**
      * Takes array where of CSS properties / values and converts to CSS string.
-     *
-     * @param array $pValue
      *
      * @return string
      */
@@ -1672,7 +1664,7 @@ class Html extends BaseWriter
     /**
      * Calculate information about HTML colspan and rowspan which is not always the same as Excel's.
      */
-    private function calculateSpans()
+    private function calculateSpans(): void
     {
         if ($this->spansAreCalculated) {
             return;
@@ -1735,7 +1727,7 @@ class Html extends BaseWriter
         $this->spansAreCalculated = true;
     }
 
-    private function calculateSpansOmitRows($sheet, $sheetIndex, $candidateSpannedRow)
+    private function calculateSpansOmitRows($sheet, $sheetIndex, $candidateSpannedRow): void
     {
         // Identify which rows should be omitted in HTML. These are the rows where all the cells
         //   participate in a merge and the where base cells are somewhere above.
@@ -1772,7 +1764,6 @@ class Html extends BaseWriter
      *
      * @see https://github.com/LibreOffice/core/blob/9fc9bf3240f8c62ad7859947ab8a033ac1fe93fa/sc/source/filter/html/htmlexp.cxx#L1073-L1092
      *
-     * @param Worksheet $pSheet
      * @param string $coordinate
      *
      * @return string

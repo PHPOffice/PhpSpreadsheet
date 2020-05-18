@@ -20,11 +20,11 @@ $helper->log('Update cell data values that are displayed in the chart');
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
-    [50 - 12, 50 - 15, 50 - 21],
-    [50 - 56, 50 - 73, 50 - 86],
-    [50 - 52, 50 - 61, 50 - 69],
-    [50 - 30, 50 - 32, 50],
-        ],
+        [50 - 12, 50 - 15, 50 - 21],
+        [50 - 56, 50 - 73, 50 - 86],
+        [50 - 52, 50 - 61, 50 - 69],
+        [50 - 30, 50 - 32, 50],
+    ],
     null,
     'B2'
 );

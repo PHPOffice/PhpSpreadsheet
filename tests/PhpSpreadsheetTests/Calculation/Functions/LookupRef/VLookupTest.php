@@ -18,10 +18,10 @@ class VLookupTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testVLOOKUP($expectedResult, ...$args)
+    public function testVLOOKUP($expectedResult, ...$args): void
     {
         $result = LookupRef::VLOOKUP(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerVLOOKUP()

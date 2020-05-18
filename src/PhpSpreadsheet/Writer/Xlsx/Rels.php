@@ -12,8 +12,6 @@ class Rels extends WriterPart
     /**
      * Write relationships to XML format.
      *
-     * @param Spreadsheet $spreadsheet
-     *
      * @return string XML Output
      */
     public function writeRelationships(Spreadsheet $spreadsheet)
@@ -84,8 +82,6 @@ class Rels extends WriterPart
 
     /**
      * Write workbook relationships to XML format.
-     *
-     * @param Spreadsheet $spreadsheet
      *
      * @return string XML Output
      */
@@ -164,7 +160,6 @@ class Rels extends WriterPart
      *     rId1                 - Drawings
      *  rId_hyperlink_x     - Hyperlinks
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      * @param int $pWorksheetId
      * @param bool $includeCharts Flag indicating if we should write charts
      *
@@ -271,7 +266,7 @@ class Rels extends WriterPart
         return $objWriter->getData();
     }
 
-    private function writeUnparsedRelationship(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet, XMLWriter $objWriter, $relationship, $type)
+    private function writeUnparsedRelationship(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet, XMLWriter $objWriter, $relationship, $type): void
     {
         $unparsedLoadedData = $pWorksheet->getParent()->getUnparsedLoadedData();
         if (!isset($unparsedLoadedData['sheets'][$pWorksheet->getCodeName()][$relationship])) {
@@ -291,7 +286,6 @@ class Rels extends WriterPart
     /**
      * Write drawing relationships to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
      * @param int &$chartRef Chart ID
      * @param bool $includeCharts Flag indicating if we should write charts
      *
@@ -360,8 +354,6 @@ class Rels extends WriterPart
     /**
      * Write header/footer drawing relationships to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet
-     *
      * @return string XML Output
      */
     public function writeHeaderFooterDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pWorksheet)
@@ -406,7 +398,7 @@ class Rels extends WriterPart
      * @param string $pTarget Relationship target
      * @param string $pTargetMode Relationship target mode
      */
-    private function writeRelationship(XMLWriter $objWriter, $pId, $pType, $pTarget, $pTargetMode = '')
+    private function writeRelationship(XMLWriter $objWriter, $pId, $pType, $pTarget, $pTargetMode = ''): void
     {
         if ($pType != '' && $pTarget != '') {
             // Write relationship

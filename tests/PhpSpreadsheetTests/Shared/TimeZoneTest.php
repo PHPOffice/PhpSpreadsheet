@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class TimeZoneTest extends TestCase
 {
-    public function testSetTimezone()
+    public function testSetTimezone(): void
     {
         $timezoneValues = [
             'Europe/Prague',
@@ -23,7 +23,7 @@ class TimeZoneTest extends TestCase
         }
     }
 
-    public function testSetTimezoneWithInvalidValue()
+    public function testSetTimezoneWithInvalidValue(): void
     {
         $unsupportedTimezone = 'Etc/GMT+10';
         $result = TimeZone::setTimezone($unsupportedTimezone);

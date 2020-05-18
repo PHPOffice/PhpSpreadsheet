@@ -18,10 +18,10 @@ class CountBlankTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUNTBLANK($expectedResult, ...$args)
+    public function testCOUNTBLANK($expectedResult, ...$args): void
     {
         $result = Statistical::COUNTBLANK(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCOUNTBLANK()

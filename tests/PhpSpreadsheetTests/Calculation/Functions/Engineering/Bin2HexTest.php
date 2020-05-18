@@ -18,10 +18,10 @@ class Bin2HexTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBIN2HEX($expectedResult, ...$args)
+    public function testBIN2HEX($expectedResult, ...$args): void
     {
         $result = Engineering::BINTOHEX(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBIN2HEX()

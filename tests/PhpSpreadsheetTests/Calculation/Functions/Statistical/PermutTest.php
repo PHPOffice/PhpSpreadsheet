@@ -18,10 +18,10 @@ class PermutTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPERMUT($expectedResult, ...$args)
+    public function testPERMUT($expectedResult, ...$args): void
     {
         $result = Statistical::PERMUT(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerPERMUT()

@@ -18,10 +18,10 @@ class Oct2DecTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testOCT2DEC($expectedResult, ...$args)
+    public function testOCT2DEC($expectedResult, ...$args): void
     {
         $result = Engineering::OCTTODEC(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerOCT2DEC()

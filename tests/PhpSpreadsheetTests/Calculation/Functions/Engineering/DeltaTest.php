@@ -18,10 +18,10 @@ class DeltaTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDELTA($expectedResult, ...$args)
+    public function testDELTA($expectedResult, ...$args): void
     {
         $result = Engineering::DELTA(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerDELTA()

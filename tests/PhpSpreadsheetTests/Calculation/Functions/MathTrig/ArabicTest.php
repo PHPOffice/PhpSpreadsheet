@@ -19,10 +19,10 @@ class ArabicTest extends TestCase
      * @param mixed $expectedResult
      * @param string $romanNumeral
      */
-    public function testARABIC($expectedResult, $romanNumeral)
+    public function testARABIC($expectedResult, $romanNumeral): void
     {
         $result = MathTrig::ARABIC($romanNumeral);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerARABIC()

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
+use DOMDocument;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
@@ -27,7 +28,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         StringHelper::setThousandsSeparator($this->thosep);
     }
 
-    public function testColorNumberFormat()
+    public function testColorNumberFormat(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -40,7 +41,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
 
         $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('div');
@@ -81,7 +82,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function testColorNumberFormatComplex()
+    public function testColorNumberFormatComplex(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -94,7 +95,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
 
         $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('div');
@@ -142,7 +143,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
      * @param mixed $val
      * @param mixed $fmt
      */
-    public function testFormatValueWithMask($expectedResult, $val, $fmt)
+    public function testFormatValueWithMask($expectedResult, $val, $fmt): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -150,7 +151,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
 
         $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('div');
@@ -178,7 +179,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
      * @param mixed $val
      * @param mixed $fmt
      */
-    public function testFormatValueWithMaskDate($expectedResult, $val, $fmt)
+    public function testFormatValueWithMaskDate($expectedResult, $val, $fmt): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -186,7 +187,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
 
         $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('div');

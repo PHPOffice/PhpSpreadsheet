@@ -19,7 +19,7 @@ class NumberFormatTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFormatValueWithMask($expectedResult, ...$args)
+    public function testFormatValueWithMask($expectedResult, ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
         self::assertEquals($expectedResult, $result);
@@ -35,7 +35,7 @@ class NumberFormatTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFormatValueWithMaskDate($expectedResult, ...$args)
+    public function testFormatValueWithMaskDate($expectedResult, ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
         self::assertEquals($expectedResult, $result);
@@ -46,7 +46,7 @@ class NumberFormatTest extends TestCase
         return require 'tests/data/Style/NumberFormatDates.php';
     }
 
-    public function testCurrencyCode()
+    public function testCurrencyCode(): void
     {
         // "Currency symbol" replaces $ in some cases, not in others
         $cur = StringHelper::getCurrencyCode();

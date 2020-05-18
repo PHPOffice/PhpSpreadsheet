@@ -593,7 +593,7 @@ class Html
      */
     protected $richTextObject;
 
-    protected function initialise()
+    protected function initialise(): void
     {
         $this->face = $this->size = $this->color = null;
         $this->bold = $this->italic = $this->underline = $this->superscript = $this->subscript = $this->strikethrough = false;
@@ -632,7 +632,7 @@ class Html
         return $this->richTextObject;
     }
 
-    protected function cleanWhitespace()
+    protected function cleanWhitespace(): void
     {
         foreach ($this->richTextObject->getRichTextElements() as $key => $element) {
             $text = $element->getText();
@@ -646,7 +646,7 @@ class Html
         }
     }
 
-    protected function buildTextRun()
+    protected function buildTextRun(): void
     {
         $text = $this->stringData;
         if (trim($text) === '') {
@@ -691,7 +691,7 @@ class Html
             $value = str_pad(dechex($value), 2, '0', STR_PAD_LEFT);
         }
 
-        return implode($values[0]);
+        return implode('', $values[0]);
     }
 
     protected function colourNameLookup($rgb)
@@ -699,7 +699,7 @@ class Html
         return self::$colourMap[$rgb];
     }
 
-    protected function startFontTag($tag)
+    protected function startFontTag($tag): void
     {
         foreach ($tag->attributes as $attribute) {
             $attributeName = strtolower($attribute->name);
@@ -719,77 +719,77 @@ class Html
         }
     }
 
-    protected function endFontTag()
+    protected function endFontTag(): void
     {
         $this->face = $this->size = $this->color = null;
     }
 
-    protected function startBoldTag()
+    protected function startBoldTag(): void
     {
         $this->bold = true;
     }
 
-    protected function endBoldTag()
+    protected function endBoldTag(): void
     {
         $this->bold = false;
     }
 
-    protected function startItalicTag()
+    protected function startItalicTag(): void
     {
         $this->italic = true;
     }
 
-    protected function endItalicTag()
+    protected function endItalicTag(): void
     {
         $this->italic = false;
     }
 
-    protected function startUnderlineTag()
+    protected function startUnderlineTag(): void
     {
         $this->underline = true;
     }
 
-    protected function endUnderlineTag()
+    protected function endUnderlineTag(): void
     {
         $this->underline = false;
     }
 
-    protected function startSubscriptTag()
+    protected function startSubscriptTag(): void
     {
         $this->subscript = true;
     }
 
-    protected function endSubscriptTag()
+    protected function endSubscriptTag(): void
     {
         $this->subscript = false;
     }
 
-    protected function startSuperscriptTag()
+    protected function startSuperscriptTag(): void
     {
         $this->superscript = true;
     }
 
-    protected function endSuperscriptTag()
+    protected function endSuperscriptTag(): void
     {
         $this->superscript = false;
     }
 
-    protected function startStrikethruTag()
+    protected function startStrikethruTag(): void
     {
         $this->strikethrough = true;
     }
 
-    protected function endStrikethruTag()
+    protected function endStrikethruTag(): void
     {
         $this->strikethrough = false;
     }
 
-    protected function breakTag()
+    protected function breakTag(): void
     {
         $this->stringData .= "\n";
     }
 
-    protected function parseTextNode(DOMText $textNode)
+    protected function parseTextNode(DOMText $textNode): void
     {
         $domText = preg_replace(
             '/\s+/u',
@@ -801,11 +801,9 @@ class Html
     }
 
     /**
-     * @param DOMElement $element
      * @param string $callbackTag
-     * @param array $callbacks
      */
-    protected function handleCallback(DOMElement $element, $callbackTag, array $callbacks)
+    protected function handleCallback(DOMElement $element, $callbackTag, array $callbacks): void
     {
         if (isset($callbacks[$callbackTag])) {
             $elementHandler = $callbacks[$callbackTag];
@@ -815,7 +813,7 @@ class Html
         }
     }
 
-    protected function parseElementNode(DOMElement $element)
+    protected function parseElementNode(DOMElement $element): void
     {
         $callbackTag = strtolower($element->nodeName);
         $this->stack[] = $callbackTag;
@@ -828,7 +826,7 @@ class Html
         $this->handleCallback($element, $callbackTag, $this->endTagCallbacks);
     }
 
-    protected function parseElements(DOMNode $element)
+    protected function parseElements(DOMNode $element): void
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {

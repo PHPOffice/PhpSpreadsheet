@@ -21,10 +21,10 @@ class YearFracTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testYEARFRAC($expectedResult, ...$args)
+    public function testYEARFRAC($expectedResult, ...$args): void
     {
         $result = DateTime::YEARFRAC(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerYEARFRAC()

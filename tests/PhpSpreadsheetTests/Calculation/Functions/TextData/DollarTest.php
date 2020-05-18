@@ -30,10 +30,10 @@ class DollarTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDOLLAR($expectedResult, ...$args)
+    public function testDOLLAR($expectedResult, ...$args): void
     {
         $result = TextData::DOLLAR(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerDOLLAR()

@@ -8,8 +8,6 @@ interface IWriter
 {
     /**
      * IWriter constructor.
-     *
-     * @param Spreadsheet $spreadsheet
      */
     public function __construct(Spreadsheet $spreadsheet);
 

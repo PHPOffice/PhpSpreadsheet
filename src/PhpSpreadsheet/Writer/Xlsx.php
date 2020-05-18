@@ -109,8 +109,6 @@ class Xlsx extends BaseWriter
 
     /**
      * Create a new Xlsx Writer.
-     *
-     * @param Spreadsheet $spreadsheet
      */
     public function __construct(Spreadsheet $spreadsheet)
     {
@@ -171,7 +169,7 @@ class Xlsx extends BaseWriter
      *
      * @param resource|string $pFilename
      */
-    public function save($pFilename)
+    public function save($pFilename): void
     {
         if ($this->spreadSheet !== null) {
             // garbage collect

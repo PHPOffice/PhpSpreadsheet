@@ -19,13 +19,13 @@ class CsvContiguousFilter implements IReadFilter
      * @param mixed $startRow
      * @param mixed $chunkSize
      */
-    public function setRows($startRow, $chunkSize)
+    public function setRows($startRow, $chunkSize): void
     {
         $this->startRow = $startRow;
         $this->endRow = $startRow + $chunkSize;
     }
 
-    public function setFilterType($type)
+    public function setFilterType($type): void
     {
         $this->filterType = $type;
     }

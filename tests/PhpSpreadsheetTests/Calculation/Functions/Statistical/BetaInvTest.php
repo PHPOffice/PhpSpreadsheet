@@ -18,10 +18,10 @@ class BetaInvTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBETAINV($expectedResult, ...$args)
+    public function testBETAINV($expectedResult, ...$args): void
     {
         $result = Statistical::BETAINV(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerBETAINV()

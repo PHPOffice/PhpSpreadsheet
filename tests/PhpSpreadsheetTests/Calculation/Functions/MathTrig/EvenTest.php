@@ -19,10 +19,10 @@ class EvenTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testEVEN($expectedResult, $value)
+    public function testEVEN($expectedResult, $value): void
     {
         $result = MathTrig::EVEN($value);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerEVEN()

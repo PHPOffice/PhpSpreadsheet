@@ -11,7 +11,6 @@ class ModeTest extends TestCase
      * @dataProvider providerMODE
      *
      * @param mixed $expectedResult
-     * @param string $str
      */
     public function testMODE($expectedResult, string $str): void
     {

@@ -13,7 +13,7 @@ class CodePageTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCodePageNumberToName($expectedResult, ...$args)
+    public function testCodePageNumberToName($expectedResult, ...$args): void
     {
         $result = CodePage::numberToName(...$args);
         self::assertEquals($expectedResult, $result);
@@ -24,7 +24,7 @@ class CodePageTest extends TestCase
         return require 'tests/data/Shared/CodePage.php';
     }
 
-    public function testNumberToNameWithInvalidCodePage()
+    public function testNumberToNameWithInvalidCodePage(): void
     {
         $invalidCodePage = 12345;
 
@@ -35,10 +35,10 @@ class CodePageTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
-    public function testNumberToNameWithUnsupportedCodePage()
+    public function testNumberToNameWithUnsupportedCodePage(): void
     {
         $unsupportedCodePage = 720;
 
@@ -49,6 +49,6 @@ class CodePageTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 }

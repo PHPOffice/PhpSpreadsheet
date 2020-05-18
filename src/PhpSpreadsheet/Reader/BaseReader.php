@@ -145,12 +145,12 @@ abstract class BaseReader implements IReader
      *
      * @param string $pFilename
      */
-    protected function openFile($pFilename)
+    protected function openFile($pFilename): void
     {
         File::assertFile($pFilename);
 
         // Open file
-        $this->fileHandle = fopen($pFilename, 'r');
+        $this->fileHandle = fopen($pFilename, 'rb');
         if ($this->fileHandle === false) {
             throw new Exception('Could not open file ' . $pFilename . ' for reading.');
         }

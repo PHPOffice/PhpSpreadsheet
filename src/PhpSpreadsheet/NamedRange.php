@@ -45,7 +45,6 @@ class NamedRange
      * Create a new NamedRange.
      *
      * @param string $pName
-     * @param Worksheet $pWorksheet
      * @param string $pRange
      * @param bool $pLocalOnly
      * @param null|Worksheet $pScope Scope. Only applies when $pLocalOnly = true. Null for global scope.
@@ -123,7 +122,7 @@ class NamedRange
      *
      * @return $this
      */
-    public function setWorksheet(Worksheet $value = null)
+    public function setWorksheet(?Worksheet $value = null)
     {
         if ($value !== null) {
             $this->worksheet = $value;
@@ -196,11 +195,9 @@ class NamedRange
     /**
      * Set scope.
      *
-     * @param null|Worksheet $value
-     *
      * @return $this
      */
-    public function setScope(Worksheet $value = null)
+    public function setScope(?Worksheet $value = null)
     {
         $this->scope = $value;
         $this->localOnly = $value != null;

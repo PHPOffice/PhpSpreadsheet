@@ -109,8 +109,6 @@ class Theme extends WriterPart
     /**
      * Write theme to XML format.
      *
-     * @param Spreadsheet $spreadsheet
-     *
      * @return string XML Output
      */
     public function writeTheme(Spreadsheet $spreadsheet)

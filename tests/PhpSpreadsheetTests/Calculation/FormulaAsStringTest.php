@@ -13,7 +13,7 @@ class FormulaAsStringTest extends TestCase
      * @param mixed $expectedResult
      * @param string $formula
      */
-    public function testFunctionsAsString($expectedResult, $formula)
+    public function testFunctionsAsString($expectedResult, $formula): void
     {
         $spreadsheet = new Spreadsheet();
         $workSheet = $spreadsheet->getActiveSheet();

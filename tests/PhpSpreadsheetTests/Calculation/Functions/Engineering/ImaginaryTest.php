@@ -21,10 +21,10 @@ class ImaginaryTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMAGINARY($expectedResult, $value)
+    public function testIMAGINARY($expectedResult, $value): void
     {
         $result = Engineering::IMAGINARY($value);
-        $this->assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
     public function providerIMAGINARY()

@@ -18,10 +18,10 @@ class AverageTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testAVERAGE($expectedResult, ...$args)
+    public function testAVERAGE($expectedResult, ...$args): void
     {
         $result = Statistical::AVERAGE(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerAVERAGE()

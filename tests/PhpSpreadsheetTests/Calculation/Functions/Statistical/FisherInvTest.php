@@ -19,10 +19,10 @@ class FisherInvTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testFISHERINV($expectedResult, $value)
+    public function testFISHERINV($expectedResult, $value): void
     {
         $result = Statistical::FISHERINV($value);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerFISHERINV()

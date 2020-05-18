@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
+use DOMDocument;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
@@ -9,7 +10,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class GridlinesTest extends Functional\AbstractFunctional
 {
-    public function testGridlines()
+    public function testGridlines(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -29,7 +30,7 @@ class GridlinesTest extends Functional\AbstractFunctional
         $writer->writeAllSheets();
 
         $html = $writer->generateHTMLAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('div');
@@ -51,7 +52,7 @@ class GridlinesTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function testGridlinesInline()
+    public function testGridlinesInline(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -72,7 +73,7 @@ class GridlinesTest extends Functional\AbstractFunctional
         $writer->setUseInlineCss(true);
 
         $html = $writer->generateHTMLAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('div');
@@ -94,7 +95,7 @@ class GridlinesTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function testRichText()
+    public function testRichText(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -130,7 +131,7 @@ class GridlinesTest extends Functional\AbstractFunctional
 
         $writer = new Html($spreadsheet);
         $html = $writer->generateHTMLAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('div');

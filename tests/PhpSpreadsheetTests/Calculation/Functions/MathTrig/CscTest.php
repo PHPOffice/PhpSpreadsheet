@@ -19,10 +19,10 @@ class CscTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $angle
      */
-    public function testCSC($expectedResult, $angle)
+    public function testCSC($expectedResult, $angle): void
     {
         $result = MathTrig::CSC($angle);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCSC()

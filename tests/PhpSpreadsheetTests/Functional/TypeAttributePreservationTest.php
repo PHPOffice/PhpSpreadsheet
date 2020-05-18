@@ -27,9 +27,8 @@ class TypeAttributePreservationTest extends AbstractFunctional
      * @dataProvider providerFormulae
      *
      * @param string $format
-     * @param array $values
      */
-    public function testFormulae($format, array $values)
+    public function testFormulae($format, array $values): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

@@ -33,10 +33,10 @@ class ImLog10Test extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMLOG10($expectedResult, $value)
+    public function testIMLOG10($expectedResult, $value): void
     {
         $result = Engineering::IMLOG10($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );

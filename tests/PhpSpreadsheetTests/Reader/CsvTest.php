@@ -16,7 +16,7 @@ class CsvTest extends TestCase
      * @param string $cell
      * @param float|int|string $expectedValue
      */
-    public function testDelimiterDetection($filename, $expectedDelimiter, $cell, $expectedValue)
+    public function testDelimiterDetection($filename, $expectedDelimiter, $cell, $expectedValue): void
     {
         $reader = new Csv();
         self::assertNull($reader->getDelimiter());
@@ -95,7 +95,7 @@ class CsvTest extends TestCase
      * @param bool $expected
      * @param string $filename
      */
-    public function testCanLoad($expected, $filename)
+    public function testCanLoad($expected, $filename): void
     {
         $reader = new Csv();
         self::assertSame($expected, $reader->canRead($filename));
@@ -117,7 +117,7 @@ class CsvTest extends TestCase
         ];
     }
 
-    public function testEscapeCharacters()
+    public function testEscapeCharacters(): void
     {
         $reader = (new Csv())->setEscapeCharacter('"');
         $worksheet = $reader->load('tests/data/Reader/CSV/backslash.csv')
@@ -128,8 +128,8 @@ class CsvTest extends TestCase
             ['field 3\\', 'field 4'],
         ];
 
-        $this->assertSame('"', $reader->getEscapeCharacter());
-        $this->assertSame($expected, $worksheet->toArray());
+        self::assertSame('"', $reader->getEscapeCharacter());
+        self::assertSame($expected, $worksheet->toArray());
     }
 
     /**
@@ -138,7 +138,7 @@ class CsvTest extends TestCase
      * @param string $filename
      * @param string $encoding
      */
-    public function testEncodings($filename, $encoding)
+    public function testEncodings($filename, $encoding): void
     {
         $reader = new Csv();
         $reader->setInputEncoding($encoding);
@@ -147,7 +147,7 @@ class CsvTest extends TestCase
         self::assertEquals('Å', $sheet->getCell('A1')->getValue());
     }
 
-    public function testInvalidWorkSheetInfo()
+    public function testInvalidWorkSheetInfo(): void
     {
         $this->expectException(ReaderException::class);
         $reader = new Csv();
@@ -160,7 +160,7 @@ class CsvTest extends TestCase
      * @param string $filename
      * @param string $encoding
      */
-    public function testWorkSheetInfo($filename, $encoding)
+    public function testWorkSheetInfo($filename, $encoding): void
     {
         $reader = new Csv();
         $reader->setInputEncoding($encoding);
@@ -185,7 +185,7 @@ class CsvTest extends TestCase
         ];
     }
 
-    public function testUtf16LineBreak()
+    public function testUtf16LineBreak(): void
     {
         $reader = new Csv();
         $reader->setInputEncoding('UTF-16BE');
@@ -200,7 +200,7 @@ EOF;
         self::assertEquals($expected, $sheet->getCell('B3')->getValue());
     }
 
-    public function testSeparatorLine()
+    public function testSeparatorLine(): void
     {
         $reader = new Csv();
         $reader->setSheetIndex(3);
@@ -215,7 +215,7 @@ EOF;
         self::assertEquals(3, $sheet->getCell('B2')->getValue());
     }
 
-    public function testDefaultSettings()
+    public function testDefaultSettings(): void
     {
         $reader = new Csv();
         self::assertEquals('UTF-8', $reader->getInputEncoding());
@@ -226,7 +226,7 @@ EOF;
         self::assertEquals('"', $reader->getEnclosure());
     }
 
-    public function testReadEmptyFileName()
+    public function testReadEmptyFileName(): void
     {
         $this->expectException(ReaderException::class);
         $reader = new Csv();
@@ -234,7 +234,7 @@ EOF;
         $reader->load($filename);
     }
 
-    public function testReadNonexistentFileName()
+    public function testReadNonexistentFileName(): void
     {
         $this->expectException(ReaderException::class);
         $reader = new Csv();

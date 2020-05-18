@@ -49,7 +49,7 @@ class Stack
         $storeKey = null,
         $onlyIf = null,
         $onlyIfNot = null
-    ) {
+    ): void {
         $stackItem = $this->getStackItem($type, $value, $reference, $storeKey, $onlyIf, $onlyIfNot);
 
         $this->stack[$this->count++] = $stackItem;
@@ -124,7 +124,7 @@ class Stack
     /**
      * Clear the stack.
      */
-    public function clear()
+    public function clear(): void
     {
         $this->stack = [];
         $this->count = 0;

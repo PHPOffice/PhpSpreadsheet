@@ -18,10 +18,10 @@ class SumIfTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSUMIF($expectedResult, ...$args)
+    public function testSUMIF($expectedResult, ...$args): void
     {
         $result = MathTrig::SUMIF(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSUMIF()

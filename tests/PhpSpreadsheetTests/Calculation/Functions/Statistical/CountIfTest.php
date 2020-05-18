@@ -18,10 +18,10 @@ class CountIfTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUNTIF($expectedResult, ...$args)
+    public function testCOUNTIF($expectedResult, ...$args): void
     {
         $result = Statistical::COUNTIF(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCOUNTIF()

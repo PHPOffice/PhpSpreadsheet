@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class CellsTest extends TestCase
 {
-    public function testCollectionCell()
+    public function testCollectionCell(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -63,7 +63,7 @@ class CellsTest extends TestCase
         self::assertEquals(['A1', 'C3'], $collection->getCoordinates(), 'cell list should contains the cell');
     }
 
-    public function testCacheLastCell()
+    public function testCacheLastCell(): void
     {
         $workbook = new Spreadsheet();
         $cells = ['A1', 'A2'];
@@ -73,7 +73,7 @@ class CellsTest extends TestCase
         self::assertEquals($cells, $sheet->getCoordinates(), 'list should include last added cell');
     }
 
-    public function testCanGetCellAfterAnotherIsDeleted()
+    public function testCanGetCellAfterAnotherIsDeleted(): void
     {
         $workbook = new Spreadsheet();
         $sheet = $workbook->getActiveSheet();
@@ -85,7 +85,7 @@ class CellsTest extends TestCase
         self::assertNotNull($collection->get('A2'), 'should be able to get back the cell even when another cell was deleted while this one was the current one');
     }
 
-    public function testThrowsWhenCellCannotBeRetrievedFromCache()
+    public function testThrowsWhenCellCannotBeRetrievedFromCache(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
 
@@ -100,7 +100,7 @@ class CellsTest extends TestCase
         $collection->get('A2');
     }
 
-    public function testThrowsWhenCellCannotBeStoredInCache()
+    public function testThrowsWhenCellCannotBeStoredInCache(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
 
@@ -115,20 +115,20 @@ class CellsTest extends TestCase
         $collection->add('A2', $cell);
     }
 
-    public function testGetHighestColumn()
+    public function testGetHighestColumn(): void
     {
         $workbook = new Spreadsheet();
         $sheet = $workbook->getActiveSheet();
         $collection = $sheet->getCellCollection();
 
         // check for empty sheet
-        $this->assertEquals('A', $collection->getHighestColumn());
-        $this->assertEquals('A', $collection->getHighestColumn(1));
+        self::assertEquals('A', $collection->getHighestColumn());
+        self::assertEquals('A', $collection->getHighestColumn(1));
 
         // set a value and check again
         $sheet->getCell('C4')->setValue(1);
-        $this->assertEquals('C', $collection->getHighestColumn());
-        $this->assertEquals('A', $collection->getHighestColumn(1));
-        $this->assertEquals('C', $collection->getHighestColumn(4));
+        self::assertEquals('C', $collection->getHighestColumn());
+        self::assertEquals('A', $collection->getHighestColumn(1));
+        self::assertEquals('C', $collection->getHighestColumn(4));
     }
 }

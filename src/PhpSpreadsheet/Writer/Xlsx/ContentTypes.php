@@ -13,7 +13,6 @@ class ContentTypes extends WriterPart
     /**
      * Write content types to XML format.
      *
-     * @param Spreadsheet $spreadsheet
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      *
      * @return string XML Output
@@ -206,7 +205,7 @@ class ContentTypes extends WriterPart
      * @param string $pPartname Part name
      * @param string $pContentType Content type
      */
-    private function writeDefaultContentType(XMLWriter $objWriter, $pPartname, $pContentType)
+    private function writeDefaultContentType(XMLWriter $objWriter, $pPartname, $pContentType): void
     {
         if ($pPartname != '' && $pContentType != '') {
             // Write content type
@@ -226,7 +225,7 @@ class ContentTypes extends WriterPart
      * @param string $pPartname Part name
      * @param string $pContentType Content type
      */
-    private function writeOverrideContentType(XMLWriter $objWriter, $pPartname, $pContentType)
+    private function writeOverrideContentType(XMLWriter $objWriter, $pPartname, $pContentType): void
     {
         if ($pPartname != '' && $pContentType != '') {
             // Write content type

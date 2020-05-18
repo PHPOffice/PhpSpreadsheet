@@ -29,12 +29,11 @@ class TextJoinTest extends TestCase
      * @dataProvider providerTEXTJOIN
      *
      * @param mixed $expectedResult
-     * @param array $args
      */
-    public function testTEXTJOIN($expectedResult, array $args)
+    public function testTEXTJOIN($expectedResult, array $args): void
     {
         $result = TextData::TEXTJOIN(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerTEXTJOIN()

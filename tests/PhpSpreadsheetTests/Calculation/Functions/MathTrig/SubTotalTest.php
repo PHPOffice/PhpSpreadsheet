@@ -22,7 +22,7 @@ class SubTotalTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSUBTOTAL($expectedResult, ...$args)
+    public function testSUBTOTAL($expectedResult, ...$args): void
     {
         $cell = $this->getMockBuilder(Cell::class)
             ->setMethods(['getValue', 'isFormula'])
@@ -49,7 +49,7 @@ class SubTotalTest extends TestCase
 
         array_push($args, $cellReference);
         $result = MathTrig::SUBTOTAL(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSUBTOTAL()
@@ -70,7 +70,7 @@ class SubTotalTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testHiddenSUBTOTAL($expectedResult, ...$args)
+    public function testHiddenSUBTOTAL($expectedResult, ...$args): void
     {
         $visibilityGenerator = $this->rowVisibility();
 
@@ -79,12 +79,12 @@ class SubTotalTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $rowDimension->method('getVisible')
-            ->will($this->returnCallback(function () use ($visibilityGenerator) {
+            ->willReturnCallback(function () use ($visibilityGenerator) {
                 $result = $visibilityGenerator->current();
                 $visibilityGenerator->next();
 
                 return $result;
-            }));
+            });
         $columnDimension = $this->getMockBuilder(ColumnDimension::class)
             ->setMethods(['getVisible'])
             ->disableOriginalConstructor()
@@ -120,7 +120,7 @@ class SubTotalTest extends TestCase
 
         array_push($args, $cellReference);
         $result = MathTrig::SUBTOTAL(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerHiddenSUBTOTAL()
@@ -147,7 +147,7 @@ class SubTotalTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNestedSUBTOTAL($expectedResult, ...$args)
+    public function testNestedSUBTOTAL($expectedResult, ...$args): void
     {
         $cellValueGenerator = $this->cellValues(Functions::flattenArray(array_slice($args, 1)));
         $cellIsFormulaGenerator = $this->cellIsFormula(Functions::flattenArray(array_slice($args, 1)));
@@ -157,19 +157,19 @@ class SubTotalTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getValue')
-            ->will($this->returnCallback(function () use ($cellValueGenerator) {
+            ->willReturnCallback(function () use ($cellValueGenerator) {
                 $result = $cellValueGenerator->current();
                 $cellValueGenerator->next();
 
                 return $result;
-            }));
+            });
         $cell->method('isFormula')
-            ->will($this->returnCallback(function () use ($cellIsFormulaGenerator) {
+            ->willReturnCallback(function () use ($cellIsFormulaGenerator) {
                 $result = $cellIsFormulaGenerator->current();
                 $cellIsFormulaGenerator->next();
 
                 return $result;
-            }));
+            });
         $worksheet = $this->getMockBuilder(Worksheet::class)
             ->setMethods(['cellExists', 'getCell'])
             ->disableOriginalConstructor()
@@ -188,7 +188,7 @@ class SubTotalTest extends TestCase
         array_push($args, $cellReference);
 
         $result = MathTrig::SUBTOTAL(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerNestedSUBTOTAL()

@@ -106,13 +106,10 @@ class Content extends WriterPart
 
     /**
      * Write sheets.
-     *
-     * @param XMLWriter $objWriter
      */
-    private function writeSheets(XMLWriter $objWriter)
+    private function writeSheets(XMLWriter $objWriter): void
     {
-        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); // @var $spreadsheet Spreadsheet
-
+        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /** @var Spreadsheet $spreadsheet */
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
             $objWriter->startElement('table:table');
@@ -128,11 +125,8 @@ class Content extends WriterPart
 
     /**
      * Write rows of the specified sheet.
-     *
-     * @param XMLWriter $objWriter
-     * @param Worksheet $sheet
      */
-    private function writeRows(XMLWriter $objWriter, Worksheet $sheet)
+    private function writeRows(XMLWriter $objWriter, Worksheet $sheet): void
     {
         $numberRowsRepeated = self::NUMBER_ROWS_REPEATED_MAX;
         $span_row = 0;
@@ -164,11 +158,8 @@ class Content extends WriterPart
 
     /**
      * Write cells of the specified row.
-     *
-     * @param XMLWriter $objWriter
-     * @param Row $row
      */
-    private function writeCells(XMLWriter $objWriter, Row $row)
+    private function writeCells(XMLWriter $objWriter, Row $row): void
     {
         $numberColsRepeated = self::NUMBER_COLS_REPEATED_MAX;
         $prevColumn = -1;
@@ -254,11 +245,10 @@ class Content extends WriterPart
     /**
      * Write span.
      *
-     * @param XMLWriter $objWriter
      * @param int $curColumn
      * @param int $prevColumn
      */
-    private function writeCellSpan(XMLWriter $objWriter, $curColumn, $prevColumn)
+    private function writeCellSpan(XMLWriter $objWriter, $curColumn, $prevColumn): void
     {
         $diff = $curColumn - $prevColumn - 1;
         if (1 === $diff) {
@@ -272,11 +262,8 @@ class Content extends WriterPart
 
     /**
      * Write XF cell styles.
-     *
-     * @param XMLWriter $writer
-     * @param Spreadsheet $spreadsheet
      */
-    private function writeXfStyles(XMLWriter $writer, Spreadsheet $spreadsheet)
+    private function writeXfStyles(XMLWriter $writer, Spreadsheet $spreadsheet): void
     {
         foreach ($spreadsheet->getCellXfCollection() as $style) {
             $writer->startElement('style:style');
@@ -366,11 +353,8 @@ class Content extends WriterPart
 
     /**
      * Write attributes for merged cell.
-     *
-     * @param XMLWriter $objWriter
-     * @param Cell $cell
      */
-    private function writeCellMerge(XMLWriter $objWriter, Cell $cell)
+    private function writeCellMerge(XMLWriter $objWriter, Cell $cell): void
     {
         if (!$cell->isMergeRangeValueCell()) {
             return;

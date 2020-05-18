@@ -76,12 +76,12 @@ class Cell
         return $this;
     }
 
-    public function detach()
+    public function detach(): void
     {
         $this->parent = null;
     }
 
-    public function attach(Cells $parent)
+    public function attach(Cells $parent): void
     {
         $this->parent = $parent;
     }
@@ -91,7 +91,6 @@ class Cell
      *
      * @param mixed $pValue
      * @param string $pDataType
-     * @param Worksheet $pSheet
      */
     public function __construct($pValue, $pDataType, Worksheet $pSheet)
     {
@@ -386,7 +385,7 @@ class Cell
      *
      * @return Cell
      */
-    public function setDataValidation(DataValidation $pDataValidation = null)
+    public function setDataValidation(?DataValidation $pDataValidation = null)
     {
         if (!isset($this->parent)) {
             throw new Exception('Cannot set data validation for cell that is not bound to a worksheet');
@@ -444,7 +443,7 @@ class Cell
      *
      * @return Cell
      */
-    public function setHyperlink(Hyperlink $pHyperlink = null)
+    public function setHyperlink(?Hyperlink $pHyperlink = null)
     {
         if (!isset($this->parent)) {
             throw new Exception('Cannot set hyperlink for cell that is not bound to a worksheet');
@@ -532,8 +531,6 @@ class Cell
     /**
      * Re-bind parent.
      *
-     * @param Worksheet $parent
-     *
      * @return Cell
      */
     public function rebindParent(Worksheet $parent)
@@ -600,10 +597,8 @@ class Cell
 
     /**
      * Set value binder to use.
-     *
-     * @param IValueBinder $binder
      */
-    public static function setValueBinder(IValueBinder $binder)
+    public static function setValueBinder(IValueBinder $binder): void
     {
         self::$valueBinder = $binder;
     }

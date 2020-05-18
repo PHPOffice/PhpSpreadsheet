@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class VisibilityTest extends Functional\AbstractFunctional
 {
-    public function testVisibility1()
+    public function testVisibility1(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -39,7 +39,7 @@ class VisibilityTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function testVisibility2()
+    public function testVisibility2(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -72,7 +72,7 @@ class VisibilityTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function testDefaultRowHeight()
+    public function testDefaultRowHeight(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

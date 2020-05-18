@@ -18,7 +18,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testAMORDEGRC($expectedResult, ...$args)
+    public function testAMORDEGRC($expectedResult, ...$args): void
     {
         $result = Financial::AMORDEGRC(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -34,7 +34,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testAMORLINC($expectedResult, ...$args)
+    public function testAMORLINC($expectedResult, ...$args): void
     {
         $result = Financial::AMORLINC(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -50,7 +50,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUPDAYBS($expectedResult, ...$args)
+    public function testCOUPDAYBS($expectedResult, ...$args): void
     {
         $result = Financial::COUPDAYBS(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -66,7 +66,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUPDAYS($expectedResult, ...$args)
+    public function testCOUPDAYS($expectedResult, ...$args): void
     {
         $result = Financial::COUPDAYS(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -82,7 +82,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUPDAYSNC($expectedResult, ...$args)
+    public function testCOUPDAYSNC($expectedResult, ...$args): void
     {
         $result = Financial::COUPDAYSNC(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -98,7 +98,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUPNCD($expectedResult, ...$args)
+    public function testCOUPNCD($expectedResult, ...$args): void
     {
         $result = Financial::COUPNCD(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -114,7 +114,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUPNUM($expectedResult, ...$args)
+    public function testCOUPNUM($expectedResult, ...$args): void
     {
         $result = Financial::COUPNUM(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -130,7 +130,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUPPCD($expectedResult, ...$args)
+    public function testCOUPPCD($expectedResult, ...$args): void
     {
         $result = Financial::COUPPCD(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -146,7 +146,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCUMIPMT($expectedResult, ...$args)
+    public function testCUMIPMT($expectedResult, ...$args): void
     {
         $result = Financial::CUMIPMT(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -162,7 +162,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCUMPRINC($expectedResult, ...$args)
+    public function testCUMPRINC($expectedResult, ...$args): void
     {
         $result = Financial::CUMPRINC(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -178,7 +178,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDB($expectedResult, ...$args)
+    public function testDB($expectedResult, ...$args): void
     {
         $result = Financial::DB(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -194,7 +194,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDDB($expectedResult, ...$args)
+    public function testDDB($expectedResult, ...$args): void
     {
         $result = Financial::DDB(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -210,7 +210,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDISC($expectedResult, ...$args)
+    public function testDISC($expectedResult, ...$args): void
     {
         $result = Financial::DISC(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -226,7 +226,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDOLLARDE($expectedResult, ...$args)
+    public function testDOLLARDE($expectedResult, ...$args): void
     {
         $result = Financial::DOLLARDE(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -242,7 +242,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDOLLARFR($expectedResult, ...$args)
+    public function testDOLLARFR($expectedResult, ...$args): void
     {
         $result = Financial::DOLLARFR(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -258,7 +258,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testEFFECT($expectedResult, ...$args)
+    public function testEFFECT($expectedResult, ...$args): void
     {
         $result = Financial::EFFECT(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -274,7 +274,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFV($expectedResult, ...$args)
+    public function testFV($expectedResult, ...$args): void
     {
         $result = Financial::FV(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -290,7 +290,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFVSCHEDULE($expectedResult, ...$args)
+    public function testFVSCHEDULE($expectedResult, ...$args): void
     {
         $result = Financial::FVSCHEDULE(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -306,7 +306,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testINTRATE($expectedResult, ...$args)
+    public function testINTRATE($expectedResult, ...$args): void
     {
         $result = Financial::INTRATE(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -322,7 +322,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIPMT($expectedResult, ...$args)
+    public function testIPMT($expectedResult, ...$args): void
     {
         $result = Financial::IPMT(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -338,7 +338,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIRR($expectedResult, ...$args)
+    public function testIRR($expectedResult, ...$args): void
     {
         $result = Financial::IRR(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -354,7 +354,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testISPMT($expectedResult, ...$args)
+    public function testISPMT($expectedResult, ...$args): void
     {
         $result = Financial::ISPMT(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -370,7 +370,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMIRR($expectedResult, ...$args)
+    public function testMIRR($expectedResult, ...$args): void
     {
         $result = Financial::MIRR(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -386,7 +386,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNOMINAL($expectedResult, ...$args)
+    public function testNOMINAL($expectedResult, ...$args): void
     {
         $result = Financial::NOMINAL(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -402,7 +402,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNPER($expectedResult, ...$args)
+    public function testNPER($expectedResult, ...$args): void
     {
         $result = Financial::NPER(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -418,7 +418,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNPV($expectedResult, ...$args)
+    public function testNPV($expectedResult, ...$args): void
     {
         $result = Financial::NPV(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -434,7 +434,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPRICE($expectedResult, ...$args)
+    public function testPRICE($expectedResult, ...$args): void
     {
         $result = Financial::PRICE(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
@@ -450,7 +450,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPRICE3($expectedResult, ...$args)
+    public function testPRICE3($expectedResult, ...$args): void
     {
         // These results (PRICE function with basis codes 2 and 3)
         // agree with published algorithm, LibreOffice, and Gnumeric.
@@ -469,7 +469,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPRICEDISC($expectedResult, array $args)
+    public function testPRICEDISC($expectedResult, array $args): void
     {
         $result = Financial::PRICEDISC(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -485,7 +485,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPV($expectedResult, array $args)
+    public function testPV($expectedResult, array $args): void
     {
         $result = Financial::PV(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -501,7 +501,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testRATE($expectedResult, ...$args)
+    public function testRATE($expectedResult, ...$args): void
     {
         $result = Financial::RATE(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -518,7 +518,7 @@ class FinancialTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $message
      */
-    public function testXIRR($expectedResult, $message, ...$args)
+    public function testXIRR($expectedResult, $message, ...$args): void
     {
         $result = Financial::XIRR(...$args);
         if (is_numeric($result) && is_numeric($expectedResult)) {
@@ -543,7 +543,7 @@ class FinancialTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $message
      */
-    public function testXNPV($expectedResult, $message, ...$args)
+    public function testXNPV($expectedResult, $message, ...$args): void
     {
         $result = Financial::XNPV(...$args);
         if (is_numeric($result) && is_numeric($expectedResult)) {
@@ -567,7 +567,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPDURATION($expectedResult, array $args)
+    public function testPDURATION($expectedResult, array $args): void
     {
         $result = Financial::PDURATION(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -583,7 +583,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testRRI($expectedResult, array $args)
+    public function testRRI($expectedResult, array $args): void
     {
         $result = Financial::RRI(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -599,7 +599,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSLN($expectedResult, array $args)
+    public function testSLN($expectedResult, array $args): void
     {
         $result = Financial::SLN(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
@@ -615,7 +615,7 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSYD($expectedResult, array $args)
+    public function testSYD($expectedResult, array $args): void
     {
         $result = Financial::SYD(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);

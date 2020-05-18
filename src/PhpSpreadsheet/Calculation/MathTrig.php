@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use Exception;
 use Matrix\Exception as MatrixException;
 use Matrix\Matrix;
 
@@ -68,7 +69,7 @@ class MathTrig
 
         try {
             $arabic = self::calculateArabic(str_split($roman));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return Functions::VALUE(); // Invalid character detected
         }
 
@@ -82,7 +83,6 @@ class MathTrig
     /**
      * Recursively calculate the arabic value of a roman numeral.
      *
-     * @param array $roman
      * @param int $sum
      * @param int $subtract
      *
@@ -102,7 +102,7 @@ class MathTrig
 
         $numeral = array_shift($roman);
         if (!isset($lookup[$numeral])) {
-            throw new \Exception('Invalid character detected');
+            throw new Exception('Invalid character detected');
         }
 
         $arabic = $lookup[$numeral];
@@ -618,7 +618,7 @@ class MathTrig
             $myCountedFactors = array_count_values($myFactors);
             $myPoweredFactors = [];
             foreach ($myCountedFactors as $myCountedFactor => $myCountedPower) {
-                $myPoweredFactors[$myCountedFactor] = pow($myCountedFactor, $myCountedPower);
+                $myPoweredFactors[$myCountedFactor] = $myCountedFactor ** $myCountedPower;
             }
             foreach ($myPoweredFactors as $myPoweredValue => $myPoweredFactor) {
                 if (isset($allPoweredFactors[$myPoweredValue])) {
@@ -986,7 +986,7 @@ class MathTrig
         }
 
         // Return
-        $result = pow($x, $y);
+        $result = $x ** $y;
 
         return (!is_nan($result) && !is_infinite($result)) ? $result : Functions::NAN();
     }
@@ -1139,10 +1139,10 @@ class MathTrig
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
             if ($number < 0.0) {
-                return round($number - 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_DOWN);
+                return round($number - 0.5 * 0.1 ** $digits, $digits, PHP_ROUND_HALF_DOWN);
             }
 
-            return round($number + 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_DOWN);
+            return round($number + 0.5 * 0.1 ** $digits, $digits, PHP_ROUND_HALF_DOWN);
         }
 
         return Functions::VALUE();
@@ -1165,10 +1165,10 @@ class MathTrig
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
             if ($number < 0.0) {
-                return round($number + 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_UP);
+                return round($number + 0.5 * 0.1 ** $digits, $digits, PHP_ROUND_HALF_UP);
             }
 
-            return round($number - 0.5 * pow(0.1, $digits), $digits, PHP_ROUND_HALF_UP);
+            return round($number - 0.5 * 0.1 ** $digits, $digits, PHP_ROUND_HALF_UP);
         }
 
         return Functions::VALUE();
@@ -1179,9 +1179,6 @@ class MathTrig
      *
      * Returns the sum of a power series
      *
-     * @param float $x Input value to the power series
-     * @param float $n Initial power to which you want to raise $x
-     * @param float $m Step by which to increase $n for each term in the series
      * @param array of mixed Data Series
      *
      * @return float|string The result, or a string containing an error
@@ -1203,7 +1200,7 @@ class MathTrig
             foreach ($aArgs as $arg) {
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $returnValue += $arg * pow($x, $n + ($m * $i++));
+                    $returnValue += $arg * $x ** ($n + ($m * $i++));
                 } else {
                     return Functions::VALUE();
                 }
@@ -1445,7 +1442,6 @@ class MathTrig
      *    @category Mathematical and Trigonometric Functions
      *
      * @param mixed $args Data values
-     * @param string $condition the criteria that defines which cells will be summed
      *
      * @return float
      */
@@ -1663,7 +1659,7 @@ class MathTrig
         $digits = floor($digits);
 
         // Truncate
-        $adjust = pow(10, $digits);
+        $adjust = 10 ** $digits;
 
         if (($digits > 0) && (rtrim((int) ((abs($value) - abs((int) $value)) * $adjust), '0') < $adjust / 10)) {
             return $value;

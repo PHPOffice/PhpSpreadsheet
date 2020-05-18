@@ -33,10 +33,10 @@ class ImCosTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMCOS($expectedResult, $value)
+    public function testIMCOS($expectedResult, $value): void
     {
         $result = Engineering::IMCOS($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );

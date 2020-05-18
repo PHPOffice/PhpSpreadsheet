@@ -37,7 +37,7 @@ class ContentTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    public function testWriteEmptySpreadsheet()
+    public function testWriteEmptySpreadsheet(): void
     {
         $content = new Content(new Ods(new Spreadsheet()));
         $xml = $content->write();
@@ -45,7 +45,7 @@ class ContentTest extends TestCase
         self::assertXmlStringEqualsXmlFile($this->samplesPath . '/content-empty.xml', $xml);
     }
 
-    public function testWriteSpreadsheet()
+    public function testWriteSpreadsheet(): void
     {
         $workbook = new Spreadsheet();
 

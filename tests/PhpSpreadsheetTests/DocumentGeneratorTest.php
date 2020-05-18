@@ -12,9 +12,6 @@ class DocumentGeneratorTest extends TestCase
 {
     /**
      * @dataProvider providerGenerateFunctionListByName
-     *
-     * @param array $phpSpreadsheetFunctions
-     * @param string $expected
      */
     public function testGenerateFunctionListByName(array $phpSpreadsheetFunctions, string $expected): void
     {
@@ -23,9 +20,6 @@ class DocumentGeneratorTest extends TestCase
 
     /**
      * @dataProvider providerGenerateFunctionListByCategory
-     *
-     * @param array $phpSpreadsheetFunctions
-     * @param string $expected
      */
     public function testGenerateFunctionListByCategory(array $phpSpreadsheetFunctions, string $expected): void
     {

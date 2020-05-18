@@ -20,7 +20,7 @@ class PrintAreaTest extends AbstractFunctional
      *
      * @param string $format
      */
-    public function testPageSetup($format)
+    public function testPageSetup($format): void
     {
         // Create new workbook with 3 sheets and different print areas
         $spreadsheet = new Spreadsheet();
@@ -35,7 +35,7 @@ class PrintAreaTest extends AbstractFunctional
         $worksheet4 = $spreadsheet->createSheet()->setTitle('Sheet 4');
         $worksheet4->getPageSetup()->setPrintArea('A4:B4,D1:E4');
 
-        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function (BaseReader $reader) {
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function (BaseReader $reader): void {
             $reader->setLoadSheetsOnly(['Sheet 1', 'Sheet 3', 'Sheet 4']);
         });
 

@@ -19,7 +19,7 @@ class File
      *
      * @param bool $useUploadTempDir Use File Upload Temporary directory (true or false)
      */
-    public static function setUseUploadTempDirectory($useUploadTempDir)
+    public static function setUseUploadTempDirectory($useUploadTempDir): void
     {
         self::$useUploadTempDirectory = (bool) $useUploadTempDir;
     }
@@ -129,7 +129,7 @@ class File
      *
      * @param string $filename
      */
-    public static function assertFile($filename)
+    public static function assertFile($filename): void
     {
         if (!is_file($filename)) {
             throw new InvalidArgumentException('File "' . $filename . '" does not exist.');

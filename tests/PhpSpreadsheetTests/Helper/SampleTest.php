@@ -14,10 +14,10 @@ class SampleTest extends TestCase
      *
      * @param mixed $sample
      */
-    public function testSample($sample)
+    public function testSample($sample): void
     {
         // Suppress output to console
-        $this->setOutputCallback(function () {
+        $this->setOutputCallback(function (): void {
         });
 
         require $sample;

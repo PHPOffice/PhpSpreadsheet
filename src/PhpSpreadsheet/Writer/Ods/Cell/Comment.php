@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
  */
 class Comment
 {
-    public static function write(XMLWriter $objWriter, Cell $cell)
+    public static function write(XMLWriter $objWriter, Cell $cell): void
     {
         $comments = $cell->getWorksheet()->getComments();
         if (!isset($comments[$cell->getCoordinate()])) {

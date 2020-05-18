@@ -31,14 +31,14 @@ class ExactTest extends TestCase
      * @param mixed $expectedResult
      * @param array $args
      */
-    public function testEXACT($expectedResult, ...$args)
+    public function testEXACT($expectedResult, ...$args): void
     {
         StringHelper::setDecimalSeparator('.');
         StringHelper::setThousandsSeparator(' ');
         StringHelper::setCurrencyCode('$');
 
         $result = TextData::EXACT(...$args);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**

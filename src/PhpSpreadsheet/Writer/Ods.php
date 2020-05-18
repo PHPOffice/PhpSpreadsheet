@@ -34,8 +34,6 @@ class Ods extends BaseWriter
 
     /**
      * Create a new Ods.
-     *
-     * @param Spreadsheet $spreadsheet
      */
     public function __construct(Spreadsheet $spreadsheet)
     {
@@ -77,7 +75,7 @@ class Ods extends BaseWriter
      *
      * @param resource|string $pFilename
      */
-    public function save($pFilename)
+    public function save($pFilename): void
     {
         if (!$this->spreadSheet) {
             throw new WriterException('PhpSpreadsheet object unassigned.');

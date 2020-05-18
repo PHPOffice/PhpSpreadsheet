@@ -44,7 +44,7 @@ class PolynomialBestFit extends BestFit
         $slope = $this->getSlope();
         foreach ($slope as $key => $value) {
             if ($value != 0.0) {
-                $retVal += $value * pow($xValue, $key + 1);
+                $retVal += $value * $xValue ** ($key + 1);
             }
         }
 
@@ -121,7 +121,7 @@ class PolynomialBestFit extends BestFit
      * @param float[] $yValues The set of Y-values for this regression
      * @param float[] $xValues The set of X-values for this regression
      */
-    private function polynomialRegression($order, $yValues, $xValues)
+    private function polynomialRegression($order, $yValues, $xValues): void
     {
         // calculate sums
         $x_sum = array_sum($xValues);
@@ -144,7 +144,7 @@ class PolynomialBestFit extends BestFit
         $B = [];
         for ($i = 0; $i < $this->valueCount; ++$i) {
             for ($j = 0; $j <= $order; ++$j) {
-                $A[$i][$j] = pow($xValues[$i], $j);
+                $A[$i][$j] = $xValues[$i] ** $j;
             }
         }
         for ($i = 0; $i < $this->valueCount; ++$i) {
@@ -157,7 +157,7 @@ class PolynomialBestFit extends BestFit
         $coefficients = [];
         for ($i = 0; $i < $C->getRowDimension(); ++$i) {
             $r = $C->get($i, 0);
-            if (abs($r) <= pow(10, -9)) {
+            if (abs($r) <= 10 ** (-9)) {
                 $r = 0;
             }
             $coefficients[] = $r;

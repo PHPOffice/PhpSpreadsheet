@@ -799,7 +799,7 @@ class Engineering
             }
 
             if (abs($x) <= 30) {
-                $fResult = $fTerm = pow($x / 2, $ord) / MathTrig::FACT($ord);
+                $fResult = $fTerm = ($x / 2) ** $ord / MathTrig::FACT($ord);
                 $ordK = 1;
                 $fSqrX = ($x * $x) / 4;
                 do {
@@ -854,7 +854,7 @@ class Engineering
 
             $fResult = 0;
             if (abs($x) <= 30) {
-                $fResult = $fTerm = pow($x / 2, $ord) / MathTrig::FACT($ord);
+                $fResult = $fTerm = ($x / 2) ** $ord / MathTrig::FACT($ord);
                 $ordK = 1;
                 $fSqrX = ($x * $x) / -4;
                 do {
@@ -2357,7 +2357,7 @@ class Engineering
         } elseif (is_numeric($value)) {
             if ($value == (int) ($value)) {
                 $value = (int) ($value);
-                if (($value > pow(2, 48) - 1) || ($value < 0)) {
+                if (($value > 2 ** 48 - 1) || ($value < 0)) {
                     throw new Exception(Functions::NAN());
                 }
 
@@ -2477,7 +2477,7 @@ class Engineering
         $shiftAmount = Functions::flattenSingleValue($shiftAmount);
 
         $result = $number << $shiftAmount;
-        if ($result > pow(2, 48) - 1) {
+        if ($result > 2 ** 48 - 1) {
             return Functions::NAN();
         }
 

@@ -10,7 +10,7 @@ class CsvContiguousTest extends TestCase
 {
     private $inputFileName = 'samples/Reader/sampleData/example2.csv';
 
-    public function testContiguous()
+    public function testContiguous(): void
     {
         // Create a new Reader of the type defined in $inputFileType
         $reader = new Csv();
@@ -54,7 +54,7 @@ class CsvContiguousTest extends TestCase
         self::assertEquals(-20.1, $sheet->getCell('C6')->getValue());
     }
 
-    public function testContiguous2()
+    public function testContiguous2(): void
     {
         // Create a new Reader of the type defined in $inputFileType
         $reader = new Csv();

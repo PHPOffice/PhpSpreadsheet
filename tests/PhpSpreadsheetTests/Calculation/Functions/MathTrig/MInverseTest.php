@@ -18,10 +18,10 @@ class MInverseTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMINVERSE($expectedResult, ...$args)
+    public function testMINVERSE($expectedResult, ...$args): void
     {
         $result = MathTrig::MINVERSE(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerMINVERSE()

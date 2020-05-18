@@ -194,8 +194,6 @@ class Border extends Supervisor
     /**
      * Set Border Color.
      *
-     * @param Color $pValue
-     *
      * @return $this
      */
     public function setColor(Color $pValue)

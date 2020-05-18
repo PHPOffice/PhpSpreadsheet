@@ -33,10 +33,10 @@ class ImConjugateTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMCONJUGATE($expectedResult, $value)
+    public function testIMCONJUGATE($expectedResult, $value): void
     {
         $result = Engineering::IMCONJUGATE($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );

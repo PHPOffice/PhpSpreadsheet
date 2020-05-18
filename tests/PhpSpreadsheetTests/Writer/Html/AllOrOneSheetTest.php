@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
+use DOMDocument;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
@@ -10,7 +11,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class AllOrOneSheetTest extends Functional\AbstractFunctional
 {
-    public function testWriteAllSheets()
+    public function testWriteAllSheets(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet1 = $spreadsheet->getActiveSheet();
@@ -23,7 +24,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $writer->writeAllSheets();
         self::assertTrue($writer->getGenerateSheetNavigationBlock());
         $html = $writer->generateHTMLAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('ul'); // sheet navigation
@@ -41,7 +42,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function testWriteAllSheetsNoNav()
+    public function testWriteAllSheetsNoNav(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet1 = $spreadsheet->getActiveSheet();
@@ -53,7 +54,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $writer->writeAllSheets();
         $writer->setGenerateSheetNavigationBlock(false);
         $html = $writer->generateHTMLAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('ul'); // sheet navigation
@@ -71,7 +72,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function testWriteAllSheetsPdf()
+    public function testWriteAllSheetsPdf(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet1 = $spreadsheet->getActiveSheet();
@@ -82,7 +83,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $writer = new Mpdf($spreadsheet);
         $writer->writeAllSheets();
         $html = $writer->generateHTMLAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('ul'); // sheet navigation
@@ -99,7 +100,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         self::assertEquals('sheet1 gridlines', $tbl->item(0)->getAttribute('class'));
     }
 
-    public function testWriteOneSheet()
+    public function testWriteOneSheet(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet1 = $spreadsheet->getActiveSheet();
@@ -110,7 +111,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $writer = new Html($spreadsheet);
         $writer->setSheetIndex(1);
         $html = $writer->generateHTMLAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('ul'); // sheet navigation
@@ -124,7 +125,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function testPageBreak()
+    public function testPageBreak(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -141,7 +142,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $writer->writeAllSheets();
 
         $html = $writer->generateHTMLAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('div');
@@ -163,7 +164,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function testTcpdfPageBreak()
+    public function testTcpdfPageBreak(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet1 = $spreadsheet->getActiveSheet();
@@ -177,7 +178,7 @@ class AllOrOneSheetTest extends Functional\AbstractFunctional
         $writer = new Tcpdf($spreadsheet);
         $writer->writeAllSheets();
         $html = $writer->generateHtmlAll();
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
         $divs = $body->getElementsByTagName('div');

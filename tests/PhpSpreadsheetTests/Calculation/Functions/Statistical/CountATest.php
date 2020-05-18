@@ -18,10 +18,10 @@ class CountATest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUNTA($expectedResult, ...$args)
+    public function testCOUNTA($expectedResult, ...$args): void
     {
         $result = Statistical::COUNTA(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCOUNTA()

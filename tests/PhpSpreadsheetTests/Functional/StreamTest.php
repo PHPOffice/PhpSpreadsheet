@@ -24,8 +24,6 @@ class StreamTest extends TestCase
 
     /**
      * @dataProvider providerFormats
-     *
-     * @param string $format
      */
     public function testAllWritersCanWriteToStream(string $format): void
     {

@@ -18,10 +18,10 @@ class ProductTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPRODUCT($expectedResult, ...$args)
+    public function testPRODUCT($expectedResult, ...$args): void
     {
         $result = MathTrig::PRODUCT(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerPRODUCT()

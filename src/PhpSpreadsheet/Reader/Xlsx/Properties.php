@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Document\Properties as DocumentProperties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Settings;
+use SimpleXMLElement;
 
 class Properties
 {
@@ -27,7 +28,7 @@ class Properties
         );
     }
 
-    public function readCoreProperties($propertyData)
+    public function readCoreProperties($propertyData): void
     {
         $xmlCore = $this->extractPropertyData($propertyData);
 
@@ -48,7 +49,7 @@ class Properties
         }
     }
 
-    public function readExtendedProperties($propertyData)
+    public function readExtendedProperties($propertyData): void
     {
         $xmlCore = $this->extractPropertyData($propertyData);
 
@@ -62,13 +63,13 @@ class Properties
         }
     }
 
-    public function readCustomProperties($propertyData)
+    public function readCustomProperties($propertyData): void
     {
         $xmlCore = $this->extractPropertyData($propertyData);
 
         if (is_object($xmlCore)) {
             foreach ($xmlCore as $xmlProperty) {
-                /** @var \SimpleXMLElement $xmlProperty */
+                /** @var SimpleXMLElement $xmlProperty */
                 $cellDataOfficeAttributes = $xmlProperty->attributes();
                 if (isset($cellDataOfficeAttributes['name'])) {
                     $propertyName = (string) $cellDataOfficeAttributes['name'];

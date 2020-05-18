@@ -30,10 +30,10 @@ class RightTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testRIGHT($expectedResult, ...$args)
+    public function testRIGHT($expectedResult, ...$args): void
     {
         $result = TextData::RIGHT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerRIGHT()

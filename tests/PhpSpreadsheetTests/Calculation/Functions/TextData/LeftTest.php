@@ -30,10 +30,10 @@ class LeftTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testLEFT($expectedResult, ...$args)
+    public function testLEFT($expectedResult, ...$args): void
     {
         $result = TextData::LEFT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerLEFT()

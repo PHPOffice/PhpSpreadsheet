@@ -125,7 +125,7 @@ class FormulaParser
     /**
      * Parse to tokens.
      */
-    private function parseToTokens()
+    private function parseToTokens(): void
     {
         // No attempt is made to verify formulas; assumes formulas are derived from Excel, where
         // they can only exist if valid; stack overflows/underflows sunk as nulls without exceptions.

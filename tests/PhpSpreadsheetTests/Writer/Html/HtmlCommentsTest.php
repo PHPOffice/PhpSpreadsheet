@@ -46,7 +46,7 @@ class HtmlCommentsTest extends Functional\AbstractFunctional
      *
      * @param mixed $richText
      */
-    public function testComments($richText)
+    public function testComments($richText): void
     {
         $this->spreadsheet = new Spreadsheet();
 

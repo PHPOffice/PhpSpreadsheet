@@ -18,10 +18,10 @@ class SumProductTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSUMPRODUCT($expectedResult, ...$args)
+    public function testSUMPRODUCT($expectedResult, ...$args): void
     {
         $result = MathTrig::SUMPRODUCT(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSUMPRODUCT()

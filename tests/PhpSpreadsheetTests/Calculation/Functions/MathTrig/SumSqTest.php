@@ -18,10 +18,10 @@ class SumSqTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSUMSQ($expectedResult, ...$args)
+    public function testSUMSQ($expectedResult, ...$args): void
     {
         $result = MathTrig::SUMSQ(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSUMSQ()

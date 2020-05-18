@@ -23,7 +23,6 @@ class Worksheet extends WriterPart
     /**
      * Write worksheet to XML format.
      *
-     * @param PhpspreadsheetWorksheet $pSheet
      * @param string[] $pStringTable
      * @param bool $includeCharts Flag indicating if we should write charts
      *
@@ -132,7 +131,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeSheetPr(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeSheetPr(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // sheetPr
         $objWriter->startElement('sheetPr');
@@ -178,7 +177,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeDimension(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeDimension(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // dimension
         $objWriter->startElement('dimension');
@@ -192,7 +191,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeSheetViews(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeSheetViews(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // sheetViews
         $objWriter->startElement('sheetViews');
@@ -306,7 +305,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeSheetFormatPr(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeSheetFormatPr(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // sheetFormatPr
         $objWriter->startElement('sheetFormatPr');
@@ -357,7 +356,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeCols(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeCols(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // cols
         if (count($pSheet->getColumnDimensions()) > 0) {
@@ -421,7 +420,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeSheetProtection(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeSheetProtection(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // sheetProtection
         $objWriter->startElement('sheetProtection');
@@ -504,7 +503,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeConditionalFormatting(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeConditionalFormatting(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // Conditional id
         $id = 1;
@@ -557,7 +556,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeDataValidations(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeDataValidations(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // Datavalidation collection
         $dataValidationCollection = $pSheet->getDataValidationCollection();
@@ -623,7 +622,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeHyperlinks(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeHyperlinks(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // Hyperlink collection
         $hyperlinkCollection = $pSheet->getHyperlinkCollection();
@@ -664,7 +663,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeProtectedRanges(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeProtectedRanges(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         if (count($pSheet->getProtectedCells()) > 0) {
             // protectedRanges
@@ -692,7 +691,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeMergeCells(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeMergeCells(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         if (count($pSheet->getMergeCells()) > 0) {
             // mergeCells
@@ -716,7 +715,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writePrintOptions(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writePrintOptions(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // printOptions
         $objWriter->startElement('printOptions');
@@ -741,7 +740,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writePageMargins(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writePageMargins(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // pageMargins
         $objWriter->startElement('pageMargins');
@@ -760,7 +759,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeAutoFilter(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeAutoFilter(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         $autoFilterRange = $pSheet->getAutoFilter()->getRange();
         if (!empty($autoFilterRange)) {
@@ -850,7 +849,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writePageSetup(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writePageSetup(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // pageSetup
         $objWriter->startElement('pageSetup');
@@ -889,7 +888,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeHeaderFooter(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeHeaderFooter(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // headerFooter
         $objWriter->startElement('headerFooter');
@@ -913,7 +912,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeBreaks(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeBreaks(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // Get row and column breaks
         $aRowBreaks = [];
@@ -970,7 +969,7 @@ class Worksheet extends WriterPart
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      * @param string[] $pStringTable String table
      */
-    private function writeSheetData(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, array $pStringTable)
+    private function writeSheetData(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, array $pStringTable): void
     {
         // Flipped stringtable, for faster index searching
         $aFlippedStringTable = $this->getParentWriter()->getWriterPart('stringtable')->flipStringTable($pStringTable);
@@ -1049,8 +1048,6 @@ class Worksheet extends WriterPart
     }
 
     /**
-     * @param XMLWriter $objWriter
-     * @param string $mappedType
      * @param RichText|string $cellValue
      */
     private function writeCellInlineStr(XMLWriter $objWriter, string $mappedType, $cellValue): void
@@ -1066,8 +1063,6 @@ class Worksheet extends WriterPart
     }
 
     /**
-     * @param XMLWriter $objWriter
-     * @param string $mappedType
      * @param RichText|string $cellValue
      * @param string[] $pFlippedStringTable
      */
@@ -1082,7 +1077,6 @@ class Worksheet extends WriterPart
     }
 
     /**
-     * @param XMLWriter $objWriter
      * @param float|int $cellValue
      */
     private function writeCellNumeric(XMLWriter $objWriter, $cellValue): void
@@ -1156,7 +1150,7 @@ class Worksheet extends WriterPart
      * @param string $pCellAddress Cell Address
      * @param string[] $pFlippedStringTable String table (flipped), for faster index searching
      */
-    private function writeCell(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, string $pCellAddress, array $pFlippedStringTable)
+    private function writeCell(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, string $pCellAddress, array $pFlippedStringTable): void
     {
         // Cell
         $pCell = $pSheet->getCell($pCellAddress);
@@ -1210,7 +1204,7 @@ class Worksheet extends WriterPart
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      */
-    private function writeDrawings(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, $includeCharts = false)
+    private function writeDrawings(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, $includeCharts = false): void
     {
         $unparsedLoadedData = $pSheet->getParent()->getUnparsedLoadedData();
         $hasUnparsedDrawing = isset($unparsedLoadedData['sheets'][$pSheet->getCodeName()]['drawingOriginalIds']);
@@ -1239,7 +1233,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeLegacyDrawing(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeLegacyDrawing(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // If sheet contains comments, add the relationships
         if (count($pSheet->getComments()) > 0) {
@@ -1255,7 +1249,7 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      */
-    private function writeLegacyDrawingHF(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeLegacyDrawingHF(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         // If sheet contains images, add the relationships
         if (count($pSheet->getHeaderFooter()->getImages()) > 0) {
@@ -1265,7 +1259,7 @@ class Worksheet extends WriterPart
         }
     }
 
-    private function writeAlternateContent(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet)
+    private function writeAlternateContent(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet): void
     {
         if (empty($pSheet->getParent()->getUnparsedLoadedData()['sheets'][$pSheet->getCodeName()]['AlternateContents'])) {
             return;

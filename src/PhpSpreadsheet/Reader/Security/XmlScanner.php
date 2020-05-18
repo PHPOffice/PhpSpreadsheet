@@ -61,7 +61,7 @@ class XmlScanner
         return false;
     }
 
-    private function disableEntityLoaderCheck()
+    private function disableEntityLoaderCheck(): void
     {
         if (Settings::getLibXmlDisableEntityLoader()) {
             $libxmlDisableEntityLoaderValue = libxml_disable_entity_loader(true);
@@ -72,7 +72,7 @@ class XmlScanner
         }
     }
 
-    public static function shutdown()
+    public static function shutdown(): void
     {
         if (self::$libxmlDisableEntityLoaderValue !== null) {
             libxml_disable_entity_loader(self::$libxmlDisableEntityLoaderValue);
@@ -85,7 +85,7 @@ class XmlScanner
         self::shutdown();
     }
 
-    public function setAdditionalCallback(callable $callback)
+    public function setAdditionalCallback(callable $callback): void
     {
         $this->callback = $callback;
     }

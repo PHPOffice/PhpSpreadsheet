@@ -24,10 +24,10 @@ class DateDifTest extends TestCase
      * @param $endDate
      * @param $unit
      */
-    public function testDATEDIF($expectedResult, $startDate, $endDate, $unit)
+    public function testDATEDIF($expectedResult, $startDate, $endDate, $unit): void
     {
         $result = DateTime::DATEDIF($startDate, $endDate, $unit);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDATEDIF()

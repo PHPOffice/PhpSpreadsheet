@@ -20,7 +20,7 @@ class RichText implements IComparable
      *
      * @param Cell $pCell
      */
-    public function __construct(Cell $pCell = null)
+    public function __construct(?Cell $pCell = null)
     {
         // Initialise variables
         $this->richTextElements = [];

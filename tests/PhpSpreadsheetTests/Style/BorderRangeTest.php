@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class BorderRangeTest extends TestCase
 {
-    public function testBorderRangeInAction()
+    public function testBorderRangeInAction(): void
     {
         // testcase for the initial bug problem: setting border+color fails
         // set red borders aroundlA1:B3 square. Verify that the borders set are actually correct
@@ -62,7 +62,7 @@ class BorderRangeTest extends TestCase
         }
     }
 
-    public function testBorderRangeDirectly()
+    public function testBorderRangeDirectly(): void
     {
         // testcase for the underlying problem directly
         $spreadsheet = new Spreadsheet();

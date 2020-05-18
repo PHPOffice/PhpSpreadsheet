@@ -22,10 +22,10 @@ class HourTest extends TestCase
      * @param mixed $expectedResult
      * @param $dateTimeValue
      */
-    public function testHOUR($expectedResult, $dateTimeValue)
+    public function testHOUR($expectedResult, $dateTimeValue): void
     {
         $result = DateTime::HOUROFDAY($dateTimeValue);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerHOUR()

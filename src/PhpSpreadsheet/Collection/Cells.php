@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Collection;
 
+use Generator;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -61,7 +62,6 @@ class Cells
      * Initialise this new cell collection.
      *
      * @param Worksheet $parent The worksheet for this cell collection
-     * @param CacheInterface $cache
      */
     public function __construct(Worksheet $parent, CacheInterface $cache)
     {
@@ -117,7 +117,7 @@ class Cells
      *
      * @param string $pCoord Coordinate of the cell to delete
      */
-    public function delete($pCoord)
+    public function delete($pCoord): void
     {
         if ($pCoord === $this->currentCoordinate && $this->currentCell !== null) {
             $this->currentCell->detach();
@@ -346,7 +346,7 @@ class Cells
      *
      * @param string $row Row number to remove
      */
-    public function removeRow($row)
+    public function removeRow($row): void
     {
         foreach ($this->getCoordinates() as $coord) {
             $c = '';
@@ -364,7 +364,7 @@ class Cells
      *
      * @param string $column Column ID to remove
      */
-    public function removeColumn($column)
+    public function removeColumn($column): void
     {
         foreach ($this->getCoordinates() as $coord) {
             $c = '';
@@ -381,7 +381,7 @@ class Cells
      * Store cell data in cache for the current cell object if it's "dirty",
      * and the 'nullify' the current cell object.
      */
-    private function storeCurrentCell()
+    private function storeCurrentCell(): void
     {
         if ($this->currentCellIsDirty && !empty($this->currentCoordinate)) {
             $this->currentCell->detach();
@@ -459,7 +459,7 @@ class Cells
     /**
      * Clear the cell collection and disconnect from our parent.
      */
-    public function unsetWorksheetCells()
+    public function unsetWorksheetCells(): void
     {
         if ($this->currentCell !== null) {
             $this->currentCell->detach();
@@ -487,7 +487,7 @@ class Cells
     /**
      * Returns all known cache keys.
      *
-     * @return \Generator|string[]
+     * @return Generator|string[]
      */
     private function getAllCacheKeys()
     {

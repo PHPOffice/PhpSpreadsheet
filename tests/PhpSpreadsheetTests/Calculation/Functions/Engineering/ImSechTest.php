@@ -33,10 +33,10 @@ class ImSechTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMSECH($expectedResult, $value)
+    public function testIMSECH($expectedResult, $value): void
     {
         $result = Engineering::IMSECH($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );

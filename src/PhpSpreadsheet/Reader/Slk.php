@@ -190,7 +190,6 @@ class Slk extends BaseReader
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
      * @param string $pFilename
-     * @param Spreadsheet $spreadsheet
      *
      * @return Spreadsheet
      */

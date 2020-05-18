@@ -30,10 +30,10 @@ class LocaleFloatsTest extends TestCase
         }
     }
 
-    public function testLocaleFloatsCorrectlyConvertedByWriter()
+    public function testLocaleFloatsCorrectlyConvertedByWriter(): void
     {
         if (!$this->localeAdjusted) {
-            $this->markTestSkipped('Unable to set locale for testing.');
+            self::markTestSkipped('Unable to set locale for testing.');
         }
 
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
@@ -52,8 +52,8 @@ class LocaleFloatsTest extends TestCase
         ob_start();
         var_dump($result);
         preg_match('/(?:double|float)\(([^\)]+)\)/mui', ob_get_clean(), $matches);
-        $this->assertArrayHasKey(1, $matches);
+        self::assertArrayHasKey(1, $matches);
         $actual = $matches[1];
-        $this->assertEquals('1,1', $actual);
+        self::assertEquals('1,1', $actual);
     }
 }

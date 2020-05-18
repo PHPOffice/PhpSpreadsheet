@@ -397,10 +397,10 @@ class Statistical
             for ($i = 1; $i <= $n; ++$i) {
                 $divisor *= ($a + $i);
             }
-            $summer += (pow($x, $n) / $divisor);
+            $summer += ($x ** $n / $divisor);
         }
 
-        return pow($x, $a) * exp(0 - $x) * $summer;
+        return $x ** $a * exp(0 - $x) * $summer;
     }
 
     //
@@ -874,13 +874,13 @@ class Statistical
                 if ($cumulative) {
                     $summer = 0;
                     for ($i = 0; $i <= $value; ++$i) {
-                        $summer += MathTrig::COMBIN($trials, $i) * pow($probability, $i) * pow(1 - $probability, $trials - $i);
+                        $summer += MathTrig::COMBIN($trials, $i) * $probability ** $i * (1 - $probability) ** ($trials - $i);
                     }
 
                     return $summer;
                 }
 
-                return MathTrig::COMBIN($trials, $value) * pow($probability, $value) * pow(1 - $probability, $trials - $value);
+                return MathTrig::COMBIN($trials, $value) * $probability ** $value * (1 - $probability) ** ($trials - $value);
             }
         }
 
@@ -1320,7 +1320,7 @@ class Statistical
                 $t = sqrt(log(1 / ($alpha * $alpha)));
                 $trialsApprox = 0 - ($t + (2.515517 + 0.802853 * $t + 0.010328 * $t * $t) / (1 + 1.432788 * $t + 0.189269 * $t * $t + 0.001308 * $t * $t * $t));
             } else {
-                $t = sqrt(log(1 / pow(1 - $alpha, 2)));
+                $t = sqrt(log(1 / (1 - $alpha) ** 2));
                 $trialsApprox = $t - (2.515517 + 0.802853 * $t + 0.010328 * $t * $t) / (1 + 1.432788 * $t + 0.189269 * $t * $t + 0.001308 * $t * $t * $t);
             }
 
@@ -1441,9 +1441,9 @@ class Statistical
                 }
                 if ((is_numeric($arg)) && (!is_string($arg))) {
                     if ($returnValue === null) {
-                        $returnValue = pow(($arg - $aMean), 2);
+                        $returnValue = ($arg - $aMean) ** 2;
                     } else {
-                        $returnValue += pow(($arg - $aMean), 2);
+                        $returnValue += ($arg - $aMean) ** 2;
                     }
                     ++$aCount;
                 }
@@ -1603,7 +1603,7 @@ class Statistical
                     return self::incompleteGamma($a, $value / $b) / self::gamma($a);
                 }
 
-                return (1 / (pow($b, $a) * self::gamma($a))) * pow($value, $a - 1) * exp(0 - ($value / $b));
+                return (1 / ($b ** $a * self::gamma($a))) * $value ** ($a - 1) * exp(0 - ($value / $b));
             }
         }
 
@@ -1721,7 +1721,7 @@ class Statistical
         if (is_numeric($aMean) && ($aMean > 0)) {
             $aCount = self::COUNT($aArgs);
             if (self::MIN($aArgs) > 0) {
-                return pow($aMean, (1 / $aCount));
+                return $aMean ** (1 / $aCount);
             }
         }
 
@@ -1900,7 +1900,7 @@ class Statistical
                 } else {
                     // Is it a numeric value?
                     if ((is_numeric($arg)) && (!is_string($arg))) {
-                        $summer += pow((($arg - $mean) / $stdDev), 4);
+                        $summer += (($arg - $mean) / $stdDev) ** 4;
                         ++$count;
                     }
                 }
@@ -1908,7 +1908,7 @@ class Statistical
 
             // Return
             if ($count > 3) {
-                return $summer * ($count * ($count + 1) / (($count - 1) * ($count - 2) * ($count - 3))) - (3 * pow($count - 1, 2) / (($count - 2) * ($count - 3)));
+                return $summer * ($count * ($count + 1) / (($count - 1) * ($count - 2) * ($count - 3))) - (3 * ($count - 1) ** 2 / (($count - 2) * ($count - 3)));
             }
         }
 
@@ -1927,7 +1927,6 @@ class Statistical
      * @category Statistical Functions
      *
      * @param mixed $args Data values
-     * @param int $entry Position (ordered from the largest) in the array or range of data to return
      *
      * @return float|string The result, or a string containing an error
      */
@@ -2013,9 +2012,9 @@ class Statistical
         }
 
         return [
-                $bestFitLinear->getSlope(),
-                $bestFitLinear->getIntersect(),
-            ];
+            $bestFitLinear->getSlope(),
+            $bestFitLinear->getIntersect(),
+        ];
     }
 
     /**
@@ -2078,9 +2077,9 @@ class Statistical
         }
 
         return [
-                $bestFitExponential->getSlope(),
-                $bestFitExponential->getIntersect(),
-            ];
+            $bestFitExponential->getSlope(),
+            $bestFitExponential->getIntersect(),
+        ];
     }
 
     /**
@@ -2579,7 +2578,7 @@ class Statistical
                 }
             }
 
-            return (MathTrig::COMBIN($failures + $successes - 1, $successes - 1)) * (pow($probability, $successes)) * (pow(1 - $probability, $failures));
+            return (MathTrig::COMBIN($failures + $successes - 1, $successes - 1)) * ($probability ** $successes) * ((1 - $probability) ** $failures);
         }
 
         return Functions::VALUE();
@@ -2614,7 +2613,7 @@ class Statistical
                     return 0.5 * (1 + Engineering::erfVal(($value - $mean) / ($stdDev * sqrt(2))));
                 }
 
-                return (1 / (self::SQRT2PI * $stdDev)) * exp(0 - (pow($value - $mean, 2) / (2 * ($stdDev * $stdDev))));
+                return (1 / (self::SQRT2PI * $stdDev)) * exp(0 - (($value - $mean) ** 2 / (2 * ($stdDev * $stdDev))));
             }
         }
 
@@ -2695,7 +2694,6 @@ class Statistical
      * @category Statistical Functions
      *
      * @param mixed $args Data values
-     * @param float $entry Percentile value in the range 0..1, inclusive.
      *
      * @return float|string The result, or a string containing an error
      */
@@ -2841,13 +2839,13 @@ class Statistical
                     $summer = 0;
                     $floor = floor($value);
                     for ($i = 0; $i <= $floor; ++$i) {
-                        $summer += pow($mean, $i) / MathTrig::FACT($i);
+                        $summer += $mean ** $i / MathTrig::FACT($i);
                     }
 
                     return exp(0 - $mean) * $summer;
                 }
 
-                return (exp(0 - $mean) * pow($mean, $value)) / MathTrig::FACT($value);
+                return (exp(0 - $mean) * $mean ** $value) / MathTrig::FACT($value);
             }
         }
 
@@ -2865,7 +2863,6 @@ class Statistical
      * @category Statistical Functions
      *
      * @param mixed $args Data values
-     * @param int $entry Quartile value in the range 1..3, inclusive.
      *
      * @return float|string The result, or a string containing an error
      */
@@ -2979,7 +2976,7 @@ class Statistical
             } else {
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $summer += pow((($arg - $mean) / $stdDev), 3);
+                    $summer += (($arg - $mean) / $stdDev) ** 3;
                     ++$count;
                 }
             }
@@ -3033,7 +3030,6 @@ class Statistical
      * @category Statistical Functions
      *
      * @param mixed $args Data values
-     * @param int $entry Position (ordered from the smallest) in the array or range of data to return
      *
      * @return float|string The result, or a string containing an error
      */
@@ -3126,9 +3122,9 @@ class Statistical
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
                     if ($returnValue === null) {
-                        $returnValue = pow(($arg - $aMean), 2);
+                        $returnValue = ($arg - $aMean) ** 2;
                     } else {
-                        $returnValue += pow(($arg - $aMean), 2);
+                        $returnValue += ($arg - $aMean) ** 2;
                     }
                     ++$aCount;
                 }
@@ -3178,9 +3174,9 @@ class Statistical
                             $arg = 0;
                         }
                         if ($returnValue === null) {
-                            $returnValue = pow(($arg - $aMean), 2);
+                            $returnValue = ($arg - $aMean) ** 2;
                         } else {
-                            $returnValue += pow(($arg - $aMean), 2);
+                            $returnValue += ($arg - $aMean) ** 2;
                         }
                         ++$aCount;
                     }
@@ -3226,9 +3222,9 @@ class Statistical
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
                     if ($returnValue === null) {
-                        $returnValue = pow(($arg - $aMean), 2);
+                        $returnValue = ($arg - $aMean) ** 2;
                     } else {
-                        $returnValue += pow(($arg - $aMean), 2);
+                        $returnValue += ($arg - $aMean) ** 2;
                     }
                     ++$aCount;
                 }
@@ -3277,9 +3273,9 @@ class Statistical
                             $arg = 0;
                         }
                         if ($returnValue === null) {
-                            $returnValue = pow(($arg - $aMean), 2);
+                            $returnValue = ($arg - $aMean) ** 2;
                         } else {
-                            $returnValue += pow(($arg - $aMean), 2);
+                            $returnValue += ($arg - $aMean) ** 2;
                         }
                         ++$aCount;
                     }
@@ -3491,7 +3487,6 @@ class Statistical
      * @category Statistical Functions
      *
      * @param mixed $args Data values
-     * @param float $discard Percentage to discard
      *
      * @return float|string
      */
@@ -3746,10 +3741,10 @@ class Statistical
             }
             if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
                 if ($cumulative) {
-                    return 1 - exp(0 - pow($value / $beta, $alpha));
+                    return 1 - exp(0 - ($value / $beta) ** $alpha);
                 }
 
-                return ($alpha / pow($beta, $alpha)) * pow($value, $alpha - 1) * exp(0 - pow($value / $beta, $alpha));
+                return ($alpha / $beta ** $alpha) * $value ** ($alpha - 1) * exp(0 - ($value / $beta) ** $alpha);
             }
         }
 

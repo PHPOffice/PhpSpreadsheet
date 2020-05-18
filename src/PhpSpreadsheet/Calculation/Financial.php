@@ -851,7 +851,7 @@ class Financial
                 return Functions::NAN();
             }
             //    Set Fixed Depreciation Rate
-            $fixedDepreciationRate = 1 - pow(($salvage / $cost), (1 / $life));
+            $fixedDepreciationRate = 1 - ($salvage / $cost) ** (1 / $life);
             $fixedDepreciationRate = round($fixedDepreciationRate, 3);
 
             //    Loop through each period calculating the depreciation
@@ -917,7 +917,7 @@ class Financial
                 return Functions::NAN();
             }
             //    Set Fixed Depreciation Rate
-            $fixedDepreciationRate = 1 - pow(($salvage / $cost), (1 / $life));
+            $fixedDepreciationRate = 1 - ($salvage / $cost) ** (1 / $life);
             $fixedDepreciationRate = round($fixedDepreciationRate, 3);
 
             //    Loop through each period calculating the depreciation
@@ -1021,7 +1021,7 @@ class Financial
         $dollars = floor($fractional_dollar);
         $cents = fmod($fractional_dollar, 1);
         $cents /= $fraction;
-        $cents *= pow(10, ceil(log10($fraction)));
+        $cents *= 10 ** ceil(log10($fraction));
 
         return $dollars + $cents;
     }
@@ -1059,7 +1059,7 @@ class Financial
         $dollars = floor($decimal_dollar);
         $cents = fmod($decimal_dollar, 1);
         $cents *= $fraction;
-        $cents *= pow(10, -ceil(log10($fraction)));
+        $cents *= 10 ** (-ceil(log10($fraction)));
 
         return $dollars + $cents;
     }
@@ -1090,7 +1090,7 @@ class Financial
             return Functions::NAN();
         }
 
-        return pow((1 + $nominal_rate / $npery), $npery) - 1;
+        return (1 + $nominal_rate / $npery) ** $npery - 1;
     }
 
     /**
@@ -1131,7 +1131,7 @@ class Financial
 
         // Calculate
         if ($rate !== null && $rate != 0) {
-            return -$pv * pow(1 + $rate, $nper) - $pmt * (1 + $rate * $type) * (pow(1 + $rate, $nper) - 1) / $rate;
+            return -$pv * (1 + $rate) ** $nper - $pmt * (1 + $rate * $type) * ((1 + $rate) ** $nper - 1) / $rate;
         }
 
         return -$pv - $pmt * $nper;
@@ -1400,9 +1400,9 @@ class Financial
         $npv_pos = $npv_neg = 0.0;
         foreach ($values as $i => $v) {
             if ($v >= 0) {
-                $npv_pos += $v / pow($rr, $i);
+                $npv_pos += $v / $rr ** $i;
             } else {
-                $npv_neg += $v / pow($fr, $i);
+                $npv_neg += $v / $fr ** $i;
             }
         }
 
@@ -1410,8 +1410,8 @@ class Financial
             return Functions::VALUE();
         }
 
-        $mirr = pow((-$npv_pos * pow($rr, $n))
-                / ($npv_neg * ($rr)), (1.0 / ($n - 1))) - 1.0;
+        $mirr = ((-$npv_pos * $rr ** $n)
+                / ($npv_neg * ($rr))) ** (1.0 / ($n - 1)) - 1.0;
 
         return is_finite($mirr) ? $mirr : Functions::VALUE();
     }
@@ -1437,7 +1437,7 @@ class Financial
         }
 
         // Calculate
-        return $npery * (pow($effect_rate + 1, 1 / $npery) - 1);
+        return $npery * (($effect_rate + 1) ** (1 / $npery) - 1);
     }
 
     /**
@@ -1502,7 +1502,7 @@ class Financial
         for ($i = 1; $i <= $countArgs; ++$i) {
             // Is it a numeric value?
             if (is_numeric($aArgs[$i - 1])) {
-                $returnValue += $aArgs[$i - 1] / pow(1 + $rate, $i);
+                $returnValue += $aArgs[$i - 1] / (1 + $rate) ** $i;
             }
         }
 
@@ -1565,7 +1565,7 @@ class Financial
 
         // Calculate
         if ($rate !== null && $rate != 0) {
-            return (-$fv - $pv * pow(1 + $rate, $nper)) / (1 + $rate * $type) / ((pow(1 + $rate, $nper) - 1) / $rate);
+            return (-$fv - $pv * (1 + $rate) ** $nper) / (1 + $rate * $type) / (((1 + $rate) ** $nper - 1) / $rate);
         }
 
         return (-$pv - $fv) / $nper;
@@ -1672,9 +1672,9 @@ class Financial
         $rfp = 100 * ($rate / $frequency);
         $de = $dsc / $e;
 
-        $result = $redemption / pow($baseYF, (--$n + $de));
+        $result = $redemption / $baseYF ** (--$n + $de);
         for ($k = 0; $k <= $n; ++$k) {
-            $result += $rfp / (pow($baseYF, ($k + $de)));
+            $result += $rfp / ($baseYF ** ($k + $de));
         }
         $result -= $rfp * ($a / $e);
 
@@ -1820,7 +1820,7 @@ class Financial
 
         // Calculate
         if ($rate !== null && $rate != 0) {
-            return (-$pmt * (1 + $rate * $type) * ((pow(1 + $rate, $nper) - 1) / $rate) - $fv) / pow(1 + $rate, $nper);
+            return (-$pmt * (1 + $rate * $type) * (((1 + $rate) ** $nper - 1) / $rate) - $fv) / (1 + $rate) ** $nper;
         }
 
         return -$fv - $pmt * $nper;
@@ -1889,8 +1889,8 @@ class Financial
         if ($rate == 0) {
             return Functions::NAN();
         }
-        $tt1 = pow($rate + 1, $nper);
-        $tt2 = pow($rate + 1, $nper - 1);
+        $tt1 = ($rate + 1) ** $nper;
+        $tt2 = ($rate + 1) ** ($nper - 1);
         $numerator = $fv + $tt1 * $pv + $pmt * ($tt1 - 1) * ($rate * $type + 1) / $rate;
         $denominator = $nper * $tt2 * $pv - $pmt * ($tt1 - 1) * ($rate * $type + 1) / ($rate * $rate)
              + $nper * $pmt * $tt2 * ($rate * $type + 1) / $rate
@@ -1971,7 +1971,7 @@ class Financial
             return Functions::NAN();
         }
 
-        return pow($fv / $pv, 1 / $nper) - 1;
+        return ($fv / $pv) ** (1 / $nper) - 1;
     }
 
     /**
@@ -2377,7 +2377,7 @@ class Financial
             if (!is_numeric($dif)) {
                 return $dif;
             }
-            $xnpv += $values[$i] / pow(1 + $rate, $dif / 365);
+            $xnpv += $values[$i] / (1 + $rate) ** ($dif / 365);
         }
 
         return is_finite($xnpv) ? $xnpv : Functions::VALUE();

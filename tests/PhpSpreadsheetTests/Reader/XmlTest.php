@@ -13,7 +13,7 @@ class XmlTest extends TestCase
      *
      * @param $filename
      */
-    public function testInvalidSimpleXML($filename)
+    public function testInvalidSimpleXML($filename): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
@@ -34,7 +34,7 @@ class XmlTest extends TestCase
     /**
      * Check if it can read XML Hyperlink correctly.
      */
-    public function testReadHyperlinks()
+    public function testReadHyperlinks(): void
     {
         $reader = new Xml();
         $spreadsheet = $reader->load('samples/templates/Excel2003XMLTest.xml');
@@ -47,7 +47,7 @@ class XmlTest extends TestCase
         self::assertEquals('https://phpspreadsheet.readthedocs.io', $hyperlink->getHyperlink()->getUrl());
     }
 
-    public function testReadWithoutStyle()
+    public function testReadWithoutStyle(): void
     {
         $reader = new Xml();
         $spreadsheet = $reader->load('tests/data/Reader/Xml/WithoutStyle.xml');

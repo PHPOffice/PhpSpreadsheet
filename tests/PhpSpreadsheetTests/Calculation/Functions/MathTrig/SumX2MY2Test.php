@@ -18,10 +18,10 @@ class SumX2MY2Test extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSUMX2MY2($expectedResult, ...$args)
+    public function testSUMX2MY2($expectedResult, ...$args): void
     {
         $result = MathTrig::SUMX2MY2(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSUMX2MY2()

@@ -18,10 +18,10 @@ class BaseTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBASE($expectedResult, ...$args)
+    public function testBASE($expectedResult, ...$args): void
     {
         $result = MathTrig::BASE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBASE()

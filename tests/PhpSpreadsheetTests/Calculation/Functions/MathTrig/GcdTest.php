@@ -18,10 +18,10 @@ class GcdTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testGCD($expectedResult, ...$args)
+    public function testGCD($expectedResult, ...$args): void
     {
         $result = MathTrig::GCD(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerGCD()

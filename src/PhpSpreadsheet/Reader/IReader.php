@@ -118,8 +118,6 @@ interface IReader
     /**
      * Set read filter.
      *
-     * @param IReadFilter $pValue
-     *
      * @return IReader
      */
     public function setReadFilter(IReadFilter $pValue);
