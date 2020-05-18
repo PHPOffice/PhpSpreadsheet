@@ -565,8 +565,6 @@ class Statistical
      * Excel Function:
      *        AVEDEV(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string
@@ -616,8 +614,6 @@ class Statistical
      * Excel Function:
      *        AVERAGE(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string
@@ -656,8 +652,6 @@ class Statistical
      *
      * Excel Function:
      *        AVERAGEA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -699,8 +693,6 @@ class Statistical
      *
      * Excel Function:
      *        AVERAGEIF(value1[,value2[, ...]],condition)
-     *
-     * @category Mathematical and Trigonometric Functions
      *
      * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be checked
@@ -1053,8 +1045,6 @@ class Statistical
      * Excel Function:
      *        COUNT(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return int
@@ -1086,8 +1076,6 @@ class Statistical
      * Excel Function:
      *        COUNTA(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return int
@@ -1116,8 +1104,6 @@ class Statistical
      * Excel Function:
      *        COUNTBLANK(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return int
@@ -1145,8 +1131,6 @@ class Statistical
      *
      * Excel Function:
      *        COUNTIF(value1[,value2[, ...]],condition)
-     *
-     * @category Statistical Functions
      *
      * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be counted
@@ -1187,8 +1171,6 @@ class Statistical
      *
      * Excel Function:
      *        COUNTIFS(criteria_range1, criteria1, [criteria_range2, criteria2]…)
-     *
-     * @category Statistical Functions
      *
      * @param mixed $args Criterias
      *
@@ -1295,7 +1277,7 @@ class Statistical
      *
      * @return int|string
      *
-     * @todo    Warning. This implementation differs from the algorithm detailed on the MS
+     * @TODO    Warning. This implementation differs from the algorithm detailed on the MS
      *            web site in that $CumPGuessMinus1 = $CumPGuess - 1 rather than $CumPGuess - $PGuess
      *            This eliminates a potential endless loop error, but may have an adverse affect on the
      *            accuracy of the function (although all my tests have so far returned correct results).
@@ -1415,8 +1397,6 @@ class Statistical
      *
      * Excel Function:
      *        DEVSQ(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -1707,8 +1687,6 @@ class Statistical
      * Excel Function:
      *        GEOMEAN(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string
@@ -1768,8 +1746,6 @@ class Statistical
      *
      * Excel Function:
      *        HARMEAN(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -1923,8 +1899,6 @@ class Statistical
      *
      * Excel Function:
      *        LARGE(value1[,value2[, ...]],entry)
-     *
-     * @category Statistical Functions
      *
      * @param mixed $args Data values
      *
@@ -2093,7 +2067,7 @@ class Statistical
      *
      * @return float|string The result, or a string containing an error
      *
-     * @todo    Try implementing P J Acklam's refinement algorithm for greater
+     * @TODO    Try implementing P J Acklam's refinement algorithm for greater
      *            accuracy if I can get my head round the mathematics
      *            (as described at) http://home.online.no/~pjacklam/notes/invnorm/
      */
@@ -2152,8 +2126,6 @@ class Statistical
      * Excel Function:
      *        MAX(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float
@@ -2187,8 +2159,6 @@ class Statistical
      *
      * Excel Function:
      *        MAXA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -2228,8 +2198,6 @@ class Statistical
      *
      * Excel Function:
      *        MAXIFS(max_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
-     *
-     * @category Statistical Functions
      *
      * @param mixed $args Data range and criterias
      *
@@ -2288,8 +2256,6 @@ class Statistical
      * Excel Function:
      *        MEDIAN(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string The result, or a string containing an error
@@ -2332,8 +2298,6 @@ class Statistical
      * Excel Function:
      *        MIN(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float
@@ -2367,8 +2331,6 @@ class Statistical
      *
      * Excel Function:
      *        MINA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -2408,8 +2370,6 @@ class Statistical
      *
      * Excel Function:
      *        MINIFS(min_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
-     *
-     * @category Statistical Functions
      *
      * @param mixed $args Data range and criterias
      *
@@ -2516,8 +2476,6 @@ class Statistical
      *
      * Excel Function:
      *        MODE(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -2691,8 +2649,6 @@ class Statistical
      * Excel Function:
      *        PERCENTILE(value1[,value2[, ...]],entry)
      *
-     * @category Statistical Functions
-     *
      * @param mixed $args Data values
      *
      * @return float|string The result, or a string containing an error
@@ -2860,8 +2816,6 @@ class Statistical
      * Excel Function:
      *        QUARTILE(value1[,value2[, ...]],entry)
      *
-     * @category Statistical Functions
-     *
      * @param mixed $args Data values
      *
      * @return float|string The result, or a string containing an error
@@ -3027,8 +2981,6 @@ class Statistical
      * Excel Function:
      *        SMALL(value1[,value2[, ...]],entry)
      *
-     * @category Statistical Functions
-     *
      * @param mixed $args Data values
      *
      * @return float|string The result, or a string containing an error
@@ -3098,8 +3050,6 @@ class Statistical
      * Excel Function:
      *        STDEV(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string The result, or a string containing an error
@@ -3146,8 +3096,6 @@ class Statistical
      *
      * Excel Function:
      *        STDEVA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -3199,8 +3147,6 @@ class Statistical
      * Excel Function:
      *        STDEVP(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string
@@ -3245,8 +3191,6 @@ class Statistical
      *
      * Excel Function:
      *        STDEVPA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -3484,8 +3428,6 @@ class Statistical
      * Excel Function:
      *        TRIMEAN(value1[,value2[, ...]], $discard)
      *
-     * @category Statistical Functions
-     *
      * @param mixed $args Data values
      *
      * @return float|string
@@ -3529,8 +3471,6 @@ class Statistical
      * Excel Function:
      *        VAR(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float
@@ -3572,8 +3512,6 @@ class Statistical
      *
      * Excel Function:
      *        VARA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -3626,8 +3564,6 @@ class Statistical
      * Excel Function:
      *        VARP(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float
@@ -3670,8 +3606,6 @@ class Statistical
      *
      * Excel Function:
      *        VARPA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *

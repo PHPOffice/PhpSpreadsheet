@@ -56,7 +56,7 @@ return PhpCsFixer\Config::create()
         'function_declaration' => true,
         'function_to_constant' => true,
         'function_typehint_space' => true,
-        'general_phpdoc_annotation_remove' => false, // No use for that
+        'general_phpdoc_annotation_remove' => ['access', 'category', 'copyright', 'method', 'throws'],
         'global_namespace_import' => true,
         'hash_to_slash_comment' => false, // Deprecated
         'header_comment' => false, // We don't use common header in all our files

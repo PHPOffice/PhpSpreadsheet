@@ -47,8 +47,6 @@ class MathTrig
      * Excel Function:
      *        ARABIC(text)
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param string $roman
      *
      * @return int|string the arabic numberal contrived from the roman numeral
@@ -136,8 +134,6 @@ class MathTrig
      * Excel Function:
      *        ATAN2(xCoordinate,yCoordinate)
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param float $xCoordinate the x-coordinate of the point
      * @param float $yCoordinate the y-coordinate of the point
      *
@@ -173,8 +169,6 @@ class MathTrig
      *
      * Excel Function:
      *        BASE(Number, Radix [Min_length])
-     *
-     * @category Mathematical and Trigonometric Functions
      *
      * @param float $number
      * @param float $radix
@@ -220,8 +214,6 @@ class MathTrig
      * Excel Function:
      *        CEILING(number[,significance])
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param float $number the number you want to round
      * @param float $significance the multiple to which you want to round
      *
@@ -259,8 +251,6 @@ class MathTrig
      * Excel Function:
      *        COMBIN(numObjs,numInSet)
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each combination
      *
@@ -296,8 +286,6 @@ class MathTrig
      * Excel Function:
      *        EVEN(number)
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param float $number Number to round
      *
      * @return int|string Rounded Number, or a string containing an error
@@ -329,8 +317,6 @@ class MathTrig
      *
      * Excel Function:
      *        FACT(factVal)
-     *
-     * @category Mathematical and Trigonometric Functions
      *
      * @param float $factVal Factorial Value
      *
@@ -369,8 +355,6 @@ class MathTrig
      * Excel Function:
      *        FACTDOUBLE(factVal)
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param float $factVal Factorial Value
      *
      * @return int|string Double Factorial, or a string containing an error
@@ -403,8 +387,6 @@ class MathTrig
      *
      * Excel Function:
      *        FLOOR(number[,significance])
-     *
-     * @category Mathematical and Trigonometric Functions
      *
      * @param float $number Number to round
      * @param float $significance Significance
@@ -446,8 +428,6 @@ class MathTrig
      * Excel Function:
      *        FLOOR.MATH(number[,significance[,mode]])
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param float $number Number to round
      * @param float $significance Significance
      * @param int $mode direction to round negative numbers
@@ -487,8 +467,6 @@ class MathTrig
      * Excel Function:
      *        FLOOR.PRECISE(number[,significance])
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param float $number Number to round
      * @param float $significance Significance
      *
@@ -527,8 +505,6 @@ class MathTrig
      * Excel Function:
      *        GCD(number1[,number2[, ...]])
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return int|mixed|string Greatest Common Divisor, or a string containing an error
@@ -561,8 +537,6 @@ class MathTrig
      * Excel Function:
      *        INT(number)
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param float $number Number to cast to an integer
      *
      * @return int|string Integer value, or a string containing an error
@@ -593,8 +567,6 @@ class MathTrig
      *
      * Excel Function:
      *        LCM(number1[,number2[, ...]])
-     *
-     * @category Mathematical and Trigonometric Functions
      *
      * @param mixed ...$args Data values
      *
@@ -645,8 +617,6 @@ class MathTrig
      * Excel Function:
      *        LOG(number[,base])
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param float $number The positive real number for which you want the logarithm
      * @param float $base The base of the logarithm. If base is omitted, it is assumed to be 10.
      *
@@ -674,8 +644,6 @@ class MathTrig
      *
      * Excel Function:
      *        MDETERM(array)
-     *
-     * @category Mathematical and Trigonometric Functions
      *
      * @param array $matrixValues A matrix of values
      *
@@ -726,8 +694,6 @@ class MathTrig
      *
      * Excel Function:
      *        MINVERSE(array)
-     *
-     * @category Mathematical and Trigonometric Functions
      *
      * @param array $matrixValues A matrix of values
      *
@@ -999,8 +965,6 @@ class MathTrig
      * Excel Function:
      *        PRODUCT(value1[,value2[, ...]])
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float
@@ -1038,8 +1002,6 @@ class MathTrig
      *
      * Excel Function:
      *        QUOTIENT(value1[,value2[, ...]])
-     *
-     * @category Mathematical and Trigonometric Functions
      *
      * @param mixed ...$args Data values
      *
@@ -1364,8 +1326,6 @@ class MathTrig
      * Excel Function:
      *        SUM(value1[,value2[, ...]])
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float
@@ -1392,8 +1352,6 @@ class MathTrig
      *
      * Excel Function:
      *        SUMIF(value1[,value2[, ...]],condition)
-     *
-     * @category Mathematical and Trigonometric Functions
      *
      * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be summed
@@ -1438,8 +1396,6 @@ class MathTrig
      *
      *    Excel Function:
      *        SUMIFS(value1[,value2[, ...]],condition)
-     *
-     *    @category Mathematical and Trigonometric Functions
      *
      * @param mixed $args Data values
      *
@@ -1496,8 +1452,6 @@ class MathTrig
      * Excel Function:
      *        SUMPRODUCT(value1[,value2[, ...]])
      *
-     * @category Mathematical and Trigonometric Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string The result, or a string containing an error
@@ -1540,8 +1494,6 @@ class MathTrig
      *
      * Excel Function:
      *        SUMSQ(value1[,value2[, ...]])
-     *
-     * @category Mathematical and Trigonometric Functions
      *
      * @param mixed ...$args Data values
      *

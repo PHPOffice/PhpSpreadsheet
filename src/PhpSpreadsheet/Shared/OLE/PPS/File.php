@@ -27,8 +27,6 @@ use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
  * Class for creating File PPS's for OLE containers.
  *
  * @author   Xavier Noguer <xnoguer@php.net>
- *
- * @category PhpSpreadsheet
  */
 class File extends PPS
 {

@@ -538,7 +538,7 @@ class Worksheet extends BIFFwriter
         $arrConditionalStyles = $phpSheet->getConditionalStylesCollection();
         if (!empty($arrConditionalStyles)) {
             $arrConditional = [];
-            // @todo CFRule & CFHeader
+            // @TODO CFRule & CFHeader
             // Write CFHEADER record
             $this->writeCFHeader();
             // Write ConditionalFormattingTable records
@@ -607,6 +607,7 @@ class Worksheet extends BIFFwriter
 
             return $tmp;
         }
+
         // No data to return
         return false;
     }
@@ -881,8 +882,8 @@ class Worksheet extends BIFFwriter
             $header = pack('vv', $record, $length);
 
             $data = pack('vvv', $row, $col, $xfIndex)
-                        . $num
-                        . pack('vVv', $grbit, $unknown, $formlen);
+                . $num
+                . pack('vVv', $grbit, $unknown, $formlen);
             $this->append($header . $data . $formula);
 
             // Append also a STRING record if necessary
@@ -945,8 +946,6 @@ class Worksheet extends BIFFwriter
      * to be written. These are either, Web (http, ftp, mailto), Internal
      * (Sheet1!A1) or external ('c:\temp\foo.xls#Sheet1!A1').
      *
-     * @see writeUrl()
-     *
      * @param int $row1 Start row
      * @param int $col1 Start column
      * @param int $row2 End row
@@ -954,6 +953,8 @@ class Worksheet extends BIFFwriter
      * @param string $url URL string
      *
      * @return int
+     *
+     * @see writeUrl()
      */
     public function writeUrlRange($row1, $col1, $row2, $col2, $url)
     {
@@ -973,8 +974,6 @@ class Worksheet extends BIFFwriter
      * The link type ($options) is 0x03 is the same as absolute dir ref without
      * sheet. However it is differentiated by the $unknown2 data stream.
      *
-     * @see writeUrl()
-     *
      * @param int $row1 Start row
      * @param int $col1 Start column
      * @param int $row2 End row
@@ -982,6 +981,8 @@ class Worksheet extends BIFFwriter
      * @param string $url URL string
      *
      * @return int
+     *
+     * @see writeUrl()
      */
     public function writeUrlWeb($row1, $col1, $row2, $col2, $url)
     {
@@ -1018,8 +1019,6 @@ class Worksheet extends BIFFwriter
     /**
      * Used to write internal reference hyperlinks such as "Sheet1!A1".
      *
-     * @see writeUrl()
-     *
      * @param int $row1 Start row
      * @param int $col1 Start column
      * @param int $row2 End row
@@ -1027,6 +1026,8 @@ class Worksheet extends BIFFwriter
      * @param string $url URL string
      *
      * @return int
+     *
+     * @see writeUrl()
      */
     public function writeUrlInternal($row1, $col1, $row2, $col2, $url)
     {
@@ -1071,8 +1072,6 @@ class Worksheet extends BIFFwriter
      * Note: Excel writes some relative links with the $dir_long string. We ignore
      * these cases for the sake of simpler code.
      *
-     * @see writeUrl()
-     *
      * @param int $row1 Start row
      * @param int $col1 Start column
      * @param int $row2 End row
@@ -1080,6 +1079,8 @@ class Worksheet extends BIFFwriter
      * @param string $url URL string
      *
      * @return int
+     *
+     * @see writeUrl()
      */
     public function writeUrlExternal($row1, $col1, $row2, $col2, $url)
     {
@@ -1142,14 +1143,14 @@ class Worksheet extends BIFFwriter
 
         // Pack the main data stream
         $data = pack('vvvv', $row1, $row2, $col1, $col2) .
-                            $unknown1 .
-                            $link_type .
-                            $unknown2 .
-                            $up_count .
-                            $dir_short_len .
-                            $dir_short .
-                            $unknown3 .
-                            $stream_len; /*.
+            $unknown1 .
+            $link_type .
+            $unknown2 .
+            $up_count .
+            $dir_short_len .
+            $dir_short .
+            $unknown3 .
+            $stream_len; /*.
                           $dir_long_len .
                           $unknown4     .
                           $dir_long     .
@@ -1534,20 +1535,20 @@ class Worksheet extends BIFFwriter
 
         // prepare options
         $options = (int) !$this->phpSheet->getProtection()->getObjects()
-                    | (int) !$this->phpSheet->getProtection()->getScenarios() << 1
-                    | (int) !$this->phpSheet->getProtection()->getFormatCells() << 2
-                    | (int) !$this->phpSheet->getProtection()->getFormatColumns() << 3
-                    | (int) !$this->phpSheet->getProtection()->getFormatRows() << 4
-                    | (int) !$this->phpSheet->getProtection()->getInsertColumns() << 5
-                    | (int) !$this->phpSheet->getProtection()->getInsertRows() << 6
-                    | (int) !$this->phpSheet->getProtection()->getInsertHyperlinks() << 7
-                    | (int) !$this->phpSheet->getProtection()->getDeleteColumns() << 8
-                    | (int) !$this->phpSheet->getProtection()->getDeleteRows() << 9
-                    | (int) !$this->phpSheet->getProtection()->getSelectLockedCells() << 10
-                    | (int) !$this->phpSheet->getProtection()->getSort() << 11
-                    | (int) !$this->phpSheet->getProtection()->getAutoFilter() << 12
-                    | (int) !$this->phpSheet->getProtection()->getPivotTables() << 13
-                    | (int) !$this->phpSheet->getProtection()->getSelectUnlockedCells() << 14;
+            | (int) !$this->phpSheet->getProtection()->getScenarios() << 1
+            | (int) !$this->phpSheet->getProtection()->getFormatCells() << 2
+            | (int) !$this->phpSheet->getProtection()->getFormatColumns() << 3
+            | (int) !$this->phpSheet->getProtection()->getFormatRows() << 4
+            | (int) !$this->phpSheet->getProtection()->getInsertColumns() << 5
+            | (int) !$this->phpSheet->getProtection()->getInsertRows() << 6
+            | (int) !$this->phpSheet->getProtection()->getInsertHyperlinks() << 7
+            | (int) !$this->phpSheet->getProtection()->getDeleteColumns() << 8
+            | (int) !$this->phpSheet->getProtection()->getDeleteRows() << 9
+            | (int) !$this->phpSheet->getProtection()->getSelectLockedCells() << 10
+            | (int) !$this->phpSheet->getProtection()->getSort() << 11
+            | (int) !$this->phpSheet->getProtection()->getAutoFilter() << 12
+            | (int) !$this->phpSheet->getProtection()->getPivotTables() << 13
+            | (int) !$this->phpSheet->getProtection()->getSelectUnlockedCells() << 14;
 
         // record data
         $recordData = pack(
@@ -3014,7 +3015,7 @@ class Worksheet extends BIFFwriter
                     $operatorType = 0x01;
 
                     break;
-                    // not OPERATOR_NOTBETWEEN 0x02
+                // not OPERATOR_NOTBETWEEN 0x02
             }
         }
 
@@ -3062,13 +3063,13 @@ class Worksheet extends BIFFwriter
         }
         // Border
         $bBorderLeft = ($conditional->getStyle()->getBorders()->getLeft()->getColor()->getARGB() == Color::COLOR_BLACK
-                        && $conditional->getStyle()->getBorders()->getLeft()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
+        && $conditional->getStyle()->getBorders()->getLeft()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
         $bBorderRight = ($conditional->getStyle()->getBorders()->getRight()->getColor()->getARGB() == Color::COLOR_BLACK
-                        && $conditional->getStyle()->getBorders()->getRight()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
+        && $conditional->getStyle()->getBorders()->getRight()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
         $bBorderTop = ($conditional->getStyle()->getBorders()->getTop()->getColor()->getARGB() == Color::COLOR_BLACK
-                        && $conditional->getStyle()->getBorders()->getTop()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
+        && $conditional->getStyle()->getBorders()->getTop()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
         $bBorderBottom = ($conditional->getStyle()->getBorders()->getBottom()->getColor()->getARGB() == Color::COLOR_BLACK
-                        && $conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
+        && $conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
         if ($bBorderLeft == 0 || $bBorderRight == 0 || $bBorderTop == 0 || $bBorderBottom == 0) {
             $bFormatBorder = 1;
         } else {
@@ -3767,16 +3768,15 @@ class Worksheet extends BIFFwriter
 
                     break;
             }
-            /**
-             *@todo writeCFRule() => $blockLineStyle => Index Color for left line
-             *@todo writeCFRule() => $blockLineStyle => Index Color for right line
-             *@todo writeCFRule() => $blockLineStyle => Top-left to bottom-right on/off
-             *@todo writeCFRule() => $blockLineStyle => Bottom-left to top-right on/off
-             */
+
+            // TODO writeCFRule() => $blockLineStyle => Index Color for left line
+            // TODO writeCFRule() => $blockLineStyle => Index Color for right line
+            // TODO writeCFRule() => $blockLineStyle => Top-left to bottom-right on/off
+            // TODO writeCFRule() => $blockLineStyle => Bottom-left to top-right on/off
             $blockColor = 0;
-            //@todo writeCFRule() => $blockColor => Index Color for top line
-            //@todo writeCFRule() => $blockColor => Index Color for bottom line
-            //@todo writeCFRule() => $blockColor => Index Color for diagonal line
+            // TODO writeCFRule() => $blockColor => Index Color for top line
+            // TODO writeCFRule() => $blockColor => Index Color for bottom line
+            // TODO writeCFRule() => $blockColor => Index Color for diagonal line
             switch ($conditional->getStyle()->getBorders()->getDiagonal()->getBorderStyle()) {
                 case Border::BORDER_NONE:
                     $blockColor |= 0x00 << 21;
@@ -4157,7 +4157,7 @@ class Worksheet extends BIFFwriter
 
                     break;
                 default:
-                          $colorIdxBg = 0x41;
+                    $colorIdxBg = 0x41;
 
                     break;
             }
@@ -4388,7 +4388,7 @@ class Worksheet extends BIFFwriter
 
                     break;
                 default:
-                          $colorIdxFg = 0x40;
+                    $colorIdxFg = 0x40;
 
                     break;
             }
@@ -4447,7 +4447,7 @@ class Worksheet extends BIFFwriter
         foreach ($this->phpSheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
             foreach ($conditionalStyles as $conditional) {
                 if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
-                        || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
+                    || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
                     if (!in_array($conditional->getHashCode(), $arrConditional)) {
                         $arrConditional[] = $conditional->getHashCode();
                     }

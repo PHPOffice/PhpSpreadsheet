@@ -1448,8 +1448,6 @@ class Html extends BaseWriter
      * @param int $pRow Row number (0-based)
      * @param string $cellType eg: 'td'
      *
-     * @throws WriterException
-     *
      * @return string
      */
     private function generateRow(Worksheet $pSheet, array $pValues, $pRow, $cellType)

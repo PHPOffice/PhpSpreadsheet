@@ -38,8 +38,6 @@ $GLOBALS['_OLE_INSTANCES'] = [];
  *
  * @author   Xavier Noguer <xnoguer@php.net>
  * @author   Christian Schmidt <schmidt@php.net>
- *
- * @category   PhpSpreadsheet
  */
 class OLE
 {

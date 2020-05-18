@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @todo The class doesn't read the bold/italic/underline properties (rich text)
+ * @TODO The class doesn't read the bold/italic/underline properties (rich text)
  */
 class OdsTest extends TestCase
 {

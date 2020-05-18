@@ -114,8 +114,6 @@ class Financial
      * Excel Function:
      *        ACCRINT(issue,firstinterest,settlement,rate,par,frequency[,basis])
      *
-     * @category Financial Functions
-     *
      * @param mixed $issue the security's issue date
      * @param mixed $firstinterest the security's first interest date
      * @param mixed $settlement The security's settlement date.
@@ -175,8 +173,6 @@ class Financial
      * Excel Function:
      *        ACCRINTM(issue,settlement,rate[,par[,basis]])
      *
-     * @category Financial Functions
-     *
      * @param mixed $issue The security's issue date
      * @param mixed $settlement The security's settlement (or maturity) date
      * @param float $rate The security's annual coupon rate
@@ -232,8 +228,6 @@ class Financial
      *
      * Excel Function:
      *        AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
-     *
-     * @category Financial Functions
      *
      * @param float $cost The cost of the asset
      * @param mixed $purchased Date of the purchase of the asset
@@ -311,8 +305,6 @@ class Financial
      * Excel Function:
      *        AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
      *
-     * @category Financial Functions
-     *
      * @param float $cost The cost of the asset
      * @param mixed $purchased Date of the purchase of the asset
      * @param mixed $firstPeriod Date of the end of the first period
@@ -370,8 +362,6 @@ class Financial
      * Excel Function:
      *        COUPDAYBS(settlement,maturity,frequency[,basis])
      *
-     * @category Financial Functions
-     *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
@@ -428,8 +418,6 @@ class Financial
      *
      * Excel Function:
      *        COUPDAYS(settlement,maturity,frequency[,basis])
-     *
-     * @category Financial Functions
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -499,8 +487,6 @@ class Financial
      * Excel Function:
      *        COUPDAYSNC(settlement,maturity,frequency[,basis])
      *
-     * @category Financial Functions
-     *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
@@ -554,8 +540,6 @@ class Financial
      * Excel Function:
      *        COUPNCD(settlement,maturity,frequency[,basis])
      *
-     * @category Financial Functions
-     *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
@@ -607,8 +591,6 @@ class Financial
      *
      * Excel Function:
      *        COUPNUM(settlement,maturity,frequency[,basis])
-     *
-     * @category Financial Functions
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -662,8 +644,6 @@ class Financial
      * Excel Function:
      *        COUPPCD(settlement,maturity,frequency[,basis])
      *
-     * @category Financial Functions
-     *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
@@ -715,8 +695,6 @@ class Financial
      * Excel Function:
      *        CUMIPMT(rate,nper,pv,start,end[,type])
      *
-     * @category Financial Functions
-     *
      * @param float $rate The Interest rate
      * @param int $nper The total number of payment periods
      * @param float $pv Present Value
@@ -762,8 +740,6 @@ class Financial
      *
      * Excel Function:
      *        CUMPRINC(rate,nper,pv,start,end[,type])
-     *
-     * @category Financial Functions
      *
      * @param float $rate The Interest rate
      * @param int $nper The total number of payment periods
@@ -815,8 +791,6 @@ class Financial
      *
      * Excel Function:
      *        DB(cost,salvage,life,period[,month])
-     *
-     * @category Financial Functions
      *
      * @param float $cost Initial cost of the asset
      * @param float $salvage Value at the end of the depreciation.
@@ -883,8 +857,6 @@ class Financial
      * Excel Function:
      *        DDB(cost,salvage,life,period[,factor])
      *
-     * @category Financial Functions
-     *
      * @param float $cost Initial cost of the asset
      * @param float $salvage Value at the end of the depreciation.
      *                                (Sometimes called the salvage value of the asset)
@@ -942,8 +914,6 @@ class Financial
      * Excel Function:
      *        DISC(settlement,maturity,price,redemption[,basis])
      *
-     * @category Financial Functions
-     *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
@@ -998,8 +968,6 @@ class Financial
      * Excel Function:
      *        DOLLARDE(fractional_dollar,fraction)
      *
-     * @category Financial Functions
-     *
      * @param float $fractional_dollar Fractional Dollar
      * @param int $fraction Fraction
      *
@@ -1036,8 +1004,6 @@ class Financial
      * Excel Function:
      *        DOLLARFR(decimal_dollar,fraction)
      *
-     * @category Financial Functions
-     *
      * @param float $decimal_dollar Decimal Dollar
      * @param int $fraction Fraction
      *
@@ -1073,8 +1039,6 @@ class Financial
      * Excel Function:
      *        EFFECT(nominal_rate,npery)
      *
-     * @category Financial Functions
-     *
      * @param float $nominal_rate Nominal interest rate
      * @param int $npery Number of compounding payments per year
      *
@@ -1100,8 +1064,6 @@ class Financial
      *
      * Excel Function:
      *        FV(rate,nper,pmt[,pv[,type]])
-     *
-     * @category Financial Functions
      *
      * @param float $rate The interest rate per period
      * @param int $nper Total number of payment periods in an annuity
@@ -1836,8 +1798,6 @@ class Financial
      *
      * Excel Function:
      *        RATE(nper,pmt,pv[,fv[,type[,guess]]])
-     *
-     * @category Financial Functions
      *
      * @param float $nper The total number of payment periods in an annuity
      * @param float $pmt The payment made each period and cannot change over the life

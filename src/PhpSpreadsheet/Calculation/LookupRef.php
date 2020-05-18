@@ -230,8 +230,6 @@ class LookupRef
      * Excel Function:
      *        =HYPERLINK(linkURL,displayName)
      *
-     * @category Logical Functions
-     *
      * @param string $linkURL Value to check, is also the value returned when no error
      * @param string $displayName Value to return when testValue is an error condition
      * @param Cell $pCell The cell to set the hyperlink in
@@ -273,7 +271,7 @@ class LookupRef
      *
      * @return mixed The cells referenced by cellAddress
      *
-     * @todo    Support for the optional a1 parameter introduced in Excel 2010
+     * @TODO    Support for the optional a1 parameter introduced in Excel 2010
      */
     public static function INDIRECT($cellAddress = null, ?Cell $pCell = null)
     {

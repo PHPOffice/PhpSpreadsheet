@@ -76,10 +76,6 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
  * 67 = A3 transverse paper (297 mm by 420 mm)
  * 68 = A3 extra transverse paper (322 mm by 445 mm)
  * </code>
- *
- * @category   PhpSpreadsheet
- *
- * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  */
 class PageSetup
 {

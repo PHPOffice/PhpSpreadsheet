@@ -12,15 +12,9 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
-use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Comment;
 
 /**
- * @category   PhpSpreadsheet
- *
- * @method Ods getParentWriter
- *
- * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @author     Alexander Pervakov <frost-nzcr4@jagmort.com>
  */
 class Content extends WriterPart
