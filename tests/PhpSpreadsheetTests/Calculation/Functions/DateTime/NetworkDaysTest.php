@@ -21,14 +21,14 @@ class NetworkDaysTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNETWORKDAYS($expectedResult, ...$args)
+    public function testNETWORKDAYS($expectedResult, ...$args): void
     {
         $result = DateTime::NETWORKDAYS(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerNETWORKDAYS()
     {
-        return require 'data/Calculation/DateTime/NETWORKDAYS.php';
+        return require 'tests/data/Calculation/DateTime/NETWORKDAYS.php';
     }
 }

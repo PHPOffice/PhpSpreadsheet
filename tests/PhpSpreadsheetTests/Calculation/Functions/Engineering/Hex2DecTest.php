@@ -18,14 +18,14 @@ class Hex2DecTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testHEX2DEC($expectedResult, ...$args)
+    public function testHEX2DEC($expectedResult, ...$args): void
     {
         $result = Engineering::HEXTODEC(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerHEX2DEC()
     {
-        return require 'data/Calculation/Engineering/HEX2DEC.php';
+        return require 'tests/data/Calculation/Engineering/HEX2DEC.php';
     }
 }

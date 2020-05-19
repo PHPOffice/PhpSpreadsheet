@@ -34,10 +34,9 @@ class ReadFilterTest extends AbstractFunctional
      *
      * @dataProvider providerCellsValues
      *
-     * @param  array $arrayData
      * @param mixed $format
      */
-    public function testXlsxLoadWithoutReadFilter($format, array $arrayData)
+    public function testXlsxLoadWithoutReadFilter($format, array $arrayData): void
     {
         $spreadsheet = new Spreadsheet();
 
@@ -62,19 +61,18 @@ class ReadFilterTest extends AbstractFunctional
      *
      * @dataProvider providerCellsValues
      *
-     * @param array $arrayData
      * @param mixed $format
      */
-    public function testXlsxLoadWithReadFilter($format, array $arrayData)
+    public function testXlsxLoadWithReadFilter($format, array $arrayData): void
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->fromArray($arrayData, null, 'A1');
 
-        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function ($reader) {
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function ($reader): void {
             // Create a stub for the readFilter class.
             $readFilterStub = $this->createMock(IReadFilter::class);
             $readFilterStub->method('readCell')
-                ->will($this->returnCallback([$this, 'readFilterReadCell']));
+                ->willReturnCallback([$this, 'readFilterReadCell']);
             // apply filter
             $reader->setReadFilter($readFilterStub);
         });

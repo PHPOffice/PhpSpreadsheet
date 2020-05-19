@@ -19,14 +19,14 @@ class AcothTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $number
      */
-    public function testACOTH($expectedResult, $number)
+    public function testACOTH($expectedResult, $number): void
     {
         $result = MathTrig::ACOTH($number);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerACOTH()
     {
-        return require 'data/Calculation/MathTrig/ACOTH.php';
+        return require 'tests/data/Calculation/MathTrig/ACOTH.php';
     }
 }

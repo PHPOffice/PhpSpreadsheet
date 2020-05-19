@@ -16,12 +16,12 @@ $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
-            ['', 2010, 2011, 2012],
-            ['Q1', 12, 15, 21],
-            ['Q2', 56, 73, 86],
-            ['Q3', 52, 61, 69],
-            ['Q4', 30, 32, 0],
-        ]
+        ['', 2010, 2011, 2012],
+        ['Q1', 12, 15, 21],
+        ['Q2', 56, 73, 86],
+        ['Q3', 52, 61, 69],
+        ['Q4', 30, 32, 0],
+    ]
 );
 
 // Custom colors for dataSeries (gray, blue, red, orange)
@@ -90,7 +90,7 @@ $chart1 = new Chart(
     $legend1, // legend
     $plotArea1, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
     null   // yAxisLabel - Pie charts don't have a Y-Axis
 );
@@ -162,7 +162,7 @@ $chart2 = new Chart(
     null, // legend
     $plotArea2, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
     null   // yAxisLabel - Like Pie charts, Donut charts don't have a Y-Axis
 );

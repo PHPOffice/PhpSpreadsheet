@@ -23,7 +23,7 @@ class SpgrContainer
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer $parent
      */
-    public function setParent($parent)
+    public function setParent($parent): void
     {
         $this->parent = $parent;
     }
@@ -43,7 +43,7 @@ class SpgrContainer
      *
      * @param mixed $child
      */
-    public function addChild($child)
+    public function addChild($child): void
     {
         $this->children[] = $child;
         $child->setParent($this);

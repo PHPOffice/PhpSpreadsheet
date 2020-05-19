@@ -101,7 +101,7 @@ class ChainedBlockStream
     /**
      * Implements support for fclose().
      */
-    public function stream_close() // @codingStandardsIgnoreLine
+    public function stream_close(): void // @codingStandardsIgnoreLine
     {
         $this->ole = null;
         unset($GLOBALS['_OLE_INSTANCES']);
@@ -179,7 +179,7 @@ class ChainedBlockStream
     {
         return [
             'size' => strlen($this->data),
-            ];
+        ];
     }
 
     // Methods used by stream_wrapper_register() that are not implemented:

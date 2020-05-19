@@ -19,14 +19,14 @@ class CothTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $angle
      */
-    public function testCOTH($expectedResult, $angle)
+    public function testCOTH($expectedResult, $angle): void
     {
         $result = MathTrig::COTH($angle);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCOTH()
     {
-        return require 'data/Calculation/MathTrig/COTH.php';
+        return require 'tests/data/Calculation/MathTrig/COTH.php';
     }
 }

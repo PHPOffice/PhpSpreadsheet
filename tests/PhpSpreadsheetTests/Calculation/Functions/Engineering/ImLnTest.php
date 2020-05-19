@@ -33,10 +33,10 @@ class ImLnTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMLN($expectedResult, $value)
+    public function testIMLN($expectedResult, $value): void
     {
         $result = Engineering::IMLN($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -44,6 +44,6 @@ class ImLnTest extends TestCase
 
     public function providerIMLN()
     {
-        return require 'data/Calculation/Engineering/IMLN.php';
+        return require 'tests/data/Calculation/Engineering/IMLN.php';
     }
 }

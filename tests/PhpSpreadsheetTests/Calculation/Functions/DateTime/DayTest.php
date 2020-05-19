@@ -23,19 +23,19 @@ class DayTest extends TestCase
      * @param mixed $expectedResultOpenOffice
      * @param $dateTimeValue
      */
-    public function testDAY($expectedResultExcel, $expectedResultOpenOffice, $dateTimeValue)
+    public function testDAY($expectedResultExcel, $expectedResultOpenOffice, $dateTimeValue): void
     {
         $resultExcel = DateTime::DAYOFMONTH($dateTimeValue);
-        $this->assertEqualsWithDelta($expectedResultExcel, $resultExcel, 1E-8);
+        self::assertEqualsWithDelta($expectedResultExcel, $resultExcel, 1E-8);
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
         $resultOpenOffice = DateTime::DAYOFMONTH($dateTimeValue);
-        $this->assertEqualsWithDelta($expectedResultOpenOffice, $resultOpenOffice, 1E-8);
+        self::assertEqualsWithDelta($expectedResultOpenOffice, $resultOpenOffice, 1E-8);
     }
 
     public function providerDAY()
     {
-        return require 'data/Calculation/DateTime/DAY.php';
+        return require 'tests/data/Calculation/DateTime/DAY.php';
     }
 }

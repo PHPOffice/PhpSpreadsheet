@@ -21,35 +21,35 @@ class TimeTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testTIME($expectedResult, ...$args)
+    public function testTIME($expectedResult, ...$args): void
     {
         $result = DateTime::TIME(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerTIME()
     {
-        return require 'data/Calculation/DateTime/TIME.php';
+        return require 'tests/data/Calculation/DateTime/TIME.php';
     }
 
-    public function testTIMEtoUnixTimestamp()
+    public function testTIMEtoUnixTimestamp(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_PHP_NUMERIC);
 
         $result = DateTime::TIME(7, 30, 20);
-        $this->assertEqualsWithDelta(27020, $result, 1E-8);
+        self::assertEqualsWithDelta(27020, $result, 1E-8);
     }
 
-    public function testTIMEtoDateTimeObject()
+    public function testTIMEtoDateTimeObject(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_PHP_OBJECT);
 
         $result = DateTime::TIME(7, 30, 20);
         //    Must return an object...
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
         //    ... of the correct type
-        $this->assertTrue(is_a($result, 'DateTimeInterface'));
+        self::assertTrue(is_a($result, 'DateTimeInterface'));
         //    ... with the correct value
-        $this->assertEquals($result->format('H:i:s'), '07:30:20');
+        self::assertEquals($result->format('H:i:s'), '07:30:20');
     }
 }

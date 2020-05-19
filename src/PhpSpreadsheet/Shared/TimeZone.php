@@ -61,8 +61,6 @@ class TimeZone
      * @param string $timezone The timezone for finding the adjustment to UST
      * @param int $timestamp PHP date/time value
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return int Number of seconds for timezone adjustment
      */
     public static function getTimeZoneAdjustment($timezone, $timestamp)

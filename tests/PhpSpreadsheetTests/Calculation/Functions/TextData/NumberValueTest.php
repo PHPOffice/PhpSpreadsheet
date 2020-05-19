@@ -29,16 +29,15 @@ class NumberValueTest extends TestCase
      * @dataProvider providerNUMBERVALUE
      *
      * @param mixed $expectedResult
-     * @param array $args
      */
-    public function testNUMBERVALUE($expectedResult, array $args)
+    public function testNUMBERVALUE($expectedResult, array $args): void
     {
         $result = TextData::NUMBERVALUE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerNUMBERVALUE()
     {
-        return require 'data/Calculation/TextData/NUMBERVALUE.php';
+        return require 'tests/data/Calculation/TextData/NUMBERVALUE.php';
     }
 }

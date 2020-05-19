@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class DateTest extends TestCase
 {
-    public function testSetExcelCalendar()
+    public function testSetExcelCalendar(): void
     {
         $calendarValues = [
             Date::CALENDAR_MAC_1904,
@@ -20,7 +20,7 @@ class DateTest extends TestCase
         }
     }
 
-    public function testSetExcelCalendarWithInvalidValue()
+    public function testSetExcelCalendarWithInvalidValue(): void
     {
         $unsupportedCalendar = '2012';
         $result = Date::setExcelCalendar($unsupportedCalendar);
@@ -32,7 +32,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeExcelToTimestamp1900($expectedResult, ...$args)
+    public function testDateTimeExcelToTimestamp1900($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
@@ -42,7 +42,7 @@ class DateTest extends TestCase
 
     public function providerDateTimeExcelToTimestamp1900()
     {
-        return require 'data/Shared/Date/ExcelToTimestamp1900.php';
+        return require 'tests/data/Shared/Date/ExcelToTimestamp1900.php';
     }
 
     /**
@@ -50,7 +50,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeTimestampToExcel1900($expectedResult, ...$args)
+    public function testDateTimeTimestampToExcel1900($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
@@ -60,7 +60,7 @@ class DateTest extends TestCase
 
     public function providerDateTimeTimestampToExcel1900()
     {
-        return require 'data/Shared/Date/TimestampToExcel1900.php';
+        return require 'tests/data/Shared/Date/TimestampToExcel1900.php';
     }
 
     /**
@@ -68,7 +68,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeDateTimeToExcel($expectedResult, ...$args)
+    public function testDateTimeDateTimeToExcel($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
@@ -78,7 +78,7 @@ class DateTest extends TestCase
 
     public function providerDateTimeDateTimeToExcel()
     {
-        return require 'data/Shared/Date/DateTimeToExcel.php';
+        return require 'tests/data/Shared/Date/DateTimeToExcel.php';
     }
 
     /**
@@ -86,7 +86,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeFormattedPHPToExcel1900($expectedResult, ...$args)
+    public function testDateTimeFormattedPHPToExcel1900($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
@@ -96,7 +96,7 @@ class DateTest extends TestCase
 
     public function providerDateTimeFormattedPHPToExcel1900()
     {
-        return require 'data/Shared/Date/FormattedPHPToExcel1900.php';
+        return require 'tests/data/Shared/Date/FormattedPHPToExcel1900.php';
     }
 
     /**
@@ -104,7 +104,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeExcelToTimestamp1904($expectedResult, ...$args)
+    public function testDateTimeExcelToTimestamp1904($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
 
@@ -114,7 +114,7 @@ class DateTest extends TestCase
 
     public function providerDateTimeExcelToTimestamp1904()
     {
-        return require 'data/Shared/Date/ExcelToTimestamp1904.php';
+        return require 'tests/data/Shared/Date/ExcelToTimestamp1904.php';
     }
 
     /**
@@ -122,7 +122,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeTimestampToExcel1904($expectedResult, ...$args)
+    public function testDateTimeTimestampToExcel1904($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
 
@@ -132,7 +132,7 @@ class DateTest extends TestCase
 
     public function providerDateTimeTimestampToExcel1904()
     {
-        return require 'data/Shared/Date/TimestampToExcel1904.php';
+        return require 'tests/data/Shared/Date/TimestampToExcel1904.php';
     }
 
     /**
@@ -140,7 +140,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsDateTimeFormatCode($expectedResult, ...$args)
+    public function testIsDateTimeFormatCode($expectedResult, ...$args): void
     {
         $result = Date::isDateTimeFormatCode(...$args);
         self::assertEquals($expectedResult, $result);
@@ -148,7 +148,7 @@ class DateTest extends TestCase
 
     public function providerIsDateTimeFormatCode()
     {
-        return require 'data/Shared/Date/FormatCodes.php';
+        return require 'tests/data/Shared/Date/FormatCodes.php';
     }
 
     /**
@@ -156,7 +156,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeExcelToTimestamp1900Timezone($expectedResult, ...$args)
+    public function testDateTimeExcelToTimestamp1900Timezone($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
@@ -166,6 +166,6 @@ class DateTest extends TestCase
 
     public function providerDateTimeExcelToTimestamp1900Timezone()
     {
-        return require 'data/Shared/Date/ExcelToTimestamp1900Timezone.php';
+        return require 'tests/data/Shared/Date/ExcelToTimestamp1900Timezone.php';
     }
 }

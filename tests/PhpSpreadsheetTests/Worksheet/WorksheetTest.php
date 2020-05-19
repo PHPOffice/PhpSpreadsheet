@@ -2,13 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class WorksheetTest extends TestCase
 {
-    public function testSetTitle()
+    public function testSetTitle(): void
     {
         $testTitle = str_repeat('a', 31);
 
@@ -30,7 +31,7 @@ class WorksheetTest extends TestCase
      * @param string $expectMessage
      * @dataProvider setTitleInvalidProvider
      */
-    public function testSetTitleInvalid($title, $expectMessage)
+    public function testSetTitleInvalid($title, $expectMessage): void
     {
         // First, test setting title with validation disabled -- should be successful
         $worksheet = new Worksheet();
@@ -38,12 +39,12 @@ class WorksheetTest extends TestCase
 
         // Next, test again with validation enabled -- this time we should fail
         $worksheet = new Worksheet();
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage($expectMessage);
         $worksheet->setTitle($title);
     }
 
-    public function testSetTitleDuplicate()
+    public function testSetTitleDuplicate(): void
     {
         // Create a Spreadsheet with three Worksheets (the first is created automatically)
         $spreadsheet = new Spreadsheet();
@@ -66,7 +67,7 @@ class WorksheetTest extends TestCase
         self::assertSame('Test Title', $sheet->getTitle());
     }
 
-    public function testSetCodeName()
+    public function testSetCodeName(): void
     {
         $testCodeName = str_repeat('a', 31);
 
@@ -88,7 +89,7 @@ class WorksheetTest extends TestCase
      * @param string $expectMessage
      * @dataProvider setCodeNameInvalidProvider
      */
-    public function testSetCodeNameInvalid($codeName, $expectMessage)
+    public function testSetCodeNameInvalid($codeName, $expectMessage): void
     {
         // First, test setting code name with validation disabled -- should be successful
         $worksheet = new Worksheet();
@@ -96,12 +97,12 @@ class WorksheetTest extends TestCase
 
         // Next, test again with validation enabled -- this time we should fail
         $worksheet = new Worksheet();
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage($expectMessage);
         $worksheet->setCodeName($codeName);
     }
 
-    public function testSetCodeNameDuplicate()
+    public function testSetCodeNameDuplicate(): void
     {
         // Create a Spreadsheet with three Worksheets (the first is created automatically)
         $spreadsheet = new Spreadsheet();
@@ -124,7 +125,7 @@ class WorksheetTest extends TestCase
         self::assertSame('Test Code Name', $sheet->getCodeName());
     }
 
-    public function testFreezePaneSelectedCell()
+    public function testFreezePaneSelectedCell(): void
     {
         $worksheet = new Worksheet();
         $worksheet->freezePane('B2');
@@ -152,7 +153,7 @@ class WorksheetTest extends TestCase
      * @param string $expectCell2
      * @dataProvider extractSheetTitleProvider
      */
-    public function testExtractSheetTitle($range, $expectTitle, $expectCell, $expectCell2)
+    public function testExtractSheetTitle($range, $expectTitle, $expectCell, $expectCell2): void
     {
         // only cell reference
         self::assertSame($expectCell, Worksheet::extractSheetTitle($range));
@@ -166,18 +167,18 @@ class WorksheetTest extends TestCase
      * Fix https://github.com/PHPOffice/PhpSpreadsheet/issues/868 when cells are not removed correctly
      * on row deletion.
      */
-    public function testRemoveCellsCorrectlyWhenRemovingRow()
+    public function testRemoveCellsCorrectlyWhenRemovingRow(): void
     {
         $workbook = new Spreadsheet();
         $worksheet = $workbook->getActiveSheet();
         $worksheet->getCell('A2')->setValue('A2');
         $worksheet->getCell('C1')->setValue('C1');
         $worksheet->removeRow(1);
-        $this->assertEquals(
+        self::assertEquals(
             'A2',
             $worksheet->getCell('A1')->getValue()
         );
-        $this->assertNull(
+        self::assertNull(
             $worksheet->getCell('C1')->getValue()
         );
     }
@@ -262,7 +263,7 @@ class WorksheetTest extends TestCase
         int $columnsToBeRemoved,
         array $expectedData,
         string $expectedHighestColumn
-    ) {
+    ): void {
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheet->fromArray($initialData);
@@ -394,7 +395,7 @@ class WorksheetTest extends TestCase
         int $rowsQtyToRemove,
         array $expectedData,
         int $expectedHighestRow
-    ) {
+    ): void {
         $workbook = new Spreadsheet();
         $worksheet = $workbook->getActiveSheet();
         $worksheet->fromArray($initialData);

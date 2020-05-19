@@ -21,7 +21,7 @@ class MergedCellsTest extends AbstractFunctional
      *
      * @param string $format
      */
-    public function testMergedCells($format)
+    public function testMergedCells($format): void
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet->setActiveSheetIndex(0);

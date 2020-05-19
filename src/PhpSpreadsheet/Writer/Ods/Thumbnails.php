@@ -13,7 +13,7 @@ class Thumbnails extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeThumbnail(Spreadsheet $spreadsheet = null)
+    public function writeThumbnail(?Spreadsheet $spreadsheet = null)
     {
         return '';
     }

@@ -2,8 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-
 class Protection extends Supervisor
 {
     /** Protection styles */
@@ -83,8 +81,6 @@ class Protection extends Supervisor
      * </code>
      *
      * @param array $pStyles Array containing style information
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */

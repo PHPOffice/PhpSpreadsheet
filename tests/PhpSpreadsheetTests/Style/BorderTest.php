@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class BorderTest extends TestCase
 {
-    public function testCase()
+    public function testCase(): void
     {
         $spreadsheet = new Spreadsheet();
         $borders = $spreadsheet->getActiveSheet()->getStyle('A1')->getBorders();

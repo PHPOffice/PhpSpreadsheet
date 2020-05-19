@@ -18,7 +18,7 @@ class ColumnWidthTest extends AbstractFunctional
      *
      * @param $format
      */
-    public function testReadColumnWidth($format)
+    public function testReadColumnWidth($format): void
     {
         // create new sheet with column width
         $spreadsheet = new Spreadsheet();
@@ -31,7 +31,7 @@ class ColumnWidthTest extends AbstractFunctional
         $this->assertColumn($reloadedSpreadsheet);
     }
 
-    private function assertColumn(Spreadsheet $spreadsheet)
+    private function assertColumn(Spreadsheet $spreadsheet): void
     {
         $sheet = $spreadsheet->getActiveSheet();
         $columnDimensions = $sheet->getColumnDimensions();

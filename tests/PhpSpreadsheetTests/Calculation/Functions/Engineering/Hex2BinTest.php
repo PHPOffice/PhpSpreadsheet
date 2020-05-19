@@ -18,14 +18,14 @@ class Hex2BinTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testHEX2BIN($expectedResult, ...$args)
+    public function testHEX2BIN($expectedResult, ...$args): void
     {
         $result = Engineering::HEXTOBIN(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerHEX2BIN()
     {
-        return require 'data/Calculation/Engineering/HEX2BIN.php';
+        return require 'tests/data/Calculation/Engineering/HEX2BIN.php';
     }
 }

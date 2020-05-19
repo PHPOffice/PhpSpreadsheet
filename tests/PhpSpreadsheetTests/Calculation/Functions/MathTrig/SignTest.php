@@ -19,14 +19,14 @@ class SignTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testSIGN($expectedResult, $value)
+    public function testSIGN($expectedResult, $value): void
     {
         $result = MathTrig::SIGN($value);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSIGN()
     {
-        return require 'data/Calculation/MathTrig/SIGN.php';
+        return require 'tests/data/Calculation/MathTrig/SIGN.php';
     }
 }

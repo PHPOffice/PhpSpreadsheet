@@ -23,7 +23,7 @@ class ChunkReadFilter implements IReadFilter
      * @param mixed $startRow
      * @param mixed $chunkSize
      */
-    public function setRows($startRow, $chunkSize)
+    public function setRows($startRow, $chunkSize): void
     {
         $this->startRow = $startRow;
         $this->endRow = $startRow + $chunkSize;

@@ -23,14 +23,14 @@ class SettingsTest extends TestCase
         libxml_disable_entity_loader($this->prevValue);
     }
 
-    public function testGetXMLSettings()
+    public function testGetXMLSettings(): void
     {
         $result = Settings::getLibXmlLoaderOptions();
         self::assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR) & $result));
         self::assertFalse(libxml_disable_entity_loader());
     }
 
-    public function testSetXMLSettings()
+    public function testSetXMLSettings(): void
     {
         Settings::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID);
         $result = Settings::getLibXmlLoaderOptions();

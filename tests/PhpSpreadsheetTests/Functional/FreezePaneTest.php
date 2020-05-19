@@ -19,7 +19,7 @@ class FreezePaneTest extends AbstractFunctional
      *
      * @param string $format
      */
-    public function testFreezePane($format)
+    public function testFreezePane($format): void
     {
         $cellSplit = 'B4';
         $topLeftCell = 'E7';
@@ -43,7 +43,7 @@ class FreezePaneTest extends AbstractFunctional
      *
      * @param string $format
      */
-    public function testFreezePaneWithInvalidSelectedCells($format)
+    public function testFreezePaneWithInvalidSelectedCells($format): void
     {
         $cellSplit = 'A7';
         $topLeftCell = 'A24';
@@ -71,7 +71,7 @@ class FreezePaneTest extends AbstractFunctional
      *
      * @param string $format
      */
-    public function testFreezePaneUserSelectedCell($format)
+    public function testFreezePaneUserSelectedCell($format): void
     {
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
@@ -100,7 +100,7 @@ class FreezePaneTest extends AbstractFunctional
      *
      * @param string $format
      */
-    public function testNoFreezePaneUserSelectedCell($format)
+    public function testNoFreezePaneUserSelectedCell($format): void
     {
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();

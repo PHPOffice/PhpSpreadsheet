@@ -56,12 +56,12 @@ function calculationTestDataGenerator()
     $set8 = [4, $dataArray5, $formula3, 'E5', ['A3'], ['B3']];
 
     $dataArray6 = [
-        ['=IF(22,"a","b")']
+        ['=IF(22,"a","b")'],
     ];
     $set9 = ['a', $dataArray6, '=A1', 'A2'];
 
     return [
-        $set0, $set1, $set2, $set3, $set4, $set5, $set6, $set7, $set8, $set9
+        $set0, $set1, $set2, $set3, $set4, $set5, $set6, $set7, $set8, $set9,
     ];
 }
 

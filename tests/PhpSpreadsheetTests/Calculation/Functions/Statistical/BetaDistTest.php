@@ -18,14 +18,14 @@ class BetaDistTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBETADIST($expectedResult, ...$args)
+    public function testBETADIST($expectedResult, ...$args): void
     {
         $result = Statistical::BETADIST(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerBETADIST()
     {
-        return require 'data/Calculation/Statistical/BETADIST.php';
+        return require 'tests/data/Calculation/Statistical/BETADIST.php';
     }
 }

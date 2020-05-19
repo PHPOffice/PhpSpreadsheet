@@ -18,14 +18,14 @@ class AndTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testAND($expectedResult, ...$args)
+    public function testAND($expectedResult, ...$args): void
     {
         $result = Logical::logicalAnd(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerAND()
     {
-        return require 'data/Calculation/Logical/AND.php';
+        return require 'tests/data/Calculation/Logical/AND.php';
     }
 }

@@ -18,14 +18,14 @@ class PowerTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPOWER($expectedResult, ...$args)
+    public function testPOWER($expectedResult, ...$args): void
     {
         $result = MathTrig::POWER(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerPOWER()
     {
-        return require 'data/Calculation/MathTrig/POWER.php';
+        return require 'tests/data/Calculation/MathTrig/POWER.php';
     }
 }

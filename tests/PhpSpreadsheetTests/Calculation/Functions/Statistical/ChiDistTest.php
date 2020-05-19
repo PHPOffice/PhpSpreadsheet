@@ -18,14 +18,14 @@ class ChiDistTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCHIDIST($expectedResult, ...$args)
+    public function testCHIDIST($expectedResult, ...$args): void
     {
         $result = Statistical::CHIDIST(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCHIDIST()
     {
-        return require 'data/Calculation/Statistical/CHIDIST.php';
+        return require 'tests/data/Calculation/Statistical/CHIDIST.php';
     }
 }

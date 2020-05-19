@@ -18,14 +18,14 @@ class RoundUpTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testROUNDUP($expectedResult, ...$args)
+    public function testROUNDUP($expectedResult, ...$args): void
     {
         $result = MathTrig::ROUNDUP(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerROUNDUP()
     {
-        return require 'data/Calculation/MathTrig/ROUNDUP.php';
+        return require 'tests/data/Calculation/MathTrig/ROUNDUP.php';
     }
 }

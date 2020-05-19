@@ -23,36 +23,36 @@ class EoMonthTest extends TestCase
      * @param $dateValue
      * @param $adjustmentMonths
      */
-    public function testEOMONTH($expectedResult, $dateValue, $adjustmentMonths)
+    public function testEOMONTH($expectedResult, $dateValue, $adjustmentMonths): void
     {
         $result = DateTime::EOMONTH($dateValue, $adjustmentMonths);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerEOMONTH()
     {
-        return require 'data/Calculation/DateTime/EOMONTH.php';
+        return require 'tests/data/Calculation/DateTime/EOMONTH.php';
     }
 
-    public function testEOMONTHtoUnixTimestamp()
+    public function testEOMONTHtoUnixTimestamp(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = DateTime::EOMONTH('2012-1-26', -1);
-        $this->assertEquals(1325289600, $result);
-        $this->assertEqualsWithDelta(1325289600, $result, 1E-8);
+        self::assertEquals(1325289600, $result);
+        self::assertEqualsWithDelta(1325289600, $result, 1E-8);
     }
 
-    public function testEOMONTHtoDateTimeObject()
+    public function testEOMONTHtoDateTimeObject(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
 
         $result = DateTime::EOMONTH('2012-1-26', -1);
         //    Must return an object...
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
         //    ... of the correct type
-        $this->assertTrue(is_a($result, 'DateTimeInterface'));
+        self::assertTrue(is_a($result, 'DateTimeInterface'));
         //    ... with the correct value
-        $this->assertEquals($result->format('d-M-Y'), '31-Dec-2011');
+        self::assertEquals($result->format('d-M-Y'), '31-Dec-2011');
     }
 }

@@ -30,14 +30,14 @@ class FixedTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFIXED($expectedResult, ...$args)
+    public function testFIXED($expectedResult, ...$args): void
     {
         $result = TextData::FIXEDFORMAT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerFIXED()
     {
-        return require 'data/Calculation/TextData/FIXED.php';
+        return require 'tests/data/Calculation/TextData/FIXED.php';
     }
 }

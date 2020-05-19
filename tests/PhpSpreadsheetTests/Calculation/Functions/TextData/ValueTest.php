@@ -31,18 +31,18 @@ class ValueTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testVALUE($expectedResult, $value)
+    public function testVALUE($expectedResult, $value): void
     {
         StringHelper::setDecimalSeparator('.');
         StringHelper::setThousandsSeparator(' ');
         StringHelper::setCurrencyCode('$');
 
         $result = TextData::VALUE($value);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerVALUE()
     {
-        return require 'data/Calculation/TextData/VALUE.php';
+        return require 'tests/data/Calculation/TextData/VALUE.php';
     }
 }

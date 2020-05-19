@@ -18,14 +18,14 @@ class InterceptTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testINTERCEPT($expectedResult, array $xargs, array $yargs)
+    public function testINTERCEPT($expectedResult, array $xargs, array $yargs): void
     {
         $result = Statistical::INTERCEPT($xargs, $yargs);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerINTERCEPT()
     {
-        return require 'data/Calculation/Statistical/INTERCEPT.php';
+        return require 'tests/data/Calculation/Statistical/INTERCEPT.php';
     }
 }

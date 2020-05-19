@@ -18,14 +18,14 @@ class Hex2OctTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testHEX2OCT($expectedResult, ...$args)
+    public function testHEX2OCT($expectedResult, ...$args): void
     {
         $result = Engineering::HEXTOOCT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerHEX2OCT()
     {
-        return require 'data/Calculation/Engineering/HEX2OCT.php';
+        return require 'tests/data/Calculation/Engineering/HEX2OCT.php';
     }
 }

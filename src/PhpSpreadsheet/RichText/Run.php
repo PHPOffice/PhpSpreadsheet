@@ -42,7 +42,7 @@ class Run extends TextElement implements ITextElement
      *
      * @return $this
      */
-    public function setFont(Font $pFont = null)
+    public function setFont(?Font $pFont = null)
     {
         $this->font = $pFont;
 

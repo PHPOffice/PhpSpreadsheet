@@ -32,10 +32,10 @@ class ImDivTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIMDIV($expectedResult, ...$args)
+    public function testIMDIV($expectedResult, ...$args): void
     {
         $result = Engineering::IMDIV(...$args);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -43,6 +43,6 @@ class ImDivTest extends TestCase
 
     public function providerIMDIV()
     {
-        return require 'data/Calculation/Engineering/IMDIV.php';
+        return require 'tests/data/Calculation/Engineering/IMDIV.php';
     }
 }

@@ -21,14 +21,14 @@ class ImArgumentTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMARGUMENT($expectedResult, $value)
+    public function testIMARGUMENT($expectedResult, $value): void
     {
         $result = Engineering::IMARGUMENT($value);
-        $this->assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
     public function providerIMARGUMENT()
     {
-        return require 'data/Calculation/Engineering/IMARGUMENT.php';
+        return require 'tests/data/Calculation/Engineering/IMARGUMENT.php';
     }
 }

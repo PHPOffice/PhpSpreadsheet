@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefinedNameConfusedForCellTest extends TestCase
 {
-    public function testDefinedName()
+    public function testDefinedName(): void
     {
         $obj = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet0 = $obj->setActiveSheetIndex(0);

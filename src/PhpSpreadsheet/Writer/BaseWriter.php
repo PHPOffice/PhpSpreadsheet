@@ -35,6 +35,16 @@ abstract class BaseWriter implements IWriter
      */
     private $diskCachingDirectory = './';
 
+    /**
+     * @var resource
+     */
+    protected $fileHandle;
+
+    /**
+     * @var bool
+     */
+    private $shouldCloseFile;
+
     public function getIncludeCharts()
     {
         return $this->includeCharts;
@@ -82,5 +92,40 @@ abstract class BaseWriter implements IWriter
     public function getDiskCachingDirectory()
     {
         return $this->diskCachingDirectory;
+    }
+
+    /**
+     * Open file handle.
+     *
+     * @param resource|string $filename
+     */
+    public function openFileHandle($filename): void
+    {
+        if (is_resource($filename)) {
+            $this->fileHandle = $filename;
+            $this->shouldCloseFile = false;
+
+            return;
+        }
+
+        $fileHandle = $filename ? fopen($filename, 'wb+') : false;
+        if ($fileHandle === false) {
+            throw new Exception('Could not open file "' . $filename . '" for writing.');
+        }
+
+        $this->fileHandle = $fileHandle;
+        $this->shouldCloseFile = true;
+    }
+
+    /**
+     * Close file handle only if we opened it ourselves.
+     */
+    protected function maybeCloseFileHandle(): void
+    {
+        if ($this->shouldCloseFile) {
+            if (!fclose($this->fileHandle)) {
+                throw new Exception('Could not close file after writing.');
+            }
+        }
     }
 }

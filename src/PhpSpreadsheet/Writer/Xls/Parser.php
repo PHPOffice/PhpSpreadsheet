@@ -516,7 +516,7 @@ class Parser
         } elseif (isset($this->ptg[$token])) {
             return pack('C', $this->ptg[$token]);
         // match error codes
-        } elseif (preg_match('/^#[A-Z0\\/]{3,5}[!?]{1}$/', $token) or $token == '#N/A') {
+        } elseif (preg_match('/^#[A-Z0\\/]{3,5}[!?]{1}$/', $token) || $token == '#N/A') {
             return $this->convertError($token);
         // commented so argument number can be processed correctly. See toReversePolish().
         /*elseif (preg_match("/[A-Z0-9\xc0-\xdc\.]+/", $token))
@@ -542,7 +542,7 @@ class Parser
     private function convertNumber($num)
     {
         // Integer in the range 0..2**16-1
-        if ((preg_match('/^\\d+$/', $num)) and ($num <= 65535)) {
+        if ((preg_match('/^\\d+$/', $num)) && ($num <= 65535)) {
             return pack('Cv', $this->ptg['ptgInt'], $num);
         }
 
@@ -828,7 +828,7 @@ class Parser
      * @param string $name The name of the worksheet being added
      * @param int $index The index of the worksheet being added
      */
-    public function setExtSheet($name, $index)
+    public function setExtSheet($name, $index): void
     {
         $this->externalSheets[$name] = $index;
     }
@@ -885,7 +885,7 @@ class Parser
         $col2 = 65535; // FIXME: maximum possible value for Excel 5 (change this!!!)
 
         // FIXME: this changes for BIFF8
-        if (($row1 >= 65536) or ($row2 >= 65536)) {
+        if (($row1 >= 65536) || ($row2 >= 65536)) {
             throw new WriterException("Row in: $range greater than 65536 ");
         }
 
@@ -924,7 +924,7 @@ class Parser
         $col = 0;
         $col_ref_length = strlen($col_ref);
         for ($i = 0; $i < $col_ref_length; ++$i) {
-            $col += (ord($col_ref[$i]) - 64) * pow(26, $expn);
+            $col += (ord($col_ref[$i]) - 64) * 26 ** $expn;
             --$expn;
         }
 
@@ -1018,7 +1018,7 @@ class Parser
                 break;
             case '<':
                 // it's a LE or a NE token
-                if (($this->lookAhead === '=') or ($this->lookAhead === '>')) {
+                if (($this->lookAhead === '=') || ($this->lookAhead === '>')) {
                     break;
                 }
 
@@ -1027,33 +1027,33 @@ class Parser
                 break;
             default:
                 // if it's a reference A1 or $A$1 or $A1 or A$1
-                if (preg_match('/^\$?[A-Ia-i]?[A-Za-z]\$?\d+$/', $token) and !preg_match('/\d/', $this->lookAhead) and ($this->lookAhead !== ':') and ($this->lookAhead !== '.') and ($this->lookAhead !== '!')) {
+                if (preg_match('/^\$?[A-Ia-i]?[A-Za-z]\$?\d+$/', $token) && !preg_match('/\d/', $this->lookAhead) && ($this->lookAhead !== ':') && ($this->lookAhead !== '.') && ($this->lookAhead !== '!')) {
                     return $token;
-                } elseif (preg_match('/^' . self::REGEX_SHEET_TITLE_UNQUOTED . '(\\:' . self::REGEX_SHEET_TITLE_UNQUOTED . ')?\\!\$?[A-Ia-i]?[A-Za-z]\$?\\d+$/u', $token) and !preg_match('/\d/', $this->lookAhead) and ($this->lookAhead !== ':') and ($this->lookAhead !== '.')) {
+                } elseif (preg_match('/^' . self::REGEX_SHEET_TITLE_UNQUOTED . '(\\:' . self::REGEX_SHEET_TITLE_UNQUOTED . ')?\\!\$?[A-Ia-i]?[A-Za-z]\$?\\d+$/u', $token) && !preg_match('/\d/', $this->lookAhead) && ($this->lookAhead !== ':') && ($this->lookAhead !== '.')) {
                     // If it's an external reference (Sheet1!A1 or Sheet1:Sheet2!A1 or Sheet1!$A$1 or Sheet1:Sheet2!$A$1)
                     return $token;
-                } elseif (preg_match("/^'" . self::REGEX_SHEET_TITLE_QUOTED . '(\\:' . self::REGEX_SHEET_TITLE_QUOTED . ")?'\\!\\$?[A-Ia-i]?[A-Za-z]\\$?\\d+$/u", $token) and !preg_match('/\d/', $this->lookAhead) and ($this->lookAhead !== ':') and ($this->lookAhead !== '.')) {
+                } elseif (preg_match("/^'" . self::REGEX_SHEET_TITLE_QUOTED . '(\\:' . self::REGEX_SHEET_TITLE_QUOTED . ")?'\\!\\$?[A-Ia-i]?[A-Za-z]\\$?\\d+$/u", $token) && !preg_match('/\d/', $this->lookAhead) && ($this->lookAhead !== ':') && ($this->lookAhead !== '.')) {
                     // If it's an external reference ('Sheet1'!A1 or 'Sheet1:Sheet2'!A1 or 'Sheet1'!$A$1 or 'Sheet1:Sheet2'!$A$1)
                     return $token;
                 } elseif (preg_match('/^(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+:(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+$/', $token) && !preg_match('/\d/', $this->lookAhead)) {
                     // if it's a range A1:A2 or $A$1:$A$2
                     return $token;
-                } elseif (preg_match('/^' . self::REGEX_SHEET_TITLE_UNQUOTED . '(\\:' . self::REGEX_SHEET_TITLE_UNQUOTED . ')?\\!\$?([A-Ia-i]?[A-Za-z])?\$?\\d+:\$?([A-Ia-i]?[A-Za-z])?\$?\\d+$/u', $token) and !preg_match('/\d/', $this->lookAhead)) {
+                } elseif (preg_match('/^' . self::REGEX_SHEET_TITLE_UNQUOTED . '(\\:' . self::REGEX_SHEET_TITLE_UNQUOTED . ')?\\!\$?([A-Ia-i]?[A-Za-z])?\$?\\d+:\$?([A-Ia-i]?[A-Za-z])?\$?\\d+$/u', $token) && !preg_match('/\d/', $this->lookAhead)) {
                     // If it's an external range like Sheet1!A1:B2 or Sheet1:Sheet2!A1:B2 or Sheet1!$A$1:$B$2 or Sheet1:Sheet2!$A$1:$B$2
                     return $token;
-                } elseif (preg_match("/^'" . self::REGEX_SHEET_TITLE_QUOTED . '(\\:' . self::REGEX_SHEET_TITLE_QUOTED . ")?'\\!\\$?([A-Ia-i]?[A-Za-z])?\\$?\\d+:\\$?([A-Ia-i]?[A-Za-z])?\\$?\\d+$/u", $token) and !preg_match('/\d/', $this->lookAhead)) {
+                } elseif (preg_match("/^'" . self::REGEX_SHEET_TITLE_QUOTED . '(\\:' . self::REGEX_SHEET_TITLE_QUOTED . ")?'\\!\\$?([A-Ia-i]?[A-Za-z])?\\$?\\d+:\\$?([A-Ia-i]?[A-Za-z])?\\$?\\d+$/u", $token) && !preg_match('/\d/', $this->lookAhead)) {
                     // If it's an external range like 'Sheet1'!A1:B2 or 'Sheet1:Sheet2'!A1:B2 or 'Sheet1'!$A$1:$B$2 or 'Sheet1:Sheet2'!$A$1:$B$2
                     return $token;
-                } elseif (is_numeric($token) and (!is_numeric($token . $this->lookAhead) or ($this->lookAhead == '')) and ($this->lookAhead !== '!') and ($this->lookAhead !== ':')) {
+                } elseif (is_numeric($token) && (!is_numeric($token . $this->lookAhead) || ($this->lookAhead == '')) && ($this->lookAhead !== '!') && ($this->lookAhead !== ':')) {
                     // If it's a number (check that it's not a sheet name or range)
                     return $token;
-                } elseif (preg_match('/"([^"]|""){0,255}"/', $token) and $this->lookAhead !== '"' and (substr_count($token, '"') % 2 == 0)) {
+                } elseif (preg_match('/"([^"]|""){0,255}"/', $token) && $this->lookAhead !== '"' && (substr_count($token, '"') % 2 == 0)) {
                     // If it's a string (of maximum 255 characters)
                     return $token;
-                } elseif (preg_match('/^#[A-Z0\\/]{3,5}[!?]{1}$/', $token) or $token === '#N/A') {
+                } elseif (preg_match('/^#[A-Z0\\/]{3,5}[!?]{1}$/', $token) || $token === '#N/A') {
                     // If it's an error code
                     return $token;
-                } elseif (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/i", $token) and ($this->lookAhead === '(')) {
+                } elseif (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/i", $token) && ($this->lookAhead === '(')) {
                     // if it's a function call
                     return $token;
                 } elseif (substr($token, -1) === ')') {
@@ -1151,7 +1151,7 @@ class Parser
 
             return $result;
         // If it's an error code
-        } elseif (preg_match('/^#[A-Z0\\/]{3,5}[!?]{1}$/', $this->currentToken) or $this->currentToken == '#N/A') {
+        } elseif (preg_match('/^#[A-Z0\\/]{3,5}[!?]{1}$/', $this->currentToken) || $this->currentToken == '#N/A') {
             $result = $this->createTree($this->currentToken, 'ptgErr', '');
             $this->advance();
 
@@ -1172,8 +1172,8 @@ class Parser
             return $this->createTree('ptgUplus', $result2, '');
         }
         $result = $this->term();
-        while (($this->currentToken == '+') or
-               ($this->currentToken == '-') or
+        while (($this->currentToken == '+') ||
+               ($this->currentToken == '-') ||
                ($this->currentToken == '^')) {
             if ($this->currentToken == '+') {
                 $this->advance();
@@ -1215,7 +1215,7 @@ class Parser
     private function term()
     {
         $result = $this->fact();
-        while (($this->currentToken == '*') or
+        while (($this->currentToken == '*') ||
                ($this->currentToken == '/')) {
             if ($this->currentToken == '*') {
                 $this->advance();
@@ -1270,7 +1270,7 @@ class Parser
             $this->advance();
 
             return $result;
-        } elseif (preg_match('/^(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+:(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+$/', $this->currentToken) or
+        } elseif (preg_match('/^(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+:(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+$/', $this->currentToken) ||
                 preg_match('/^(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+\.\.(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+$/', $this->currentToken)) {
             // if it's a range A1:B2 or $A$1:$B$2
             // must be an error?
@@ -1344,7 +1344,7 @@ class Parser
         }
         $args = $this->functions[$function][1];
         // If fixed number of args eg. TIME($i, $j, $k). Check that the number of args is valid.
-        if (($args >= 0) and ($args != $num_args)) {
+        if (($args >= 0) && ($args != $num_args)) {
             throw new WriterException("Incorrect number of arguments in function $function() ");
         }
 
@@ -1417,10 +1417,10 @@ class Parser
             $polish .= $converted_tree;
         }
         // if it's a function convert it here (so we can set it's arguments)
-        if (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/", $tree['value']) and
-            !preg_match('/^([A-Ia-i]?[A-Za-z])(\d+)$/', $tree['value']) and
-            !preg_match('/^[A-Ia-i]?[A-Za-z](\\d+)\\.\\.[A-Ia-i]?[A-Za-z](\\d+)$/', $tree['value']) and
-            !is_numeric($tree['value']) and
+        if (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/", $tree['value']) &&
+            !preg_match('/^([A-Ia-i]?[A-Za-z])(\d+)$/', $tree['value']) &&
+            !preg_match('/^[A-Ia-i]?[A-Za-z](\\d+)\\.\\.[A-Ia-i]?[A-Za-z](\\d+)$/', $tree['value']) &&
+            !is_numeric($tree['value']) &&
             !isset($this->ptg[$tree['value']])) {
             // left subtree for a function is always an array.
             if ($tree['left'] != '') {

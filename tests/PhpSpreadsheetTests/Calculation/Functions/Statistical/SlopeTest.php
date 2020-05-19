@@ -18,14 +18,14 @@ class SlopeTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSLOPE($expectedResult, array $xargs, array $yargs)
+    public function testSLOPE($expectedResult, array $xargs, array $yargs): void
     {
         $result = Statistical::SLOPE($xargs, $yargs);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSLOPE()
     {
-        return require 'data/Calculation/Statistical/SLOPE.php';
+        return require 'tests/data/Calculation/Statistical/SLOPE.php';
     }
 }

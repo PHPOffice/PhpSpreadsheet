@@ -18,14 +18,14 @@ class Dec2BinTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDEC2BIN($expectedResult, ...$args)
+    public function testDEC2BIN($expectedResult, ...$args): void
     {
         $result = Engineering::DECTOBIN(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerDEC2BIN()
     {
-        return require 'data/Calculation/Engineering/DEC2BIN.php';
+        return require 'tests/data/Calculation/Engineering/DEC2BIN.php';
     }
 }

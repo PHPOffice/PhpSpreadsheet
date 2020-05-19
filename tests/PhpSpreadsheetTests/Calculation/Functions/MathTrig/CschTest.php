@@ -19,14 +19,14 @@ class CschTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $angle
      */
-    public function testCSCH($expectedResult, $angle)
+    public function testCSCH($expectedResult, $angle): void
     {
         $result = MathTrig::CSCH($angle);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCSCH()
     {
-        return require 'data/Calculation/MathTrig/CSCH.php';
+        return require 'tests/data/Calculation/MathTrig/CSCH.php';
     }
 }

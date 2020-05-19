@@ -109,7 +109,7 @@ class BIFFwriter
      *
      * @param string $data binary data to append
      */
-    protected function append($data)
+    protected function append($data): void
     {
         if (strlen($data) - 4 > $this->limit) {
             $data = $this->addContinue($data);
@@ -142,7 +142,7 @@ class BIFFwriter
      * @param int $type type of BIFF file to write: 0x0005 Workbook,
      *                       0x0010 Worksheet
      */
-    protected function storeBof($type)
+    protected function storeBof($type): void
     {
         $record = 0x0809; // Record identifier    (BIFF5-BIFF8)
         $length = 0x0010;
@@ -163,7 +163,7 @@ class BIFFwriter
     /**
      * Writes Excel EOF record to indicate the end of a BIFF stream.
      */
-    protected function storeEof()
+    protected function storeEof(): void
     {
         $record = 0x000A; // Record identifier
         $length = 0x0000; // Number of bytes to follow

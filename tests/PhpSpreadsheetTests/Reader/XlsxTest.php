@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class XlsxTest extends TestCase
 {
-    public function testLoadXlsxWorkbookProperties()
+    public function testLoadXlsxWorkbookProperties(): void
     {
         $customPropertySet = [
             'Publisher' => ['type' => Properties::PROPERTY_TYPE_STRING, 'value' => 'PHPOffice Suite'],
@@ -24,62 +24,62 @@ class XlsxTest extends TestCase
             'Refactor Date' => ['type' => Properties::PROPERTY_TYPE_DATE, 'value' => '2019-06-10'],
         ];
 
-        $filename = './data/Reader/XLSX/propertyTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/propertyTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
         $properties = $spreadsheet->getProperties();
         // Core Properties
-        $this->assertSame('Mark Baker', $properties->getCreator());
-        $this->assertSame('Unit Testing', $properties->getTitle());
-        $this->assertSame('Property Test', $properties->getSubject());
+        self::assertSame('Mark Baker', $properties->getCreator());
+        self::assertSame('Unit Testing', $properties->getTitle());
+        self::assertSame('Property Test', $properties->getSubject());
 
         // Extended Properties
-        $this->assertSame('PHPOffice', $properties->getCompany());
-        $this->assertSame('The Big Boss', $properties->getManager());
+        self::assertSame('PHPOffice', $properties->getCompany());
+        self::assertSame('The Big Boss', $properties->getManager());
 
         // Custom Properties
         $customProperties = $properties->getCustomProperties();
         self::assertIsArray($customProperties);
         $customProperties = array_flip($customProperties);
-        $this->assertArrayHasKey('Publisher', $customProperties);
+        self::assertArrayHasKey('Publisher', $customProperties);
 
         foreach ($customPropertySet as $propertyName => $testData) {
-            $this->assertTrue($properties->isCustomPropertySet($propertyName));
-            $this->assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
+            self::assertTrue($properties->isCustomPropertySet($propertyName));
+            self::assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
             if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
-                $this->assertSame($testData['value'], date('Y-m-d', $properties->getCustomPropertyValue($propertyName)));
+                self::assertSame($testData['value'], date('Y-m-d', $properties->getCustomPropertyValue($propertyName)));
             } else {
-                $this->assertSame($testData['value'], $properties->getCustomPropertyValue($propertyName));
+                self::assertSame($testData['value'], $properties->getCustomPropertyValue($propertyName));
             }
         }
     }
 
-    public function testLoadXlsxRowColumnAttributes()
+    public function testLoadXlsxRowColumnAttributes(): void
     {
-        $filename = './data/Reader/XLSX/rowColumnAttributeTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/rowColumnAttributeTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
         $worksheet = $spreadsheet->getActiveSheet();
         for ($row = 1; $row <= 4; ++$row) {
-            $this->assertEquals($row * 5 + 10, floor($worksheet->getRowDimension($row)->getRowHeight()));
+            self::assertEquals($row * 5 + 10, floor($worksheet->getRowDimension($row)->getRowHeight()));
         }
 
-        $this->assertFalse($worksheet->getRowDimension(5)->getVisible());
+        self::assertFalse($worksheet->getRowDimension(5)->getVisible());
 
         for ($column = 1; $column <= 4; ++$column) {
             $columnAddress = Coordinate::stringFromColumnIndex($column);
-            $this->assertEquals(
+            self::assertEquals(
                 $column * 2 + 2,
                 floor($worksheet->getColumnDimension($columnAddress)->getWidth())
             );
         }
 
-        $this->assertFalse($worksheet->getColumnDimension('E')->getVisible());
+        self::assertFalse($worksheet->getColumnDimension('E')->getVisible());
     }
 
-    public function testLoadXlsxWithStyles()
+    public function testLoadXlsxWithStyles(): void
     {
         $expectedColours = [
             1 => ['A' => 'C00000', 'C' => 'FF0000', 'E' => 'FFC000'],
@@ -88,14 +88,14 @@ class XlsxTest extends TestCase
             7 => ['A' => '0070C0', 'C' => '00B0F0', 'E' => '00B050'],
         ];
 
-        $filename = './data/Reader/XLSX/stylesTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/stylesTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
         $worksheet = $spreadsheet->getActiveSheet();
         for ($row = 1; $row <= 8; $row += 2) {
             for ($column = 'A'; $column !== 'G'; ++$column, ++$column) {
-                $this->assertEquals(
+                self::assertEquals(
                     $expectedColours[$row][$column],
                     $worksheet->getStyle($column . $row)->getFill()->getStartColor()->getRGB()
                 );
@@ -103,26 +103,26 @@ class XlsxTest extends TestCase
         }
     }
 
-    public function testLoadXlsxAutofilter()
+    public function testLoadXlsxAutofilter(): void
     {
-        $filename = './data/Reader/XLSX/autofilterTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/autofilterTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
         $worksheet = $spreadsheet->getActiveSheet();
 
         $autofilter = $worksheet->getAutoFilter();
-        $this->assertInstanceOf(AutoFilter::class, $autofilter);
-        $this->assertEquals('A1:D57', $autofilter->getRange());
-        $this->assertEquals(
+        self::assertInstanceOf(AutoFilter::class, $autofilter);
+        self::assertEquals('A1:D57', $autofilter->getRange());
+        self::assertEquals(
             AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER,
             $autofilter->getColumn('A')->getFilterType()
         );
     }
 
-    public function testLoadXlsxPageSetup()
+    public function testLoadXlsxPageSetup(): void
     {
-        $filename = './data/Reader/XLSX/pageSetupTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/pageSetupTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
@@ -130,18 +130,18 @@ class XlsxTest extends TestCase
 
         $pageMargins = $worksheet->getPageMargins();
         // Convert from inches to cm for testing
-        $this->assertEquals(2.5, $pageMargins->getTop() * 2.54);
-        $this->assertEquals(3.3, $pageMargins->getLeft() * 2.54);
-        $this->assertEquals(3.3, $pageMargins->getRight() * 2.54);
-        $this->assertEquals(1.3, $pageMargins->getHeader() * 2.54);
+        self::assertEquals(2.5, $pageMargins->getTop() * 2.54);
+        self::assertEquals(3.3, $pageMargins->getLeft() * 2.54);
+        self::assertEquals(3.3, $pageMargins->getRight() * 2.54);
+        self::assertEquals(1.3, $pageMargins->getHeader() * 2.54);
 
-        $this->assertEquals(PageSetup::PAPERSIZE_A4, $worksheet->getPageSetup()->getPaperSize());
-        $this->assertEquals(['A10', 'A20', 'A30', 'A40', 'A50'], array_keys($worksheet->getBreaks()));
+        self::assertEquals(PageSetup::PAPERSIZE_A4, $worksheet->getPageSetup()->getPaperSize());
+        self::assertEquals(['A10', 'A20', 'A30', 'A40', 'A50'], array_keys($worksheet->getBreaks()));
     }
 
-    public function testLoadXlsxConditionalFormatting()
+    public function testLoadXlsxConditionalFormatting(): void
     {
-        $filename = './data/Reader/XLSX/conditionalFormattingTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/conditionalFormattingTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
@@ -149,24 +149,24 @@ class XlsxTest extends TestCase
 
         $conditionalStyle = $worksheet->getCell('B2')->getStyle()->getConditionalStyles();
 
-        $this->assertNotEmpty($conditionalStyle);
+        self::assertNotEmpty($conditionalStyle);
         $conditionalRule = $conditionalStyle[0];
-        $this->assertNotEmpty($conditionalRule->getConditions());
-        $this->assertEquals(Conditional::CONDITION_CELLIS, $conditionalRule->getConditionType());
-        $this->assertEquals(Conditional::OPERATOR_BETWEEN, $conditionalRule->getOperatorType());
-        $this->assertEquals(['200', '400'], $conditionalRule->getConditions());
-        $this->assertInstanceOf(Style::class, $conditionalRule->getStyle());
+        self::assertNotEmpty($conditionalRule->getConditions());
+        self::assertEquals(Conditional::CONDITION_CELLIS, $conditionalRule->getConditionType());
+        self::assertEquals(Conditional::OPERATOR_BETWEEN, $conditionalRule->getOperatorType());
+        self::assertEquals(['200', '400'], $conditionalRule->getConditions());
+        self::assertInstanceOf(Style::class, $conditionalRule->getStyle());
     }
 
-    public function testLoadXlsxDataValidation()
+    public function testLoadXlsxDataValidation(): void
     {
-        $filename = './data/Reader/XLSX/dataValidationTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/dataValidationTest.xlsx';
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
 
         $worksheet = $spreadsheet->getActiveSheet();
 
-        $this->assertTrue($worksheet->getCell('B3')->hasDataValidation());
+        self::assertTrue($worksheet->getCell('B3')->hasDataValidation());
     }
 
     /**
@@ -174,9 +174,9 @@ class XlsxTest extends TestCase
      *
      * @doesNotPerformAssertions
      */
-    public function testLoadXlsxWithoutCellReference()
+    public function testLoadXlsxWithoutCellReference(): void
     {
-        $filename = './data/Reader/XLSX/without_cell_reference.xlsx';
+        $filename = 'tests/data/Reader/XLSX/without_cell_reference.xlsx';
         $reader = new Xlsx();
         $reader->load($filename);
     }
@@ -184,16 +184,16 @@ class XlsxTest extends TestCase
     /**
      * Test load Xlsx file and use a read filter.
      */
-    public function testLoadWithReadFilter()
+    public function testLoadWithReadFilter(): void
     {
-        $filename = './data/Reader/XLSX/without_cell_reference.xlsx';
+        $filename = 'tests/data/Reader/XLSX/without_cell_reference.xlsx';
         $reader = new Xlsx();
         $reader->setReadFilter(new OddColumnReadFilter());
         $data = $reader->load($filename)->getActiveSheet()->toArray();
         $ref = [1.0, null, 3.0, null, 5.0, null, 7.0, null, 9.0, null];
 
         for ($i = 0; $i < 10; ++$i) {
-            $this->assertEquals($ref, \array_slice($data[$i], 0, 10, true));
+            self::assertEquals($ref, \array_slice($data[$i], 0, 10, true));
         }
     }
 
@@ -202,9 +202,9 @@ class XlsxTest extends TestCase
      *
      * @doesNotPerformAssertions
      */
-    public function testLoadXlsxWithDoubleAttrDrawing()
+    public function testLoadXlsxWithDoubleAttrDrawing(): void
     {
-        $filename = './data/Reader/XLSX/double_attr_drawing.xlsx';
+        $filename = 'tests/data/Reader/XLSX/double_attr_drawing.xlsx';
         $reader = new Xlsx();
         $reader->load($filename);
     }
@@ -213,9 +213,9 @@ class XlsxTest extends TestCase
      * Test correct save and load xlsx files with empty drawings.
      * Such files can be generated by Google Sheets.
      */
-    public function testLoadSaveWithEmptyDrawings()
+    public function testLoadSaveWithEmptyDrawings(): void
     {
-        $filename = __DIR__ . '/../../data/Reader/XLSX/empty_drawing.xlsx';
+        $filename = 'tests/data/Reader/XLSX/empty_drawing.xlsx';
         $reader = new Xlsx();
         $excel = $reader->load($filename);
         $resultFilename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
@@ -223,7 +223,7 @@ class XlsxTest extends TestCase
         $writer->save($resultFilename);
         $excel = $reader->load($resultFilename);
         // Fake assert. The only thing we need is to ensure the file is loaded without exception
-        $this->assertNotNull($excel);
+        self::assertNotNull($excel);
     }
 
     /**
@@ -233,10 +233,10 @@ class XlsxTest extends TestCase
      * @param $string
      * @dataProvider providerStripsWhiteSpaceFromStyleString
      */
-    public function testStripsWhiteSpaceFromStyleString($string)
+    public function testStripsWhiteSpaceFromStyleString($string): void
     {
         $string = Xlsx::stripWhiteSpaceFromStyleString($string);
-        $this->assertEquals(preg_match('/\s/', $string), 0);
+        self::assertEquals(preg_match('/\s/', $string), 0);
     }
 
     public function providerStripsWhiteSpaceFromStyleString()

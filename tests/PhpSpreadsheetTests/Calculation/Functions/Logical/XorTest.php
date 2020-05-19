@@ -18,14 +18,14 @@ class XorTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testXOR($expectedResult, ...$args)
+    public function testXOR($expectedResult, ...$args): void
     {
         $result = Logical::logicalXor(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerXOR()
     {
-        return require 'data/Calculation/Logical/XOR.php';
+        return require 'tests/data/Calculation/Logical/XOR.php';
     }
 }

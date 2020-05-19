@@ -18,14 +18,14 @@ class OrTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testOR($expectedResult, ...$args)
+    public function testOR($expectedResult, ...$args): void
     {
         $result = Logical::logicalOr(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerOR()
     {
-        return require 'data/Calculation/Logical/OR.php';
+        return require 'tests/data/Calculation/Logical/OR.php';
     }
 }

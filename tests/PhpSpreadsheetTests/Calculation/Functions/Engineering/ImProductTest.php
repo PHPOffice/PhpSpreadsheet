@@ -32,10 +32,10 @@ class ImProductTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIMPRODUCT($expectedResult, ...$args)
+    public function testIMPRODUCT($expectedResult, ...$args): void
     {
         $result = Engineering::IMPRODUCT(...$args);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -43,6 +43,6 @@ class ImProductTest extends TestCase
 
     public function providerIMPRODUCT()
     {
-        return require 'data/Calculation/Engineering/IMPRODUCT.php';
+        return require 'tests/data/Calculation/Engineering/IMPRODUCT.php';
     }
 }

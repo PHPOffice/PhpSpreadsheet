@@ -33,10 +33,10 @@ class ImCotTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMCOT($expectedResult, $value)
+    public function testIMCOT($expectedResult, $value): void
     {
         $result = Engineering::IMCOT($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -44,6 +44,6 @@ class ImCotTest extends TestCase
 
     public function providerIMCOT()
     {
-        return require 'data/Calculation/Engineering/IMCOT.php';
+        return require 'tests/data/Calculation/Engineering/IMCOT.php';
     }
 }

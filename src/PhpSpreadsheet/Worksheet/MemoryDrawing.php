@@ -53,7 +53,7 @@ class MemoryDrawing extends BaseDrawing
         $this->imageResource = null;
         $this->renderingFunction = self::RENDERING_DEFAULT;
         $this->mimeType = self::MIMETYPE_DEFAULT;
-        $this->uniqueName = md5(rand(0, 9999) . time() . rand(0, 9999));
+        $this->uniqueName = md5(mt_rand(0, 9999) . time() . mt_rand(0, 9999));
 
         // Initialize parent
         parent::__construct();

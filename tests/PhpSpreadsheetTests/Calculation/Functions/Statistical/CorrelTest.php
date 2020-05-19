@@ -18,14 +18,14 @@ class CorrelTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCORREL($expectedResult, array $xargs, array $yargs)
+    public function testCORREL($expectedResult, array $xargs, array $yargs): void
     {
         $result = Statistical::CORREL($xargs, $yargs);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCORREL()
     {
-        return require 'data/Calculation/Statistical/CORREL.php';
+        return require 'tests/data/Calculation/Statistical/CORREL.php';
     }
 }
