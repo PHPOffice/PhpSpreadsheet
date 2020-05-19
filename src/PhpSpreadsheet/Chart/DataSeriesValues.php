@@ -352,7 +352,7 @@ class DataSeriesValues
         return $this;
     }
 
-    public function refresh(Worksheet $worksheet, $flatten = true)
+    public function refresh(Worksheet $worksheet, $flatten = true): void
     {
         if ($this->dataSource !== null) {
             $calcEngine = Calculation::getInstance($worksheet->getParent());

@@ -16,7 +16,7 @@ class FloatsRetainedTest extends TestCase
      *
      * @param float|int $value
      */
-    public function testIntyFloatsRetainedByWriter($value)
+    public function testIntyFloatsRetainedByWriter($value): void
     {
         $outputFilename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         Settings::setLibXmlLoaderOptions(null);
@@ -29,7 +29,7 @@ class FloatsRetainedTest extends TestCase
         $reader = new Reader();
         $sheet = $reader->load($outputFilename);
 
-        $this->assertSame($value, $sheet->getActiveSheet()->getCell('A1')->getValue());
+        self::assertSame($value, $sheet->getActiveSheet()->getCell('A1')->getValue());
     }
 
     public function providerIntyFloatsRetainedByWriter()

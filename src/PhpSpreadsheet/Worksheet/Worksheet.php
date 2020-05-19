@@ -344,7 +344,7 @@ class Worksheet implements IComparable
      * @param Spreadsheet $parent
      * @param string $pTitle
      */
-    public function __construct(Spreadsheet $parent = null, $pTitle = 'Worksheet')
+    public function __construct(?Spreadsheet $parent = null, $pTitle = 'Worksheet')
     {
         // Set parent and title
         $this->parent = $parent;
@@ -363,9 +363,9 @@ class Worksheet implements IComparable
         // Set sheet view
         $this->sheetView = new SheetView();
         // Drawing collection
-        $this->drawingCollection = new \ArrayObject();
+        $this->drawingCollection = new ArrayObject();
         // Chart collection
-        $this->chartCollection = new \ArrayObject();
+        $this->chartCollection = new ArrayObject();
         // Protection
         $this->protection = new Protection();
         // Default row dimension
@@ -379,7 +379,7 @@ class Worksheet implements IComparable
      * Disconnect all cells from this Worksheet object,
      * typically so that the worksheet object can be unset.
      */
-    public function disconnectCells()
+    public function disconnectCells(): void
     {
         if ($this->cellCollection !== null) {
             $this->cellCollection->unsetWorksheetCells();
@@ -552,7 +552,6 @@ class Worksheet implements IComparable
     /**
      * Add chart.
      *
-     * @param Chart $pChart
      * @param null|int $iChartIndex Index where chart should go (0,1,..., or null for last)
      *
      * @return Chart
@@ -791,8 +790,6 @@ class Worksheet implements IComparable
     /**
      * Re-bind parent.
      *
-     * @param Spreadsheet $parent
-     *
      * @return $this
      */
     public function rebindParent(Spreadsheet $parent)
@@ -931,8 +928,6 @@ class Worksheet implements IComparable
     /**
      * Set page setup.
      *
-     * @param PageSetup $pValue
-     *
      * @return $this
      */
     public function setPageSetup(PageSetup $pValue)
@@ -954,8 +949,6 @@ class Worksheet implements IComparable
 
     /**
      * Set page margins.
-     *
-     * @param PageMargins $pValue
      *
      * @return $this
      */
@@ -979,8 +972,6 @@ class Worksheet implements IComparable
     /**
      * Set page header/footer.
      *
-     * @param HeaderFooter $pValue
-     *
      * @return $this
      */
     public function setHeaderFooter(HeaderFooter $pValue)
@@ -1003,8 +994,6 @@ class Worksheet implements IComparable
     /**
      * Set sheet view.
      *
-     * @param SheetView $pValue
-     *
      * @return $this
      */
     public function setSheetView(SheetView $pValue)
@@ -1026,8 +1015,6 @@ class Worksheet implements IComparable
 
     /**
      * Set Protection.
-     *
-     * @param Protection $pValue
      *
      * @return $this
      */
@@ -1770,8 +1757,6 @@ class Worksheet implements IComparable
     /**
      * Set merge cells array for the entire sheet. Use instead mergeCells() to merge
      * a single cell range.
-     *
-     * @param array $pValue
      *
      * @return $this
      */
@@ -2733,11 +2718,10 @@ class Worksheet implements IComparable
      * Set hyperlink.
      *
      * @param string $pCellCoordinate Cell coordinate to insert hyperlink, eg: 'A1'
-     * @param null|Hyperlink $pHyperlink
      *
      * @return $this
      */
-    public function setHyperlink($pCellCoordinate, Hyperlink $pHyperlink = null)
+    public function setHyperlink($pCellCoordinate, ?Hyperlink $pHyperlink = null)
     {
         if ($pHyperlink === null) {
             unset($this->hyperlinkCollection[$pCellCoordinate]);
@@ -2794,11 +2778,10 @@ class Worksheet implements IComparable
      * Set data validation.
      *
      * @param string $pCellCoordinate Cell coordinate to insert data validation, eg: 'A1'
-     * @param null|DataValidation $pDataValidation
      *
      * @return $this
      */
-    public function setDataValidation($pCellCoordinate, DataValidation $pDataValidation = null)
+    public function setDataValidation($pCellCoordinate, ?DataValidation $pDataValidation = null)
     {
         if ($pDataValidation === null) {
             unset($this->dataValidationCollection[$pCellCoordinate]);
@@ -2889,7 +2872,7 @@ class Worksheet implements IComparable
     public function resetTabColor()
     {
         $this->tabColor = null;
-        unset($this->tabColor);
+        $this->tabColor = null;
 
         return $this;
     }

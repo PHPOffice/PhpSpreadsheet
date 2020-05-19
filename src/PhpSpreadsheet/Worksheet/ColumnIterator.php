@@ -2,11 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use Iterator;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
-class ColumnIterator implements \Iterator
+class ColumnIterator implements Iterator
 {
     /**
      * Worksheet to iterate.
@@ -56,7 +57,7 @@ class ColumnIterator implements \Iterator
      */
     public function __destruct()
     {
-        unset($this->worksheet);
+        $this->worksheet = null;
     }
 
     /**
@@ -118,7 +119,7 @@ class ColumnIterator implements \Iterator
     /**
      * Rewind the iterator to the starting column.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->currentColumnIndex = $this->startColumnIndex;
     }
@@ -146,7 +147,7 @@ class ColumnIterator implements \Iterator
     /**
      * Set the iterator to its next value.
      */
-    public function next()
+    public function next(): void
     {
         ++$this->currentColumnIndex;
     }
@@ -154,7 +155,7 @@ class ColumnIterator implements \Iterator
     /**
      * Set the iterator to its previous value.
      */
-    public function prev()
+    public function prev(): void
     {
         --$this->currentColumnIndex;
     }

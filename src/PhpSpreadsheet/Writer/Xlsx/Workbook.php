@@ -15,7 +15,6 @@ class Workbook extends WriterPart
     /**
      * Write workbook to XML format.
      *
-     * @param Spreadsheet $spreadsheet
      * @param bool $recalcRequired Indicate whether formulas should be recalculated before writing
      *
      * @return string XML Output
@@ -72,7 +71,7 @@ class Workbook extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      */
-    private function writeFileVersion(XMLWriter $objWriter)
+    private function writeFileVersion(XMLWriter $objWriter): void
     {
         $objWriter->startElement('fileVersion');
         $objWriter->writeAttribute('appName', 'xl');
@@ -87,7 +86,7 @@ class Workbook extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      */
-    private function writeWorkbookPr(XMLWriter $objWriter)
+    private function writeWorkbookPr(XMLWriter $objWriter): void
     {
         $objWriter->startElement('workbookPr');
 
@@ -104,9 +103,8 @@ class Workbook extends WriterPart
      * Write BookViews.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param Spreadsheet $spreadsheet
      */
-    private function writeBookViews(XMLWriter $objWriter, Spreadsheet $spreadsheet)
+    private function writeBookViews(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
         // bookViews
         $objWriter->startElement('bookViews');
@@ -133,9 +131,8 @@ class Workbook extends WriterPart
      * Write WorkbookProtection.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param Spreadsheet $spreadsheet
      */
-    private function writeWorkbookProtection(XMLWriter $objWriter, Spreadsheet $spreadsheet)
+    private function writeWorkbookProtection(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
         if ($spreadsheet->getSecurity()->isSecurityEnabled()) {
             $objWriter->startElement('workbookProtection');
@@ -161,7 +158,7 @@ class Workbook extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param bool $recalcRequired Indicate whether formulas should be recalculated before writing
      */
-    private function writeCalcPr(XMLWriter $objWriter, $recalcRequired = true)
+    private function writeCalcPr(XMLWriter $objWriter, $recalcRequired = true): void
     {
         $objWriter->startElement('calcPr');
 
@@ -182,9 +179,8 @@ class Workbook extends WriterPart
      * Write sheets.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param Spreadsheet $spreadsheet
      */
-    private function writeSheets(XMLWriter $objWriter, Spreadsheet $spreadsheet)
+    private function writeSheets(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
         // Write sheets
         $objWriter->startElement('sheets');
@@ -212,7 +208,7 @@ class Workbook extends WriterPart
      * @param int $pRelId Relationship ID
      * @param string $sheetState Sheet state (visible, hidden, veryHidden)
      */
-    private function writeSheet(XMLWriter $objWriter, $pSheetname, $pSheetId = 1, $pRelId = 1, $sheetState = 'visible')
+    private function writeSheet(XMLWriter $objWriter, $pSheetname, $pSheetId = 1, $pRelId = 1, $sheetState = 'visible'): void
     {
         if ($pSheetname != '') {
             // Write sheet
@@ -233,9 +229,8 @@ class Workbook extends WriterPart
      * Write Defined Names.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param Spreadsheet $spreadsheet
      */
-    private function writeDefinedNames(XMLWriter $objWriter, Spreadsheet $spreadsheet)
+    private function writeDefinedNames(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
         // Write defined names
         $objWriter->startElement('definedNames');
@@ -266,9 +261,8 @@ class Workbook extends WriterPart
      * Write named ranges.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param Spreadsheet $spreadsheet
      */
-    private function writeNamedRanges(XMLWriter $objWriter, Spreadsheet $spreadsheet)
+    private function writeNamedRanges(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
         // Loop named ranges
         $namedRanges = $spreadsheet->getNamedRanges();
@@ -281,9 +275,8 @@ class Workbook extends WriterPart
      * Write Defined Name for named range.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param NamedRange $pNamedRange
      */
-    private function writeDefinedNameForNamedRange(XMLWriter $objWriter, NamedRange $pNamedRange)
+    private function writeDefinedNameForNamedRange(XMLWriter $objWriter, NamedRange $pNamedRange): void
     {
         // definedName for named range
         $objWriter->startElement('definedName');
@@ -312,10 +305,9 @@ class Workbook extends WriterPart
      * Write Defined Name for autoFilter.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param Worksheet $pSheet
      * @param int $pSheetId
      */
-    private function writeDefinedNameForAutofilter(XMLWriter $objWriter, Worksheet $pSheet, $pSheetId = 0)
+    private function writeDefinedNameForAutofilter(XMLWriter $objWriter, Worksheet $pSheet, $pSheetId = 0): void
     {
         // definedName for autoFilter
         $autoFilterRange = $pSheet->getAutoFilter()->getRange();
@@ -345,10 +337,9 @@ class Workbook extends WriterPart
      * Write Defined Name for PrintTitles.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param Worksheet $pSheet
      * @param int $pSheetId
      */
-    private function writeDefinedNameForPrintTitles(XMLWriter $objWriter, Worksheet $pSheet, $pSheetId = 0)
+    private function writeDefinedNameForPrintTitles(XMLWriter $objWriter, Worksheet $pSheet, $pSheetId = 0): void
     {
         // definedName for PrintTitles
         if ($pSheet->getPageSetup()->isColumnsToRepeatAtLeftSet() || $pSheet->getPageSetup()->isRowsToRepeatAtTopSet()) {
@@ -387,10 +378,9 @@ class Workbook extends WriterPart
      * Write Defined Name for PrintTitles.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param Worksheet $pSheet
      * @param int $pSheetId
      */
-    private function writeDefinedNameForPrintArea(XMLWriter $objWriter, Worksheet $pSheet, $pSheetId = 0)
+    private function writeDefinedNameForPrintArea(XMLWriter $objWriter, Worksheet $pSheet, $pSheetId = 0): void
     {
         // definedName for PrintArea
         if ($pSheet->getPageSetup()->isPrintAreaSet()) {

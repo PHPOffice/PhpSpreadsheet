@@ -23,10 +23,10 @@ class DaysTest extends TestCase
      * @param $endDate
      * @param $startDate
      */
-    public function testDAYS($expectedResult, $endDate, $startDate)
+    public function testDAYS($expectedResult, $endDate, $startDate): void
     {
         $result = DateTime::DAYS($endDate, $startDate);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDAYS()

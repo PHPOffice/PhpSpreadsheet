@@ -18,10 +18,10 @@ class MMultTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMMULT($expectedResult, ...$args)
+    public function testMMULT($expectedResult, ...$args): void
     {
         $result = MathTrig::MMULT(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerMMULT()

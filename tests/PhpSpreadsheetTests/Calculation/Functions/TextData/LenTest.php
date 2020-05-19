@@ -31,10 +31,10 @@ class LenTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testLEN($expectedResult, $value)
+    public function testLEN($expectedResult, $value): void
     {
         $result = TextData::STRINGLENGTH($value);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerLEN()

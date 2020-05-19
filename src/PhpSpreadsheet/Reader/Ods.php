@@ -4,6 +4,10 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use DateTime;
 use DateTimeZone;
+use DOMAttr;
+use DOMDocument;
+use DOMElement;
+use DOMNode;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -242,7 +246,6 @@ class Ods extends BaseReader
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
      * @param string $pFilename
-     * @param Spreadsheet $spreadsheet
      *
      * @return Spreadsheet
      */
@@ -251,7 +254,7 @@ class Ods extends BaseReader
         File::assertFile($pFilename);
 
         $timezoneObj = new DateTimeZone('Europe/London');
-        $GMT = new \DateTimeZone('UTC');
+        $GMT = new DateTimeZone('UTC');
 
         $zip = new ZipArchive();
         if (!$zip->open($pFilename)) {
@@ -275,7 +278,7 @@ class Ods extends BaseReader
 
         // Content
 
-        $dom = new \DOMDocument('1.01', 'UTF-8');
+        $dom = new DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
             $this->securityScanner->scan($zip->getFromName('content.xml')),
             Settings::getLibXmlLoaderOptions()
@@ -291,12 +294,12 @@ class Ods extends BaseReader
             ->getElementsByTagNameNS($officeNs, 'spreadsheet');
 
         foreach ($spreadsheets as $workbookData) {
-            /** @var \DOMElement $workbookData */
+            /** @var DOMElement $workbookData */
             $tables = $workbookData->getElementsByTagNameNS($tableNs, 'table');
 
             $worksheetID = 0;
             foreach ($tables as $worksheetDataSet) {
-                /** @var \DOMElement $worksheetDataSet */
+                /** @var DOMElement $worksheetDataSet */
                 $worksheetName = $worksheetDataSet->getAttributeNS($tableNs, 'name');
 
                 // Check loadSheetsOnly
@@ -322,7 +325,7 @@ class Ods extends BaseReader
                 // Go through every child of table element
                 $rowID = 1;
                 foreach ($worksheetDataSet->childNodes as $childNode) {
-                    /** @var \DOMElement $childNode */
+                    /** @var DOMElement $childNode */
 
                     // Filter elements which are not under the "table" ns
                     if ($childNode->namespaceURI != $tableNs) {
@@ -395,11 +398,11 @@ class Ods extends BaseReader
 
                                 // Content
 
-                                /** @var \DOMElement[] $paragraphs */
+                                /** @var DOMElement[] $paragraphs */
                                 $paragraphs = [];
 
                                 foreach ($cellData->childNodes as $item) {
-                                    /** @var \DOMElement $item */
+                                    /** @var DOMElement $item */
 
                                     // Filter text:p elements
                                     if ($item->nodeName == 'text:p') {
@@ -649,22 +652,20 @@ class Ods extends BaseReader
     /**
      * Recursively scan element.
      *
-     * @param \DOMNode $element
-     *
      * @return string
      */
-    protected function scanElementForText(\DOMNode $element)
+    protected function scanElementForText(DOMNode $element)
     {
         $str = '';
         foreach ($element->childNodes as $child) {
-            /** @var \DOMNode $child */
+            /** @var DOMNode $child */
             if ($child->nodeType == XML_TEXT_NODE) {
                 $str .= $child->nodeValue;
             } elseif ($child->nodeType == XML_ELEMENT_NODE && $child->nodeName == 'text:s') {
                 // It's a space
 
                 // Multiple spaces?
-                /** @var \DOMAttr $cAttr */
+                /** @var DOMAttr $cAttr */
                 $cAttr = $child->attributes->getNamedItem('c');
                 if ($cAttr) {
                     $multiplier = (int) $cAttr->nodeValue;

@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlTest extends TestCase
 {
-    public function testCsvWithAngleBracket()
+    public function testCsvWithAngleBracket(): void
     {
         $filename = 'tests/data/Reader/HTML/csv_with_angle_bracket.csv';
         $reader = new Html();
@@ -36,7 +36,7 @@ class HtmlTest extends TestCase
      * @param bool $expected
      * @param string $content
      */
-    public function testCanReadVerySmallFile($expected, $content)
+    public function testCanReadVerySmallFile($expected, $content): void
     {
         $filename = $this->createHtml($content);
         $reader = new Html();
@@ -47,7 +47,7 @@ class HtmlTest extends TestCase
         unlink($filename);
     }
 
-    public function testBackgroundColorInRanding()
+    public function testBackgroundColorInRanding(): void
     {
         $html = '<table>
                     <tr>
@@ -64,7 +64,7 @@ class HtmlTest extends TestCase
         unlink($filename);
     }
 
-    public function testCanApplyInlineBordersStyles()
+    public function testCanApplyInlineBordersStyles(): void
     {
         $html = '<table>
                     <tr>
@@ -110,7 +110,7 @@ class HtmlTest extends TestCase
         unlink($filename);
     }
 
-    public function testCanApplyInlineFontStyles()
+    public function testCanApplyInlineFontStyles(): void
     {
         $html = '<table>
                     <tr>
@@ -147,7 +147,7 @@ class HtmlTest extends TestCase
         unlink($filename);
     }
 
-    public function testCanApplyInlineWidth()
+    public function testCanApplyInlineWidth(): void
     {
         $html = '<table>
                     <tr>
@@ -168,7 +168,7 @@ class HtmlTest extends TestCase
         unlink($filename);
     }
 
-    public function testCanApplyInlineHeight()
+    public function testCanApplyInlineHeight(): void
     {
         $html = '<table>
                     <tr>
@@ -191,7 +191,7 @@ class HtmlTest extends TestCase
         unlink($filename);
     }
 
-    public function testCanApplyAlignment()
+    public function testCanApplyAlignment(): void
     {
         $html = '<table>
                     <tr>
@@ -228,7 +228,7 @@ class HtmlTest extends TestCase
         unlink($filename);
     }
 
-    public function testCanApplyInlineDataFormat()
+    public function testCanApplyInlineDataFormat(): void
     {
         $html = '<table>
                     <tr>
@@ -245,7 +245,7 @@ class HtmlTest extends TestCase
         unlink($filename);
     }
 
-    public function testCanInsertImage()
+    public function testCanInsertImage(): void
     {
         $imagePath = realpath(__DIR__ . '/../../data/Reader/HTML/image.jpg');
 
@@ -266,7 +266,7 @@ class HtmlTest extends TestCase
         unlink($filename);
     }
 
-    public function testCanApplyCellWrapping()
+    public function testCanApplyCellWrapping(): void
     {
         $html = '<table>
                     <tr>
@@ -289,17 +289,17 @@ class HtmlTest extends TestCase
         $cellStyle = $firstSheet->getStyle('A2');
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A2')->getValue();
-        $this->assertStringContainsString("\n", $cellValue);
+        self::assertStringContainsString("\n", $cellValue);
 
         $cellStyle = $firstSheet->getStyle('A3');
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A3')->getValue();
-        $this->assertStringContainsString("\n", $cellValue);
+        self::assertStringContainsString("\n", $cellValue);
 
         unlink($filename);
     }
 
-    public function testCanLoadFromString()
+    public function testCanLoadFromString(): void
     {
         $html = '<table>
                     <tr>
@@ -321,15 +321,15 @@ class HtmlTest extends TestCase
         $cellStyle = $firstSheet->getStyle('A2');
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A2')->getValue();
-        $this->assertStringContainsString("\n", $cellValue);
+        self::assertStringContainsString("\n", $cellValue);
 
         $cellStyle = $firstSheet->getStyle('A3');
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A3')->getValue();
-        $this->assertStringContainsString("\n", $cellValue);
+        self::assertStringContainsString("\n", $cellValue);
     }
 
-    public function testCanLoadFromStringIntoExistingSpreadsheet()
+    public function testCanLoadFromStringIntoExistingSpreadsheet(): void
     {
         $html = '<table>
                     <tr>
@@ -352,12 +352,12 @@ class HtmlTest extends TestCase
         $cellStyle = $firstSheet->getStyle('A2');
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A2')->getValue();
-        $this->assertStringContainsString("\n", $cellValue);
+        self::assertStringContainsString("\n", $cellValue);
 
         $cellStyle = $firstSheet->getStyle('A3');
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A3')->getValue();
-        $this->assertStringContainsString("\n", $cellValue);
+        self::assertStringContainsString("\n", $cellValue);
 
         $reader->setSheetIndex(1);
         $html = '<table>
@@ -394,7 +394,7 @@ class HtmlTest extends TestCase
         return (new Html())->load($filename);
     }
 
-    public function testRowspanInRendering()
+    public function testRowspanInRendering(): void
     {
         $filename = 'tests/data/Reader/HTML/rowspan.html';
         $reader = new Html();
@@ -404,7 +404,7 @@ class HtmlTest extends TestCase
         self::assertSame(['A2:C2' => 'A2:C2'], $actual);
     }
 
-    public function testTextIndentUseRowspan()
+    public function testTextIndentUseRowspan(): void
     {
         $html = '<table>
                   <tr>

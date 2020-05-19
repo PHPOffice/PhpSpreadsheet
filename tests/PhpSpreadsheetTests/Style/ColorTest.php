@@ -12,7 +12,7 @@ class ColorTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testGetRed($expectedResult, ...$args)
+    public function testGetRed($expectedResult, ...$args): void
     {
         $result = Color::getRed(...$args);
         self::assertEquals($expectedResult, $result);
@@ -28,7 +28,7 @@ class ColorTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testGetGreen($expectedResult, ...$args)
+    public function testGetGreen($expectedResult, ...$args): void
     {
         $result = Color::getGreen(...$args);
         self::assertEquals($expectedResult, $result);
@@ -44,7 +44,7 @@ class ColorTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testGetBlue($expectedResult, ...$args)
+    public function testGetBlue($expectedResult, ...$args): void
     {
         $result = Color::getBlue(...$args);
         self::assertEquals($expectedResult, $result);
@@ -60,7 +60,7 @@ class ColorTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testChangeBrightness($expectedResult, ...$args)
+    public function testChangeBrightness($expectedResult, ...$args): void
     {
         $result = Color::changeBrightness(...$args);
         self::assertEquals($expectedResult, $result);

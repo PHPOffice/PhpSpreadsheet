@@ -38,7 +38,7 @@ class AutoFilter
      * @param string $pRange Cell range (i.e. A1:E10)
      * @param Worksheet $pSheet
      */
-    public function __construct($pRange = '', Worksheet $pSheet = null)
+    public function __construct($pRange = '', ?Worksheet $pSheet = null)
     {
         $this->range = $pRange;
         $this->workSheet = $pSheet;
@@ -61,7 +61,7 @@ class AutoFilter
      *
      * @return $this
      */
-    public function setParent(Worksheet $pSheet = null)
+    public function setParent(?Worksheet $pSheet = null)
     {
         $this->workSheet = $pSheet;
 

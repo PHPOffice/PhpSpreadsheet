@@ -18,10 +18,10 @@ class CovarTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOVAR($expectedResult, ...$args)
+    public function testCOVAR($expectedResult, ...$args): void
     {
         $result = Statistical::COVAR(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCOVAR()

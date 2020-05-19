@@ -18,10 +18,10 @@ class ColumnsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOLUMNS($expectedResult, ...$args)
+    public function testCOLUMNS($expectedResult, ...$args): void
     {
         $result = LookupRef::COLUMNS(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCOLUMNS()

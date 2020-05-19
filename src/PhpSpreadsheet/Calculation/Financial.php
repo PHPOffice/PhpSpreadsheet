@@ -114,8 +114,6 @@ class Financial
      * Excel Function:
      *        ACCRINT(issue,firstinterest,settlement,rate,par,frequency[,basis])
      *
-     * @category Financial Functions
-     *
      * @param mixed $issue the security's issue date
      * @param mixed $firstinterest the security's first interest date
      * @param mixed $settlement The security's settlement date.
@@ -175,8 +173,6 @@ class Financial
      * Excel Function:
      *        ACCRINTM(issue,settlement,rate[,par[,basis]])
      *
-     * @category Financial Functions
-     *
      * @param mixed $issue The security's issue date
      * @param mixed $settlement The security's settlement (or maturity) date
      * @param float $rate The security's annual coupon rate
@@ -232,8 +228,6 @@ class Financial
      *
      * Excel Function:
      *        AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
-     *
-     * @category Financial Functions
      *
      * @param float $cost The cost of the asset
      * @param mixed $purchased Date of the purchase of the asset
@@ -311,8 +305,6 @@ class Financial
      * Excel Function:
      *        AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
      *
-     * @category Financial Functions
-     *
      * @param float $cost The cost of the asset
      * @param mixed $purchased Date of the purchase of the asset
      * @param mixed $firstPeriod Date of the end of the first period
@@ -370,8 +362,6 @@ class Financial
      * Excel Function:
      *        COUPDAYBS(settlement,maturity,frequency[,basis])
      *
-     * @category Financial Functions
-     *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
@@ -428,8 +418,6 @@ class Financial
      *
      * Excel Function:
      *        COUPDAYS(settlement,maturity,frequency[,basis])
-     *
-     * @category Financial Functions
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -499,8 +487,6 @@ class Financial
      * Excel Function:
      *        COUPDAYSNC(settlement,maturity,frequency[,basis])
      *
-     * @category Financial Functions
-     *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
@@ -554,8 +540,6 @@ class Financial
      * Excel Function:
      *        COUPNCD(settlement,maturity,frequency[,basis])
      *
-     * @category Financial Functions
-     *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
@@ -607,8 +591,6 @@ class Financial
      *
      * Excel Function:
      *        COUPNUM(settlement,maturity,frequency[,basis])
-     *
-     * @category Financial Functions
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -662,8 +644,6 @@ class Financial
      * Excel Function:
      *        COUPPCD(settlement,maturity,frequency[,basis])
      *
-     * @category Financial Functions
-     *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
@@ -715,8 +695,6 @@ class Financial
      * Excel Function:
      *        CUMIPMT(rate,nper,pv,start,end[,type])
      *
-     * @category Financial Functions
-     *
      * @param float $rate The Interest rate
      * @param int $nper The total number of payment periods
      * @param float $pv Present Value
@@ -762,8 +740,6 @@ class Financial
      *
      * Excel Function:
      *        CUMPRINC(rate,nper,pv,start,end[,type])
-     *
-     * @category Financial Functions
      *
      * @param float $rate The Interest rate
      * @param int $nper The total number of payment periods
@@ -816,8 +792,6 @@ class Financial
      * Excel Function:
      *        DB(cost,salvage,life,period[,month])
      *
-     * @category Financial Functions
-     *
      * @param float $cost Initial cost of the asset
      * @param float $salvage Value at the end of the depreciation.
      *                                (Sometimes called the salvage value of the asset)
@@ -851,7 +825,7 @@ class Financial
                 return Functions::NAN();
             }
             //    Set Fixed Depreciation Rate
-            $fixedDepreciationRate = 1 - pow(($salvage / $cost), (1 / $life));
+            $fixedDepreciationRate = 1 - ($salvage / $cost) ** (1 / $life);
             $fixedDepreciationRate = round($fixedDepreciationRate, 3);
 
             //    Loop through each period calculating the depreciation
@@ -882,8 +856,6 @@ class Financial
      *
      * Excel Function:
      *        DDB(cost,salvage,life,period[,factor])
-     *
-     * @category Financial Functions
      *
      * @param float $cost Initial cost of the asset
      * @param float $salvage Value at the end of the depreciation.
@@ -917,7 +889,7 @@ class Financial
                 return Functions::NAN();
             }
             //    Set Fixed Depreciation Rate
-            $fixedDepreciationRate = 1 - pow(($salvage / $cost), (1 / $life));
+            $fixedDepreciationRate = 1 - ($salvage / $cost) ** (1 / $life);
             $fixedDepreciationRate = round($fixedDepreciationRate, 3);
 
             //    Loop through each period calculating the depreciation
@@ -941,8 +913,6 @@ class Financial
      *
      * Excel Function:
      *        DISC(settlement,maturity,price,redemption[,basis])
-     *
-     * @category Financial Functions
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -998,8 +968,6 @@ class Financial
      * Excel Function:
      *        DOLLARDE(fractional_dollar,fraction)
      *
-     * @category Financial Functions
-     *
      * @param float $fractional_dollar Fractional Dollar
      * @param int $fraction Fraction
      *
@@ -1021,7 +989,7 @@ class Financial
         $dollars = floor($fractional_dollar);
         $cents = fmod($fractional_dollar, 1);
         $cents /= $fraction;
-        $cents *= pow(10, ceil(log10($fraction)));
+        $cents *= 10 ** ceil(log10($fraction));
 
         return $dollars + $cents;
     }
@@ -1035,8 +1003,6 @@ class Financial
      *
      * Excel Function:
      *        DOLLARFR(decimal_dollar,fraction)
-     *
-     * @category Financial Functions
      *
      * @param float $decimal_dollar Decimal Dollar
      * @param int $fraction Fraction
@@ -1059,7 +1025,7 @@ class Financial
         $dollars = floor($decimal_dollar);
         $cents = fmod($decimal_dollar, 1);
         $cents *= $fraction;
-        $cents *= pow(10, -ceil(log10($fraction)));
+        $cents *= 10 ** (-ceil(log10($fraction)));
 
         return $dollars + $cents;
     }
@@ -1072,8 +1038,6 @@ class Financial
      *
      * Excel Function:
      *        EFFECT(nominal_rate,npery)
-     *
-     * @category Financial Functions
      *
      * @param float $nominal_rate Nominal interest rate
      * @param int $npery Number of compounding payments per year
@@ -1090,7 +1054,7 @@ class Financial
             return Functions::NAN();
         }
 
-        return pow((1 + $nominal_rate / $npery), $npery) - 1;
+        return (1 + $nominal_rate / $npery) ** $npery - 1;
     }
 
     /**
@@ -1100,8 +1064,6 @@ class Financial
      *
      * Excel Function:
      *        FV(rate,nper,pmt[,pv[,type]])
-     *
-     * @category Financial Functions
      *
      * @param float $rate The interest rate per period
      * @param int $nper Total number of payment periods in an annuity
@@ -1131,7 +1093,7 @@ class Financial
 
         // Calculate
         if ($rate !== null && $rate != 0) {
-            return -$pv * pow(1 + $rate, $nper) - $pmt * (1 + $rate * $type) * (pow(1 + $rate, $nper) - 1) / $rate;
+            return -$pv * (1 + $rate) ** $nper - $pmt * (1 + $rate * $type) * ((1 + $rate) ** $nper - 1) / $rate;
         }
 
         return -$pv - $pmt * $nper;
@@ -1400,9 +1362,9 @@ class Financial
         $npv_pos = $npv_neg = 0.0;
         foreach ($values as $i => $v) {
             if ($v >= 0) {
-                $npv_pos += $v / pow($rr, $i);
+                $npv_pos += $v / $rr ** $i;
             } else {
-                $npv_neg += $v / pow($fr, $i);
+                $npv_neg += $v / $fr ** $i;
             }
         }
 
@@ -1410,8 +1372,8 @@ class Financial
             return Functions::VALUE();
         }
 
-        $mirr = pow((-$npv_pos * pow($rr, $n))
-                / ($npv_neg * ($rr)), (1.0 / ($n - 1))) - 1.0;
+        $mirr = ((-$npv_pos * $rr ** $n)
+                / ($npv_neg * ($rr))) ** (1.0 / ($n - 1)) - 1.0;
 
         return is_finite($mirr) ? $mirr : Functions::VALUE();
     }
@@ -1437,7 +1399,7 @@ class Financial
         }
 
         // Calculate
-        return $npery * (pow($effect_rate + 1, 1 / $npery) - 1);
+        return $npery * (($effect_rate + 1) ** (1 / $npery) - 1);
     }
 
     /**
@@ -1502,7 +1464,7 @@ class Financial
         for ($i = 1; $i <= $countArgs; ++$i) {
             // Is it a numeric value?
             if (is_numeric($aArgs[$i - 1])) {
-                $returnValue += $aArgs[$i - 1] / pow(1 + $rate, $i);
+                $returnValue += $aArgs[$i - 1] / (1 + $rate) ** $i;
             }
         }
 
@@ -1565,7 +1527,7 @@ class Financial
 
         // Calculate
         if ($rate !== null && $rate != 0) {
-            return (-$fv - $pv * pow(1 + $rate, $nper)) / (1 + $rate * $type) / ((pow(1 + $rate, $nper) - 1) / $rate);
+            return (-$fv - $pv * (1 + $rate) ** $nper) / (1 + $rate * $type) / (((1 + $rate) ** $nper - 1) / $rate);
         }
 
         return (-$pv - $fv) / $nper;
@@ -1672,9 +1634,9 @@ class Financial
         $rfp = 100 * ($rate / $frequency);
         $de = $dsc / $e;
 
-        $result = $redemption / pow($baseYF, (--$n + $de));
+        $result = $redemption / $baseYF ** (--$n + $de);
         for ($k = 0; $k <= $n; ++$k) {
-            $result += $rfp / (pow($baseYF, ($k + $de)));
+            $result += $rfp / ($baseYF ** ($k + $de));
         }
         $result -= $rfp * ($a / $e);
 
@@ -1820,7 +1782,7 @@ class Financial
 
         // Calculate
         if ($rate !== null && $rate != 0) {
-            return (-$pmt * (1 + $rate * $type) * ((pow(1 + $rate, $nper) - 1) / $rate) - $fv) / pow(1 + $rate, $nper);
+            return (-$pmt * (1 + $rate * $type) * (((1 + $rate) ** $nper - 1) / $rate) - $fv) / (1 + $rate) ** $nper;
         }
 
         return -$fv - $pmt * $nper;
@@ -1836,8 +1798,6 @@ class Financial
      *
      * Excel Function:
      *        RATE(nper,pmt,pv[,fv[,type[,guess]]])
-     *
-     * @category Financial Functions
      *
      * @param float $nper The total number of payment periods in an annuity
      * @param float $pmt The payment made each period and cannot change over the life
@@ -1889,8 +1849,8 @@ class Financial
         if ($rate == 0) {
             return Functions::NAN();
         }
-        $tt1 = pow($rate + 1, $nper);
-        $tt2 = pow($rate + 1, $nper - 1);
+        $tt1 = ($rate + 1) ** $nper;
+        $tt2 = ($rate + 1) ** ($nper - 1);
         $numerator = $fv + $tt1 * $pv + $pmt * ($tt1 - 1) * ($rate * $type + 1) / $rate;
         $denominator = $nper * $tt2 * $pv - $pmt * ($tt1 - 1) * ($rate * $type + 1) / ($rate * $rate)
              + $nper * $pmt * $tt2 * ($rate * $type + 1) / $rate
@@ -1971,7 +1931,7 @@ class Financial
             return Functions::NAN();
         }
 
-        return pow($fv / $pv, 1 / $nper) - 1;
+        return ($fv / $pv) ** (1 / $nper) - 1;
     }
 
     /**
@@ -2377,7 +2337,7 @@ class Financial
             if (!is_numeric($dif)) {
                 return $dif;
             }
-            $xnpv += $values[$i] / pow(1 + $rate, $dif / 365);
+            $xnpv += $values[$i] / (1 + $rate) ** ($dif / 365);
         }
 
         return is_finite($xnpv) ? $xnpv : Functions::VALUE();

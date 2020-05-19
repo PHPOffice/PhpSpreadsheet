@@ -18,10 +18,10 @@ class Oct2HexTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testOCT2HEX($expectedResult, ...$args)
+    public function testOCT2HEX($expectedResult, ...$args): void
     {
         $result = Engineering::OCTTOHEX(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerOCT2HEX()

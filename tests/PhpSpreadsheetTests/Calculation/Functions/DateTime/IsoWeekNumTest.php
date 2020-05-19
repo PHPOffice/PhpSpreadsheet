@@ -22,10 +22,10 @@ class IsoWeekNumTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $dateValue
      */
-    public function testISOWEEKNUM($expectedResult, $dateValue)
+    public function testISOWEEKNUM($expectedResult, $dateValue): void
     {
         $result = DateTime::ISOWEEKNUM($dateValue);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerISOWEEKNUM()

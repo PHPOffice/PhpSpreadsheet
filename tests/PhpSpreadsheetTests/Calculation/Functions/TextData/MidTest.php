@@ -30,10 +30,10 @@ class MidTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMID($expectedResult, ...$args)
+    public function testMID($expectedResult, ...$args): void
     {
         $result = TextData::MID(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerMID()

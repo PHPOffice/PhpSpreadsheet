@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class DataTypeTest extends TestCase
 {
-    public function testGetErrorCodes()
+    public function testGetErrorCodes(): void
     {
         $result = DataType::getErrorCodes();
         self::assertIsArray($result);
@@ -16,7 +16,7 @@ class DataTypeTest extends TestCase
         self::assertArrayHasKey('#NULL!', $result);
     }
 
-    public function testCheckString()
+    public function testCheckString(): void
     {
         $richText = new RichText();
         $result1 = DataType::checkString($richText);

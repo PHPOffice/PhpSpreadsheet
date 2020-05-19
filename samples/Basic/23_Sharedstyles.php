@@ -30,26 +30,26 @@ $sharedStyle2 = new Style();
 
 $sharedStyle1->applyFromArray(
     ['fill' => [
-                'fillType' => Fill::FILL_SOLID,
-                'color' => ['argb' => 'FFCCFFCC'],
-            ],
-            'borders' => [
-                'bottom' => ['borderStyle' => Border::BORDER_THIN],
-                'right' => ['borderStyle' => Border::BORDER_MEDIUM],
-            ],
-        ]
+        'fillType' => Fill::FILL_SOLID,
+        'color' => ['argb' => 'FFCCFFCC'],
+    ],
+        'borders' => [
+            'bottom' => ['borderStyle' => Border::BORDER_THIN],
+            'right' => ['borderStyle' => Border::BORDER_MEDIUM],
+        ],
+    ]
 );
 
 $sharedStyle2->applyFromArray(
     ['fill' => [
-                'fillType' => Fill::FILL_SOLID,
-                'color' => ['argb' => 'FFFFFF00'],
-            ],
-            'borders' => [
-                'bottom' => ['borderStyle' => Border::BORDER_THIN],
-                'right' => ['borderStyle' => Border::BORDER_MEDIUM],
-            ],
-        ]
+        'fillType' => Fill::FILL_SOLID,
+        'color' => ['argb' => 'FFFFFF00'],
+    ],
+        'borders' => [
+            'bottom' => ['borderStyle' => Border::BORDER_THIN],
+            'right' => ['borderStyle' => Border::BORDER_MEDIUM],
+        ],
+    ]
 );
 
 $spreadsheet->getActiveSheet()->duplicateStyle($sharedStyle1, 'A1:T100');

@@ -18,10 +18,10 @@ class TruncTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testTRUNC($expectedResult, ...$args)
+    public function testTRUNC($expectedResult, ...$args): void
     {
         $result = MathTrig::TRUNC(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerTRUNC()

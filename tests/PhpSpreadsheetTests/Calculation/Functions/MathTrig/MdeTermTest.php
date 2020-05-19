@@ -18,10 +18,10 @@ class MdeTermTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMDETERM($expectedResult, ...$args)
+    public function testMDETERM($expectedResult, ...$args): void
     {
         $result = MathTrig::MDETERM(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerMDETERM()

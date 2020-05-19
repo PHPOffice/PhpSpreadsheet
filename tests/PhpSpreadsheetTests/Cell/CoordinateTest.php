@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 
 class CoordinateTest extends TestCase
 {
@@ -14,7 +15,7 @@ class CoordinateTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $string
      */
-    public function testColumnIndexFromString($expectedResult, $string)
+    public function testColumnIndexFromString($expectedResult, $string): void
     {
         $columnIndex = Coordinate::columnIndexFromString($string);
         self::assertEquals($expectedResult, $columnIndex);
@@ -28,7 +29,7 @@ class CoordinateTest extends TestCase
         return require 'tests/data/ColumnString.php';
     }
 
-    public function testColumnIndexFromStringTooLong()
+    public function testColumnIndexFromStringTooLong(): void
     {
         $cellAddress = 'ABCD';
 
@@ -40,10 +41,10 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
-    public function testColumnIndexFromStringTooShort()
+    public function testColumnIndexFromStringTooShort(): void
     {
         $cellAddress = '';
 
@@ -55,7 +56,7 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
     /**
@@ -64,7 +65,7 @@ class CoordinateTest extends TestCase
      * @param mixed $expectedResult
      * @param int $columnIndex
      */
-    public function testStringFromColumnIndex($expectedResult, $columnIndex)
+    public function testStringFromColumnIndex($expectedResult, $columnIndex): void
     {
         $string = Coordinate::stringFromColumnIndex($columnIndex);
         self::assertEquals($expectedResult, $string);
@@ -83,7 +84,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCoordinateFromString($expectedResult, ...$args)
+    public function testCoordinateFromString($expectedResult, ...$args): void
     {
         $result = Coordinate::coordinateFromString(...$args);
         self::assertEquals($expectedResult, $result);
@@ -94,7 +95,7 @@ class CoordinateTest extends TestCase
         return require 'tests/data/CellCoordinates.php';
     }
 
-    public function testCoordinateFromStringWithRangeAddress()
+    public function testCoordinateFromStringWithRangeAddress(): void
     {
         $cellAddress = 'A1:AI2012';
 
@@ -106,10 +107,10 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
-    public function testCoordinateFromStringWithEmptyAddress()
+    public function testCoordinateFromStringWithEmptyAddress(): void
     {
         $cellAddress = '';
 
@@ -121,10 +122,10 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
-    public function testCoordinateFromStringWithInvalidAddress()
+    public function testCoordinateFromStringWithInvalidAddress(): void
     {
         $cellAddress = 'AI';
 
@@ -136,7 +137,7 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
     /**
@@ -144,7 +145,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testAbsoluteCoordinateFromString($expectedResult, ...$args)
+    public function testAbsoluteCoordinateFromString($expectedResult, ...$args): void
     {
         $result = Coordinate::absoluteCoordinate(...$args);
         self::assertEquals($expectedResult, $result);
@@ -155,7 +156,7 @@ class CoordinateTest extends TestCase
         return require 'tests/data/CellAbsoluteCoordinate.php';
     }
 
-    public function testAbsoluteCoordinateFromStringWithRangeAddress()
+    public function testAbsoluteCoordinateFromStringWithRangeAddress(): void
     {
         $cellAddress = 'A1:AI2012';
 
@@ -167,7 +168,7 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
     /**
@@ -175,7 +176,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testAbsoluteReferenceFromString($expectedResult, ...$args)
+    public function testAbsoluteReferenceFromString($expectedResult, ...$args): void
     {
         $result = Coordinate::absoluteReference(...$args);
         self::assertEquals($expectedResult, $result);
@@ -186,7 +187,7 @@ class CoordinateTest extends TestCase
         return require 'tests/data/CellAbsoluteReference.php';
     }
 
-    public function testAbsoluteReferenceFromStringWithRangeAddress()
+    public function testAbsoluteReferenceFromStringWithRangeAddress(): void
     {
         $cellAddress = 'A1:AI2012';
 
@@ -198,7 +199,7 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
     /**
@@ -206,7 +207,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSplitRange($expectedResult, ...$args)
+    public function testSplitRange($expectedResult, ...$args): void
     {
         $result = Coordinate::splitRange(...$args);
         foreach ($result as $key => $split) {
@@ -228,7 +229,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBuildRange($expectedResult, ...$args)
+    public function testBuildRange($expectedResult, ...$args): void
     {
         $result = Coordinate::buildRange(...$args);
         self::assertEquals($expectedResult, $result);
@@ -239,9 +240,9 @@ class CoordinateTest extends TestCase
         return require 'tests/data/CellBuildRange.php';
     }
 
-    public function testBuildRangeInvalid()
+    public function testBuildRangeInvalid(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
 
         $cellRange = '';
         Coordinate::buildRange($cellRange);
@@ -252,7 +253,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testRangeBoundaries($expectedResult, ...$args)
+    public function testRangeBoundaries($expectedResult, ...$args): void
     {
         $result = Coordinate::rangeBoundaries(...$args);
         self::assertEquals($expectedResult, $result);
@@ -268,7 +269,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testRangeDimension($expectedResult, ...$args)
+    public function testRangeDimension($expectedResult, ...$args): void
     {
         $result = Coordinate::rangeDimension(...$args);
         self::assertEquals($expectedResult, $result);
@@ -284,7 +285,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testGetRangeBoundaries($expectedResult, ...$args)
+    public function testGetRangeBoundaries($expectedResult, ...$args): void
     {
         $result = Coordinate::getRangeBoundaries(...$args);
         self::assertEquals($expectedResult, $result);
@@ -300,7 +301,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testExtractAllCellReferencesInRange($expectedResult, ...$args)
+    public function testExtractAllCellReferencesInRange($expectedResult, ...$args): void
     {
         $result = Coordinate::extractAllCellReferencesInRange(...$args);
         self::assertEquals($expectedResult, $result);
@@ -316,7 +317,7 @@ class CoordinateTest extends TestCase
      *
      * @param string $range
      */
-    public function testExtractAllCellReferencesInRangeInvalidRange($range)
+    public function testExtractAllCellReferencesInRangeInvalidRange($range): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Invalid range: "' . $range . '"');
@@ -334,7 +335,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMergeRangesInCollection($expectedResult, ...$args)
+    public function testMergeRangesInCollection($expectedResult, ...$args): void
     {
         $result = Coordinate::mergeRangesInCollection(...$args);
         self::assertEquals($expectedResult, $result);
@@ -350,7 +351,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCoordinateIsRange($expectedResult, ...$args)
+    public function testCoordinateIsRange($expectedResult, ...$args): void
     {
         $result = Coordinate::coordinateIsRange(...$args);
         self::assertEquals($expectedResult, $result);

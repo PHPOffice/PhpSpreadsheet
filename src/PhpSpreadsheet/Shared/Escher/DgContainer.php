@@ -25,7 +25,7 @@ class DgContainer
         return $this->dgId;
     }
 
-    public function setDgId($value)
+    public function setDgId($value): void
     {
         $this->dgId = $value;
     }
@@ -35,7 +35,7 @@ class DgContainer
         return $this->lastSpId;
     }
 
-    public function setLastSpId($value)
+    public function setLastSpId($value): void
     {
         $this->lastSpId = $value;
     }

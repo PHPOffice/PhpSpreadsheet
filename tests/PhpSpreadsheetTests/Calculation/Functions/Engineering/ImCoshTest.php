@@ -33,10 +33,10 @@ class ImCoshTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMCOSH($expectedResult, $value)
+    public function testIMCOSH($expectedResult, $value): void
     {
         $result = Engineering::IMCOSH($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );

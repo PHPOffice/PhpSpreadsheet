@@ -60,7 +60,7 @@ class Settings
      * @param string $rendererClass Class name of the chart renderer
      *    eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph
      */
-    public static function setChartRenderer($rendererClass)
+    public static function setChartRenderer($rendererClass): void
     {
         if (!is_a($rendererClass, IRenderer::class, true)) {
             throw new Exception('Chart renderer must implement ' . IRenderer::class);
@@ -85,7 +85,7 @@ class Settings
      *
      * @param int $options Default options for libxml loader
      */
-    public static function setLibXmlLoaderOptions($options)
+    public static function setLibXmlLoaderOptions($options): void
     {
         if ($options === null && defined('LIBXML_DTDLOAD')) {
             $options = LIBXML_DTDLOAD | LIBXML_DTDATTR;
@@ -120,7 +120,7 @@ class Settings
      *
      * @param bool $state
      */
-    public static function setLibXmlDisableEntityLoader($state)
+    public static function setLibXmlDisableEntityLoader($state): void
     {
         self::$libXmlDisableEntityLoader = (bool) $state;
     }
@@ -137,10 +137,8 @@ class Settings
 
     /**
      * Sets the implementation of cache that should be used for cell collection.
-     *
-     * @param CacheInterface $cache
      */
-    public static function setCache(CacheInterface $cache)
+    public static function setCache(CacheInterface $cache): void
     {
         self::$cache = $cache;
     }

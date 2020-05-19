@@ -18,10 +18,10 @@ class SeriesSumTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSERIESSUM($expectedResult, ...$args)
+    public function testSERIESSUM($expectedResult, ...$args): void
     {
         $result = MathTrig::SERIESSUM(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSERIESSUM()

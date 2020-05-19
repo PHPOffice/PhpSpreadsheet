@@ -22,10 +22,10 @@ class MonthTest extends TestCase
      * @param mixed $expectedResult
      * @param $dateTimeValue
      */
-    public function testMONTH($expectedResult, $dateTimeValue)
+    public function testMONTH($expectedResult, $dateTimeValue): void
     {
         $result = DateTime::MONTHOFYEAR($dateTimeValue);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerMONTH()

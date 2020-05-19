@@ -248,7 +248,7 @@ class Xf
      *
      * @param bool $value
      */
-    public function setIsStyleXf($value)
+    public function setIsStyleXf($value): void
     {
         $this->isStyleXf = $value;
     }
@@ -258,7 +258,7 @@ class Xf
      *
      * @param int $colorIndex Color index
      */
-    public function setBottomColor($colorIndex)
+    public function setBottomColor($colorIndex): void
     {
         $this->bottomBorderColor = $colorIndex;
     }
@@ -268,7 +268,7 @@ class Xf
      *
      * @param int $colorIndex Color index
      */
-    public function setTopColor($colorIndex)
+    public function setTopColor($colorIndex): void
     {
         $this->topBorderColor = $colorIndex;
     }
@@ -278,7 +278,7 @@ class Xf
      *
      * @param int $colorIndex Color index
      */
-    public function setLeftColor($colorIndex)
+    public function setLeftColor($colorIndex): void
     {
         $this->leftBorderColor = $colorIndex;
     }
@@ -288,7 +288,7 @@ class Xf
      *
      * @param int $colorIndex Color index
      */
-    public function setRightColor($colorIndex)
+    public function setRightColor($colorIndex): void
     {
         $this->rightBorderColor = $colorIndex;
     }
@@ -298,7 +298,7 @@ class Xf
      *
      * @param int $colorIndex Color index
      */
-    public function setDiagColor($colorIndex)
+    public function setDiagColor($colorIndex): void
     {
         $this->_diag_color = $colorIndex;
     }
@@ -308,7 +308,7 @@ class Xf
      *
      * @param int $colorIndex Color index
      */
-    public function setFgColor($colorIndex)
+    public function setFgColor($colorIndex): void
     {
         $this->foregroundColor = $colorIndex;
     }
@@ -318,7 +318,7 @@ class Xf
      *
      * @param int $colorIndex Color index
      */
-    public function setBgColor($colorIndex)
+    public function setBgColor($colorIndex): void
     {
         $this->backgroundColor = $colorIndex;
     }
@@ -329,7 +329,7 @@ class Xf
      *
      * @param int $numberFormatIndex Index to format record
      */
-    public function setNumberFormatIndex($numberFormatIndex)
+    public function setNumberFormatIndex($numberFormatIndex): void
     {
         $this->numberFormatIndex = $numberFormatIndex;
     }
@@ -339,7 +339,7 @@ class Xf
      *
      * @param int $value Font index, note that value 4 does not exist
      */
-    public function setFontIndex($value)
+    public function setFontIndex($value): void
     {
         $this->fontIndex = $value;
     }

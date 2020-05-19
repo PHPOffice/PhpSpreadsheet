@@ -30,10 +30,10 @@ class SubstituteTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSUBSTITUTE($expectedResult, ...$args)
+    public function testSUBSTITUTE($expectedResult, ...$args): void
     {
         $result = TextData::SUBSTITUTE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerSUBSTITUTE()

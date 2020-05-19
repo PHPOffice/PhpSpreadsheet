@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class DateTest extends TestCase
 {
-    public function testSetExcelCalendar()
+    public function testSetExcelCalendar(): void
     {
         $calendarValues = [
             Date::CALENDAR_MAC_1904,
@@ -20,7 +20,7 @@ class DateTest extends TestCase
         }
     }
 
-    public function testSetExcelCalendarWithInvalidValue()
+    public function testSetExcelCalendarWithInvalidValue(): void
     {
         $unsupportedCalendar = '2012';
         $result = Date::setExcelCalendar($unsupportedCalendar);
@@ -32,7 +32,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeExcelToTimestamp1900($expectedResult, ...$args)
+    public function testDateTimeExcelToTimestamp1900($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
@@ -50,7 +50,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeTimestampToExcel1900($expectedResult, ...$args)
+    public function testDateTimeTimestampToExcel1900($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
@@ -68,7 +68,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeDateTimeToExcel($expectedResult, ...$args)
+    public function testDateTimeDateTimeToExcel($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
@@ -86,7 +86,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeFormattedPHPToExcel1900($expectedResult, ...$args)
+    public function testDateTimeFormattedPHPToExcel1900($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
@@ -104,7 +104,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeExcelToTimestamp1904($expectedResult, ...$args)
+    public function testDateTimeExcelToTimestamp1904($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
 
@@ -122,7 +122,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeTimestampToExcel1904($expectedResult, ...$args)
+    public function testDateTimeTimestampToExcel1904($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
 
@@ -140,7 +140,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsDateTimeFormatCode($expectedResult, ...$args)
+    public function testIsDateTimeFormatCode($expectedResult, ...$args): void
     {
         $result = Date::isDateTimeFormatCode(...$args);
         self::assertEquals($expectedResult, $result);
@@ -156,7 +156,7 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDateTimeExcelToTimestamp1900Timezone($expectedResult, ...$args)
+    public function testDateTimeExcelToTimestamp1900Timezone($expectedResult, ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 

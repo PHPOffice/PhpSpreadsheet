@@ -20,11 +20,11 @@ class ErfCTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testERFC($expectedResult, ...$args)
+    public function testERFC($expectedResult, ...$args): void
     {
         $result = Engineering::ERFC(...$args);
-        $this->assertEquals($expectedResult, $result);
-        $this->assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
+        self::assertEquals($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
     public function providerERFC()

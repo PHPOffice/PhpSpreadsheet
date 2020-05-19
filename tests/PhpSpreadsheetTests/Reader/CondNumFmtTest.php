@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CondNumFmtTest extends TestCase
 {
-    public function testLoadCondNumFmt()
+    public function testLoadCondNumFmt(): void
     {
         $filename = 'tests/data/Reader/XLSX/condfmtnum.xlsx';
         $reader = new Xlsx();

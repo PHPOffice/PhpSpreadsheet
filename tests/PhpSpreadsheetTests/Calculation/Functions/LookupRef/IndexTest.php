@@ -18,10 +18,10 @@ class IndexTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testINDEX($expectedResult, ...$args)
+    public function testINDEX($expectedResult, ...$args): void
     {
         $result = LookupRef::INDEX(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerINDEX()

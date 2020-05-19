@@ -20,10 +20,10 @@ class BesselKTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBESSELK($expectedResult, ...$args)
+    public function testBESSELK($expectedResult, ...$args): void
     {
         $result = Engineering::BESSELK(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
+        self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
     public function providerBESSELK()

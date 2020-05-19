@@ -117,7 +117,7 @@ class SingularValueDecomposition
                 }
             }
 
-            if ($wantu and ($k < $nct)) {
+            if ($wantu && ($k < $nct)) {
                 // Place the transformation in U for subsequent back
                 // multiplication.
                 for ($i = $k; $i < $this->m; ++$i) {
@@ -143,7 +143,7 @@ class SingularValueDecomposition
                     $e[$k + 1] += 1.0;
                 }
                 $e[$k] = -$e[$k];
-                if (($k + 1 < $this->m) and ($e[$k] != 0.0)) {
+                if (($k + 1 < $this->m) && ($e[$k] != 0.0)) {
                     // Apply the transformation.
                     for ($i = $k + 1; $i < $this->m; ++$i) {
                         $work[$i] = 0.0;
@@ -221,7 +221,7 @@ class SingularValueDecomposition
         // If required, generate V.
         if ($wantv) {
             for ($k = $this->n - 1; $k >= 0; --$k) {
-                if (($k < $nrt) and ($e[$k] != 0.0)) {
+                if (($k < $nrt) && ($e[$k] != 0.0)) {
                     for ($j = $k + 1; $j < $nu; ++$j) {
                         $t = 0;
                         for ($i = $k + 1; $i < $this->n; ++$i) {
@@ -243,7 +243,7 @@ class SingularValueDecomposition
         // Main iteration loop for the singular values.
         $pp = $p - 1;
         $iter = 0;
-        $eps = pow(2.0, -52.0);
+        $eps = 2.0 ** (-52.0);
 
         while ($p > 0) {
             // Here is where a test for too many iterations would go.
@@ -415,14 +415,14 @@ class SingularValueDecomposition
                         $t = $this->s[$k];
                         $this->s[$k] = $this->s[$k + 1];
                         $this->s[$k + 1] = $t;
-                        if ($wantv and ($k < $this->n - 1)) {
+                        if ($wantv && ($k < $this->n - 1)) {
                             for ($i = 0; $i < $this->n; ++$i) {
                                 $t = $this->V[$i][$k + 1];
                                 $this->V[$i][$k + 1] = $this->V[$i][$k];
                                 $this->V[$i][$k] = $t;
                             }
                         }
-                        if ($wantu and ($k < $this->m - 1)) {
+                        if ($wantu && ($k < $this->m - 1)) {
                             for ($i = 0; $i < $this->m; ++$i) {
                                 $t = $this->U[$i][$k + 1];
                                 $this->U[$i][$k + 1] = $this->U[$i][$k];
@@ -513,7 +513,7 @@ class SingularValueDecomposition
      */
     public function rank()
     {
-        $eps = pow(2.0, -52.0);
+        $eps = 2.0 ** (-52.0);
         $tol = max($this->m, $this->n) * $this->s[0] * $eps;
         $r = 0;
         $iMax = count($this->s);

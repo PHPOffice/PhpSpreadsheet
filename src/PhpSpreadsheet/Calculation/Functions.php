@@ -57,8 +57,6 @@ class Functions
     /**
      * Set the Compatibility Mode.
      *
-     * @category Function Configuration
-     *
      * @param string $compatibilityMode Compatibility Mode
      *                                                Permitted values are:
      *                                                    Functions::COMPATIBILITY_EXCEL            'Excel'
@@ -84,8 +82,6 @@ class Functions
     /**
      * Return the current Compatibility Mode.
      *
-     * @category Function Configuration
-     *
      * @return string Compatibility Mode
      *                            Possible Return values are:
      *                                Functions::COMPATIBILITY_EXCEL            'Excel'
@@ -99,8 +95,6 @@ class Functions
 
     /**
      * Set the Return Date Format used by functions that return a date/time (Excel, PHP Serialized Numeric or PHP Object).
-     *
-     * @category Function Configuration
      *
      * @param string $returnDateType Return Date Format
      *                                                Permitted values are:
@@ -127,8 +121,6 @@ class Functions
     /**
      * Return the current Return Date Format for functions that return a date/time (Excel, PHP Serialized Numeric or PHP Object).
      *
-     * @category Function Configuration
-     *
      * @return string Return Date Format
      *                            Possible Return values are:
      *                                Functions::RETURNDATE_UNIX_TIMESTAMP        'P'
@@ -143,8 +135,6 @@ class Functions
     /**
      * DUMMY.
      *
-     * @category Error Returns
-     *
      * @return string #Not Yet Implemented
      */
     public static function DUMMY()
@@ -154,8 +144,6 @@ class Functions
 
     /**
      * DIV0.
-     *
-     * @category Error Returns
      *
      * @return string #Not Yet Implemented
      */
@@ -173,8 +161,6 @@ class Functions
      * Returns the error value #N/A
      *        #N/A is the error value that means "no value is available."
      *
-     * @category Logical Functions
-     *
      * @return string #N/A!
      */
     public static function NA()
@@ -186,8 +172,6 @@ class Functions
      * NaN.
      *
      * Returns the error value #NUM!
-     *
-     * @category Error Returns
      *
      * @return string #NUM!
      */
@@ -201,8 +185,6 @@ class Functions
      *
      * Returns the error value #NAME?
      *
-     * @category Error Returns
-     *
      * @return string #NAME?
      */
     public static function NAME()
@@ -214,8 +196,6 @@ class Functions
      * REF.
      *
      * Returns the error value #REF!
-     *
-     * @category Error Returns
      *
      * @return string #REF!
      */
@@ -229,8 +209,6 @@ class Functions
      *
      * Returns the error value #NULL!
      *
-     * @category Error Returns
-     *
      * @return string #NULL!
      */
     public static function null()
@@ -242,8 +220,6 @@ class Functions
      * VALUE.
      *
      * Returns the error value #VALUE!
-     *
-     * @category Error Returns
      *
      * @return string #VALUE!
      */
@@ -660,7 +636,7 @@ class Functions
      *
      * @return bool|string
      */
-    public static function isFormula($cellReference = '', Cell $pCell = null)
+    public static function isFormula($cellReference = '', ?Cell $pCell = null)
     {
         if ($pCell === null) {
             return self::REF();

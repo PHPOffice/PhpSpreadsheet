@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -85,7 +86,7 @@ class Csv extends BaseReader
     /**
      * Move filepointer past any BOM marker.
      */
-    protected function skipBOM()
+    protected function skipBOM(): void
     {
         rewind($this->fileHandle);
 
@@ -101,7 +102,7 @@ class Csv extends BaseReader
     /**
      * Identify any separator that is explicitly set in the file.
      */
-    protected function checkSeparator()
+    protected function checkSeparator(): void
     {
         $line = fgets($this->fileHandle);
         if ($line === false) {
@@ -120,7 +121,7 @@ class Csv extends BaseReader
     /**
      * Infer the separator if it isn't explicitly set in the file or specified by the user.
      */
-    protected function inferSeparator()
+    protected function inferSeparator(): void
     {
         if ($this->delimiter !== null) {
             return;
@@ -178,7 +179,7 @@ class Csv extends BaseReader
             $meanSquareDeviations[$delimiter] = array_reduce(
                 $series,
                 function ($sum, $value) use ($median) {
-                    return $sum + pow($value - $median, 2);
+                    return $sum + ($value - $median) ** 2;
                 }
             ) / count($series);
         }
@@ -292,7 +293,7 @@ class Csv extends BaseReader
         return $this->loadIntoExisting($pFilename, $spreadsheet);
     }
 
-    private function openFileOrMemory($pFilename)
+    private function openFileOrMemory($pFilename): void
     {
         // Open file
         $fhandle = $this->canRead($pFilename);
@@ -303,7 +304,7 @@ class Csv extends BaseReader
         if ($this->inputEncoding !== 'UTF-8') {
             fclose($this->fileHandle);
             $entireFile = file_get_contents($pFilename);
-            $this->fileHandle = fopen('php://memory', 'r+');
+            $this->fileHandle = fopen('php://memory', 'r+b');
             $data = StringHelper::convertEncoding($entireFile, 'UTF-8', $this->inputEncoding);
             fwrite($this->fileHandle, $data);
             rewind($this->fileHandle);
@@ -314,7 +315,6 @@ class Csv extends BaseReader
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
      * @param string $pFilename
-     * @param Spreadsheet $spreadsheet
      *
      * @return Spreadsheet
      */
@@ -508,7 +508,7 @@ class Csv extends BaseReader
         // Check if file exists
         try {
             $this->openFile($pFilename);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             return false;
         }
 

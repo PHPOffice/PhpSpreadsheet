@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
@@ -37,13 +36,6 @@ abstract class Pdf extends Html
      * @var int
      */
     protected $paperSize;
-
-    /**
-     * Temporary storage for Save Array Return type.
-     *
-     * @var string
-     */
-    private $saveArrayReturnType;
 
     /**
      * Paper Sizes xRef List.
@@ -127,8 +119,9 @@ abstract class Pdf extends Html
     public function __construct(Spreadsheet $spreadsheet)
     {
         parent::__construct($spreadsheet);
-        $this->setUseInlineCss(true);
-        $this->tempDir = File::sysGetTempDir();
+        //$this->setUseInlineCss(true);
+        $this->tempDir = File::sysGetTempDir() . '/phpsppdf';
+        $this->isPdf = true;
     }
 
     /**
@@ -244,19 +237,8 @@ abstract class Pdf extends Html
      */
     protected function prepareForSave($pFilename)
     {
-        //  garbage collect
-        $this->spreadsheet->garbageCollect();
-
-        $this->saveArrayReturnType = Calculation::getArrayReturnType();
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
-
         //  Open file
         $this->openFileHandle($pFilename);
-
-        //  Set PDF
-        $this->isPdf = true;
-        //  Build CSS
-        $this->buildCSS(true);
 
         return $this->fileHandle;
     }
@@ -267,7 +249,5 @@ abstract class Pdf extends Html
     protected function restoreStateAfterSave(): void
     {
         $this->maybeCloseFileHandle();
-
-        Calculation::setArrayReturnType($this->saveArrayReturnType);
     }
 }

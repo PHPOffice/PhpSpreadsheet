@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class OLEReadTest extends TestCase
 {
-    public function testReadOleStreams()
+    public function testReadOleStreams(): void
     {
         $dataDir = 'tests/data/Shared/OLERead/';
         $ole = new OLERead();

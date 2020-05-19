@@ -11,9 +11,9 @@ $spreadsheet = $reader->load(__DIR__ . '/../templates/30template.xls');
 
 $helper->log('Add new data to the template');
 $data = [['title' => 'Excel for dummies',
-        'price' => 17.99,
-        'quantity' => 2,
-    ],
+    'price' => 17.99,
+    'quantity' => 2,
+],
     ['title' => 'PHP for dummies',
         'price' => 15.99,
         'quantity' => 1,

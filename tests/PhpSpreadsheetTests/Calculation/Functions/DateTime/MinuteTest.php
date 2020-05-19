@@ -22,10 +22,10 @@ class MinuteTest extends TestCase
      * @param mixed $expectedResult
      * @param $dateTimeValue
      */
-    public function testMINUTE($expectedResult, $dateTimeValue)
+    public function testMINUTE($expectedResult, $dateTimeValue): void
     {
         $result = DateTime::MINUTE($dateTimeValue);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerMINUTE()

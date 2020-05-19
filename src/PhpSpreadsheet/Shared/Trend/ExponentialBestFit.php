@@ -21,7 +21,7 @@ class ExponentialBestFit extends BestFit
      */
     public function getValueOfYForX($xValue)
     {
-        return $this->getIntersect() * pow($this->getSlope(), ($xValue - $this->xOffset));
+        return $this->getIntersect() * $this->getSlope() ** ($xValue - $this->xOffset);
     }
 
     /**
@@ -90,7 +90,7 @@ class ExponentialBestFit extends BestFit
      * @param float[] $xValues The set of X-values for this regression
      * @param bool $const
      */
-    private function exponentialRegression($yValues, $xValues, $const)
+    private function exponentialRegression($yValues, $xValues, $const): void
     {
         foreach ($yValues as &$value) {
             if ($value < 0.0) {

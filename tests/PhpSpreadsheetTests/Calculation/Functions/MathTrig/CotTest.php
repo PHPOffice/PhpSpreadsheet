@@ -19,10 +19,10 @@ class CotTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $angle
      */
-    public function testCOT($expectedResult, $angle)
+    public function testCOT($expectedResult, $angle): void
     {
         $result = MathTrig::COT($angle);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCOT()

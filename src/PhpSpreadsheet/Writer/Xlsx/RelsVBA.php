@@ -10,8 +10,6 @@ class RelsVBA extends WriterPart
     /**
      * Write relationships for a signed VBA Project.
      *
-     * @param Spreadsheet $spreadsheet
-     *
      * @return string XML Output
      */
     public function writeVBARelationships(Spreadsheet $spreadsheet)

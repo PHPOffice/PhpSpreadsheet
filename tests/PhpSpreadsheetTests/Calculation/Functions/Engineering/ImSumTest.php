@@ -32,10 +32,10 @@ class ImSumTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIMSUM($expectedResult, ...$args)
+    public function testIMSUM($expectedResult, ...$args): void
     {
         $result = Engineering::IMSUM(...$args);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );

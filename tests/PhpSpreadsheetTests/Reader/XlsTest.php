@@ -10,7 +10,7 @@ class XlsTest extends TestCase
     /**
      * Test load Xls file.
      */
-    public function testLoadXlsSample()
+    public function testLoadXlsSample(): void
     {
         $filename = 'tests/data/Reader/XLS/sample.xls';
         $reader = new Xls();

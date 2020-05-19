@@ -18,10 +18,10 @@ class RsqTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testRSQ($expectedResult, array $xargs, array $yargs)
+    public function testRSQ($expectedResult, array $xargs, array $yargs): void
     {
         $result = Statistical::RSQ($xargs, $yargs);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerRSQ()

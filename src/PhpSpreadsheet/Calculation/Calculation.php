@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use ReflectionMethod;
 
 class Calculation
 {
@@ -1853,6 +1854,16 @@ class Calculation
             'functionCall' => [MathTrig::class, 'SERIESSUM'],
             'argumentCount' => '4',
         ],
+        'SHEET' => [
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '0,1',
+        ],
+        'SHEETS' => [
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '0,1',
+        ],
         'SIGN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig::class, 'SIGN'],
@@ -2247,18 +2258,22 @@ class Calculation
             'argumentCount' => '*',
             'functionCall' => [__CLASS__, 'mkMatrix'],
         ],
+        'NAME.ERROR' => [
+            'argumentCount' => '*',
+            'functionCall' => [Functions::class, 'NAME'],
+        ],
     ];
 
-    public function __construct(Spreadsheet $spreadsheet = null)
+    public function __construct(?Spreadsheet $spreadsheet = null)
     {
-        $this->delta = 1 * pow(10, 0 - ini_get('precision'));
+        $this->delta = 1 * 10 ** (0 - ini_get('precision'));
 
         $this->spreadsheet = $spreadsheet;
         $this->cyclicReferenceStack = new CyclicReferenceStack();
         $this->debugLog = new Logger($this->cyclicReferenceStack);
     }
 
-    private static function loadLocales()
+    private static function loadLocales(): void
     {
         $localeFileDirectory = __DIR__ . '/locale/';
         foreach (glob($localeFileDirectory . '*', GLOB_ONLYDIR) as $filename) {
@@ -2277,7 +2292,7 @@ class Calculation
      *
      * @return Calculation
      */
-    public static function getInstance(Spreadsheet $spreadsheet = null)
+    public static function getInstance(?Spreadsheet $spreadsheet = null)
     {
         if ($spreadsheet !== null) {
             $instance = $spreadsheet->getCalculationEngine();
@@ -2297,7 +2312,7 @@ class Calculation
      * Flush the calculation cache for any existing instance of this class
      *        but only if a Calculation instance exists.
      */
-    public function flushInstance()
+    public function flushInstance(): void
     {
         $this->clearCalculationCache();
         $this->clearBranchStore();
@@ -2386,7 +2401,7 @@ class Calculation
      *
      * @param bool $pValue
      */
-    public function setCalculationCacheEnabled($pValue)
+    public function setCalculationCacheEnabled($pValue): void
     {
         $this->calculationCacheEnabled = $pValue;
         $this->clearCalculationCache();
@@ -2395,7 +2410,7 @@ class Calculation
     /**
      * Enable calculation cache.
      */
-    public function enableCalculationCache()
+    public function enableCalculationCache(): void
     {
         $this->setCalculationCacheEnabled(true);
     }
@@ -2403,7 +2418,7 @@ class Calculation
     /**
      * Disable calculation cache.
      */
-    public function disableCalculationCache()
+    public function disableCalculationCache(): void
     {
         $this->setCalculationCacheEnabled(false);
     }
@@ -2411,7 +2426,7 @@ class Calculation
     /**
      * Clear calculation cache.
      */
-    public function clearCalculationCache()
+    public function clearCalculationCache(): void
     {
         $this->calculationCache = [];
     }
@@ -2421,7 +2436,7 @@ class Calculation
      *
      * @param string $worksheetName
      */
-    public function clearCalculationCacheForWorksheet($worksheetName)
+    public function clearCalculationCacheForWorksheet($worksheetName): void
     {
         if (isset($this->calculationCache[$worksheetName])) {
             unset($this->calculationCache[$worksheetName]);
@@ -2434,7 +2449,7 @@ class Calculation
      * @param string $fromWorksheetName
      * @param string $toWorksheetName
      */
-    public function renameCalculationCacheForWorksheet($fromWorksheetName, $toWorksheetName)
+    public function renameCalculationCacheForWorksheet($fromWorksheetName, $toWorksheetName): void
     {
         if (isset($this->calculationCache[$fromWorksheetName])) {
             $this->calculationCache[$toWorksheetName] = &$this->calculationCache[$fromWorksheetName];
@@ -2445,25 +2460,24 @@ class Calculation
     /**
      * Enable/disable calculation cache.
      *
-     * @param bool $pValue
      * @param mixed $enabled
      */
-    public function setBranchPruningEnabled($enabled)
+    public function setBranchPruningEnabled($enabled): void
     {
         $this->branchPruningEnabled = $enabled;
     }
 
-    public function enableBranchPruning()
+    public function enableBranchPruning(): void
     {
         $this->setBranchPruningEnabled(true);
     }
 
-    public function disableBranchPruning()
+    public function disableBranchPruning(): void
     {
         $this->setBranchPruningEnabled(false);
     }
 
-    public function clearBranchStore()
+    public function clearBranchStore(): void
     {
         $this->branchStoreKeyCounter = 0;
     }
@@ -2765,7 +2779,7 @@ class Calculation
      *
      * @return mixed
      */
-    public function calculate(Cell $pCell = null)
+    public function calculate(?Cell $pCell = null)
     {
         try {
             return $this->calculateCellValue($pCell);
@@ -2782,7 +2796,7 @@ class Calculation
      *
      * @return mixed
      */
-    public function calculateCellValue(Cell $pCell = null, $resetLog = true)
+    public function calculateCellValue(?Cell $pCell = null, $resetLog = true)
     {
         if ($pCell === null) {
             return null;
@@ -2884,7 +2898,7 @@ class Calculation
      *
      * @return mixed
      */
-    public function calculateFormula($formula, $cellID = null, Cell $pCell = null)
+    public function calculateFormula($formula, $cellID = null, ?Cell $pCell = null)
     {
         //    Initialise the logging settings
         $this->formulaError = null;
@@ -2943,7 +2957,7 @@ class Calculation
      * @param string $cellReference
      * @param mixed $cellValue
      */
-    public function saveValueToCache($cellReference, $cellValue)
+    public function saveValueToCache($cellReference, $cellValue): void
     {
         if ($this->calculationCacheEnabled) {
             $this->calculationCache[$cellReference] = $cellValue;
@@ -2959,7 +2973,7 @@ class Calculation
      *
      * @return mixed
      */
-    public function _calculateFormulaValue($formula, $cellID = null, Cell $pCell = null)
+    public function _calculateFormulaValue($formula, $cellID = null, ?Cell $pCell = null)
     {
         $cellValue = null;
 
@@ -3105,7 +3119,7 @@ class Calculation
      * @param int $matrix2Rows Row size of second matrix operand
      * @param int $matrix2Columns Column size of second matrix operand
      */
-    private static function resizeMatricesShrink(&$matrix1, &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns)
+    private static function resizeMatricesShrink(&$matrix1, &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns): void
     {
         if (($matrix2Columns < $matrix1Columns) || ($matrix2Rows < $matrix1Rows)) {
             if ($matrix2Rows < $matrix1Rows) {
@@ -3148,7 +3162,7 @@ class Calculation
      * @param int $matrix2Rows Row size of second matrix operand
      * @param int $matrix2Columns Column size of second matrix operand
      */
-    private static function resizeMatricesExtend(&$matrix1, &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns)
+    private static function resizeMatricesExtend(&$matrix1, &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns): void
     {
         if (($matrix2Columns < $matrix1Columns) || ($matrix2Rows < $matrix1Rows)) {
             if ($matrix2Columns < $matrix1Columns) {
@@ -3357,11 +3371,10 @@ class Calculation
 
     /**
      * @param string $formula
-     * @param null|\PhpOffice\PhpSpreadsheet\Cell\Cell $pCell
      *
      * @return bool
      */
-    private function _parseFormula($formula, Cell $pCell = null)
+    private function _parseFormula($formula, ?Cell $pCell = null)
     {
         if (($formula = $this->convertMatrixReferences(trim($formula))) === false) {
             return false;
@@ -3455,7 +3468,7 @@ class Calculation
                 ++$index; //    Drop the redundant plus symbol
             } elseif ((($opCharacter == '~') || ($opCharacter == '|')) && (!$isOperandOrFunction)) {    //    We have to explicitly deny a tilde or pipe, because they are legal
                 return $this->raiseFormulaError("Formula Error: Illegal character '~'"); //        on the stack but not in the input expression
-            } elseif ((isset(self::$operators[$opCharacter]) or $isOperandOrFunction) && $expectingOperator) {    //    Are we putting an operator on the stack?
+            } elseif ((isset(self::$operators[$opCharacter]) || $isOperandOrFunction) && $expectingOperator) {    //    Are we putting an operator on the stack?
                 while ($stack->count() > 0 &&
                     ($o2 = $stack->last()) &&
                     isset(self::$operators[$o2['value']]) &&
@@ -3481,7 +3494,7 @@ class Calculation
                 // Branch pruning we decrease the depth whether is it a function
                 // call or a parenthesis
                 if (!empty($pendingStoreKey)) {
-                    $parenthesisDepthMap[$pendingStoreKey] -= 1;
+                    --$parenthesisDepthMap[$pendingStoreKey];
                 }
 
                 if (is_array($d) && preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $d['value'], $matches)) {    //    Did this parenthesis just close a function?
@@ -3495,7 +3508,7 @@ class Calculation
                         }
                         $expectingThenMap[$pendingStoreKey] = false;
                         $expectingElseMap[$pendingStoreKey] = false;
-                        $parenthesisDepthMap[$pendingStoreKey] -= 1;
+                        --$parenthesisDepthMap[$pendingStoreKey];
                         array_pop($pendingStoreKeysStack);
                         unset($pendingStoreKey);
                     }
@@ -3601,7 +3614,7 @@ class Calculation
                 ++$index;
             } elseif ($opCharacter == '(' && !$expectingOperator) {
                 if (!empty($pendingStoreKey)) { // Branch pruning: we go deeper
-                    $parenthesisDepthMap[$pendingStoreKey] += 1;
+                    ++$parenthesisDepthMap[$pendingStoreKey];
                 }
                 $stack->push('Brace', '(', null, $currentCondition, $currentOnlyIf, $currentOnlyIf);
                 ++$index;
@@ -3615,33 +3628,33 @@ class Calculation
                     $val = preg_replace('/\s/u', '', $val);
                     if (isset(self::$phpSpreadsheetFunctions[strtoupper($matches[1])]) || isset(self::$controlFunctions[strtoupper($matches[1])])) {    // it's a function
                         $valToUpper = strtoupper($val);
-                        // here $matches[1] will contain values like "IF"
-                        // and $val "IF("
-                        if ($this->branchPruningEnabled && ($valToUpper == 'IF(')) { // we handle a new if
-                            $pendingStoreKey = $this->getUnusedBranchStoreKey();
-                            $pendingStoreKeysStack[] = $pendingStoreKey;
-                            $expectingConditionMap[$pendingStoreKey] = true;
-                            $parenthesisDepthMap[$pendingStoreKey] = 0;
-                        } else { // this is not a if but we good deeper
-                            if (!empty($pendingStoreKey) && array_key_exists($pendingStoreKey, $parenthesisDepthMap)) {
-                                $parenthesisDepthMap[$pendingStoreKey] += 1;
-                            }
-                        }
-
-                        $stack->push('Function', $valToUpper, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
-                        // tests if the function is closed right after opening
-                        $ax = preg_match('/^\s*(\s*\))/ui', substr($formula, $index + $length), $amatch);
-                        if ($ax) {
-                            $stack->push('Operand Count for Function ' . $valToUpper . ')', 0, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
-                            $expectingOperator = true;
-                        } else {
-                            $stack->push('Operand Count for Function ' . $valToUpper . ')', 1, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
-                            $expectingOperator = false;
-                        }
-                        $stack->push('Brace', '(');
-                    } else {    // it's a var w/ implicit multiplication
-                        $output[] = ['type' => 'Value', 'value' => $matches[1], 'reference' => null];
+                    } else {
+                        $valToUpper = 'NAME.ERROR(';
                     }
+                    // here $matches[1] will contain values like "IF"
+                    // and $val "IF("
+                    if ($this->branchPruningEnabled && ($valToUpper == 'IF(')) { // we handle a new if
+                        $pendingStoreKey = $this->getUnusedBranchStoreKey();
+                        $pendingStoreKeysStack[] = $pendingStoreKey;
+                        $expectingConditionMap[$pendingStoreKey] = true;
+                        $parenthesisDepthMap[$pendingStoreKey] = 0;
+                    } else { // this is not an if but we go deeper
+                        if (!empty($pendingStoreKey) && array_key_exists($pendingStoreKey, $parenthesisDepthMap)) {
+                            ++$parenthesisDepthMap[$pendingStoreKey];
+                        }
+                    }
+
+                    $stack->push('Function', $valToUpper, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                    // tests if the function is closed right after opening
+                    $ax = preg_match('/^\s*\)/u', substr($formula, $index + $length));
+                    if ($ax) {
+                        $stack->push('Operand Count for Function ' . $valToUpper . ')', 0, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                        $expectingOperator = true;
+                    } else {
+                        $stack->push('Operand Count for Function ' . $valToUpper . ')', 1, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                        $expectingOperator = false;
+                    }
+                    $stack->push('Brace', '(');
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $val, $matches)) {
                     //    Watch for this case-change when modifying to allow cell references in different worksheets...
                     //    Should only be applied to the actual cell column, not the worksheet name
@@ -3804,11 +3817,10 @@ class Calculation
     /**
      * @param mixed $tokens
      * @param null|string $cellID
-     * @param null|Cell $pCell
      *
      * @return bool
      */
-    private function processTokenStack($tokens, $cellID = null, Cell $pCell = null)
+    private function processTokenStack($tokens, $cellID = null, ?Cell $pCell = null)
     {
         if ($tokens == false) {
             return false;
@@ -4347,7 +4359,6 @@ class Calculation
      * @param mixed $operand1
      * @param mixed $operand2
      * @param string $operation
-     * @param Stack $stack
      * @param bool $recursingArrays
      *
      * @return mixed
@@ -4569,7 +4580,7 @@ class Calculation
                         break;
                     //    Power
                     case '^':
-                        $result = pow($operand1, $operand2);
+                        $result = $operand1 ** $operand2;
 
                         break;
                 }
@@ -4606,7 +4617,7 @@ class Calculation
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractCellRange(&$pRange = 'A1', Worksheet $pSheet = null, $resetLog = true)
+    public function extractCellRange(&$pRange = 'A1', ?Worksheet $pSheet = null, $resetLog = true)
     {
         // Return value
         $returnValue = [];
@@ -4659,7 +4670,7 @@ class Calculation
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractNamedRange(&$pRange = 'A1', Worksheet $pSheet = null, $resetLog = true)
+    public function extractNamedRange(&$pRange = 'A1', ?Worksheet $pSheet = null, $resetLog = true)
     {
         // Return value
         $returnValue = [];
@@ -4759,21 +4770,19 @@ class Calculation
     /**
      * Add cell reference if needed while making sure that it is the last argument.
      *
-     * @param array $args
      * @param bool $passCellReference
      * @param array|string $functionCall
-     * @param null|Cell $pCell
      *
      * @return array
      */
-    private function addCellReference(array $args, $passCellReference, $functionCall, Cell $pCell = null)
+    private function addCellReference(array $args, $passCellReference, $functionCall, ?Cell $pCell = null)
     {
         if ($passCellReference) {
             if (is_array($functionCall)) {
                 $className = $functionCall[0];
                 $methodName = $functionCall[1];
 
-                $reflectionMethod = new \ReflectionMethod($className, $methodName);
+                $reflectionMethod = new ReflectionMethod($className, $methodName);
                 $argumentCount = count($reflectionMethod->getParameters());
                 while (count($args) < $argumentCount - 1) {
                     $args[] = null;

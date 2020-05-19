@@ -16,13 +16,13 @@ $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
-    ['Counts', 'Max', 'Min', 'Min Threshold', 'Max Threshold'],
-    [10, 10, 5, 0, 50],
-    [30, 20, 10, 0, 50],
-    [20, 30, 15, 0, 50],
-    [40, 10, 0, 0, 50],
-    [100, 40, 5, 0, 50],
-        ],
+        ['Counts', 'Max', 'Min', 'Min Threshold', 'Max Threshold'],
+        [10, 10, 5, 0, 50],
+        [30, 20, 10, 0, 50],
+        [20, 30, 15, 0, 50],
+        [40, 10, 0, 0, 50],
+        [100, 40, 5, 0, 50],
+    ],
     null,
     'A1',
     true

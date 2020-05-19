@@ -112,7 +112,7 @@ class StringTable extends WriterPart
      * @param RichText $pRichText Rich text
      * @param string $prefix Optional Namespace prefix
      */
-    public function writeRichText(XMLWriter $objWriter, RichText $pRichText, $prefix = null)
+    public function writeRichText(XMLWriter $objWriter, RichText $pRichText, $prefix = null): void
     {
         if ($prefix !== null) {
             $prefix .= ':';
@@ -195,7 +195,7 @@ class StringTable extends WriterPart
      * @param RichText|string $pRichText text string or Rich text
      * @param string $prefix Optional Namespace prefix
      */
-    public function writeRichTextForCharts(XMLWriter $objWriter, $pRichText = null, $prefix = null)
+    public function writeRichTextForCharts(XMLWriter $objWriter, $pRichText = null, $prefix = null): void
     {
         if (!$pRichText instanceof RichText) {
             $textRun = $pRichText;

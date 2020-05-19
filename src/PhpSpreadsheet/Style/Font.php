@@ -504,8 +504,6 @@ class Font extends Supervisor
     /**
      * Set Color.
      *
-     * @param Color $pValue
-     *
      * @return $this
      */
     public function setColor(Color $pValue)

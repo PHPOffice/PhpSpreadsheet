@@ -18,10 +18,10 @@ class Bin2DecTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBIN2DEC($expectedResult, ...$args)
+    public function testBIN2DEC($expectedResult, ...$args): void
     {
         $result = Engineering::BINTODEC(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBIN2DEC()

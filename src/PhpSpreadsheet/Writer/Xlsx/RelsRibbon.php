@@ -10,8 +10,6 @@ class RelsRibbon extends WriterPart
     /**
      * Write relationships for additional objects of custom UI (ribbon).
      *
-     * @param Spreadsheet $spreadsheet
-     *
      * @return string XML Output
      */
     public function writeRibbonRelationships(Spreadsheet $spreadsheet)

@@ -18,10 +18,10 @@ class FloorPreciseTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFLOOR($expectedResult, ...$args)
+    public function testFLOOR($expectedResult, ...$args): void
     {
         $result = MathTrig::FLOORPRECISE(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerFLOORPRECISE()

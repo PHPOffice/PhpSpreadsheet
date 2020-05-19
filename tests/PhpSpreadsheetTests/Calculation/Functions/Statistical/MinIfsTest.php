@@ -18,10 +18,10 @@ class MinIfsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMINIFS($expectedResult, ...$args)
+    public function testMINIFS($expectedResult, ...$args): void
     {
         $result = Statistical::MINIFS(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerMINIFS()

@@ -20,11 +20,11 @@ class ErfTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testERF($expectedResult, ...$args)
+    public function testERF($expectedResult, ...$args): void
     {
         $result = Engineering::ERF(...$args);
-        $this->assertEquals($expectedResult, $result);
-        $this->assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
+        self::assertEquals($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
     public function providerERF()

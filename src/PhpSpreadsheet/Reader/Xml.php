@@ -101,7 +101,7 @@ class Xml extends BaseReader
      *
      * @param string $pFilename
      *
-     * @return false|\SimpleXMLElement
+     * @return false|SimpleXMLElement
      */
     public function trySimpleXMLLoadString($pFilename)
     {
@@ -288,7 +288,6 @@ class Xml extends BaseReader
      * Loads from file into Spreadsheet instance.
      *
      * @param string $pFilename
-     * @param Spreadsheet $spreadsheet
      *
      * @return Spreadsheet
      */
@@ -653,11 +652,7 @@ class Xml extends BaseReader
         return $value;
     }
 
-    /**
-     * @param SimpleXMLElement $xml
-     * @param array $namespaces
-     */
-    private function parseStyles(SimpleXMLElement $xml, array $namespaces)
+    private function parseStyles(SimpleXMLElement $xml, array $namespaces): void
     {
         if (!isset($xml->Styles)) {
             return;
@@ -697,9 +692,8 @@ class Xml extends BaseReader
 
     /**
      * @param string $styleID
-     * @param SimpleXMLElement $styleAttributes
      */
-    private function parseStyleAlignment($styleID, SimpleXMLElement $styleAttributes)
+    private function parseStyleAlignment($styleID, SimpleXMLElement $styleAttributes): void
     {
         $verticalAlignmentStyles = [
             Alignment::VERTICAL_BOTTOM,
@@ -741,10 +735,8 @@ class Xml extends BaseReader
 
     /**
      * @param $styleID
-     * @param SimpleXMLElement $styleData
-     * @param array $namespaces
      */
-    private function parseStyleBorders($styleID, SimpleXMLElement $styleData, array $namespaces)
+    private function parseStyleBorders($styleID, SimpleXMLElement $styleData, array $namespaces): void
     {
         foreach ($styleData->Border as $borderStyle) {
             $borderAttributes = $borderStyle->attributes($namespaces['ss']);
@@ -778,9 +770,8 @@ class Xml extends BaseReader
 
     /**
      * @param $styleID
-     * @param SimpleXMLElement $styleAttributes
      */
-    private function parseStyleFont($styleID, SimpleXMLElement $styleAttributes)
+    private function parseStyleFont($styleID, SimpleXMLElement $styleAttributes): void
     {
         $underlineStyles = [
             Font::UNDERLINE_NONE,
@@ -825,9 +816,8 @@ class Xml extends BaseReader
 
     /**
      * @param $styleID
-     * @param SimpleXMLElement $styleAttributes
      */
-    private function parseStyleInterior($styleID, SimpleXMLElement $styleAttributes)
+    private function parseStyleInterior($styleID, SimpleXMLElement $styleAttributes): void
     {
         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
             switch ($styleAttributeKey) {
@@ -845,9 +835,8 @@ class Xml extends BaseReader
 
     /**
      * @param $styleID
-     * @param SimpleXMLElement $styleAttributes
      */
-    private function parseStyleNumberFormat($styleID, SimpleXMLElement $styleAttributes)
+    private function parseStyleNumberFormat($styleID, SimpleXMLElement $styleAttributes): void
     {
         $fromFormats = ['\-', '\ '];
         $toFormats = ['-', ' '];

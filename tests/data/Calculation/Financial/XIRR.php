@@ -8,84 +8,84 @@ return [
         'If values and dates contain a different number of values, returns the #NUM! error value',
         [4000, -46000],
         ['2015-01-04'],
-        0.1
+        0.1,
     ],
     [
         '#NUM!',
         'Expects at least one positive cash flow and one negative cash flow; otherwise returns the #NUM! error value',
         [-4000, -46000],
         ['2015-01-04', '2019-06-27'],
-        0.1
+        0.1,
     ],
     [
         '#NUM!',
         'Expects at least one positive cash flow and one negative cash flow; otherwise returns the #NUM! error value',
         [4000, 46000],
         ['2015-01-04', '2019-06-27'],
-        0.1
+        0.1,
     ],
     [
         '#VALUE!',
         'If any number in dates is not a valid date, returns the #VALUE! error value',
         [4000, -46000],
         ['2015-01-04', '2019X06-27'],
-        0.1
+        0.1,
     ],
     [
         '#VALUE!',
         'If any entry in values is not numeric, returns the #VALUE! error value',
         ['y', -46000],
         ['2015-01-04', '2019-06-27'],
-        0.1
+        0.1,
     ],
     [
         '#NUM!',
         'If values is not an array, returns the #NUM! error value',
         -46000,
         ['2015-01-04', '2019-06-27'],
-        0.1
+        0.1,
     ],
     [
         '#NUM!',
         'If dates is not an array but values is, returns the #NUM! error value',
         [4000, -46000],
         '2015-01-04',
-        0.1
+        0.1,
     ],
     [
         '#N/A',
         'If neither dates nor values is an array, returns the #N/A error value',
         4000,
         '2015-01-04',
-        0.1
+        0.1,
     ],
     [
         0.137963527441025,
         'Dates can be in any order after all',
         [1893.67, 139947.43, 52573.25, 48849.74, 26369.16, -273029.18],
         ['2019-06-27', '2019-06-20', '2019-06-21', '2019-06-24', '2019-06-27', '2019-07-27'],
-        0.1
+        0.1,
     ],
     [
         0.77868869226873,
         'XIRR calculation #0 is incorrect',
         [4000, -46000],
         ['2015-04-01', '2019-06-27'],
-        0.1
+        0.1,
     ],
     [
         0.137963527441025,
         'XIRR calculation #1 is incorrect',
         [139947.43, 1893.67, 52573.25, 48849.74, 26369.16, -273029.18],
         ['2019-06-20', '2019-06-27', '2019-06-21', '2019-06-24', '2019-06-27', '2019-07-27'],
-        0.1
+        0.1,
     ],
     [
         0.09999999,
         'XIRR calculation #2 is incorrect',
         [100.0, -110.0],
         ['2019-06-12', '2020-06-11'],
-        0.1
+        0.1,
     ],
     [
         3235.159644,
@@ -116,7 +116,7 @@ return [
         'Substitute for guess=0',
         [139947.43, 1893.67, 52573.25, 48849.74, 26369.16, -273029.18],
         ['2019-06-20', '2019-06-27', '2019-06-21', '2019-06-24', '2019-06-27', '2019-07-27'],
-        0.00000
+        0.00000,
     ],
     [
         '#NUM!',

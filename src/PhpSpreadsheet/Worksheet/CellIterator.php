@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-abstract class CellIterator implements \Iterator
+use Iterator;
+
+abstract class CellIterator implements Iterator
 {
     /**
      * Worksheet to iterate.
@@ -23,7 +25,7 @@ abstract class CellIterator implements \Iterator
      */
     public function __destruct()
     {
-        unset($this->worksheet);
+        $this->worksheet = null;
     }
 
     /**
@@ -46,7 +48,7 @@ abstract class CellIterator implements \Iterator
      *
      * @param bool $value
      */
-    public function setIterateOnlyExistingCells($value)
+    public function setIterateOnlyExistingCells($value): void
     {
         $this->onlyExistingCells = (bool) $value;
 

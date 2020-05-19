@@ -99,25 +99,25 @@ return [
         [
             [1],
             [0],
-            [1]
+            [1],
         ],
         1,
         [
             [3],
-            [4] // less elements in sum array
-        ]
+            [4], // less elements in sum array
+        ],
     ],
     [
         3,
         [
             [1],
-            [0] // less elements in condition array
+            [0], // less elements in condition array
         ],
         1,
         [
             [3],
             [4],
-            [5]
-        ]
-    ]
+            [5],
+        ],
+    ],
 ];

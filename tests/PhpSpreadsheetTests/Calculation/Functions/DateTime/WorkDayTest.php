@@ -21,10 +21,10 @@ class WorkDayTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testWORKDAY($expectedResult, ...$args)
+    public function testWORKDAY($expectedResult, ...$args): void
     {
         $result = DateTime::WORKDAY(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerWORKDAY()

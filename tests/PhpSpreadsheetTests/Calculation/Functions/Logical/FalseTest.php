@@ -13,9 +13,9 @@ class FalseTest extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-    public function testFALSE()
+    public function testFALSE(): void
     {
         $result = Logical::FALSE();
-        $this->assertFalse($result);
+        self::assertFalse($result);
     }
 }

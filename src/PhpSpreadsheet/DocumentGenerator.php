@@ -11,8 +11,6 @@ class DocumentGenerator
 {
     /**
      * @param array[] $phpSpreadsheetFunctions
-     *
-     * @return string
      */
     public static function generateFunctionListByCategory(array $phpSpreadsheetFunctions): string
     {
@@ -40,7 +38,7 @@ class DocumentGenerator
         return (new ReflectionClass(Category::class))->getConstants();
     }
 
-    private static function tableRow(array $lengths, array $values = null): string
+    private static function tableRow(array $lengths, ?array $values = null): string
     {
         $result = '';
         foreach (array_map(null, $lengths, $values ?? []) as $i => [$length, $value]) {
@@ -73,8 +71,6 @@ class DocumentGenerator
 
     /**
      * @param array[] $phpSpreadsheetFunctions
-     *
-     * @return string
      */
     public static function generateFunctionListByName(array $phpSpreadsheetFunctions): string
     {

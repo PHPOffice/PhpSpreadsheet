@@ -33,10 +33,10 @@ class ImTanTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMTAN($expectedResult, $value)
+    public function testIMTAN($expectedResult, $value): void
     {
         $result = Engineering::IMTAN($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );

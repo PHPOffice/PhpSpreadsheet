@@ -18,10 +18,10 @@ class SumXMY2Test extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSUMXMY2($expectedResult, ...$args)
+    public function testSUMXMY2($expectedResult, ...$args): void
     {
         $result = MathTrig::SUMXMY2(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSUMXMY2()

@@ -19,10 +19,10 @@ class SqrtPiTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testSQRTPI($expectedResult, $value)
+    public function testSQRTPI($expectedResult, $value): void
     {
         $result = MathTrig::SQRTPI($value);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSQRTPI()

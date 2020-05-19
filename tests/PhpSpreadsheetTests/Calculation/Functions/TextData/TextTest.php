@@ -30,7 +30,7 @@ class TextTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testTEXT($expectedResult, ...$args)
+    public function testTEXT($expectedResult, ...$args): void
     {
         //    Enforce decimal and thousands separator values to UK/US, and currency code to USD
         StringHelper::setDecimalSeparator('.');
@@ -38,7 +38,7 @@ class TextTest extends TestCase
         StringHelper::setCurrencyCode('$');
 
         $result = TextData::TEXTFORMAT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerTEXT()

@@ -18,10 +18,10 @@ class ChooseTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCHOOSE($expectedResult, ...$args)
+    public function testCHOOSE($expectedResult, ...$args): void
     {
         $result = LookupRef::CHOOSE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCHOOSE()

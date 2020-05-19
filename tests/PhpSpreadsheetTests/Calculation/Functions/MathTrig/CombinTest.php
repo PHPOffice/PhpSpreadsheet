@@ -18,10 +18,10 @@ class CombinTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOMBIN($expectedResult, ...$args)
+    public function testCOMBIN($expectedResult, ...$args): void
     {
         $result = MathTrig::COMBIN(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCOMBIN()

@@ -13,28 +13,28 @@ class ConvertUoMTest extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-    public function testGetConversionGroups()
+    public function testGetConversionGroups(): void
     {
         $result = Engineering::getConversionGroups();
-        $this->assertIsArray($result);
+        self::assertIsArray($result);
     }
 
-    public function testGetConversionGroupUnits()
+    public function testGetConversionGroupUnits(): void
     {
         $result = Engineering::getConversionGroupUnits();
-        $this->assertIsArray($result);
+        self::assertIsArray($result);
     }
 
-    public function testGetConversionGroupUnitDetails()
+    public function testGetConversionGroupUnitDetails(): void
     {
         $result = Engineering::getConversionGroupUnitDetails();
-        $this->assertIsArray($result);
+        self::assertIsArray($result);
     }
 
-    public function testGetConversionMultipliers()
+    public function testGetConversionMultipliers(): void
     {
         $result = Engineering::getConversionMultipliers();
-        $this->assertIsArray($result);
+        self::assertIsArray($result);
     }
 
     /**
@@ -42,10 +42,10 @@ class ConvertUoMTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCONVERTUOM($expectedResult, ...$args)
+    public function testCONVERTUOM($expectedResult, ...$args): void
     {
         $result = Engineering::CONVERTUOM(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCONVERTUOM()

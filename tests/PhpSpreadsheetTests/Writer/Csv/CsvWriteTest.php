@@ -11,7 +11,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class CsvWriteTest extends Functional\AbstractFunctional
 {
-    public function testNotFirstSheet()
+    public function testNotFirstSheet(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -33,7 +33,7 @@ class CsvWriteTest extends Functional\AbstractFunctional
         self::assertEquals(0, $newspreadsheet->getActiveSheetIndex());
     }
 
-    public function testWriteEmptyFileName()
+    public function testWriteEmptyFileName(): void
     {
         $this->expectException(WriterException::class);
         $spreadsheet = new Spreadsheet();
@@ -42,7 +42,7 @@ class CsvWriteTest extends Functional\AbstractFunctional
         $writer->save($filename);
     }
 
-    public function testDefaultSettings()
+    public function testDefaultSettings(): void
     {
         $spreadsheet = new Spreadsheet();
         $writer = new CsvWriter($spreadsheet);

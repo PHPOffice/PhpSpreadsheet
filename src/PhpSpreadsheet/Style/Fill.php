@@ -244,8 +244,6 @@ class Fill extends Supervisor
     /**
      * Set Start Color.
      *
-     * @param Color $pValue
-     *
      * @return $this
      */
     public function setStartColor(Color $pValue)
@@ -275,8 +273,6 @@ class Fill extends Supervisor
 
     /**
      * Set End Color.
-     *
-     * @param Color $pValue
      *
      * @return $this
      */

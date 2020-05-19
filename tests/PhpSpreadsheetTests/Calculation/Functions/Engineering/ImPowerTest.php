@@ -32,10 +32,10 @@ class ImPowerTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIMPOWER($expectedResult, ...$args)
+    public function testIMPOWER($expectedResult, ...$args): void
     {
         $result = Engineering::IMPOWER(...$args);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );

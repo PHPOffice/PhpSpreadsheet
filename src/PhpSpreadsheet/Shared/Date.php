@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use DateTimeInterface;
 use DateTimeZone;
+use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -57,7 +58,7 @@ class Date
     /**
      * Default timezone to use for DateTime objects.
      *
-     * @var null|\DateTimeZone
+     * @var null|DateTimeZone
      */
     protected static $defaultTimeZone;
 
@@ -139,7 +140,7 @@ class Date
             return new DateTimeZone($timeZone);
         }
 
-        throw new \Exception('Invalid timezone');
+        throw new Exception('Invalid timezone');
     }
 
     /**
@@ -311,8 +312,6 @@ class Date
     /**
      * Is a given cell a date/time?
      *
-     * @param Cell $pCell
-     *
      * @return bool
      */
     public static function isDateTime(Cell $pCell)
@@ -327,8 +326,6 @@ class Date
 
     /**
      * Is a given number format a date/time?
-     *
-     * @param NumberFormat $pFormat
      *
      * @return bool
      */

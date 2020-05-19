@@ -18,10 +18,10 @@ class RomanTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testROMAN($expectedResult, ...$args)
+    public function testROMAN($expectedResult, ...$args): void
     {
         $result = MathTrig::ROMAN(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerROMAN()

@@ -21,10 +21,10 @@ class ImRealTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMREAL($expectedResult, $value)
+    public function testIMREAL($expectedResult, $value): void
     {
         $result = Engineering::IMREAL($value);
-        $this->assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
     public function providerIMREAL()
