@@ -19,20 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix RATE, PRICE, XIRR, and XNPV Functions [#1456](https://github.com/PHPOffice/PhpSpreadsheet/pull/1456)
 - Save Excel 2010+ functions properly in XLSX [#1461](https://github.com/PHPOffice/PhpSpreadsheet/pull/1461)
 - Several improvements in HTML writer [#1464](https://github.com/PHPOffice/PhpSpreadsheet/pull/1464)
-- Fix incorrect behaviour when saving XLSX file with drawings
-[#1421](https://github.com/PHPOffice/PhpSpreadsheet/issues/1421),
-[#1294](https://github.com/PHPOffice/PhpSpreadsheet/issues/1294),
-[#1236](https://github.com/PHPOffice/PhpSpreadsheet/issues/1236),
-[#1222](https://github.com/PHPOffice/PhpSpreadsheet/issues/1222),
-[#1022](https://github.com/PHPOffice/PhpSpreadsheet/issues/1022),
-[#876](https://github.com/PHPOffice/PhpSpreadsheet/issues/876),
-[#861](https://github.com/PHPOffice/PhpSpreadsheet/issues/861),
-[#853](https://github.com/PHPOffice/PhpSpreadsheet/issues/853),
-[#795](https://github.com/PHPOffice/PhpSpreadsheet/issues/795),
-[#723](https://github.com/PHPOffice/PhpSpreadsheet/issues/723),
-[#676](https://github.com/PHPOffice/PhpSpreadsheet/issues/676),
-[#610](https://github.com/PHPOffice/PhpSpreadsheet/issues/610),
-[#544](https://github.com/PHPOffice/PhpSpreadsheet/issues/544)
+- Fix incorrect behaviour when saving XLSX file with drawings [#1462](https://github.com/PHPOffice/PhpSpreadsheet/pull/1462),
 
 ### Changed
 
