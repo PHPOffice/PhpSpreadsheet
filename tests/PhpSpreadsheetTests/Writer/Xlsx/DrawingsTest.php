@@ -29,7 +29,7 @@ class DrawingsTest extends AbstractFunctional
     /**
      * Test save and load XLSX file with drawing on 2nd worksheet.
      */
-    public function testSaveLoadWithDrawingOn2ndWorksheet()
+    public function testSaveLoadWithDrawingOn2ndWorksheet(): void
     {
         // Read spreadsheet from file
         $inputFilename = 'tests/data/Writer/XLSX/drawing_on_2nd_page.xlsx';
@@ -40,6 +40,6 @@ class DrawingsTest extends AbstractFunctional
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
 
         // Fake assert. The only thing we need is to ensure the file is loaded without exception
-        $this->assertNotNull($reloadedSpreadsheet);
+        self::assertNotNull($reloadedSpreadsheet);
     }
 }
