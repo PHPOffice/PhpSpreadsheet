@@ -31,6 +31,7 @@ abstract class IOFactory
         'Html' => Writer\Html::class,
         'Tcpdf' => Writer\Pdf\Tcpdf::class,
         'Dompdf' => Writer\Pdf\Dompdf::class,
+        'Snappypdf' => Writer\Pdf\SnappyPdf::class,
         'Mpdf' => Writer\Pdf\Mpdf::class,
     ];
 

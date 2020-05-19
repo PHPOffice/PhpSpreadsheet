@@ -35,6 +35,7 @@ class IOFactoryTest extends TestCase
             ['Mpdf', Writer\Pdf\Mpdf::class],
             ['Tcpdf', Writer\Pdf\Tcpdf::class],
             ['Dompdf', Writer\Pdf\Dompdf::class],
+            ['Snappypdf', Writer\Pdf\SnappyPdf::class],
         ];
     }
 

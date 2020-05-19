@@ -19,6 +19,7 @@ class StreamTest extends TestCase
             ['Tcpdf'],
             ['Dompdf'],
             ['Mpdf'],
+            ['Snappypdf'],
         ];
     }
 

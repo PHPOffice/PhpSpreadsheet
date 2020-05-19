@@ -66,13 +66,21 @@
         "phpcompatibility/php-compatibility": "^9.3",
         "phpunit/phpunit": "^8.5",
         "squizlabs/php_codesniffer": "^3.5",
-        "tecnickcom/tcpdf": "^6.3"
+        "tecnickcom/tcpdf": "^6.3",
+        "knplabs/knp-snappy": "^1.2",
+        "h4cc/wkhtmltopdf-amd64": "^0.12.4"
     },
     "suggest": {
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer",
-        "jpgraph/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers"
+        "jpgraph/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers",
+        "knplabs/knp-snappy": "Option for rendering PDF with PDF Writer",
+        "h4cc/wkhtmltopdf-amd64": "Provides wkhtmltopdf-amd64 binary for Linux-compatible machines, use version `~0.12` as dependency",
+        "h4cc/wkhtmltopdf-i386": "Provides wkhtmltopdf-i386 binary for Linux-compatible machines, use version `~0.12` as dependency",
+        "h4cc/wkhtmltoimage-amd64": "Provides wkhtmltoimage-amd64 binary for Linux-compatible machines, use version `~0.12` as dependency",
+        "h4cc/wkhtmltoimage-i386": "Provides wkhtmltoimage-i386 binary for Linux-compatible machines, use version `~0.12` as dependency",
+        "wemersonjanuario/wkhtmltopdf-windows": "Provides wkhtmltopdf executable for Windows, use version `~0.12` as dependency"
     },
     "autoload": {
         "psr-4": {

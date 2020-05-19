@@ -742,6 +742,7 @@ Library | Downloadable from                   | PhpSpreadsheet writer
 TCPDF   | https://github.com/tecnickcom/tcpdf | Tcpdf
 mPDF    | https://github.com/mpdf/mpdf        | Mpdf
 Dompdf  | https://github.com/dompdf/dompdf    | Dompdf
+Snappy  | https://github.com/knplabs/snappy    | Snappypdf
 
 The different libraries have different strengths and weaknesses. Some
 generate better formatted output than others, some are faster or use
