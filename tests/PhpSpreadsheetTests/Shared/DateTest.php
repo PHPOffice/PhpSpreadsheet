@@ -209,13 +209,13 @@ class DateTest extends TestCase
         $sheet->getStyle('A2')
             ->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_DATETIME);
-        self::assertTrue(Date::isDateTime($cella2));
+        self::assertTrue(null !== $cella2 && Date::isDateTime($cella2));
         $cella3 = $sheet->getCell('A3');
         self::assertNotNull($cella3);
         $cella3->setValue('=A1+4');
         $sheet->getStyle('A3')
             ->getNumberFormat()
             ->setFormatCode('0.00E+00');
-        self::assertFalse(Date::isDateTime($cella3));
+        self::assertFalse(null !== $cella3 && Date::isDateTime($cella3));
     }
 }
