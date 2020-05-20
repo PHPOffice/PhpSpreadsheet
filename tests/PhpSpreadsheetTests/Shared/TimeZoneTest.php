@@ -67,7 +67,7 @@ class TimeZoneTest extends TestCase
         $dtobj = DateTime::createFromFormat('Y-m-d H:i:s', '2008-09-22 00:00:00');
         $tstmp = $dtobj->getTimestamp();
         $unsupportedTimeZone = 'XEtc/GMT+10';
-        $adj = TimeZone::getTimeZoneAdjustment($unsupportedTimeZone, $tstmp);
+        TimeZone::getTimeZoneAdjustment($unsupportedTimeZone, $tstmp);
     }
 
     public function testTimeZoneAdjustments(): void
