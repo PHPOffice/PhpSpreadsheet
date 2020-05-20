@@ -202,7 +202,7 @@ class DateTest extends TestCase
         $sheet->getStyle('A1')
             ->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_DATETIME);
-        self::assertTrue(!is_null($cell) && Date::isDateTime($cell));
+        self::assertTrue(null !== $cell && Date::isDateTime($cell));
         $cella2 = $sheet->getCell('A2');
         self::assertNotNull($cella2);
         $cella2->setValue('=A1+2');
