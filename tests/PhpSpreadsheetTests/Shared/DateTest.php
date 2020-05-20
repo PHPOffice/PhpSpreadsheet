@@ -182,11 +182,6 @@ class DateTest extends TestCase
         return require 'tests/data/Shared/Date/ExcelToTimestamp1900Timezone.php';
     }
 
-    public function passString($str)
-    {
-        return $str;
-    }
-
     public function testVarious(): void
     {
         Date::setDefaultTimeZone('UTC');
@@ -196,16 +191,18 @@ class DateTest extends TestCase
         self::assertFalse(Date::stringToExcel('2019-02-28 11:71'));
         $date = Date::PHPToExcel('2020-01-01');
         self::assertEquals(43831.0, $date);
-        self::assertFalse(Date::timestampToExcel($this->passString('x')));
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('B1', 'x');
+        $val = $sheet->getCell('B1')->getValue();
+        self::assertFalse(Date::timestampToExcel($val));
         $cell = $sheet->getCell('A1');
         self::assertNotNull($cell);
         $cell->setValue($date);
         $sheet->getStyle('A1')
             ->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_DATETIME);
-        self::assertTrue(Date::isDateTime($cell));
+        self::assertTrue(!is_null($cell) && Date::isDateTime($cell));
         $cella2 = $sheet->getCell('A2');
         self::assertNotNull($cella2);
         $cella2->setValue('=A1+2');
