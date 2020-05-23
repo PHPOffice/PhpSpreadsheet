@@ -126,6 +126,34 @@ class Protection
     private $password = '';
 
     /**
+     * Algorithm name.
+     *
+     * @var string
+     */
+    private $algorithmName = '';
+
+    /**
+     * Hash value.
+     *
+     * @var string
+     */
+    private $hashValue = '';
+
+    /**
+     * Salt value.
+     *
+     * @var string
+     */
+    private $saltValue = '';
+
+    /**
+     * Spin count.
+     *
+     * @var int
+     */
+    private $spinCount = '';
+
+    /**
      * Create a new Protection.
      */
     public function __construct()
@@ -565,6 +593,102 @@ class Protection
             $pValue = PasswordHasher::hashPassword($pValue);
         }
         $this->password = $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Get AlgorithmName.
+     *
+     * @return string
+     */
+    public function getAlgorithmName()
+    {
+        return $this->algorithmName;
+    }
+
+    /**
+     * Set AlgorithmName.
+     *
+     * @param string $pValue
+     *
+     * @return $this
+     */
+    public function setAlgorithmName($pValue)
+    {
+        $this->algorithmName = $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Get HashValue.
+     *
+     * @return string
+     */
+    public function getHashValue()
+    {
+        return $this->hashValue;
+    }
+
+    /**
+     * Set HashValue.
+     *
+     * @param string $pValue
+     *
+     * @return $this
+     */
+    public function setHashValue($pValue)
+    {
+        $this->hashValue = $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Get SaltValue.
+     *
+     * @return string
+     */
+    public function getSaltValue()
+    {
+        return $this->saltValue;
+    }
+
+    /**
+     * Set SaltValue.
+     *
+     * @param string $pValue
+     *
+     * @return $this
+     */
+    public function setSaltValue($pValue)
+    {
+        $this->saltValue = $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Get SpinCount.
+     *
+     * @return int
+     */
+    public function getSpinCount()
+    {
+        return $this->spinCount;
+    }
+
+    /**
+     * Set SpinCount.
+     *
+     * @param int $pValue
+     *
+     * @return $this
+     */
+    public function setSpinCount($pValue)
+    {
+        $this->spinCount = $pValue;
 
         return $this;
     }

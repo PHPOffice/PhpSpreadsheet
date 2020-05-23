@@ -765,6 +765,10 @@ class Xlsx extends BaseReader
 
                             if (!$this->readDataOnly && $xmlSheet && $xmlSheet->sheetProtection) {
                                 $docSheet->getProtection()->setPassword((string) $xmlSheet->sheetProtection['password'], true);
+                                $docSheet->getProtection()->setAlgorithmName((string) $xmlSheet->sheetProtection['algorithmName']);
+                                $docSheet->getProtection()->setHashValue((string) $xmlSheet->sheetProtection['hashValue']);
+                                $docSheet->getProtection()->setSaltValue((string) $xmlSheet->sheetProtection['saltValue']);
+                                $docSheet->getProtection()->setSpinCount((int) $xmlSheet->sheetProtection['spinCount']);
                                 if ($xmlSheet->protectedRanges->protectedRange) {
                                     foreach ($xmlSheet->protectedRanges->protectedRange as $protectedRange) {
                                         $docSheet->protectCells((string) $protectedRange['sqref'], (string) $protectedRange['password'], true);

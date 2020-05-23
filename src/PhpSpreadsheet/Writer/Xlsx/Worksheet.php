@@ -424,6 +424,22 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('password', $pSheet->getProtection()->getPassword());
         }
 
+        if ($pSheet->getProtection()->getHashValue() !== '') {
+            $objWriter->writeAttribute('hashValue', $pSheet->getProtection()->getHashValue());
+        }
+
+        if ($pSheet->getProtection()->getAlgorithmName() !== '') {
+            $objWriter->writeAttribute('algorithmName', $pSheet->getProtection()->getAlgorithmName());
+        }
+
+        if ($pSheet->getProtection()->getSaltValue() !== '') {
+            $objWriter->writeAttribute('saltValue', $pSheet->getProtection()->getSaltValue());
+        }
+
+        if ($pSheet->getProtection()->getSpinCount() !== '') {
+            $objWriter->writeAttribute('spinCount', $pSheet->getProtection()->getSpinCount());
+        }
+
         $objWriter->writeAttribute('sheet', ($pSheet->getProtection()->getSheet() ? 'true' : 'false'));
         $objWriter->writeAttribute('objects', ($pSheet->getProtection()->getObjects() ? 'true' : 'false'));
         $objWriter->writeAttribute('scenarios', ($pSheet->getProtection()->getScenarios() ? 'true' : 'false'));
