@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
-class rangeTest extends TestCase
+class RangeTest extends TestCase
 {
     protected $spreadSheet;
 
