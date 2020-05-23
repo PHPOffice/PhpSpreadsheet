@@ -4091,6 +4091,7 @@ class Calculation
                             $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
                             $stack->push('Value', $cellIntersect, $cellRef);
                         }
+
                         break;
                 }
 
