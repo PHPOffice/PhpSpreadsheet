@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
-
+Fix saving XLSX with drawings [#1421](https://github.com/PHPOffice/PhpSpreadsheet/issues/1421)
 
 ## [1.8.2] - 2019-07-08
 
