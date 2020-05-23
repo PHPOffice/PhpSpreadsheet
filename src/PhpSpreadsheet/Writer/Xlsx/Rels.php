@@ -183,7 +183,6 @@ class Rels extends WriterPart
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
 
         // Write drawing relationships?
-        $d = 0;
         $drawingOriginalIds = [];
         $unparsedLoadedData = $pWorksheet->getParent()->getUnparsedLoadedData();
         if (isset($unparsedLoadedData['sheets'][$pWorksheet->getCodeName()]['drawingOriginalIds'])) {
@@ -197,13 +196,19 @@ class Rels extends WriterPart
         }
 
         if (($pWorksheet->getDrawingCollection()->count() > 0) || (count($charts) > 0) || $drawingOriginalIds) {
-            $relPath = '../drawings/drawing' . $pWorksheetId . '.xml';
-            $rId = ++$d;
+            $rId = 1;
 
+            // Use original $relPath to get original $rId.
+            // Take first. In future can be overwritten.
+            // (! synchronize with \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet::writeDrawings)
+            reset($drawingOriginalIds);
+            $relPath = key($drawingOriginalIds);
             if (isset($drawingOriginalIds[$relPath])) {
                 $rId = (int) (substr($drawingOriginalIds[$relPath], 3));
             }
 
+            // Generate new $relPath to write drawing relationship
+            $relPath = '../drawings/drawing' . $pWorksheetId . '.xml';
             $this->writeRelationship(
                 $objWriter,
                 $rId,
