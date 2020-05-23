@@ -1339,6 +1339,8 @@ class MathTrig
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
                 $returnValue += $arg;
+            } elseif (Functions::isError($arg)) {
+                return $arg;
             }
         }
 

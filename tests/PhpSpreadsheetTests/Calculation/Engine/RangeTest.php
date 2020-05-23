@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -45,7 +46,7 @@ class RangeTest extends TestCase
             ['=SUM(A1:B3,A1:C2)', 48],
             ['=SUM(A1:B3 A1:C2)', 12],
             ['=SUM(A1:A3,C1:C3)', 30],
-            ['=SUM(A1:A3 C1:C3)', 0],
+            ['=SUM(A1:A3 C1:C3)', Functions::null()],
             ['=SUM(A1:B2,B2:C3)', 40],
             ['=SUM(A1:B2 B2:C3)', 5],
         ];

@@ -37,6 +37,10 @@ class Calculation
     const RETURN_ARRAY_AS_VALUE = 'value';
     const RETURN_ARRAY_AS_ARRAY = 'array';
 
+    const FORMULA_OPEN_FUNCTION_BRACE = '{';
+    const FORMULA_CLOSE_FUNCTION_BRACE = '}';
+    const FORMULA_STRING_QUOTE = '"';
+
     private static $returnArrayAsType = self::RETURN_ARRAY_AS_VALUE;
 
     /**
@@ -2593,11 +2597,11 @@ class Calculation
         for ($i = 0; $i < $strlen; ++$i) {
             $chr = mb_substr($formula, $i, 1);
             switch ($chr) {
-                case '{':
+                case self::FORMULA_OPEN_FUNCTION_BRACE:
                     $inBraces = true;
 
                     break;
-                case '}':
+                case self::FORMULA_CLOSE_FUNCTION_BRACE:
                     $inBraces = false;
 
                     break;
@@ -2626,10 +2630,10 @@ class Calculation
         if (self::$localeLanguage !== 'en_us') {
             $inBraces = false;
             //    If there is the possibility of braces within a quoted string, then we don't treat those as matrix indicators
-            if (strpos($formula, '"') !== false) {
+            if (strpos($formula, self::FORMULA_STRING_QUOTE) !== false) {
                 //    So instead we skip replacing in any quoted strings by only replacing in every other array element after we've exploded
                 //        the formula
-                $temp = explode('"', $formula);
+                $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
                 $i = false;
                 foreach ($temp as &$value) {
                     //    Only count/replace in alternating array entries
@@ -2640,7 +2644,7 @@ class Calculation
                 }
                 unset($value);
                 //    Then rebuild the formula string
-                $formula = implode('"', $temp);
+                $formula = implode(self::FORMULA_STRING_QUOTE, $temp);
             } else {
                 //    If there's no quoted strings, then we do a simple count/replace
                 $formula = preg_replace($from, $to, $formula);
@@ -2741,7 +2745,7 @@ class Calculation
                 return $value;
             }
             //    Return strings wrapped in quotes
-            return '"' . $value . '"';
+            return self::FORMULA_STRING_QUOTE . $value . self::FORMULA_STRING_QUOTE;
         //    Convert numeric errors to NaN error
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
             return Functions::NAN();
@@ -2760,7 +2764,7 @@ class Calculation
     public static function unwrapResult($value)
     {
         if (is_string($value)) {
-            if ((isset($value[0])) && ($value[0] == '"') && (substr($value, -1) == '"')) {
+            if ((isset($value[0])) && ($value[0] == self::FORMULA_STRING_QUOTE) && (substr($value, -1) == self::FORMULA_STRING_QUOTE)) {
                 return substr($value, 1, -1);
             }
             //    Convert numeric errors to NAN error
@@ -3227,8 +3231,8 @@ class Calculation
                 }
 
                 return '{ ' . implode($rpad, $returnMatrix) . ' }';
-            } elseif (is_string($value) && (trim($value, '"') == $value)) {
-                return '"' . $value . '"';
+            } elseif (is_string($value) && (trim($value, self::FORMULA_STRING_QUOTE) == $value)) {
+                return self::FORMULA_STRING_QUOTE . $value . self::FORMULA_STRING_QUOTE;
             } elseif (is_bool($value)) {
                 return ($value) ? self::$localeBoolean['TRUE'] : self::$localeBoolean['FALSE'];
             }
@@ -3282,34 +3286,34 @@ class Calculation
      */
     private function convertMatrixReferences($formula)
     {
-        static $matrixReplaceFrom = ['{', ';', '}'];
+        static $matrixReplaceFrom = [self::FORMULA_OPEN_FUNCTION_BRACE, ';', self::FORMULA_CLOSE_FUNCTION_BRACE];
         static $matrixReplaceTo = ['MKMATRIX(MKMATRIX(', '),MKMATRIX(', '))'];
 
         //    Convert any Excel matrix references to the MKMATRIX() function
-        if (strpos($formula, '{') !== false) {
+        if (strpos($formula, self::FORMULA_OPEN_FUNCTION_BRACE) !== false) {
             //    If there is the possibility of braces within a quoted string, then we don't treat those as matrix indicators
-            if (strpos($formula, '"') !== false) {
+            if (strpos($formula, self::FORMULA_STRING_QUOTE) !== false) {
                 //    So instead we skip replacing in any quoted strings by only replacing in every other array element after we've exploded
                 //        the formula
-                $temp = explode('"', $formula);
+                $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
                 //    Open and Closed counts used for trapping mismatched braces in the formula
                 $openCount = $closeCount = 0;
                 $i = false;
                 foreach ($temp as &$value) {
                     //    Only count/replace in alternating array entries
                     if ($i = !$i) {
-                        $openCount += substr_count($value, '{');
-                        $closeCount += substr_count($value, '}');
+                        $openCount += substr_count($value, self::FORMULA_OPEN_FUNCTION_BRACE);
+                        $closeCount += substr_count($value, self::FORMULA_CLOSE_FUNCTION_BRACE);
                         $value = str_replace($matrixReplaceFrom, $matrixReplaceTo, $value);
                     }
                 }
                 unset($value);
                 //    Then rebuild the formula string
-                $formula = implode('"', $temp);
+                $formula = implode(self::FORMULA_STRING_QUOTE, $temp);
             } else {
                 //    If there's no quoted strings, then we do a simple count/replace
-                $openCount = substr_count($formula, '{');
-                $closeCount = substr_count($formula, '}');
+                $openCount = substr_count($formula, self::FORMULA_OPEN_FUNCTION_BRACE);
+                $closeCount = substr_count($formula, self::FORMULA_CLOSE_FUNCTION_BRACE);
                 $formula = str_replace($matrixReplaceFrom, $matrixReplaceTo, $formula);
             }
             //    Trap for mismatched braces and trigger an appropriate error
@@ -3715,9 +3719,9 @@ class Calculation
                     }
 
                     $localeConstant = false;
-                    if ($opCharacter == '"') {
+                    if ($opCharacter == self::FORMULA_STRING_QUOTE) {
                         //    UnEscape any quotes within the string
-                        $val = self::wrapResult(str_replace('""', '"', self::unwrapResult($val)));
+                        $val = self::wrapResult(str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($val)));
                     } elseif (is_numeric($val)) {
                         if ((strpos($val, '.') !== false) || (stripos($val, 'e') !== false) || ($val > PHP_INT_MAX) || ($val < -PHP_INT_MAX)) {
                             $val = (float) $val;
@@ -4058,7 +4062,7 @@ class Calculation
                                 $result = '#VALUE!';
                             }
                         } else {
-                            $result = '"' . str_replace('""', '"', self::unwrapResult($operand1) . self::unwrapResult($operand2)) . '"';
+                            $result = self::FORMULA_STRING_QUOTE . str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2)) . self::FORMULA_STRING_QUOTE;
                         }
                         $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
                         $stack->push('Value', $result);
@@ -4078,9 +4082,15 @@ class Calculation
                                 $cellIntersect[$row] = array_intersect_key($operand1[$row], $operand2[$row]);
                             }
                         }
-                        $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
-                        $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
-                        $stack->push('Value', $cellIntersect, $cellRef);
+                        if (count(Functions::flattenArray($cellIntersect)) === 0) {
+                            $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
+                            $stack->push('Error', Functions::null(), null);
+                        } else {
+                            $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' .
+                                Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
+                            $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
+                            $stack->push('Value', $cellIntersect, $cellRef);
+                        }
 
                         break;
                 }
@@ -4284,7 +4294,7 @@ class Calculation
                         $branchStore[$storeKey] = self::$excelConstants[$excelConstant];
                     }
                     $this->debugLog->writeDebugLog('Evaluating Constant ', $excelConstant, ' as ', $this->showTypeDetails(self::$excelConstants[$excelConstant]));
-                } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == '"') || ($token[0] == '#')) {
+                } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) {
                     $stack->push('Value', $token);
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $token;
@@ -4329,7 +4339,7 @@ class Calculation
         if (is_string($operand)) {
             //    We only need special validations for the operand if it is a string
             //    Start by stripping off the quotation marks we use to identify true excel string values internally
-            if ($operand > '' && $operand[0] == '"') {
+            if ($operand > '' && $operand[0] == self::FORMULA_STRING_QUOTE) {
                 $operand = self::unwrapResult($operand);
             }
             //    If the string is a numeric value, we treat it as a numeric, so no further testing
@@ -4342,7 +4352,7 @@ class Calculation
                     return false;
                 } elseif (!Shared\StringHelper::convertToNumberIfFraction($operand)) {
                     //    If not a numeric or a fraction, then it's a text string, and so can't be used in mathematical binary operations
-                    $stack->push('Value', '#VALUE!');
+                    $stack->push('Error', '#VALUE!');
                     $this->debugLog->writeDebugLog('Evaluation Result is a ', $this->showTypeDetails('#VALUE!'));
 
                     return false;
@@ -4402,10 +4412,10 @@ class Calculation
         }
 
         //    Simple validate the two operands if they are string values
-        if (is_string($operand1) && $operand1 > '' && $operand1[0] == '"') {
+        if (is_string($operand1) && $operand1 > '' && $operand1[0] == self::FORMULA_STRING_QUOTE) {
             $operand1 = self::unwrapResult($operand1);
         }
-        if (is_string($operand2) && $operand2 > '' && $operand2[0] == '"') {
+        if (is_string($operand2) && $operand2 > '' && $operand2[0] == self::FORMULA_STRING_QUOTE) {
             $operand2 = self::unwrapResult($operand2);
         }
 
@@ -4570,7 +4580,7 @@ class Calculation
                     case '/':
                         if ($operand2 == 0) {
                             //    Trap for Divide by Zero error
-                            $stack->push('Value', '#DIV/0!');
+                            $stack->push('Error', '#DIV/0!');
                             $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails('#DIV/0!'));
 
                             return false;
