@@ -1000,12 +1000,13 @@ class Xlsx extends BaseReader
                                                 Settings::getLibXmlLoaderOptions()
                                             );
                                             $drawings = [];
-                                            foreach ($relsVML->Relationship as $ele) {
-                                                if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image') {
-                                                    $drawings[(string) $ele['Id']] = self::dirAdd($vmlRelationship, $ele['Target']);
+                                            if (isset($relsVML->Relationship)) {
+                                                foreach ($relsVML->Relationship as $ele) {
+                                                    if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image') {
+                                                        $drawings[(string) $ele['Id']] = self::dirAdd($vmlRelationship, $ele['Target']);
+                                                    }
                                                 }
                                             }
-
                                             // Fetch VML document
                                             $vmlDrawing = simplexml_load_string(
                                                 $this->securityScanner->scan($this->getFromZipArchive($zip, $vmlRelationship)),
