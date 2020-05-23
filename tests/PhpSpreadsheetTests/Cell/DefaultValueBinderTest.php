@@ -57,7 +57,7 @@ class DefaultValueBinderTest extends TestCase
             ['#REF!'],
             [new DateTime()],
             [new DateTimeImmutable()],
-            ['123456\n']
+            ['123456\n'],
         ];
     }
 
