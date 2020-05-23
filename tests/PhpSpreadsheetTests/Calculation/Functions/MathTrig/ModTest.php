@@ -18,14 +18,14 @@ class ModTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMOD($expectedResult, ...$args)
+    public function testMOD($expectedResult, ...$args): void
     {
         $result = MathTrig::MOD(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerMOD()
     {
-        return require 'data/Calculation/MathTrig/MOD.php';
+        return require 'tests/data/Calculation/MathTrig/MOD.php';
     }
 }

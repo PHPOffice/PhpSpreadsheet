@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
@@ -37,13 +36,6 @@ abstract class Pdf extends Html
      * @var int
      */
     protected $paperSize;
-
-    /**
-     * Temporary storage for Save Array Return type.
-     *
-     * @var string
-     */
-    private $saveArrayReturnType;
 
     /**
      * Paper Sizes xRef List.
@@ -127,8 +119,9 @@ abstract class Pdf extends Html
     public function __construct(Spreadsheet $spreadsheet)
     {
         parent::__construct($spreadsheet);
-        $this->setUseInlineCss(true);
-        $this->tempDir = File::sysGetTempDir();
+        //$this->setUseInlineCss(true);
+        $this->tempDir = File::sysGetTempDir() . '/phpsppdf';
+        $this->isPdf = true;
     }
 
     /**
@@ -222,8 +215,6 @@ abstract class Pdf extends Html
      *
      * @param string $pValue Temporary storage directory
      *
-     * @throws WriterException when directory does not exist
-     *
      * @return self
      */
     public function setTempDir($pValue)
@@ -242,42 +233,21 @@ abstract class Pdf extends Html
      *
      * @param string $pFilename Name of the file to save as
      *
-     * @throws WriterException
-     *
      * @return resource
      */
     protected function prepareForSave($pFilename)
     {
-        //  garbage collect
-        $this->spreadsheet->garbageCollect();
-
-        $this->saveArrayReturnType = Calculation::getArrayReturnType();
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
-
         //  Open file
-        $fileHandle = fopen($pFilename, 'w');
-        if ($fileHandle === false) {
-            throw new WriterException("Could not open file $pFilename for writing.");
-        }
+        $this->openFileHandle($pFilename);
 
-        //  Set PDF
-        $this->isPdf = true;
-        //  Build CSS
-        $this->buildCSS(true);
-
-        return $fileHandle;
+        return $this->fileHandle;
     }
 
     /**
      * Save PhpSpreadsheet to PDF file, post-save.
-     *
-     * @param resource $fileHandle
      */
-    protected function restoreStateAfterSave($fileHandle)
+    protected function restoreStateAfterSave(): void
     {
-        //  Close file
-        fclose($fileHandle);
-
-        Calculation::setArrayReturnType($this->saveArrayReturnType);
+        $this->maybeCloseFileHandle();
     }
 }

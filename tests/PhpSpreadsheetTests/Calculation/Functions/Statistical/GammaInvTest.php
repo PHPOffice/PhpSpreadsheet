@@ -18,14 +18,14 @@ class GammaInvTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testGAMMAINV($expectedResult, ...$args)
+    public function testGAMMAINV($expectedResult, ...$args): void
     {
         $result = Statistical::GAMMAINV(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerGAMMAINV()
     {
-        return require 'data/Calculation/Statistical/GAMMAINV.php';
+        return require 'tests/data/Calculation/Statistical/GAMMAINV.php';
     }
 }

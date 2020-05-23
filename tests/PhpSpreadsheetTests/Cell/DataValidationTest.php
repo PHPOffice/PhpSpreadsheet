@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class DataValidationTest extends TestCase
 {
-    public function testNoValidation()
+    public function testNoValidation(): void
     {
         $dataValidation = new DataValidation();
         self::assertSame('090624f04837265d79323c4a1b7e89d1', $dataValidation->getHashCode());

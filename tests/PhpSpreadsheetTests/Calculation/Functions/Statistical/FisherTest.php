@@ -19,14 +19,14 @@ class FisherTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testFISHER($expectedResult, $value)
+    public function testFISHER($expectedResult, $value): void
     {
         $result = Statistical::FISHER($value);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerFISHER()
     {
-        return require 'data/Calculation/Statistical/FISHER.php';
+        return require 'tests/data/Calculation/Statistical/FISHER.php';
     }
 }

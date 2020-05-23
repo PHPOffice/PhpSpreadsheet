@@ -22,7 +22,7 @@ class EnclosureTest extends AbstractFunctional
      *
      * @param string $format
      */
-    public function testEnclosure($format)
+    public function testEnclosure($format): void
     {
         $value = '<img alt="" src="http://example.com/image.jpg" />';
 

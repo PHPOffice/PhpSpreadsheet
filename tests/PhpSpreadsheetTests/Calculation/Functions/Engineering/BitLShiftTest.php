@@ -19,14 +19,14 @@ class BitLShiftTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed[] $args
      */
-    public function testBITLSHIFT($expectedResult, array $args)
+    public function testBITLSHIFT($expectedResult, array $args): void
     {
         $result = Engineering::BITLSHIFT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBITLSHIFT()
     {
-        return require 'data/Calculation/Engineering/BITLSHIFT.php';
+        return require 'tests/data/Calculation/Engineering/BITLSHIFT.php';
     }
 }

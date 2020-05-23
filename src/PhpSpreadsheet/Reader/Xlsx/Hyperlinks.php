@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use SimpleXMLElement;
 
 class Hyperlinks
 {
@@ -16,7 +17,7 @@ class Hyperlinks
         $this->worksheet = $workSheet;
     }
 
-    public function readHyperlinks(\SimpleXMLElement $relsWorksheet)
+    public function readHyperlinks(SimpleXMLElement $relsWorksheet): void
     {
         foreach ($relsWorksheet->Relationship as $element) {
             if ($element['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink') {
@@ -25,14 +26,14 @@ class Hyperlinks
         }
     }
 
-    public function setHyperlinks(\SimpleXMLElement $worksheetXml)
+    public function setHyperlinks(SimpleXMLElement $worksheetXml): void
     {
         foreach ($worksheetXml->hyperlink as $hyperlink) {
             $this->setHyperlink($hyperlink, $this->worksheet);
         }
     }
 
-    private function setHyperlink(\SimpleXMLElement $hyperlink, Worksheet $worksheet)
+    private function setHyperlink(SimpleXMLElement $hyperlink, Worksheet $worksheet): void
     {
         // Link url
         $linkRel = $hyperlink->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');

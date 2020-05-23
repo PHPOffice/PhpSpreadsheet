@@ -95,7 +95,7 @@ class SpContainer
      *
      * @param SpgrContainer $parent
      */
-    public function setParent($parent)
+    public function setParent($parent): void
     {
         $this->parent = $parent;
     }
@@ -115,7 +115,7 @@ class SpContainer
      *
      * @param bool $value
      */
-    public function setSpgr($value)
+    public function setSpgr($value): void
     {
         $this->spgr = $value;
     }
@@ -135,7 +135,7 @@ class SpContainer
      *
      * @param int $value
      */
-    public function setSpType($value)
+    public function setSpType($value): void
     {
         $this->spType = $value;
     }
@@ -155,7 +155,7 @@ class SpContainer
      *
      * @param int $value
      */
-    public function setSpFlag($value)
+    public function setSpFlag($value): void
     {
         $this->spFlag = $value;
     }
@@ -175,7 +175,7 @@ class SpContainer
      *
      * @param int $value
      */
-    public function setSpId($value)
+    public function setSpId($value): void
     {
         $this->spId = $value;
     }
@@ -196,7 +196,7 @@ class SpContainer
      * @param int $property The number specifies the option
      * @param mixed $value
      */
-    public function setOPT($property, $value)
+    public function setOPT($property, $value): void
     {
         $this->OPT[$property] = $value;
     }
@@ -232,7 +232,7 @@ class SpContainer
      *
      * @param string $value eg: 'A1'
      */
-    public function setStartCoordinates($value)
+    public function setStartCoordinates($value): void
     {
         $this->startCoordinates = $value;
     }
@@ -252,7 +252,7 @@ class SpContainer
      *
      * @param int $startOffsetX
      */
-    public function setStartOffsetX($startOffsetX)
+    public function setStartOffsetX($startOffsetX): void
     {
         $this->startOffsetX = $startOffsetX;
     }
@@ -272,7 +272,7 @@ class SpContainer
      *
      * @param int $startOffsetY
      */
-    public function setStartOffsetY($startOffsetY)
+    public function setStartOffsetY($startOffsetY): void
     {
         $this->startOffsetY = $startOffsetY;
     }
@@ -292,7 +292,7 @@ class SpContainer
      *
      * @param string $value eg: 'A1'
      */
-    public function setEndCoordinates($value)
+    public function setEndCoordinates($value): void
     {
         $this->endCoordinates = $value;
     }
@@ -312,7 +312,7 @@ class SpContainer
      *
      * @param int $endOffsetX
      */
-    public function setEndOffsetX($endOffsetX)
+    public function setEndOffsetX($endOffsetX): void
     {
         $this->endOffsetX = $endOffsetX;
     }
@@ -332,7 +332,7 @@ class SpContainer
      *
      * @param int $endOffsetY
      */
-    public function setEndOffsetY($endOffsetY)
+    public function setEndOffsetY($endOffsetY): void
     {
         $this->endOffsetY = $endOffsetY;
     }

@@ -18,14 +18,14 @@ class GeStepTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testGESTEP($expectedResult, ...$args)
+    public function testGESTEP($expectedResult, ...$args): void
     {
         $result = Engineering::GESTEP(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerGESTEP()
     {
-        return require 'data/Calculation/Engineering/GESTEP.php';
+        return require 'tests/data/Calculation/Engineering/GESTEP.php';
     }
 }

@@ -30,14 +30,14 @@ class ReplaceTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testREPLACE($expectedResult, ...$args)
+    public function testREPLACE($expectedResult, ...$args): void
     {
         $result = TextData::REPLACE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerREPLACE()
     {
-        return require 'data/Calculation/TextData/REPLACE.php';
+        return require 'tests/data/Calculation/TextData/REPLACE.php';
     }
 }

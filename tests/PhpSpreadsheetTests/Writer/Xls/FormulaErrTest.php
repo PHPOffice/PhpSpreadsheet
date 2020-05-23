@@ -17,7 +17,7 @@ class FormulaErrTest extends TestCase
         }
     }
 
-    public function testFormulaError()
+    public function testFormulaError(): void
     {
         $obj = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet0 = $obj->setActiveSheetIndex(0);

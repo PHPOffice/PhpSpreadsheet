@@ -20,14 +20,14 @@ class Atan2Test extends TestCase
      * @param mixed $x
      * @param mixed $y
      */
-    public function testATAN2($expectedResult, $x, $y)
+    public function testATAN2($expectedResult, $x, $y): void
     {
         $result = MathTrig::ATAN2($x, $y);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerATAN2()
     {
-        return require 'data/Calculation/MathTrig/ATAN2.php';
+        return require 'tests/data/Calculation/MathTrig/ATAN2.php';
     }
 }

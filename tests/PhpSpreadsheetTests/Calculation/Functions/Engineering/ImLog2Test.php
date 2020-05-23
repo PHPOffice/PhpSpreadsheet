@@ -33,10 +33,10 @@ class ImLog2Test extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMLOG2($expectedResult, $value)
+    public function testIMLOG2($expectedResult, $value): void
     {
         $result = Engineering::IMLOG2($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -44,6 +44,6 @@ class ImLog2Test extends TestCase
 
     public function providerIMLOG2()
     {
-        return require 'data/Calculation/Engineering/IMLOG2.php';
+        return require 'tests/data/Calculation/Engineering/IMLOG2.php';
     }
 }

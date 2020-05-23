@@ -18,14 +18,14 @@ class HarMeanTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testHARMEAN($expectedResult, ...$args)
+    public function testHARMEAN($expectedResult, ...$args): void
     {
         $result = Statistical::HARMEAN(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerHARMEAN()
     {
-        return require 'data/Calculation/Statistical/HARMEAN.php';
+        return require 'tests/data/Calculation/Statistical/HARMEAN.php';
     }
 }

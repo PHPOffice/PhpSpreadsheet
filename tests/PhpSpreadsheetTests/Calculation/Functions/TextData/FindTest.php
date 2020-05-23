@@ -30,14 +30,14 @@ class FindTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFIND($expectedResult, ...$args)
+    public function testFIND($expectedResult, ...$args): void
     {
         $result = TextData::SEARCHSENSITIVE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerFIND()
     {
-        return require 'data/Calculation/TextData/FIND.php';
+        return require 'tests/data/Calculation/TextData/FIND.php';
     }
 }

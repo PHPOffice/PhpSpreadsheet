@@ -73,7 +73,7 @@ class EigenvalueDecomposition
     /**
      * Symmetric Householder reduction to tridiagonal form.
      */
-    private function tred2()
+    private function tred2(): void
     {
         //  This is derived from the Algol procedures tred2 by
         //  Bowdler, Martin, Reinsch, and Wilkinson, Handbook for
@@ -96,7 +96,7 @@ class EigenvalueDecomposition
                 // Generate Householder vector.
                 for ($k = 0; $k < $i; ++$k) {
                     $this->d[$k] /= $scale;
-                    $h += pow($this->d[$k], 2);
+                    $h += $this->d[$k] ** 2;
                 }
                 $f = $this->d[$i_];
                 $g = sqrt($h);
@@ -180,7 +180,7 @@ class EigenvalueDecomposition
      *    Auto. Comp., Vol.ii-Linear Algebra, and the corresponding
      * Fortran subroutine in EISPACK.
      */
-    private function tql2()
+    private function tql2(): void
     {
         for ($i = 1; $i < $this->n; ++$i) {
             $this->e[$i - 1] = $this->e[$i];
@@ -188,7 +188,7 @@ class EigenvalueDecomposition
         $this->e[$this->n - 1] = 0.0;
         $f = 0.0;
         $tst1 = 0.0;
-        $eps = pow(2.0, -52.0);
+        $eps = 2.0 ** (-52.0);
 
         for ($l = 0; $l < $this->n; ++$l) {
             // Find small subdiagonal element
@@ -206,7 +206,7 @@ class EigenvalueDecomposition
                 $iter = 0;
                 do {
                     // Could check iteration count here.
-                    $iter += 1;
+                    ++$iter;
                     // Compute implicit shift
                     $g = $this->d[$l];
                     $p = ($this->d[$l + 1] - $g) / (2.0 * $this->e[$l]);
@@ -287,7 +287,7 @@ class EigenvalueDecomposition
      *    Vol.ii-Linear Algebra, and the corresponding
      * Fortran subroutines in EISPACK.
      */
-    private function orthes()
+    private function orthes(): void
     {
         $low = 0;
         $high = $this->n - 1;
@@ -372,7 +372,7 @@ class EigenvalueDecomposition
      * @param mixed $yr
      * @param mixed $yi
      */
-    private function cdiv($xr, $xi, $yr, $yi)
+    private function cdiv($xr, $xi, $yr, $yi): void
     {
         if (abs($yr) > abs($yi)) {
             $r = $yi / $yr;
@@ -395,21 +395,21 @@ class EigenvalueDecomposition
      *    Vol.ii-Linear Algebra, and the corresponding
      * Fortran subroutine in EISPACK.
      */
-    private function hqr2()
+    private function hqr2(): void
     {
         //  Initialize
         $nn = $this->n;
         $n = $nn - 1;
         $low = 0;
         $high = $nn - 1;
-        $eps = pow(2.0, -52.0);
+        $eps = 2.0 ** (-52.0);
         $exshift = 0.0;
         $p = $q = $r = $s = $z = 0;
         // Store roots isolated by balanc and compute matrix norm
         $norm = 0.0;
 
         for ($i = 0; $i < $nn; ++$i) {
-            if (($i < $low) or ($i > $high)) {
+            if (($i < $low) || ($i > $high)) {
                 $this->d[$i] = $this->H[$i][$i];
                 $this->e[$i] = 0.0;
             }

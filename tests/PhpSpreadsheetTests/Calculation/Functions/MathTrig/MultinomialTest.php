@@ -18,14 +18,14 @@ class MultinomialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMULTINOMIAL($expectedResult, ...$args)
+    public function testMULTINOMIAL($expectedResult, ...$args): void
     {
         $result = MathTrig::MULTINOMIAL(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerMULTINOMIAL()
     {
-        return require 'data/Calculation/MathTrig/MULTINOMIAL.php';
+        return require 'tests/data/Calculation/MathTrig/MULTINOMIAL.php';
     }
 }

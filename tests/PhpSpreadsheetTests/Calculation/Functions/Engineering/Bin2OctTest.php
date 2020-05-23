@@ -18,14 +18,14 @@ class Bin2OctTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBIN2OCT($expectedResult, ...$args)
+    public function testBIN2OCT($expectedResult, ...$args): void
     {
         $result = Engineering::BINTOOCT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBIN2OCT()
     {
-        return require 'data/Calculation/Engineering/BIN2OCT.php';
+        return require 'tests/data/Calculation/Engineering/BIN2OCT.php';
     }
 }

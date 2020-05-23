@@ -24,52 +24,52 @@ class DateTest extends TestCase
      * @param $month
      * @param $day
      */
-    public function testDATE($expectedResult, $year, $month, $day)
+    public function testDATE($expectedResult, $year, $month, $day): void
     {
         $result = DateTime::DATE($year, $month, $day);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDATE()
     {
-        return require 'data/Calculation/DateTime/DATE.php';
+        return require 'tests/data/Calculation/DateTime/DATE.php';
     }
 
-    public function testDATEtoUnixTimestamp()
+    public function testDATEtoUnixTimestamp(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = DateTime::DATE(2012, 1, 31);
-        $this->assertEquals(1327968000, $result);
-        $this->assertEqualsWithDelta(1327968000, $result, 1E-8);
+        self::assertEquals(1327968000, $result);
+        self::assertEqualsWithDelta(1327968000, $result, 1E-8);
     }
 
-    public function testDATEtoDateTimeObject()
+    public function testDATEtoDateTimeObject(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
 
         $result = DateTime::DATE(2012, 1, 31);
         //    Must return an object...
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
         //    ... of the correct type
-        $this->assertTrue(is_a($result, 'DateTimeInterface'));
+        self::assertTrue(is_a($result, 'DateTimeInterface'));
         //    ... with the correct value
-        $this->assertEquals($result->format('d-M-Y'), '31-Jan-2012');
+        self::assertEquals($result->format('d-M-Y'), '31-Jan-2012');
     }
 
-    public function testDATEwith1904Calendar()
+    public function testDATEwith1904Calendar(): void
     {
         Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
 
         $result = DateTime::DATE(1918, 11, 11);
-        $this->assertEquals($result, 5428);
+        self::assertEquals($result, 5428);
     }
 
-    public function testDATEwith1904CalendarError()
+    public function testDATEwith1904CalendarError(): void
     {
         Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
 
         $result = DateTime::DATE(1901, 1, 31);
-        $this->assertEquals($result, '#NUM!');
+        self::assertEquals($result, '#NUM!');
     }
 }

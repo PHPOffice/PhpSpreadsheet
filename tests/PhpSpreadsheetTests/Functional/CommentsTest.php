@@ -23,7 +23,7 @@ class CommentsTest extends AbstractFunctional
      *
      * @param $format
      */
-    public function testComments($format)
+    public function testComments($format): void
     {
         $spreadsheet = new Spreadsheet();
 

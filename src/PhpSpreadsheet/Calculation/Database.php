@@ -130,8 +130,6 @@ class Database
      * Excel Function:
      *        DAVERAGE(database,field,criteria)
      *
-     * @category Database Functions
-     *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
@@ -174,8 +172,6 @@ class Database
      * Excel Function:
      *        DAVERAGE(database,field,criteria)
      *
-     * @category Database Functions
-     *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
@@ -216,8 +212,6 @@ class Database
      *
      * Excel Function:
      *        DCOUNTA(database,[field],criteria)
-     *
-     * @category Database Functions
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -269,8 +263,6 @@ class Database
      * Excel Function:
      *        DGET(database,field,criteria)
      *
-     * @category Database Functions
-     *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
@@ -313,8 +305,6 @@ class Database
      * Excel Function:
      *        DMAX(database,field,criteria)
      *
-     * @category Database Functions
-     *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
@@ -354,8 +344,6 @@ class Database
      * Excel Function:
      *        DMIN(database,field,criteria)
      *
-     * @category Database Functions
-     *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
@@ -393,8 +381,6 @@ class Database
      *
      * Excel Function:
      *        DPRODUCT(database,field,criteria)
-     *
-     * @category Database Functions
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -435,8 +421,6 @@ class Database
      * Excel Function:
      *        DSTDEV(database,field,criteria)
      *
-     * @category Database Functions
-     *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
@@ -476,8 +460,6 @@ class Database
      * Excel Function:
      *        DSTDEVP(database,field,criteria)
      *
-     * @category Database Functions
-     *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
@@ -515,8 +497,6 @@ class Database
      *
      * Excel Function:
      *        DSUM(database,field,criteria)
-     *
-     * @category Database Functions
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -557,8 +537,6 @@ class Database
      * Excel Function:
      *        DVAR(database,field,criteria)
      *
-     * @category Database Functions
-     *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
@@ -597,8 +575,6 @@ class Database
      *
      * Excel Function:
      *        DVARP(database,field,criteria)
-     *
-     * @category Database Functions
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related

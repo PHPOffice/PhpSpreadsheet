@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use DateTimeInterface;
 use DateTimeZone;
+use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -57,7 +58,7 @@ class Date
     /**
      * Default timezone to use for DateTime objects.
      *
-     * @var null|\DateTimeZone
+     * @var null|DateTimeZone
      */
     protected static $defaultTimeZone;
 
@@ -95,8 +96,6 @@ class Date
      *
      * @param DateTimeZone|string $timeZone The timezone to set for all Excel datetimestamp to PHP DateTime Object conversions
      *
-     * @throws \Exception
-     *
      * @return bool Success or failure
      * @return bool Success or failure
      */
@@ -130,8 +129,6 @@ class Date
      *
      * @param DateTimeZone|string $timeZone The timezone to validate, either as a timezone string or object
      *
-     * @throws \Exception
-     *
      * @return DateTimeZone The timezone as a timezone object
      * @return DateTimeZone The timezone as a timezone object
      */
@@ -143,7 +140,7 @@ class Date
             return new DateTimeZone($timeZone);
         }
 
-        throw new \Exception('Invalid timezone');
+        throw new Exception('Invalid timezone');
     }
 
     /**
@@ -153,8 +150,6 @@ class Date
      * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
-     *
-     * @throws \Exception
      *
      * @return \DateTime PHP date/time object
      */
@@ -202,8 +197,6 @@ class Date
      * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
-     *
-     * @throws \Exception
      *
      * @return int Unix timetamp for this date/time
      */
@@ -319,8 +312,6 @@ class Date
     /**
      * Is a given cell a date/time?
      *
-     * @param Cell $pCell
-     *
      * @return bool
      */
     public static function isDateTime(Cell $pCell)
@@ -335,8 +326,6 @@ class Date
 
     /**
      * Is a given number format a date/time?
-     *
-     * @param NumberFormat $pFormat
      *
      * @return bool
      */

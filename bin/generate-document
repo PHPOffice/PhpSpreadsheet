@@ -4,7 +4,7 @@
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\DocumentGenerator;
 
-require_once __DIR__ . '/../src/Bootstrap.php';
+require_once 'vendor/autoload.php';
 
 try {
     $phpSpreadsheetFunctionsProperty = (new ReflectionClass(Calculation::class))->getProperty('phpSpreadsheetFunctions');
@@ -19,6 +19,6 @@ try {
         DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions)
     );
 } catch (ReflectionException $e) {
-    fwrite(STDERR, (string)$e);
+    fwrite(STDERR, (string) $e);
     exit(1);
 }

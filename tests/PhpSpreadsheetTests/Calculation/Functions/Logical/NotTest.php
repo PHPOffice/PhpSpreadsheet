@@ -18,14 +18,14 @@ class NotTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNOT($expectedResult, ...$args)
+    public function testNOT($expectedResult, ...$args): void
     {
         $result = Logical::NOT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerNOT()
     {
-        return require 'data/Calculation/Logical/NOT.php';
+        return require 'tests/data/Calculation/Logical/NOT.php';
     }
 }

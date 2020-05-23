@@ -483,8 +483,6 @@ class Style extends Supervisor
     /**
      * Set font.
      *
-     * @param Font $font
-     *
      * @return $this
      */
     public function setFont(Font $font)
@@ -634,7 +632,7 @@ class Style extends Supervisor
      *
      * @param int $pValue
      */
-    public function setIndex($pValue)
+    public function setIndex($pValue): void
     {
         $this->index = $pValue;
     }

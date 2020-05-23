@@ -11,7 +11,7 @@ class ReferenceHelperTest extends TestCase
     {
     }
 
-    public function testColumnSort()
+    public function testColumnSort(): void
     {
         $columnBase = $columnExpectedResult = [
             'A', 'B', 'Z',
@@ -32,7 +32,7 @@ class ReferenceHelperTest extends TestCase
         }
     }
 
-    public function testColumnReverseSort()
+    public function testColumnReverseSort(): void
     {
         $columnBase = $columnExpectedResult = [
             'A', 'B', 'Z',
@@ -54,7 +54,7 @@ class ReferenceHelperTest extends TestCase
         }
     }
 
-    public function testCellSort()
+    public function testCellSort(): void
     {
         $cellBase = $columnExpectedResult = [
             'A1', 'B1', 'AZB1',
@@ -75,7 +75,7 @@ class ReferenceHelperTest extends TestCase
         }
     }
 
-    public function testCellReverseSort()
+    public function testCellReverseSort(): void
     {
         $cellBase = $columnExpectedResult = [
             'BBA544', 'ABB289', 'ABA121',

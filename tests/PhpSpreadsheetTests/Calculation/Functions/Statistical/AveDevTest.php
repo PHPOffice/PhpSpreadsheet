@@ -18,14 +18,14 @@ class AveDevTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testAVEDEV($expectedResult, ...$args)
+    public function testAVEDEV($expectedResult, ...$args): void
     {
         $result = Statistical::AVEDEV(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerAVEDEV()
     {
-        return require 'data/Calculation/Statistical/AVEDEV.php';
+        return require 'tests/data/Calculation/Statistical/AVEDEV.php';
     }
 }

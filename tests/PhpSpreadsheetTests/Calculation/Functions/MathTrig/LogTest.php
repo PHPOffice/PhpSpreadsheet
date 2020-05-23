@@ -18,14 +18,14 @@ class LogTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testLOG($expectedResult, ...$args)
+    public function testLOG($expectedResult, ...$args): void
     {
         $result = MathTrig::logBase(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerLOG()
     {
-        return require 'data/Calculation/MathTrig/LOG.php';
+        return require 'tests/data/Calculation/MathTrig/LOG.php';
     }
 }

@@ -40,7 +40,7 @@ class AdvancedValueBinderTest extends TestCase
      * @param mixed $decimalSeparator
      * @param mixed $currencyCode
      */
-    public function testCurrency($value, $valueBinded, $format, $thousandsSeparator, $decimalSeparator, $currencyCode)
+    public function testCurrency($value, $valueBinded, $format, $thousandsSeparator, $decimalSeparator, $currencyCode): void
     {
         $sheet = $this->getMockBuilder(Worksheet::class)
             ->setMethods(['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCollection'])
@@ -48,23 +48,23 @@ class AdvancedValueBinderTest extends TestCase
         $cellCollection = $this->getMockBuilder(Cells::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $cellCollection->expects($this->any())
+        $cellCollection->expects(self::any())
             ->method('getParent')
-            ->will($this->returnValue($sheet));
+            ->willReturn($sheet);
 
-        $sheet->expects($this->once())
+        $sheet->expects(self::once())
             ->method('getStyle')
-            ->will($this->returnSelf());
-        $sheet->expects($this->once())
+            ->willReturnSelf();
+        $sheet->expects(self::once())
             ->method('getNumberFormat')
-            ->will($this->returnSelf());
-        $sheet->expects($this->once())
+            ->willReturnSelf();
+        $sheet->expects(self::once())
             ->method('setFormatCode')
             ->with($format)
-            ->will($this->returnSelf());
-        $sheet->expects($this->any())
+            ->willReturnSelf();
+        $sheet->expects(self::any())
             ->method('getCellCollection')
-            ->will($this->returnValue($cellCollection));
+            ->willReturn($cellCollection);
 
         StringHelper::setCurrencyCode($currencyCode);
         StringHelper::setDecimalSeparator($decimalSeparator);

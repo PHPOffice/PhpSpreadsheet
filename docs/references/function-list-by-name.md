@@ -170,6 +170,8 @@ FISHER              | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet
 FISHERINV           | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FISHERINV
 FIXED               | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData::FIXEDFORMAT
 FLOOR               | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOOR
+FLOOR.MATH          | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORMATH
+FLOOR.PRECISE       | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORPRECISE
 FORECAST            | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FORECAST
 FORMULATEXT         | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::FORMULATEXT
 FREQUENCY           | CATEGORY_STATISTICAL           | **Not yet Implemented**
@@ -419,6 +421,8 @@ SEC                 | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet
 SECH                | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SECH
 SECOND              | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::SECOND
 SERIESSUM           | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SERIESSUM
+SHEET               | CATEGORY_INFORMATION           | **Not yet Implemented**
+SHEETS              | CATEGORY_INFORMATION           | **Not yet Implemented**
 SIGN                | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SIGN
 SIN                 | CATEGORY_MATH_AND_TRIG         | sin
 SINH                | CATEGORY_MATH_AND_TRIG         | sinh

@@ -23,36 +23,36 @@ class DateValueTest extends TestCase
      * @param mixed $expectedResult
      * @param $dateValue
      */
-    public function testDATEVALUE($expectedResult, $dateValue)
+    public function testDATEVALUE($expectedResult, $dateValue): void
     {
         $result = DateTime::DATEVALUE($dateValue);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDATEVALUE()
     {
-        return require 'data/Calculation/DateTime/DATEVALUE.php';
+        return require 'tests/data/Calculation/DateTime/DATEVALUE.php';
     }
 
-    public function testDATEVALUEtoUnixTimestamp()
+    public function testDATEVALUEtoUnixTimestamp(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = DateTime::DATEVALUE('2012-1-31');
-        $this->assertEquals(1327968000, $result);
-        $this->assertEqualsWithDelta(1327968000, $result, 1E-8);
+        self::assertEquals(1327968000, $result);
+        self::assertEqualsWithDelta(1327968000, $result, 1E-8);
     }
 
-    public function testDATEVALUEtoDateTimeObject()
+    public function testDATEVALUEtoDateTimeObject(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
 
         $result = DateTime::DATEVALUE('2012-1-31');
         //    Must return an object...
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
         //    ... of the correct type
-        $this->assertTrue(is_a($result, DateTimeInterface::class));
+        self::assertTrue(is_a($result, DateTimeInterface::class));
         //    ... with the correct value
-        $this->assertEquals($result->format('d-M-Y'), '31-Jan-2012');
+        self::assertEquals($result->format('d-M-Y'), '31-Jan-2012');
     }
 }

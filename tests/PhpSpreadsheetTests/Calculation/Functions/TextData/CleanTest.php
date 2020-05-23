@@ -31,14 +31,14 @@ class CleanTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testCLEAN($expectedResult, $value)
+    public function testCLEAN($expectedResult, $value): void
     {
         $result = TextData::TRIMNONPRINTABLE($value);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCLEAN()
     {
-        return require 'data/Calculation/TextData/CLEAN.php';
+        return require 'tests/data/Calculation/TextData/CLEAN.php';
     }
 }

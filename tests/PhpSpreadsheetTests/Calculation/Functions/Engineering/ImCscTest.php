@@ -33,10 +33,10 @@ class ImCscTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMCSC($expectedResult, $value)
+    public function testIMCSC($expectedResult, $value): void
     {
         $result = Engineering::IMCSC($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -44,6 +44,6 @@ class ImCscTest extends TestCase
 
     public function providerIMCSC()
     {
-        return require 'data/Calculation/Engineering/IMCSC.php';
+        return require 'tests/data/Calculation/Engineering/IMCSC.php';
     }
 }

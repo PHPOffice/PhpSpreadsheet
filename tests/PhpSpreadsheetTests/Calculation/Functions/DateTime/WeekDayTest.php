@@ -21,14 +21,14 @@ class WeekDayTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testWEEKDAY($expectedResult, ...$args)
+    public function testWEEKDAY($expectedResult, ...$args): void
     {
         $result = DateTime::WEEKDAY(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerWEEKDAY()
     {
-        return require 'data/Calculation/DateTime/WEEKDAY.php';
+        return require 'tests/data/Calculation/DateTime/WEEKDAY.php';
     }
 }

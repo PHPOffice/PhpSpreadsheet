@@ -535,8 +535,12 @@ $writer->save("05featuredemo.csv");
 
 #### Writing UTF-8 CSV files
 
-A CSV file can be marked as UTF-8 by writing a BOM file header. This can
-be enabled by using the following code:
+CSV files are written in UTF-8. If they do not contain characters
+outside the ASCII range, nothing else need be done.
+However, if such characters are in the file,
+it should explicitly include a BOM file header;
+if it doesn't, Excel will not interpret those characters correctly.
+This can be enabled by using the following code:
 
 ``` php
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
@@ -677,35 +681,26 @@ Supported methods:
 -   `generateStyles()`
 -   `generateSheetData()`
 -   `generateHTMLFooter()`
+-   `generateHTMLAll()`
 
 Here's an example which retrieves all parts independently and merges
 them into a resulting HTML page:
 
 ``` php
-<?php
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
-echo $writer->generateHTMLHeader();
-?>
-
-<style>
-<!--
+$hdr = $writer->generateHTMLHeader();
+$sty = $writer->generateStyles(false); // do not write <style> and </style>
+$newstyle = <<<EOF
+<style type='text/css'>
+$sty
 html {
-    font-family: Times New Roman;
-    font-size: 9pt;
-    background-color: white;
+    background-color: yellow;
 }
-
-<?php
-echo $writer->generateStyles(false); // do not write <style> and </style>
-?>
-
--->
 </style>
-
-<?php
+EOF;
+echo preg_replace('@</head>@', "$newstyle\n</head>", $hdr);
 echo $writer->generateSheetData();
 echo $writer->generateHTMLFooter();
-?>
 ```
 
 #### Writing UTF-8 HTML files

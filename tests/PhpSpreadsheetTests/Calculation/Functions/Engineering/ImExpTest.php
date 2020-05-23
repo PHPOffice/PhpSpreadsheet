@@ -33,10 +33,10 @@ class ImExpTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMEXP($expectedResult, $value)
+    public function testIMEXP($expectedResult, $value): void
     {
         $result = Engineering::IMEXP($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -44,6 +44,6 @@ class ImExpTest extends TestCase
 
     public function providerIMEXP()
     {
-        return require 'data/Calculation/Engineering/IMEXP.php';
+        return require 'tests/data/Calculation/Engineering/IMEXP.php';
     }
 }

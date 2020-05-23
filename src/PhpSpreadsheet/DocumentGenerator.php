@@ -5,17 +5,12 @@ namespace PhpOffice\PhpSpreadsheet;
 use PhpOffice\PhpSpreadsheet\Calculation\Category;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use ReflectionClass;
-use ReflectionException;
 use UnexpectedValueException;
 
 class DocumentGenerator
 {
     /**
      * @param array[] $phpSpreadsheetFunctions
-     *
-     * @throws ReflectionException
-     *
-     * @return string
      */
     public static function generateFunctionListByCategory(array $phpSpreadsheetFunctions): string
     {
@@ -38,17 +33,12 @@ class DocumentGenerator
         return $result;
     }
 
-    /**
-     * @throws ReflectionException
-     *
-     * @return array
-     */
     private static function getCategories(): array
     {
         return (new ReflectionClass(Category::class))->getConstants();
     }
 
-    private static function tableRow(array $lengths, array $values = null): string
+    private static function tableRow(array $lengths, ?array $values = null): string
     {
         $result = '';
         foreach (array_map(null, $lengths, $values ?? []) as $i => [$length, $value]) {
@@ -81,10 +71,6 @@ class DocumentGenerator
 
     /**
      * @param array[] $phpSpreadsheetFunctions
-     *
-     * @throws ReflectionException
-     *
-     * @return string
      */
     public static function generateFunctionListByName(array $phpSpreadsheetFunctions): string
     {

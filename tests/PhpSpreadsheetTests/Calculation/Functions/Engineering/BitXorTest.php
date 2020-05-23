@@ -19,14 +19,14 @@ class BitXorTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed[] $args
      */
-    public function testBITXOR($expectedResult, array $args)
+    public function testBITXOR($expectedResult, array $args): void
     {
         $result = Engineering::BITXOR(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBITXOR()
     {
-        return require 'data/Calculation/Engineering/BITXOR.php';
+        return require 'tests/data/Calculation/Engineering/BITXOR.php';
     }
 }

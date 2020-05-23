@@ -31,14 +31,14 @@ class LowerTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testLOWER($expectedResult, $value)
+    public function testLOWER($expectedResult, $value): void
     {
         $result = TextData::LOWERCASE($value);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerLOWER()
     {
-        return require 'data/Calculation/TextData/LOWER.php';
+        return require 'tests/data/Calculation/TextData/LOWER.php';
     }
 }

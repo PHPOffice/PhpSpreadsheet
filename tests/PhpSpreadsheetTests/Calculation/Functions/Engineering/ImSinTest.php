@@ -33,10 +33,10 @@ class ImSinTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMSIN($expectedResult, $value)
+    public function testIMSIN($expectedResult, $value): void
     {
         $result = Engineering::IMSIN($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -44,6 +44,6 @@ class ImSinTest extends TestCase
 
     public function providerIMSIN()
     {
-        return require 'data/Calculation/Engineering/IMSIN.php';
+        return require 'tests/data/Calculation/Engineering/IMSIN.php';
     }
 }

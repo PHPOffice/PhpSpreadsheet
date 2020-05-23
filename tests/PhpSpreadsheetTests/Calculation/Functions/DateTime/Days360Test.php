@@ -24,14 +24,14 @@ class Days360Test extends TestCase
      * @param $endDate
      * @param $method
      */
-    public function testDAYS360($expectedResult, $startDate, $endDate, $method)
+    public function testDAYS360($expectedResult, $startDate, $endDate, $method): void
     {
         $result = DateTime::DAYS360($startDate, $endDate, $method);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDAYS360()
     {
-        return require 'data/Calculation/DateTime/DAYS360.php';
+        return require 'tests/data/Calculation/DateTime/DAYS360.php';
     }
 }

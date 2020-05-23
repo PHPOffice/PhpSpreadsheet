@@ -29,14 +29,14 @@ class AutoFilterTest extends TestCase
         $this->cellCollection = $this->getMockBuilder(Cells::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->mockWorksheetObject->expects($this->any())
+        $this->mockWorksheetObject->expects(self::any())
             ->method('getCellCollection')
-            ->will($this->returnValue($this->cellCollection));
+            ->willReturn($this->cellCollection);
 
         $this->testAutoFilterObject = new AutoFilter($this->testInitialRange, $this->mockWorksheetObject);
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $expectedResult = $this->testInitialRange;
 
@@ -45,20 +45,20 @@ class AutoFilterTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testGetParent()
+    public function testGetParent(): void
     {
         $result = $this->testAutoFilterObject->getParent();
         self::assertInstanceOf(Worksheet::class, $result);
     }
 
-    public function testSetParent()
+    public function testSetParent(): void
     {
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setParent($this->mockWorksheetObject);
         self::assertInstanceOf(AutoFilter::class, $result);
     }
 
-    public function testGetRange()
+    public function testGetRange(): void
     {
         $expectedResult = $this->testInitialRange;
 
@@ -67,7 +67,7 @@ class AutoFilterTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSetRange()
+    public function testSetRange(): void
     {
         $ranges = [
             'G1:J512' => 'Worksheet1!G1:J512',
@@ -85,7 +85,7 @@ class AutoFilterTest extends TestCase
         }
     }
 
-    public function testClearRange()
+    public function testClearRange(): void
     {
         $expectedResult = '';
 
@@ -98,7 +98,7 @@ class AutoFilterTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSetRangeInvalidRange()
+    public function testSetRangeInvalidRange(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
 
@@ -107,7 +107,7 @@ class AutoFilterTest extends TestCase
         $this->testAutoFilterObject->setRange($expectedResult);
     }
 
-    public function testGetColumnsEmpty()
+    public function testGetColumnsEmpty(): void
     {
         //  There should be no columns yet defined
         $result = $this->testAutoFilterObject->getColumns();
@@ -115,7 +115,7 @@ class AutoFilterTest extends TestCase
         self::assertCount(0, $result);
     }
 
-    public function testGetColumnOffset()
+    public function testGetColumnOffset(): void
     {
         $columnIndexes = [
             'H' => 0,
@@ -131,7 +131,7 @@ class AutoFilterTest extends TestCase
         }
     }
 
-    public function testGetInvalidColumnOffset()
+    public function testGetInvalidColumnOffset(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
 
@@ -140,7 +140,7 @@ class AutoFilterTest extends TestCase
         $this->testAutoFilterObject->getColumnOffset($invalidColumn);
     }
 
-    public function testSetColumnWithString()
+    public function testSetColumnWithString(): void
     {
         $expectedResult = 'L';
 
@@ -157,7 +157,7 @@ class AutoFilterTest extends TestCase
         self::assertInstanceOf(Column::class, $result[$expectedResult]);
     }
 
-    public function testSetInvalidColumnWithString()
+    public function testSetInvalidColumnWithString(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
 
@@ -166,7 +166,7 @@ class AutoFilterTest extends TestCase
         $this->testAutoFilterObject->setColumn($invalidColumn);
     }
 
-    public function testSetColumnWithColumnObject()
+    public function testSetColumnWithColumnObject(): void
     {
         $expectedResult = 'M';
         $columnObject = new AutoFilter\Column($expectedResult);
@@ -184,7 +184,7 @@ class AutoFilterTest extends TestCase
         self::assertInstanceOf(Column::class, $result[$expectedResult]);
     }
 
-    public function testSetInvalidColumnWithObject()
+    public function testSetInvalidColumnWithObject(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
 
@@ -192,7 +192,7 @@ class AutoFilterTest extends TestCase
         $this->testAutoFilterObject->setColumn($invalidColumn);
     }
 
-    public function testSetColumnWithInvalidDataType()
+    public function testSetColumnWithInvalidDataType(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
 
@@ -200,7 +200,7 @@ class AutoFilterTest extends TestCase
         $this->testAutoFilterObject->setColumn($invalidColumn);
     }
 
-    public function testGetColumns()
+    public function testGetColumns(): void
     {
         $columnIndexes = ['L', 'M'];
 
@@ -219,7 +219,7 @@ class AutoFilterTest extends TestCase
         }
     }
 
-    public function testGetColumn()
+    public function testGetColumn(): void
     {
         $columnIndexes = ['L', 'M'];
 
@@ -235,7 +235,7 @@ class AutoFilterTest extends TestCase
         }
     }
 
-    public function testGetColumnByOffset()
+    public function testGetColumnByOffset(): void
     {
         $columnIndexes = [
             0 => 'H',
@@ -252,7 +252,7 @@ class AutoFilterTest extends TestCase
         }
     }
 
-    public function testGetColumnIfNotSet()
+    public function testGetColumnIfNotSet(): void
     {
         //  If we request a specific column by its column ID, we should
         //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\AutoFilter\Column object returned
@@ -260,7 +260,7 @@ class AutoFilterTest extends TestCase
         self::assertInstanceOf(Column::class, $result);
     }
 
-    public function testGetColumnWithoutRangeSet()
+    public function testGetColumnWithoutRangeSet(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
 
@@ -269,7 +269,7 @@ class AutoFilterTest extends TestCase
         $this->testAutoFilterObject->getColumn('A');
     }
 
-    public function testClearRangeWithExistingColumns()
+    public function testClearRangeWithExistingColumns(): void
     {
         $expectedResult = '';
 
@@ -292,7 +292,7 @@ class AutoFilterTest extends TestCase
         self::assertCount(0, $result);
     }
 
-    public function testSetRangeWithExistingColumns()
+    public function testSetRangeWithExistingColumns(): void
     {
         $expectedResult = 'G1:J512';
 
@@ -322,7 +322,7 @@ class AutoFilterTest extends TestCase
         self::assertCount(count($columnIndexes1), $result);
     }
 
-    public function testClone()
+    public function testClone(): void
     {
         $columnIndexes = ['L', 'M'];
 

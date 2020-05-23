@@ -19,14 +19,14 @@ class IntTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testINT($expectedResult, $value)
+    public function testINT($expectedResult, $value): void
     {
         $result = MathTrig::INT($value);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerINT()
     {
-        return require 'data/Calculation/MathTrig/INT.php';
+        return require 'tests/data/Calculation/MathTrig/INT.php';
     }
 }

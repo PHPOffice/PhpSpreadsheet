@@ -31,14 +31,14 @@ class CharTest extends TestCase
      * @param mixed $expectedResult
      * @param $character
      */
-    public function testCHAR($expectedResult, $character)
+    public function testCHAR($expectedResult, $character): void
     {
         $result = TextData::CHARACTER($character);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCHAR()
     {
-        return require 'data/Calculation/TextData/CHAR.php';
+        return require 'tests/data/Calculation/TextData/CHAR.php';
     }
 }

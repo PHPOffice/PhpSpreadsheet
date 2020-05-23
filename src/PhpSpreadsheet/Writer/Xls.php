@@ -115,11 +115,9 @@ class Xls extends BaseWriter
     /**
      * Save Spreadsheet to file.
      *
-     * @param string $pFilename
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @param resource|string $pFilename
      */
-    public function save($pFilename)
+    public function save($pFilename): void
     {
         // garbage collect
         $this->spreadsheet->garbageCollect();
@@ -221,7 +219,9 @@ class Xls extends BaseWriter
 
         $root = new Root(time(), time(), $arrRootData);
         // save the OLE file
-        $root->save($pFilename);
+        $this->openFileHandle($pFilename);
+        $root->save($this->fileHandle);
+        $this->maybeCloseFileHandle();
 
         Functions::setReturnDateType($saveDateReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
@@ -230,7 +230,7 @@ class Xls extends BaseWriter
     /**
      * Build the Worksheet Escher objects.
      */
-    private function buildWorksheetEschers()
+    private function buildWorksheetEschers(): void
     {
         // 1-based index to BstoreContainer
         $blipIndex = 0;
@@ -392,7 +392,7 @@ class Xls extends BaseWriter
     /**
      * Build the Escher object corresponding to the MSODRAWINGGROUP record.
      */
-    private function buildWorkbookEscher()
+    private function buildWorkbookEscher(): void
     {
         $escher = null;
 
@@ -716,7 +716,7 @@ class Xls extends BaseWriter
             } elseif ($dataProp['type']['data'] == 0x1E) { // null-terminated string prepended by dword string length
                 // Null-terminated string
                 $dataProp['data']['data'] .= chr(0);
-                $dataProp['data']['length'] += 1;
+                ++$dataProp['data']['length'];
                 // Complete the string with null string for being a %4
                 $dataProp['data']['length'] = $dataProp['data']['length'] + ((4 - $dataProp['data']['length'] % 4) == 4 ? 0 : (4 - $dataProp['data']['length'] % 4));
                 $dataProp['data']['data'] = str_pad($dataProp['data']['data'], $dataProp['data']['length'], chr(0), STR_PAD_RIGHT);
@@ -912,7 +912,7 @@ class Xls extends BaseWriter
             } elseif ($dataProp['type']['data'] == 0x1E) { // null-terminated string prepended by dword string length
                 // Null-terminated string
                 $dataProp['data']['data'] .= chr(0);
-                $dataProp['data']['length'] += 1;
+                ++$dataProp['data']['length'];
                 // Complete the string with null string for being a %4
                 $dataProp['data']['length'] = $dataProp['data']['length'] + ((4 - $dataProp['data']['length'] % 4) == 4 ? 0 : (4 - $dataProp['data']['length'] % 4));
                 $dataProp['data']['data'] = str_pad($dataProp['data']['data'], $dataProp['data']['length'], chr(0), STR_PAD_RIGHT);

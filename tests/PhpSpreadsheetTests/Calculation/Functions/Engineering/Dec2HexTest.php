@@ -18,14 +18,14 @@ class Dec2HexTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDEC2HEX($expectedResult, ...$args)
+    public function testDEC2HEX($expectedResult, ...$args): void
     {
         $result = Engineering::DECTOHEX(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerDEC2HEX()
     {
-        return require 'data/Calculation/Engineering/DEC2HEX.php';
+        return require 'tests/data/Calculation/Engineering/DEC2HEX.php';
     }
 }

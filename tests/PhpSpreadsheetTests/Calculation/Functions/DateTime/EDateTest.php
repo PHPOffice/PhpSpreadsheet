@@ -23,36 +23,36 @@ class EDateTest extends TestCase
      * @param $dateValue
      * @param $adjustmentMonths
      */
-    public function testEDATE($expectedResult, $dateValue, $adjustmentMonths)
+    public function testEDATE($expectedResult, $dateValue, $adjustmentMonths): void
     {
         $result = DateTime::EDATE($dateValue, $adjustmentMonths);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerEDATE()
     {
-        return require 'data/Calculation/DateTime/EDATE.php';
+        return require 'tests/data/Calculation/DateTime/EDATE.php';
     }
 
-    public function testEDATEtoUnixTimestamp()
+    public function testEDATEtoUnixTimestamp(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = DateTime::EDATE('2012-1-26', -1);
-        $this->assertEquals(1324857600, $result);
-        $this->assertEqualsWithDelta(1324857600, $result, 1E-8);
+        self::assertEquals(1324857600, $result);
+        self::assertEqualsWithDelta(1324857600, $result, 1E-8);
     }
 
-    public function testEDATEtoDateTimeObject()
+    public function testEDATEtoDateTimeObject(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
 
         $result = DateTime::EDATE('2012-1-26', -1);
         //    Must return an object...
-        $this->assertIsObject($result);
+        self::assertIsObject($result);
         //    ... of the correct type
-        $this->assertTrue(is_a($result, 'DateTimeInterface'));
+        self::assertTrue(is_a($result, 'DateTimeInterface'));
         //    ... with the correct value
-        $this->assertEquals($result->format('d-M-Y'), '26-Dec-2011');
+        self::assertEquals($result->format('d-M-Y'), '26-Dec-2011');
     }
 }

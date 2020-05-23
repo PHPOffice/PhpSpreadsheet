@@ -18,14 +18,14 @@ class LcmTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testLCM($expectedResult, ...$args)
+    public function testLCM($expectedResult, ...$args): void
     {
         $result = MathTrig::LCM(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerLCM()
     {
-        return require 'data/Calculation/MathTrig/LCM.php';
+        return require 'tests/data/Calculation/MathTrig/LCM.php';
     }
 }
