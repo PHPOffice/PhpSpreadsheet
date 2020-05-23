@@ -17,3 +17,4 @@ $helper->logRead('Xlsx', $filename, $callStartTime);
 
 // Save
 $helper->write($spreadsheet, __FILE__);
+unlink($filename);

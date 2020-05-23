@@ -30,9 +30,8 @@ class InvalidFileNameTest extends Functional\AbstractFunctional
         $writer->save('');
     }
 
-    public function testEmptyTempdirNamePdf(): void
+    public function testNotEmptyTempdirNamePdf(): void
     {
-        $this->expectException(WriterException::class);
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->getCell('A1')->setValue('Cell 1');
         $writer = new Mpdf($spreadsheet);
@@ -41,6 +40,16 @@ class InvalidFileNameTest extends Functional\AbstractFunctional
         $writer->setPaperSize(PageSetup::PAPERSIZE_LEDGER);
         self::assertEquals($writer->getPaperSize(), PageSetup::PAPERSIZE_LEDGER);
         self::assertEquals(File::sysGetTempDir() . '/phpsppdf', $writer->getTempDir());
+        $writer->setTempDir(File::sysGetTempDir());
+        self::assertEquals(File::sysGetTempDir(), $writer->getTempDir());
+    }
+
+    public function testEmptyTempdirNamePdf(): void
+    {
+        $this->expectException(WriterException::class);
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getActiveSheet()->getCell('A1')->setValue('Cell 1');
+        $writer = new Mpdf($spreadsheet);
         $writer->setTempDir('');
     }
 
