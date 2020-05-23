@@ -65,6 +65,8 @@ class DefaultValueBinder implements IValueBinder
                 return DataType::TYPE_STRING;
             } elseif ((strpos($pValue, '.') === false) && ($pValue > PHP_INT_MAX)) {
                 return DataType::TYPE_STRING;
+            } elseif (!is_numeric($pValue)) {
+                return DataType::TYPE_STRING;
             }
 
             return DataType::TYPE_NUMERIC;
