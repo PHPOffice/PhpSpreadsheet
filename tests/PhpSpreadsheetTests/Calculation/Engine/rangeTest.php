@@ -31,7 +31,7 @@ class calculationEngineRangeTest extends TestCase
      * @param mixed $formula
      * @param int $expectedResult
      */
-    public function testRangeEvaluation($formula, $expectedResult)
+    public function testRangeEvaluation($formula, $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
         $workSheet->setCellValue('E1', $formula);
