@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -37,7 +36,7 @@ class calculationEngineRangeTest extends TestCase
         $workSheet->setCellValue('E1', $formula);
 
         $actualRresult = $workSheet->getCell('E1')->getCalculatedValue();
-        $this->assertSame($expectedResult, $actualRresult);
+        self::assertSame($expectedResult, $actualRresult);
     }
 
     public function providerRangeEvaluation()
