@@ -3,10 +3,23 @@
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PHPUnit\Framework\TestCase;
 
 class DateTest extends TestCase
 {
+    private $dttimezone;
+
+    protected function setUp(): void
+    {
+        $this->dttimezone = Date::getDefaultTimeZone();
+    }
+
+    protected function tearDown(): void
+    {
+        Date::setDefaultTimeZone($this->dttimezone);
+    }
+
     public function testSetExcelCalendar(): void
     {
         $calendarValues = [
@@ -167,5 +180,42 @@ class DateTest extends TestCase
     public function providerDateTimeExcelToTimestamp1900Timezone()
     {
         return require 'tests/data/Shared/Date/ExcelToTimestamp1900Timezone.php';
+    }
+
+    public function testVarious(): void
+    {
+        Date::setDefaultTimeZone('UTC');
+        self::assertFalse(Date::stringToExcel('2019-02-29'));
+        self::assertTrue((bool) Date::stringToExcel('2019-02-28'));
+        self::assertTrue((bool) Date::stringToExcel('2019-02-28 11:18'));
+        self::assertFalse(Date::stringToExcel('2019-02-28 11:71'));
+        $date = Date::PHPToExcel('2020-01-01');
+        self::assertEquals(43831.0, $date);
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('B1', 'x');
+        $val = $sheet->getCell('B1')->getValue();
+        self::assertFalse(Date::timestampToExcel($val));
+        $cell = $sheet->getCell('A1');
+        self::assertNotNull($cell);
+        $cell->setValue($date);
+        $sheet->getStyle('A1')
+            ->getNumberFormat()
+            ->setFormatCode(NumberFormat::FORMAT_DATE_DATETIME);
+        self::assertTrue(null !== $cell && Date::isDateTime($cell));
+        $cella2 = $sheet->getCell('A2');
+        self::assertNotNull($cella2);
+        $cella2->setValue('=A1+2');
+        $sheet->getStyle('A2')
+            ->getNumberFormat()
+            ->setFormatCode(NumberFormat::FORMAT_DATE_DATETIME);
+        self::assertTrue(null !== $cella2 && Date::isDateTime($cella2));
+        $cella3 = $sheet->getCell('A3');
+        self::assertNotNull($cella3);
+        $cella3->setValue('=A1+4');
+        $sheet->getStyle('A3')
+            ->getNumberFormat()
+            ->setFormatCode('0.00E+00');
+        self::assertFalse(null !== $cella3 && Date::isDateTime($cella3));
     }
 }
