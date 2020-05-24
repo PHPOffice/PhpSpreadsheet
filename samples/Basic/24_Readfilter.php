@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 require __DIR__ . '/../Header.php';
@@ -29,10 +30,11 @@ class MyReadFilter implements IReadFilter
 }
 
 $helper->log('Load from Xlsx file');
-$reader = IOFactory::createReader('Xlsx');
+$reader = new XlsxReader();
 $reader->setReadFilter(new MyReadFilter());
 $callStartTime = microtime(true);
 $spreadsheet = $reader->load($filename);
+unlink($filename);
 $helper->logRead('Xlsx', $filename, $callStartTime);
 $helper->log('Remove unnecessary rows');
 $spreadsheet->getActiveSheet()->removeRow(2, 18);

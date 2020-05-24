@@ -9,14 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class FormulaErrTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
-        if (file_exists($filename)) {
-            unlink($filename);
-        }
-    }
-
     public function testFormulaError(): void
     {
         $obj = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
@@ -31,6 +23,7 @@ class FormulaErrTest extends TestCase
         $writer->save($filename);
         $reader = IOFactory::createReader('Xls');
         $robj = $reader->load($filename);
+        unlink($filename);
         $sheet0 = $robj->setActiveSheetIndex(0);
         $a1 = $sheet0->getCell('A1')->getCalculatedValue();
         self::assertEquals(2, $a1);
