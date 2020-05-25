@@ -11,14 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class Xlsx2Test extends TestCase
 {
-    protected function tearDown(): void
-    {
-        $outfile = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
-        if (file_exists($outfile)) {
-            unlink($outfile);
-        }
-    }
-
     public function testLoadXlsxConditionalFormatting2(): void
     {
         // Make sure Conditionals are read correctly from existing file
@@ -63,6 +55,7 @@ class Xlsx2Test extends TestCase
         $writer = IOFactory::createWriter($spreadshee1, 'Xlsx');
         $writer->save($outfile);
         $spreadsheet = $reader->load($outfile);
+        unlink($outfile);
         $worksheet = $spreadsheet->getActiveSheet();
 
         $conditionalStyle = $worksheet->getConditionalStyles('A2:A8');
@@ -110,6 +103,7 @@ class Xlsx2Test extends TestCase
         $writer->save($outfile);
         $reader = IOFactory::createReader('Xlsx');
         $spreadsheet = $reader->load($outfile);
+        unlink($outfile);
         $worksheet = $spreadsheet->getActiveSheet();
 
         $conditionalStyle = $worksheet->getConditionalStyles('A1:A6');

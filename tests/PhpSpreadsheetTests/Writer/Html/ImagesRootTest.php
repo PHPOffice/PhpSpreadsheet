@@ -9,6 +9,18 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class ImagesRootTest extends Functional\AbstractFunctional
 {
+    private $curdir;
+
+    protected function setUp(): void
+    {
+        $this->curdir = getcwd();
+    }
+
+    protected function tearDown(): void
+    {
+        chdir($this->curdir);
+    }
+
     public function testImagesRoot(): void
     {
         $spreadsheet = new Spreadsheet();
@@ -20,7 +32,6 @@ class ImagesRootTest extends Functional\AbstractFunctional
         $newdir = __DIR__ . '/../../../data/Reader/HTML';
         $stub = 'image.jpg';
         $imagePath = "./$stub";
-        $curdir = getcwd();
         chdir($newdir);
         self::assertFileExists($imagePath);
         $drawing->setPath($imagePath);
@@ -34,7 +45,6 @@ class ImagesRootTest extends Functional\AbstractFunctional
         $writer = new Html($spreadsheet);
         $writer->setImagesRoot($root);
         $html = $writer->generateHTMLAll();
-        chdir($curdir);
         $dom = new DOMDocument();
         $dom->loadHTML($html);
         $body = $dom->getElementsByTagName('body')[0];
