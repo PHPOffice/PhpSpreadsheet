@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Several improvements in HTML writer [#1464](https://github.com/PHPOffice/PhpSpreadsheet/pull/1464)
 - Fix incorrect behaviour when saving XLSX file with drawings [#1462](https://github.com/PHPOffice/PhpSpreadsheet/pull/1462),
 - Fix Crash while trying setting a cell the value "123456\n" [#1476](https://github.com/PHPOffice/PhpSpreadsheet/pull/1481)
+- Improved DATEDIF() function and reduced errors for Y and YM units [#1466](https://github.com/PHPOffice/PhpSpreadsheet/pull/1466)
 
 ### Changed
 
