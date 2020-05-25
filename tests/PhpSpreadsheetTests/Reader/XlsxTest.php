@@ -222,6 +222,7 @@ class XlsxTest extends TestCase
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($excel);
         $writer->save($resultFilename);
         $excel = $reader->load($resultFilename);
+        unlink($resultFilename);
         // Fake assert. The only thing we need is to ensure the file is loaded without exception
         self::assertNotNull($excel);
     }

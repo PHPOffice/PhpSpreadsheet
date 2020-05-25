@@ -146,4 +146,8 @@ return [
         false,
         '#,##0.00 "dollars"',
     ],
+    [
+        true,
+        '"date " y-m-d',
+    ],
 ];

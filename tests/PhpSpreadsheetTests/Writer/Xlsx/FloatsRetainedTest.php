@@ -28,6 +28,7 @@ class FloatsRetainedTest extends TestCase
 
         $reader = new Reader();
         $sheet = $reader->load($outputFilename);
+        unlink($outputFilename);
 
         self::assertSame($value, $sheet->getActiveSheet()->getCell('A1')->getValue());
     }

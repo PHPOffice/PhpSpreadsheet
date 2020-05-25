@@ -18,7 +18,7 @@ build:
 
 tools:
     external_code_coverage:
-        timeout: 3600
+        timeout: 600
 
 build_failure_conditions:
     - 'elements.rating(<= C).new.exists'                        # No new classes/methods with a rating of C or worse allowed
