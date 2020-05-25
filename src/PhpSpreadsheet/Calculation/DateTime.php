@@ -668,30 +668,19 @@ class DateTime
         $endMonths = $PHPEndDateObject->format('n');
         $endYears = $PHPEndDateObject->format('Y');
 
+        $PHPDiffDateObject = $PHPEndDateObject->diff($PHPStartDateObject);
+
         switch ($unit) {
             case 'D':
                 $retVal = (int) $difference;
 
                 break;
             case 'M':
-                $retVal = (int) ($endMonths - $startMonths) + ((int) ($endYears - $startYears) * 12);
-                //    We're only interested in full months
-                if ($endDays < $startDays) {
-                    --$retVal;
-                }
+                $retVal = (int) 12 * $PHPDiffDateObject->format('%y') + $PHPDiffDateObject->format('%m');
 
                 break;
             case 'Y':
-                $retVal = (int) ($endYears - $startYears);
-                //    We're only interested in full months
-                if ($endMonths < $startMonths) {
-                    --$retVal;
-                } elseif (($endMonths == $startMonths) && ($endDays < $startDays)) {
-                    // Remove start month
-                    --$retVal;
-                    // Remove end month
-                    --$retVal;
-                }
+                $retVal = (int) $PHPDiffDateObject->format('%y');
 
                 break;
             case 'MD':
@@ -701,19 +690,12 @@ class DateTime
                     $adjustDays = $PHPEndDateObject->format('j');
                     $retVal += ($adjustDays - $startDays);
                 } else {
-                    $retVal = $endDays - $startDays;
+                    $retVal = (int) $PHPDiffDateObject->format('%d');
                 }
 
                 break;
             case 'YM':
-                $retVal = (int) ($endMonths - $startMonths);
-                if ($retVal < 0) {
-                    $retVal += 12;
-                }
-                //    We're only interested in full months
-                if ($endDays < $startDays) {
-                    --$retVal;
-                }
+                $retVal = (int) $PHPDiffDateObject->format('%m');
 
                 break;
             case 'YD':
