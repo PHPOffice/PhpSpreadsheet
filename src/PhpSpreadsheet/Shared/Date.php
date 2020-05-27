@@ -387,6 +387,11 @@ class Date
         if ((substr($pFormatCode, 0, 1) == '_') || (substr($pFormatCode, 0, 2) == '0 ')) {
             return false;
         }
+        // Some "special formats" provided in German Excel versions were detected as date time value,
+        // so filter them out here - "\C\H\-00000" (Switzerland) and "\D-00000" (Germany).
+        if (\strpos($pFormatCode, '-00000') !== false) {
+            return false;
+        }
         // Try checking for any of the date formatting characters that don't appear within square braces
         if (preg_match('/(^|\])[^\[]*[' . self::$possibleDateFormatCharacters . ']/i', $pFormatCode)) {
             //    We might also have a format mask containing quoted strings...
