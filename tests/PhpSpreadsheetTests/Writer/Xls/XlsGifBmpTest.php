@@ -34,7 +34,7 @@ class XlsGifBmpTest extends AbstractFunctional
         $drawing = new Drawing();
         $drawing->setName('Letters B, M, and P');
         $drawing->setDescription('Handwritten B, M, and P');
-        $drawing->setPath(__DIR__ . '../../../../../samples/images/bmp.bmp');
+        $drawing->setPath(__DIR__ . '/../../../../samples/images/bmp.bmp');
         $drawing->setHeight(36);
         $drawing->setWorksheet($spreadsheet->getActiveSheet());
         $drawing->setCoordinates('A1');
@@ -64,7 +64,7 @@ class XlsGifBmpTest extends AbstractFunctional
         $drawing = new Drawing();
         $drawing->setName('Letters G, I, and G');
         $drawing->setDescription('Handwritten G, I, and F');
-        $drawing->setPath(__DIR__ . '../../../../../samples/images/gif.gif');
+        $drawing->setPath(__DIR__ . '/../../../../samples/images/gif.gif');
         $drawing->setHeight(36);
         $drawing->setWorksheet($spreadsheet->getActiveSheet());
         $drawing->setCoordinates('A1');
@@ -88,7 +88,7 @@ class XlsGifBmpTest extends AbstractFunctional
         $drawing = new Drawing();
         $drawing->setName('Letters G, I, and G');
         $drawing->setDescription('Handwritten G, I, and F');
-        $drawing->setPath(__DIR__ . '../../../../../samples/images/gif.gif');
+        $drawing->setPath(__DIR__ . '/../../../../samples/images/gif.gif');
         $drawing->setHeight(36);
         $drawing->setWorksheet($spreadsheet->getActiveSheet());
         $drawing->setCoordinates('A1');
