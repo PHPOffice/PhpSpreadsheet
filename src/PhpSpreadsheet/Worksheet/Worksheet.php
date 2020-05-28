@@ -1747,7 +1747,7 @@ class Worksheet implements IComparable
     /**
      * Get merge cells array.
      *
-     * @return array[]
+     * @return array
      */
     public function getMergeCells()
     {
