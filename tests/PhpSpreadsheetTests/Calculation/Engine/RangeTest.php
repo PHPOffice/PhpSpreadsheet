@@ -64,10 +64,8 @@ class RangeTest extends TestCase
     public function testNamedRangeEvaluation($group1, $group2, $formula, $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
-        $this->spreadSheet->addNamedRange(
-            new NamedRange('GROUP1', $workSheet, $group1));
-        $this->spreadSheet->addNamedRange(
-            new NamedRange('GROUP2', $workSheet, $group2));
+        $this->spreadSheet->addNamedRange(new NamedRange('GROUP1', $workSheet, $group1));
+        $this->spreadSheet->addNamedRange(new NamedRange('GROUP2', $workSheet, $group2));
 
         $workSheet->setCellValue('E1', $formula);
 
@@ -82,25 +80,25 @@ class RangeTest extends TestCase
                 'A1:B3',
                 'A1:C2',
                 '=SUM(GROUP1,GROUP2)',
-                48
+                48,
             ],
             [
                 'A1:B3',
                 'A1:C2',
                 '=SUM(GROUP1 GROUP2)',
-                12
+                12,
             ],
             [
                 'A1:B2',
                 'B2:C3',
                 '=SUM(GROUP1,GROUP2)',
-                40
+                40,
             ],
             [
                 'A1:B2',
                 'B2:C3',
                 '=SUM(GROUP1 GROUP2)',
-                5
+                5,
             ],
         ];
     }
