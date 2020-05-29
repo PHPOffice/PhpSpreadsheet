@@ -3456,10 +3456,8 @@ class Calculation
             if ((isset(self::$comparisonOperators[$opCharacter])) && (strlen($formula) > $index) && (isset(self::$comparisonOperators[$formula[$index + 1]]))) {
                 $opCharacter .= $formula[++$index];
             }
-
             //    Find out if we're currently at the beginning of a number, variable, cell reference, function, parenthesis or operand
             $isOperandOrFunction = preg_match($regexpMatchString, substr($formula, $index), $match);
-
             if ($opCharacter == '-' && !$expectingOperator) {                //    Is it a negation instead of a minus?
                 //    Put a negation on the stack
                 $stack->push('Unary Operator', '~', null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
@@ -3776,8 +3774,12 @@ class Calculation
                 }
                 //    If we're expecting an operator, but only have a space between the previous and next operands (and both are
                 //        Cell References) then we have an INTERSECTION operator
-                if (($expectingOperator) && (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
-                    ($output[count($output) - 1]['type'] == 'Cell Reference')) {
+                if (($expectingOperator) &&
+                    ((preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
+                        ($output[count($output) - 1]['type'] == 'Cell Reference') ||
+                        (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '.*/Ui', substr($formula, $index), $match)) &&
+                            ($output[count($output) - 1]['type'] == 'Named Range' || $output[count($output) - 1]['type'] == 'Value')
+                    )) {
                     while ($stack->count() > 0 &&
                         ($o2 = $stack->last()) &&
                         isset(self::$operators[$o2['value']]) &&
