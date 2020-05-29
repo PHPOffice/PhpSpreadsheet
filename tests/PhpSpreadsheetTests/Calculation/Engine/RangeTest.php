@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -28,7 +29,7 @@ class RangeTest extends TestCase
     /**
      * @dataProvider providerRangeEvaluation
      *
-     * @param mixed $formula
+     * @param string $formula
      * @param int $expectedResult
      */
     public function testRangeEvaluation($formula, $expectedResult): void
@@ -49,6 +50,56 @@ class RangeTest extends TestCase
             ['=SUM(A1:A3 C1:C3)', Functions::null()],
             ['=SUM(A1:B2,B2:C3)', 40],
             ['=SUM(A1:B2 B2:C3)', 5],
+        ];
+    }
+
+    /**
+     * @dataProvider providerNamedRangeEvaluation
+     *
+     * @param string $group1
+     * @param string $group2
+     * @param string $formula
+     * @param int $expectedResult
+     */
+    public function testNamedRangeEvaluation($group1, $group2, $formula, $expectedResult): void
+    {
+        $workSheet = $this->spreadSheet->getActiveSheet();
+        $this->spreadSheet->addNamedRange(new NamedRange('GROUP1', $workSheet, $group1));
+        $this->spreadSheet->addNamedRange(new NamedRange('GROUP2', $workSheet, $group2));
+
+        $workSheet->setCellValue('E1', $formula);
+
+        $actualRresult = $workSheet->getCell('E1')->getCalculatedValue();
+        self::assertSame($expectedResult, $actualRresult);
+    }
+
+    public function providerNamedRangeEvaluation()
+    {
+        return[
+            [
+                'A1:B3',
+                'A1:C2',
+                '=SUM(GROUP1,GROUP2)',
+                48,
+            ],
+            [
+                'A1:B3',
+                'A1:C2',
+                '=SUM(GROUP1 GROUP2)',
+                12,
+            ],
+            [
+                'A1:B2',
+                'B2:C3',
+                '=SUM(GROUP1,GROUP2)',
+                40,
+            ],
+            [
+                'A1:B2',
+                'B2:C3',
+                '=SUM(GROUP1 GROUP2)',
+                5,
+            ],
         ];
     }
 }
