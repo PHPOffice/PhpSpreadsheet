@@ -161,12 +161,13 @@ class Html extends BaseReader
     private function readBeginning()
     {
         fseek($this->fileHandle, 0);
-        
+
         $str = fread($this->fileHandle, self::TEST_SAMPLE_SIZE);
         //escape bom
-        $bom = implode('', array_map(function($ascii) {
+        $bom = implode('', array_map(function ($ascii) {
             return chr($ascii);
         }, [0xEF, 0xBB, 0xBF]));
+
         return substr($str, 0, 3) == $bom ? substr($str, 3) : $str;
     }
 
