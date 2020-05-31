@@ -703,7 +703,7 @@ echo $writer->generateSheetData();
 echo $writer->generateHTMLFooter();
 ```
 
-#### Editing HTML During Save Via a Callback
+#### Editing HTML during save via a callback
 
 You can also add a callback function to edit the generated html
 before saving. For example, you could add a webfont
