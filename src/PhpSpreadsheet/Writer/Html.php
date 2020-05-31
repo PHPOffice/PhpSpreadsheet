@@ -208,7 +208,7 @@ class Html extends BaseWriter
         return $html;
     }
 
-    public function setEditHtmlCallback(callable $cbk): void
+    public function setEditHtmlCallback(?callable $cbk): void
     {
         $this->editHtmlCallback = $cbk;
     }
