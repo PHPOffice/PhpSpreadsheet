@@ -763,17 +763,8 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            if (!$this->readDataOnly && $xmlSheet && $xmlSheet->sheetProtection) {
-                                $docSheet->getProtection()->setPassword((string) $xmlSheet->sheetProtection['password'], true);
-                                $docSheet->getProtection()->setAlgorithmName((string) $xmlSheet->sheetProtection['algorithmName']);
-                                $docSheet->getProtection()->setHashValue((string) $xmlSheet->sheetProtection['hashValue']);
-                                $docSheet->getProtection()->setSaltValue((string) $xmlSheet->sheetProtection['saltValue']);
-                                $docSheet->getProtection()->setSpinCount((int) $xmlSheet->sheetProtection['spinCount']);
-                                if ($xmlSheet->protectedRanges->protectedRange) {
-                                    foreach ($xmlSheet->protectedRanges->protectedRange as $protectedRange) {
-                                        $docSheet->protectCells((string) $protectedRange['sqref'], (string) $protectedRange['password'], true);
-                                    }
-                                }
+                            if ($xmlSheet) {
+                                $this->readSheetProtection($docSheet, $xmlSheet);
                             }
 
                             if ($xmlSheet && $xmlSheet->autoFilter && !$this->readDataOnly) {
@@ -2034,5 +2025,30 @@ class Xlsx extends BaseReader
         }
 
         return $workbookBasename;
+    }
+
+    private function readSheetProtection(Worksheet $docSheet, SimpleXMLElement $xmlSheet): void
+    {
+        if ($this->readDataOnly || !$xmlSheet->sheetProtection) {
+            return;
+        }
+
+        $algorithmName = (string) $xmlSheet->sheetProtection['algorithmName'];
+        $protection = $docSheet->getProtection();
+        $protection->setAlgorithm($algorithmName);
+
+        if ($algorithmName) {
+            $protection->setPassword((string) $xmlSheet->sheetProtection['hashValue'], true);
+            $protection->setSalt((string) $xmlSheet->sheetProtection['saltValue']);
+            $protection->setSpinCount((int) $xmlSheet->sheetProtection['spinCount']);
+        } else {
+            $protection->setPassword((string) $xmlSheet->sheetProtection['password'], true);
+        }
+
+        if ($xmlSheet->protectedRanges->protectedRange) {
+            foreach ($xmlSheet->protectedRanges->protectedRange as $protectedRange) {
+                $docSheet->protectCells((string) $protectedRange['sqref'], (string) $protectedRange['password'], true);
+            }
+        }
     }
 }

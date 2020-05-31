@@ -919,28 +919,52 @@ disallow inserting rows on a specific sheet, disallow sorting, ...
 - Cell: offers the option to lock/unlock a cell as well as show/hide
 the internal formula.
 
+**Make sure you enable worksheet protection if you need any of the
+worksheet or cell protection features!** This can be done using the following
+code:
+
+``` php
+$spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
+```
+
+### Document
+
 An example on setting document security:
 
 ``` php
-$spreadsheet->getSecurity()->setLockWindows(true);
-$spreadsheet->getSecurity()->setLockStructure(true);
-$spreadsheet->getSecurity()->setWorkbookPassword("PhpSpreadsheet");
+$security = $spreadsheet->getSecurity();
+$security->setLockWindows(true);
+$security->setLockStructure(true);
+$security->setWorkbookPassword("PhpSpreadsheet");
 ```
+
+### Worksheet
 
 An example on setting worksheet security:
 
 ``` php
-$spreadsheet->getActiveSheet()
-    ->getProtection()->setPassword('PhpSpreadsheet');
-$spreadsheet->getActiveSheet()
-    ->getProtection()->setSheet(true);
-$spreadsheet->getActiveSheet()
-    ->getProtection()->setSort(true);
-$spreadsheet->getActiveSheet()
-    ->getProtection()->setInsertRows(true);
-$spreadsheet->getActiveSheet()
-    ->getProtection()->setFormatCells(true);
+$protection = $spreadsheet->getActiveSheet()->getProtection();
+$protection->setPassword('PhpSpreadsheet');
+$protection->setSheet(true);
+$protection->setSort(true);
+$protection->setInsertRows(true);
+$protection->setFormatCells(true);
 ```
+
+If writing Xlsx files you can specify the algorithm used to hash the password
+before calling `setPassword()` like so:
+
+```php
+$protection = $spreadsheet->getActiveSheet()->getProtection();
+$protection->setAlgorithm(Protection::ALGORITHM_SHA_512);
+$protection->setSpinCount(20000);
+$protection->setPassword('PhpSpreadsheet');
+```
+
+The salt should **not** be set manually and will be automatically generated
+when setting a new password.
+
+### Cell
 
 An example on setting cell security:
 
@@ -950,13 +974,29 @@ $spreadsheet->getActiveSheet()->getStyle('B1')
     ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
 ```
 
-**Make sure you enable worksheet protection if you need any of the
-worksheet protection features!** This can be done using the following
-code:
+## Reading protected spreadsheet
 
-``` php
-$spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
+Spreadsheets that are protected the as described above can always be read by
+PhpSpreadsheet. There is no need to know the password or do anything special in
+order to read a protected file.
+
+However if you need to implement a password verification mechanism, you can use the
+following helper method:
+
+
+```php
+$protection = $spreadsheet->getActiveSheet()->getProtection();
+$allowed = $protection->verify('my password');
+
+if ($allowed) {
+    doSomething();
+} else {
+    throw new Exception('Incorrect password');
+}
 ```
+
+If you need to completely prevent reading a file by any tool, including PhpSpreadsheet,
+then you are looking for "encryption", not "protection".
 
 ## Setting data validation on a cell
 

@@ -2,51 +2,39 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Worksheet\Protection;
+
 class PasswordHasher
 {
-    const ALGORITHM_MD2 = 'MD2';
-    const ALGORITHM_MD4 = 'MD4';
-    const ALGORITHM_MD5 = 'MD5';
-    const ALGORITHM_SHA_1 = 'SHA-1';
-    const ALGORITHM_SHA_256 = 'SHA-256';
-    const ALGORITHM_SHA_384 = 'SHA-384';
-    const ALGORITHM_SHA_512 = 'SHA-512';
-    const ALGORITHM_RIPEMD_128 = 'RIPEMD-128';
-    const ALGORITHM_RIPEMD_160 = 'RIPEMD-160';
-    const ALGORITHM_WHIRLPOOL = 'WHIRLPOOL';
-
     /**
-     * Mapping between algorithm name in Excel and algorithm name in PHP.
-     *
-     * @var array
+     * Get algorithm name for PHP.
      */
-    private static $algorithmArray = [
-        self::ALGORITHM_MD2 => 'md2',
-        self::ALGORITHM_MD4 => 'md4',
-        self::ALGORITHM_MD5 => 'md5',
-        self::ALGORITHM_SHA_1 => 'sha1',
-        self::ALGORITHM_SHA_256 => 'sha256',
-        self::ALGORITHM_SHA_384 => 'sha384',
-        self::ALGORITHM_SHA_512 => 'sha512',
-        self::ALGORITHM_RIPEMD_128 => 'ripemd128',
-        self::ALGORITHM_RIPEMD_160 => 'ripemd160',
-        self::ALGORITHM_WHIRLPOOL => 'whirlpool',
-    ];
-
-    /**
-     * Get algorithm from self::$algorithmArray.
-     *
-     * @param string $pAlgorithmName
-     *
-     * @return string
-     */
-    private static function getAlgorithm($pAlgorithmName)
+    private static function getAlgorithm(string $algorithmName): string
     {
-        if (array_key_exists($pAlgorithmName, self::$algorithmArray)) {
-            return self::$algorithmArray[$pAlgorithmName];
+        if (!$algorithmName) {
+            return '';
         }
 
-        return '';
+        // Mapping between algorithm name in Excel and algorithm name in PHP
+        $mapping = [
+            Protection::ALGORITHM_MD2 => 'md2',
+            Protection::ALGORITHM_MD4 => 'md4',
+            Protection::ALGORITHM_MD5 => 'md5',
+            Protection::ALGORITHM_SHA_1 => 'sha1',
+            Protection::ALGORITHM_SHA_256 => 'sha256',
+            Protection::ALGORITHM_SHA_384 => 'sha384',
+            Protection::ALGORITHM_SHA_512 => 'sha512',
+            Protection::ALGORITHM_RIPEMD_128 => 'ripemd128',
+            Protection::ALGORITHM_RIPEMD_160 => 'ripemd160',
+            Protection::ALGORITHM_WHIRLPOOL => 'whirlpool',
+        ];
+
+        if (array_key_exists($algorithmName, $mapping)) {
+            return $mapping[$algorithmName];
+        }
+
+        throw new Exception('Unsupported password algorithm: ' . $algorithmName);
     }
 
     /**
@@ -57,10 +45,8 @@ class PasswordHasher
      * Spreadsheet_Excel_Writer by Xavier Noguer <xnoguer@rezebra.com>.
      *
      * @param string $pPassword Password to hash
-     *
-     * @return string Hashed password
      */
-    public static function defaultHashPassword($pPassword)
+    private static function defaultHashPassword(string $pPassword): string
     {
         $password = 0x0000;
         $charPos = 1; // char position
@@ -87,40 +73,28 @@ class PasswordHasher
      *
      * @see https://docs.microsoft.com/en-us/openspecs/office_file_formats/ms-offcrypto/1357ea58-646e-4483-92ef-95d718079d6f
      *
-     * @param string $pPassword Password to hash
-     * @param string $pAlgorithmName Hash algorithm used to compute the password hash value
-     * @param string $pSaltValue Pseudorandom string
-     * @param string $pSpinCount Number of times to iterate on a hash of a password
+     * @param string $password Password to hash
+     * @param string $algorithm Hash algorithm used to compute the password hash value
+     * @param string $salt Pseudorandom string
+     * @param int $spinCount Number of times to iterate on a hash of a password
      *
      * @return string Hashed password
      */
-    public static function hashPassword($pPassword, $pAlgorithmName = '', $pSaltValue = '', $pSpinCount = 10000)
+    public static function hashPassword(string $password, string $algorithm = '', string $salt = '', int $spinCount = 10000): string
     {
-        $algorithmName = self::getAlgorithm($pAlgorithmName);
-        if (!$pAlgorithmName) {
-            return self::defaultHashPassword($pPassword);
+        $phpAlgorithm = self::getAlgorithm($algorithm);
+        if (!$phpAlgorithm) {
+            return self::defaultHashPassword($password);
         }
 
-        $saltValue = base64_decode($pSaltValue);
-        $password = mb_convert_encoding($pPassword, 'UCS-2LE', 'UTF-8');
+        $saltValue = base64_decode($salt);
+        $encodedPassword = mb_convert_encoding($password, 'UCS-2LE', 'UTF-8');
 
-        $hashValue = hash($algorithmName, $saltValue . $password, true);
-        for ($i = 0; $i < $pSpinCount; ++$i) {
-            $hashValue = hash($algorithmName, $hashValue . pack('L', $i), true);
+        $hashValue = hash($phpAlgorithm, $saltValue . $encodedPassword, true);
+        for ($i = 0; $i < $spinCount; ++$i) {
+            $hashValue = hash($phpAlgorithm, $hashValue . pack('L', $i), true);
         }
 
         return base64_encode($hashValue);
-    }
-
-    /**
-     * Create a pseudorandom string.
-     *
-     * @param int $pSize Length of the output string in bytes
-     *
-     * @return string Pseudorandom string
-     */
-    public static function generateSalt($pSize = 16)
-    {
-        return base64_encode(random_bytes($pSize));
     }
 }
