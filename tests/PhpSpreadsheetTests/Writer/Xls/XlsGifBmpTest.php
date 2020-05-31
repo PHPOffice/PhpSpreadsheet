@@ -42,6 +42,7 @@ class XlsGifBmpTest extends AbstractFunctional
         $drawings = $pSheet->getDrawingCollection();
         self::assertCount(1, $drawings);
         foreach ($pSheet->getDrawingCollection() as $drawing) {
+            // See if Scrutinizer approves this
             $mimeType = ($drawing instanceof MemoryDrawing) ? $drawing->getMimeType() : 'notmemorydrawing';
             self::assertEquals('image/png', $mimeType);
         }
