@@ -12,7 +12,7 @@ need to be done.
 automatically your codebase. Assuming your files to be migrated lives
 in `src/`, you can run the migration like so:
 
-``` sh
+```sh
 composer require rector/rector --dev
 vendor/bin/rector process src --set phpexcel-to-phpspreadsheet
 composer remove rector/rector
