@@ -197,9 +197,9 @@ class Html extends BaseWriter
 
         // Write footer
         $html .= $this->generateHTMLFooter();
-        $cbk = $this->editHtmlCallback;
-        if ($cbk) {
-            $html = $cbk($html);
+        $callback = $this->editHtmlCallback;
+        if ($callback) {
+            $html = $callback($html);
         }
 
         Calculation::setArrayReturnType($saveArrayReturnType);
