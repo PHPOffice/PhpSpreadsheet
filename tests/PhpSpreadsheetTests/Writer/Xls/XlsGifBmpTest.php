@@ -42,8 +42,8 @@ class XlsGifBmpTest extends AbstractFunctional
         $drawings = $pSheet->getDrawingCollection();
         self::assertCount(1, $drawings);
         foreach ($pSheet->getDrawingCollection() as $drawing) {
-            self::assertTrue($drawing instanceof MemoryDrawing);
-            self::assertEquals('image/png', $drawing->getMimeType());
+            $mimeType = ($drawing instanceof MemoryDrawing) ? $drawing->getMimeType() : 'notmemorydrawing';
+            self::assertEquals('image/png', $mimeType);
         }
         $pgmend = time();
 
@@ -70,8 +70,8 @@ class XlsGifBmpTest extends AbstractFunctional
         $drawings = $pSheet->getDrawingCollection();
         self::assertCount(1, $drawings);
         foreach ($pSheet->getDrawingCollection() as $drawing) {
-            self::assertTrue($drawing instanceof MemoryDrawing);
-            self::assertEquals('image/png', $drawing->getMimeType());
+            $mimeType = ($drawing instanceof MemoryDrawing) ? $drawing->getMimeType() : 'notmemorydrawing';
+            self::assertEquals('image/png', $mimeType);
         }
     }
 
