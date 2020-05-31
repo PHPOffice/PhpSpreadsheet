@@ -132,6 +132,13 @@ class Html extends BaseWriter
     private $generateSheetNavigationBlock = true;
 
     /**
+     * Callback for editing generated html.
+     *
+     * @var callable
+     */
+    protected $editHtmlCallback = '';
+
+    /**
      * Create a new HTML.
      */
     public function __construct(Spreadsheet $spreadsheet)
@@ -190,11 +197,25 @@ class Html extends BaseWriter
 
         // Write footer
         $html .= $this->generateHTMLFooter();
+        $cbk = $this->editHtmlCallback;
+        if ($cbk) {
+            $html = $cbk($html);
+        }
 
         Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
         return $html;
+    }
+
+    public function setEditHtmlCallback(callable $cbk): void
+    {
+        $this->editHtmlCallback = $cbk;
+    }
+
+    public function resetEditHtmlCallback(): void
+    {
+        $this->editHtmlCallback = '';
     }
 
     const VALIGN_ARR = [

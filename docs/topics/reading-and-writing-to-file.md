@@ -693,7 +693,7 @@ $sty = $writer->generateStyles(false); // do not write <style> and </style>
 $newstyle = <<<EOF
 <style type='text/css'>
 $sty
-html {
+body {
     background-color: yellow;
 }
 </style>
@@ -701,6 +701,31 @@ EOF;
 echo preg_replace('@</head>@', "$newstyle\n</head>", $hdr);
 echo $writer->generateSheetData();
 echo $writer->generateHTMLFooter();
+```
+
+#### Editing HTML During Save Via a Callback
+
+You can also add a callback function to edit the generated html
+before saving. For example, you could add a webfont
+(not currently supported for Pdf) as follows:
+
+``` php
+function webfont(string $html): string
+{
+    $linktag = <<<EOF
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet" />
+
+EOF;
+    $html = preg_replace('@<style@', "$linktag<style", $html, 1);
+    $html = str_replace("font-family:'Calibri';",
+        "font-family:'Poiret One','Calibri',sans-serif;",
+        $html);
+
+    return $html;
+}
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
+$writer->setEditHtmlCallback('webfont');
+$writer->save($filename);
 ```
 
 #### Writing UTF-8 HTML files
@@ -840,6 +865,12 @@ $writer->setPreCalculateFormulas(false);
 
 $writer->save("05featuredemo.pdf");
 ```
+
+#### Editing Pdf During Save Via a Callback
+
+You can also add a callback function to edit the html used to
+generate the Pdf before saving.
+[See under Html](#editing-html-during-save-via-a-callback).
 
 #### Decimal and thousands separators
 
