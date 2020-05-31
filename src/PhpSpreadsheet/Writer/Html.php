@@ -213,11 +213,6 @@ class Html extends BaseWriter
         $this->editHtmlCallback = $cbk;
     }
 
-    public function resetEditHtmlCallback(): void
-    {
-        $this->editHtmlCallback = '';
-    }
-
     const VALIGN_ARR = [
         Alignment::VERTICAL_BOTTOM => 'bottom',
         Alignment::VERTICAL_TOP => 'top',
