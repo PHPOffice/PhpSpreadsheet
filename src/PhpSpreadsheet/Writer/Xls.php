@@ -23,7 +23,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
-use RuntimeException;
 
 class Xls extends BaseWriter
 {
@@ -475,18 +474,6 @@ class Xls extends BaseWriter
         }
     }
 
-    /**
-     * Total number of shared strings in workbook.
-     *
-     * @var bool
-     */
-    private $simulateNoGd = false;
-
-    public function setSimulateNoGd(bool $arg): void
-    {
-        $this->simulateNoGd = $arg;
-    }
-
     private function checkForDrawings(): bool
     {
         // any drawings in this workbook?
@@ -494,9 +481,6 @@ class Xls extends BaseWriter
         foreach ($this->spreadsheet->getAllSheets() as $sheet) {
             if (count($sheet->getDrawingCollection()) > 0) {
                 $found = true;
-                if ($this->simulateNoGd || !extension_loaded('gd')) {
-                    throw new RuntimeException('Saving images in xls requires gd extension');
-                }
 
                 break;
             }
