@@ -25,7 +25,7 @@ background-color: yellow;
 
 EOF;
 
-    return preg_replace('@</head>@', "$newstyle</head>", $html);
+    return preg_replace('~</head>~', "$newstyle</head>", $html);
 }
 
 $helper->log('Write to Dompdf');
