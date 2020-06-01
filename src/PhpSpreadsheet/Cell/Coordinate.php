@@ -321,19 +321,18 @@ abstract class Coordinate
         [$ranges, $operators] = self::getCellBlocksFromRangeString($cellRange);
 
         $cells = [];
-        foreach($ranges as $range) {
+        foreach ($ranges as $range) {
             $cells[] = self::getReferencesForCellBlock($range);
         }
 
-        for($offset = 0; $offset < count($operators); ++$offset) {
+        for ($offset = 0; $offset < count($operators); ++$offset) {
             $operator = $operators[$offset];
             if ($operator !== ' ') {
                 continue;
             }
 
-            $cells[$offset] = array_intersect($cells[$offset], $cells[$offset+1]);
-            unset($operators[$offset]);
-            unset($cells[$offset+1]);
+            $cells[$offset] = array_intersect($cells[$offset], $cells[$offset + 1]);
+            unset($operators[$offset], $cells[$offset + 1]);
             $operators = array_values($operators);
             $cells = array_values($cells);
             --$offset;

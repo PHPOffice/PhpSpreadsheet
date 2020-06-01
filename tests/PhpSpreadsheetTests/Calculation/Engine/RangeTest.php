@@ -121,12 +121,12 @@ class RangeTest extends TestCase
     public function providerCompositeNamedRangeEvaluation()
     {
         return[
-//            Calculation engine doesn't yet handle union ranges with overlap
-//            'Union with overlap' => [
-//                'A1:C1,A3:C3,B1:C3',
-//                63,
-//                12,
-//            ],
+            //  Calculation engine doesn't yet handle union ranges with overlap
+            //  'Union with overlap' => [
+            //      'A1:C1,A3:C3,B1:C3',
+            //      63,
+            //      12,
+            //  ],
             'Intersection' => [
                 'A1:C1,A3:C3 B1:C3',
                 23,
