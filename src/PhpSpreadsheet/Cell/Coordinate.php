@@ -343,7 +343,18 @@ abstract class Coordinate
             return [];
         }
 
-        return array_merge(...$cells);
+        $cellList = array_merge(...$cells);
+
+        //    Sort the result by column and row
+        $sortKeys = [];
+        foreach ($cellList as $coord) {
+            [$column, $row] = sscanf($coord, '%[A-Z]%d');
+            $sortKeys[sprintf('%3s%09d', $column, $row)] = $coord;
+        }
+        ksort($sortKeys);
+
+        // Return value
+        return array_values($sortKeys);
     }
 
     /**
