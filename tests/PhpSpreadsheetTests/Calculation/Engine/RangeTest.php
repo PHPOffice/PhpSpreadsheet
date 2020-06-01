@@ -72,7 +72,7 @@ class RangeTest extends TestCase
      * @param int $expectedResult
      */
     public function testNamedRangeEvaluation($group1, $group2, $formula, $expectedResult): void
-{
+    {
         $workSheet = $this->spreadSheet->getActiveSheet();
         $this->spreadSheet->addNamedRange(new NamedRange('GROUP1', $workSheet, $group1));
         $this->spreadSheet->addNamedRange(new NamedRange('GROUP2', $workSheet, $group2));
@@ -130,7 +130,7 @@ class RangeTest extends TestCase
             'Intersection' => [
                 'A1:C1,A3:C3 B1:C3',
                 23,
-                5
+                5,
             ],
         ];
     }
