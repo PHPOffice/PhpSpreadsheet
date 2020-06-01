@@ -337,12 +337,6 @@ abstract class Coordinate
         return $cellList;
     }
 
-    /**
-     * @param array $operators
-     * @param array $cells
-     *
-     * @return array
-     */
     private static function processRangeSetOperators(array $operators, array $cells): array
     {
         for ($offset = 0; $offset < count($operators); ++$offset) {
@@ -361,11 +355,6 @@ abstract class Coordinate
         return $cells;
     }
 
-    /**
-     * @param array $cellList
-     *
-     * @return array
-     */
     private static function sortCellReferenceArray(array $cellList): array
     {
         //    Sort the result by column and row
