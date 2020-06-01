@@ -312,33 +312,38 @@ abstract class Coordinate
     /**
      * Extract all cell references in range, which may be comprised of multiple cell ranges.
      *
-     * @param string $pRange Range (e.g. A1 or A1:C10 or A1:E10 A20:E25)
+     * @param string $cellRange Range: e.g. 'A1' or 'A1:C10' or 'A1:E10,A20:E25' or 'A1:E5 C3:G7' or 'A1:C1,A3:C3 B1:C3'
      *
      * @return array Array containing single cell references
      */
-    public static function extractAllCellReferencesInRange($pRange)
+    public static function extractAllCellReferencesInRange($cellRange)
     {
-        $returnValue = [];
+        [$ranges, $operators] = self::getCellBlocksFromRangeString($cellRange);
 
-        // Explode spaces
-        $cellBlocks = self::getCellBlocksFromRangeString($pRange);
-        foreach ($cellBlocks as $cellBlock) {
-            $returnValue = array_merge($returnValue, self::getReferencesForCellBlock($cellBlock));
+        $cells = [];
+        foreach($ranges as $range) {
+            $cells[] = self::getReferencesForCellBlock($range);
         }
 
-        //    Sort the result by column and row
-        $sortKeys = [];
-        foreach (array_unique($returnValue) as $coord) {
-            $column = '';
-            $row = 0;
+        for($offset = 0; $offset < count($operators); ++$offset) {
+            $operator = $operators[$offset];
+            if ($operator !== ' ') {
+                continue;
+            }
 
-            sscanf($coord, '%[A-Z]%d', $column, $row);
-            $sortKeys[sprintf('%3s%09d', $column, $row)] = $coord;
+            $cells[$offset] = array_intersect($cells[$offset], $cells[$offset+1]);
+            unset($operators[$offset]);
+            unset($cells[$offset+1]);
+            $operators = array_values($operators);
+            $cells = array_values($cells);
+            --$offset;
         }
-        ksort($sortKeys);
 
-        // Return value
-        return array_values($sortKeys);
+        if (empty($cells)) {
+            return [];
+        }
+
+        return array_merge(...$cells);
     }
 
     /**
@@ -482,15 +487,25 @@ abstract class Coordinate
     }
 
     /**
-     * Get the individual cell blocks from a range string, splitting by space and removing any $ characters.
+     * Get the individual cell blocks from a range string, removing any $ characters.
+     *      then splitting by operators and returning an array with ranges and operators.
      *
-     * @param string $pRange
+     * @param string $rangeString
      *
-     * @return string[]
+     * @return array[]
      */
-    private static function getCellBlocksFromRangeString($pRange)
+    private static function getCellBlocksFromRangeString($rangeString)
     {
-        return explode(' ', str_replace('$', '', strtoupper($pRange)));
+        $rangeString = str_replace('$', '', strtoupper($rangeString));
+
+        // split range sets on intersection (space) or union (,) operators
+        $tokens = preg_split('/([ ,])/', $rangeString, -1, PREG_SPLIT_DELIM_CAPTURE);
+        // separate the range sets and the operators into arrays
+        $split = array_chunk($tokens, 2);
+        $ranges = array_column($split, 0);
+        $operators = array_column($split, 1);
+
+        return [$ranges, $operators];
     }
 
     /**
