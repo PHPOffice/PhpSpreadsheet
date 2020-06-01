@@ -2,11 +2,23 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 class Tcpdf extends Pdf
 {
+    /**
+     * Create a new PDF Writer instance.
+     *
+     * @param Spreadsheet $spreadsheet Spreadsheet object
+     */
+    public function __construct(Spreadsheet $spreadsheet)
+    {
+        parent::__construct($spreadsheet);
+        $this->setUseInlineCss(true);
+    }
+
     /**
      * Gets the implementation of external PDF library that should be used.
      *
@@ -25,10 +37,8 @@ class Tcpdf extends Pdf
      * Save Spreadsheet to file.
      *
      * @param string $pFilename Name of the file to save as
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function save($pFilename)
+    public function save($pFilename): void
     {
         $fileHandle = parent::prepareForSave($pFilename);
 
@@ -77,11 +87,7 @@ class Tcpdf extends Pdf
 
         //  Set the appropriate font
         $pdf->SetFont($this->getFont());
-        $pdf->writeHTML(
-            $this->generateHTMLHeader(false) .
-            $this->generateSheetData() .
-            $this->generateHTMLFooter()
-        );
+        $pdf->writeHTML($this->generateHTMLAll());
 
         //  Document info
         $pdf->SetTitle($this->spreadsheet->getProperties()->getTitle());
@@ -93,6 +99,6 @@ class Tcpdf extends Pdf
         //  Write to file
         fwrite($fileHandle, $pdf->output($pFilename, 'S'));
 
-        parent::restoreStateAfterSave($fileHandle);
+        parent::restoreStateAfterSave();
     }
 }

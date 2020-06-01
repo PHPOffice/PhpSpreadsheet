@@ -21,7 +21,11 @@ $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
 
 // Generate an image
 $helper->log('Generate an image');
-$gdImage = @imagecreatetruecolor(120, 20) or die('Cannot Initialize new GD image stream');
+$gdImage = @imagecreatetruecolor(120, 20);
+if (!$gdImage) {
+    die('Cannot Initialize new GD image stream');
+}
+
 $textColor = imagecolorallocate($gdImage, 255, 255, 255);
 imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 
@@ -35,6 +39,7 @@ $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
 $drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
 $drawing->setHeight(36);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
+$drawing->setCoordinates('C5');
 
 // Save
 $helper->write($spreadsheet, __FILE__, ['Xlsx', 'Html']);

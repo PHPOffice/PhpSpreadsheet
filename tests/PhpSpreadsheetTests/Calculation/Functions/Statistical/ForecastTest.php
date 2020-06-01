@@ -18,14 +18,14 @@ class ForecastTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFORECAST($expectedResult, ...$args)
+    public function testFORECAST($expectedResult, ...$args): void
     {
         $result = Statistical::FORECAST(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerFORECAST()
     {
-        return require 'data/Calculation/Statistical/FORECAST.php';
+        return require 'tests/data/Calculation/Statistical/FORECAST.php';
     }
 }

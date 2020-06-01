@@ -17,6 +17,7 @@ $helper->logWrite($writer, $filename, $callStartTime);
 $callStartTime = microtime(true);
 $spreadsheet = IOFactory::load($filename);
 $helper->logRead('Xls', $filename, $callStartTime);
+unlink($filename);
 
 // Save
 $helper->write($spreadsheet, __FILE__);

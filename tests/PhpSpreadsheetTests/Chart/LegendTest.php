@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class LegendTest extends TestCase
 {
-    public function testSetPosition()
+    public function testSetPosition(): void
     {
         $positionValues = [
             Legend::POSITION_RIGHT,
@@ -25,7 +25,7 @@ class LegendTest extends TestCase
         }
     }
 
-    public function testSetInvalidPositionReturnsFalse()
+    public function testSetInvalidPositionReturnsFalse(): void
     {
         $testInstance = new Legend();
 
@@ -36,7 +36,7 @@ class LegendTest extends TestCase
         self::assertEquals(Legend::POSITION_RIGHT, $result);
     }
 
-    public function testGetPosition()
+    public function testGetPosition(): void
     {
         $PositionValue = Legend::POSITION_BOTTOM;
 
@@ -47,7 +47,7 @@ class LegendTest extends TestCase
         self::assertEquals($PositionValue, $result);
     }
 
-    public function testSetPositionXL()
+    public function testSetPositionXL(): void
     {
         $positionValues = [
             Legend::XL_LEGEND_POSITION_BOTTOM,
@@ -66,7 +66,7 @@ class LegendTest extends TestCase
         }
     }
 
-    public function testSetInvalidXLPositionReturnsFalse()
+    public function testSetInvalidXLPositionReturnsFalse(): void
     {
         $testInstance = new Legend();
 
@@ -77,7 +77,7 @@ class LegendTest extends TestCase
         self::assertEquals(Legend::XL_LEGEND_POSITION_RIGHT, $result);
     }
 
-    public function testGetPositionXL()
+    public function testGetPositionXL(): void
     {
         $PositionValue = Legend::XL_LEGEND_POSITION_CORNER;
 
@@ -88,7 +88,7 @@ class LegendTest extends TestCase
         self::assertEquals($PositionValue, $result);
     }
 
-    public function testSetOverlay()
+    public function testSetOverlay(): void
     {
         $overlayValues = [
             true,
@@ -103,7 +103,7 @@ class LegendTest extends TestCase
         }
     }
 
-    public function testSetInvalidOverlayReturnsFalse()
+    public function testSetInvalidOverlayReturnsFalse(): void
     {
         $testInstance = new Legend();
 
@@ -114,7 +114,7 @@ class LegendTest extends TestCase
         self::assertFalse($result);
     }
 
-    public function testGetOverlay()
+    public function testGetOverlay(): void
     {
         $OverlayValue = true;
 

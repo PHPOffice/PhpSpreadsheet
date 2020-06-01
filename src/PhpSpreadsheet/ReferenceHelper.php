@@ -152,7 +152,7 @@ class ReferenceHelper
      * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $pNumRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustPageBreaks(Worksheet $pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+    protected function adjustPageBreaks(Worksheet $pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows): void
     {
         $aBreaks = $pSheet->getBreaks();
         ($pNumCols > 0 || $pNumRows > 0) ?
@@ -185,7 +185,7 @@ class ReferenceHelper
      * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $pNumRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustComments($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+    protected function adjustComments($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows): void
     {
         $aComments = $pSheet->getComments();
         $aNewComments = []; // the new array of all comments
@@ -212,7 +212,7 @@ class ReferenceHelper
      * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $pNumRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustHyperlinks($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+    protected function adjustHyperlinks($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows): void
     {
         $aHyperlinkCollection = $pSheet->getHyperlinkCollection();
         ($pNumCols > 0 || $pNumRows > 0) ?
@@ -237,7 +237,7 @@ class ReferenceHelper
      * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $pNumRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustDataValidations($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+    protected function adjustDataValidations($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows): void
     {
         $aDataValidationCollection = $pSheet->getDataValidationCollection();
         ($pNumCols > 0 || $pNumRows > 0) ?
@@ -262,7 +262,7 @@ class ReferenceHelper
      * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $pNumRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustMergeCells($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+    protected function adjustMergeCells($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows): void
     {
         $aMergeCells = $pSheet->getMergeCells();
         $aNewMergeCells = []; // the new array of all merge cells
@@ -283,7 +283,7 @@ class ReferenceHelper
      * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $pNumRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustProtectedCells($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+    protected function adjustProtectedCells($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows): void
     {
         $aProtectedCells = $pSheet->getProtectedCells();
         ($pNumCols > 0 || $pNumRows > 0) ?
@@ -307,7 +307,7 @@ class ReferenceHelper
      * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $pNumRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustColumnDimensions($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+    protected function adjustColumnDimensions($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows): void
     {
         $aColumnDimensions = array_reverse($pSheet->getColumnDimensions(), true);
         if (!empty($aColumnDimensions)) {
@@ -332,7 +332,7 @@ class ReferenceHelper
      * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $pNumRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustRowDimensions($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+    protected function adjustRowDimensions($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows): void
     {
         $aRowDimensions = array_reverse($pSheet->getRowDimensions(), true);
         if (!empty($aRowDimensions)) {
@@ -363,10 +363,8 @@ class ReferenceHelper
      * @param int $pNumCols Number of columns to insert/delete (negative values indicate deletion)
      * @param int $pNumRows Number of rows to insert/delete (negative values indicate deletion)
      * @param Worksheet $pSheet The worksheet that we're editing
-     *
-     * @throws Exception
      */
-    public function insertNewBefore($pBefore, $pNumCols, $pNumRows, Worksheet $pSheet)
+    public function insertNewBefore($pBefore, $pNumCols, $pNumRows, Worksheet $pSheet): void
     {
         $remove = ($pNumCols < 0 || $pNumRows < 0);
         $allCoordinates = $pSheet->getCoordinates();
@@ -624,8 +622,6 @@ class ReferenceHelper
      * @param int $pNumRows Number of rows to insert
      * @param string $sheetName Worksheet name/title
      *
-     * @throws Exception
-     *
      * @return string Updated formula
      */
     public function updateFormulaReferences($pFormula = '', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, $sheetName = '')
@@ -766,8 +762,6 @@ class ReferenceHelper
      * @param int $pNumCols Number of columns to increment
      * @param int $pNumRows Number of rows to increment
      *
-     * @throws Exception
-     *
      * @return string Updated cell range
      */
     public function updateCellReference($pCellRange = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0)
@@ -795,7 +789,7 @@ class ReferenceHelper
      * @param string $oldName Old name (name to replace)
      * @param string $newName New name
      */
-    public function updateNamedFormulas(Spreadsheet $spreadsheet, $oldName = '', $newName = '')
+    public function updateNamedFormulas(Spreadsheet $spreadsheet, $oldName = '', $newName = ''): void
     {
         if ($oldName == '') {
             return;
@@ -823,8 +817,6 @@ class ReferenceHelper
      * @param string $pBefore Insert before this one
      * @param int $pNumCols Number of columns to increment
      * @param int $pNumRows Number of rows to increment
-     *
-     * @throws Exception
      *
      * @return string Updated cell range
      */
@@ -864,8 +856,6 @@ class ReferenceHelper
      * @param int $pNumCols Number of columns to increment
      * @param int $pNumRows Number of rows to increment
      *
-     * @throws Exception
-     *
      * @return string Updated cell reference
      */
     private function updateSingleCellReference($pCellReference = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0)
@@ -900,8 +890,6 @@ class ReferenceHelper
 
     /**
      * __clone implementation. Cloning should not be allowed in a Singleton!
-     *
-     * @throws Exception
      */
     final public function __clone()
     {

@@ -18,14 +18,14 @@ class QuotientTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testQUOTIENT($expectedResult, ...$args)
+    public function testQUOTIENT($expectedResult, ...$args): void
     {
         $result = MathTrig::QUOTIENT(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerQUOTIENT()
     {
-        return require 'data/Calculation/MathTrig/QUOTIENT.php';
+        return require 'tests/data/Calculation/MathTrig/QUOTIENT.php';
     }
 }

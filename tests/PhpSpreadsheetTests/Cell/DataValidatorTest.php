@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class DataValidatorTest extends TestCase
 {
-    public function testNoValidation()
+    public function testNoValidation(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -17,7 +17,7 @@ class DataValidatorTest extends TestCase
         self::assertTrue($testCell->hasValidValue(), 'a cell without any validation data is always valid');
     }
 
-    public function testUnsupportedType()
+    public function testUnsupportedType(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -30,7 +30,7 @@ class DataValidatorTest extends TestCase
         self::assertFalse($testCell->hasValidValue(), 'cannot assert that value is valid when the validation type is not supported');
     }
 
-    public function testList()
+    public function testList(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

@@ -15,12 +15,12 @@ $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
-            ['', 2010, 2011, 2012],
-            ['Q1', 12, 15, 21],
-            ['Q2', 56, 73, 86],
-            ['Q3', 52, 61, 69],
-            ['Q4', 30, 32, 0],
-        ]
+        ['', 2010, 2011, 2012],
+        ['Q1', 12, 15, 21],
+        ['Q2', 56, 73, 86],
+        ['Q3', 52, 61, 69],
+        ['Q4', 30, 32, 0],
+    ]
 );
 
 // Set the Labels for each data series we want to plot
@@ -83,7 +83,7 @@ $chart = new Chart(
     $legend, // legend
     $plotArea, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
     $yAxisLabel  // yAxisLabel
 );

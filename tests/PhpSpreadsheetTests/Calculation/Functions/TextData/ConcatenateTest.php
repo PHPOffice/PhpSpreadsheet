@@ -30,14 +30,14 @@ class ConcatenateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCONCATENATE($expectedResult, ...$args)
+    public function testCONCATENATE($expectedResult, ...$args): void
     {
         $result = TextData::CONCATENATE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCONCATENATE()
     {
-        return require 'data/Calculation/TextData/CONCATENATE.php';
+        return require 'tests/data/Calculation/TextData/CONCATENATE.php';
     }
 }

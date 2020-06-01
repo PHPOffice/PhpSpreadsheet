@@ -18,14 +18,14 @@ class SteyxTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSTEYX($expectedResult, array $xargs, array $yargs)
+    public function testSTEYX($expectedResult, array $xargs, array $yargs): void
     {
         $result = Statistical::STEYX($xargs, $yargs);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSTEYX()
     {
-        return require 'data/Calculation/Statistical/STEYX.php';
+        return require 'tests/data/Calculation/Statistical/STEYX.php';
     }
 }

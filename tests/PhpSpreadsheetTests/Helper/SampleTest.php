@@ -14,10 +14,10 @@ class SampleTest extends TestCase
      *
      * @param mixed $sample
      */
-    public function testSample($sample)
+    public function testSample($sample): void
     {
         // Suppress output to console
-        $this->setOutputCallback(function () {
+        $this->setOutputCallback(function (): void {
         });
 
         require $sample;
@@ -48,7 +48,7 @@ class SampleTest extends TestCase
         foreach ($helper->getSamples() as $samples) {
             foreach ($samples as $sample) {
                 if (!in_array($sample, $skipped)) {
-                    $file = '../samples/' . $sample;
+                    $file = 'samples/' . $sample;
                     $result[] = [$file];
                 }
             }

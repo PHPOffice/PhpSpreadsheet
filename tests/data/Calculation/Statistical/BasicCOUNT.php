@@ -21,7 +21,7 @@ return [
             '',
             4.8,
             'Not a numeric',
-            6
+            6,
         ],
     ],
 ];

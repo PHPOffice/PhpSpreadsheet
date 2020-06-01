@@ -18,14 +18,14 @@ class GeoMeanTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testGEOMEAN($expectedResult, ...$args)
+    public function testGEOMEAN($expectedResult, ...$args): void
     {
         $result = Statistical::GEOMEAN(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerGEOMEAN()
     {
-        return require 'data/Calculation/Statistical/GEOMEAN.php';
+        return require 'tests/data/Calculation/Statistical/GEOMEAN.php';
     }
 }

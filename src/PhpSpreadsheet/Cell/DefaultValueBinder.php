@@ -14,8 +14,6 @@ class DefaultValueBinder implements IValueBinder
      * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     *
      * @return bool
      */
     public function bindValue(Cell $cell, $value)
@@ -66,6 +64,8 @@ class DefaultValueBinder implements IValueBinder
             if (is_string($pValue) && $tValue[0] === '0' && strlen($tValue) > 1 && $tValue[1] !== '.') {
                 return DataType::TYPE_STRING;
             } elseif ((strpos($pValue, '.') === false) && ($pValue > PHP_INT_MAX)) {
+                return DataType::TYPE_STRING;
+            } elseif (!is_numeric($pValue)) {
                 return DataType::TYPE_STRING;
             }
 

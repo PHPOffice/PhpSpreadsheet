@@ -31,14 +31,14 @@ class CodeTest extends TestCase
      * @param mixed $expectedResult
      * @param $character
      */
-    public function testCODE($expectedResult, $character)
+    public function testCODE($expectedResult, $character): void
     {
         $result = TextData::ASCIICODE($character);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCODE()
     {
-        return require 'data/Calculation/TextData/CODE.php';
+        return require 'tests/data/Calculation/TextData/CODE.php';
     }
 }

@@ -18,14 +18,14 @@ class RoundDownTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testROUNDDOWN($expectedResult, ...$args)
+    public function testROUNDDOWN($expectedResult, ...$args): void
     {
         $result = MathTrig::ROUNDDOWN(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerROUNDDOWN()
     {
-        return require 'data/Calculation/MathTrig/ROUNDDOWN.php';
+        return require 'tests/data/Calculation/MathTrig/ROUNDDOWN.php';
     }
 }

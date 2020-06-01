@@ -18,14 +18,14 @@ class ComplexTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOMPLEX($expectedResult, ...$args)
+    public function testCOMPLEX($expectedResult, ...$args): void
     {
         $result = Engineering::COMPLEX(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCOMPLEX()
     {
-        return require 'data/Calculation/Engineering/COMPLEX.php';
+        return require 'tests/data/Calculation/Engineering/COMPLEX.php';
     }
 }

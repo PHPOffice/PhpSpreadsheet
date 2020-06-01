@@ -27,7 +27,7 @@ class CalculationTest extends TestCase
      * @param mixed $expectedResultExcel
      * @param mixed $expectedResultOpenOffice
      */
-    public function testBinaryComparisonOperation($formula, $expectedResultExcel, $expectedResultOpenOffice)
+    public function testBinaryComparisonOperation($formula, $expectedResultExcel, $expectedResultOpenOffice): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $resultExcel = Calculation::getInstance()->_calculateFormulaValue($formula);
@@ -40,7 +40,7 @@ class CalculationTest extends TestCase
 
     public function providerBinaryComparisonOperation()
     {
-        return require 'data/CalculationBinaryComparisonOperation.php';
+        return require 'tests/data/CalculationBinaryComparisonOperation.php';
     }
 
     /**
@@ -50,7 +50,7 @@ class CalculationTest extends TestCase
      * @param array|string $functionCall
      * @param string $argumentCount
      */
-    public function testGetFunctions($category, $functionCall, $argumentCount)
+    public function testGetFunctions($category, $functionCall, $argumentCount): void
     {
         self::assertIsCallable($functionCall);
     }
@@ -60,7 +60,7 @@ class CalculationTest extends TestCase
         return Calculation::getInstance()->getFunctions();
     }
 
-    public function testIsImplemented()
+    public function testIsImplemented(): void
     {
         $calculation = Calculation::getInstance();
         self::assertFalse($calculation->isImplemented('non-existing-function'));
@@ -74,7 +74,7 @@ class CalculationTest extends TestCase
      *
      * @param string $locale
      */
-    public function testCanLoadAllSupportedLocales($locale)
+    public function testCanLoadAllSupportedLocales($locale): void
     {
         $calculation = Calculation::getInstance();
         self::assertTrue($calculation->setLocale($locale));
@@ -104,7 +104,7 @@ class CalculationTest extends TestCase
         ];
     }
 
-    public function testDoesHandleXlfnFunctions()
+    public function testDoesHandleXlfnFunctions(): void
     {
         $calculation = Calculation::getInstance();
 
@@ -119,7 +119,7 @@ class CalculationTest extends TestCase
         self::assertEquals('Function', $function['type']);
     }
 
-    public function testFormulaWithOptionalArgumentsAndRequiredCellReferenceShouldPassNullForMissingArguments()
+    public function testFormulaWithOptionalArgumentsAndRequiredCellReferenceShouldPassNullForMissingArguments(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -141,7 +141,7 @@ class CalculationTest extends TestCase
         self::assertEquals(5, $cell->getCalculatedValue(), 'missing arguments should be filled with null');
     }
 
-    public function testCellSetAsQuotedText()
+    public function testCellSetAsQuotedText(): void
     {
         $spreadsheet = new Spreadsheet();
         $workSheet = $spreadsheet->getActiveSheet();
@@ -153,7 +153,7 @@ class CalculationTest extends TestCase
         self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
     }
 
-    public function testCellWithDdeExpresion()
+    public function testCellWithDdeExpresion(): void
     {
         $spreadsheet = new Spreadsheet();
         $workSheet = $spreadsheet->getActiveSheet();
@@ -164,7 +164,7 @@ class CalculationTest extends TestCase
         self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
     }
 
-    public function testCellWithFormulaTwoIndirect()
+    public function testCellWithFormulaTwoIndirect(): void
     {
         $spreadsheet = new Spreadsheet();
         $workSheet = $spreadsheet->getActiveSheet();
@@ -180,7 +180,7 @@ class CalculationTest extends TestCase
         self::assertEquals('9', $cell3->getCalculatedValue());
     }
 
-    public function testBranchPruningFormulaParsingSimpleCase()
+    public function testBranchPruningFormulaParsingSimpleCase(): void
     {
         $calculation = Calculation::getInstance();
         $calculation->flushInstance(); // resets the ids
@@ -204,11 +204,11 @@ class CalculationTest extends TestCase
             $foundConditionalOnB1 = $foundConditionalOnB1 ||
                 ($isB1Reference && $correctOnlyIf);
         }
-        $this->assertTrue($foundEqualAssociatedToStoreKey);
-        $this->assertTrue($foundConditionalOnB1);
+        self::assertTrue($foundEqualAssociatedToStoreKey);
+        self::assertTrue($foundConditionalOnB1);
     }
 
-    public function testBranchPruningFormulaParsingMultipleIfsCase()
+    public function testBranchPruningFormulaParsingMultipleIfsCase(): void
     {
         $calculation = Calculation::getInstance();
         $calculation->flushInstance(); // resets the ids
@@ -235,11 +235,11 @@ class CalculationTest extends TestCase
             $correctOnlyIf = ($token['onlyIf'] ?? '') == 'storeKey-1';
             $productFunctionCorrectlyTagged = $productFunctionCorrectlyTagged || ($isFunction && $isProductFunction && $correctOnlyIf);
         }
-        $this->assertFalse($plusGotTagged, 'chaining IF( should not affect the external operators');
-        $this->assertTrue($productFunctionCorrectlyTagged, 'function nested inside if should be tagged to be processed only if parent branching requires it');
+        self::assertFalse($plusGotTagged, 'chaining IF( should not affect the external operators');
+        self::assertTrue($productFunctionCorrectlyTagged, 'function nested inside if should be tagged to be processed only if parent branching requires it');
     }
 
-    public function testBranchPruningFormulaParingNestedIfCase()
+    public function testBranchPruningFormulaParingNestedIfCase(): void
     {
         $calculation = Calculation::getInstance();
         $calculation->flushInstance(); // resets the ids
@@ -266,12 +266,12 @@ class CalculationTest extends TestCase
             $productFunctionCorrectlyTagged = $productFunctionCorrectlyTagged || ($isProductFunction && $isOnlyIfNotDepth1 && !$isStoreKeyDepth1 && !$isOnlyIfNotDepth0);
             $findOneOperandCountTagged = $findOneOperandCountTagged || ($isIfOperand && $isOnlyIfNotDepth0);
         }
-        $this->assertTrue($plusCorrectlyTagged);
-        $this->assertTrue($productFunctionCorrectlyTagged);
-        $this->assertTrue($notFunctionCorrectlyTagged);
+        self::assertTrue($plusCorrectlyTagged);
+        self::assertTrue($productFunctionCorrectlyTagged);
+        self::assertTrue($notFunctionCorrectlyTagged);
     }
 
-    public function testBranchPruningFormulaParsingNoArgumentFunctionCase()
+    public function testBranchPruningFormulaParsingNoArgumentFunctionCase(): void
     {
         $calculation = Calculation::getInstance();
         $calculation->flushInstance(); // resets the ids
@@ -283,7 +283,7 @@ class CalculationTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testBranchPruningFormulaParsingInequalitiesConditionsCase()
+    public function testBranchPruningFormulaParsingInequalitiesConditionsCase(): void
     {
         $calculation = Calculation::getInstance();
         $calculation->flushInstance(); // resets the ids
@@ -298,7 +298,7 @@ class CalculationTest extends TestCase
             $properlyTaggedPlus = $properlyTaggedPlus ||
                 ($isPlus && $hasOnlyIf);
         }
-        $this->assertTrue($properlyTaggedPlus);
+        self::assertTrue($properlyTaggedPlus);
     }
 
     /**
@@ -311,7 +311,6 @@ class CalculationTest extends TestCase
      * @param string[] $shouldNotBeSetInCacheCells coordinates of cells that must
      *  not be set in cache because of pruning
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @dataProvider dataProviderBranchPruningFullExecution
      */
     public function testFullExecution(
@@ -321,7 +320,7 @@ class CalculationTest extends TestCase
         $cellCoordinates,
         $shouldBeSetInCacheCells = [],
         $shouldNotBeSetInCacheCells = []
-    ) {
+    ): void {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -331,28 +330,42 @@ class CalculationTest extends TestCase
 
         $cell->setValue($formula);
         $calculated = $cell->getCalculatedValue();
-        $this->assertEquals($expectedResult, $calculated);
+        self::assertEquals($expectedResult, $calculated);
 
         // this mostly to ensure that at least some cells are cached
         foreach ($shouldBeSetInCacheCells as $setCell) {
             unset($inCache);
             $calculation->getValueFromCache('Worksheet!' . $setCell, $inCache);
-            $this->assertNotEmpty($inCache);
+            self::assertNotEmpty($inCache);
         }
 
         foreach ($shouldNotBeSetInCacheCells as $notSetCell) {
             unset($inCache);
             $calculation->getValueFromCache('Worksheet!' . $notSetCell, $inCache);
-            $this->assertEmpty($inCache);
+            self::assertEmpty($inCache);
         }
 
         $calculation->disableBranchPruning();
         $calculated = $cell->getCalculatedValue();
-        $this->assertEquals($expectedResult, $calculated);
+        self::assertEquals($expectedResult, $calculated);
     }
 
     public function dataProviderBranchPruningFullExecution()
     {
-        return require 'data/Calculation/Calculation.php';
+        return require 'tests/data/Calculation/Calculation.php';
+    }
+
+    public function testUnknownFunction(): void
+    {
+        $workbook = new Spreadsheet();
+        $sheet = $workbook->getActiveSheet();
+        $sheet->setCellValue('A1', '=gzorg()');
+        $sheet->setCellValue('A2', '=mode.gzorg(1)');
+        $sheet->setCellValue('A3', '=gzorg(1,2)');
+        $sheet->setCellValue('A4', '=3+IF(gzorg(),1,2)');
+        self::assertEquals('#NAME?', $sheet->getCell('A1')->getCalculatedValue());
+        self::assertEquals('#NAME?', $sheet->getCell('A2')->getCalculatedValue());
+        self::assertEquals('#NAME?', $sheet->getCell('A3')->getCalculatedValue());
+        self::assertEquals('#NAME?', $sheet->getCell('A4')->getCalculatedValue());
     }
 }

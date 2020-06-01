@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use SimpleXMLElement;
 
 class SheetViewOptions extends BaseParserClass
 {
@@ -10,7 +11,7 @@ class SheetViewOptions extends BaseParserClass
 
     private $worksheetXml;
 
-    public function __construct(Worksheet $workSheet, \SimpleXMLElement $worksheetXml = null)
+    public function __construct(Worksheet $workSheet, ?SimpleXMLElement $worksheetXml = null)
     {
         $this->worksheet = $workSheet;
         $this->worksheetXml = $worksheetXml;
@@ -19,7 +20,7 @@ class SheetViewOptions extends BaseParserClass
     /**
      * @param bool $readDataOnly
      */
-    public function load($readDataOnly = false)
+    public function load($readDataOnly = false): void
     {
         if ($this->worksheetXml === null) {
             return;
@@ -41,21 +42,21 @@ class SheetViewOptions extends BaseParserClass
         }
     }
 
-    private function tabColor(\SimpleXMLElement $sheetPr)
+    private function tabColor(SimpleXMLElement $sheetPr): void
     {
         if (isset($sheetPr->tabColor, $sheetPr->tabColor['rgb'])) {
             $this->worksheet->getTabColor()->setARGB((string) $sheetPr->tabColor['rgb']);
         }
     }
 
-    private function codeName(\SimpleXMLElement $sheetPr)
+    private function codeName(SimpleXMLElement $sheetPr): void
     {
         if (isset($sheetPr['codeName'])) {
             $this->worksheet->setCodeName((string) $sheetPr['codeName'], false);
         }
     }
 
-    private function outlines(\SimpleXMLElement $sheetPr)
+    private function outlines(SimpleXMLElement $sheetPr): void
     {
         if (isset($sheetPr->outlinePr)) {
             if (isset($sheetPr->outlinePr['summaryRight']) &&
@@ -74,7 +75,7 @@ class SheetViewOptions extends BaseParserClass
         }
     }
 
-    private function pageSetup(\SimpleXMLElement $sheetPr)
+    private function pageSetup(SimpleXMLElement $sheetPr): void
     {
         if (isset($sheetPr->pageSetUpPr)) {
             if (isset($sheetPr->pageSetUpPr['fitToPage']) &&
@@ -86,7 +87,7 @@ class SheetViewOptions extends BaseParserClass
         }
     }
 
-    private function sheetFormat(\SimpleXMLElement $sheetFormatPr)
+    private function sheetFormat(SimpleXMLElement $sheetFormatPr): void
     {
         if (isset($sheetFormatPr['customHeight']) &&
             self::boolean((string) $sheetFormatPr['customHeight']) &&
@@ -106,7 +107,7 @@ class SheetViewOptions extends BaseParserClass
         }
     }
 
-    private function printOptions(\SimpleXMLElement $printOptions)
+    private function printOptions(SimpleXMLElement $printOptions): void
     {
         if (self::boolean((string) $printOptions['gridLinesSet'])) {
             $this->worksheet->setShowGridlines(true);

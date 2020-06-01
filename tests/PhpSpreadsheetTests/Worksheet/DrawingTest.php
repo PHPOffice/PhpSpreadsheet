@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class DrawingTest extends TestCase
 {
-    public function testCloningWorksheetWithImages()
+    public function testCloningWorksheetWithImages(): void
     {
         $spreadsheet = new Spreadsheet();
         $aSheet = $spreadsheet->getActiveSheet();

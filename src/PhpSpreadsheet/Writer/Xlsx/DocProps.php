@@ -10,10 +10,6 @@ class DocProps extends WriterPart
     /**
      * Write docProps/app.xml to XML format.
      *
-     * @param Spreadsheet $spreadsheet
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @return string XML Output
      */
     public function writeDocPropsApp(Spreadsheet $spreadsheet)
@@ -109,10 +105,6 @@ class DocProps extends WriterPart
     /**
      * Write docProps/core.xml to XML format.
      *
-     * @param Spreadsheet $spreadsheet
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @return string XML Output
      */
     public function writeDocPropsCore(Spreadsheet $spreadsheet)
@@ -177,10 +169,6 @@ class DocProps extends WriterPart
 
     /**
      * Write docProps/custom.xml to XML format.
-     *
-     * @param Spreadsheet $spreadsheet
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */

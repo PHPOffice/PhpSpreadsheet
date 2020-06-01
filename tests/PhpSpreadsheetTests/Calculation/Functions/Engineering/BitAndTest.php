@@ -19,14 +19,14 @@ class BitAndTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed[] $args
      */
-    public function testBITAND($expectedResult, array $args)
+    public function testBITAND($expectedResult, array $args): void
     {
         $result = Engineering::BITAND(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBITAND()
     {
-        return require 'data/Calculation/Engineering/BITAND.php';
+        return require 'tests/data/Calculation/Engineering/BITAND.php';
     }
 }

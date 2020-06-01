@@ -240,7 +240,7 @@ class Rule
      *
      * @param Column $pParent
      */
-    public function __construct(Column $pParent = null)
+    public function __construct(?Column $pParent = null)
     {
         $this->parent = $pParent;
     }
@@ -259,8 +259,6 @@ class Rule
      * Set AutoFilter Rule Type.
      *
      * @param string $pRuleType see self::AUTOFILTER_RULETYPE_*
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */
@@ -289,8 +287,6 @@ class Rule
      * Set AutoFilter Rule Value.
      *
      * @param string|string[] $pValue
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */
@@ -334,8 +330,6 @@ class Rule
      *
      * @param string $pOperator see self::AUTOFILTER_COLUMN_RULE_*
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function setOperator($pOperator)
@@ -367,8 +361,6 @@ class Rule
      *
      * @param string $pGrouping
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return $this
      */
     public function setGrouping($pGrouping)
@@ -390,8 +382,6 @@ class Rule
      * @param string $pOperator see self::AUTOFILTER_COLUMN_RULE_*
      * @param string|string[] $pValue
      * @param string $pGrouping
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */
@@ -426,7 +416,7 @@ class Rule
      *
      * @return $this
      */
-    public function setParent(Column $pParent = null)
+    public function setParent(?Column $pParent = null)
     {
         $this->parent = $pParent;
 

@@ -19,14 +19,14 @@ class SecTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $angle
      */
-    public function testSEC($expectedResult, $angle)
+    public function testSEC($expectedResult, $angle): void
     {
         $result = MathTrig::SEC($angle);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSEC()
     {
-        return require 'data/Calculation/MathTrig/SEC.php';
+        return require 'tests/data/Calculation/MathTrig/SEC.php';
     }
 }

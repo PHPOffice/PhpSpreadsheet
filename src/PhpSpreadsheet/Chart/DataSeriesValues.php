@@ -115,8 +115,6 @@ class DataSeriesValues
      *                                    DataSeriesValues::DATASERIES_TYPE_NUMBER
      *                                        Normally used for chart data values
      *
-     * @throws Exception
-     *
      * @return $this
      */
     public function setDataType($dataType)
@@ -247,8 +245,6 @@ class DataSeriesValues
      *
      * @param string $color value for color
      *
-     * @throws \Exception thrown if color is invalid
-     *
      * @return bool true if validation was successful
      */
     private function validateColor($color)
@@ -356,7 +352,7 @@ class DataSeriesValues
         return $this;
     }
 
-    public function refresh(Worksheet $worksheet, $flatten = true)
+    public function refresh(Worksheet $worksheet, $flatten = true): void
     {
         if ($this->dataSource !== null) {
             $calcEngine = Calculation::getInstance($worksheet->getParent());

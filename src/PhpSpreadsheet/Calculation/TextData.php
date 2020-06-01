@@ -167,7 +167,7 @@ class TextData
         if ($decimals > 0) {
             $mask .= '.' . str_repeat('0', $decimals);
         } else {
-            $round = pow(10, abs($decimals));
+            $round = 10 ** abs($decimals);
             if ($value < 0) {
                 $round = 0 - $round;
             }
@@ -623,7 +623,7 @@ class TextData
             $percentageAdjustment = strlen($value) - strlen($percentageString);
             if ($percentageAdjustment) {
                 $value = (float) $percentageString;
-                $value /= pow(10, $percentageAdjustment * 2);
+                $value /= 10 ** ($percentageAdjustment * 2);
             }
         }
 

@@ -18,14 +18,14 @@ class ChiInvTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCHIINV($expectedResult, ...$args)
+    public function testCHIINV($expectedResult, ...$args): void
     {
         $result = Statistical::CHIINV(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCHIINV()
     {
-        return require 'data/Calculation/Statistical/CHIINV.php';
+        return require 'tests/data/Calculation/Statistical/CHIINV.php';
     }
 }

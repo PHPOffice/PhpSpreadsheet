@@ -18,14 +18,14 @@ class RowsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testROWS($expectedResult, ...$args)
+    public function testROWS($expectedResult, ...$args): void
     {
         $result = LookupRef::ROWS(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerROWS()
     {
-        return require 'data/Calculation/LookupRef/ROWS.php';
+        return require 'tests/data/Calculation/LookupRef/ROWS.php';
     }
 }

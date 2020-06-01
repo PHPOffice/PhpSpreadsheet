@@ -16,20 +16,20 @@ $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
-            ['', 2010, 2011, 2012],
-            ['Jan', 47, 45, 71],
-            ['Feb', 56, 73, 86],
-            ['Mar', 52, 61, 69],
-            ['Apr', 40, 52, 60],
-            ['May', 42, 55, 71],
-            ['Jun', 58, 63, 76],
-            ['Jul', 53, 61, 89],
-            ['Aug', 46, 69, 85],
-            ['Sep', 62, 75, 81],
-            ['Oct', 51, 70, 96],
-            ['Nov', 55, 66, 89],
-            ['Dec', 68, 62, 0],
-        ]
+        ['', 2010, 2011, 2012],
+        ['Jan', 47, 45, 71],
+        ['Feb', 56, 73, 86],
+        ['Mar', 52, 61, 69],
+        ['Apr', 40, 52, 60],
+        ['May', 42, 55, 71],
+        ['Jun', 58, 63, 76],
+        ['Jul', 53, 61, 89],
+        ['Aug', 46, 69, 85],
+        ['Sep', 62, 75, 81],
+        ['Oct', 51, 70, 96],
+        ['Nov', 55, 66, 89],
+        ['Dec', 68, 62, 0],
+    ]
 );
 
 // Set the Labels for each data series we want to plot
@@ -96,7 +96,7 @@ $chart = new Chart(
     $legend, // legend
     $plotArea, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
     null   // yAxisLabel - Radar charts don't have a Y-Axis
 );

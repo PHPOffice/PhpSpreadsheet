@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class DataSeriesValuesTest extends TestCase
 {
-    public function testSetDataType()
+    public function testSetDataType(): void
     {
         $dataTypeValues = [
             'Number',
@@ -23,7 +23,7 @@ class DataSeriesValuesTest extends TestCase
         }
     }
 
-    public function testSetInvalidDataTypeThrowsException()
+    public function testSetInvalidDataTypeThrowsException(): void
     {
         $testInstance = new DataSeriesValues();
 
@@ -34,10 +34,10 @@ class DataSeriesValuesTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
-    public function testGetDataType()
+    public function testGetDataType(): void
     {
         $dataTypeValue = 'String';
 
@@ -48,7 +48,7 @@ class DataSeriesValuesTest extends TestCase
         self::assertEquals($dataTypeValue, $result);
     }
 
-    public function testGetLineWidth()
+    public function testGetLineWidth(): void
     {
         $testInstance = new DataSeriesValues();
         self::assertEquals(12700, $testInstance->getLineWidth(), 'should have default');
@@ -60,7 +60,7 @@ class DataSeriesValuesTest extends TestCase
         self::assertEquals(12700, $testInstance->getLineWidth(), 'should enforce minimum width');
     }
 
-    public function testFillColorCorrectInput()
+    public function testFillColorCorrectInput(): void
     {
         $testInstance = new DataSeriesValues();
 
@@ -68,7 +68,7 @@ class DataSeriesValuesTest extends TestCase
         self::assertEquals($testInstance, $testInstance->setFillColor(['00abb8', 'b8292f']));
     }
 
-    public function testFillColorInvalidInput()
+    public function testFillColorInvalidInput(): void
     {
         $testInstance = new DataSeriesValues();
         $this->expectException(\Exception::class);
@@ -77,7 +77,7 @@ class DataSeriesValuesTest extends TestCase
         $testInstance->setFillColor('WRONG COLOR');
     }
 
-    public function testFillColorInvalidInputInArray()
+    public function testFillColorInvalidInputInArray(): void
     {
         $testInstance = new DataSeriesValues();
         $this->expectException(\Exception::class);

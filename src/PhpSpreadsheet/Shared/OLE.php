@@ -38,8 +38,6 @@ $GLOBALS['_OLE_INSTANCES'] = [];
  *
  * @author   Xavier Noguer <xnoguer@php.net>
  * @author   Christian Schmidt <schmidt@php.net>
- *
- * @category   PhpSpreadsheet
  */
 class OLE
 {
@@ -113,13 +111,11 @@ class OLE
      *
      * @param string $file
      *
-     * @throws ReaderException
-     *
      * @return bool true on success, PEAR_Error on failure
      */
     public function read($file)
     {
-        $fh = fopen($file, 'r');
+        $fh = fopen($file, 'rb');
         if (!$fh) {
             throw new ReaderException("Can't open file $file");
         }
@@ -135,8 +131,8 @@ class OLE
             throw new ReaderException('Only Little-Endian encoding is supported.');
         }
         // Size of blocks and short blocks in bytes
-        $this->bigBlockSize = pow(2, self::_readInt2($fh));
-        $this->smallBlockSize = pow(2, self::_readInt2($fh));
+        $this->bigBlockSize = 2 ** self::_readInt2($fh);
+        $this->smallBlockSize = 2 ** self::_readInt2($fh);
 
         // Skip UID, revision number and version number
         fseek($fh, 44);
@@ -241,7 +237,7 @@ class OLE
             $path .= '&blockId=' . $blockIdOrPps;
         }
 
-        return fopen($path, 'r');
+        return fopen($path, 'rb');
     }
 
     /**
@@ -504,7 +500,7 @@ class OLE
         }
 
         // factor used for separating numbers into 4 bytes parts
-        $factor = pow(2, 32);
+        $factor = 2 ** 32;
 
         // days from 1-1-1601 until the beggining of UNIX era
         $days = 134774;
@@ -538,8 +534,6 @@ class OLE
      * Returns a timestamp from an OLE container's date.
      *
      * @param string $oleTimestamp A binary string with the encoded date
-     *
-     * @throws ReaderException
      *
      * @return int The Unix timestamp corresponding to the string
      */

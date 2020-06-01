@@ -18,14 +18,14 @@ class AverageATest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testAVERAGEA($expectedResult, ...$args)
+    public function testAVERAGEA($expectedResult, ...$args): void
     {
         $result = Statistical::AVERAGEA(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerAVERAGEA()
     {
-        return require 'data/Calculation/Statistical/AVERAGEA.php';
+        return require 'tests/data/Calculation/Statistical/AVERAGEA.php';
     }
 }

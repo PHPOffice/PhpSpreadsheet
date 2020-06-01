@@ -205,8 +205,6 @@ class Html extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return Spreadsheet
      */
     public function load($pFilename)
@@ -272,7 +270,7 @@ class Html extends BaseReader
         return array_pop($this->nestedColumn);
     }
 
-    protected function flushCell(Worksheet $sheet, $column, $row, &$cellContent)
+    protected function flushCell(Worksheet $sheet, $column, $row, &$cellContent): void
     {
         if (is_string($cellContent)) {
             //    Simple String content
@@ -292,13 +290,11 @@ class Html extends BaseReader
     }
 
     /**
-     * @param DOMNode $element
-     * @param Worksheet $sheet
      * @param int $row
      * @param string $column
      * @param string $cellContent
      */
-    protected function processDomElement(DOMNode $element, Worksheet $sheet, &$row, &$column, &$cellContent)
+    protected function processDomElement(DOMNode $element, Worksheet $sheet, &$row, &$column, &$cellContent): void
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {
@@ -579,9 +575,6 @@ class Html extends BaseReader
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
      * @param string $pFilename
-     * @param Spreadsheet $spreadsheet
-     *
-     * @throws Exception
      *
      * @return Spreadsheet
      */
@@ -607,9 +600,6 @@ class Html extends BaseReader
      * Spreadsheet from content.
      *
      * @param string $content
-     * @param null|Spreadsheet $spreadsheet
-     *
-     * @return Spreadsheet
      */
     public function loadFromString($content, ?Spreadsheet $spreadsheet = null): Spreadsheet
     {
@@ -626,13 +616,6 @@ class Html extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from DOMDocument into PhpSpreadsheet instance.
-     *
-     * @param DOMDocument $document
-     * @param Spreadsheet $spreadsheet
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     *
-     * @return Spreadsheet
      */
     private function loadDocument(DOMDocument $document, Spreadsheet $spreadsheet): Spreadsheet
     {
@@ -693,7 +676,7 @@ class Html extends BaseReader
      * @param string $column
      * @param array $attributeArray
      */
-    private function applyInlineStyle(&$sheet, $row, $column, $attributeArray)
+    private function applyInlineStyle(&$sheet, $row, $column, $attributeArray): void
     {
         if (!isset($attributeArray['style'])) {
             return;
@@ -858,14 +841,10 @@ class Html extends BaseReader
     }
 
     /**
-     * @param Worksheet $sheet
      * @param string    $column
      * @param int       $row
-     * @param array     $attributes
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    private function insertImage(Worksheet $sheet, $column, $row, array $attributes)
+    private function insertImage(Worksheet $sheet, $column, $row, array $attributes): void
     {
         if (!isset($attributes['src'])) {
             return;
@@ -949,13 +928,17 @@ class Html extends BaseReader
     }
 
     /**
-     * @param Style  $cellStyle
      * @param string $styleValue
      * @param string $type
      */
-    private function setBorderStyle(Style $cellStyle, $styleValue, $type)
+    private function setBorderStyle(Style $cellStyle, $styleValue, $type): void
     {
-        [, $borderStyle, $color] = explode(' ', $styleValue);
+        if (trim($styleValue) === Border::BORDER_NONE) {
+            $borderStyle = Border::BORDER_NONE;
+            $color = null;
+        } else {
+            [, $borderStyle, $color] = explode(' ', $styleValue);
+        }
 
         $cellStyle->applyFromArray([
             'borders' => [

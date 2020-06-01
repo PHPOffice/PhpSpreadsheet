@@ -18,14 +18,14 @@ class MRoundTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMROUND($expectedResult, ...$args)
+    public function testMROUND($expectedResult, ...$args): void
     {
         $result = MathTrig::MROUND(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerMROUND()
     {
-        return require 'data/Calculation/MathTrig/MROUND.php';
+        return require 'tests/data/Calculation/MathTrig/MROUND.php';
     }
 }

@@ -18,14 +18,14 @@ class SwitchTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSWITCH($expectedResult, ...$args)
+    public function testSWITCH($expectedResult, ...$args): void
     {
         $result = Logical::statementSwitch(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerSwitch()
     {
-        return require 'data/Calculation/Logical/SWITCH.php';
+        return require 'tests/data/Calculation/Logical/SWITCH.php';
     }
 }

@@ -19,14 +19,14 @@ class FactTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testFACT($expectedResult, $value)
+    public function testFACT($expectedResult, $value): void
     {
         $result = MathTrig::FACT($value);
-        $this->assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerFACT()
     {
-        return require 'data/Calculation/MathTrig/FACT.php';
+        return require 'tests/data/Calculation/MathTrig/FACT.php';
     }
 }

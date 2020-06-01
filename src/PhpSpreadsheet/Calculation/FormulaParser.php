@@ -62,8 +62,6 @@ class FormulaParser
      * Create a new FormulaParser.
      *
      * @param string $pFormula Formula to parse
-     *
-     * @throws Exception
      */
     public function __construct($pFormula = '')
     {
@@ -92,8 +90,6 @@ class FormulaParser
      * Get Token.
      *
      * @param int $pId Token id
-     *
-     * @throws Exception
      *
      * @return string
      */
@@ -129,7 +125,7 @@ class FormulaParser
     /**
      * Parse to tokens.
      */
-    private function parseToTokens()
+    private function parseToTokens(): void
     {
         // No attempt is made to verify formulas; assumes formulas are derived from Excel, where
         // they can only exist if valid; stack overflows/underflows sunk as nulls without exceptions.

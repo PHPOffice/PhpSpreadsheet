@@ -15,20 +15,20 @@ $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
-            ['', 'Rainfall (mm)', 'Temperature (°F)', 'Humidity (%)'],
-            ['Jan', 78, 52, 61],
-            ['Feb', 64, 54, 62],
-            ['Mar', 62, 57, 63],
-            ['Apr', 21, 62, 59],
-            ['May', 11, 75, 60],
-            ['Jun', 1, 75, 57],
-            ['Jul', 1, 79, 56],
-            ['Aug', 1, 79, 59],
-            ['Sep', 10, 75, 60],
-            ['Oct', 40, 68, 63],
-            ['Nov', 69, 62, 64],
-            ['Dec', 89, 57, 66],
-        ]
+        ['', 'Rainfall (mm)', 'Temperature (°F)', 'Humidity (%)'],
+        ['Jan', 78, 52, 61],
+        ['Feb', 64, 54, 62],
+        ['Mar', 62, 57, 63],
+        ['Apr', 21, 62, 59],
+        ['May', 11, 75, 60],
+        ['Jun', 1, 75, 57],
+        ['Jul', 1, 79, 56],
+        ['Aug', 1, 79, 59],
+        ['Sep', 10, 75, 60],
+        ['Oct', 40, 68, 63],
+        ['Nov', 69, 62, 64],
+        ['Dec', 89, 57, 66],
+    ]
 );
 
 // Set the Labels for each data series we want to plot
@@ -139,7 +139,7 @@ $chart = new Chart(
     $legend, // legend
     $plotArea, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
     null   // yAxisLabel
 );

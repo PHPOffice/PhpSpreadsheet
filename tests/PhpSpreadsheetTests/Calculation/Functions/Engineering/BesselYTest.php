@@ -20,14 +20,14 @@ class BesselYTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBESSELY($expectedResult, ...$args)
+    public function testBESSELY($expectedResult, ...$args): void
     {
         $result = Engineering::BESSELY(...$args);
-        $this->assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
+        self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
     public function providerBESSELY()
     {
-        return require 'data/Calculation/Engineering/BESSELY.php';
+        return require 'tests/data/Calculation/Engineering/BESSELY.php';
     }
 }

@@ -16,7 +16,7 @@ class BstoreContainer
      *
      * @param BstoreContainer\BSE $BSE
      */
-    public function addBSE($BSE)
+    public function addBSE($BSE): void
     {
         $this->BSECollection[] = $BSE;
         $BSE->setParent($this);
