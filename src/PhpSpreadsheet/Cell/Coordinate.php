@@ -316,7 +316,7 @@ abstract class Coordinate
      *
      * @return array Array containing single cell references
      */
-    public static function extractAllCellReferencesInRange($cellRange)
+    public static function extractAllCellReferencesInRange($cellRange): array
     {
         [$ranges, $operators] = self::getCellBlocksFromRangeString($cellRange);
 
@@ -325,6 +325,26 @@ abstract class Coordinate
             $cells[] = self::getReferencesForCellBlock($range);
         }
 
+        $cells = self::processRangeSetOperators($operators, $cells);
+
+        if (empty($cells)) {
+            return [];
+        }
+
+        $cellList = array_merge(...$cells);
+        $sortKeys = self::sortCellReferenceArray($cellList);
+
+        // Return value
+        return array_values($sortKeys);
+    }
+
+    /**
+     * @param array $operators
+     * @param array $cells
+     * @return array
+     */
+    private static function processRangeSetOperators(array $operators, array $cells): array
+    {
         for ($offset = 0; $offset < count($operators); ++$offset) {
             $operator = $operators[$offset];
             if ($operator !== ' ') {
@@ -337,23 +357,23 @@ abstract class Coordinate
             $cells = array_values($cells);
             --$offset;
         }
+        return $cells;
+    }
 
-        if (empty($cells)) {
-            return [];
-        }
-
-        $cellList = array_merge(...$cells);
-
-        //    Sort the result by column and row
+    /**
+     * @param array $cellList
+     * @return array
+     */
+    private static function sortCellReferenceArray(array $cellList): array
+    {
+//    Sort the result by column and row
         $sortKeys = [];
         foreach ($cellList as $coord) {
             [$column, $row] = sscanf($coord, '%[A-Z]%d');
             $sortKeys[sprintf('%3s%09d', $column, $row)] = $coord;
         }
         ksort($sortKeys);
-
-        // Return value
-        return array_values($sortKeys);
+        return $sortKeys;
     }
 
     /**
