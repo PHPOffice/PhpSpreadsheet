@@ -332,15 +332,15 @@ abstract class Coordinate
         }
 
         $cellList = array_merge(...$cells);
-        $sortKeys = self::sortCellReferenceArray($cellList);
+        $cellList = self::sortCellReferenceArray($cellList);
 
-        // Return value
-        return array_values($sortKeys);
+        return $cellList;
     }
 
     /**
      * @param array $operators
      * @param array $cells
+     *
      * @return array
      */
     private static function processRangeSetOperators(array $operators, array $cells): array
@@ -357,23 +357,26 @@ abstract class Coordinate
             $cells = array_values($cells);
             --$offset;
         }
+
         return $cells;
     }
 
     /**
      * @param array $cellList
+     *
      * @return array
      */
     private static function sortCellReferenceArray(array $cellList): array
     {
-//    Sort the result by column and row
+        //    Sort the result by column and row
         $sortKeys = [];
         foreach ($cellList as $coord) {
             [$column, $row] = sscanf($coord, '%[A-Z]%d');
             $sortKeys[sprintf('%3s%09d', $column, $row)] = $coord;
         }
         ksort($sortKeys);
-        return $sortKeys;
+
+        return array_values($sortKeys);
     }
 
     /**
