@@ -299,11 +299,12 @@ class CoordinateTest extends TestCase
     /**
      * @dataProvider providerExtractAllCellReferencesInRange
      *
-     * @param mixed $expectedResult
+     * @param array $expectedResult
+     * @param string $rangeSet
      */
-    public function testExtractAllCellReferencesInRange($expectedResult, ...$args): void
+    public function testExtractAllCellReferencesInRange($expectedResult, $rangeSet): void
     {
-        $result = Coordinate::extractAllCellReferencesInRange(...$args);
+        $result = Coordinate::extractAllCellReferencesInRange($rangeSet);
         self::assertEquals($expectedResult, $result);
     }
 
