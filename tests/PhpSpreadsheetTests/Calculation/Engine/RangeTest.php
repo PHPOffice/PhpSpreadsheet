@@ -45,11 +45,21 @@ class RangeTest extends TestCase
     {
         return[
             ['=SUM(A1:B3,A1:C2)', 48],
+            ['=COUNT(A1:B3,A1:C2)', 12],
             ['=SUM(A1:B3 A1:C2)', 12],
+            ['=COUNT(A1:B3 A1:C2)', 4],
             ['=SUM(A1:A3,C1:C3)', 30],
+            ['=COUNT(A1:A3,C1:C3)', 6],
             ['=SUM(A1:A3 C1:C3)', Functions::null()],
+            ['=COUNT(A1:A3 C1:C3)', 0],
             ['=SUM(A1:B2,B2:C3)', 40],
+            ['=COUNT(A1:B2,B2:C3)', 8],
             ['=SUM(A1:B2 B2:C3)', 5],
+            ['=COUNT(A1:B2 B2:C3)', 1],
+            ['=SUM(A1:C1,A3:C3,B1:C3)', 63],
+            ['=COUNT(A1:C1,A3:C3,B1:C3)', 12],
+            ['=SUM(A1:C1,A3:C3 B1:C3)', 23],
+            ['=COUNT(A1:C1,A3:C3 B1:C3)', 5],
         ];
     }
 
@@ -69,35 +79,57 @@ class RangeTest extends TestCase
 
         $workSheet->setCellValue('E1', $formula);
 
-        $actualRresult = $workSheet->getCell('E1')->getCalculatedValue();
-        self::assertSame($expectedResult, $actualRresult);
+        $sumRresult = $workSheet->getCell('E1')->getCalculatedValue();
+        self::assertSame($expectedResult, $sumRresult);
     }
 
     public function providerNamedRangeEvaluation()
     {
         return[
-            [
-                'A1:B3',
-                'A1:C2',
-                '=SUM(GROUP1,GROUP2)',
-                48,
-            ],
-            [
-                'A1:B3',
-                'A1:C2',
-                '=SUM(GROUP1 GROUP2)',
-                12,
-            ],
-            [
-                'A1:B2',
-                'B2:C3',
-                '=SUM(GROUP1,GROUP2)',
-                40,
-            ],
-            [
-                'A1:B2',
-                'B2:C3',
-                '=SUM(GROUP1 GROUP2)',
+            ['A1:B3', 'A1:C2', '=SUM(GROUP1,GROUP2)', 48],
+            ['A1:B3', 'A1:C2', '=COUNT(GROUP1,GROUP2)', 12],
+            ['A1:B3', 'A1:C2', '=SUM(GROUP1 GROUP2)', 12],
+            ['A1:B3', 'A1:C2', '=COUNT(GROUP1 GROUP2)', 4],
+            ['A1:B2', 'B2:C3', '=SUM(GROUP1,GROUP2)', 40],
+            ['A1:B2', 'B2:C3', '=COUNT(GROUP1,GROUP2)', 8],
+            ['A1:B2', 'B2:C3', '=SUM(GROUP1 GROUP2)', 5],
+            ['A1:B2', 'B2:C3', '=COUNT(GROUP1 GROUP2)', 1],
+        ];
+    }
+
+    /**
+     * @dataProvider providerCompositeNamedRangeEvaluation
+     *
+     * @param string $composite
+     * @param int $expectedSum
+     * @param int $expectedCount
+     */
+    public function testCompositeNamedRangeEvaluation($composite, $expectedSum, $expectedCount): void
+    {
+        $workSheet = $this->spreadSheet->getActiveSheet();
+        $this->spreadSheet->addNamedRange(new NamedRange('COMPOSITE', $workSheet, $composite));
+
+        $workSheet->setCellValue('E1', '=SUM(COMPOSITE)');
+        $workSheet->setCellValue('E2', '=COUNT(COMPOSITE)');
+
+        $actualSum = $workSheet->getCell('E1')->getCalculatedValue();
+        self::assertSame($expectedSum, $actualSum);
+        $actualCount = $workSheet->getCell('E2')->getCalculatedValue();
+        self::assertSame($expectedCount, $actualCount);
+    }
+
+    public function providerCompositeNamedRangeEvaluation()
+    {
+        return[
+            //  Calculation engine doesn't yet handle union ranges with overlap
+            //  'Union with overlap' => [
+            //      'A1:C1,A3:C3,B1:C3',
+            //      63,
+            //      12,
+            //  ],
+            'Intersection' => [
+                'A1:C1,A3:C3 B1:C3',
+                23,
                 5,
             ],
         ];
