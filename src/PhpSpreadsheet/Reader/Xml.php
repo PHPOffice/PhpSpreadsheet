@@ -516,7 +516,7 @@ class Xml extends BaseReader
                                         break;
                                     case 'DateTime':
                                         $type = DataType::TYPE_NUMERIC;
-                                        $cellValue = Date::PHPToExcel(strtotime($cellValue));
+                                        $cellValue = Date::PHPToExcel(strtotime($cellValue . ' UTC'));
 
                                         break;
                                     case 'Error':
