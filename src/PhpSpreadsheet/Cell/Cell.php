@@ -101,7 +101,7 @@ class Cell
         $this->parent = $pSheet->getCellCollection();
 
         // Set datatype?
-        if ($pDataType !== null) {
+        if ($pDataType !== DataType::TYPE_NULL) {
             if ($pDataType == DataType::TYPE_STRING2) {
                 $pDataType = DataType::TYPE_STRING;
             }
