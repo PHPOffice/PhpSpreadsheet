@@ -29,7 +29,7 @@ class SlkTest extends \PHPUnit\Framework\TestCase
         $this->expectException(ReaderException::class);
         $reader = new Slk();
         self::assertNull($reader->setLoadSheetsOnly(null)->getLoadSheetsOnly());
-        $workSheetInfo = $reader->listWorkSheetInfo(self::$testbook . 'xxx');
+        $reader->listWorkSheetInfo(self::$testbook . 'xxx');
     }
 
     public function testBadFileName2(): void
@@ -42,7 +42,7 @@ class SlkTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(ReaderException::class);
         $reader = new Slk();
-        $workSheetInfo = $reader->listWorkSheetInfo(__FILE__);
+        $reader->listWorkSheetInfo(__FILE__);
     }
 
     public function testLoadSlk(): void

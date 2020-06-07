@@ -277,7 +277,7 @@ class Slk extends BaseReader
     {
         //    Read cell value data
         $hasCalculatedValue = false;
-        $cellDataFormula = '';
+        $cellDataFormula = $cellData = '';
         foreach ($rowData as $rowDatum) {
             switch ($rowDatum[0]) {
                 case 'C':
@@ -300,7 +300,7 @@ class Slk extends BaseReader
                     break;
             }
         }
-        $columnLetter = Coordinate::stringFromColumnIndex($column);
+        $columnLetter = Coordinate::stringFromColumnIndex((int) $column);
         $cellData = Calculation::unwrapResult($cellData);
 
         // Set cell value
@@ -320,7 +320,7 @@ class Slk extends BaseReader
     private function processFRecord(array $rowData, Spreadsheet &$spreadsheet, string &$row, string &$column): void
     {
         //    Read cell formatting
-        $formatStyle = $columnWidth = $styleSettings = '';
+        $formatStyle = $columnWidth = '';
         $startCol = $endCol = '';
         $fontStyle = '';
         $styleData = [];
@@ -369,7 +369,6 @@ class Slk extends BaseReader
     {
         $styleSettings = substr($rowDatum, 1);
         $iMax = strlen($styleSettings);
-        $mactive = false;
         for ($i = 0; $i < $iMax; ++$i) {
             $char = $styleSettings[$i];
             if (array_key_exists($char, $this->styleSettingsFont)) {
@@ -389,7 +388,7 @@ class Slk extends BaseReader
     private function addFormats(Spreadsheet &$spreadsheet, string $formatStyle, string $row, string $column): void
     {
         if ($formatStyle && $column > '' && $row > '') {
-            $columnLetter = Coordinate::stringFromColumnIndex($column);
+            $columnLetter = Coordinate::stringFromColumnIndex((int) $column);
             if (isset($this->formats[$formatStyle])) {
                 $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($this->formats[$formatStyle]);
             }
@@ -399,7 +398,7 @@ class Slk extends BaseReader
     private function addFonts(Spreadsheet &$spreadsheet, string $fontStyle, string $row, string $column): void
     {
         if ($fontStyle && $column > '' && $row > '') {
-            $columnLetter = Coordinate::stringFromColumnIndex($column);
+            $columnLetter = Coordinate::stringFromColumnIndex((int) $column);
             if (isset($this->fonts[$fontStyle])) {
                 $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($this->fonts[$fontStyle]);
             }
@@ -418,12 +417,12 @@ class Slk extends BaseReader
     {
         if ($columnWidth > '') {
             if ($startCol == $endCol) {
-                $startCol = Coordinate::stringFromColumnIndex($startCol);
+                $startCol = Coordinate::stringFromColumnIndex((int) $startCol);
                 $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth($columnWidth);
             } else {
                 $startCol = Coordinate::stringFromColumnIndex($startCol);
                 $endCol = Coordinate::stringFromColumnIndex($endCol);
-                $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth($columnWidth);
+                $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth((float) $columnWidth);
                 do {
                     $spreadsheet->getActiveSheet()->getColumnDimension(++$startCol)->setWidth($columnWidth);
                 } while ($startCol != $endCol);
