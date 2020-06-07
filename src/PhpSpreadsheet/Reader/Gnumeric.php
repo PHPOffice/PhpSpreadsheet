@@ -488,7 +488,8 @@ class Gnumeric extends BaseReader
 
         $gFileData = $this->gzfileGetContents($pFilename);
 
-        $xml = simplexml_load_string($this->securityScanner->scan($gFileData), 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        $xml2 = simplexml_load_string($this->securityScanner->scan($gFileData), 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        $xml = ($xml2 !== false) ? $xml2 : new SimpleXMLElement();
         $namespacesMeta = $xml->getNamespaces(true);
         $this->gnm = array_key_exists('gmr', $namespacesMeta) ? 'gmr' : 'gnm';
 
@@ -692,7 +693,7 @@ class Gnumeric extends BaseReader
         $columnAttributes = $columnOverride->attributes();
         $column = $columnAttributes['No'];
         $columnWidth = ((float) $columnAttributes['Unit']) / 5.4;
-        $hidden = (isset($columnAttributes['Hidden'])) && ($columnAttributes['Hidden'] == '1');
+        $hidden = (isset($columnAttributes['Hidden'])) && ((string) $columnAttributes['Hidden'] == '1');
         $columnCount = (isset($columnAttributes['Count'])) ? $columnAttributes['Count'] : 1;
         while ($c < $column) {
             $this->spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c + 1))->setWidth($defaultWidth);
@@ -731,7 +732,7 @@ class Gnumeric extends BaseReader
         $rowAttributes = $rowOverride->attributes();
         $row = $rowAttributes['No'];
         $rowHeight = (float) $rowAttributes['Unit'];
-        $hidden = (isset($rowAttributes['Hidden'])) && ($rowAttributes['Hidden'] == '1');
+        $hidden = (isset($rowAttributes['Hidden'])) && ((string) $rowAttributes['Hidden'] == '1');
         $rowCount = (isset($rowAttributes['Count'])) ? $rowAttributes['Count'] : 1;
         while ($r < $row) {
             ++$r;
@@ -850,7 +851,7 @@ class Gnumeric extends BaseReader
         $RGB = self::parseGnumericColour($styleAttributes['Fore']);
         $styleArray['font']['color']['rgb'] = $RGB;
         $RGB = self::parseGnumericColour($styleAttributes['Back']);
-        $shade = $styleAttributes['Shade'];
+        $shade = (string) $styleAttributes['Shade'];
         if (($RGB != '000000') || ($shade != '0')) {
             $RGB2 = self::parseGnumericColour($styleAttributes['PatternColor']);
             if ($shade == '1') {
