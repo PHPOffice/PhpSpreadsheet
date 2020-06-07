@@ -43,7 +43,7 @@ class Gnumeric extends BaseReader
      * Namespace shared across all functions.
      * It is 'gnm', except for really old sheets which use 'gmr'.
      *
-     * @var Spreadsheet
+     * @var string
      */
     private $gnm = 'gnm';
 
@@ -378,7 +378,6 @@ class Gnumeric extends BaseReader
 
     private function docProperties(SimpleXMLElement $xml, SimpleXMLElement $gnmXML, array $namespacesMeta): void
     {
-        $docProps = $this->spreadsheet->getProperties();
         if (isset($namespacesMeta['office'])) {
             $officeXML = $xml->children($namespacesMeta['office']);
             $officeDocXML = $officeXML->{'document-meta'};
@@ -567,7 +566,7 @@ class Gnumeric extends BaseReader
                         $cell = $cell == 'TRUE';
                     }
                 }
-                $this->spreadsheet->getActiveSheet()->getCell($column . $row)->setValueExplicit($cell, $type);
+                $this->spreadsheet->getActiveSheet()->getCell($column . $row)->setValueExplicit((string) $cell, $type);
             }
 
             $this->processComments($sheet);
@@ -599,11 +598,11 @@ class Gnumeric extends BaseReader
                         self::addStyle2($styleArray, 'alignment', 'horizontal', $styleAttributes['HAlign']);
                         self::addStyle2($styleArray, 'alignment', 'vertical', $styleAttributes['VAlign']);
                         $styleArray['alignment']['wrapText'] = $styleAttributes['WrapText'] == '1';
-                        $styleArray['alignment']['textRotation'] = self::calcRotation($styleAttributes);
+                        $styleArray['alignment']['textRotation'] = $this->calcRotation($styleAttributes);
                         $styleArray['alignment']['shrinkToFit'] = $styleAttributes['ShrinkToFit'] == '1';
                         $styleArray['alignment']['indent'] = ((int) ($styleAttributes['Indent']) > 0) ? $styleAttributes['indent'] : 0;
 
-                        self::addColors($styleArray, $styleAttributes);
+                        $this->addColors($styleArray, $styleAttributes);
 
                         $fontAttributes = $styleRegion->Style->Font->attributes();
                         $styleArray['font']['name'] = (string) $styleRegion->Style->Font;
