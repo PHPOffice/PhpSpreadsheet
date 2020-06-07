@@ -489,7 +489,7 @@ class Gnumeric extends BaseReader
         $gFileData = $this->gzfileGetContents($pFilename);
 
         $xml2 = simplexml_load_string($this->securityScanner->scan($gFileData), 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
-        $xml = ($xml2 !== false) ? $xml2 : new SimpleXMLElement();
+        $xml = ($xml2 !== false) ? $xml2 : new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><root></root>');
         $namespacesMeta = $xml->getNamespaces(true);
         $this->gnm = array_key_exists('gmr', $namespacesMeta) ? 'gmr' : 'gnm';
 
