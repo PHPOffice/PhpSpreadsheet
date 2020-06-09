@@ -33,7 +33,7 @@ EOF;
         $html1 = $writer->generateHTMLall();
         $writer->setEditHtmlCallback([$this, 'yellowBody']);
         $html2 = $writer->generateHTMLall();
-        $writer->resetEditHtmlCallback();
+        $writer->setEditHtmlCallback(null);
         $html3 = $writer->generateHTMLall();
 
         self::assertFalse(strpos($html1, 'background-color: yellow'));

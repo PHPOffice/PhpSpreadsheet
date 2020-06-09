@@ -8,20 +8,13 @@ $spreadsheet = require __DIR__ . '/../templates/sampleSpreadsheet.php';
 $filename = $helper->getFilename(__FILE__, 'html');
 $writer = new Html($spreadsheet);
 
-function webfont(string $html): string
+function changeGridlines(string $html): string
 {
-    $linktag = <<<EOF
-<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet" />
-
-EOF;
-    $html = preg_replace('@<style@', "$linktag<style", $html, 1);
-    $html = str_replace("font-family:'Calibri';", "font-family:'Poiret One','Calibri',sans-serif;", $html);
-
-    return $html;
+    return str_replace('{border: 1px solid black;}', '{border: 2px dashed red;}', $html);
 }
 
 $callStartTime = microtime(true);
 $writer->setEmbedImages(true);
-$writer->setEditHtmlCallback('webfont');
+$writer->setEditHtmlCallback('changeGridlines');
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);

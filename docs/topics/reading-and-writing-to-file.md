@@ -703,41 +703,22 @@ echo $writer->generateSheetData();
 echo $writer->generateHTMLFooter();
 ```
 
-#### Editing HTML During Save Via a Callback
+#### Editing HTML during save via a callback
 
 You can also add a callback function to edit the generated html
-before saving. For example, you could add a webfont
-(not currently supported for Pdf) as follows:
+before saving. For example, you could change the gridlines
+from a thin solid black line:
 
 ``` php
-function webfont(string $html): string
+function changeGridlines(string $html): string
 {
-    $linktag = <<<EOF
-<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet" />
-
-EOF;
-    $html = preg_replace('@<style@', "$linktag<style", $html, 1);
-    $html = str_replace("font-family:'Calibri';",
-        "font-family:'Poiret One','Calibri',sans-serif;",
+    return str_replace('{border: 1px solid black;}',
+        '{border: 2px dashed red;}',
         $html);
-
-    return $html;
 }
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
-$writer->setEditHtmlCallback('webfont');
+$writer->setEditHtmlCallback('changeGridlines');
 $writer->save($filename);
-```
-
-#### Writing UTF-8 HTML files
-
-A HTML file can be marked as UTF-8 by writing a BOM file header. This
-can be enabled by using the following code:
-
-``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
-$writer->setUseBOM(true);
-
-$writer->save("05featuredemo.htm");
 ```
 
 #### Decimal and thousands separators
@@ -866,7 +847,7 @@ $writer->setPreCalculateFormulas(false);
 $writer->save("05featuredemo.pdf");
 ```
 
-#### Editing Pdf During Save Via a Callback
+#### Editing Pdf during save via a callback
 
 You can also add a callback function to edit the html used to
 generate the Pdf before saving.

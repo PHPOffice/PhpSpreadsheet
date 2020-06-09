@@ -134,9 +134,9 @@ class Html extends BaseWriter
     /**
      * Callback for editing generated html.
      *
-     * @var callable
+     * @var null|callable
      */
-    protected $editHtmlCallback = '';
+    protected $editHtmlCallback;
 
     /**
      * Create a new HTML.
@@ -197,9 +197,9 @@ class Html extends BaseWriter
 
         // Write footer
         $html .= $this->generateHTMLFooter();
-        $cbk = $this->editHtmlCallback;
-        if ($cbk) {
-            $html = $cbk($html);
+        $callback = $this->editHtmlCallback;
+        if ($callback) {
+            $html = $callback($html);
         }
 
         Calculation::setArrayReturnType($saveArrayReturnType);
@@ -208,14 +208,9 @@ class Html extends BaseWriter
         return $html;
     }
 
-    public function setEditHtmlCallback(callable $cbk): void
+    public function setEditHtmlCallback(?callable $cbk): void
     {
         $this->editHtmlCallback = $cbk;
-    }
-
-    public function resetEditHtmlCallback(): void
-    {
-        $this->editHtmlCallback = '';
     }
 
     const VALIGN_ARR = [
