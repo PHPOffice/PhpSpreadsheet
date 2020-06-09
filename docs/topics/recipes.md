@@ -20,7 +20,7 @@ metadata to search for a specific document in its document lists.
 
 Setting spreadsheet metadata is done as follows:
 
-``` php
+```php
 $spreadsheet->getProperties()
     ->setCreator("Maarten Balliauw")
     ->setLastModifiedBy("Maarten Balliauw")
@@ -38,13 +38,13 @@ $spreadsheet->getProperties()
 The following line of code sets the active sheet index to the first
 sheet:
 
-``` php
+```php
 $spreadsheet->setActiveSheetIndex(0);
 ```
 
 You can also set the active sheet by its name/title
 
-``` php
+```php
 $spreadsheet->setActiveSheetIndexByName('DataSheet')
 ```
 
@@ -68,7 +68,7 @@ UST.
 Writing a date value in a cell consists of 2 lines of code. Select the
 method that suits you the best. Here are some examples:
 
-``` php
+```php
 
 // MySQL-like timestamp '2008-12-31' or date string
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
@@ -136,14 +136,14 @@ The following line of code writes the formula
 formula must start with `=` to make PhpSpreadsheet recognise this as a
 formula.
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->setCellValue('B8','=IF(C4>500,"profit","loss")');
 ```
 
 If you want to write a string beginning with an `=` character to a
 cell, then you should use the `setCellValueExplicit()` method.
 
-``` php
+```php
 $spreadsheet->getActiveSheet()
     ->setCellValueExplicit(
         'B8',
@@ -154,14 +154,14 @@ $spreadsheet->getActiveSheet()
 
 A cell's formula can be read again using the following line of code:
 
-``` php
+```php
 $formula = $spreadsheet->getActiveSheet()->getCell('B8')->getValue();
 ```
 
 If you need the calculated value of a cell, use the following code. This
 is further explained in [the calculation engine](./calculation-engine.md).
 
-``` php
+```php
 $value = $spreadsheet->getActiveSheet()->getCell('B8')->getCalculatedValue();
 ```
 
@@ -171,7 +171,7 @@ Some localisation elements have been included in PhpSpreadsheet. You can
 set a locale by changing the settings. To set the locale to Russian you
 would use:
 
-``` php
+```php
 $locale = 'ru';
 $validLocale = \PhpOffice\PhpSpreadsheet\Settings::setLocale($locale);
 if (!$validLocale) {
@@ -185,7 +185,7 @@ will return an error, and English settings will be used throughout.
 Once you have set a locale, you can translate a formula from its
 internal English coding.
 
-``` php
+```php
 $formula = $spreadsheet->getActiveSheet()->getCell('B8')->getValue();
 $translatedFormula = \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->_translateFormulaToLocale($formula);
 ```
@@ -194,7 +194,7 @@ You can also create a formula using the function names and argument
 separators appropriate to the defined locale; then translate it to
 English before setting the cell value:
 
-``` php
+```php
 $formula = '=ДНЕЙ360(ДАТА(2010;2;5);ДАТА(2010;12;31);ИСТИНА)';
 $internalFormula = \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->translateFormulaToEnglish($formula);
 $spreadsheet->getActiveSheet()->setCellValue('B8',$internalFormula);
@@ -232,7 +232,7 @@ the cell.
 
 Here is how to achieve this in PhpSpreadsheet:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getCell('A1')->setValue("hello\nworld");
 $spreadsheet->getActiveSheet()->getStyle('A1')->getAlignment()->setWrapText(true);
 ```
@@ -247,7 +247,7 @@ AdvancedValuebinder.php automatically turns on "wrap text" for the cell
 when it sees a newline character in a string that you are inserting in a
 cell. Just like Microsoft Office Excel. Try this:
 
-``` php
+```php
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()->getCell('A1')->setValue("hello\nworld");
@@ -261,7 +261,7 @@ You can set a cell's datatype explicitly by using the cell's
 setValueExplicit method, or the setCellValueExplicit method of a
 worksheet. Here's an example:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getCell('A1')
     ->setValueExplicit(
         '25',
@@ -273,7 +273,7 @@ $spreadsheet->getActiveSheet()->getCell('A1')
 
 You can make a cell a clickable URL by setting its hyperlink property:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
 $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('https://www.example.com');
 ```
@@ -281,7 +281,7 @@ $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('https://
 If you want to make a hyperlink to another worksheet/cell, use the
 following code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
 $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl("sheet://'Sheetname'!A1");
 ```
@@ -293,7 +293,7 @@ $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl("sheet://
 Setting a worksheet's page orientation and size can be done using the
 following lines of code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getPageSetup()
     ->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
 $spreadsheet->getActiveSheet()->getPageSetup()
@@ -324,7 +324,7 @@ setFitToHeight(...) | 1             | setFitToPage(TRUE)          | value 0 mean
 
 Here is how to fit to 1 page wide by infinite pages tall:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getPageSetup()->setFitToWidth(1);
 $spreadsheet->getActiveSheet()->getPageSetup()->setFitToHeight(0);
 ```
@@ -340,7 +340,7 @@ the initial values.
 
 To set page margins for a worksheet, use this code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getPageMargins()->setTop(1);
 $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.75);
 $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.75);
@@ -356,7 +356,7 @@ Note that the margin values are specified in inches.
 To center a page horizontally/vertically, you can use the following
 code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getPageSetup()->setHorizontalCentered(true);
 $spreadsheet->getActiveSheet()->getPageSetup()->setVerticalCentered(false);
 ```
@@ -366,7 +366,7 @@ $spreadsheet->getActiveSheet()->getPageSetup()->setVerticalCentered(false);
 Setting a worksheet's print header and footer can be done using the
 following lines of code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getHeaderFooter()
     ->setOddHeader('&C&HPlease treat this document as confidential!');
 $spreadsheet->getActiveSheet()->getHeaderFooter()
@@ -460,13 +460,13 @@ $spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, \PhpOffice
 To set a print break, use the following code, which sets a row break on
 row 10.
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->setBreak('A10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW);
 ```
 
 The following line of code sets a print break on column D:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->setBreak('D10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN);
 ```
 
@@ -484,7 +484,7 @@ PhpSpreadsheet can repeat specific rows/cells at top/left of a page. The
 following code is an example of how to repeat row 1 to 5 on each printed
 page of a specific worksheet:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 5);
 ```
 
@@ -492,13 +492,13 @@ $spreadsheet->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEn
 
 To specify a worksheet's printing area, use the following code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getPageSetup()->setPrintArea('A1:E5');
 ```
 
 There can also be multiple printing areas in a single worksheet:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getPageSetup()->setPrintArea('A1:E5,G4:M20');
 ```
 
@@ -511,7 +511,7 @@ For example, one can set the foreground colour of a cell to red, aligned
 to the right, and the border to black and thick border style. Let's do
 that on cell B2:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getStyle('B2')
     ->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
 $spreadsheet->getActiveSheet()->getStyle('B2')
@@ -533,7 +533,7 @@ $spreadsheet->getActiveSheet()->getStyle('B2')
 `getStyle()` also accepts a cell range as a parameter. For example, you
 can set a red background color on a range of cells:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getStyle('B3:B7')->getFill()
     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('FFFF0000');
@@ -548,7 +548,7 @@ There is also an alternative manner to set styles. The following code
 sets a cell's style to font bold, alignment right, top border thin and a
 gradient fill:
 
-``` php
+```php
 $styleArray = [
     'font' => [
         'bold' => true,
@@ -578,7 +578,7 @@ $spreadsheet->getActiveSheet()->getStyle('A3')->applyFromArray($styleArray);
 
 Or with a range of cells:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getStyle('B3:B7')->applyFromArray($styleArray);
 ```
 
@@ -602,7 +602,7 @@ number format code unless you need a custom number format.
 In PhpSpreadsheet, you can also apply various predefined number formats.
 Example:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getStyle('A1')->getNumberFormat()
     ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
 ```
@@ -614,7 +614,7 @@ up as 1.587,20)
 
 You can achieve exactly the same as the above by using this:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getStyle('A1')->getNumberFormat()
     ->setFormatCode('#,##0.00');
 ```
@@ -623,7 +623,7 @@ In Microsoft Office Excel, as well as in PhpSpreadsheet, you will have
 to interact with raw number format codes whenever you need some special
 custom number format. Example:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getStyle('A1')->getNumberFormat()
     ->setFormatCode('[Blue][>=3000]$#,##0;[Red][<0]$#,##0;$#,##0');
 ```
@@ -631,7 +631,7 @@ $spreadsheet->getActiveSheet()->getStyle('A1')->getNumberFormat()
 Another example is when you want numbers zero-padded with leading zeros
 to a fixed length:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getCell('A1')->setValue(19);
 $spreadsheet->getActiveSheet()->getStyle('A1')->getNumberFormat()
     ->setFormatCode('0000'); // will show as 0019 in Excel
@@ -646,7 +646,7 @@ The readers shipped with PhpSpreadsheet come to the rescue. Load your
 template workbook using e.g. Xlsx reader to reveal the number format
 code. Example how read a number format code for cell A1:
 
-``` php
+```php
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $spreadsheet = $reader->load('template.xlsx');
 var_dump($spreadsheet->getActiveSheet()->getStyle('A1')->getNumberFormat()->getFormatCode());
@@ -661,14 +661,14 @@ code in *xl/styles.xml*.
 
 Let's set vertical alignment to the top for cells A1:D4
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getStyle('A1:D4')
     ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
 ```
 
 Here is how to achieve wrap text:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getStyle('A1:D4')
     ->getAlignment()->setWrapText(true);
 ```
@@ -678,7 +678,7 @@ $spreadsheet->getActiveSheet()->getStyle('A1:D4')
 It is possible to set the default style of a workbook. Let's set the
 default font to Arial size 8:
 
-``` php
+```php
 $spreadsheet->getDefaultStyle()->getFont()->setName('Arial');
 $spreadsheet->getDefaultStyle()->getFont()->setSize(8);
 ```
@@ -689,7 +689,7 @@ In PhpSpreadsheet it is easy to apply various borders on a rectangular
 selection. Here is how to apply a thick red border outline around cells
 B2:G8.
 
-``` php
+```php
 $styleArray = [
     'borders' => [
         'outline' => [
@@ -839,7 +839,7 @@ is below zero, and to green if its value is zero or more.
 One can set a conditional style ruleset to a cell using the following
 code:
 
-``` php
+```php
 $conditional1 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
 $conditional1->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS);
 $conditional1->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN);
@@ -864,7 +864,7 @@ $spreadsheet->getActiveSheet()->getStyle('B2')->setConditionalStyles($conditiona
 If you want to copy the ruleset to other cells, you can duplicate the
 style object:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()
     ->duplicateStyle(
         $spreadsheet->getActiveSheet()->getStyle('B2'),
@@ -877,7 +877,7 @@ $spreadsheet->getActiveSheet()
 To add a comment to a cell, use the following code. The example below
 adds a comment to cell E11:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()
     ->getComment('E11')
     ->setAuthor('Mark Baker');
@@ -899,7 +899,7 @@ $spreadsheet->getActiveSheet()
 
 To apply an autofilter to a range of cells, use the following code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->setAutoFilter('A1:C9');
 ```
 
@@ -919,44 +919,84 @@ disallow inserting rows on a specific sheet, disallow sorting, ...
 - Cell: offers the option to lock/unlock a cell as well as show/hide
 the internal formula.
 
+**Make sure you enable worksheet protection if you need any of the
+worksheet or cell protection features!** This can be done using the following
+code:
+
+```php
+$spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
+```
+
+### Document
+
 An example on setting document security:
 
-``` php
-$spreadsheet->getSecurity()->setLockWindows(true);
-$spreadsheet->getSecurity()->setLockStructure(true);
-$spreadsheet->getSecurity()->setWorkbookPassword("PhpSpreadsheet");
+```php
+$security = $spreadsheet->getSecurity();
+$security->setLockWindows(true);
+$security->setLockStructure(true);
+$security->setWorkbookPassword("PhpSpreadsheet");
 ```
+
+### Worksheet
 
 An example on setting worksheet security:
 
-``` php
-$spreadsheet->getActiveSheet()
-    ->getProtection()->setPassword('PhpSpreadsheet');
-$spreadsheet->getActiveSheet()
-    ->getProtection()->setSheet(true);
-$spreadsheet->getActiveSheet()
-    ->getProtection()->setSort(true);
-$spreadsheet->getActiveSheet()
-    ->getProtection()->setInsertRows(true);
-$spreadsheet->getActiveSheet()
-    ->getProtection()->setFormatCells(true);
+```php
+$protection = $spreadsheet->getActiveSheet()->getProtection();
+$protection->setPassword('PhpSpreadsheet');
+$protection->setSheet(true);
+$protection->setSort(true);
+$protection->setInsertRows(true);
+$protection->setFormatCells(true);
 ```
+
+If writing Xlsx files you can specify the algorithm used to hash the password
+before calling `setPassword()` like so:
+
+```php
+$protection = $spreadsheet->getActiveSheet()->getProtection();
+$protection->setAlgorithm(Protection::ALGORITHM_SHA_512);
+$protection->setSpinCount(20000);
+$protection->setPassword('PhpSpreadsheet');
+```
+
+The salt should **not** be set manually and will be automatically generated
+when setting a new password.
+
+### Cell
 
 An example on setting cell security:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getStyle('B1')
     ->getProtection()
     ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
 ```
 
-**Make sure you enable worksheet protection if you need any of the
-worksheet protection features!** This can be done using the following
-code:
+## Reading protected spreadsheet
 
-``` php
-$spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
+Spreadsheets that are protected as described above can always be read by
+PhpSpreadsheet. There is no need to know the password or do anything special in
+order to read a protected file.
+
+However if you need to implement a password verification mechanism, you can use the
+following helper method:
+
+
+```php
+$protection = $spreadsheet->getActiveSheet()->getProtection();
+$allowed = $protection->verify('my password');
+
+if ($allowed) {
+    doSomething();
+} else {
+    throw new Exception('Incorrect password');
+}
 ```
+
+If you need to completely prevent reading a file by any tool, including PhpSpreadsheet,
+then you are looking for "encryption", not "protection".
 
 ## Setting data validation on a cell
 
@@ -968,7 +1008,7 @@ filter can be a range (i.e. value must be between 0 and 10), a list
 The following piece of code only allows numbers between 10 and 20 to be
 entered in cell B3:
 
-``` php
+```php
 $validation = $spreadsheet->getActiveSheet()->getCell('B3')
     ->getDataValidation();
 $validation->setType( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_WHOLE );
@@ -987,7 +1027,7 @@ $validation->setFormula2(20);
 The following piece of code only allows an item picked from a list of
 data to be entered in cell B5:
 
-``` php
+```php
 $validation = $spreadsheet->getActiveSheet()->getCell('B5')
     ->getDataValidation();
 $validation->setType( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST );
@@ -1017,7 +1057,7 @@ the item values themselves can contain the comma `,` character itself.
 If you need data validation on multiple cells, one can clone the
 ruleset:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getCell('B8')->setDataValidation(clone $validation);
 ```
 
@@ -1025,7 +1065,7 @@ $spreadsheet->getActiveSheet()->getCell('B8')->setDataValidation(clone $validati
 
 A column's width can be set using the following code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(12);
 ```
 
@@ -1033,7 +1073,7 @@ If you want PhpSpreadsheet to perform an automatic width calculation,
 use the following code. PhpSpreadsheet will approximate the column with
 to the width of the widest column value.
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
 ```
 
@@ -1070,7 +1110,7 @@ To set a worksheet's column visibility, you can use the following code.
 The first line explicitly shows the column C, the second line hides
 column D.
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getColumnDimension('C')->setVisible(true);
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setVisible(false);
 ```
@@ -1079,7 +1119,7 @@ $spreadsheet->getActiveSheet()->getColumnDimension('D')->setVisible(false);
 
 To group/outline a column, you can use the following code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getColumnDimension('E')->setOutlineLevel(1);
 ```
 
@@ -1087,7 +1127,7 @@ You can also collapse the column. Note that you should also set the
 column invisible, otherwise the collapse will not be visible in Excel
 2007.
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getColumnDimension('E')->setCollapsed(true);
 $spreadsheet->getActiveSheet()->getColumnDimension('E')->setVisible(false);
 ```
@@ -1098,7 +1138,7 @@ on collapsing.
 You can instruct PhpSpreadsheet to add a summary to the right (default),
 or to the left. The following code adds the summary to the left:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->setShowSummaryRight(false);
 ```
 
@@ -1106,7 +1146,7 @@ $spreadsheet->getActiveSheet()->setShowSummaryRight(false);
 
 A row's height can be set using the following code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getRowDimension('10')->setRowHeight(100);
 ```
 
@@ -1119,7 +1159,7 @@ of values is between 0 and 409 pts, where 0 pts is a hidden row.
 To set a worksheet''s row visibility, you can use the following code.
 The following example hides row number 10.
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getRowDimension('10')->setVisible(false);
 ```
 
@@ -1131,21 +1171,21 @@ AutoFilter range if you save the file.
 
 To group/outline a row, you can use the following code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getRowDimension('5')->setOutlineLevel(1);
 ```
 
 You can also collapse the row. Note that you should also set the row
 invisible, otherwise the collapse will not be visible in Excel 2007.
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getRowDimension('5')->setCollapsed(true);
 $spreadsheet->getActiveSheet()->getRowDimension('5')->setVisible(false);
 ```
 
 Here's an example which collapses rows 50 to 80:
 
-``` php
+```php
 for ($i = 51; $i <= 80; $i++) {
     $spreadsheet->getActiveSheet()->setCellValue('A' . $i, "FName $i");
     $spreadsheet->getActiveSheet()->setCellValue('B' . $i, "LName $i");
@@ -1162,7 +1202,7 @@ $spreadsheet->getActiveSheet()->getRowDimension(81)->setCollapsed(true);
 You can instruct PhpSpreadsheet to add a summary below the collapsible
 rows (default), or above. The following code adds the summary above:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->setShowSummaryBelow(false);
 ```
 
@@ -1172,13 +1212,13 @@ If you have a big piece of data you want to display in a worksheet, you
 can merge two or more cells together, to become one cell. This can be
 done using the following code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->mergeCells('A18:E22');
 ```
 
 Removing a merge can be done using the unmergeCells method:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->unmergeCells('A18:E22');
 ```
 
@@ -1187,7 +1227,7 @@ $spreadsheet->getActiveSheet()->unmergeCells('A18:E22');
 You can insert/remove rows/columns at a specific position. The following
 code inserts 2 new rows, right before row 7:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->insertNewRowBefore(7, 2);
 ```
 
@@ -1198,7 +1238,7 @@ to a worksheet. Therefore, you must first instantiate a new
 `\PhpOffice\PhpSpreadsheet\Worksheet\Drawing`, and assign its properties a
 meaningful value:
 
-``` php
+```php
 $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
 $drawing->setName('Logo');
 $drawing->setDescription('Logo');
@@ -1210,13 +1250,13 @@ To add the above drawing to the worksheet, use the following snippet of
 code. PhpSpreadsheet creates the link between the drawing and the
 worksheet:
 
-``` php
+```php
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 ```
 
 You can set numerous properties on a drawing, here are some examples:
 
-``` php
+```php
 $drawing->setName('Paid');
 $drawing->setDescription('Paid');
 $drawing->setPath('./images/paid.png');
@@ -1230,7 +1270,7 @@ $drawing->getShadow()->setDirection(45);
 You can also add images created using GD functions without needing to
 save them to disk first as In-Memory drawings.
 
-``` php
+```php
 //  Use GD to create an in-memory image
 $gdImage = @imagecreatetruecolor(120, 20) or die('Cannot Initialize new GD image stream');
 $textColor = imagecolorallocate($gdImage, 255, 255, 255);
@@ -1258,7 +1298,7 @@ that has been loaded, and save them as individual image files to disk.
 The following code extracts images from the current active worksheet,
 and writes each as a separate file.
 
-``` php
+```php
 $i = 0;
 foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
     if ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing) {
@@ -1303,7 +1343,7 @@ creates the following rich text string:
 > This invoice is ***payable within thirty days after the end of the
 > month*** unless specified otherwise on the invoice.
 
-``` php
+```php
 $richText = new \PhpOffice\PhpSpreadsheet\RichText\RichText();
 $richText->createText('This invoice is ');
 $payable = $richText->createTextRun('payable within thirty days after the end of the month');
@@ -1319,7 +1359,7 @@ $spreadsheet->getActiveSheet()->getCell('A18')->setValue($richText);
 PhpSpreadsheet supports the definition of named ranges. These can be
 defined using the following code:
 
-``` php
+```php
 // Add some data
 $spreadsheet->setActiveSheetIndex(0);
 $spreadsheet->getActiveSheet()->setCellValue('A1', 'Firstname:');
@@ -1362,7 +1402,7 @@ your document is needed, it is recommended not to use `php://output`.
 Example of a script redirecting an Excel 2007 file to the client's
 browser:
 
-``` php
+```php
 /* Here there will be some code where you create $spreadsheet */
 
 // redirect output to client browser
@@ -1376,7 +1416,7 @@ $writer->save('php://output');
 
 Example of a script redirecting an Xls file to the client's browser:
 
-``` php
+```php
 /* Here there will be some code where you create $spreadsheet */
 
 // redirect output to client browser
@@ -1404,7 +1444,7 @@ at the client browser, and/or that headers cannot be set by PHP
 
 Default column width can be set using the following code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(12);
 ```
 
@@ -1412,7 +1452,7 @@ $spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(12);
 
 Default row height can be set using the following code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getDefaultRowDimension()->setRowHeight(15);
 ```
 
@@ -1425,7 +1465,7 @@ file to a temporary location.
 Here''s an example which generates an image in memory and adds it to the
 active worksheet:
 
-``` php
+```php
 // Generate an image
 $gdImage = @imagecreatetruecolor(120, 20) or die('Cannot Initialize new GD image stream');
 $textColor = imagecolorallocate($gdImage, 255, 255, 255);
@@ -1446,7 +1486,7 @@ $drawing->setWorksheet($spreadsheet->getActiveSheet());
 
 To set a worksheet's zoom level, the following code can be used:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getSheetView()->setZoomScale(75);
 ```
 
@@ -1457,7 +1497,7 @@ Note that zoom level should be in range 10 - 400.
 Sometimes you want to set a color for sheet tab. For example you can
 have a red sheet tab:
 
-``` php
+```php
 $worksheet->getTabColor()->setRGB('FF0000');
 ```
 
@@ -1465,7 +1505,7 @@ $worksheet->getTabColor()->setRGB('FF0000');
 
 If you need to create more worksheets in the workbook, here is how:
 
-``` php
+```php
 $worksheet1 = $spreadsheet->createSheet();
 $worksheet1->setTitle('Another sheet');
 ```
@@ -1478,7 +1518,7 @@ worksheets in the workbook.
 
 Set a worksheet to be **hidden** using this code:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()
     ->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
 ```
@@ -1500,7 +1540,7 @@ Worksheets can be set individually whether column `A` should start at
 left or right side. Default is left. Here is how to set columns from
 right-to-left.
 
-``` php
+```php
 // right-to-left worksheet
 $spreadsheet->getActiveSheet()->setRightToLeft(true);
 ```

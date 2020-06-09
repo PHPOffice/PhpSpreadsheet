@@ -187,7 +187,7 @@ class Worksheet implements IComparable
     /**
      * Collection of merged cell ranges.
      *
-     * @var array
+     * @var string[]
      */
     private $mergeCells = [];
 
@@ -1747,7 +1747,7 @@ class Worksheet implements IComparable
     /**
      * Get merge cells array.
      *
-     * @return array[]
+     * @return string[]
      */
     public function getMergeCells()
     {
@@ -1757,6 +1757,8 @@ class Worksheet implements IComparable
     /**
      * Set merge cells array for the entire sheet. Use instead mergeCells() to merge
      * a single cell range.
+     *
+     * @param string[] $pValue
      *
      * @return $this
      */

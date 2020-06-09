@@ -43,7 +43,7 @@ PhpSpreadsheet supports fluent interfaces in most locations. This means
 that you can easily "chain" calls to specific methods without requiring
 a new PHP statement. For example, take the following code:
 
-``` php
+```php
 $spreadsheet->getProperties()->setCreator("Maarten Balliauw");
 $spreadsheet->getProperties()->setLastModifiedBy("Maarten Balliauw");
 $spreadsheet->getProperties()->setTitle("Office 2007 XLSX Test Document");
@@ -55,7 +55,7 @@ $spreadsheet->getProperties()->setCategory("Test result file");
 
 This can be rewritten as:
 
-``` php
+```php
 $spreadsheet->getProperties()
     ->setCreator("Maarten Balliauw")
     ->setLastModifiedBy("Maarten Balliauw")
