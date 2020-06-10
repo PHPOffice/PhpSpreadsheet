@@ -168,9 +168,9 @@ class Csv extends BaseWriter
      *
      * @return $this
      */
-    public function setEnclosure($pValue)
+    public function setEnclosure($pValue = '"')
     {
-        $this->enclosure = $pValue ? $pValue : '"';
+        $this->enclosure = $pValue;
 
         return $this;
     }
@@ -312,7 +312,9 @@ class Csv extends BaseWriter
 
         foreach ($pValues as $element) {
             // Escape enclosures
-            $element = str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
+            if ($this->enclosure) {
+                $element = str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
+            }
 
             // Add delimiter
             if ($writeDelimiter) {
