@@ -36,7 +36,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         $writer->save($filename);
         $filedata = file_get_contents($filename);
-        $filedata = preg_replace('/(\\r)?\\n/', $delimiter, $filedata);
+        $filedata = preg_replace('/\\r?\\n/', $delimiter, $filedata);
         $reader = new CsvReader();
         $reader->setDelimiter($delimiter);
         $reader->setEnclosure($enclosure);
@@ -67,7 +67,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         $writer->save($filename);
         $filedata = file_get_contents($filename);
-        $filedata = preg_replace('/(\\r)?\\n/', $delimiter, $filedata);
+        $filedata = preg_replace('/\\r?\\n/', $delimiter, $filedata);
         $reader = new CsvReader();
         $reader->setDelimiter($delimiter);
         $reader->setEnclosure($enclosure);
@@ -81,5 +81,141 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
             $expected .= "$enclosure$value$enclosure$delimiter";
         }
         self::assertEquals($expected, $filedata);
+    }
+
+    public function testNotRequiredEnclosure1(): void
+    {
+        $delimiter = ';';
+        $enclosure = '"';
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        foreach (self::$cellValues as $key => $value) {
+            $sheet->setCellValue($key, $value);
+        }
+        $writer = new CsvWriter($spreadsheet);
+        self::assertTrue($writer->getEnclosureRequired());
+        $writer->setEnclosureRequired(false)->setDelimiter($delimiter)->setEnclosure($enclosure);
+        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $writer->save($filename);
+        $filedata = file_get_contents($filename);
+        $filedata = preg_replace('/\\r?\\n/', $delimiter, $filedata);
+        $reader = new CsvReader();
+        $reader->setDelimiter($delimiter);
+        $reader->setEnclosure($enclosure);
+        $newspreadsheet = $reader->load($filename);
+        unlink($filename);
+        $sheet = $newspreadsheet->getActiveSheet();
+        $expected = '';
+        foreach (self::$cellValues as $key => $value) {
+            self::assertEquals($value, $sheet->getCell($key)->getValue());
+            $expected .= "$value$delimiter";
+        }
+        self::assertEquals($expected, $filedata);
+    }
+
+    public function testNotRequiredEnclosure2(): void
+    {
+        $cellValues2 = [
+            'A1' => '2020-06-03',
+            'B1' => 'has,separator',
+            'C1' => 'has;non-separator',
+            'D1' => 'has"enclosure',
+            'A2' => 'has space',
+            'B2' => "has\nnewline",
+            'C2' => '',
+            'D2' => '15.44',
+            'A3' => ' leadingspace',
+            'B3' => 'trailingspace ',
+            'C3' => '=D2*2',
+            'D3' => ',leadingcomma',
+            'A4' => 'trailingquote"',
+            'B4' => 'unused',
+            'C4' => 'unused',
+            'D4' => 'unused',
+        ];
+        $calcc3 = '30.88';
+        $expected1 = '2020-06-03,"has,separator",has;non-separator,"has""enclosure"';
+        $expected2 = 'has space,"has' . "\n" . 'newline",,15.44';
+        $expected3 = ' leadingspace,trailingspace ,' . $calcc3 . ',",leadingcomma"';
+        $expected4 = '"trailingquote""",unused,unused,unused';
+        $expectedfile = "$expected1\n$expected2\n$expected3\n$expected4\n";
+        $delimiter = ',';
+        $enclosure = '"';
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        foreach ($cellValues2 as $key => $value) {
+            $sheet->setCellValue($key, $value);
+        }
+        $writer = new CsvWriter($spreadsheet);
+        self::assertTrue($writer->getEnclosureRequired());
+        $writer->setEnclosureRequired(false)->setDelimiter($delimiter)->setEnclosure($enclosure);
+        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $writer->save($filename);
+        $filedata = file_get_contents($filename);
+        $filedata = preg_replace('/\\r/', '', $filedata);
+        $reader = new CsvReader();
+        $reader->setDelimiter($delimiter);
+        $reader->setEnclosure($enclosure);
+        $newspreadsheet = $reader->load($filename);
+        unlink($filename);
+        $sheet = $newspreadsheet->getActiveSheet();
+        $expected = '';
+        foreach ($cellValues2 as $key => $value) {
+            self::assertEquals(($key === 'C3') ? $calcc3 : $value, $sheet->getCell($key)->getValue());
+        }
+        self::assertEquals($expectedfile, $filedata);
+    }
+
+    public function testGoodReread(): void
+    {
+        $delimiter = ',';
+        $enclosure = '"';
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', '1');
+        $sheet->setCellValue('B1', '2,3');
+        $sheet->setCellValue('C1', '4');
+        $writer = new CsvWriter($spreadsheet);
+        $writer->setEnclosureRequired(false)->setDelimiter($delimiter)->setEnclosure($enclosure);
+        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $writer->save($filename);
+        $filedata = file_get_contents($filename);
+        $filedata = preg_replace('/\\r/', '', $filedata);
+        $reader = new CsvReader();
+        $reader->setDelimiter($delimiter);
+        $reader->setEnclosure($enclosure);
+        $newspreadsheet = $reader->load($filename);
+        unlink($filename);
+        $sheet = $newspreadsheet->getActiveSheet();
+        self::assertEquals('1', $sheet->getCell('A1')->getValue());
+        self::assertEquals('2,3', $sheet->getCell('B1')->getValue());
+        self::assertEquals('4', $sheet->getCell('C1')->getValue());
+    }
+
+    public function testBadReread(): void
+    {
+        $delimiter = ',';
+        $enclosure = '';
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', '1');
+        $sheet->setCellValue('B1', '2,3');
+        $sheet->setCellValue('C1', '4');
+        $writer = new CsvWriter($spreadsheet);
+        $writer->setDelimiter($delimiter)->setEnclosure($enclosure);
+        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $writer->save($filename);
+        $filedata = file_get_contents($filename);
+        $filedata = preg_replace('/\\r/', '', $filedata);
+        $reader = new CsvReader();
+        $reader->setDelimiter($delimiter);
+        $reader->setEnclosure($enclosure);
+        $newspreadsheet = $reader->load($filename);
+        unlink($filename);
+        $sheet = $newspreadsheet->getActiveSheet();
+        self::assertEquals('1', $sheet->getCell('A1')->getValue());
+        self::assertEquals('2', $sheet->getCell('B1')->getValue());
+        self::assertEquals('3', $sheet->getCell('C1')->getValue());
+        self::assertEquals('4', $sheet->getCell('D1')->getValue());
     }
 }
