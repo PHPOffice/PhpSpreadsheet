@@ -159,7 +159,6 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $newspreadsheet = $reader->load($filename);
         unlink($filename);
         $sheet = $newspreadsheet->getActiveSheet();
-        $expected = '';
         foreach ($cellValues2 as $key => $value) {
             self::assertEquals(($key === 'C3') ? $calcc3 : $value, $sheet->getCell($key)->getValue());
         }
@@ -179,8 +178,6 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $writer->setEnclosureRequired(false)->setDelimiter($delimiter)->setEnclosure($enclosure);
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         $writer->save($filename);
-        $filedata = file_get_contents($filename);
-        $filedata = preg_replace('/\\r/', '', $filedata);
         $reader = new CsvReader();
         $reader->setDelimiter($delimiter);
         $reader->setEnclosure($enclosure);
@@ -205,8 +202,6 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $writer->setDelimiter($delimiter)->setEnclosure($enclosure);
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         $writer->save($filename);
-        $filedata = file_get_contents($filename);
-        $filedata = preg_replace('/\\r/', '', $filedata);
         $reader = new CsvReader();
         $reader->setDelimiter($delimiter);
         $reader->setEnclosure($enclosure);
