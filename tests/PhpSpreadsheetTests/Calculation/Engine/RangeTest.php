@@ -100,8 +100,8 @@ class RangeTest extends TestCase
     /**
      * @dataProvider providerUTF8NamedRangeEvaluation
      *
-     * @param string $group1
-     * @param string $group2
+     * @param string $names
+     * @param string $ranges
      * @param string $formula
      * @param int $expectedResult
      */
