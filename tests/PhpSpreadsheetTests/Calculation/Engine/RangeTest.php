@@ -32,7 +32,7 @@ class RangeTest extends TestCase
      * @param string $formula
      * @param int $expectedResult
      */
-    public function testRangeEvaluation($formula, $expectedResult): void
+    public function testRangeEvaluation(string $formula, $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
         $workSheet->setCellValue('E1', $formula);
@@ -71,7 +71,7 @@ class RangeTest extends TestCase
      * @param string $formula
      * @param int $expectedResult
      */
-    public function testNamedRangeEvaluation($group1, $group2, $formula, $expectedResult): void
+    public function testNamedRangeEvaluation(string $group1, string $group2, string $formula, $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
         $this->spreadSheet->addNamedRange(new NamedRange('GROUP1', $workSheet, $group1));
@@ -105,7 +105,7 @@ class RangeTest extends TestCase
      * @param string $formula
      * @param int $expectedResult
      */
-    public function testUTF8NamedRangeEvaluation($names, $ranges, $formula, $expectedResult): void
+    public function testUTF8NamedRangeEvaluation(array $names, array $ranges, string $formula, $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
         foreach ($names as $index => $name) {
@@ -134,7 +134,7 @@ class RangeTest extends TestCase
      * @param int $expectedSum
      * @param int $expectedCount
      */
-    public function testCompositeNamedRangeEvaluation($composite, $expectedSum, $expectedCount): void
+    public function testCompositeNamedRangeEvaluation(string $composite, $expectedSum, $expectedCount): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
         $this->spreadSheet->addNamedRange(new NamedRange('COMPOSITE', $workSheet, $composite));
