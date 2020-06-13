@@ -3734,7 +3734,6 @@ class Calculation
                         $stackItemType = 'Constant';
                         $val = self::$excelConstants[$localeConstant];
                     } elseif (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '.*/miu', $val, $match)) {
-                        echo "NAMED RANGE MATCH '{$val}'", PHP_EOL;
                         $stackItemType = 'Named Range';
                         $stackItemReference = $val;
                     }
