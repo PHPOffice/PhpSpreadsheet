@@ -2685,7 +2685,7 @@ class Worksheet implements IComparable
     public static function extractSheetTitle($pRange, $returnRange = false)
     {
         // Sheet title included?
-        if (($sep = strrpos($pRange, '!')) === false) {
+        if (($sep = strpos($pRange, '!')) === false) {
             return $returnRange ? ['', $pRange] : '';
         }
 

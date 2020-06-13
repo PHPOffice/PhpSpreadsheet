@@ -42,18 +42,27 @@ class NamedRange
     private $scope;
 
     /**
+     * Whether this is a named range or a named formula.
+     *
+     * @var bool
+     */
+    private $isFormula;
+
+    /**
      * Create a new NamedRange.
      *
      * @param string $pName
+     * @param Worksheet $pWorksheet
      * @param string $pRange
      * @param bool $pLocalOnly
      * @param null|Worksheet $pScope Scope. Only applies when $pLocalOnly = true. Null for global scope.
      */
-    public function __construct($pName, Worksheet $pWorksheet, $pRange = 'A1', $pLocalOnly = false, $pScope = null)
+    public function __construct($pName, ?Worksheet $pWorksheet=null, $pRange = 'A1', $pLocalOnly = false, $pScope = null)
     {
+        echo "SETTING NAMED RANGE {$pName} WITH VALUE {$pRange}", PHP_EOL;
         // Validate data
-        if (($pName === null) || ($pWorksheet === null) || ($pRange === null)) {
-            throw new Exception('Parameters can not be null.');
+        if (($pName === null) || ($pRange === null)) {
+            throw new Exception('Name or Range Parameters cannot be null.');
         }
 
         // Set local members
@@ -62,6 +71,11 @@ class NamedRange
         $this->range = $pRange;
         $this->localOnly = $pLocalOnly;
         $this->scope = ($pLocalOnly == true) ? (($pScope == null) ? $pWorksheet : $pScope) : null;
+        // If the range string contains characters that aren't associated with the range definition (A-Z,1-9
+        //      for cell references, and $, or the range operators (colon comma or space), quotes and ! for
+        //      worksheet names
+        //  then this is treated as a named formula, and not a named range
+        $this->isFormula = (bool) preg_match('/[^\da-z:, \$\"!](?=([^\"]*\"[^\"]*\")*[^\"]*$)/miu', $pName);
     }
 
     /**
@@ -216,6 +230,16 @@ class NamedRange
     public static function resolveRange($pNamedRange, Worksheet $pSheet)
     {
         return $pSheet->getParent()->getNamedRange($pNamedRange, $pSheet);
+    }
+
+    /**
+     * Identify whether this is a named range or a named formula.
+     *
+     * @return boolean
+     */
+    public function isFormula()
+    {
+        return $this->isFormula;
     }
 
     /**

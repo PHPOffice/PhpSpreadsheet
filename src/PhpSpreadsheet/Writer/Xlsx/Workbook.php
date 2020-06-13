@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -278,6 +279,8 @@ class Workbook extends WriterPart
      */
     private function writeDefinedNameForNamedRange(XMLWriter $objWriter, NamedRange $pNamedRange): void
     {
+echo "WRITING DEFINED NAME: {$pNamedRange->getName()}, VALUE: {$pNamedRange->getRange()}", PHP_EOL, PHP_EOL;
+
         // definedName for named range
         $objWriter->startElement('definedName');
         $objWriter->writeAttribute('name', $pNamedRange->getName());
@@ -285,18 +288,35 @@ class Workbook extends WriterPart
             $objWriter->writeAttribute('localSheetId', $pNamedRange->getScope()->getParent()->getIndex($pNamedRange->getScope()));
         }
 
-        // Create absolute coordinate and write as raw text
-        $range = Coordinate::splitRange($pNamedRange->getRange());
-        $iMax = count($range);
-        for ($i = 0; $i < $iMax; ++$i) {
-            $range[$i][0] = '\'' . str_replace("'", "''", $pNamedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteReference($range[$i][0]);
-            if (isset($range[$i][1])) {
-                $range[$i][1] = Coordinate::absoluteReference($range[$i][1]);
-            }
-        }
-        $range = Coordinate::buildRange($range);
+        $definedRange = $pNamedRange->getRange();
+        $splitCount = preg_match(
+            '/' . Calculation::CALCULATION_REGEXP_CELLREF . '/mui',
+            $definedRange,
+            $splitRanges,
+            PREG_OFFSET_CAPTURE
+        );
+var_dump($splitCount, isset($splitRanges[0]) ? $splitRanges[0] : null);
 
-        $objWriter->writeRawData($range);
+        while ($splitCount > 0) {
+            --$splitCount;
+            $range = $splitRanges[$splitCount][0];
+echo "OLD VALUE: {$range}", PHP_EOL;
+            // Create absolute coordinate and write as raw text
+            $newRange = Coordinate::splitRange($range);
+            $iMax = count($newRange);
+            for ($i = 0; $i < $iMax; ++$i) {
+                $newRange[$i][0] = '\'' . str_replace("'", "''", $pNamedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteReference($newRange[$i][0]);
+                if (isset($newRange[$i][1])) {
+                    $newRange[$i][1] = Coordinate::absoluteReference($newRange[$i][1]);
+                }
+            }
+            $newRange = Coordinate::buildRange($newRange);
+echo "NEW VALUE: {$newRange}", PHP_EOL;
+            $definedRange = substr($definedRange, 0, $splitRanges[$splitCount][1]) . $newRange . substr($definedRange, $splitRanges[0][1] + strlen($range));
+        }
+
+echo "WRITING NEW VALUE: {$definedRange}", PHP_EOL;
+        $objWriter->writeRawData($definedRange);
 
         $objWriter->endElement();
     }

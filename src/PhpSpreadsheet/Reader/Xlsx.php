@@ -1343,11 +1343,8 @@ class Xlsx extends BaseReader
                             foreach ($xmlWorkbook->definedNames->definedName as $definedName) {
                                 // Extract range
                                 $extractedRange = (string) $definedName;
-                                if (($spos = strpos($extractedRange, '!')) !== false) {
-                                    $extractedRange = substr($extractedRange, 0, $spos) . str_replace('$', '', substr($extractedRange, $spos));
-                                } else {
-                                    $extractedRange = str_replace('$', '', $extractedRange);
-                                }
+echo "READING NAMED RANGE: {$definedName['name']}", PHP_EOL;
+echo "LOCAL RANGE VALUE IS {$extractedRange}", PHP_EOL;
 
                                 // Valid range?
                                 if (stripos((string) $definedName, '#REF!') !== false || $extractedRange == '') {
@@ -1357,6 +1354,7 @@ class Xlsx extends BaseReader
                                 // Some definedNames are only applicable if we are on the same sheet...
                                 if ((string) $definedName['localSheetId'] != '') {
                                     // Local defined name
+echo "RANGE VALUE {$extractedRange} IS LOCALLY SCOPED TO {$definedName['localSheetId']}", PHP_EOL;
                                     // Switch on type
                                     switch ((string) $definedName['name']) {
                                         case '_xlnm._FilterDatabase':
@@ -1365,21 +1363,26 @@ class Xlsx extends BaseReader
                                             break;
                                         default:
                                             if ($mapSheetId[(int) $definedName['localSheetId']] !== null) {
+                                                echo 'AWOOGA', PHP_EOL;
+                                                $range = Worksheet::extractSheetTitle((string) $definedName, true);
                                                 if (strpos((string) $definedName, '!') !== false) {
-                                                    $range = Worksheet::extractSheetTitle((string) $definedName, true);
+                                                    var_dump($range);
                                                     $range[0] = str_replace("''", "'", $range[0]);
                                                     $range[0] = str_replace("'", '', $range[0]);
                                                     if ($worksheet = $docSheet->getParent()->getSheetByName($range[0])) {
-                                                        $extractedRange = str_replace('$', '', $range[1]);
+//                                                        $extractedRange = str_replace('$', '', $range[1]);
                                                         $scope = $docSheet->getParent()->getSheet($mapSheetId[(int) $definedName['localSheetId']]);
                                                         $excel->addNamedRange(new NamedRange((string) $definedName['name'], $worksheet, $extractedRange, true, $scope));
                                                     }
+                                                } else {
+                                                    $excel->addNamedRange(new NamedRange((string) $definedName['name'], null, $extractedRange, true));
                                                 }
                                             }
 
                                             break;
                                     }
                                 } elseif (!isset($definedName['localSheetId'])) {
+                                    $definedRange = (string) $definedName;
                                     // "Global" definedNames
                                     $locatedSheet = null;
                                     $extractedSheetName = '';
@@ -1392,12 +1395,24 @@ class Xlsx extends BaseReader
                                         $locatedSheet = $excel->getSheetByName($extractedSheetName);
 
                                         // Modify range
-                                        [$worksheetName, $extractedRange] = Worksheet::extractSheetTitle($extractedRange, true);
+                                        $tmpArray = explode(',', $extractedRange);
+                                        foreach($tmpArray as $tmpKey => $tmpString) {
+                                            [$worksheetName, $tmpString] = Worksheet::extractSheetTitle($tmpString, true);
+                                            $tmpArray[$tmpKey] = $tmpString;
+                                        }
+                                        $extractedRange = implode(',', $tmpArray);
+
+                                        $tmpArray = explode(' ', $extractedRange);
+                                        foreach($tmpArray as $tmpKey => $tmpString) {
+                                            [$worksheetName, $tmpString] = Worksheet::extractSheetTitle($tmpString, true);
+                                            $tmpArray[$tmpKey] = $tmpString;
+                                        }
+                                        $extractedRange = implode(' ', $tmpArray);
                                     }
 
-                                    if ($locatedSheet !== null) {
-                                        $excel->addNamedRange(new NamedRange((string) $definedName['name'], $locatedSheet, $extractedRange, false));
-                                    }
+//                                    if ($locatedSheet !== null) {
+                                        $excel->addNamedRange(new NamedRange((string) $definedName['name'], $locatedSheet, $definedRange, false));
+//                                    }
                                 }
                             }
                         }
