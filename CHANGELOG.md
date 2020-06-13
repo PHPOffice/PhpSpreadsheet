@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Resolve evaluation of utf-8 named ranges in calculation engine [#1522](https://github.com/PHPOffice/PhpSpreadsheet/pull/1522)
+- Fix MATCH when comparing different numeric types [#1521](https://github.com/PHPOffice/PhpSpreadsheet/pull/1521)
 
 ## [1.13.0] - 2020-05-31
 
