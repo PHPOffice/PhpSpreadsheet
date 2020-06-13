@@ -105,7 +105,7 @@ class RangeTest extends TestCase
      * @param string $formula
      * @param int $expectedResult
      */
-    public function testUTF8NamedRangeEvaluation($names, $ranges,$formula, $expectedResult): void
+    public function testUTF8NamedRangeEvaluation($names, $ranges, $formula, $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
         foreach ($names as $index => $name) {
