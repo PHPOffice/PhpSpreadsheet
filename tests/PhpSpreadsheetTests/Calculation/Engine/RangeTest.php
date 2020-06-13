@@ -157,7 +157,7 @@ class RangeTest extends TestCase
             //      63,
             //      12,
             //  ],
-            'Intersection' => [
+            'Union and Intersection' => [
                 'A1:C1,A3:C3 B1:C3',
                 23,
                 5,

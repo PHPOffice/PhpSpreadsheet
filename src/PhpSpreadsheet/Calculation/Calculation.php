@@ -28,7 +28,7 @@ class Calculation
     //    Cell reference (cell or range of cells, with or without a sheet reference)
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     //    Named Range of cells
-    const CALCULATION_REGEXP_NAMEDRANGE = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
+    const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
     //    Error
     const CALCULATION_REGEXP_ERROR = '\#[A-Z][A-Z0_\/]*[!\?]?';
 
@@ -3395,7 +3395,7 @@ class Calculation
                                 '|' . self::CALCULATION_REGEXP_NUMBER .
                                 '|' . self::CALCULATION_REGEXP_STRING .
                                 '|' . self::CALCULATION_REGEXP_OPENBRACE .
-                                '|' . self::CALCULATION_REGEXP_NAMEDRANGE .
+                                '|' . self::CALCULATION_REGEXP_DEFINEDNAME .
                                 '|' . self::CALCULATION_REGEXP_ERROR .
                                 ')/sui';
 
@@ -3736,7 +3736,7 @@ class Calculation
                     } elseif (($localeConstant = array_search(trim(strtoupper($val)), self::$localeBoolean)) !== false) {
                         $stackItemType = 'Constant';
                         $val = self::$excelConstants[$localeConstant];
-                    } elseif (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '.*/miu', $val, $match)) {
+                    } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', $val, $match)) {
                         $stackItemType = 'Defined Name';
                         $stackItemReference = $val;
                     }
@@ -3776,6 +3776,7 @@ class Calculation
             while (($formula[$index] == "\n") || ($formula[$index] == "\r")) {
                 ++$index;
             }
+
             if ($formula[$index] == ' ') {
                 while ($formula[$index] == ' ') {
                     ++$index;
@@ -3786,7 +3787,7 @@ class Calculation
                 if (($expectingOperator) &&
                     ((preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
                         ($output[count($output) - 1]['type'] == 'Cell Reference') ||
-                        (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '.*/miu', substr($formula, $index), $match)) &&
+                        (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', substr($formula, $index), $match)) &&
                             ($output[count($output) - 1]['type'] == 'Named Range' || $output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
                     )) {
                     while ($stack->count() > 0 &&
@@ -4310,7 +4311,7 @@ class Calculation
                         $branchStore[$storeKey] = $token;
                     }
                     // if the token is a named range or formula, evaluate it and push the result onto the stack
-                } elseif (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '$/miu', $token, $matches)) {
+                } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $token, $matches)) {
                     $definedName = $matches[6];
                     $this->debugLog->writeDebugLog('Evaluating Defined Name ', $definedName);
                     $namedRange = NamedRange::resolveRange($definedName, ((null !== $pCell) ? $pCellWorksheet : null));
