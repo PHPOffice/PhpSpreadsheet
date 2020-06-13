@@ -98,6 +98,36 @@ class RangeTest extends TestCase
     }
 
     /**
+     * @dataProvider providerUTF8NamedRangeEvaluation
+     *
+     * @param string $names
+     * @param string $ranges
+     * @param string $formula
+     * @param int $expectedResult
+     */
+    public function testUTF8NamedRangeEvaluation($names, $ranges, $formula, $expectedResult): void
+    {
+        $workSheet = $this->spreadSheet->getActiveSheet();
+        foreach ($names as $index => $name) {
+            $range = $ranges[$index];
+            $this->spreadSheet->addNamedRange(new NamedRange($name, $workSheet, $range));
+        }
+        $workSheet->setCellValue('E1', $formula);
+
+        $sumRresult = $workSheet->getCell('E1')->getCalculatedValue();
+        self::assertSame($expectedResult, $sumRresult);
+    }
+
+    public function providerUTF8NamedRangeEvaluation()
+    {
+        return[
+            [['Γειά', 'σου', 'Κόσμε'], ['A1', 'B1:B2', 'C1:C3'], '=SUM(Γειά,σου,Κόσμε)', 26],
+            [['Γειά', 'σου', 'Κόσμε'], ['A1', 'B1:B2', 'C1:C3'], '=COUNT(Γειά,σου,Κόσμε)', 6],
+            [['Здравствуй', 'мир'], ['A1:A3', 'C1:C3'], '=SUM(Здравствуй,мир)', 30],
+        ];
+    }
+
+    /**
      * @dataProvider providerCompositeNamedRangeEvaluation
      *
      * @param string $composite
