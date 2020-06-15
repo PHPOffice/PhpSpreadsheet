@@ -32,7 +32,7 @@ class Chart
             } elseif ($format == 'integer') {
                 return (int) $attributes[$name];
             } elseif ($format == 'boolean') {
-                return (bool) ($attributes[$name] === '0' || $attributes[$name] !== 'true') ? false : true;
+                return !($attributes[$name] !== 'true');
             }
 
             return (float) $attributes[$name];
