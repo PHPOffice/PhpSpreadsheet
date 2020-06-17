@@ -29,6 +29,8 @@ class Calculation
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     //    Named Range of cells
     const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
+    const CALCULATION_REGEXP_NAMEDRANGE = self::CALCULATION_REGEXP_DEFINEDNAME;
+    const CALCULATION_REGEXP_NAMEDFORMULA = self::CALCULATION_REGEXP_DEFINEDNAME;
     //    Error
     const CALCULATION_REGEXP_ERROR = '\#[A-Z][A-Z0_\/]*[!\?]?';
 
