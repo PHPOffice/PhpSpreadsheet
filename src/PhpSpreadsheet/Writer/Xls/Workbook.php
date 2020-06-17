@@ -530,12 +530,12 @@ class Workbook extends BIFFwriter
         $chunk = '';
 
         // Named ranges
-        if (count($this->spreadsheet->getNamedRanges()) > 0) {
+        if (count($this->spreadsheet->getDefinedNames()) > 0) {
             // Loop named ranges
-            $namedRanges = $this->spreadsheet->getNamedRanges();
+            $namedRanges = $this->spreadsheet->getDefinedNames();
             foreach ($namedRanges as $namedRange) {
                 // Create absolute coordinate
-                $range = Coordinate::splitRange($namedRange->getRange());
+                $range = Coordinate::splitRange($namedRange->getValue());
                 $iMax = count($range);
                 for ($i = 0; $i < $iMax; ++$i) {
                     $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteCoordinate($range[$i][0]);

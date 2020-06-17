@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
-use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Chart;
@@ -1343,8 +1343,8 @@ class Xlsx extends BaseReader
                             foreach ($xmlWorkbook->definedNames->definedName as $definedName) {
                                 // Extract range
                                 $extractedRange = (string) $definedName;
-echo "READING NAMED RANGE: {$definedName['name']}", PHP_EOL;
-echo "LOCAL RANGE VALUE IS {$extractedRange}", PHP_EOL;
+echo "READING DEFINED NAME: {$definedName['name']}", PHP_EOL;
+echo "LOCAL VALUE IS {$extractedRange}", PHP_EOL;
 
                                 // Valid range?
                                 if (stripos((string) $definedName, '#REF!') !== false || $extractedRange == '') {
@@ -1354,7 +1354,7 @@ echo "LOCAL RANGE VALUE IS {$extractedRange}", PHP_EOL;
                                 // Some definedNames are only applicable if we are on the same sheet...
                                 if ((string) $definedName['localSheetId'] != '') {
                                     // Local defined name
-echo "RANGE VALUE {$extractedRange} IS LOCALLY SCOPED TO {$definedName['localSheetId']}", PHP_EOL;
+echo "VALUE {$extractedRange} IS LOCALLY SCOPED TO {$definedName['localSheetId']}", PHP_EOL;
                                     // Switch on type
                                     switch ((string) $definedName['name']) {
                                         case '_xlnm._FilterDatabase':
@@ -1372,10 +1372,10 @@ echo "RANGE VALUE {$extractedRange} IS LOCALLY SCOPED TO {$definedName['localShe
                                                     if ($worksheet = $docSheet->getParent()->getSheetByName($range[0])) {
 //                                                        $extractedRange = str_replace('$', '', $range[1]);
                                                         $scope = $docSheet->getParent()->getSheet($mapSheetId[(int) $definedName['localSheetId']]);
-                                                        $excel->addNamedRange(new NamedRange((string) $definedName['name'], $worksheet, $extractedRange, true, $scope));
+                                                        $excel->addDefinedName(DefinedName::getInstance((string) $definedName['name'], $worksheet, $extractedRange, true, $scope));
                                                     }
                                                 } else {
-                                                    $excel->addNamedRange(new NamedRange((string) $definedName['name'], null, $extractedRange, true));
+                                                    $excel->addDefinedName(DefinedName::getInstance((string) $definedName['name'], null, $extractedRange, true));
                                                 }
                                             }
 
@@ -1411,7 +1411,7 @@ echo "RANGE VALUE {$extractedRange} IS LOCALLY SCOPED TO {$definedName['localShe
                                     }
 
 //                                    if ($locatedSheet !== null) {
-                                        $excel->addNamedRange(new NamedRange((string) $definedName['name'], $locatedSheet, $definedRange, false));
+                                        $excel->addDefinedName(DefinedName::getInstance((string) $definedName['name'], $locatedSheet, $definedRange, false));
 //                                    }
                                 }
                             }

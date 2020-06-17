@@ -4315,7 +4315,7 @@ class Calculation
                     $definedName = $matches[6];
                     $this->debugLog->writeDebugLog('Evaluating Defined Name ', $definedName);
                     $namedRange = NamedRange::resolveRange($definedName, ((null !== $pCell) ? $pCellWorksheet : null));
-                    $definedNameValue = $namedRange->getRange();
+                    $definedNameValue = $namedRange->getValue();
                     $definedNameType = $namedRange->isFormula() ? 'Formula' : 'Range';
                     $this->debugLog->writeDebugLog("Defined Name is a {$definedNameType} with a value of {$definedNameValue}");
                     if ($definedNameValue[0] !== '=') {
@@ -4721,7 +4721,7 @@ class Calculation
             }
 
             $pSheet = $namedRange->getWorksheet();
-            $pRange = $namedRange->getRange();
+            $pRange = $namedRange->getValue();
             $splitRange = Coordinate::splitRange($pRange);
             //    Convert row and column references
             if (ctype_alpha($splitRange[0][0])) {

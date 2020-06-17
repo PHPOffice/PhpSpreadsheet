@@ -823,7 +823,7 @@ class Worksheet extends BIFFwriter
     private function writeFormula($row, $col, $formula, $xfIndex, $calculatedValue)
     {
         $record = 0x0006; // Record identifier
-
+echo "WRITING FORMULA: {$formula} for cell {$row}{$col}; calculated value {$calculatedValue}", PHP_EOL;
         // Initialize possible additional value for STRING record that should be written after the FORMULA record?
         $stringValue = null;
 
@@ -893,6 +893,9 @@ class Worksheet extends BIFFwriter
 
             return self::WRITE_FORMULA_NORMAL;
         } catch (PhpSpreadsheetException $e) {
+            echo "EXCEPTION PARSING FORMULA: {$e->getMessage()}", PHP_EOL;
+            var_dump($this->parser->parseTree);
+            echo PHP_EOL;
             return self::WRITE_FORMULA_EXCEPTION;
         }
     }

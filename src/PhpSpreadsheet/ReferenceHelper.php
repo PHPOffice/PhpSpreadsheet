@@ -601,10 +601,10 @@ class ReferenceHelper
         }
 
         // Update workbook: named ranges
-        if (count($pSheet->getParent()->getNamedRanges()) > 0) {
-            foreach ($pSheet->getParent()->getNamedRanges() as $namedRange) {
+        if (count($pSheet->getParent()->getDefinedNames()) > 0) {
+            foreach ($pSheet->getParent()->getDefinedNames() as $namedRange) {
                 if ($namedRange->getWorksheet()->getHashCode() == $pSheet->getHashCode()) {
-                    $namedRange->setRange($this->updateCellReference($namedRange->getRange(), $pBefore, $pNumCols, $pNumRows));
+                    $namedRange->setValue($this->updateCellReference($namedRange->getValue(), $pBefore, $pNumCols, $pNumRows));
                 }
             }
         }

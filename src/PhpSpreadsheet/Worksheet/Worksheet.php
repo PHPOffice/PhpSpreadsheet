@@ -795,7 +795,7 @@ class Worksheet implements IComparable
     public function rebindParent(Spreadsheet $parent)
     {
         if ($this->parent !== null) {
-            $namedRanges = $this->parent->getNamedRanges();
+            $namedRanges = $this->parent->getDefinedNames();
             foreach ($namedRanges as $namedRange) {
                 $parent->addNamedRange($namedRange);
             }
@@ -1192,7 +1192,7 @@ class Worksheet implements IComparable
             (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $pCoordinate, $matches))) {
             $namedRange = NamedRange::resolveRange($pCoordinate, $this);
             if ($namedRange !== null) {
-                $pCoordinate = $namedRange->getRange();
+                $pCoordinate = $namedRange->getValue();
 
                 return $namedRange->getWorksheet()->getCell($pCoordinate, $createIfNotExists);
             }
@@ -1290,7 +1290,7 @@ class Worksheet implements IComparable
             (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $pCoordinate, $matches))) {
             $namedRange = NamedRange::resolveRange($pCoordinate, $this);
             if ($namedRange !== null) {
-                $pCoordinate = $namedRange->getRange();
+                $pCoordinate = $namedRange->getValue();
                 if ($this->getHashCode() != $namedRange->getWorksheet()->getHashCode()) {
                     if (!$namedRange->getLocalOnly()) {
                         return $namedRange->getWorksheet()->cellExists($pCoordinate);
@@ -2561,7 +2561,7 @@ class Worksheet implements IComparable
         $namedRange = NamedRange::resolveRange($pNamedRange, $this);
         if ($namedRange !== null) {
             $pWorkSheet = $namedRange->getWorksheet();
-            $pCellRange = $namedRange->getRange();
+            $pCellRange = $namedRange->getValue();
 
             return $pWorkSheet->rangeToArray($pCellRange, $nullValue, $calculateFormulas, $formatData, $returnCellRef);
         }

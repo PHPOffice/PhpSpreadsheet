@@ -67,7 +67,7 @@ class Spreadsheet
      *
      * @var NamedRange[]
      */
-    private $namedRanges = [];
+    private $definedNames = [];
 
     /**
      * CellXf supervisor.
@@ -480,8 +480,8 @@ class Spreadsheet
         // Create document security
         $this->security = new Document\Security();
 
-        // Set named ranges
-        $this->namedRanges = [];
+        // Set defined names
+        $this->definedNames = [];
 
         // Create the cellXf supervisor
         $this->cellXfSupervisor = new Style(true);
@@ -864,13 +864,23 @@ class Spreadsheet
     }
 
     /**
-     * Get named ranges.
+     * Get defined Names.
      *
      * @return NamedRange[]
      */
     public function getNamedRanges()
     {
-        return $this->namedRanges;
+        return $this->definedNames;
+    }
+
+    /**
+     * Get defined Names.
+     *
+     * @return DefinedName[]
+     */
+    public function getDefinedNames()
+    {
+        return $this->definedNames;
     }
 
     /**
@@ -880,12 +890,22 @@ class Spreadsheet
      */
     public function addNamedRange(NamedRange $namedRange)
     {
-        if ($namedRange->getScope() == null) {
+        return $this->addDefinedName($namedRange);
+    }
+
+    /**
+     * Add named range.
+     *
+     * @return bool
+     */
+    public function addDefinedName(DefinedName $definedName)
+    {
+        if ($definedName->getScope() == null) {
             // global scope
-            $this->namedRanges[$namedRange->getName()] = $namedRange;
+            $this->definedNames[$definedName->getName()] = $definedName;
         } else {
             // local scope
-            $this->namedRanges[$namedRange->getScope()->getTitle() . '!' . $namedRange->getName()] = $namedRange;
+            $this->definedNames[$definedName->getScope()->getTitle() . '!' . $definedName->getName()] = $definedName;
         }
 
         return true;
@@ -905,13 +925,13 @@ class Spreadsheet
 
         if ($namedRange != '' && ($namedRange !== null)) {
             // first look for global defined name
-            if (isset($this->namedRanges[$namedRange])) {
-                $returnValue = $this->namedRanges[$namedRange];
+            if (isset($this->definedNames[$namedRange])) {
+                $returnValue = $this->definedNames[$namedRange];
             }
 
             // then look for local defined name (has priority over global defined name if both names exist)
-            if (($pSheet !== null) && isset($this->namedRanges[$pSheet->getTitle() . '!' . $namedRange])) {
-                $returnValue = $this->namedRanges[$pSheet->getTitle() . '!' . $namedRange];
+            if (($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $namedRange])) {
+                $returnValue = $this->definedNames[$pSheet->getTitle() . '!' . $namedRange];
             }
         }
 
@@ -929,12 +949,12 @@ class Spreadsheet
     public function removeNamedRange($namedRange, ?Worksheet $pSheet = null)
     {
         if ($pSheet === null) {
-            if (isset($this->namedRanges[$namedRange])) {
-                unset($this->namedRanges[$namedRange]);
+            if (isset($this->definedNames[$namedRange])) {
+                unset($this->definedNames[$namedRange]);
             }
         } else {
-            if (isset($this->namedRanges[$pSheet->getTitle() . '!' . $namedRange])) {
-                unset($this->namedRanges[$pSheet->getTitle() . '!' . $namedRange]);
+            if (isset($this->definedNames[$pSheet->getTitle() . '!' . $namedRange])) {
+                unset($this->definedNames[$pSheet->getTitle() . '!' . $namedRange]);
             }
         }
 

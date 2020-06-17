@@ -4,145 +4,26 @@ namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class NamedRange
+class NamedRange extends DefinedName
 {
     /**
-     * Range name.
+     * Create a new Named Range.
      *
-     * @var string
+     * @param string $name
+     * @param Worksheet $worksheet
+     * @param string $range
+     * @param bool $localOnly
+     * @param null|Worksheet $scope Scope. Only applies when $pLocalOnly = true. Null for global scope.
      */
-    private $name;
-
-    /**
-     * Worksheet on which the named range can be resolved.
-     *
-     * @var Worksheet
-     */
-    private $worksheet;
-
-    /**
-     * Range of the referenced cells.
-     *
-     * @var string
-     */
-    private $range;
-
-    /**
-     * Is the named range local? (i.e. can only be used on $this->worksheet).
-     *
-     * @var bool
-     */
-    private $localOnly;
-
-    /**
-     * Scope.
-     *
-     * @var Worksheet
-     */
-    private $scope;
-
-    /**
-     * Whether this is a named range or a named formula.
-     *
-     * @var bool
-     */
-    private $isFormula;
-
-    /**
-     * Create a new NamedRange.
-     *
-     * @param string $pName
-     * @param Worksheet $pWorksheet
-     * @param string $pRange
-     * @param bool $pLocalOnly
-     * @param null|Worksheet $pScope Scope. Only applies when $pLocalOnly = true. Null for global scope.
-     */
-    public function __construct($pName, ?Worksheet $pWorksheet=null, $pRange = 'A1', $pLocalOnly = false, $pScope = null)
+    public function __construct($name, ?Worksheet $worksheet=null, $range = 'A1', $localOnly = false, $scope = null)
     {
-        echo "SETTING NAMED RANGE {$pName} WITH VALUE {$pRange}", PHP_EOL;
+        echo "SETTING NAMED RANGE {$name} WITH VALUE {$range}", PHP_EOL;
         // Validate data
-        if (($pName === null) || ($pRange === null)) {
+        if (($name === null) || ($range === null)) {
             throw new Exception('Name or Range Parameters cannot be null.');
         }
 
-        // Set local members
-        $this->name = $pName;
-        $this->worksheet = $pWorksheet;
-        $this->range = $pRange;
-        $this->localOnly = $pLocalOnly;
-        $this->scope = ($pLocalOnly == true) ? (($pScope == null) ? $pWorksheet : $pScope) : null;
-        // If the range string contains characters that aren't associated with the range definition (A-Z,1-9
-        //      for cell references, and $, or the range operators (colon comma or space), quotes and ! for
-        //      worksheet names
-        //  then this is treated as a named formula, and not a named range
-        $this->isFormula = (bool) preg_match('/[^\da-z:, \$\"!](?=([^\"]*\"[^\"]*\")*[^\"]*$)/miu', $pName);
-    }
-
-    /**
-     * Get name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set name.
-     *
-     * @param string $value
-     *
-     * @return $this
-     */
-    public function setName($value)
-    {
-        if ($value !== null) {
-            // Old title
-            $oldTitle = $this->name;
-
-            // Re-attach
-            if ($this->worksheet !== null) {
-                $this->worksheet->getParent()->removeNamedRange($this->name, $this->worksheet);
-            }
-            $this->name = $value;
-
-            if ($this->worksheet !== null) {
-                $this->worksheet->getParent()->addNamedRange($this);
-            }
-
-            // New title
-            $newTitle = $this->name;
-            ReferenceHelper::getInstance()->updateNamedFormulas($this->worksheet->getParent(), $oldTitle, $newTitle);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get worksheet.
-     *
-     * @return Worksheet
-     */
-    public function getWorksheet()
-    {
-        return $this->worksheet;
-    }
-
-    /**
-     * Set worksheet.
-     *
-     * @param Worksheet $value
-     *
-     * @return $this
-     */
-    public function setWorksheet(?Worksheet $value = null)
-    {
-        if ($value !== null) {
-            $this->worksheet = $value;
-        }
-
-        return $this;
+        parent::__construct($name, $worksheet, $range, $localOnly, $scope);
     }
 
     /**
@@ -152,69 +33,21 @@ class NamedRange
      */
     public function getRange()
     {
-        return $this->range;
+        return $this->value;
     }
 
     /**
      * Set range.
      *
-     * @param string $value
+     * @param string $range
      *
      * @return $this
      */
-    public function setRange($value)
+    public function setRange($range)
     {
-        if ($value !== null) {
-            $this->range = $value;
+        if ($range !== null) {
+            $this->value = $range;
         }
-
-        return $this;
-    }
-
-    /**
-     * Get localOnly.
-     *
-     * @return bool
-     */
-    public function getLocalOnly()
-    {
-        return $this->localOnly;
-    }
-
-    /**
-     * Set localOnly.
-     *
-     * @param bool $value
-     *
-     * @return $this
-     */
-    public function setLocalOnly($value)
-    {
-        $this->localOnly = $value;
-        $this->scope = $value ? $this->worksheet : null;
-
-        return $this;
-    }
-
-    /**
-     * Get scope.
-     *
-     * @return null|Worksheet
-     */
-    public function getScope()
-    {
-        return $this->scope;
-    }
-
-    /**
-     * Set scope.
-     *
-     * @return $this
-     */
-    public function setScope(?Worksheet $value = null)
-    {
-        $this->scope = $value;
-        $this->localOnly = $value != null;
 
         return $this;
     }
@@ -230,30 +63,5 @@ class NamedRange
     public static function resolveRange($pNamedRange, Worksheet $pSheet)
     {
         return $pSheet->getParent()->getNamedRange($pNamedRange, $pSheet);
-    }
-
-    /**
-     * Identify whether this is a named range or a named formula.
-     *
-     * @return boolean
-     */
-    public function isFormula()
-    {
-        return $this->isFormula;
-    }
-
-    /**
-     * Implement PHP __clone to create a deep clone, not just a shallow copy.
-     */
-    public function __clone()
-    {
-        $vars = get_object_vars($this);
-        foreach ($vars as $key => $value) {
-            if (is_object($value)) {
-                $this->$key = clone $value;
-            } else {
-                $this->$key = $value;
-            }
-        }
     }
 }

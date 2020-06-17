@@ -237,7 +237,7 @@ class Workbook extends WriterPart
         $objWriter->startElement('definedNames');
 
         // Named ranges
-        if (count($spreadsheet->getNamedRanges()) > 0) {
+        if (count($spreadsheet->getDefinedNames()) > 0) {
             // Named ranges
             $this->writeNamedRanges($objWriter, $spreadsheet);
         }
@@ -266,7 +266,7 @@ class Workbook extends WriterPart
     private function writeNamedRanges(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
         // Loop named ranges
-        $namedRanges = $spreadsheet->getNamedRanges();
+        $namedRanges = $spreadsheet->getDefinedNames();
         foreach ($namedRanges as $namedRange) {
             $this->writeDefinedNameForNamedRange($objWriter, $namedRange);
         }
@@ -279,7 +279,7 @@ class Workbook extends WriterPart
      */
     private function writeDefinedNameForNamedRange(XMLWriter $objWriter, NamedRange $pNamedRange): void
     {
-echo "WRITING DEFINED NAME: {$pNamedRange->getName()}, VALUE: {$pNamedRange->getRange()}", PHP_EOL, PHP_EOL;
+echo "WRITING DEFINED NAME: {$pNamedRange->getName()}, VALUE: {$pNamedRange->getValue()}", PHP_EOL, PHP_EOL;
 
         // definedName for named range
         $objWriter->startElement('definedName');
@@ -288,7 +288,7 @@ echo "WRITING DEFINED NAME: {$pNamedRange->getName()}, VALUE: {$pNamedRange->get
             $objWriter->writeAttribute('localSheetId', $pNamedRange->getScope()->getParent()->getIndex($pNamedRange->getScope()));
         }
 
-        $definedRange = $pNamedRange->getRange();
+        $definedRange = $pNamedRange->getValue();
         $splitCount = preg_match(
             '/' . Calculation::CALCULATION_REGEXP_CELLREF . '/mui',
             $definedRange,

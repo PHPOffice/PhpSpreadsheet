@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
@@ -45,6 +46,13 @@ class Parser
     // Single quote is represented as a pair ''
     const REGEX_SHEET_TITLE_QUOTED = '(([^\*\:\/\\\\\?\[\]\\\'])+|(\\\'\\\')+)+';
 
+    private static $excelOperators = [
+        '+' => true, '-' => true, '*' => true, '/' => true,
+        '^' => true, '&' => true, '%' => false, '>' => true,
+        '<' => true, '=' => true, ' ' => true, ',' => true,
+        ':' => true,
+    ];
+
     /**
      * The index of the character we are currently looking at.
      *
@@ -78,7 +86,7 @@ class Parser
      *
      * @var string
      */
-    private $parseTree;
+    public $parseTree;
 
     /**
      * Array of external sheets.
@@ -528,6 +536,7 @@ class Parser
             return '';
         }
 
+
         // TODO: use real error codes
         throw new WriterException("Unknown token $token");
     }
@@ -964,6 +973,7 @@ class Parser
             }
 
             if ($this->match($token) != '') {
+                echo "MATCHED TOKEN {$token}", PHP_EOL;
                 $this->currentCharacter = $i + 1;
                 $this->currentToken = $token;
 
@@ -989,6 +999,7 @@ class Parser
      */
     private function match($token)
     {
+//        echo "CHECKING TOKEN {$token} WITH LOOKAHEAD {$this->lookAhead}", PHP_EOL;
         switch ($token) {
             case '+':
             case '-':
@@ -1056,7 +1067,11 @@ class Parser
                 } elseif (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/i", $token) && ($this->lookAhead === '(')) {
                     // if it's a function call
                     return $token;
-                } elseif (substr($token, -1) === ')') {
+                } elseif (array_key_exists($this->lookAhead, self::$excelOperators)) {
+                    //    It's an argument of some description (e.g. a named range),
+                    //        precise nature yet to be determined
+                    return $token;
+                } elseif ($this->lookAhead === ')') {
                     //    It's an argument of some description (e.g. a named range),
                     //        precise nature yet to be determined
                     return $token;
@@ -1303,12 +1318,21 @@ class Parser
             $this->advance();
 
             return $result;
-        } elseif (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/i", $this->currentToken)) {
-            // if it's a function call
-            return $this->func();
+        } elseif (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/i", $this->currentToken) && $this->lookAhead === '(') {
+            if (array_key_exists(strtoupper($this->currentToken), $this->functions)) {
+                // if it's a function call
+                return $this->func();
+            } else {
+                throw new WriterException("Function error: {$this->currentToken} is not supported for Xls files");
+            }
+//        } elseif(preg_match('/^'.Calculation::CALCULATION_REGEXP_NAMEDRANGE.'$/mui', $this->currentToken)) {
+//echo "WRITING NAMED ELEMENT: {$this->currentToken}", PHP_EOL;
+//            $result = $this->createTree('ptgName', $this->currentToken, '');
+//            $this->advance();
+//            return $result;
         }
 
-        throw new WriterException('Syntax error: ' . $this->currentToken . ', lookahead: ' . $this->lookAhead . ', current char: ' . $this->currentCharacter);
+        throw new WriterException("Syntax error: {$this->currentToken}, lookahead: {$this->lookAhead}, current char: {$this->currentCharacter}");
     }
 
     /**
