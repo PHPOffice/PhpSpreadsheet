@@ -4320,23 +4320,36 @@ class Calculation
                     if ($namedRange === null) {
                         return $this->raiseFormulaError("undefined variable '$definedName'");
                     }
-                    $definedNameValue = $namedRange->getValue();
-                    $definedNameType = $namedRange->isFormula() ? 'Formula' : 'Range';
-                    $this->debugLog->writeDebugLog("Defined Name is a {$definedNameType} with a value of {$definedNameValue}");
-                    if ($definedNameValue[0] !== '=') {
-                        $definedNameValue = '=' . $definedNameValue;
-                    }
-                    $recursiveCalculator = new Calculation(((null !== $pCell) ? $pCellWorksheet->getParent() : null));
-                    $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
-                    $recursiveCalculator->getDebugLog()->setEchoDebugLog($this->getDebugLog()->getEchoDebugLog());
-                    $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $pCell->getCoordinate(), $pCell);
-                    if ($this->getDebugLog()->getWriteDebugLog()) {
-                        $this->debugLog->mergeDebugLog(array_slice($recursiveCalculator->getDebugLog()->getLog(), 3));
-                        $this->debugLog->writeDebugLog("Evaluation Result for Named {$definedNameType} {$namedRange->getName()} is {$this->showTypeDetails($result)}");
-                    }
-                    $stack->push('Named Range', $result, $namedRange->getName());
-                    if (isset($storeKey)) {
-                        $branchStore[$storeKey] = $result;
+                    $definedNameScope = $namedRange->getScope();
+                    if ($definedNameScope !== null && $definedNameScope !== $pCellWorksheet->getParent()) {
+                        // The defined name isn't in our current scope, so #REF
+                        $stack->push('Error', Functions::REF(), null);
+                    } else {
+                        $definedNameValue = $namedRange->getValue();
+                        $definedNameType = $namedRange->isFormula() ? 'Formula' : 'Range';
+                        $definedNameWorksheet = $namedRange->getWorksheet();
+                        $this->debugLog->writeDebugLog("Defined Name is a {$definedNameType} with a value of {$definedNameValue}");
+                        if ($definedNameValue[0] !== '=') {
+                            $definedNameValue = '=' . $definedNameValue;
+                        }
+                        $worksheetReference = ($pCell !== null) ? $pCellWorksheet : null;
+                        $recursiveCalculationCellReference = $pCell;
+                        if ($definedNameWorksheet !== null) {
+                            $worksheetReference = $definedNameWorksheet;
+                            $recursiveCalculationCellReference = $worksheetReference->getCell('A1');
+                        }
+                        $recursiveCalculator = new Calculation((null !== $pCell) ? $pCellWorksheet->getParent() : null);
+                        $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
+                        $recursiveCalculator->getDebugLog()->setEchoDebugLog($this->getDebugLog()->getEchoDebugLog());
+                        $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $recursiveCalculationCellReference->getCoordinate(), $recursiveCalculationCellReference);
+                        if ($this->getDebugLog()->getWriteDebugLog()) {
+                            $this->debugLog->mergeDebugLog(array_slice($recursiveCalculator->getDebugLog()->getLog(), 3));
+                            $this->debugLog->writeDebugLog("Evaluation Result for Named {$definedNameType} {$namedRange->getName()} is {$this->showTypeDetails($result)}");
+                        }
+                        $stack->push('Named Range', $result, $namedRange->getName());
+                        if (isset($storeKey)) {
+                            $branchStore[$storeKey] = $result;
+                        }
                     }
                 } else {
                     return $this->raiseFormulaError("undefined variable '$token'");
