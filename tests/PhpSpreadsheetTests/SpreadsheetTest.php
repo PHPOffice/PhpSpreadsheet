@@ -53,4 +53,25 @@ class SpreadsheetTest extends TestCase
     {
         self::assertEquals($this->object->getSheet($index), $this->object->getSheetByName($sheetName));
     }
+
+    /**
+     * Test that after copy the source spreadsheet has a worksheet.
+     */
+    public function testCopySpreadsheet(): void
+    {
+        // Create new Spreadsheet object
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+        // Check that the source has 1 sheet
+        self::assertEquals(1, $spreadsheet->getSheetCount(), "The source spreadsheet doesn't contain 1 worksheet.");
+
+        // Do the copy
+        $copy = $spreadsheet->copy();
+
+        // Check that the copy has 1 sheet
+        self::assertEquals(1, $copy->getSheetCount(), "The copy spreadsheet doesn't contain 1 worksheet.");
+
+        // Check that the source has 1 sheet
+        self::assertEquals(1, $spreadsheet->getSheetCount(), "Spreadsheet copy failed: the source spreadsheet doesn't contain 1 worksheet.");
+    }
 }

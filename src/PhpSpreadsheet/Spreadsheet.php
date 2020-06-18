@@ -963,7 +963,7 @@ class Spreadsheet
         $worksheetCount = count($this->workSheetCollection);
         for ($i = 0; $i < $worksheetCount; ++$i) {
             $this->workSheetCollection[$i] = $this->workSheetCollection[$i]->copy();
-            $this->workSheetCollection[$i]->rebindParent($this);
+            $this->workSheetCollection[$i]->rebindParent($this, true);
         }
 
         return $copied;
