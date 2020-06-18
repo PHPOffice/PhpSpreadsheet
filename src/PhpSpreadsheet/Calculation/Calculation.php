@@ -4332,11 +4332,9 @@ class Calculation
                         if ($definedNameValue[0] !== '=') {
                             $definedNameValue = '=' . $definedNameValue;
                         }
-                        $worksheetReference = ($pCell !== null) ? $pCellWorksheet : null;
                         $recursiveCalculationCellReference = $pCell;
                         if ($definedNameWorksheet !== null) {
-                            $worksheetReference = $definedNameWorksheet;
-                            $recursiveCalculationCellReference = $worksheetReference->getCell('A1');
+                            $recursiveCalculationCellReference = $definedNameWorksheet->getCell('A1');
                         }
                         $recursiveCalculator = new Calculation((null !== $pCell) ? $pCellWorksheet->getParent() : null);
                         $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
