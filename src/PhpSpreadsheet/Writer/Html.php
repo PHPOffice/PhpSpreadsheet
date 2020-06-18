@@ -428,7 +428,7 @@ class Html extends BaseWriter
             // Write table header
             $html .= $this->generateTableHeader($sheet);
             // Get worksheet dimension
-            $dimension = explode(':', $sheet->calculateWorksheetDimension());
+            $dimension = explode(':', $sheet->calculateWorksheetDataDimension());
             $dimension[0] = Coordinate::coordinateFromString($dimension[0]);
             $dimension[0][0] = Coordinate::columnIndexFromString($dimension[0][0]);
             $dimension[1] = Coordinate::coordinateFromString($dimension[1]);
