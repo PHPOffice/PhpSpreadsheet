@@ -4317,6 +4317,9 @@ class Calculation
                     $definedName = $matches[6];
                     $this->debugLog->writeDebugLog('Evaluating Defined Name ', $definedName);
                     $namedRange = NamedRange::resolveRange($definedName, ((null !== $pCell) ? $pCellWorksheet : null));
+                    if ($namedRange === null) {
+                        return $this->raiseFormulaError("undefined variable '$definedName'");
+                    }
                     $definedNameValue = $namedRange->getValue();
                     $definedNameType = $namedRange->isFormula() ? 'Formula' : 'Range';
                     $this->debugLog->writeDebugLog("Defined Name is a {$definedNameType} with a value of {$definedNameValue}");
