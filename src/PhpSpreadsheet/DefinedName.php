@@ -72,7 +72,7 @@ abstract class DefinedName
         $this->isFormula = (bool) preg_match(NamedFormula::REGEXP_FORMULA, $value);
     }
 
-    public static function getInstance($name, ?Worksheet $worksheet=null, $value = null, $localOnly = false, $scope = null)
+    public static function createInstance($name, ?Worksheet $worksheet=null, $value = null, $localOnly = false, $scope = null)
     {
         $isFormula = (bool) preg_match(NamedFormula::REGEXP_FORMULA, $value);
         if ($isFormula) {

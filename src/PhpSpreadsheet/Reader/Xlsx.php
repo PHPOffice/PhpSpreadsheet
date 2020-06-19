@@ -1372,10 +1372,10 @@ echo "VALUE {$extractedRange} IS LOCALLY SCOPED TO {$definedName['localSheetId']
                                                     if ($worksheet = $docSheet->getParent()->getSheetByName($range[0])) {
 //                                                        $extractedRange = str_replace('$', '', $range[1]);
                                                         $scope = $docSheet->getParent()->getSheet($mapSheetId[(int) $definedName['localSheetId']]);
-                                                        $excel->addDefinedName(DefinedName::getInstance((string) $definedName['name'], $worksheet, $extractedRange, true, $scope));
+                                                        $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $worksheet, $extractedRange, true, $scope));
                                                     }
                                                 } else {
-                                                    $excel->addDefinedName(DefinedName::getInstance((string) $definedName['name'], null, $extractedRange, true));
+                                                    $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], null, $extractedRange, true));
                                                 }
                                             }
 
@@ -1411,7 +1411,7 @@ echo "VALUE {$extractedRange} IS LOCALLY SCOPED TO {$definedName['localSheetId']
                                     }
 
 //                                    if ($locatedSheet !== null) {
-                                        $excel->addDefinedName(DefinedName::getInstance((string) $definedName['name'], $locatedSheet, $definedRange, false));
+                                        $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $locatedSheet, $definedRange, false));
 //                                    }
                                 }
                             }

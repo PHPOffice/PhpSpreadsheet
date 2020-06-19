@@ -3790,7 +3790,7 @@ class Calculation
                     ((preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
                         ($output[count($output) - 1]['type'] == 'Cell Reference') ||
                         (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', substr($formula, $index), $match)) &&
-                            ($output[count($output) - 1]['type'] == 'Named Range' || $output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
+                            ($output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
                     )) {
                     while ($stack->count() > 0 &&
                         ($o2 = $stack->last()) &&
@@ -4318,39 +4318,14 @@ class Calculation
                     $this->debugLog->writeDebugLog('Evaluating Defined Name ', $definedName);
                     $namedRange = NamedRange::resolveRange($definedName, ((null !== $pCell) ? $pCellWorksheet : null));
                     if ($namedRange === null) {
-                        return $this->raiseFormulaError("undefined variable '$definedName'");
+                        return $this->raiseFormulaError("undefined name '$definedName'");
                     }
-                    $definedNameScope = $namedRange->getScope();
-                    if ($definedNameScope !== null && $definedNameScope !== $pCellWorksheet->getParent()) {
-                        // The defined name isn't in our current scope, so #REF
-                        $stack->push('Error', Functions::REF(), null);
-                    } else {
-                        $definedNameValue = $namedRange->getValue();
-                        $definedNameType = $namedRange->isFormula() ? 'Formula' : 'Range';
-                        $definedNameWorksheet = $namedRange->getWorksheet();
-                        $this->debugLog->writeDebugLog("Defined Name is a {$definedNameType} with a value of {$definedNameValue}");
-                        if ($definedNameValue[0] !== '=') {
-                            $definedNameValue = '=' . $definedNameValue;
-                        }
-                        $recursiveCalculationCellReference = $pCell;
-                        if ($definedNameWorksheet !== null) {
-                            $recursiveCalculationCellReference = $definedNameWorksheet->getCell('A1');
-                        }
-                        $recursiveCalculator = new Calculation((null !== $pCell) ? $pCellWorksheet->getParent() : null);
-                        $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
-                        $recursiveCalculator->getDebugLog()->setEchoDebugLog($this->getDebugLog()->getEchoDebugLog());
-                        $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $recursiveCalculationCellReference->getCoordinate(), $recursiveCalculationCellReference);
-                        if ($this->getDebugLog()->getWriteDebugLog()) {
-                            $this->debugLog->mergeDebugLog(array_slice($recursiveCalculator->getDebugLog()->getLog(), 3));
-                            $this->debugLog->writeDebugLog("Evaluation Result for Named {$definedNameType} {$namedRange->getName()} is {$this->showTypeDetails($result)}");
-                        }
-                        $stack->push('Named Range', $result, $namedRange->getName());
-                        if (isset($storeKey)) {
-                            $branchStore[$storeKey] = $result;
-                        }
+                    $result = $this->evaluateDefinedName($pCell, $namedRange, $pCellWorksheet, $stack);
+                    if (isset($storeKey)) {
+                        $branchStore[$storeKey] = $result;
                     }
                 } else {
-                    return $this->raiseFormulaError("undefined variable '$token'");
+                    return $this->raiseFormulaError("undefined name '$token'");
                 }
             }
         }
@@ -4863,5 +4838,51 @@ class Calculation
         }, $tokens);
 
         return '[ ' . implode(' | ', $tokensStr) . ' ]';
+    }
+
+    /**
+     * @param Cell|null $pCell
+     * @param NamedRange $namedRange
+     * @param Worksheet|null $pCellWorksheet
+     * @param Stack $stack
+     * @return mixed|string
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    private function evaluateDefinedName(?Cell $pCell, NamedRange $namedRange, ?Worksheet $pCellWorksheet, Stack $stack)
+    {
+        $definedNameScope = $namedRange->getScope();
+        if ($definedNameScope !== null && $definedNameScope !== $pCellWorksheet->getParent()) {
+            // The defined name isn't in our current scope, so #REF
+            $result = Functions::REF();
+            $stack->push('Error', $result, $namedRange->getName());
+
+            return $result;
+        }
+
+        $definedNameValue = $namedRange->getValue();
+        $definedNameType = $namedRange->isFormula() ? 'Formula' : 'Range';
+        $definedNameWorksheet = $namedRange->getWorksheet();
+
+        $this->debugLog->writeDebugLog("Defined Name is a {$definedNameType} with a value of {$definedNameValue}");
+        if ($definedNameValue[0] !== '=') {
+            $definedNameValue = '=' . $definedNameValue;
+        }
+        $recursiveCalculationCellReference = ($definedNameWorksheet !== null)
+            ? $definedNameWorksheet->getCell('A1')
+            : $pCell;
+
+        $recursiveCalculator = new Calculation((null !== $pCell) ? $pCellWorksheet->getParent() : null);
+        $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
+        $recursiveCalculator->getDebugLog()->setEchoDebugLog($this->getDebugLog()->getEchoDebugLog());
+        $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $recursiveCalculationCellReference->getCoordinate(), $recursiveCalculationCellReference);
+
+        if ($this->getDebugLog()->getWriteDebugLog()) {
+            $this->debugLog->mergeDebugLog(array_slice($recursiveCalculator->getDebugLog()->getLog(), 3));
+            $this->debugLog->writeDebugLog("Evaluation Result for Named {$definedNameType} {$namedRange->getName()} is {$this->showTypeDetails($result)}");
+        }
+
+        $stack->push('Defined Name', $result, $namedRange->getName());
+
+        return $result;
     }
 }
