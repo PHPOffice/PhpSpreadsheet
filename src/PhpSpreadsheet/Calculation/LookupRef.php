@@ -485,6 +485,13 @@ class LookupRef
             return Functions::NA();
         }
 
+        if ($matchType == 1) {
+            // If match_type is 1 the list has to be processed from last to first
+
+            $lookupArray = array_reverse($lookupArray);
+            $keySet = array_reverse(array_keys($lookupArray));
+        }
+
         // Lookup_array should contain only number, text, or logical values, or empty (null) cells
         foreach ($lookupArray as $i => $lookupArrayValue) {
             //    check the type of the value
@@ -498,15 +505,8 @@ class LookupRef
                 $lookupArray[$i] = StringHelper::strToLower($lookupArrayValue);
             }
             if (($lookupArrayValue === null) && (($matchType == 1) || ($matchType == -1))) {
-                $lookupArray = array_slice($lookupArray, 0, $i - 1);
+                unset($lookupArray[$i]);
             }
-        }
-
-        if ($matchType == 1) {
-            // If match_type is 1 the list has to be processed from last to first
-
-            $lookupArray = array_reverse($lookupArray);
-            $keySet = array_reverse(array_keys($lookupArray));
         }
 
         // **
@@ -515,7 +515,7 @@ class LookupRef
 
         if ($matchType === 0 || $matchType === 1) {
             foreach ($lookupArray as $i => $lookupArrayValue) {
-                $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
+                $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) || (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
                 $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
                 $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
                 $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
@@ -807,7 +807,7 @@ class LookupRef
             return Functions::REF();
         }
         $f = array_keys($lookup_array);
-        $firstRow = array_pop($f);
+        $firstRow = reset($f);
         if ((!is_array($lookup_array[$firstRow])) || ($index_number > count($lookup_array))) {
             return Functions::REF();
         }
