@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Resolve evaluation of utf-8 named ranges in calculation engine [#1522](https://github.com/PHPOffice/PhpSpreadsheet/pull/1522)
+- Fix HLOOKUP on single row [#1512](https://github.com/PHPOffice/PhpSpreadsheet/pull/1512)
 - Fix MATCH when comparing different numeric types [#1521](https://github.com/PHPOffice/PhpSpreadsheet/pull/1521)
 - Fix exact MATCH on ranges with empty cells [#1520](https://github.com/PHPOffice/PhpSpreadsheet/pull/1520)
 

@@ -807,7 +807,7 @@ class LookupRef
             return Functions::REF();
         }
         $f = array_keys($lookup_array);
-        $firstRow = array_pop($f);
+        $firstRow = reset($f);
         if ((!is_array($lookup_array[$firstRow])) || ($index_number > count($lookup_array))) {
             return Functions::REF();
         }
