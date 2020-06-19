@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix HLOOKUP on single row [#1512](https://github.com/PHPOffice/PhpSpreadsheet/pull/1512)
 - Fix MATCH when comparing different numeric types [#1521](https://github.com/PHPOffice/PhpSpreadsheet/pull/1521)
 - Fix exact MATCH on ranges with empty cells [#1520](https://github.com/PHPOffice/PhpSpreadsheet/pull/1520)
+- Fix for Issue [#1516](https://github.com/PHPOffice/PhpSpreadsheet/issues/1516) (Cloning worksheet makes corrupted Xlsx) [#1530](https://github.com/PHPOffice/PhpSpreadsheet/pull/1530)
+- Fix For Issue [#1509](https://github.com/PHPOffice/PhpSpreadsheet/issues/1509) (Can not set empty enclosure for CSV) [#1518](https://github.com/PHPOffice/PhpSpreadsheet/pull/1518)
+- Fix for Issue [#1505](https://github.com/PHPOffice/PhpSpreadsheet/issues/1505) (TypeError : Argument 4 passed to PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet::writeAttributeIf() must be of the type string) [#1525](https://github.com/PHPOffice/PhpSpreadsheet/pull/1525)
+- Fix for Issue [#1495](https://github.com/PHPOffice/PhpSpreadsheet/issues/1495) (Sheet index being changed when multiple sheets are used in formula) [#1500]((https://github.com/PHPOffice/PhpSpreadsheet/pull/1500))
+- Fix for Issue [#1533](https://github.com/PHPOffice/PhpSpreadsheet/issues/1533) (A reference to a cell containing a string starting with "#" leads to errors in the generated xlsx.) [#1534]((https://github.com/PHPOffice/PhpSpreadsheet/pull/1534)
+- Xls Writer - Correct Timestamp Bug [#1493](https://github.com/PHPOffice/PhpSpreadsheet/pull/1493)
 
 ## [1.13.0] - 2020-05-31
 
