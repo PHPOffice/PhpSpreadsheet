@@ -97,6 +97,20 @@ return [
         -1,
     ],
 
+    // match on ranges with empty cells
+    [
+        3, // Expected
+        4, // Input
+        [1, null, 4, null, 8],
+        1,
+    ],
+    [
+        3, // Expected
+        5, // Input
+        [1, null, 4, null, null],
+        1,
+    ],
+
     // 0s are causing errors, because things like 0 == 'x' is true. Thanks PHP!
     [
         3,
