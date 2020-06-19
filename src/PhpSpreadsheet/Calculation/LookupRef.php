@@ -485,6 +485,13 @@ class LookupRef
             return Functions::NA();
         }
 
+        if ($matchType == 1) {
+            // If match_type is 1 the list has to be processed from last to first
+
+            $lookupArray = array_reverse($lookupArray);
+            $keySet = array_reverse(array_keys($lookupArray));
+        }
+
         // Lookup_array should contain only number, text, or logical values, or empty (null) cells
         foreach ($lookupArray as $i => $lookupArrayValue) {
             //    check the type of the value
@@ -498,15 +505,8 @@ class LookupRef
                 $lookupArray[$i] = StringHelper::strToLower($lookupArrayValue);
             }
             if (($lookupArrayValue === null) && (($matchType == 1) || ($matchType == -1))) {
-                $lookupArray = array_slice($lookupArray, 0, $i - 1);
+                unset($lookupArray[$i]);
             }
-        }
-
-        if ($matchType == 1) {
-            // If match_type is 1 the list has to be processed from last to first
-
-            $lookupArray = array_reverse($lookupArray);
-            $keySet = array_reverse(array_keys($lookupArray));
         }
 
         // **
