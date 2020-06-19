@@ -179,6 +179,19 @@ return [
         [true, false, 'a', 'z', 222222, 2, 99999999],
         -1,
     ],
+    // when mixing numeric types
+    [
+        4, // Expected
+        4.6,
+        [1, 2, 3, 4, 5],
+        1,
+    ],
+    [
+        4, // Expected
+        4,
+        [1, 2, 3, 3.8, 5],
+        1,
+    ],
     // if element of same data type met and it is < than searched one #N/A - no further processing
     [
         '#N/A', // Expected

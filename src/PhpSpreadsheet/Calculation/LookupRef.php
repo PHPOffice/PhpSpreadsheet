@@ -515,7 +515,7 @@ class LookupRef
 
         if ($matchType === 0 || $matchType === 1) {
             foreach ($lookupArray as $i => $lookupArrayValue) {
-                $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
+                $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) || (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
                 $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
                 $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
                 $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
