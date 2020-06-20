@@ -364,17 +364,16 @@ class Logical
      *         returnIfTrue1 ... returnIfTrue_n
      *             Value returned if corresponding testValue (nth) was true
      *
-     * @category Logical Functions
-     *
      * @param mixed ...$arguments Statement arguments
      *
-     * @return mixed|string The value of returnIfTrue_n, if testValue_n was true. #N/A error if none of testValues was true
+     * @return mixed|string The value of returnIfTrue_n, if testValue_n was true. #N/A if none of testValues was true
      */
     public static function IFS(...$arguments)
     {
         if (count($arguments) % 2 != 0) {
             return Functions::NA();
         }
+        // We use instance of Exception as a falseValue in order to prevent string collision with value in cell
         $falseValueException = new Exception();
         for ($i = 0; $i < count($arguments); $i += 2) {
             $testValue = ($arguments[$i] === null) ? '' : Functions::flattenSingleValue($arguments[$i]);

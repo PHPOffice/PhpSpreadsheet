@@ -13,7 +13,7 @@ return [
         '#N/A',
         false,
         1,
-        true
+        true,
     ],
     [
         'ABC',
@@ -27,7 +27,7 @@ return [
         false,
         1,
         false,
-        'ABC'
+        'ABC',
     ],
     [
         'ABC',
@@ -36,7 +36,7 @@ return [
         false,
         1,
         true,
-        'ABC'
+        'ABC',
     ],
     [
         false,
@@ -45,6 +45,6 @@ return [
         false,
         1,
         true,
-        'ABC'
+        'ABC',
     ],
 ];

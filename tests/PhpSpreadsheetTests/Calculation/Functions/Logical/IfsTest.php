@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class IfsTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -17,11 +17,12 @@ class IfsTest extends TestCase
      * @dataProvider providerIFS
      *
      * @param mixed $expectedResult
+     * @param mixed $args
      */
-    public function testIFS($expectedResult, ...$args)
+    public function testIFS($expectedResult, ...$args): void
     {
         $result = Logical::IFS(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerIFS()
