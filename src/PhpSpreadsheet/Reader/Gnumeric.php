@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -776,16 +776,16 @@ class Gnumeric extends BaseReader
         if (isset($gnmXML->Names)) {
             foreach ($gnmXML->Names->Name as $namedRange) {
                 $name = (string) $namedRange->name;
-                $range = (string) $namedRange->value;
-                if (stripos($range, '#REF!') !== false) {
+                $rangeValue = (string) $namedRange->value;
+                if (stripos($rangeValue, '#REF!') !== false) {
                     continue;
                 }
 
-                $range = Worksheet::extractSheetTitle($range, true);
-                $range[0] = trim($range[0], "'");
-                if ($worksheet = $this->spreadsheet->getSheetByName($range[0])) {
-                    $extractedRange = str_replace('$', '', $range[1]);
-                    $this->spreadsheet->addNamedRange(new NamedRange($name, $worksheet, $extractedRange));
+                [$worksheetName, $range] = Worksheet::extractSheetTitle($rangeValue, true);
+                $worksheetName = trim($worksheetName, "'");
+                $worksheet = $this->spreadsheet->getSheetByName($worksheetName);
+                if ($worksheet !== null) {
+                    $this->spreadsheet->addDefinedName(DefinedName::createInstance((string) $name, $worksheet, $rangeValue));
                 }
             }
         }
