@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class CharTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class CharTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -31,14 +31,14 @@ class CharTest extends TestCase
      * @param mixed $expectedResult
      * @param $character
      */
-    public function testCHAR($expectedResult, $character)
+    public function testCHAR($expectedResult, $character): void
     {
         $result = TextData::CHARACTER($character);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCHAR()
     {
-        return require 'data/Calculation/TextData/CHAR.php';
+        return require 'tests/data/Calculation/TextData/CHAR.php';
     }
 }

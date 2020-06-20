@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CountATest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class CountATest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUNTA($expectedResult, ...$args)
+    public function testCOUNTA($expectedResult, ...$args): void
     {
         $result = Statistical::COUNTA(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCOUNTA()
     {
-        return require 'data/Calculation/Statistical/COUNTA.php';
+        return require 'tests/data/Calculation/Statistical/COUNTA.php';
     }
 }

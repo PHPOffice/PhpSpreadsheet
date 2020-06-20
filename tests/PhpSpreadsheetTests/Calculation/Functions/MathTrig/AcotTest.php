@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class AcotTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -19,14 +19,14 @@ class AcotTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $number
      */
-    public function testACOT($expectedResult, $number)
+    public function testACOT($expectedResult, $number): void
     {
         $result = MathTrig::ACOT($number);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerACOT()
     {
-        return require 'data/Calculation/MathTrig/ACOT.php';
+        return require 'tests/data/Calculation/MathTrig/ACOT.php';
     }
 }

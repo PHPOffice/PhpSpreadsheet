@@ -7,6 +7,67 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Fixed
+
+- Resolve evaluation of utf-8 named ranges in calculation engine [#1522](https://github.com/PHPOffice/PhpSpreadsheet/pull/1522)
+- Fix HLOOKUP on single row [#1512](https://github.com/PHPOffice/PhpSpreadsheet/pull/1512)
+- Fix MATCH when comparing different numeric types [#1521](https://github.com/PHPOffice/PhpSpreadsheet/pull/1521)
+- Fix exact MATCH on ranges with empty cells [#1520](https://github.com/PHPOffice/PhpSpreadsheet/pull/1520)
+- Fix for Issue [#1516](https://github.com/PHPOffice/PhpSpreadsheet/issues/1516) (Cloning worksheet makes corrupted Xlsx) [#1530](https://github.com/PHPOffice/PhpSpreadsheet/pull/1530)
+- Fix For Issue [#1509](https://github.com/PHPOffice/PhpSpreadsheet/issues/1509) (Can not set empty enclosure for CSV) [#1518](https://github.com/PHPOffice/PhpSpreadsheet/pull/1518)
+- Fix for Issue [#1505](https://github.com/PHPOffice/PhpSpreadsheet/issues/1505) (TypeError : Argument 4 passed to PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet::writeAttributeIf() must be of the type string) [#1525](https://github.com/PHPOffice/PhpSpreadsheet/pull/1525)
+- Fix for Issue [#1495](https://github.com/PHPOffice/PhpSpreadsheet/issues/1495) (Sheet index being changed when multiple sheets are used in formula) [#1500]((https://github.com/PHPOffice/PhpSpreadsheet/pull/1500))
+- Fix for Issue [#1533](https://github.com/PHPOffice/PhpSpreadsheet/issues/1533) (A reference to a cell containing a string starting with "#" leads to errors in the generated xlsx.) [#1534](https://github.com/PHPOffice/PhpSpreadsheet/pull/1534)
+- Xls Writer - Correct Timestamp Bug [#1493](https://github.com/PHPOffice/PhpSpreadsheet/pull/1493)
+
+## [1.13.0] - 2020-05-31
+
+### Added
+
+- Support writing to streams in all writers [#1292](https://github.com/PHPOffice/PhpSpreadsheet/issues/1292)
+- Support CSV files with data wrapping a lot of lines [#1468](https://github.com/PHPOffice/PhpSpreadsheet/pull/1468)
+- Support protection of worksheet by a specific hash algorithm [#1485](https://github.com/PHPOffice/PhpSpreadsheet/pull/1485)
+
+### Fixed
+
+- Fix Chart samples by updating chart parameter from 0 to DataSeries::EMPTY_AS_GAP [#1448](https://github.com/PHPOffice/PhpSpreadsheet/pull/1448)
+- Fix return type in docblock for the Cells::get() [#1398](https://github.com/PHPOffice/PhpSpreadsheet/pull/1398)
+- Fix RATE, PRICE, XIRR, and XNPV Functions [#1456](https://github.com/PHPOffice/PhpSpreadsheet/pull/1456)
+- Save Excel 2010+ functions properly in XLSX [#1461](https://github.com/PHPOffice/PhpSpreadsheet/pull/1461)
+- Several improvements in HTML writer [#1464](https://github.com/PHPOffice/PhpSpreadsheet/pull/1464)
+- Fix incorrect behaviour when saving XLSX file with drawings [#1462](https://github.com/PHPOffice/PhpSpreadsheet/pull/1462),
+- Fix Crash while trying setting a cell the value "123456\n" [#1476](https://github.com/PHPOffice/PhpSpreadsheet/pull/1481)
+- Improved DATEDIF() function and reduced errors for Y and YM units [#1466](https://github.com/PHPOffice/PhpSpreadsheet/pull/1466)
+- Stricter typing for mergeCells [#1494](https://github.com/PHPOffice/PhpSpreadsheet/pull/1494)
+
+### Changed
+
+- Drop support for PHP 7.1, according to https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support
+- Drop partial migration tool in favor of complete migration via RectorPHP [#1445](https://github.com/PHPOffice/PhpSpreadsheet/issues/1445)
+- Limit composer package to `src/` [#1424](https://github.com/PHPOffice/PhpSpreadsheet/pull/1424)
+
+## [1.12.0] - 2020-04-27
+
+### Added
+
+- Improved the ARABIC function to also handle short-hand roman numerals
+- Added support for the FLOOR.MATH and FLOOR.PRECISE functions [#1351](https://github.com/PHPOffice/PhpSpreadsheet/pull/1351)
+
+### Fixed
+
+- Fix ROUNDUP and ROUNDDOWN for floating-point rounding error [#1404](https://github.com/PHPOffice/PhpSpreadsheet/pull/1404)
+- Fix ROUNDUP and ROUNDDOWN for negative number [#1417](https://github.com/PHPOffice/PhpSpreadsheet/pull/1417)
+- Fix loading styles from vmlDrawings when containing whitespace [#1347](https://github.com/PHPOffice/PhpSpreadsheet/issues/1347)
+- Fix incorrect behavior when removing last row [#1365](https://github.com/PHPOffice/PhpSpreadsheet/pull/1365)
+- MATCH with a static array should return the position of the found value based on the values submitted [#1332](https://github.com/PHPOffice/PhpSpreadsheet/pull/1332)
+- Fix Xlsx Reader's handling of undefined fill color [#1353](https://github.com/PHPOffice/PhpSpreadsheet/pull/1353)
+
+## [1.11.0] - 2020-03-02
+
+### Added
+
+- Added support for the BASE function
+- Added support for the ARABIC function
 - Conditionals - Extend Support for (NOT)CONTAINSBLANKS [#1278](https://github.com/PHPOffice/PhpSpreadsheet/pull/1278)
 
 ### Fixed
@@ -19,7 +80,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix active cell when freeze pane is used [#1323](https://github.com/PHPOffice/PhpSpreadsheet/pull/1323)
 - Fix XLSX file loading with autofilter containing '$' [#1326](https://github.com/PHPOffice/PhpSpreadsheet/pull/1326)
 - PHPDoc - Use `@return $this` for fluent methods [#1362](https://github.com/PHPOffice/PhpSpreadsheet/pull/1362)
-- Fix loading styles from vmlDrawings when containing whitespace [#1347](https://github.com/PHPOffice/PhpSpreadsheet/issues/1347)
 
 ## [1.10.1] - 2019-12-02
 

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class GcdTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class GcdTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testGCD($expectedResult, ...$args)
+    public function testGCD($expectedResult, ...$args): void
     {
         $result = MathTrig::GCD(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerGCD()
     {
-        return require 'data/Calculation/MathTrig/GCD.php';
+        return require 'tests/data/Calculation/MathTrig/GCD.php';
     }
 }

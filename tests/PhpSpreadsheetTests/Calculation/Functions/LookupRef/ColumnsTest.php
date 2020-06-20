@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnsTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class ColumnsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOLUMNS($expectedResult, ...$args)
+    public function testCOLUMNS($expectedResult, ...$args): void
     {
         $result = LookupRef::COLUMNS(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCOLUMNS()
     {
-        return require 'data/Calculation/LookupRef/COLUMNS.php';
+        return require 'tests/data/Calculation/LookupRef/COLUMNS.php';
     }
 }

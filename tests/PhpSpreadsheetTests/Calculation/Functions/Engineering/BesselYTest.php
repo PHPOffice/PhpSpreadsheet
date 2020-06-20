@@ -10,7 +10,7 @@ class BesselYTest extends TestCase
 {
     const BESSEL_PRECISION = 1E-8;
 
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -20,14 +20,14 @@ class BesselYTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBESSELY($expectedResult, ...$args)
+    public function testBESSELY($expectedResult, ...$args): void
     {
         $result = Engineering::BESSELY(...$args);
-        $this->assertEquals($expectedResult, $result, '', self::BESSEL_PRECISION);
+        self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
     public function providerBESSELY()
     {
-        return require 'data/Calculation/Engineering/BESSELY.php';
+        return require 'tests/data/Calculation/Engineering/BESSELY.php';
     }
 }

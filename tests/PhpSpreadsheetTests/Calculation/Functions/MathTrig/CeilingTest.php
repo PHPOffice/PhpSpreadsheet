@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CeilingTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class CeilingTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCEILING($expectedResult, ...$args)
+    public function testCEILING($expectedResult, ...$args): void
     {
         $result = MathTrig::CEILING(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCEILING()
     {
-        return require 'data/Calculation/MathTrig/CEILING.php';
+        return require 'tests/data/Calculation/MathTrig/CEILING.php';
     }
 }

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class WorkDayTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -21,14 +21,14 @@ class WorkDayTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testWORKDAY($expectedResult, ...$args)
+    public function testWORKDAY($expectedResult, ...$args): void
     {
         $result = DateTime::WORKDAY(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerWORKDAY()
     {
-        return require 'data/Calculation/DateTime/WORKDAY.php';
+        return require 'tests/data/Calculation/DateTime/WORKDAY.php';
     }
 }

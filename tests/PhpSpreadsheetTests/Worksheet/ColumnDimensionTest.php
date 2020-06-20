@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnDimensionTest extends TestCase
 {
-    public function testInstantiateColumnDimensionDefault()
+    public function testInstantiateColumnDimensionDefault(): void
     {
         $expected = 'A';
         $columnDimension = new ColumnDimension();
@@ -16,7 +16,7 @@ class ColumnDimensionTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    public function testGetAndSetColumnIndex()
+    public function testGetAndSetColumnIndex(): void
     {
         $expected = 'B';
         $columnDimension = new ColumnDimension();
@@ -25,7 +25,7 @@ class ColumnDimensionTest extends TestCase
         self::assertSame($expected, $result);
     }
 
-    public function testGetAndSetWidth()
+    public function testGetAndSetWidth(): void
     {
         $expected = 1.2;
         $columnDimension = new ColumnDimension();
@@ -34,7 +34,7 @@ class ColumnDimensionTest extends TestCase
         self::assertSame($expected, $result);
     }
 
-    public function testGetAndSetAutoSize()
+    public function testGetAndSetAutoSize(): void
     {
         $expected = true;
         $columnDimension = new ColumnDimension();

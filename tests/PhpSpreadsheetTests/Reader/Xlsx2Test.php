@@ -11,18 +11,10 @@ use PHPUnit\Framework\TestCase;
 
 class Xlsx2Test extends TestCase
 {
-    public function tearDown()
-    {
-        $outfile = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
-        if (file_exists($outfile)) {
-            unlink($outfile);
-        }
-    }
-
-    public function testLoadXlsxConditionalFormatting2()
+    public function testLoadXlsxConditionalFormatting2(): void
     {
         // Make sure Conditionals are read correctly from existing file
-        $filename = './data/Reader/XLSX/conditionalFormatting2Test.xlsx';
+        $filename = 'tests/data/Reader/XLSX/conditionalFormatting2Test.xlsx';
         $reader = IOFactory::createReader('Xlsx');
         $spreadsheet = $reader->load($filename);
         $worksheet = $spreadsheet->getActiveSheet();
@@ -53,16 +45,17 @@ class Xlsx2Test extends TestCase
         self::assertEquals('5', $conditions[0]);
     }
 
-    public function testReloadXlsxConditionalFormatting2()
+    public function testReloadXlsxConditionalFormatting2(): void
     {
         // Make sure conditionals from existing file are maintained across save
-        $filename = './data/Reader/XLSX/conditionalFormatting2Test.xlsx';
+        $filename = 'tests/data/Reader/XLSX/conditionalFormatting2Test.xlsx';
         $outfile = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         $reader = IOFactory::createReader('Xlsx');
         $spreadshee1 = $reader->load($filename);
         $writer = IOFactory::createWriter($spreadshee1, 'Xlsx');
         $writer->save($outfile);
         $spreadsheet = $reader->load($outfile);
+        unlink($outfile);
         $worksheet = $spreadsheet->getActiveSheet();
 
         $conditionalStyle = $worksheet->getConditionalStyles('A2:A8');
@@ -91,7 +84,7 @@ class Xlsx2Test extends TestCase
         self::assertEquals('5', $conditions[0]);
     }
 
-    public function testNewXlsxConditionalFormatting2()
+    public function testNewXlsxConditionalFormatting2(): void
     {
         // Make sure blanks/non-blanks added by PhpSpreadsheet are handled correctly
         $outfile = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
@@ -110,6 +103,7 @@ class Xlsx2Test extends TestCase
         $writer->save($outfile);
         $reader = IOFactory::createReader('Xlsx');
         $spreadsheet = $reader->load($outfile);
+        unlink($outfile);
         $worksheet = $spreadsheet->getActiveSheet();
 
         $conditionalStyle = $worksheet->getConditionalStyles('A1:A6');

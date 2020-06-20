@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class FisherInvTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -19,14 +19,14 @@ class FisherInvTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testFISHERINV($expectedResult, $value)
+    public function testFISHERINV($expectedResult, $value): void
     {
         $result = Statistical::FISHERINV($value);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerFISHERINV()
     {
-        return require 'data/Calculation/Statistical/FISHERINV.php';
+        return require 'tests/data/Calculation/Statistical/FISHERINV.php';
     }
 }

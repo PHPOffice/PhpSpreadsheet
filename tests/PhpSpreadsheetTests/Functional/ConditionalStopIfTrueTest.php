@@ -21,7 +21,7 @@ class ConditionalStopIfTrueTest extends AbstractFunctional
      *
      * @param string $format
      */
-    public function testConditionalStopIfTrue($format)
+    public function testConditionalStopIfTrue($format): void
     {
         $pCoordinate = 'A1:A3';
 

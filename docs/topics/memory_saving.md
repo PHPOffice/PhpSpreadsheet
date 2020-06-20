@@ -16,7 +16,7 @@ cache usages.
 
 To enable cell caching, you must provide your own implementation of cache like so:
 
-``` php
+```php
 $cache = new MyCustomPsr16Implementation();
 
 \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);

@@ -8,8 +8,6 @@ interface IRenderer
 {
     /**
      * IRenderer constructor.
-     *
-     * @param \PhpOffice\PhpSpreadsheet\Chart\Chart $chart
      */
     public function __construct(Chart $chart);
 

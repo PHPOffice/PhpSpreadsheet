@@ -198,7 +198,7 @@ class Font
      *
      * @param string $pValue
      */
-    public static function setTrueTypeFontPath($pValue)
+    public static function setTrueTypeFontPath($pValue): void
     {
         self::$trueTypeFontPath = $pValue;
     }
@@ -223,7 +223,7 @@ class Font
      *
      * @return int Column width
      */
-    public static function calculateColumnWidth(\PhpOffice\PhpSpreadsheet\Style\Font $font, $cellText = '', $rotation = 0, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont = null)
+    public static function calculateColumnWidth(\PhpOffice\PhpSpreadsheet\Style\Font $font, $cellText = '', $rotation = 0, ?\PhpOffice\PhpSpreadsheet\Style\Font $defaultFont = null)
     {
         // If it is rich text, use plain text
         if ($cellText instanceof RichText) {
@@ -276,8 +276,6 @@ class Font
      * @param \PhpOffice\PhpSpreadsheet\Style\Font
      * @param int $rotation
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return int
      */
     public static function getTextWidthPixelsExact($text, \PhpOffice\PhpSpreadsheet\Style\Font $font, $rotation = 0)
@@ -305,7 +303,6 @@ class Font
      * Get approximate width in pixels for a string of text in a certain font at a certain rotation angle.
      *
      * @param string $columnText
-     * @param \PhpOffice\PhpSpreadsheet\Style\Font $font
      * @param int $rotation
      *
      * @return int Text width in pixels (no padding added)

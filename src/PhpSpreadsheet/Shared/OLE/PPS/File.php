@@ -27,8 +27,6 @@ use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
  * Class for creating File PPS's for OLE containers.
  *
  * @author   Xavier Noguer <xnoguer@php.net>
- *
- * @category PhpSpreadsheet
  */
 class File extends PPS
 {
@@ -59,7 +57,7 @@ class File extends PPS
      *
      * @param string $data The data to append
      */
-    public function append($data)
+    public function append($data): void
     {
         $this->_data .= $data;
     }

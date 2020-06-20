@@ -27,6 +27,7 @@ class Conditional implements IComparable
     const OPERATOR_CONTAINSTEXT = 'containsText';
     const OPERATOR_NOTCONTAINS = 'notContains';
     const OPERATOR_BETWEEN = 'between';
+    const OPERATOR_NOTBETWEEN = 'notBetween';
 
     /**
      * Condition type.
@@ -233,7 +234,7 @@ class Conditional implements IComparable
      *
      * @return $this
      */
-    public function setStyle(Style $pValue = null)
+    public function setStyle(?Style $pValue = null)
     {
         $this->style = $pValue;
 

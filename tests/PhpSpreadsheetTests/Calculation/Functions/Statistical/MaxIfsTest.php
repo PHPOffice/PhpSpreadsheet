@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class MaxIfsTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class MaxIfsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMAXIFS($expectedResult, ...$args)
+    public function testMAXIFS($expectedResult, ...$args): void
     {
         $result = Statistical::MAXIFS(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerMAXIFS()
     {
-        return require 'data/Calculation/Statistical/MAXIFS.php';
+        return require 'tests/data/Calculation/Statistical/MAXIFS.php';
     }
 }

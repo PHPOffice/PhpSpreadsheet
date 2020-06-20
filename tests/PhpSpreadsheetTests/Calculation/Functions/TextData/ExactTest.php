@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ExactTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class ExactTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -31,14 +31,14 @@ class ExactTest extends TestCase
      * @param mixed $expectedResult
      * @param array $args
      */
-    public function testEXACT($expectedResult, ...$args)
+    public function testEXACT($expectedResult, ...$args): void
     {
         StringHelper::setDecimalSeparator('.');
         StringHelper::setThousandsSeparator(' ');
         StringHelper::setCurrencyCode('$');
 
         $result = TextData::EXACT(...$args);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -46,6 +46,6 @@ class ExactTest extends TestCase
      */
     public function providerEXACT()
     {
-        return require 'data/Calculation/TextData/EXACT.php';
+        return require 'tests/data/Calculation/TextData/EXACT.php';
     }
 }

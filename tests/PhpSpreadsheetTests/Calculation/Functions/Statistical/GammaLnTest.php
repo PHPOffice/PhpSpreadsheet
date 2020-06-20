@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class GammaLnTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -19,14 +19,14 @@ class GammaLnTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testGAMMALN($expectedResult, $value)
+    public function testGAMMALN($expectedResult, $value): void
     {
         $result = Statistical::GAMMALN($value);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerGAMMALN()
     {
-        return require 'data/Calculation/Statistical/GAMMALN.php';
+        return require 'tests/data/Calculation/Statistical/GAMMALN.php';
     }
 }

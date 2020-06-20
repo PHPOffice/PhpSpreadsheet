@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use SimpleXMLElement;
 
 class SheetViews extends BaseParserClass
 {
@@ -11,13 +12,13 @@ class SheetViews extends BaseParserClass
 
     private $worksheet;
 
-    public function __construct(\SimpleXMLElement $sheetViewXml, Worksheet $workSheet)
+    public function __construct(SimpleXMLElement $sheetViewXml, Worksheet $workSheet)
     {
         $this->sheetViewXml = $sheetViewXml;
         $this->worksheet = $workSheet;
     }
 
-    public function load()
+    public function load(): void
     {
         $this->zoomScale();
         $this->view();
@@ -34,7 +35,7 @@ class SheetViews extends BaseParserClass
         }
     }
 
-    private function zoomScale()
+    private function zoomScale(): void
     {
         if (isset($this->sheetViewXml['zoomScale'])) {
             $zoomScale = (int) ($this->sheetViewXml['zoomScale']);
@@ -59,14 +60,14 @@ class SheetViews extends BaseParserClass
         }
     }
 
-    private function view()
+    private function view(): void
     {
         if (isset($this->sheetViewXml['view'])) {
             $this->worksheet->getSheetView()->setView((string) $this->sheetViewXml['view']);
         }
     }
 
-    private function gridLines()
+    private function gridLines(): void
     {
         if (isset($this->sheetViewXml['showGridLines'])) {
             $this->worksheet->setShowGridLines(
@@ -75,7 +76,7 @@ class SheetViews extends BaseParserClass
         }
     }
 
-    private function headers()
+    private function headers(): void
     {
         if (isset($this->sheetViewXml['showRowColHeaders'])) {
             $this->worksheet->setShowRowColHeaders(
@@ -84,7 +85,7 @@ class SheetViews extends BaseParserClass
         }
     }
 
-    private function direction()
+    private function direction(): void
     {
         if (isset($this->sheetViewXml['rightToLeft'])) {
             $this->worksheet->setRightToLeft(
@@ -93,7 +94,7 @@ class SheetViews extends BaseParserClass
         }
     }
 
-    private function showZeros()
+    private function showZeros(): void
     {
         if (isset($this->sheetViewXml['showZeros'])) {
             $this->worksheet->getSheetView()->setShowZeros(
@@ -102,7 +103,7 @@ class SheetViews extends BaseParserClass
         }
     }
 
-    private function pane()
+    private function pane(): void
     {
         $xSplit = 0;
         $ySplit = 0;
@@ -126,7 +127,7 @@ class SheetViews extends BaseParserClass
         );
     }
 
-    private function selection()
+    private function selection(): void
     {
         $sqref = (string) $this->sheetViewXml->selection['sqref'];
         $sqref = explode(' ', $sqref);

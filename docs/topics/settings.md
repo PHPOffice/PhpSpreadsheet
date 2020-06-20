@@ -13,7 +13,7 @@ Read more about [memory saving](./memory_saving.md).
 
 To enable cell caching, you must provide your own implementation of cache like so:
 
-``` php
+```php
 $cache = new MyCustomPsr16Implementation();
 
 \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
@@ -25,7 +25,7 @@ Some localisation elements have been included in PhpSpreadsheet. You can
 set a locale by changing the settings. To set the locale to Brazilian
 Portuguese you would use:
 
-``` php
+```php
 $locale = 'pt_br';
 $validLocale = \PhpOffice\PhpSpreadsheet\Settings::setLocale($locale);
 if (!$validLocale) {

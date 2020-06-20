@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefinedNameConfusedForCellTest extends TestCase
 {
-    public function testDefinedName()
+    public function testDefinedName(): void
     {
         $obj = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet0 = $obj->setActiveSheetIndex(0);
@@ -18,5 +18,6 @@ class DefinedNameConfusedForCellTest extends TestCase
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
         $writer->save($filename);
         self::assertTrue(true);
+        unlink($filename);
     }
 }

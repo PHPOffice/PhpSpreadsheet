@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class IfErrorTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -20,14 +20,14 @@ class IfErrorTest extends TestCase
      * @param $value
      * @param $return
      */
-    public function testIFERROR($expectedResult, $value, $return)
+    public function testIFERROR($expectedResult, $value, $return): void
     {
         $result = Logical::IFERROR($value, $return);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerIFERROR()
     {
-        return require 'data/Calculation/Logical/IFERROR.php';
+        return require 'tests/data/Calculation/Logical/IFERROR.php';
     }
 }

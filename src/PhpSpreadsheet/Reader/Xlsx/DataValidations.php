@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use SimpleXMLElement;
 
 class DataValidations
 {
@@ -11,13 +12,13 @@ class DataValidations
 
     private $worksheetXml;
 
-    public function __construct(Worksheet $workSheet, \SimpleXMLElement $worksheetXml)
+    public function __construct(Worksheet $workSheet, SimpleXMLElement $worksheetXml)
     {
         $this->worksheet = $workSheet;
         $this->worksheetXml = $worksheetXml;
     }
 
-    public function load()
+    public function load(): void
     {
         foreach ($this->worksheetXml->dataValidations->dataValidation as $dataValidation) {
             // Uppercase coordinate

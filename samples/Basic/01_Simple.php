@@ -4,7 +4,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
 
-$spreadsheet = new Spreadsheet();
 $helper->log('Create new Spreadsheet object');
 $spreadsheet = new Spreadsheet();
 

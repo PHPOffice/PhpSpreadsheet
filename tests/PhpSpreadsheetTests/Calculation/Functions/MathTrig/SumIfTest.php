@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class SumIfTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class SumIfTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSUMIF($expectedResult, ...$args)
+    public function testSUMIF($expectedResult, ...$args): void
     {
         $result = MathTrig::SUMIF(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSUMIF()
     {
-        return require 'data/Calculation/MathTrig/SUMIF.php';
+        return require 'tests/data/Calculation/MathTrig/SUMIF.php';
     }
 }

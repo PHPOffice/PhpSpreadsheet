@@ -10,97 +10,97 @@ use PHPUnit\Framework\TestCase;
 
 class FunctionsTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
     }
 
-    public function testCompatibilityMode()
+    public function testCompatibilityMode(): void
     {
         $result = Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
         // Test for a true response for success
-        $this->assertTrue($result);
+        self::assertTrue($result);
         // Test that mode has been changed
-        $this->assertEquals(Functions::COMPATIBILITY_GNUMERIC, Functions::getCompatibilityMode());
+        self::assertEquals(Functions::COMPATIBILITY_GNUMERIC, Functions::getCompatibilityMode());
     }
 
-    public function testInvalidCompatibilityMode()
+    public function testInvalidCompatibilityMode(): void
     {
         $result = Functions::setCompatibilityMode('INVALIDMODE');
         // Test for a false response for failure
-        $this->assertFalse($result);
+        self::assertFalse($result);
         // Test that mode has not been changed
-        $this->assertEquals(Functions::COMPATIBILITY_EXCEL, Functions::getCompatibilityMode());
+        self::assertEquals(Functions::COMPATIBILITY_EXCEL, Functions::getCompatibilityMode());
     }
 
-    public function testReturnDateType()
+    public function testReturnDateType(): void
     {
         $result = Functions::setReturnDateType(Functions::RETURNDATE_PHP_OBJECT);
         // Test for a true response for success
-        $this->assertTrue($result);
+        self::assertTrue($result);
         // Test that mode has been changed
-        $this->assertEquals(Functions::RETURNDATE_PHP_OBJECT, Functions::getReturnDateType());
+        self::assertEquals(Functions::RETURNDATE_PHP_OBJECT, Functions::getReturnDateType());
     }
 
-    public function testInvalidReturnDateType()
+    public function testInvalidReturnDateType(): void
     {
         $result = Functions::setReturnDateType('INVALIDTYPE');
         // Test for a false response for failure
-        $this->assertFalse($result);
+        self::assertFalse($result);
         // Test that mode has not been changed
-        $this->assertEquals(Functions::RETURNDATE_EXCEL, Functions::getReturnDateType());
+        self::assertEquals(Functions::RETURNDATE_EXCEL, Functions::getReturnDateType());
     }
 
-    public function testDUMMY()
+    public function testDUMMY(): void
     {
         $result = Functions::DUMMY();
         self::assertEquals('#Not Yet Implemented', $result);
     }
 
-    public function testDIV0()
+    public function testDIV0(): void
     {
         $result = Functions::DIV0();
         self::assertEquals('#DIV/0!', $result);
     }
 
-    public function testNA()
+    public function testNA(): void
     {
         $result = Functions::NA();
         self::assertEquals('#N/A', $result);
     }
 
-    public function testNAN()
+    public function testNAN(): void
     {
         $result = Functions::NAN();
         self::assertEquals('#NUM!', $result);
     }
 
-    public function testNAME()
+    public function testNAME(): void
     {
         $result = Functions::NAME();
         self::assertEquals('#NAME?', $result);
     }
 
-    public function testREF()
+    public function testREF(): void
     {
         $result = Functions::REF();
         self::assertEquals('#REF!', $result);
     }
 
-    public function testNULL()
+    public function testNULL(): void
     {
         $result = Functions::null();
         self::assertEquals('#NULL!', $result);
     }
 
-    public function testVALUE()
+    public function testVALUE(): void
     {
         $result = Functions::VALUE();
         self::assertEquals('#VALUE!', $result);
@@ -111,15 +111,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsBlank($expectedResult, ...$args)
+    public function testIsBlank($expectedResult, ...$args): void
     {
         $result = Functions::isBlank(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIsBlank()
     {
-        return require 'data/Calculation/Functions/IS_BLANK.php';
+        return require 'tests/data/Calculation/Functions/IS_BLANK.php';
     }
 
     /**
@@ -127,15 +127,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsErr($expectedResult, ...$args)
+    public function testIsErr($expectedResult, ...$args): void
     {
         $result = Functions::isErr(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIsErr()
     {
-        return require 'data/Calculation/Functions/IS_ERR.php';
+        return require 'tests/data/Calculation/Functions/IS_ERR.php';
     }
 
     /**
@@ -143,15 +143,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsError($expectedResult, ...$args)
+    public function testIsError($expectedResult, ...$args): void
     {
         $result = Functions::isError(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIsError()
     {
-        return require 'data/Calculation/Functions/IS_ERROR.php';
+        return require 'tests/data/Calculation/Functions/IS_ERROR.php';
     }
 
     /**
@@ -159,15 +159,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testErrorType($expectedResult, ...$args)
+    public function testErrorType($expectedResult, ...$args): void
     {
         $result = Functions::errorType(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerErrorType()
     {
-        return require 'data/Calculation/Functions/ERROR_TYPE.php';
+        return require 'tests/data/Calculation/Functions/ERROR_TYPE.php';
     }
 
     /**
@@ -175,15 +175,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsLogical($expectedResult, ...$args)
+    public function testIsLogical($expectedResult, ...$args): void
     {
         $result = Functions::isLogical(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIsLogical()
     {
-        return require 'data/Calculation/Functions/IS_LOGICAL.php';
+        return require 'tests/data/Calculation/Functions/IS_LOGICAL.php';
     }
 
     /**
@@ -191,15 +191,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsNa($expectedResult, ...$args)
+    public function testIsNa($expectedResult, ...$args): void
     {
         $result = Functions::isNa(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIsNa()
     {
-        return require 'data/Calculation/Functions/IS_NA.php';
+        return require 'tests/data/Calculation/Functions/IS_NA.php';
     }
 
     /**
@@ -207,15 +207,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsNumber($expectedResult, ...$args)
+    public function testIsNumber($expectedResult, ...$args): void
     {
         $result = Functions::isNumber(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIsNumber()
     {
-        return require 'data/Calculation/Functions/IS_NUMBER.php';
+        return require 'tests/data/Calculation/Functions/IS_NUMBER.php';
     }
 
     /**
@@ -223,15 +223,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsText($expectedResult, ...$args)
+    public function testIsText($expectedResult, ...$args): void
     {
         $result = Functions::isText(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIsText()
     {
-        return require 'data/Calculation/Functions/IS_TEXT.php';
+        return require 'tests/data/Calculation/Functions/IS_TEXT.php';
     }
 
     /**
@@ -239,15 +239,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsNonText($expectedResult, ...$args)
+    public function testIsNonText($expectedResult, ...$args): void
     {
         $result = Functions::isNonText(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIsNonText()
     {
-        return require 'data/Calculation/Functions/IS_NONTEXT.php';
+        return require 'tests/data/Calculation/Functions/IS_NONTEXT.php';
     }
 
     /**
@@ -255,15 +255,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsEven($expectedResult, ...$args)
+    public function testIsEven($expectedResult, ...$args): void
     {
         $result = Functions::isEven(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIsEven()
     {
-        return require 'data/Calculation/Functions/IS_EVEN.php';
+        return require 'tests/data/Calculation/Functions/IS_EVEN.php';
     }
 
     /**
@@ -271,15 +271,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsOdd($expectedResult, ...$args)
+    public function testIsOdd($expectedResult, ...$args): void
     {
         $result = Functions::isOdd(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIsOdd()
     {
-        return require 'data/Calculation/Functions/IS_ODD.php';
+        return require 'tests/data/Calculation/Functions/IS_ODD.php';
     }
 
     /**
@@ -287,15 +287,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testTYPE($expectedResult, ...$args)
+    public function testTYPE($expectedResult, ...$args): void
     {
         $result = Functions::TYPE(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerTYPE()
     {
-        return require 'data/Calculation/Functions/TYPE.php';
+        return require 'tests/data/Calculation/Functions/TYPE.php';
     }
 
     /**
@@ -303,15 +303,15 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testN($expectedResult, ...$args)
+    public function testN($expectedResult, ...$args): void
     {
         $result = Functions::n(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerN()
     {
-        return require 'data/Calculation/Functions/N.php';
+        return require 'tests/data/Calculation/Functions/N.php';
     }
 
     /**
@@ -321,7 +321,7 @@ class FunctionsTest extends TestCase
      * @param mixed $reference       Reference to the cell we wish to test
      * @param mixed $value           Value of the cell we wish to test
      */
-    public function testIsFormula($expectedResult, $reference, $value = 'undefined')
+    public function testIsFormula($expectedResult, $reference, $value = 'undefined'): void
     {
         $ourCell = null;
         if ($value !== 'undefined') {
@@ -329,42 +329,42 @@ class FunctionsTest extends TestCase
                 ->disableOriginalConstructor()
                 ->getMock();
             $remoteCell->method('isFormula')
-                ->will($this->returnValue(substr($value, 0, 1) == '='));
+                ->willReturn(substr($value, 0, 1) == '=');
 
             $remoteSheet = $this->getMockBuilder(Worksheet::class)
                 ->disableOriginalConstructor()
                 ->getMock();
             $remoteSheet->method('getCell')
-                ->will($this->returnValue($remoteCell));
+                ->willReturn($remoteCell);
 
             $workbook = $this->getMockBuilder(Spreadsheet::class)
                 ->disableOriginalConstructor()
                 ->getMock();
             $workbook->method('getSheetByName')
-                ->will($this->returnValue($remoteSheet));
+                ->willReturn($remoteSheet);
 
             $sheet = $this->getMockBuilder(Worksheet::class)
                 ->disableOriginalConstructor()
                 ->getMock();
             $sheet->method('getCell')
-                ->will($this->returnValue($remoteCell));
+                ->willReturn($remoteCell);
             $sheet->method('getParent')
-                ->will($this->returnValue($workbook));
+                ->willReturn($workbook);
 
             $ourCell = $this->getMockBuilder(Cell::class)
                 ->disableOriginalConstructor()
                 ->getMock();
             $ourCell->method('getWorksheet')
-                ->will($this->returnValue($sheet));
+                ->willReturn($sheet);
         }
 
         $result = Functions::isFormula($reference, $ourCell);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIsFormula()
     {
-        return require 'data/Calculation/Functions/ISFORMULA.php';
+        return require 'tests/data/Calculation/Functions/ISFORMULA.php';
     }
 
     /**
@@ -372,7 +372,7 @@ class FunctionsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIfCondition($expectedResult, ...$args)
+    public function testIfCondition($expectedResult, ...$args): void
     {
         $result = Functions::ifCondition(...$args);
         self::assertEquals($expectedResult, $result);
@@ -380,6 +380,6 @@ class FunctionsTest extends TestCase
 
     public function providerIfCondition()
     {
-        return require 'data/Calculation/Functions/IF_CONDITION.php';
+        return require 'tests/data/Calculation/Functions/IF_CONDITION.php';
     }
 }

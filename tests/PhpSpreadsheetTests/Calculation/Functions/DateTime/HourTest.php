@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class HourTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -22,14 +22,14 @@ class HourTest extends TestCase
      * @param mixed $expectedResult
      * @param $dateTimeValue
      */
-    public function testHOUR($expectedResult, $dateTimeValue)
+    public function testHOUR($expectedResult, $dateTimeValue): void
     {
         $result = DateTime::HOUROFDAY($dateTimeValue);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerHOUR()
     {
-        return require 'data/Calculation/DateTime/HOUR.php';
+        return require 'tests/data/Calculation/DateTime/HOUR.php';
     }
 }

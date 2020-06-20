@@ -13,7 +13,7 @@ class RowIteratorTest extends TestCase
 
     public $mockRow;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->mockRow = $this->getMockBuilder(Row::class)
             ->disableOriginalConstructor()
@@ -23,12 +23,12 @@ class RowIteratorTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockWorksheet->expects($this->any())
+        $this->mockWorksheet->expects(self::any())
             ->method('getHighestRow')
-            ->will($this->returnValue(5));
+            ->willReturn(5);
     }
 
-    public function testIteratorFullRange()
+    public function testIteratorFullRange(): void
     {
         $iterator = new RowIterator($this->mockWorksheet);
         $rowIndexResult = 1;
@@ -40,7 +40,7 @@ class RowIteratorTest extends TestCase
         }
     }
 
-    public function testIteratorStartEndRange()
+    public function testIteratorStartEndRange(): void
     {
         $iterator = new RowIterator($this->mockWorksheet, 2, 4);
         $rowIndexResult = 2;
@@ -52,7 +52,7 @@ class RowIteratorTest extends TestCase
         }
     }
 
-    public function testIteratorSeekAndPrev()
+    public function testIteratorSeekAndPrev(): void
     {
         $iterator = new RowIterator($this->mockWorksheet, 2, 4);
         $columnIndexResult = 4;
@@ -65,7 +65,7 @@ class RowIteratorTest extends TestCase
         }
     }
 
-    public function testSeekOutOfRange()
+    public function testSeekOutOfRange(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
 
@@ -73,7 +73,7 @@ class RowIteratorTest extends TestCase
         $iterator->seek(1);
     }
 
-    public function testPrevOutOfRange()
+    public function testPrevOutOfRange(): void
     {
         $iterator = new RowIterator($this->mockWorksheet, 2, 4);
         $iterator->prev();

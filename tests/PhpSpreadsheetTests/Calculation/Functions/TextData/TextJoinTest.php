@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class TextJoinTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class TextJoinTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -29,16 +29,15 @@ class TextJoinTest extends TestCase
      * @dataProvider providerTEXTJOIN
      *
      * @param mixed $expectedResult
-     * @param array $args
      */
-    public function testTEXTJOIN($expectedResult, array $args)
+    public function testTEXTJOIN($expectedResult, array $args): void
     {
         $result = TextData::TEXTJOIN(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerTEXTJOIN()
     {
-        return require 'data/Calculation/TextData/TEXTJOIN.php';
+        return require 'tests/data/Calculation/TextData/TEXTJOIN.php';
     }
 }

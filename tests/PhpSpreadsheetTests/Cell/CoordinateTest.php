@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 
 class CoordinateTest extends TestCase
 {
@@ -14,7 +15,7 @@ class CoordinateTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $string
      */
-    public function testColumnIndexFromString($expectedResult, $string)
+    public function testColumnIndexFromString($expectedResult, $string): void
     {
         $columnIndex = Coordinate::columnIndexFromString($string);
         self::assertEquals($expectedResult, $columnIndex);
@@ -25,10 +26,10 @@ class CoordinateTest extends TestCase
 
     public function providerColumnString()
     {
-        return require 'data/ColumnString.php';
+        return require 'tests/data/ColumnString.php';
     }
 
-    public function testColumnIndexFromStringTooLong()
+    public function testColumnIndexFromStringTooLong(): void
     {
         $cellAddress = 'ABCD';
 
@@ -40,10 +41,10 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
-    public function testColumnIndexFromStringTooShort()
+    public function testColumnIndexFromStringTooShort(): void
     {
         $cellAddress = '';
 
@@ -55,7 +56,7 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
     /**
@@ -64,7 +65,7 @@ class CoordinateTest extends TestCase
      * @param mixed $expectedResult
      * @param int $columnIndex
      */
-    public function testStringFromColumnIndex($expectedResult, $columnIndex)
+    public function testStringFromColumnIndex($expectedResult, $columnIndex): void
     {
         $string = Coordinate::stringFromColumnIndex($columnIndex);
         self::assertEquals($expectedResult, $string);
@@ -75,26 +76,27 @@ class CoordinateTest extends TestCase
 
     public function providerColumnIndex()
     {
-        return require 'data/ColumnIndex.php';
+        return require 'tests/data/ColumnIndex.php';
     }
 
     /**
      * @dataProvider providerCoordinates
      *
      * @param mixed $expectedResult
+     * @param string $rangeSet
      */
-    public function testCoordinateFromString($expectedResult, ...$args)
+    public function testCoordinateFromString($expectedResult, $rangeSet): void
     {
-        $result = Coordinate::coordinateFromString(...$args);
+        $result = Coordinate::coordinateFromString($rangeSet);
         self::assertEquals($expectedResult, $result);
     }
 
     public function providerCoordinates()
     {
-        return require 'data/CellCoordinates.php';
+        return require 'tests/data/CellCoordinates.php';
     }
 
-    public function testCoordinateFromStringWithRangeAddress()
+    public function testCoordinateFromStringWithRangeAddress(): void
     {
         $cellAddress = 'A1:AI2012';
 
@@ -106,10 +108,10 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
-    public function testCoordinateFromStringWithEmptyAddress()
+    public function testCoordinateFromStringWithEmptyAddress(): void
     {
         $cellAddress = '';
 
@@ -121,10 +123,10 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
-    public function testCoordinateFromStringWithInvalidAddress()
+    public function testCoordinateFromStringWithInvalidAddress(): void
     {
         $cellAddress = 'AI';
 
@@ -136,26 +138,27 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
     /**
      * @dataProvider providerAbsoluteCoordinates
      *
-     * @param mixed $expectedResult
+     * @param string $expectedResult
+     * @param string $rangeSet
      */
-    public function testAbsoluteCoordinateFromString($expectedResult, ...$args)
+    public function testAbsoluteCoordinateFromString($expectedResult, $rangeSet): void
     {
-        $result = Coordinate::absoluteCoordinate(...$args);
+        $result = Coordinate::absoluteCoordinate($rangeSet);
         self::assertEquals($expectedResult, $result);
     }
 
     public function providerAbsoluteCoordinates()
     {
-        return require 'data/CellAbsoluteCoordinate.php';
+        return require 'tests/data/CellAbsoluteCoordinate.php';
     }
 
-    public function testAbsoluteCoordinateFromStringWithRangeAddress()
+    public function testAbsoluteCoordinateFromStringWithRangeAddress(): void
     {
         $cellAddress = 'A1:AI2012';
 
@@ -167,26 +170,27 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
     /**
      * @dataProvider providerAbsoluteReferences
      *
      * @param mixed $expectedResult
+     * @param string $rangeSet
      */
-    public function testAbsoluteReferenceFromString($expectedResult, ...$args)
+    public function testAbsoluteReferenceFromString($expectedResult, $rangeSet): void
     {
-        $result = Coordinate::absoluteReference(...$args);
+        $result = Coordinate::absoluteReference($rangeSet);
         self::assertEquals($expectedResult, $result);
     }
 
     public function providerAbsoluteReferences()
     {
-        return require 'data/CellAbsoluteReference.php';
+        return require 'tests/data/CellAbsoluteReference.php';
     }
 
-    public function testAbsoluteReferenceFromStringWithRangeAddress()
+    public function testAbsoluteReferenceFromStringWithRangeAddress(): void
     {
         $cellAddress = 'A1:AI2012';
 
@@ -198,17 +202,18 @@ class CoordinateTest extends TestCase
 
             return;
         }
-        $this->fail('An expected exception has not been raised.');
+        self::fail('An expected exception has not been raised.');
     }
 
     /**
      * @dataProvider providerSplitRange
      *
      * @param mixed $expectedResult
+     * @param string $rangeSet
      */
-    public function testSplitRange($expectedResult, ...$args)
+    public function testSplitRange($expectedResult, $rangeSet): void
     {
-        $result = Coordinate::splitRange(...$args);
+        $result = Coordinate::splitRange($rangeSet);
         foreach ($result as $key => $split) {
             if (!is_array($expectedResult[$key])) {
                 self::assertEquals($expectedResult[$key], $split[0]);
@@ -220,7 +225,7 @@ class CoordinateTest extends TestCase
 
     public function providerSplitRange()
     {
-        return require 'data/CellSplitRange.php';
+        return require 'tests/data/CellSplitRange.php';
     }
 
     /**
@@ -228,7 +233,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBuildRange($expectedResult, ...$args)
+    public function testBuildRange($expectedResult, ...$args): void
     {
         $result = Coordinate::buildRange(...$args);
         self::assertEquals($expectedResult, $result);
@@ -236,12 +241,12 @@ class CoordinateTest extends TestCase
 
     public function providerBuildRange()
     {
-        return require 'data/CellBuildRange.php';
+        return require 'tests/data/CellBuildRange.php';
     }
 
-    public function testBuildRangeInvalid()
+    public function testBuildRangeInvalid(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
 
         $cellRange = '';
         Coordinate::buildRange($cellRange);
@@ -251,64 +256,68 @@ class CoordinateTest extends TestCase
      * @dataProvider providerRangeBoundaries
      *
      * @param mixed $expectedResult
+     * @param string $rangeSet
      */
-    public function testRangeBoundaries($expectedResult, ...$args)
+    public function testRangeBoundaries($expectedResult, $rangeSet): void
     {
-        $result = Coordinate::rangeBoundaries(...$args);
+        $result = Coordinate::rangeBoundaries($rangeSet);
         self::assertEquals($expectedResult, $result);
     }
 
     public function providerRangeBoundaries()
     {
-        return require 'data/CellRangeBoundaries.php';
+        return require 'tests/data/CellRangeBoundaries.php';
     }
 
     /**
      * @dataProvider providerRangeDimension
      *
      * @param mixed $expectedResult
+     * @param string $rangeSet
      */
-    public function testRangeDimension($expectedResult, ...$args)
+    public function testRangeDimension($expectedResult, $rangeSet): void
     {
-        $result = Coordinate::rangeDimension(...$args);
+        $result = Coordinate::rangeDimension($rangeSet);
         self::assertEquals($expectedResult, $result);
     }
 
     public function providerRangeDimension()
     {
-        return require 'data/CellRangeDimension.php';
+        return require 'tests/data/CellRangeDimension.php';
     }
 
     /**
      * @dataProvider providerGetRangeBoundaries
      *
      * @param mixed $expectedResult
+     * @param string $rangeSet
      */
-    public function testGetRangeBoundaries($expectedResult, ...$args)
+    public function testGetRangeBoundaries($expectedResult, $rangeSet): void
     {
-        $result = Coordinate::getRangeBoundaries(...$args);
+        $result = Coordinate::getRangeBoundaries($rangeSet);
         self::assertEquals($expectedResult, $result);
     }
 
     public function providerGetRangeBoundaries()
     {
-        return require 'data/CellGetRangeBoundaries.php';
+        return require 'tests/data/CellGetRangeBoundaries.php';
     }
 
     /**
      * @dataProvider providerExtractAllCellReferencesInRange
      *
-     * @param mixed $expectedResult
+     * @param array $expectedResult
+     * @param string $rangeSet
      */
-    public function testExtractAllCellReferencesInRange($expectedResult, ...$args)
+    public function testExtractAllCellReferencesInRange($expectedResult, $rangeSet): void
     {
-        $result = Coordinate::extractAllCellReferencesInRange(...$args);
+        $result = Coordinate::extractAllCellReferencesInRange($rangeSet);
         self::assertEquals($expectedResult, $result);
     }
 
     public function providerExtractAllCellReferencesInRange()
     {
-        return require 'data/CellExtractAllCellReferencesInRange.php';
+        return require 'tests/data/CellExtractAllCellReferencesInRange.php';
     }
 
     /**
@@ -316,7 +325,7 @@ class CoordinateTest extends TestCase
      *
      * @param string $range
      */
-    public function testExtractAllCellReferencesInRangeInvalidRange($range)
+    public function testExtractAllCellReferencesInRangeInvalidRange($range): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Invalid range: "' . $range . '"');
@@ -334,7 +343,7 @@ class CoordinateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMergeRangesInCollection($expectedResult, ...$args)
+    public function testMergeRangesInCollection($expectedResult, ...$args): void
     {
         $result = Coordinate::mergeRangesInCollection(...$args);
         self::assertEquals($expectedResult, $result);
@@ -342,22 +351,23 @@ class CoordinateTest extends TestCase
 
     public function providerMergeRangesInCollection()
     {
-        return require 'data/CellMergeRangesInCollection.php';
+        return require 'tests/data/CellMergeRangesInCollection.php';
     }
 
     /**
      * @dataProvider providerCoordinateIsRange
      *
      * @param mixed $expectedResult
+     * @param string $rangeSet
      */
-    public function testCoordinateIsRange($expectedResult, ...$args)
+    public function testCoordinateIsRange($expectedResult, $rangeSet): void
     {
-        $result = Coordinate::coordinateIsRange(...$args);
+        $result = Coordinate::coordinateIsRange($rangeSet);
         self::assertEquals($expectedResult, $result);
     }
 
     public function providerCoordinateIsRange()
     {
-        return require 'data/CoordinateIsRange.php';
+        return require 'tests/data/CoordinateIsRange.php';
     }
 }

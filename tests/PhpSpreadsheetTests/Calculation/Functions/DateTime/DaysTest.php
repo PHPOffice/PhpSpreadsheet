@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class DaysTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -23,14 +23,14 @@ class DaysTest extends TestCase
      * @param $endDate
      * @param $startDate
      */
-    public function testDAYS($expectedResult, $endDate, $startDate)
+    public function testDAYS($expectedResult, $endDate, $startDate): void
     {
         $result = DateTime::DAYS($endDate, $startDate);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDAYS()
     {
-        return require 'data/Calculation/DateTime/DAYS.php';
+        return require 'tests/data/Calculation/DateTime/DAYS.php';
     }
 }

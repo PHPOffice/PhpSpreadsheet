@@ -10,11 +10,11 @@ class LocaleFloatsTest extends TestCase
 
     protected $currentLocale;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->currentLocale = setlocale(LC_ALL, '0');
 
-        if (!setlocale(LC_ALL, 'fr_FR.UTF-8')) {
+        if (!setlocale(LC_ALL, 'fr_FR.UTF-8', 'fra_fra')) {
             $this->localeAdjusted = false;
 
             return;
@@ -23,17 +23,17 @@ class LocaleFloatsTest extends TestCase
         $this->localeAdjusted = true;
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         if ($this->localeAdjusted) {
             setlocale(LC_ALL, $this->currentLocale);
         }
     }
 
-    public function testLocaleFloatsCorrectlyConvertedByWriter()
+    public function testLocaleFloatsCorrectlyConvertedByWriter(): void
     {
         if (!$this->localeAdjusted) {
-            $this->markTestSkipped('Unable to set locale for testing.');
+            self::markTestSkipped('Unable to set locale for testing.');
         }
 
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
@@ -45,14 +45,15 @@ class LocaleFloatsTest extends TestCase
 
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $spreadsheet = $reader->load($filename);
+        unlink($filename);
 
         $result = $spreadsheet->getActiveSheet()->getCell('A1')->getValue();
 
         ob_start();
         var_dump($result);
         preg_match('/(?:double|float)\(([^\)]+)\)/mui', ob_get_clean(), $matches);
-        $this->assertArrayHasKey(1, $matches);
+        self::assertArrayHasKey(1, $matches);
         $actual = $matches[1];
-        $this->assertEquals('1,1', $actual);
+        self::assertEquals('1,1', $actual);
     }
 }

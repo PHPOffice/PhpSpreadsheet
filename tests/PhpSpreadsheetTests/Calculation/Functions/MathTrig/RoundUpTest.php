@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class RoundUpTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class RoundUpTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testROUNDUP($expectedResult, ...$args)
+    public function testROUNDUP($expectedResult, ...$args): void
     {
         $result = MathTrig::ROUNDUP(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerROUNDUP()
     {
-        return require 'data/Calculation/MathTrig/ROUNDUP.php';
+        return require 'tests/data/Calculation/MathTrig/ROUNDUP.php';
     }
 }

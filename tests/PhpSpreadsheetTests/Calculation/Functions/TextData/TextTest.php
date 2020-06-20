@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class TextTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class TextTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -30,7 +30,7 @@ class TextTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testTEXT($expectedResult, ...$args)
+    public function testTEXT($expectedResult, ...$args): void
     {
         //    Enforce decimal and thousands separator values to UK/US, and currency code to USD
         StringHelper::setDecimalSeparator('.');
@@ -38,11 +38,11 @@ class TextTest extends TestCase
         StringHelper::setCurrencyCode('$');
 
         $result = TextData::TEXTFORMAT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerTEXT()
     {
-        return require 'data/Calculation/TextData/TEXT.php';
+        return require 'tests/data/Calculation/TextData/TEXT.php';
     }
 }

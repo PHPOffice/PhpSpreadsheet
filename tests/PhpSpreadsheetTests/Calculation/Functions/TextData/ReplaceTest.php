@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ReplaceTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class ReplaceTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -30,14 +30,14 @@ class ReplaceTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testREPLACE($expectedResult, ...$args)
+    public function testREPLACE($expectedResult, ...$args): void
     {
         $result = TextData::REPLACE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerREPLACE()
     {
-        return require 'data/Calculation/TextData/REPLACE.php';
+        return require 'tests/data/Calculation/TextData/REPLACE.php';
     }
 }

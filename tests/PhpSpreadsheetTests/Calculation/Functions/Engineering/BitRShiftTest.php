@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class BitRShiftTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -19,14 +19,14 @@ class BitRShiftTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed[] $args
      */
-    public function testBITRSHIFT($expectedResult, array $args)
+    public function testBITRSHIFT($expectedResult, array $args): void
     {
         $result = Engineering::BITRSHIFT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBITRSHIFT()
     {
-        return require 'data/Calculation/Engineering/BITRSHIFT.php';
+        return require 'tests/data/Calculation/Engineering/BITRSHIFT.php';
     }
 }

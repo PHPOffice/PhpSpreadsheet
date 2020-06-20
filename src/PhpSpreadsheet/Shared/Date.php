@@ -7,6 +7,7 @@ use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class Date
@@ -57,7 +58,7 @@ class Date
     /**
      * Default timezone to use for DateTime objects.
      *
-     * @var null|\DateTimeZone
+     * @var null|DateTimeZone
      */
     protected static $defaultTimeZone;
 
@@ -95,20 +96,19 @@ class Date
      *
      * @param DateTimeZone|string $timeZone The timezone to set for all Excel datetimestamp to PHP DateTime Object conversions
      *
-     * @throws \Exception
-     *
-     * @return bool Success or failure
      * @return bool Success or failure
      */
     public static function setDefaultTimezone($timeZone)
     {
-        if ($timeZone = self::validateTimeZone($timeZone)) {
+        try {
+            $timeZone = self::validateTimeZone($timeZone);
             self::$defaultTimeZone = $timeZone;
-
-            return true;
+            $retval = true;
+        } catch (PhpSpreadsheetException $e) {
+            $retval = false;
         }
 
-        return false;
+        return $retval;
     }
 
     /**
@@ -130,20 +130,18 @@ class Date
      *
      * @param DateTimeZone|string $timeZone The timezone to validate, either as a timezone string or object
      *
-     * @throws \Exception
-     *
-     * @return DateTimeZone The timezone as a timezone object
      * @return DateTimeZone The timezone as a timezone object
      */
-    protected static function validateTimeZone($timeZone)
+    private static function validateTimeZone($timeZone)
     {
-        if (is_object($timeZone) && $timeZone instanceof DateTimeZone) {
+        if ($timeZone instanceof DateTimeZone) {
             return $timeZone;
-        } elseif (is_string($timeZone)) {
+        }
+        if (in_array($timeZone, DateTimeZone::listIdentifiers(DateTimeZone::ALL_WITH_BC))) {
             return new DateTimeZone($timeZone);
         }
 
-        throw new \Exception('Invalid timezone');
+        throw new PhpSpreadsheetException('Invalid timezone');
     }
 
     /**
@@ -153,8 +151,6 @@ class Date
      * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
-     *
-     * @throws \Exception
      *
      * @return \DateTime PHP date/time object
      */
@@ -202,8 +198,6 @@ class Date
      * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
-     *
-     * @throws \Exception
      *
      * @return int Unix timetamp for this date/time
      */
@@ -319,13 +313,11 @@ class Date
     /**
      * Is a given cell a date/time?
      *
-     * @param Cell $pCell
-     *
      * @return bool
      */
     public static function isDateTime(Cell $pCell)
     {
-        return is_numeric($pCell->getValue()) &&
+        return is_numeric($pCell->getCalculatedValue()) &&
             self::isDateTimeFormat(
                 $pCell->getWorksheet()->getStyle(
                     $pCell->getCoordinate()
@@ -335,8 +327,6 @@ class Date
 
     /**
      * Is a given number format a date/time?
-     *
-     * @param NumberFormat $pFormat
      *
      * @return bool
      */
@@ -395,6 +385,11 @@ class Date
 
         //    Typically number, currency or accounting (or occasionally fraction) formats
         if ((substr($pFormatCode, 0, 1) == '_') || (substr($pFormatCode, 0, 2) == '0 ')) {
+            return false;
+        }
+        // Some "special formats" provided in German Excel versions were detected as date time value,
+        // so filter them out here - "\C\H\-00000" (Switzerland) and "\D-00000" (Germany).
+        if (\strpos($pFormatCode, '-00000') !== false) {
             return false;
         }
         // Try checking for any of the date formatting characters that don't appear within square braces

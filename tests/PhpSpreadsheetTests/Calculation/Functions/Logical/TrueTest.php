@@ -8,14 +8,14 @@ use PHPUnit\Framework\TestCase;
 
 class TrueTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-    public function testTRUE()
+    public function testTRUE(): void
     {
         $result = Logical::TRUE();
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 }

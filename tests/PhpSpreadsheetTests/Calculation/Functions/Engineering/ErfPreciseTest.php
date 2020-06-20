@@ -10,7 +10,7 @@ class ErfPreciseTest extends TestCase
 {
     const ERF_PRECISION = 1E-12;
 
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -20,14 +20,15 @@ class ErfPreciseTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testERFPRECISE($expectedResult, ...$args)
+    public function testERFPRECISE($expectedResult, ...$args): void
     {
         $result = Engineering::ERFPRECISE(...$args);
-        $this->assertEquals($expectedResult, $result, '', self::ERF_PRECISION);
+        self::assertEquals($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
     public function providerERFPRECISE()
     {
-        return require 'data/Calculation/Engineering/ERFPRECISE.php';
+        return require 'tests/data/Calculation/Engineering/ERFPRECISE.php';
     }
 }

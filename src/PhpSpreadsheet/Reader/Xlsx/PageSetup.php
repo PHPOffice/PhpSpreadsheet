@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use SimpleXMLElement;
 
 class PageSetup extends BaseParserClass
 {
@@ -11,7 +12,7 @@ class PageSetup extends BaseParserClass
 
     private $worksheetXml;
 
-    public function __construct(Worksheet $workSheet, \SimpleXMLElement $worksheetXml = null)
+    public function __construct(Worksheet $workSheet, ?SimpleXMLElement $worksheetXml = null)
     {
         $this->worksheet = $workSheet;
         $this->worksheetXml = $worksheetXml;
@@ -31,7 +32,7 @@ class PageSetup extends BaseParserClass
         return $unparsedLoadedData;
     }
 
-    private function margins(\SimpleXMLElement $xmlSheet, Worksheet $worksheet)
+    private function margins(SimpleXMLElement $xmlSheet, Worksheet $worksheet): void
     {
         if ($xmlSheet->pageMargins) {
             $docPageMargins = $worksheet->getPageMargins();
@@ -44,7 +45,7 @@ class PageSetup extends BaseParserClass
         }
     }
 
-    private function pageSetup(\SimpleXMLElement $xmlSheet, Worksheet $worksheet, array $unparsedLoadedData)
+    private function pageSetup(SimpleXMLElement $xmlSheet, Worksheet $worksheet, array $unparsedLoadedData)
     {
         if ($xmlSheet->pageSetup) {
             $docPageSetup = $worksheet->getPageSetup();
@@ -78,7 +79,7 @@ class PageSetup extends BaseParserClass
         return $unparsedLoadedData;
     }
 
-    private function headerFooter(\SimpleXMLElement $xmlSheet, Worksheet $worksheet)
+    private function headerFooter(SimpleXMLElement $xmlSheet, Worksheet $worksheet): void
     {
         if ($xmlSheet->headerFooter) {
             $docHeaderFooter = $worksheet->getHeaderFooter();
@@ -117,7 +118,7 @@ class PageSetup extends BaseParserClass
         }
     }
 
-    private function pageBreaks(\SimpleXMLElement $xmlSheet, Worksheet $worksheet)
+    private function pageBreaks(SimpleXMLElement $xmlSheet, Worksheet $worksheet): void
     {
         if ($xmlSheet->rowBreaks && $xmlSheet->rowBreaks->brk) {
             $this->rowBreaks($xmlSheet, $worksheet);
@@ -127,7 +128,7 @@ class PageSetup extends BaseParserClass
         }
     }
 
-    private function rowBreaks(\SimpleXMLElement $xmlSheet, Worksheet $worksheet)
+    private function rowBreaks(SimpleXMLElement $xmlSheet, Worksheet $worksheet): void
     {
         foreach ($xmlSheet->rowBreaks->brk as $brk) {
             if ($brk['man']) {
@@ -136,7 +137,7 @@ class PageSetup extends BaseParserClass
         }
     }
 
-    private function columnBreaks(\SimpleXMLElement $xmlSheet, Worksheet $worksheet)
+    private function columnBreaks(SimpleXMLElement $xmlSheet, Worksheet $worksheet): void
     {
         foreach ($xmlSheet->colBreaks->brk as $brk) {
             if ($brk['man']) {

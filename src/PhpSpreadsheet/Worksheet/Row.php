@@ -24,7 +24,7 @@ class Row
      * @param Worksheet $worksheet
      * @param int $rowIndex
      */
-    public function __construct(Worksheet $worksheet = null, $rowIndex = 1)
+    public function __construct(?Worksheet $worksheet = null, $rowIndex = 1)
     {
         // Set parent and row index
         $this->worksheet = $worksheet;
@@ -36,7 +36,7 @@ class Row
      */
     public function __destruct()
     {
-        unset($this->worksheet);
+        $this->worksheet = null;
     }
 
     /**

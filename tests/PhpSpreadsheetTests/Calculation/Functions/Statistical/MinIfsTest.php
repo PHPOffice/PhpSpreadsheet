@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class MinIfsTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class MinIfsTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMINIFS($expectedResult, ...$args)
+    public function testMINIFS($expectedResult, ...$args): void
     {
         $result = Statistical::MINIFS(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerMINIFS()
     {
-        return require 'data/Calculation/Statistical/MINIFS.php';
+        return require 'tests/data/Calculation/Statistical/MINIFS.php';
     }
 }

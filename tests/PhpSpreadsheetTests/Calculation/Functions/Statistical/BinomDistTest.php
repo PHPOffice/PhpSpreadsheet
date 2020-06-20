@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class BinomDistTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class BinomDistTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBINOMDIST($expectedResult, ...$args)
+    public function testBINOMDIST($expectedResult, ...$args): void
     {
         $result = Statistical::BINOMDIST(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerBINOMDIST()
     {
-        return require 'data/Calculation/Statistical/BINOMDIST.php';
+        return require 'tests/data/Calculation/Statistical/BINOMDIST.php';
     }
 }

@@ -16,13 +16,13 @@ class ImDivTest extends TestCase
      */
     protected $complexAssert;
 
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         $this->complexAssert = null;
     }
@@ -32,10 +32,10 @@ class ImDivTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIMDIV($expectedResult, ...$args)
+    public function testIMDIV($expectedResult, ...$args): void
     {
         $result = Engineering::IMDIV(...$args);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -43,6 +43,6 @@ class ImDivTest extends TestCase
 
     public function providerIMDIV()
     {
-        return require 'data/Calculation/Engineering/IMDIV.php';
+        return require 'tests/data/Calculation/Engineering/IMDIV.php';
     }
 }

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class TrimTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class TrimTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -31,14 +31,14 @@ class TrimTest extends TestCase
      * @param mixed $expectedResult
      * @param $character
      */
-    public function testTRIM($expectedResult, $character)
+    public function testTRIM($expectedResult, $character): void
     {
         $result = TextData::TRIMSPACES($character);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerTRIM()
     {
-        return require 'data/Calculation/TextData/TRIM.php';
+        return require 'tests/data/Calculation/TextData/TRIM.php';
     }
 }

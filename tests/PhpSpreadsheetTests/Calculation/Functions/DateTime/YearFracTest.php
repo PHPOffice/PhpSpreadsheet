@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class YearFracTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -21,14 +21,14 @@ class YearFracTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testYEARFRAC($expectedResult, ...$args)
+    public function testYEARFRAC($expectedResult, ...$args): void
     {
         $result = DateTime::YEARFRAC(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerYEARFRAC()
     {
-        return require 'data/Calculation/DateTime/YEARFRAC.php';
+        return require 'tests/data/Calculation/DateTime/YEARFRAC.php';
     }
 }

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CombinTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class CombinTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOMBIN($expectedResult, ...$args)
+    public function testCOMBIN($expectedResult, ...$args): void
     {
         $result = MathTrig::COMBIN(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCOMBIN()
     {
-        return require 'data/Calculation/MathTrig/COMBIN.php';
+        return require 'tests/data/Calculation/MathTrig/COMBIN.php';
     }
 }

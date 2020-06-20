@@ -26,7 +26,7 @@ class CyclicReferenceStack
      *
      * @param mixed $value
      */
-    public function push($value)
+    public function push($value): void
     {
         $this->stack[$value] = $value;
     }
@@ -56,7 +56,7 @@ class CyclicReferenceStack
     /**
      * Clear the stack.
      */
-    public function clear()
+    public function clear(): void
     {
         $this->stack = [];
     }

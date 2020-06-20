@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConfidenceTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class ConfidenceTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCONFIDENCE($expectedResult, ...$args)
+    public function testCONFIDENCE($expectedResult, ...$args): void
     {
         $result = Statistical::CONFIDENCE(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCONFIDENCE()
     {
-        return require 'data/Calculation/Statistical/CONFIDENCE.php';
+        return require 'tests/data/Calculation/Statistical/CONFIDENCE.php';
     }
 }

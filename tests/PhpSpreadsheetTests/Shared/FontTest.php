@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class FontTest extends TestCase
 {
-    public function testGetAutoSizeMethod()
+    public function testGetAutoSizeMethod(): void
     {
         $expectedResult = Font::AUTOSIZE_METHOD_APPROX;
 
@@ -15,7 +15,7 @@ class FontTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSetAutoSizeMethod()
+    public function testSetAutoSizeMethod(): void
     {
         $autosizeMethodValues = [
             Font::AUTOSIZE_METHOD_EXACT,
@@ -28,7 +28,7 @@ class FontTest extends TestCase
         }
     }
 
-    public function testSetAutoSizeMethodWithInvalidValue()
+    public function testSetAutoSizeMethodWithInvalidValue(): void
     {
         $unsupportedAutosizeMethod = 'guess';
 
@@ -41,7 +41,7 @@ class FontTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFontSizeToPixels($expectedResult, ...$args)
+    public function testFontSizeToPixels($expectedResult, ...$args): void
     {
         $result = Font::fontSizeToPixels(...$args);
         self::assertEquals($expectedResult, $result);
@@ -49,7 +49,7 @@ class FontTest extends TestCase
 
     public function providerFontSizeToPixels()
     {
-        return require 'data/Shared/FontSizeToPixels.php';
+        return require 'tests/data/Shared/FontSizeToPixels.php';
     }
 
     /**
@@ -57,7 +57,7 @@ class FontTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testInchSizeToPixels($expectedResult, ...$args)
+    public function testInchSizeToPixels($expectedResult, ...$args): void
     {
         $result = Font::inchSizeToPixels(...$args);
         self::assertEquals($expectedResult, $result);
@@ -65,7 +65,7 @@ class FontTest extends TestCase
 
     public function providerInchSizeToPixels()
     {
-        return require 'data/Shared/InchSizeToPixels.php';
+        return require 'tests/data/Shared/InchSizeToPixels.php';
     }
 
     /**
@@ -73,7 +73,7 @@ class FontTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCentimeterSizeToPixels($expectedResult, ...$args)
+    public function testCentimeterSizeToPixels($expectedResult, ...$args): void
     {
         $result = Font::centimeterSizeToPixels(...$args);
         self::assertEquals($expectedResult, $result);
@@ -81,6 +81,6 @@ class FontTest extends TestCase
 
     public function providerCentimeterSizeToPixels()
     {
-        return require 'data/Shared/CentimeterSizeToPixels.php';
+        return require 'tests/data/Shared/CentimeterSizeToPixels.php';
     }
 }

@@ -230,15 +230,13 @@ class LookupRef
      * Excel Function:
      *        =HYPERLINK(linkURL,displayName)
      *
-     * @category Logical Functions
-     *
      * @param string $linkURL Value to check, is also the value returned when no error
      * @param string $displayName Value to return when testValue is an error condition
      * @param Cell $pCell The cell to set the hyperlink in
      *
      * @return mixed The value of $displayName (or $linkURL if $displayName was blank)
      */
-    public static function HYPERLINK($linkURL = '', $displayName = null, Cell $pCell = null)
+    public static function HYPERLINK($linkURL = '', $displayName = null, ?Cell $pCell = null)
     {
         $linkURL = ($linkURL === null) ? '' : Functions::flattenSingleValue($linkURL);
         $displayName = ($displayName === null) ? '' : Functions::flattenSingleValue($displayName);
@@ -273,9 +271,9 @@ class LookupRef
      *
      * @return mixed The cells referenced by cellAddress
      *
-     * @todo    Support for the optional a1 parameter introduced in Excel 2010
+     * @TODO    Support for the optional a1 parameter introduced in Excel 2010
      */
-    public static function INDIRECT($cellAddress = null, Cell $pCell = null)
+    public static function INDIRECT($cellAddress = null, ?Cell $pCell = null)
     {
         $cellAddress = Functions::flattenSingleValue($cellAddress);
         if ($cellAddress === null || $cellAddress === '') {
@@ -339,11 +337,10 @@ class LookupRef
      *                                starting reference).
      * @param mixed $height The height, in number of rows, that you want the returned reference to be. Height must be a positive number.
      * @param mixed $width The width, in number of columns, that you want the returned reference to be. Width must be a positive number.
-     * @param null|Cell $pCell
      *
      * @return string A reference to a cell or range of cells
      */
-    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, Cell $pCell = null)
+    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, ?Cell $pCell = null)
     {
         $rows = Functions::flattenSingleValue($rows);
         $columns = Functions::flattenSingleValue($columns);
@@ -419,14 +416,6 @@ class LookupRef
      * Excel Function:
      *        =CHOOSE(index_num, value1, [value2], ...)
      *
-     * @param mixed $index_num Specifies which value argument is selected.
-     *                            Index_num must be a number between 1 and 254, or a formula or reference to a cell containing a number
-     *                                between 1 and 254.
-     * @param mixed $value1 ... Value1 is required, subsequent values are optional.
-     *                            Between 1 to 254 value arguments from which CHOOSE selects a value or an action to perform based on
-     *                                index_num. The arguments can be numbers, cell references, defined names, formulas, functions, or
-     *                                text.
-     *
      * @return mixed The selected value
      */
     public static function CHOOSE(...$chooseArgs)
@@ -496,6 +485,13 @@ class LookupRef
             return Functions::NA();
         }
 
+        if ($matchType == 1) {
+            // If match_type is 1 the list has to be processed from last to first
+
+            $lookupArray = array_reverse($lookupArray);
+            $keySet = array_reverse(array_keys($lookupArray));
+        }
+
         // Lookup_array should contain only number, text, or logical values, or empty (null) cells
         foreach ($lookupArray as $i => $lookupArrayValue) {
             //    check the type of the value
@@ -509,15 +505,8 @@ class LookupRef
                 $lookupArray[$i] = StringHelper::strToLower($lookupArrayValue);
             }
             if (($lookupArrayValue === null) && (($matchType == 1) || ($matchType == -1))) {
-                $lookupArray = array_slice($lookupArray, 0, $i - 1);
+                unset($lookupArray[$i]);
             }
-        }
-
-        if ($matchType == 1) {
-            // If match_type is 1 the list has to be processed from last to first
-
-            $lookupArray = array_reverse($lookupArray);
-            $keySet = array_reverse(array_keys($lookupArray));
         }
 
         // **
@@ -526,7 +515,7 @@ class LookupRef
 
         if ($matchType === 0 || $matchType === 1) {
             foreach ($lookupArray as $i => $lookupArrayValue) {
-                $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
+                $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) || (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
                 $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
                 $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
                 $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
@@ -818,7 +807,7 @@ class LookupRef
             return Functions::REF();
         }
         $f = array_keys($lookup_array);
-        $firstRow = array_pop($f);
+        $firstRow = reset($f);
         if ((!is_array($lookup_array[$firstRow])) || ($index_number > count($lookup_array))) {
             return Functions::REF();
         }
@@ -945,7 +934,7 @@ class LookupRef
      *
      * @return string
      */
-    public static function FORMULATEXT($cellReference = '', Cell $pCell = null)
+    public static function FORMULATEXT($cellReference = '', ?Cell $pCell = null)
     {
         if ($pCell === null) {
             return Functions::REF();

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class SechTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -19,14 +19,14 @@ class SechTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $angle
      */
-    public function testSECH($expectedResult, $angle)
+    public function testSECH($expectedResult, $angle): void
     {
         $result = MathTrig::SECH($angle);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSECH()
     {
-        return require 'data/Calculation/MathTrig/SECH.php';
+        return require 'tests/data/Calculation/MathTrig/SECH.php';
     }
 }

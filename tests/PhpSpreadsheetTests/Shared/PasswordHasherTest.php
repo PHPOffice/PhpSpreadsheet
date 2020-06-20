@@ -12,7 +12,7 @@ class PasswordHasherTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testHashPassword($expectedResult, ...$args)
+    public function testHashPassword($expectedResult, ...$args): void
     {
         $result = PasswordHasher::hashPassword(...$args);
         self::assertEquals($expectedResult, $result);
@@ -20,6 +20,6 @@ class PasswordHasherTest extends TestCase
 
     public function providerHashPassword()
     {
-        return require 'data/Shared/PasswordHashes.php';
+        return require 'tests/data/Shared/PasswordHashes.php';
     }
 }

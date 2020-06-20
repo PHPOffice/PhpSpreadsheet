@@ -50,8 +50,6 @@ class Xml extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return bool
      */
     public function canRead($pFilename)
@@ -103,9 +101,7 @@ class Xml extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
-     * @return false|\SimpleXMLElement
+     * @return false|SimpleXMLElement
      */
     public function trySimpleXMLLoadString($pFilename)
     {
@@ -126,8 +122,6 @@ class Xml extends BaseReader
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      *
      * @return array
      */
@@ -157,8 +151,6 @@ class Xml extends BaseReader
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
      * @param string $pFilename
-     *
-     * @throws Exception
      *
      * @return array
      */
@@ -229,8 +221,6 @@ class Xml extends BaseReader
      *
      * @param string $pFilename
      *
-     * @throws Exception
-     *
      * @return Spreadsheet
      */
     public function load($pFilename)
@@ -298,9 +288,6 @@ class Xml extends BaseReader
      * Loads from file into Spreadsheet instance.
      *
      * @param string $pFilename
-     * @param Spreadsheet $spreadsheet
-     *
-     * @throws Exception
      *
      * @return Spreadsheet
      */
@@ -529,7 +516,7 @@ class Xml extends BaseReader
                                         break;
                                     case 'DateTime':
                                         $type = DataType::TYPE_NUMERIC;
-                                        $cellValue = Date::PHPToExcel(strtotime($cellValue));
+                                        $cellValue = Date::PHPToExcel(strtotime($cellValue . ' UTC'));
 
                                         break;
                                     case 'Error':
@@ -665,11 +652,7 @@ class Xml extends BaseReader
         return $value;
     }
 
-    /**
-     * @param SimpleXMLElement $xml
-     * @param array $namespaces
-     */
-    private function parseStyles(SimpleXMLElement $xml, array $namespaces)
+    private function parseStyles(SimpleXMLElement $xml, array $namespaces): void
     {
         if (!isset($xml->Styles)) {
             return;
@@ -709,9 +692,8 @@ class Xml extends BaseReader
 
     /**
      * @param string $styleID
-     * @param SimpleXMLElement $styleAttributes
      */
-    private function parseStyleAlignment($styleID, SimpleXMLElement $styleAttributes)
+    private function parseStyleAlignment($styleID, SimpleXMLElement $styleAttributes): void
     {
         $verticalAlignmentStyles = [
             Alignment::VERTICAL_BOTTOM,
@@ -753,10 +735,8 @@ class Xml extends BaseReader
 
     /**
      * @param $styleID
-     * @param SimpleXMLElement $styleData
-     * @param array $namespaces
      */
-    private function parseStyleBorders($styleID, SimpleXMLElement $styleData, array $namespaces)
+    private function parseStyleBorders($styleID, SimpleXMLElement $styleData, array $namespaces): void
     {
         foreach ($styleData->Border as $borderStyle) {
             $borderAttributes = $borderStyle->attributes($namespaces['ss']);
@@ -790,9 +770,8 @@ class Xml extends BaseReader
 
     /**
      * @param $styleID
-     * @param SimpleXMLElement $styleAttributes
      */
-    private function parseStyleFont($styleID, SimpleXMLElement $styleAttributes)
+    private function parseStyleFont($styleID, SimpleXMLElement $styleAttributes): void
     {
         $underlineStyles = [
             Font::UNDERLINE_NONE,
@@ -837,9 +816,8 @@ class Xml extends BaseReader
 
     /**
      * @param $styleID
-     * @param SimpleXMLElement $styleAttributes
      */
-    private function parseStyleInterior($styleID, SimpleXMLElement $styleAttributes)
+    private function parseStyleInterior($styleID, SimpleXMLElement $styleAttributes): void
     {
         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
             switch ($styleAttributeKey) {
@@ -857,9 +835,8 @@ class Xml extends BaseReader
 
     /**
      * @param $styleID
-     * @param SimpleXMLElement $styleAttributes
      */
-    private function parseStyleNumberFormat($styleID, SimpleXMLElement $styleAttributes)
+    private function parseStyleNumberFormat($styleID, SimpleXMLElement $styleAttributes): void
     {
         $fromFormats = ['\-', '\ '];
         $toFormats = ['-', ' '];

@@ -21,7 +21,7 @@ class PowerBestFit extends BestFit
      */
     public function getValueOfYForX($xValue)
     {
-        return $this->getIntersect() * pow(($xValue - $this->xOffset), $this->getSlope());
+        return $this->getIntersect() * ($xValue - $this->xOffset) ** $this->getSlope();
     }
 
     /**
@@ -33,7 +33,7 @@ class PowerBestFit extends BestFit
      */
     public function getValueOfXForY($yValue)
     {
-        return pow((($yValue + $this->yOffset) / $this->getIntersect()), (1 / $this->getSlope()));
+        return (($yValue + $this->yOffset) / $this->getIntersect()) ** (1 / $this->getSlope());
     }
 
     /**
@@ -74,7 +74,7 @@ class PowerBestFit extends BestFit
      * @param float[] $xValues The set of X-values for this regression
      * @param bool $const
      */
-    private function powerRegression($yValues, $xValues, $const)
+    private function powerRegression($yValues, $xValues, $const): void
     {
         foreach ($xValues as &$value) {
             if ($value < 0.0) {

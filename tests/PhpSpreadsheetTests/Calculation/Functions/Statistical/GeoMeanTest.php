@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class GeoMeanTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class GeoMeanTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testGEOMEAN($expectedResult, ...$args)
+    public function testGEOMEAN($expectedResult, ...$args): void
     {
         $result = Statistical::GEOMEAN(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerGEOMEAN()
     {
-        return require 'data/Calculation/Statistical/GEOMEAN.php';
+        return require 'tests/data/Calculation/Statistical/GEOMEAN.php';
     }
 }

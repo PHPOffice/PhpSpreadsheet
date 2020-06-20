@@ -21,9 +21,9 @@ class DefaultValueBinderTest extends TestCase
             ->getMock();
 
         // Configure the stub.
-        $cellStub->expects($this->any())
+        $cellStub->expects(self::any())
             ->method('setValueExplicit')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         return $cellStub;
     }
@@ -33,7 +33,7 @@ class DefaultValueBinderTest extends TestCase
      *
      * @param mixed $value
      */
-    public function testBindValue($value)
+    public function testBindValue($value): void
     {
         $cellStub = $this->createCellStub();
         $binder = new DefaultValueBinder();
@@ -57,6 +57,7 @@ class DefaultValueBinderTest extends TestCase
             ['#REF!'],
             [new DateTime()],
             [new DateTimeImmutable()],
+            ['123456\n'],
         ];
     }
 
@@ -65,7 +66,7 @@ class DefaultValueBinderTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDataTypeForValue($expectedResult, ...$args)
+    public function testDataTypeForValue($expectedResult, ...$args): void
     {
         $result = DefaultValueBinder::dataTypeForValue(...$args);
         self::assertEquals($expectedResult, $result);
@@ -73,10 +74,10 @@ class DefaultValueBinderTest extends TestCase
 
     public function providerDataTypeForValue()
     {
-        return require 'data/Cell/DefaultValueBinder.php';
+        return require 'tests/data/Cell/DefaultValueBinder.php';
     }
 
-    public function testDataTypeForRichTextObject()
+    public function testDataTypeForRichTextObject(): void
     {
         $objRichText = new RichText();
         $objRichText->createText('Hello World');
@@ -86,7 +87,7 @@ class DefaultValueBinderTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testCanOverrideStaticMethodWithoutOverridingBindValue()
+    public function testCanOverrideStaticMethodWithoutOverridingBindValue(): void
     {
         $cellStub = $this->createCellStub();
         $binder = new ValueBinderWithOverriddenDataTypeForValue();

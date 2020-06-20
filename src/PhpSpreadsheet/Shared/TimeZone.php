@@ -23,7 +23,7 @@ class TimeZone
      */
     private static function validateTimeZone($timezone)
     {
-        return in_array($timezone, DateTimeZone::listIdentifiers());
+        return in_array($timezone, DateTimeZone::listIdentifiers(DateTimeZone::ALL_WITH_BC));
     }
 
     /**
@@ -61,8 +61,6 @@ class TimeZone
      * @param string $timezone The timezone for finding the adjustment to UST
      * @param int $timestamp PHP date/time value
      *
-     * @throws PhpSpreadsheetException
-     *
      * @return int Number of seconds for timezone adjustment
      */
     public static function getTimeZoneAdjustment($timezone, $timestamp)
@@ -73,10 +71,6 @@ class TimeZone
             }
         } else {
             $timezone = self::$timezone;
-        }
-
-        if ($timezone == 'UST') {
-            return 0;
         }
 
         $objTimezone = new DateTimeZone($timezone);

@@ -94,7 +94,7 @@ class Column
      * @param string $pColumn Column (e.g. A)
      * @param AutoFilter $pParent Autofilter for this column
      */
-    public function __construct($pColumn, AutoFilter $pParent = null)
+    public function __construct($pColumn, ?AutoFilter $pParent = null)
     {
         $this->columnIndex = $pColumn;
         $this->parent = $pParent;
@@ -114,8 +114,6 @@ class Column
      * Set AutoFilter column index as string eg: 'A'.
      *
      * @param string $pColumn Column (e.g. A)
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */
@@ -149,7 +147,7 @@ class Column
      *
      * @return $this
      */
-    public function setParent(AutoFilter $pParent = null)
+    public function setParent(?AutoFilter $pParent = null)
     {
         $this->parent = $pParent;
 
@@ -170,8 +168,6 @@ class Column
      * Set AutoFilter Type.
      *
      * @param string $pFilterType
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */
@@ -200,8 +196,6 @@ class Column
      * Set AutoFilter Multiple Rules And/Or.
      *
      * @param string $pJoin And/Or
-     *
-     * @throws PhpSpreadsheetException
      *
      * @return $this
      */
@@ -313,8 +307,6 @@ class Column
 
     /**
      * Add a new AutoFilter Column Rule to the ruleset.
-     *
-     * @param Column\Rule $pRule
      *
      * @return $this
      */
