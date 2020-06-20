@@ -395,13 +395,13 @@ class Logical
         if (count($arguments) % 2 != 0) {
             return Functions::NA();
         }
-
+        $falseValueException = new Exception();
         for ($i = 0; $i < count($arguments); $i += 2) {
             $testValue = ($arguments[$i] === null) ? '' : Functions::flattenSingleValue($arguments[$i]);
             $returnIfTrue = ($arguments[$i + 1] === null) ? '' : Functions::flattenSingleValue($arguments[$i + 1]);
-            $result = self::statementIf($testValue, $returnIfTrue, Functions::DUMMY());
+            $result = self::statementIf($testValue, $returnIfTrue, $falseValueException);
 
-            if ($result !== Functions::DUMMY()) {
+            if ($result !== $falseValueException) {
                 return $result;
             }
         }
