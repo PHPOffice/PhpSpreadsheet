@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class IfsTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -26,6 +26,6 @@ class IfsTest extends TestCase
 
     public function providerIFS()
     {
-        return require 'data/Calculation/Logical/IFS.php';
+        return require 'tests/data/Calculation/Logical/IFS.php';
     }
 }
