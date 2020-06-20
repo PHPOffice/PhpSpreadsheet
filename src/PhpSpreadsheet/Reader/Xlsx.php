@@ -1363,7 +1363,6 @@ echo "VALUE {$extractedRange} IS LOCALLY SCOPED TO {$definedName['localSheetId']
                                             break;
                                         default:
                                             if ($mapSheetId[(int) $definedName['localSheetId']] !== null) {
-                                                echo 'AWOOGA', PHP_EOL;
                                                 $range = Worksheet::extractSheetTitle((string) $definedName, true);
                                                 if (strpos((string) $definedName, '!') !== false) {
                                                     var_dump($range);

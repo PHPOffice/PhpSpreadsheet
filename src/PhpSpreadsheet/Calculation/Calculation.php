@@ -4315,8 +4315,12 @@ class Calculation
                     // if the token is a named range or formula, evaluate it and push the result onto the stack
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $token, $matches)) {
                     $definedName = $matches[6];
+                    if ($pCell === null || $pCellWorksheet === null) {
+                        return $this->raiseFormulaError("undefined name '$token'");
+                    }
+
                     $this->debugLog->writeDebugLog('Evaluating Defined Name ', $definedName);
-                    $namedRange = NamedRange::resolveRange($definedName, ((null !== $pCell) ? $pCellWorksheet : null));
+                    $namedRange = NamedRange::resolveRange($definedName, $pCellWorksheet);
                     if ($namedRange === null) {
                         return $this->raiseFormulaError("undefined name '$definedName'");
                     }
@@ -4848,10 +4852,10 @@ class Calculation
      * @return mixed|string
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    private function evaluateDefinedName(?Cell $pCell, NamedRange $namedRange, ?Worksheet $pCellWorksheet, Stack $stack)
+    private function evaluateDefinedName(Cell $pCell, NamedRange $namedRange, Worksheet $pCellWorksheet, Stack $stack)
     {
         $definedNameScope = $namedRange->getScope();
-        if ($definedNameScope !== null && $definedNameScope !== $pCellWorksheet->getParent()) {
+        if ($definedNameScope !== null && $definedNameScope !== $pCellWorksheet) {
             // The defined name isn't in our current scope, so #REF
             $result = Functions::REF();
             $stack->push('Error', $result, $namedRange->getName());
@@ -4867,11 +4871,11 @@ class Calculation
         if ($definedNameValue[0] !== '=') {
             $definedNameValue = '=' . $definedNameValue;
         }
-        $recursiveCalculationCellReference = ($definedNameWorksheet !== null)
+        $recursiveCalculationCellReference = ($definedNameWorksheet !== null && $definedNameWorksheet !== $pCellWorksheet)
             ? $definedNameWorksheet->getCell('A1')
             : $pCell;
 
-        $recursiveCalculator = new Calculation((null !== $pCell) ? $pCellWorksheet->getParent() : null);
+        $recursiveCalculator = new Calculation($this->spreadsheet);
         $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
         $recursiveCalculator->getDebugLog()->setEchoDebugLog($this->getDebugLog()->getEchoDebugLog());
         $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $recursiveCalculationCellReference->getCoordinate(), $recursiveCalculationCellReference);
