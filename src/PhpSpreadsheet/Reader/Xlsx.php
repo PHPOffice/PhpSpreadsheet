@@ -1409,9 +1409,9 @@ class Xlsx extends BaseReader
                                         $extractedRange = implode(' ', $tmpArray);
                                     }
 
-//                                    if ($locatedSheet !== null) {
-                                        $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $locatedSheet, $definedRange, false));
-//                                    }
+//                                  if ($locatedSheet !== null) {
+                                    $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $locatedSheet, $definedRange, false));
+//                                  }
                                 }
                             }
                         }
