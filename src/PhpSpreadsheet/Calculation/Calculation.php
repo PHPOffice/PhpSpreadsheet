@@ -1061,7 +1061,7 @@ class Calculation
         ],
         'IFS' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Logical::class, 'IFS'],
             'argumentCount' => '2+',
         ],
         'IMABS' => [
@@ -3679,8 +3679,7 @@ class Calculation
                         } else {
                             $rangeStartCellRef = $output[count($output) - 1]['value'];
                             preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $rangeStartCellRef, $rangeStartMatches);
-                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $val, $rangeEndMatches);
-                            if ($rangeStartMatches[2] !== $rangeEndMatches[2]) {
+                            if ($rangeStartMatches[2] !== $matches[2]) {
                                 return $this->raiseFormulaError('3D Range references are not yet supported');
                             }
                         }
