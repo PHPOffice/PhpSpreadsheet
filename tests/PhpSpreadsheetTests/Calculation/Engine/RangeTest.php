@@ -60,7 +60,18 @@ class RangeTest extends TestCase
             ['=COUNT(A1:C1,A3:C3,B1:C3)', 12],
             ['=SUM(A1:C1,A3:C3 B1:C3)', 23],
             ['=COUNT(A1:C1,A3:C3 B1:C3)', 5],
+            ['=SUM(Worksheet!A1:B3,Worksheet!A1:C2)', 48],
+            ['=SUM(Worksheet!A1:Worksheet!B3,Worksheet!A1:Worksheet!C2)', 48],
         ];
+    }
+
+    public function test3dRangeEvaluation(): void
+    {
+        $workSheet = $this->spreadSheet->getActiveSheet();
+        $workSheet->setCellValue('E1', '=SUM(Worksheet!A1:Worksheet2!B3)');
+
+        $this->expectExceptionMessage('3D Range references are not yet supported');
+        $workSheet->getCell('E1')->getCalculatedValue();
     }
 
     /**
