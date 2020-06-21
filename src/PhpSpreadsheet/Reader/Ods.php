@@ -11,6 +11,7 @@ use DOMNode;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\Properties as DocumentProperties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -19,6 +20,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use XMLReader;
 use ZipArchive;
 
@@ -643,8 +645,25 @@ class Ods extends BaseReader
                 }
                 ++$worksheetID;
             }
-        }
 
+            $definedNames = $workbookData->getElementsByTagNameNS($tableNs, 'named-range');
+            foreach ($definedNames as $definedNameElement) {
+                $definedName = $definedNameElement->getAttributeNS($tableNs, 'name');
+                $baseAddress = $definedNameElement->getAttributeNS($tableNs, 'base-cell-address');
+                $range = $definedNameElement->getAttributeNS($tableNs, 'cell-range-address');
+                echo "Name: {$definedName}, Base: {$baseAddress}, Range: {$range}", PHP_EOL;
+                $baseAddress = str_replace('.$', '!$',$baseAddress);
+                $range = str_replace('.$', '!$',$range);
+                echo "Name: {$definedName}, Base: {$baseAddress}, Range: {$range}", PHP_EOL;
+                [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true);
+                $worksheet = $spreadsheet->getSheetByName($sheetReference);
+                if ($worksheet !== null) {
+//                                                        $extractedRange = str_replace('$', '', $range[1]);
+                    $spreadsheet->addDefinedName(DefinedName::createInstance((string) $definedName, $worksheet, $range));
+                }
+            }
+        }
+        $spreadsheet->setActiveSheetIndex(0);
         // Return
         return $spreadsheet;
     }
