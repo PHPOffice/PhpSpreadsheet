@@ -50,5 +50,4 @@ class NamedFormula extends DefinedName
 
         return $this;
     }
-
 }

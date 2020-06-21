@@ -1343,8 +1343,8 @@ class Xlsx extends BaseReader
                             foreach ($xmlWorkbook->definedNames->definedName as $definedName) {
                                 // Extract range
                                 $extractedRange = (string) $definedName;
-echo "READING DEFINED NAME: {$definedName['name']}", PHP_EOL;
-echo "LOCAL VALUE IS {$extractedRange}", PHP_EOL;
+                                echo "READING DEFINED NAME: {$definedName['name']}", PHP_EOL;
+                                echo "LOCAL VALUE IS {$extractedRange}", PHP_EOL;
 
                                 // Valid range?
                                 if (stripos((string) $definedName, '#REF!') !== false || $extractedRange == '') {
@@ -1354,7 +1354,7 @@ echo "LOCAL VALUE IS {$extractedRange}", PHP_EOL;
                                 // Some definedNames are only applicable if we are on the same sheet...
                                 if ((string) $definedName['localSheetId'] != '') {
                                     // Local defined name
-echo "VALUE {$extractedRange} IS LOCALLY SCOPED TO {$definedName['localSheetId']}", PHP_EOL;
+                                    echo "VALUE {$extractedRange} IS LOCALLY SCOPED TO {$definedName['localSheetId']}", PHP_EOL;
                                     // Switch on type
                                     switch ((string) $definedName['name']) {
                                         case '_xlnm._FilterDatabase':
@@ -1395,14 +1395,14 @@ echo "VALUE {$extractedRange} IS LOCALLY SCOPED TO {$definedName['localSheetId']
 
                                         // Modify range
                                         $tmpArray = explode(',', $extractedRange);
-                                        foreach($tmpArray as $tmpKey => $tmpString) {
+                                        foreach ($tmpArray as $tmpKey => $tmpString) {
                                             [$worksheetName, $tmpString] = Worksheet::extractSheetTitle($tmpString, true);
                                             $tmpArray[$tmpKey] = $tmpString;
                                         }
                                         $extractedRange = implode(',', $tmpArray);
 
                                         $tmpArray = explode(' ', $extractedRange);
-                                        foreach($tmpArray as $tmpKey => $tmpString) {
+                                        foreach ($tmpArray as $tmpKey => $tmpString) {
                                             [$worksheetName, $tmpString] = Worksheet::extractSheetTitle($tmpString, true);
                                             $tmpArray[$tmpKey] = $tmpString;
                                         }

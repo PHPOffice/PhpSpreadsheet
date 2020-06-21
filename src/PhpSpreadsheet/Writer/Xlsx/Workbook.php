@@ -295,7 +295,7 @@ class Workbook extends WriterPart
             $splitRanges,
             PREG_OFFSET_CAPTURE
         );
-        var_dump($splitCount, isset($splitRanges[0]) ? $splitRanges[0] : null);
+        var_dump($splitCount, $splitRanges[0] ?? null);
 
         while ($splitCount > 0) {
             --$splitCount;
