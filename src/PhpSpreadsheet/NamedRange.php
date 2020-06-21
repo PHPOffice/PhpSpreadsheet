@@ -15,7 +15,7 @@ class NamedRange extends DefinedName
      * @param bool $localOnly
      * @param null|Worksheet $scope Scope. Only applies when $pLocalOnly = true. Null for global scope.
      */
-    public function __construct($name, ?Worksheet $worksheet=null, $range = 'A1', $localOnly = false, $scope = null)
+    public function __construct($name, ?Worksheet $worksheet = null, $range = 'A1', $localOnly = false, $scope = null)
     {
         echo "SETTING NAMED RANGE {$name} WITH VALUE {$range}", PHP_EOL;
         // Validate data

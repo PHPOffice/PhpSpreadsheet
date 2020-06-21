@@ -108,6 +108,8 @@ class Logger
 
     /**
      * Write a series of entries to the calculation engine debug log.
+     *
+     * @param string[] $args
      */
     public function mergeDebugLog($args): void
     {

@@ -28,11 +28,8 @@ class RangeTest extends TestCase
 
     /**
      * @dataProvider providerRangeEvaluation
-     *
-     * @param string $formula
-     * @param int $expectedResult
      */
-    public function testRangeEvaluation(string $formula, $expectedResult): void
+    public function testRangeEvaluation(string $formula, int $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
         $workSheet->setCellValue('E1', $formula);
@@ -76,13 +73,8 @@ class RangeTest extends TestCase
 
     /**
      * @dataProvider providerNamedRangeEvaluation
-     *
-     * @param string $group1
-     * @param string $group2
-     * @param string $formula
-     * @param int $expectedResult
      */
-    public function testNamedRangeEvaluation(string $group1, string $group2, string $formula, $expectedResult): void
+    public function testNamedRangeEvaluation(string $group1, string $group2, string $formula, int $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
         $this->spreadSheet->addNamedRange(new NamedRange('GROUP1', $workSheet, $group1));
@@ -113,12 +105,10 @@ class RangeTest extends TestCase
     /**
      * @dataProvider providerUTF8NamedRangeEvaluation
      *
-     * @param string $names
-     * @param string $ranges
-     * @param string $formula
-     * @param int $expectedResult
+     * @param string[] $names
+     * @param string[] $ranges
      */
-    public function testUTF8NamedRangeEvaluation(array $names, array $ranges, string $formula, $expectedResult): void
+    public function testUTF8NamedRangeEvaluation(array $names, array $ranges, string $formula, int $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
         foreach ($names as $index => $name) {
@@ -142,12 +132,8 @@ class RangeTest extends TestCase
 
     /**
      * @dataProvider providerCompositeNamedRangeEvaluation
-     *
-     * @param string $composite
-     * @param int $expectedSum
-     * @param int $expectedCount
      */
-    public function testCompositeNamedRangeEvaluation(string $composite, $expectedSum, $expectedCount): void
+    public function testCompositeNamedRangeEvaluation(string $composite, int $expectedSum, int $expectedCount): void
     {
         $this->markTestSkipped('must be revisited.');
 

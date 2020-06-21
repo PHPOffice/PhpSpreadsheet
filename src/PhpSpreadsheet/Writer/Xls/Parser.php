@@ -1322,9 +1322,9 @@ class Parser
             if (array_key_exists(strtoupper($this->currentToken), $this->functions)) {
                 // if it's a function call
                 return $this->func();
-            } else {
-                throw new WriterException("Function error: {$this->currentToken} is not supported for Xls files");
             }
+
+            throw new WriterException("Function error: {$this->currentToken} is not supported for Xls files");
 //        } elseif(preg_match('/^'.Calculation::CALCULATION_REGEXP_NAMEDRANGE.'$/mui', $this->currentToken)) {
 //echo "WRITING NAMED ELEMENT: {$this->currentToken}", PHP_EOL;
 //            $result = $this->createTree('ptgName', $this->currentToken, '');

@@ -4879,7 +4879,7 @@ class Calculation
             ? $definedNameWorksheet->getCell('A1')
             : $pCell;
 
-        $recursiveCalculator = new Calculation($this->spreadsheet);
+        $recursiveCalculator = new self($this->spreadsheet);
         $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
         $recursiveCalculator->getDebugLog()->setEchoDebugLog($this->getDebugLog()->getEchoDebugLog());
         $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $recursiveCalculationCellReference->getCoordinate(), $recursiveCalculationCellReference);
