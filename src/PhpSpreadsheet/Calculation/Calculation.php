@@ -3671,13 +3671,18 @@ class Calculation
                         if ($matches[2] == '') {
                             //    Otherwise, we 'inherit' the worksheet reference from the start cell reference
                             //    The start of the cell range reference should be the last entry in $output
-                            $startCellRef = $output[count($output) - 1]['value'];
-                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $startCellRef, $startMatches);
-                            if ($startMatches[2] > '') {
-                                $val = $startMatches[2] . '!' . $val;
+                            $rangeStartCellRef = $output[count($output) - 1]['value'];
+                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $rangeStartCellRef, $rangeStartMatches);
+                            if ($rangeStartMatches[2] > '') {
+                                $val = $rangeStartMatches[2] . '!' . $val;
                             }
                         } else {
-                            return $this->raiseFormulaError('3D Range references are not yet supported');
+                            $rangeStartCellRef = $output[count($output) - 1]['value'];
+                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $rangeStartCellRef, $rangeStartMatches);
+                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $val, $rangeEndMatches);
+                            if ($rangeStartMatches[2] !== $rangeEndMatches[2]) {
+                                return $this->raiseFormulaError('3D Range references are not yet supported');
+                            }
                         }
                     }
 
