@@ -138,7 +138,7 @@ class RangeTest extends TestCase
      */
     public function testCompositeNamedRangeEvaluation(string $composite, int $expectedSum, int $expectedCount): void
     {
-        $this->markTestSkipped('must be revisited.');
+        self::markTestSkipped('must be revisited.');
 
         $workSheet = $this->spreadSheet->getActiveSheet();
         $this->spreadSheet->addNamedRange(new NamedRange('COMPOSITE', $workSheet, $composite));

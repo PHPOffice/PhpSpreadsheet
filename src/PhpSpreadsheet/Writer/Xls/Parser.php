@@ -536,7 +536,6 @@ class Parser
             return '';
         }
 
-
         // TODO: use real error codes
         throw new WriterException("Unknown token $token");
     }

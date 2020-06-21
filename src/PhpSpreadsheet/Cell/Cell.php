@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
-use Matrix\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Exception;

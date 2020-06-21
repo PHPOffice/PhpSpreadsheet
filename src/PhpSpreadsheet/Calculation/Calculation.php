@@ -4849,12 +4849,7 @@ class Calculation
     }
 
     /**
-     * @param Cell|null $pCell
-     * @param NamedRange $namedRange
-     * @param Worksheet|null $pCellWorksheet
-     * @param Stack $stack
      * @return mixed|string
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     private function evaluateDefinedName(Cell $pCell, NamedRange $namedRange, Worksheet $pCellWorksheet, Stack $stack)
     {
