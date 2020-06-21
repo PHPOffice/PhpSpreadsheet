@@ -105,6 +105,8 @@ class RangeTest extends TestCase
             ['A1:B2', 'B2:C3', '=COUNT(GROUP1,GROUP2)', 8],
             ['A1:B2', 'B2:C3', '=SUM(GROUP1 GROUP2)', 5],
             ['A1:B2', 'B2:C3', '=COUNT(GROUP1 GROUP2)', 1],
+            ['Worksheet!A1:B2', 'Worksheet!B2:C3', '=SUM(GROUP1,GROUP2)', 40],
+            ['Worksheet!A1:Worksheet!B2', 'Worksheet!B2:Worksheet!C3', '=SUM(GROUP1,GROUP2)', 40],
         ];
     }
 
