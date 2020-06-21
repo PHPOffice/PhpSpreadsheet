@@ -6,8 +6,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class NamedFormula extends DefinedName
 {
-    public const REGEXP_FORMULA = '/[^_\p{N}\p{L}:, \$\"!](?=([^\"]*\"[^\"]*\")*[^\"]*$)/miu';
-
     /**
      * Create a new Named Formula.
      *

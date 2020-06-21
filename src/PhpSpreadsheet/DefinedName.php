@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 abstract class DefinedName
 {
+    public const REGEXP_FORMULA = '[^_\p{N}\p{L}:, \$\'!]';
+
     /**
      * Name.
      *
@@ -69,17 +71,34 @@ abstract class DefinedName
         //      for cell references, and $, or the range operators (colon comma or space), quotes and ! for
         //      worksheet names
         //  then this is treated as a named formula, and not a named range
-        $this->isFormula = (bool) preg_match(NamedFormula::REGEXP_FORMULA, $value);
+        $this->isFormula = self::testIfFormula($value);
     }
 
     public static function createInstance($name, ?Worksheet $worksheet=null, $value = null, $localOnly = false, $scope = null)
     {
-        $isFormula = (bool) preg_match(NamedFormula::REGEXP_FORMULA, $value);
+        echo "DEFINED NAME {$name} HAS VALUE {$value}", PHP_EOL;
+        $isFormula = self::testIfFormula($value);
+        $type = $isFormula ? 'FORMULA' : 'RANGE';
+        echo "IDENTIFIED AS {$type}", PHP_EOL;
         if ($isFormula) {
             return new NamedFormula($name, $worksheet, $value, $localOnly, $scope);
         }
 
         return new NamedRange($name, $worksheet, $value, $localOnly, $scope);
+    }
+
+    private static function testIfFormula(string $value): bool
+    {
+        $segMatcher = false;
+        foreach (explode("'", $value) as $subVal) {
+            //    Only test in alternate array entries (the non-quoted blocks)
+            if (($segMatcher = !$segMatcher) &&
+                (preg_match('/' . self::REGEXP_FORMULA .'/miu', $subVal))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
