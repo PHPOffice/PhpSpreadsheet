@@ -15,7 +15,7 @@ class NamedFormula extends DefinedName
      * @param bool $localOnly
      * @param null|Worksheet $scope Scope. Only applies when $pLocalOnly = true. Null for global scope.
      */
-    public function __construct($name, ?Worksheet $worksheet=null, $formula = null, $localOnly = false, $scope = null)
+    public function __construct($name, ?Worksheet $worksheet = null, $formula = null, $localOnly = false, $scope = null)
     {
         echo "SETTING NAMED FORMULA {$name} WITH VALUE {$formula}", PHP_EOL;
         // Validate data

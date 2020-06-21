@@ -23,7 +23,7 @@ abstract class DefinedName
     protected $worksheet;
 
     /**
-     * Value of the named object
+     * Value of the named object.
      *
      * @var string
      */
@@ -59,7 +59,7 @@ abstract class DefinedName
      * @param bool $localOnly
      * @param null|Worksheet $scope Scope. Only applies when $pLocalOnly = true. Null for global scope.
      */
-    public function __construct($name, ?Worksheet $worksheet=null, $value = null, $localOnly = false, $scope = null)
+    public function __construct($name, ?Worksheet $worksheet = null, $value = null, $localOnly = false, $scope = null)
     {
         // Set local members
         $this->name = $name;
@@ -74,7 +74,7 @@ abstract class DefinedName
         $this->isFormula = self::testIfFormula($value);
     }
 
-    public static function createInstance($name, ?Worksheet $worksheet=null, $value = null, $localOnly = false, $scope = null)
+    public static function createInstance($name, ?Worksheet $worksheet = null, $value = null, $localOnly = false, $scope = null)
     {
         echo "DEFINED NAME {$name} HAS VALUE {$value}", PHP_EOL;
         $isFormula = self::testIfFormula($value);
@@ -93,7 +93,7 @@ abstract class DefinedName
         foreach (explode("'", $value) as $subVal) {
             //    Only test in alternate array entries (the non-quoted blocks)
             if (($segMatcher = !$segMatcher) &&
-                (preg_match('/' . self::REGEXP_FORMULA .'/miu', $subVal))) {
+                (preg_match('/' . self::REGEXP_FORMULA . '/miu', $subVal))) {
                 return true;
             }
         }
@@ -245,7 +245,7 @@ abstract class DefinedName
     /**
      * Identify whether this is a named range or a named formula.
      *
-     * @return boolean
+     * @return bool
      */
     public function isFormula()
     {

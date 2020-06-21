@@ -652,8 +652,8 @@ class Ods extends BaseReader
                 $baseAddress = $definedNameElement->getAttributeNS($tableNs, 'base-cell-address');
                 $range = $definedNameElement->getAttributeNS($tableNs, 'cell-range-address');
                 echo "Name: {$definedName}, Base: {$baseAddress}, Range: {$range}", PHP_EOL;
-                $baseAddress = str_replace('.$', '!$',$baseAddress);
-                $range = str_replace('.$', '!$',$range);
+                $baseAddress = str_replace('.$', '!$', $baseAddress);
+                $range = str_replace('.$', '!$', $range);
                 echo "Name: {$definedName}, Base: {$baseAddress}, Range: {$range}", PHP_EOL;
                 [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true);
                 $worksheet = $spreadsheet->getSheetByName($sheetReference);

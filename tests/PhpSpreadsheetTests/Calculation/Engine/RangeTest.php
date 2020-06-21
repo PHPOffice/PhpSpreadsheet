@@ -29,7 +29,6 @@ class RangeTest extends TestCase
     /**
      * @dataProvider providerRangeEvaluation
      *
-     *
      * @param mixed $expectedResult
      */
     public function testRangeEvaluation(string $formula, $expectedResult): void

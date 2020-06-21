@@ -279,7 +279,7 @@ class Workbook extends WriterPart
      */
     private function writeDefinedNameForNamedRange(XMLWriter $objWriter, NamedRange $pNamedRange): void
     {
-echo "WRITING DEFINED NAME: {$pNamedRange->getName()}, VALUE: {$pNamedRange->getValue()}", PHP_EOL, PHP_EOL;
+        echo "WRITING DEFINED NAME: {$pNamedRange->getName()}, VALUE: {$pNamedRange->getValue()}", PHP_EOL, PHP_EOL;
 
         // definedName for named range
         $objWriter->startElement('definedName');
@@ -295,12 +295,12 @@ echo "WRITING DEFINED NAME: {$pNamedRange->getName()}, VALUE: {$pNamedRange->get
             $splitRanges,
             PREG_OFFSET_CAPTURE
         );
-var_dump($splitCount, isset($splitRanges[0]) ? $splitRanges[0] : null);
+        var_dump($splitCount, isset($splitRanges[0]) ? $splitRanges[0] : null);
 
         while ($splitCount > 0) {
             --$splitCount;
             $range = $splitRanges[$splitCount][0];
-echo "OLD VALUE: {$range}", PHP_EOL;
+            echo "OLD VALUE: {$range}", PHP_EOL;
             // Create absolute coordinate and write as raw text
             $newRange = Coordinate::splitRange($range);
             $iMax = count($newRange);
@@ -311,11 +311,11 @@ echo "OLD VALUE: {$range}", PHP_EOL;
                 }
             }
             $newRange = Coordinate::buildRange($newRange);
-echo "NEW VALUE: {$newRange}", PHP_EOL;
+            echo "NEW VALUE: {$newRange}", PHP_EOL;
             $definedRange = substr($definedRange, 0, $splitRanges[$splitCount][1]) . $newRange . substr($definedRange, $splitRanges[0][1] + strlen($range));
         }
 
-echo "WRITING NEW VALUE: {$definedRange}", PHP_EOL;
+        echo "WRITING NEW VALUE: {$definedRange}", PHP_EOL;
         $objWriter->writeRawData($definedRange);
 
         $objWriter->endElement();
