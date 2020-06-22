@@ -532,30 +532,7 @@ class Ods extends BaseReader
                                 if ($hasCalculatedValue) {
                                     $type = DataType::TYPE_FORMULA;
                                     $cellDataFormula = substr($cellDataFormula, strpos($cellDataFormula, ':=') + 1);
-                                    $temp = explode('"', $cellDataFormula);
-                                    $tKey = false;
-                                    foreach ($temp as &$value) {
-                                        // Only replace in alternate array entries (i.e. non-quoted blocks)
-                                        if ($tKey = !$tKey) {
-                                            // Cell range reference in another sheet
-                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/U', '$1!$2:$3', $value);
-
-                                            // Cell reference in another sheet
-                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/U', '$1!$2', $value);
-
-                                            // Cell range reference
-                                            $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/U', '$1:$2', $value);
-
-                                            // Simple cell reference
-                                            $value = preg_replace('/\[\.([^\.]+)\]/U', '$1', $value);
-
-                                            $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
-                                        }
-                                    }
-                                    unset($value);
-
-                                    // Then rebuild the formula string
-                                    $cellDataFormula = implode('"', $temp);
+                                    $cellDataFormula = $this->convertToExcelFormulaValue($cellDataFormula);
                                 }
 
                                 if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
@@ -646,20 +623,31 @@ class Ods extends BaseReader
                 ++$worksheetID;
             }
 
-            $definedNames = $workbookData->getElementsByTagNameNS($tableNs, 'named-range');
-            foreach ($definedNames as $definedNameElement) {
+            $namedRanges = $workbookData->getElementsByTagNameNS($tableNs, 'named-range');
+            foreach ($namedRanges as $definedNameElement) {
                 $definedName = $definedNameElement->getAttributeNS($tableNs, 'name');
                 $baseAddress = $definedNameElement->getAttributeNS($tableNs, 'base-cell-address');
                 $range = $definedNameElement->getAttributeNS($tableNs, 'cell-range-address');
-                echo "Name: {$definedName}, Base: {$baseAddress}, Range: {$range}", PHP_EOL;
-                $baseAddress = str_replace('.$', '!$', $baseAddress);
-                $range = str_replace('.$', '!$', $range);
-                echo "Name: {$definedName}, Base: {$baseAddress}, Range: {$range}", PHP_EOL;
+                $baseAddress = $this->convertToExcelAddressValue($baseAddress);
+                $range = $this->convertToExcelAddressValue($range);
                 [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true);
                 $worksheet = $spreadsheet->getSheetByName($sheetReference);
                 if ($worksheet !== null) {
-//                                                        $extractedRange = str_replace('$', '', $range[1]);
                     $spreadsheet->addDefinedName(DefinedName::createInstance((string) $definedName, $worksheet, $range));
+                }
+            }
+
+            $namedExpressions = $workbookData->getElementsByTagNameNS($tableNs, 'named-expression');
+            foreach ($namedExpressions as $definedNameElement) {
+                $definedName = $definedNameElement->getAttributeNS($tableNs, 'name');
+                $baseAddress = $definedNameElement->getAttributeNS($tableNs, 'base-cell-address');
+                $expression = $definedNameElement->getAttributeNS($tableNs, 'expression');
+                $baseAddress = $this->convertToExcelAddressValue($baseAddress);
+                $expression = $this->convertToExcelFormulaValue($expression);
+                [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true);
+                $worksheet = $spreadsheet->getSheetByName($sheetReference);
+                if ($worksheet !== null) {
+                    $spreadsheet->addDefinedName(DefinedName::createInstance((string) $definedName, $worksheet, $expression));
                 }
             }
         }
@@ -714,5 +702,46 @@ class Ods extends BaseReader
         $value->createText($is);
 
         return $value;
+    }
+
+    private function convertToExcelAddressValue($openOfficeAddress)
+    {
+        $excelAddress = $openOfficeAddress;
+        // Cell range reference in another sheet
+        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+):\.([^\.]+)/miu', '$1!$2:$3', $excelAddress);
+        // Cell reference in another sheet
+        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+)/miu', '$1!$2', $excelAddress);
+        // Cell range reference
+        $excelAddress = preg_replace('/\.([^\.]+):\.([^\.]+)/miu', '$1:$2', $excelAddress);
+        // Simple cell reference
+        $excelAddress = preg_replace('/\.([^\.]+)/miu', '$1', $excelAddress);
+
+        return $excelAddress;
+    }
+
+    private function convertToExcelFormulaValue($openOfficeFormula)
+    {
+        $temp = explode('"', $openOfficeFormula);
+        $tKey = false;
+        foreach ($temp as &$value) {
+            // Only replace in alternate array entries (i.e. non-quoted blocks)
+            if ($tKey = !$tKey) {
+                // Cell range reference in another sheet
+                $value = preg_replace('/\[\$?([^\.]+)\.([^\.]+):\.([^\.]+)\]/miu', '$1!$2:$3', $value);
+                // Cell reference in another sheet
+                $value = preg_replace('/\[\$?([^\.]+)\.([^\.]+)\]/miu', '$1!$2', $value);
+                // Cell range reference
+                $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/miu', '$1:$2', $value);
+                // Simple cell reference
+                $value = preg_replace('/\[\.([^\.]+)\]/miu', '$1', $value);
+
+                $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
+            }
+        }
+
+        // Then rebuild the formula string
+        $excelFormula = implode('"', $temp);
+
+        return $excelFormula;
     }
 }

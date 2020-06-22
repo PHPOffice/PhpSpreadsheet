@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -4851,7 +4852,7 @@ class Calculation
     /**
      * @return mixed|string
      */
-    private function evaluateDefinedName(Cell $pCell, NamedRange $namedRange, Worksheet $pCellWorksheet, Stack $stack)
+    private function evaluateDefinedName(Cell $pCell, DefinedName $namedRange, Worksheet $pCellWorksheet, Stack $stack)
     {
         $definedNameScope = $namedRange->getScope();
         if ($definedNameScope !== null && $definedNameScope !== $pCellWorksheet) {
