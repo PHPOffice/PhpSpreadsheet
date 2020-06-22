@@ -1362,7 +1362,6 @@ class Xlsx extends BaseReader
                                             if ($mapSheetId[(int) $definedName['localSheetId']] !== null) {
                                                 $range = Worksheet::extractSheetTitle((string) $definedName, true);
                                                 if (strpos((string) $definedName, '!') !== false) {
-                                                    var_dump($range);
                                                     $range[0] = str_replace("''", "'", $range[0]);
                                                     $range[0] = str_replace("'", '', $range[0]);
                                                     if ($worksheet = $docSheet->getParent()->getSheetByName($range[0])) {

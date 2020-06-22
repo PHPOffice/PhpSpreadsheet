@@ -600,11 +600,11 @@ class ReferenceHelper
             }
         }
 
-        // Update workbook: named ranges
+        // Update workbook: define names
         if (count($pSheet->getParent()->getDefinedNames()) > 0) {
-            foreach ($pSheet->getParent()->getDefinedNames() as $namedRange) {
-                if ($namedRange->getWorksheet()->getHashCode() == $pSheet->getHashCode()) {
-                    $namedRange->setValue($this->updateCellReference($namedRange->getValue(), $pBefore, $pNumCols, $pNumRows));
+            foreach ($pSheet->getParent()->getDefinedNames() as $definedName) {
+                if ($definedName->getWorksheet()->getHashCode() == $pSheet->getHashCode()) {
+                    $definedName->setValue($this->updateCellReference($definedName->getValue(), $pBefore, $pNumCols, $pNumRows));
                 }
             }
         }
