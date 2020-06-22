@@ -279,8 +279,6 @@ class Workbook extends WriterPart
      */
     private function writeDefinedNameForNamedRange(XMLWriter $objWriter, NamedRange $pNamedRange): void
     {
-        echo "WRITING DEFINED NAME: {$pNamedRange->getName()}, VALUE: {$pNamedRange->getValue()}", PHP_EOL, PHP_EOL;
-
         // definedName for named range
         $objWriter->startElement('definedName');
         $objWriter->writeAttribute('name', $pNamedRange->getName());
@@ -300,7 +298,6 @@ class Workbook extends WriterPart
         while ($splitCount > 0) {
             --$splitCount;
             $range = $splitRanges[$splitCount][0];
-            echo "OLD VALUE: {$range}", PHP_EOL;
             // Create absolute coordinate and write as raw text
             $newRange = Coordinate::splitRange($range);
             $iMax = count($newRange);
@@ -311,11 +308,9 @@ class Workbook extends WriterPart
                 }
             }
             $newRange = Coordinate::buildRange($newRange);
-            echo "NEW VALUE: {$newRange}", PHP_EOL;
             $definedRange = substr($definedRange, 0, $splitRanges[$splitCount][1]) . $newRange . substr($definedRange, $splitRanges[0][1] + strlen($range));
         }
 
-        echo "WRITING NEW VALUE: {$definedRange}", PHP_EOL;
         $objWriter->writeRawData($definedRange);
 
         $objWriter->endElement();

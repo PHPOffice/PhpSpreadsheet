@@ -892,10 +892,6 @@ class Worksheet extends BIFFwriter
 
             return self::WRITE_FORMULA_NORMAL;
         } catch (PhpSpreadsheetException $e) {
-            echo "EXCEPTION PARSING FORMULA: {$e->getMessage()}", PHP_EOL;
-            var_dump($this->parser->parseTree);
-            echo PHP_EOL;
-
             return self::WRITE_FORMULA_EXCEPTION;
         }
     }

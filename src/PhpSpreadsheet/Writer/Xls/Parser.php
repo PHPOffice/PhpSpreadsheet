@@ -972,7 +972,6 @@ class Parser
             }
 
             if ($this->match($token) != '') {
-                echo "MATCHED TOKEN {$token}", PHP_EOL;
                 $this->currentCharacter = $i + 1;
                 $this->currentToken = $token;
 

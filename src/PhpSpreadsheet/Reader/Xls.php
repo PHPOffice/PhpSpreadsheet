@@ -5497,7 +5497,6 @@ class Xls extends BaseReader
                 case 'tRefN':
                 case 'tAreaN':
                 case 'tStr': // string
-                    echo "PARSING FORMULA {$token['name']}, {$token['data']}", PHP_EOL;
                     $formulaStrings[] = "$space1$space0{$token['data']}";
                     unset($space0, $space1);
 
@@ -5505,7 +5504,6 @@ class Xls extends BaseReader
             }
         }
         $formulaString = $formulaStrings[0];
-        echo "READING FORMULA {$formulaString}", PHP_EOL;
 
         return $formulaString;
     }
