@@ -707,6 +707,11 @@ class Ods extends BaseReader
     private function convertToExcelAddressValue($openOfficeAddress)
     {
         $excelAddress = $openOfficeAddress;
+
+        // Cell range 3-d reference
+        // As we don't support 3-d ranges, we're just going to take a quick and dirty approach
+        //  and assume that the second worksheet reference is the same as the first
+        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+):\$?([^\.]+)\.([^\.]+)/miu', '$1!$2:$4', $excelAddress);
         // Cell range reference in another sheet
         $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+):\.([^\.]+)/miu', '$1!$2:$3', $excelAddress);
         // Cell reference in another sheet
