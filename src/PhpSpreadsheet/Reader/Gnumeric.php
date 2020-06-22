@@ -774,19 +774,17 @@ class Gnumeric extends BaseReader
     {
         //    Loop through definedNames (global named ranges)
         if (isset($gnmXML->Names)) {
-            foreach ($gnmXML->Names->Name as $namedRange) {
-                $name = (string) $namedRange->name;
-                $rangeValue = (string) $namedRange->value;
-                if (stripos($rangeValue, '#REF!') !== false) {
+            foreach ($gnmXML->Names->Name as $definedName) {
+                $name = (string) $definedName->name;
+                $value = (string) $definedName->value;
+                if (stripos($value, '#REF!') !== false) {
                     continue;
                 }
 
-                [$worksheetName, $range] = Worksheet::extractSheetTitle($rangeValue, true);
+                [$worksheetName] = Worksheet::extractSheetTitle($value, true);
                 $worksheetName = trim($worksheetName, "'");
                 $worksheet = $this->spreadsheet->getSheetByName($worksheetName);
-                if ($worksheet !== null) {
-                    $this->spreadsheet->addDefinedName(DefinedName::createInstance((string) $name, $worksheet, $rangeValue));
-                }
+                $this->spreadsheet->addDefinedName(DefinedName::createInstance($name, $worksheet, $value));
             }
         }
     }

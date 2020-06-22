@@ -17,7 +17,6 @@ class NamedRange extends DefinedName
      */
     public function __construct($name, ?Worksheet $worksheet = null, $range = 'A1', $localOnly = false, $scope = null)
     {
-        echo "SETTING NAMED RANGE {$name} WITH VALUE {$range}", PHP_EOL;
         // Validate data
         if (($name === null) || ($range === null)) {
             throw new Exception('Name or Range Parameters cannot be null.');

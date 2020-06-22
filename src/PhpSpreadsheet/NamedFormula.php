@@ -17,7 +17,6 @@ class NamedFormula extends DefinedName
      */
     public function __construct($name, ?Worksheet $worksheet = null, $formula = null, $localOnly = false, $scope = null)
     {
-        echo "SETTING NAMED FORMULA {$name} WITH VALUE {$formula}", PHP_EOL;
         // Validate data
         if (($name === null) || ($formula === null)) {
             throw new Exception('Name or Formula Parameters cannot be null.');
