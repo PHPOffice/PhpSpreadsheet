@@ -87,7 +87,7 @@ abstract class DefinedName
         return new NamedRange($name, $worksheet, $value, $localOnly, $scope);
     }
 
-    private static function testIfFormula(string $value): bool
+    public static function testIfFormula(string $value): bool
     {
         $segMatcher = false;
         foreach (explode("'", $value) as $subVal) {
