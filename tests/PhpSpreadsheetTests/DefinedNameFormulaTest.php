@@ -41,5 +41,4 @@ class DefinedNameFormulaTest extends TestCase
             ['Здравствуй+мир', true],
         ];
     }
-
 }
