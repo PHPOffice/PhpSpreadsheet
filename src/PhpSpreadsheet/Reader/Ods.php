@@ -623,33 +623,8 @@ class Ods extends BaseReader
                 ++$worksheetID;
             }
 
-            $namedRanges = $workbookData->getElementsByTagNameNS($tableNs, 'named-range');
-            foreach ($namedRanges as $definedNameElement) {
-                $definedName = $definedNameElement->getAttributeNS($tableNs, 'name');
-                $baseAddress = $definedNameElement->getAttributeNS($tableNs, 'base-cell-address');
-                $range = $definedNameElement->getAttributeNS($tableNs, 'cell-range-address');
-                $baseAddress = $this->convertToExcelAddressValue($baseAddress);
-                $range = $this->convertToExcelAddressValue($range);
-                [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true);
-                $worksheet = $spreadsheet->getSheetByName($sheetReference);
-                if ($worksheet !== null) {
-                    $spreadsheet->addDefinedName(DefinedName::createInstance((string) $definedName, $worksheet, $range));
-                }
-            }
-
-            $namedExpressions = $workbookData->getElementsByTagNameNS($tableNs, 'named-expression');
-            foreach ($namedExpressions as $definedNameElement) {
-                $definedName = $definedNameElement->getAttributeNS($tableNs, 'name');
-                $baseAddress = $definedNameElement->getAttributeNS($tableNs, 'base-cell-address');
-                $expression = $definedNameElement->getAttributeNS($tableNs, 'expression');
-                $baseAddress = $this->convertToExcelAddressValue($baseAddress);
-                $expression = $this->convertToExcelFormulaValue($expression);
-                [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true);
-                $worksheet = $spreadsheet->getSheetByName($sheetReference);
-                if ($worksheet !== null) {
-                    $spreadsheet->addDefinedName(DefinedName::createInstance((string) $definedName, $worksheet, $expression));
-                }
-            }
+            $this->readDefinedRanges($spreadsheet, $workbookData, $tableNs);
+            $this->readDefinedExpressions($spreadsheet, $workbookData, $tableNs);
         }
         $spreadsheet->setActiveSheetIndex(0);
         // Return
@@ -748,5 +723,53 @@ class Ods extends BaseReader
         $excelFormula = implode('"', $temp);
 
         return $excelFormula;
+    }
+
+    /**
+     * Read any Named Ranges that are defined in this spreadsheet.
+     */
+    private function readDefinedRanges(Spreadsheet $spreadsheet, DOMElement $workbookData, string $tableNs): void
+    {
+        $namedRanges = $workbookData->getElementsByTagNameNS($tableNs, 'named-range');
+        foreach ($namedRanges as $definedNameElement) {
+            $definedName = $definedNameElement->getAttributeNS($tableNs, 'name');
+            $baseAddress = $definedNameElement->getAttributeNS($tableNs, 'base-cell-address');
+            $range = $definedNameElement->getAttributeNS($tableNs, 'cell-range-address');
+
+            $baseAddress = $this->convertToExcelAddressValue($baseAddress);
+            $range = $this->convertToExcelAddressValue($range);
+
+            $this->addDefinedName($spreadsheet, $baseAddress, $definedName, $range);
+        }
+    }
+
+    /**
+     * Read any Named Formulae that are defined in this spreadsheet.
+     */
+    private function readDefinedExpressions(Spreadsheet $spreadsheet, DOMElement $workbookData, string $tableNs): void
+    {
+        $namedExpressions = $workbookData->getElementsByTagNameNS($tableNs, 'named-expression');
+        foreach ($namedExpressions as $definedNameElement) {
+            $definedName = $definedNameElement->getAttributeNS($tableNs, 'name');
+            $baseAddress = $definedNameElement->getAttributeNS($tableNs, 'base-cell-address');
+            $expression = $definedNameElement->getAttributeNS($tableNs, 'expression');
+
+            $baseAddress = $this->convertToExcelAddressValue($baseAddress);
+            $expression = $this->convertToExcelFormulaValue($expression);
+
+            $this->addDefinedName($spreadsheet, $baseAddress, $definedName, $expression);
+        }
+    }
+
+    /**
+     * Assess scope and store the Defined Name.
+     */
+    private function addDefinedName(Spreadsheet $spreadsheet, string $baseAddress, string $definedName, string $value): void
+    {
+        [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true);
+        $worksheet = $spreadsheet->getSheetByName($sheetReference);
+        if ($worksheet !== null) {
+            $spreadsheet->addDefinedName(DefinedName::createInstance((string)$definedName, $worksheet, $value));
+        }
     }
 }

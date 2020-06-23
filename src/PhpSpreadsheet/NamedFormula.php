@@ -8,15 +8,14 @@ class NamedFormula extends DefinedName
 {
     /**
      * Create a new Named Formula.
-     *
-     * @param string $name
-     * @param Worksheet $worksheet
-     * @param string $formula
-     * @param bool $localOnly
-     * @param null|Worksheet $scope Scope. Only applies when $pLocalOnly = true. Null for global scope.
      */
-    public function __construct($name, ?Worksheet $worksheet = null, $formula = null, $localOnly = false, $scope = null)
-    {
+    public function __construct(
+        string $name,
+        ?Worksheet $worksheet = null,
+        ?string $formula = null,
+        bool $localOnly = false,
+        ?Worksheet $scope = null
+    ) {
         // Validate data
         if (($name === null) || ($formula === null)) {
             throw new Exception('Name or Formula Parameters cannot be null.');
@@ -25,25 +24,19 @@ class NamedFormula extends DefinedName
     }
 
     /**
-     * Get range.
-     *
-     * @return string
+     * Get the formula value.
      */
-    public function getFormula()
+    public function getFormula(): string
     {
         return $this->value;
     }
 
     /**
-     * Set range.
-     *
-     * @param string $formula
-     *
-     * @return $this
+     * Set the formula value.
      */
-    public function setFormula($formula)
+    public function setFormula(string $formula): self
     {
-        if ($formula !== null) {
+        if (!empty($formula)) {
             $this->value = $formula;
         }
 

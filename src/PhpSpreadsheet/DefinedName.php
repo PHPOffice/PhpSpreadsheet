@@ -52,15 +52,14 @@ abstract class DefinedName
 
     /**
      * Create a new Defined Name.
-     *
-     * @param string $name
-     * @param Worksheet $worksheet
-     * @param string $value
-     * @param bool $localOnly
-     * @param null|Worksheet $scope Scope. Only applies when $pLocalOnly = true. Null for global scope.
      */
-    public function __construct($name, ?Worksheet $worksheet = null, $value = null, $localOnly = false, $scope = null)
-    {
+    public function __construct(
+        string $name,
+        ?Worksheet $worksheet = null,
+        ?string $value = null,
+        bool $localOnly = false,
+        ?Worksheet $scope = null
+    ) {
         // Set local members
         $this->name = $name;
         $this->worksheet = $worksheet;
@@ -74,8 +73,16 @@ abstract class DefinedName
         $this->isFormula = self::testIfFormula($value);
     }
 
-    public static function createInstance($name, ?Worksheet $worksheet = null, $value = null, $localOnly = false, $scope = null)
-    {
+    /**
+     * Create a new defined name, either a range or a formula.
+     */
+    public static function createInstance(
+        string $name,
+        ?Worksheet $worksheet = null,
+        ?string $value = null,
+        bool $localOnly = false,
+        ?Worksheet $scope = null
+    ): self {
         $isFormula = self::testIfFormula($value);
         $type = $isFormula ? 'FORMULA' : 'RANGE';
         if ($isFormula) {
@@ -101,22 +108,16 @@ abstract class DefinedName
 
     /**
      * Get name.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
      * Set name.
-     *
-     * @param string $value
-     *
-     * @return $this
      */
-    public function setName($value)
+    public function setName(string $value): self
     {
         if ($value !== null) {
             // Old title
@@ -142,74 +143,52 @@ abstract class DefinedName
 
     /**
      * Get worksheet.
-     *
-     * @return Worksheet
      */
-    public function getWorksheet()
+    public function getWorksheet(): ?Worksheet
     {
         return $this->worksheet;
     }
 
     /**
      * Set worksheet.
-     *
-     * @param Worksheet $value
-     *
-     * @return $this
      */
-    public function setWorksheet(?Worksheet $value = null)
+    public function setWorksheet(?Worksheet $value = null): self
     {
-        if ($value !== null) {
-            $this->worksheet = $value;
-        }
+        $this->worksheet = $value;
 
         return $this;
     }
 
     /**
-     * Get range.
-     *
-     * @return string
+     * Get range or formula value.
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
 
     /**
-     * Set range.
-     *
-     * @param string $value
-     *
-     * @return $this
+     * Set range or formula  value.
      */
-    public function setValue($value)
+    public function setValue(string $value): self
     {
-        if ($value !== null) {
-            $this->value = $value;
-        }
+        $this->value = $value;
 
         return $this;
     }
 
     /**
      * Get localOnly.
-     *
-     * @return bool
      */
-    public function getLocalOnly()
+    public function getLocalOnly(): bool
     {
         return $this->localOnly;
     }
 
     /**
      * Set localOnly.
-     *
-     * @param bool $value
-     *
-     * @return $this
      */
-    public function setLocalOnly($value)
+    public function setLocalOnly(bool $value): self
     {
         $this->localOnly = $value;
         $this->scope = $value ? $this->worksheet : null;
@@ -219,33 +198,27 @@ abstract class DefinedName
 
     /**
      * Get scope.
-     *
-     * @return null|Worksheet
      */
-    public function getScope()
+    public function getScope(): ?Worksheet
     {
         return $this->scope;
     }
 
     /**
      * Set scope.
-     *
-     * @return $this
      */
-    public function setScope(?Worksheet $value = null)
+    public function setScope(?Worksheet $value = null): self
     {
         $this->scope = $value;
-        $this->localOnly = $value != null;
+        $this->localOnly = $value !== null;
 
         return $this;
     }
 
     /**
      * Identify whether this is a named range or a named formula.
-     *
-     * @return bool
      */
-    public function isFormula()
+    public function isFormula(): bool
     {
         return $this->isFormula;
     }
