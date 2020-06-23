@@ -769,7 +769,7 @@ class Ods extends BaseReader
         [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true);
         $worksheet = $spreadsheet->getSheetByName($sheetReference);
         if ($worksheet !== null) {
-            $spreadsheet->addDefinedName(DefinedName::createInstance((string)$definedName, $worksheet, $value));
+            $spreadsheet->addDefinedName(DefinedName::createInstance((string) $definedName, $worksheet, $value));
         }
     }
 }
