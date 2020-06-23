@@ -63,14 +63,14 @@ abstract class DefinedName
         // Set local members
         $this->name = $name;
         $this->worksheet = $worksheet;
-        $this->value = $value;
+        $this->value = (string) $value;
         $this->localOnly = $localOnly;
         $this->scope = ($localOnly == true) ? (($scope == null) ? $worksheet : $scope) : null;
         // If the range string contains characters that aren't associated with the range definition (A-Z,1-9
         //      for cell references, and $, or the range operators (colon comma or space), quotes and ! for
         //      worksheet names
         //  then this is treated as a named formula, and not a named range
-        $this->isFormula = self::testIfFormula($value);
+        $this->isFormula = self::testIfFormula($this->value);
     }
 
     /**
@@ -83,8 +83,8 @@ abstract class DefinedName
         bool $localOnly = false,
         ?Worksheet $scope = null
     ): self {
+        $value = (string) $value;
         $isFormula = self::testIfFormula($value);
-        $type = $isFormula ? 'FORMULA' : 'RANGE';
         if ($isFormula) {
             return new NamedFormula($name, $worksheet, $value, $localOnly, $scope);
         }
@@ -119,7 +119,7 @@ abstract class DefinedName
      */
     public function setName(string $value): self
     {
-        if ($value !== null) {
+        if (!empty($value)) {
             // Old title
             $oldTitle = $this->name;
 

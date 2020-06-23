@@ -17,8 +17,8 @@ class NamedFormula extends DefinedName
         ?Worksheet $scope = null
     ) {
         // Validate data
-        if (($name === null) || ($formula === null)) {
-            throw new Exception('Name or Formula Parameters cannot be null.');
+        if ($formula === null) {
+            throw new Exception('Formula Parameters cannot be null.');
         }
         parent::__construct($name, $worksheet, $formula, $localOnly, $scope);
     }

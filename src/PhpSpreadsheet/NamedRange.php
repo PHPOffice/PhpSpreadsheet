@@ -16,11 +16,6 @@ class NamedRange extends DefinedName
         bool $localOnly = false,
         ?Worksheet $scope = null
     ) {
-        // Validate data
-        if (($name === null) || ($range === null)) {
-            throw new Exception('Name or Range Parameters cannot be null.');
-        }
-
         parent::__construct($name, $worksheet, $range, $localOnly, $scope);
     }
 
