@@ -795,9 +795,9 @@ class Worksheet implements IComparable
     public function rebindParent(Spreadsheet $parent)
     {
         if ($this->parent !== null) {
-            $namedRanges = $this->parent->getDefinedNames();
-            foreach ($namedRanges as $namedRange) {
-                $parent->addNamedRange($namedRange);
+            $definedNames = $this->parent->getDefinedNames();
+            foreach ($definedNames as $definedName) {
+                $parent->addDefinedName($definedName);
             }
 
             $this->parent->removeSheetByIndex(
