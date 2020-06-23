@@ -1380,7 +1380,7 @@ class Xlsx extends BaseReader
                                     // "Global" definedNames
                                     $locatedSheet = null;
                                     if (strpos((string) $definedName, '!') !== false) {
-                                        // Modify range
+                                        // Modify range, and extract the first worksheet reference
                                         $tmpArray = explode(',', $definedRange);
                                         $extractedRange = $tmpArray[0];
                                         $tmpArray = explode(' ', $extractedRange);
@@ -1391,7 +1391,6 @@ class Xlsx extends BaseReader
 
                                         // Locate sheet
                                         $locatedSheet = $excel->getSheetByName($extractedSheetName);
-
                                     }
 
                                     $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $locatedSheet, $definedRange, false));
