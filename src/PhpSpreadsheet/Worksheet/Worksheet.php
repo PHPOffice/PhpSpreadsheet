@@ -790,9 +790,12 @@ class Worksheet implements IComparable
     /**
      * Re-bind parent.
      *
+     * @param Spreadsheet $parent
+     * @param bool $removeWorksheetFromParent
+     *
      * @return $this
      */
-    public function rebindParent(Spreadsheet $parent)
+    public function rebindParent(Spreadsheet $parent, bool $removeWorksheetFromParent = true)
     {
         if ($this->parent !== null) {
             $namedRanges = $this->parent->getNamedRanges();
@@ -800,9 +803,11 @@ class Worksheet implements IComparable
                 $parent->addNamedRange($namedRange);
             }
 
-            $this->parent->removeSheetByIndex(
-                $this->parent->getIndex($this)
-            );
+            if ($removeWorksheetFromParent) {
+                $this->parent->removeSheetByIndex(
+                    $this->parent->getIndex($this)
+                );
+            }
         }
         $this->parent = $parent;
 
