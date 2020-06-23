@@ -532,13 +532,13 @@ class Workbook extends BIFFwriter
         // Named ranges
         if (count($this->spreadsheet->getDefinedNames()) > 0) {
             // Loop named ranges
-            $namedRanges = $this->spreadsheet->getDefinedNames();
-            foreach ($namedRanges as $namedRange) {
+            $definedNames = $this->spreadsheet->getDefinedNames();
+            foreach ($definedNames as $definedName) {
                 // Create absolute coordinate
-                $range = Coordinate::splitRange($namedRange->getValue());
+                $range = Coordinate::splitRange($definedName->getValue());
                 $iMax = count($range);
                 for ($i = 0; $i < $iMax; ++$i) {
-                    $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteCoordinate($range[$i][0]);
+                    $range[$i][0] = '\'' . str_replace("'", "''", $definedName->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteCoordinate($range[$i][0]);
                     if (isset($range[$i][1])) {
                         $range[$i][1] = Coordinate::absoluteCoordinate($range[$i][1]);
                     }
@@ -555,14 +555,14 @@ class Workbook extends BIFFwriter
                         $formulaData = "\x3A" . substr($formulaData, 1);
                     }
 
-                    if ($namedRange->getLocalOnly()) {
+                    if ($definedName->getLocalOnly()) {
                         // local scope
-                        $scope = $this->spreadsheet->getIndex($namedRange->getScope()) + 1;
+                        $scope = $this->spreadsheet->getIndex($definedName->getScope()) + 1;
                     } else {
                         // global scope
                         $scope = 0;
                     }
-                    $chunk .= $this->writeData($this->writeDefinedNameBiff8($namedRange->getName(), $formulaData, $scope, false));
+                    $chunk .= $this->writeData($this->writeDefinedNameBiff8($definedName->getName(), $formulaData, $scope, false));
                 } catch (PhpSpreadsheetException $e) {
                     // do nothing
                 }
