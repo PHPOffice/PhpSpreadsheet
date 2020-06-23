@@ -1365,7 +1365,6 @@ class Xlsx extends BaseReader
                                                     $range[0] = str_replace("''", "'", $range[0]);
                                                     $range[0] = str_replace("'", '', $range[0]);
                                                     if ($worksheet = $docSheet->getParent()->getSheetByName($range[0])) {
-//                                                        $extractedRange = str_replace('$', '', $range[1]);
                                                         $scope = $docSheet->getParent()->getSheet($mapSheetId[(int) $definedName['localSheetId']]);
                                                         $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $worksheet, $extractedRange, true, $scope));
                                                     }
@@ -1380,34 +1379,22 @@ class Xlsx extends BaseReader
                                     $definedRange = (string) $definedName;
                                     // "Global" definedNames
                                     $locatedSheet = null;
-                                    $extractedSheetName = '';
                                     if (strpos((string) $definedName, '!') !== false) {
+                                        // Modify range
+                                        $tmpArray = explode(',', $definedRange);
+                                        $extractedRange = $tmpArray[0];
+                                        $tmpArray = explode(' ', $extractedRange);
+                                        $extractedRange = $tmpArray[0];
                                         // Extract sheet name
-                                        $extractedSheetName = Worksheet::extractSheetTitle((string) $definedName, true);
-                                        $extractedSheetName = trim($extractedSheetName[0], "'");
+                                        [$extractedSheetName] = Worksheet::extractSheetTitle((string) $extractedRange, true);
+                                        $extractedSheetName = trim($extractedSheetName, "'");
 
                                         // Locate sheet
                                         $locatedSheet = $excel->getSheetByName($extractedSheetName);
 
-                                        // Modify range
-                                        $tmpArray = explode(',', $extractedRange);
-                                        foreach ($tmpArray as $tmpKey => $tmpString) {
-                                            [$worksheetName, $tmpString] = Worksheet::extractSheetTitle($tmpString, true);
-                                            $tmpArray[$tmpKey] = $tmpString;
-                                        }
-                                        $extractedRange = implode(',', $tmpArray);
-
-                                        $tmpArray = explode(' ', $extractedRange);
-                                        foreach ($tmpArray as $tmpKey => $tmpString) {
-                                            [$worksheetName, $tmpString] = Worksheet::extractSheetTitle($tmpString, true);
-                                            $tmpArray[$tmpKey] = $tmpString;
-                                        }
-                                        $extractedRange = implode(' ', $tmpArray);
                                     }
 
-//                                  if ($locatedSheet !== null) {
                                     $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $locatedSheet, $definedRange, false));
-//                                  }
                                 }
                             }
                         }

@@ -4871,14 +4871,17 @@ class Calculation
         if ($definedNameValue[0] !== '=') {
             $definedNameValue = '=' . $definedNameValue;
         }
-        $recursiveCalculationCellReference = ($definedNameWorksheet !== null && $definedNameWorksheet !== $pCellWorksheet)
+        $recursiveCalculationCell = ($definedNameWorksheet !== null && $definedNameWorksheet !== $pCellWorksheet)
             ? $definedNameWorksheet->getCell('A1')
             : $pCell;
+        $recursiveCalculationCellAddress = $recursiveCalculationCell !== null
+            ? $recursiveCalculationCell->getCoordinate()
+            : null;
 
         $recursiveCalculator = new self($this->spreadsheet);
         $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
         $recursiveCalculator->getDebugLog()->setEchoDebugLog($this->getDebugLog()->getEchoDebugLog());
-        $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $recursiveCalculationCellReference->getCoordinate(), $recursiveCalculationCellReference);
+        $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $recursiveCalculationCellAddress, $recursiveCalculationCell);
 
         if ($this->getDebugLog()->getWriteDebugLog()) {
             $this->debugLog->mergeDebugLog(array_slice($recursiveCalculator->getDebugLog()->getLog(), 3));
