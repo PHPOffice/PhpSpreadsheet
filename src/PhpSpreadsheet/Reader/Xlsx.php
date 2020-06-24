@@ -1384,7 +1384,7 @@ class Xlsx extends BaseReader
                                     if (strpos((string) $definedName, '!') !== false) {
                                         // Modify range, and extract the first worksheet reference
                                         $extractedRange = $definedRange;
-                                        /** NEED TO SPLIT ON A COMMA OR A SPACE IF NOT IN QUOTES, and EXTRACT THE FIRST PART. **/
+                                        // Need to split on a comma or a space if not in quotes, and extract the first part.
                                         $definedNameValueParts = preg_split("/[ ,](?=([^\']*\'[^\']*\')*[^\']*$)/miuU", $definedRange);
                                         // Extract sheet name
                                         [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true);

@@ -228,9 +228,6 @@ class Workbook extends WriterPart
 
     /**
      * Write Defined Names.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param Spreadsheet $spreadsheet
      */
     private function writeDefinedNames(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
@@ -240,7 +237,7 @@ class Workbook extends WriterPart
         // Named ranges
         if (count($spreadsheet->getDefinedNames()) > 0) {
             // Named ranges
-            $this->writeDefinedames($objWriter, $spreadsheet);
+            $this->writeNamedRangesAndFormulae($objWriter, $spreadsheet);
         }
 
         // Other defined names
@@ -260,12 +257,9 @@ class Workbook extends WriterPart
     }
 
     /**
-     * Write named ranges.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param Spreadsheet $spreadsheet
+     * Write defined names.
      */
-    private function writeDefinedames(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
+    private function writeNamedRangesAndFormulae(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
         // Loop named ranges
         $definedNames = $spreadsheet->getDefinedNames();
@@ -276,9 +270,6 @@ class Workbook extends WriterPart
 
     /**
      * Write Defined Name for named range.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param DefinedName $pDefinedName
      */
     private function writeDefinedName(XMLWriter $objWriter, DefinedName $pDefinedName): void
     {
@@ -288,7 +279,6 @@ class Workbook extends WriterPart
 
         if ($pDefinedName->getLocalOnly() && $pDefinedName->getScope() !== null) {
             $objWriter->writeAttribute('localSheetId', $pDefinedName->getScope()->getParent()->getIndex($pDefinedName->getScope()));
-            var_dump("LOCAL SCOPE", $pDefinedName->getScope()->getTitle());
         }
 
         $definedRange = $pDefinedName->getValue();
@@ -322,12 +312,8 @@ class Workbook extends WriterPart
 
     /**
      * Write Defined Name for autoFilter.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param Worksheet $pSheet
-     * @param int $pSheetId
      */
-    private function writeNamedRangeForAutofilter(XMLWriter $objWriter, Worksheet $pSheet, $pSheetId = 0): void
+    private function writeNamedRangeForAutofilter(XMLWriter $objWriter, Worksheet $pSheet, int $pSheetId = 0): void
     {
         // NamedRange for autoFilter
         $autoFilterRange = $pSheet->getAutoFilter()->getRange();
@@ -355,12 +341,8 @@ class Workbook extends WriterPart
 
     /**
      * Write Defined Name for PrintTitles.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param Worksheet $pSheet
-     * @param int $pSheetId
      */
-    private function writeNamedRangeForPrintTitles(XMLWriter $objWriter, Worksheet $pSheet, $pSheetId = 0): void
+    private function writeNamedRangeForPrintTitles(XMLWriter $objWriter, Worksheet $pSheet, int $pSheetId = 0): void
     {
         // NamedRange for PrintTitles
         if ($pSheet->getPageSetup()->isColumnsToRepeatAtLeftSet() || $pSheet->getPageSetup()->isRowsToRepeatAtTopSet()) {
@@ -397,12 +379,8 @@ class Workbook extends WriterPart
 
     /**
      * Write Defined Name for PrintTitles.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param Worksheet $pSheet
-     * @param int $pSheetId
      */
-    private function writeNamedRangeForPrintArea(XMLWriter $objWriter, Worksheet $pSheet, $pSheetId = 0): void
+    private function writeNamedRangeForPrintArea(XMLWriter $objWriter, Worksheet $pSheet, int $pSheetId = 0): void
     {
         // NamedRange for PrintArea
         if ($pSheet->getPageSetup()->isPrintAreaSet()) {
