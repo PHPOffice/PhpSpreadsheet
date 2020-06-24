@@ -126,3 +126,19 @@ $spreadsheet->removeSheetByIndex($sheetIndex);
 
 If the currently active worksheet is deleted, then the sheet at the
 previous index position will become the currently active sheet.
+
+## Re-bind a parent Spreadsheet
+
+You can re-bind a parent Spreadsheet of a Worksheet or set a new parent Spreadsheet using `rebindParent()`.
+
+```php
+$worksheet->rebind($newSpreadsheet);
+```
+
+It deletes the Worksheet from the parent Spreadsheet.
+
+Pass the second argument as 'true' to avoid deleting this Worksheet from the parent Spreadsheet.
+
+```php
+$worksheet->rebind($newSpreadsheet, true);
+```

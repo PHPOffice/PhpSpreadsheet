@@ -790,6 +790,7 @@ class Worksheet implements IComparable
     /**
      * Re-bind parent.
      *
+     * @param Spreadsheet $parent A new parent Spreadsheet
      * @param bool $dontRemove True to skip removing a sheet from a source after being copied to a target
      *
      * @return $this

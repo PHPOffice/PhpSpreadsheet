@@ -852,7 +852,7 @@ class Spreadsheet
         }
 
         // move sheet to this workbook
-        $pSheet->rebindParent($this);
+        $pSheet->rebindParent($this, true);
 
         // update the cellXfs
         foreach ($pSheet->getCoordinates(false) as $coordinate) {
