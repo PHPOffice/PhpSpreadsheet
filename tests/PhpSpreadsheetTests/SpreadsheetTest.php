@@ -56,6 +56,8 @@ class SpreadsheetTest extends TestCase
 
     /**
      * Test that after copy the source spreadsheet has a worksheet.
+     *
+     * @runInSeparateProcess
      */
     public function testCopySpreadsheet(): void
     {
