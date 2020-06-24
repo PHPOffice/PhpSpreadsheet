@@ -790,6 +790,8 @@ class Worksheet implements IComparable
     /**
      * Re-bind parent.
      *
+     * @param mixed $dontRemove True to skip removing a sheet from a source after being copied to a target
+     *
      * @return $this
      */
     public function rebindParent(Spreadsheet $parent, $dontRemove = false)
