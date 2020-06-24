@@ -505,7 +505,7 @@ class OLE
         // days from 1-1-1601 until the beggining of UNIX era
         $days = 134774;
         // calculate seconds
-        $big_date = $days * 24 * 3600 + gmmktime(date('H', $date), date('i', $date), date('s', $date), date('m', $date), date('d', $date), date('Y', $date));
+        $big_date = $days * 24 * 3600 + mktime((int) date('H', $date), (int) date('i', $date), (int) date('s', $date), (int) date('m', $date), (int) date('d', $date), (int) date('Y', $date));
         // multiply just to make MS happy
         $big_date *= 10000000;
 
@@ -558,10 +558,9 @@ class OLE
         // translate to seconds since 1970:
         $unixTimestamp = floor(65536.0 * 65536.0 * $timestampHigh + $timestampLow - $days * 24 * 3600 + 0.5);
 
-        if ((int) $unixTimestamp == $unixTimestamp) {
-            return (int) $unixTimestamp;
-        }
+        $iTimestamp = (int) $unixTimestamp;
 
-        return $unixTimestamp >= 0.0 ? PHP_INT_MAX : PHP_INT_MIN;
+        // Overflow conditions can't happen on 64-bit system
+        return ($iTimestamp == $unixTimestamp) ? $iTimestamp : ($unixTimestamp >= 0.0 ? PHP_INT_MAX : PHP_INT_MIN);
     }
 }

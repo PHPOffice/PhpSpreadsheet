@@ -213,7 +213,7 @@ FALSE               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::FALSE
 IF                  | \PhpOffice\PhpSpreadsheet\Calculation\Logical::statementIf
 IFERROR             | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFERROR
 IFNA                | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFNA
-IFS                 | **Not yet Implemented**
+IFS                 | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFS
 NOT                 | \PhpOffice\PhpSpreadsheet\Calculation\Logical::NOT
 OR                  | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalOr
 SWITCH              | \PhpOffice\PhpSpreadsheet\Calculation\Logical::statementSwitch

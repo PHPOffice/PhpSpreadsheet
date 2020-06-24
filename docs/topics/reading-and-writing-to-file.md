@@ -478,7 +478,7 @@ imports onto the 6th sheet:
 ```php
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $reader->setDelimiter(';');
-$reader->setEnclosure('');
+$reader->setEnclosure('"');
 $reader->setSheetIndex(5);
 
 $reader->loadIntoExisting("05featuredemo.csv", $spreadsheet);
@@ -505,9 +505,22 @@ file:
 ```php
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
 $writer->setDelimiter(';');
-$writer->setEnclosure('');
+$writer->setEnclosure('"');
 $writer->setLineEnding("\r\n");
 $writer->setSheetIndex(0);
+
+$writer->save("05featuredemo.csv");
+```
+
+#### CSV enclosures
+
+By default, all CSV fields are wrapped in the enclosure character,
+which defaults to double-quote.
+You can change to use the enclosure character only when required:
+
+``` php
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
+$writer->setEnclosureRequired(false);
 
 $writer->save("05featuredemo.csv");
 ```
@@ -538,6 +551,7 @@ $writer->save("05featuredemo.csv");
 CSV files are written in UTF-8. If they do not contain characters
 outside the ASCII range, nothing else need be done.
 However, if such characters are in the file,
+or if the file starts with the 2 characters 'ID',
 it should explicitly include a BOM file header;
 if it doesn't, Excel will not interpret those characters correctly.
 This can be enabled by using the following code:
