@@ -923,7 +923,7 @@ class Spreadsheet
     {
         $returnValue = null;
 
-        if ($namedRange != '' && ($namedRange !== null)) {
+        if ($namedRange !== '' && $namedRange !== null) {
             // first look for global defined name
             if (isset($this->definedNames[$namedRange])) {
                 $returnValue = $this->definedNames[$namedRange];

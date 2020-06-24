@@ -1361,15 +1361,17 @@ class Xlsx extends BaseReader
                                         default:
                                             if ($mapSheetId[(int) $definedName['localSheetId']] !== null) {
                                                 $range = Worksheet::extractSheetTitle((string) $definedName, true);
+                                                $scope = $docSheet->getParent()->getSheet($mapSheetId[(int) $definedName['localSheetId']]);
                                                 if (strpos((string) $definedName, '!') !== false) {
                                                     $range[0] = str_replace("''", "'", $range[0]);
                                                     $range[0] = str_replace("'", '', $range[0]);
                                                     if ($worksheet = $docSheet->getParent()->getSheetByName($range[0])) {
-                                                        $scope = $docSheet->getParent()->getSheet($mapSheetId[(int) $definedName['localSheetId']]);
                                                         $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $worksheet, $extractedRange, true, $scope));
+                                                    } else {
+                                                        $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $scope, $extractedRange, true, $scope));
                                                     }
                                                 } else {
-                                                    $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], null, $extractedRange, true));
+                                                    $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $scope, $extractedRange, true));
                                                 }
                                             }
 
@@ -1381,12 +1383,11 @@ class Xlsx extends BaseReader
                                     $locatedSheet = null;
                                     if (strpos((string) $definedName, '!') !== false) {
                                         // Modify range, and extract the first worksheet reference
-                                        $tmpArray = explode(',', $definedRange);
-                                        $extractedRange = $tmpArray[0];
-                                        $tmpArray = explode(' ', $extractedRange);
-                                        $extractedRange = $tmpArray[0];
+                                        $extractedRange = $definedRange;
+                                        /** NEED TO SPLIT ON A COMMA OR A SPACE IF NOT IN QUOTES, and EXTRACT THE FIRST PART. **/
+                                        $definedNameValueParts = preg_split("/[ ,](?=([^\']*\'[^\']*\')*[^\']*$)/miuU", $definedRange);
                                         // Extract sheet name
-                                        [$extractedSheetName] = Worksheet::extractSheetTitle((string) $extractedRange, true);
+                                        [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true);
                                         $extractedSheetName = trim($extractedSheetName, "'");
 
                                         // Locate sheet
