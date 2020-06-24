@@ -790,8 +790,9 @@ class Worksheet implements IComparable
     /**
      * Re-bind parent.
      *
-     * @param Spreadsheet $parent
-     * @param bool $removeWorksheetFromParent
+     * @param Spreadsheet $parent a parent Spreadsheet
+     * @param bool $removeWorksheetFromParent if it is true, then will be removed
+     * the current worksheet from the parent spreadsheet
      *
      * @return $this
      */
