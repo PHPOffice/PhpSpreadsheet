@@ -39,7 +39,6 @@ class OdsInfoTest extends TestCase
     public function testReadBadFileProperties(): void
     {
         $this->expectException(ReaderException::class);
-        $filename = 'tests/data/Reader/Ods/data.ods';
 
         // Load into this instance
         $reader = new Ods();
