@@ -65,7 +65,8 @@ abstract class DefinedName
         $this->worksheet = $worksheet;
         $this->value = (string) $value;
         $this->localOnly = $localOnly;
-        $this->scope = ($localOnly == true) ? (($scope == null) ? $worksheet : $scope) : null;
+        // If local only, then the scope will be set to worksheet unless a scope is explicitly set
+        $this->scope = ($localOnly === true) ? (($scope === null) ? $worksheet : $scope) : null;
         // If the range string contains characters that aren't associated with the range definition (A-Z,1-9
         //      for cell references, and $, or the range operators (colon comma or space), quotes and ! for
         //      worksheet names
