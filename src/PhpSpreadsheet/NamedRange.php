@@ -17,11 +17,8 @@ class NamedRange extends DefinedName
         ?Worksheet $scope = null
     ) {
         if ($worksheet === null && $scope === null) {
-            throw new Exception("A Named Range must specify a worksheet or a scope");
-        } elseif ($worksheet === null) {
-            $worksheet = $scope;
+            throw new Exception("You must specify a worksheet or a scope for a Named Range");
         }
-
         parent::__construct($name, $worksheet, $range, $localOnly, $scope);
     }
 

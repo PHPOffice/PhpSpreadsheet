@@ -276,33 +276,54 @@ class Workbook extends WriterPart
         // definedName for named range
         $objWriter->startElement('definedName');
         $objWriter->writeAttribute('name', $pDefinedName->getName());
-
         if ($pDefinedName->getLocalOnly() && $pDefinedName->getScope() !== null) {
             $objWriter->writeAttribute('localSheetId', $pDefinedName->getScope()->getParent()->getIndex($pDefinedName->getScope()));
         }
 
         $definedRange = $pDefinedName->getValue();
-        $splitCount = preg_match(
+        $splitCount = preg_match_all(
             '/' . Calculation::CALCULATION_REGEXP_CELLREF . '/mui',
             $definedRange,
             $splitRanges,
             PREG_OFFSET_CAPTURE
         );
 
+        $lengths = array_map('strlen', array_column($splitRanges[0], 0));
+        $offsets = array_column($splitRanges[0], 1);
+
+        $worksheets = $splitRanges[2];
+        $columns = $splitRanges[6];
+        $rows = $splitRanges[7];
+
         while ($splitCount > 0) {
             --$splitCount;
-            $range = $splitRanges[$splitCount][0];
-            // Create absolute coordinate and write as raw text
-            $newRange = Coordinate::splitRange($range);
-            $iMax = count($newRange);
-            for ($i = 0; $i < $iMax; ++$i) {
-                $newRange[$i][0] = '\'' . str_replace("'", "''", $pDefinedName->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteReference($newRange[$i][0]);
-                if (isset($newRange[$i][1])) {
-                    $newRange[$i][1] = Coordinate::absoluteReference($newRange[$i][1]);
+            $length = $lengths[$splitCount];
+            $offset = $offsets[$splitCount];
+            $worksheet = $worksheets[$splitCount][0];
+            $column = $columns[$splitCount][0];
+            $row = $rows[$splitCount][0];
+
+            $newRange = '';
+            if (empty($worksheet)) {
+                if (($offset === 0) || ($definedRange[$offset - 1] !== ':')) {
+                    // We need a worksheet
+                    $worksheet = $pDefinedName->getWorksheet()->getTitle();
                 }
+            } else {
+                $worksheet = str_replace("''", "'", trim($worksheet, "'"));
             }
-            $newRange = Coordinate::buildRange($newRange);
-            $definedRange = substr($definedRange, 0, $splitRanges[$splitCount][1]) . $newRange . substr($definedRange, $splitRanges[0][1] + strlen($range));
+            if (!empty($worksheet)) {
+                $newRange = "'" . str_replace("'", "''", $worksheet) . "'!";
+            }
+
+            if (!empty($column)) {
+                $newRange .= "\${$column}";
+            }
+            if (!empty($row)) {
+                $newRange .= "\${$row}";
+            }
+
+            $definedRange = substr($definedRange, 0, $offset) . $newRange . substr($definedRange, $offset + $length);
         }
 
         $objWriter->writeRawData($definedRange);

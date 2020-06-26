@@ -60,6 +60,10 @@ abstract class DefinedName
         bool $localOnly = false,
         ?Worksheet $scope = null
     ) {
+        if ($worksheet === null) {
+            $worksheet = $scope;
+        }
+
         // Set local members
         $this->name = $name;
         $this->worksheet = $worksheet;
