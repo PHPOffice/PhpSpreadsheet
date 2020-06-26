@@ -784,7 +784,10 @@ class Gnumeric extends BaseReader
                 [$worksheetName] = Worksheet::extractSheetTitle($value, true);
                 $worksheetName = trim($worksheetName, "'");
                 $worksheet = $this->spreadsheet->getSheetByName($worksheetName);
-                $this->spreadsheet->addDefinedName(DefinedName::createInstance($name, $worksheet, $value));
+                // Worksheet might still be null if we're only loading selected sheets rather than the full spreadsheet
+                if ($worksheet !== null) {
+                    $this->spreadsheet->addDefinedName(DefinedName::createInstance($name, $worksheet, $value));
+                }
             }
         }
     }
