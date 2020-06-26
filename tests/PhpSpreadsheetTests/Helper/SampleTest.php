@@ -39,6 +39,7 @@ class SampleTest extends TestCase
             $tooLongToBeCovered = [
                 'Basic/06_Largescale.php',
                 'Basic/13_CalculationCyclicFormulae.php',
+                'Basic/20_Read_Excel2003XML.php',
             ];
             $skipped = array_merge($skipped, $tooLongToBeCovered);
         }
