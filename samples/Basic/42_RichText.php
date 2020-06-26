@@ -30,7 +30,7 @@ $html1 = '<font color="#0000ff">
 while this block uses an <u>underline</u>.
 </font>
 </p>
-<p align="right"><font size="9" color="red">
+<p align="right"><font size="9" color="red" face="Times New Roman, serif">
 I want to eat <ins><del>healthy food</del> <strong>pizza</strong></ins>.
 </font>
 ';

@@ -1,12 +1,11 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Font;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PHPUnit\Framework\TestCase;
 
 class HtmlTest extends TestCase
@@ -16,6 +15,33 @@ class HtmlTest extends TestCase
         $filename = 'tests/data/Reader/HTML/csv_with_angle_bracket.csv';
         $reader = new Html();
         self::assertFalse($reader->canRead($filename));
+    }
+
+    public function testBadHtml(): void
+    {
+        $this->expectException(ReaderException::class);
+        $filename = 'tests/data/Reader/HTML/badhtml.html';
+        $reader = new Html();
+        self::assertTrue($reader->canRead($filename));
+        $spreadsheet = $reader->load($filename);
+        self::assertTrue(false);
+    }
+
+    public function testNonHtml(): void
+    {
+        $this->expectException(ReaderException::class);
+        $filename = __FILE__;
+        $reader = new Html();
+        self::assertFalse($reader->canRead($filename));
+        $spreadsheet = $reader->load($filename);
+        self::assertTrue(false);
+    }
+
+    public function testInvalidFilename(): void
+    {
+        $reader = new Html();
+        self::assertEquals(0, $reader->getSheetIndex());
+        self::assertFalse($reader->canRead(''));
     }
 
     public function providerCanReadVerySmallFile()
@@ -38,7 +64,7 @@ class HtmlTest extends TestCase
      */
     public function testCanReadVerySmallFile($expected, $content): void
     {
-        $filename = $this->createHtml($content);
+        $filename = HtmlHelper::createHtml($content);
         $reader = new Html();
         $actual = $reader->canRead($filename);
 
@@ -51,63 +77,21 @@ class HtmlTest extends TestCase
     {
         $html = '<table>
                     <tr>
-                        <td style="background-color: #000000;color: #FFFFFF">Blue background</td>
+                        <td style="background-color: #0000FF;color: #FFFFFF">Blue background</td>
+                        <td style="background-color: unknown1;color: unknown2">Unknown fore/background</td>
                     </tr>
                 </table>';
-        $filename = $this->createHtml($html);
-        $spreadsheet = $this->loadHtmlIntoSpreadsheet($filename);
+        $filename = HtmlHelper::createHtml($html);
+        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
         $firstSheet = $spreadsheet->getSheet(0);
         $style = $firstSheet->getCell('A1')->getStyle();
-
         self::assertEquals('FFFFFF', $style->getFont()->getColor()->getRGB());
-
-        unlink($filename);
-    }
-
-    public function testCanApplyInlineBordersStyles(): void
-    {
-        $html = '<table>
-                    <tr>
-                        <td style="border: 1px solid #333333;">Thin border</td>
-                        <td style="border-bottom: 1px solid #333333;">Border bottom</td>
-                        <td style="border-top: 1px solid #333333;">Border top</td>
-                        <td style="border-left: 1px solid #333333;">Border left</td>
-                        <td style="border-right: 1px solid #333333;">Border right</td>
-                    </tr>
-                </table>';
-        $filename = $this->createHtml($html);
-        $spreadsheet = $this->loadHtmlIntoSpreadsheet($filename);
-        $firstSheet = $spreadsheet->getSheet(0);
-        $style = $firstSheet->getCell('A1')->getStyle();
-        $borders = $style->getBorders();
-
-        /** @var Border $border */
-        foreach ([$borders->getTop(), $borders->getBottom(), $borders->getLeft(), $borders->getRight()] as $border) {
-            self::assertEquals('333333', $border->getColor()->getRGB());
-            self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
-        }
-
+        self::assertEquals('0000FF', $style->getFill()->getStartColor()->getRGB());
+        self::assertEquals('0000FF', $style->getFill()->getEndColor()->getRGB());
         $style = $firstSheet->getCell('B1')->getStyle();
-        $border = $style->getBorders()->getBottom();
-        self::assertEquals('333333', $border->getColor()->getRGB());
-        self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
-
-        $style = $firstSheet->getCell('C1')->getStyle();
-        $border = $style->getBorders()->getTop();
-        self::assertEquals('333333', $border->getColor()->getRGB());
-        self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
-
-        $style = $firstSheet->getCell('D1')->getStyle();
-        $border = $style->getBorders()->getLeft();
-        self::assertEquals('333333', $border->getColor()->getRGB());
-        self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
-
-        $style = $firstSheet->getCell('E1')->getStyle();
-        $border = $style->getBorders()->getRight();
-        self::assertEquals('333333', $border->getColor()->getRGB());
-        self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
-
-        unlink($filename);
+        self::assertEquals('000000', $style->getFont()->getColor()->getRGB());
+        self::assertEquals('000000', $style->getFill()->getEndColor()->getRGB());
+        self::assertEquals('FFFFFF', $style->getFill()->getstartColor()->getRGB());
     }
 
     public function testCanApplyInlineFontStyles(): void
@@ -122,8 +106,8 @@ class HtmlTest extends TestCase
                         <td style="text-decoration: line-through;">Line through</td>
                     </tr>
                 </table>';
-        $filename = $this->createHtml($html);
-        $spreadsheet = $this->loadHtmlIntoSpreadsheet($filename);
+        $filename = HtmlHelper::createHtml($html);
+        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $style = $firstSheet->getCell('A1')->getStyle();
@@ -143,8 +127,6 @@ class HtmlTest extends TestCase
 
         $style = $firstSheet->getCell('F1')->getStyle();
         self::assertTrue($style->getFont()->getStrikethrough());
-
-        unlink($filename);
     }
 
     public function testCanApplyInlineWidth(): void
@@ -155,8 +137,8 @@ class HtmlTest extends TestCase
                         <td style="width: 100px;">100px</td>
                     </tr>
                 </table>';
-        $filename = $this->createHtml($html);
-        $spreadsheet = $this->loadHtmlIntoSpreadsheet($filename);
+        $filename = HtmlHelper::createHtml($html);
+        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $dimension = $firstSheet->getColumnDimension('A');
@@ -164,8 +146,6 @@ class HtmlTest extends TestCase
 
         $dimension = $firstSheet->getColumnDimension('B');
         self::assertEquals(100, $dimension->getWidth());
-
-        unlink($filename);
     }
 
     public function testCanApplyInlineHeight(): void
@@ -178,8 +158,8 @@ class HtmlTest extends TestCase
                         <td style="height: 100px;">2</td>
                     </tr>
                 </table>';
-        $filename = $this->createHtml($html);
-        $spreadsheet = $this->loadHtmlIntoSpreadsheet($filename);
+        $filename = HtmlHelper::createHtml($html);
+        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $dimension = $firstSheet->getRowDimension(1);
@@ -187,8 +167,6 @@ class HtmlTest extends TestCase
 
         $dimension = $firstSheet->getRowDimension(2);
         self::assertEquals(100, $dimension->getRowHeight());
-
-        unlink($filename);
     }
 
     public function testCanApplyAlignment(): void
@@ -203,8 +181,8 @@ class HtmlTest extends TestCase
                         <td style="word-wrap: break-word;">Wraptext</td>
                     </tr>
                 </table>';
-        $filename = $this->createHtml($html);
-        $spreadsheet = $this->loadHtmlIntoSpreadsheet($filename);
+        $filename = HtmlHelper::createHtml($html);
+        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $style = $firstSheet->getCell('A1')->getStyle();
@@ -224,8 +202,6 @@ class HtmlTest extends TestCase
 
         $style = $firstSheet->getCell('F1')->getStyle();
         self::assertTrue($style->getAlignment()->getWrapText());
-
-        unlink($filename);
     }
 
     public function testCanApplyInlineDataFormat(): void
@@ -235,35 +211,12 @@ class HtmlTest extends TestCase
                         <td data-format="mmm-yy">2019-02-02 12:34:00</td>
                     </tr>
                 </table>';
-        $filename = $this->createHtml($html);
-        $spreadsheet = $this->loadHtmlIntoSpreadsheet($filename);
+        $filename = HtmlHelper::createHtml($html);
+        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $style = $firstSheet->getCell('A1')->getStyle();
         self::assertEquals('mmm-yy', $style->getNumberFormat()->getFormatCode());
-
-        unlink($filename);
-    }
-
-    public function testCanInsertImage(): void
-    {
-        $imagePath = realpath(__DIR__ . '/../../data/Reader/HTML/image.jpg');
-
-        $html = '<table>
-                    <tr>
-                        <td><img src="' . $imagePath . '" alt=""></td>
-                    </tr>
-                </table>';
-        $filename = $this->createHtml($html);
-        $spreadsheet = $this->loadHtmlIntoSpreadsheet($filename);
-        $firstSheet = $spreadsheet->getSheet(0);
-
-        /** @var Drawing $drawing */
-        $drawing = $firstSheet->getDrawingCollection()[0];
-        self::assertEquals($imagePath, $drawing->getPath());
-        self::assertEquals('A1', $drawing->getCoordinates());
-
-        unlink($filename);
     }
 
     public function testCanApplyCellWrapping(): void
@@ -279,8 +232,8 @@ class HtmlTest extends TestCase
                         <td>Hello<br>World</td>
                     </tr>
                 </table>';
-        $filename = $this->createHtml($html);
-        $spreadsheet = $this->loadHtmlIntoSpreadsheet($filename);
+        $filename = HtmlHelper::createHtml($html);
+        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $cellStyle = $firstSheet->getStyle('A1');
@@ -295,103 +248,6 @@ class HtmlTest extends TestCase
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A3')->getValue();
         self::assertStringContainsString("\n", $cellValue);
-
-        unlink($filename);
-    }
-
-    public function testCanLoadFromString(): void
-    {
-        $html = '<table>
-                    <tr>
-                        <td>Hello World</td>
-                    </tr>
-                    <tr>
-                        <td>Hello<br />World</td>
-                    </tr>
-                    <tr>
-                        <td>Hello<br>World</td>
-                    </tr>
-                </table>';
-        $spreadsheet = (new Html())->loadFromString($html);
-        $firstSheet = $spreadsheet->getSheet(0);
-
-        $cellStyle = $firstSheet->getStyle('A1');
-        self::assertFalse($cellStyle->getAlignment()->getWrapText());
-
-        $cellStyle = $firstSheet->getStyle('A2');
-        self::assertTrue($cellStyle->getAlignment()->getWrapText());
-        $cellValue = $firstSheet->getCell('A2')->getValue();
-        self::assertStringContainsString("\n", $cellValue);
-
-        $cellStyle = $firstSheet->getStyle('A3');
-        self::assertTrue($cellStyle->getAlignment()->getWrapText());
-        $cellValue = $firstSheet->getCell('A3')->getValue();
-        self::assertStringContainsString("\n", $cellValue);
-    }
-
-    public function testCanLoadFromStringIntoExistingSpreadsheet(): void
-    {
-        $html = '<table>
-                    <tr>
-                        <td>Hello World</td>
-                    </tr>
-                    <tr>
-                        <td>Hello<br />World</td>
-                    </tr>
-                    <tr>
-                        <td>Hello<br>World</td>
-                    </tr>
-                </table>';
-        $reader = new Html();
-        $spreadsheet = $reader->loadFromString($html);
-        $firstSheet = $spreadsheet->getSheet(0);
-
-        $cellStyle = $firstSheet->getStyle('A1');
-        self::assertFalse($cellStyle->getAlignment()->getWrapText());
-
-        $cellStyle = $firstSheet->getStyle('A2');
-        self::assertTrue($cellStyle->getAlignment()->getWrapText());
-        $cellValue = $firstSheet->getCell('A2')->getValue();
-        self::assertStringContainsString("\n", $cellValue);
-
-        $cellStyle = $firstSheet->getStyle('A3');
-        self::assertTrue($cellStyle->getAlignment()->getWrapText());
-        $cellValue = $firstSheet->getCell('A3')->getValue();
-        self::assertStringContainsString("\n", $cellValue);
-
-        $reader->setSheetIndex(1);
-        $html = '<table>
-                    <tr>
-                        <td>Goodbye World</td>
-                    </tr>
-                </table>';
-
-        self::assertEquals(1, $spreadsheet->getSheetCount());
-        $spreadsheet = $reader->loadFromString($html, $spreadsheet);
-        self::assertEquals(2, $spreadsheet->getSheetCount());
-    }
-
-    /**
-     * @param string $html
-     *
-     * @return string
-     */
-    private function createHtml($html)
-    {
-        $filename = tempnam(sys_get_temp_dir(), 'html');
-        file_put_contents($filename, $html);
-
-        return $filename;
-    }
-
-    /**
-     * @param $filename
-     *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
-     */
-    private function loadHtmlIntoSpreadsheet($filename)
-    {
-        return (new Html())->load($filename);
     }
 
     public function testRowspanInRendering(): void
@@ -417,11 +273,10 @@ class HtmlTest extends TestCase
                     <td style="text-indent:10px">Text Indent</td>
                   </tr>
                 </table>';
-        $filename = $this->createHtml($html);
-        $spreadsheet = $this->loadHtmlIntoSpreadsheet($filename);
+        $filename = HtmlHelper::createHtml($html);
+        $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
         $firstSheet = $spreadsheet->getSheet(0);
         $style = $firstSheet->getCell('C2')->getStyle();
         self::assertEquals(10, $style->getAlignment()->getIndent());
-        unlink($filename);
     }
 }
