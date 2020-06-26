@@ -14,7 +14,7 @@ class XmlLoadTest extends TestCase
 {
     public function testLoad(): void
     {
-        self::markTestSkipped('Mysterious Travis coverage failure');
+        //self::markTestSkipped('Mysterious Travis coverage failure');
         $filename = __DIR__
             . '/../../../..'
             . '/samples/templates/excel2003.xml';
@@ -126,7 +126,7 @@ class XmlLoadTest extends TestCase
 
     public function testLoadFilter(): void
     {
-        self::markTestSkipped('Mysterious Travis coverage failure');
+        //self::markTestSkipped('Mysterious Travis coverage failure');
         $filename = __DIR__
             . '/../../../..'
             . '/samples/templates/excel2003.xml';
@@ -144,7 +144,7 @@ class XmlLoadTest extends TestCase
 
     public function testLoadSelectedSheets(): void
     {
-        self::markTestSkipped('Mysterious Travis coverage failure');
+        //self::markTestSkipped('Mysterious Travis coverage failure');
         $filename = __DIR__
             . '/../../../..'
             . '/samples/templates/excel2003.xml';
