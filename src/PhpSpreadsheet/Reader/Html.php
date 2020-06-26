@@ -298,7 +298,7 @@ class Html extends BaseReader
         $cellContent = (string) '';
     }
 
-    private function processDomElementBody(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child): void
+    private function processDomElementBody(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child): void
     {
         $attributeArray = [];
         foreach ($child->attributes as $attribute) {
@@ -312,24 +312,24 @@ class Html extends BaseReader
             $this->tableLevel = 0;
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
         } else {
-            $this->processDomElementTitle($element, $sheet, $row, $column, $cellContent, $child, $attributeArray);
+            $this->processDomElementTitle($sheet, $row, $column, $cellContent, $child, $attributeArray);
         }
     }
 
-    private function processDomElementTitle(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
+    private function processDomElementTitle(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'title') {
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
             $sheet->setTitle($cellContent, true, false);
             $cellContent = '';
         } else {
-            $this->processDomElementSpanEtc($element, $sheet, $row, $column, $cellContent, $child, $attributeArray);
+            $this->processDomElementSpanEtc($sheet, $row, $column, $cellContent, $child, $attributeArray);
         }
     }
 
     private static $spanEtc = ['span', 'div', 'font', 'i', 'em', 'strong', 'b'];
 
-    private function processDomElementSpanEtc(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
+    private function processDomElementSpanEtc(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if (in_array($child->nodeName, self::$spanEtc)) {
             if (isset($attributeArray['class']) && $attributeArray['class'] === 'comment') {
@@ -343,11 +343,11 @@ class Html extends BaseReader
                 $sheet->getStyle($column . $row)->applyFromArray($this->formats[$child->nodeName]);
             }
         } else {
-            $this->processDomElementHr($element, $sheet, $row, $column, $cellContent, $child, $attributeArray);
+            $this->processDomElementHr($sheet, $row, $column, $cellContent, $child, $attributeArray);
         }
     }
 
-    private function processDomElementHr(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
+    private function processDomElementHr(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'hr') {
             $this->flushCell($sheet, $column, $row, $cellContent);
@@ -358,10 +358,10 @@ class Html extends BaseReader
             ++$row;
         }
         // fall through to br
-        $this->processDomElementBr($element, $sheet, $row, $column, $cellContent, $child, $attributeArray);
+        $this->processDomElementBr($sheet, $row, $column, $cellContent, $child, $attributeArray);
     }
 
-    private function processDomElementBr(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
+    private function processDomElementBr(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'br' || $child->nodeName === 'hr') {
             if ($this->tableLevel > 0) {
@@ -374,11 +374,11 @@ class Html extends BaseReader
                 ++$row;
             }
         } else {
-            $this->processDomElementA($element, $sheet, $row, $column, $cellContent, $child, $attributeArray);
+            $this->processDomElementA($sheet, $row, $column, $cellContent, $child, $attributeArray);
         }
     }
 
-    private function processDomElementA(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
+    private function processDomElementA(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'a') {
             foreach ($attributeArray as $attributeName => $attributeValue) {
@@ -400,13 +400,13 @@ class Html extends BaseReader
             //$cellContent .= ' ';
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
         } else {
-            $this->processDomElementH1Etc($element, $sheet, $row, $column, $cellContent, $child, $attributeArray);
+            $this->processDomElementH1Etc($sheet, $row, $column, $cellContent, $child, $attributeArray);
         }
     }
 
     private static $h1Etc = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'p'];
 
-    private function processDomElementH1Etc(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
+    private function processDomElementH1Etc(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if (in_array($child->nodeName, self::$h1Etc)) {
             if ($this->tableLevel > 0) {
@@ -430,11 +430,11 @@ class Html extends BaseReader
                 $column = 'A';
             }
         } else {
-            $this->processDomElementLi($element, $sheet, $row, $column, $cellContent, $child, $attributeArray);
+            $this->processDomElementLi($sheet, $row, $column, $cellContent, $child, $attributeArray);
         }
     }
 
-    private function processDomElementLi(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
+    private function processDomElementLi(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'li') {
             if ($this->tableLevel > 0) {
@@ -451,20 +451,20 @@ class Html extends BaseReader
                 $column = 'A';
             }
         } else {
-            $this->processDomElementImg($element, $sheet, $row, $column, $cellContent, $child, $attributeArray);
+            $this->processDomElementImg($sheet, $row, $column, $cellContent, $child, $attributeArray);
         }
     }
 
-    private function processDomElementImg(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
+    private function processDomElementImg(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'img') {
             $this->insertImage($sheet, $column, $row, $attributeArray);
         } else {
-            $this->processDomElementTable($element, $sheet, $row, $column, $cellContent, $child, $attributeArray);
+            $this->processDomElementTable($sheet, $row, $column, $cellContent, $child, $attributeArray);
         }
     }
 
-    private function processDomElementTable(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
+    private function processDomElementTable(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'table') {
             $this->flushCell($sheet, $column, $row, $cellContent);
@@ -480,11 +480,11 @@ class Html extends BaseReader
                 ++$row;
             }
         } else {
-            $this->processDomElementTr($element, $sheet, $row, $column, $cellContent, $child, $attributeArray);
+            $this->processDomElementTr($sheet, $row, $column, $cellContent, $child, $attributeArray);
         }
     }
 
-    private function processDomElementTr(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
+    private function processDomElementTr(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'tr') {
             $column = $this->getTableStartColumn();
@@ -497,11 +497,11 @@ class Html extends BaseReader
 
             ++$row;
         } else {
-            $this->processDomElementThTdOther($element, $sheet, $row, $column, $cellContent, $child, $attributeArray);
+            $this->processDomElementThTdOther($sheet, $row, $column, $cellContent, $child, $attributeArray);
         }
     }
 
-    private function processDomElementThTdOther(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
+    private function processDomElementThTdOther(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName !== 'td' && $child->nodeName !== 'th') {
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
@@ -622,7 +622,7 @@ class Html extends BaseReader
                 //    but if we have a rich text run instead, we need to append it correctly
                     //    TODO
             } elseif ($child instanceof DOMElement) {
-                $this->processDomElementBody($element, $sheet, $row, $column, $cellContent, $child);
+                $this->processDomElementBody($sheet, $row, $column, $cellContent, $child);
             }
         }
     }
