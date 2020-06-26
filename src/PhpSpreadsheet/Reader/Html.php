@@ -506,7 +506,7 @@ class Html extends BaseReader
         if ($child->nodeName !== 'td' && $child->nodeName !== 'th') {
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
         } else {
-            $this->processDomElementThTd($element, $sheet, $row, $column, $cellContent, $child, $attributeArray);
+            $this->processDomElementThTd($sheet, $row, $column, $cellContent, $child, $attributeArray);
         }
     }
 
@@ -559,7 +559,7 @@ class Html extends BaseReader
         }
     }
 
-    private function processDomElementThTd(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
+    private function processDomElementThTd(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         while (isset($this->rowspan[$column . $row])) {
             ++$column;

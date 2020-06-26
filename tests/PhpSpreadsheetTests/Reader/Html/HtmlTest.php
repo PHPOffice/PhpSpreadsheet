@@ -23,7 +23,7 @@ class HtmlTest extends TestCase
         $filename = 'tests/data/Reader/HTML/badhtml.html';
         $reader = new Html();
         self::assertTrue($reader->canRead($filename));
-        $spreadsheet = $reader->load($filename);
+        $reader->load($filename);
         self::assertTrue(false);
     }
 
@@ -33,7 +33,7 @@ class HtmlTest extends TestCase
         $filename = __FILE__;
         $reader = new Html();
         self::assertFalse($reader->canRead($filename));
-        $spreadsheet = $reader->load($filename);
+        $reader->load($filename);
         self::assertTrue(false);
     }
 
