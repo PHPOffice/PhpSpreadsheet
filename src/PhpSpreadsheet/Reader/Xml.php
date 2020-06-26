@@ -154,7 +154,7 @@ class Xml extends BaseReader
     {
         try {
             $xml = simplexml_load_string(
-                $this->securityScanner->scan($this->fileContents ?: file_get_contents($pFileName)),
+                $this->securityScanner->scan($this->fileContents ?: file_get_contents($pFilename)),
                 'SimpleXMLElement',
                 Settings::getLibXmlLoaderOptions()
             );
@@ -301,7 +301,7 @@ class Xml extends BaseReader
 
     protected static function hex2str($hex)
     {
-        return mb_chr(hexdec($hex[1]));
+        return mb_chr((int) hexdec($hex[1]), 'UTF-8');
     }
 
     /**
@@ -495,7 +495,7 @@ class Xml extends BaseReader
                             $spreadsheet->getActiveSheet()->mergeCells($cellRange);
                         }
 
-                        $cellIsSet = $hasCalculatedValue = false;
+                        $hasCalculatedValue = false;
                         $cellDataFormula = '';
                         if (isset($cell_ss['Formula'])) {
                             $cellDataFormula = $cell_ss['Formula'];
@@ -609,7 +609,7 @@ class Xml extends BaseReader
                             if ($hasCalculatedValue) {
                                 $spreadsheet->getActiveSheet()->getCell($columnID . $rowID)->setCalculatedValue($cellValue);
                             }
-                            $cellIsSet = $rowHasData = true;
+                            $rowHasData = true;
                         }
 
                         if (isset($cell->Comment)) {
@@ -794,19 +794,36 @@ class Xml extends BaseReader
         }
     }
 
+    private static $underlineStyles = [
+        Font::UNDERLINE_NONE,
+        Font::UNDERLINE_DOUBLE,
+        Font::UNDERLINE_DOUBLEACCOUNTING,
+        Font::UNDERLINE_SINGLE,
+        Font::UNDERLINE_SINGLEACCOUNTING,
+    ];
+
+    private function parseStyleFontUnderline(string $styleID, string $styleAttributeValue): void
+    {
+        if (self::identifyFixedStyleValue(self::$underlineStyles, $styleAttributeValue)) {
+            $this->styles[$styleID]['font']['underline'] = $styleAttributeValue;
+        }
+    }
+
+    private function parseStyleFontVerticalAlign(string $styleID, string $styleAttributeValue): void
+    {
+        if ($styleAttributeValue == 'Superscript') {
+            $this->styles[$styleID]['font']['superscript'] = true;
+        }
+        if ($styleAttributeValue == 'Subscript') {
+            $this->styles[$styleID]['font']['subscript'] = true;
+        }
+    }
+
     /**
      * @param $styleID
      */
-    private function parseStyleFont($styleID, SimpleXMLElement $styleAttributes): void
+    private function parseStyleFont(string $styleID, SimpleXMLElement $styleAttributes): void
     {
-        $underlineStyles = [
-            Font::UNDERLINE_NONE,
-            Font::UNDERLINE_DOUBLE,
-            Font::UNDERLINE_DOUBLEACCOUNTING,
-            Font::UNDERLINE_SINGLE,
-            Font::UNDERLINE_SINGLEACCOUNTING,
-        ];
-
         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
             $styleAttributeValue = (string) $styleAttributeValue;
             switch ($styleAttributeKey) {
@@ -831,18 +848,13 @@ class Xml extends BaseReader
 
                     break;
                 case 'Underline':
-                    if (self::identifyFixedStyleValue($underlineStyles, $styleAttributeValue)) {
-                        $this->styles[$styleID]['font']['underline'] = $styleAttributeValue;
-                    }
+                    $this->parseStyleFontUnderline($styleID, $styleAttributeValue);
 
                     break;
                 case 'VerticalAlign':
-                    if ($styleAttributeValue == 'Superscript') {
-                        $this->styles[$styleID]['font']['superscript'] = true;
-                    }
-                    if ($styleAttributeValue == 'Subscript') {
-                        $this->styles[$styleID]['font']['subscript'] = true;
-                    }
+                    $this->parseStyleFontVerticalAlign($styleID, $styleAttributeValue);
+
+                    break;
             }
         }
     }
