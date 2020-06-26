@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
@@ -34,13 +34,14 @@ class XmlTest extends TestCase
     /**
      * Check if it can read XML Hyperlink correctly.
      */
-    public function testReadHyperlinks(): void
+    public function testHyperlinksAltCharset(): void
     {
         $reader = new Xml();
-        $spreadsheet = $reader->load('samples/templates/Excel2003XMLTest.xml');
+        $spreadsheet = $reader->load('tests/data/Reader/Xml/excel2003.iso8859-1.xml');
         $firstSheet = $spreadsheet->getSheet(0);
+        self::assertSame('Voilà', $spreadsheet->getActiveSheet()->getCell('A1')->getValue());
 
-        $hyperlink = $firstSheet->getCell('L1');
+        $hyperlink = $firstSheet->getCell('A2');
 
         self::assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
         self::assertEquals('PhpSpreadsheet', $hyperlink->getValue());
