@@ -27,7 +27,7 @@ class NamedExpressions
         $this->objWriter->endElement();
     }
 
-    private function writeExpressions()
+    private function writeExpressions(): void
     {
         $definedNames = $this->spreadsheet->getDefinedNames();
 
