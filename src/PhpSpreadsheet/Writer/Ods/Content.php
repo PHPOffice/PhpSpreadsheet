@@ -473,6 +473,10 @@ class Content extends WriterPart
         $columns = $splitRanges[6];
         $rows = $splitRanges[7];
 
+        // Replace any commas in the formula with semi-colons for Ods
+        // If by chance there are commas in worksheet names, then they will be "fixed" again in the loop
+        //    because we've already extracted worksheet names with our preg_match_all()
+        $formula = str_replace(',', ';', $formula);
         while ($splitCount > 0) {
             --$splitCount;
             $length = $lengths[$splitCount];
