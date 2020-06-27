@@ -14,7 +14,6 @@ class XmlLoadTest extends TestCase
 {
     public function testLoad(): void
     {
-        //self::markTestSkipped('Mysterious Travis coverage failure');
         $filename = __DIR__
             . '/../../../..'
             . '/samples/templates/excel2003.xml';
@@ -126,7 +125,6 @@ class XmlLoadTest extends TestCase
 
     public function testLoadFilter(): void
     {
-        //self::markTestSkipped('Mysterious Travis coverage failure');
         $filename = __DIR__
             . '/../../../..'
             . '/samples/templates/excel2003.xml';
@@ -144,7 +142,6 @@ class XmlLoadTest extends TestCase
 
     public function testLoadSelectedSheets(): void
     {
-        //self::markTestSkipped('Mysterious Travis coverage failure');
         $filename = __DIR__
             . '/../../../..'
             . '/samples/templates/excel2003.xml';
@@ -155,5 +152,17 @@ class XmlLoadTest extends TestCase
         $sheet = $spreadsheet->getSheet(0);
         self::assertEquals('Report Data', $sheet->getTitle());
         self::assertEquals('Third Heading', $sheet->getCell('C2')->getValue());
+    }
+
+    public function testLoadUnusableSample(): void
+    {
+        // Sample spreadsheet is not readable by Excel,
+        // but PhpSpreadsheet can load it.
+        $filename = __DIR__
+            . '/../../../..'
+            . '/samples/templates/Excel2003XMLTest.xml';
+        $reader = new Xml();
+        $spreadsheet = $reader->load($filename);
+        self::assertEquals(2, $spreadsheet->getSheetCount());
     }
 }
