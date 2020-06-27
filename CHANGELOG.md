@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 - Add support for IFS() logical function [#1442](https://github.com/PHPOffice/PhpSpreadsheet/pull/1442)
+- Add Cell Address Helper to provide conversions between the R1C1 and A1 address formats [#1558](https://github.com/PHPOffice/PhpSpreadsheet/pull/1558)
 
 ## [1.13.0] - 2020-05-31
 
