@@ -8,8 +8,6 @@ class AddressHelper
 {
     /**
      * Converts an R1C1 format cell address to an A1 format cell address
-     *
-     * @throws Exception
      */
     public static function convertToA1(
         string $address,
@@ -52,8 +50,6 @@ class AddressHelper
     /**
      * Converts an A1 format cell address to an R1C1 format cell address
      * If $currentRowNumber or $currentColumnNumber are provided, then the R1C1 address will be formatted as a relative address
-     *
-     * @throws Exception
      */
     public static function convertToR1C1(
         string $address,
