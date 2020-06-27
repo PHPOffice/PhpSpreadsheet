@@ -2,9 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -90,7 +92,11 @@ class Content extends WriterPart
 
         $this->writeSheets($objWriter);
 
-        $objWriter->writeElement('table:named-expressions');
+        // Defined names (ranges and formulae)
+        $objWriter->startElement('table:named-expressions');
+        $this->writeNamedExpressions($objWriter, $this->getParentWriter()->getSpreadsheet());
+        $objWriter->endElement();
+
         $objWriter->endElement();
         $objWriter->endElement();
         $objWriter->endElement();
@@ -363,5 +369,143 @@ class Content extends WriterPart
 
         $objWriter->writeAttribute('table:number-columns-spanned', $columnSpan);
         $objWriter->writeAttribute('table:number-rows-spanned', $rowSpan);
+    }
+
+    private function writeNamedExpressions(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
+    {
+        $definedNames = $spreadsheet->getDefinedNames();
+
+        foreach ($definedNames as $definedName) {
+            if ($definedName->isFormula()) {
+                $objWriter->startElement('table:named-expression');
+                $this->writeNamedFormula($objWriter, $definedName, $spreadsheet->getActiveSheet());
+            } else {
+                $objWriter->startElement('table:named-range');
+                $this->writeNamedRange($objWriter, $definedName);
+            }
+            $objWriter->endElement();
+        }
+    }
+
+    private function writeNamedFormula(XMLWriter $objWriter, DefinedName $definedName, Worksheet $defaultWorksheet): void
+    {
+        $objWriter->writeAttribute('table:name', $definedName->getName());
+        $objWriter->writeAttribute('table:expression', $this->convertFormula($definedName, $definedName->getValue()));
+        $objWriter->writeAttribute('table:base-cell-address', $this->convertAddress(
+            $definedName,
+            "'" . (($definedName->getWorksheet() !== null) ? $definedName->getWorksheet()->getTitle() : $defaultWorksheet->getTitle()) . "'!\$A\$1'"
+        ));
+    }
+
+    private function writeNamedRange(XMLWriter $objWriter, DefinedName $definedName): void
+    {
+        $objWriter->writeAttribute('table:name', $definedName->getName());
+        $objWriter->writeAttribute('table:base-cell-address', $this->convertAddress(
+            $definedName,
+            "'" . $definedName->getWorksheet()->getTitle() . "'!\$A\$1"
+        ));
+        $objWriter->writeAttribute('table:cell-range-address', $this->convertAddress($definedName, $definedName->getValue()));
+    }
+
+    private function convertAddress(DefinedName $definedName, string $address): string
+    {
+        $splitCount = preg_match_all(
+            '/' . Calculation::CALCULATION_REGEXP_CELLREF . '/mui',
+            $address,
+            $splitRanges,
+            PREG_OFFSET_CAPTURE
+        );
+
+        $lengths = array_map('strlen', array_column($splitRanges[0], 0));
+        $offsets = array_column($splitRanges[0], 1);
+
+        $worksheets = $splitRanges[2];
+        $columns = $splitRanges[6];
+        $rows = $splitRanges[7];
+
+        while ($splitCount > 0) {
+            --$splitCount;
+            $length = $lengths[$splitCount];
+            $offset = $offsets[$splitCount];
+            $worksheet = $worksheets[$splitCount][0];
+            $column = $columns[$splitCount][0];
+            $row = $rows[$splitCount][0];
+
+            $newRange = '';
+            if (empty($worksheet)) {
+                if (($offset === 0) || ($address[$offset - 1] !== ':')) {
+                    // We need a worksheet
+                    $worksheet = $definedName->getWorksheet()->getTitle();
+                }
+            } else {
+                $worksheet = str_replace("''", "'", trim($worksheet, "'"));
+            }
+            if (!empty($worksheet)) {
+                $newRange = "\$'" . str_replace("'", "''", $worksheet) . "'.";
+            }
+
+            if (!empty($column)) {
+                $newRange .= "\${$column}";
+            }
+            if (!empty($row)) {
+                $newRange .= "\${$row}";
+            }
+
+            $address = substr($address, 0, $offset) . $newRange . substr($address, $offset + $length);
+        }
+
+        return $address;
+    }
+
+    private function convertFormula(DefinedName $definedName, string $formula): string
+    {
+        $splitCount = preg_match_all(
+            '/' . Calculation::CALCULATION_REGEXP_CELLREF . '/mui',
+            $formula,
+            $splitRanges,
+            PREG_OFFSET_CAPTURE
+        );
+
+        $lengths = array_map('strlen', array_column($splitRanges[0], 0));
+        $offsets = array_column($splitRanges[0], 1);
+
+        $worksheets = $splitRanges[2];
+        $columns = $splitRanges[6];
+        $rows = $splitRanges[7];
+
+        while ($splitCount > 0) {
+            --$splitCount;
+            $length = $lengths[$splitCount];
+            $offset = $offsets[$splitCount];
+            $worksheet = $worksheets[$splitCount][0];
+            $column = $columns[$splitCount][0];
+            $row = $rows[$splitCount][0];
+
+            $newRange = '';
+            if (empty($worksheet)) {
+                if (($offset === 0) || ($formula[$offset - 1] !== ':')) {
+                    // We need a worksheet
+                    $worksheet = $definedName->getWorksheet()->getTitle();
+                }
+            } else {
+                $worksheet = str_replace("''", "'", trim($worksheet, "'"));
+            }
+            if (!empty($worksheet)) {
+                $newRange = "[\$'" . str_replace("'", "''", $worksheet) . "'.";
+            }
+
+            if (!empty($column)) {
+                $newRange .= "\${$column}";
+            }
+            if (!empty($row)) {
+                $newRange .= "\${$row}";
+            }
+            // close the wrapping [] unless this is the first part of a range
+            $newRange .= substr($formula, $offset + $length, 1) !== ':' ? ']' : '';
+
+            $formula = substr($formula, 0, $offset) . $newRange . substr($formula, $offset + $length);
+        }
+
+        return $formula;
     }
 }
