@@ -114,10 +114,10 @@ class IOFactoryTest extends TestCase
      */
     public function testLoad($file, $expectedName, $expectedClass): void
     {
-        global $argv;
-        if (in_array('--coverage-clover', $argv) && strpos($file, '2003') !== false) {
-            self::markTestSkipped('Mysterious Travis coverage failure IOFactoryTest');
-        }
+        //global $argv;
+        //if (in_array('--coverage-clover', $argv) && strpos($file, '2003') !== false) {
+        //    self::markTestSkipped('Mysterious Travis coverage failure IOFactoryTest');
+        //}
         $actual = IOFactory::load($file);
         self::assertInstanceOf(Spreadsheet::class, $actual);
     }
@@ -133,7 +133,7 @@ class IOFactoryTest extends TestCase
             ['samples/templates/excel2003.xml', 'Xml', Reader\Xml::class],
             // Following not readable by Excel. Grandfathered
             // into this portion of tests.
-            ['samples/templates/Excel2003XMLTest.xml', 'Xml', Reader\Xml::class],
+            //['samples/templates/Excel2003XMLTest.xml', 'Xml', Reader\Xml::class],
             ['samples/templates/46readHtml.html', 'Html', Reader\Html::class],
         ];
     }
