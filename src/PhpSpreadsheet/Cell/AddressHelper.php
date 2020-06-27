@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
-use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
 
 class AddressHelper
@@ -10,10 +9,6 @@ class AddressHelper
     /**
      * Converts an R1C1 format cell address to an A1 format cell address
      *
-     * @param string $address
-     * @param int $currentRowNumber
-     * @param int $currentColumnNumber
-     * @return string
      * @throws Exception
      */
     public static function convertToA1(
@@ -58,10 +53,6 @@ class AddressHelper
      * Converts an A1 format cell address to an R1C1 format cell address
      * If $currentRowNumber or $currentColumnNumber are provided, then the R1C1 address will be formatted as a relative address
      *
-     * @param string $address
-     * @param int $currentRowNumber
-     * @param int $currentColumnNumber
-     * @return string
      * @throws Exception
      */
     public static function convertToR1C1(

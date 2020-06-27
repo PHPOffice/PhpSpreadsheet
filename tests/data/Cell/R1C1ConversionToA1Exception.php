@@ -1,7 +1,7 @@
 <?php
 
 return [
-   ['RICE'],
+    ['RICE'],
     ['R[-1]C'],
     ['RC[-1]'],
     ['R-1C'],

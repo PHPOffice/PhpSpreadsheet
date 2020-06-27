@@ -10,11 +10,8 @@ class AddressHelperTest extends TestCase
 {
     /**
      * @dataProvider providerR1C1ConversionToA1Absolute
-     *
-     * @param string $expectedValue
-     * @param string $address
      */
-    public function testR1C1ConversionToA1Absolute($expectedValue, $address): void
+    public function testR1C1ConversionToA1Absolute(string $expectedValue, string $address): void
     {
         $actualValue = AddressHelper::convertToA1($address);
 
@@ -28,11 +25,6 @@ class AddressHelperTest extends TestCase
 
     /**
      * @dataProvider providerR1C1ConversionToA1Relative
-     *
-     * @param string $expectedValue
-     * @param string $address
-     * @param ?int $row
-     * @param ?int $column
      */
     public function testR1C1ConversionToA1Relative(string $expectedValue, string $address, ?int $row = null, ?int $column = null): void
     {
@@ -56,10 +48,8 @@ class AddressHelperTest extends TestCase
 
     /**
      * @dataProvider providerR1C1ConversionToA1Exception
-     *
-     * @param string $address
      */
-    public function testR1C1ConversionToA1Exception($address): void
+    public function testR1C1ConversionToA1Exception(string $address): void
     {
         $this->expectException(Exception::class);
 
@@ -73,11 +63,8 @@ class AddressHelperTest extends TestCase
 
     /**
      * @dataProvider providerA1ConversionToR1C1Absolute
-     *
-     * @param string $expectedValue
-     * @param string $address
      */
-    public function testA1ConversionToR1C1Absolute($expectedValue, $address): void
+    public function testA1ConversionToR1C1Absolute(string $expectedValue, string $address): void
     {
         $actualValue = AddressHelper::convertToR1C1($address);
 
@@ -91,11 +78,6 @@ class AddressHelperTest extends TestCase
 
     /**
      * @dataProvider providerA1ConversionToR1C1Relative
-     *
-     * @param string $expectedValue
-     * @param string $address
-     * @param ?int $row
-     * @param ?int $column
      */
     public function testA1ConversionToR1C1Relative(string $expectedValue, string $address, ?int $row = null, ?int $column = null): void
     {
@@ -111,10 +93,8 @@ class AddressHelperTest extends TestCase
 
     /**
      * @dataProvider providerA1ConversionToR1C1Exception
-     *
-     * @param string $address
      */
-    public function testA1ConversionToR1C1Exception($address): void
+    public function testA1ConversionToR1C1Exception(string $address): void
     {
         $this->expectException(Exception::class);
 
@@ -125,5 +105,4 @@ class AddressHelperTest extends TestCase
     {
         return require 'tests/data/Cell/A1ConversionToR1C1Exception.php';
     }
-
 }
