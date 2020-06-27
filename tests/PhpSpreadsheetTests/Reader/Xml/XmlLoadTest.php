@@ -156,8 +156,8 @@ class XmlLoadTest extends TestCase
 
     public function testLoadUnusableSample(): void
     {
-        // Sample spreadsheet is not readable by Excel,
-        // but PhpSpreadsheet can load it except for coverage test.
+        // Sample spreadsheet is not readable by Excel.
+        // But PhpSpreadsheet can load it except for coverage test.
         global $argv;
         if (in_array('--coverage-clover', $argv)) {
             self::markTestSkipped('Mysterious Travis coverage failure IOFactoryTest');
