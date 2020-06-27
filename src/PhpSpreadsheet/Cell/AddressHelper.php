@@ -22,7 +22,7 @@ class AddressHelper
         int $currentColumnNumber = 1
     ): string {
         $validityCheck = preg_match('/^(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))$/i', $address, $cellReference);
-var_dump($cellReference);
+
         if ($validityCheck === 0) {
             throw new Exception('Invalid R1C1-format Cell Reference');
         }
