@@ -1250,6 +1250,7 @@ class Parser
                 throw new WriterException("')' token expected.");
             }
             $this->advance(); // eat the ")"
+
             return $result;
         }
         // if it's a reference
@@ -1350,6 +1351,7 @@ class Parser
 
         $result = $this->createTree($function, $result, $num_args);
         $this->advance(); // eat the ")"
+
         return $result;
     }
 

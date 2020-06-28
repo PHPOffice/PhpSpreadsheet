@@ -192,6 +192,7 @@ class PPS
             . pack('V', isset($this->startBlock) ? $this->startBlock : 0)  // 120
             . pack('V', $this->Size)               // 124
             . pack('V', 0); // 128
+
         return $ret;
     }
 
