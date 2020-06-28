@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Functional;
+namespace PhpOffice\PhpSpreadsheetTests\Writer\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv as CsvReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -50,6 +50,8 @@ class CsvWriteTest extends Functional\AbstractFunctional
         $writer->setEnclosure('\'');
         self::assertEquals('\'', $writer->getEnclosure());
         $writer->setEnclosure('');
+        self::assertEquals('', $writer->getEnclosure());
+        $writer->setEnclosure();
         self::assertEquals('"', $writer->getEnclosure());
         self::assertEquals(PHP_EOL, $writer->getLineEnding());
         self::assertFalse($writer->getUseBOM());

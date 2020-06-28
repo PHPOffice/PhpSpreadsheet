@@ -219,9 +219,11 @@ class JpGraph implements IRenderer
                     break;
                 case 't':
                     $this->graph->legend->SetPos(0.5, 0.01, 'center', 'top'); //    top
+
                     break;
                 case 'b':
                     $this->graph->legend->SetPos(0.5, 0.99, 'center', 'bottom'); //    bottom
+
                     break;
                 default:
                     $this->graph->legend->SetPos(0.01, 0.01, 'right', 'top'); //    top-right

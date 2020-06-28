@@ -132,6 +132,13 @@ class Html extends BaseWriter
     private $generateSheetNavigationBlock = true;
 
     /**
+     * Callback for editing generated html.
+     *
+     * @var null|callable
+     */
+    private $editHtmlCallback;
+
+    /**
      * Create a new HTML.
      */
     public function __construct(Spreadsheet $spreadsheet)
@@ -190,11 +197,26 @@ class Html extends BaseWriter
 
         // Write footer
         $html .= $this->generateHTMLFooter();
+        $callback = $this->editHtmlCallback;
+        if ($callback) {
+            $html = $callback($html);
+        }
 
         Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
         return $html;
+    }
+
+    /**
+     * Set a callback to edit the entire HTML.
+     *
+     * The callback must accept the HTML as string as first parameter,
+     * and it must return the edited HTML as string.
+     */
+    public function setEditHtmlCallback(?callable $callback): void
+    {
+        $this->editHtmlCallback = $callback;
     }
 
     const VALIGN_ARR = [
@@ -427,22 +449,19 @@ class Html extends BaseWriter
         foreach ($sheets as $sheet) {
             // Write table header
             $html .= $this->generateTableHeader($sheet);
+
             // Get worksheet dimension
-            $dimension = explode(':', $sheet->calculateWorksheetDimension());
-            $dimension[0] = Coordinate::coordinateFromString($dimension[0]);
-            $dimension[0][0] = Coordinate::columnIndexFromString($dimension[0][0]);
-            $dimension[1] = Coordinate::coordinateFromString($dimension[1]);
-            $dimension[1][0] = Coordinate::columnIndexFromString($dimension[1][0]);
+            [$min, $max] = explode(':', $sheet->calculateWorksheetDataDimension());
+            [$minCol, $minRow] = Coordinate::coordinateFromString($min);
+            $minCol = Coordinate::columnIndexFromString($minCol);
+            [$maxCol, $maxRow] = Coordinate::coordinateFromString($max);
+            $maxCol = Coordinate::columnIndexFromString($maxCol);
 
-            // row min,max
-            $rowMin = $dimension[0][1];
-            $rowMax = $dimension[1][1];
-
-            [$theadStart, $theadEnd, $tbodyStart] = $this->generateSheetStarts($sheet, $rowMin);
+            [$theadStart, $theadEnd, $tbodyStart] = $this->generateSheetStarts($sheet, $minRow);
 
             // Loop through cells
-            $row = $rowMin - 1;
-            while ($row++ < $rowMax) {
+            $row = $minRow - 1;
+            while ($row++ < $maxRow) {
                 [$cellType, $startTag, $endTag] = $this->generateSheetTags($row, $theadStart, $theadEnd, $tbodyStart);
                 $html .= $startTag;
 
@@ -451,8 +470,8 @@ class Html extends BaseWriter
                     // Start a new rowData
                     $rowData = [];
                     // Loop through columns
-                    $column = $dimension[0][0];
-                    while ($column <= $dimension[1][0]) {
+                    $column = $minCol;
+                    while ($column <= $maxCol) {
                         // Cell exists?
                         if ($sheet->cellExistsByColumnAndRow($column, $row)) {
                             $rowData[$column] = Coordinate::stringFromColumnIndex($column) . $row;
@@ -535,7 +554,7 @@ class Html extends BaseWriter
      *
      * @codeCoverageIgnore
      */
-    private function extendRowsForCharts(Worksheet $pSheet, $row)
+    private function extendRowsForCharts(Worksheet $pSheet, int $row)
     {
         $rowMax = $row;
         $colMax = 'A';
@@ -560,7 +579,7 @@ class Html extends BaseWriter
         return [$rowMax, $colMax, $anyfound];
     }
 
-    private function extendRowsForChartsAndImages(Worksheet $pSheet, $row)
+    private function extendRowsForChartsAndImages(Worksheet $pSheet, int $row): string
     {
         [$rowMax, $colMax, $anyfound] = $this->extendRowsForCharts($pSheet, $row);
 
@@ -1147,7 +1166,7 @@ class Html extends BaseWriter
      * Generate table header.
      *
      * @param Worksheet $pSheet The worksheet for the table we are writing
-     * @param bool   $showid whether or not to add id to table tag
+     * @param bool $showid whether or not to add id to table tag
      *
      * @return string
      */
@@ -1160,8 +1179,6 @@ class Html extends BaseWriter
         $id = $showid ? "id='sheet$sheetIndex'" : '';
         if ($showid) {
             $html .= "<div style='page: page$sheetIndex'>\n";
-        //} elseif ($this->useInlineCss) {
-        //    $html .= "<div style='page-break-before: always' ></div>\n";
         } else {
             $html .= "<div style='page: page$sheetIndex' class='scrpgbrk'>\n";
         }
@@ -1599,11 +1616,11 @@ class Html extends BaseWriter
     /**
      * Get use embedded CSS?
      *
-     * @deprecated no longer used
-     *
      * @return bool
      *
      * @codeCoverageIgnore
+     *
+     * @deprecated no longer used
      */
     public function getUseEmbeddedCSS()
     {
@@ -1613,13 +1630,13 @@ class Html extends BaseWriter
     /**
      * Set use embedded CSS?
      *
-     * @deprecated no longer used
-     *
      * @param bool $pValue
      *
      * @return $this
      *
      * @codeCoverageIgnore
+     *
+     * @deprecated no longer used
      */
     public function setUseEmbeddedCSS($pValue)
     {
