@@ -74,7 +74,7 @@ class CodePage
      */
     public static function validate(string $codePage): bool
     {
-        return (in_array($codePage, self::$pageArray, true));
+        return in_array($codePage, self::$pageArray, true);
     }
 
     /**
