@@ -1,0 +1,2441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-reader.html">Reader</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            Slk
+                            <span class="phpdocumentor-class__extends">
+                    extends <a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\BaseReader">BaseReader</abbr></a>
+                </span>
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">13</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary"></p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_inputEncoding">$inputEncoding</a></th>
+                    <td class="phpdocumentor-cell">Input encoding.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_sheetIndex">$sheetIndex</a></th>
+                    <td class="phpdocumentor-cell">Sheet index to read.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_formats">$formats</a></th>
+                    <td class="phpdocumentor-cell">Formats.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_format">$format</a></th>
+                    <td class="phpdocumentor-cell">Format Count.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_fonts">$fonts</a></th>
+                    <td class="phpdocumentor-cell">Fonts.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_fontcount">$fontcount</a></th>
+                    <td class="phpdocumentor-cell">Font Count.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_colorArray">$colorArray</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_fontStyleMappings">$fontStyleMappings</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_styleSettingsFont">$styleSettingsFont</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_styleSettingsBorder">$styleSettingsBorder</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                                                    <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_readDataOnly">$readDataOnly</a></th>
+                    <td class="phpdocumentor-cell">Read data only?
+Identifies whether the Reader should only read data values for cells, and ignore any formatting information;
+       or whether it should read both data and formatting.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_readEmptyCells">$readEmptyCells</a></th>
+                    <td class="phpdocumentor-cell">Read empty cells?
+Identifies whether the Reader should read data values for cells all cells, or should ignore cells containing
+        null value or empty string.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_includeCharts">$includeCharts</a></th>
+                    <td class="phpdocumentor-cell">Read charts that are defined in the workbook?
+Identifies whether the Reader should read the definitions for any charts that exist in the workbook;.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_loadSheetsOnly">$loadSheetsOnly</a></th>
+                    <td class="phpdocumentor-cell">Restrict which sheets should be loaded?
+This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_readFilter">$readFilter</a></th>
+                    <td class="phpdocumentor-cell">IReadFilter instance.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_fileHandle">$fileHandle</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_securityScanner">$securityScanner</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner">XmlScanner</abbr></a></td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new SYLK Reader instance.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_canRead">canRead()</a></th>
+                    <td class="phpdocumentor-cell">Validate that the current file is a SYLK file.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_canReadOrBust">canReadOrBust()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_setInputEncoding">setInputEncoding()</a></th>
+                    <td class="phpdocumentor-cell">Set input encoding.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_getInputEncoding">getInputEncoding()</a></th>
+                    <td class="phpdocumentor-cell">Get input encoding.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_listWorksheetInfo">listWorksheetInfo()</a></th>
+                    <td class="phpdocumentor-cell">Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_load">load()</a></th>
+                    <td class="phpdocumentor-cell">Loads PhpSpreadsheet from file.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_processFormula">processFormula()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_processCRecord">processCRecord()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_processCFinal">processCFinal()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_processFRecord">processFRecord()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_styleSettings">styleSettings()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_addFormats">addFormats()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_addFonts">addFonts()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_addStyle">addStyle()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_addWidth">addWidth()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_processPRecord">processPRecord()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_processPColors">processPColors()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_processPFontStyles">processPFontStyles()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_processPFinal">processPFinal()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_loadIntoExisting">loadIntoExisting()</a></th>
+                    <td class="phpdocumentor-cell">Loads PhpSpreadsheet from file into PhpSpreadsheet instance.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_columnRowFromRowData">columnRowFromRowData()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_getSheetIndex">getSheetIndex()</a></th>
+                    <td class="phpdocumentor-cell">Get sheet index.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_setSheetIndex">setSheetIndex()</a></th>
+                    <td class="phpdocumentor-cell">Set sheet index.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                                                    <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">IReader constructor.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getReadDataOnly">getReadDataOnly()</a></th>
+                    <td class="phpdocumentor-cell">Read data only?
+       If this is true, then the Reader will only read data values for cells, it will not read any formatting information.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setReadDataOnly">setReadDataOnly()</a></th>
+                    <td class="phpdocumentor-cell">Set read data only
+       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getReadEmptyCells">getReadEmptyCells()</a></th>
+                    <td class="phpdocumentor-cell">Read empty cells?
+       If this is true (the default), then the Reader will read data values for all cells, irrespective of value.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setReadEmptyCells">setReadEmptyCells()</a></th>
+                    <td class="phpdocumentor-cell">Set read empty cells
+       Set to true (the default) to advise the Reader read data values for all cells, irrespective of value.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getIncludeCharts">getIncludeCharts()</a></th>
+                    <td class="phpdocumentor-cell">Read charts in workbook?
+       If this is true, then the Reader will include any charts that exist in the workbook.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIncludeCharts">setIncludeCharts()</a></th>
+                    <td class="phpdocumentor-cell">Set read charts in workbook
+       Set to true, to advise the Reader to include any charts that exist in the workbook.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getLoadSheetsOnly">getLoadSheetsOnly()</a></th>
+                    <td class="phpdocumentor-cell">Get which sheets to load
+Returns either an array of worksheet names (the list of worksheets that should be loaded), or a null
+       indicating that all worksheets in the workbook should be loaded.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setLoadSheetsOnly">setLoadSheetsOnly()</a></th>
+                    <td class="phpdocumentor-cell">Set which sheets to load.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setLoadAllSheets">setLoadAllSheets()</a></th>
+                    <td class="phpdocumentor-cell">Set all sheets to load
+       Tells the Reader to load all worksheets from the workbook.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getReadFilter">getReadFilter()</a></th>
+                    <td class="phpdocumentor-cell">Read filter.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setReadFilter">setReadFilter()</a></th>
+                    <td class="phpdocumentor-cell">Set read filter.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getSecurityScanner">getSecurityScanner()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_openFile">openFile()</a></th>
+                    <td class="phpdocumentor-cell">Open file for reading.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                    </table>
+
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_inputEncoding"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$inputEncoding</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">20</span>
+    </aside>
+            <p class="phpdocumentor-summary">Input encoding.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$inputEncoding</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;ANSI&#039;</span>    </code>
+    </article>
+                                    <a id="property_sheetIndex"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$sheetIndex</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">27</span>
+    </aside>
+            <p class="phpdocumentor-summary">Sheet index to read.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$sheetIndex</span>
+         = <span class="phpdocumentor-signature__default-value">""</span>    </code>
+    </article>
+                                    <a id="property_formats"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$formats</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">34</span>
+    </aside>
+            <p class="phpdocumentor-summary">Formats.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$formats</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_format"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$format</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">41</span>
+    </aside>
+            <p class="phpdocumentor-summary">Format Count.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$format</span>
+         = <span class="phpdocumentor-signature__default-value">""</span>    </code>
+    </article>
+                                    <a id="property_fonts"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$fonts</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">48</span>
+    </aside>
+            <p class="phpdocumentor-summary">Fonts.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$fonts</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_fontcount"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$fontcount</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">55</span>
+    </aside>
+            <p class="phpdocumentor-summary">Font Count.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$fontcount</span>
+         = <span class="phpdocumentor-signature__default-value">""</span>    </code>
+    </article>
+                                    <a id="property_colorArray"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$colorArray</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">212</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$colorArray</span>
+         = <span class="phpdocumentor-signature__default-value">[
+    &#039;FF00FFFF&#039;,
+    // 0 - cyan
+    &#039;FF000000&#039;,
+    // 1 - black
+    &#039;FFFFFFFF&#039;,
+    // 2 - white
+    &#039;FFFF0000&#039;,
+    // 3 - red
+    &#039;FF00FF00&#039;,
+    // 4 - green
+    &#039;FF0000FF&#039;,
+    // 5 - blue
+    &#039;FFFFFF00&#039;,
+    // 6 - yellow
+    &#039;FFFF00FF&#039;,
+]</span>    </code>
+    </article>
+                                    <a id="property_fontStyleMappings"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$fontStyleMappings</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">223</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$fontStyleMappings</span>
+         = <span class="phpdocumentor-signature__default-value">[&#039;B&#039; =&gt; &#039;bold&#039;, &#039;I&#039; =&gt; &#039;italic&#039;, &#039;U&#039; =&gt; &#039;underline&#039;]</span>    </code>
+    </article>
+                                    <a id="property_styleSettingsFont"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$styleSettingsFont</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">359</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$styleSettingsFont</span>
+         = <span class="phpdocumentor-signature__default-value">[&#039;D&#039; =&gt; &#039;bold&#039;, &#039;I&#039; =&gt; &#039;italic&#039;]</span>    </code>
+    </article>
+                                    <a id="property_styleSettingsBorder"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$styleSettingsBorder</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">361</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$styleSettingsBorder</span>
+         = <span class="phpdocumentor-signature__default-value">[&#039;B&#039; =&gt; &#039;bottom&#039;, &#039;L&#039; =&gt; &#039;left&#039;, &#039;R&#039; =&gt; &#039;right&#039;, &#039;T&#039; =&gt; &#039;top&#039;]</span>    </code>
+    </article>
+                                                                    <a id="property_readDataOnly"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$readDataOnly</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">18</span>
+    </aside>
+            <p class="phpdocumentor-summary">Read data only?
+Identifies whether the Reader should only read data values for cells, and ignore any formatting information;
+       or whether it should read both data and formatting.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$readDataOnly</span>
+         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
+    </article>
+                                    <a id="property_readEmptyCells"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$readEmptyCells</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">27</span>
+    </aside>
+            <p class="phpdocumentor-summary">Read empty cells?
+Identifies whether the Reader should read data values for cells all cells, or should ignore cells containing
+        null value or empty string.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$readEmptyCells</span>
+         = <span class="phpdocumentor-signature__default-value">true</span>    </code>
+    </article>
+                                    <a id="property_includeCharts"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$includeCharts</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">35</span>
+    </aside>
+            <p class="phpdocumentor-summary">Read charts that are defined in the workbook?
+Identifies whether the Reader should read the definitions for any charts that exist in the workbook;.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$includeCharts</span>
+         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
+    </article>
+                                    <a id="property_loadSheetsOnly"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$loadSheetsOnly</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">43</span>
+    </aside>
+            <p class="phpdocumentor-summary">Restrict which sheets should be loaded?
+This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$loadSheetsOnly</span>
+            </code>
+    </article>
+                                    <a id="property_readFilter"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$readFilter</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">50</span>
+    </aside>
+            <p class="phpdocumentor-summary">IReadFilter instance.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$readFilter</span>
+            </code>
+    </article>
+                                    <a id="property_fileHandle"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$fileHandle</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">52</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$fileHandle</span>
+            </code>
+    </article>
+                                    <a id="property_securityScanner"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$securityScanner</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">57</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Security-XmlScanner.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner">XmlScanner</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$securityScanner</span>
+            </code>
+    </article>
+                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">60</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new SYLK Reader instance.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_canRead"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">canRead()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">72</span>
+    </aside>
+        <p class="phpdocumentor-summary">Validate that the current file is a SYLK file.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">canRead</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pFilename</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pFilename</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_canReadOrBust"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">canReadOrBust()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">96</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">canReadOrBust</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pFilename</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pFilename</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_setInputEncoding"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+            phpdocumentor-element--deprecated                                            "
+>
+    <h4 class="phpdocumentor-method__name">setInputEncoding()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">115</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set input encoding.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setInputEncoding</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Input encoding, eg: 'ANSI'</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>no use is made of this property</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getInputEncoding"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+            phpdocumentor-element--deprecated                                            "
+>
+    <h4 class="phpdocumentor-method__name">getInputEncoding()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">131</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get input encoding.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getInputEncoding</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>no use is made of this property</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_listWorksheetInfo"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">listWorksheetInfo()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">143</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">listWorksheetInfo</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pFilename</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pFilename</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                    <a id="method_load"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">load()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">203</span>
+    </aside>
+        <p class="phpdocumentor-summary">Loads PhpSpreadsheet from file.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">load</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pFilename</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pFilename</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+            
+</article>
+                                    <a id="method_processFormula"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processFormula()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">229</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processFormula</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$rowDatum</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$hasCalculatedValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$cellDataFormula</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$row</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$column</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$rowDatum</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$hasCalculatedValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$cellDataFormula</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$row</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$column</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_processCRecord"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processCRecord()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">276</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processCRecord</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$rowData</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$column</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$rowData</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$row</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$column</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_processCFinal"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processCFinal()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">310</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processCFinal</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$hasCalculatedValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$cellDataFormula</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$cellData</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$coordinate</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$hasCalculatedValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$cellDataFormula</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$cellData</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$coordinate</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_processFRecord"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processFRecord()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">320</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processFRecord</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$rowData</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$column</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$rowData</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$row</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$column</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_styleSettings"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">styleSettings()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">368</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">styleSettings</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$rowDatum</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$styleData</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$fontStyle</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$rowDatum</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$styleData</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fontStyle</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_addFormats"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">addFormats()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">388</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">addFormats</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$formatStyle</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$row</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$column</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$formatStyle</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$row</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$column</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_addFonts"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">addFonts()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">398</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">addFonts</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$fontStyle</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$row</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$column</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fontStyle</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$row</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$column</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_addStyle"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">addStyle()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">408</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">addStyle</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$styleData</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$row</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$column</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$styleData</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$row</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$column</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_addWidth"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">addWidth()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">416</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">addWidth</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$columnWidth</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$startCol</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$endCol</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$columnWidth</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$startCol</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$endCol</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_processPRecord"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processPRecord()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">433</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processPRecord</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$rowData</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$rowData</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_processPColors"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processPColors()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">467</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processPColors</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$rowDatum</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$formatArray</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$rowDatum</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$formatArray</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_processPFontStyles"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processPFontStyles()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">475</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processPFontStyles</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$rowDatum</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$formatArray</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$rowDatum</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$formatArray</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_processPFinal"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processPFinal()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">486</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processPFinal</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$formatArray</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$formatArray</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_loadIntoExisting"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">loadIntoExisting()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">507</span>
+    </aside>
+        <p class="phpdocumentor-summary">Loads PhpSpreadsheet from file into PhpSpreadsheet instance.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">loadIntoExisting</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pFilename</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pFilename</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+            
+</article>
+                                    <a id="method_columnRowFromRowData"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">columnRowFromRowData()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">555</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">columnRowFromRowData</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$rowData</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$column</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$rowData</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$column</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$row</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_getSheetIndex"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getSheetIndex()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">572</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get sheet index.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getSheetIndex</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_setSheetIndex"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setSheetIndex()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="../files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">584</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set sheet index.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setSheetIndex</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Sheet index</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">59</span>
+    </aside>
+        <p class="phpdocumentor-summary">IReader constructor.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getReadDataOnly"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getReadDataOnly()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">64</span>
+    </aside>
+        <p class="phpdocumentor-summary">Read data only?
+       If this is true, then the Reader will only read data values for cells, it will not read any formatting information.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getReadDataOnly</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>If false (the default) it will read data and formatting.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_setReadDataOnly"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setReadDataOnly()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">69</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set read data only
+       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setReadDataOnly</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Set to false (the default) to advise the Reader to read both data and formatting for cells.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+            
+</article>
+                                    <a id="method_getReadEmptyCells"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getReadEmptyCells()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">76</span>
+    </aside>
+        <p class="phpdocumentor-summary">Read empty cells?
+       If this is true (the default), then the Reader will read data values for all cells, irrespective of value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getReadEmptyCells</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>If false it will not read data for cells containing a null value or an empty string.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_setReadEmptyCells"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setReadEmptyCells()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">81</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set read empty cells
+       Set to true (the default) to advise the Reader read data values for all cells, irrespective of value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setReadEmptyCells</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Set to false to advise the Reader to ignore cells containing a null value or an empty string.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+            
+</article>
+                                    <a id="method_getIncludeCharts"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getIncludeCharts()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">88</span>
+    </aside>
+        <p class="phpdocumentor-summary">Read charts in workbook?
+       If this is true, then the Reader will include any charts that exist in the workbook.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getIncludeCharts</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
+If false (the default) it will ignore any charts defined in the workbook file.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_setIncludeCharts"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setIncludeCharts()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">93</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set read charts in workbook
+       Set to true, to advise the Reader to include any charts that exist in the workbook.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setIncludeCharts</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
+Set to false (the default) to discard charts.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+            
+</article>
+                                    <a id="method_getLoadSheetsOnly"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getLoadSheetsOnly()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">100</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get which sheets to load
+Returns either an array of worksheet names (the list of worksheets that should be loaded), or a null
+       indicating that all worksheets in the workbook should be loaded.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getLoadSheetsOnly</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_setLoadSheetsOnly"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setLoadSheetsOnly()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">105</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set which sheets to load.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setLoadSheetsOnly</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>This should be either an array of worksheet names to be loaded, or a string containing a single worksheet name.
+If NULL, then it tells the Reader to read all worksheets in the workbook</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+            
+</article>
+                                    <a id="method_setLoadAllSheets"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setLoadAllSheets()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">116</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set all sheets to load
+       Tells the Reader to load all worksheets from the workbook.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setLoadAllSheets</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+            
+</article>
+                                    <a id="method_getReadFilter"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getReadFilter()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">123</span>
+    </aside>
+        <p class="phpdocumentor-summary">Read filter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getReadFilter</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a></span>
+            
+</article>
+                                    <a id="method_setReadFilter"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setReadFilter()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">128</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set read filter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setReadFilter</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+            
+</article>
+                                    <a id="method_getSecurityScanner"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getSecurityScanner()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">135</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getSecurityScanner</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_openFile"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">openFile()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="../files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">145</span>
+    </aside>
+        <p class="phpdocumentor-summary">Open file for reading.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">openFile</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pFilename</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pFilename</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared.html">Shared</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared-jama.html">JAMA</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            Matrix
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">21</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">Matrix class.</p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#constant_POLYMORPHIC_ARGUMENT_EXCEPTION">POLYMORPHIC_ARGUMENT_EXCEPTION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Invalid argument pattern for polymorphic function.&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#constant_ARGUMENT_TYPE_EXCEPTION">ARGUMENT_TYPE_EXCEPTION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Invalid argument type.&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#constant_ARGUMENT_BOUNDS_EXCEPTION">ARGUMENT_BOUNDS_EXCEPTION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Invalid argument range.&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#constant_MATRIX_DIMENSION_EXCEPTION">MATRIX_DIMENSION_EXCEPTION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Matrix dimensions are not equal.&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#constant_ARRAY_LENGTH_EXCEPTION">ARRAY_LENGTH_EXCEPTION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Array length must be a multiple of m.&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#constant_MATRIX_SPD_EXCEPTION">MATRIX_SPD_EXCEPTION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Can only perform operation on symmetric positive definite matrix.&#039;</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#property_A">$A</a></th>
+                    <td class="phpdocumentor-cell">Matrix storage.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#property_m">$m</a></th>
+                    <td class="phpdocumentor-cell">Matrix row dimension.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#property_n">$n</a></th>
+                    <td class="phpdocumentor-cell">Matrix column dimension.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Polymorphic constructor.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_getArray">getArray()</a></th>
+                    <td class="phpdocumentor-cell">getArray.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_getRowDimension">getRowDimension()</a></th>
+                    <td class="phpdocumentor-cell">getRowDimension.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_getColumnDimension">getColumnDimension()</a></th>
+                    <td class="phpdocumentor-cell">getColumnDimension.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_get">get()</a></th>
+                    <td class="phpdocumentor-cell">get.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_getMatrix">getMatrix()</a></th>
+                    <td class="phpdocumentor-cell">getMatrix.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_checkMatrixDimensions">checkMatrixDimensions()</a></th>
+                    <td class="phpdocumentor-cell">checkMatrixDimensions.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_set">set()</a></th>
+                    <td class="phpdocumentor-cell">set.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_identity">identity()</a></th>
+                    <td class="phpdocumentor-cell">identity.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_diagonal">diagonal()</a></th>
+                    <td class="phpdocumentor-cell">diagonal.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_getMatrixByRow">getMatrixByRow()</a></th>
+                    <td class="phpdocumentor-cell">getMatrixByRow.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_getMatrixByCol">getMatrixByCol()</a></th>
+                    <td class="phpdocumentor-cell">getMatrixByCol.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_transpose">transpose()</a></th>
+                    <td class="phpdocumentor-cell">transpose.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_trace">trace()</a></th>
+                    <td class="phpdocumentor-cell">trace.</td>
+                    <td class="phpdocumentor-cell">float</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_uminus">uminus()</a></th>
+                    <td class="phpdocumentor-cell">uminus.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_plus">plus()</a></th>
+                    <td class="phpdocumentor-cell">plus.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_plusEquals">plusEquals()</a></th>
+                    <td class="phpdocumentor-cell">plusEquals.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_minus">minus()</a></th>
+                    <td class="phpdocumentor-cell">minus.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_minusEquals">minusEquals()</a></th>
+                    <td class="phpdocumentor-cell">minusEquals.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_arrayTimes">arrayTimes()</a></th>
+                    <td class="phpdocumentor-cell">arrayTimes.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_arrayTimesEquals">arrayTimesEquals()</a></th>
+                    <td class="phpdocumentor-cell">arrayTimesEquals.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_arrayRightDivide">arrayRightDivide()</a></th>
+                    <td class="phpdocumentor-cell">arrayRightDivide.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_arrayRightDivideEquals">arrayRightDivideEquals()</a></th>
+                    <td class="phpdocumentor-cell">arrayRightDivideEquals.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_arrayLeftDivide">arrayLeftDivide()</a></th>
+                    <td class="phpdocumentor-cell">arrayLeftDivide.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_arrayLeftDivideEquals">arrayLeftDivideEquals()</a></th>
+                    <td class="phpdocumentor-cell">arrayLeftDivideEquals.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_times">times()</a></th>
+                    <td class="phpdocumentor-cell">times.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_power">power()</a></th>
+                    <td class="phpdocumentor-cell">power.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_concat">concat()</a></th>
+                    <td class="phpdocumentor-cell">concat.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_solve">solve()</a></th>
+                    <td class="phpdocumentor-cell">Solve A*X = B.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_inverse">inverse()</a></th>
+                    <td class="phpdocumentor-cell">Matrix inverse or pseudoinverse.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_det">det()</a></th>
+                    <td class="phpdocumentor-cell">det.</td>
+                    <td class="phpdocumentor-cell">float</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_POLYMORPHIC_ARGUMENT_EXCEPTION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">POLYMORPHIC_ARGUMENT_EXCEPTION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">23</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$POLYMORPHIC_ARGUMENT_EXCEPTION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Invalid argument pattern for polymorphic function.&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_ARGUMENT_TYPE_EXCEPTION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">ARGUMENT_TYPE_EXCEPTION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">24</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$ARGUMENT_TYPE_EXCEPTION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Invalid argument type.&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_ARGUMENT_BOUNDS_EXCEPTION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">ARGUMENT_BOUNDS_EXCEPTION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">25</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$ARGUMENT_BOUNDS_EXCEPTION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Invalid argument range.&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_MATRIX_DIMENSION_EXCEPTION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">MATRIX_DIMENSION_EXCEPTION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">26</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$MATRIX_DIMENSION_EXCEPTION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Matrix dimensions are not equal.&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_ARRAY_LENGTH_EXCEPTION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">ARRAY_LENGTH_EXCEPTION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">27</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$ARRAY_LENGTH_EXCEPTION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Array length must be a multiple of m.&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_MATRIX_SPD_EXCEPTION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">MATRIX_SPD_EXCEPTION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">28</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$MATRIX_SPD_EXCEPTION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Can only perform operation on symmetric positive definite matrix.&#039;</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_A"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$A</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">35</span>
+    </aside>
+            <p class="phpdocumentor-summary">Matrix storage.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$A</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_m"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$m</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">42</span>
+    </aside>
+            <p class="phpdocumentor-summary">Matrix row dimension.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$m</span>
+            </code>
+    </article>
+                                    <a id="property_n"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$n</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">49</span>
+    </aside>
+            <p class="phpdocumentor-summary">Matrix column dimension.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$n</span>
+            </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">56</span>
+    </aside>
+        <p class="phpdocumentor-summary">Polymorphic constructor.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>As PHP has no support for polymorphic constructors, we use tricks to make our own sort of polymorphism using func_num_args, func_get_arg, and gettype. In essence, we're just implementing a simple RTTI filter and calling the appropriate constructor.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getArray"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getArray()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">117</span>
+    </aside>
+        <p class="phpdocumentor-summary">getArray.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getArray</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Matrix array</p></span>
+            
+</article>
+                                    <a id="method_getRowDimension"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getRowDimension()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">127</span>
+    </aside>
+        <p class="phpdocumentor-summary">getRowDimension.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getRowDimension</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Row dimension</p></span>
+            
+</article>
+                                    <a id="method_getColumnDimension"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getColumnDimension()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">137</span>
+    </aside>
+        <p class="phpdocumentor-summary">getColumnDimension.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getColumnDimension</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Column dimension</p></span>
+            
+</article>
+                                    <a id="method_get"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">get()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">152</span>
+    </aside>
+        <p class="phpdocumentor-summary">get.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">get</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$i</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$j</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Get the i,j-th element of the matrix.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$i</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Row position</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$j</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Column position</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Element (int/float/double)</p></span>
+            
+</article>
+                                    <a id="method_getMatrix"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getMatrix()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">164</span>
+    </aside>
+        <p class="phpdocumentor-summary">getMatrix.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getMatrix</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Get a submatrix</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Submatrix</p></span>
+            
+</article>
+                                    <a id="method_checkMatrixDimensions"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">checkMatrixDimensions()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">304</span>
+    </aside>
+        <p class="phpdocumentor-summary">checkMatrixDimensions.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">checkMatrixDimensions</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$B</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Is matrix B the same size?</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$B</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Matrix B</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_set"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">set()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">330</span>
+    </aside>
+        <p class="phpdocumentor-summary">set.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">set</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$i</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$j</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$c</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Set the i,j-th element of the matrix.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$i</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Row position</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$j</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Column position</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$c</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Int/float/double value</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Element (int/float/double)</p></span>
+            
+</article>
+                                    <a id="method_identity"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">identity()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">348</span>
+    </aside>
+        <p class="phpdocumentor-summary">identity.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">identity</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$m</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$n</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Generate an identity matrix.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$m</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Row dimension</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$n</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Column dimension</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Identity matrix</p></span>
+            
+</article>
+                                    <a id="method_diagonal"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">diagonal()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">364</span>
+    </aside>
+        <p class="phpdocumentor-summary">diagonal.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">diagonal</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$m</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$n</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$c</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">1</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Generate a diagonal matrix</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$m</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Row dimension</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$n</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Column dimension</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$c</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">1</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Diagonal value</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Diagonal matrix</p></span>
+            
+</article>
+                                    <a id="method_getMatrixByRow"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getMatrixByRow()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">384</span>
+    </aside>
+        <p class="phpdocumentor-summary">getMatrixByRow.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getMatrixByRow</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$i0</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$iF</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Get a submatrix by row index/range</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$i0</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Initial row index</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$iF</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Final row index</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Submatrix</p></span>
+            
+</article>
+                                    <a id="method_getMatrixByCol"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getMatrixByCol()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">407</span>
+    </aside>
+        <p class="phpdocumentor-summary">getMatrixByCol.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getMatrixByCol</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$j0</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$jF</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Get a submatrix by column index/range</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$j0</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Initial column index</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$jF</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Final column index</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Submatrix</p></span>
+            
+</article>
+                                    <a id="method_transpose"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">transpose()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">427</span>
+    </aside>
+        <p class="phpdocumentor-summary">transpose.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">transpose</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Tranpose matrix</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Transposed matrix</p></span>
+            
+</article>
+                                    <a id="method_trace"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">trace()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">448</span>
+    </aside>
+        <p class="phpdocumentor-summary">trace.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">trace</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">float</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Sum of diagonal elements</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Sum of diagonal elements</p></span>
+            
+</article>
+                                    <a id="method_uminus"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">uminus()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">466</span>
+    </aside>
+        <p class="phpdocumentor-summary">uminus.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">uminus</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Unary minus matrix -A</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Unary minus matrix</p></span>
+            
+</article>
+                                    <a id="method_plus"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">plus()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">477</span>
+    </aside>
+        <p class="phpdocumentor-summary">plus.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">plus</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>A + B</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Sum</p></span>
+            
+</article>
+                                    <a id="method_plusEquals"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">plusEquals()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">520</span>
+    </aside>
+        <p class="phpdocumentor-summary">plusEquals.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">plusEquals</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>A = A + B</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_minus"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">minus()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">577</span>
+    </aside>
+        <p class="phpdocumentor-summary">minus.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">minus</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>A - B</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Sum</p></span>
+            
+</article>
+                                    <a id="method_minusEquals"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">minusEquals()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">620</span>
+    </aside>
+        <p class="phpdocumentor-summary">minusEquals.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">minusEquals</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>A = A - B</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_arrayTimes"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">arrayTimes()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">678</span>
+    </aside>
+        <p class="phpdocumentor-summary">arrayTimes.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">arrayTimes</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Element-by-element multiplication
+Cij = Aij * Bij</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Matrix Cij</p></span>
+            
+</article>
+                                    <a id="method_arrayTimesEquals"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">arrayTimesEquals()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">722</span>
+    </aside>
+        <p class="phpdocumentor-summary">arrayTimesEquals.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">arrayTimesEquals</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Element-by-element multiplication
+Aij = Aij * Bij</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_arrayRightDivide"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">arrayRightDivide()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">780</span>
+    </aside>
+        <p class="phpdocumentor-summary">arrayRightDivide.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">arrayRightDivide</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Element-by-element right division
+A / B</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Division result</p></span>
+            
+</article>
+                                    <a id="method_arrayRightDivideEquals"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">arrayRightDivideEquals()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">843</span>
+    </aside>
+        <p class="phpdocumentor-summary">arrayRightDivideEquals.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">arrayRightDivideEquals</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Element-by-element right division
+Aij = Aij / Bij</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Matrix Aij</p></span>
+            
+</article>
+                                    <a id="method_arrayLeftDivide"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">arrayLeftDivide()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">887</span>
+    </aside>
+        <p class="phpdocumentor-summary">arrayLeftDivide.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">arrayLeftDivide</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Element-by-element Left division
+A / B</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Division result</p></span>
+            
+</article>
+                                    <a id="method_arrayLeftDivideEquals"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">arrayLeftDivideEquals()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">931</span>
+    </aside>
+        <p class="phpdocumentor-summary">arrayLeftDivideEquals.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">arrayLeftDivideEquals</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Element-by-element Left division
+Aij = Aij / Bij</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Matrix Aij</p></span>
+            
+</article>
+                                    <a id="method_times"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">times()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">974</span>
+    </aside>
+        <p class="phpdocumentor-summary">times.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">times</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Matrix multiplication</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Product</p></span>
+            
+</article>
+                                    <a id="method_power"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">power()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1067</span>
+    </aside>
+        <p class="phpdocumentor-summary">power.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">power</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>A = A ^ B</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_concat"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">concat()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1124</span>
+    </aside>
+        <p class="phpdocumentor-summary">concat.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">concat</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$args</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>A = A &amp; B</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$args</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_solve"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">solve()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1167</span>
+    </aside>
+        <p class="phpdocumentor-summary">Solve A*X = B.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">solve</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$B</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$B</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Right hand side</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>... Solution if A is square, least squares solution otherwise</p></span>
+            
+</article>
+                                    <a id="method_inverse"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">inverse()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1184</span>
+    </aside>
+        <p class="phpdocumentor-summary">Matrix inverse or pseudoinverse.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">inverse</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>... Inverse(A) if A is square, pseudoinverse otherwise.</p></span>
+            
+</article>
+                                    <a id="method_det"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">det()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1196</span>
+    </aside>
+        <p class="phpdocumentor-summary">det.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">det</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">float</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Calculate determinant</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Determinant</p></span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            IOFactory
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="../files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">13</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">Factory to create readers and writers easily.</p>
+        <section class="phpdocumentor-class__description"><p>It is not required to use this class, but it should make it easier to read and write files.
+Especially for reading files with an unknown format.</p></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-IOFactory.html#property_readers">$readers</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-IOFactory.html#property_writers">$writers</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-IOFactory.html#method_createWriter">createWriter()</a></th>
+                    <td class="phpdocumentor-cell">Create Writer\IWriter.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-IWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\IWriter">IWriter</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-IOFactory.html#method_createReader">createReader()</a></th>
+                    <td class="phpdocumentor-cell">Create Reader\IReader.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-IOFactory.html#method_load">load()</a></th>
+                    <td class="phpdocumentor-cell">Loads Spreadsheet from file using automatic Reader\IReader resolution.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-IOFactory.html#method_identify">identify()</a></th>
+                    <td class="phpdocumentor-cell">Identify file type using automatic Reader\IReader resolution.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-IOFactory.html#method_createReaderForFile">createReaderForFile()</a></th>
+                    <td class="phpdocumentor-cell">Create Reader\IReader for file using automatic Reader\IReader resolution.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-IOFactory.html#method_getReaderTypeFromExtension">getReaderTypeFromExtension()</a></th>
+                    <td class="phpdocumentor-cell">Guess a reader type from the file extension, if any.</td>
+                    <td class="phpdocumentor-cell">null|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-IOFactory.html#method_registerWriter">registerWriter()</a></th>
+                    <td class="phpdocumentor-cell">Register a writer with its type and class name.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-IOFactory.html#method_registerReader">registerReader()</a></th>
+                    <td class="phpdocumentor-cell">Register a reader with its type and class name.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                                            </table>
+
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_readers"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$readers</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="../files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">15</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$readers</span>
+         = <span class="phpdocumentor-signature__default-value">[&#039;Xlsx&#039; =&gt; \PhpOffice\PhpSpreadsheet\Reader\Xlsx::class, &#039;Xls&#039; =&gt; \PhpOffice\PhpSpreadsheet\Reader\Xls::class, &#039;Xml&#039; =&gt; \PhpOffice\PhpSpreadsheet\Reader\Xml::class, &#039;Ods&#039; =&gt; \PhpOffice\PhpSpreadsheet\Reader\Ods::class, &#039;Slk&#039; =&gt; \PhpOffice\PhpSpreadsheet\Reader\Slk::class, &#039;Gnumeric&#039; =&gt; \PhpOffice\PhpSpreadsheet\Reader\Gnumeric::class, &#039;Html&#039; =&gt; \PhpOffice\PhpSpreadsheet\Reader\Html::class, &#039;Csv&#039; =&gt; \PhpOffice\PhpSpreadsheet\Reader\Csv::class]</span>    </code>
+    </article>
+                                    <a id="property_writers"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$writers</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="../files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">26</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$writers</span>
+         = <span class="phpdocumentor-signature__default-value">[&#039;Xls&#039; =&gt; \PhpOffice\PhpSpreadsheet\Writer\Xls::class, &#039;Xlsx&#039; =&gt; \PhpOffice\PhpSpreadsheet\Writer\Xlsx::class, &#039;Ods&#039; =&gt; \PhpOffice\PhpSpreadsheet\Writer\Ods::class, &#039;Csv&#039; =&gt; \PhpOffice\PhpSpreadsheet\Writer\Csv::class, &#039;Html&#039; =&gt; \PhpOffice\PhpSpreadsheet\Writer\Html::class, &#039;Tcpdf&#039; =&gt; \PhpOffice\PhpSpreadsheet\Writer\Pdf\Tcpdf::class, &#039;Dompdf&#039; =&gt; \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf::class, &#039;Mpdf&#039; =&gt; \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class]</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method_createWriter"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">createWriter()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="../files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">44</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create Writer\IWriter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">createWriter</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$writerType</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-IWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\IWriter">IWriter</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$writerType</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Example: Xlsx</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-IWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\IWriter">IWriter</abbr></a></span>
+            
+</article>
+                                    <a id="method_createReader"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">createReader()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="../files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">63</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create Reader\IReader.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">createReader</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$readerType</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$readerType</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Example: Xlsx</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+            
+</article>
+                                    <a id="method_load"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">load()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="../files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">82</span>
+    </aside>
+        <p class="phpdocumentor-summary">Loads Spreadsheet from file using automatic Reader\IReader resolution.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">load</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pFilename</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pFilename</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The name of the spreadsheet file</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+            
+</article>
+                                    <a id="method_identify"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">identify()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="../files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">96</span>
+    </aside>
+        <p class="phpdocumentor-summary">Identify file type using automatic Reader\IReader resolution.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">identify</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pFilename</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pFilename</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The name of the spreadsheet file to identify</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_createReaderForFile"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">createReaderForFile()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="../files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">113</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create Reader\IReader for file using automatic Reader\IReader resolution.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">createReaderForFile</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$filename</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$filename</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The name of the spreadsheet file</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span>
+            
+</article>
+                                    <a id="method_getReaderTypeFromExtension"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getReaderTypeFromExtension()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="../files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">150</span>
+    </aside>
+        <p class="phpdocumentor-summary">Guess a reader type from the file extension, if any.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getReaderTypeFromExtension</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$filename</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">null|string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$filename</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">null|string</span>
+            
+</article>
+                                    <a id="method_registerWriter"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">registerWriter()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="../files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">194</span>
+    </aside>
+        <p class="phpdocumentor-summary">Register a writer with its type and class name.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">registerWriter</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$writerType</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$writerClass</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$writerType</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$writerClass</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_registerReader"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">registerReader()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="../files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">209</span>
+    </aside>
+        <p class="phpdocumentor-summary">Register a reader with its type and class name.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">registerReader</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$readerType</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$readerClass</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$readerType</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$readerClass</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

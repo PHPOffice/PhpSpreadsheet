@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-worksheet.html">Worksheet</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            Drawing
+                            <span class="phpdocumentor-class__extends">
+                    extends <a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing">BaseDrawing</abbr></a>
+                </span>
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Drawing.php"><a href="../files/src-phpspreadsheet-worksheet-drawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/Drawing.php">Drawing.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">7</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary"></p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing.html#property_path">$path</a></th>
+                    <td class="phpdocumentor-cell">Path.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                                                    <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_imageCounter">$imageCounter</a></th>
+                    <td class="phpdocumentor-cell">Image counter.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_imageIndex">$imageIndex</a></th>
+                    <td class="phpdocumentor-cell">Image index.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_name">$name</a></th>
+                    <td class="phpdocumentor-cell">Name.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_description">$description</a></th>
+                    <td class="phpdocumentor-cell">Description.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_worksheet">$worksheet</a></th>
+                    <td class="phpdocumentor-cell">Worksheet.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_coordinates">$coordinates</a></th>
+                    <td class="phpdocumentor-cell">Coordinates.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_offsetX">$offsetX</a></th>
+                    <td class="phpdocumentor-cell">Offset X.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_offsetY">$offsetY</a></th>
+                    <td class="phpdocumentor-cell">Offset Y.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_width">$width</a></th>
+                    <td class="phpdocumentor-cell">Width.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_height">$height</a></th>
+                    <td class="phpdocumentor-cell">Height.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_resizeProportional">$resizeProportional</a></th>
+                    <td class="phpdocumentor-cell">Proportional resize.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_rotation">$rotation</a></th>
+                    <td class="phpdocumentor-cell">Rotation.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_shadow">$shadow</a></th>
+                    <td class="phpdocumentor-cell">Shadow.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing-Shadow.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow">Shadow</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#property_hyperlink">$hyperlink</a></th>
+                    <td class="phpdocumentor-cell">Image hyperlink.</td>
+                    <td class="phpdocumentor-cell">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Hyperlink.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Hyperlink">Hyperlink</abbr></a></td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new Drawing.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing.html#method_getFilename">getFilename()</a></th>
+                    <td class="phpdocumentor-cell">Get Filename.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing.html#method_getIndexedFilename">getIndexedFilename()</a></th>
+                    <td class="phpdocumentor-cell">Get indexed filename (using image index).</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing.html#method_getExtension">getExtension()</a></th>
+                    <td class="phpdocumentor-cell">Get Extension.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing.html#method_getPath">getPath()</a></th>
+                    <td class="phpdocumentor-cell">Get Path.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing.html#method_setPath">setPath()</a></th>
+                    <td class="phpdocumentor-cell">Set Path.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing.html#method_getHashCode">getHashCode()</a></th>
+                    <td class="phpdocumentor-cell">Get hash code.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                                                    <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new BaseDrawing.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getImageIndex">getImageIndex()</a></th>
+                    <td class="phpdocumentor-cell">Get image index.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getName">getName()</a></th>
+                    <td class="phpdocumentor-cell">Get Name.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setName">setName()</a></th>
+                    <td class="phpdocumentor-cell">Set Name.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getDescription">getDescription()</a></th>
+                    <td class="phpdocumentor-cell">Get Description.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setDescription">setDescription()</a></th>
+                    <td class="phpdocumentor-cell">Set Description.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getWorksheet">getWorksheet()</a></th>
+                    <td class="phpdocumentor-cell">Get Worksheet.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setWorksheet">setWorksheet()</a></th>
+                    <td class="phpdocumentor-cell">Set Worksheet.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getCoordinates">getCoordinates()</a></th>
+                    <td class="phpdocumentor-cell">Get Coordinates.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setCoordinates">setCoordinates()</a></th>
+                    <td class="phpdocumentor-cell">Set Coordinates.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getOffsetX">getOffsetX()</a></th>
+                    <td class="phpdocumentor-cell">Get OffsetX.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setOffsetX">setOffsetX()</a></th>
+                    <td class="phpdocumentor-cell">Set OffsetX.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getOffsetY">getOffsetY()</a></th>
+                    <td class="phpdocumentor-cell">Get OffsetY.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setOffsetY">setOffsetY()</a></th>
+                    <td class="phpdocumentor-cell">Set OffsetY.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getWidth">getWidth()</a></th>
+                    <td class="phpdocumentor-cell">Get Width.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setWidth">setWidth()</a></th>
+                    <td class="phpdocumentor-cell">Set Width.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getHeight">getHeight()</a></th>
+                    <td class="phpdocumentor-cell">Get Height.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setHeight">setHeight()</a></th>
+                    <td class="phpdocumentor-cell">Set Height.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setWidthAndHeight">setWidthAndHeight()</a></th>
+                    <td class="phpdocumentor-cell">Set width and height with proportional resize.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getResizeProportional">getResizeProportional()</a></th>
+                    <td class="phpdocumentor-cell">Get ResizeProportional.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setResizeProportional">setResizeProportional()</a></th>
+                    <td class="phpdocumentor-cell">Set ResizeProportional.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getRotation">getRotation()</a></th>
+                    <td class="phpdocumentor-cell">Get Rotation.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setRotation">setRotation()</a></th>
+                    <td class="phpdocumentor-cell">Set Rotation.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getShadow">getShadow()</a></th>
+                    <td class="phpdocumentor-cell">Get Shadow.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing-Shadow.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow">Shadow</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setShadow">setShadow()</a></th>
+                    <td class="phpdocumentor-cell">Set Shadow.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getHashCode">getHashCode()</a></th>
+                    <td class="phpdocumentor-cell">Get hash code.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method___clone">__clone()</a></th>
+                    <td class="phpdocumentor-cell">Implement PHP __clone to create a deep clone, not just a shallow copy.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_setHyperlink">setHyperlink()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-BaseDrawing.html#method_getHyperlink">getHyperlink()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Hyperlink.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Hyperlink">Hyperlink</abbr></a></td>
+                </tr>
+                    </table>
+
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_path"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$path</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Drawing.php"><a href="../files/src-phpspreadsheet-worksheet-drawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/Drawing.php">Drawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">14</span>
+    </aside>
+            <p class="phpdocumentor-summary">Path.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$path</span>
+            </code>
+    </article>
+                                                                    <a id="property_imageCounter"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$imageCounter</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">16</span>
+    </aside>
+            <p class="phpdocumentor-summary">Image counter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$imageCounter</span>
+         = <span class="phpdocumentor-signature__default-value">""</span>    </code>
+    </article>
+                                    <a id="property_imageIndex"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$imageIndex</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">23</span>
+    </aside>
+            <p class="phpdocumentor-summary">Image index.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$imageIndex</span>
+         = <span class="phpdocumentor-signature__default-value">""</span>    </code>
+    </article>
+                                    <a id="property_name"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$name</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">30</span>
+    </aside>
+            <p class="phpdocumentor-summary">Name.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$name</span>
+            </code>
+    </article>
+                                    <a id="property_description"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$description</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">37</span>
+    </aside>
+            <p class="phpdocumentor-summary">Description.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$description</span>
+            </code>
+    </article>
+                                    <a id="property_worksheet"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$worksheet</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">44</span>
+    </aside>
+            <p class="phpdocumentor-summary">Worksheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$worksheet</span>
+            </code>
+    </article>
+                                    <a id="property_coordinates"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$coordinates</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">51</span>
+    </aside>
+            <p class="phpdocumentor-summary">Coordinates.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$coordinates</span>
+            </code>
+    </article>
+                                    <a id="property_offsetX"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$offsetX</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">58</span>
+    </aside>
+            <p class="phpdocumentor-summary">Offset X.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$offsetX</span>
+            </code>
+    </article>
+                                    <a id="property_offsetY"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$offsetY</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">65</span>
+    </aside>
+            <p class="phpdocumentor-summary">Offset Y.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$offsetY</span>
+            </code>
+    </article>
+                                    <a id="property_width"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$width</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">72</span>
+    </aside>
+            <p class="phpdocumentor-summary">Width.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$width</span>
+            </code>
+    </article>
+                                    <a id="property_height"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$height</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">79</span>
+    </aside>
+            <p class="phpdocumentor-summary">Height.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$height</span>
+            </code>
+    </article>
+                                    <a id="property_resizeProportional"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$resizeProportional</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">86</span>
+    </aside>
+            <p class="phpdocumentor-summary">Proportional resize.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$resizeProportional</span>
+            </code>
+    </article>
+                                    <a id="property_rotation"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$rotation</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">93</span>
+    </aside>
+            <p class="phpdocumentor-summary">Rotation.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$rotation</span>
+            </code>
+    </article>
+                                    <a id="property_shadow"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$shadow</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">100</span>
+    </aside>
+            <p class="phpdocumentor-summary">Shadow.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing-Shadow.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow">Shadow</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$shadow</span>
+            </code>
+    </article>
+                                    <a id="property_hyperlink"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$hyperlink</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">107</span>
+    </aside>
+            <p class="phpdocumentor-summary">Image hyperlink.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Hyperlink.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Hyperlink">Hyperlink</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$hyperlink</span>
+            </code>
+    </article>
+                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Drawing.php"><a href="../files/src-phpspreadsheet-worksheet-drawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/Drawing.php">Drawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">19</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new Drawing.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getFilename"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getFilename()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Drawing.php"><a href="../files/src-phpspreadsheet-worksheet-drawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/Drawing.php">Drawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">33</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Filename.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getFilename</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getIndexedFilename"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getIndexedFilename()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Drawing.php"><a href="../files/src-phpspreadsheet-worksheet-drawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/Drawing.php">Drawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">43</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get indexed filename (using image index).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getIndexedFilename</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getExtension"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getExtension()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Drawing.php"><a href="../files/src-phpspreadsheet-worksheet-drawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/Drawing.php">Drawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">56</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Extension.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getExtension</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getPath"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPath()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Drawing.php"><a href="../files/src-phpspreadsheet-worksheet-drawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/Drawing.php">Drawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">68</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Path.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPath</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setPath"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setPath()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Drawing.php"><a href="../files/src-phpspreadsheet-worksheet-drawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/Drawing.php">Drawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">81</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Path.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setPath</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$pVerifyFile</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">true</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>File path</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pVerifyFile</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">true</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Verify file</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getHashCode"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getHashCode()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Drawing.php"><a href="../files/src-phpspreadsheet-worksheet-drawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/Drawing.php">Drawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">106</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get hash code.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getHashCode</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Hash code</p></span>
+            
+</article>
+                                                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">112</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new BaseDrawing.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getImageIndex"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getImageIndex()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">137</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get image index.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getImageIndex</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_getName"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getName()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">147</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Name.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getName</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setName"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setName()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">159</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Name.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setName</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getDescription"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getDescription()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">171</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Description.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getDescription</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setDescription"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setDescription()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">183</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Description.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setDescription</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$description</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$description</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getWorksheet"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWorksheet()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">195</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Worksheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWorksheet</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+            
+</article>
+                                    <a id="method_setWorksheet"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setWorksheet()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">208</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Worksheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setWorksheet</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$pOverrideOld</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pOverrideOld</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getCoordinates"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getCoordinates()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">244</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Coordinates.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getCoordinates</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setCoordinates"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setCoordinates()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">256</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Coordinates.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setCoordinates</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>eg: 'A1'</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getOffsetX"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getOffsetX()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">268</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get OffsetX.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getOffsetX</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_setOffsetX"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setOffsetX()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">280</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set OffsetX.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setOffsetX</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getOffsetY"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getOffsetY()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">292</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get OffsetY.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getOffsetY</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_setOffsetY"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setOffsetY()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">304</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set OffsetY.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setOffsetY</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getWidth"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWidth()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">316</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Width.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWidth</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_setWidth"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setWidth()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">328</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Width.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setWidth</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getHeight"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getHeight()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">347</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Height.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getHeight</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_setHeight"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setHeight()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">359</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Height.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setHeight</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_setWidthAndHeight"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setWidthAndHeight()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">389</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set width and height with proportional resize.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setWidthAndHeight</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$width</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$height</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Example:
+<code class="prettyprint">
+$objDrawing-&gt;setResizeProportional(true);
+$objDrawing-&gt;setWidthAndHeight(160,120);
+</code></p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$width</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$height</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">author</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Vincent@luo MSN:kele_100@hotmail.com</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getResizeProportional"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getResizeProportional()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">414</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get ResizeProportional.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getResizeProportional</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_setResizeProportional"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setResizeProportional()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">426</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set ResizeProportional.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setResizeProportional</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getRotation"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getRotation()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">438</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Rotation.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getRotation</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_setRotation"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setRotation()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">450</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Rotation.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setRotation</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getShadow"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getShadow()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">462</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Shadow.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getShadow</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing-Shadow.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow">Shadow</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing-Shadow.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow">Shadow</abbr></a></span>
+            
+</article>
+                                    <a id="method_setShadow"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setShadow()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">474</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Shadow.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setShadow</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing-Shadow.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow">Shadow</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Drawing-Shadow.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow">Shadow</abbr></a></span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getHashCode"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getHashCode()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">486</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get hash code.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getHashCode</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Hash code</p></span>
+            
+</article>
+                                    <a id="method___clone"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__clone()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">506</span>
+    </aside>
+        <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__clone</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_setHyperlink"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setHyperlink()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">520</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setHyperlink</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$pHyperlink</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Hyperlink.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Hyperlink">Hyperlink</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pHyperlink</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Hyperlink.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Hyperlink">Hyperlink</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_getHyperlink"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getHyperlink()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php"><a href="../files/src-phpspreadsheet-worksheet-basedrawing.html"><abbr title="src/PhpSpreadsheet/Worksheet/BaseDrawing.php">BaseDrawing.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">528</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getHyperlink</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Hyperlink.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Hyperlink">Hyperlink</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Hyperlink.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Hyperlink">Hyperlink</abbr></a></span>
+            
+</article>
+                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

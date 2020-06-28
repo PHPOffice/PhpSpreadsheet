@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-chart.html">Chart</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            DataSeries
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">7</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary"></p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_BARCHART">TYPE_BARCHART</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;barChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_BARCHART_3D">TYPE_BARCHART_3D</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;bar3DChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_LINECHART">TYPE_LINECHART</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lineChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_LINECHART_3D">TYPE_LINECHART_3D</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;line3DChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_AREACHART">TYPE_AREACHART</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;areaChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_AREACHART_3D">TYPE_AREACHART_3D</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;area3DChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_PIECHART">TYPE_PIECHART</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;pieChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_PIECHART_3D">TYPE_PIECHART_3D</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;pie3DChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_DOUGHNUTCHART">TYPE_DOUGHNUTCHART</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;doughnutChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_DONUTCHART">TYPE_DONUTCHART</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::TYPE_DOUGHNUTCHART</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_SCATTERCHART">TYPE_SCATTERCHART</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;scatterChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_SURFACECHART">TYPE_SURFACECHART</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;surfaceChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_SURFACECHART_3D">TYPE_SURFACECHART_3D</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;surface3DChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_RADARCHART">TYPE_RADARCHART</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;radarChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_BUBBLECHART">TYPE_BUBBLECHART</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;bubbleChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_STOCKCHART">TYPE_STOCKCHART</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;stockChart&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_TYPE_CANDLECHART">TYPE_CANDLECHART</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::TYPE_STOCKCHART</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_GROUPING_CLUSTERED">GROUPING_CLUSTERED</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;clustered&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_GROUPING_STACKED">GROUPING_STACKED</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;stacked&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_GROUPING_PERCENT_STACKED">GROUPING_PERCENT_STACKED</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;percentStacked&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_GROUPING_STANDARD">GROUPING_STANDARD</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;standard&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_DIRECTION_BAR">DIRECTION_BAR</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;bar&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_DIRECTION_HORIZONTAL">DIRECTION_HORIZONTAL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::DIRECTION_BAR</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_DIRECTION_COL">DIRECTION_COL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;col&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_DIRECTION_COLUMN">DIRECTION_COLUMN</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::DIRECTION_COL</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_DIRECTION_VERTICAL">DIRECTION_VERTICAL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::DIRECTION_COL</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_STYLE_LINEMARKER">STYLE_LINEMARKER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lineMarker&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_STYLE_SMOOTHMARKER">STYLE_SMOOTHMARKER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;smoothMarker&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_STYLE_MARKER">STYLE_MARKER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;marker&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_STYLE_FILLED">STYLE_FILLED</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;filled&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_EMPTY_AS_GAP">EMPTY_AS_GAP</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;gap&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_EMPTY_AS_ZERO">EMPTY_AS_ZERO</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;zero&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#constant_EMPTY_AS_SPAN">EMPTY_AS_SPAN</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;span&#039;</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#property_plotType">$plotType</a></th>
+                    <td class="phpdocumentor-cell">Series Plot Type.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#property_plotGrouping">$plotGrouping</a></th>
+                    <td class="phpdocumentor-cell">Plot Grouping Type.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#property_plotDirection">$plotDirection</a></th>
+                    <td class="phpdocumentor-cell">Plot Direction.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#property_plotStyle">$plotStyle</a></th>
+                    <td class="phpdocumentor-cell">Plot Style.</td>
+                    <td class="phpdocumentor-cell">null|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#property_plotOrder">$plotOrder</a></th>
+                    <td class="phpdocumentor-cell">Order of plots in Series.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#property_plotLabel">$plotLabel</a></th>
+                    <td class="phpdocumentor-cell">Plot Label.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#property_plotCategory">$plotCategory</a></th>
+                    <td class="phpdocumentor-cell">Plot Category.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#property_smoothLine">$smoothLine</a></th>
+                    <td class="phpdocumentor-cell">Smooth Line.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#property_plotValues">$plotValues</a></th>
+                    <td class="phpdocumentor-cell">Plot Values.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new DataSeries.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getPlotType">getPlotType()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Type.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_setPlotType">setPlotType()</a></th>
+                    <td class="phpdocumentor-cell">Set Plot Type.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getPlotGrouping">getPlotGrouping()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Grouping Type.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_setPlotGrouping">setPlotGrouping()</a></th>
+                    <td class="phpdocumentor-cell">Set Plot Grouping Type.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getPlotDirection">getPlotDirection()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Direction.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_setPlotDirection">setPlotDirection()</a></th>
+                    <td class="phpdocumentor-cell">Set Plot Direction.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getPlotOrder">getPlotOrder()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Order.</td>
+                    <td class="phpdocumentor-cell">int[]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getPlotLabels">getPlotLabels()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Labels.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getPlotLabelByIndex">getPlotLabelByIndex()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Label by Index.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getPlotCategories">getPlotCategories()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Categories.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getPlotCategoryByIndex">getPlotCategoryByIndex()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Category by Index.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getPlotStyle">getPlotStyle()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Style.</td>
+                    <td class="phpdocumentor-cell">null|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_setPlotStyle">setPlotStyle()</a></th>
+                    <td class="phpdocumentor-cell">Set Plot Style.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getPlotValues">getPlotValues()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Values.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getPlotValuesByIndex">getPlotValuesByIndex()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Values by Index.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getPlotSeriesCount">getPlotSeriesCount()</a></th>
+                    <td class="phpdocumentor-cell">Get Number of Plot Series.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_getSmoothLine">getSmoothLine()</a></th>
+                    <td class="phpdocumentor-cell">Get Smooth Line.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_setSmoothLine">setSmoothLine()</a></th>
+                    <td class="phpdocumentor-cell">Set Smooth Line.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html#method_refresh">refresh()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_TYPE_BARCHART"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_BARCHART</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">9</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_BARCHART</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;barChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_BARCHART_3D"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_BARCHART_3D</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">10</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_BARCHART_3D</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;bar3DChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_LINECHART"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_LINECHART</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">11</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_LINECHART</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lineChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_LINECHART_3D"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_LINECHART_3D</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">12</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_LINECHART_3D</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;line3DChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_AREACHART"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_AREACHART</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">13</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_AREACHART</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;areaChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_AREACHART_3D"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_AREACHART_3D</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">14</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_AREACHART_3D</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;area3DChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_PIECHART"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_PIECHART</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">15</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_PIECHART</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;pieChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_PIECHART_3D"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_PIECHART_3D</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">16</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_PIECHART_3D</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;pie3DChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_DOUGHNUTCHART"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_DOUGHNUTCHART</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">17</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_DOUGHNUTCHART</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;doughnutChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_DONUTCHART"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_DONUTCHART</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">18</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_DONUTCHART</span>
+        = <span class="phpdocumentor-signature__default-value">self::TYPE_DOUGHNUTCHART</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_SCATTERCHART"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_SCATTERCHART</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">19</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_SCATTERCHART</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;scatterChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_SURFACECHART"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_SURFACECHART</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">20</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_SURFACECHART</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;surfaceChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_SURFACECHART_3D"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_SURFACECHART_3D</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">21</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_SURFACECHART_3D</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;surface3DChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_RADARCHART"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_RADARCHART</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">22</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_RADARCHART</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;radarChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_BUBBLECHART"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_BUBBLECHART</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">23</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_BUBBLECHART</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;bubbleChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_STOCKCHART"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_STOCKCHART</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">24</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_STOCKCHART</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;stockChart&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TYPE_CANDLECHART"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TYPE_CANDLECHART</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">25</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TYPE_CANDLECHART</span>
+        = <span class="phpdocumentor-signature__default-value">self::TYPE_STOCKCHART</span>
+    </code>
+    </article>
+                                    <a id="constant_GROUPING_CLUSTERED"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">GROUPING_CLUSTERED</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">27</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$GROUPING_CLUSTERED</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;clustered&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_GROUPING_STACKED"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">GROUPING_STACKED</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">28</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$GROUPING_STACKED</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;stacked&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_GROUPING_PERCENT_STACKED"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">GROUPING_PERCENT_STACKED</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">29</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$GROUPING_PERCENT_STACKED</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;percentStacked&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_GROUPING_STANDARD"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">GROUPING_STANDARD</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">30</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$GROUPING_STANDARD</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;standard&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_DIRECTION_BAR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">DIRECTION_BAR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">32</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$DIRECTION_BAR</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;bar&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_DIRECTION_HORIZONTAL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">DIRECTION_HORIZONTAL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">33</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$DIRECTION_HORIZONTAL</span>
+        = <span class="phpdocumentor-signature__default-value">self::DIRECTION_BAR</span>
+    </code>
+    </article>
+                                    <a id="constant_DIRECTION_COL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">DIRECTION_COL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">34</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$DIRECTION_COL</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;col&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_DIRECTION_COLUMN"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">DIRECTION_COLUMN</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">35</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$DIRECTION_COLUMN</span>
+        = <span class="phpdocumentor-signature__default-value">self::DIRECTION_COL</span>
+    </code>
+    </article>
+                                    <a id="constant_DIRECTION_VERTICAL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">DIRECTION_VERTICAL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">36</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$DIRECTION_VERTICAL</span>
+        = <span class="phpdocumentor-signature__default-value">self::DIRECTION_COL</span>
+    </code>
+    </article>
+                                    <a id="constant_STYLE_LINEMARKER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">STYLE_LINEMARKER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">38</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$STYLE_LINEMARKER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lineMarker&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_STYLE_SMOOTHMARKER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">STYLE_SMOOTHMARKER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">39</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$STYLE_SMOOTHMARKER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;smoothMarker&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_STYLE_MARKER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">STYLE_MARKER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">40</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$STYLE_MARKER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;marker&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_STYLE_FILLED"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">STYLE_FILLED</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">41</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$STYLE_FILLED</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;filled&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_EMPTY_AS_GAP"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">EMPTY_AS_GAP</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">43</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$EMPTY_AS_GAP</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;gap&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_EMPTY_AS_ZERO"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">EMPTY_AS_ZERO</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">44</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$EMPTY_AS_ZERO</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;zero&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_EMPTY_AS_SPAN"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">EMPTY_AS_SPAN</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">45</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$EMPTY_AS_SPAN</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;span&#039;</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_plotType"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$plotType</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">52</span>
+    </aside>
+            <p class="phpdocumentor-summary">Series Plot Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$plotType</span>
+            </code>
+    </article>
+                                    <a id="property_plotGrouping"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$plotGrouping</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">59</span>
+    </aside>
+            <p class="phpdocumentor-summary">Plot Grouping Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$plotGrouping</span>
+            </code>
+    </article>
+                                    <a id="property_plotDirection"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$plotDirection</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">66</span>
+    </aside>
+            <p class="phpdocumentor-summary">Plot Direction.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$plotDirection</span>
+            </code>
+    </article>
+                                    <a id="property_plotStyle"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$plotStyle</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">73</span>
+    </aside>
+            <p class="phpdocumentor-summary">Plot Style.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">null|string</span>
+        <span class="phpdocumentor-signature__name">$plotStyle</span>
+            </code>
+    </article>
+                                    <a id="property_plotOrder"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$plotOrder</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">80</span>
+    </aside>
+            <p class="phpdocumentor-summary">Order of plots in Series.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$plotOrder</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_plotLabel"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$plotLabel</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">87</span>
+    </aside>
+            <p class="phpdocumentor-summary">Plot Label.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$plotLabel</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_plotCategory"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$plotCategory</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">94</span>
+    </aside>
+            <p class="phpdocumentor-summary">Plot Category.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$plotCategory</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_smoothLine"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$smoothLine</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">101</span>
+    </aside>
+            <p class="phpdocumentor-summary">Smooth Line.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$smoothLine</span>
+            </code>
+    </article>
+                                    <a id="property_plotValues"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$plotValues</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">108</span>
+    </aside>
+            <p class="phpdocumentor-summary">Plot Values.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$plotValues</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">123</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new DataSeries.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$plotType</span> :
+                <span class="phpdocumentor-signature__argument__return-type">null|mixed</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$plotGrouping</span> :
+                <span class="phpdocumentor-signature__argument__return-type">null|mixed</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$plotOrder</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int[]</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$plotLabel</span> :
+                <span class="phpdocumentor-signature__argument__return-type">\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues[]</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$plotCategory</span> :
+                <span class="phpdocumentor-signature__argument__return-type">\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues[]</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$plotValues</span> :
+                <span class="phpdocumentor-signature__argument__return-type">\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues[]</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$plotDirection</span> :
+                <span class="phpdocumentor-signature__argument__return-type">null|string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$smoothLine</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$plotStyle</span> :
+                <span class="phpdocumentor-signature__argument__return-type">null|string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotType</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|mixed</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotGrouping</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|mixed</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotOrder</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int[]</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">[]</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotLabel</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues[]</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">[]</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotCategory</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues[]</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">[]</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotValues</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues[]</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">[]</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotDirection</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$smoothLine</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotStyle</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getPlotType"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotType()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">154</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotType</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setPlotType"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setPlotType()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">166</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Plot Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setPlotType</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$plotType</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotType</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getPlotGrouping"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotGrouping()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">178</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Grouping Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotGrouping</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setPlotGrouping"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setPlotGrouping()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">190</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Plot Grouping Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setPlotGrouping</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$groupingType</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$groupingType</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getPlotDirection"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotDirection()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">202</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Direction.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotDirection</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setPlotDirection"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setPlotDirection()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">214</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Plot Direction.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setPlotDirection</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$plotDirection</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotDirection</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getPlotOrder"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotOrder()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">226</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Order.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotOrder</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int[]</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int[]</span>
+            
+</article>
+                                    <a id="method_getPlotLabels"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotLabels()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">236</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Labels.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotLabels</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>of DataSeriesValues</p></span>
+            
+</article>
+                                    <a id="method_getPlotLabelByIndex"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotLabelByIndex()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">248</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Label by Index.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotLabelByIndex</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$index</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$index</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a></span>
+            
+</article>
+                                    <a id="method_getPlotCategories"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotCategories()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">265</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Categories.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotCategories</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>of DataSeriesValues</p></span>
+            
+</article>
+                                    <a id="method_getPlotCategoryByIndex"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotCategoryByIndex()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">277</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Category by Index.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotCategoryByIndex</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$index</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$index</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a></span>
+            
+</article>
+                                    <a id="method_getPlotStyle"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotStyle()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">294</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Style.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotStyle</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">null|string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">null|string</span>
+            
+</article>
+                                    <a id="method_setPlotStyle"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setPlotStyle()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">306</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Plot Style.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setPlotStyle</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$plotStyle</span> :
+                <span class="phpdocumentor-signature__argument__return-type">null|string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotStyle</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getPlotValues"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotValues()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">318</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Values.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotValues</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>of DataSeriesValues</p></span>
+            
+</article>
+                                    <a id="method_getPlotValuesByIndex"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotValuesByIndex()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">330</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Values by Index.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotValuesByIndex</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$index</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$index</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a></span>
+            
+</article>
+                                    <a id="method_getPlotSeriesCount"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotSeriesCount()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">347</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Number of Plot Series.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotSeriesCount</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_getSmoothLine"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getSmoothLine()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">357</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Smooth Line.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getSmoothLine</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_setSmoothLine"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setSmoothLine()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">369</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Smooth Line.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setSmoothLine</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$smoothLine</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$smoothLine</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_refresh"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">refresh()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeries.php"><a href="../files/src-phpspreadsheet-chart-dataseries.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeries.php">DataSeries.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">376</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">refresh</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$worksheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$worksheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared.html">Shared</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared-jama.html">JAMA</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            SingularValueDecomposition
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">21</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">For an m-by-n matrix A with m &gt;= n, the singular value decomposition is
+   an m-by-n orthogonal matrix U, an n-by-n diagonal matrix S, and
+   an n-by-n orthogonal matrix V so that A = U*S*V&#039;.</p>
+        <section class="phpdocumentor-class__description"><p>The singular values, sigma[$k] = S[$k][$k], are ordered so that
+sigma[0] &gt;= sigma[1] &gt;= ... &gt;= sigma[n-1].</p>
+<p>The singular value decompostion always exists, so the constructor will
+never fail.  The matrix condition number and the effective numerical
+rank can be computed from this decomposition.</p></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#property_U">$U</a></th>
+                    <td class="phpdocumentor-cell">Internal storage of U.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#property_V">$V</a></th>
+                    <td class="phpdocumentor-cell">Internal storage of V.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#property_s">$s</a></th>
+                    <td class="phpdocumentor-cell">Internal storage of singular values.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#property_m">$m</a></th>
+                    <td class="phpdocumentor-cell">Row dimension.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#property_n">$n</a></th>
+                    <td class="phpdocumentor-cell">Column dimension.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Construct the singular value decomposition.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#method_getU">getU()</a></th>
+                    <td class="phpdocumentor-cell">Return the left singular vectors.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#method_getV">getV()</a></th>
+                    <td class="phpdocumentor-cell">Return the right singular vectors.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#method_getSingularValues">getSingularValues()</a></th>
+                    <td class="phpdocumentor-cell">Return the one-dimensional array of singular values.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#method_getS">getS()</a></th>
+                    <td class="phpdocumentor-cell">Return the diagonal matrix of singular values.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#method_norm2">norm2()</a></th>
+                    <td class="phpdocumentor-cell">Two norm.</td>
+                    <td class="phpdocumentor-cell">float</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#method_cond">cond()</a></th>
+                    <td class="phpdocumentor-cell">Two norm condition number.</td>
+                    <td class="phpdocumentor-cell">float</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-SingularValueDecomposition.html#method_rank">rank()</a></th>
+                    <td class="phpdocumentor-cell">Effective numerical matrix rank.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                                            </table>
+
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_U"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$U</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">28</span>
+    </aside>
+            <p class="phpdocumentor-summary">Internal storage of U.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$U</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_V"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$V</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">35</span>
+    </aside>
+            <p class="phpdocumentor-summary">Internal storage of V.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$V</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_s"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$s</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">42</span>
+    </aside>
+            <p class="phpdocumentor-summary">Internal storage of singular values.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$s</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_m"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$m</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">49</span>
+    </aside>
+            <p class="phpdocumentor-summary">Row dimension.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$m</span>
+            </code>
+    </article>
+                                    <a id="property_n"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$n</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">56</span>
+    </aside>
+            <p class="phpdocumentor-summary">Column dimension.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$n</span>
+            </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">65</span>
+    </aside>
+        <p class="phpdocumentor-summary">Construct the singular value decomposition.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$Arg</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Derived from LINPACK code.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$Arg</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Rectangular matrix</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getU"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getU()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">447</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return the left singular vectors.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getU</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>U</p></span>
+            
+</article>
+                                    <a id="method_getV"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getV()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">457</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return the right singular vectors.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getV</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>V</p></span>
+            
+</article>
+                                    <a id="method_getSingularValues"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getSingularValues()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">467</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return the one-dimensional array of singular values.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getSingularValues</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>diagonal of S</p></span>
+            
+</article>
+                                    <a id="method_getS"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getS()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">477</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return the diagonal matrix of singular values.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getS</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>S</p></span>
+            
+</article>
+                                    <a id="method_norm2"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">norm2()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">494</span>
+    </aside>
+        <p class="phpdocumentor-summary">Two norm.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">norm2</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">float</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float</span>
+                    &mdash; <span class="phpdocumentor-description"><p>max(S)</p></span>
+            
+</article>
+                                    <a id="method_cond"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">cond()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">504</span>
+    </aside>
+        <p class="phpdocumentor-summary">Two norm condition number.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">cond</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">float</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float</span>
+                    &mdash; <span class="phpdocumentor-description"><p>max(S)/min(S)</p></span>
+            
+</article>
+                                    <a id="method_rank"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">rank()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-singularvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php">SingularValueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">514</span>
+    </aside>
+        <p class="phpdocumentor-summary">Effective numerical matrix rank.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">rank</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Number of nonnegligible singular values</p></span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

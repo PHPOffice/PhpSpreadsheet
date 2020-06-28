@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-style.html">Style</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            Fill
+                            <span class="phpdocumentor-class__extends">
+                    extends <a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Supervisor">Supervisor</abbr></a>
+                </span>
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">5</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary"></p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_NONE">FILL_NONE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;none&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_SOLID">FILL_SOLID</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;solid&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_GRADIENT_LINEAR">FILL_GRADIENT_LINEAR</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;linear&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_GRADIENT_PATH">FILL_GRADIENT_PATH</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;path&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_DARKDOWN">FILL_PATTERN_DARKDOWN</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;darkDown&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_DARKGRAY">FILL_PATTERN_DARKGRAY</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;darkGray&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_DARKGRID">FILL_PATTERN_DARKGRID</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;darkGrid&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_DARKHORIZONTAL">FILL_PATTERN_DARKHORIZONTAL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;darkHorizontal&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_DARKTRELLIS">FILL_PATTERN_DARKTRELLIS</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;darkTrellis&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_DARKUP">FILL_PATTERN_DARKUP</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;darkUp&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_DARKVERTICAL">FILL_PATTERN_DARKVERTICAL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;darkVertical&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_GRAY0625">FILL_PATTERN_GRAY0625</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;gray0625&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_GRAY125">FILL_PATTERN_GRAY125</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;gray125&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_LIGHTDOWN">FILL_PATTERN_LIGHTDOWN</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lightDown&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_LIGHTGRAY">FILL_PATTERN_LIGHTGRAY</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lightGray&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_LIGHTGRID">FILL_PATTERN_LIGHTGRID</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lightGrid&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_LIGHTHORIZONTAL">FILL_PATTERN_LIGHTHORIZONTAL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lightHorizontal&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_LIGHTTRELLIS">FILL_PATTERN_LIGHTTRELLIS</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lightTrellis&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_LIGHTUP">FILL_PATTERN_LIGHTUP</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lightUp&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_LIGHTVERTICAL">FILL_PATTERN_LIGHTVERTICAL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lightVertical&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#constant_FILL_PATTERN_MEDIUMGRAY">FILL_PATTERN_MEDIUMGRAY</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;mediumGray&#039;</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#property_startcolorIndex">$startcolorIndex</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#property_endcolorIndex">$endcolorIndex</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#property_fillType">$fillType</a></th>
+                    <td class="phpdocumentor-cell">Fill type.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#property_rotation">$rotation</a></th>
+                    <td class="phpdocumentor-cell">Rotation.</td>
+                    <td class="phpdocumentor-cell">float</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#property_startColor">$startColor</a></th>
+                    <td class="phpdocumentor-cell">Start color.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#property_endColor">$endColor</a></th>
+                    <td class="phpdocumentor-cell">End color.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></td>
+                </tr>
+                                                    <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#property_isSupervisor">$isSupervisor</a></th>
+                    <td class="phpdocumentor-cell">Supervisor?</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#property_parent">$parent</a></th>
+                    <td class="phpdocumentor-cell">Parent. Only used for supervisor.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#property_parentPropertyName">$parentPropertyName</a></th>
+                    <td class="phpdocumentor-cell">Parent property name.</td>
+                    <td class="phpdocumentor-cell">null|string</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new Fill.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_getSharedComponent">getSharedComponent()</a></th>
+                    <td class="phpdocumentor-cell">Get the shared style component for the currently active cell in currently active sheet.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Fill">Fill</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_getStyleArray">getStyleArray()</a></th>
+                    <td class="phpdocumentor-cell">Build style array from subcomponents.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_applyFromArray">applyFromArray()</a></th>
+                    <td class="phpdocumentor-cell">Apply styles from array.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_getFillType">getFillType()</a></th>
+                    <td class="phpdocumentor-cell">Get Fill Type.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_setFillType">setFillType()</a></th>
+                    <td class="phpdocumentor-cell">Set Fill Type.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_getRotation">getRotation()</a></th>
+                    <td class="phpdocumentor-cell">Get Rotation.</td>
+                    <td class="phpdocumentor-cell">float</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_setRotation">setRotation()</a></th>
+                    <td class="phpdocumentor-cell">Set Rotation.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_getStartColor">getStartColor()</a></th>
+                    <td class="phpdocumentor-cell">Get Start Color.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_setStartColor">setStartColor()</a></th>
+                    <td class="phpdocumentor-cell">Set Start Color.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_getEndColor">getEndColor()</a></th>
+                    <td class="phpdocumentor-cell">Get End Color.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_setEndColor">setEndColor()</a></th>
+                    <td class="phpdocumentor-cell">Set End Color.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_getHashCode">getHashCode()</a></th>
+                    <td class="phpdocumentor-cell">Get hash code.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                                                    <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new Supervisor.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_bindParent">bindParent()</a></th>
+                    <td class="phpdocumentor-cell">Bind parent. Only used for supervisor.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_getIsSupervisor">getIsSupervisor()</a></th>
+                    <td class="phpdocumentor-cell">Is this a supervisor or a cell style component?</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_getActiveSheet">getActiveSheet()</a></th>
+                    <td class="phpdocumentor-cell">Get the currently active sheet. Only used for supervisor.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_getSelectedCells">getSelectedCells()</a></th>
+                    <td class="phpdocumentor-cell">Get the currently active cell coordinate in currently active sheet.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_getActiveCell">getActiveCell()</a></th>
+                    <td class="phpdocumentor-cell">Get the currently active cell coordinate in currently active sheet.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method___clone">__clone()</a></th>
+                    <td class="phpdocumentor-cell">Implement PHP __clone to create a deep clone, not just a shallow copy.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                    </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_FILL_NONE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_NONE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">8</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_NONE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;none&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_SOLID"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_SOLID</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">9</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_SOLID</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;solid&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_GRADIENT_LINEAR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_GRADIENT_LINEAR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">10</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_GRADIENT_LINEAR</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;linear&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_GRADIENT_PATH"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_GRADIENT_PATH</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">11</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_GRADIENT_PATH</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;path&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_DARKDOWN"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_DARKDOWN</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">12</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_DARKDOWN</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;darkDown&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_DARKGRAY"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_DARKGRAY</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">13</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_DARKGRAY</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;darkGray&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_DARKGRID"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_DARKGRID</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">14</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_DARKGRID</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;darkGrid&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_DARKHORIZONTAL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_DARKHORIZONTAL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">15</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_DARKHORIZONTAL</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;darkHorizontal&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_DARKTRELLIS"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_DARKTRELLIS</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">16</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_DARKTRELLIS</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;darkTrellis&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_DARKUP"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_DARKUP</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">17</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_DARKUP</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;darkUp&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_DARKVERTICAL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_DARKVERTICAL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">18</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_DARKVERTICAL</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;darkVertical&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_GRAY0625"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_GRAY0625</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">19</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_GRAY0625</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;gray0625&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_GRAY125"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_GRAY125</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">20</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_GRAY125</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;gray125&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_LIGHTDOWN"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_LIGHTDOWN</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">21</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_LIGHTDOWN</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lightDown&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_LIGHTGRAY"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_LIGHTGRAY</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">22</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_LIGHTGRAY</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lightGray&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_LIGHTGRID"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_LIGHTGRID</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">23</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_LIGHTGRID</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lightGrid&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_LIGHTHORIZONTAL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_LIGHTHORIZONTAL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">24</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_LIGHTHORIZONTAL</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lightHorizontal&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_LIGHTTRELLIS"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_LIGHTTRELLIS</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">25</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_LIGHTTRELLIS</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lightTrellis&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_LIGHTUP"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_LIGHTUP</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">26</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_LIGHTUP</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lightUp&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_LIGHTVERTICAL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_LIGHTVERTICAL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">27</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_LIGHTVERTICAL</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lightVertical&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_FILL_PATTERN_MEDIUMGRAY"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILL_PATTERN_MEDIUMGRAY</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">28</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILL_PATTERN_MEDIUMGRAY</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;mediumGray&#039;</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_startcolorIndex"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$startcolorIndex</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">33</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$startcolorIndex</span>
+            </code>
+    </article>
+                                    <a id="property_endcolorIndex"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$endcolorIndex</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">38</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$endcolorIndex</span>
+            </code>
+    </article>
+                                    <a id="property_fillType"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$fillType</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">45</span>
+    </aside>
+            <p class="phpdocumentor-summary">Fill type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$fillType</span>
+         = <span class="phpdocumentor-signature__default-value">self::FILL_NONE</span>    </code>
+    </article>
+                                    <a id="property_rotation"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$rotation</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">52</span>
+    </aside>
+            <p class="phpdocumentor-summary">Rotation.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">float</span>
+        <span class="phpdocumentor-signature__name">$rotation</span>
+         = <span class="phpdocumentor-signature__default-value">""</span>    </code>
+    </article>
+                                    <a id="property_startColor"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$startColor</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">59</span>
+    </aside>
+            <p class="phpdocumentor-summary">Start color.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$startColor</span>
+            </code>
+    </article>
+                                    <a id="property_endColor"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$endColor</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">66</span>
+    </aside>
+            <p class="phpdocumentor-summary">End color.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$endColor</span>
+            </code>
+    </article>
+                                                                    <a id="property_isSupervisor"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$isSupervisor</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">16</span>
+    </aside>
+            <p class="phpdocumentor-summary">Supervisor?</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$isSupervisor</span>
+            </code>
+    </article>
+                                    <a id="property_parent"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$parent</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">23</span>
+    </aside>
+            <p class="phpdocumentor-summary">Parent. Only used for supervisor.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$parent</span>
+            </code>
+    </article>
+                                    <a id="property_parentPropertyName"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$parentPropertyName</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">30</span>
+    </aside>
+            <p class="phpdocumentor-summary">Parent property name.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">null|string</span>
+        <span class="phpdocumentor-signature__name">$parentPropertyName</span>
+            </code>
+    </article>
+                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">78</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new Fill.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$isSupervisor</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$isConditional</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$isSupervisor</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Flag indicating if this is a supervisor or not
+Leave this value at default unless you understand exactly what
+its ramifications are</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$isConditional</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Flag indicating if this is a conditional style or not
+Leave this value at default unless you understand exactly what
+its ramifications are</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getSharedComponent"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getSharedComponent()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">103</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the shared style component for the currently active cell in currently active sheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getSharedComponent</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Fill">Fill</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Only used for style supervisor.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Fill">Fill</abbr></a></span>
+            
+</article>
+                                    <a id="method_getStyleArray"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getStyleArray()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">115</span>
+    </aside>
+        <p class="phpdocumentor-summary">Build style array from subcomponents.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getStyleArray</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$array</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$array</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                    <a id="method_applyFromArray"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">applyFromArray()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">142</span>
+    </aside>
+        <p class="phpdocumentor-summary">Apply styles from array.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">applyFromArray</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pStyles</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p><code class="prettyprint">
+$spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;getFill()-&gt;applyFromArray(
+[
+'fillType' =&gt; Fill::FILL_GRADIENT_LINEAR,
+'rotation' =&gt; 0,
+'startColor' =&gt; [
+'rgb' =&gt; '000000'
+],
+'endColor' =&gt; [
+'argb' =&gt; 'FFFFFFFF'
+]
+]
+);
+</code></p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pStyles</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array containing style information</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getFillType"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getFillType()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">173</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Fill Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getFillType</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setFillType"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setFillType()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">189</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Fill Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setFillType</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Fill type, see self::FILL_*</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getRotation"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getRotation()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">206</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Rotation.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getRotation</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">float</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float</span>
+            
+</article>
+                                    <a id="method_setRotation"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setRotation()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">222</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Rotation.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setRotation</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getStartColor"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getStartColor()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">239</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Start Color.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getStartColor</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></span>
+            
+</article>
+                                    <a id="method_setStartColor"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setStartColor()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">249</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Start Color.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setStartColor</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getEndColor"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getEndColor()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">269</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get End Color.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getEndColor</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></span>
+            
+</article>
+                                    <a id="method_setEndColor"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setEndColor()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">279</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set End Color.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setEndColor</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getHashCode"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getHashCode()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="../files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">299</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get hash code.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getHashCode</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Hash code</p></span>
+            
+</article>
+                                                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">39</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new Supervisor.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$isSupervisor</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$isSupervisor</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Flag indicating if this is a supervisor or not
+Leave this value at default unless you understand exactly what
+its ramifications are</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_bindParent"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">bindParent()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">53</span>
+    </aside>
+        <p class="phpdocumentor-summary">Bind parent. Only used for supervisor.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">bindParent</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$parent</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$parentPropertyName</span> :
+                <span class="phpdocumentor-signature__argument__return-type">null|string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$parent</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$parentPropertyName</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getIsSupervisor"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getIsSupervisor()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">66</span>
+    </aside>
+        <p class="phpdocumentor-summary">Is this a supervisor or a cell style component?</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getIsSupervisor</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_getActiveSheet"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getActiveSheet()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">76</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the currently active sheet. Only used for supervisor.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getActiveSheet</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+            
+</article>
+                                    <a id="method_getSelectedCells"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getSelectedCells()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">87</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the currently active cell coordinate in currently active sheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getSelectedCells</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Only used for supervisor.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>E.g. 'A1'</p></span>
+            
+</article>
+                                    <a id="method_getActiveCell"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getActiveCell()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">98</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the currently active cell coordinate in currently active sheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getActiveCell</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Only used for supervisor.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>E.g. 'A1'</p></span>
+            
+</article>
+                                    <a id="method___clone"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__clone()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">106</span>
+    </aside>
+        <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__clone</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

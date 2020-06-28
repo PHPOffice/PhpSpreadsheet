@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-worksheet.html">Worksheet</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            HeaderFooter
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">66</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">&lt;code&gt;
+Header/Footer Formatting Syntax taken from Office Open XML Part 4 - Markup Language Reference, page 1970:.</p>
+        <section class="phpdocumentor-class__description"><p>There are a number of formatting codes that can be written inline with the actual header / footer text, which
+affect the formatting in the header or footer.</p>
+<p>Example: This example shows the text &quot;Center Bold Header&quot; on the first line (center section), and the date on
+the second line (center section).
+&amp;CCenter &amp;&quot;-,Bold&quot;Bold&amp;&quot;-,Regular&quot;Header<em>x000A</em>&amp;D</p>
+<p>General Rules:
+There is no required order in which these codes must appear.</p>
+<p>The first occurrence of the following codes turns the formatting ON, the second occurrence turns it OFF again:</p>
+<ul>
+<li>strikethrough</li>
+<li>superscript</li>
+<li>subscript
+Superscript and subscript cannot both be ON at same time. Whichever comes first wins and the other is ignored,
+while the first is ON.
+&amp;L - code for &quot;left section&quot; (there are three header / footer locations, &quot;left&quot;, &quot;center&quot;, and &quot;right&quot;). When
+two or more occurrences of this section marker exist, the contents from all markers are concatenated, in the
+order of appearance, and placed into the left section.
+&amp;P - code for &quot;current page #&quot;
+&amp;N - code for &quot;total pages&quot;
+&amp;font size - code for &quot;text font size&quot;, where font size is a font size in points.
+&amp;K - code for &quot;text font color&quot;
+RGB Color is specified as RRGGBB
+Theme Color is specifed as TTSNN where TT is the theme color Id, S is either &quot;+&quot; or &quot;-&quot; of the tint/shade
+value, NN is the tint/shade value.
+&amp;S - code for &quot;text strikethrough&quot; on / off
+&amp;X - code for &quot;text super script&quot; on / off
+&amp;Y - code for &quot;text subscript&quot; on / off
+&amp;C - code for &quot;center section&quot;. When two or more occurrences of this section marker exist, the contents
+from all markers are concatenated, in the order of appearance, and placed into the center section.</li>
+</ul>
+<p>&amp;D - code for &quot;date&quot;
+&amp;T - code for &quot;time&quot;
+&amp;G - code for &quot;picture as background&quot;
+&amp;U - code for &quot;text single underline&quot;
+&amp;E - code for &quot;double underline&quot;
+&amp;R - code for &quot;right section&quot;. When two or more occurrences of this section marker exist, the contents
+from all markers are concatenated, in the order of appearance, and placed into the right section.
+&amp;Z - code for &quot;this workbook's file path&quot;
+&amp;F - code for &quot;this workbook's file name&quot;
+&amp;A - code for &quot;sheet tab name&quot;
+&amp;+ - code for add to page #.
+&amp;- - code for subtract from page #.
+&amp;&quot;font name,font type&quot; - code for &quot;text font name&quot; and &quot;text font type&quot;, where font name and font type
+are strings specifying the name and type of the font, separated by a comma. When a hyphen appears in font
+name, it means &quot;none specified&quot;. Both of font name and font type can be localized values.
+&amp;&quot;-,Bold&quot; - code for &quot;bold font style&quot;
+&amp;B - also means &quot;bold font style&quot;.
+&amp;&quot;-,Regular&quot; - code for &quot;regular font style&quot;
+&amp;&quot;-,Italic&quot; - code for &quot;italic font style&quot;
+&amp;I - also means &quot;italic font style&quot;
+&amp;&quot;-,Bold Italic&quot; code for &quot;bold italic font style&quot;
+&amp;O - code for &quot;outline style&quot;
+&amp;H - code for &quot;shadow style&quot;
+</code></p></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_HEADER_LEFT">IMAGE_HEADER_LEFT</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;LH&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_HEADER_CENTER">IMAGE_HEADER_CENTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;CH&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_HEADER_RIGHT">IMAGE_HEADER_RIGHT</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;RH&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_FOOTER_LEFT">IMAGE_FOOTER_LEFT</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;LF&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_FOOTER_CENTER">IMAGE_FOOTER_CENTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;CF&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#constant_IMAGE_FOOTER_RIGHT">IMAGE_FOOTER_RIGHT</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;RF&#039;</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_oddHeader">$oddHeader</a></th>
+                    <td class="phpdocumentor-cell">OddHeader.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_oddFooter">$oddFooter</a></th>
+                    <td class="phpdocumentor-cell">OddFooter.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_evenHeader">$evenHeader</a></th>
+                    <td class="phpdocumentor-cell">EvenHeader.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_evenFooter">$evenFooter</a></th>
+                    <td class="phpdocumentor-cell">EvenFooter.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_firstHeader">$firstHeader</a></th>
+                    <td class="phpdocumentor-cell">FirstHeader.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_firstFooter">$firstFooter</a></th>
+                    <td class="phpdocumentor-cell">FirstFooter.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_differentOddEven">$differentOddEven</a></th>
+                    <td class="phpdocumentor-cell">Different header for Odd/Even, defaults to false.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_differentFirst">$differentFirst</a></th>
+                    <td class="phpdocumentor-cell">Different header for first page, defaults to false.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_scaleWithDocument">$scaleWithDocument</a></th>
+                    <td class="phpdocumentor-cell">Scale with document, defaults to true.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_alignWithMargins">$alignWithMargins</a></th>
+                    <td class="phpdocumentor-cell">Align with margins, defaults to true.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#property_headerFooterImages">$headerFooterImages</a></th>
+                    <td class="phpdocumentor-cell">Header/footer images.</td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing[]</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new HeaderFooter.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getOddHeader">getOddHeader()</a></th>
+                    <td class="phpdocumentor-cell">Get OddHeader.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setOddHeader">setOddHeader()</a></th>
+                    <td class="phpdocumentor-cell">Set OddHeader.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getOddFooter">getOddFooter()</a></th>
+                    <td class="phpdocumentor-cell">Get OddFooter.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setOddFooter">setOddFooter()</a></th>
+                    <td class="phpdocumentor-cell">Set OddFooter.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getEvenHeader">getEvenHeader()</a></th>
+                    <td class="phpdocumentor-cell">Get EvenHeader.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setEvenHeader">setEvenHeader()</a></th>
+                    <td class="phpdocumentor-cell">Set EvenHeader.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getEvenFooter">getEvenFooter()</a></th>
+                    <td class="phpdocumentor-cell">Get EvenFooter.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setEvenFooter">setEvenFooter()</a></th>
+                    <td class="phpdocumentor-cell">Set EvenFooter.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getFirstHeader">getFirstHeader()</a></th>
+                    <td class="phpdocumentor-cell">Get FirstHeader.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setFirstHeader">setFirstHeader()</a></th>
+                    <td class="phpdocumentor-cell">Set FirstHeader.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getFirstFooter">getFirstFooter()</a></th>
+                    <td class="phpdocumentor-cell">Get FirstFooter.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setFirstFooter">setFirstFooter()</a></th>
+                    <td class="phpdocumentor-cell">Set FirstFooter.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getDifferentOddEven">getDifferentOddEven()</a></th>
+                    <td class="phpdocumentor-cell">Get DifferentOddEven.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setDifferentOddEven">setDifferentOddEven()</a></th>
+                    <td class="phpdocumentor-cell">Set DifferentOddEven.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getDifferentFirst">getDifferentFirst()</a></th>
+                    <td class="phpdocumentor-cell">Get DifferentFirst.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setDifferentFirst">setDifferentFirst()</a></th>
+                    <td class="phpdocumentor-cell">Set DifferentFirst.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getScaleWithDocument">getScaleWithDocument()</a></th>
+                    <td class="phpdocumentor-cell">Get ScaleWithDocument.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setScaleWithDocument">setScaleWithDocument()</a></th>
+                    <td class="phpdocumentor-cell">Set ScaleWithDocument.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getAlignWithMargins">getAlignWithMargins()</a></th>
+                    <td class="phpdocumentor-cell">Get AlignWithMargins.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setAlignWithMargins">setAlignWithMargins()</a></th>
+                    <td class="phpdocumentor-cell">Set AlignWithMargins.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_addImage">addImage()</a></th>
+                    <td class="phpdocumentor-cell">Add header/footer image.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_removeImage">removeImage()</a></th>
+                    <td class="phpdocumentor-cell">Remove header/footer image.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_setImages">setImages()</a></th>
+                    <td class="phpdocumentor-cell">Set header/footer images.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method_getImages">getImages()</a></th>
+                    <td class="phpdocumentor-cell">Get header/footer images.</td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing[]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooter.html#method___clone">__clone()</a></th>
+                    <td class="phpdocumentor-cell">Implement PHP __clone to create a deep clone, not just a shallow copy.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_IMAGE_HEADER_LEFT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">IMAGE_HEADER_LEFT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">69</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$IMAGE_HEADER_LEFT</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;LH&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_IMAGE_HEADER_CENTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">IMAGE_HEADER_CENTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">70</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$IMAGE_HEADER_CENTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;CH&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_IMAGE_HEADER_RIGHT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">IMAGE_HEADER_RIGHT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">71</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$IMAGE_HEADER_RIGHT</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;RH&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_IMAGE_FOOTER_LEFT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">IMAGE_FOOTER_LEFT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">72</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$IMAGE_FOOTER_LEFT</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;LF&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_IMAGE_FOOTER_CENTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">IMAGE_FOOTER_CENTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">73</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$IMAGE_FOOTER_CENTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;CF&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_IMAGE_FOOTER_RIGHT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">IMAGE_FOOTER_RIGHT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">74</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$IMAGE_FOOTER_RIGHT</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;RF&#039;</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_oddHeader"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$oddHeader</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">81</span>
+    </aside>
+            <p class="phpdocumentor-summary">OddHeader.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$oddHeader</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                    <a id="property_oddFooter"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$oddFooter</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">88</span>
+    </aside>
+            <p class="phpdocumentor-summary">OddFooter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$oddFooter</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                    <a id="property_evenHeader"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$evenHeader</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">95</span>
+    </aside>
+            <p class="phpdocumentor-summary">EvenHeader.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$evenHeader</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                    <a id="property_evenFooter"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$evenFooter</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">102</span>
+    </aside>
+            <p class="phpdocumentor-summary">EvenFooter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$evenFooter</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                    <a id="property_firstHeader"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$firstHeader</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">109</span>
+    </aside>
+            <p class="phpdocumentor-summary">FirstHeader.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$firstHeader</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                    <a id="property_firstFooter"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$firstFooter</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">116</span>
+    </aside>
+            <p class="phpdocumentor-summary">FirstFooter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$firstFooter</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                    <a id="property_differentOddEven"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$differentOddEven</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">123</span>
+    </aside>
+            <p class="phpdocumentor-summary">Different header for Odd/Even, defaults to false.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$differentOddEven</span>
+         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
+    </article>
+                                    <a id="property_differentFirst"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$differentFirst</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">130</span>
+    </aside>
+            <p class="phpdocumentor-summary">Different header for first page, defaults to false.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$differentFirst</span>
+         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
+    </article>
+                                    <a id="property_scaleWithDocument"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$scaleWithDocument</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">137</span>
+    </aside>
+            <p class="phpdocumentor-summary">Scale with document, defaults to true.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$scaleWithDocument</span>
+         = <span class="phpdocumentor-signature__default-value">true</span>    </code>
+    </article>
+                                    <a id="property_alignWithMargins"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$alignWithMargins</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">144</span>
+    </aside>
+            <p class="phpdocumentor-summary">Align with margins, defaults to true.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$alignWithMargins</span>
+         = <span class="phpdocumentor-signature__default-value">true</span>    </code>
+    </article>
+                                    <a id="property_headerFooterImages"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$headerFooterImages</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">151</span>
+    </aside>
+            <p class="phpdocumentor-summary">Header/footer images.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing[]</span>
+        <span class="phpdocumentor-signature__name">$headerFooterImages</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">156</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new HeaderFooter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getOddHeader"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getOddHeader()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">165</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get OddHeader.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getOddHeader</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setOddHeader"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setOddHeader()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">177</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set OddHeader.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setOddHeader</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getOddFooter"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getOddFooter()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">189</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get OddFooter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getOddFooter</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setOddFooter"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setOddFooter()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">201</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set OddFooter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setOddFooter</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getEvenHeader"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getEvenHeader()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">213</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get EvenHeader.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getEvenHeader</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setEvenHeader"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setEvenHeader()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">225</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set EvenHeader.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setEvenHeader</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getEvenFooter"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getEvenFooter()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">237</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get EvenFooter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getEvenFooter</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setEvenFooter"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setEvenFooter()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">249</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set EvenFooter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setEvenFooter</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getFirstHeader"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getFirstHeader()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">261</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get FirstHeader.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getFirstHeader</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setFirstHeader"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setFirstHeader()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">273</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set FirstHeader.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setFirstHeader</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getFirstFooter"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getFirstFooter()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">285</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get FirstFooter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getFirstFooter</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setFirstFooter"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setFirstFooter()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">297</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set FirstFooter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setFirstFooter</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getDifferentOddEven"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getDifferentOddEven()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">309</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get DifferentOddEven.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getDifferentOddEven</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_setDifferentOddEven"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setDifferentOddEven()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">321</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set DifferentOddEven.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setDifferentOddEven</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getDifferentFirst"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getDifferentFirst()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">333</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get DifferentFirst.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getDifferentFirst</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_setDifferentFirst"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setDifferentFirst()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">345</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set DifferentFirst.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setDifferentFirst</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getScaleWithDocument"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getScaleWithDocument()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">357</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get ScaleWithDocument.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getScaleWithDocument</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_setScaleWithDocument"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setScaleWithDocument()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">369</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set ScaleWithDocument.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setScaleWithDocument</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getAlignWithMargins"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getAlignWithMargins()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">381</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get AlignWithMargins.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getAlignWithMargins</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_setAlignWithMargins"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setAlignWithMargins()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">393</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set AlignWithMargins.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setAlignWithMargins</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_addImage"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">addImage()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">407</span>
+    </aside>
+        <p class="phpdocumentor-summary">Add header/footer image.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">addImage</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$image</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$location</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">self::IMAGE_HEADER_LEFT</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$image</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-HeaderFooterDrawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing">HeaderFooterDrawing</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$location</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">self::IMAGE_HEADER_LEFT</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_removeImage"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">removeImage()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">421</span>
+    </aside>
+        <p class="phpdocumentor-summary">Remove header/footer image.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">removeImage</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$location</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">self::IMAGE_HEADER_LEFT</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$location</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">self::IMAGE_HEADER_LEFT</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_setImages"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setImages()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">437</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set header/footer images.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setImages</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$images</span> :
+                <span class="phpdocumentor-signature__argument__return-type">\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing[]</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$images</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing[]</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getImages"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getImages()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">449</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get header/footer images.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getImages</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing[]</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing[]</span>
+            
+</article>
+                                    <a id="method___clone"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__clone()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php"><a href="../files/src-phpspreadsheet-worksheet-headerfooter.html"><abbr title="src/PhpSpreadsheet/Worksheet/HeaderFooter.php">HeaderFooter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">479</span>
+    </aside>
+        <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__clone</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

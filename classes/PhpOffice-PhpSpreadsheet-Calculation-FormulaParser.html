@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-calculation.html">Calculation</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            FormulaParser
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">27</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">PARTLY BASED ON:
+Copyright (c) 2007 E. W. Bachtal, Inc.</p>
+        <section class="phpdocumentor-class__description"><p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial
+portions of the Software.</p>
+<p>The software is provided &quot;as is&quot;, without warranty of any kind, express or implied, including but not
+limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In
+no event shall the authors or copyright holders be liable for any claim, damages or other liability,
+whether in an action of contract, tort or otherwise, arising from, out of or in connection with the
+software or the use or other dealings in the software.</p>
+<p><a href="https://ewbi.blogs.com/develops/2007/03/excel_formula_p.html">https://ewbi.blogs.com/develops/2007/03/excel_formula_p.html</a>
+<a href="https://ewbi.blogs.com/develops/2004/12/excel_formula_p.html">https://ewbi.blogs.com/develops/2004/12/excel_formula_p.html</a></p></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_QUOTE_DOUBLE">QUOTE_DOUBLE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;&quot;&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_QUOTE_SINGLE">QUOTE_SINGLE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;\&#039;&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_BRACKET_CLOSE">BRACKET_CLOSE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;]&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_BRACKET_OPEN">BRACKET_OPEN</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;[&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_BRACE_OPEN">BRACE_OPEN</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;{&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_BRACE_CLOSE">BRACE_CLOSE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;}&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_PAREN_OPEN">PAREN_OPEN</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;(&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_PAREN_CLOSE">PAREN_CLOSE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;)&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_SEMICOLON">SEMICOLON</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;;&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_WHITESPACE">WHITESPACE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039; &#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_COMMA">COMMA</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;,&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_ERROR_START">ERROR_START</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;#&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_OPERATORS_SN">OPERATORS_SN</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;+-&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_OPERATORS_INFIX">OPERATORS_INFIX</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;+-*/^&amp;=&gt;&lt;&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#constant_OPERATORS_POSTFIX">OPERATORS_POSTFIX</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;%&#039;</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#property_formula">$formula</a></th>
+                    <td class="phpdocumentor-cell">Formula.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#property_tokens">$tokens</a></th>
+                    <td class="phpdocumentor-cell">Tokens.</td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\Calculation\FormulaToken[]</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new FormulaParser.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#method_getFormula">getFormula()</a></th>
+                    <td class="phpdocumentor-cell">Get Formula.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#method_getToken">getToken()</a></th>
+                    <td class="phpdocumentor-cell">Get Token.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#method_getTokenCount">getTokenCount()</a></th>
+                    <td class="phpdocumentor-cell">Get Token count.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#method_getTokens">getTokens()</a></th>
+                    <td class="phpdocumentor-cell">Get Tokens.</td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\Calculation\FormulaToken[]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaParser.html#method_parseToTokens">parseToTokens()</a></th>
+                    <td class="phpdocumentor-cell">Parse to tokens.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_QUOTE_DOUBLE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">QUOTE_DOUBLE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">30</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$QUOTE_DOUBLE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;&quot;&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_QUOTE_SINGLE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">QUOTE_SINGLE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">31</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$QUOTE_SINGLE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;\&#039;&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_BRACKET_CLOSE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">BRACKET_CLOSE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">32</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$BRACKET_CLOSE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;]&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_BRACKET_OPEN"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">BRACKET_OPEN</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">33</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$BRACKET_OPEN</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;[&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_BRACE_OPEN"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">BRACE_OPEN</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">34</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$BRACE_OPEN</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;{&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_BRACE_CLOSE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">BRACE_CLOSE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">35</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$BRACE_CLOSE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;}&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_PAREN_OPEN"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">PAREN_OPEN</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">36</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$PAREN_OPEN</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;(&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_PAREN_CLOSE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">PAREN_CLOSE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">37</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$PAREN_CLOSE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;)&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_SEMICOLON"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">SEMICOLON</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">38</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$SEMICOLON</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;;&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_WHITESPACE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">WHITESPACE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">39</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$WHITESPACE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039; &#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_COMMA"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">COMMA</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">40</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$COMMA</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;,&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_ERROR_START"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">ERROR_START</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">41</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$ERROR_START</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;#&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_OPERATORS_SN"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">OPERATORS_SN</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">43</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$OPERATORS_SN</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;+-&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_OPERATORS_INFIX"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">OPERATORS_INFIX</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">44</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$OPERATORS_INFIX</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;+-*/^&amp;=&gt;&lt;&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_OPERATORS_POSTFIX"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">OPERATORS_POSTFIX</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">45</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$OPERATORS_POSTFIX</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;%&#039;</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_formula"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$formula</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">52</span>
+    </aside>
+            <p class="phpdocumentor-summary">Formula.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$formula</span>
+            </code>
+    </article>
+                                    <a id="property_tokens"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$tokens</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">59</span>
+    </aside>
+            <p class="phpdocumentor-summary">Tokens.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">\PhpOffice\PhpSpreadsheet\Calculation\FormulaToken[]</span>
+        <span class="phpdocumentor-signature__name">$tokens</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">66</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new FormulaParser.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$pFormula</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pFormula</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Formula to parse</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getFormula"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getFormula()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">84</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Formula.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getFormula</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getToken"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getToken()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">96</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Token.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getToken</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pId</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pId</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Token id</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getTokenCount"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getTokenCount()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">110</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Token count.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getTokenCount</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_getTokens"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getTokens()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">120</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Tokens.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getTokens</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\Calculation\FormulaToken[]</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\Calculation\FormulaToken[]</span>
+            
+</article>
+                                    <a id="method_parseToTokens"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">parseToTokens()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaParser.php"><a href="../files/src-phpspreadsheet-calculation-formulaparser.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaParser.php">FormulaParser.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">128</span>
+    </aside>
+        <p class="phpdocumentor-summary">Parse to tokens.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">parseToTokens</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

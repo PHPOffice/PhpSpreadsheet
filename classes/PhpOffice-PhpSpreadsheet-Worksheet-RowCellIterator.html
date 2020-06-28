@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-worksheet.html">Worksheet</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            RowCellIterator
+                            <span class="phpdocumentor-class__extends">
+                    extends <a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\CellIterator">CellIterator</abbr></a>
+                </span>
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">8</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary"></p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#property_currentColumnIndex">$currentColumnIndex</a></th>
+                    <td class="phpdocumentor-cell">Current iterator position.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#property_rowIndex">$rowIndex</a></th>
+                    <td class="phpdocumentor-cell">Row index.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#property_startColumnIndex">$startColumnIndex</a></th>
+                    <td class="phpdocumentor-cell">Start position.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#property_endColumnIndex">$endColumnIndex</a></th>
+                    <td class="phpdocumentor-cell">End position.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                                                    <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#property_worksheet">$worksheet</a></th>
+                    <td class="phpdocumentor-cell">Worksheet to iterate.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#property_onlyExistingCells">$onlyExistingCells</a></th>
+                    <td class="phpdocumentor-cell">Iterate only existing cells.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new column iterator.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#method_resetStart">resetStart()</a></th>
+                    <td class="phpdocumentor-cell">(Re)Set the start column and the current column pointer.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#method_resetEnd">resetEnd()</a></th>
+                    <td class="phpdocumentor-cell">(Re)Set the end column.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#method_seek">seek()</a></th>
+                    <td class="phpdocumentor-cell">Set the column pointer to the selected column.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#method_rewind">rewind()</a></th>
+                    <td class="phpdocumentor-cell">Rewind the iterator to the starting column.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#method_current">current()</a></th>
+                    <td class="phpdocumentor-cell">Return the current cell in this worksheet row.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#method_key">key()</a></th>
+                    <td class="phpdocumentor-cell">Return the current iterator key.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#method_next">next()</a></th>
+                    <td class="phpdocumentor-cell">Set the iterator to its next value.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#method_prev">prev()</a></th>
+                    <td class="phpdocumentor-cell">Set the iterator to its previous value.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#method_valid">valid()</a></th>
+                    <td class="phpdocumentor-cell">Indicate if more columns exist in the worksheet range of columns that we&#039;re iterating.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#method_getCurrentColumnIndex">getCurrentColumnIndex()</a></th>
+                    <td class="phpdocumentor-cell">Return the current iterator position.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-RowCellIterator.html#method_adjustForExistingOnlyRange">adjustForExistingOnlyRange()</a></th>
+                    <td class="phpdocumentor-cell">Validate start/end values for &quot;IterateOnlyExistingCells&quot; mode, and adjust if necessary.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                                                    <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method___destruct">__destruct()</a></th>
+                    <td class="phpdocumentor-cell">Destructor.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method_getIterateOnlyExistingCells">getIterateOnlyExistingCells()</a></th>
+                    <td class="phpdocumentor-cell">Get loop only existing cells.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method_adjustForExistingOnlyRange">adjustForExistingOnlyRange()</a></th>
+                    <td class="phpdocumentor-cell">Validate start/end values for &quot;IterateOnlyExistingCells&quot; mode, and adjust if necessary.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method_setIterateOnlyExistingCells">setIterateOnlyExistingCells()</a></th>
+                    <td class="phpdocumentor-cell">Set the iterator to loop only existing cells.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                    </table>
+
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_currentColumnIndex"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$currentColumnIndex</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">15</span>
+    </aside>
+            <p class="phpdocumentor-summary">Current iterator position.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$currentColumnIndex</span>
+            </code>
+    </article>
+                                    <a id="property_rowIndex"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$rowIndex</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">22</span>
+    </aside>
+            <p class="phpdocumentor-summary">Row index.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$rowIndex</span>
+         = <span class="phpdocumentor-signature__default-value">1</span>    </code>
+    </article>
+                                    <a id="property_startColumnIndex"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$startColumnIndex</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">29</span>
+    </aside>
+            <p class="phpdocumentor-summary">Start position.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$startColumnIndex</span>
+         = <span class="phpdocumentor-signature__default-value">1</span>    </code>
+    </article>
+                                    <a id="property_endColumnIndex"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$endColumnIndex</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">36</span>
+    </aside>
+            <p class="phpdocumentor-summary">End position.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$endColumnIndex</span>
+         = <span class="phpdocumentor-signature__default-value">1</span>    </code>
+    </article>
+                                                                    <a id="property_worksheet"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$worksheet</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">14</span>
+    </aside>
+            <p class="phpdocumentor-summary">Worksheet to iterate.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$worksheet</span>
+            </code>
+    </article>
+                                    <a id="property_onlyExistingCells"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$onlyExistingCells</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">21</span>
+    </aside>
+            <p class="phpdocumentor-summary">Iterate only existing cells.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$onlyExistingCells</span>
+         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
+    </article>
+                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">46</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new column iterator.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$worksheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$rowIndex</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">1</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$startColumn</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;A&#039;</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$endColumn</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$worksheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The worksheet to iterate over</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$rowIndex</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">1</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The row that we want to iterate</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$startColumn</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;A&#039;</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The column address at which to start iterating</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$endColumn</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Optionally, the column address at which to stop iterating</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_resetStart"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">resetStart()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">62</span>
+    </aside>
+        <p class="phpdocumentor-summary">(Re)Set the start column and the current column pointer.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">resetStart</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$startColumn</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;A&#039;</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$startColumn</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;A&#039;</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The column address at which to start iterating</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_resetEnd"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">resetEnd()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">78</span>
+    </aside>
+        <p class="phpdocumentor-summary">(Re)Set the end column.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">resetEnd</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$endColumn</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$endColumn</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The column address at which to stop iterating</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_seek"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">seek()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">94</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set the column pointer to the selected column.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">seek</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$column</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;A&#039;</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$column</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;A&#039;</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The column address to set the current pointer at</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_rewind"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">rewind()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">110</span>
+    </aside>
+        <p class="phpdocumentor-summary">Rewind the iterator to the starting column.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">rewind</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
+</article>
+                                    <a id="method_current"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">current()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">120</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return the current cell in this worksheet row.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">current</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></span>
+            
+</article>
+                                    <a id="method_key"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">key()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">130</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return the current iterator key.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">key</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_next"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">next()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">138</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set the iterator to its next value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">next</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
+</article>
+                                    <a id="method_prev"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">prev()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">148</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set the iterator to its previous value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">prev</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
+</article>
+                                    <a id="method_valid"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">valid()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">160</span>
+    </aside>
+        <p class="phpdocumentor-summary">Indicate if more columns exist in the worksheet range of columns that we&#039;re iterating.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">valid</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_getCurrentColumnIndex"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getCurrentColumnIndex()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">170</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return the current iterator position.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getCurrentColumnIndex</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_adjustForExistingOnlyRange"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">adjustForExistingOnlyRange()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-rowcelliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/RowCellIterator.php">RowCellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">178</span>
+    </aside>
+        <p class="phpdocumentor-summary">Validate start/end values for &quot;IterateOnlyExistingCells&quot; mode, and adjust if necessary.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">adjustForExistingOnlyRange</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
+</article>
+                                                                    <a id="method___destruct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__destruct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">26</span>
+    </aside>
+        <p class="phpdocumentor-summary">Destructor.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__destruct</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getIterateOnlyExistingCells"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getIterateOnlyExistingCells()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">36</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get loop only existing cells.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getIterateOnlyExistingCells</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_adjustForExistingOnlyRange"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">adjustForExistingOnlyRange()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">44</span>
+    </aside>
+        <p class="phpdocumentor-summary">Validate start/end values for &quot;IterateOnlyExistingCells&quot; mode, and adjust if necessary.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">adjustForExistingOnlyRange</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_setIterateOnlyExistingCells"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setIterateOnlyExistingCells()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">51</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set the iterator to loop only existing cells.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setIterateOnlyExistingCells</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

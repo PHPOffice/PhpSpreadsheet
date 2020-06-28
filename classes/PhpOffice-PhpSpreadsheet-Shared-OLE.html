@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared.html">Shared</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            OLE
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">42</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">OLE package base class.</p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#constant_OLE_PPS_TYPE_ROOT">OLE_PPS_TYPE_ROOT</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">5</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#constant_OLE_PPS_TYPE_DIR">OLE_PPS_TYPE_DIR</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">1</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#constant_OLE_PPS_TYPE_FILE">OLE_PPS_TYPE_FILE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">2</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#constant_OLE_DATA_SIZE_SMALL">OLE_DATA_SIZE_SMALL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">0x1000</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#constant_OLE_LONG_INT_SIZE">OLE_LONG_INT_SIZE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">4</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#constant_OLE_PPS_SIZE">OLE_PPS_SIZE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">0x80</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#property__file_handle">$_file_handle</a></th>
+                    <td class="phpdocumentor-cell">The file handle for reading an OLE container.</td>
+                    <td class="phpdocumentor-cell">resource</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#property__list">$_list</a></th>
+                    <td class="phpdocumentor-cell">Array of PPS&#039;s found on the OLE container.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#property_root">$root</a></th>
+                    <td class="phpdocumentor-cell">Root directory of OLE container.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS-Root.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\Root">Root</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#property_bbat">$bbat</a></th>
+                    <td class="phpdocumentor-cell">Big Block Allocation Table.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#property_sbat">$sbat</a></th>
+                    <td class="phpdocumentor-cell">Short Block Allocation Table.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#property_bigBlockSize">$bigBlockSize</a></th>
+                    <td class="phpdocumentor-cell">Size of big blocks. This is usually 512.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#property_smallBlockSize">$smallBlockSize</a></th>
+                    <td class="phpdocumentor-cell">Size of small blocks. This is usually 64.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#property_bigBlockThreshold">$bigBlockThreshold</a></th>
+                    <td class="phpdocumentor-cell">Threshold for big blocks.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_read">read()</a></th>
+                    <td class="phpdocumentor-cell">Reads an OLE container from the contents of the file given.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method__getBlockOffset">_getBlockOffset()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getStream">getStream()</a></th>
+                    <td class="phpdocumentor-cell">Returns a stream for use with fread() etc. External callers should
+use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().</td>
+                    <td class="phpdocumentor-cell">resource</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method__readInt1">_readInt1()</a></th>
+                    <td class="phpdocumentor-cell">Reads a signed char.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method__readInt2">_readInt2()</a></th>
+                    <td class="phpdocumentor-cell">Reads an unsigned short (2 octets).</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method__readInt4">_readInt4()</a></th>
+                    <td class="phpdocumentor-cell">Reads an unsigned long (4 octets).</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method__readPpsWks">_readPpsWks()</a></th>
+                    <td class="phpdocumentor-cell">Gets information about all PPS&#039;s on the OLE container from the PPS WK&#039;s
+creates an OLE_PPS object for each one.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method__ppsTreeComplete">_ppsTreeComplete()</a></th>
+                    <td class="phpdocumentor-cell">It checks whether the PPS tree is complete (all PPS&#039;s read)
+starting with the given PPS (not necessarily root).</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_isFile">isFile()</a></th>
+                    <td class="phpdocumentor-cell">Checks whether a PPS is a File PPS or not.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_isRoot">isRoot()</a></th>
+                    <td class="phpdocumentor-cell">Checks whether a PPS is a Root PPS or not.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_ppsTotal">ppsTotal()</a></th>
+                    <td class="phpdocumentor-cell">Gives the total number of PPS&#039;s found in the OLE container.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getData">getData()</a></th>
+                    <td class="phpdocumentor-cell">Gets data from a PPS
+If there is no PPS for the index given, it will return an empty string.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_getDataLength">getDataLength()</a></th>
+                    <td class="phpdocumentor-cell">Gets the data length from a PPS
+If there is no PPS for the index given, it will return 0.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_ascToUcs">ascToUcs()</a></th>
+                    <td class="phpdocumentor-cell">Utility function to transform ASCII text to Unicode.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_localDateToOLE">localDateToOLE()</a></th>
+                    <td class="phpdocumentor-cell">Utility function
+Returns a string for the OLE container with the date given.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#method_OLE2LocalDate">OLE2LocalDate()</a></th>
+                    <td class="phpdocumentor-cell">Returns a timestamp from an OLE container&#039;s date.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_OLE_PPS_TYPE_ROOT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">OLE_PPS_TYPE_ROOT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">44</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$OLE_PPS_TYPE_ROOT</span>
+        = <span class="phpdocumentor-signature__default-value">5</span>
+    </code>
+    </article>
+                                    <a id="constant_OLE_PPS_TYPE_DIR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">OLE_PPS_TYPE_DIR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">45</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$OLE_PPS_TYPE_DIR</span>
+        = <span class="phpdocumentor-signature__default-value">1</span>
+    </code>
+    </article>
+                                    <a id="constant_OLE_PPS_TYPE_FILE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">OLE_PPS_TYPE_FILE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">46</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$OLE_PPS_TYPE_FILE</span>
+        = <span class="phpdocumentor-signature__default-value">2</span>
+    </code>
+    </article>
+                                    <a id="constant_OLE_DATA_SIZE_SMALL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">OLE_DATA_SIZE_SMALL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">47</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$OLE_DATA_SIZE_SMALL</span>
+        = <span class="phpdocumentor-signature__default-value">0x1000</span>
+    </code>
+    </article>
+                                    <a id="constant_OLE_LONG_INT_SIZE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">OLE_LONG_INT_SIZE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">48</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$OLE_LONG_INT_SIZE</span>
+        = <span class="phpdocumentor-signature__default-value">4</span>
+    </code>
+    </article>
+                                    <a id="constant_OLE_PPS_SIZE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">OLE_PPS_SIZE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">49</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$OLE_PPS_SIZE</span>
+        = <span class="phpdocumentor-signature__default-value">0x80</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property__file_handle"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$_file_handle</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">56</span>
+    </aside>
+            <p class="phpdocumentor-summary">The file handle for reading an OLE container.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">resource</span>
+        <span class="phpdocumentor-signature__name">$_file_handle</span>
+            </code>
+    </article>
+                                    <a id="property__list"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$_list</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">63</span>
+    </aside>
+            <p class="phpdocumentor-summary">Array of PPS&#039;s found on the OLE container.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$_list</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_root"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$root</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">70</span>
+    </aside>
+            <p class="phpdocumentor-summary">Root directory of OLE container.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS-Root.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\Root">Root</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$root</span>
+            </code>
+    </article>
+                                    <a id="property_bbat"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$bbat</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">77</span>
+    </aside>
+            <p class="phpdocumentor-summary">Big Block Allocation Table.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$bbat</span>
+            </code>
+    </article>
+                                    <a id="property_sbat"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$sbat</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">84</span>
+    </aside>
+            <p class="phpdocumentor-summary">Short Block Allocation Table.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$sbat</span>
+            </code>
+    </article>
+                                    <a id="property_bigBlockSize"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$bigBlockSize</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">91</span>
+    </aside>
+            <p class="phpdocumentor-summary">Size of big blocks. This is usually 512.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$bigBlockSize</span>
+            </code>
+    </article>
+                                    <a id="property_smallBlockSize"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$smallBlockSize</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">98</span>
+    </aside>
+            <p class="phpdocumentor-summary">Size of small blocks. This is usually 64.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$smallBlockSize</span>
+            </code>
+    </article>
+                                    <a id="property_bigBlockThreshold"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$bigBlockThreshold</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">105</span>
+    </aside>
+            <p class="phpdocumentor-summary">Threshold for big blocks.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$bigBlockThreshold</span>
+            </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method_read"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">read()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">116</span>
+    </aside>
+        <p class="phpdocumentor-summary">Reads an OLE container from the contents of the file given.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">read</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$file</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$file</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">acces</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>public</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>true on success, PEAR_Error on failure</p></span>
+            
+</article>
+                                    <a id="method__getBlockOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">_getBlockOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">205</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">_getBlockOffset</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$blockId</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$blockId</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>byte offset from beginning of file</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_getStream"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getStream()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">218</span>
+    </aside>
+        <p class="phpdocumentor-summary">Returns a stream for use with fread() etc. External callers should
+use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getStream</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$blockIdOrPps</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int|<a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\OLE\PPS">PPS</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">resource</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$blockIdOrPps</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int|<a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\OLE\PPS">PPS</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>block id or PPS</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">resource</span>
+                    &mdash; <span class="phpdocumentor-description"><p>read-only stream</p></span>
+            
+</article>
+                                    <a id="method__readInt1"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">_readInt1()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">250</span>
+    </aside>
+        <p class="phpdocumentor-summary">Reads a signed char.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">_readInt1</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$fh</span> :
+                <span class="phpdocumentor-signature__argument__return-type">resource</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fh</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">resource</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>file handle</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method__readInt2"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">_readInt2()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">264</span>
+    </aside>
+        <p class="phpdocumentor-summary">Reads an unsigned short (2 octets).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">_readInt2</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$fh</span> :
+                <span class="phpdocumentor-signature__argument__return-type">resource</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fh</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">resource</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>file handle</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method__readInt4"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">_readInt4()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">278</span>
+    </aside>
+        <p class="phpdocumentor-summary">Reads an unsigned long (4 octets).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">_readInt4</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$fh</span> :
+                <span class="phpdocumentor-signature__argument__return-type">resource</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fh</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">resource</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>file handle</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method__readPpsWks"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">_readPpsWks()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">293</span>
+    </aside>
+        <p class="phpdocumentor-summary">Gets information about all PPS&#039;s on the OLE container from the PPS WK&#039;s
+creates an OLE_PPS object for each one.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">_readPpsWks</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$blockId</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$blockId</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>the block id of the first block</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>true on success, PEAR_Error on failure</p></span>
+            
+</article>
+                                    <a id="method__ppsTreeComplete"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">_ppsTreeComplete()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">370</span>
+    </aside>
+        <p class="phpdocumentor-summary">It checks whether the PPS tree is complete (all PPS&#039;s read)
+starting with the given PPS (not necessarily root).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">_ppsTreeComplete</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$index</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$index</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The index of the PPS from which we are checking</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Whether the PPS tree for the given PPS is complete</p></span>
+            
+</article>
+                                    <a id="method_isFile"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">isFile()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">390</span>
+    </aside>
+        <p class="phpdocumentor-summary">Checks whether a PPS is a File PPS or not.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">isFile</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$index</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>If there is no PPS for the index given, it will return false.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$index</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The index for the PPS</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>true if it's a File PPS, false otherwise</p></span>
+            
+</article>
+                                    <a id="method_isRoot"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">isRoot()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">407</span>
+    </aside>
+        <p class="phpdocumentor-summary">Checks whether a PPS is a Root PPS or not.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">isRoot</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$index</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>If there is no PPS for the index given, it will return false.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$index</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>the index for the PPS</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>true if it's a Root PPS, false otherwise</p></span>
+            
+</article>
+                                    <a id="method_ppsTotal"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">ppsTotal()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">421</span>
+    </aside>
+        <p class="phpdocumentor-summary">Gives the total number of PPS&#039;s found in the OLE container.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">ppsTotal</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash; <span class="phpdocumentor-description"><p>The total number of PPS's found in the OLE container</p></span>
+            
+</article>
+                                    <a id="method_getData"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getData()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">439</span>
+    </aside>
+        <p class="phpdocumentor-summary">Gets data from a PPS
+If there is no PPS for the index given, it will return an empty string.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getData</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$index</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$position</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$length</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$index</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The index for the PPS</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$position</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position from which to start reading
+(relative to the PPS)</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$length</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The amount of bytes to read (at most)</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>The binary string containing the data requested</p></span>
+            
+</article>
+                                    <a id="method_getDataLength"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getDataLength()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">460</span>
+    </aside>
+        <p class="phpdocumentor-summary">Gets the data length from a PPS
+If there is no PPS for the index given, it will return 0.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getDataLength</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$index</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$index</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The index for the PPS</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash; <span class="phpdocumentor-description"><p>The amount of bytes in data the PPS has</p></span>
+            
+</article>
+                                    <a id="method_ascToUcs"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">ascToUcs()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">476</span>
+    </aside>
+        <p class="phpdocumentor-summary">Utility function to transform ASCII text to Unicode.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">ascToUcs</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$ascii</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$ascii</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The ASCII string to transform</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>The string in Unicode</p></span>
+            
+</article>
+                                    <a id="method_localDateToOLE"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">localDateToOLE()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">496</span>
+    </aside>
+        <p class="phpdocumentor-summary">Utility function
+Returns a string for the OLE container with the date given.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">localDateToOLE</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$date</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$date</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A timestamp</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>The string for the OLE container</p></span>
+            
+</article>
+                                    <a id="method_OLE2LocalDate"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">OLE2LocalDate()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="../files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">540</span>
+    </aside>
+        <p class="phpdocumentor-summary">Returns a timestamp from an OLE container&#039;s date.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">OLE2LocalDate</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$oleTimestamp</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$oleTimestamp</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A binary string with the encoded date</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash; <span class="phpdocumentor-description"><p>The Unix timestamp corresponding to the string</p></span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

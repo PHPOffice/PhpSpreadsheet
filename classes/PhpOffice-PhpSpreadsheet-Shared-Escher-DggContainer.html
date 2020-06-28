@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared.html">Shared</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared-escher.html">Escher</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            DggContainer
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">5</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary"></p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#property_spIdMax">$spIdMax</a></th>
+                    <td class="phpdocumentor-cell">Maximum shape index of all shapes in all drawings increased by one.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#property_cDgSaved">$cDgSaved</a></th>
+                    <td class="phpdocumentor-cell">Total number of drawings saved.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#property_cSpSaved">$cSpSaved</a></th>
+                    <td class="phpdocumentor-cell">Total number of shapes saved (including group shapes).</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#property_bstoreContainer">$bstoreContainer</a></th>
+                    <td class="phpdocumentor-cell">BLIP Store Container.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#property_OPT">$OPT</a></th>
+                    <td class="phpdocumentor-cell">Array of options for the drawing group.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#property_IDCLs">$IDCLs</a></th>
+                    <td class="phpdocumentor-cell">Array of identifier clusters containg information about the maximum shape identifiers.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#method_getSpIdMax">getSpIdMax()</a></th>
+                    <td class="phpdocumentor-cell">Get maximum shape index of all shapes in all drawings (plus one).</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#method_setSpIdMax">setSpIdMax()</a></th>
+                    <td class="phpdocumentor-cell">Set maximum shape index of all shapes in all drawings (plus one).</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#method_getCDgSaved">getCDgSaved()</a></th>
+                    <td class="phpdocumentor-cell">Get total number of drawings saved.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#method_setCDgSaved">setCDgSaved()</a></th>
+                    <td class="phpdocumentor-cell">Set total number of drawings saved.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#method_getCSpSaved">getCSpSaved()</a></th>
+                    <td class="phpdocumentor-cell">Get total number of shapes saved (including group shapes).</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#method_setCSpSaved">setCSpSaved()</a></th>
+                    <td class="phpdocumentor-cell">Set total number of shapes saved (including group shapes).</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#method_getBstoreContainer">getBstoreContainer()</a></th>
+                    <td class="phpdocumentor-cell">Get BLIP Store Container.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#method_setBstoreContainer">setBstoreContainer()</a></th>
+                    <td class="phpdocumentor-cell">Set BLIP Store Container.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#method_setOPT">setOPT()</a></th>
+                    <td class="phpdocumentor-cell">Set an option for the drawing group.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#method_getOPT">getOPT()</a></th>
+                    <td class="phpdocumentor-cell">Get an option for the drawing group.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#method_getIDCLs">getIDCLs()</a></th>
+                    <td class="phpdocumentor-cell">Get identifier clusters.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html#method_setIDCLs">setIDCLs()</a></th>
+                    <td class="phpdocumentor-cell">Set identifier clusters. [&lt;drawingId&gt; =&gt; &lt;max shape id&gt;, ...].</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                                            </table>
+
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_spIdMax"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$spIdMax</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">12</span>
+    </aside>
+            <p class="phpdocumentor-summary">Maximum shape index of all shapes in all drawings increased by one.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$spIdMax</span>
+            </code>
+    </article>
+                                    <a id="property_cDgSaved"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$cDgSaved</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">19</span>
+    </aside>
+            <p class="phpdocumentor-summary">Total number of drawings saved.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$cDgSaved</span>
+            </code>
+    </article>
+                                    <a id="property_cSpSaved"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$cSpSaved</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">26</span>
+    </aside>
+            <p class="phpdocumentor-summary">Total number of shapes saved (including group shapes).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$cSpSaved</span>
+            </code>
+    </article>
+                                    <a id="property_bstoreContainer"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$bstoreContainer</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">33</span>
+    </aside>
+            <p class="phpdocumentor-summary">BLIP Store Container.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$bstoreContainer</span>
+            </code>
+    </article>
+                                    <a id="property_OPT"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$OPT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">40</span>
+    </aside>
+            <p class="phpdocumentor-summary">Array of options for the drawing group.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$OPT</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_IDCLs"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$IDCLs</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">47</span>
+    </aside>
+            <p class="phpdocumentor-summary">Array of identifier clusters containg information about the maximum shape identifiers.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$IDCLs</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method_getSpIdMax"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getSpIdMax()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">54</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get maximum shape index of all shapes in all drawings (plus one).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getSpIdMax</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_setSpIdMax"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setSpIdMax()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">64</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set maximum shape index of all shapes in all drawings (plus one).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setSpIdMax</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_getCDgSaved"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getCDgSaved()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">74</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get total number of drawings saved.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getCDgSaved</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_setCDgSaved"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setCDgSaved()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">84</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set total number of drawings saved.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setCDgSaved</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_getCSpSaved"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getCSpSaved()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">94</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get total number of shapes saved (including group shapes).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getCSpSaved</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_setCSpSaved"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setCSpSaved()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">104</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set total number of shapes saved (including group shapes).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setCSpSaved</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_getBstoreContainer"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getBstoreContainer()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">114</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get BLIP Store Container.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getBstoreContainer</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a></span>
+            
+</article>
+                                    <a id="method_setBstoreContainer"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setBstoreContainer()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">124</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set BLIP Store Container.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setBstoreContainer</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$bstoreContainer</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$bstoreContainer</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_setOPT"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setOPT()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">135</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set an option for the drawing group.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setOPT</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$property</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$property</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The number specifies the option</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_getOPT"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getOPT()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">147</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get an option for the drawing group.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getOPT</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$property</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$property</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The number specifies the option</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getIDCLs"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getIDCLs()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">161</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get identifier clusters.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getIDCLs</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                    <a id="method_setIDCLs"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setIDCLs()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dggcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DggContainer.php">DggContainer.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">171</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set identifier clusters. [&lt;drawingId&gt; =&gt; &lt;max shape id&gt;, ...].</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setIDCLs</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

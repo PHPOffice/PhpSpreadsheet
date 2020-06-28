@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-writer.html">Writer</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-writer-xls.html">Xls</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            BIFFwriter
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">40</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary"></p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_byteOrder">$byteOrder</a></th>
+                    <td class="phpdocumentor-cell">The byte order of this architecture. 0 =&gt; little endian, 1 =&gt; big endian.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__data">$_data</a></th>
+                    <td class="phpdocumentor-cell">The string containing the data of the BIFF stream.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property__datasize">$_datasize</a></th>
+                    <td class="phpdocumentor-cell">The size of the data in bytes. Should be the same as strlen($this-&gt;_data).</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_limit">$limit</a></th>
+                    <td class="phpdocumentor-cell">The maximum length for a BIFF record (excluding record header and length field). See addContinue().</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Constructor.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_getByteOrder">getByteOrder()</a></th>
+                    <td class="phpdocumentor-cell">Determine the byte order and store it as class data to avoid
+recalculating it for each call to new().</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_append">append()</a></th>
+                    <td class="phpdocumentor-cell">General storage function.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeData">writeData()</a></th>
+                    <td class="phpdocumentor-cell">General storage function like append, but returns string instead of modifying $this-&gt;_data.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_storeBof">storeBof()</a></th>
+                    <td class="phpdocumentor-cell">Writes Excel BOF record to indicate the beginning of a stream or
+sub-stream in the BIFF file.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_storeEof">storeEof()</a></th>
+                    <td class="phpdocumentor-cell">Writes Excel EOF record to indicate the end of a BIFF stream.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeEof">writeEof()</a></th>
+                    <td class="phpdocumentor-cell">Writes Excel EOF record to indicate the end of a BIFF stream.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_addContinue">addContinue()</a></th>
+                    <td class="phpdocumentor-cell">Excel limits the size of BIFF records. In Excel 5 the limit is 2084 bytes. In
+Excel 97 the limit is 8228 bytes. Records that are longer than these limits
+must be split up into CONTINUE blocks.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                                            </table>
+
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_byteOrder"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$byteOrder</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">47</span>
+    </aside>
+            <p class="phpdocumentor-summary">The byte order of this architecture. 0 =&gt; little endian, 1 =&gt; big endian.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$byteOrder</span>
+            </code>
+    </article>
+                                    <a id="property__data"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$_data</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">54</span>
+    </aside>
+            <p class="phpdocumentor-summary">The string containing the data of the BIFF stream.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$_data</span>
+            </code>
+    </article>
+                                    <a id="property__datasize"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--public
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$_datasize</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">61</span>
+    </aside>
+            <p class="phpdocumentor-summary">The size of the data in bytes. Should be the same as strlen($this-&gt;_data).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$_datasize</span>
+            </code>
+    </article>
+                                    <a id="property_limit"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$limit</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">70</span>
+    </aside>
+            <p class="phpdocumentor-summary">The maximum length for a BIFF record (excluding record header and length field). See addContinue().</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$limit</span>
+         = <span class="phpdocumentor-signature__default-value">8224</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">75</span>
+    </aside>
+        <p class="phpdocumentor-summary">Constructor.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getByteOrder"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getByteOrder()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">87</span>
+    </aside>
+        <p class="phpdocumentor-summary">Determine the byte order and store it as class data to avoid
+recalculating it for each call to new().</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getByteOrder</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
+                                    <a id="method_append"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">append()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">112</span>
+    </aside>
+        <p class="phpdocumentor-summary">General storage function.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">append</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$data</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$data</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>binary data to append</p></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_writeData"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">writeData()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">128</span>
+    </aside>
+        <p class="phpdocumentor-summary">General storage function like append, but returns string instead of modifying $this-&gt;_data.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">writeData</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$data</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$data</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>binary data to write</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_storeBof"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">storeBof()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">145</span>
+    </aside>
+        <p class="phpdocumentor-summary">Writes Excel BOF record to indicate the beginning of a stream or
+sub-stream in the BIFF file.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">storeBof</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$type</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$type</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>type of BIFF file to write: 0x0005 Workbook,
+0x0010 Worksheet</p></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_storeEof"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">storeEof()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">166</span>
+    </aside>
+        <p class="phpdocumentor-summary">Writes Excel EOF record to indicate the end of a BIFF stream.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">storeEof</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
+</article>
+                                    <a id="method_writeEof"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">writeEof()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">178</span>
+    </aside>
+        <p class="phpdocumentor-summary">Writes Excel EOF record to indicate the end of a BIFF stream.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">writeEof</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_addContinue"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">addContinue()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php"><a href="../files/src-phpspreadsheet-writer-xls-biffwriter.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php">BIFFwriter.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">199</span>
+    </aside>
+        <p class="phpdocumentor-summary">Excel limits the size of BIFF records. In Excel 5 the limit is 2084 bytes. In
+Excel 97 the limit is 8228 bytes. Records that are longer than these limits
+must be split up into CONTINUE blocks.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">addContinue</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$data</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>This function takes a long BIFF record and inserts CONTINUE records as
+necessary.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$data</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The original binary data to be written</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>A very convenient string of continue blocks</p></span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

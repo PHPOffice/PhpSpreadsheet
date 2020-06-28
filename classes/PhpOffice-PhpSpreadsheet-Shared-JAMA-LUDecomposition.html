@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared.html">Shared</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared-jama.html">JAMA</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            LUDecomposition
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">24</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">For an m-by-n matrix A with m &gt;= n, the LU decomposition is an m-by-n
+   unit lower triangular matrix L, an n-by-n upper triangular matrix U,
+   and a permutation vector piv of length m so that A(piv,:) = L*U.</p>
+        <section class="phpdocumentor-class__description"><p>If m &lt; n, then L is m-by-m and U is m-by-n.</p>
+<p>The LU decompostion with pivoting always exists, even if the matrix is
+singular, so the constructor will never fail. The primary use of the
+LU decomposition is in the solution of square systems of simultaneous
+linear equations. This will fail if isNonsingular() returns false.</p></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#constant_MATRIX_SINGULAR_EXCEPTION">MATRIX_SINGULAR_EXCEPTION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Can only perform operation on singular matrix.&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#constant_MATRIX_SQUARE_EXCEPTION">MATRIX_SQUARE_EXCEPTION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Mismatched Row dimension&#039;</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#property_LU">$LU</a></th>
+                    <td class="phpdocumentor-cell">Decomposition storage.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#property_m">$m</a></th>
+                    <td class="phpdocumentor-cell">Row dimension.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#property_n">$n</a></th>
+                    <td class="phpdocumentor-cell">Column dimension.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#property_pivsign">$pivsign</a></th>
+                    <td class="phpdocumentor-cell">Pivot sign.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#property_piv">$piv</a></th>
+                    <td class="phpdocumentor-cell">Internal storage of pivot vector.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">LU Decomposition constructor.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#method_getL">getL()</a></th>
+                    <td class="phpdocumentor-cell">Get lower triangular factor.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#method_getU">getU()</a></th>
+                    <td class="phpdocumentor-cell">Get upper triangular factor.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#method_getPivot">getPivot()</a></th>
+                    <td class="phpdocumentor-cell">Return pivot permutation vector.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#method_getDoublePivot">getDoublePivot()</a></th>
+                    <td class="phpdocumentor-cell">Alias for getPivot.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#method_isNonsingular">isNonsingular()</a></th>
+                    <td class="phpdocumentor-cell">Is the matrix nonsingular?</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#method_det">det()</a></th>
+                    <td class="phpdocumentor-cell">Count determinants.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-LUDecomposition.html#method_solve">solve()</a></th>
+                    <td class="phpdocumentor-cell">Solve A*X = B.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_MATRIX_SINGULAR_EXCEPTION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">MATRIX_SINGULAR_EXCEPTION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">26</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$MATRIX_SINGULAR_EXCEPTION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Can only perform operation on singular matrix.&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_MATRIX_SQUARE_EXCEPTION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">MATRIX_SQUARE_EXCEPTION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">27</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$MATRIX_SQUARE_EXCEPTION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Mismatched Row dimension&#039;</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_LU"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$LU</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">34</span>
+    </aside>
+            <p class="phpdocumentor-summary">Decomposition storage.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$LU</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_m"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$m</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">41</span>
+    </aside>
+            <p class="phpdocumentor-summary">Row dimension.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$m</span>
+            </code>
+    </article>
+                                    <a id="property_n"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$n</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">48</span>
+    </aside>
+            <p class="phpdocumentor-summary">Column dimension.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$n</span>
+            </code>
+    </article>
+                                    <a id="property_pivsign"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$pivsign</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">55</span>
+    </aside>
+            <p class="phpdocumentor-summary">Pivot sign.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$pivsign</span>
+            </code>
+    </article>
+                                    <a id="property_piv"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$piv</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">62</span>
+    </aside>
+            <p class="phpdocumentor-summary">Internal storage of pivot vector.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$piv</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">69</span>
+    </aside>
+        <p class="phpdocumentor-summary">LU Decomposition constructor.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$A</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$A</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Rectangular matrix</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getL"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getL()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">136</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get lower triangular factor.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getL</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Lower triangular factor</p></span>
+            
+</article>
+                                    <a id="method_getU"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getU()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">160</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get upper triangular factor.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getU</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Upper triangular factor</p></span>
+            
+</article>
+                                    <a id="method_getPivot"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPivot()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">182</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return pivot permutation vector.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPivot</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Pivot vector</p></span>
+            
+</article>
+                                    <a id="method_getDoublePivot"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getDoublePivot()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">194</span>
+    </aside>
+        <p class="phpdocumentor-summary">Alias for getPivot.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getDoublePivot</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>@see getPivot</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_isNonsingular"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">isNonsingular()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">206</span>
+    </aside>
+        <p class="phpdocumentor-summary">Is the matrix nonsingular?</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">isNonsingular</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>true if U, and hence A, is nonsingular</p></span>
+            
+</article>
+                                    <a id="method_det"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">det()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">224</span>
+    </aside>
+        <p class="phpdocumentor-summary">Count determinants.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">det</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>d matrix deterninat</p></span>
+            
+</article>
+                                    <a id="method_solve"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">solve()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-ludecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php">LUDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">247</span>
+    </aside>
+        <p class="phpdocumentor-summary">Solve A*X = B.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">solve</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$B</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$B</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>a Matrix with as many rows as A and any number of columns</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>X so that L<em>U</em>X = B(piv,:)</p></span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

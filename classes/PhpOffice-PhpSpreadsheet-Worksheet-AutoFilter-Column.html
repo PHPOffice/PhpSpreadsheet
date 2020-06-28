@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-worksheet.html">Worksheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-worksheet-autofilter.html">AutoFilter</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            Column
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">8</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary"></p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#constant_AUTOFILTER_FILTERTYPE_FILTER">AUTOFILTER_FILTERTYPE_FILTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;filters&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#constant_AUTOFILTER_FILTERTYPE_CUSTOMFILTER">AUTOFILTER_FILTERTYPE_CUSTOMFILTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;customFilters&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#constant_AUTOFILTER_FILTERTYPE_DYNAMICFILTER">AUTOFILTER_FILTERTYPE_DYNAMICFILTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;dynamicFilter&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#constant_AUTOFILTER_FILTERTYPE_TOPTENFILTER">AUTOFILTER_FILTERTYPE_TOPTENFILTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;top10&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#constant_AUTOFILTER_COLUMN_JOIN_AND">AUTOFILTER_COLUMN_JOIN_AND</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;and&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#constant_AUTOFILTER_COLUMN_JOIN_OR">AUTOFILTER_COLUMN_JOIN_OR</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;or&#039;</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#property_filterTypes">$filterTypes</a></th>
+                    <td class="phpdocumentor-cell">Types of autofilter rules.</td>
+                    <td class="phpdocumentor-cell">string[]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#property_ruleJoins">$ruleJoins</a></th>
+                    <td class="phpdocumentor-cell">Join options for autofilter rules.</td>
+                    <td class="phpdocumentor-cell">string[]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#property_parent">$parent</a></th>
+                    <td class="phpdocumentor-cell">Autofilter.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#property_columnIndex">$columnIndex</a></th>
+                    <td class="phpdocumentor-cell">Autofilter Column Index.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#property_filterType">$filterType</a></th>
+                    <td class="phpdocumentor-cell">Autofilter Column Filter Type.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#property_join">$join</a></th>
+                    <td class="phpdocumentor-cell">Autofilter Multiple Rules And/Or.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#property_ruleset">$ruleset</a></th>
+                    <td class="phpdocumentor-cell">Autofilter Column Rules.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#property_attributes">$attributes</a></th>
+                    <td class="phpdocumentor-cell">Autofilter Column Dynamic Attributes.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new Column.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_getColumnIndex">getColumnIndex()</a></th>
+                    <td class="phpdocumentor-cell">Get AutoFilter column index as string eg: &#039;A&#039;.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_setColumnIndex">setColumnIndex()</a></th>
+                    <td class="phpdocumentor-cell">Set AutoFilter column index as string eg: &#039;A&#039;.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_getParent">getParent()</a></th>
+                    <td class="phpdocumentor-cell">Get this Column&#039;s AutoFilter Parent.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_setParent">setParent()</a></th>
+                    <td class="phpdocumentor-cell">Set this Column&#039;s AutoFilter Parent.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_getFilterType">getFilterType()</a></th>
+                    <td class="phpdocumentor-cell">Get AutoFilter Type.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_setFilterType">setFilterType()</a></th>
+                    <td class="phpdocumentor-cell">Set AutoFilter Type.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_getJoin">getJoin()</a></th>
+                    <td class="phpdocumentor-cell">Get AutoFilter Multiple Rules And/Or Join.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_setJoin">setJoin()</a></th>
+                    <td class="phpdocumentor-cell">Set AutoFilter Multiple Rules And/Or.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_setAttributes">setAttributes()</a></th>
+                    <td class="phpdocumentor-cell">Set AutoFilter Attributes.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_setAttribute">setAttribute()</a></th>
+                    <td class="phpdocumentor-cell">Set An AutoFilter Attribute.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_getAttributes">getAttributes()</a></th>
+                    <td class="phpdocumentor-cell">Get AutoFilter Column Attributes.</td>
+                    <td class="phpdocumentor-cell">string[]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_getAttribute">getAttribute()</a></th>
+                    <td class="phpdocumentor-cell">Get specific AutoFilter Column Attribute.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_getRules">getRules()</a></th>
+                    <td class="phpdocumentor-cell">Get all AutoFilter Column Rules.</td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule[]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_getRule">getRule()</a></th>
+                    <td class="phpdocumentor-cell">Get a specified AutoFilter Column Rule.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_createRule">createRule()</a></th>
+                    <td class="phpdocumentor-cell">Create a new AutoFilter Column Rule in the ruleset.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_addRule">addRule()</a></th>
+                    <td class="phpdocumentor-cell">Add a new AutoFilter Column Rule to the ruleset.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_deleteRule">deleteRule()</a></th>
+                    <td class="phpdocumentor-cell">Delete a specified AutoFilter Column Rule
+If the number of rules is reduced to 1, then we reset And/Or logic to Or.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method_clearRules">clearRules()</a></th>
+                    <td class="phpdocumentor-cell">Delete all AutoFilter Column Rules.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html#method___clone">__clone()</a></th>
+                    <td class="phpdocumentor-cell">Implement PHP __clone to create a deep clone, not just a shallow copy.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_AUTOFILTER_FILTERTYPE_FILTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_FILTERTYPE_FILTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">10</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_FILTERTYPE_FILTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;filters&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_FILTERTYPE_CUSTOMFILTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_FILTERTYPE_CUSTOMFILTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">11</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_FILTERTYPE_CUSTOMFILTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;customFilters&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_FILTERTYPE_DYNAMICFILTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_FILTERTYPE_DYNAMICFILTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">14</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_FILTERTYPE_DYNAMICFILTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;dynamicFilter&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_FILTERTYPE_TOPTENFILTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_FILTERTYPE_TOPTENFILTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">17</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_FILTERTYPE_TOPTENFILTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;top10&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_COLUMN_JOIN_AND"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_COLUMN_JOIN_AND</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">36</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_COLUMN_JOIN_AND</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;and&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_COLUMN_JOIN_OR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_COLUMN_JOIN_OR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">37</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_COLUMN_JOIN_OR</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;or&#039;</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_filterTypes"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$filterTypes</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">24</span>
+    </aside>
+            <p class="phpdocumentor-summary">Types of autofilter rules.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">string[]</span>
+        <span class="phpdocumentor-signature__name">$filterTypes</span>
+         = <span class="phpdocumentor-signature__default-value">[
+    //    Currently we&#039;re not handling
+    //        colorFilter
+    //        extLst
+    //        iconFilter
+    self::AUTOFILTER_FILTERTYPE_FILTER,
+    self::AUTOFILTER_FILTERTYPE_CUSTOMFILTER,
+    self::AUTOFILTER_FILTERTYPE_DYNAMICFILTER,
+    self::AUTOFILTER_FILTERTYPE_TOPTENFILTER,
+]</span>    </code>
+    </article>
+                                    <a id="property_ruleJoins"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$ruleJoins</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">44</span>
+    </aside>
+            <p class="phpdocumentor-summary">Join options for autofilter rules.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">string[]</span>
+        <span class="phpdocumentor-signature__name">$ruleJoins</span>
+         = <span class="phpdocumentor-signature__default-value">[self::AUTOFILTER_COLUMN_JOIN_AND, self::AUTOFILTER_COLUMN_JOIN_OR]</span>    </code>
+    </article>
+                                    <a id="property_parent"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$parent</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">54</span>
+    </aside>
+            <p class="phpdocumentor-summary">Autofilter.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$parent</span>
+            </code>
+    </article>
+                                    <a id="property_columnIndex"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$columnIndex</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">61</span>
+    </aside>
+            <p class="phpdocumentor-summary">Autofilter Column Index.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$columnIndex</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                    <a id="property_filterType"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$filterType</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">68</span>
+    </aside>
+            <p class="phpdocumentor-summary">Autofilter Column Filter Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$filterType</span>
+         = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_FILTERTYPE_FILTER</span>    </code>
+    </article>
+                                    <a id="property_join"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$join</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">75</span>
+    </aside>
+            <p class="phpdocumentor-summary">Autofilter Multiple Rules And/Or.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$join</span>
+         = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_COLUMN_JOIN_OR</span>    </code>
+    </article>
+                                    <a id="property_ruleset"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$ruleset</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">82</span>
+    </aside>
+            <p class="phpdocumentor-summary">Autofilter Column Rules.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$ruleset</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_attributes"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$attributes</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">89</span>
+    </aside>
+            <p class="phpdocumentor-summary">Autofilter Column Dynamic Attributes.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$attributes</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">97</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new Column.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pColumn</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$pParent</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pColumn</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Column (e.g. A)</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pParent</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Autofilter for this column</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getColumnIndex"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getColumnIndex()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">108</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get AutoFilter column index as string eg: &#039;A&#039;.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getColumnIndex</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setColumnIndex"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setColumnIndex()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">120</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set AutoFilter column index as string eg: &#039;A&#039;.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setColumnIndex</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pColumn</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pColumn</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Column (e.g. A)</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getParent"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getParent()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">138</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get this Column&#039;s AutoFilter Parent.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getParent</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span>
+            
+</article>
+                                    <a id="method_setParent"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setParent()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">150</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set this Column&#039;s AutoFilter Parent.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setParent</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$pParent</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pParent</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getFilterType"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getFilterType()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">162</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get AutoFilter Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getFilterType</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setFilterType"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setFilterType()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">174</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set AutoFilter Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setFilterType</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pFilterType</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pFilterType</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getJoin"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getJoin()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">190</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get AutoFilter Multiple Rules And/Or Join.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getJoin</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setJoin"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setJoin()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">202</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set AutoFilter Multiple Rules And/Or.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setJoin</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pJoin</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pJoin</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>And/Or</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_setAttributes"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setAttributes()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">222</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set AutoFilter Attributes.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setAttributes</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$attributes</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string[]</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$attributes</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string[]</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_setAttribute"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setAttribute()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">237</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set An AutoFilter Attribute.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setAttribute</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pName</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pName</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Attribute Name</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Attribute Value</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getAttributes"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getAttributes()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">249</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get AutoFilter Column Attributes.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getAttributes</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string[]</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string[]</span>
+            
+</article>
+                                    <a id="method_getAttribute"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getAttribute()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">261</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get specific AutoFilter Column Attribute.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getAttribute</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pName</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pName</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Attribute Name</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getRules"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getRules()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">275</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get all AutoFilter Column Rules.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getRules</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule[]</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule[]</span>
+            
+</article>
+                                    <a id="method_getRule"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getRule()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">287</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get a specified AutoFilter Column Rule.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getRule</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pIndex</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pIndex</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Rule index in the ruleset array</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a></span>
+            
+</article>
+                                    <a id="method_createRule"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">createRule()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">301</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new AutoFilter Column Rule in the ruleset.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">createRule</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a></span>
+            
+</article>
+                                    <a id="method_addRule"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">addRule()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">313</span>
+    </aside>
+        <p class="phpdocumentor-summary">Add a new AutoFilter Column Rule to the ruleset.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">addRule</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pRule</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pRule</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_deleteRule"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">deleteRule()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">329</span>
+    </aside>
+        <p class="phpdocumentor-summary">Delete a specified AutoFilter Column Rule
+If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">deleteRule</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pIndex</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pIndex</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Rule index in the ruleset array</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_clearRules"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">clearRules()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">347</span>
+    </aside>
+        <p class="phpdocumentor-summary">Delete all AutoFilter Column Rules.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">clearRules</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method___clone"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__clone()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">358</span>
+    </aside>
+        <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__clone</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

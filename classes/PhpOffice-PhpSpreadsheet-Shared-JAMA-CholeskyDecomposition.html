@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared.html">Shared</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared-jama.html">JAMA</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            CholeskyDecomposition
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-choleskydecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php">CholeskyDecomposition.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">22</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">Cholesky decomposition class.</p>
+        <section class="phpdocumentor-class__description"><p>For a symmetric, positive definite matrix A, the Cholesky decomposition
+is an lower triangular matrix L so that A = L*L'.</p>
+<p>If the matrix is not symmetric or positive definite, the constructor
+returns a partial decomposition and sets an internal flag that may
+be queried by the isSPD() method.</p></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-CholeskyDecomposition.html#property_L">$L</a></th>
+                    <td class="phpdocumentor-cell">Decomposition storage.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-CholeskyDecomposition.html#property_m">$m</a></th>
+                    <td class="phpdocumentor-cell">Matrix row and column dimension.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-CholeskyDecomposition.html#property_isspd">$isspd</a></th>
+                    <td class="phpdocumentor-cell">Symmetric positive definite flag.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-CholeskyDecomposition.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">CholeskyDecomposition.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-CholeskyDecomposition.html#method_isSPD">isSPD()</a></th>
+                    <td class="phpdocumentor-cell">Is the matrix symmetric and positive definite?</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-CholeskyDecomposition.html#method_getL">getL()</a></th>
+                    <td class="phpdocumentor-cell">getL.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-CholeskyDecomposition.html#method_solve">solve()</a></th>
+                    <td class="phpdocumentor-cell">Solve A*X = B.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                                            </table>
+
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_L"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$L</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-choleskydecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php">CholeskyDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">29</span>
+    </aside>
+            <p class="phpdocumentor-summary">Decomposition storage.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$L</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_m"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$m</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-choleskydecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php">CholeskyDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">36</span>
+    </aside>
+            <p class="phpdocumentor-summary">Matrix row and column dimension.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$m</span>
+            </code>
+    </article>
+                                    <a id="property_isspd"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$isspd</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-choleskydecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php">CholeskyDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">43</span>
+    </aside>
+            <p class="phpdocumentor-summary">Symmetric positive definite flag.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$isspd</span>
+         = <span class="phpdocumentor-signature__default-value">true</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-choleskydecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php">CholeskyDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">52</span>
+    </aside>
+        <p class="phpdocumentor-summary">CholeskyDecomposition.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$A</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Class constructor - decomposes symmetric positive definite matrix</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$A</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Matrix square symmetric positive definite matrix</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_isSPD"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">isSPD()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-choleskydecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php">CholeskyDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">86</span>
+    </aside>
+        <p class="phpdocumentor-summary">Is the matrix symmetric and positive definite?</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">isSPD</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_getL"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getL()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-choleskydecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php">CholeskyDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">98</span>
+    </aside>
+        <p class="phpdocumentor-summary">getL.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getL</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Return triangular factor.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>Lower triangular matrix</p></span>
+            
+</article>
+                                    <a id="method_solve"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">solve()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-choleskydecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/CholeskyDecomposition.php">CholeskyDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">110</span>
+    </aside>
+        <p class="phpdocumentor-summary">Solve A*X = B.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">solve</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$B</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href=""><abbr title=""></abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$B</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href=""><abbr title=""></abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>matrix</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>L <em> L' </em> X = B</p></span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

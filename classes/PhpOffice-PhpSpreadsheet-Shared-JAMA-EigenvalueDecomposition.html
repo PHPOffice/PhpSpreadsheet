@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared.html">Shared</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared-jama.html">JAMA</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            EigenvalueDecomposition
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">25</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">Class to obtain eigenvalues and eigenvectors of a real matrix.</p>
+        <section class="phpdocumentor-class__description"><p>If A is symmetric, then A = V<em>D</em>V' where the eigenvalue matrix D
+is diagonal and the eigenvector matrix V is orthogonal (i.e.
+A = V.times(D.times(V.transpose())) and V.times(V.transpose())
+equals the identity matrix).</p>
+<p>If A is not symmetric, then the eigenvalue matrix D is block diagonal
+with the real eigenvalues in 1-by-1 blocks and any complex eigenvalues,
+lambda + i<em>mu, in 2-by-2 blocks, [lambda, mu; -mu, lambda].  The
+columns of V represent the eigenvectors in the sense that A</em>V = V<em>D,
+i.e. A.times(V) equals V.times(D).  The matrix V may be badly
+conditioned, or even singular, so the validity of the equation
+A = V</em>D*inverse(V) depends upon V.cond().</p></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#property_n">$n</a></th>
+                    <td class="phpdocumentor-cell">Row and column dimension (square matrix).</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#property_d">$d</a></th>
+                    <td class="phpdocumentor-cell">Arrays for internal storage of eigenvalues.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#property_e">$e</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#property_V">$V</a></th>
+                    <td class="phpdocumentor-cell">Array for internal storage of eigenvectors.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#property_H">$H</a></th>
+                    <td class="phpdocumentor-cell">Array for internal storage of nonsymmetric Hessenberg form.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#property_ort">$ort</a></th>
+                    <td class="phpdocumentor-cell">Working storage for nonsymmetric algorithm.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#property_cdivr">$cdivr</a></th>
+                    <td class="phpdocumentor-cell">Used for complex scalar division.</td>
+                    <td class="phpdocumentor-cell">float</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#property_cdivi">$cdivi</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#method_tred2">tred2()</a></th>
+                    <td class="phpdocumentor-cell">Symmetric Householder reduction to tridiagonal form.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#method_tql2">tql2()</a></th>
+                    <td class="phpdocumentor-cell">Symmetric tridiagonal QL algorithm.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#method_orthes">orthes()</a></th>
+                    <td class="phpdocumentor-cell">Nonsymmetric reduction to Hessenberg form.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#method_cdiv">cdiv()</a></th>
+                    <td class="phpdocumentor-cell">Performs complex division.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#method_hqr2">hqr2()</a></th>
+                    <td class="phpdocumentor-cell">Nonsymmetric reduction from Hessenberg to real Schur form.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Constructor: Check for symmetry, then construct the eigenvalue decomposition.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#method_getV">getV()</a></th>
+                    <td class="phpdocumentor-cell">Return the eigenvector matrix.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#method_getRealEigenvalues">getRealEigenvalues()</a></th>
+                    <td class="phpdocumentor-cell">Return the real parts of the eigenvalues.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#method_getImagEigenvalues">getImagEigenvalues()</a></th>
+                    <td class="phpdocumentor-cell">Return the imaginary parts of the eigenvalues.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-EigenvalueDecomposition.html#method_getD">getD()</a></th>
+                    <td class="phpdocumentor-cell">Return the block diagonal eigenvalue matrix.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
+                </tr>
+                                            </table>
+
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_n"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$n</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">32</span>
+    </aside>
+            <p class="phpdocumentor-summary">Row and column dimension (square matrix).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$n</span>
+            </code>
+    </article>
+                                    <a id="property_d"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$d</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">39</span>
+    </aside>
+            <p class="phpdocumentor-summary">Arrays for internal storage of eigenvalues.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$d</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_e"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$e</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">41</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$e</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_V"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$V</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">48</span>
+    </aside>
+            <p class="phpdocumentor-summary">Array for internal storage of eigenvectors.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$V</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_H"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$H</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">55</span>
+    </aside>
+            <p class="phpdocumentor-summary">Array for internal storage of nonsymmetric Hessenberg form.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$H</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_ort"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$ort</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">62</span>
+    </aside>
+            <p class="phpdocumentor-summary">Working storage for nonsymmetric algorithm.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$ort</span>
+            </code>
+    </article>
+                                    <a id="property_cdivr"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$cdivr</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">69</span>
+    </aside>
+            <p class="phpdocumentor-summary">Used for complex scalar division.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">float</span>
+        <span class="phpdocumentor-signature__name">$cdivr</span>
+            </code>
+    </article>
+                                    <a id="property_cdivi"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$cdivi</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">71</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$cdivi</span>
+            </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method_tred2"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">tred2()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">76</span>
+    </aside>
+        <p class="phpdocumentor-summary">Symmetric Householder reduction to tridiagonal form.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">tred2</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
+</article>
+                                    <a id="method_tql2"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">tql2()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">183</span>
+    </aside>
+        <p class="phpdocumentor-summary">Symmetric tridiagonal QL algorithm.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">tql2</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>This is derived from the Algol procedures tql2, by
+Bowdler, Martin, Reinsch, and Wilkinson, Handbook for
+Auto. Comp., Vol.ii-Linear Algebra, and the corresponding
+Fortran subroutine in EISPACK.</p></section>
+    
+    
+        
+    
+</article>
+                                    <a id="method_orthes"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">orthes()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">290</span>
+    </aside>
+        <p class="phpdocumentor-summary">Nonsymmetric reduction to Hessenberg form.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">orthes</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>This is derived from the Algol procedures orthes and ortran,
+by Martin and Wilkinson, Handbook for Auto. Comp.,
+Vol.ii-Linear Algebra, and the corresponding
+Fortran subroutines in EISPACK.</p></section>
+    
+    
+        
+    
+</article>
+                                    <a id="method_cdiv"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">cdiv()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">375</span>
+    </aside>
+        <p class="phpdocumentor-summary">Performs complex division.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">cdiv</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$xr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$xi</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$yr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$yi</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$xr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$xi</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$yr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$yi</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_hqr2"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">hqr2()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">398</span>
+    </aside>
+        <p class="phpdocumentor-summary">Nonsymmetric reduction from Hessenberg to real Schur form.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">hqr2</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Code is derived from the Algol procedure hqr2,
+by Martin and Wilkinson, Handbook for Auto. Comp.,
+Vol.ii-Linear Algebra, and the corresponding
+Fortran subroutine in EISPACK.</p></section>
+    
+    
+        
+    
+</article>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">784</span>
+    </aside>
+        <p class="phpdocumentor-summary">Constructor: Check for symmetry, then construct the eigenvalue decomposition.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$Arg</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$Arg</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A Square matrix</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getV"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getV()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">817</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return the eigenvector matrix.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getV</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>V</p></span>
+            
+</article>
+                                    <a id="method_getRealEigenvalues"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getRealEigenvalues()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">827</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return the real parts of the eigenvalues.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getRealEigenvalues</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>real(diag(D))</p></span>
+            
+</article>
+                                    <a id="method_getImagEigenvalues"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getImagEigenvalues()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">837</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return the imaginary parts of the eigenvalues.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getImagEigenvalues</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>imag(diag(D))</p></span>
+            
+</article>
+                                    <a id="method_getD"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getD()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php"><a href="../files/src-phpspreadsheet-shared-jama-eigenvaluedecomposition.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php">EigenvalueDecomposition.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">847</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return the block diagonal eigenvalue matrix.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getD</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
+                    &mdash; <span class="phpdocumentor-description"><p>D</p></span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

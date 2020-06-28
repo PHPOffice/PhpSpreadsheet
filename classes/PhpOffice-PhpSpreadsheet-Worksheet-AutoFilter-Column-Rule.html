@@ -1,0 +1,2654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-worksheet.html">Worksheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-worksheet-autofilter.html">AutoFilter</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-worksheet-autofilter-column.html">Column</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            Rule
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">8</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary"></p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_FILTER">AUTOFILTER_RULETYPE_FILTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;filter&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DATEGROUP">AUTOFILTER_RULETYPE_DATEGROUP</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;dateGroupItem&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_CUSTOMFILTER">AUTOFILTER_RULETYPE_CUSTOMFILTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;customFilter&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMICFILTER">AUTOFILTER_RULETYPE_DYNAMICFILTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;dynamicFilter&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_TOPTENFILTER">AUTOFILTER_RULETYPE_TOPTENFILTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;top10Filter&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DATEGROUP_YEAR">AUTOFILTER_RULETYPE_DATEGROUP_YEAR</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;year&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DATEGROUP_MONTH">AUTOFILTER_RULETYPE_DATEGROUP_MONTH</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;month&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DATEGROUP_DAY">AUTOFILTER_RULETYPE_DATEGROUP_DAY</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;day&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DATEGROUP_HOUR">AUTOFILTER_RULETYPE_DATEGROUP_HOUR</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;hour&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DATEGROUP_MINUTE">AUTOFILTER_RULETYPE_DATEGROUP_MINUTE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;minute&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DATEGROUP_SECOND">AUTOFILTER_RULETYPE_DATEGROUP_SECOND</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;second&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_YESTERDAY">AUTOFILTER_RULETYPE_DYNAMIC_YESTERDAY</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;yesterday&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_TODAY">AUTOFILTER_RULETYPE_DYNAMIC_TODAY</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;today&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_TOMORROW">AUTOFILTER_RULETYPE_DYNAMIC_TOMORROW</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;tomorrow&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE">AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;yearToDate&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_THISYEAR">AUTOFILTER_RULETYPE_DYNAMIC_THISYEAR</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;thisYear&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_THISQUARTER">AUTOFILTER_RULETYPE_DYNAMIC_THISQUARTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;thisQuarter&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_THISMONTH">AUTOFILTER_RULETYPE_DYNAMIC_THISMONTH</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;thisMonth&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_THISWEEK">AUTOFILTER_RULETYPE_DYNAMIC_THISWEEK</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;thisWeek&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_LASTYEAR">AUTOFILTER_RULETYPE_DYNAMIC_LASTYEAR</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lastYear&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_LASTQUARTER">AUTOFILTER_RULETYPE_DYNAMIC_LASTQUARTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lastQuarter&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_LASTMONTH">AUTOFILTER_RULETYPE_DYNAMIC_LASTMONTH</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lastMonth&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK">AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lastWeek&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_NEXTYEAR">AUTOFILTER_RULETYPE_DYNAMIC_NEXTYEAR</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;nextYear&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_NEXTQUARTER">AUTOFILTER_RULETYPE_DYNAMIC_NEXTQUARTER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;nextQuarter&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_NEXTMONTH">AUTOFILTER_RULETYPE_DYNAMIC_NEXTMONTH</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;nextMonth&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_NEXTWEEK">AUTOFILTER_RULETYPE_DYNAMIC_NEXTWEEK</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;nextWeek&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_1">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_1</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;M1&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_JANUARY">AUTOFILTER_RULETYPE_DYNAMIC_JANUARY</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_1</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_2">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_2</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;M2&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_FEBRUARY">AUTOFILTER_RULETYPE_DYNAMIC_FEBRUARY</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_2</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_3">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_3</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;M3&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MARCH">AUTOFILTER_RULETYPE_DYNAMIC_MARCH</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_3</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_4">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_4</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;M4&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_APRIL">AUTOFILTER_RULETYPE_DYNAMIC_APRIL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_4</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_5">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_5</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;M5&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MAY">AUTOFILTER_RULETYPE_DYNAMIC_MAY</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_5</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_6">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_6</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;M6&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_JUNE">AUTOFILTER_RULETYPE_DYNAMIC_JUNE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_6</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_7">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_7</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;M7&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_JULY">AUTOFILTER_RULETYPE_DYNAMIC_JULY</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_7</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_8">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_8</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;M8&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_AUGUST">AUTOFILTER_RULETYPE_DYNAMIC_AUGUST</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_8</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_9">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_9</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;M9&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_SEPTEMBER">AUTOFILTER_RULETYPE_DYNAMIC_SEPTEMBER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_9</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_10">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_10</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;M10&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_OCTOBER">AUTOFILTER_RULETYPE_DYNAMIC_OCTOBER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_10</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_11">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_11</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;M11&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_NOVEMBER">AUTOFILTER_RULETYPE_DYNAMIC_NOVEMBER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_11</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_12">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_12</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;M12&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_DECEMBER">AUTOFILTER_RULETYPE_DYNAMIC_DECEMBER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_12</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_1">AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_1</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Q1&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_2">AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_2</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Q2&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_3">AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_3</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Q3&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_4">AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_4</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Q4&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE">AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;aboveAverage&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE">AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;belowAverage&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_COLUMN_RULE_EQUAL">AUTOFILTER_COLUMN_RULE_EQUAL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;equal&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_COLUMN_RULE_NOTEQUAL">AUTOFILTER_COLUMN_RULE_NOTEQUAL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;notEqual&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_COLUMN_RULE_GREATERTHAN">AUTOFILTER_COLUMN_RULE_GREATERTHAN</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;greaterThan&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL">AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;greaterThanOrEqual&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_COLUMN_RULE_LESSTHAN">AUTOFILTER_COLUMN_RULE_LESSTHAN</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lessThan&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL">AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;lessThanOrEqual&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE">AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;byValue&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT">AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;byPercent&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_COLUMN_RULE_TOPTEN_TOP">AUTOFILTER_COLUMN_RULE_TOPTEN_TOP</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;top&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#constant_AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM">AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;bottom&#039;</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#property_ruleTypes">$ruleTypes</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#property_dateTimeGroups">$dateTimeGroups</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#property_dynamicTypes">$dynamicTypes</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#property_operators">$operators</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#property_topTenValue">$topTenValue</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#property_topTenType">$topTenType</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#property_parent">$parent</a></th>
+                    <td class="phpdocumentor-cell">Autofilter Column.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column">Column</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#property_ruleType">$ruleType</a></th>
+                    <td class="phpdocumentor-cell">Autofilter Rule Type.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#property_value">$value</a></th>
+                    <td class="phpdocumentor-cell">Autofilter Rule Value.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#property_operator">$operator</a></th>
+                    <td class="phpdocumentor-cell">Autofilter Rule Operator.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#property_grouping">$grouping</a></th>
+                    <td class="phpdocumentor-cell">DateTimeGrouping Group Value.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new Rule.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method_getRuleType">getRuleType()</a></th>
+                    <td class="phpdocumentor-cell">Get AutoFilter Rule Type.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method_setRuleType">setRuleType()</a></th>
+                    <td class="phpdocumentor-cell">Set AutoFilter Rule Type.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method_getValue">getValue()</a></th>
+                    <td class="phpdocumentor-cell">Get AutoFilter Rule Value.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method_setValue">setValue()</a></th>
+                    <td class="phpdocumentor-cell">Set AutoFilter Rule Value.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method_getOperator">getOperator()</a></th>
+                    <td class="phpdocumentor-cell">Get AutoFilter Rule Operator.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method_setOperator">setOperator()</a></th>
+                    <td class="phpdocumentor-cell">Set AutoFilter Rule Operator.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method_getGrouping">getGrouping()</a></th>
+                    <td class="phpdocumentor-cell">Get AutoFilter Rule Grouping.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method_setGrouping">setGrouping()</a></th>
+                    <td class="phpdocumentor-cell">Set AutoFilter Rule Grouping.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method_setRule">setRule()</a></th>
+                    <td class="phpdocumentor-cell">Set AutoFilter Rule.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method_getParent">getParent()</a></th>
+                    <td class="phpdocumentor-cell">Get this Rule&#039;s AutoFilter Column Parent.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column">Column</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method_setParent">setParent()</a></th>
+                    <td class="phpdocumentor-cell">Set this Rule&#039;s AutoFilter Column Parent.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html#method___clone">__clone()</a></th>
+                    <td class="phpdocumentor-cell">Implement PHP __clone to create a deep clone, not just a shallow copy.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_AUTOFILTER_RULETYPE_FILTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_FILTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">10</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_FILTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;filter&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DATEGROUP"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DATEGROUP</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">11</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DATEGROUP</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;dateGroupItem&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_CUSTOMFILTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_CUSTOMFILTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">12</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_CUSTOMFILTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;customFilter&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMICFILTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMICFILTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">13</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMICFILTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;dynamicFilter&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_TOPTENFILTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_TOPTENFILTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">14</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_TOPTENFILTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;top10Filter&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DATEGROUP_YEAR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DATEGROUP_YEAR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">28</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DATEGROUP_YEAR</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;year&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DATEGROUP_MONTH"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DATEGROUP_MONTH</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">29</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DATEGROUP_MONTH</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;month&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DATEGROUP_DAY"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DATEGROUP_DAY</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">30</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DATEGROUP_DAY</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;day&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DATEGROUP_HOUR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DATEGROUP_HOUR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">31</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DATEGROUP_HOUR</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;hour&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DATEGROUP_MINUTE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DATEGROUP_MINUTE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">32</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DATEGROUP_MINUTE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;minute&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DATEGROUP_SECOND"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DATEGROUP_SECOND</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">33</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DATEGROUP_SECOND</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;second&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_YESTERDAY"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_YESTERDAY</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">44</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_YESTERDAY</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;yesterday&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_TODAY"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_TODAY</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">45</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_TODAY</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;today&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_TOMORROW"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_TOMORROW</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">46</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_TOMORROW</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;tomorrow&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">47</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;yearToDate&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_THISYEAR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_THISYEAR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">48</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_THISYEAR</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;thisYear&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_THISQUARTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_THISQUARTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">49</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_THISQUARTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;thisQuarter&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_THISMONTH"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_THISMONTH</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">50</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_THISMONTH</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;thisMonth&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_THISWEEK"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_THISWEEK</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">51</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_THISWEEK</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;thisWeek&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_LASTYEAR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_LASTYEAR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">52</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_LASTYEAR</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lastYear&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_LASTQUARTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_LASTQUARTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">53</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_LASTQUARTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lastQuarter&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_LASTMONTH"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_LASTMONTH</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">54</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_LASTMONTH</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lastMonth&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">55</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lastWeek&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_NEXTYEAR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_NEXTYEAR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">56</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_NEXTYEAR</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;nextYear&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_NEXTQUARTER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_NEXTQUARTER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">57</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_NEXTQUARTER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;nextQuarter&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_NEXTMONTH"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_NEXTMONTH</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">58</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_NEXTMONTH</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;nextMonth&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_NEXTWEEK"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_NEXTWEEK</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">59</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_NEXTWEEK</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;nextWeek&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_1"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_1</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">60</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MONTH_1</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;M1&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_JANUARY"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_JANUARY</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">61</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_JANUARY</span>
+        = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_1</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_2"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_2</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">62</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MONTH_2</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;M2&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_FEBRUARY"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_FEBRUARY</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">63</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_FEBRUARY</span>
+        = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_2</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_3"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_3</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">64</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MONTH_3</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;M3&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MARCH"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MARCH</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">65</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MARCH</span>
+        = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_3</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_4"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_4</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">66</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MONTH_4</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;M4&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_APRIL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_APRIL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">67</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_APRIL</span>
+        = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_4</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_5"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_5</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">68</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MONTH_5</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;M5&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MAY"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MAY</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">69</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MAY</span>
+        = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_5</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_6"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_6</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">70</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MONTH_6</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;M6&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_JUNE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_JUNE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">71</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_JUNE</span>
+        = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_6</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_7"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_7</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">72</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MONTH_7</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;M7&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_JULY"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_JULY</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">73</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_JULY</span>
+        = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_7</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_8"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_8</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">74</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MONTH_8</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;M8&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_AUGUST"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_AUGUST</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">75</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_AUGUST</span>
+        = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_8</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_9"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_9</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">76</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MONTH_9</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;M9&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_SEPTEMBER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_SEPTEMBER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">77</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_SEPTEMBER</span>
+        = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_9</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_10"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_10</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">78</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MONTH_10</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;M10&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_OCTOBER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_OCTOBER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">79</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_OCTOBER</span>
+        = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_10</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_11"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_11</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">80</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MONTH_11</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;M11&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_NOVEMBER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_NOVEMBER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">81</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_NOVEMBER</span>
+        = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_11</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_MONTH_12"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_MONTH_12</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">82</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_MONTH_12</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;M12&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_DECEMBER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_DECEMBER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">83</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_DECEMBER</span>
+        = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_12</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_1"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_1</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">84</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_1</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Q1&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_2"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_2</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">85</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_2</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Q2&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_3"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_3</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">86</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_3</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Q3&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_4"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_4</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">87</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_4</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Q4&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">88</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;aboveAverage&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">89</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;belowAverage&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_COLUMN_RULE_EQUAL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_COLUMN_RULE_EQUAL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">137</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_COLUMN_RULE_EQUAL</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;equal&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_COLUMN_RULE_NOTEQUAL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_COLUMN_RULE_NOTEQUAL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">138</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_COLUMN_RULE_NOTEQUAL</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;notEqual&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_COLUMN_RULE_GREATERTHAN"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_COLUMN_RULE_GREATERTHAN</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">139</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_COLUMN_RULE_GREATERTHAN</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;greaterThan&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">140</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;greaterThanOrEqual&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_COLUMN_RULE_LESSTHAN"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_COLUMN_RULE_LESSTHAN</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">141</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_COLUMN_RULE_LESSTHAN</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lessThan&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">142</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;lessThanOrEqual&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">153</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;byValue&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">154</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;byPercent&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_COLUMN_RULE_TOPTEN_TOP"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_COLUMN_RULE_TOPTEN_TOP</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">161</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_COLUMN_RULE_TOPTEN_TOP</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;top&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">162</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;bottom&#039;</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_ruleTypes"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$ruleTypes</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">16</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$ruleTypes</span>
+         = <span class="phpdocumentor-signature__default-value">[
+    //    Currently we&#039;re not handling
+    //        colorFilter
+    //        extLst
+    //        iconFilter
+    self::AUTOFILTER_RULETYPE_FILTER,
+    self::AUTOFILTER_RULETYPE_DATEGROUP,
+    self::AUTOFILTER_RULETYPE_CUSTOMFILTER,
+    self::AUTOFILTER_RULETYPE_DYNAMICFILTER,
+    self::AUTOFILTER_RULETYPE_TOPTENFILTER,
+]</span>    </code>
+    </article>
+                                    <a id="property_dateTimeGroups"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$dateTimeGroups</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">35</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$dateTimeGroups</span>
+         = <span class="phpdocumentor-signature__default-value">[self::AUTOFILTER_RULETYPE_DATEGROUP_YEAR, self::AUTOFILTER_RULETYPE_DATEGROUP_MONTH, self::AUTOFILTER_RULETYPE_DATEGROUP_DAY, self::AUTOFILTER_RULETYPE_DATEGROUP_HOUR, self::AUTOFILTER_RULETYPE_DATEGROUP_MINUTE, self::AUTOFILTER_RULETYPE_DATEGROUP_SECOND]</span>    </code>
+    </article>
+                                    <a id="property_dynamicTypes"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$dynamicTypes</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">91</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$dynamicTypes</span>
+         = <span class="phpdocumentor-signature__default-value">[self::AUTOFILTER_RULETYPE_DYNAMIC_YESTERDAY, self::AUTOFILTER_RULETYPE_DYNAMIC_TODAY, self::AUTOFILTER_RULETYPE_DYNAMIC_TOMORROW, self::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE, self::AUTOFILTER_RULETYPE_DYNAMIC_THISYEAR, self::AUTOFILTER_RULETYPE_DYNAMIC_THISQUARTER, self::AUTOFILTER_RULETYPE_DYNAMIC_THISMONTH, self::AUTOFILTER_RULETYPE_DYNAMIC_THISWEEK, self::AUTOFILTER_RULETYPE_DYNAMIC_LASTYEAR, self::AUTOFILTER_RULETYPE_DYNAMIC_LASTQUARTER, self::AUTOFILTER_RULETYPE_DYNAMIC_LASTMONTH, self::AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK, self::AUTOFILTER_RULETYPE_DYNAMIC_NEXTYEAR, self::AUTOFILTER_RULETYPE_DYNAMIC_NEXTQUARTER, self::AUTOFILTER_RULETYPE_DYNAMIC_NEXTMONTH, self::AUTOFILTER_RULETYPE_DYNAMIC_NEXTWEEK, self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_1, self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_2, self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_3, self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_4, self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_5, self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_6, self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_7, self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_8, self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_9, self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_10, self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_11, self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_12, self::AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_1, self::AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_2, self::AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_3, self::AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_4, self::AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE, self::AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE]</span>    </code>
+    </article>
+                                    <a id="property_operators"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$operators</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">144</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$operators</span>
+         = <span class="phpdocumentor-signature__default-value">[self::AUTOFILTER_COLUMN_RULE_EQUAL, self::AUTOFILTER_COLUMN_RULE_NOTEQUAL, self::AUTOFILTER_COLUMN_RULE_GREATERTHAN, self::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL, self::AUTOFILTER_COLUMN_RULE_LESSTHAN, self::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL]</span>    </code>
+    </article>
+                                    <a id="property_topTenValue"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$topTenValue</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">156</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$topTenValue</span>
+         = <span class="phpdocumentor-signature__default-value">[self::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE, self::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT]</span>    </code>
+    </article>
+                                    <a id="property_topTenType"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$topTenType</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">164</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$topTenType</span>
+         = <span class="phpdocumentor-signature__default-value">[self::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP, self::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM]</span>    </code>
+    </article>
+                                    <a id="property_parent"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$parent</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">208</span>
+    </aside>
+            <p class="phpdocumentor-summary">Autofilter Column.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column">Column</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$parent</span>
+            </code>
+    </article>
+                                    <a id="property_ruleType"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$ruleType</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">215</span>
+    </aside>
+            <p class="phpdocumentor-summary">Autofilter Rule Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$ruleType</span>
+         = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_RULETYPE_FILTER</span>    </code>
+    </article>
+                                    <a id="property_value"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$value</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">222</span>
+    </aside>
+            <p class="phpdocumentor-summary">Autofilter Rule Value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$value</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                    <a id="property_operator"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$operator</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">229</span>
+    </aside>
+            <p class="phpdocumentor-summary">Autofilter Rule Operator.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$operator</span>
+         = <span class="phpdocumentor-signature__default-value">self::AUTOFILTER_COLUMN_RULE_EQUAL</span>    </code>
+    </article>
+                                    <a id="property_grouping"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$grouping</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">236</span>
+    </aside>
+            <p class="phpdocumentor-summary">DateTimeGrouping Group Value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$grouping</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">243</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new Rule.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$pParent</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column">Column</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pParent</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column">Column</abbr></a></span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getRuleType"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getRuleType()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">253</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get AutoFilter Rule Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getRuleType</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setRuleType"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setRuleType()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">265</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set AutoFilter Rule Type.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setRuleType</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pRuleType</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pRuleType</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>see self::AUTOFILTER<em>RULETYPE</em>*</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getValue"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getValue()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">281</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get AutoFilter Rule Value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getValue</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setValue"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setValue()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">293</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set AutoFilter Rule Value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setValue</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string|string[]</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string|string[]</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getOperator"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getOperator()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">323</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get AutoFilter Rule Operator.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getOperator</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setOperator"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setOperator()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">335</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set AutoFilter Rule Operator.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setOperator</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pOperator</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pOperator</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>see self::AUTOFILTER_COLUMN<em>RULE</em>*</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getGrouping"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getGrouping()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">354</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get AutoFilter Rule Grouping.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getGrouping</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setGrouping"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setGrouping()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">366</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set AutoFilter Rule Grouping.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setGrouping</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pGrouping</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pGrouping</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_setRule"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setRule()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">388</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set AutoFilter Rule.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setRule</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pOperator</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string|string[]</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$pGrouping</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pOperator</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>see self::AUTOFILTER_COLUMN<em>RULE</em>*</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string|string[]</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pGrouping</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getParent"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getParent()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">407</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get this Rule&#039;s AutoFilter Column Parent.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getParent</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column">Column</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column">Column</abbr></a></span>
+            
+</article>
+                                    <a id="method_setParent"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setParent()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">419</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set this Rule&#039;s AutoFilter Column Parent.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setParent</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$pParent</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column">Column</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pParent</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column">Column</abbr></a></span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method___clone"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__clone()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php"><a href="../files/src-phpspreadsheet-worksheet-autofilter-column-rule.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column/Rule.php">Rule.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">429</span>
+    </aside>
+        <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__clone</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

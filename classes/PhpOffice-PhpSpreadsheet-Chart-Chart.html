@@ -1,0 +1,2363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-chart.html">Chart</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            Chart
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">8</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary"></p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_name">$name</a></th>
+                    <td class="phpdocumentor-cell">Chart Name.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_worksheet">$worksheet</a></th>
+                    <td class="phpdocumentor-cell">Worksheet.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_title">$title</a></th>
+                    <td class="phpdocumentor-cell">Chart Title.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_legend">$legend</a></th>
+                    <td class="phpdocumentor-cell">Chart Legend.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_xAxisLabel">$xAxisLabel</a></th>
+                    <td class="phpdocumentor-cell">X-Axis Label.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_yAxisLabel">$yAxisLabel</a></th>
+                    <td class="phpdocumentor-cell">Y-Axis Label.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_plotArea">$plotArea</a></th>
+                    <td class="phpdocumentor-cell">Chart Plot Area.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-PlotArea.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\PlotArea">PlotArea</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_plotVisibleOnly">$plotVisibleOnly</a></th>
+                    <td class="phpdocumentor-cell">Plot Visible Only.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_displayBlanksAs">$displayBlanksAs</a></th>
+                    <td class="phpdocumentor-cell">Display Blanks as.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_yAxis">$yAxis</a></th>
+                    <td class="phpdocumentor-cell">Chart Asix Y as.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_xAxis">$xAxis</a></th>
+                    <td class="phpdocumentor-cell">Chart Asix X as.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_majorGridlines">$majorGridlines</a></th>
+                    <td class="phpdocumentor-cell">Chart Major Gridlines as.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_minorGridlines">$minorGridlines</a></th>
+                    <td class="phpdocumentor-cell">Chart Minor Gridlines as.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_topLeftCellRef">$topLeftCellRef</a></th>
+                    <td class="phpdocumentor-cell">Top-Left Cell Position.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_topLeftXOffset">$topLeftXOffset</a></th>
+                    <td class="phpdocumentor-cell">Top-Left X-Offset.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_topLeftYOffset">$topLeftYOffset</a></th>
+                    <td class="phpdocumentor-cell">Top-Left Y-Offset.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_bottomRightCellRef">$bottomRightCellRef</a></th>
+                    <td class="phpdocumentor-cell">Bottom-Right Cell Position.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_bottomRightXOffset">$bottomRightXOffset</a></th>
+                    <td class="phpdocumentor-cell">Bottom-Right X-Offset.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#property_bottomRightYOffset">$bottomRightYOffset</a></th>
+                    <td class="phpdocumentor-cell">Bottom-Right Y-Offset.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new Chart.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getName">getName()</a></th>
+                    <td class="phpdocumentor-cell">Get Name.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getWorksheet">getWorksheet()</a></th>
+                    <td class="phpdocumentor-cell">Get Worksheet.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setWorksheet">setWorksheet()</a></th>
+                    <td class="phpdocumentor-cell">Set Worksheet.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getTitle">getTitle()</a></th>
+                    <td class="phpdocumentor-cell">Get Title.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setTitle">setTitle()</a></th>
+                    <td class="phpdocumentor-cell">Set Title.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getLegend">getLegend()</a></th>
+                    <td class="phpdocumentor-cell">Get Legend.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setLegend">setLegend()</a></th>
+                    <td class="phpdocumentor-cell">Set Legend.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getXAxisLabel">getXAxisLabel()</a></th>
+                    <td class="phpdocumentor-cell">Get X-Axis Label.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setXAxisLabel">setXAxisLabel()</a></th>
+                    <td class="phpdocumentor-cell">Set X-Axis Label.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getYAxisLabel">getYAxisLabel()</a></th>
+                    <td class="phpdocumentor-cell">Get Y-Axis Label.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setYAxisLabel">setYAxisLabel()</a></th>
+                    <td class="phpdocumentor-cell">Set Y-Axis Label.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getPlotArea">getPlotArea()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Area.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-PlotArea.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\PlotArea">PlotArea</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getPlotVisibleOnly">getPlotVisibleOnly()</a></th>
+                    <td class="phpdocumentor-cell">Get Plot Visible Only.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setPlotVisibleOnly">setPlotVisibleOnly()</a></th>
+                    <td class="phpdocumentor-cell">Set Plot Visible Only.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getDisplayBlanksAs">getDisplayBlanksAs()</a></th>
+                    <td class="phpdocumentor-cell">Get Display Blanks as.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setDisplayBlanksAs">setDisplayBlanksAs()</a></th>
+                    <td class="phpdocumentor-cell">Set Display Blanks as.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getChartAxisY">getChartAxisY()</a></th>
+                    <td class="phpdocumentor-cell">Get yAxis.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getChartAxisX">getChartAxisX()</a></th>
+                    <td class="phpdocumentor-cell">Get xAxis.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getMajorGridlines">getMajorGridlines()</a></th>
+                    <td class="phpdocumentor-cell">Get Major Gridlines.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getMinorGridlines">getMinorGridlines()</a></th>
+                    <td class="phpdocumentor-cell">Get Minor Gridlines.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setTopLeftPosition">setTopLeftPosition()</a></th>
+                    <td class="phpdocumentor-cell">Set the Top Left position for the chart.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getTopLeftPosition">getTopLeftPosition()</a></th>
+                    <td class="phpdocumentor-cell">Get the top left position of the chart.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getTopLeftCell">getTopLeftCell()</a></th>
+                    <td class="phpdocumentor-cell">Get the cell address where the top left of the chart is fixed.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setTopLeftCell">setTopLeftCell()</a></th>
+                    <td class="phpdocumentor-cell">Set the Top Left cell position for the chart.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setTopLeftOffset">setTopLeftOffset()</a></th>
+                    <td class="phpdocumentor-cell">Set the offset position within the Top Left cell for the chart.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getTopLeftOffset">getTopLeftOffset()</a></th>
+                    <td class="phpdocumentor-cell">Get the offset position within the Top Left cell for the chart.</td>
+                    <td class="phpdocumentor-cell">int[]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setTopLeftXOffset">setTopLeftXOffset()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getTopLeftXOffset">getTopLeftXOffset()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setTopLeftYOffset">setTopLeftYOffset()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getTopLeftYOffset">getTopLeftYOffset()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setBottomRightPosition">setBottomRightPosition()</a></th>
+                    <td class="phpdocumentor-cell">Set the Bottom Right position of the chart.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getBottomRightPosition">getBottomRightPosition()</a></th>
+                    <td class="phpdocumentor-cell">Get the bottom right position of the chart.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setBottomRightCell">setBottomRightCell()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getBottomRightCell">getBottomRightCell()</a></th>
+                    <td class="phpdocumentor-cell">Get the cell address where the bottom right of the chart is fixed.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setBottomRightOffset">setBottomRightOffset()</a></th>
+                    <td class="phpdocumentor-cell">Set the offset position within the Bottom Right cell for the chart.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getBottomRightOffset">getBottomRightOffset()</a></th>
+                    <td class="phpdocumentor-cell">Get the offset position within the Bottom Right cell for the chart.</td>
+                    <td class="phpdocumentor-cell">int[]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setBottomRightXOffset">setBottomRightXOffset()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getBottomRightXOffset">getBottomRightXOffset()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_setBottomRightYOffset">setBottomRightYOffset()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getBottomRightYOffset">getBottomRightYOffset()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_refresh">refresh()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_render">render()</a></th>
+                    <td class="phpdocumentor-cell">Render the chart to given file (or stream).</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                                            </table>
+
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_name"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$name</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">15</span>
+    </aside>
+            <p class="phpdocumentor-summary">Chart Name.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$name</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                    <a id="property_worksheet"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$worksheet</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">22</span>
+    </aside>
+            <p class="phpdocumentor-summary">Worksheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$worksheet</span>
+            </code>
+    </article>
+                                    <a id="property_title"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$title</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">29</span>
+    </aside>
+            <p class="phpdocumentor-summary">Chart Title.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$title</span>
+            </code>
+    </article>
+                                    <a id="property_legend"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$legend</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">36</span>
+    </aside>
+            <p class="phpdocumentor-summary">Chart Legend.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$legend</span>
+            </code>
+    </article>
+                                    <a id="property_xAxisLabel"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$xAxisLabel</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">43</span>
+    </aside>
+            <p class="phpdocumentor-summary">X-Axis Label.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$xAxisLabel</span>
+            </code>
+    </article>
+                                    <a id="property_yAxisLabel"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$yAxisLabel</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">50</span>
+    </aside>
+            <p class="phpdocumentor-summary">Y-Axis Label.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$yAxisLabel</span>
+            </code>
+    </article>
+                                    <a id="property_plotArea"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$plotArea</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">57</span>
+    </aside>
+            <p class="phpdocumentor-summary">Chart Plot Area.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-PlotArea.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\PlotArea">PlotArea</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$plotArea</span>
+            </code>
+    </article>
+                                    <a id="property_plotVisibleOnly"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$plotVisibleOnly</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">64</span>
+    </aside>
+            <p class="phpdocumentor-summary">Plot Visible Only.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$plotVisibleOnly</span>
+         = <span class="phpdocumentor-signature__default-value">true</span>    </code>
+    </article>
+                                    <a id="property_displayBlanksAs"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$displayBlanksAs</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">71</span>
+    </aside>
+            <p class="phpdocumentor-summary">Display Blanks as.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$displayBlanksAs</span>
+         = <span class="phpdocumentor-signature__default-value">\PhpOffice\PhpSpreadsheet\Chart\DataSeries::EMPTY_AS_GAP</span>    </code>
+    </article>
+                                    <a id="property_yAxis"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$yAxis</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">78</span>
+    </aside>
+            <p class="phpdocumentor-summary">Chart Asix Y as.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$yAxis</span>
+            </code>
+    </article>
+                                    <a id="property_xAxis"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$xAxis</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">85</span>
+    </aside>
+            <p class="phpdocumentor-summary">Chart Asix X as.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$xAxis</span>
+            </code>
+    </article>
+                                    <a id="property_majorGridlines"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$majorGridlines</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">92</span>
+    </aside>
+            <p class="phpdocumentor-summary">Chart Major Gridlines as.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$majorGridlines</span>
+            </code>
+    </article>
+                                    <a id="property_minorGridlines"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$minorGridlines</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">99</span>
+    </aside>
+            <p class="phpdocumentor-summary">Chart Minor Gridlines as.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$minorGridlines</span>
+            </code>
+    </article>
+                                    <a id="property_topLeftCellRef"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$topLeftCellRef</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">106</span>
+    </aside>
+            <p class="phpdocumentor-summary">Top-Left Cell Position.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$topLeftCellRef</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;A1&#039;</span>    </code>
+    </article>
+                                    <a id="property_topLeftXOffset"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$topLeftXOffset</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">113</span>
+    </aside>
+            <p class="phpdocumentor-summary">Top-Left X-Offset.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$topLeftXOffset</span>
+         = <span class="phpdocumentor-signature__default-value">""</span>    </code>
+    </article>
+                                    <a id="property_topLeftYOffset"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$topLeftYOffset</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">120</span>
+    </aside>
+            <p class="phpdocumentor-summary">Top-Left Y-Offset.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$topLeftYOffset</span>
+         = <span class="phpdocumentor-signature__default-value">""</span>    </code>
+    </article>
+                                    <a id="property_bottomRightCellRef"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$bottomRightCellRef</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">127</span>
+    </aside>
+            <p class="phpdocumentor-summary">Bottom-Right Cell Position.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$bottomRightCellRef</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;A1&#039;</span>    </code>
+    </article>
+                                    <a id="property_bottomRightXOffset"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$bottomRightXOffset</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">134</span>
+    </aside>
+            <p class="phpdocumentor-summary">Bottom-Right X-Offset.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$bottomRightXOffset</span>
+         = <span class="phpdocumentor-signature__default-value">10</span>    </code>
+    </article>
+                                    <a id="property_bottomRightYOffset"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$bottomRightYOffset</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">141</span>
+    </aside>
+            <p class="phpdocumentor-summary">Bottom-Right Y-Offset.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$bottomRightYOffset</span>
+         = <span class="phpdocumentor-signature__default-value">10</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">150</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new Chart.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$name</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$title</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$legend</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$plotArea</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-PlotArea.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\PlotArea">PlotArea</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$plotVisibleOnly</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">true</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$displayBlanksAs</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">DataSeries::EMPTY_AS_GAP</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$xAxisLabel</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$yAxisLabel</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$xAxis</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$yAxis</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$majorGridlines</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$minorGridlines</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$name</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$title</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$legend</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotArea</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-PlotArea.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\PlotArea">PlotArea</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotVisibleOnly</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">true</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$displayBlanksAs</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">DataSeries::EMPTY_AS_GAP</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$xAxisLabel</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$yAxisLabel</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$xAxis</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$yAxis</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$majorGridlines</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$minorGridlines</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getName"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getName()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">171</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Name.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getName</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getWorksheet"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWorksheet()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">181</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Worksheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWorksheet</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+            
+</article>
+                                    <a id="method_setWorksheet"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setWorksheet()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">193</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Worksheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setWorksheet</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getTitle"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getTitle()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">205</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Title.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getTitle</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+            
+</article>
+                                    <a id="method_setTitle"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setTitle()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">215</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Title.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setTitle</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$title</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$title</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getLegend"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getLegend()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">227</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Legend.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getLegend</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a></span>
+            
+</article>
+                                    <a id="method_setLegend"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setLegend()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">237</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Legend.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setLegend</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$legend</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$legend</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getXAxisLabel"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getXAxisLabel()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">249</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get X-Axis Label.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getXAxisLabel</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+            
+</article>
+                                    <a id="method_setXAxisLabel"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setXAxisLabel()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">259</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set X-Axis Label.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setXAxisLabel</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$label</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$label</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getYAxisLabel"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getYAxisLabel()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">271</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Y-Axis Label.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getYAxisLabel</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+            
+</article>
+                                    <a id="method_setYAxisLabel"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setYAxisLabel()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">281</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Y-Axis Label.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setYAxisLabel</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$label</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$label</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getPlotArea"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotArea()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">293</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Area.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotArea</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-PlotArea.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\PlotArea">PlotArea</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-PlotArea.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\PlotArea">PlotArea</abbr></a></span>
+            
+</article>
+                                    <a id="method_getPlotVisibleOnly"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPlotVisibleOnly()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">303</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Plot Visible Only.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getPlotVisibleOnly</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_setPlotVisibleOnly"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setPlotVisibleOnly()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">315</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Plot Visible Only.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setPlotVisibleOnly</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$plotVisibleOnly</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$plotVisibleOnly</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getDisplayBlanksAs"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getDisplayBlanksAs()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">327</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Display Blanks as.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getDisplayBlanksAs</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setDisplayBlanksAs"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setDisplayBlanksAs()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">339</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Display Blanks as.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setDisplayBlanksAs</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$displayBlanksAs</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$displayBlanksAs</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getChartAxisY"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getChartAxisY()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">351</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get yAxis.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getChartAxisY</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a></span>
+            
+</article>
+                                    <a id="method_getChartAxisX"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getChartAxisX()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">365</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get xAxis.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getChartAxisX</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a></span>
+            
+</article>
+                                    <a id="method_getMajorGridlines"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getMajorGridlines()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">379</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Major Gridlines.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getMajorGridlines</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a></span>
+            
+</article>
+                                    <a id="method_getMinorGridlines"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getMinorGridlines()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">393</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Minor Gridlines.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getMinorGridlines</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a></span>
+            
+</article>
+                                    <a id="method_setTopLeftPosition"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setTopLeftPosition()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">411</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set the Top Left position for the chart.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setTopLeftPosition</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$cell</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$xOffset</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$yOffset</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$cell</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$xOffset</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$yOffset</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getTopLeftPosition"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getTopLeftPosition()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">429</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the top left position of the chart.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getTopLeftPosition</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell</p></span>
+            
+</article>
+                                    <a id="method_getTopLeftCell"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getTopLeftCell()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">443</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the cell address where the top left of the chart is fixed.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getTopLeftCell</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setTopLeftCell"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setTopLeftCell()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">455</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set the Top Left cell position for the chart.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setTopLeftCell</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$cell</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$cell</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_setTopLeftOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setTopLeftOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">470</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set the offset position within the Top Left cell for the chart.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setTopLeftOffset</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$xOffset</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$yOffset</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$xOffset</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$yOffset</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getTopLeftOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getTopLeftOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">488</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the offset position within the Top Left cell for the chart.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getTopLeftOffset</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int[]</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int[]</span>
+            
+</article>
+                                    <a id="method_setTopLeftXOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setTopLeftXOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">496</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setTopLeftXOffset</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$xOffset</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$xOffset</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getTopLeftXOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getTopLeftXOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">503</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getTopLeftXOffset</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_setTopLeftYOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setTopLeftYOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">508</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setTopLeftYOffset</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$yOffset</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$yOffset</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getTopLeftYOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getTopLeftYOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">515</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getTopLeftYOffset</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_setBottomRightPosition"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setBottomRightPosition()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">529</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set the Bottom Right position of the chart.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setBottomRightPosition</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$cell</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$xOffset</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$yOffset</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$cell</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$xOffset</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$yOffset</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getBottomRightPosition"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getBottomRightPosition()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">547</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the bottom right position of the chart.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getBottomRightPosition</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell</p></span>
+            
+</article>
+                                    <a id="method_setBottomRightCell"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setBottomRightCell()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">556</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setBottomRightCell</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$cell</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$cell</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getBottomRightCell"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getBottomRightCell()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">568</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the cell address where the bottom right of the chart is fixed.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getBottomRightCell</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setBottomRightOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setBottomRightOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">581</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set the offset position within the Bottom Right cell for the chart.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setBottomRightOffset</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$xOffset</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$yOffset</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$xOffset</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$yOffset</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_getBottomRightOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getBottomRightOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">599</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the offset position within the Bottom Right cell for the chart.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getBottomRightOffset</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">int[]</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int[]</span>
+            
+</article>
+                                    <a id="method_setBottomRightXOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setBottomRightXOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">607</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setBottomRightXOffset</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$xOffset</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$xOffset</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getBottomRightXOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getBottomRightXOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">614</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getBottomRightXOffset</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_setBottomRightYOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setBottomRightYOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">619</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setBottomRightYOffset</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$yOffset</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$yOffset</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getBottomRightYOffset"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getBottomRightYOffset()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">626</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getBottomRightYOffset</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_refresh"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">refresh()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">631</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">refresh</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
+</article>
+                                    <a id="method_render"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">render()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="../files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">645</span>
+    </aside>
+        <p class="phpdocumentor-summary">Render the chart to given file (or stream).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">render</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$outputDestination</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$outputDestination</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Name of the file render to</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>true on success</p></span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

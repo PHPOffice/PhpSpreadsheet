@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-calculation.html">Calculation</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            FormulaToken
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">27</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">PARTLY BASED ON:
+Copyright (c) 2007 E. W. Bachtal, Inc.</p>
+        <section class="phpdocumentor-class__description"><p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial
+portions of the Software.</p>
+<p>The software is provided &quot;as is&quot;, without warranty of any kind, express or implied, including but not
+limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In
+no event shall the authors or copyright holders be liable for any claim, damages or other liability,
+whether in an action of contract, tort or otherwise, arising from, out of or in connection with the
+software or the use or other dealings in the software.</p>
+<p><a href="https://ewbi.blogs.com/develops/2007/03/excel_formula_p.html">https://ewbi.blogs.com/develops/2007/03/excel_formula_p.html</a>
+<a href="https://ewbi.blogs.com/develops/2004/12/excel_formula_p.html">https://ewbi.blogs.com/develops/2004/12/excel_formula_p.html</a></p></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_TYPE_NOOP">TOKEN_TYPE_NOOP</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Noop&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_TYPE_OPERAND">TOKEN_TYPE_OPERAND</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Operand&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_TYPE_FUNCTION">TOKEN_TYPE_FUNCTION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Function&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_TYPE_SUBEXPRESSION">TOKEN_TYPE_SUBEXPRESSION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Subexpression&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_TYPE_ARGUMENT">TOKEN_TYPE_ARGUMENT</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Argument&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_TYPE_OPERATORPREFIX">TOKEN_TYPE_OPERATORPREFIX</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;OperatorPrefix&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_TYPE_OPERATORINFIX">TOKEN_TYPE_OPERATORINFIX</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;OperatorInfix&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_TYPE_OPERATORPOSTFIX">TOKEN_TYPE_OPERATORPOSTFIX</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;OperatorPostfix&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_TYPE_WHITESPACE">TOKEN_TYPE_WHITESPACE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Whitespace&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_TYPE_UNKNOWN">TOKEN_TYPE_UNKNOWN</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Unknown&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_SUBTYPE_NOTHING">TOKEN_SUBTYPE_NOTHING</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Nothing&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_SUBTYPE_START">TOKEN_SUBTYPE_START</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Start&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_SUBTYPE_STOP">TOKEN_SUBTYPE_STOP</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Stop&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_SUBTYPE_TEXT">TOKEN_SUBTYPE_TEXT</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Text&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_SUBTYPE_NUMBER">TOKEN_SUBTYPE_NUMBER</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Number&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_SUBTYPE_LOGICAL">TOKEN_SUBTYPE_LOGICAL</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Logical&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_SUBTYPE_ERROR">TOKEN_SUBTYPE_ERROR</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Error&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_SUBTYPE_RANGE">TOKEN_SUBTYPE_RANGE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Range&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_SUBTYPE_MATH">TOKEN_SUBTYPE_MATH</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Math&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_SUBTYPE_CONCATENATION">TOKEN_SUBTYPE_CONCATENATION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Concatenation&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_SUBTYPE_INTERSECTION">TOKEN_SUBTYPE_INTERSECTION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Intersection&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#constant_TOKEN_SUBTYPE_UNION">TOKEN_SUBTYPE_UNION</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;Union&#039;</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#property_value">$value</a></th>
+                    <td class="phpdocumentor-cell">Value.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#property_tokenType">$tokenType</a></th>
+                    <td class="phpdocumentor-cell">Token Type (represented by TOKEN_TYPE_*).</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#property_tokenSubType">$tokenSubType</a></th>
+                    <td class="phpdocumentor-cell">Token SubType (represented by TOKEN_SUBTYPE_*).</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new FormulaToken.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#method_getValue">getValue()</a></th>
+                    <td class="phpdocumentor-cell">Get Value.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#method_setValue">setValue()</a></th>
+                    <td class="phpdocumentor-cell">Set Value.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#method_getTokenType">getTokenType()</a></th>
+                    <td class="phpdocumentor-cell">Get Token Type (represented by TOKEN_TYPE_*).</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#method_setTokenType">setTokenType()</a></th>
+                    <td class="phpdocumentor-cell">Set Token Type (represented by TOKEN_TYPE_*).</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#method_getTokenSubType">getTokenSubType()</a></th>
+                    <td class="phpdocumentor-cell">Get Token SubType (represented by TOKEN_SUBTYPE_*).</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-FormulaToken.html#method_setTokenSubType">setTokenSubType()</a></th>
+                    <td class="phpdocumentor-cell">Set Token SubType (represented by TOKEN_SUBTYPE_*).</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_TOKEN_TYPE_NOOP"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_TYPE_NOOP</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">30</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_TYPE_NOOP</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Noop&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_TYPE_OPERAND"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_TYPE_OPERAND</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">31</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_TYPE_OPERAND</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Operand&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_TYPE_FUNCTION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_TYPE_FUNCTION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">32</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_TYPE_FUNCTION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Function&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_TYPE_SUBEXPRESSION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_TYPE_SUBEXPRESSION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">33</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_TYPE_SUBEXPRESSION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Subexpression&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_TYPE_ARGUMENT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_TYPE_ARGUMENT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">34</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_TYPE_ARGUMENT</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Argument&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_TYPE_OPERATORPREFIX"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_TYPE_OPERATORPREFIX</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">35</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_TYPE_OPERATORPREFIX</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;OperatorPrefix&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_TYPE_OPERATORINFIX"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_TYPE_OPERATORINFIX</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">36</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_TYPE_OPERATORINFIX</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;OperatorInfix&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_TYPE_OPERATORPOSTFIX"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_TYPE_OPERATORPOSTFIX</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">37</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_TYPE_OPERATORPOSTFIX</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;OperatorPostfix&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_TYPE_WHITESPACE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_TYPE_WHITESPACE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">38</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_TYPE_WHITESPACE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Whitespace&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_TYPE_UNKNOWN"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_TYPE_UNKNOWN</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">39</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_TYPE_UNKNOWN</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Unknown&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_SUBTYPE_NOTHING"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_SUBTYPE_NOTHING</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">42</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_SUBTYPE_NOTHING</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Nothing&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_SUBTYPE_START"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_SUBTYPE_START</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">43</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_SUBTYPE_START</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Start&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_SUBTYPE_STOP"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_SUBTYPE_STOP</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">44</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_SUBTYPE_STOP</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Stop&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_SUBTYPE_TEXT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_SUBTYPE_TEXT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">45</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_SUBTYPE_TEXT</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Text&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_SUBTYPE_NUMBER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_SUBTYPE_NUMBER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">46</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_SUBTYPE_NUMBER</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Number&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_SUBTYPE_LOGICAL"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_SUBTYPE_LOGICAL</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">47</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_SUBTYPE_LOGICAL</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Logical&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_SUBTYPE_ERROR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_SUBTYPE_ERROR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">48</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_SUBTYPE_ERROR</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Error&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_SUBTYPE_RANGE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_SUBTYPE_RANGE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">49</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_SUBTYPE_RANGE</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Range&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_SUBTYPE_MATH"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_SUBTYPE_MATH</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">50</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_SUBTYPE_MATH</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Math&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_SUBTYPE_CONCATENATION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_SUBTYPE_CONCATENATION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">51</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_SUBTYPE_CONCATENATION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Concatenation&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_SUBTYPE_INTERSECTION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_SUBTYPE_INTERSECTION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">52</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_SUBTYPE_INTERSECTION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Intersection&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_TOKEN_SUBTYPE_UNION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TOKEN_SUBTYPE_UNION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">53</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TOKEN_SUBTYPE_UNION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;Union&#039;</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_value"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$value</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">60</span>
+    </aside>
+            <p class="phpdocumentor-summary">Value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$value</span>
+            </code>
+    </article>
+                                    <a id="property_tokenType"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$tokenType</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">67</span>
+    </aside>
+            <p class="phpdocumentor-summary">Token Type (represented by TOKEN_TYPE_*).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$tokenType</span>
+            </code>
+    </article>
+                                    <a id="property_tokenSubType"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$tokenSubType</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">74</span>
+    </aside>
+            <p class="phpdocumentor-summary">Token SubType (represented by TOKEN_SUBTYPE_*).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$tokenSubType</span>
+            </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">83</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new FormulaToken.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$pTokenType</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">self::TOKEN_TYPE_UNKNOWN</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$pTokenSubType</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">self::TOKEN_SUBTYPE_NOTHING</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pTokenType</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">self::TOKEN_TYPE_UNKNOWN</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Token type (represented by TOKEN<em>TYPE</em>*)</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pTokenSubType</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">self::TOKEN_SUBTYPE_NOTHING</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Token Subtype (represented by TOKEN<em>SUBTYPE</em>*)</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getValue"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getValue()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">96</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getValue</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setValue"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setValue()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">106</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setValue</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_getTokenType"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getTokenType()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">116</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Token Type (represented by TOKEN_TYPE_*).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getTokenType</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setTokenType"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setTokenType()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">126</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Token Type (represented by TOKEN_TYPE_*).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setTokenType</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_getTokenSubType"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getTokenSubType()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">136</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get Token SubType (represented by TOKEN_SUBTYPE_*).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getTokenSubType</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setTokenSubType"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setTokenSubType()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/FormulaToken.php"><a href="../files/src-phpspreadsheet-calculation-formulatoken.html"><abbr title="src/PhpSpreadsheet/Calculation/FormulaToken.php">FormulaToken.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">146</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set Token SubType (represented by TOKEN_SUBTYPE_*).</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setTokenSubType</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
