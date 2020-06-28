@@ -20,7 +20,7 @@ body {
 
 EOF;
 
-        return preg_replace('@</head>@', "$newstyle</head>", $html);
+        return preg_replace('~</head>~', "$newstyle</head>", $html);
     }
 
     public function testSetAndReset(): void
