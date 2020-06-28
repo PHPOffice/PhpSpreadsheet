@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Add support for IFS() logical function [#1442](https://github.com/PHPOffice/PhpSpreadsheet/pull/1442)
 - Add Cell Address Helper to provide conversions between the R1C1 and A1 address formats [#1558](https://github.com/PHPOffice/PhpSpreadsheet/pull/1558)
 - Add ability to edit Html/Pdf before saving [#1499](https://github.com/PHPOffice/PhpSpreadsheet/pull/1499)
+- Add ability to set codepage explicitly for BIFF5 [#1018](https://github.com/PHPOffice/PhpSpreadsheet/issues/1018)
 
 ### Fixed
 

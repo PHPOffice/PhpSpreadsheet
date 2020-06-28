@@ -439,6 +439,15 @@ class Xls extends BaseReader
         }
     }
 
+    public function setCodepage(string $codepage): void
+    {
+        if (!CodePage::validate($codepage)) {
+            throw new PhpSpreadsheetException('Unknown codepage: ' . $codepage);
+        }
+
+        $this->codepage = $codepage;
+    }
+
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
@@ -640,7 +649,7 @@ class Xls extends BaseReader
 
         // initialize
         $this->pos = 0;
-        $this->codepage = 'CP1252';
+        $this->codepage = $this->codepage ?: CodePage::DEFAULT_CODE_PAGE;
         $this->formats = [];
         $this->objFonts = [];
         $this->palette = [];
