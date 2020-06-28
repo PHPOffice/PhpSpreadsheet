@@ -208,9 +208,15 @@ class Html extends BaseWriter
         return $html;
     }
 
-    public function setEditHtmlCallback(?callable $cbk): void
+    /**
+     * Set a callback to edit the entire HTML.
+     *
+     * The callback must accept the HTML as string as first parameter,
+     * and it must return the edited HTML as string.
+     */
+    public function setEditHtmlCallback(?callable $callback): void
     {
-        $this->editHtmlCallback = $cbk;
+        $this->editHtmlCallback = $callback;
     }
 
     const VALIGN_ARR = [
