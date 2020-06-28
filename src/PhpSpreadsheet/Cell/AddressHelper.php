@@ -48,6 +48,54 @@ class AddressHelper
     }
 
     /**
+     * Converts a formula that uses R1C1 format cell address to an A1 format cell address.
+     */
+    public static function convertFormulaToA1(
+        string $formula,
+        int $currentRowNumber = 1,
+        int $currentColumnNumber = 1
+    ): string {
+echo "R1C1 FORMULA VALUE IS {$formula}", PHP_EOL;
+        if (substr($formula, 0, 3) == 'of:') {
+            $formula = substr($formula, 3);
+            $temp = explode('"', $formula);
+            $key = false;
+            foreach ($temp as &$value) {
+                //    Only replace in alternate array entries (i.e. non-quoted blocks)
+                if ($key = !$key) {
+                    $value = str_replace(['[.', '.', ']'], '', $value);
+                }
+            }
+        } else {
+            //    Convert R1C1 style references to A1 style references (but only when not quoted)
+            $temp = explode('"', $formula);
+            $key = false;
+            foreach ($temp as &$value) {
+                //    Only replace in alternate array entries (i.e. non-quoted blocks)
+                if ($key = !$key) {
+                    preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/', $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
+                    //    Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
+                    //        through the formula from left to right. Reversing means that we work right to left.through
+                    //        the formula
+                    $cellReferences = array_reverse($cellReferences);
+                    //    Loop through each R1C1 style reference in turn, converting it to its A1 style equivalent,
+                    //        then modify the formula to use that new reference
+                    foreach ($cellReferences as $cellReference) {
+                        $A1CellReference = self::convertToA1($cellReference[0][0], $currentRowNumber, $currentColumnNumber);
+                        $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
+                    }
+                }
+            }
+        }
+        unset($value);
+        //    Then rebuild the formula string
+        $formula = implode('"', $temp);
+
+        echo "A1 FORMULA VALUE IS {$formula}", PHP_EOL, PHP_EOL;
+        return $formula;
+    }
+
+    /**
      * Converts an A1 format cell address to an R1C1 format cell address.
      * If $currentRowNumber or $currentColumnNumber are provided, then the R1C1 address will be formatted as a relative address.
      */
