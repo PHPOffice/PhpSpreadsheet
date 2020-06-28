@@ -707,7 +707,7 @@ $sty = $writer->generateStyles(false); // do not write <style> and </style>
 $newstyle = <<<EOF
 <style type='text/css'>
 $sty
-html {
+body {
     background-color: yellow;
 }
 </style>
@@ -717,16 +717,22 @@ echo $writer->generateSheetData();
 echo $writer->generateHTMLFooter();
 ```
 
-#### Writing UTF-8 HTML files
+#### Editing HTML during save via a callback
 
-A HTML file can be marked as UTF-8 by writing a BOM file header. This
-can be enabled by using the following code:
+You can also add a callback function to edit the generated html
+before saving. For example, you could change the gridlines
+from a thin solid black line:
 
-```php
+``` php
+function changeGridlines(string $html): string
+{
+    return str_replace('{border: 1px solid black;}',
+        '{border: 2px dashed red;}',
+        $html);
+}
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
-$writer->setUseBOM(true);
-
-$writer->save("05featuredemo.htm");
+$writer->setEditHtmlCallback('changeGridlines');
+$writer->save($filename);
 ```
 
 #### Decimal and thousands separators
@@ -854,6 +860,12 @@ $writer->setPreCalculateFormulas(false);
 
 $writer->save("05featuredemo.pdf");
 ```
+
+#### Editing Pdf during save via a callback
+
+You can also add a callback function to edit the html used to
+generate the Pdf before saving.
+[See under Html](#editing-html-during-save-via-a-callback).
 
 #### Decimal and thousands separators
 
