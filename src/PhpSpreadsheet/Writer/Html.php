@@ -136,7 +136,7 @@ class Html extends BaseWriter
      *
      * @var null|callable
      */
-    protected $editHtmlCallback;
+    private $editHtmlCallback;
 
     /**
      * Create a new HTML.
