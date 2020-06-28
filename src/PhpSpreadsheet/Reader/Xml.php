@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -16,6 +17,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\DefinedNames;
 use SimpleXMLElement;
 
 /**
@@ -416,6 +418,20 @@ class Xml extends BaseReader
                 $spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
             }
 
+            // locally scoped defined names
+            if (isset($worksheet->Names[0])) {
+                foreach ($worksheet->Names[0] as $definedName) {
+                    $definedName_ss = $definedName->attributes($namespaces['ss']);
+                    $name = (string) $definedName_ss['Name'];
+                    $definedValue = (string) $definedName_ss['RefersTo'];
+                    $convertedValue = AddressHelper::convertFormulaToA1($definedValue);
+                    if ($convertedValue[0] === '=') {
+                        $convertedValue = substr($convertedValue, 1);
+                    }
+                    $spreadsheet->addDefinedName(DefinedName::createInstance($name, $spreadsheet->getActiveSheet(), $convertedValue, true));
+                }
+            }
+
             $columnID = 'A';
             if (isset($worksheet->Table->Column)) {
                 foreach ($worksheet->Table->Column as $columnData) {
@@ -578,6 +594,21 @@ class Xml extends BaseReader
                 }
             }
             ++$worksheetID;
+        }
+
+        // Globally scoped defined names
+        $activeWorksheet = $spreadsheet->setActiveSheetIndex(0);
+        if (isset($xml->Names[0])) {
+            foreach ($xml->Names[0] as $definedName) {
+                $definedName_ss = $definedName->attributes($namespaces['ss']);
+                $name = (string) $definedName_ss['Name'];
+                $definedValue = (string) $definedName_ss['RefersTo'];
+                $convertedValue = AddressHelper::convertFormulaToA1($definedValue);
+                if ($convertedValue[0] === '=') {
+                    $convertedValue = substr($convertedValue, 1);
+                }
+                $spreadsheet->addDefinedName(DefinedName::createInstance($name, $activeWorksheet, $convertedValue));
+            }
         }
 
         // Return

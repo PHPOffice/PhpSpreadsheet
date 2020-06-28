@@ -55,7 +55,6 @@ class AddressHelper
         int $currentRowNumber = 1,
         int $currentColumnNumber = 1
     ): string {
-echo "R1C1 FORMULA VALUE IS {$formula}", PHP_EOL;
         if (substr($formula, 0, 3) == 'of:') {
             $formula = substr($formula, 3);
             $temp = explode('"', $formula);
@@ -91,7 +90,6 @@ echo "R1C1 FORMULA VALUE IS {$formula}", PHP_EOL;
         //    Then rebuild the formula string
         $formula = implode('"', $temp);
 
-        echo "A1 FORMULA VALUE IS {$formula}", PHP_EOL, PHP_EOL;
         return $formula;
     }
 
