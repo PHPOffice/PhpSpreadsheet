@@ -439,11 +439,6 @@ class Xls extends BaseReader
         }
     }
 
-    /**
-     * @param string $codepage
-     *
-     * @throws PhpSpreadsheetException
-     */
     public function setCodepage(string $codepage): void
     {
         if (!CodePage::validate($codepage)) {

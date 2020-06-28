@@ -67,11 +67,6 @@ class CodePage
         65001 => 'UTF-8', //    Unicode (UTF-8)
     ];
 
-    /**
-     * @param string $codePage
-     *
-     * @return bool
-     */
     public static function validate(string $codePage): bool
     {
         return in_array($codePage, self::$pageArray, true);
@@ -84,8 +79,6 @@ class CodePage
      * @param int $codePage Microsoft Code Page Indentifier
      *
      * @return string Code Page Name
-     *
-     * @throws PhpSpreadsheetException
      */
     public static function numberToName(int $codePage): string
     {
