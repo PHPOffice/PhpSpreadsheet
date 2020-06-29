@@ -823,7 +823,7 @@ class PageSetup
         return $this->setFirstPageNumber(null);
     }
 
-    public function getPageOrder(): string
+    public function getPageOrder(): ?string
     {
         return $this->pageOrder;
     }
