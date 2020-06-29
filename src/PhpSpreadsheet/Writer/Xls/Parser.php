@@ -754,7 +754,18 @@ class Parser
             throw new WriterException('Defined Name is too long');
         }
 
-        return pack('C', $this->ptg['ptgName']) . StringHelper::UTF8toBIFF8UnicodeShort($name);
+        $nameReference = 1;
+        foreach ($this->spreadsheet->getDefinedNames() as $definedName) {
+            if ($name === $definedName->getName()) {
+                break;
+            }
+            ++$nameReference;
+        }
+        echo "DEFINED NAME {$name} IS INDEX {$nameReference}", PHP_EOL;
+
+        $ptgRef = pack('Cvxx', $this->ptg['ptgName'], $nameReference);
+var_dump($ptgRef);
+        return $ptgRef;
     }
 
     /**
