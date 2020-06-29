@@ -3444,7 +3444,7 @@ class Xls extends BaseReader
 
             // offset: 10; size: 2; option flags
 
-            // bit: 0; mask: 0x0001; 0=landscape, 1=portrait
+            // bit: 0; mask: 0x0001; 0=down then over, 1=over then down
             $isOverThenDown= (0x0001 & self::getUInt2d($recordData, 10));
 
             // bit: 1; mask: 0x0002; 0=landscape, 1=portrait
