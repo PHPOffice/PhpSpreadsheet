@@ -3444,6 +3444,9 @@ class Xls extends BaseReader
 
             // offset: 10; size: 2; option flags
 
+            // bit: 0; mask: 0x0001; 0=landscape, 1=portrait
+            $isOverThenDown= (0x0001 & self::getUInt2d($recordData, 10));
+
             // bit: 1; mask: 0x0002; 0=landscape, 1=portrait
             $isPortrait = (0x0002 & self::getUInt2d($recordData, 10)) >> 1;
 
@@ -3453,16 +3456,8 @@ class Xls extends BaseReader
 
             if (!$isNotInit) {
                 $this->phpSheet->getPageSetup()->setPaperSize($paperSize);
-                switch ($isPortrait) {
-                    case 0:
-                        $this->phpSheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
-
-                        break;
-                    case 1:
-                        $this->phpSheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_PORTRAIT);
-
-                        break;
-                }
+                $this->phpSheet->getPageSetup()->setPageOrder(((bool) $isOverThenDown) ? PageSetup::PAGEORDER_OVER_THEN_DOWN : PageSetup::PAGEORDER_DOWN_THEN_OVER);
+                $this->phpSheet->getPageSetup()->setOrientation(((bool) $isPortrait) ? PageSetup::ORIENTATION_PORTRAIT : PageSetup::ORIENTATION_LANDSCAPE);
 
                 $this->phpSheet->getPageSetup()->setScale($scale, false);
                 $this->phpSheet->getPageSetup()->setFitToPage((bool) $this->isFitToPages);
