@@ -56,7 +56,8 @@
         "maennchen/zipstream-php": "^2.1",
         "markbaker/complex": "^1.4",
         "markbaker/matrix": "^1.2",
-        "psr/simple-cache": "^1.0"
+        "psr/simple-cache": "^1.0",
+        "guzzlehttp/guzzle": "^7.0"
     },
     "require-dev": {
         "dompdf/dompdf": "^0.8.5",
