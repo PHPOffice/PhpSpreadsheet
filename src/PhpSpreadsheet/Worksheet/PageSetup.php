@@ -156,6 +156,9 @@ class PageSetup
     const SETPRINTRANGE_OVERWRITE = 'O';
     const SETPRINTRANGE_INSERT = 'I';
 
+    const PAGEORDER_OVER_THEN_DOWN = 'overThenDown';
+    const PAGEORDER_DOWN_THEN_OVER = 'downThenOver';
+
     /**
      * Paper size.
      *
@@ -245,6 +248,8 @@ class PageSetup
      * @var int
      */
     private $firstPageNumber;
+
+    private $pageOrder;
 
     /**
      * Create a new PageSetup.
@@ -816,6 +821,20 @@ class PageSetup
     public function resetFirstPageNumber()
     {
         return $this->setFirstPageNumber(null);
+    }
+
+    public function getPageOrder(): string
+    {
+        return $this->pageOrder;
+    }
+
+    public function setPageOrder(?string $pageOrder): self
+    {
+        if ($pageOrder === null || $pageOrder === self::PAGEORDER_DOWN_THEN_OVER || $pageOrder === self::PAGEORDER_OVER_THEN_DOWN) {
+            $this->pageOrder = $pageOrder;
+        }
+
+        return $this;
     }
 
     /**
