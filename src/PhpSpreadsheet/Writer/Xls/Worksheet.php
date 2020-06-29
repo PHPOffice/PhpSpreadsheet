@@ -445,6 +445,7 @@ class Worksheet extends BIFFwriter
                     case DataType::TYPE_FORMULA:
                         $calculatedValue = $this->preCalculateFormulas ?
                             $cell->getCalculatedValue() : null;
+                        echo "WRITING FORMULA {$cVal}", PHP_EOL;
                         if (self::WRITE_FORMULA_EXCEPTION == $this->writeFormula($row, $column, $cVal, $xfIndex, $calculatedValue)) {
                             if ($calculatedValue === null) {
                                 $calculatedValue = $cell->getCalculatedValue();
@@ -892,6 +893,7 @@ class Worksheet extends BIFFwriter
 
             return self::WRITE_FORMULA_NORMAL;
         } catch (PhpSpreadsheetException $e) {
+            echo "ERROR WRITING FORMULA: {$e->getMessage()}", PHP_EOL;
             return self::WRITE_FORMULA_EXCEPTION;
         }
     }

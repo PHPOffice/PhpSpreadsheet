@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
@@ -78,7 +80,7 @@ class Parser
      *
      * @var string
      */
-    private $parseTree;
+    public $parseTree;
 
     /**
      * Array of external sheets.
@@ -467,11 +469,15 @@ class Parser
         'BAHTTEXT' => [368, 1, 0, 0],
     ];
 
+    private $spreadsheet;
+
     /**
      * The class constructor.
      */
-    public function __construct()
+    public function __construct(Spreadsheet $spreadsheet)
     {
+        $this->spreadsheet = $spreadsheet;
+
         $this->currentCharacter = 0;
         $this->currentToken = ''; // The token we are working on.
         $this->formula = ''; // The formula to parse.
@@ -518,6 +524,9 @@ class Parser
         // match error codes
         } elseif (preg_match('/^#[A-Z0\\/]{3,5}[!?]{1}$/', $token) || $token == '#N/A') {
             return $this->convertError($token);
+        } elseif  (preg_match('/^'.Calculation::CALCULATION_REGEXP_DEFINEDNAME.'$/mui', $token) && $this->spreadsheet->getNamedRange($token) !== null) {
+            echo "TOKEN {$token} IDENTIFIED AS DEFINED NAME", PHP_EOL;
+            return $this->convertDefinedName($token);
         // commented so argument number can be processed correctly. See toReversePolish().
         /*elseif (preg_match("/[A-Z0-9\xc0-\xdc\.]+/", $token))
         {
@@ -737,6 +746,15 @@ class Parser
         }
 
         return pack('C', 0xFF);
+    }
+
+    private function convertDefinedName(string $name)
+    {
+        if (strlen($name) > 255) {
+            throw new WriterException('Defined Name is too long');
+        }
+
+        return pack('C', $this->ptg['ptgName']) . StringHelper::UTF8toBIFF8UnicodeShort($name);
     }
 
     /**
@@ -1056,6 +1074,8 @@ class Parser
                 } elseif (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/i", $token) && ($this->lookAhead === '(')) {
                     // if it's a function call
                     return $token;
+                } elseif (preg_match("/^" . Calculation::CALCULATION_REGEXP_DEFINEDNAME . "$/miu", $token) && $this->spreadsheet->getNamedRange($token) !== null) {
+                    return $token;
                 } elseif (substr($token, -1) === ')') {
                     //    It's an argument of some description (e.g. a named range),
                     //        precise nature yet to be determined
@@ -1304,9 +1324,14 @@ class Parser
             $this->advance();
 
             return $result;
-        } elseif (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/i", $this->currentToken)) {
+        } elseif (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/i", $this->currentToken) && ($this->lookAhead === '(')) {
             // if it's a function call
             return $this->func();
+        } elseif (preg_match("/^" . Calculation::CALCULATION_REGEXP_DEFINEDNAME . "$/miu", $this->currentToken) && $this->spreadsheet->getNamedRange($this->currentToken) !== null) {
+            $result = $this->createTree('ptgName', $this->currentToken, '');
+            $this->advance();
+
+            return $result;
         }
 
         throw new WriterException('Syntax error: ' . $this->currentToken . ', lookahead: ' . $this->lookAhead . ', current char: ' . $this->currentCharacter);
@@ -1403,7 +1428,7 @@ class Parser
         if (empty($tree)) { // If it's the first call use parseTree
             $tree = $this->parseTree;
         }
-
+var_dump($tree);
         if (is_array($tree['left'])) {
             $converted_tree = $this->toReversePolish($tree['left']);
             $polish .= $converted_tree;
@@ -1434,7 +1459,7 @@ class Parser
             return $left_tree . $this->convertFunction($tree['value'], $tree['right']);
         }
         $converted_tree = $this->convert($tree['value']);
-
+var_dump($converted_tree);
         return $polish . $converted_tree;
     }
 }
