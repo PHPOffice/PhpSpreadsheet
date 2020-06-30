@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class PageSettings
 {
     private $officeNs;
+
     private $stylesNs;
 
     private $pageLayoutStyles = [];
