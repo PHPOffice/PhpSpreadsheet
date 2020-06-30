@@ -11,6 +11,7 @@ use DOMNode;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Reader\Ods\PageSettings;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\Properties as DocumentProperties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -19,8 +20,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use XMLReader;
 use ZipArchive;
 
@@ -291,36 +290,8 @@ class Ods extends BaseReader
             $this->securityScanner->scan($zip->getFromName('styles.xml')),
             Settings::getLibXmlLoaderOptions()
         );
-        $officeNs = $dom->lookupNamespaceUri('office');
-        $stylesNs = $dom->lookupNamespaceUri('style');
 
-        $styles = $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')
-            ->item(0)
-            ->getElementsByTagNameNS($stylesNs, 'page-layout');
-
-        foreach ($styles as $styleSet) {
-            $styleName = $styleSet->getAttributeNS($stylesNs, 'name');
-            $pageLayoutProperties = $styleSet->getElementsByTagNameNS($stylesNs, 'page-layout-properties')[0];
-            $styleOrientation = $pageLayoutProperties->getAttributeNS($stylesNs, 'print-orientation');
-            $styleScale = $pageLayoutProperties->getAttributeNS($stylesNs, 'scale-to');
-            $stylePrintOrder = $pageLayoutProperties->getAttributeNS($stylesNs, 'print-page-order');
-
-            $this->pageLayoutStyles[$styleName] = (object) [
-                'orientation' => $styleOrientation,
-                'scale' => $styleScale,
-                'printOrder' => $stylePrintOrder,
-            ];
-        }
-
-        $styleMasterLookup = $dom->getElementsByTagNameNS($officeNs, 'master-styles')
-            ->item(0)
-            ->getElementsByTagNameNS($stylesNs, 'master-page');
-
-        foreach ($styleMasterLookup as $styleMasterSet) {
-            $styleMasterName = $styleMasterSet->getAttributeNS($stylesNs, 'name');
-            $pageLayoutName = $styleMasterSet->getAttributeNS($stylesNs, 'page-layout-name');
-            $this->masterPrintStylesCrossReference[$styleMasterName] = $pageLayoutName;
-        }
+        $pageSettings = new PageSettings($dom);
 
         // Main Content
 
@@ -335,17 +306,7 @@ class Ods extends BaseReader
         $textNs = $dom->lookupNamespaceUri('text');
         $xlinkNs = $dom->lookupNamespaceUri('xlink');
 
-        $styleXReferences = $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')
-            ->item(0)
-            ->getElementsByTagNameNS($stylesNs, 'style');
-
-        foreach ($styleXReferences as $styleXreferenceSet) {
-            $styleXRefName = $styleXreferenceSet->getAttributeNS($stylesNs, 'name');
-            $stylePageLayoutName = $styleXreferenceSet->getAttributeNS($stylesNs, 'master-page-name');
-            if (!empty($stylePageLayoutName)) {
-                $this->masterStylesCrossReference[$styleXRefName] = $stylePageLayoutName;
-            }
-        }
+        $pageSettings->readStyleCrossReferences($dom);
 
         // Content
 
@@ -703,35 +664,13 @@ class Ods extends BaseReader
                             break;
                     }
                 }
-                $this->getPrintSettings($spreadsheet->getActiveSheet(), $worksheetStyleName);
+                $pageSettings->setPrintSettingsForWorksheet($spreadsheet->getActiveSheet(), $worksheetStyleName);
                 ++$worksheetID;
             }
         }
 
         // Return
         return $spreadsheet;
-    }
-
-    private function getPrintSettings(Worksheet $worksheet, string $styleName): void
-    {
-        if (!array_key_exists($styleName, $this->masterStylesCrossReference)) {
-            return;
-        }
-        $masterStyleName = $this->masterStylesCrossReference[$styleName];
-
-        if (!array_key_exists($masterStyleName, $this->masterPrintStylesCrossReference)) {
-            return;
-        }
-        $printSettingsIndex = $this->masterPrintStylesCrossReference[$masterStyleName];
-
-        if (!array_key_exists($printSettingsIndex, $this->pageLayoutStyles)) {
-            return;
-        }
-        $printSettings = $this->pageLayoutStyles[$printSettingsIndex];
-
-        $worksheet->getPageSetup()->setOrientation($printSettings->orientation ?? PageSetup::ORIENTATION_DEFAULT);
-        $worksheet->getPageSetup()->setScale((int) trim($printSettings->scale, '%'));
-        $worksheet->getPageSetup()->setPageOrder($printSettings->printOrder === 'ltr' ? PageSetup::PAGEORDER_OVER_THEN_DOWN : PageSetup::PAGEORDER_DOWN_THEN_OVER);
     }
 
     /**
