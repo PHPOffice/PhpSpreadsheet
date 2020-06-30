@@ -1729,11 +1729,12 @@ class Worksheet extends BIFFwriter
         $numFtr = $this->phpSheet->getPageMargins()->getFooter(); // Footer Margin
         $iCopies = 0x01; // Number of copies
 
-        $fLeftToRight = 0x0; // Print over then down
-
+        // Order of printing pages
+        $fLeftToRight = $this->phpSheet->getPageSetup()->getPageOrder() == PageSetup::PAGEORDER_OVER_THEN_DOWN
+            ? 0x0 : 0x1;
         // Page orientation
-        $fLandscape = ($this->phpSheet->getPageSetup()->getOrientation() == PageSetup::ORIENTATION_LANDSCAPE) ?
-            0x0 : 0x1;
+        $fLandscape = ($this->phpSheet->getPageSetup()->getOrientation() == PageSetup::ORIENTATION_LANDSCAPE)
+            ? 0x0 : 0x1;
 
         $fNoPls = 0x0; // Setup not read from printer
         $fNoColor = 0x0; // Print black and white
