@@ -19,11 +19,19 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use XMLReader;
 use ZipArchive;
 
 class Ods extends BaseReader
 {
+    private $pageLayoutStyles = [];
+
+    private $masterStylesCrossReference = [];
+
+    private $masterPrintStylesCrossReference = [];
+
     /**
      * Create a new Ods Reader instance.
      */
@@ -276,7 +284,45 @@ class Ods extends BaseReader
 
         (new DocumentProperties($spreadsheet))->load($xml, $namespacesMeta);
 
-        // Content
+        // Styles
+
+        $dom = new DOMDocument('1.01', 'UTF-8');
+        $dom->loadXML(
+            $this->securityScanner->scan($zip->getFromName('styles.xml')),
+            Settings::getLibXmlLoaderOptions()
+        );
+        $officeNs = $dom->lookupNamespaceUri('office');
+        $stylesNs = $dom->lookupNamespaceUri('style');
+
+        $styles = $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')
+            ->item(0)
+            ->getElementsByTagNameNS($stylesNs, 'page-layout');
+
+        foreach ($styles as $styleSet) {
+            $styleName = $styleSet->getAttributeNS($stylesNs, 'name');
+            $pageLayoutProperties = $styleSet->getElementsByTagNameNS($stylesNs, 'page-layout-properties')[0];
+            $styleOrientation = $pageLayoutProperties->getAttributeNS($stylesNs, 'print-orientation');
+            $styleScale = $pageLayoutProperties->getAttributeNS($stylesNs, 'scale-to');
+            $stylePrintOrder = $pageLayoutProperties->getAttributeNS($stylesNs, 'print-page-order');
+
+            $this->pageLayoutStyles[$styleName] = (object) [
+                'orientation' => $styleOrientation,
+                'scale' => $styleScale,
+                'printOrder' => $stylePrintOrder,
+            ];
+        }
+
+        $styleMasterLookup = $dom->getElementsByTagNameNS($officeNs, 'master-styles')
+            ->item(0)
+            ->getElementsByTagNameNS($stylesNs, 'master-page');
+
+        foreach ($styleMasterLookup as $styleMasterSet) {
+            $styleMasterName = $styleMasterSet->getAttributeNS($stylesNs, 'name');
+            $pageLayoutName = $styleMasterSet->getAttributeNS($stylesNs, 'page-layout-name');
+            $this->masterPrintStylesCrossReference[$styleMasterName] = $pageLayoutName;
+        }
+
+        // Main Content
 
         $dom = new DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
@@ -288,6 +334,20 @@ class Ods extends BaseReader
         $tableNs = $dom->lookupNamespaceUri('table');
         $textNs = $dom->lookupNamespaceUri('text');
         $xlinkNs = $dom->lookupNamespaceUri('xlink');
+
+        $styleXReferences = $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')
+            ->item(0)
+            ->getElementsByTagNameNS($stylesNs, 'style');
+
+        foreach ($styleXReferences as $styleXreferenceSet) {
+            $styleXRefName = $styleXreferenceSet->getAttributeNS($stylesNs, 'name');
+            $stylePageLayoutName = $styleXreferenceSet->getAttributeNS($stylesNs, 'master-page-name');
+            if (!empty($stylePageLayoutName)) {
+                $this->masterStylesCrossReference[$styleXRefName] = $stylePageLayoutName;
+            }
+        }
+
+        // Content
 
         $spreadsheets = $dom->getElementsByTagNameNS($officeNs, 'body')
             ->item(0)
@@ -309,6 +369,8 @@ class Ods extends BaseReader
                     continue;
                 }
 
+                $worksheetStyleName = $worksheetDataSet->getAttributeNS($tableNs, 'style-name');
+
                 // Create sheet
                 if ($worksheetID > 0) {
                     $spreadsheet->createSheet(); // First sheet is added by default
@@ -319,7 +381,7 @@ class Ods extends BaseReader
                     // Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
                     // formula cells... during the load, all formulae should be correct, and we're simply
                     // bringing the worksheet name in line with the formula, not the reverse
-                    $spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
+                    $spreadsheet->getActiveSheet()->setTitle((string) $worksheetName, false, false);
                 }
 
                 // Go through every child of table element
@@ -641,12 +703,35 @@ class Ods extends BaseReader
                             break;
                     }
                 }
+                $this->getPrintSettings($spreadsheet->getActiveSheet(), $worksheetStyleName);
                 ++$worksheetID;
             }
         }
 
         // Return
         return $spreadsheet;
+    }
+
+    private function getPrintSettings(Worksheet $worksheet, string $styleName)
+    {
+        if (!array_key_exists($styleName, $this->masterStylesCrossReference)) {
+            return;
+        }
+        $masterStyleName = $this->masterStylesCrossReference[$styleName];
+
+        if (!array_key_exists($masterStyleName, $this->masterPrintStylesCrossReference)) {
+            return;
+        }
+        $printSettingsIndex = $this->masterPrintStylesCrossReference[$masterStyleName];
+
+        if (!array_key_exists($printSettingsIndex, $this->pageLayoutStyles)) {
+            return;
+        }
+        $printSettings = $this->pageLayoutStyles[$printSettingsIndex];
+
+        $worksheet->getPageSetup()->setOrientation($printSettings->orientation ?? PageSetup::ORIENTATION_DEFAULT);
+        $worksheet->getPageSetup()->setScale((int) trim($printSettings->scale, '%'));
+        $worksheet->getPageSetup()->setPageOrder($printSettings->printOrder === 'ltr' ? PageSetup::PAGEORDER_OVER_THEN_DOWN : PageSetup::PAGEORDER_DOWN_THEN_OVER);
     }
 
     /**
