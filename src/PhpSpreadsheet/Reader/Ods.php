@@ -712,7 +712,7 @@ class Ods extends BaseReader
         return $spreadsheet;
     }
 
-    private function getPrintSettings(Worksheet $worksheet, string $styleName)
+    private function getPrintSettings(Worksheet $worksheet, string $styleName): void
     {
         if (!array_key_exists($styleName, $this->masterStylesCrossReference)) {
             return;
