@@ -1730,8 +1730,8 @@ class Worksheet extends BIFFwriter
         $iCopies = 0x01; // Number of copies
 
         // Order of printing pages
-        $fLeftToRight = $this->phpSheet->getPageSetup()->getPageOrder() == PageSetup::PAGEORDER_OVER_THEN_DOWN
-            ? 0x0 : 0x1;
+        $fLeftToRight = $this->phpSheet->getPageSetup()->getPageOrder() === PageSetup::PAGEORDER_DOWN_THEN_OVER
+            ? 0x1 : 0x0;
         // Page orientation
         $fLandscape = ($this->phpSheet->getPageSetup()->getOrientation() == PageSetup::ORIENTATION_LANDSCAPE)
             ? 0x0 : 0x1;
