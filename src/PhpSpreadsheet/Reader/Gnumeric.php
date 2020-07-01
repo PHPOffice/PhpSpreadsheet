@@ -17,6 +17,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
 use XMLReader;
@@ -431,15 +432,35 @@ class Gnumeric extends BaseReader
         }
     }
 
+    private function printInformation(SimpleXMLElement $sheet)
+    {
+        if (!$this->readDataOnly && isset($sheet->PrintInformation)) {
+            $printInformation = $sheet->PrintInformation[0];
+            $scale = $printInformation->Scale->attributes()['percentage'];
+            $pageOrder = (string) $printInformation->order;
+            $orientation = (string) $printInformation->orientation;
+            $horizontalCentered = (bool) $printInformation->hcenter;
+            $verticalCentered = (bool) $printInformation->vcenter;
+
+            $this->spreadsheet->getActiveSheet()->getPageSetup()
+                ->setPageOrder($pageOrder === 'r_then_d' ? PageSetup::PAGEORDER_OVER_THEN_DOWN : PageSetup::PAGEORDER_DOWN_THEN_OVER)
+                ->setScale((int) $scale)
+                ->setOrientation($orientation ?? PageSetup::ORIENTATION_DEFAULT)
+                ->setHorizontalCentered($horizontalCentered)
+                ->setVerticalCentered($verticalCentered);
+        }
+    }
+
     private function sheetMargins(SimpleXMLElement $sheet): void
     {
         if (!$this->readDataOnly && isset($sheet->PrintInformation, $sheet->PrintInformation->Margins)) {
             foreach ($sheet->PrintInformation->Margins->children($this->gnm, true) as $key => $margin) {
                 $marginAttributes = $margin->attributes();
-                $marginSize = 72 / 100; //    Default
+                $marginSize = $marginAttributes['Points'] ?? 72 / 100; //    Default
                 switch ($marginAttributes['PrefUnit']) {
+                    case 'inch':
                     case 'mm':
-                        $marginSize = (int) ($marginAttributes['Points']) / 100;
+                        $marginSize = ($marginAttributes['Points']) / 100;
 
                         break;
                 }
@@ -513,6 +534,7 @@ class Gnumeric extends BaseReader
             //        name in line with the formula, not the reverse
             $this->spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
 
+            $this->printInformation($sheet);
             $this->sheetMargins($sheet);
 
             foreach ($sheet->Cells->Cell as $cell) {
