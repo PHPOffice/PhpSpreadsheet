@@ -43,11 +43,14 @@ class PageSettings
             $styleOrientation = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'print-orientation');
             $styleScale = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'scale-to');
             $stylePrintOrder = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'print-page-order');
+            $centered = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'table-centering');
 
             $this->pageLayoutStyles[$styleName] = (object) [
                 'orientation' => $styleOrientation,
                 'scale' => $styleScale,
                 'printOrder' => $stylePrintOrder,
+                'horizontalCentered' => $centered === 'horizontal' || $centered === 'both',
+                'verticalCentered' => $centered === 'vertical' || $centered === 'both',
             ];
         }
     }
@@ -100,6 +103,8 @@ class PageSettings
         $worksheet->getPageSetup()
             ->setOrientation($printSettings->orientation ?? PageSetup::ORIENTATION_DEFAULT)
             ->setPageOrder($printSettings->printOrder === 'ltr' ? PageSetup::PAGEORDER_OVER_THEN_DOWN : PageSetup::PAGEORDER_DOWN_THEN_OVER)
-            ->setScale((int) trim($printSettings->scale, '%'));
+            ->setScale((int) trim($printSettings->scale, '%'))
+            ->setHorizontalCentered($printSettings->horizontalCentered)
+            ->setVerticalCentered($printSettings->verticalCentered);
     }
 }
