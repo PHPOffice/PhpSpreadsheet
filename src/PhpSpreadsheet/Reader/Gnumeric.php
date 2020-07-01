@@ -432,7 +432,7 @@ class Gnumeric extends BaseReader
         }
     }
 
-    private function printInformation(SimpleXMLElement $sheet)
+    private function printInformation(SimpleXMLElement $sheet): void
     {
         if (!$this->readDataOnly && isset($sheet->PrintInformation)) {
             $printInformation = $sheet->PrintInformation[0];
