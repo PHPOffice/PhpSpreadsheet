@@ -436,18 +436,18 @@ class Gnumeric extends BaseReader
     {
         if (!$this->readDataOnly && isset($sheet->PrintInformation)) {
             $printInformation = $sheet->PrintInformation[0];
-            $scale = $printInformation->Scale->attributes()['percentage'];
+            $scale = (string) $printInformation->Scale->attributes()['percentage'];
             $pageOrder = (string) $printInformation->order;
             $orientation = (string) $printInformation->orientation;
-            $horizontalCentered = (bool) $printInformation->hcenter;
-            $verticalCentered = (bool) $printInformation->vcenter;
+            $horizontalCentered = (string) $printInformation->hcenter->attributes()['value'];
+            $verticalCentered = (string) $printInformation->vcenter->attributes()['value'];
 
             $this->spreadsheet->getActiveSheet()->getPageSetup()
                 ->setPageOrder($pageOrder === 'r_then_d' ? PageSetup::PAGEORDER_OVER_THEN_DOWN : PageSetup::PAGEORDER_DOWN_THEN_OVER)
                 ->setScale((int) $scale)
                 ->setOrientation($orientation ?? PageSetup::ORIENTATION_DEFAULT)
-                ->setHorizontalCentered($horizontalCentered)
-                ->setVerticalCentered($verticalCentered);
+                ->setHorizontalCentered((bool) $horizontalCentered)
+                ->setVerticalCentered((bool) $verticalCentered);
         }
     }
 
