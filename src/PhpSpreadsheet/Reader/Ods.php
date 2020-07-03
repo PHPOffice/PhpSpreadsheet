@@ -25,12 +25,6 @@ use ZipArchive;
 
 class Ods extends BaseReader
 {
-    private $pageLayoutStyles = [];
-
-    private $masterStylesCrossReference = [];
-
-    private $masterPrintStylesCrossReference = [];
-
     /**
      * Create a new Ods Reader instance.
      */

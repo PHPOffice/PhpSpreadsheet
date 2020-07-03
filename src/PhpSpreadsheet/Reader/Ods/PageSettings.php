@@ -12,6 +12,8 @@ class PageSettings
 
     private $stylesNs;
 
+    private $stylesFo;
+
     private $pageLayoutStyles = [];
 
     private $masterStylesCrossReference = [];
@@ -29,6 +31,7 @@ class PageSettings
     {
         $this->officeNs = $styleDom->lookupNamespaceUri('office');
         $this->stylesNs = $styleDom->lookupNamespaceUri('style');
+        $this->stylesFo = $styleDom->lookupNamespaceUri('fo');
     }
 
     private function readPageSettingStyles(DOMDocument $styleDom): void
@@ -44,6 +47,16 @@ class PageSettings
             $styleScale = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'scale-to');
             $stylePrintOrder = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'print-page-order');
             $centered = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'table-centering');
+            $marginLeft = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-left');
+            $marginRight = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-right');
+            $marginTop = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-top');
+            $marginBottom = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-bottom');
+            $header = $styleSet->getElementsByTagNameNS($this->stylesNs, 'header-style')[0];
+            $headerProperties = $header->getElementsByTagNameNS($this->stylesNs, 'header-footer-properties')[0];
+            $marginHeader = $headerProperties->getAttributeNS($this->stylesFo, 'min-height');
+            $footer = $styleSet->getElementsByTagNameNS($this->stylesNs, 'footer-style')[0];
+            $footerProperties = $footer->getElementsByTagNameNS($this->stylesNs, 'header-footer-properties')[0];
+            $marginFooter = $footerProperties->getAttributeNS($this->stylesFo, 'min-height');
 
             $this->pageLayoutStyles[$styleName] = (object) [
                 'orientation' => $styleOrientation,
@@ -51,6 +64,12 @@ class PageSettings
                 'printOrder' => $stylePrintOrder,
                 'horizontalCentered' => $centered === 'horizontal' || $centered === 'both',
                 'verticalCentered' => $centered === 'vertical' || $centered === 'both',
+                'marginLeft' => round((float) $marginLeft ?? 0.7, 5),
+                'marginRight' => round((float) $marginRight ?? 0.7, 5),
+                'marginTop' => round((float) $marginTop ?? 0.7, 5),
+                'marginBottom' => round((float) $marginBottom ?? 0.7, 5),
+                'marginHeader' => round((float) $marginHeader ?? 0.0, 5),
+                'marginFooter' => round((float) $marginFooter ?? 0.0, 5),
             ];
         }
     }
@@ -106,5 +125,13 @@ class PageSettings
             ->setScale((int) trim($printSettings->scale, '%'))
             ->setHorizontalCentered($printSettings->horizontalCentered)
             ->setVerticalCentered($printSettings->verticalCentered);
+
+        $worksheet->getPageMargins()
+            ->setLeft($printSettings->marginLeft)
+            ->setRight($printSettings->marginRight)
+            ->setTop($printSettings->marginTop)
+            ->setBottom($printSettings->marginBottom)
+            ->setHeader($printSettings->marginHeader)
+            ->setFooter($printSettings->marginFooter);
     }
 }
