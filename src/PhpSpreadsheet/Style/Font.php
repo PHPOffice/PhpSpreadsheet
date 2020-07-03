@@ -363,15 +363,16 @@ class Font extends Supervisor
      */
     public function setSuperscript($pValue)
     {
-        if ($pValue == '') {
-            $pValue = false;
-        }
+        $pValu2 = !$pValue;
+        $pValue = !$pValu2;
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['superscript' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->superscript = $pValue;
-            $this->subscript = !$pValue;
+            if ($this->superscript) {
+                $this->subscript = false;
+            }
         }
 
         return $this;
@@ -400,15 +401,16 @@ class Font extends Supervisor
      */
     public function setSubscript($pValue)
     {
-        if ($pValue == '') {
-            $pValue = false;
-        }
+        $pValu2 = !$pValue;
+        $pValue = !$pValu2;
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['subscript' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->subscript = $pValue;
-            $this->superscript = !$pValue;
+            if ($this->subscript) {
+                $this->superscript = false;
+            }
         }
 
         return $this;
