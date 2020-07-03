@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 use GuzzleHttp\Psr7\Request;
 use PhpOffice\PhpSpreadsheet\Settings;
 use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\ClientInterface;
 
 class Web
 {
@@ -18,7 +19,7 @@ class Web
      *
      * @return string the output resulting from a call to the webservice
      */
-    public static function WEBSERVICE(string $url)
+    public static function WEBSERVICE(string $url, ?ClientInterface $client = null)
     {
         $url = trim($url);
         if (strlen($url) > 2048) {
@@ -30,7 +31,7 @@ class Web
         }
 
         // Get results from the the webservice
-        $client = Settings::getHttpClient();
+        $client = $client ?: Settings::getDefaultHttpClient();
         $request = new Request('GET', $url);
 
         try {

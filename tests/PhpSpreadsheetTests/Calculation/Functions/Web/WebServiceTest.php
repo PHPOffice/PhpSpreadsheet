@@ -2,53 +2,79 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Web;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Request;
+use Exception;
 use GuzzleHttp\Psr7\Response;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Web;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\ClientExceptionInterface;
 
 class WebServiceTest extends TestCase
 {
-    protected static $client;
-
-    public static function setUpBeforeClass(): void
-    {
-        // Prevent URL requests being sent out
-        $mock = new MockHandler([
-            new ClientException('This is not a valid URL', new Request('GET', 'test'), new Response()),
-            new ConnectException('This is a 404 error', new Request('GET', 'test')),
-            new Response('200', [], str_repeat('a', 40000)),
-            new Response('200', [], 'This is a test'),
-        ]);
-
-        $handlerStack = HandlerStack::create($mock);
-        self::$client = new Client(['handler' => $handlerStack]);
-    }
-
     protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-    /**
-     * @dataProvider providerWEBSERVICE
-     */
-    public function testWEBSERVICE(string $expectedResult, string $url): void
+    public function testSimpleValidCase(): void
     {
-        Settings::setHttpClient(self::$client);
-        $result = Web::WEBSERVICE($url);
+        $client = $this->createClientMock();
+        $client->response = new Response(200, [], 'Hello world!');
+        $result = Web::WEBSERVICE('http://example.com', $client);
+
+        self::assertEquals('Hello world!', $result);
+    }
+
+    /**
+     * @dataProvider provideInvalidUrls
+     */
+    public function testInvalidRequestUrls(string $expectedResult, string $url): void
+    {
+        $client = $this->createClientMock();
+        $client->response = new Response(200, [], $expectedResult);
+        $result = Web::WEBSERVICE($url, $client);
+
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerWEBSERVICE(): array
+    public function testClientExceptionReturnsValueFunction(): void
     {
-        return require 'tests/data/Calculation/Web/WEBSERVICE.php';
+        $client = $this->createClientMock();
+        $client->response = function (): void {
+            throw new class() extends Exception implements ClientExceptionInterface {
+            };
+        };
+        $result = Web::WEBSERVICE('http://example.com', $client);
+
+        self::assertEquals('#VALUE!', $result);
+    }
+
+    public function testNon200CodeReturnsValueFunction(): void
+    {
+        $client = $this->createClientMock();
+        $client->response = new Response(400, [], '');
+        $result = Web::WEBSERVICE('http://example.com', $client);
+
+        self::assertEquals('#VALUE!', $result);
+    }
+
+    public function testOutputBodyTooLongReturnsValueFunction(): void
+    {
+        $client = $this->createClientMock();
+        $content = str_repeat('a', 32768);
+        $client->response = new Response(200, [], $content);
+        $result = Web::WEBSERVICE('http://example.com', $client);
+
+        self::assertEquals('#VALUE!', $result);
+    }
+
+    public function provideInvalidUrls(): array
+    {
+        return require dirname(__DIR__, 5) . '/tests/data/Calculation/Web/WEBSERVICE.php';
+    }
+
+    private function createClientMock(): HttpClientMock
+    {
+        return new HttpClientMock();
     }
 }

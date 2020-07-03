@@ -8,6 +8,8 @@ use PhpOffice\PhpSpreadsheet\Chart\Renderer\IRenderer;
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
 use Psr\Http\Client\ClientInterface;
 use Psr\SimpleCache\CacheInterface;
+use RuntimeException;
+use Symfony\Component\HttpClient\HttpClient;
 
 class Settings
 {
@@ -43,13 +45,6 @@ class Settings
      * @var CacheInterface
      */
     private static $cache;
-
-    /**
-     * The HTTP client implementation to be used for network request.
-     *
-     * @var ClientInterface
-     */
-    private static $client;
 
     /**
      * Set the locale code to use for formula translations and any special formatting.
@@ -167,22 +162,18 @@ class Settings
     }
 
     /**
-     * Set the HTTP client implementation to be used for network request.
-     */
-    public static function setHttpClient(ClientInterface $httpClient): void
-    {
-        self::$client = $httpClient;
-    }
-
-    /**
      * Get the HTTP client implementation to be used for network request.
      */
-    public static function getHttpClient(): ClientInterface
+    public static function getDefaultHttpClient(): ClientInterface
     {
-        if (!self::$client) {
-            self::$client = new Client();
+        if (class_exists(Client::class)) {
+            // Support for Guzzle
+            return new Client();
+        } elseif (class_exists(HttpClient::class)) {
+            // Support for Symfony HttpClient
+            return HttpClient::create();
         }
 
-        return self::$client;
+        throw new RuntimeException("No HTTP client could be created.\nYou can install guzzlehttp/guzzle or symfony/http-client, or choose to create your own PSR-18 HTTP client.");
     }
 }

@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- nothing
+- Removed default Guzzle HTTP Client for the WEBSERVICE function and rely only on PSR-18 clients that the user must provide. [#1568](https://github.com/PHPOffice/PhpSpreadsheet/pull/1568)
 
 ## [1.14.0] - 2020-06-29
 
