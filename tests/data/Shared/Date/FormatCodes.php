@@ -150,4 +150,12 @@ return [
         true,
         '"date " y-m-d',
     ],
+    [
+        false,
+        '\C\H\-00000',
+    ],
+    [
+        false,
+        '\D-00000',
+    ],
 ];

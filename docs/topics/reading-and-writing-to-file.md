@@ -478,7 +478,7 @@ imports onto the 6th sheet:
 ```php
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $reader->setDelimiter(';');
-$reader->setEnclosure('');
+$reader->setEnclosure('"');
 $reader->setSheetIndex(5);
 
 $reader->loadIntoExisting("05featuredemo.csv", $spreadsheet);
@@ -505,9 +505,22 @@ file:
 ```php
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
 $writer->setDelimiter(';');
-$writer->setEnclosure('');
+$writer->setEnclosure('"');
 $writer->setLineEnding("\r\n");
 $writer->setSheetIndex(0);
+
+$writer->save("05featuredemo.csv");
+```
+
+#### CSV enclosures
+
+By default, all CSV fields are wrapped in the enclosure character,
+which defaults to double-quote.
+You can change to use the enclosure character only when required:
+
+``` php
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
+$writer->setEnclosureRequired(false);
 
 $writer->save("05featuredemo.csv");
 ```
@@ -538,6 +551,7 @@ $writer->save("05featuredemo.csv");
 CSV files are written in UTF-8. If they do not contain characters
 outside the ASCII range, nothing else need be done.
 However, if such characters are in the file,
+or if the file starts with the 2 characters 'ID',
 it should explicitly include a BOM file header;
 if it doesn't, Excel will not interpret those characters correctly.
 This can be enabled by using the following code:
@@ -693,7 +707,7 @@ $sty = $writer->generateStyles(false); // do not write <style> and </style>
 $newstyle = <<<EOF
 <style type='text/css'>
 $sty
-html {
+body {
     background-color: yellow;
 }
 </style>
@@ -703,16 +717,22 @@ echo $writer->generateSheetData();
 echo $writer->generateHTMLFooter();
 ```
 
-#### Writing UTF-8 HTML files
+#### Editing HTML during save via a callback
 
-A HTML file can be marked as UTF-8 by writing a BOM file header. This
-can be enabled by using the following code:
+You can also add a callback function to edit the generated html
+before saving. For example, you could change the gridlines
+from a thin solid black line:
 
-```php
+``` php
+function changeGridlines(string $html): string
+{
+    return str_replace('{border: 1px solid black;}',
+        '{border: 2px dashed red;}',
+        $html);
+}
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
-$writer->setUseBOM(true);
-
-$writer->save("05featuredemo.htm");
+$writer->setEditHtmlCallback('changeGridlines');
+$writer->save($filename);
 ```
 
 #### Decimal and thousands separators
@@ -840,6 +860,12 @@ $writer->setPreCalculateFormulas(false);
 
 $writer->save("05featuredemo.pdf");
 ```
+
+#### Editing Pdf during save via a callback
+
+You can also add a callback function to edit the html used to
+generate the Pdf before saving.
+[See under Html](#editing-html-during-save-via-a-callback).
 
 #### Decimal and thousands separators
 

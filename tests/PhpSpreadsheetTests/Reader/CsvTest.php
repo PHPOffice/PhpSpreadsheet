@@ -255,6 +255,10 @@ EOF;
         self::assertEquals('\'', $reader->getEnclosure());
         $reader->setEnclosure('');
         self::assertEquals('"', $reader->getEnclosure());
+        // following tests from BaseReader
+        self::assertTrue($reader->getReadEmptyCells());
+        self::assertFalse($reader->getIncludeCharts());
+        self::assertNull($reader->getLoadSheetsOnly());
     }
 
     public function testReadEmptyFileName(): void

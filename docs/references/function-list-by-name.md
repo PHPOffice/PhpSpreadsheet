@@ -212,7 +212,7 @@ Excel Function      | Category                       | PhpSpreadsheet Function
 IF                  | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::statementIf
 IFERROR             | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFERROR
 IFNA                | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFNA
-IFS                 | CATEGORY_LOGICAL               | **Not yet Implemented**
+IFS                 | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFS
 IMABS               | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMABS
 IMAGINARY           | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMAGINARY
 IMARGUMENT          | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMARGUMENT
