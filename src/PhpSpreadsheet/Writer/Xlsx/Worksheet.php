@@ -875,9 +875,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('firstPageNumber', $pSheet->getPageSetup()->getFirstPageNumber());
             $objWriter->writeAttribute('useFirstPageNumber', '1');
         }
-        if ($pSheet->getPageSetup()->getPageOrder() !== null) {
-            $objWriter->writeAttribute('pageOrder', $pSheet->getPageSetup()->getPageOrder());
-        }
+        $objWriter->writeAttribute('pageOrder', $pSheet->getPageSetup()->getPageOrder());
 
         $getUnparsedLoadedData = $pSheet->getParent()->getUnparsedLoadedData();
         if (isset($getUnparsedLoadedData['sheets'][$pSheet->getCodeName()]['pageSetupRelId'])) {

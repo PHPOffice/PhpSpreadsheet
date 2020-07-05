@@ -632,7 +632,7 @@ class Xml extends BaseReader
                 $xml_x = $worksheet->children($namespaces['x']);
                 if (isset($xml_x->WorksheetOptions)) {
                     $printSettings = $this->pageSetup($xml_x, $namespaces, $this->getPrintDefaults());
-                    $printSettings = $this->printSetup($xml_x, $namespaces, $printSettings);
+                    $printSettings = $this->printSetup($xml_x, $printSettings);
 
                     $spreadsheet->getActiveSheet()->getPageSetup()
                         ->setPaperSize($printSettings->paperSize)
@@ -933,7 +933,7 @@ class Xml extends BaseReader
         return $printDefaults;
     }
 
-    private function printSetup(SimpleXMLElement $xmlX, array $namespaces, stdClass $printDefaults): stdClass
+    private function printSetup(SimpleXMLElement $xmlX, stdClass $printDefaults): stdClass
     {
         if (isset($xmlX->WorksheetOptions->Print)) {
             foreach ($xmlX->WorksheetOptions->Print as $printData) {
