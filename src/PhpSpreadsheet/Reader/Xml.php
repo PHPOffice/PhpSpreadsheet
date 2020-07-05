@@ -570,7 +570,7 @@ class Xml extends BaseReader
                                                     $columnReference = $columnNumber;
                                                 }
                                                 //    Bracketed C references are relative to the current column
-                                                if ($columnReference[0] == '[') {
+                                                if (is_string($columnReference) && $columnReference[0] == '[') {
                                                     $columnReference = $columnNumber + trim($columnReference, '[]');
                                                 }
                                                 $A1CellReference = Coordinate::stringFromColumnIndex($columnReference) . $rowReference;
