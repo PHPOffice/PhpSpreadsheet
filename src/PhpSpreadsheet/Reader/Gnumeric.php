@@ -17,6 +17,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageMargins;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
@@ -24,6 +25,8 @@ use XMLReader;
 
 class Gnumeric extends BaseReader
 {
+    private const UOM_CONVERSION_POINTS_TO_CENTIMETERS = 0.03527777778;
+
     /**
      * Shared Expressions.
      *
@@ -402,6 +405,72 @@ class Gnumeric extends BaseReader
         }
     }
 
+    private function printInformation(SimpleXMLElement $sheet): void
+    {
+        if (!$this->readDataOnly && isset($sheet->PrintInformation)) {
+            $printInformation = $sheet->PrintInformation[0];
+            $scale = (string) $printInformation->Scale->attributes()['percentage'];
+            $pageOrder = (string) $printInformation->order;
+            $orientation = (string) $printInformation->orientation;
+            $horizontalCentered = (string) $printInformation->hcenter->attributes()['value'];
+            $verticalCentered = (string) $printInformation->vcenter->attributes()['value'];
+
+            $this->spreadsheet->getActiveSheet()->getPageSetup()
+                ->setPageOrder($pageOrder === 'r_then_d' ? PageSetup::PAGEORDER_OVER_THEN_DOWN : PageSetup::PAGEORDER_DOWN_THEN_OVER)
+                ->setScale((int) $scale)
+                ->setOrientation($orientation ?? PageSetup::ORIENTATION_DEFAULT)
+                ->setHorizontalCentered((bool) $horizontalCentered)
+                ->setVerticalCentered((bool) $verticalCentered);
+        }
+    }
+
+    private function sheetMargins(SimpleXMLElement $sheet): void
+    {
+        if (!$this->readDataOnly && isset($sheet->PrintInformation, $sheet->PrintInformation->Margins)) {
+            $marginSet = [
+                // Default Settings
+                'top' => 0.75,
+                'header' => 0.3,
+                'left' => 0.7,
+                'right' => 0.7,
+                'bottom' => 0.75,
+                'footer' => 0.3,
+            ];
+
+            foreach ($sheet->PrintInformation->Margins->children($this->gnm, true) as $key => $margin) {
+                $marginAttributes = $margin->attributes();
+                $marginSize = ($marginAttributes['Points']) ?? 72; //    Default is 72pt
+                // Convert value in points to inches
+                $marginSize = PageMargins::fromPoints((float) $marginSize);
+                $marginSet[$key] = $marginSize;
+            }
+
+            foreach ($marginSet as $key => $marginSize) {
+                // Gnumeric is quirky in the way it displays the header/footer values:
+                //    header is actually the sum of top and header; footer is actually the sum of bottom and footer
+                //    then top is actually the header value, and bottom is actually the footer value
+                switch ($key) {
+                    case 'left':
+                    case 'right':
+                        $this->sheetMargin($key, $marginSize);
+                        break;
+                    case 'top':
+                        $this->sheetMargin($key, $marginSet['header'] ?? 0);
+                        break;
+                    case 'bottom':
+                        $this->sheetMargin($key, $marginSet['footer'] ?? 0);
+                        break;
+                    case 'header':
+                        $this->sheetMargin($key, ($marginSet['top'] ?? 0) - $marginSize);
+                        break;
+                    case 'footer':
+                        $this->sheetMargin($key, ($marginSet['bottom'] ?? 0) - $marginSize);
+                        break;
+                }
+            }
+        }
+    }
+
     private function sheetMargin(string $key, float $marginSize): void
     {
         switch ($key) {
@@ -429,43 +498,6 @@ class Gnumeric extends BaseReader
                 $this->spreadsheet->getActiveSheet()->getPageMargins()->setFooter($marginSize);
 
                 break;
-        }
-    }
-
-    private function printInformation(SimpleXMLElement $sheet): void
-    {
-        if (!$this->readDataOnly && isset($sheet->PrintInformation)) {
-            $printInformation = $sheet->PrintInformation[0];
-            $scale = (string) $printInformation->Scale->attributes()['percentage'];
-            $pageOrder = (string) $printInformation->order;
-            $orientation = (string) $printInformation->orientation;
-            $horizontalCentered = (string) $printInformation->hcenter->attributes()['value'];
-            $verticalCentered = (string) $printInformation->vcenter->attributes()['value'];
-
-            $this->spreadsheet->getActiveSheet()->getPageSetup()
-                ->setPageOrder($pageOrder === 'r_then_d' ? PageSetup::PAGEORDER_OVER_THEN_DOWN : PageSetup::PAGEORDER_DOWN_THEN_OVER)
-                ->setScale((int) $scale)
-                ->setOrientation($orientation ?? PageSetup::ORIENTATION_DEFAULT)
-                ->setHorizontalCentered((bool) $horizontalCentered)
-                ->setVerticalCentered((bool) $verticalCentered);
-        }
-    }
-
-    private function sheetMargins(SimpleXMLElement $sheet): void
-    {
-        if (!$this->readDataOnly && isset($sheet->PrintInformation, $sheet->PrintInformation->Margins)) {
-            foreach ($sheet->PrintInformation->Margins->children($this->gnm, true) as $key => $margin) {
-                $marginAttributes = $margin->attributes();
-                $marginSize = $marginAttributes['Points'] ?? 72 / 100; //    Default
-                switch ($marginAttributes['PrefUnit']) {
-                    case 'inch':
-                    case 'mm':
-                        $marginSize = ($marginAttributes['Points']) / 100;
-
-                        break;
-                }
-                $this->sheetMargin($key, (float) $marginSize);
-            }
         }
     }
 

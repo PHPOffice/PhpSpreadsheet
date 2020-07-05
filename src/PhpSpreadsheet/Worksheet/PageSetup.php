@@ -249,7 +249,7 @@ class PageSetup
      */
     private $firstPageNumber;
 
-    private $pageOrder;
+    private $pageOrder = self::PAGEORDER_DOWN_THEN_OVER;
 
     /**
      * Create a new PageSetup.
@@ -823,7 +823,7 @@ class PageSetup
         return $this->setFirstPageNumber(null);
     }
 
-    public function getPageOrder(): ?string
+    public function getPageOrder(): string
     {
         return $this->pageOrder;
     }
@@ -831,7 +831,7 @@ class PageSetup
     public function setPageOrder(?string $pageOrder): self
     {
         if ($pageOrder === null || $pageOrder === self::PAGEORDER_DOWN_THEN_OVER || $pageOrder === self::PAGEORDER_OVER_THEN_DOWN) {
-            $this->pageOrder = $pageOrder;
+            $this->pageOrder = $pageOrder ?? self::PAGEORDER_DOWN_THEN_OVER;
         }
 
         return $this;

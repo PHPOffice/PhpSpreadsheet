@@ -47,6 +47,7 @@ class PageSettings
             $styleScale = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'scale-to');
             $stylePrintOrder = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'print-page-order');
             $centered = $pageLayoutProperties->getAttributeNS($this->stylesNs, 'table-centering');
+
             $marginLeft = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-left');
             $marginRight = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-right');
             $marginTop = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-top');
@@ -59,17 +60,18 @@ class PageSettings
             $marginFooter = $footerProperties->getAttributeNS($this->stylesFo, 'min-height');
 
             $this->pageLayoutStyles[$styleName] = (object) [
-                'orientation' => $styleOrientation,
-                'scale' => $styleScale,
+                'orientation' => $styleOrientation ?: PageSetup::ORIENTATION_DEFAULT,
+                'scale' => $styleScale ?: 100,
                 'printOrder' => $stylePrintOrder,
                 'horizontalCentered' => $centered === 'horizontal' || $centered === 'both',
                 'verticalCentered' => $centered === 'vertical' || $centered === 'both',
-                'marginLeft' => round((float) $marginLeft ?? 0.7, 5),
-                'marginRight' => round((float) $marginRight ?? 0.7, 5),
-                'marginTop' => round((float) $marginTop ?? 0.7, 5),
-                'marginBottom' => round((float) $marginBottom ?? 0.7, 5),
-                'marginHeader' => round((float) $marginHeader ?? 0.0, 5),
-                'marginFooter' => round((float) $marginFooter ?? 0.0, 5),
+                // margin size is already stored in inches, so no UOM conversion is required
+                'marginLeft' => (float) $marginLeft ?? 0.7,
+                'marginRight' => (float) $marginRight ?? 0.7,
+                'marginTop' => (float) $marginTop ?? 0.3,
+                'marginBottom' => (float) $marginBottom ?? 0.3,
+                'marginHeader' => (float) $marginHeader ?? 0.45,
+                'marginFooter' => (float) $marginFooter ?? 0.45,
             ];
         }
     }

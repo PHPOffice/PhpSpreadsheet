@@ -211,4 +211,34 @@ class PageMargins
             }
         }
     }
+
+    public static function fromCentimeters($value): float
+    {
+        return $value / 2.54;
+    }
+
+    public static function toCentimeters($value): float
+    {
+        return $value * 2.54;
+    }
+
+    public static function fromMillimeters($value): float
+    {
+        return $value / 25.4;
+    }
+
+    public static function toMillimeters($value): float
+    {
+        return $value * 25.4;
+    }
+
+    public static function fromPoints($value): float
+    {
+        return $value / 72;
+    }
+
+    public static function toPoints($value): float
+    {
+        return $value * 72;
+    }
 }
