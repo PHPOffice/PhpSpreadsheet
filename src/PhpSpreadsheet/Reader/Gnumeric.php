@@ -437,41 +437,52 @@ class Gnumeric extends BaseReader
                 'footer' => 0.3,
             ];
 
-            foreach ($sheet->PrintInformation->Margins->children($this->gnm, true) as $key => $margin) {
-                $marginAttributes = $margin->attributes();
-                $marginSize = ($marginAttributes['Points']) ?? 72; //    Default is 72pt
-                // Convert value in points to inches
-                $marginSize = PageMargins::fromPoints((float) $marginSize);
-                $marginSet[$key] = $marginSize;
-            }
+            $marginSet = $this->buildMarginSet($sheet, $marginSet);
+            $this->adjustMargins($marginSet);
+        }
+    }
 
-            foreach ($marginSet as $key => $marginSize) {
-                // Gnumeric is quirky in the way it displays the header/footer values:
-                //    header is actually the sum of top and header; footer is actually the sum of bottom and footer
-                //    then top is actually the header value, and bottom is actually the footer value
-                switch ($key) {
-                    case 'left':
-                    case 'right':
-                        $this->sheetMargin($key, $marginSize);
+    private function buildMarginSet(SimpleXMLElement $sheet, array $marginSet): array
+    {
+        foreach ($sheet->PrintInformation->Margins->children($this->gnm, true) as $key => $margin) {
+            $marginAttributes = $margin->attributes();
+            $marginSize = ($marginAttributes['Points']) ?? 72; //    Default is 72pt
+            // Convert value in points to inches
+            $marginSize = PageMargins::fromPoints((float)$marginSize);
+            $marginSet[$key] = $marginSize;
+        }
 
-                        break;
-                    case 'top':
-                        $this->sheetMargin($key, $marginSet['header'] ?? 0);
+        return $marginSet;
+    }
 
-                        break;
-                    case 'bottom':
-                        $this->sheetMargin($key, $marginSet['footer'] ?? 0);
+    private function adjustMargins(array $marginSet): void
+    {
+        foreach ($marginSet as $key => $marginSize) {
+            // Gnumeric is quirky in the way it displays the header/footer values:
+            //    header is actually the sum of top and header; footer is actually the sum of bottom and footer
+            //    then top is actually the header value, and bottom is actually the footer value
+            switch ($key) {
+                case 'left':
+                case 'right':
+                    $this->sheetMargin($key, $marginSize);
 
-                        break;
-                    case 'header':
-                        $this->sheetMargin($key, ($marginSet['top'] ?? 0) - $marginSize);
+                    break;
+                case 'top':
+                    $this->sheetMargin($key, $marginSet['header'] ?? 0);
 
-                        break;
-                    case 'footer':
-                        $this->sheetMargin($key, ($marginSet['bottom'] ?? 0) - $marginSize);
+                    break;
+                case 'bottom':
+                    $this->sheetMargin($key, $marginSet['footer'] ?? 0);
 
-                        break;
-                }
+                    break;
+                case 'header':
+                    $this->sheetMargin($key, ($marginSet['top'] ?? 0) - $marginSize);
+
+                    break;
+                case 'footer':
+                    $this->sheetMargin($key, ($marginSet['bottom'] ?? 0) - $marginSize);
+
+                    break;
             }
         }
     }
