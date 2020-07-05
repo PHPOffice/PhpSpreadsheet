@@ -453,18 +453,23 @@ class Gnumeric extends BaseReader
                     case 'left':
                     case 'right':
                         $this->sheetMargin($key, $marginSize);
+
                         break;
                     case 'top':
                         $this->sheetMargin($key, $marginSet['header'] ?? 0);
+
                         break;
                     case 'bottom':
                         $this->sheetMargin($key, $marginSet['footer'] ?? 0);
+
                         break;
                     case 'header':
                         $this->sheetMargin($key, ($marginSet['top'] ?? 0) - $marginSize);
+
                         break;
                     case 'footer':
                         $this->sheetMargin($key, ($marginSet['bottom'] ?? 0) - $marginSize);
+
                         break;
                 }
             }

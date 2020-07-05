@@ -12,18 +12,18 @@ class PageSetupTest extends TestCase
     private const MARGIN_PRECISION = 0.001;
 
     /**
-     * @var Spreadsheet $spreadsheet
+     * @var Spreadsheet
      */
     private $spreadsheet;
 
-    public function setup(): void
+    protected function setup(): void
     {
         $filename = 'tests/data/Reader/Gnumeric/PageSetup.gnumeric';
         $reader = new Gnumeric();
         $this->spreadsheet = $reader->load($filename);
     }
 
-    public function testPageSetup()
+    public function testPageSetup(): void
     {
         $assertions = $this->pageSetupAssertions();
 
@@ -36,7 +36,7 @@ class PageSetupTest extends TestCase
             foreach ($sheetAssertions as $test => $expectedResult) {
                 $testMethodName = 'get' . ucfirst($test);
                 $actualResult = $worksheet->getPageSetup()->$testMethodName();
-                $this->assertSame(
+                self::assertSame(
                     $expectedResult,
                     $actualResult,
                     "Failed assertion for Worksheet '{$worksheet->getTitle()}' {$test}"
@@ -45,7 +45,7 @@ class PageSetupTest extends TestCase
         }
     }
 
-    public function testPageMargins()
+    public function testPageMargins(): void
     {
         $assertions = $this->pageMarginAssertions();
 
@@ -58,7 +58,7 @@ class PageSetupTest extends TestCase
             foreach ($sheetAssertions as $test => $expectedResult) {
                 $testMethodName = 'get' . ucfirst($test);
                 $actualResult = $worksheet->getPageMargins()->$testMethodName();
-                $this->assertEqualsWithDelta(
+                self::assertEqualsWithDelta(
                     $expectedResult,
                     $actualResult,
                     self::MARGIN_PRECISION,

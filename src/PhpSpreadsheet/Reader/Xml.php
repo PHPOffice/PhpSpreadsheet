@@ -17,6 +17,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use SimpleXMLElement;
+use stdClass;
 
 /**
  * Reader for SpreadsheetML, the XML schema for Microsoft Office Excel 2003.
@@ -905,16 +906,16 @@ class Xml extends BaseReader
                     switch ($pageSetupKey) {
                         case 'Layout':
                             $printDefaults->orientation = (string) strtolower($pageSetupAttributes->Orientation) ?: PageSetup::ORIENTATION_PORTRAIT;
-                            $printDefaults->horizontalCentered = (bool)$pageSetupAttributes->CenterHorizontal ?: false;
-                            $printDefaults->verticalCentered = (bool)$pageSetupAttributes->CenterVertical ?: false;
+                            $printDefaults->horizontalCentered = (bool) $pageSetupAttributes->CenterHorizontal ?: false;
+                            $printDefaults->verticalCentered = (bool) $pageSetupAttributes->CenterVertical ?: false;
 
                             break;
                         case 'Header':
-                            $printDefaults->headerMargin = (float)$pageSetupAttributes->Margin ?: 1.0;
+                            $printDefaults->headerMargin = (float) $pageSetupAttributes->Margin ?: 1.0;
 
                             break;
                         case 'Footer':
-                            $printDefaults->footerMargin = (float)$pageSetupAttributes->Margin ?: 1.0;
+                            $printDefaults->footerMargin = (float) $pageSetupAttributes->Margin ?: 1.0;
 
                             break;
                         case 'PageMargins':
@@ -932,7 +933,7 @@ class Xml extends BaseReader
         return $printDefaults;
     }
 
-    private function printSetup(SimpleXMLElement $xmlX, array $namespaces, \stdClass $printDefaults): \stdClass
+    private function printSetup(SimpleXMLElement $xmlX, array $namespaces, stdClass $printDefaults): stdClass
     {
         if (isset($xmlX->WorksheetOptions->Print)) {
             foreach ($xmlX->WorksheetOptions->Print as $printData) {
