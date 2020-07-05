@@ -897,7 +897,7 @@ class Xml extends BaseReader
         ];
     }
 
-    private function pageSetup(SimpleXMLElement $xmlX, array $namespaces, \stdClass $printDefaults): \stdClass
+    private function pageSetup(SimpleXMLElement $xmlX, array $namespaces, stdClass $printDefaults): stdClass
     {
         if (isset($xmlX->WorksheetOptions->PageSetup)) {
             foreach ($xmlX->WorksheetOptions->PageSetup as $pageSetupData) {
