@@ -588,10 +588,7 @@ class Workbook extends BIFFwriter
             // Loop named ranges
             $definedNames = $this->spreadsheet->getDefinedNames();
             foreach ($definedNames as $definedName) {
-                echo "WRITING DEFINED NAME '{$definedName->getName()}'", PHP_EOL;
-                echo "VALUE IS {$definedName->getValue()}", PHP_EOL;
                 $range = $this->parseDefinedNameValue($definedName);
-                echo "CONVERTED VALUE IS {$range}", PHP_EOL;
 
                 // parse formula
                 try {
@@ -605,17 +602,14 @@ class Workbook extends BIFFwriter
 
                     if ($definedName->getLocalOnly()) {
                         $scopeName = $definedName->getScope()->getTitle();
-                        echo "SCOPE IS LOCAL TO {$scopeName}", PHP_EOL;
                         // local scope
                         $scope = $this->spreadsheet->getIndex($definedName->getScope()) + 1;
                     } else {
-                        echo 'SCOPE IS GLOBAL', PHP_EOL;
                         // global scope
                         $scope = 0;
                     }
                     $chunk .= $this->writeData($this->writeDefinedNameBiff8($definedName->getName(), $formulaData, $scope, false));
                 } catch (PhpSpreadsheetException $e) {
-                    echo "DEFINED NAME EXCEPTION WHEN WRITING: {$e->getMessage()}", PHP_EOL;
                     // do nothing
                 }
             }

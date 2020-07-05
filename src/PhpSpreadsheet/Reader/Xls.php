@@ -6963,7 +6963,6 @@ class Xls extends BaseReader
             case 0x63:
                 $name = 'tName';
                 $size = 5;
-                var_dump(substr($formulaData, 0, 5));
                 // offset: 1; size: 2; one-based index to definedname record
                 $definedNameIndex = self::getUInt2d($formulaData, 1) - 1;
                 // offset: 2; size: 2; not used

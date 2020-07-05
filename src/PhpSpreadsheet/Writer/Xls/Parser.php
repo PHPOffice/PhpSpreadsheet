@@ -525,7 +525,6 @@ class Parser
         } elseif (preg_match('/^#[A-Z0\\/]{3,5}[!?]{1}$/', $token) || $token == '#N/A') {
             return $this->convertError($token);
         } elseif  (preg_match('/^'.Calculation::CALCULATION_REGEXP_DEFINEDNAME.'$/mui', $token) && $this->spreadsheet->getNamedRange($token) !== null) {
-            echo "TOKEN {$token} IDENTIFIED AS DEFINED NAME", PHP_EOL;
             return $this->convertDefinedName($token);
         // commented so argument number can be processed correctly. See toReversePolish().
         /*elseif (preg_match("/[A-Z0-9\xc0-\xdc\.]+/", $token))
@@ -761,11 +760,11 @@ class Parser
             }
             ++$nameReference;
         }
-        echo "DEFINED NAME {$name} IS INDEX {$nameReference}", PHP_EOL;
 
         $ptgRef = pack('Cvxx', $this->ptg['ptgName'], $nameReference);
-var_dump($ptgRef);
-        return $ptgRef;
+
+        throw new WriterException('Cannot yet write formulae with defined names to Xls');
+//        return $ptgRef;
     }
 
     /**
@@ -1439,7 +1438,7 @@ var_dump($ptgRef);
         if (empty($tree)) { // If it's the first call use parseTree
             $tree = $this->parseTree;
         }
-var_dump($tree);
+
         if (is_array($tree['left'])) {
             $converted_tree = $this->toReversePolish($tree['left']);
             $polish .= $converted_tree;
@@ -1470,7 +1469,7 @@ var_dump($tree);
             return $left_tree . $this->convertFunction($tree['value'], $tree['right']);
         }
         $converted_tree = $this->convert($tree['value']);
-var_dump($converted_tree);
+
         return $polish . $converted_tree;
     }
 }
