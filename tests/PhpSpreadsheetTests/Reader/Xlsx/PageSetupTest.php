@@ -11,7 +11,7 @@ class PageSetupTest extends TestCase
 {
     private const MARGIN_PRECISION = 0.00000001;
 
-    private const MARGIN_UNIT_CONVERSION = 2.54;         // Inches to cm
+    private const MARGIN_UNIT_CONVERSION = 2.54; // Inches to cm
 
     /**
      * @var Spreadsheet
