@@ -115,16 +115,16 @@ class PageSettings
 
     private function setLayout(stdClass $printDefaults, SimpleXMLElement $pageSetupAttributes): void
     {
-        $printDefaults->orientation = (string)strtolower($pageSetupAttributes->Orientation) ?: PageSetup::ORIENTATION_PORTRAIT;
-        $printDefaults->horizontalCentered = (bool)$pageSetupAttributes->CenterHorizontal ?: false;
-        $printDefaults->verticalCentered = (bool)$pageSetupAttributes->CenterVertical ?: false;
+        $printDefaults->orientation = (string) strtolower($pageSetupAttributes->Orientation) ?: PageSetup::ORIENTATION_PORTRAIT;
+        $printDefaults->horizontalCentered = (bool) $pageSetupAttributes->CenterHorizontal ?: false;
+        $printDefaults->verticalCentered = (bool) $pageSetupAttributes->CenterVertical ?: false;
     }
 
     private function setMargins(stdClass $printDefaults, SimpleXMLElement $pageSetupAttributes): void
     {
-        $printDefaults->leftMargin = (float)$pageSetupAttributes->Left ?: 1.0;
-        $printDefaults->rightMargin = (float)$pageSetupAttributes->Right ?: 1.0;
-        $printDefaults->topMargin = (float)$pageSetupAttributes->Top ?: 1.0;
-        $printDefaults->bottomMargin = (float)$pageSetupAttributes->Bottom ?: 1.0;
+        $printDefaults->leftMargin = (float) $pageSetupAttributes->Left ?: 1.0;
+        $printDefaults->rightMargin = (float) $pageSetupAttributes->Right ?: 1.0;
+        $printDefaults->topMargin = (float) $pageSetupAttributes->Top ?: 1.0;
+        $printDefaults->bottomMargin = (float) $pageSetupAttributes->Bottom ?: 1.0;
     }
 }
