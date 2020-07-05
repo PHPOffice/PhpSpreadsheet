@@ -601,7 +601,6 @@ class Workbook extends BIFFwriter
                     }
 
                     if ($definedName->getLocalOnly()) {
-                        $scopeName = $definedName->getScope()->getTitle();
                         // local scope
                         $scope = $this->spreadsheet->getIndex($definedName->getScope()) + 1;
                     } else {
