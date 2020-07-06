@@ -127,6 +127,11 @@ Excel Function      | PhpSpreadsheet Function
 Excel Function      | PhpSpreadsheet Function
 --------------------|-------------------------------------------
 
+## CATEGORY_WEB
+
+Excel Function      | PhpSpreadsheet Function
+--------------------|-------------------------------------------
+
 EXPECTED
 
             ],

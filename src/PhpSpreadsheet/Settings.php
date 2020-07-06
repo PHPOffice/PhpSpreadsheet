@@ -2,9 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use GuzzleHttp\Client;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Chart\Renderer\IRenderer;
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
+use Psr\Http\Client\ClientInterface;
 use Psr\SimpleCache\CacheInterface;
 
 class Settings
@@ -41,6 +43,13 @@ class Settings
      * @var CacheInterface
      */
     private static $cache;
+
+    /**
+     * The HTTP client implementation to be used for network request.
+     *
+     * @var ClientInterface
+     */
+    private static $client;
 
     /**
      * Set the locale code to use for formula translations and any special formatting.
@@ -155,5 +164,25 @@ class Settings
         }
 
         return self::$cache;
+    }
+
+    /**
+     * Set the HTTP client implementation to be used for network request.
+     */
+    public static function setHttpClient(ClientInterface $httpClient): void
+    {
+        self::$client = $httpClient;
+    }
+
+    /**
+     * Get the HTTP client implementation to be used for network request.
+     */
+    public static function getHttpClient(): ClientInterface
+    {
+        if (!self::$client) {
+            self::$client = new Client();
+        }
+
+        return self::$client;
     }
 }

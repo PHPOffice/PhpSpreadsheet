@@ -439,6 +439,15 @@ class Xls extends BaseReader
         }
     }
 
+    public function setCodepage(string $codepage): void
+    {
+        if (!CodePage::validate($codepage)) {
+            throw new PhpSpreadsheetException('Unknown codepage: ' . $codepage);
+        }
+
+        $this->codepage = $codepage;
+    }
+
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
@@ -640,7 +649,7 @@ class Xls extends BaseReader
 
         // initialize
         $this->pos = 0;
-        $this->codepage = 'CP1252';
+        $this->codepage = $this->codepage ?: CodePage::DEFAULT_CODE_PAGE;
         $this->formats = [];
         $this->objFonts = [];
         $this->palette = [];
@@ -4944,6 +4953,7 @@ class Xls extends BaseReader
         // offset: var; size: $sz1; formula data for first condition (without size field)
         $formula1 = substr($recordData, $offset, $sz1);
         $formula1 = pack('v', $sz1) . $formula1; // prepend the length
+
         try {
             $formula1 = $this->getFormulaFromStructure($formula1);
 
@@ -4966,6 +4976,7 @@ class Xls extends BaseReader
         // offset: var; size: $sz2; formula data for second condition (without size field)
         $formula2 = substr($recordData, $offset, $sz2);
         $formula2 = pack('v', $sz2) . $formula2; // prepend the length
+
         try {
             $formula2 = $this->getFormulaFromStructure($formula2);
         } catch (PhpSpreadsheetException $e) {
@@ -5763,6 +5774,7 @@ class Xls extends BaseReader
                 $size = 9;
                 $data = self::extractNumber(substr($formulaData, 1));
                 $data = str_replace(',', '.', (string) $data); // in case non-English locale
+
                 break;
             case 0x20:    //    array constant
             case 0x40:

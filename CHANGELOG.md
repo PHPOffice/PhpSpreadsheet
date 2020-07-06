@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Added
+
+- nothing
+
+### Fixed
+
+- nothing
+
+### Changed
+
+- nothing
+
+## [1.14.0] - 2020-06-29
+
+### Added
+
+- Add support for IFS() logical function [#1442](https://github.com/PHPOffice/PhpSpreadsheet/pull/1442)
+- Add Cell Address Helper to provide conversions between the R1C1 and A1 address formats [#1558](https://github.com/PHPOffice/PhpSpreadsheet/pull/1558)
+- Add ability to edit Html/Pdf before saving [#1499](https://github.com/PHPOffice/PhpSpreadsheet/pull/1499)
+- Add ability to set codepage explicitly for BIFF5 [#1018](https://github.com/PHPOffice/PhpSpreadsheet/issues/1018)
+- Added support for the WEBSERVICE function [#1409](https://github.com/PHPOffice/PhpSpreadsheet/pull/1409)
+
 ### Fixed
 
 - Resolve evaluation of utf-8 named ranges in calculation engine [#1522](https://github.com/PHPOffice/PhpSpreadsheet/pull/1522)
@@ -19,10 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix for Issue [#1495](https://github.com/PHPOffice/PhpSpreadsheet/issues/1495) (Sheet index being changed when multiple sheets are used in formula) [#1500]((https://github.com/PHPOffice/PhpSpreadsheet/pull/1500))
 - Fix for Issue [#1533](https://github.com/PHPOffice/PhpSpreadsheet/issues/1533) (A reference to a cell containing a string starting with "#" leads to errors in the generated xlsx.) [#1534](https://github.com/PHPOffice/PhpSpreadsheet/pull/1534)
 - Xls Writer - Correct Timestamp Bug [#1493](https://github.com/PHPOffice/PhpSpreadsheet/pull/1493)
-
-### Added
-- Add support for IFS() logical function [#1442](https://github.com/PHPOffice/PhpSpreadsheet/pull/1442)
-- Add Cell Address Helper to provide conversions between the R1C1 and A1 address formats [#1558](https://github.com/PHPOffice/PhpSpreadsheet/pull/1558)
+- Don't ouput row and columns without any cells in HTML writer [#1235](https://github.com/PHPOffice/PhpSpreadsheet/issues/1235)
 
 ## [1.13.0] - 2020-05-31
 
