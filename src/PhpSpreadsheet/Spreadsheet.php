@@ -945,7 +945,6 @@ class Spreadsheet
     /**
      * Get named range.
      *
-     * @param string $namedRange
      * @param null|Worksheet $pSheet Scope. Use null for global scope
      *
      * @return null|NamedRange
@@ -972,7 +971,6 @@ class Spreadsheet
     /**
      * Remove named range.
      *
-     * @param string $namedRange
      * @param null|Worksheet $pSheet scope: use null for global scope
      *
      * @return $this
