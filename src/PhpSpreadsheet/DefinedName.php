@@ -99,6 +99,10 @@ abstract class DefinedName
 
     public static function testIfFormula(string $value): bool
     {
+        if (is_numeric($value)) {
+            return true;
+        }
+
         $segMatcher = false;
         foreach (explode("'", $value) as $subVal) {
             //    Only test in alternate array entries (the non-quoted blocks)

@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\DefinedNames;
 
 class Spreadsheet
 {
@@ -864,17 +865,33 @@ class Spreadsheet
     }
 
     /**
-     * Get defined Names.
+     * Get an array of all Named Ranges.
      *
      * @return NamedRange[]
      */
     public function getNamedRanges()
     {
-        return $this->definedNames;
+        return array_filter(
+            $this->definedNames,
+            function(DefinedName $definedName) {return $definedName->isFormula() !== true; }
+        );
     }
 
     /**
-     * Get defined Names.
+     * Get an array of all Named Formulae.
+     *
+     * @return NamedFormula[]
+     */
+    public function getNamedFormulae()
+    {
+        return array_filter(
+            $this->definedNames,
+            function(DefinedName $definedName) {return $definedName->isFormula() === true; }
+        );
+    }
+
+    /**
+     * Get an array of all Defined Names (both named ranges and named formulae).
      *
      * @return DefinedName[]
      */
@@ -884,7 +901,7 @@ class Spreadsheet
     }
 
     /**
-     * Add named range.
+     * Add a named range.
      *
      * @return bool
      */
@@ -894,7 +911,17 @@ class Spreadsheet
     }
 
     /**
-     * Add named range.
+     * Add a named formula.
+     *
+     * @return bool
+     */
+    public function addNamedFormula(NamedFormula $namedFormula)
+    {
+        return $this->addDefinedName($namedFormula);
+    }
+
+    /**
+     * Add a defined name (either a named range or a named formula).
      *
      * @return bool
      */
@@ -919,7 +946,7 @@ class Spreadsheet
      *
      * @return null|NamedRange
      */
-    public function getNamedRange($namedRange, ?Worksheet $pSheet = null)
+    public function getNamedRange(string $namedRange, ?Worksheet $pSheet = null)
     {
         $returnValue = null;
 
@@ -946,7 +973,7 @@ class Spreadsheet
      *
      * @return $this
      */
-    public function removeNamedRange($namedRange, ?Worksheet $pSheet = null)
+    public function removeNamedRange(string $namedRange, ?Worksheet $pSheet = null)
     {
         if ($pSheet === null) {
             if (isset($this->definedNames[$namedRange])) {

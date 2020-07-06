@@ -584,9 +584,9 @@ class Workbook extends BIFFwriter
         $chunk = '';
 
         // Named ranges
-        if (count($this->spreadsheet->getNamedRanges()) > 0) {
+        $definedNames = $this->spreadsheet->getDefinedNames();
+        if (count($definedNames) > 0) {
             // Loop named ranges
-            $definedNames = $this->spreadsheet->getDefinedNames();
             foreach ($definedNames as $definedName) {
                 $range = $this->parseDefinedNameValue($definedName);
 

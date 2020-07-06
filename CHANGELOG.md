@@ -9,7 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- nothing
+- Named formula implementation, and improved handling of Defined Names generally [#1535](https://github.com/PHPOffice/PhpSpreadsheet/pull/1535)
+  - Distinction between named ranges and named formulae
+  - Correct handling of union and intersection operators in named ranges
+  - Correct evaluation of named range operators in calculations
+  - Calculation support for named formulae
+  - Support for nested ranges and formulae (named ranges and formulae that reference other named ranges/formulae) in calculations
+  - Introduction of a helper to convert address formats between R1C1 and A1 (and the reverse)
+  - Proper support for both named ranges and named formulae in all appropriate Readers
+    - **Xlsx** (Previously only simple named ranges were supported)
+    - **Xls** (Previously only simple named ranges were supported)
+    - **Gnumeric** (Previously neither named ranges nor formulae were supported)
+    - **Ods** (Previously neither named ranges nor formulae were supported)
+    - **Xml** (Previously neither named ranges nor formulae were supported)
+  - Proper support for named ranges and named formulae in all appropriate Writers
+    - **Xlsx** (Previously only simple named ranges were supported)
+    - **Xls** (Previously neither named ranges nor formulae were supported - Still not supported, but some parser issues resolved that previously failed to differentiate between a defined name and a function name)
+    - **Ods** (Previously neither named ranges nor formulae were supported)
 
 ### Fixed
 

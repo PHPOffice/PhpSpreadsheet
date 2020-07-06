@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\DefinedName;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class DefinedNameFormulaTest extends TestCase
@@ -16,11 +17,66 @@ class DefinedNameFormulaTest extends TestCase
         self::assertSame($expectedResult, $actualResult);
     }
 
+    public function testAddDefinedNames(): void
+    {
+        $spreadSheet = new Spreadsheet();
+        $workSheet = $spreadSheet->getActiveSheet();
+
+        $definedNamesForTest = $this->providerRangeOrFormula();
+        foreach ($definedNamesForTest as $key => $definedNameData) {
+            [$value] = $definedNameData;
+            $name = str_replace([' ', '-'], '_', $key);
+            $spreadSheet->addDefinedName(DefinedName::createInstance($name, $workSheet, $value));
+        }
+
+        $allDefinedNames = $spreadSheet->getDefinedNames();
+        self::assertSame(count($definedNamesForTest), count($allDefinedNames));
+    }
+
+    public function testGetNamedRanges(): void
+    {
+        $spreadSheet = new Spreadsheet();
+        $workSheet = $spreadSheet->getActiveSheet();
+
+        $rangeOrFormula = [];
+        $definedNamesForTest = $this->providerRangeOrFormula();
+        foreach ($definedNamesForTest as $key => $definedNameData) {
+            [$value, $isFormula] = $definedNameData;
+            $rangeOrFormula[] = !$isFormula;
+            $name = str_replace([' ', '-'], '_', $key);
+            $spreadSheet->addDefinedName(DefinedName::createInstance($name, $workSheet, $value));
+        }
+
+        $allNamedRanges = $spreadSheet->getNamedRanges();
+        self::assertSame(count(array_filter($rangeOrFormula)), count($allNamedRanges));
+    }
+
+    public function testGetNamedFormulae(): void
+    {
+        $spreadSheet = new Spreadsheet();
+        $workSheet = $spreadSheet->getActiveSheet();
+
+        $rangeOrFormula = [];
+        $definedNamesForTest = $this->providerRangeOrFormula();
+        foreach ($definedNamesForTest as $key => $definedNameData) {
+            [$value, $isFormula] = $definedNameData;
+            $rangeOrFormula[] = $isFormula;
+            $name = str_replace([' ', '-'], '_', $key);
+            $spreadSheet->addDefinedName(DefinedName::createInstance($name, $workSheet, $value));
+        }
+
+        $allNamedFormulae = $spreadSheet->getNamedFormulae();
+        self::assertSame(count(array_filter($rangeOrFormula)), count($allNamedFormulae));
+    }
+
     public function providerRangeOrFormula()
     {
         return [
             'simple range' => ['A1', false],
             'simple absolute range' => ['$A$1', false],
+            'simple integer value' => ['42', true],
+            'simple float value' => ['12.5', true],
+            'simple string value' => ['"HELLO WORLD"', true],
             'range with a worksheet name' => ['Sheet2!$A$1', false],
             'range with a quoted worksheet name' => ["'Work Sheet #2'!\$A\$1:\$E\$1", false],
             'range with a quoted worksheet name containing quotes' => ["'Mark''s WorkSheet'!\$A\$1:\$E\$1", false],
