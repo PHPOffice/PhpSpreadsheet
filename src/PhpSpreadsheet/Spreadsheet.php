@@ -873,7 +873,7 @@ class Spreadsheet
     {
         return array_filter(
             $this->definedNames,
-            function(DefinedName $definedName) {
+            function (DefinedName $definedName) {
                 return $definedName->isFormula() !== true;
             }
         );
@@ -888,7 +888,7 @@ class Spreadsheet
     {
         return array_filter(
             $this->definedNames,
-            function(DefinedName $definedName) {
+            function (DefinedName $definedName) {
                 return $definedName->isFormula() === true;
             }
         );
