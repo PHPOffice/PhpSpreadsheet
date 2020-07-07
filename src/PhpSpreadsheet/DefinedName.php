@@ -232,7 +232,6 @@ abstract class DefinedName
         return $this->isFormula;
     }
 
-
     /**
      * Resolve a named range to a regular cell range or formula.
      */
