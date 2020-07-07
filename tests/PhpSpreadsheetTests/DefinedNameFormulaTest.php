@@ -55,7 +55,7 @@ class DefinedNameFormulaTest extends TestCase
     {
         $rangeName = 'NAMED_RANGE';
         $globalRangeValue = 'A1';
-        $localRangeValue ='A2';
+        $localRangeValue = 'A2';
 
         $spreadSheet = new Spreadsheet();
         $workSheet = $spreadSheet->getActiveSheet();
@@ -71,7 +71,7 @@ class DefinedNameFormulaTest extends TestCase
     {
         $rangeName = 'NAMED_RANGE';
         $globalRangeValue = 'A1';
-        $localRangeValue ='A2';
+        $localRangeValue = 'A2';
 
         $spreadSheet = new Spreadsheet();
         $workSheet1 = $spreadSheet->getActiveSheet();
@@ -107,7 +107,7 @@ class DefinedNameFormulaTest extends TestCase
     {
         $formulaName = 'GERMAN_VAT_RATE';
         $globalFormulaValue = '=19.0%';
-        $localFormulaValue ='=16.0%';
+        $localFormulaValue = '=16.0%';
 
         $spreadSheet = new Spreadsheet();
         $workSheet = $spreadSheet->getActiveSheet();
@@ -123,7 +123,7 @@ class DefinedNameFormulaTest extends TestCase
     {
         $formulaName = 'GERMAN_VAT_RATE';
         $globalFormulaValue = '=19.0%';
-        $localFormulaValue ='=16.0%';
+        $localFormulaValue = '=16.0%';
 
         $spreadSheet = new Spreadsheet();
         $workSheet1 = $spreadSheet->getActiveSheet();
