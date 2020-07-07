@@ -14,6 +14,9 @@ class Spreadsheet
     const VISIBILITY_HIDDEN = 'hidden';
     const VISIBILITY_VERY_HIDDEN = 'veryHidden';
 
+    private const DEFINED_NAME_IS_RANGE = false;
+    private const DEFINED_NAME_IS_FORMULA = true;
+
     private static $workbookViewVisibilityValues = [
         self::VISIBILITY_VISIBLE,
         self::VISIBILITY_HIDDEN,
@@ -873,7 +876,7 @@ class Spreadsheet
         return array_filter(
             $this->definedNames,
             function (DefinedName $definedName) {
-                return $definedName->isFormula() !== true;
+                return $definedName->isFormula() === self::DEFINED_NAME_IS_RANGE;
             }
         );
     }
@@ -888,7 +891,7 @@ class Spreadsheet
         return array_filter(
             $this->definedNames,
             function (DefinedName $definedName) {
-                return $definedName->isFormula() === true;
+                return $definedName->isFormula() === self::DEFINED_NAME_IS_FORMULA;
             }
         );
     }
@@ -954,16 +957,9 @@ class Spreadsheet
 
         if ($namedRange !== '') {
             // first look for global named range
-            if (isset($this->definedNames[$namedRange]) && $this->definedNames[$namedRange]->isFormula() !== true) {
-                $returnValue = $this->definedNames[$namedRange];
-            }
-
+            $returnValue = $this->getGlobalDefinedNameByType($namedRange, self::DEFINED_NAME_IS_RANGE);
             // then look for local named range (has priority over global named range if both names exist)
-            if (($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $namedRange])
-                && $this->definedNames[$namedRange]->isFormula() !== true
-            ) {
-                $returnValue = $this->definedNames[$pSheet->getTitle() . '!' . $namedRange];
-            }
+            $returnValue = $this->getLocalDefinedNameByType($namedRange, self::DEFINED_NAME_IS_RANGE, $pSheet) ?: $returnValue;
         }
 
         return $returnValue;
@@ -982,19 +978,38 @@ class Spreadsheet
 
         if ($namedFormula !== '') {
             // first look for global named formula
-            if (isset($this->definedNames[$namedFormula]) && $this->definedNames[$namedFormula]->isFormula() === true) {
-                $returnValue = $this->definedNames[$namedFormula];
-            }
-
+            $returnValue = $this->getGlobalDefinedNameByType($namedFormula, self::DEFINED_NAME_IS_FORMULA);
             // then look for local named formula (has priority over global named formula if both names exist)
-            if (($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $namedFormula])
-                && $this->definedNames[$namedFormula]->isFormula() === true
-            ) {
-                $returnValue = $this->definedNames[$pSheet->getTitle() . '!' . $namedFormula];
-            }
+            $returnValue = $this->getLocalDefinedNameByType($namedFormula, self::DEFINED_NAME_IS_FORMULA, $pSheet) ?: $returnValue;
         }
 
         return $returnValue;
+    }
+
+    /**
+     * @return null|DefinedName
+     */
+    private function getGlobalDefinedNameByType(string $name, bool $type = false)
+    {
+        if (isset($this->definedNames[$name]) && $this->definedNames[$name]->isFormula() === $type) {
+            return $this->definedNames[$name];
+        }
+
+        return null;
+    }
+
+    /**
+     * @return null|DefinedName
+     */
+    private function getLocalDefinedNameByType(string $name, bool $type = false, ?Worksheet $pSheet = null)
+    {
+        if (($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $name])
+            && $this->definedNames[$name]->isFormula() === $type
+        ) {
+            return $this->definedNames[$pSheet->getTitle() . '!' . $name];
+        }
+
+        return null;
     }
 
     /**
