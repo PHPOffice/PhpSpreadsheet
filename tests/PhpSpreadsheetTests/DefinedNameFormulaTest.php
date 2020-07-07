@@ -51,7 +51,7 @@ class DefinedNameFormulaTest extends TestCase
         self::assertSame(count(array_filter($rangeOrFormula)), count($allNamedRanges));
     }
 
-    public function testGetScopedNamedRange()
+    public function testGetScopedNamedRange(): void
     {
         $rangeName = 'NAMED_RANGE';
         $globalRangeValue = 'A1';
@@ -67,7 +67,7 @@ class DefinedNameFormulaTest extends TestCase
         self::assertSame($localRangeValue, $localScopedRange->getValue());
     }
 
-    public function testGetGlobalNamedRange()
+    public function testGetGlobalNamedRange(): void
     {
         $rangeName = 'NAMED_RANGE';
         $globalRangeValue = 'A1';
@@ -103,7 +103,7 @@ class DefinedNameFormulaTest extends TestCase
         self::assertSame(count(array_filter($rangeOrFormula)), count($allNamedFormulae));
     }
 
-    public function testGetScopedNamedFormula()
+    public function testGetScopedNamedFormula(): void
     {
         $formulaName = 'GERMAN_VAT_RATE';
         $globalFormulaValue = '=19.0%';
@@ -119,7 +119,7 @@ class DefinedNameFormulaTest extends TestCase
         self::assertSame($localFormulaValue, $localScopedFormula->getValue());
     }
 
-    public function testGetGlobalNamedFormula()
+    public function testGetGlobalNamedFormula(): void
     {
         $formulaName = 'GERMAN_VAT_RATE';
         $globalFormulaValue = '=19.0%';
