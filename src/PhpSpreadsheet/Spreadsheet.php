@@ -989,7 +989,7 @@ class Spreadsheet
     /**
      * @return null|DefinedName
      */
-    private function getGlobalDefinedNameByType(string $name, bool $type = false)
+    private function getGlobalDefinedNameByType(string $name, bool $type)
     {
         if (isset($this->definedNames[$name]) && $this->definedNames[$name]->isFormula() === $type) {
             return $this->definedNames[$name];
@@ -1001,7 +1001,7 @@ class Spreadsheet
     /**
      * @return null|DefinedName
      */
-    private function getLocalDefinedNameByType(string $name, bool $type = false, ?Worksheet $pSheet = null)
+    private function getLocalDefinedNameByType(string $name, bool $type, ?Worksheet $pSheet = null)
     {
         if (($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $name])
             && $this->definedNames[$name]->isFormula() === $type
