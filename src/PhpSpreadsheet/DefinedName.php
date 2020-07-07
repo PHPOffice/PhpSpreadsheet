@@ -236,7 +236,7 @@ abstract class DefinedName
     /**
      * Resolve a named range to a regular cell range or formula.
      */
-    public static function resolveName(string $pDefinedName, Worksheet $pSheet): ?DefinedName
+    public static function resolveName(string $pDefinedName, Worksheet $pSheet): ?self
     {
         return $pSheet->getParent()->getDefinedName($pDefinedName, $pSheet);
     }

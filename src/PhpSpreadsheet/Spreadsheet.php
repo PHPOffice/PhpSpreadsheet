@@ -959,8 +959,7 @@ class Spreadsheet
             }
 
             // then look for local named range (has priority over global named range if both names exist)
-            if (
-                ($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $namedRange])
+            if (($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $namedRange])
                 && !$this->definedNames[$namedRange]->isFormula()
             ) {
                 $returnValue = $this->definedNames[$pSheet->getTitle() . '!' . $namedRange];
@@ -988,8 +987,7 @@ class Spreadsheet
             }
 
             // then look for local named formula (has priority over global named formula if both names exist)
-            if (
-                ($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $namedFormula])
+            if (($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $namedFormula])
                 && !$this->definedNames[$namedFormula]->isFormula()
             ) {
                 $returnValue = $this->definedNames[$pSheet->getTitle() . '!' . $namedFormula];
