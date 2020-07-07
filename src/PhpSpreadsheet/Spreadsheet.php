@@ -723,7 +723,7 @@ class Spreadsheet
     public function getIndex(Worksheet $pSheet)
     {
         foreach ($this->workSheetCollection as $key => $value) {
-            if ($value->getHashCode() == $pSheet->getHashCode()) {
+            if ($value->getHashCode() === $pSheet->getHashCode()) {
                 return $key;
             }
         }
@@ -1132,7 +1132,7 @@ class Spreadsheet
     public function getCellXfByHashCode($pValue)
     {
         foreach ($this->cellXfCollection as $cellXf) {
-            if ($cellXf->getHashCode() == $pValue) {
+            if ($cellXf->getHashCode() === $pValue) {
                 return $cellXf;
             }
         }
@@ -1247,7 +1247,7 @@ class Spreadsheet
     public function getCellStyleXfByHashCode($pValue)
     {
         foreach ($this->cellStyleXfCollection as $cellStyleXf) {
-            if ($cellStyleXf->getHashCode() == $pValue) {
+            if ($cellStyleXf->getHashCode() === $pValue) {
                 return $cellStyleXf;
             }
         }
