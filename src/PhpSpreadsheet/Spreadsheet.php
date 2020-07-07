@@ -952,7 +952,7 @@ class Spreadsheet
     {
         $returnValue = null;
 
-        if ($namedRange !== '' && $namedRange !== null) {
+        if ($namedRange !== '') {
             // first look for global named range
             if (isset($this->definedNames[$namedRange]) && !$this->definedNames[$namedRange]->isFormula()) {
                 $returnValue = $this->definedNames[$namedRange];
@@ -980,7 +980,7 @@ class Spreadsheet
     {
         $returnValue = null;
 
-        if ($namedFormula !== '' && $namedFormula !== null) {
+        if ($namedFormula !== '') {
             // first look for global named formula
             if (isset($this->definedNames[$namedFormula]) && !$this->definedNames[$namedFormula]->isFormula()) {
                 $returnValue = $this->definedNames[$namedFormula];
@@ -1008,7 +1008,7 @@ class Spreadsheet
     {
         $returnValue = null;
 
-        if ($definedName !== '' && $definedName !== null) {
+        if ($definedName !== '') {
             // first look for global defined name
             if (isset($this->definedNames[$definedName])) {
                 $returnValue = $this->definedNames[$definedName];
