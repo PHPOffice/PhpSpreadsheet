@@ -960,7 +960,7 @@ class Spreadsheet
 
             // then look for local named range (has priority over global named range if both names exist)
             if (($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $namedRange])
-                && !$this->definedNames[$namedRange]->isFormula() !== true
+                && $this->definedNames[$namedRange]->isFormula() !== true
             ) {
                 $returnValue = $this->definedNames[$pSheet->getTitle() . '!' . $namedRange];
             }
