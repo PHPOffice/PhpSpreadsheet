@@ -232,6 +232,15 @@ abstract class DefinedName
         return $this->isFormula;
     }
 
+
+    /**
+     * Resolve a named range to a regular cell range or formula.
+     */
+    public static function resolveName(string $pDefinedName, Worksheet $pSheet): ?DefinedName
+    {
+        return $pSheet->getParent()->getDefinedName($pDefinedName, $pSheet);
+    }
+
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */

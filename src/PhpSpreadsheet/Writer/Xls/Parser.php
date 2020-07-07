@@ -524,7 +524,7 @@ class Parser
         // match error codes
         } elseif (preg_match('/^#[A-Z0\\/]{3,5}[!?]{1}$/', $token) || $token == '#N/A') {
             return $this->convertError($token);
-        } elseif (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/mui', $token) && $this->spreadsheet->getNamedRange($token) !== null) {
+        } elseif (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/mui', $token) && $this->spreadsheet->getDefinedName($token) !== null) {
             return $this->convertDefinedName($token);
         // commented so argument number can be processed correctly. See toReversePolish().
         /*elseif (preg_match("/[A-Z0-9\xc0-\xdc\.]+/", $token))
@@ -1084,7 +1084,7 @@ class Parser
                 } elseif (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/i", $token) && ($this->lookAhead === '(')) {
                     // if it's a function call
                     return $token;
-                } elseif (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $token) && $this->spreadsheet->getNamedRange($token) !== null) {
+                } elseif (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $token) && $this->spreadsheet->getDefinedName($token) !== null) {
                     return $token;
                 } elseif (substr($token, -1) === ')') {
                     //    It's an argument of some description (e.g. a named range),
@@ -1337,7 +1337,7 @@ class Parser
         } elseif (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/i", $this->currentToken) && ($this->lookAhead === '(')) {
             // if it's a function call
             return $this->func();
-        } elseif (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $this->currentToken) && $this->spreadsheet->getNamedRange($this->currentToken) !== null) {
+        } elseif (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $this->currentToken) && $this->spreadsheet->getDefinedName($this->currentToken) !== null) {
             $result = $this->createTree('ptgName', $this->currentToken, '');
             $this->advance();
 

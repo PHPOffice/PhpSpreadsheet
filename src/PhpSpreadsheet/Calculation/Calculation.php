@@ -4330,7 +4330,7 @@ class Calculation
                     }
 
                     $this->debugLog->writeDebugLog('Evaluating Defined Name ', $definedName);
-                    $namedRange = NamedRange::resolveRange($definedName, $pCellWorksheet);
+                    $namedRange = DefinedName::resolveName($definedName, $pCellWorksheet);
                     if ($namedRange === null) {
                         return $this->raiseFormulaError("undefined name '$definedName'");
                     }
@@ -4720,7 +4720,7 @@ class Calculation
             }
 
             // Named range?
-            $namedRange = NamedRange::resolveRange($pRange, $pSheet);
+            $namedRange = DefinedName::resolveName($pRange, $pSheet);
             if ($namedRange === null) {
                 return Functions::REF();
             }

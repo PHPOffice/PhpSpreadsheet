@@ -953,14 +953,72 @@ class Spreadsheet
         $returnValue = null;
 
         if ($namedRange !== '' && $namedRange !== null) {
-            // first look for global defined name
-            if (isset($this->definedNames[$namedRange])) {
+            // first look for global named range
+            if (isset($this->definedNames[$namedRange]) && !$this->definedNames[$namedRange]->isFormula()) {
                 $returnValue = $this->definedNames[$namedRange];
             }
 
-            // then look for local defined name (has priority over global defined name if both names exist)
-            if (($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $namedRange])) {
+            // then look for local named range (has priority over global named range if both names exist)
+            if (
+                ($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $namedRange])
+                && !$this->definedNames[$namedRange]->isFormula()
+            ) {
                 $returnValue = $this->definedNames[$pSheet->getTitle() . '!' . $namedRange];
+            }
+        }
+
+        return $returnValue;
+    }
+
+    /**
+     * Get named range.
+     *
+     * @param null|Worksheet $pSheet Scope. Use null for global scope
+     *
+     * @return null|NamedRange
+     */
+    public function getNamedFormula(string $namedFormula, ?Worksheet $pSheet = null)
+    {
+        $returnValue = null;
+
+        if ($namedFormula !== '' && $namedFormula !== null) {
+            // first look for global named formula
+            if (isset($this->definedNames[$namedFormula]) && !$this->definedNames[$namedFormula]->isFormula()) {
+                $returnValue = $this->definedNames[$namedFormula];
+            }
+
+            // then look for local named formula (has priority over global named formula if both names exist)
+            if (
+                ($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $namedFormula])
+                && !$this->definedNames[$namedFormula]->isFormula()
+            ) {
+                $returnValue = $this->definedNames[$pSheet->getTitle() . '!' . $namedFormula];
+            }
+        }
+
+        return $returnValue;
+    }
+
+    /**
+     * Get named range.
+     *
+     * @param null|Worksheet $pSheet Scope. Use null for global scope
+     *
+     * @return null|DefinedName
+     */
+    public function getDefinedName(string $definedName, ?Worksheet $pSheet = null)
+    {
+        $returnValue = null;
+
+        if ($definedName !== '' && $definedName !== null) {
+            // first look for global defined name
+            if (isset($this->definedNames[$definedName])) {
+                $returnValue = $this->definedNames[$definedName];
+            }
+
+            // then look for local defined name (has priority over global defined name if both names exist)
+            if (($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $definedName])) {
+                $returnValue = $this->definedNames[$pSheet->getTitle() . '!' . $definedName];
             }
         }
 

@@ -41,12 +41,4 @@ class NamedRange extends DefinedName
 
         return $this;
     }
-
-    /**
-     * Resolve a named range to a regular cell range.
-     */
-    public static function resolveRange(string $pNamedRange, Worksheet $pSheet): ?DefinedName
-    {
-        return $pSheet->getParent()->getNamedRange($pNamedRange, $pSheet);
-    }
 }
