@@ -159,15 +159,16 @@ class XmlLoadTest extends TestCase
         // Sample spreadsheet is not readable by Excel.
         // But PhpSpreadsheet can load it except for coverage test.
         global $argv;
-        if (in_array('--coverage-clover', $argv)) {
-            self::markTestSkipped('Mysterious Travis coverage failure IOFactoryTest');
-        }
+        //if (in_array('--coverage-clover', $argv)) {
+        //    self::markTestSkipped('Mysterious Travis coverage failure IOFactoryTest');
+        //}
         $filename = __DIR__
             . '/../../../..'
-            . '/samples/templates/Excel2003XMLTest.xml';
+            //. '/samples/templates/Excel2003XMLTest.xml';
+            . '/samples/templates/excel2003.short.bad.xml';
         $reader = new Xml();
         $spreadsheet = $reader->load($filename);
-        self::assertEquals(2, $spreadsheet->getSheetCount());
+        self::assertEquals(1, $spreadsheet->getSheetCount());
         $sheet = $spreadsheet->getSheet(0);
         self::assertEquals('Sample Data', $sheet->getTitle());
     }
