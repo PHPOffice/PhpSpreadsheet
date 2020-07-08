@@ -9,10 +9,12 @@ class Formula
 {
     private $definedNames = [];
 
+    /**
+     * @param DefinedName[] $definedNames
+     */
     public function __construct(array $definedNames)
     {
         foreach ($definedNames as $definedName) {
-            /** @var DefinedName $definedName */
             $this->definedNames[] = $definedName->getName();
         }
     }
