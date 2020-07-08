@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   - Distinction between named ranges and named formulae
   - Correct handling of union and intersection operators in named ranges
   - Correct evaluation of named range operators in calculations
+  - fix resolution of relative named range values in the calculation engine; previously all named range values had been treated as absolute.
   - Calculation support for named formulae
   - Support for nested ranges and formulae (named ranges and formulae that reference other named ranges/formulae) in calculations
   - Introduction of a helper to convert address formats between R1C1 and A1 (and the reverse)
@@ -33,7 +34,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- nothing
+- Named formula implementation, and improved handling of Defined Names generally [#1535](https://github.com/PHPOffice/PhpSpreadsheet/pull/1535)
+  - fix resolution of relative named range values in the calculation engine; previously all named range values had been treated as absolute.
+  **IMPORTANT NOTE:** This Introduces a **BC break** in the handling of named ranges. Previously, a named range cell reference of `B2` would be treated identically to a named range cell reference of `$B2` or `B$2` or `$B$2` because the calculation engine treated then all as absolute references. These changes "fix" that, so the calculation engine now handles relative references in named ranges correctly.
+  This change that resolves previously incorrect behaviour in the calculation may affect users who have dynamically defined named ranges using relative references when they should have used absolute references.
 
 ## [1.14.0] - 2020-06-29
 

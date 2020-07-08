@@ -1368,8 +1368,8 @@ $spreadsheet->getActiveSheet()->setCellValue('B1', 'Maarten');
 $spreadsheet->getActiveSheet()->setCellValue('B2', 'Balliauw');
 
 // Define named ranges
-$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonFN', $spreadsheet->getActiveSheet(), 'B1'));
-$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonLN', $spreadsheet->getActiveSheet(), 'B2'));
+$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonFN', $spreadsheet->getActiveSheet(), '$B1'));
+$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonLN', $spreadsheet->getActiveSheet(), '$B2'));
 ```
 
 Optionally, a fourth parameter can be passed defining the named range
