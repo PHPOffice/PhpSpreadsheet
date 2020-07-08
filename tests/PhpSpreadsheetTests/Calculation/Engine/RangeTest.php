@@ -91,16 +91,16 @@ class RangeTest extends TestCase
     public function providerNamedRangeEvaluation()
     {
         return[
-            ['A1:B3', 'A1:C2', '=SUM(GROUP1,GROUP2)', 48],
-            ['A1:B3', 'A1:C2', '=COUNT(GROUP1,GROUP2)', 12],
-            ['A1:B3', 'A1:C2', '=SUM(GROUP1 GROUP2)', 12],
-            ['A1:B3', 'A1:C2', '=COUNT(GROUP1 GROUP2)', 4],
-            ['A1:B2', 'B2:C3', '=SUM(GROUP1,GROUP2)', 40],
-            ['A1:B2', 'B2:C3', '=COUNT(GROUP1,GROUP2)', 8],
-            ['A1:B2', 'B2:C3', '=SUM(GROUP1 GROUP2)', 5],
-            ['A1:B2', 'B2:C3', '=COUNT(GROUP1 GROUP2)', 1],
-            ['Worksheet!A1:B2', 'Worksheet!B2:C3', '=SUM(GROUP1,GROUP2)', 40],
-            ['Worksheet!A1:Worksheet!B2', 'Worksheet!B2:Worksheet!C3', '=SUM(GROUP1,GROUP2)', 40],
+            ['$A$1:$B$3', '$A$1:$C$2', '=SUM(GROUP1,GROUP2)', 48],
+            ['$A$1:$B$3', '$A$1:$C$2', '=COUNT(GROUP1,GROUP2)', 12],
+            ['$A$1:$B$3', '$A$1:$C$2', '=SUM(GROUP1 GROUP2)', 12],
+            ['$A$1:$B$3', '$A$1:$C$2', '=COUNT(GROUP1 GROUP2)', 4],
+            ['$A$1:$B$2', '$B$2:$C$3', '=SUM(GROUP1,GROUP2)', 40],
+            ['$A$1:$B$2', '$B$2:$C$3', '=COUNT(GROUP1,GROUP2)', 8],
+            ['$A$1:$B$2', '$B$2:$C$3', '=SUM(GROUP1 GROUP2)', 5],
+            ['$A$1:$B$2', '$B$2:$C$3', '=COUNT(GROUP1 GROUP2)', 1],
+            ['Worksheet!$A$1:$B$2', 'Worksheet!$B$2:$C$3', '=SUM(GROUP1,GROUP2)', 40],
+            ['Worksheet!$A$1:Worksheet!$B$2', 'Worksheet!$B$2:Worksheet!$C$3', '=SUM(GROUP1,GROUP2)', 40],
         ];
     }
 
@@ -126,9 +126,9 @@ class RangeTest extends TestCase
     public function providerUTF8NamedRangeEvaluation()
     {
         return[
-            [['Γειά', 'σου', 'Κόσμε'], ['A1', 'B1:B2', 'C1:C3'], '=SUM(Γειά,σου,Κόσμε)', 26],
-            [['Γειά', 'σου', 'Κόσμε'], ['A1', 'B1:B2', 'C1:C3'], '=COUNT(Γειά,σου,Κόσμε)', 6],
-            [['Здравствуй', 'мир'], ['A1:A3', 'C1:C3'], '=SUM(Здравствуй,мир)', 30],
+            [['Γειά', 'σου', 'Κόσμε'], ['$A$1', '$B$1:$B$2', '$C$1:$C$3'], '=SUM(Γειά,σου,Κόσμε)', 26],
+            [['Γειά', 'σου', 'Κόσμε'], ['$A$1', '$B$1:$B$2', '$C$1:$C$3'], '=COUNT(Γειά,σου,Κόσμε)', 6],
+            [['Здравствуй', 'мир'], ['$A$1:$A$3', '$C$1:$C$3'], '=SUM(Здравствуй,мир)', 30],
         ];
     }
 
