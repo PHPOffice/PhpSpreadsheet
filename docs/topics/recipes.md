@@ -1368,8 +1368,8 @@ $spreadsheet->getActiveSheet()->setCellValue('B1', 'Maarten');
 $spreadsheet->getActiveSheet()->setCellValue('B2', 'Balliauw');
 
 // Define named ranges
-$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonFN', $spreadsheet->getActiveSheet(), '$B1'));
-$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonLN', $spreadsheet->getActiveSheet(), '$B2'));
+$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonFN', $spreadsheet->getActiveSheet(), '$B$1'));
+$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonLN', $spreadsheet->getActiveSheet(), '$B$2'));
 ```
 
 Optionally, a fourth parameter can be passed defining the named range
@@ -1420,6 +1420,15 @@ $spreadsheet->getActiveSheet()
     ->setCellValue('D4', '=CALCULATED_PRICE')
     ->setCellValue('E4', '=GERMAN_VAT')
     ->setCellValue('F4', '=TOTAL_INCLUDING_VAT');
+
+$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('COLUMN_TOTAL', $worksheet, '=A$2:A$4') );
+
+$spreadsheet->getActiveSheet()
+    ->setCellValue('B6', '=SUBTOTAL(109,COLUMN_TOTAL)')
+    ->setCellValue('D6', '=SUBTOTAL(109,COLUMN_TOTAL)')
+    ->setCellValue('E6', '=SUBTOTAL(109,COLUMN_TOTAL)')
+    ->setCellValue('F6', '=SUBTOTAL(109,COLUMN_TOTAL)');
+
 ```
 
 As with named ranges, an optional fourth parameter can be passed defining the named formula
