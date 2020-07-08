@@ -96,7 +96,7 @@ class Formula
                 $worksheet = str_replace("''", "'", trim($worksheet, "'"));
             }
             if (!empty($worksheet)) {
-                $newRange = "[\$'" . str_replace("'", "''", $worksheet) . "'";
+                $newRange = "['" . str_replace("'", "''", $worksheet) . "'";
             } elseif (substr($formula, $offset - 1, 1) !== ':') {
                 $newRange = '[';
             }

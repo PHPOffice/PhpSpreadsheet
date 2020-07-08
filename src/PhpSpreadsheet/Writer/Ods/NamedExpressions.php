@@ -104,7 +104,7 @@ class NamedExpressions
                 $worksheet = str_replace("''", "'", trim($worksheet, "'"));
             }
             if (!empty($worksheet)) {
-                $newRange = "\$'" . str_replace("'", "''", $worksheet) . "'.";
+                $newRange = "'" . str_replace("'", "''", $worksheet) . "'.";
             }
 
             if (!empty($column)) {
