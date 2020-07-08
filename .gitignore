@@ -8,3 +8,6 @@
 *.project
 /.settings
 /.idea
+
+## mkdocs output
+/site
