@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\DefinedName;
+use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -27,6 +28,8 @@ class Calculation
     const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
+    //    Cell reference (cell or range of cells, with or without a sheet reference) ensuring absolute/relative
+    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
     //    Defined Names: Named Range of cells, or Named Formulae
     const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
     //    Error
@@ -127,6 +130,13 @@ class Calculation
      * @var string
      */
     public $formulaError;
+
+    /**
+     * Reference Helper.
+     *
+     * @var ReferenceHelper
+     */
+    private static $referenceHelper;
 
     /**
      * An array of the nested cell references accessed by the calculation engine, used for the debug log.
@@ -2280,6 +2290,7 @@ class Calculation
         $this->spreadsheet = $spreadsheet;
         $this->cyclicReferenceStack = new CyclicReferenceStack();
         $this->debugLog = new Logger($this->cyclicReferenceStack);
+        self::$referenceHelper = ReferenceHelper::getInstance();
     }
 
     private static function loadLocales(): void
@@ -4869,16 +4880,28 @@ class Calculation
         $definedNameType = $namedRange->isFormula() ? 'Formula' : 'Range';
         $definedNameWorksheet = $namedRange->getWorksheet();
 
-        $this->debugLog->writeDebugLog("Defined Name is a {$definedNameType} with a value of {$definedNameValue}");
         if ($definedNameValue[0] !== '=') {
             $definedNameValue = '=' . $definedNameValue;
         }
+
+        $this->debugLog->writeDebugLog("Defined Name is a {$definedNameType} with a value of {$definedNameValue}");
+
         $recursiveCalculationCell = ($definedNameWorksheet !== null && $definedNameWorksheet !== $pCellWorksheet)
             ? $definedNameWorksheet->getCell('A1')
             : $pCell;
         $recursiveCalculationCellAddress = $recursiveCalculationCell !== null
             ? $recursiveCalculationCell->getCoordinate()
             : null;
+
+        // Adjust relative references in ranges and formulae so that we execute the calculation for the correct rows and columns
+        $definedNameValue = self::$referenceHelper->updateFormulaReferences(
+            $definedNameValue,
+            'A1',
+            Coordinate::columnIndexFromString($pCell->getColumn()) - 1,
+            $pCell->getRow() - 1
+        );
+
+        $this->debugLog->writeDebugLog("Value adjusted for relative references is {$definedNameValue}");
 
         $recursiveCalculator = new self($this->spreadsheet);
         $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());

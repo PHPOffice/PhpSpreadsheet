@@ -74,7 +74,7 @@ class DefinedNames
 
         $definedRange = $pDefinedName->getValue();
         $splitCount = preg_match_all(
-            '/' . Calculation::CALCULATION_REGEXP_CELLREF . '/mui',
+            '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/mui',
             $definedRange,
             $splitRanges,
             PREG_OFFSET_CAPTURE
@@ -109,13 +109,17 @@ class DefinedNames
             }
 
             if (!empty($column)) {
-                $newRange .= "\${$column}";
+                $newRange .= $column;
             }
             if (!empty($row)) {
-                $newRange .= "\${$row}";
+                $newRange .= $row;
             }
 
             $definedRange = substr($definedRange, 0, $offset) . $newRange . substr($definedRange, $offset + $length);
+        }
+
+        if (substr($definedRange, 0, 1) === '=') {
+            $definedRange = substr($definedRange, 1);
         }
 
         $this->objWriter->writeRawData($definedRange);
