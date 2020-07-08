@@ -14,10 +14,13 @@ class NamedExpressions
 
     private $spreadsheet;
 
+    private $formulaConvertor;
+
     public function __construct(XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {
         $this->objWriter = $objWriter;
         $this->spreadsheet = $spreadsheet;
+        $this->formulaConvertor = new Formula($spreadsheet->getDefinedNames());
     }
 
     public function write(): void
@@ -47,7 +50,10 @@ class NamedExpressions
     private function writeNamedFormula(DefinedName $definedName, Worksheet $defaultWorksheet): void
     {
         $this->objWriter->writeAttribute('table:name', $definedName->getName());
-        $this->objWriter->writeAttribute('table:expression', $this->convertFormula($definedName, $definedName->getValue()));
+        $this->objWriter->writeAttribute(
+            'table:expression',
+            $this->formulaConvertor->convertFormula($definedName->getValue(), $definedName->getWorksheet()->getTitle())
+        );
         $this->objWriter->writeAttribute('table:base-cell-address', $this->convertAddress(
             $definedName,
             "'" . (($definedName->getWorksheet() !== null) ? $definedName->getWorksheet()->getTitle() : $defaultWorksheet->getTitle()) . "'!\$A\$1'"
@@ -112,61 +118,5 @@ class NamedExpressions
         }
 
         return $address;
-    }
-
-    private function convertFormula(DefinedName $definedName, string $formula): string
-    {
-        $splitCount = preg_match_all(
-            '/' . Calculation::CALCULATION_REGEXP_CELLREF . '/mui',
-            $formula,
-            $splitRanges,
-            PREG_OFFSET_CAPTURE
-        );
-
-        $lengths = array_map('strlen', array_column($splitRanges[0], 0));
-        $offsets = array_column($splitRanges[0], 1);
-
-        $worksheets = $splitRanges[2];
-        $columns = $splitRanges[6];
-        $rows = $splitRanges[7];
-
-        // Replace any commas in the formula with semi-colons for Ods
-        // If by chance there are commas in worksheet names, then they will be "fixed" again in the loop
-        //    because we've already extracted worksheet names with our preg_match_all()
-        $formula = str_replace(',', ';', $formula);
-        while ($splitCount > 0) {
-            --$splitCount;
-            $length = $lengths[$splitCount];
-            $offset = $offsets[$splitCount];
-            $worksheet = $worksheets[$splitCount][0];
-            $column = $columns[$splitCount][0];
-            $row = $rows[$splitCount][0];
-
-            $newRange = '';
-            if (empty($worksheet)) {
-                if (($offset === 0) || ($formula[$offset - 1] !== ':')) {
-                    // We need a worksheet
-                    $worksheet = $definedName->getWorksheet()->getTitle();
-                }
-            } else {
-                $worksheet = str_replace("''", "'", trim($worksheet, "'"));
-            }
-            if (!empty($worksheet)) {
-                $newRange = "[\$'" . str_replace("'", "''", $worksheet) . "'.";
-            }
-
-            if (!empty($column)) {
-                $newRange .= "\${$column}";
-            }
-            if (!empty($row)) {
-                $newRange .= "\${$row}";
-            }
-            // close the wrapping [] unless this is the first part of a range
-            $newRange .= substr($formula, $offset + $length, 1) !== ':' ? ']' : '';
-
-            $formula = substr($formula, 0, $offset) . $newRange . substr($formula, $offset + $length);
-        }
-
-        return $formula;
     }
 }

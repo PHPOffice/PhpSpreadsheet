@@ -23,6 +23,8 @@ class Content extends WriterPart
     const NUMBER_ROWS_REPEATED_MAX = 1048576;
     const CELL_STYLE_PREFIX = 'ce';
 
+    private $formulaConvertor;
+
     /**
      * Write content.xml to XML format.
      *
@@ -30,6 +32,8 @@ class Content extends WriterPart
      */
     public function write()
     {
+        $this->formulaConvertor = new Formula($this->getParentWriter()->getSpreadsheet()->getDefinedNames());
+
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
             $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
@@ -195,7 +199,7 @@ class Content extends WriterPart
                             // don't do anything
                         }
                     }
-                    $objWriter->writeAttribute('table:formula', 'of:' . $cell->getValue());
+                    $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValue()));
                     if (is_numeric($formulaValue)) {
                         $objWriter->writeAttribute('office:value-type', 'float');
                     } else {
