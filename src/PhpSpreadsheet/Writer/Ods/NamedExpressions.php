@@ -16,11 +16,11 @@ class NamedExpressions
 
     private $formulaConvertor;
 
-    public function __construct(XMLWriter $objWriter, Spreadsheet $spreadsheet)
+    public function __construct(XMLWriter $objWriter, Spreadsheet $spreadsheet, $formulaConvertor)
     {
         $this->objWriter = $objWriter;
         $this->spreadsheet = $spreadsheet;
-        $this->formulaConvertor = new Formula($spreadsheet->getDefinedNames());
+        $this->formulaConvertor = $formulaConvertor;
     }
 
     public function write(): void

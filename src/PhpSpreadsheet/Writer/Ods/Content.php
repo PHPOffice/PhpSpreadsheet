@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
+use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Comment;
 
 /**
@@ -26,14 +27,22 @@ class Content extends WriterPart
     private $formulaConvertor;
 
     /**
+     * Set parent Ods writer.
+     */
+    public function __construct(Ods $writer)
+    {
+        parent::__construct($writer);
+
+        $this->formulaConvertor = new Formula($this->getParentWriter()->getSpreadsheet()->getDefinedNames());
+    }
+
+    /**
      * Write content.xml to XML format.
      *
      * @return string XML Output
      */
     public function write()
     {
-        $this->formulaConvertor = new Formula($this->getParentWriter()->getSpreadsheet()->getDefinedNames());
-
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
             $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
@@ -95,7 +104,7 @@ class Content extends WriterPart
         $this->writeSheets($objWriter);
 
         // Defined names (ranges and formulae)
-        (new NamedExpressions($objWriter, $this->getParentWriter()->getSpreadsheet()))->write();
+        (new NamedExpressions($objWriter, $this->getParentWriter()->getSpreadsheet(), $this->formulaConvertor))->write();
 
         $objWriter->endElement();
         $objWriter->endElement();
