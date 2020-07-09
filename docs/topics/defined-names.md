@@ -19,8 +19,8 @@ $worksheet
     ->setCellValue('A5', 'Price including Tax:');
 
 // Define named ranges
-$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('TAX_RATE', $worksheet, '=$B$1'));
-$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PRICE', $worksheet, '=$B$3'));
+$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('TAX_RATE', $worksheet, '=$B$1') );
+$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PRICE', $worksheet, '=$B$3') );
 
 // Reference that defined name in a formula
 $worksheet
@@ -40,9 +40,11 @@ Using these Named Ranges (providing meaningful human-readable names for cells) m
 
 And, if the Tax Rate changes to 16%, then we only need to change the value in cell `B1` to the new Tax rate (`=16%`), or if we want to calculate the Tax Charges for a different net price, that will immediately be reflected in all the calculations that reference those Named Ranges. No matter whereabouts in the worksheet I used that Named Range, it always references the value in cell `B1`.
 
+In fact, because we were required to specify a worksheet when we defined the name, that name is available from any worksheet within the spreadsheet, and always means cell `B2` in this worksheet (but see the notes on Named Range Scope below).
+
 ### Absolute Named Ranges
 
-In the above example, when I define the Named Range values (e.g. `'=$B$1'`), I used a `$` before the row and the column. This made the Named Range an Absolute Reference.
+In the above example, when I define the Named Range values (e.g. `'=$B$1'`), I used a `$` before both the row and the column. This made the Named Range an Absolute Reference.
 
 Another example:
 ```php
@@ -55,7 +57,7 @@ $worksheet
     ->setCellValue('C3', 'Charge');
 
 // Define named range using an absolute cell reference
-$spreadsheet->addNamedRange( new NamedRange('PAY_RATE', $worksheet, '=$B$1'));
+$spreadsheet->addNamedRange( new NamedRange('PAY_RATE', $worksheet, '=$B$1') );
 
 $workHours = [
     '2020-0-06' => 7.5,
@@ -95,9 +97,12 @@ Because the Named Range `PAY_RATE` is defined as an Absolute cell reference, the
 ### Relative Named Ranges
 
 The previous example showed a simple timesheet using an Absolute Reference for the Pay Rate, used to 
+
 The use of `B{$row}` in our formula (at least it will appear as an actual cell reference in MS Excel if we save the file and open it) requires a bit of mental agility to remember that column `B` is our hours for that day. Why can't we use another Named Range called something like `HOURS_PER_DAY` to make the formula more easily readable and meaningful.
-But if we used an Absolute Named Range for `HOURS_PER_DAY`, then we'd need a different Named Range for each day (`MONDAY_HOURS_PER_DAY`, `TUESDAY_HOURS_PER_DAY`, etc), and a different formula for each day; and that's a lot more trouble than it's worth.
-This is where Relative Named Ranges become useful.
+
+But if we used an Absolute Named Range for `HOURS_PER_DAY`, then we'd need a different Named Range for each day (`MONDAY_HOURS_PER_DAY`, `TUESDAY_HOURS_PER_DAY`, etc), and a different formula for each day of the week; if we kept a monthly timesheet, we would have to defined a different Named Range for every day of the month... and that's a lot more trouble than it's worth.
+
+This is where Relative Named Ranges become very useful.
 
 ```php
 // Set up some basic data for a timesheet
@@ -110,9 +115,9 @@ $worksheet
 
 // Define named ranges
 // PAY_RATE is an absolute cell reference that always points to cell B1
-$spreadsheet->addNamedRange( new NamedRange('PAY_RATE', $worksheet, '=$B$1'));
+$spreadsheet->addNamedRange( new NamedRange('PAY_RATE', $worksheet, '=$B$1') );
 // HOURS_PER_DAY is a relative cell reference that always points to column B, but to a cell in the row where it is used 
-$spreadsheet->addNamedRange( new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1'));
+$spreadsheet->addNamedRange( new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1') );
 
 $workHours = [
     '2020-0-06' => 7.5,
@@ -146,11 +151,15 @@ echo sprintf(
     $worksheet->getCell("C{$row}")->getCalculatedValue()
 ), PHP_EOL;
 ```
+The difference in the cell definition for `HOURS_PER_DAY` (`'=$B1'`) is that we have a `$` in front of the column `B`, but not in front of the row number. The `$` makes the column absolute: no matter where in the worksheet we use this name, it always references column `B`. Without a `$`in front of the row number, we make the row number relative, relative to the row where the name appears in a formula, so it replaces the `1` with its own row number.
 
+So when it is used in the formula in row 4, then it references cell `B4`, when it appears in row 5, it references cell `B5`, and so on. Using a Relative Named Range, we can use the same Named Range to refer to cells in different rows (and/or different columns), so we can re-use the same Named Range to refer to different cells relative to the row (or column) where we use them.
 
 ### Named Range Scope
 
-A Named Range can be locally scoped so that it is only available when referenced from a specific worksheet, or it can be globally scoped. This means that you can use the same Named Range name with different values on different worksheets.
+Whenever we define a Named Range, we are required to specify a worksheet, and that name is then available from any worksheet within the spreadsheet, and always means that cell or cell range in the specified worksheet.
+
+However, a Named Range can be locally scoped so that it is only available when referenced from a specific worksheet, or it can be globally scoped. This means that you can use the same Named Range name with different values on different worksheets.
 
 ## Named Formulae
 
