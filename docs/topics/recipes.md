@@ -1421,6 +1421,7 @@ $spreadsheet->getActiveSheet()
     ->setCellValue('E4', '=GERMAN_VAT')
     ->setCellValue('F4', '=TOTAL_INCLUDING_VAT');
 
+// Use a relative named range to provide the totals for rows 2-4
 $spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('COLUMN_TOTAL', $worksheet, '=A$2:A$4') );
 
 $spreadsheet->getActiveSheet()
@@ -1428,7 +1429,6 @@ $spreadsheet->getActiveSheet()
     ->setCellValue('D6', '=SUBTOTAL(109,COLUMN_TOTAL)')
     ->setCellValue('E6', '=SUBTOTAL(109,COLUMN_TOTAL)')
     ->setCellValue('F6', '=SUBTOTAL(109,COLUMN_TOTAL)');
-
 ```
 
 As with named ranges, an optional fourth parameter can be passed defining the named formula

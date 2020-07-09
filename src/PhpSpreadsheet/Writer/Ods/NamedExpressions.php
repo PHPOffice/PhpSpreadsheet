@@ -73,7 +73,7 @@ class NamedExpressions
     private function convertAddress(DefinedName $definedName, string $address): string
     {
         $splitCount = preg_match_all(
-            '/' . Calculation::CALCULATION_REGEXP_CELLREF . '/mui',
+            '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/mui',
             $address,
             $splitRanges,
             PREG_OFFSET_CAPTURE
@@ -108,14 +108,19 @@ class NamedExpressions
             }
 
             if (!empty($column)) {
-                $newRange .= "\${$column}";
+                $newRange .= $column;
             }
             if (!empty($row)) {
-                $newRange .= "\${$row}";
+                $newRange .= $row;
             }
 
             $address = substr($address, 0, $offset) . $newRange . substr($address, $offset + $length);
         }
+var_dump($address);
+        if (substr($address, 0, 1) === '=') {
+            $address = substr($address, 1);
+        }
+var_dump($address);
 
         return $address;
     }
