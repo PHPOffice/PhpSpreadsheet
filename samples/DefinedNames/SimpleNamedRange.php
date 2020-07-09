@@ -2,12 +2,8 @@
 
 // The following code can be used to submit an issue with the PHPSpreadsheet calculation engine
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\NamedFormula;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 error_reporting(E_ALL);
 set_time_limit(0);
@@ -15,7 +11,7 @@ set_time_limit(0);
 date_default_timezone_set('UTC');
 
 // Adjust the path as required to reference the PHPSpreadsheet Bootstrap file
-require_once __DIR__ . '/Bootstrap.php';
+require_once __DIR__ . '/../Bootstrap.php';
 
 $spreadsheet = new Spreadsheet;
 
@@ -34,8 +30,8 @@ $worksheet
     ->setCellValue('A5', 'Price including Tax:');
 
 // Define named ranges
-$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('TAX_RATE', $worksheet, '=$B$1'));
-$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PRICE', $worksheet, '=$B$3'));
+$spreadsheet->addNamedRange( new NamedRange('TAX_RATE', $worksheet, '=$B$1'));
+$spreadsheet->addNamedRange( new NamedRange('PRICE', $worksheet, '=$B$3'));
 
 // Reference that defined name in a formula
 $worksheet
