@@ -56,7 +56,7 @@ class NamedExpressions
         );
         $this->objWriter->writeAttribute('table:base-cell-address', $this->convertAddress(
             $definedName,
-            "'" . (($definedName->getWorksheet() !== null) ? $definedName->getWorksheet()->getTitle() : $defaultWorksheet->getTitle()) . "'!\$A\$1'"
+            "'" . (($definedName->getWorksheet() !== null) ? $definedName->getWorksheet()->getTitle() : $defaultWorksheet->getTitle()) . "'!\$A\$1"
         ));
     }
 
