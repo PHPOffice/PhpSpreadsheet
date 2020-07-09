@@ -13,7 +13,7 @@ date_default_timezone_set('UTC');
 // Adjust the path as required to reference the PHPSpreadsheet Bootstrap file
 require_once __DIR__ . '/../Bootstrap.php';
 
-$spreadsheet = new Spreadsheet;
+$spreadsheet = new Spreadsheet();
 
 $worksheet = $spreadsheet->getActiveSheet();
 
@@ -30,8 +30,8 @@ $worksheet
     ->setCellValue('A5', 'Price including Tax:');
 
 // Define named ranges
-$spreadsheet->addNamedRange( new NamedRange('TAX_RATE', $worksheet, '=$B$1'));
-$spreadsheet->addNamedRange( new NamedRange('PRICE', $worksheet, '=$B$3'));
+$spreadsheet->addNamedRange(new NamedRange('TAX_RATE', $worksheet, '=$B$1'));
+$spreadsheet->addNamedRange(new NamedRange('PRICE', $worksheet, '=$B$3'));
 
 // Reference that defined name in a formula
 $worksheet

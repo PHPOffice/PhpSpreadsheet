@@ -13,7 +13,7 @@ date_default_timezone_set('UTC');
 // Adjust the path as required to reference the PHPSpreadsheet Bootstrap file
 require_once __DIR__ . '/../Bootstrap.php';
 
-$spreadsheet = new Spreadsheet;
+$spreadsheet = new Spreadsheet();
 
 $worksheet = $spreadsheet->getActiveSheet();
 
@@ -29,7 +29,7 @@ $worksheet
     ->setCellValue('C3', 'Charge');
 
 // Define named range using an absolute cell reference
-$spreadsheet->addNamedRange( new NamedRange('PAY_RATE', $worksheet, '=$B$1'));
+$spreadsheet->addNamedRange(new NamedRange('PAY_RATE', $worksheet, '=$B$1'));
 
 $workHours = [
     '2020-0-06' => 7.5,
@@ -47,14 +47,13 @@ foreach ($workHours as $date => $hours) {
         ->setCellValue("A{$row}", $date)
         ->setCellValue("B{$row}", $hours)
         ->setCellValue("C{$row}", "=B{$row}*PAY_RATE");
-    $row++;
+    ++$row;
 }
 $endRow = $row - 1;
 
 $worksheet
     ->setCellValue("B{$row}", "=SUM(B{$startRow}:B{$endRow})")
     ->setCellValue("C{$row}", "=SUM(C{$startRow}:C{$endRow})");
-
 
 echo sprintf(
     'Worked %.2f hours at a rate of %.2f - Charge to the client is %.2f',
