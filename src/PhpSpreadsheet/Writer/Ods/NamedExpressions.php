@@ -116,11 +116,10 @@ class NamedExpressions
 
             $address = substr($address, 0, $offset) . $newRange . substr($address, $offset + $length);
         }
-var_dump($address);
+
         if (substr($address, 0, 1) === '=') {
             $address = substr($address, 1);
         }
-var_dump($address);
 
         return $address;
     }
