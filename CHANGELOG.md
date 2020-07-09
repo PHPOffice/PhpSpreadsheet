@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
     - **Xml** (Previously neither named ranges nor formulae were supported)
   - Proper support for named ranges and named formulae in all appropriate Writers
     - **Xlsx** (Previously only simple named ranges were supported)
-    - **Xls** (Previously neither named ranges nor formulae were supported - Still not supported, but some parser issues resolved that previously failed to differentiate between a defined name and a function name)
+    - **Xls** (Previously neither named ranges nor formulae were supported) - Still not supported, but some parser issues resolved that previously failed to differentiate between a defined name and a function name
     - **Ods** (Previously neither named ranges nor formulae were supported)
 
 ### Fixed
