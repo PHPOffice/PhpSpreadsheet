@@ -44,6 +44,7 @@ And, if the Tax Rate changes to 16%, then we only need to change the value in ce
 
 In the above example, when I define the Named Range values (e.g. `'=$B$1'`), I used a `$` before the row and the column. This made the Named Range an Absolute Reference.
 
+Another example:
 ```php
 // Set up some basic data for a timesheet
 $worksheet
@@ -89,7 +90,63 @@ echo sprintf(
 ), PHP_EOL;
 ```
 
+Because the Named Range `PAY_RATE` is defined as an Absolute cell reference, then it always references cell `B2` no matter where it is referenced in a formula in the spreadsheet.
+
 ### Relative Named Ranges
+
+The previous example showed a simple timesheet using an Absolute Reference for the Pay Rate, used to 
+The use of `B{$row}` in our formula (at least it will appear as an actual cell reference in MS Excel if we save the file and open it) requires a bit of mental agility to remember that column `B` is our hours for that day. Why can't we use another Named Range called something like `HOURS_PER_DAY` to make the formula more easily readable and meaningful.
+But if we used an Absolute Named Range for `HOURS_PER_DAY`, then we'd need a different Named Range for each day (`MONDAY_HOURS_PER_DAY`, `TUESDAY_HOURS_PER_DAY`, etc), and a different formula for each day; and that's a lot more trouble than it's worth.
+This is where Relative Named Ranges become useful.
+
+```php
+// Set up some basic data for a timesheet
+$worksheet
+    ->setCellValue('A1', 'Pay Rate/hour:')
+    ->setCellValue('B1', '7.50')
+    ->setCellValue('A3', 'Date')
+    ->setCellValue('B3', 'Hours')
+    ->setCellValue('C3', 'Charge');
+
+// Define named ranges
+// PAY_RATE is an absolute cell reference that always points to cell B1
+$spreadsheet->addNamedRange( new NamedRange('PAY_RATE', $worksheet, '=$B$1'));
+// HOURS_PER_DAY is a relative cell reference that always points to column B, but to a cell in the row where it is used 
+$spreadsheet->addNamedRange( new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1'));
+
+$workHours = [
+    '2020-0-06' => 7.5,
+    '2020-0-07' => 7.25,
+    '2020-0-08' => 6.5,
+    '2020-0-09' => 7.0,
+    '2020-0-10' => 5.5,
+];
+
+//Populate the Timesheet
+$startRow = 4;
+$row = $startRow;
+foreach ($workHours as $date => $hours) {
+    $worksheet
+        ->setCellValue("A{$row}", $date)
+        ->setCellValue("B{$row}", $hours)
+        ->setCellValue("C{$row}", "=HOURS_PER_DAY*PAY_RATE");
+    $row++;
+}
+$endRow = $row - 1;
+
+$worksheet
+    ->setCellValue("B{$row}", "=SUM(B{$startRow}:B{$endRow})")
+    ->setCellValue("C{$row}", "=SUM(C{$startRow}:C{$endRow})");
+
+
+echo sprintf(
+    'Worked %.2f hours at a rate of %.2f - Charge to the client is %.2f',
+    $worksheet->getCell("B{$row}")->getCalculatedValue(),
+    $worksheet->getCell('B1')->getValue(),
+    $worksheet->getCell("C{$row}")->getCalculatedValue()
+), PHP_EOL;
+```
+
 
 ### Named Range Scope
 
