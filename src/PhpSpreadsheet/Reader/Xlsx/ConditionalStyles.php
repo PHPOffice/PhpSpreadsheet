@@ -39,7 +39,12 @@ class ConditionalStyles
                     || (string) $cfRule['type'] == Conditional::CONDITION_CONTAINSTEXT
                     || (string) $cfRule['type'] == Conditional::CONDITION_CONTAINSBLANKS
                     || (string) $cfRule['type'] == Conditional::CONDITION_NOTCONTAINSBLANKS
-                    || (string) $cfRule['type'] == Conditional::CONDITION_EXPRESSION)
+                    || (string) $cfRule['type'] == Conditional::CONDITION_EXPRESSION
+                    || (string) $cfRule['type'] == Conditional::CONDITION_DUPLICATEVALUES
+                    || (string) $cfRule['type'] == Conditional::CONDITION_UNIQUEVALUES
+                    || (string) $cfRule['type'] == Conditional::CONDITION_ABOVEAVERAGE
+                    || (string) $cfRule['type'] == Conditional::CONDITION_TOPTEN
+                        || (string) $cfRule['type'] == Conditional::CONDITION_COLORSCALE)
                     && isset($this->dxfs[(int) ($cfRule['dxfId'])])) {
                     $conditionals[(string) $conditional['sqref']][(int) ($cfRule['priority'])] = $cfRule;
                 }
