@@ -934,12 +934,13 @@ class Spreadsheet
      */
     public function addDefinedName(DefinedName $definedName)
     {
+        $upperCaseName = StringHelper::strToUpper($definedName->getName());
         if ($definedName->getScope() == null) {
             // global scope
-            $this->definedNames[$definedName->getName()] = $definedName;
+            $this->definedNames[$upperCaseName] = $definedName;
         } else {
             // local scope
-            $this->definedNames[$definedName->getScope()->getTitle() . '!' . $definedName->getName()] = $definedName;
+            $this->definedNames[$definedName->getScope()->getTitle() . '!' . $upperCaseName] = $definedName;
         }
 
         return true;
@@ -957,6 +958,7 @@ class Spreadsheet
         $returnValue = null;
 
         if ($namedRange !== '') {
+            $namedRange = StringHelper::strToUpper($namedRange);
             // first look for global named range
             $returnValue = $this->getGlobalDefinedNameByType($namedRange, self::DEFINED_NAME_IS_RANGE);
             // then look for local named range (has priority over global named range if both names exist)
@@ -978,6 +980,7 @@ class Spreadsheet
         $returnValue = null;
 
         if ($namedFormula !== '') {
+            $namedFormula = StringHelper::strToUpper($namedFormula);
             // first look for global named formula
             $returnValue = $this->getGlobalDefinedNameByType($namedFormula, self::DEFINED_NAME_IS_FORMULA);
             // then look for local named formula (has priority over global named formula if both names exist)
@@ -1050,6 +1053,40 @@ class Spreadsheet
      */
     public function removeNamedRange(string $namedRange, ?Worksheet $pSheet = null)
     {
+        if ($this->getNamedRange($namedRange, $pSheet) === null) {
+            return $this;
+        }
+
+        return $this->removeDefinedName($namedRange, $pSheet);
+    }
+
+    /**
+     * Remove named formula.
+     *
+     * @param null|Worksheet $pSheet scope: use null for global scope
+     *
+     * @return $this
+     */
+    public function removeNamedFormula(string $namedFormula, ?Worksheet $pSheet = null)
+    {
+        if ($this->getNamedFormula($namedFormula, $pSheet) === null) {
+            return $this;
+        }
+
+        return $this->removeDefinedName($namedFormula, $pSheet);
+    }
+
+    /**
+     * Remove defined name.
+     *
+     * @param null|Worksheet $pSheet scope: use null for global scope
+     *
+     * @return $this
+     */
+    public function removeDefinedName(string $namedRange, ?Worksheet $pSheet = null)
+    {
+        $namedRange = StringHelper::strToUpper($namedRange);
+
         if ($pSheet === null) {
             if (isset($this->definedNames[$namedRange])) {
                 unset($this->definedNames[$namedRange]);
