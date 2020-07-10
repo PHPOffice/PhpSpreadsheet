@@ -386,7 +386,7 @@ echo sprintf(
 ```
 `/samples/DefinedNames/SimpleNamedFormula.php`
 
-There are a few points to note here.
+There are a few points to note here:
 
 Firstly. we are actually storing the tax rate in a named formula (`TAX_RATE`) rather than as a cell value. When we display the tax rate in cell `B1`, we are actually storing an instruction for MS Excel to evaluate the formula and display the result in that cell.
 
@@ -398,3 +398,27 @@ Finally, we are using the formula `TAX` in two different contexts. Once to displ
 
 ## Additional Comments
 
+### Naming Names
+
+The names that you assign to Defined Name must follow the following set of rules:
+ - The first character of a name must be one of the following characters:
+   - letter (including UTF-8 letters)
+   - underscore (_)
+   - backslash (\).
+ - Remaining characters in the name can be
+   - letters (including UTF-8 letters)
+   - numbers (including UTF-8 numbers)
+   - periods
+   - underscore characters
+ - The following are not allowed:
+   - Space characters are not allowed as part of a name.
+   - Names can't look like cell addresses, such as A35 or R2C2
+ - Names are not case sensitive. For example, `North` and `NORTH` are treated as the same name.
+
+PHPSpreadsheet doesn't yet fully validate the names that you use, so it is possible to create a spreadsheet in PHPSpreadsheet that will break when you try to open it in MS Excel; or that will break PHPSpreadsheet when they are referenced in a cell.
+
+There is nothing to stop you creating a Defined Name that matches an existing Function name
+```php
+$spreadsheet->addNamedFormula(new NamedFormula('SUM', $worksheet, '=SUM(A1:E5)'));
+```
+And this will work without problems in MS Excel. However, it is not guaranteed to work correctly in PHPSpreadsheet; and will certainly cause confusion for anybody reading it, so it is not recommended.
