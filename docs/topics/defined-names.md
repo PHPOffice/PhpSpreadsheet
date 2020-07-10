@@ -348,6 +348,52 @@ When Named Ranges are being evaluated, the logic looks first to see if there is 
 
 ## Named Formulae
 
+A Named Formula is a stored formula, or part of a formula, that can be referenced in cells by name, and re-used in many different places within the spreadsheet.
+
+As an example, I'll modify the simple Tax Calculator that I created as my example for Named Ranges.
+
+```php
+// Add some Named Formulae
+// The first to store our tax rate
+$spreadsheet->addNamedFormula(new NamedFormula('TAX_RATE', $worksheet, '=19%'));
+// The second to calculate the Tax on a Price value (Note that `PRICE` is defined later as a Named Range)
+$spreadsheet->addNamedFormula(new NamedFormula('TAX', $worksheet, '=PRICE*TAX_RATE'));
+
+// Set up some basic data
+$worksheet
+    ->setCellValue('A1', 'Tax Rate:')
+    ->setCellValue('B1', '=TAX_RATE')
+    ->setCellValue('A3', 'Net Price:')
+    ->setCellValue('B3', 19.99)
+    ->setCellValue('A4', 'Tax:')
+    ->setCellValue('A5', 'Price including Tax:');
+
+// Define a named range that we can use in our formulae
+$spreadsheet->addNamedRange(new NamedRange('PRICE', $worksheet, '=$B$3'));
+
+// Reference the defined formulae in worksheet formulae
+$worksheet
+    ->setCellValue('B4', '=TAX')
+    ->setCellValue('B5', '=PRICE+TAX');
+
+echo sprintf(
+    'With a Tax Rate of %.2f and a net price of %.2f, Tax is %.2f and the gross price is %.2f',
+    $worksheet->getCell('B1')->getCalculatedValue(),
+    $worksheet->getCell('B3')->getValue(),
+    $worksheet->getCell('B4')->getCalculatedValue(),
+    $worksheet->getCell('B5')->getCalculatedValue()
+), PHP_EOL;
+```
+`/samples/DefinedNames/SimpleNamedFormula.php`
+
+There are a few points to note here.
+
+Firstly. we are actually storing the tax rate in a named formula (`TAX_RATE`) rather than as a cell value. When we display the tax rate in cell `B1`, we are actually storing an instruction for MS Excel to evaluate the formula and display the result in that cell.
+
+Then we are using a formula `TAX` that references both another formula (`TAX_RATE`) and a Named Range (`PRICE`) and executes a calculation using them both (`PRICE * TAX_RATE`).
+
+Finally, we are using the formula `TAX` in two different contexts. Once to display the tax value (in cell `B4`); and a second time as part of another formula (`PRICE + TAX`) in cell `B5`.
+
 ## Combining Named Ranges and Formulae
 
 ## Additional Comments
