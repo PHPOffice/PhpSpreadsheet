@@ -45,7 +45,7 @@ foreach ($workHours as $date => $hours) {
         ->setCellValue("A{$row}", $date)
         ->setCellValue("B{$row}", $hours)
         ->setCellValue("C{$row}", '=HOURS_PER_DAY*CHARGE_RATE');
-    $row++;
+    ++$row;
 }
 $endRow = $row - 1;
 

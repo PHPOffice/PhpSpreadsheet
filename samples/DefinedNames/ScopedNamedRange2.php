@@ -64,7 +64,7 @@ foreach ($clients as $clientName => $workHours) {
             ->setCellValue("A{$row}", $date)
             ->setCellValue("B{$row}", $hours)
             ->setCellValue("C{$row}", '=HOURS_PER_DAY*CHARGE_RATE');
-        $row++;
+        ++$row;
     }
     $endRow = $row - 1;
 
@@ -73,8 +73,8 @@ foreach ($clients as $clientName => $workHours) {
 
     ++$row;
     $worksheet
-        ->setCellValue("B{$row}", "=SUM(COLUMN_TOTAL)")
-        ->setCellValue("C{$row}", "=SUM(COLUMN_TOTAL)");
+        ->setCellValue("B{$row}", '=SUM(COLUMN_TOTAL)')
+        ->setCellValue("C{$row}", '=SUM(COLUMN_TOTAL)');
 }
 $spreadsheet->removeSheetByIndex(0);
 
