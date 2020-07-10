@@ -12,7 +12,7 @@ date_default_timezone_set('UTC');
 // Adjust the path as required to reference the PHPSpreadsheet Bootstrap file
 require_once __DIR__ . '/../Bootstrap.php';
 
-$spreadsheet = new Spreadsheet;
+$spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->setActiveSheetIndex(0);
 $worksheet->setTitle('Base Data');
 
@@ -24,14 +24,14 @@ $worksheet
 // Define a global named range on the first worksheet for our Charge Rate
 // CHARGE_RATE is an absolute cell reference that always points to cell B1
 // Because it is defined globally, it will still be usable from any worksheet in the spreadsheet
-$spreadsheet->addNamedRange( new NamedRange('CHARGE_RATE', $worksheet, '=$B$1'));
+$spreadsheet->addNamedRange(new NamedRange('CHARGE_RATE', $worksheet, '=$B$1'));
 
 // Create a second worksheet as our client timesheet
 $worksheet = $spreadsheet->addSheet(new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Client Timesheet'));
 
 // Define named ranges
 // HOURS_PER_DAY is a relative cell reference that always points to column B, but to a cell in the row where it is used
-$spreadsheet->addNamedRange( new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1'));
+$spreadsheet->addNamedRange(new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1'));
 
 // Set up some basic data for a timesheet
 $worksheet
@@ -54,7 +54,7 @@ foreach ($workHours as $date => $hours) {
     $worksheet
         ->setCellValue("A{$row}", $date)
         ->setCellValue("B{$row}", $hours)
-        ->setCellValue("C{$row}", "=HOURS_PER_DAY*CHARGE_RATE");
+        ->setCellValue("C{$row}", '=HOURS_PER_DAY*CHARGE_RATE');
     $row++;
 }
 $endRow = $row - 1;
@@ -64,8 +64,8 @@ $spreadsheet->addNamedRange(new NamedRange('COLUMN_DATA_VALUES', $worksheet, "=A
 
 ++$row;
 $worksheet
-    ->setCellValue("B{$row}", "=SUM(COLUMN_DATA_VALUES)")
-    ->setCellValue("C{$row}", "=SUM(COLUMN_DATA_VALUES)");
+    ->setCellValue("B{$row}", '=SUM(COLUMN_DATA_VALUES)')
+    ->setCellValue("C{$row}", '=SUM(COLUMN_DATA_VALUES)');
 
 echo sprintf(
     'Worked %.2f hours at a rate of %s - Charge to the client is %.2f',

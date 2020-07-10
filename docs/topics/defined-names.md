@@ -201,14 +201,14 @@ $worksheet
 // Define a global named range on the first worksheet for our Charge Rate
 // CHARGE_RATE is an absolute cell reference that always points to cell B1
 // Because it is defined globally, it will still be usable from any worksheet in the spreadsheet
-$spreadsheet->addNamedRange( new NamedRange('CHARGE_RATE', $worksheet, '=$B$1'));
+$spreadsheet->addNamedRange( new NamedRange('CHARGE_RATE', $worksheet, '=$B$1') );
 
 // Create a second worksheet as our client timesheet
 $worksheet = $spreadsheet->addSheet(new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Client Timesheet'));
 
 // Define named ranges
 // HOURS_PER_DAY is a relative cell reference that always points to column B, but to a cell in the row where it is used
-$spreadsheet->addNamedRange( new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1'));
+$spreadsheet->addNamedRange( new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1') );
 
 // Set up some basic data for a timesheet
 $worksheet
@@ -237,7 +237,7 @@ foreach ($workHours as $date => $hours) {
 $endRow = $row - 1;
 
 // COLUMN_TOTAL is another relative cell reference that always points to the same range of rows but to cell in the column where it is used
-$spreadsheet->addNamedRange(new NamedRange('COLUMN_DATA_VALUES', $worksheet, "=A\${$startRow}:A\${$endRow}"));
+$spreadsheet->addNamedRange( new NamedRange('COLUMN_DATA_VALUES', $worksheet, "=A\${$startRow}:A\${$endRow}") );
 
 ++$row;
 $worksheet
@@ -300,9 +300,9 @@ foreach ($clients as $clientName => $workHours) {
 
     // Define named ranges
     // CHARGE_RATE is an absolute cell reference that always points to cell B1
-    $spreadsheet->addNamedRange( new NamedRange('CHARGE_RATE', $worksheet, '=$B$1', true));
+    $spreadsheet->addNamedRange( new NamedRange('CHARGE_RATE', $worksheet, '=$B$1', true) );
     // HOURS_PER_DAY is a relative cell reference that always points to column B, but to a cell in the row where it is used
-    $spreadsheet->addNamedRange( new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1', true));
+    $spreadsheet->addNamedRange( new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1', true) );
 
     // Populate the Timesheet
     $startRow = 4;
@@ -317,7 +317,7 @@ foreach ($clients as $clientName => $workHours) {
     $endRow = $row - 1;
 
     // COLUMN_TOTAL is another relative cell reference that always points to the same range of rows but to cell in the column where it is used
-    $spreadsheet->addNamedRange( new NamedRange('COLUMN_TOTAL', $worksheet, "=A\${$startRow}:A\${$endRow}", true));
+    $spreadsheet->addNamedRange( new NamedRange('COLUMN_TOTAL', $worksheet, "=A\${$startRow}:A\${$endRow}", true) );
 
     ++$row;
     $worksheet

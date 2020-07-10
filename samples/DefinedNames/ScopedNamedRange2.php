@@ -12,7 +12,7 @@ date_default_timezone_set('UTC');
 // Adjust the path as required to reference the PHPSpreadsheet Bootstrap file
 require_once __DIR__ . '/../Bootstrap.php';
 
-$spreadsheet = new Spreadsheet;
+$spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->setActiveSheetIndex(0);
 
 $clients = [
@@ -49,13 +49,12 @@ foreach ($clients as $clientName => $workHours) {
         ->setCellValue('A3', 'Date')
         ->setCellValue('B3', 'Hours')
         ->setCellValue('C3', 'Charge');
-    ;
 
     // Define named ranges
     // CHARGE_RATE is an absolute cell reference that always points to cell B1
-    $spreadsheet->addNamedRange( new NamedRange('CHARGE_RATE', $worksheet, '=$B$1', true));
+    $spreadsheet->addNamedRange(new NamedRange('CHARGE_RATE', $worksheet, '=$B$1', true));
     // HOURS_PER_DAY is a relative cell reference that always points to column B, but to a cell in the row where it is used
-    $spreadsheet->addNamedRange( new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1', true));
+    $spreadsheet->addNamedRange(new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1', true));
 
     // Populate the Timesheet
     $startRow = 4;
@@ -64,13 +63,13 @@ foreach ($clients as $clientName => $workHours) {
         $worksheet
             ->setCellValue("A{$row}", $date)
             ->setCellValue("B{$row}", $hours)
-            ->setCellValue("C{$row}", "=HOURS_PER_DAY*CHARGE_RATE");
+            ->setCellValue("C{$row}", '=HOURS_PER_DAY*CHARGE_RATE');
         $row++;
     }
     $endRow = $row - 1;
 
     // COLUMN_TOTAL is another relative cell reference that always points to the same range of rows but to cell in the column where it is used
-    $spreadsheet->addNamedRange( new NamedRange('COLUMN_TOTAL', $worksheet, "=A\${$startRow}:A\${$endRow}", true));
+    $spreadsheet->addNamedRange(new NamedRange('COLUMN_TOTAL', $worksheet, "=A\${$startRow}:A\${$endRow}", true));
 
     ++$row;
     $worksheet
@@ -81,7 +80,7 @@ $spreadsheet->removeSheetByIndex(0);
 
 // Set the reduced charge rate for our special client
 $worksheet
-    ->setCellValue("B1", 4.5);
+    ->setCellValue('B1', 4.5);
 
 foreach ($spreadsheet->getAllSheets() as $worksheet) {
     echo sprintf(
