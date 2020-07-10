@@ -1,7 +1,6 @@
 <?php
 
-// The following code can be used to submit an issue with the PHPSpreadsheet calculation engine
-
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -14,11 +13,7 @@ date_default_timezone_set('UTC');
 require_once __DIR__ . '/../Bootstrap.php';
 
 $spreadsheet = new Spreadsheet();
-
-$worksheet = $spreadsheet->getActiveSheet();
-
-$spreadsheet->setActiveSheetIndex(0);
-$worksheet = $spreadsheet->getActiveSheet();
+$worksheet = $spreadsheet->setActiveSheetIndex(0);
 
 // Set up some basic data
 $worksheet
@@ -45,3 +40,7 @@ echo sprintf(
     $worksheet->getCell('B4')->getCalculatedValue(),
     $worksheet->getCell('B5')->getCalculatedValue()
 ), PHP_EOL;
+
+$outputFileName = 'SimpleNamedRange.xlsx';
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer->save($outputFileName);

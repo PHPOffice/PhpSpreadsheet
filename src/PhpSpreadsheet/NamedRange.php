@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class NamedRange extends DefinedName
@@ -40,5 +41,15 @@ class NamedRange extends DefinedName
         }
 
         return $this;
+    }
+
+    public function getCellsInRange()
+    {
+        $range = $this->value;
+        if (substr($range, 0, 1) === '=') {
+            $range = substr($range, 1);
+        }
+
+        return Coordinate::extractAllCellReferencesInRange($range);
     }
 }
