@@ -404,7 +404,6 @@ The names that you assign to Defined Name must follow the following set of rules
  - The first character of a name must be one of the following characters:
    - letter (including UTF-8 letters)
    - underscore (_)
-   - backslash (\).
  - Remaining characters in the name can be
    - letters (including UTF-8 letters)
    - numbers (including UTF-8 numbers)
