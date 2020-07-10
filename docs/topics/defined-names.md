@@ -420,4 +420,4 @@ There is nothing to stop you creating a Defined Name that matches an existing Fu
 ```php
 $spreadsheet->addNamedFormula(new NamedFormula('SUM', $worksheet, '=SUM(A1:E5)'));
 ```
-And this will work without problems in MS Excel. However, it is not guaranteed to work correctly in PHPSpreadsheet; and will certainly cause confusion for anybody reading it, so it is not recommended.
+And this will work without problems in MS Excel. However, it is not guaranteed to work correctly in PHPSpreadsheet; and will certainly cause confusion for anybody reading it; so it is not recommended.

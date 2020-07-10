@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 abstract class DefinedName
@@ -65,7 +66,7 @@ abstract class DefinedName
         }
 
         // Set local members
-        $this->name = $name;
+        $this->name = StringHelper::strToUpper($name);
         $this->worksheet = $worksheet;
         $this->value = (string) $value;
         $this->localOnly = $localOnly;
@@ -130,9 +131,9 @@ abstract class DefinedName
     /**
      * Set name.
      */
-    public function setName(string $value): self
+    public function setName(string $name): self
     {
-        if (!empty($value)) {
+        if (!empty($name)) {
             // Old title
             $oldTitle = $this->name;
 
@@ -140,7 +141,7 @@ abstract class DefinedName
             if ($this->worksheet !== null) {
                 $this->worksheet->getParent()->removeNamedRange($this->name, $this->worksheet);
             }
-            $this->name = $value;
+            $this->name = StringHelper::strToUpper($name);
 
             if ($this->worksheet !== null) {
                 $this->worksheet->getParent()->addNamedRange($this);

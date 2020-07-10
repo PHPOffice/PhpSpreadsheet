@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -1024,6 +1025,8 @@ class Spreadsheet
         $returnValue = null;
 
         if ($definedName !== '') {
+            $definedName = StringHelper::strToUpper($definedName);
+
             // first look for global defined name
             if (isset($this->definedNames[$definedName])) {
                 $returnValue = $this->definedNames[$definedName];
