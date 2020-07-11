@@ -27,7 +27,7 @@ class DefinedNamesCalculationTest extends TestCase
     /**
      * @dataProvider namedRangeCalculationTest1
      */
-    public function testNamedRangeCalculations1($cellAddress, $expectedValue): void
+    public function testNamedRangeCalculations1(string $cellAddress, float $expectedValue): void
     {
         $calculatedCellValue = $this->spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
@@ -49,7 +49,7 @@ class DefinedNamesCalculationTest extends TestCase
     /**
      * @dataProvider namedRangeCalculationTest2
      */
-    public function testNamedRangeCalculationsWithAdjustedRateValue($cellAddress, $expectedValue): void
+    public function testNamedRangeCalculationsWithAdjustedRateValue(string $cellAddress, float $expectedValue): void
     {
         $this->spreadsheet->getActiveSheet()->getCell('B1')->setValue(12.5);
 
