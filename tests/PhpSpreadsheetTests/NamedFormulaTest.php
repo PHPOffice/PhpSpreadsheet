@@ -77,10 +77,10 @@ class NamedFormulaTest extends TestCase
     public function testRemoveNamedFormula()
     {
         $this->spreadsheet->addDefinedName(
-            new NamedFormula('Foo', $this->spreadsheet->getActiveSheet(), '=A1')
+            new NamedFormula('Foo', $this->spreadsheet->getActiveSheet(), '=16%')
         );
         $this->spreadsheet->addDefinedName(
-            new NamedFormula('Bar', $this->spreadsheet->getActiveSheet(), '=B1')
+            new NamedFormula('Bar', $this->spreadsheet->getActiveSheet(), '=19%')
         );
 
         $this->spreadsheet->removeNamedFormula('Foo', $this->spreadsheet->getActiveSheet());
