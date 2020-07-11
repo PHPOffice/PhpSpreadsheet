@@ -87,4 +87,40 @@ class NamedRangeTest extends TestCase
 
         self::assertCount(1, $this->spreadsheet->getNamedRanges());
     }
+
+    public function testRemoveGlobalNamedRangeWhenDuplicateNames(): void
+    {
+        $this->spreadsheet->addNamedRange(
+            new NamedRange('Foo', $this->spreadsheet->getActiveSheet(), '=A1')
+        );
+        $this->spreadsheet->addNamedRange(
+            new NamedRange('FOO', $this->spreadsheet->getSheetByName('Sheet #2'), '=B1', true)
+        );
+
+        $this->spreadsheet->removeNamedRange('Foo', $this->spreadsheet->getActiveSheet());
+
+        self::assertCount(1, $this->spreadsheet->getNamedRanges());
+        self::assertSame(
+            '=B1',
+            $this->spreadsheet->getNamedRange('foo', $this->spreadsheet->getSheetByName('Sheet #2'))->getValue()
+        );
+    }
+
+    public function testRemoveScopedNamedRangeWhenDuplicateNames(): void
+    {
+        $this->spreadsheet->addNamedRange(
+            new NamedRange('Foo', $this->spreadsheet->getActiveSheet(), '=A1')
+        );
+        $this->spreadsheet->addNamedRange(
+            new NamedRange('FOO', $this->spreadsheet->getSheetByName('Sheet #2'), '=B1', true)
+        );
+
+        $this->spreadsheet->removeNamedRange('Foo', $this->spreadsheet->getSheetByName('Sheet #2'));
+
+        self::assertCount(1, $this->spreadsheet->getNamedRanges());
+        self::assertSame(
+            '=A1',
+            $this->spreadsheet->getNamedRange('foo')->getValue()
+        );
+    }
 }

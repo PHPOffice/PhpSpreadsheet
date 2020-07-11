@@ -1011,7 +1011,7 @@ class Spreadsheet
     private function getLocalDefinedNameByType(string $name, bool $type, ?Worksheet $pSheet = null)
     {
         if (($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $name])
-            && $this->definedNames[$name]->isFormula() === $type
+            && $this->definedNames[$pSheet->getTitle() . '!' . $name]->isFormula() === $type
         ) {
             return $this->definedNames[$pSheet->getTitle() . '!' . $name];
         }
@@ -1032,7 +1032,6 @@ class Spreadsheet
 
         if ($definedName !== '') {
             $definedName = StringHelper::strToUpper($definedName);
-
             // first look for global defined name
             if (isset($this->definedNames[$definedName])) {
                 $returnValue = $this->definedNames[$definedName];

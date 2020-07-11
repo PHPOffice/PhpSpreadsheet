@@ -33,7 +33,7 @@ class DefinedNameTest extends TestCase
             DefinedName::createInstance('Foo', $this->spreadsheet->getActiveSheet(), '=A1')
         );
 
-        self::assertCount(1,$this->spreadsheet->getDefinedNames());
+        self::assertCount(1, $this->spreadsheet->getDefinedNames());
     }
 
     public function testAddDuplicateDefinedName(): void
@@ -84,5 +84,41 @@ class DefinedNameTest extends TestCase
         $this->spreadsheet->removeDefinedName('Foo', $this->spreadsheet->getActiveSheet());
 
         self::assertCount(1, $this->spreadsheet->getDefinedNames());
+    }
+
+    public function testRemoveGlobalDefinedNameWhenDuplicateNames(): void
+    {
+        $this->spreadsheet->addDefinedName(
+            DefinedName::createInstance('Foo', $this->spreadsheet->getActiveSheet(), '=A1')
+        );
+        $this->spreadsheet->addDefinedName(
+            DefinedName::createInstance('FOO', $this->spreadsheet->getSheetByName('Sheet #2'), '=B1', true)
+        );
+
+        $this->spreadsheet->removeDefinedName('Foo', $this->spreadsheet->getActiveSheet());
+
+        self::assertCount(1, $this->spreadsheet->getDefinedNames());
+        self::assertSame(
+            '=B1',
+            $this->spreadsheet->getDefinedName('foo', $this->spreadsheet->getSheetByName('Sheet #2'))->getValue()
+        );
+    }
+
+    public function testRemoveScopedDefinedNameWhenDuplicateNames(): void
+    {
+        $this->spreadsheet->addDefinedName(
+            DefinedName::createInstance('Foo', $this->spreadsheet->getActiveSheet(), '=A1')
+        );
+        $this->spreadsheet->addDefinedName(
+            DefinedName::createInstance('FOO', $this->spreadsheet->getSheetByName('Sheet #2'), '=B1', true)
+        );
+
+        $this->spreadsheet->removeDefinedName('Foo', $this->spreadsheet->getSheetByName('Sheet #2'));
+
+        self::assertCount(1, $this->spreadsheet->getDefinedNames());
+        self::assertSame(
+            '=A1',
+            $this->spreadsheet->getDefinedName('foo')->getValue()
+        );
     }
 }

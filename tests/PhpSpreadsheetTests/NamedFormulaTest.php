@@ -87,4 +87,40 @@ class NamedFormulaTest extends TestCase
 
         self::assertCount(1, $this->spreadsheet->getNamedFormulae());
     }
+
+    public function testRemoveGlobalNamedFormulaWhenDuplicateNames(): void
+    {
+        $this->spreadsheet->addNamedFormula(
+            new NamedFormula('Foo', $this->spreadsheet->getActiveSheet(), '=19%')
+        );
+        $this->spreadsheet->addNamedFormula(
+            new NamedFormula('FOO', $this->spreadsheet->getSheetByName('Sheet #2'), '=16%', true)
+        );
+
+        $this->spreadsheet->removeNamedFormula('Foo', $this->spreadsheet->getActiveSheet());
+
+        self::assertCount(1, $this->spreadsheet->getNamedFormulae());
+        self::assertSame(
+            '=16%',
+            $this->spreadsheet->getNamedFormula('foo', $this->spreadsheet->getSheetByName('Sheet #2'))->getValue()
+        );
+    }
+
+    public function testRemoveScopedNamedFormulaWhenDuplicateNames(): void
+    {
+        $this->spreadsheet->addNamedFormula(
+            new NamedFormula('Foo', $this->spreadsheet->getActiveSheet(), '=19%')
+        );
+        $this->spreadsheet->addNamedFormula(
+            new NamedFormula('FOO', $this->spreadsheet->getSheetByName('Sheet #2'), '=16%', true)
+        );
+
+        $this->spreadsheet->removeNamedFormula('Foo', $this->spreadsheet->getSheetByName('Sheet #2'));
+
+        self::assertCount(1, $this->spreadsheet->getNamedFormulae());
+        self::assertSame(
+            '=19%',
+            $this->spreadsheet->getNamedFormula('foo')->getValue()
+        );
+    }
 }
