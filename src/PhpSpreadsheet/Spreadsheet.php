@@ -909,6 +909,7 @@ class Spreadsheet
 
     /**
      * Add a named range.
+     * If a named range with this name already exists, then this will replace the existing value.
      *
      * @return bool
      */
@@ -919,6 +920,7 @@ class Spreadsheet
 
     /**
      * Add a named formula.
+     * If a named formula with this name already exists, then this will replace the existing value.
      *
      * @return bool
      */
@@ -929,6 +931,7 @@ class Spreadsheet
 
     /**
      * Add a defined name (either a named range or a named formula).
+     * If a defined named with this name already exists, then this will replace the existing value.
      *
      * @return bool
      */

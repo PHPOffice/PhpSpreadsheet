@@ -388,9 +388,9 @@ echo sprintf(
 
 There are a few points to note here:
 
-Firstly. we are actually storing the tax rate in a named formula (`TAX_RATE`) rather than as a cell value. When we display the tax rate in cell `B1`, we are actually storing an instruction for MS Excel to evaluate the formula and display the result in that cell.
+Firstly. we are actually storing the tax rate in a named formula (`TAX_RATE`) rather than as a cell value. When we display the tax rate in cell `B1`, we are really storing an instruction for MS Excel to evaluate the formula and display the result in that cell.
 
-Then we are using a formula `TAX` that references both another formula (`TAX_RATE`) and a Named Range (`PRICE`) and executes a calculation using them both (`PRICE * TAX_RATE`).
+Then we are using a Named Formula `TAX` that references both another Named Formula (`TAX_RATE`) and a Named Range (`PRICE`) and executes a calculation using them both (`PRICE * TAX_RATE`).
 
 Finally, we are using the formula `TAX` in two different contexts. Once to display the tax value (in cell `B4`); and a second time as part of another formula (`PRICE + TAX`) in cell `B5`.
 
@@ -403,21 +403,25 @@ Finally, we are using the formula `TAX` in two different contexts. Once to displ
 The names that you assign to Defined Name must follow the following set of rules:
  - The first character of a name must be one of the following characters:
    - letter (including UTF-8 letters)
-   - underscore (_)
+   - underscore (`_`)
  - Remaining characters in the name can be
    - letters (including UTF-8 letters)
    - numbers (including UTF-8 numbers)
-   - periods
-   - underscore characters
+   - periods (`.`)
+   - underscore characters (`_`)
  - The following are not allowed:
    - Space characters are not allowed as part of a name.
    - Names can't look like cell addresses, such as A35 or R2C2
  - Names are not case sensitive. For example, `North` and `NORTH` are treated as the same name.
 
-PHPSpreadsheet doesn't yet fully validate the names that you use, so it is possible to create a spreadsheet in PHPSpreadsheet that will break when you try to open it in MS Excel; or that will break PHPSpreadsheet when they are referenced in a cell.
+### Limitations
+
+PHPSpreadsheet doesn't yet fully validate the names that you use, so it is possible to create a spreadsheet in PHPSpreadsheet that will break when you save and try to open it in MS Excel; or that will break PHPSpreadsheet when they are referenced in a cell.
 
 There is nothing to stop you creating a Defined Name that matches an existing Function name
 ```php
 $spreadsheet->addNamedFormula(new NamedFormula('SUM', $worksheet, '=SUM(A1:E5)'));
 ```
-And this will work without problems in MS Excel. However, it is not guaranteed to work correctly in PHPSpreadsheet; and will certainly cause confusion for anybody reading it; so it is not recommended.
+And this will work without problems in MS Excel. However, it is not guaranteed to work correctly in PHPSpreadsheet; and will certainly cause confusion for anybody reading it; so it is not recommended. Names exist to give clarity to the person reading the spreadsheet, and a cell containing `=SUM` is even harder to understand than a cell containing `=SUM(B4:B8)`. Use names that provide meaning, like `SUM_OF_WORKED_HOURS`.
+
+You cannot have a Named Range and a Named Formula with the same name, unless they are differently scoped.

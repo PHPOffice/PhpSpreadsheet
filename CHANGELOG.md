@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Named formula implementation, and improved handling of Defined Names generally [#1535](https://github.com/PHPOffice/PhpSpreadsheet/pull/1535)
+  - Defined Names are now case-insensitive
   - Distinction between named ranges and named formulae
   - Correct handling of union and intersection operators in named ranges
   - Correct evaluation of named range operators in calculations
