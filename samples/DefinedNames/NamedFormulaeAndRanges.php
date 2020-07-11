@@ -34,7 +34,6 @@ $spreadsheet->addNamedFormula(new NamedFormula('DAILY_CHARGE', null, '=HOURS_PER
 // Set up the formula for calculating the column totals
 $spreadsheet->addNamedFormula(new NamedFormula('COLUMN_TOTALS', null, '=SUM(COLUMN_DATA_VALUES)'));
 
-
 $workHours = [
     '2020-0-06' => 7.5,
     '2020-0-07' => 7.25,

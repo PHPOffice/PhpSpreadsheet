@@ -2,9 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class DefinedNamesCalculationTest extends TestCase
