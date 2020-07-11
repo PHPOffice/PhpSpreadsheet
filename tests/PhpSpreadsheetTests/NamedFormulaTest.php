@@ -74,7 +74,7 @@ class NamedFormulaTest extends TestCase
         );
     }
 
-    public function testRemoveNamedFormula()
+    public function testRemoveNamedFormula(): void
     {
         $this->spreadsheet->addDefinedName(
             new NamedFormula('Foo', $this->spreadsheet->getActiveSheet(), '=16%')

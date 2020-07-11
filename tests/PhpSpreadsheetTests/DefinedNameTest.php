@@ -72,7 +72,7 @@ class DefinedNameTest extends TestCase
         );
     }
 
-    public function testRemoveDefinedName()
+    public function testRemoveDefinedName(): void
     {
         $this->spreadsheet->addDefinedName(
             DefinedName::createInstance('Foo', $this->spreadsheet->getActiveSheet(), '=A1')

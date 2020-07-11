@@ -74,7 +74,7 @@ class NamedRangeTest extends TestCase
         );
     }
 
-    public function testRemoveNamedRange()
+    public function testRemoveNamedRange(): void
     {
         $this->spreadsheet->addDefinedName(
             new NamedRange('Foo', $this->spreadsheet->getActiveSheet(), '=A1')
