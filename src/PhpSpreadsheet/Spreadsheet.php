@@ -1086,17 +1086,19 @@ class Spreadsheet
      *
      * @return $this
      */
-    public function removeDefinedName(string $namedRange, ?Worksheet $pSheet = null)
+    public function removeDefinedName(string $definedName, ?Worksheet $pSheet = null)
     {
-        $namedRange = StringHelper::strToUpper($namedRange);
+        $definedName = StringHelper::strToUpper($definedName);
 
         if ($pSheet === null) {
-            if (isset($this->definedNames[$namedRange])) {
-                unset($this->definedNames[$namedRange]);
+            if (isset($this->definedNames[$definedName])) {
+                unset($this->definedNames[$definedName]);
             }
         } else {
-            if (isset($this->definedNames[$pSheet->getTitle() . '!' . $namedRange])) {
-                unset($this->definedNames[$pSheet->getTitle() . '!' . $namedRange]);
+            if (isset($this->definedNames[$pSheet->getTitle() . '!' . $definedName])) {
+                unset($this->definedNames[$pSheet->getTitle() . '!' . $definedName]);
+            } elseif (isset($this->definedNames[$definedName])) {
+                unset($this->definedNames[$definedName]);
             }
         }
 

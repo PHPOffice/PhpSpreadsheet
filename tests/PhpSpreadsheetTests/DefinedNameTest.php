@@ -27,7 +27,7 @@ class DefinedNameTest extends TestCase
         $this->spreadsheet->setActiveSheetIndex(0);
     }
 
-    public function testAddDefinedName()
+    public function testAddDefinedName(): void
     {
         $this->spreadsheet->addDefinedName(
             DefinedName::createInstance('Foo', $this->spreadsheet->getActiveSheet(), '=A1')
@@ -36,7 +36,7 @@ class DefinedNameTest extends TestCase
         self::assertSame(1, count($this->spreadsheet->getDefinedNames()));
     }
 
-    public function testAddDuplicateDefinedName()
+    public function testAddDuplicateDefinedName(): void
     {
         $this->spreadsheet->addDefinedName(
             DefinedName::createInstance('Foo', $this->spreadsheet->getActiveSheet(), '=A1')
@@ -52,8 +52,7 @@ class DefinedNameTest extends TestCase
         );
     }
 
-
-    public function testAddScopedDefinedNameWithSameName()
+    public function testAddScopedDefinedNameWithSameName(): void
     {
         $this->spreadsheet->addDefinedName(
             DefinedName::createInstance('Foo', $this->spreadsheet->getActiveSheet(), '=A1')
@@ -72,5 +71,18 @@ class DefinedNameTest extends TestCase
             $this->spreadsheet->getDefinedName('foo', $this->spreadsheet->getSheetByName('Sheet #2'))->getValue()
         );
     }
-}
 
+    public function testRemoveDefinedName()
+    {
+        $this->spreadsheet->addDefinedName(
+            DefinedName::createInstance('Foo', $this->spreadsheet->getActiveSheet(), '=A1')
+        );
+        $this->spreadsheet->addDefinedName(
+            DefinedName::createInstance('Bar', $this->spreadsheet->getActiveSheet(), '=B1')
+        );
+
+        $this->spreadsheet->removeDefinedName('Foo', $this->spreadsheet->getActiveSheet());
+
+        self::assertSame(1, count($this->spreadsheet->getDefinedNames()));
+    }
+}
