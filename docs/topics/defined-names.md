@@ -396,7 +396,85 @@ Finally, we are using the formula `TAX` in two different contexts. Once to displ
 
 ## Combining Named Ranges and Formulae
 
+For a slightly more complex example combining Named Ranges and Named Formulae, we can build on our client timesheet.
+
+```php
+// Set up some basic data for a timesheet
+$worksheet
+    ->setCellValue('A1', 'Charge Rate/hour:')
+    ->setCellValue('B1', '7.50')
+    ->setCellValue('A3', 'Date')
+    ->setCellValue('B3', 'Hours')
+    ->setCellValue('C3', 'Charge');
+
+// Define named ranges
+// CHARGE_RATE is an absolute cell reference that always points to cell B1
+$spreadsheet->addNamedRange(new NamedRange('CHARGE_RATE', $worksheet, '=$B$1'));
+// HOURS_PER_DAY is a relative cell reference that always points to column B, but to a cell in the row where it is used
+$spreadsheet->addNamedRange(new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1'));
+// Set up the formula for calculating the daily charge
+$spreadsheet->addNamedFormula(new NamedFormula('DAILY_CHARGE', null, '=HOURS_PER_DAY*CHARGE_RATE'));
+// Set up the formula for calculating the column totals
+$spreadsheet->addNamedFormula(new NamedFormula('COLUMN_TOTALS', null, '=SUM(COLUMN_DATA_VALUES)'));
+
+
+$workHours = [
+    '2020-0-06' => 7.5,
+    '2020-0-07' => 7.25,
+    '2020-0-08' => 6.5,
+    '2020-0-09' => 7.0,
+    '2020-0-10' => 5.5,
+];
+
+// Populate the Timesheet
+$startRow = 4;
+$row = $startRow;
+foreach ($workHours as $date => $hours) {
+    $worksheet
+        ->setCellValue("A{$row}", $date)
+        ->setCellValue("B{$row}", $hours)
+        ->setCellValue("C{$row}", '=DAILY_CHARGE');
+    ++$row;
+}
+$endRow = $row - 1;
+
+// COLUMN_TOTAL is another relative cell reference that always points to the same range of rows but to cell in the column where it is used
+$spreadsheet->addNamedRange(new NamedRange('COLUMN_DATA_VALUES', $worksheet, "=A\${$startRow}:A\${$endRow}"));
+
+++$row;
+$worksheet
+    ->setCellValue("B{$row}", '=COLUMN_TOTALS')
+    ->setCellValue("C{$row}", '=COLUMN_TOTALS');
+
+echo sprintf(
+    'Worked %.2f hours at a rate of %.2f - Charge to the client is %.2f',
+    $worksheet->getCell("B{$row}")->getCalculatedValue(),
+    $worksheet->getCell('B1')->getValue(),
+    $worksheet->getCell("C{$row}")->getCalculatedValue()
+), PHP_EOL;
+```
+`/samples/DefinedNames/NamedFormulaeAndRanges.php`
+
+The main point to notice in this example is that you must specify a Worksheet for Named Ranges, but that it isn't required for Named Formulae; in fact, specifying a Worksheet for named Formulae can lead to MS Excel errors when a saved file is opened. Generally, it is far safer to specify a null Worksheet value when creating a Named Formula, unless it references cell values explicitly, or you wish to scope it to that Worksheet.
+
+It also doesn't matter what order we define our Named Ranges and Formulae, even when some are dependent on others: this only matters when we try to use them in a cell calculation, or when we save the file; and as long as every Defined Name has been defined at that point, then it isn't important. In this case, we couldn't define `COLUMN_DATA_VALUES` until we new the range of rows that it needed to contain; but we could still define the `COLUMN_TOTALS` formula before that.
+
 ## Additional Comments
+
+### Helper
+
+In all the examples so far, we have explicitly used the `NamedRange` and `NamedFormula` classes, and the Spreadsheet's `addNamedRange()` and `addNamedFormula()` methods, e.g.
+```php
+$spreadsheet->addNamedRange(new NamedRange('HOURS_PER_DAY', $worksheet, '=$B1'));
+```
+However, this can lead to errors if we accidentally set a formula value for a Named Range, or a range value for a Named Formula.
+
+As a helper, the DefinedName class provides a static method that can identify whether the value expression is a Range or a Formula, and instantiate the appropriate class.
+```php
+$this->spreadsheet->addDefinedName(
+    DefinedName::createInstance('FOO', $this->spreadsheet->getSheetByName('Sheet #2'), '=16%', true)
+);
+```
 
 ### Naming Names
 

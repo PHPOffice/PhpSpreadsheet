@@ -10,26 +10,66 @@ use PHPUnit\Framework\TestCase;
 class DefinedNamesCalculationTest extends TestCase
 {
     /**
-     * @var Spreadsheet
+     * @dataProvider namedRangeCalculationTest1
      */
-    private $spreadsheet;
-
-    protected function setUp(): void
+    public function testNamedRangeCalculations1(string $cellAddress, float $expectedValue): void
     {
         $inputFileType = 'Xlsx';
-        $inputFileName = __DIR__ . '/../../data/Calculation/DefinedNames/RelativeNamedRanges.xlsx';
+        $inputFileName = __DIR__ . '/../../data/Calculation/DefinedNames/NamedRanges.xlsx';
 
         $reader = IOFactory::createReader($inputFileType);
-        $this->spreadsheet = $reader->load($inputFileName);
-        Calculation::getInstance($this->spreadsheet)->clearCalculationCache();
+        $spreadsheet = $reader->load($inputFileName);
+
+        $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
+        self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
+    }
+
+    /**
+     * @dataProvider namedRangeCalculationTest2
+     */
+    public function testNamedRangeCalculationsWithAdjustedRateValue(string $cellAddress, float $expectedValue): void
+    {
+        $inputFileType = 'Xlsx';
+        $inputFileName = __DIR__ . '/../../data/Calculation/DefinedNames/NamedRanges.xlsx';
+
+        $reader = IOFactory::createReader($inputFileType);
+        $spreadsheet = $reader->load($inputFileName);
+
+        $spreadsheet->getActiveSheet()->getCell('B1')->setValue(12.5);
+
+        $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
+        self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
     }
 
     /**
      * @dataProvider namedRangeCalculationTest1
      */
-    public function testNamedRangeCalculations1(string $cellAddress, float $expectedValue): void
+    public function testNamedFormulaCalculations1(string $cellAddress, float $expectedValue): void
     {
-        $calculatedCellValue = $this->spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
+        $inputFileType = 'Xlsx';
+        $inputFileName = __DIR__ . '/../../data/Calculation/DefinedNames/NamedFormulae.xlsx';
+
+        $reader = IOFactory::createReader($inputFileType);
+        $spreadsheet = $reader->load($inputFileName);
+
+        $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
+        self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
+    }
+
+    /**
+     * @dataProvider namedRangeCalculationTest2
+     */
+    public function testNamedFormulaeCalculationsWithAdjustedRateValue(string $cellAddress, float $expectedValue): void
+    {
+        $inputFileType = 'Xlsx';
+        $inputFileName = __DIR__ . '/../../data/Calculation/DefinedNames/NamedFormulae.xlsx';
+
+        $reader = IOFactory::createReader($inputFileType);
+        $spreadsheet = $reader->load($inputFileName);
+
+        $spreadsheet->getActiveSheet()->getCell('B1')->setValue(12.5);
+
+        $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
     }
 
@@ -44,17 +84,6 @@ class DefinedNamesCalculationTest extends TestCase
             ['B10', 33.75],
             ['C10', 253.125],
         ];
-    }
-
-    /**
-     * @dataProvider namedRangeCalculationTest2
-     */
-    public function testNamedRangeCalculationsWithAdjustedRateValue(string $cellAddress, float $expectedValue): void
-    {
-        $this->spreadsheet->getActiveSheet()->getCell('B1')->setValue(12.5);
-
-        $calculatedCellValue = $this->spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
-        self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
     }
 
     public function namedRangeCalculationTest2()

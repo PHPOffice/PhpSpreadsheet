@@ -4342,6 +4342,7 @@ class Calculation
                     if ($namedRange === null) {
                         return $this->raiseFormulaError("undefined name '$definedName'");
                     }
+
                     $result = $this->evaluateDefinedName($pCell, $namedRange, $pCellWorksheet, $stack);
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $result;
@@ -4899,7 +4900,7 @@ class Calculation
             'A1',
             Coordinate::columnIndexFromString($pCell->getColumn()) - 1,
             $pCell->getRow() - 1,
-            $definedNameWorksheet->getTitle()
+            ($definedNameWorksheet !== null) ? $definedNameWorksheet->getTitle() : $pCellWorksheet
         );
 
         $this->debugLog->writeDebugLog("Value adjusted for relative references is {$definedNameValue}");
