@@ -33,9 +33,9 @@ class NamedFormulaTest extends TestCase
             new NamedFormula('Foo', $this->spreadsheet->getActiveSheet(), '=19%')
         );
 
-        self::assertCount(1, count($this->spreadsheet->getDefinedNames()));
-        self::assertCount(1, count($this->spreadsheet->getNamedFormulae()));
-        self::assertCount(0, count($this->spreadsheet->getNamedRanges()));
+        self::assertCount(1, $this->spreadsheet->getDefinedNames());
+        self::assertCount(1, $this->spreadsheet->getNamedFormulae());
+        self::assertCount(0, $this->spreadsheet->getNamedRanges());
     }
 
     public function testAddDuplicateNamedRange(): void
@@ -47,7 +47,7 @@ class NamedFormulaTest extends TestCase
             new NamedFormula('FOO', $this->spreadsheet->getActiveSheet(), '=16%')
         );
 
-        self::assertCount(1, count($this->spreadsheet->getNamedFormulae()));
+        self::assertCount(1, $this->spreadsheet->getNamedFormulae());
         self::assertSame(
             '=16%',
             $this->spreadsheet->getNamedFormula('foo', $this->spreadsheet->getActiveSheet())->getValue()
@@ -63,7 +63,7 @@ class NamedFormulaTest extends TestCase
             new NamedFormula('FOO', $this->spreadsheet->getSheetByName('Sheet #2'), '=16%', true)
         );
 
-        self::assertCount(2, count($this->spreadsheet->getNamedFormulae()));
+        self::assertCount(2, $this->spreadsheet->getNamedFormulae());
         self::assertSame(
             '=19%',
             $this->spreadsheet->getNamedFormula('foo', $this->spreadsheet->getActiveSheet())->getValue()
@@ -85,6 +85,6 @@ class NamedFormulaTest extends TestCase
 
         $this->spreadsheet->removeNamedFormula('Foo', $this->spreadsheet->getActiveSheet());
 
-        self::assertCount(1, count($this->spreadsheet->getNamedFormulae()));
+        self::assertCount(1, $this->spreadsheet->getNamedFormulae());
     }
 }
