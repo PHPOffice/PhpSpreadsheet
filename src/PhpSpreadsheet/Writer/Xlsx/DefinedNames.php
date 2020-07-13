@@ -98,7 +98,7 @@ class DefinedNames
             $newRange = '';
             if (empty($worksheet)) {
                 if (($offset === 0) || ($definedRange[$offset - 1] !== ':')) {
-                    // We need a worksheet
+                    // We should have a worksheet
                     $worksheet = $pDefinedName->getWorksheet()->getTitle();
                 }
             } else {

@@ -163,6 +163,8 @@ The difference in the cell definition for `HOURS_PER_DAY` (`'=$B1'`) is that we 
 
 When it is used in the formula in row 4, then it references cell `B4`, when it appears in row 5, it references cell `B5`, and so on. Using a Relative Named Range, we can use the same Named Range to refer to cells in different rows (and/or different columns), so we can re-use the same Named Range to refer to different cells relative to the row (or column) where we use them.
 
+---
+
 Named Ranges aren't limited to a single cell, but can point to a range of cells. A common use case might be to provide a series of column totals at the bottom of a dataset. Let's take our timesheet, and modify it just slightly to use a Relative column range for that purpose.
 
 I won't replicate the entire code from the previous example, because I'm only changing a few lines; but we just replace the block:
@@ -256,6 +258,8 @@ echo sprintf(
 `/samples/DefinedNames/ScopedNamedRange.php`
 
 Even though `CHARGE_RATE` references a cell on a different worksheet, because is set as global (the default) it is accessible from any worksheet in the spreadsheet. so when we reference it in formulae on the second timesheet worksheet, we are able to access the value from that first worksheet and use it in our calculations.
+
+---
 
 However, a Named Range can be locally scoped so that it is only available when referenced from a specific worksheet, or it can be globally scoped. This means that you can use the same Named Range name with different values on different worksheets.
 
@@ -394,6 +398,68 @@ Then we are using a Named Formula `TAX` that references both another Named Formu
 
 Finally, we are using the formula `TAX` in two different contexts. Once to display the tax value (in cell `B4`); and a second time as part of another formula (`PRICE + TAX`) in cell `B5`.
 
+---
+
+Named Formulae aren't just restricted tosimple mathematics, but can include MS EXcel functions as well to provide a lot of flexibility; and they can reference values on other worksheets.
+
+```php
+$worksheet = $spreadsheet->setActiveSheetIndex(0);
+setYearlyData($worksheet,'2019', $data2019);
+$worksheet = $spreadsheet->addSheet(new Worksheet($spreadsheet));
+setYearlyData($worksheet,'2020', $data2020);
+$worksheet = $spreadsheet->addSheet(new Worksheet($spreadsheet));
+setYearlyData($worksheet,'2020', [], 'GROWTH');
+
+function setYearlyData(Worksheet $worksheet, string $year, $yearlyData, ?string $title = null) {
+    // Set up some basic data
+    $worksheetTitle = $title ?: $year;
+    $worksheet
+        ->setTitle($worksheetTitle)
+        ->setCellValue('A1', 'Month')
+        ->setCellValue('B1', $worksheetTitle  === 'GROWTH' ? 'Growth' : 'Sales')
+        ->setCellValue('C1', $worksheetTitle  === 'GROWTH' ? 'Profit Growth' : 'Margin')
+        ->setCellValue('A2', Date::stringToExcel("{$year}-01-01"));
+    for ($row = 3; $row <= 13; ++$row) {
+        $worksheet->setCellValue("A{$row}", "=NEXT_MONTH");
+    }
+
+    if (!empty($yearlyData)) {
+        $worksheet->fromArray($yearlyData, null, 'B2');
+    } else {
+        for ($row = 2; $row <= 13; ++$row) {
+            $worksheet->setCellValue("B{$row}", "=GROWTH");
+            $worksheet->setCellValue("C{$row}", "=PROFIT_GROWTH");
+        }
+    }
+
+    $worksheet->getStyle('A1:C1')
+        ->getFont()->setBold(true);
+    $worksheet->getStyle('A2:A13')
+        ->getNumberFormat()
+        ->setFormatCode('mmmm');
+    $worksheet->getStyle('B2:C13')
+        ->getNumberFormat()
+        ->setFormatCode($worksheetTitle  === 'GROWTH' ? '0.00%' : '_-€* #,##0_-');
+}
+
+// Add some Named Formulae
+// The first to store our tax rate
+$spreadsheet->addNamedFormula(new NamedFormula('NEXT_MONTH', $worksheet, "=EDATE(OFFSET(\$A1,-1,0),1)"));
+$spreadsheet->addNamedFormula(new NamedFormula('GROWTH', $worksheet, "=IF('2020'!\$B1=\"\",\"-\",(('2020'!\$B1/'2019'!\$B1)-1))"));
+$spreadsheet->addNamedFormula(new NamedFormula('PROFIT_GROWTH', $worksheet, "=IF('2020'!\$C1=\"\",\"-\",(('2020'!\$C1/'2019'!\$C1)-1))"));
+
+for ($row = 2; $row<=7; ++$row) {
+    $month = $worksheet->getCell("A{$row}")->getFormattedValue();
+    $growth = $worksheet->getCell("B{$row}")->getFormattedValue();
+    $profitGrowth = $worksheet->getCell("C{$row}")->getFormattedValue();
+
+    echo "Growth for {$month} is {$growth}, with a Profit Growth of {$profitGrowth}", PHP_EOL;
+}
+```
+`/samples/DefinedNames/CrossWorksheetNamedFormula.php`
+
+Here we're creating two Named Formulae that both use the `IF()` function, and that compare values on two different worksheets, and calculate the percentage difference between the two. We're also creating a Named Formula that uses the `OFFSET()` function to reference the cell immediately above the current Relative cell reference.
+
 ## Combining Named Ranges and Formulae
 
 For a slightly more complex example combining Named Ranges and Named Formulae, we can build on our client timesheet.
@@ -495,11 +561,33 @@ The names that you assign to Defined Name must follow the following set of rules
 ### Limitations
 
 PHPSpreadsheet doesn't yet fully validate the names that you use, so it is possible to create a spreadsheet in PHPSpreadsheet that will break when you save and try to open it in MS Excel; or that will break PHPSpreadsheet when they are referenced in a cell.
+So please be sensible when creating names, and follow the rules listed above.
+
+---
 
 There is nothing to stop you creating a Defined Name that matches an existing Function name
 ```php
 $spreadsheet->addNamedFormula(new NamedFormula('SUM', $worksheet, '=SUM(A1:E5)'));
 ```
-And this will work without problems in MS Excel. However, it is not guaranteed to work correctly in PHPSpreadsheet; and will certainly cause confusion for anybody reading it; so it is not recommended. Names exist to give clarity to the person reading the spreadsheet, and a cell containing `=SUM` is even harder to understand than a cell containing `=SUM(B4:B8)`. Use names that provide meaning, like `SUM_OF_WORKED_HOURS`.
+And this will work without problems in MS Excel. However, it is not guaranteed to work correctly in PHPSpreadsheet; and will certainly cause confusion for anybody reading it; so it is not recommended. Names exist to give clarity to the person reading the spreadsheet, and a cell containing `=SUM` is even harder to understand (what is it the sum of?) than a cell containing `=SUM(B4:B8)`. Use names that provide meaning, like `SUM_OF_WORKED_HOURS`.
+
+---
 
 You cannot have a Named Range and a Named Formula with the same name, unless they are differently scoped.
+
+---
+
+MS Excel uses some "special tricks" to simulate Relative Named Ranges where the row or column comes before the current row or column, useful if you want to get column totals that don't include the current cell. These "tricks" aren't supported by PHPSpreadsheet, but can be simulated using the `OFFSET()` function in a Named Formula.
+In our `RelativeNamedRange2.php` example, we explicitly created the `COLUMN_DATA_VALUES` Named Range using only the rows that we knew should be included, so that we weren't including the current row (where we were displaying the total) and creating a cyclic reference:
+```php
+// COLUMN_TOTAL is another relative cell reference that always points to the same range of rows but to cell in the column where it is used
+$spreadsheet->addNamedRange(new NamedRange('COLUMN_DATA_VALUES', $worksheet, "=A\${$startRow}:A\${$endRow}"));
+```
+We could instead have created a Named Function using `OFFSET()` to specify just the start row, and offset the end row by -1 row:
+```php
+// COLUMN_TOTAL is another relative cell reference that always points to the same range of rows but to cell in the column where it is used
+// To avoid including the current row,or having to hard-code the range itself (as we did in the previous example)
+//    we wrap it in a named formula using the OFFSET() function
+$spreadsheet->addNamedFormula(new NamedFormula('COLUMN_DATA_VALUES', $worksheet, "=OFFSET(A\$4:A1, -1, 0)"));
+```
+as demonstrated in example `RelativeNamedRangeAsFunction.php`.

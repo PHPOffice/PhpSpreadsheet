@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -752,6 +753,122 @@ class ReferenceHelper
 
         //    Then rebuild the formula string
         return implode('"', $formulaBlocks);
+    }
+
+    /**
+     * Update references within formulas.
+     *
+     * @param string $formula Formula to update
+     * @param string $relativeToCell Insert before this one
+     * @param int $insertColumns Number of columns to insert
+     * @param int $insertRows Number of rows to insert
+     * @param string $worksheetName Worksheet name/title
+     *
+     * @return string Updated formula
+     */
+    public function updateFormulaReferencesAnyWorksheet($formula = '', $relativeToCell = 'A1', $insertColumns = 0, $insertRows = 0, $worksheetName = '')
+    {
+        $splitCount = preg_match_all(
+            '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/mui',
+            $formula,
+            $splitRanges,
+            PREG_OFFSET_CAPTURE
+        );
+
+        $columnLengths = array_map('strlen', array_column($splitRanges[6], 0));
+        $rowLengths = array_map('strlen', array_column($splitRanges[7], 0));
+        $columnOffsets = array_column($splitRanges[6], 1);
+        $rowOffsets = array_column($splitRanges[7], 1);
+
+        $columns = $splitRanges[6];
+        $rows = $splitRanges[7];
+
+        while ($splitCount > 0) {
+            --$splitCount;
+            $columnLength = $columnLengths[$splitCount];
+            $rowLength = $rowLengths[$splitCount];
+            $columnOffset = $columnOffsets[$splitCount];
+            $rowOffset = $rowOffsets[$splitCount];
+            $column = $columns[$splitCount][0];
+            $row = $rows[$splitCount][0];
+
+            if (!empty($column) && $column[0] !== '$') {
+                $column = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($column) + $insertColumns);
+                $formula = substr($formula, 0, $columnOffset) . $column . substr($formula, $columnOffset + $columnLength);
+            }
+            if (!empty($row) && $row[0] !== '$') {
+                $row += $insertRows;
+                $formula = substr($formula, 0, $rowOffset) . $row . substr($formula, $rowOffset + $rowLength);
+            }
+        }
+
+        $splitCount = preg_match_all(
+            '/' . Calculation::CALCULATION_REGEXP_COLUMNRANGE_RELATIVE. '/mui',
+            $formula,
+            $splitRanges,
+            PREG_OFFSET_CAPTURE
+        );
+        $fromColumnLengths = array_map('strlen', array_column($splitRanges[1], 0));
+        $fromColumnOffsets = array_column($splitRanges[1], 1);
+        $toColumnLengths = array_map('strlen', array_column($splitRanges[2], 0));
+        $toColumnOffsets = array_column($splitRanges[2], 1);
+
+        $fromColumns = $splitRanges[1];
+        $toColumns = $splitRanges[2];
+
+        while ($splitCount > 0) {
+            --$splitCount;
+            $fromColumnLength = $fromColumnLengths[$splitCount];
+            $toColumnLength = $toColumnLengths[$splitCount];
+            $fromColumnOffset = $fromColumnOffsets[$splitCount];
+            $toColumnOffset = $toColumnOffsets[$splitCount];
+            $fromColumn = $fromColumns[$splitCount][0];
+            $toColumn = $toColumns[$splitCount][0];
+
+            if (!empty($fromColumn) && $fromColumn[0] !== '$') {
+                $fromColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($fromColumn) + $insertColumns);
+                $formula = substr($formula, 0, $fromColumnOffset) . $fromColumn . substr($formula, $fromColumnOffset + $fromColumnLength);
+            }
+            if (!empty($toColumn) && $toColumn[0] !== '$') {
+                $toColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($toColumn) + $insertColumns);
+                $formula = substr($formula, 0, $toColumnOffset) . $toColumn . substr($formula, $toColumnOffset + $toColumnLength);
+            }
+        }
+
+        $splitCount = preg_match_all(
+            '/' . Calculation::CALCULATION_REGEXP_ROWRANGE_RELATIVE. '/mui',
+            $formula,
+            $splitRanges,
+            PREG_OFFSET_CAPTURE
+        );
+        $fromRowLengths = array_map('strlen', array_column($splitRanges[1], 0));
+        $fromRowOffsets = array_column($splitRanges[1], 1);
+        $toRowLengths = array_map('strlen', array_column($splitRanges[2], 0));
+        $toRowOffsets = array_column($splitRanges[2], 1);
+
+        $fromRows = $splitRanges[1];
+        $toRows = $splitRanges[2];
+
+        while ($splitCount > 0) {
+            --$splitCount;
+            $fromRowLength = $fromRowLengths[$splitCount];
+            $toRowLength = $toRowLengths[$splitCount];
+            $fromRowOffset = $fromRowOffsets[$splitCount];
+            $toRowOffset = $toRowOffsets[$splitCount];
+            $fromRow = $fromRows[$splitCount][0];
+            $toRow = $toRows[$splitCount][0];
+
+            if (!empty($fromRow) && $fromRow[0] !== '$') {
+                $fromRow += $insertRows;
+                $formula = substr($formula, 0, $fromRowOffset) . $fromRow . substr($formula, $fromRowOffset + $fromRowLength);
+            }
+            if (!empty($toRow) && $toRow[0] !== '$') {
+                $toRow += $insertRows;
+                $formula = substr($formula, 0, $toRowOffset) . $toRow . substr($formula, $toRowOffset + $toRowLength);
+            }
+        }
+
+        return $formula;
     }
 
     /**
