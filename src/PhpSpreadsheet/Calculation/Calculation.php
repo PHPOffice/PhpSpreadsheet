@@ -4900,7 +4900,6 @@ class Calculation
         // Adjust relative references in ranges and formulae so that we execute the calculation for the correct rows and columns
         $definedNameValue = self::$referenceHelper->updateFormulaReferencesAnyWorksheet(
             $definedNameValue,
-            'A1',
             Coordinate::columnIndexFromString($pCell->getColumn()) - 1,
             $pCell->getRow() - 1
         );

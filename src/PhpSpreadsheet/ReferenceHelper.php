@@ -756,16 +756,9 @@ class ReferenceHelper
     }
 
     /**
-     * Update references within formulas.
-     *
-     * @param string $formula Formula to update
-     * @param string $relativeToCell Insert before this one
-     * @param int $insertColumns Number of columns to insert
-     * @param int $insertRows Number of rows to insert
-     *
-     * @return string Updated formula
+     * Update all cell references within a formula, irrespective of worksheet.
      */
-    public function updateFormulaReferencesAnyWorksheet($formula = '', $relativeToCell = 'A1', $insertColumns = 0, $insertRows = 0)
+    public function updateFormulaReferencesAnyWorksheet(string $formula = '', int $insertColumns = 0, int $insertRows = 0): string
     {
         $formula = $this->updateCellReferencesAllWorksheets($formula, $insertColumns, $insertRows);
 

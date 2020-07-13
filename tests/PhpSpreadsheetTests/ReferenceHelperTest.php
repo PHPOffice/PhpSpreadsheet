@@ -103,7 +103,7 @@ class ReferenceHelperTest extends TestCase
     {
         $referenceHelper = ReferenceHelper::getInstance();
 
-        $result = $referenceHelper->updateFormulaReferencesAnyWorksheet($formula, 'A1', $insertRows, $insertColumns);
+        $result = $referenceHelper->updateFormulaReferencesAnyWorksheet($formula, $insertRows, $insertColumns);
 
         self::assertSame($expectedResult, $result);
     }
