@@ -4902,8 +4902,7 @@ class Calculation
             $definedNameValue,
             'A1',
             Coordinate::columnIndexFromString($pCell->getColumn()) - 1,
-            $pCell->getRow() - 1,
-            ($definedNameWorksheet !== null) ? $definedNameWorksheet->getTitle() : $pCellWorksheet
+            $pCell->getRow() - 1
         );
 
         $this->debugLog->writeDebugLog("Value adjusted for relative references is {$definedNameValue}");

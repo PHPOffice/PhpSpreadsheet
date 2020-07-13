@@ -762,11 +762,25 @@ class ReferenceHelper
      * @param string $relativeToCell Insert before this one
      * @param int $insertColumns Number of columns to insert
      * @param int $insertRows Number of rows to insert
-     * @param string $worksheetName Worksheet name/title
      *
      * @return string Updated formula
      */
-    public function updateFormulaReferencesAnyWorksheet($formula = '', $relativeToCell = 'A1', $insertColumns = 0, $insertRows = 0, $worksheetName = '')
+    public function updateFormulaReferencesAnyWorksheet($formula = '', $relativeToCell = 'A1', $insertColumns = 0, $insertRows = 0)
+    {
+        $formula = $this->updateCellReferencesAllWorksheets($formula, $insertColumns, $insertRows);
+
+        if ($insertColumns !== 0) {
+            $formula = $this->updateColumnRangesAllWorksheets($formula, $insertColumns);
+        }
+
+        if ($insertRows !== 0) {
+            $formula = $this->updateRowRangesAllWorksheets($formula, $insertRows);
+        }
+
+        return $formula;
+    }
+
+    private function updateCellReferencesAllWorksheets(string $formula, int $insertColumns, int $insertRows): string
     {
         $splitCount = preg_match_all(
             '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/mui',
@@ -802,12 +816,18 @@ class ReferenceHelper
             }
         }
 
+        return $formula;
+    }
+
+    private function updateColumnRangesAllWorksheets(string $formula, int $insertColumns): string
+    {
         $splitCount = preg_match_all(
             '/' . Calculation::CALCULATION_REGEXP_COLUMNRANGE_RELATIVE . '/mui',
             $formula,
             $splitRanges,
             PREG_OFFSET_CAPTURE
         );
+
         $fromColumnLengths = array_map('strlen', array_column($splitRanges[1], 0));
         $fromColumnOffsets = array_column($splitRanges[1], 1);
         $toColumnLengths = array_map('strlen', array_column($splitRanges[2], 0));
@@ -835,12 +855,18 @@ class ReferenceHelper
             }
         }
 
+        return $formula;
+    }
+
+    private function updateRowRangesAllWorksheets(string $formula, int $insertRows): string
+    {
         $splitCount = preg_match_all(
             '/' . Calculation::CALCULATION_REGEXP_ROWRANGE_RELATIVE . '/mui',
             $formula,
             $splitRanges,
             PREG_OFFSET_CAPTURE
         );
+
         $fromRowLengths = array_map('strlen', array_column($splitRanges[1], 0));
         $fromRowOffsets = array_column($splitRanges[1], 1);
         $toRowLengths = array_map('strlen', array_column($splitRanges[2], 0));
