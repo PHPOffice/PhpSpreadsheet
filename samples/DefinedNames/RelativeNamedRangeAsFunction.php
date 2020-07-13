@@ -53,7 +53,7 @@ $endRow = $row - 1;
 // COLUMN_TOTAL is another relative cell reference that always points to the same range of rows but to cell in the column where it is used
 // To avoid including the current row,or having to hard-code the range itself (as we did in the previous example)
 //    we wrap it in a named formula using the OFFSET() function
-$spreadsheet->addNamedFormula(new NamedFormula('COLUMN_DATA_VALUES', $worksheet, "=OFFSET(A\$4:A1, -1, 0)"));
+$spreadsheet->addNamedFormula(new NamedFormula('COLUMN_DATA_VALUES', $worksheet, '=OFFSET(A$4:A1, -1, 0)'));
 
 ++$row;
 $worksheet

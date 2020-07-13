@@ -803,7 +803,7 @@ class ReferenceHelper
         }
 
         $splitCount = preg_match_all(
-            '/' . Calculation::CALCULATION_REGEXP_COLUMNRANGE_RELATIVE. '/mui',
+            '/' . Calculation::CALCULATION_REGEXP_COLUMNRANGE_RELATIVE . '/mui',
             $formula,
             $splitRanges,
             PREG_OFFSET_CAPTURE
@@ -836,7 +836,7 @@ class ReferenceHelper
         }
 
         $splitCount = preg_match_all(
-            '/' . Calculation::CALCULATION_REGEXP_ROWRANGE_RELATIVE. '/mui',
+            '/' . Calculation::CALCULATION_REGEXP_ROWRANGE_RELATIVE . '/mui',
             $formula,
             $splitRanges,
             PREG_OFFSET_CAPTURE

@@ -99,7 +99,7 @@ class ReferenceHelperTest extends TestCase
     /**
      * @dataProvider providerDefinedNameFormulaUpdates
      */
-    public function testUpdateFormulaForDefinedNames(string $formula, int $insertRows, int $insertColumns, string $expectedResult)
+    public function testUpdateFormulaForDefinedNames(string $formula, int $insertRows, int $insertColumns, string $expectedResult): void
     {
         $referenceHelper = ReferenceHelper::getInstance();
 
