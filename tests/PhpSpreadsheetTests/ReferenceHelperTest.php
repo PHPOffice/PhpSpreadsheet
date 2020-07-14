@@ -125,7 +125,7 @@ class ReferenceHelperTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerMultipleWorksheetFormulaUpdates()
+    public function providerMultipleWorksheetFormulaUpdates(): array
     {
         return require 'tests/data/ReferenceHelperFormulaUpdatesMultipleSheet.php';
     }
