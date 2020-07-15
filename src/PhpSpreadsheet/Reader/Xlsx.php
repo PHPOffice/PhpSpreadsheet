@@ -200,9 +200,9 @@ class Xlsx extends BaseReader
 
                         $isRelativePath = 0 !== strpos($fileWorksheet, '/');
                         if (!$isRelativePath) {
-                            $worksheetFile = ltrim($fileWorksheet, '/');    
+                            $worksheetFile = ltrim($fileWorksheet, '/');
                         } else {
-                            $worksheetFile =  "$dir/$fileWorksheet";
+                            $worksheetFile = "$dir/$fileWorksheet";
                         }
 
                         $xml = new XMLReader();
