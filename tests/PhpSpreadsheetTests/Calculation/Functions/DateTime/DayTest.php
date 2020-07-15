@@ -9,11 +9,27 @@ use PHPUnit\Framework\TestCase;
 
 class DayTest extends TestCase
 {
+    private $compatibilityMode;
+
+    private $returnDateType;
+
+    private $excelCalendar;
+
     protected function setUp(): void
     {
+        $this->compatibilityMode = Functions::getCompatibilityMode();
+        $this->returnDateType = Functions::getReturnDateType();
+        $this->excelCalendar = Date::getExcelCalendar();
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
+    }
+
+    protected function tearDown(): void
+    {
+        Functions::setCompatibilityMode($this->compatibilityMode);
+        Functions::setReturnDateType($this->returnDateType);
+        Date::setExcelCalendar($this->excelCalendar);
     }
 
     /**

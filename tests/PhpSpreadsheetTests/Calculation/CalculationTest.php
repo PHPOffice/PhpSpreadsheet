@@ -9,15 +9,23 @@ use PHPUnit\Framework\TestCase;
 
 class CalculationTest extends TestCase
 {
+    private $compatibilityMode;
+
+    private $locale;
+
     protected function setUp(): void
     {
+        $this->compatibilityMode = Functions::getCompatibilityMode();
+        $calculation = Calculation::getInstance();
+        $this->locale = $calculation->getLocale();
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
     protected function tearDown(): void
     {
+        Functions::setCompatibilityMode($this->compatibilityMode);
         $calculation = Calculation::getInstance();
-        $calculation->setLocale('en_us');
+        $calculation->setLocale($this->locale);
     }
 
     /**
