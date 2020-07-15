@@ -198,20 +198,17 @@ class Xlsx extends BaseReader
 
                         $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id')];
 
-                        $worksheetFile =  "$dir/$fileWorksheet";
-                        if (false === $zip->locateName($worksheetFile)) {
+                        $isRelativePath = 0 !== strpos($fileWorksheet, '/');
+                        if (!$isRelativePath) {
                             $worksheetFile = ltrim($fileWorksheet, '/');    
-                        }
-
-                        $worksheetFile = ltrim($fileWorksheet, '/');
-                        if (false === $zip->locateName($worksheetFile)) {
-                            throw new Exception('File is incorrect or missing in the archive.');
+                        } else {
+                            $worksheetFile =  "$dir/$fileWorksheet";
                         }
 
                         $xml = new XMLReader();
                         $xml->xml(
                             $this->securityScanner->scanFile(
-                                'zip://' . File::realpath($pFilename) . '#' . "$worksheetFile"
+                                'zip://' . File::realpath($pFilename) . '#' . $worksheetFile
                             ),
                             null,
                             Settings::getLibXmlLoaderOptions()
