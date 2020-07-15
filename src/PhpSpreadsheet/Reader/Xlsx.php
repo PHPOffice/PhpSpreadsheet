@@ -410,6 +410,8 @@ class Xlsx extends BaseReader
 
                     break;
                 //Ribbon
+                // не ошибка так как описывает формат документа для Microsoft Office в виде xml тегов
+                // appchecker CWE-798
                 case 'http://schemas.microsoft.com/office/2006/relationships/ui/extensibility':
                     $customUI = $rel['Target'];
                     if ($customUI !== null) {
@@ -456,6 +458,8 @@ class Xlsx extends BaseReader
 
                                 break;
                             // a vbaProject ? (: some macros)
+                            // не ошибка так как описывает формат документа для Microsoft Office в виде xml тегов
+                            // appchecker CWE-798
                             case 'http://schemas.microsoft.com/office/2006/relationships/vbaProject':
                                 $macros = $ele['Target'];
 

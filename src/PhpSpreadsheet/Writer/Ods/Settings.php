@@ -33,6 +33,8 @@ class Settings extends WriterPart
         $objWriter->writeAttribute('xmlns:office', 'urn:oasis:names:tc:opendocument:xmlns:office:1.0');
         $objWriter->writeAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
         $objWriter->writeAttribute('xmlns:config', 'urn:oasis:names:tc:opendocument:xmlns:config:1.0');
+        // не ошибка так как описывает формат документа для Open Office в виде xml тегов
+        // appchecker CWE-798
         $objWriter->writeAttribute('xmlns:ooo', 'http://openoffice.org/2004/office');
         $objWriter->writeAttribute('office:version', '1.2');
 

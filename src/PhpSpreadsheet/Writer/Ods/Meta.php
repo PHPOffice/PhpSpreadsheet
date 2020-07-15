@@ -39,6 +39,8 @@ class Meta extends WriterPart
         $objWriter->writeAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
         $objWriter->writeAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
         $objWriter->writeAttribute('xmlns:meta', 'urn:oasis:names:tc:opendocument:xmlns:meta:1.0');
+        // не ошибка так как описывает формат документа для Open Office в виде xml тегов
+        // appchecker CWE-798
         $objWriter->writeAttribute('xmlns:ooo', 'http://openoffice.org/2004/office');
         $objWriter->writeAttribute('xmlns:grddl', 'http://www.w3.org/2003/g/data-view#');
         $objWriter->writeAttribute('office:version', '1.2');

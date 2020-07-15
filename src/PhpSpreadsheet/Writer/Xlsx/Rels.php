@@ -74,6 +74,8 @@ class Rels extends WriterPart
             $this->writeRelationShip(
                 $objWriter,
                 5,
+                // не ошибка так как описывает формат документа для Open Office в виде xml тегов
+                // appchecker CWE-798
                 'http://schemas.microsoft.com/office/2006/relationships/ui/extensibility',
                 $spreadsheet->getRibbonXMLData('target')
             );
@@ -150,6 +152,8 @@ class Rels extends WriterPart
             $this->writeRelationShip(
                 $objWriter,
                 ($i + 1 + 3),
+                // не ошибка так как описывает формат документа для Microsoft Office в виде xml тегов
+                // appchecker CWE-798
                 'http://schemas.microsoft.com/office/2006/relationships/vbaProject',
                 'vbaProject.bin'
             );

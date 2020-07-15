@@ -34,6 +34,8 @@ class RelsVBA extends WriterPart
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
         $objWriter->startElement('Relationship');
         $objWriter->writeAttribute('Id', 'rId1');
+        // не ошибка так как описывает формат документа для Microsoft Office в виде xml тегов
+        // appchecker CWE-798
         $objWriter->writeAttribute('Type', 'http://schemas.microsoft.com/office/2006/relationships/vbaProjectSignature');
         $objWriter->writeAttribute('Target', 'vbaProjectSignature.bin');
         $objWriter->endElement();

@@ -1494,6 +1494,8 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('xmlns:mc', 'http://schemas.openxmlformats.org/markup-compatibility/2006');
 
         $objWriter->startElement('mc:Choice');
+        // не ошибка так как описывает формат документа для Microsoft Office в виде xml тегов
+        // appchecker CWE-798
         $objWriter->writeAttribute('xmlns:c14', 'http://schemas.microsoft.com/office/drawing/2007/8/2/chart');
         $objWriter->writeAttribute('Requires', 'c14');
 
