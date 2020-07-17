@@ -3,111 +3,133 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Borders;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 use PHPUnit\Framework\TestCase;
 
 class XmlStylesTest extends TestCase
 {
-    /**
-     * @dataProvider providerBorderStyle
-     */
-    public function testBorderStyle(string $style, string $expectedResult): void
+    public function testBorders(): void
     {
-        $styles = Xml::XmlMappings();
-        $borders = $styles['borderStyle'];
-        self::assertEquals($expectedResult, $borders[$style]);
+        $filename = __DIR__
+            . '/../../../..'
+            . '/samples/templates/excel2003.xml';
+        $reader = new Xml();
+        $spreadsheet = $reader->load($filename);
+
+        $sheet = $spreadsheet->getSheet(0);
+        self::assertEquals(Border::BORDER_MEDIUM, $sheet->getCell('C10')->getStyle()->getBorders()->getTop()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C10')->getStyle()->getBorders()->getRight()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C10')->getStyle()->getBorders()->getBottom()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C10')->getStyle()->getBorders()->getLeft()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C12')->getStyle()->getBorders()->getTop()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C12')->getStyle()->getBorders()->getRight()->getBorderStyle());
+        self::assertEquals(Border::BORDER_MEDIUM, $sheet->getCell('C12')->getStyle()->getBorders()->getBottom()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C12')->getStyle()->getBorders()->getLeft()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C14')->getStyle()->getBorders()->getTop()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C14')->getStyle()->getBorders()->getRight()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C14')->getStyle()->getBorders()->getBottom()->getBorderStyle());
+        self::assertEquals(Border::BORDER_MEDIUM, $sheet->getCell('C14')->getStyle()->getBorders()->getLeft()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C16')->getStyle()->getBorders()->getTop()->getBorderStyle());
+        self::assertEquals(Border::BORDER_MEDIUM, $sheet->getCell('C16')->getStyle()->getBorders()->getRight()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C16')->getStyle()->getBorders()->getBottom()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C16')->getStyle()->getBorders()->getLeft()->getBorderStyle());
+        self::assertEquals(Border::BORDER_THICK, $sheet->getCell('C18')->getStyle()->getBorders()->getTop()->getBorderStyle());
+        self::assertEquals(Color::COLOR_RED, $sheet->getCell('C18')->getStyle()->getBorders()->getTop()->getColor()->getARGB());
+        self::assertEquals(Border::BORDER_THICK, $sheet->getCell('C18')->getStyle()->getBorders()->getRight()->getBorderStyle());
+        self::assertEquals(Color::COLOR_YELLOW, $sheet->getCell('C18')->getStyle()->getBorders()->getRight()->getColor()->getARGB());
+        self::assertEquals(Border::BORDER_THICK, $sheet->getCell('C18')->getStyle()->getBorders()->getRight()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C18')->getStyle()->getBorders()->getBottom()->getBorderStyle());
+        self::assertEquals(Border::BORDER_NONE, $sheet->getCell('C18')->getStyle()->getBorders()->getLeft()->getBorderStyle());
+
+        self::assertEquals(Borders::DIAGONAL_BOTH, $sheet->getCell('E18')->getStyle()->getBorders()->getDiagonalDirection());
+        self::assertEquals(Borders::DIAGONAL_DOWN, $sheet->getCell('I18')->getStyle()->getBorders()->getDiagonalDirection());
+        self::assertEquals(Borders::DIAGONAL_UP, $sheet->getCell('J18')->getStyle()->getBorders()->getDiagonalDirection());
     }
 
-    public function testBorderStyleCoverage(): void
+    public function testFont(): void
     {
-        $styles = Xml::XmlMappings();
-        $expected = $styles['borderStyle'];
-        $covered = [];
-        foreach ($expected as $key => $val) {
-            $covered[$key] = 0;
-        }
-        $tests = $this->providerBorderStyle();
-        foreach ($tests as $test) {
-            $covered[$test[0]] = 1;
-        }
-        foreach ($covered as $key => $val) {
-            self::assertEquals(1, $val, "Borderstyle $key not tested");
-        }
+        $filename = __DIR__
+            . '/../../../..'
+            . '/samples/templates/excel2003.xml';
+        $reader = new Xml();
+        $spreadsheet = $reader->load($filename);
+
+        $sheet = $spreadsheet->getSheet(0);
+        self::assertEquals('FFFF0000', $sheet->getCell('A1')->getStyle()->getFont()->getColor()->getARGB());
+        self::assertEquals(Font::UNDERLINE_SINGLE, $sheet->getCell('A3')->getStyle()->getFont()->getUnderline());
+
+        self::assertTrue($sheet->getCell('E1')->getStyle()->getFont()->getBold());
+        self::assertTrue($sheet->getCell('E1')->getStyle()->getFont()->getItalic());
+
+        self::assertFalse($sheet->getCell('E2')->getStyle()->getFont()->getBold());
+        self::assertFalse($sheet->getCell('E2')->getStyle()->getFont()->getItalic());
+        self::assertEquals(Font::UNDERLINE_NONE, $sheet->getCell('E2')->getStyle()->getFont()->getUnderline());
+        self::assertTrue($sheet->getCell('E3')->getStyle()->getFont()->getBold());
+        self::assertFalse($sheet->getCell('E3')->getStyle()->getFont()->getItalic());
+        self::assertEquals(Font::UNDERLINE_NONE, $sheet->getCell('E3')->getStyle()->getFont()->getUnderline());
+        self::assertFalse($sheet->getCell('E4')->getStyle()->getFont()->getBold());
+        self::assertTrue($sheet->getCell('E4')->getStyle()->getFont()->getItalic());
+        self::assertEquals(Font::UNDERLINE_NONE, $sheet->getCell('E4')->getStyle()->getFont()->getUnderline());
+
+        self::assertTrue($sheet->getCell('F1')->getStyle()->getFont()->getBold());
+        self::assertFalse($sheet->getCell('F1')->getStyle()->getFont()->getItalic());
+        self::assertEquals(Font::UNDERLINE_NONE, $sheet->getCell('F1')->getStyle()->getFont()->getUnderline());
+        self::assertFalse($sheet->getCell('F2')->getStyle()->getFont()->getBold());
+        self::assertFalse($sheet->getCell('F2')->getStyle()->getFont()->getItalic());
+        self::assertEquals(Font::UNDERLINE_NONE, $sheet->getCell('F2')->getStyle()->getFont()->getUnderline());
+        self::assertTrue($sheet->getCell('F3')->getStyle()->getFont()->getBold());
+        self::assertTrue($sheet->getCell('F3')->getStyle()->getFont()->getItalic());
+        self::assertEquals(Font::UNDERLINE_NONE, $sheet->getCell('F3')->getStyle()->getFont()->getUnderline());
+        self::assertFalse($sheet->getCell('F4')->getStyle()->getFont()->getBold());
+        self::assertFalse($sheet->getCell('F4')->getStyle()->getFont()->getItalic());
+        self::assertEquals(Font::UNDERLINE_NONE, $sheet->getCell('F4')->getStyle()->getFont()->getUnderline());
+
+        self::assertEquals(45, $sheet->getCell('E22')->getStyle()->getAlignment()->getTextRotation());
+        self::assertEquals(-90, $sheet->getCell('G22')->getStyle()->getAlignment()->getTextRotation());
+        self::assertEquals(Border::BORDER_DOUBLE, $sheet->getCell('N13')->getStyle()->getBorders()->getBottom()->getBorderStyle());
+
+        self::assertEquals(Font::UNDERLINE_DOUBLE, $sheet->getCell('A24')->getStyle()->getFont()->getUnderline());
+        self::assertTrue($sheet->getCell('B23')->getStyle()->getFont()->getSubScript());
+        self::assertTrue($sheet->getCell('B24')->getStyle()->getFont()->getSuperScript());
     }
 
-    /**
-     * @dataProvider providerfillType
-     */
-    public function testFillType(string $style, string $expectedResult): void
+    public function testFill(): void
     {
-        $styles = Xml::xmlMappings();
-        $borders = $styles['fillType'];
-        self::assertEquals($expectedResult, $borders[$style]);
+        $filename = __DIR__
+            . '/../../../..'
+            . '/samples/templates/excel2003.xml';
+        $reader = new Xml();
+        $spreadsheet = $reader->load($filename);
+
+        $sheet = $spreadsheet->getSheet(0);
+        self::assertEquals(Fill::FILL_PATTERN_DARKHORIZONTAL, $sheet->getCell('K19')->getStyle()->getFill()->getFillType());
+        self::assertEquals('FF00CCFF', $sheet->getCell('K19')->getStyle()->getFill()->getEndColor()->getARGB());
+        self::assertEquals(Color::COLOR_BLUE, $sheet->getCell('K19')->getStyle()->getFill()->getStartColor()->getARGB());
+        self::assertEquals(Fill::FILL_PATTERN_GRAY0625, $sheet->getCell('L19')->getStyle()->getFill()->getFillType());
+        self::assertEquals(Color::COLOR_RED, $sheet->getCell('L19')->getStyle()->getFill()->getEndColor()->getARGB());
+        self::assertEquals(Color::COLOR_YELLOW, $sheet->getCell('L19')->getStyle()->getFill()->getStartColor()->getARGB());
+        self::assertEquals(Fill::FILL_SOLID, $sheet->getCell('K3')->getStyle()->getFill()->getFillType());
+        self::assertEquals(Color::COLOR_RED, $sheet->getCell('K3')->getStyle()->getFill()->getEndColor()->getARGB());
     }
 
-    public function testFillTypeCoverage(): void
+    public function testAlignment(): void
     {
-        $styles = Xml::XmlMappings();
-        $expected = $styles['fillType'];
-        $covered = [];
-        foreach ($expected as $key => $val) {
-            $covered[$key] = 0;
-        }
-        $tests = $this->providerfillType();
-        foreach ($tests as $test) {
-            $covered[$test[0]] = 1;
-        }
-        foreach ($covered as $key => $val) {
-            self::assertEquals(1, $val, "fillType $key not tested");
-        }
-    }
+        $filename = __DIR__
+            . '/../../../..'
+            . '/samples/templates/excel2003.xml';
+        $reader = new Xml();
+        $spreadsheet = $reader->load($filename);
 
-    public function providerBorderStyle(): array
-    {
-        return [
-            ['1continuous', Border::BORDER_THIN],
-            ['1dash', Border::BORDER_DASHED],
-            ['1dashdot', Border::BORDER_DASHDOT],
-            ['1dashdotdot', Border::BORDER_DASHDOTDOT],
-            ['1dot', Border::BORDER_DOTTED],
-            ['1double', Border::BORDER_DOUBLE],
-            ['2continuous', Border::BORDER_MEDIUM],
-            ['2dash', Border::BORDER_MEDIUMDASHED],
-            ['2dashdot', Border::BORDER_MEDIUMDASHDOT],
-            ['2dashdotdot', Border::BORDER_MEDIUMDASHDOTDOT],
-            ['2dot', Border::BORDER_DOTTED],
-            ['2double', Border::BORDER_DOUBLE],
-            ['3continuous', Border::BORDER_THICK],
-            ['3dash', Border::BORDER_MEDIUMDASHED],
-            ['3dashdot', Border::BORDER_MEDIUMDASHDOT],
-            ['3dashdotdot', Border::BORDER_MEDIUMDASHDOTDOT],
-            ['3dot', Border::BORDER_DOTTED],
-            ['3double', Border::BORDER_DOUBLE],
-        ];
-    }
-
-    public function providerFillType(): array
-    {
-        return [
-            ['solid', Fill::FILL_SOLID],
-            ['gray75', Fill::FILL_PATTERN_DARKGRAY],
-            ['gray50', Fill::FILL_PATTERN_MEDIUMGRAY],
-            ['gray25', Fill::FILL_PATTERN_LIGHTGRAY],
-            ['gray125', Fill::FILL_PATTERN_GRAY125],
-            ['gray0625', Fill::FILL_PATTERN_GRAY0625],
-            ['horzstripe', Fill::FILL_PATTERN_DARKHORIZONTAL],
-            ['vertstripe', Fill::FILL_PATTERN_DARKVERTICAL],
-            ['reversediagstripe', Fill::FILL_PATTERN_DARKUP],
-            ['diagstripe', Fill::FILL_PATTERN_DARKDOWN],
-            ['diagcross', Fill::FILL_PATTERN_DARKGRID],
-            ['thickdiagcross', Fill::FILL_PATTERN_DARKTRELLIS],
-            ['thinhorzstripe', Fill::FILL_PATTERN_LIGHTHORIZONTAL],
-            ['thinvertstripe', Fill::FILL_PATTERN_LIGHTVERTICAL],
-            ['thinreversediagstripe', Fill::FILL_PATTERN_LIGHTUP],
-            ['thindiagstripe', Fill::FILL_PATTERN_LIGHTDOWN],
-            ['thinhorzcross', Fill::FILL_PATTERN_LIGHTGRID],
-            ['thindiagcross', Fill::FILL_PATTERN_LIGHTTRELLIS],
-        ];
+        $sheet = $spreadsheet->getSheet(0);
+        self::assertEquals(45, $sheet->getCell('E22')->getStyle()->getAlignment()->getTextRotation());
+        self::assertEquals(-90, $sheet->getCell('G22')->getStyle()->getAlignment()->getTextRotation());
+        self::assertEquals(Alignment::HORIZONTAL_CENTER, $sheet->getCell('N2')->getStyle()->getAlignment()->getHorizontal());
+        self::assertEquals(Alignment::HORIZONTAL_RIGHT, $sheet->getCell('N3')->getStyle()->getAlignment()->getHorizontal());
+        self::assertEquals(Alignment::VERTICAL_TOP, $sheet->getCell('K19')->getStyle()->getAlignment()->getVertical());
     }
 }

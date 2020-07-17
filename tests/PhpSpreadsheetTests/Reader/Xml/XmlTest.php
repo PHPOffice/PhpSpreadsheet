@@ -47,11 +47,4 @@ class XmlTest extends TestCase
         self::assertEquals('PhpSpreadsheet', $hyperlink->getValue());
         self::assertEquals('https://phpspreadsheet.readthedocs.io', $hyperlink->getHyperlink()->getUrl());
     }
-
-    public function testReadWithoutStyle(): void
-    {
-        $reader = new Xml();
-        $spreadsheet = $reader->load('tests/data/Reader/Xml/WithoutStyle.xml');
-        self::assertSame('Test String 1', $spreadsheet->getActiveSheet()->getCell('A1')->getValue());
-    }
 }

@@ -25,8 +25,8 @@
   <my_API_Token dt:dt="string">AbCd1234</my_API_Token>
   <my_API_Token_Expiry dt:dt="dateTime.tz">2019-01-31T07:00:00Z</my_API_Token_Expiry>
   <my_API_Boolean dt:dt="boolean">1</my_API_Boolean>
-  <my_API_Int dt:dt="integer">3</my_API_Int>
-  <my_x05d0_Int dt:dt="integer">2</my_x05d0_Int>
+  <my_API_Int dt:dt="string">3</my_API_Int>
+  <myאInt dt:dt="string">2</myאInt>
   <my_API_Float dt:dt="float">3.14159</my_API_Float>
  </CustomDocumentProperties>
  <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
@@ -53,7 +53,7 @@
    <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#0066CC"
     ss:Underline="Single"/>
   </Style>
-  <Style ss:ID="m1693777773616">
+  <Style ss:ID="m1867777004784">
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"
      ss:Color="#00B050"/>
@@ -79,12 +79,6 @@
   <Style ss:ID="s66">
    <Font ss:FontName="Arial1" ss:Size="11" ss:Color="#000000" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="s67">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Dot" ss:Weight="1"
-     ss:Color="#000000"/>
-   </Borders>
-  </Style>
   <Style ss:ID="s68">
    <Font ss:FontName="Arial1" ss:Size="11" ss:Color="#000000" ss:Underline="Single"/>
   </Style>
@@ -93,12 +87,6 @@
   </Style>
   <Style ss:ID="s70">
    <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#FF0000"/>
-  </Style>
-  <Style ss:ID="s71">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Dash" ss:Weight="1"
-     ss:Color="#000000"/>
-   </Borders>
   </Style>
   <Style ss:ID="s72">
    <Font ss:FontName="Arial1" ss:Size="11" ss:Color="#000000" ss:Italic="1"/>
@@ -273,9 +261,6 @@
      ss:Color="#000000"/>
    </Borders>
   </Style>
-  <Style ss:ID="s117">
-   <Interior ss:Color="#00CCFF" ss:Pattern="HorzStripe" ss:PatternColor="#0000FF"/>
-  </Style>
   <Style ss:ID="s118">
    <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
    <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#CCFFCC"/>
@@ -345,6 +330,24 @@
    <Font ss:FontName="Arial1" ss:Size="11" ss:Color="#000000"/>
    <NumberFormat ss:Format="hh&quot;:&quot;mm\ AM/PM"/>
   </Style>
+  <Style ss:ID="s145">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Dot" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s146">
+   <Alignment ss:Horizontal="Right" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Dash" ss:Weight="1"
+     ss:Color="#000000"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s147">
+   <Alignment ss:Vertical="Top"/>
+   <Interior ss:Color="#00CCFF" ss:Pattern="HorzStripe" ss:PatternColor="#0000FF"/>
+  </Style>
  </Styles>
  <Names>
   <NamedRange ss:Name="goodname" ss:RefersTo="='Sample Data'!R30C1"/>
@@ -381,7 +384,7 @@
     <Cell><Data ss:Type="String">F</Data></Cell>
     <Cell ss:Index="8" ss:Formula="=RC[-6]+RC[-5]"><Data ss:Type="Number">8</Data></Cell>
     <Cell ss:Index="10" ss:Formula="=RC[-5]&amp;RC[-4]"><Data ss:Type="String">BF</Data></Cell>
-    <Cell ss:Index="14" ss:StyleID="s67"><Data ss:Type="String">Dot</Data></Cell>
+    <Cell ss:Index="14" ss:StyleID="s145"><Data ss:Type="String">Dot</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s68"><Data ss:Type="String">Test #3</Data></Cell>
@@ -395,7 +398,7 @@
     <Cell ss:Index="10" ss:Formula="=RC[-5]&amp;RC[-4]"><Data ss:Type="String">CG</Data></Cell>
     <Cell ss:StyleID="s69"><Data ss:Type="String">Red</Data></Cell>
     <Cell ss:StyleID="s70"><Data ss:Type="String">Red</Data></Cell>
-    <Cell ss:Index="14" ss:StyleID="s71"><Data ss:Type="String">Dash</Data></Cell>
+    <Cell ss:Index="14" ss:StyleID="s146"><Data ss:Type="String">Dash</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s64"><Data ss:Type="String">Test with (&quot;) in string</Data></Cell>
@@ -489,7 +492,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="13.5"/>
    <Row ss:AutoFitHeight="0" ss:Height="27.75">
     <Cell ss:Index="2" ss:MergeAcross="1" ss:MergeDown="1"
-     ss:StyleID="m1693777773616"><Data ss:Type="String">BOX</Data></Cell>
+     ss:StyleID="m1867777004784"><Data ss:Type="String">BOX</Data></Cell>
     <Cell ss:Index="5" ss:StyleID="s113"/>
     <Cell ss:Index="7" ss:StyleID="s114"><Data ss:Type="String">Test Column 1</Data></Cell>
     <Cell ss:StyleID="s114"/>
@@ -500,7 +503,7 @@
     <Cell ss:Index="7" ss:StyleID="s114"/>
     <Cell ss:StyleID="s114"><Data ss:Type="String">Test Column 2</Data></Cell>
     <Cell ss:StyleID="s114"/>
-    <Cell ss:Index="11" ss:StyleID="s117"><Data ss:Type="String">Patterned</Data></Cell>
+    <Cell ss:Index="11" ss:StyleID="s147"><Data ss:Type="String">Patterned</Data></Cell>
     <Cell ss:StyleID="s118"><Data ss:Type="String">Patterned 2</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="27.75">
@@ -676,16 +679,16 @@
    <Unsynced/>
    <Print>
     <ValidPrinterInfo/>
-    <NoOrientation/>
     <HorizontalResolution>600</HorizontalResolution>
     <VerticalResolution>600</VerticalResolution>
    </Print>
    <Selected/>
+   <TopRowVisible>3</TopRowVisible>
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>5</ActiveRow>
-     <ActiveCol>7</ActiveCol>
+     <ActiveRow>18</ActiveRow>
+     <ActiveCol>10</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
