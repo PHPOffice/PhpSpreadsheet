@@ -1570,7 +1570,7 @@ class Statistical
         $value = Functions::flattenSingleValue($value);
         if (!is_numeric($value)) {
             return Functions::VALUE();
-        } elseif((((int) $value) == ((float) $value)) && $value <= 0.0) {
+        } elseif ((((int) $value) == ((float) $value)) && $value <= 0.0) {
             return Functions::NAN();
         }
 
