@@ -20,7 +20,7 @@ class MatchTest extends TestCase
      */
     public function testMATCH($expectedResult, ...$args): void
     {
-        $result = LookupRef::MATCH(...$args);
+        $result = LookupRef::MatchFunction(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

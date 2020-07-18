@@ -458,7 +458,7 @@ class LookupRef
      *
      * @return int|string The relative position of the found item
      */
-    public static function MATCH($lookupValue, $lookupArray, $matchType = 1)
+    public static function MatchFunction($lookupValue, $lookupArray, $matchType = 1)
     {
         $lookupArray = Functions::flattenArray($lookupArray);
         $lookupValue = Functions::flattenSingleValue($lookupValue);

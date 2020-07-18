@@ -1387,7 +1387,7 @@ class Calculation
         ],
         'MATCH' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'MATCH'],
+            'functionCall' => [LookupRef::class, 'MatchFunction'],
             'argumentCount' => '2,3',
         ],
         'MAX' => [
