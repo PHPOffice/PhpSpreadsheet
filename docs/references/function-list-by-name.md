@@ -12,11 +12,11 @@ ACOSH                    | CATEGORY_MATH_AND_TRIG        |               | acosh
 ACOT                     | CATEGORY_MATH_AND_TRIG        | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ACOT
 ACOTH                    | CATEGORY_MATH_AND_TRIG        | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ACOTH
 ADDRESS                  | CATEGORY_LOOKUP_AND_REFERENCE |               | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::cellAddress
-AGGREGATE                | CATEGORY_MATH_AND_TRIG        |               | **Not yet Implemented**
+AGGREGATE                | CATEGORY_MATH_AND_TRIG        | 2010          | **Not yet Implemented**
 AMORDEGRC                | CATEGORY_FINANCIAL            |               | \PhpOffice\PhpSpreadsheet\Calculation\Financial::AMORDEGRC
 AMORLINC                 | CATEGORY_FINANCIAL            |               | \PhpOffice\PhpSpreadsheet\Calculation\Financial::AMORLINC
 AND                      | CATEGORY_LOGICAL              |               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalAnd
-ARABIC                   | CATEGORY_MATH_AND_TRIG        |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ARABIC
+ARABIC                   | CATEGORY_MATH_AND_TRIG        | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ARABIC
 AREAS                    | CATEGORY_LOOKUP_AND_REFERENCE |               | **Not yet Implemented**
 ASC                      | CATEGORY_TEXT_AND_DATA        |               | **Not yet Implemented**
 ASIN                     | CATEGORY_MATH_AND_TRIG        |               | asin
@@ -27,7 +27,7 @@ ATANH                    | CATEGORY_MATH_AND_TRIG        |               | atanh
 AVEDEV                   | CATEGORY_STATISTICAL          |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVEDEV
 AVERAGE                  | CATEGORY_STATISTICAL          |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGE
 AVERAGEA                 | CATEGORY_STATISTICAL          |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGEA
-AVERAGEIF                | CATEGORY_STATISTICAL          |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGEIF
+AVERAGEIF                | CATEGORY_STATISTICAL          | 2007          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGEIF
 AVERAGEIFS               | CATEGORY_STATISTICAL          | 2019          | **Not yet Implemented**
 
 ## B
@@ -63,7 +63,7 @@ Excel Function           | Category                      | Excel Version | PhpSp
 -------------------------|-------------------------------|---------------|-------------------------
 CEILING                  | CATEGORY_MATH_AND_TRIG        |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::CEILING
 CEILING.MATH             | CATEGORY_MATH_AND_TRIG        | 2013          | **Not yet Implemented**
-CEILING.PRECISE          | CATEGORY_MATH_AND_TRIG        |               | **Not yet Implemented**
+CEILING.PRECISE          | CATEGORY_MATH_AND_TRIG        | 2010          | **Not yet Implemented**
 CELL                     | CATEGORY_INFORMATION          |               | **Not yet Implemented**
 CHAR                     | CATEGORY_TEXT_AND_DATA        |               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::CHARACTER
 CHIDIST                  | CATEGORY_STATISTICAL          | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CHIDIST
@@ -110,13 +110,13 @@ COVARIANCE.S             | CATEGORY_STATISTICAL          | 2010          | **Not
 CRITBINOM                | CATEGORY_STATISTICAL          | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CRITBINOM
 CSC                      | CATEGORY_MATH_AND_TRIG        | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::CSC
 CSCH                     | CATEGORY_MATH_AND_TRIG        | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::CSCH
-CUBEKPIMEMBER            | CATEGORY_CUBE                 |               | **Not yet Implemented**
-CUBEMEMBER               | CATEGORY_CUBE                 |               | **Not yet Implemented**
-CUBEMEMBERPROPERTY       | CATEGORY_CUBE                 |               | **Not yet Implemented**
-CUBERANKEDMEMBER         | CATEGORY_CUBE                 |               | **Not yet Implemented**
-CUBESET                  | CATEGORY_CUBE                 |               | **Not yet Implemented**
-CUBESETCOUNT             | CATEGORY_CUBE                 |               | **Not yet Implemented**
-CUBEVALUE                | CATEGORY_CUBE                 |               | **Not yet Implemented**
+CUBEKPIMEMBER            | CATEGORY_CUBE                 | 2007          | **Not yet Implemented**
+CUBEMEMBER               | CATEGORY_CUBE                 | 2007          | **Not yet Implemented**
+CUBEMEMBERPROPERTY       | CATEGORY_CUBE                 | 2007          | **Not yet Implemented**
+CUBERANKEDMEMBER         | CATEGORY_CUBE                 | 2007          | **Not yet Implemented**
+CUBESET                  | CATEGORY_CUBE                 | 2007          | **Not yet Implemented**
+CUBESETCOUNT             | CATEGORY_CUBE                 | 2007          | **Not yet Implemented**
+CUBEVALUE                | CATEGORY_CUBE                 | 2007          | **Not yet Implemented**
 CUMIPMT                  | CATEGORY_FINANCIAL            |               | \PhpOffice\PhpSpreadsheet\Calculation\Financial::CUMIPMT
 CUMPRINC                 | CATEGORY_FINANCIAL            |               | \PhpOffice\PhpSpreadsheet\Calculation\Financial::CUMPRINC
 
@@ -199,7 +199,7 @@ FISHERINV                | CATEGORY_STATISTICAL          |               | \PhpO
 FIXED                    | CATEGORY_TEXT_AND_DATA        |               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::FIXEDFORMAT
 FLOOR                    | CATEGORY_MATH_AND_TRIG        | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOOR
 FLOOR.MATH               | CATEGORY_MATH_AND_TRIG        | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORMATH
-FLOOR.PRECISE            | CATEGORY_MATH_AND_TRIG        |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORPRECISE
+FLOOR.PRECISE            | CATEGORY_MATH_AND_TRIG        | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORPRECISE
 FORECAST                 | CATEGORY_STATISTICAL          | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FORECAST
 FORECAST.ETS             | CATEGORY_STATISTICAL          | 2016          | **Not yet Implemented**
 FORECAST.ETS.CONFINT     | CATEGORY_STATISTICAL          | 2016          | **Not yet Implemented**
@@ -249,7 +249,7 @@ HYPGEOMDIST              | CATEGORY_STATISTICAL          | Compatibility | \PhpO
 Excel Function           | Category                      | Excel Version | PhpSpreadsheet Function 
 -------------------------|-------------------------------|---------------|-------------------------
 IF                       | CATEGORY_LOGICAL              |               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::statementIf
-IFERROR                  | CATEGORY_LOGICAL              |               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFERROR
+IFERROR                  | CATEGORY_LOGICAL              | 2007          | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFERROR
 IFNA                     | CATEGORY_LOGICAL              | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFNA
 IFS                      | CATEGORY_LOGICAL              | 2019          | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFS
 IMABS                    | CATEGORY_ENGINEERING          |               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMABS
@@ -515,7 +515,7 @@ SUMSQ                    | CATEGORY_MATH_AND_TRIG        |               | \PhpO
 SUMX2MY2                 | CATEGORY_MATH_AND_TRIG        |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMX2MY2
 SUMX2PY2                 | CATEGORY_MATH_AND_TRIG        |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMX2PY2
 SUMXMY2                  | CATEGORY_MATH_AND_TRIG        |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMXMY2
-SWITCH                   | CATEGORY_LOGICAL              | 2016          | \PhpOffice\PhpSpreadsheet\Calculation\Logical::statementSwitch
+SWITCH                   | CATEGORY_LOGICAL              | 2019          | \PhpOffice\PhpSpreadsheet\Calculation\Logical::statementSwitch
 SYD                      | CATEGORY_FINANCIAL            |               | \PhpOffice\PhpSpreadsheet\Calculation\Financial::SYD
 
 ## T

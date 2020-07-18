@@ -4,13 +4,13 @@
 
 Excel Function      | Excel Version | PhpSpreadsheet Function
 --------------------|---------------|-------------------------------------------
-CUBEKPIMEMBER       |               | **Not yet Implemented**
-CUBEMEMBER          |               | **Not yet Implemented**
-CUBEMEMBERPROPERTY  |               | **Not yet Implemented**
-CUBERANKEDMEMBER    |               | **Not yet Implemented**
-CUBESET             |               | **Not yet Implemented**
-CUBESETCOUNT        |               | **Not yet Implemented**
-CUBEVALUE           |               | **Not yet Implemented**
+CUBEKPIMEMBER       | 2007          | **Not yet Implemented**
+CUBEMEMBER          | 2007          | **Not yet Implemented**
+CUBEMEMBERPROPERTY  | 2007          | **Not yet Implemented**
+CUBERANKEDMEMBER    | 2007          | **Not yet Implemented**
+CUBESET             | 2007          | **Not yet Implemented**
+CUBESETCOUNT        | 2007          | **Not yet Implemented**
+CUBEVALUE           | 2007          | **Not yet Implemented**
 
 ## CATEGORY_DATABASE
 
@@ -211,12 +211,12 @@ Excel Function      | Excel Version | PhpSpreadsheet Function
 AND                 |               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalAnd
 FALSE               |               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::FALSE
 IF                  |               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::statementIf
-IFERROR             |               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFERROR
+IFERROR             | 2007          | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFERROR
 IFNA                | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFNA
 IFS                 | 2019          | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFS
 NOT                 |               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::NOT
 OR                  |               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalOr
-SWITCH              | 2016          | \PhpOffice\PhpSpreadsheet\Calculation\Logical::statementSwitch
+SWITCH              | 2019          | \PhpOffice\PhpSpreadsheet\Calculation\Logical::statementSwitch
 TRUE                |               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::TRUE
 XOR                 | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalXor
 
@@ -259,8 +259,8 @@ ACOS                |               | acos
 ACOSH               |               | acosh
 ACOT                | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ACOT
 ACOTH               | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ACOTH
-AGGREGATE           |               | **Not yet Implemented**
-ARABIC              |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ARABIC
+AGGREGATE           | 2010          | **Not yet Implemented**
+ARABIC              | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ARABIC
 ASIN                |               | asin
 ASINH               |               | asinh
 ATAN                |               | atan
@@ -269,7 +269,7 @@ ATANH               |               | atanh
 BASE                | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::BASE
 CEILING             |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::CEILING
 CEILING.MATH        | 2013          | **Not yet Implemented**
-CEILING.PRECISE     |               | **Not yet Implemented**
+CEILING.PRECISE     | 2010          | **Not yet Implemented**
 COMBIN              |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::COMBIN
 COMBINA             | 2013          | **Not yet Implemented**
 COS                 |               | cos
@@ -286,7 +286,7 @@ FACT                |               | \PhpOffice\PhpSpreadsheet\Calculation\Math
 FACTDOUBLE          |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FACTDOUBLE
 FLOOR               | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOOR
 FLOOR.MATH          | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORMATH
-FLOOR.PRECISE       |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORPRECISE
+FLOOR.PRECISE       | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORPRECISE
 GCD                 |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::GCD
 INT                 |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::INT
 ISO.CEILING         | 2013          | **Not yet Implemented**
@@ -343,7 +343,7 @@ Excel Function           | Excel Version | PhpSpreadsheet Function
 AVEDEV                   |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVEDEV
 AVERAGE                  |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGE
 AVERAGEA                 |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGEA
-AVERAGEIF                |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGEIF
+AVERAGEIF                | 2007          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGEIF
 AVERAGEIFS               | 2019          | **Not yet Implemented**
 BETADIST                 | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BETADIST
 BETA.DIST                | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BETADIST
