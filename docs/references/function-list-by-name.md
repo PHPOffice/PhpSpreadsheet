@@ -381,7 +381,7 @@ NORM.DIST                | CATEGORY_STATISTICAL          | 2010          | \PhpO
 NORMINV                  | CATEGORY_STATISTICAL          | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMINV
 NORM.INV                 | CATEGORY_STATISTICAL          | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMINV
 NORMSDIST                | CATEGORY_STATISTICAL          | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSDIST
-NORM.S.DIST              | CATEGORY_STATISTICAL          | 2010          | **Not yet Implemented**
+NORM.S.DIST              | CATEGORY_STATISTICAL          | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSDIST2
 NORMSINV                 | CATEGORY_STATISTICAL          | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSINV
 NORM.S.INV               | CATEGORY_STATISTICAL          | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSINV
 NOT                      | CATEGORY_LOGICAL              |               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::NOT

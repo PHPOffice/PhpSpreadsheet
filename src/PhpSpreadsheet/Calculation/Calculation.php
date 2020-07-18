@@ -1782,7 +1782,7 @@ class Calculation
         ],
         'NORM.S.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical::class, 'NORMSDIST2'],
             'argumentCount' => '1,2',
         ],
         'NORMSINV' => [

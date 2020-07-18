@@ -2628,6 +2628,26 @@ class Statistical
     }
 
     /**
+     * NORM.S.DIST.
+     *
+     * Returns the standard normal cumulative distribution function. The distribution has
+     * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
+     * table of standard normal curve areas.
+     *
+     * @param float $value
+     * @param bool $cumulative
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function NORMSDIST2($value, $cumulative)
+    {
+        $value = Functions::flattenSingleValue($value);
+        $cumulative = (bool) Functions::flattenSingleValue($cumulative);
+
+        return self::NORMDIST($value, 0, 1, $cumulative);
+    }
+
+    /**
      * NORMSINV.
      *
      * Returns the inverse of the standard normal cumulative distribution

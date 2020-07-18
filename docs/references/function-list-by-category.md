@@ -433,7 +433,7 @@ NORM.DIST                | 2010          | \PhpOffice\PhpSpreadsheet\Calculation
 NORMINV                  | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMINV
 NORM.INV                 | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMINV
 NORMSDIST                | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSDIST
-NORM.S.DIST              | 2010          | **Not yet Implemented**
+NORM.S.DIST              | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSDIST2
 NORMSINV                 | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSINV
 NORM.S.INV               | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSINV
 PEARSON                  |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CORREL
