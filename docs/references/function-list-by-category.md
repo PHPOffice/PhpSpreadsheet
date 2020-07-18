@@ -401,7 +401,7 @@ GAMMAINV                 | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation
 GAMMA.INV                | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMAINV
 GAMMALN                  |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMALN
 GAMMALN.PRECISE          | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMALN
-GAUSS                    | 2013          | **Not yet Implemented**
+GAUSS                    | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAUSS
 GEOMEAN                  |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GEOMEAN
 GROWTH                   |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GROWTH
 HARMEAN                  |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::HARMEAN

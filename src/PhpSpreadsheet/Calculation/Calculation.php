@@ -1168,7 +1168,7 @@ class Calculation
         ],
         'GAUSS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical::class, 'GAUSS'],
             'argumentCount' => '1',
         ],
         'GCD' => [

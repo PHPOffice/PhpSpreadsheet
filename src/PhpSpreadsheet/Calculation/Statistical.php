@@ -1678,6 +1678,24 @@ class Statistical
     }
 
     /**
+     * GAUSS.
+     *
+     * Returns the standard normal cumulative distribution function. The distribution has
+     * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
+     * table of standard normal curve areas.
+     *
+     * @param float $value
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function GAUSS($value)
+    {
+        $value = Functions::flattenSingleValue($value);
+
+        return self::NORMDIST($value, 0, 1, true) - 0.5;
+    }
+
+    /**
      * GEOMEAN.
      *
      * Returns the geometric mean of an array or range of positive data. For example, you

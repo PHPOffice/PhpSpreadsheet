@@ -224,7 +224,7 @@ GAMMAINV                 | CATEGORY_STATISTICAL          | Compatibility | \PhpO
 GAMMA.INV                | CATEGORY_STATISTICAL          | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMAINV
 GAMMALN                  | CATEGORY_STATISTICAL          |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMALN
 GAMMALN.PRECISE          | CATEGORY_STATISTICAL          | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMALN
-GAUSS                    | CATEGORY_STATISTICAL          | 2013          | **Not yet Implemented**
+GAUSS                    | CATEGORY_STATISTICAL          | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAUSS
 GCD                      | CATEGORY_MATH_AND_TRIG        |               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::GCD
 GEOMEAN                  | CATEGORY_STATISTICAL          |               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GEOMEAN
 GESTEP                   | CATEGORY_ENGINEERING          |               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::GESTEP

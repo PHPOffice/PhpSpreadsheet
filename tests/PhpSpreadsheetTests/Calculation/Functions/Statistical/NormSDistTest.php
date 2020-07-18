@@ -12,9 +12,9 @@ class NormSDistTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNORMSDIST2($expectedResult, ...$args): void
+    public function testNORMSDIST2($expectedResult, $testValue): void
     {
-        $result = Statistical::NORMSDIST(...$args);
+        $result = Statistical::NORMSDIST($testValue);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

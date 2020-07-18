@@ -5,21 +5,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
-class NormSInvTest extends TestCase
+class GaussTest extends TestCase
 {
     /**
-     * @dataProvider providerNORMSINV
+     * @dataProvider providerGAUSS
      *
      * @param mixed $expectedResult
      */
-    public function testNORMSINV($expectedResult, $testValue): void
+    public function testGAUSS($expectedResult, $testValue): void
     {
-        $result = Statistical::NORMSINV($testValue);
+        $result = Statistical::GAUSS($testValue);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerNORMSINV()
+    public function providerGAUSS()
     {
-        return require 'tests/data/Calculation/Statistical/NORMSINV.php';
+        return require 'tests/data/Calculation/Statistical/GAUSS.php';
     }
 }
