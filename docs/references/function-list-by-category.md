@@ -394,7 +394,7 @@ FORECAST.ETS.STAT        | 2016          | **Not yet Implemented**
 FORECAST.LINEAR          | 2016          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FORECAST
 FREQUENCY                |               | **Not yet Implemented**
 FTEST                    | Compatibility | **Not yet Implemented**
-GAMMA                    | 2013          | **Not yet Implemented**
+GAMMA                    | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMAFunction
 GAMMADIST                | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMADIST
 GAMMA.DIST               | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMADIST
 GAMMAINV                 | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMAINV

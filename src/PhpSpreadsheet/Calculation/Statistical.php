@@ -1557,6 +1557,27 @@ class Statistical
     }
 
     /**
+     * GAMMA.
+     *
+     * Return the gamma function value.
+     *
+     * @param float $value
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function GAMMAFunction($value)
+    {
+        $value = Functions::flattenSingleValue($value);
+        if (!is_numeric($value)) {
+            return Functions::VALUE();
+        } elseif((((int) $value) == ((float) $value)) && $value <= 0.0) {
+            return Functions::NAN();
+        }
+
+        return self::gamma($value);
+    }
+
+    /**
      * GAMMADIST.
      *
      * Returns the gamma distribution.
@@ -1680,9 +1701,8 @@ class Statistical
     /**
      * GAUSS.
      *
-     * Returns the standard normal cumulative distribution function. The distribution has
-     * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
-     * table of standard normal curve areas.
+     * Calculates the probability that a member of a standard normal population will fall between
+     *     the mean and z standard deviations from the mean.
      *
      * @param float $value
      *
@@ -1691,6 +1711,9 @@ class Statistical
     public static function GAUSS($value)
     {
         $value = Functions::flattenSingleValue($value);
+        if (!is_numeric($value)) {
+            return Functions::VALUE();
+        }
 
         return self::NORMDIST($value, 0, 1, true) - 0.5;
     }
@@ -2641,6 +2664,9 @@ class Statistical
     public static function NORMSDIST($value)
     {
         $value = Functions::flattenSingleValue($value);
+        if (!is_numeric($value)) {
+            return Functions::VALUE();
+        }
 
         return self::NORMDIST($value, 0, 1, true);
     }
@@ -2660,6 +2686,9 @@ class Statistical
     public static function NORMSDIST2($value, $cumulative)
     {
         $value = Functions::flattenSingleValue($value);
+        if (!is_numeric($value)) {
+            return Functions::VALUE();
+        }
         $cumulative = (bool) Functions::flattenSingleValue($cumulative);
 
         return self::NORMDIST($value, 0, 1, $cumulative);

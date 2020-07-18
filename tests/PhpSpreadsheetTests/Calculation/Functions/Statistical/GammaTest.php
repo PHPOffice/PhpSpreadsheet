@@ -5,22 +5,22 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
-class GaussTest extends TestCase
+class GammaTest extends TestCase
 {
     /**
-     * @dataProvider providerGAUSS
+     * @dataProvider providerGAMMA
      *
      * @param mixed $expectedResult
      * @param mixed $testValue
      */
-    public function testGAUSS($expectedResult, $testValue): void
+    public function testGAMMA($expectedResult, $testValue): void
     {
-        $result = Statistical::GAUSS($testValue);
+        $result = Statistical::GAMMAFunction($testValue);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerGAUSS()
+    public function providerGAMMA()
     {
-        return require 'tests/data/Calculation/Statistical/GAUSS.php';
+        return require 'tests/data/Calculation/Statistical/GAMMA.php';
     }
 }

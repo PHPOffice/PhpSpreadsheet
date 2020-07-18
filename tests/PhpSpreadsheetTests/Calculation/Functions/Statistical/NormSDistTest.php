@@ -11,6 +11,7 @@ class NormSDistTest extends TestCase
      * @dataProvider providerNORMSDIST
      *
      * @param mixed $expectedResult
+     * @param mixed $testValue
      */
     public function testNORMSDIST2($expectedResult, $testValue): void
     {

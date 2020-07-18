@@ -217,7 +217,7 @@ FVSCHEDULE               | CATEGORY_FINANCIAL            |               | \PhpO
 
 Excel Function           | Category                      | Excel Version | PhpSpreadsheet Function 
 -------------------------|-------------------------------|---------------|-------------------------
-GAMMA                    | CATEGORY_STATISTICAL          | 2013          | **Not yet Implemented**
+GAMMA                    | CATEGORY_STATISTICAL          | 2013          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMAFunction
 GAMMADIST                | CATEGORY_STATISTICAL          | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMADIST
 GAMMA.DIST               | CATEGORY_STATISTICAL          | 2010          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMADIST
 GAMMAINV                 | CATEGORY_STATISTICAL          | Compatibility | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMAINV

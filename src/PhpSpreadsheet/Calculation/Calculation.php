@@ -1133,7 +1133,7 @@ class Calculation
         ],
         'GAMMA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical::class, 'GAMMAFunction'],
             'argumentCount' => '1',
         ],
         'GAMMADIST' => [

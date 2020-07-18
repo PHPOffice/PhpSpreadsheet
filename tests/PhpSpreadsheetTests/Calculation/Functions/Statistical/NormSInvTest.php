@@ -11,6 +11,7 @@ class NormSInvTest extends TestCase
      * @dataProvider providerNORMSINV
      *
      * @param mixed $expectedResult
+     * @param mixed $testValue
      */
     public function testNORMSINV($expectedResult, $testValue): void
     {
