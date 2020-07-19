@@ -2,11 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
-use GuzzleHttp\Client;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Chart\Renderer\IRenderer;
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
 use Psr\SimpleCache\CacheInterface;
 
 class Settings
@@ -47,9 +47,14 @@ class Settings
     /**
      * The HTTP client implementation to be used for network request.
      *
-     * @var ClientInterface
+     * @var null|ClientInterface
      */
-    private static $client;
+    private static $httpClient;
+
+    /**
+     * @var null|RequestFactoryInterface
+     */
+    private static $requestFactory;
 
     /**
      * Set the locale code to use for formula translations and any special formatting.
@@ -169,9 +174,19 @@ class Settings
     /**
      * Set the HTTP client implementation to be used for network request.
      */
-    public static function setHttpClient(ClientInterface $httpClient): void
+    public static function setHttpClient(ClientInterface $httpClient, RequestFactoryInterface $requestFactory): void
     {
-        self::$client = $httpClient;
+        self::$httpClient = $httpClient;
+        self::$requestFactory = $requestFactory;
+    }
+
+    /**
+     * Unset the HTTP client configuration.
+     */
+    public static function unsetHttpClient(): void
+    {
+        self::$httpClient = null;
+        self::$requestFactory = null;
     }
 
     /**
@@ -179,10 +194,25 @@ class Settings
      */
     public static function getHttpClient(): ClientInterface
     {
-        if (!self::$client) {
-            self::$client = new Client();
-        }
+        self::assertHttpClient();
 
-        return self::$client;
+        return self::$httpClient;
+    }
+
+    /**
+     * Get the HTTP request factory.
+     */
+    public static function getRequestFactory(): RequestFactoryInterface
+    {
+        self::assertHttpClient();
+
+        return self::$requestFactory;
+    }
+
+    private static function assertHttpClient(): void
+    {
+        if (!self::$httpClient || !self::$requestFactory) {
+            throw new Exception('HTTP client must be configured via Settings::setHttpClient() to be able to use WEBSERVICE function.');
+        }
     }
 }

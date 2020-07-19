@@ -2,47 +2,46 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Web;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Web;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 class WebServiceTest extends TestCase
 {
-    protected static $client;
-
-    public static function setUpBeforeClass(): void
+    protected function tearDown(): void
     {
-        // Prevent URL requests being sent out
-        $mock = new MockHandler([
-            new ClientException('This is not a valid URL', new Request('GET', 'test'), new Response()),
-            new ConnectException('This is a 404 error', new Request('GET', 'test')),
-            new Response('200', [], str_repeat('a', 40000)),
-            new Response('200', [], 'This is a test'),
-        ]);
-
-        $handlerStack = HandlerStack::create($mock);
-        self::$client = new Client(['handler' => $handlerStack]);
-    }
-
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        Settings::unsetHttpClient();
     }
 
     /**
      * @dataProvider providerWEBSERVICE
      */
-    public function testWEBSERVICE(string $expectedResult, string $url): void
+    public function testWEBSERVICE(string $expectedResult, string $url, ?array $responseData): void
     {
-        Settings::setHttpClient(self::$client);
+        if ($responseData) {
+            $body = $this->createMock(StreamInterface::class);
+            $body->expects(self::atMost(1))->method('getContents')->willReturn($responseData[1]);
+
+            $response = $this->createMock(ResponseInterface::class);
+            $response->expects(self::once())->method('getStatusCode')->willReturn($responseData[0]);
+            $response->expects(self::atMost(1))->method('getBody')->willReturn($body);
+
+            $client = $this->createMock(ClientInterface::class);
+            $client->expects(self::once())->method('sendRequest')->willReturn($response);
+
+            $request = $this->createMock(RequestInterface::class);
+
+            $requestFactory = $this->createMock(RequestFactoryInterface::class);
+            $requestFactory->expects(self::atMost(1))->method('createRequest')->willReturn($request);
+
+            Settings::setHttpClient($client, $requestFactory);
+        }
+
         $result = Web::WEBSERVICE($url);
         self::assertEquals($expectedResult, $result);
     }
@@ -50,5 +49,29 @@ class WebServiceTest extends TestCase
     public function providerWEBSERVICE(): array
     {
         return require 'tests/data/Calculation/Web/WEBSERVICE.php';
+    }
+
+    public function testWEBSERVICEReturnErrorWhenClientThrows(): void
+    {
+        $exception = $this->createMock(\Psr\Http\Client\ClientExceptionInterface::class);
+
+        $client = $this->createMock(ClientInterface::class);
+        $client->expects(self::once())->method('sendRequest')->willThrowException($exception);
+
+        $request = $this->createMock(RequestInterface::class);
+
+        $requestFactory = $this->createMock(RequestFactoryInterface::class);
+        $requestFactory->expects(self::atMost(1))->method('createRequest')->willReturn($request);
+
+        Settings::setHttpClient($client, $requestFactory);
+
+        $result = Web::WEBSERVICE('https://example.com');
+        self::assertEquals('#VALUE!', $result);
+    }
+
+    public function testWEBSERVICEThrowsIfNotClientConfigured(): void
+    {
+        $this->expectExceptionMessage('HTTP client must be configured via Settings::setHttpClient() to be able to use WEBSERVICE function.');
+        Web::WEBSERVICE('https://example.com');
     }
 }
