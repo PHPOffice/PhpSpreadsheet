@@ -958,11 +958,11 @@ class Spreadsheet
             $returnValue = $this->getLocalDefinedNameByType($namedRange, self::DEFINED_NAME_IS_RANGE, $pSheet) ?: $returnValue;
         }
 
-        return $returnValue;
+        return $returnValue instanceof NamedRange ? $returnValue : null;
     }
 
     /**
-     * Get named range.
+     * Get named formula.
      *
      * @param null|Worksheet $pSheet Scope. Use null for global scope
      */
@@ -978,7 +978,7 @@ class Spreadsheet
             $returnValue = $this->getLocalDefinedNameByType($namedFormula, self::DEFINED_NAME_IS_FORMULA, $pSheet) ?: $returnValue;
         }
 
-        return $returnValue;
+        return $returnValue instanceof NamedFormula ? $returnValue : null;
     }
 
     private function getGlobalDefinedNameByType(string $name, bool $type): ?DefinedName
