@@ -68,7 +68,7 @@ class PageSetupTest extends TestCase
         }
     }
 
-    public function pageSetupAssertions(): array
+    private function pageSetupAssertions(): array
     {
         return [
             'Sheet1' => [
@@ -103,7 +103,7 @@ class PageSetupTest extends TestCase
         ];
     }
 
-    public function pageMarginAssertions(): array
+    private function pageMarginAssertions(): array
     {
         return [
             'Sheet1' => [

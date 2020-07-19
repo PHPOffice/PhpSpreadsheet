@@ -38,7 +38,7 @@ class PageSettings
             ->setFooter($this->printSettings->footerMargin);
     }
 
-    private function getPrintDefaults()
+    private function getPrintDefaults(): stdClass
     {
         return (object) [
             'paperSize' => 9,

@@ -79,7 +79,7 @@ class PageMarginsTest extends TestCase
         ];
     }
 
-    public function providerMillimetersAndInches()
+    public function providerMillimetersAndInches(): array
     {
         return [
             [12.7, 0.5],
