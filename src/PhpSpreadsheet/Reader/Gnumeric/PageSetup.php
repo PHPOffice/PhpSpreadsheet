@@ -19,7 +19,7 @@ class PageSetup
      */
     private $gnm;
 
-    public function __construct(Spreadsheet $spreadsheet, $gnm)
+    public function __construct(Spreadsheet $spreadsheet, string $gnm)
     {
         $this->spreadsheet = $spreadsheet;
         $this->gnm = $gnm;

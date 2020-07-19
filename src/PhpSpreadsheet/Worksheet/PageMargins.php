@@ -212,32 +212,32 @@ class PageMargins
         }
     }
 
-    public static function fromCentimeters($value): float
+    public static function fromCentimeters(float $value): float
     {
         return $value / 2.54;
     }
 
-    public static function toCentimeters($value): float
+    public static function toCentimeters(float $value): float
     {
         return $value * 2.54;
     }
 
-    public static function fromMillimeters($value): float
+    public static function fromMillimeters(float $value): float
     {
         return $value / 25.4;
     }
 
-    public static function toMillimeters($value): float
+    public static function toMillimeters(float $value): float
     {
         return $value * 25.4;
     }
 
-    public static function fromPoints($value): float
+    public static function fromPoints(float $value): float
     {
         return $value / 72;
     }
 
-    public static function toPoints($value): float
+    public static function toPoints(float $value): float
     {
         return $value * 72;
     }
