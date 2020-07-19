@@ -682,7 +682,26 @@ class Html extends BaseReader
             return;
         }
 
-        $cellStyle = $sheet->getStyle($column . $row);
+        if (isset($attributeArray['rowspan'], $attributeArray['colspan'])) {
+            $columnTo = $column;
+            for ($i = 0; $i < (int) $attributeArray['colspan'] - 1; ++$i) {
+                ++$columnTo;
+            }
+            $range = $column . $row . ':' . $columnTo . ($row + (int) $attributeArray['rowspan'] - 1);
+            $cellStyle = $sheet->getStyle($range);
+        } elseif (isset($attributeArray['rowspan'])) {
+            $range = $column . $row . ':' . $column . ($row + (int) $attributeArray['rowspan'] - 1);
+            $cellStyle = $sheet->getStyle($range);
+        } elseif (isset($attributeArray['colspan'])) {
+            $columnTo = $column;
+            for ($i = 0; $i < (int) $attributeArray['colspan'] - 1; ++$i) {
+                ++$columnTo;
+            }
+            $range = $column . $row . ':' . $columnTo . $row;
+            $cellStyle = $sheet->getStyle($range);
+        } else {
+            $cellStyle = $sheet->getStyle($column . $row);
+        }
 
         // add color styles (background & text) from dom element,currently support : td & th, using ONLY inline css style with RGB color
         $styles = explode(';', $attributeArray['style']);
