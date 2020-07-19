@@ -1033,7 +1033,7 @@ class Spreadsheet
      *
      * @return $this
      */
-    public function removeNamedRange(string $namedRange, ?Worksheet $pSheet = null): Spreadsheet
+    public function removeNamedRange(string $namedRange, ?Worksheet $pSheet = null): self
     {
         if ($this->getNamedRange($namedRange, $pSheet) === null) {
             return $this;
@@ -1049,7 +1049,7 @@ class Spreadsheet
      *
      * @return $this
      */
-    public function removeNamedFormula(string $namedFormula, ?Worksheet $pSheet = null): Spreadsheet
+    public function removeNamedFormula(string $namedFormula, ?Worksheet $pSheet = null): self
     {
         if ($this->getNamedFormula($namedFormula, $pSheet) === null) {
             return $this;
@@ -1065,7 +1065,7 @@ class Spreadsheet
      *
      * @return $this
      */
-    public function removeDefinedName(string $definedName, ?Worksheet $pSheet = null): Spreadsheet
+    public function removeDefinedName(string $definedName, ?Worksheet $pSheet = null): self
     {
         $definedName = StringHelper::strToUpper($definedName);
 
