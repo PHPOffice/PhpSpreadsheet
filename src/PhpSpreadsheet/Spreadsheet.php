@@ -1033,7 +1033,7 @@ class Spreadsheet
      *
      * @return $this
      */
-    public function removeNamedRange(string $namedRange, ?Worksheet $pSheet = null)
+    public function removeNamedRange(string $namedRange, ?Worksheet $pSheet = null): Spreadsheet
     {
         if ($this->getNamedRange($namedRange, $pSheet) === null) {
             return $this;
@@ -1046,22 +1046,26 @@ class Spreadsheet
      * Remove named formula.
      *
      * @param null|Worksheet $pSheet scope: use null for global scope
+     *
+     * @return $this
      */
-    public function removeNamedFormula(string $namedFormula, ?Worksheet $pSheet = null): void
+    public function removeNamedFormula(string $namedFormula, ?Worksheet $pSheet = null): Spreadsheet
     {
         if ($this->getNamedFormula($namedFormula, $pSheet) === null) {
-            return;
+            return $this;
         }
 
-        $this->removeDefinedName($namedFormula, $pSheet);
+        return $this->removeDefinedName($namedFormula, $pSheet);
     }
 
     /**
      * Remove defined name.
      *
      * @param null|Worksheet $pSheet scope: use null for global scope
+     *
+     * @return $this
      */
-    public function removeDefinedName(string $definedName, ?Worksheet $pSheet = null): void
+    public function removeDefinedName(string $definedName, ?Worksheet $pSheet = null): Spreadsheet
     {
         $definedName = StringHelper::strToUpper($definedName);
 
@@ -1076,6 +1080,8 @@ class Spreadsheet
                 unset($this->definedNames[$definedName]);
             }
         }
+
+        return $this;
     }
 
     /**
