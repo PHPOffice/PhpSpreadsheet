@@ -18,7 +18,7 @@ class NormSDist2Test extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerNORMSDIST2()
+    public function providerNORMSDIST2(): array
     {
         return require 'tests/data/Calculation/Statistical/NORMSDIST2.php';
     }
