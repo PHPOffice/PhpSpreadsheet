@@ -679,7 +679,7 @@ class Ods extends BaseReader
         return $value;
     }
 
-    private function convertToExcelAddressValue($openOfficeAddress)
+    private function convertToExcelAddressValue(string $openOfficeAddress): string
     {
         $excelAddress = $openOfficeAddress;
 
@@ -699,7 +699,7 @@ class Ods extends BaseReader
         return $excelAddress;
     }
 
-    private function convertToExcelFormulaValue($openOfficeFormula)
+    private function convertToExcelFormulaValue(string $openOfficeFormula): string
     {
         $temp = explode('"', $openOfficeFormula);
         $tKey = false;

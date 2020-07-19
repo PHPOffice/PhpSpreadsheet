@@ -137,7 +137,7 @@ class DefinedNameFormulaTest extends TestCase
         self::assertSame($globalFormulaValue, $localScopedFormula->getValue());
     }
 
-    public function providerRangeOrFormula()
+    public function providerRangeOrFormula(): array
     {
         return [
             'simple range' => ['A1', false],

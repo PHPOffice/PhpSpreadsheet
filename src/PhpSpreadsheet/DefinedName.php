@@ -165,7 +165,7 @@ abstract class DefinedName
     /**
      * Set worksheet.
      */
-    public function setWorksheet(?Worksheet $value = null): self
+    public function setWorksheet(?Worksheet $value): self
     {
         $this->worksheet = $value;
 
@@ -220,7 +220,7 @@ abstract class DefinedName
     /**
      * Set scope.
      */
-    public function setScope(?Worksheet $value = null): self
+    public function setScope(?Worksheet $value): self
     {
         $this->scope = $value;
         $this->localOnly = $value !== null;

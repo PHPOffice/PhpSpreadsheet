@@ -111,7 +111,7 @@ class Logger
      *
      * @param string[] $args
      */
-    public function mergeDebugLog($args): void
+    public function mergeDebugLog(array $args): void
     {
         if ($this->writeDebugLog) {
             foreach ($args as $entry) {
