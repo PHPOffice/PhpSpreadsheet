@@ -253,11 +253,6 @@ class Calculation
             'functionCall' => [LookupRef::class, 'cellAddress'],
             'argumentCount' => '2-5',
         ],
-        'AGGREGATE' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3+',
-        ],
         'AMORDEGRC' => [
             'category' => Category::CATEGORY_FINANCIAL,
             'functionCall' => [Financial::class, 'AMORDEGRC'],
@@ -373,17 +368,7 @@ class Calculation
             'functionCall' => [Statistical::class, 'BETADIST'],
             'argumentCount' => '3-5',
         ],
-        'BETA.DIST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '4-6',
-        ],
         'BETAINV' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BETAINV'],
-            'argumentCount' => '3-5',
-        ],
-        'BETA.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'BETAINV'],
             'argumentCount' => '3-5',
@@ -407,21 +392,6 @@ class Calculation
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'BINOMDIST'],
             'argumentCount' => '4',
-        ],
-        'BINOM.DIST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BINOMDIST'],
-            'argumentCount' => '4',
-        ],
-        'BINOM.DIST.RANGE' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3,4',
-        ],
-        'BINOM.INV' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3',
         ],
         'BITAND' => [
             'category' => Category::CATEGORY_ENGINEERING,
@@ -453,16 +423,6 @@ class Calculation
             'functionCall' => [MathTrig::class, 'CEILING'],
             'argumentCount' => '2',
         ],
-        'CEILING.MATH' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3',
-        ],
-        'CEILING.PRECISE' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
-        ],
         'CELL' => [
             'category' => Category::CATEGORY_INFORMATION,
             'functionCall' => [Functions::class, 'DUMMY'],
@@ -478,37 +438,12 @@ class Calculation
             'functionCall' => [Statistical::class, 'CHIDIST'],
             'argumentCount' => '2',
         ],
-        'CHISQ.DIST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3',
-        ],
-        'CHISQ.DIST.RT' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CHIDIST'],
-            'argumentCount' => '2',
-        ],
         'CHIINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'CHIINV'],
             'argumentCount' => '2',
         ],
-        'CHISQ.INV' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
-        ],
-        'CHISQ.INV.RT' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CHIINV'],
-            'argumentCount' => '2',
-        ],
         'CHITEST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
-        ],
-        'CHISQ.TEST' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '2',
@@ -544,11 +479,6 @@ class Calculation
             'functionCall' => [MathTrig::class, 'COMBIN'],
             'argumentCount' => '2',
         ],
-        'COMBINA' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
-        ],
         'COMPLEX' => [
             'category' => Category::CATEGORY_ENGINEERING,
             'functionCall' => [Engineering::class, 'COMPLEX'],
@@ -567,16 +497,6 @@ class Calculation
         'CONFIDENCE' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'CONFIDENCE'],
-            'argumentCount' => '3',
-        ],
-        'CONFIDENCE.NORM' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CONFIDENCE'],
-            'argumentCount' => '3',
-        ],
-        'CONFIDENCE.T' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '3',
         ],
         'CONVERT' => [
@@ -667,16 +587,6 @@ class Calculation
         'COVAR' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'COVAR'],
-            'argumentCount' => '2',
-        ],
-        'COVARIANCE.P' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'COVAR'],
-            'argumentCount' => '2',
-        ],
-        'COVARIANCE.S' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '2',
         ],
         'CRITBINOM' => [
@@ -779,11 +689,6 @@ class Calculation
             'functionCall' => [Financial::class, 'DB'],
             'argumentCount' => '4,5',
         ],
-        'DBCS' => [
-            'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '1',
-        ],
         'DCOUNT' => [
             'category' => Category::CATEGORY_DATABASE,
             'functionCall' => [Database::class, 'DCOUNT'],
@@ -813,11 +718,6 @@ class Calculation
             'category' => Category::CATEGORY_ENGINEERING,
             'functionCall' => [Engineering::class, 'DECTOOCT'],
             'argumentCount' => '1,2',
-        ],
-        'DECIMAL' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
         ],
         'DEGREES' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -914,11 +814,6 @@ class Calculation
             'functionCall' => [Financial::class, 'EFFECT'],
             'argumentCount' => '2',
         ],
-        'ENCODEURL' => [
-            'category' => Category::CATEGORY_WEB,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '1',
-        ],
         'EOMONTH' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTime::class, 'EOMONTH'],
@@ -969,11 +864,6 @@ class Calculation
             'functionCall' => [Statistical::class, 'EXPONDIST'],
             'argumentCount' => '3',
         ],
-        'EXPON.DIST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'EXPONDIST'],
-            'argumentCount' => '3',
-        ],
         'FACT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig::class, 'FACT'],
@@ -994,26 +884,6 @@ class Calculation
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '3',
         ],
-        'F.DIST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '4',
-        ],
-        'F.DIST.RT' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3',
-        ],
-        'FILTER' => [
-            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3+',
-        ],
-        'FILTERXML' => [
-            'category' => Category::CATEGORY_WEB,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
-        ],
         'FIND' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData::class, 'SEARCHSENSITIVE'],
@@ -1025,16 +895,6 @@ class Calculation
             'argumentCount' => '2,3',
         ],
         'FINV' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3',
-        ],
-        'F.INV' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3',
-        ],
-        'F.INV.RT' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '3',
@@ -1074,31 +934,6 @@ class Calculation
             'functionCall' => [Statistical::class, 'FORECAST'],
             'argumentCount' => '3',
         ],
-        'FORECAST.ETS' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3-6',
-        ],
-        'FORECAST.ETS.CONFINT' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3-6',
-        ],
-        'FORECAST.ETS.SEASONALITY' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2-4',
-        ],
-        'FORECAST.ETS.STAT' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3-6',
-        ],
-        'FORECAST.LINEAR' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'FORECAST'],
-            'argumentCount' => '3',
-        ],
         'FORMULATEXT' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [LookupRef::class, 'FORMULATEXT'],
@@ -1112,11 +947,6 @@ class Calculation
             'argumentCount' => '2',
         ],
         'FTEST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
-        ],
-        'F.TEST' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '2',
@@ -1141,27 +971,12 @@ class Calculation
             'functionCall' => [Statistical::class, 'GAMMADIST'],
             'argumentCount' => '4',
         ],
-        'GAMMA.DIST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMADIST'],
-            'argumentCount' => '4',
-        ],
         'GAMMAINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'GAMMAINV'],
             'argumentCount' => '3',
         ],
-        'GAMMA.INV' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMAINV'],
-            'argumentCount' => '3',
-        ],
         'GAMMALN' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMALN'],
-            'argumentCount' => '1',
-        ],
-        'GAMMALN.PRECISE' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'GAMMALN'],
             'argumentCount' => '1',
@@ -1470,11 +1285,6 @@ class Calculation
             'functionCall' => [Functions::class, 'isNumber'],
             'argumentCount' => '1',
         ],
-        'ISO.CEILING' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '1,2',
-        ],
         'ISODD' => [
             'category' => Category::CATEGORY_INFORMATION,
             'functionCall' => [Functions::class, 'isOdd'],
@@ -1573,16 +1383,6 @@ class Calculation
         'LOGNORMDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'LOGNORMDIST'],
-            'argumentCount' => '3',
-        ],
-        'LOGNORM.DIST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '4',
-        ],
-        'LOGNORM.INV' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'LOGINV'],
             'argumentCount' => '3',
         ],
         'LOOKUP' => [
@@ -1690,11 +1490,6 @@ class Calculation
             'functionCall' => [Statistical::class, 'MODE'],
             'argumentCount' => '1+',
         ],
-        'MODE.MULT' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '1+',
-        ],
         'MODE.SNGL' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'MODE'],
@@ -1715,11 +1510,6 @@ class Calculation
             'functionCall' => [MathTrig::class, 'MULTINOMIAL'],
             'argumentCount' => '1+',
         ],
-        'MUNIT' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '1',
-        ],
         'N' => [
             'category' => Category::CATEGORY_INFORMATION,
             'functionCall' => [Functions::class, 'n'],
@@ -1734,11 +1524,6 @@ class Calculation
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'NEGBINOMDIST'],
             'argumentCount' => '3',
-        ],
-        'NEGBINOM.DIST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '4',
         ],
         'NETWORKDAYS' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
@@ -1760,17 +1545,7 @@ class Calculation
             'functionCall' => [Statistical::class, 'NORMDIST'],
             'argumentCount' => '4',
         ],
-        'NORM.DIST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NORMDIST'],
-            'argumentCount' => '4',
-        ],
         'NORMINV' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NORMINV'],
-            'argumentCount' => '3',
-        ],
-        'NORM.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'NORMINV'],
             'argumentCount' => '3',
@@ -1786,11 +1561,6 @@ class Calculation
             'argumentCount' => '1,2',
         ],
         'NORMSINV' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NORMSINV'],
-            'argumentCount' => '1',
-        ],
-        'NORM.S.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'NORMSINV'],
             'argumentCount' => '1',
@@ -1887,27 +1657,7 @@ class Calculation
             'functionCall' => [Statistical::class, 'PERCENTILE'],
             'argumentCount' => '2',
         ],
-        'PERCENTILE.EXC' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
-        ],
-        'PERCENTILE.INC' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'PERCENTILE'],
-            'argumentCount' => '2',
-        ],
         'PERCENTRANK' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'PERCENTRANK'],
-            'argumentCount' => '2,3',
-        ],
-        'PERCENTRANK.EXC' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2,3',
-        ],
-        'PERCENTRANK.INC' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'PERCENTRANK'],
             'argumentCount' => '2,3',
@@ -1917,18 +1667,8 @@ class Calculation
             'functionCall' => [Statistical::class, 'PERMUT'],
             'argumentCount' => '2',
         ],
-        'PERMUTATIONA' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
-        ],
         'PHONETIC' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '1',
-        ],
-        'PHI' => [
-            'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '1',
         ],
@@ -1943,11 +1683,6 @@ class Calculation
             'argumentCount' => '3-5',
         ],
         'POISSON' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'POISSON'],
-            'argumentCount' => '3',
-        ],
-        'POISSON.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'POISSON'],
             'argumentCount' => '3',
@@ -2002,16 +1737,6 @@ class Calculation
             'functionCall' => [Statistical::class, 'QUARTILE'],
             'argumentCount' => '2',
         ],
-        'QUARTILE.EXC' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
-        ],
-        'QUARTILE.INC' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'QUARTILE'],
-            'argumentCount' => '2',
-        ],
         'QUOTIENT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig::class, 'QUOTIENT'],
@@ -2027,27 +1752,12 @@ class Calculation
             'functionCall' => [MathTrig::class, 'RAND'],
             'argumentCount' => '0',
         ],
-        'RANDARRAY' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '0-5',
-        ],
         'RANDBETWEEN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig::class, 'RAND'],
             'argumentCount' => '2',
         ],
         'RANK' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'RANK'],
-            'argumentCount' => '2,3',
-        ],
-        'RANK.AVG' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2,3',
-        ],
-        'RANK.EQ' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'RANK'],
             'argumentCount' => '2,3',
@@ -2158,11 +1868,6 @@ class Calculation
             'functionCall' => [DateTime::class, 'SECOND'],
             'argumentCount' => '1',
         ],
-        'SEQUENCE' => [
-            'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
-        ],
         'SERIESSUM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig::class, 'SERIESSUM'],
@@ -2198,11 +1903,6 @@ class Calculation
             'functionCall' => [Statistical::class, 'SKEW'],
             'argumentCount' => '1+',
         ],
-        'SKEW.P' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '1+',
-        ],
         'SLN' => [
             'category' => Category::CATEGORY_FINANCIAL,
             'functionCall' => [Financial::class, 'SLN'],
@@ -2217,16 +1917,6 @@ class Calculation
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'SMALL'],
             'argumentCount' => '2',
-        ],
-        'SORT' => [
-            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '1+',
-        ],
-        'SORTBY' => [
-            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2+',
         ],
         'SQRT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -2374,21 +2064,6 @@ class Calculation
             'functionCall' => [Statistical::class, 'TDIST'],
             'argumentCount' => '3',
         ],
-        'T.DIST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3',
-        ],
-        'T.DIST.2T' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
-        ],
-        'T.DIST.RT' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
-        ],
         'TEXT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData::class, 'TEXTFORMAT'],
@@ -2412,16 +2087,6 @@ class Calculation
         'TINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'TINV'],
-            'argumentCount' => '2',
-        ],
-        'T.INV' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'TINV'],
-            'argumentCount' => '2',
-        ],
-        'T.INV.2T' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '2',
         ],
         'TODAY' => [
@@ -2464,11 +2129,6 @@ class Calculation
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '4',
         ],
-        'T.TEST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '4',
-        ],
         'TYPE' => [
             'category' => Category::CATEGORY_INFORMATION,
             'functionCall' => [Functions::class, 'TYPE'],
@@ -2483,11 +2143,6 @@ class Calculation
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData::class, 'ASCIICODE'],
             'argumentCount' => '1',
-        ],
-        'UNIQUE' => [
-            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '1+',
         ],
         'UPPER' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
@@ -2564,11 +2219,6 @@ class Calculation
             'functionCall' => [Statistical::class, 'WEIBULL'],
             'argumentCount' => '4',
         ],
-        'WEIBULL.DIST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'WEIBULL'],
-            'argumentCount' => '4',
-        ],
         'WORKDAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTime::class, 'WORKDAY'],
@@ -2584,20 +2234,10 @@ class Calculation
             'functionCall' => [Financial::class, 'XIRR'],
             'argumentCount' => '2,3',
         ],
-        'XLOOKUP' => [
-            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3-6',
-        ],
         'XNPV' => [
             'category' => Category::CATEGORY_FINANCIAL,
             'functionCall' => [Financial::class, 'XNPV'],
             'argumentCount' => '3',
-        ],
-        'XMATCH' => [
-            'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2,3',
         ],
         'XOR' => [
             'category' => Category::CATEGORY_LOGICAL,
@@ -2630,11 +2270,6 @@ class Calculation
             'argumentCount' => '5,6',
         ],
         'ZTEST' => [
-            'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'ZTEST'],
-            'argumentCount' => '2-3',
-        ],
-        'Z.TEST' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical::class, 'ZTEST'],
             'argumentCount' => '2-3',
@@ -3131,7 +2766,7 @@ class Calculation
             }
             //    Return strings wrapped in quotes
             return self::FORMULA_STRING_QUOTE . $value . self::FORMULA_STRING_QUOTE;
-        //    Convert numeric errors to NaN error
+            //    Convert numeric errors to NaN error
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
             return Functions::NAN();
         }
@@ -3774,22 +3409,22 @@ class Calculation
         $pCellParent = ($pCell !== null) ? $pCell->getWorksheet() : null;
 
         $regexpMatchString = '/^(' . self::CALCULATION_REGEXP_FUNCTION .
-                                '|' . self::CALCULATION_REGEXP_CELLREF .
-                                '|' . self::CALCULATION_REGEXP_NUMBER .
-                                '|' . self::CALCULATION_REGEXP_STRING .
-                                '|' . self::CALCULATION_REGEXP_OPENBRACE .
-                                '|' . self::CALCULATION_REGEXP_NAMEDRANGE .
-                                '|' . self::CALCULATION_REGEXP_ERROR .
-                                ')/sui';
+            '|' . self::CALCULATION_REGEXP_CELLREF .
+            '|' . self::CALCULATION_REGEXP_NUMBER .
+            '|' . self::CALCULATION_REGEXP_STRING .
+            '|' . self::CALCULATION_REGEXP_OPENBRACE .
+            '|' . self::CALCULATION_REGEXP_NAMEDRANGE .
+            '|' . self::CALCULATION_REGEXP_ERROR .
+            ')/sui';
 
         //    Start with initialisation
         $index = 0;
         $stack = new Stack();
         $output = [];
         $expectingOperator = false; //    We use this test in syntax-checking the expression to determine when a
-                                                    //        - is a negation or + is a positive operator rather than an operation
+        //        - is a negation or + is a positive operator rather than an operation
         $expectingOperand = false; //    We use this test in syntax-checking the expression to determine whether an operand
-                                                    //        should be null in a function call
+        //        should be null in a function call
 
         // IF branch pruning
         // currently pending storeKey (last item of the storeKeysStack
@@ -4172,7 +3807,7 @@ class Calculation
                     ((preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
                         ($output[count($output) - 1]['type'] == 'Cell Reference') ||
                         (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '.*/miu', substr($formula, $index), $match)) &&
-                            ($output[count($output) - 1]['type'] == 'Named Range' || $output[count($output) - 1]['type'] == 'Value')
+                        ($output[count($output) - 1]['type'] == 'Named Range' || $output[count($output) - 1]['type'] == 'Value')
                     )) {
                     while ($stack->count() > 0 &&
                         ($o2 = $stack->last()) &&
@@ -4951,7 +4586,7 @@ class Calculation
         } else {
             if ((Functions::getCompatibilityMode() != Functions::COMPATIBILITY_OPENOFFICE) &&
                 ((is_string($operand1) && !is_numeric($operand1) && strlen($operand1) > 0) ||
-                 (is_string($operand2) && !is_numeric($operand2) && strlen($operand2) > 0))) {
+                    (is_string($operand2) && !is_numeric($operand2) && strlen($operand2) > 0))) {
                 $result = Functions::VALUE();
             } else {
                 //    If we're dealing with non-matrix operations, execute the necessary operation
@@ -4980,7 +4615,7 @@ class Calculation
 
                             return false;
                         }
-                            $result = $operand1 / $operand2;
+                        $result = $operand1 / $operand2;
 
                         break;
                     //    Power
