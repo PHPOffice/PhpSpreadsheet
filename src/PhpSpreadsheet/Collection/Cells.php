@@ -8,8 +8,9 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Psr\SimpleCache\CacheInterface;
+use Serializable;
 
-class Cells
+class Cells implements Serializable
 {
     /**
      * @var \Psr\SimpleCache\CacheInterface
@@ -71,6 +72,40 @@ class Cells
         $this->parent = $parent;
         $this->cache = $cache;
         $this->cachePrefix = $this->getUniqueID();
+    }
+
+    /**
+     * Returns array containing all the necessary state of the cell collection without the cache.
+     *
+     * @since 7.4
+     * @see https://wiki.php.net/rfc/custom_object_serialization
+     */
+    public function __serialize(): array
+    {
+        $result = [];
+        foreach ($this as $key => $value) {
+            if ($key !== 'cache') {
+                $result[$key] = $value;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Restores the cell collection state from the given data array without the cache.
+     *
+     * @since 7.4
+     * @see https://wiki.php.net/rfc/custom_object_serialization
+     */
+    public function __unserialize(array $data): void
+    {
+        foreach ($data as $key => $value) {
+            if ($key !== 'cache') {
+                $this->{$key} = $value;
+            }
+        }
+        $this->cache = \PhpOffice\PhpSpreadsheet\Settings::getCache();
     }
 
     /**
@@ -482,6 +517,24 @@ class Cells
     public function __destruct()
     {
         $this->cache->deleteMultiple($this->getAllCacheKeys());
+    }
+
+    /**
+     * Serialize this cell collection.
+     */
+    public function serialize(): string
+    {
+        return serialize($this->__serialize());
+    }
+
+    /**
+     * Unserialize this cell collection.
+     *
+     * @param mixed $serialized
+     */
+    public function unserialize($serialized): void
+    {
+        $this->__unserialize(unserialize($serialized));
     }
 
     /**

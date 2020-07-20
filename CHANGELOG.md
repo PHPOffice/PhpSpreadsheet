@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing.
+- Remove cache from cells collection on serialization [#1590](https://github.com/PHPOffice/PhpSpreadsheet/pull/1590).
 
 ## 1.14.1 - 2020-07-19
 
