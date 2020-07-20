@@ -2766,8 +2766,8 @@ class Calculation
             }
             //    Return strings wrapped in quotes
             return self::FORMULA_STRING_QUOTE . $value . self::FORMULA_STRING_QUOTE;
-            //    Convert numeric errors to NaN error
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
+            //    Convert numeric errors to NaN error
             return Functions::NAN();
         }
 
