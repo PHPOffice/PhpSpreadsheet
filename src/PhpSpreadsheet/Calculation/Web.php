@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use GuzzleHttp\Psr7\Request;
 use PhpOffice\PhpSpreadsheet\Settings;
 use Psr\Http\Client\ClientExceptionInterface;
 
@@ -31,7 +30,8 @@ class Web
 
         // Get results from the the webservice
         $client = Settings::getHttpClient();
-        $request = new Request('GET', $url);
+        $requestFactory = Settings::getRequestFactory();
+        $request = $requestFactory->createRequest('GET', $url);
 
         try {
             $response = $client->sendRequest($request);
@@ -43,7 +43,7 @@ class Web
             return Functions::VALUE(); // cURL error
         }
 
-        $output = (string) $response->getBody();
+        $output = $response->getBody()->getContents();
         if (strlen($output) > 32767) {
             return Functions::VALUE(); // Output not a string or too long
         }
