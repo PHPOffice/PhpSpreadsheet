@@ -23,4 +23,3 @@ class NormDistTest extends TestCase
         return require 'tests/data/Calculation/Statistical/NORMDIST.php';
     }
 }
-
