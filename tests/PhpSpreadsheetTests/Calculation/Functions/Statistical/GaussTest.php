@@ -19,7 +19,7 @@ class GaussTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerGAUSS()
+    public function providerGAUSS(): array
     {
         return require 'tests/data/Calculation/Statistical/GAUSS.php';
     }

@@ -5,21 +5,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
-class NormSDist2Test extends TestCase
+class NormInvTest extends TestCase
 {
     /**
-     * @dataProvider providerNORMSDIST2
+     * @dataProvider providerNORMINV
      *
      * @param mixed $expectedResult
      */
-    public function testNORMSDIST2($expectedResult, ...$args): void
+    public function testNORMINV($expectedResult, ...$args): void
     {
-        $result = Statistical::NORMSDIST2(...$args);
+        $result = Statistical::NORMINV(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerNORMSDIST2(): array
+    public function providerNORMINV()
     {
-        return require 'tests/data/Calculation/Statistical/NORMSDIST2.php';
+        return require 'tests/data/Calculation/Statistical/NORMINV.php';
     }
 }
