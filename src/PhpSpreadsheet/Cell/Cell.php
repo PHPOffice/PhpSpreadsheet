@@ -228,6 +228,10 @@ class Cell
                 $this->value = DataType::checkErrorCode($pValue);
 
                 break;
+            case DataType::TYPE_FORMULA_ARRAY:
+                $this->value = (string)$pValue;
+
+                break;
             default:
                 throw new Exception('Invalid datatype: ' . $pDataType);
 

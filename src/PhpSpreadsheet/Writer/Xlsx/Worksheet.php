@@ -1191,6 +1191,16 @@ class Worksheet extends WriterPart
                     $this->writeCellBoolean($objWriter, $mappedType, $cellValue);
 
                     break;
+                case 't':            // Array Formula
+                   $objWriter->startElement('f');
+                   $objWriter->writeAttribute('t', 'array');
+                   $objWriter->writeAttribute('ref', $pCellAddress);
+                   $objWriter->writeAttribute('aca', '1');
+                   $objWriter->writeAttribute('ca', '1');
+                   $objWriter->text($cellValue);
+                   $objWriter->endElement();
+
+                   break;
                 case 'e':            // Error
                     $this->writeCellError($objWriter, $mappedType, $cellValue);
             }
