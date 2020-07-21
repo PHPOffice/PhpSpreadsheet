@@ -2188,7 +2188,7 @@ class Statistical
             }
 
             return (1 / (sqrt(2 * M_PI) * $stdDev * $value)) *
-                exp(0 - (pow((log($value) - $mean), 2) / (2 * pow($stdDev, 2))));
+                exp(0 - ((log($value) - $mean) ** 2 / (2 * $stdDev ** 2)));
         }
 
         return Functions::VALUE();
