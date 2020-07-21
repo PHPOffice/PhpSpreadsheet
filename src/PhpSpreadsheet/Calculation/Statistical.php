@@ -2185,10 +2185,10 @@ class Statistical
 
             if ($cumulative === true) {
                 return self::NORMSDIST2((log($value) - $mean) / $stdDev, true);
-            } else {
-                return (1 / (sqrt(2 * M_PI) * $stdDev * $value)) *
-                    exp(0 - (pow((log($value) - $mean), 2) / (2 * pow($stdDev, 2))));
             }
+
+            return (1 / (sqrt(2 * M_PI) * $stdDev * $value)) *
+                exp(0 - (pow((log($value) - $mean), 2) / (2 * pow($stdDev, 2))));
         }
 
         return Functions::VALUE();
