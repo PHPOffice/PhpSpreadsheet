@@ -1385,6 +1385,11 @@ class Calculation
             'functionCall' => [Statistical::class, 'LOGNORMDIST'],
             'argumentCount' => '3',
         ],
+        'LOGNORM.DIST' => [
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => [Statistical::class, 'LOGNORMDIST2'],
+            'argumentCount' => '4',
+        ],
         'LOOKUP' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [LookupRef::class, 'LOOKUP'],

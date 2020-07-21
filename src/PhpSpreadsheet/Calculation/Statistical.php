@@ -2159,6 +2159,42 @@ class Statistical
     }
 
     /**
+     * LOGNORM.DIST.
+     *
+     * Returns the lognormal distribution of x, where ln(x) is normally distributed
+     * with parameters mean and standard_dev.
+     *
+     * @param float $value
+     * @param float $mean
+     * @param float $stdDev
+     * @param bool $cumulative
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function LOGNORMDIST2($value, $mean, $stdDev, $cumulative = false)
+    {
+        $value = Functions::flattenSingleValue($value);
+        $mean = Functions::flattenSingleValue($mean);
+        $stdDev = Functions::flattenSingleValue($stdDev);
+        $cumulative = (bool) Functions::flattenSingleValue($cumulative);
+
+        if ((is_numeric($value)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
+            if (($value <= 0) || ($stdDev <= 0)) {
+                return Functions::NAN();
+            }
+
+            if ($cumulative === true) {
+                return self::NORMSDIST2((log($value) - $mean) / $stdDev, true);
+            } else {
+                return (1 / (sqrt(2 * M_PI) * $stdDev * $value)) *
+                    exp(0 - (pow((log($value) - $mean), 2) / (2 * pow($stdDev, 2))));
+            }
+        }
+
+        return Functions::VALUE();
+    }
+
+    /**
      * MAX.
      *
      * MAX returns the value of the element of the values passed that has the highest value,
