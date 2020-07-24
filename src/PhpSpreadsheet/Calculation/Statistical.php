@@ -1493,9 +1493,9 @@ class Statistical
      *    For example, you can examine the test scores of men and women entering high school, and determine
      *        if the variability in the females is different from that found in the males.
      *
-     * @param float $value Value of the function.
-     * @param int $u The numerator degrees of freedom.
-     * @param int $v The denominator degrees of freedom.
+     * @param float $value Value of the function
+     * @param int $u The numerator degrees of freedom
+     * @param int $v The denominator degrees of freedom
      * @param bool $cumulative If cumulative is TRUE, F.DIST returns the cumulative distribution function;
      *                         if FALSE, it returns the probability density function.
      *
@@ -1519,13 +1519,13 @@ class Statistical
 
             if ($cumulative) {
                 $adjustedValue = ($u * $value) / ($u * $value + $v);
+
                 return self::incompleteBeta($adjustedValue, $u / 2, $v / 2);
             }
 
             return (self::gamma(($v + $u) / 2) / (self::gamma($u / 2) * self::gamma($v / 2))) *
                 (($u / $v) ** ($u / 2)) *
-                (($value ** (($u - 2) / 2)) / ((1 + ($u / $v) * $value) ** (($u + $v) / 2)))
-                ;
+                (($value ** (($u - 2) / 2)) / ((1 + ($u / $v) * $value) ** (($u + $v) / 2)));
         }
 
         return Functions::VALUE();
