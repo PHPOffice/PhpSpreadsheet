@@ -779,7 +779,7 @@ class Statistical
     /**
      * BETAINV.
      *
-     * Returns the inverse of the beta distribution.
+     * Returns the inverse of the Beta distribution.
      *
      * @param float $probability Probability at which you want to evaluate the distribution
      * @param float $alpha Parameter to the distribution
@@ -1475,6 +1475,62 @@ class Statistical
         return Functions::VALUE();
     }
 
+    private static function betaFunction($a, $b)
+    {
+        return (self::gamma($a) * self::gamma($b)) / self::gamma($a + $b);
+    }
+
+    private static function regularizedIncompleteBeta($value, $a, $b)
+    {
+        return self::incompleteBeta($value, $a, $b) / self::betaFunction($a, $b);
+    }
+
+    /**
+     * F.DIST.
+     *
+     *    Returns the F probability distribution.
+     *    You can use this function to determine whether two data sets have different degrees of diversity.
+     *    For example, you can examine the test scores of men and women entering high school, and determine
+     *        if the variability in the females is different from that found in the males.
+     *
+     * @param float $value Value of the function.
+     * @param int $u The numerator degrees of freedom.
+     * @param int $v The denominator degrees of freedom.
+     * @param bool $cumulative If cumulative is TRUE, F.DIST returns the cumulative distribution function;
+     *                         if FALSE, it returns the probability density function.
+     *
+     * @return float|string
+     */
+    public static function FDIST2($value, $u, $v, $cumulative)
+    {
+        $value = Functions::flattenSingleValue($value);
+        $u = Functions::flattenSingleValue($u);
+        $v = Functions::flattenSingleValue($v);
+        $cumulative = Functions::flattenSingleValue($cumulative);
+
+        if (is_numeric($value) && is_numeric($u) && is_numeric($v)) {
+            if ($value < 0 || $u < 1 || $v < 1) {
+                return Functions::NAN();
+            }
+
+            $cumulative = (bool) $cumulative;
+            $u = (int) $u;
+            $v = (int) $v;
+
+            if ($cumulative) {
+                $adjustedValue = ($u * $value) / ($u * $value + $v);
+                return self::incompleteBeta($adjustedValue, $u / 2, $v / 2);
+            }
+
+            return (self::gamma(($v + $u) / 2) / (self::gamma($u / 2) * self::gamma($v / 2))) *
+                (($u / $v) ** ($u / 2)) *
+                (($value ** (($u - 2) / 2)) / ((1 + ($u / $v) * $value) ** (($u + $v) / 2)))
+                ;
+        }
+
+        return Functions::VALUE();
+    }
+
     /**
      * FISHER.
      *
@@ -1614,7 +1670,7 @@ class Statistical
     /**
      * GAMMAINV.
      *
-     * Returns the inverse of the beta distribution.
+     * Returns the inverse of the Gamma distribution.
      *
      * @param float $probability Probability at which you want to evaluate the distribution
      * @param float $alpha Parameter to the distribution

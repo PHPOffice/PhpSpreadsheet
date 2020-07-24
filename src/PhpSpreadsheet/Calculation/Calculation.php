@@ -884,6 +884,11 @@ class Calculation
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '3',
         ],
+        'F.DIST' => [
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => [Statistical::class, 'FDIST2'],
+            'argumentCount' => '4',
+        ],
         'FIND' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData::class, 'SEARCHSENSITIVE'],
