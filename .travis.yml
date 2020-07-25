@@ -17,7 +17,7 @@ before_script:
   - composer install --ignore-platform-reqs
 
 script:
-  - ./vendor/bin/phpunit
+  - ./vendor/bin/phpunit --color=always --coverage-text
 
 jobs:
   include:
