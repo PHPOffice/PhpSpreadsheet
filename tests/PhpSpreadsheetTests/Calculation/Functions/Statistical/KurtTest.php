@@ -9,6 +9,8 @@ class KurtTest extends TestCase
 {
     /**
      * @dataProvider providerKURT
+     *
+     * @param mixed $expectedResult
      */
     public function testKURT($expectedResult, ...$values): void
     {
