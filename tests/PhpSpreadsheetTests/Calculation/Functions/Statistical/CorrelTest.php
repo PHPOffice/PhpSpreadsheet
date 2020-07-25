@@ -18,7 +18,7 @@ class CorrelTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCORREL($expectedResult, array $xargs, array $yargs): void
+    public function testCORREL($expectedResult, $xargs, $yargs): void
     {
         $result = Statistical::CORREL($xargs, $yargs);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
