@@ -779,7 +779,7 @@ class Statistical
     /**
      * BETAINV.
      *
-     * Returns the inverse of the beta distribution.
+     * Returns the inverse of the Beta distribution.
      *
      * @param float $probability Probability at which you want to evaluate the distribution
      * @param float $alpha Parameter to the distribution
@@ -1475,6 +1475,62 @@ class Statistical
         return Functions::VALUE();
     }
 
+    private static function betaFunction($a, $b)
+    {
+        return (self::gamma($a) * self::gamma($b)) / self::gamma($a + $b);
+    }
+
+    private static function regularizedIncompleteBeta($value, $a, $b)
+    {
+        return self::incompleteBeta($value, $a, $b) / self::betaFunction($a, $b);
+    }
+
+    /**
+     * F.DIST.
+     *
+     *    Returns the F probability distribution.
+     *    You can use this function to determine whether two data sets have different degrees of diversity.
+     *    For example, you can examine the test scores of men and women entering high school, and determine
+     *        if the variability in the females is different from that found in the males.
+     *
+     * @param float $value Value of the function
+     * @param int $u The numerator degrees of freedom
+     * @param int $v The denominator degrees of freedom
+     * @param bool $cumulative If cumulative is TRUE, F.DIST returns the cumulative distribution function;
+     *                         if FALSE, it returns the probability density function.
+     *
+     * @return float|string
+     */
+    public static function FDIST2($value, $u, $v, $cumulative)
+    {
+        $value = Functions::flattenSingleValue($value);
+        $u = Functions::flattenSingleValue($u);
+        $v = Functions::flattenSingleValue($v);
+        $cumulative = Functions::flattenSingleValue($cumulative);
+
+        if (is_numeric($value) && is_numeric($u) && is_numeric($v)) {
+            if ($value < 0 || $u < 1 || $v < 1) {
+                return Functions::NAN();
+            }
+
+            $cumulative = (bool) $cumulative;
+            $u = (int) $u;
+            $v = (int) $v;
+
+            if ($cumulative) {
+                $adjustedValue = ($u * $value) / ($u * $value + $v);
+
+                return self::incompleteBeta($adjustedValue, $u / 2, $v / 2);
+            }
+
+            return (self::gamma(($v + $u) / 2) / (self::gamma($u / 2) * self::gamma($v / 2))) *
+                (($u / $v) ** ($u / 2)) *
+                (($value ** (($u - 2) / 2)) / ((1 + ($u / $v) * $value) ** (($u + $v) / 2)));
+        }
+
+        return Functions::VALUE();
+    }
+
     /**
      * FISHER.
      *
@@ -1557,6 +1613,27 @@ class Statistical
     }
 
     /**
+     * GAMMA.
+     *
+     * Return the gamma function value.
+     *
+     * @param float $value
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function GAMMAFunction($value)
+    {
+        $value = Functions::flattenSingleValue($value);
+        if (!is_numeric($value)) {
+            return Functions::VALUE();
+        } elseif ((((int) $value) == ((float) $value)) && $value <= 0.0) {
+            return Functions::NAN();
+        }
+
+        return self::gamma($value);
+    }
+
+    /**
      * GAMMADIST.
      *
      * Returns the gamma distribution.
@@ -1593,7 +1670,7 @@ class Statistical
     /**
      * GAMMAINV.
      *
-     * Returns the inverse of the beta distribution.
+     * Returns the inverse of the Gamma distribution.
      *
      * @param float $probability Probability at which you want to evaluate the distribution
      * @param float $alpha Parameter to the distribution
@@ -1675,6 +1752,26 @@ class Statistical
         }
 
         return Functions::VALUE();
+    }
+
+    /**
+     * GAUSS.
+     *
+     * Calculates the probability that a member of a standard normal population will fall between
+     *     the mean and z standard deviations from the mean.
+     *
+     * @param float $value
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function GAUSS($value)
+    {
+        $value = Functions::flattenSingleValue($value);
+        if (!is_numeric($value)) {
+            return Functions::VALUE();
+        }
+
+        return self::NORMDIST($value, 0, 1, true) - 0.5;
     }
 
     /**
@@ -2112,6 +2209,42 @@ class Statistical
             }
 
             return self::NORMSDIST((log($value) - $mean) / $stdDev);
+        }
+
+        return Functions::VALUE();
+    }
+
+    /**
+     * LOGNORM.DIST.
+     *
+     * Returns the lognormal distribution of x, where ln(x) is normally distributed
+     * with parameters mean and standard_dev.
+     *
+     * @param float $value
+     * @param float $mean
+     * @param float $stdDev
+     * @param bool $cumulative
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function LOGNORMDIST2($value, $mean, $stdDev, $cumulative = false)
+    {
+        $value = Functions::flattenSingleValue($value);
+        $mean = Functions::flattenSingleValue($mean);
+        $stdDev = Functions::flattenSingleValue($stdDev);
+        $cumulative = (bool) Functions::flattenSingleValue($cumulative);
+
+        if ((is_numeric($value)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
+            if (($value <= 0) || ($stdDev <= 0)) {
+                return Functions::NAN();
+            }
+
+            if ($cumulative === true) {
+                return self::NORMSDIST2((log($value) - $mean) / $stdDev, true);
+            }
+
+            return (1 / (sqrt(2 * M_PI) * $stdDev * $value)) *
+                exp(0 - ((log($value) - $mean) ** 2 / (2 * $stdDev ** 2)));
         }
 
         return Functions::VALUE();
@@ -2623,8 +2756,34 @@ class Statistical
     public static function NORMSDIST($value)
     {
         $value = Functions::flattenSingleValue($value);
+        if (!is_numeric($value)) {
+            return Functions::VALUE();
+        }
 
         return self::NORMDIST($value, 0, 1, true);
+    }
+
+    /**
+     * NORM.S.DIST.
+     *
+     * Returns the standard normal cumulative distribution function. The distribution has
+     * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
+     * table of standard normal curve areas.
+     *
+     * @param float $value
+     * @param bool $cumulative
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function NORMSDIST2($value, $cumulative)
+    {
+        $value = Functions::flattenSingleValue($value);
+        if (!is_numeric($value)) {
+            return Functions::VALUE();
+        }
+        $cumulative = (bool) Functions::flattenSingleValue($cumulative);
+
+        return self::NORMDIST($value, 0, 1, $cumulative);
     }
 
     /**
