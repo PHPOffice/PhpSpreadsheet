@@ -433,9 +433,11 @@ class Worksheet implements IComparable
             throw new Exception('Sheet code name cannot be empty.');
         }
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ] and  first and last characters cannot be a "'"
-        if ((str_replace(self::$invalidCharacters, '', $pValue) !== $pValue) ||
+        if (
+            (str_replace(self::$invalidCharacters, '', $pValue) !== $pValue) ||
             (Shared\StringHelper::substring($pValue, -1, 1) == '\'') ||
-            (Shared\StringHelper::substring($pValue, 0, 1) == '\'')) {
+            (Shared\StringHelper::substring($pValue, 0, 1) == '\'')
+        ) {
             throw new Exception('Invalid character found in sheet code name');
         }
 

@@ -4,6 +4,8 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Reader\Gnumeric\PageSetup;
 use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
@@ -23,6 +25,8 @@ use XMLReader;
 
 class Gnumeric extends BaseReader
 {
+    private const UOM_CONVERSION_POINTS_TO_CENTIMETERS = 0.03527777778;
+
     /**
      * Shared Expressions.
      *
@@ -401,53 +405,6 @@ class Gnumeric extends BaseReader
         }
     }
 
-    private function sheetMargin(string $key, float $marginSize): void
-    {
-        switch ($key) {
-            case 'top':
-                $this->spreadsheet->getActiveSheet()->getPageMargins()->setTop($marginSize);
-
-                break;
-            case 'bottom':
-                $this->spreadsheet->getActiveSheet()->getPageMargins()->setBottom($marginSize);
-
-                break;
-            case 'left':
-                $this->spreadsheet->getActiveSheet()->getPageMargins()->setLeft($marginSize);
-
-                break;
-            case 'right':
-                $this->spreadsheet->getActiveSheet()->getPageMargins()->setRight($marginSize);
-
-                break;
-            case 'header':
-                $this->spreadsheet->getActiveSheet()->getPageMargins()->setHeader($marginSize);
-
-                break;
-            case 'footer':
-                $this->spreadsheet->getActiveSheet()->getPageMargins()->setFooter($marginSize);
-
-                break;
-        }
-    }
-
-    private function sheetMargins(SimpleXMLElement $sheet): void
-    {
-        if (!$this->readDataOnly && isset($sheet->PrintInformation, $sheet->PrintInformation->Margins)) {
-            foreach ($sheet->PrintInformation->Margins->children($this->gnm, true) as $key => $margin) {
-                $marginAttributes = $margin->attributes();
-                $marginSize = 72 / 100; //    Default
-                switch ($marginAttributes['PrefUnit']) {
-                    case 'mm':
-                        $marginSize = (int) ($marginAttributes['Points']) / 100;
-
-                        break;
-                }
-                $this->sheetMargin($key, (float) $marginSize);
-            }
-        }
-    }
-
     private function processComments(SimpleXMLElement $sheet): void
     {
         if ((!$this->readDataOnly) && (isset($sheet->Objects))) {
@@ -513,7 +470,11 @@ class Gnumeric extends BaseReader
             //        name in line with the formula, not the reverse
             $this->spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
 
-            $this->sheetMargins($sheet);
+            if (!$this->readDataOnly) {
+                (new PageSetup($this->spreadsheet, $this->gnm))
+                    ->printInformation($sheet)
+                    ->sheetMargins($sheet);
+            }
 
             foreach ($sheet->Cells->Cell as $cell) {
                 $cellAttributes = $cell->attributes();
@@ -574,8 +535,10 @@ class Gnumeric extends BaseReader
 
             foreach ($sheet->Styles->StyleRegion as $styleRegion) {
                 $styleAttributes = $styleRegion->attributes();
-                if (($styleAttributes['startRow'] <= $maxRow) &&
-                    ($styleAttributes['startCol'] <= $maxCol)) {
+                if (
+                    ($styleAttributes['startRow'] <= $maxRow) &&
+                    ($styleAttributes['startCol'] <= $maxCol)
+                ) {
                     $startColumn = Coordinate::stringFromColumnIndex((int) $styleAttributes['startCol'] + 1);
                     $startRow = $styleAttributes['startRow'] + 1;
 

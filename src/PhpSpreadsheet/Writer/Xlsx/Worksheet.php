@@ -314,8 +314,10 @@ class Worksheet extends WriterPart
         }
 
         // Set Zero Height row
-        if ((string) $pSheet->getDefaultRowDimension()->getZeroHeight() === '1' ||
-            strtolower((string) $pSheet->getDefaultRowDimension()->getZeroHeight()) == 'true') {
+        if (
+            (string) $pSheet->getDefaultRowDimension()->getZeroHeight() === '1' ||
+            strtolower((string) $pSheet->getDefaultRowDimension()->getZeroHeight()) == 'true'
+        ) {
             $objWriter->writeAttribute('zeroHeight', '1');
         }
 
@@ -466,9 +468,11 @@ class Worksheet extends WriterPart
 
     private static function writeOtherCondElements(XMLWriter $objWriter, Conditional $conditional, string $cellCoordinate): void
     {
-        if ($conditional->getConditionType() == Conditional::CONDITION_CELLIS
+        if (
+            $conditional->getConditionType() == Conditional::CONDITION_CELLIS
             || $conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
-            || $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION) {
+            || $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
+        ) {
             foreach ($conditional->getConditions() as $formula) {
                 // Formula
                 $objWriter->writeElement('formula', Xlfn::addXlfn($formula));
@@ -791,9 +795,11 @@ class Worksheet extends WriterPart
                         }
 
                         foreach ($rules as $rule) {
-                            if (($column->getFilterType() === Column::AUTOFILTER_FILTERTYPE_FILTER) &&
+                            if (
+                                ($column->getFilterType() === Column::AUTOFILTER_FILTERTYPE_FILTER) &&
                                 ($rule->getOperator() === Rule::AUTOFILTER_COLUMN_RULE_EQUAL) &&
-                                ($rule->getValue() === '')) {
+                                ($rule->getValue() === '')
+                            ) {
                                 //    Filter rule for Blanks
                                 $objWriter->writeAttribute('blank', 1);
                             } elseif ($rule->getRuleType() === Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER) {
@@ -875,6 +881,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('firstPageNumber', $pSheet->getPageSetup()->getFirstPageNumber());
             $objWriter->writeAttribute('useFirstPageNumber', '1');
         }
+        $objWriter->writeAttribute('pageOrder', $pSheet->getPageSetup()->getPageOrder());
 
         $getUnparsedLoadedData = $pSheet->getParent()->getUnparsedLoadedData();
         if (isset($getUnparsedLoadedData['sheets'][$pSheet->getCodeName()]['pageSetupRelId'])) {

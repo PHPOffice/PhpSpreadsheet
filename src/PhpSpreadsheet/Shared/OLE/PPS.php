@@ -172,7 +172,7 @@ class PPS
      *
      * @return string The binary string
      */
-    public function _getPpsWk()
+    public function getPpsWk()
     {
         $ret = str_pad($this->Name, 64, "\x00");
 
@@ -207,7 +207,7 @@ class PPS
      *
      * @return int The index for this PPS
      */
-    public static function _savePpsSetPnt(&$raList, $to_save, $depth = 0)
+    public static function savePpsSetPnt(&$raList, $to_save, $depth = 0)
     {
         if (!is_array($to_save) || (empty($to_save))) {
             return 0xFFFFFFFF;
@@ -218,7 +218,7 @@ class PPS
             $raList[$cnt]->No = $cnt;
             $raList[$cnt]->PrevPps = 0xFFFFFFFF;
             $raList[$cnt]->NextPps = 0xFFFFFFFF;
-            $raList[$cnt]->DirPps = self::_savePpsSetPnt($raList, @$raList[$cnt]->children, $depth++);
+            $raList[$cnt]->DirPps = self::savePpsSetPnt($raList, @$raList[$cnt]->children, $depth++);
         } else {
             $iPos = floor(count($to_save) / 2);
             $aPrev = array_slice($to_save, 0, $iPos);
@@ -227,9 +227,9 @@ class PPS
             // If the first entry, it's the root... Don't clone it!
             $raList[$cnt] = ($depth == 0) ? $to_save[$iPos] : clone $to_save[$iPos];
             $raList[$cnt]->No = $cnt;
-            $raList[$cnt]->PrevPps = self::_savePpsSetPnt($raList, $aPrev, $depth++);
-            $raList[$cnt]->NextPps = self::_savePpsSetPnt($raList, $aNext, $depth++);
-            $raList[$cnt]->DirPps = self::_savePpsSetPnt($raList, @$raList[$cnt]->children, $depth++);
+            $raList[$cnt]->PrevPps = self::savePpsSetPnt($raList, $aPrev, $depth++);
+            $raList[$cnt]->NextPps = self::savePpsSetPnt($raList, $aNext, $depth++);
+            $raList[$cnt]->DirPps = self::savePpsSetPnt($raList, @$raList[$cnt]->children, $depth++);
         }
 
         return $cnt;

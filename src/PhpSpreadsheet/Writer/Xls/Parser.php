@@ -1454,11 +1454,13 @@ class Parser
             $polish .= $converted_tree;
         }
         // if it's a function convert it here (so we can set it's arguments)
-        if (preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/", $tree['value']) &&
+        if (
+            preg_match("/^[A-Z0-9\xc0-\xdc\\.]+$/", $tree['value']) &&
             !preg_match('/^([A-Ia-i]?[A-Za-z])(\d+)$/', $tree['value']) &&
             !preg_match('/^[A-Ia-i]?[A-Za-z](\\d+)\\.\\.[A-Ia-i]?[A-Za-z](\\d+)$/', $tree['value']) &&
             !is_numeric($tree['value']) &&
-            !isset($this->ptg[$tree['value']])) {
+            !isset($this->ptg[$tree['value']])
+        ) {
             // left subtree for a function is always an array.
             if ($tree['left'] != '') {
                 $left_tree = $this->toReversePolish($tree['left']);

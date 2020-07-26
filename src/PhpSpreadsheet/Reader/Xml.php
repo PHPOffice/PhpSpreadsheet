@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
+use PhpOffice\PhpSpreadsheet\Reader\Xml\PageSettings;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -401,8 +402,10 @@ class Xml extends BaseReader
         foreach ($xml_ss->Worksheet as $worksheet) {
             $worksheet_ss = $worksheet->attributes($namespaces['ss']);
 
-            if ((isset($this->loadSheetsOnly)) && (isset($worksheet_ss['Name'])) &&
-                (!in_array($worksheet_ss['Name'], $this->loadSheetsOnly))) {
+            if (
+                (isset($this->loadSheetsOnly)) && (isset($worksheet_ss['Name'])) &&
+                (!in_array($worksheet_ss['Name'], $this->loadSheetsOnly))
+            ) {
                 continue;
             }
 
@@ -590,6 +593,11 @@ class Xml extends BaseReader
                     }
 
                     ++$rowID;
+                }
+
+                $xmlX = $worksheet->children($namespaces['x']);
+                if (isset($xmlX->WorksheetOptions)) {
+                    (new PageSettings($xmlX, $namespaces))->loadPageSettings($spreadsheet);
                 }
             }
             ++$worksheetID;
