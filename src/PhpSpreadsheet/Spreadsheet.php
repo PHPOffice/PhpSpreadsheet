@@ -996,7 +996,8 @@ class Spreadsheet
 
     private function getLocalDefinedNameByType(string $name, bool $type, ?Worksheet $pSheet = null): ?DefinedName
     {
-        if (($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $name])
+        if (
+            ($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $name])
             && $this->definedNames[$pSheet->getTitle() . '!' . $name]->isFormula() === $type
         ) {
             return $this->definedNames[$pSheet->getTitle() . '!' . $name];

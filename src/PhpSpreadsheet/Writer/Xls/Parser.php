@@ -1202,9 +1202,11 @@ class Parser
             return $this->createTree('ptgUplus', $result2, '');
         }
         $result = $this->term();
-        while (($this->currentToken == '+') ||
+        while (
+            ($this->currentToken == '+') ||
             ($this->currentToken == '-') ||
-            ($this->currentToken == '^')) {
+            ($this->currentToken == '^')
+        ) {
             if ($this->currentToken == '+') {
                 $this->advance();
                 $result2 = $this->term();
@@ -1245,8 +1247,10 @@ class Parser
     private function term()
     {
         $result = $this->fact();
-        while (($this->currentToken == '*') ||
-            ($this->currentToken == '/')) {
+        while (
+            ($this->currentToken == '*') ||
+            ($this->currentToken == '/')
+        ) {
             if ($this->currentToken == '*') {
                 $this->advance();
                 $result2 = $this->fact();
@@ -1301,8 +1305,10 @@ class Parser
             $this->advance();
 
             return $result;
-        } elseif (preg_match('/^(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+:(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+$/', $this->currentToken) ||
-            preg_match('/^(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+\.\.(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+$/', $this->currentToken)) {
+        } elseif (
+            preg_match('/^(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+:(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+$/', $this->currentToken) ||
+            preg_match('/^(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+\.\.(\$)?[A-Ia-i]?[A-Za-z](\$)?\d+$/', $this->currentToken)
+        ) {
             // if it's a range A1:B2 or $A$1:$B$2
             // must be an error?
             $result = $this->createTree($this->currentToken, '', '');

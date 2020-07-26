@@ -1190,8 +1190,10 @@ class Worksheet implements IComparable
         }
 
         // Named range?
-        if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $pCoordinate, $matches)) &&
-            (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $pCoordinate, $matches))) {
+        if (
+            (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $pCoordinate, $matches)) &&
+            (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $pCoordinate, $matches))
+        ) {
             $namedRange = DefinedName::resolveName($pCoordinate, $this);
             if ($namedRange !== null) {
                 $pCoordinate = $namedRange->getValue();
@@ -1288,8 +1290,10 @@ class Worksheet implements IComparable
         }
 
         // Named range?
-        if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $pCoordinate, $matches)) &&
-            (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $pCoordinate, $matches))) {
+        if (
+            (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $pCoordinate, $matches)) &&
+            (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $pCoordinate, $matches))
+        ) {
             $namedRange = DefinedName::resolveName($pCoordinate, $this);
             if ($namedRange !== null) {
                 $pCoordinate = $namedRange->getValue();

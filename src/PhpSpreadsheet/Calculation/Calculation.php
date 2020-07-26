@@ -4202,8 +4202,10 @@ class Calculation
                         ($output[count($output) - 1]['type'] == 'Cell Reference') ||
                         (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', substr($formula, $index), $match)) &&
                             ($output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
-                    )) {
-                    while ($stack->count() > 0 &&
+                    )
+                ) {
+                    while (
+                        $stack->count() > 0 &&
                         ($o2 = $stack->last()) &&
                         isset(self::$operators[$o2['value']]) &&
                         @(self::$operatorAssociativity[$opCharacter] ? self::$operatorPrecedence[$opCharacter] < self::$operatorPrecedence[$o2['value']] : self::$operatorPrecedence[$opCharacter] <= self::$operatorPrecedence[$o2['value']])
