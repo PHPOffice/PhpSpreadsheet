@@ -26,7 +26,7 @@ jobs:
       php: 7.4
       script:
         - ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run
-        - ./vendor/bin/phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n
+        - ./vendor/bin/phpcs
 
     - stage: Coverage
       php: 7.4
