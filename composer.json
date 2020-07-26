@@ -28,7 +28,7 @@
     "scripts": {
         "check": [
             "php-cs-fixer fix --ansi --dry-run --diff",
-            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR12 -n",
+            "phpcs",
             "phpunit --color=always"
         ],
         "fix": [

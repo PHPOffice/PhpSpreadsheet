@@ -3277,7 +3277,7 @@ class Calculation
         }
 
         //    Parse the formula and return the token stack
-        return $this->_parseFormula($formula);
+        return $this->internalParseFormula($formula);
     }
 
     /**
@@ -3418,7 +3418,7 @@ class Calculation
 
         //    Parse the formula onto the token stack and calculate the value
         $this->cyclicReferenceStack->push($wsCellReference);
-        $cellValue = $this->processTokenStack($this->_parseFormula($formula, $pCell), $cellID, $pCell);
+        $cellValue = $this->processTokenStack($this->internalParseFormula($formula, $pCell), $cellID, $pCell);
         $this->cyclicReferenceStack->pop();
 
         // Save to calculation cache
@@ -3765,7 +3765,7 @@ class Calculation
      *
      * @return bool
      */
-    private function _parseFormula($formula, ?Cell $pCell = null)
+    private function internalParseFormula($formula, ?Cell $pCell = null)
     {
         if (($formula = $this->convertMatrixReferences(trim($formula))) === false) {
             return false;
