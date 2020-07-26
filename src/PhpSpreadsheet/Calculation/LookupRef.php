@@ -286,8 +286,10 @@ class LookupRef
             [$cellAddress1, $cellAddress2] = explode(':', $cellAddress);
         }
 
-        if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
-            (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))) {
+        if (
+            (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
+            (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))
+        ) {
             if (!preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $cellAddress1, $matches)) {
                 return Functions::REF();
             }
