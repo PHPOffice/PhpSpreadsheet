@@ -16,8 +16,8 @@ cache:
     - $HOME/.composer/cache
 
 before_script:
-  # Deactivate xdebug
-  - phpenv config-rm xdebug.ini
+  # Deactivate xdebug (nightly isn't built with xdebug yet)
+  - if [[ $TRAVIS_PHP_VERSION != "nightly" ]]; then phpenv config-rm xdebug.ini; fi
   - composer install --ignore-platform-reqs
 
 script:
