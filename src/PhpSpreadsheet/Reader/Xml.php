@@ -2,8 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xml\PageSettings;
@@ -418,6 +420,20 @@ class Xml extends BaseReader
                 $spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
             }
 
+            // locally scoped defined names
+            if (isset($worksheet->Names[0])) {
+                foreach ($worksheet->Names[0] as $definedName) {
+                    $definedName_ss = $definedName->attributes($namespaces['ss']);
+                    $name = (string) $definedName_ss['Name'];
+                    $definedValue = (string) $definedName_ss['RefersTo'];
+                    $convertedValue = AddressHelper::convertFormulaToA1($definedValue);
+                    if ($convertedValue[0] === '=') {
+                        $convertedValue = substr($convertedValue, 1);
+                    }
+                    $spreadsheet->addDefinedName(DefinedName::createInstance($name, $spreadsheet->getActiveSheet(), $convertedValue, true));
+                }
+            }
+
             $columnID = 'A';
             if (isset($worksheet->Table->Column)) {
                 foreach ($worksheet->Table->Column as $columnData) {
@@ -532,58 +548,7 @@ class Xml extends BaseReader
                             if ($hasCalculatedValue) {
                                 $type = DataType::TYPE_FORMULA;
                                 $columnNumber = Coordinate::columnIndexFromString($columnID);
-                                if (substr($cellDataFormula, 0, 3) == 'of:') {
-                                    $cellDataFormula = substr($cellDataFormula, 3);
-                                    $temp = explode('"', $cellDataFormula);
-                                    $key = false;
-                                    foreach ($temp as &$value) {
-                                        //    Only replace in alternate array entries (i.e. non-quoted blocks)
-                                        if ($key = !$key) {
-                                            $value = str_replace(['[.', '.', ']'], '', $value);
-                                        }
-                                    }
-                                } else {
-                                    //    Convert R1C1 style references to A1 style references (but only when not quoted)
-                                    $temp = explode('"', $cellDataFormula);
-                                    $key = false;
-                                    foreach ($temp as &$value) {
-                                        //    Only replace in alternate array entries (i.e. non-quoted blocks)
-                                        if ($key = !$key) {
-                                            preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/', $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
-                                            //    Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
-                                            //        through the formula from left to right. Reversing means that we work right to left.through
-                                            //        the formula
-                                            $cellReferences = array_reverse($cellReferences);
-                                            //    Loop through each R1C1 style reference in turn, converting it to its A1 style equivalent,
-                                            //        then modify the formula to use that new reference
-                                            foreach ($cellReferences as $cellReference) {
-                                                $rowReference = $cellReference[2][0];
-                                                //    Empty R reference is the current row
-                                                if ($rowReference == '') {
-                                                    $rowReference = $rowID;
-                                                }
-                                                //    Bracketed R references are relative to the current row
-                                                if ($rowReference[0] == '[') {
-                                                    $rowReference = $rowID + trim($rowReference, '[]');
-                                                }
-                                                $columnReference = $cellReference[4][0];
-                                                //    Empty C reference is the current column
-                                                if ($columnReference == '') {
-                                                    $columnReference = $columnNumber;
-                                                }
-                                                //    Bracketed C references are relative to the current column
-                                                if (is_string($columnReference) && $columnReference[0] == '[') {
-                                                    $columnReference = $columnNumber + trim($columnReference, '[]');
-                                                }
-                                                $A1CellReference = Coordinate::stringFromColumnIndex($columnReference) . $rowReference;
-                                                $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
-                                            }
-                                        }
-                                    }
-                                }
-                                unset($value);
-                                //    Then rebuild the formula string
-                                $cellDataFormula = implode('"', $temp);
+                                $cellDataFormula = AddressHelper::convertFormulaToA1($cellDataFormula, $rowID, $columnNumber);
                             }
 
                             $spreadsheet->getActiveSheet()->getCell($columnID . $rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $cellValue), $type);
@@ -636,6 +601,21 @@ class Xml extends BaseReader
                 }
             }
             ++$worksheetID;
+        }
+
+        // Globally scoped defined names
+        $activeWorksheet = $spreadsheet->setActiveSheetIndex(0);
+        if (isset($xml->Names[0])) {
+            foreach ($xml->Names[0] as $definedName) {
+                $definedName_ss = $definedName->attributes($namespaces['ss']);
+                $name = (string) $definedName_ss['Name'];
+                $definedValue = (string) $definedName_ss['RefersTo'];
+                $convertedValue = AddressHelper::convertFormulaToA1($definedValue);
+                if ($convertedValue[0] === '=') {
+                    $convertedValue = substr($convertedValue, 1);
+                }
+                $spreadsheet->addDefinedName(DefinedName::createInstance($name, $activeWorksheet, $convertedValue));
+            }
         }
 
         // Return

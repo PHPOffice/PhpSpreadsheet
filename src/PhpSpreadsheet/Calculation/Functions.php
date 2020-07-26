@@ -647,7 +647,7 @@ class Functions
         preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
 
         $cellReference = $matches[6] . $matches[7];
-        $worksheetName = trim($matches[3], "'");
+        $worksheetName = str_replace("''", "'", trim($matches[2], "'"));
 
         $worksheet = (!empty($worksheetName))
             ? $pCell->getWorksheet()->getParent()->getSheetByName($worksheetName)

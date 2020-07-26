@@ -108,7 +108,7 @@ class Xls extends BaseWriter
     {
         $this->spreadsheet = $spreadsheet;
 
-        $this->parser = new Xls\Parser();
+        $this->parser = new Xls\Parser($spreadsheet);
     }
 
     /**

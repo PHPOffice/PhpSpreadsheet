@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Reader\Gnumeric\PageSetup;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
@@ -736,18 +736,19 @@ class Gnumeric extends BaseReader
     {
         //    Loop through definedNames (global named ranges)
         if (isset($gnmXML->Names)) {
-            foreach ($gnmXML->Names->Name as $namedRange) {
-                $name = (string) $namedRange->name;
-                $range = (string) $namedRange->value;
-                if (stripos($range, '#REF!') !== false) {
+            foreach ($gnmXML->Names->Name as $definedName) {
+                $name = (string) $definedName->name;
+                $value = (string) $definedName->value;
+                if (stripos($value, '#REF!') !== false) {
                     continue;
                 }
 
-                $range = Worksheet::extractSheetTitle($range, true);
-                $range[0] = trim($range[0], "'");
-                if ($worksheet = $this->spreadsheet->getSheetByName($range[0])) {
-                    $extractedRange = str_replace('$', '', $range[1]);
-                    $this->spreadsheet->addNamedRange(new NamedRange($name, $worksheet, $extractedRange));
+                [$worksheetName] = Worksheet::extractSheetTitle($value, true);
+                $worksheetName = trim($worksheetName, "'");
+                $worksheet = $this->spreadsheet->getSheetByName($worksheetName);
+                // Worksheet might still be null if we're only loading selected sheets rather than the full spreadsheet
+                if ($worksheet !== null) {
+                    $this->spreadsheet->addDefinedName(DefinedName::createInstance($name, $worksheet, $value));
                 }
             }
         }

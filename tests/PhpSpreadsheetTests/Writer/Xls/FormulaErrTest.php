@@ -14,7 +14,7 @@ class FormulaErrTest extends TestCase
         $obj = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet0 = $obj->setActiveSheetIndex(0);
         $sheet0->setCellValue('A1', 2);
-        $obj->addNamedRange(new NamedRange('DEFNAM', $sheet0, 'A1'));
+        $obj->addNamedRange(new NamedRange('DEFNAM', $sheet0, '$A$1'));
         $sheet0->setCellValue('B1', '=2*DEFNAM');
         $sheet0->setCellValue('C1', '=DEFNAM=2');
         $sheet0->setCellValue('D1', '=CONCAT("X",DEFNAM)');

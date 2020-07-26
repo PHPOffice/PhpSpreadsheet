@@ -112,4 +112,21 @@ class ReferenceHelperTest extends TestCase
     {
         return require 'tests/data/ReferenceHelperFormulaUpdates.php';
     }
+
+    /**
+     * @dataProvider providerMultipleWorksheetFormulaUpdates
+     */
+    public function testUpdateFormulaForMultipleWorksheets(string $formula, int $insertRows, int $insertColumns, string $expectedResult): void
+    {
+        $referenceHelper = ReferenceHelper::getInstance();
+
+        $result = $referenceHelper->updateFormulaReferencesAnyWorksheet($formula, $insertRows, $insertColumns);
+
+        self::assertSame($expectedResult, $result);
+    }
+
+    public function providerMultipleWorksheetFormulaUpdates(): array
+    {
+        return require 'tests/data/ReferenceHelperFormulaUpdatesMultipleSheet.php';
+    }
 }

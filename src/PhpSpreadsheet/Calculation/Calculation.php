@@ -7,7 +7,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\DefinedName;
+use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -27,8 +28,13 @@ class Calculation
     const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
-    //    Named Range of cells
-    const CALCULATION_REGEXP_NAMEDRANGE = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
+    //    Cell reference (with or without a sheet reference) ensuring absolute/relative
+    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
+    //    Cell ranges ensuring absolute/relative
+    const CALCULATION_REGEXP_COLUMNRANGE_RELATIVE = '(\$?[a-z]{1,3}):(\$?[a-z]{1,3})';
+    const CALCULATION_REGEXP_ROWRANGE_RELATIVE = '(\$?\d{1,7}):(\$?\d{1,7})';
+    //    Defined Names: Named Range of cells, or Named Formulae
+    const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
     //    Error
     const CALCULATION_REGEXP_ERROR = '\#[A-Z][A-Z0_\/]*[!\?]?';
 
@@ -127,6 +133,13 @@ class Calculation
      * @var string
      */
     public $formulaError;
+
+    /**
+     * Reference Helper.
+     *
+     * @var ReferenceHelper
+     */
+    private static $referenceHelper;
 
     /**
      * An array of the nested cell references accessed by the calculation engine, used for the debug log.
@@ -2660,6 +2673,7 @@ class Calculation
         $this->spreadsheet = $spreadsheet;
         $this->cyclicReferenceStack = new CyclicReferenceStack();
         $this->debugLog = new Logger($this->cyclicReferenceStack);
+        self::$referenceHelper = ReferenceHelper::getInstance();
     }
 
     private static function loadLocales(): void
@@ -3395,6 +3409,7 @@ class Calculation
         if (($cellID !== null) && ($this->getValueFromCache($wsCellReference, $cellValue))) {
             return $cellValue;
         }
+        $this->debugLog->writeDebugLog('Evaluating formula for cell ', $wsCellReference);
 
         if (($wsTitle[0] !== "\x00") && ($this->cyclicReferenceStack->onStack($wsCellReference))) {
             if ($this->cyclicFormulaCount <= 0) {
@@ -3416,6 +3431,7 @@ class Calculation
             }
         }
 
+        $this->debugLog->writeDebugLog('Formula for cell ', $wsCellReference, ' is ', $formula);
         //    Parse the formula onto the token stack and calculate the value
         $this->cyclicReferenceStack->push($wsCellReference);
         $cellValue = $this->processTokenStack($this->internalParseFormula($formula, $pCell), $cellID, $pCell);
@@ -3776,13 +3792,13 @@ class Calculation
         $pCellParent = ($pCell !== null) ? $pCell->getWorksheet() : null;
 
         $regexpMatchString = '/^(' . self::CALCULATION_REGEXP_FUNCTION .
-            '|' . self::CALCULATION_REGEXP_CELLREF .
-            '|' . self::CALCULATION_REGEXP_NUMBER .
-            '|' . self::CALCULATION_REGEXP_STRING .
-            '|' . self::CALCULATION_REGEXP_OPENBRACE .
-            '|' . self::CALCULATION_REGEXP_NAMEDRANGE .
-            '|' . self::CALCULATION_REGEXP_ERROR .
-            ')/sui';
+                                '|' . self::CALCULATION_REGEXP_CELLREF .
+                                '|' . self::CALCULATION_REGEXP_NUMBER .
+                                '|' . self::CALCULATION_REGEXP_STRING .
+                                '|' . self::CALCULATION_REGEXP_OPENBRACE .
+                                '|' . self::CALCULATION_REGEXP_DEFINEDNAME .
+                                '|' . self::CALCULATION_REGEXP_ERROR .
+                                ')/sui';
 
         //    Start with initialisation
         $index = 0;
@@ -3840,6 +3856,7 @@ class Calculation
             }
 
             $opCharacter = $formula[$index]; //    Get the first character of the value at the current index position
+
             if ((isset(self::$comparisonOperators[$opCharacter])) && (strlen($formula) > $index) && (isset(self::$comparisonOperators[$formula[$index + 1]]))) {
                 $opCharacter .= $formula[++$index];
             }
@@ -4131,8 +4148,8 @@ class Calculation
                     } elseif (($localeConstant = array_search(trim(strtoupper($val)), self::$localeBoolean)) !== false) {
                         $stackItemType = 'Constant';
                         $val = self::$excelConstants[$localeConstant];
-                    } elseif (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '.*/miu', $val, $match)) {
-                        $stackItemType = 'Named Range';
+                    } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', $val, $match)) {
+                        $stackItemType = 'Defined Name';
                         $stackItemReference = $val;
                     }
                     $details = $stack->getStackItem($stackItemType, $val, $stackItemReference, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
@@ -4171,18 +4188,20 @@ class Calculation
             while (($formula[$index] == "\n") || ($formula[$index] == "\r")) {
                 ++$index;
             }
+
             if ($formula[$index] == ' ') {
                 while ($formula[$index] == ' ') {
                     ++$index;
                 }
+
                 //    If we're expecting an operator, but only have a space between the previous and next operands (and both are
                 //        Cell References) then we have an INTERSECTION operator
                 if (
                     ($expectingOperator) &&
                     ((preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
                         ($output[count($output) - 1]['type'] == 'Cell Reference') ||
-                        (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '.*/miu', substr($formula, $index), $match)) &&
-                        ($output[count($output) - 1]['type'] == 'Named Range' || $output[count($output) - 1]['type'] == 'Value')
+                        (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', substr($formula, $index), $match)) &&
+                            ($output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
                     )
                 ) {
                     while (
@@ -4711,20 +4730,25 @@ class Calculation
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $token;
                     }
-                    // if the token is a named range, push the named range name onto the stack
-                } elseif (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '$/miu', $token, $matches)) {
-                    $namedRange = $matches[6];
-                    $this->debugLog->writeDebugLog('Evaluating Named Range ', $namedRange);
+                    // if the token is a named range or formula, evaluate it and push the result onto the stack
+                } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $token, $matches)) {
+                    $definedName = $matches[6];
+                    if ($pCell === null || $pCellWorksheet === null) {
+                        return $this->raiseFormulaError("undefined name '$token'");
+                    }
 
-                    $cellValue = $this->extractNamedRange($namedRange, ((null !== $pCell) ? $pCellWorksheet : null), false);
-                    $pCell->attach($pCellParent);
-                    $this->debugLog->writeDebugLog('Evaluation Result for named range ', $namedRange, ' is ', $this->showTypeDetails($cellValue));
-                    $stack->push('Named Range', $cellValue, $namedRange);
+                    $this->debugLog->writeDebugLog('Evaluating Defined Name ', $definedName);
+                    $namedRange = DefinedName::resolveName($definedName, $pCellWorksheet);
+                    if ($namedRange === null) {
+                        return $this->raiseFormulaError("undefined name '$definedName'");
+                    }
+
+                    $result = $this->evaluateDefinedName($pCell, $namedRange, $pCellWorksheet, $stack);
                     if (isset($storeKey)) {
-                        $branchStore[$storeKey] = $cellValue;
+                        $branchStore[$storeKey] = $result;
                     }
                 } else {
-                    return $this->raiseFormulaError("undefined variable '$token'");
+                    return $this->raiseFormulaError("undefined name '$token'");
                 }
             }
         }
@@ -5107,19 +5131,19 @@ class Calculation
             }
 
             // Named range?
-            $namedRange = NamedRange::resolveRange($pRange, $pSheet);
-            if ($namedRange !== null) {
-                $pSheet = $namedRange->getWorksheet();
-                $pRange = $namedRange->getRange();
-                $splitRange = Coordinate::splitRange($pRange);
-                //    Convert row and column references
-                if (ctype_alpha($splitRange[0][0])) {
-                    $pRange = $splitRange[0][0] . '1:' . $splitRange[0][1] . $namedRange->getWorksheet()->getHighestRow();
-                } elseif (ctype_digit($splitRange[0][0])) {
-                    $pRange = 'A' . $splitRange[0][0] . ':' . $namedRange->getWorksheet()->getHighestColumn() . $splitRange[0][1];
-                }
-            } else {
+            $namedRange = DefinedName::resolveName($pRange, $pSheet);
+            if ($namedRange === null) {
                 return Functions::REF();
+            }
+
+            $pSheet = $namedRange->getWorksheet();
+            $pRange = $namedRange->getValue();
+            $splitRange = Coordinate::splitRange($pRange);
+            //    Convert row and column references
+            if (ctype_alpha($splitRange[0][0])) {
+                $pRange = $splitRange[0][0] . '1:' . $splitRange[0][1] . $namedRange->getWorksheet()->getHighestRow();
+            } elseif (ctype_digit($splitRange[0][0])) {
+                $pRange = 'A' . $splitRange[0][0] . ':' . $namedRange->getWorksheet()->getHighestColumn() . $splitRange[0][1];
             }
 
             // Extract range
@@ -5239,5 +5263,60 @@ class Calculation
         }, $tokens);
 
         return '[ ' . implode(' | ', $tokensStr) . ' ]';
+    }
+
+    /**
+     * @return mixed|string
+     */
+    private function evaluateDefinedName(Cell $pCell, DefinedName $namedRange, Worksheet $pCellWorksheet, Stack $stack)
+    {
+        $definedNameScope = $namedRange->getScope();
+        if ($definedNameScope !== null && $definedNameScope !== $pCellWorksheet) {
+            // The defined name isn't in our current scope, so #REF
+            $result = Functions::REF();
+            $stack->push('Error', $result, $namedRange->getName());
+
+            return $result;
+        }
+
+        $definedNameValue = $namedRange->getValue();
+        $definedNameType = $namedRange->isFormula() ? 'Formula' : 'Range';
+        $definedNameWorksheet = $namedRange->getWorksheet();
+
+        if ($definedNameValue[0] !== '=') {
+            $definedNameValue = '=' . $definedNameValue;
+        }
+
+        $this->debugLog->writeDebugLog("Defined Name is a {$definedNameType} with a value of {$definedNameValue}");
+
+        $recursiveCalculationCell = ($definedNameWorksheet !== null && $definedNameWorksheet !== $pCellWorksheet)
+            ? $definedNameWorksheet->getCell('A1')
+            : $pCell;
+        $recursiveCalculationCellAddress = $recursiveCalculationCell !== null
+            ? $recursiveCalculationCell->getCoordinate()
+            : null;
+
+        // Adjust relative references in ranges and formulae so that we execute the calculation for the correct rows and columns
+        $definedNameValue = self::$referenceHelper->updateFormulaReferencesAnyWorksheet(
+            $definedNameValue,
+            Coordinate::columnIndexFromString($pCell->getColumn()) - 1,
+            $pCell->getRow() - 1
+        );
+
+        $this->debugLog->writeDebugLog("Value adjusted for relative references is {$definedNameValue}");
+
+        $recursiveCalculator = new self($this->spreadsheet);
+        $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
+        $recursiveCalculator->getDebugLog()->setEchoDebugLog($this->getDebugLog()->getEchoDebugLog());
+        $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $recursiveCalculationCellAddress, $recursiveCalculationCell);
+
+        if ($this->getDebugLog()->getWriteDebugLog()) {
+            $this->debugLog->mergeDebugLog(array_slice($recursiveCalculator->getDebugLog()->getLog(), 3));
+            $this->debugLog->writeDebugLog("Evaluation Result for Named {$definedNameType} {$namedRange->getName()} is {$this->showTypeDetails($result)}");
+        }
+
+        $stack->push('Defined Name', $result, $namedRange->getName());
+
+        return $result;
     }
 }
