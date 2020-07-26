@@ -1250,6 +1250,11 @@ class Calculation
             'functionCall' => [Statistical::class, 'HYPGEOMDIST'],
             'argumentCount' => '4',
         ],
+        'HYPGEOM.DIST' => [
+            'category' => Category::CATEGORY_STATISTICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '5',
+        ],
         'IF' => [
             'category' => Category::CATEGORY_LOGICAL,
             'functionCall' => [Logical::class, 'statementIf'],

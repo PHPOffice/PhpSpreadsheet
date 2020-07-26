@@ -1901,12 +1901,17 @@ class Statistical
      */
     public static function HYPGEOMDIST($sampleSuccesses, $sampleNumber, $populationSuccesses, $populationNumber)
     {
-        $sampleSuccesses = floor(Functions::flattenSingleValue($sampleSuccesses));
-        $sampleNumber = floor(Functions::flattenSingleValue($sampleNumber));
-        $populationSuccesses = floor(Functions::flattenSingleValue($populationSuccesses));
-        $populationNumber = floor(Functions::flattenSingleValue($populationNumber));
+        $sampleSuccesses = Functions::flattenSingleValue($sampleSuccesses);
+        $sampleNumber = Functions::flattenSingleValue($sampleNumber);
+        $populationSuccesses = Functions::flattenSingleValue($populationSuccesses);
+        $populationNumber = Functions::flattenSingleValue($populationNumber);
 
         if ((is_numeric($sampleSuccesses)) && (is_numeric($sampleNumber)) && (is_numeric($populationSuccesses)) && (is_numeric($populationNumber))) {
+            $sampleSuccesses = floor($sampleSuccesses);
+            $sampleNumber = floor($sampleNumber);
+            $populationSuccesses = floor($populationSuccesses);
+            $populationNumber = floor($populationNumber);
+
             if (($sampleSuccesses < 0) || ($sampleSuccesses > $sampleNumber) || ($sampleSuccesses > $populationSuccesses)) {
                 return Functions::NAN();
             }
