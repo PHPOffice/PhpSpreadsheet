@@ -7,8 +7,9 @@ php:
   - 7.4
   - nightly
 
-allow_failures:
-  - php: nightly # Allow all tests to fail for nightly
+matrix:
+  allow_failures:
+    - nightly # Allow all tests to fail for nightly
 
 cache:
   directories:
