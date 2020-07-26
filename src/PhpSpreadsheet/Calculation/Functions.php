@@ -67,7 +67,8 @@ class Functions
      */
     public static function setCompatibilityMode($compatibilityMode)
     {
-        if (($compatibilityMode == self::COMPATIBILITY_EXCEL) ||
+        if (
+            ($compatibilityMode == self::COMPATIBILITY_EXCEL) ||
             ($compatibilityMode == self::COMPATIBILITY_GNUMERIC) ||
             ($compatibilityMode == self::COMPATIBILITY_OPENOFFICE)
         ) {
@@ -106,7 +107,8 @@ class Functions
      */
     public static function setReturnDateType($returnDateType)
     {
-        if (($returnDateType == self::RETURNDATE_UNIX_TIMESTAMP) ||
+        if (
+            ($returnDateType == self::RETURNDATE_UNIX_TIMESTAMP) ||
             ($returnDateType == self::RETURNDATE_PHP_DATETIME_OBJECT) ||
             ($returnDateType == self::RETURNDATE_EXCEL)
         ) {

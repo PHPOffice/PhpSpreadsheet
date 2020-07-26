@@ -544,8 +544,10 @@ class Worksheet extends BIFFwriter
             // Write ConditionalFormattingTable records
             foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
                 foreach ($conditionalStyles as $conditional) {
-                    if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
-                        || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
+                    if (
+                        $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
+                        || $conditional->getConditionType() == Conditional::CONDITION_CELLIS
+                    ) {
                         if (!isset($arrConditional[$conditional->getHashCode()])) {
                             // This hash code has been handled
                             $arrConditional[$conditional->getHashCode()] = true;
@@ -3086,7 +3088,8 @@ class Worksheet extends BIFFwriter
             $bFormatFill = 0;
         }
         // Font
-        if ($conditional->getStyle()->getFont()->getName() != null
+        if (
+            $conditional->getStyle()->getFont()->getName() != null
             || $conditional->getStyle()->getFont()->getSize() != null
             || $conditional->getStyle()->getFont()->getBold() != null
             || $conditional->getStyle()->getFont()->getItalic() != null
@@ -3094,7 +3097,8 @@ class Worksheet extends BIFFwriter
             || $conditional->getStyle()->getFont()->getSubscript() != null
             || $conditional->getStyle()->getFont()->getUnderline() != null
             || $conditional->getStyle()->getFont()->getStrikethrough() != null
-            || $conditional->getStyle()->getFont()->getColor()->getARGB() != null) {
+            || $conditional->getStyle()->getFont()->getColor()->getARGB() != null
+        ) {
             $bFormatFont = 1;
         } else {
             $bFormatFont = 0;
@@ -4447,8 +4451,10 @@ class Worksheet extends BIFFwriter
         $arrConditional = [];
         foreach ($this->phpSheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
             foreach ($conditionalStyles as $conditional) {
-                if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
-                    || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
+                if (
+                    $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
+                    || $conditional->getConditionType() == Conditional::CONDITION_CELLIS
+                ) {
                     if (!in_array($conditional->getHashCode(), $arrConditional)) {
                         $arrConditional[] = $conditional->getHashCode();
                     }

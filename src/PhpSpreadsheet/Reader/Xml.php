@@ -400,8 +400,10 @@ class Xml extends BaseReader
         foreach ($xml_ss->Worksheet as $worksheet) {
             $worksheet_ss = $worksheet->attributes($namespaces['ss']);
 
-            if ((isset($this->loadSheetsOnly)) && (isset($worksheet_ss['Name'])) &&
-                (!in_array($worksheet_ss['Name'], $this->loadSheetsOnly))) {
+            if (
+                (isset($this->loadSheetsOnly)) && (isset($worksheet_ss['Name'])) &&
+                (!in_array($worksheet_ss['Name'], $this->loadSheetsOnly))
+            ) {
                 continue;
             }
 

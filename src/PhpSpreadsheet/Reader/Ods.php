@@ -317,9 +317,11 @@ class Ods extends BaseReader
                 $worksheetName = $worksheetDataSet->getAttributeNS($tableNs, 'name');
 
                 // Check loadSheetsOnly
-                if (isset($this->loadSheetsOnly)
+                if (
+                    isset($this->loadSheetsOnly)
                     && $worksheetName
-                    && !in_array($worksheetName, $this->loadSheetsOnly)) {
+                    && !in_array($worksheetName, $this->loadSheetsOnly)
+                ) {
                     continue;
                 }
 
@@ -624,7 +626,8 @@ class Ods extends BaseReader
                                 }
 
                                 // Merged cells
-                                if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')
+                                if (
+                                    $cellData->hasAttributeNS($tableNs, 'number-columns-spanned')
                                     || $cellData->hasAttributeNS($tableNs, 'number-rows-spanned')
                                 ) {
                                     if (($type !== DataType::TYPE_NULL) || (!$this->readDataOnly)) {

@@ -157,8 +157,10 @@ $spreadsheet->getActiveSheet()->setCellValue('E23', 'Mode of both ranges:')
 $helper->log('Calculated data');
 for ($col = 'B'; $col != 'G'; ++$col) {
     for ($row = 14; $row <= 41; ++$row) {
-        if ((($formula = $spreadsheet->getActiveSheet()->getCell($col . $row)->getValue()) !== null) &&
-            ($formula[0] == '=')) {
+        if (
+            (($formula = $spreadsheet->getActiveSheet()->getCell($col . $row)->getValue()) !== null) &&
+            ($formula[0] == '=')
+        ) {
             $helper->log('Value of ' . $col . $row . ' [' . $formula . ']: ' . $spreadsheet->getActiveSheet()->getCell($col . $row)->getCalculatedValue());
         }
     }

@@ -534,8 +534,10 @@ class Gnumeric extends BaseReader
 
             foreach ($sheet->Styles->StyleRegion as $styleRegion) {
                 $styleAttributes = $styleRegion->attributes();
-                if (($styleAttributes['startRow'] <= $maxRow) &&
-                    ($styleAttributes['startCol'] <= $maxCol)) {
+                if (
+                    ($styleAttributes['startRow'] <= $maxRow) &&
+                    ($styleAttributes['startCol'] <= $maxCol)
+                ) {
                     $startColumn = Coordinate::stringFromColumnIndex((int) $styleAttributes['startCol'] + 1);
                     $startRow = $styleAttributes['startRow'] + 1;
 

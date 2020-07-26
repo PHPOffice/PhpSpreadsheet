@@ -129,13 +129,17 @@ class ReferenceHelper
         [$cellColumn, $cellRow] = Coordinate::coordinateFromString($cellAddress);
         $cellColumnIndex = Coordinate::columnIndexFromString($cellColumn);
         //    Is cell within the range of rows/columns if we're deleting
-        if ($pNumRows < 0 &&
+        if (
+            $pNumRows < 0 &&
             ($cellRow >= ($beforeRow + $pNumRows)) &&
-            ($cellRow < $beforeRow)) {
+            ($cellRow < $beforeRow)
+        ) {
             return true;
-        } elseif ($pNumCols < 0 &&
+        } elseif (
+            $pNumCols < 0 &&
             ($cellColumnIndex >= ($beforeColumnIndex + $pNumCols)) &&
-            ($cellColumnIndex < $beforeColumnIndex)) {
+            ($cellColumnIndex < $beforeColumnIndex)
+        ) {
             return true;
         }
 

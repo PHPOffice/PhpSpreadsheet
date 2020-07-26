@@ -502,8 +502,10 @@ class Xlsx extends BaseReader
                                 // We shouldn't override any of the built-in MS Excel values (values below id 164)
                                 //  But there's a lot of naughty homebrew xlsx writers that do use "reserved" id values that aren't actually used
                                 //  So we make allowance for them rather than lose formatting masks
-                                if ((int) $xf['numFmtId'] < 164 &&
-                                    NumberFormat::builtInFormatCode((int) $xf['numFmtId']) !== '') {
+                                if (
+                                    (int) $xf['numFmtId'] < 164 &&
+                                    NumberFormat::builtInFormatCode((int) $xf['numFmtId']) !== ''
+                                ) {
                                     $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
                                 }
                             }
@@ -1720,12 +1722,16 @@ class Xlsx extends BaseReader
                         if (isset($run->rPr->color)) {
                             $objText->getFont()->setColor(new Color(self::readColor($run->rPr->color)));
                         }
-                        if ((isset($run->rPr->b['val']) && self::boolean((string) $run->rPr->b['val'])) ||
-                            (isset($run->rPr->b) && !isset($run->rPr->b['val']))) {
+                        if (
+                            (isset($run->rPr->b['val']) && self::boolean((string) $run->rPr->b['val'])) ||
+                            (isset($run->rPr->b) && !isset($run->rPr->b['val']))
+                        ) {
                             $objText->getFont()->setBold(true);
                         }
-                        if ((isset($run->rPr->i['val']) && self::boolean((string) $run->rPr->i['val'])) ||
-                            (isset($run->rPr->i) && !isset($run->rPr->i['val']))) {
+                        if (
+                            (isset($run->rPr->i['val']) && self::boolean((string) $run->rPr->i['val'])) ||
+                            (isset($run->rPr->i) && !isset($run->rPr->i['val']))
+                        ) {
                             $objText->getFont()->setItalic(true);
                         }
                         if (isset($run->rPr->vertAlign, $run->rPr->vertAlign['val'])) {
@@ -1742,8 +1748,10 @@ class Xlsx extends BaseReader
                         } elseif (isset($run->rPr->u, $run->rPr->u['val'])) {
                             $objText->getFont()->setUnderline((string) $run->rPr->u['val']);
                         }
-                        if ((isset($run->rPr->strike['val']) && self::boolean((string) $run->rPr->strike['val'])) ||
-                            (isset($run->rPr->strike) && !isset($run->rPr->strike['val']))) {
+                        if (
+                            (isset($run->rPr->strike['val']) && self::boolean((string) $run->rPr->strike['val'])) ||
+                            (isset($run->rPr->strike) && !isset($run->rPr->strike['val']))
+                        ) {
                             $objText->getFont()->setStrikethrough(true);
                         }
                     }

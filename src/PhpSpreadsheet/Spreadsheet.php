@@ -396,8 +396,10 @@ class Spreadsheet
 
                 break;
             case 'types':
-                if (is_array($this->ribbonBinObjects) &&
-                    isset($this->ribbonBinObjects['data']) && is_array($this->ribbonBinObjects['data'])) {
+                if (
+                    is_array($this->ribbonBinObjects) &&
+                    isset($this->ribbonBinObjects['data']) && is_array($this->ribbonBinObjects['data'])
+                ) {
                     $tmpTypes = array_keys($this->ribbonBinObjects['data']);
                     $ReturnData = array_unique(array_map([$this, 'getExtensionOnly'], $tmpTypes));
                 } else {
@@ -657,8 +659,10 @@ class Spreadsheet
         array_splice($this->workSheetCollection, $pIndex, 1);
 
         // Adjust active sheet index if necessary
-        if (($this->activeSheetIndex >= $pIndex) &&
-            ($pIndex > count($this->workSheetCollection) - 1)) {
+        if (
+            ($this->activeSheetIndex >= $pIndex) &&
+            ($pIndex > count($this->workSheetCollection) - 1)
+        ) {
             --$this->activeSheetIndex;
         }
     }

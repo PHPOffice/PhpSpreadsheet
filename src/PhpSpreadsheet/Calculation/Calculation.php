@@ -2754,9 +2754,11 @@ class Calculation
      */
     public static function setArrayReturnType($returnType)
     {
-        if (($returnType == self::RETURN_ARRAY_AS_VALUE) ||
+        if (
+            ($returnType == self::RETURN_ARRAY_AS_VALUE) ||
             ($returnType == self::RETURN_ARRAY_AS_ERROR) ||
-            ($returnType == self::RETURN_ARRAY_AS_ARRAY)) {
+            ($returnType == self::RETURN_ARRAY_AS_ARRAY)
+        ) {
             self::$returnArrayAsType = $returnType;
 
             return true;
@@ -3856,10 +3858,12 @@ class Calculation
             } elseif ((($opCharacter == '~') || ($opCharacter == '|')) && (!$isOperandOrFunction)) {    //    We have to explicitly deny a tilde or pipe, because they are legal
                 return $this->raiseFormulaError("Formula Error: Illegal character '~'"); //        on the stack but not in the input expression
             } elseif ((isset(self::$operators[$opCharacter]) || $isOperandOrFunction) && $expectingOperator) {    //    Are we putting an operator on the stack?
-                while ($stack->count() > 0 &&
+                while (
+                    $stack->count() > 0 &&
                     ($o2 = $stack->last()) &&
                     isset(self::$operators[$o2['value']]) &&
-                    @(self::$operatorAssociativity[$opCharacter] ? self::$operatorPrecedence[$opCharacter] < self::$operatorPrecedence[$o2['value']] : self::$operatorPrecedence[$opCharacter] <= self::$operatorPrecedence[$o2['value']])) {
+                    @(self::$operatorAssociativity[$opCharacter] ? self::$operatorPrecedence[$opCharacter] < self::$operatorPrecedence[$o2['value']] : self::$operatorPrecedence[$opCharacter] <= self::$operatorPrecedence[$o2['value']])
+                ) {
                     $output[] = $stack->pop(); //    Swap operands and higher precedence operators from the stack to the output
                 }
 
@@ -3960,7 +3964,8 @@ class Calculation
                 }
                 ++$index;
             } elseif ($opCharacter == ',') {            //    Is this the separator for function arguments?
-                if (!empty($pendingStoreKey) &&
+                if (
+                    !empty($pendingStoreKey) &&
                     $parenthesisDepthMap[$pendingStoreKey] == 0
                 ) {
                     // We must go to the IF next argument
@@ -4088,14 +4093,18 @@ class Calculation
                         if ($pCellParent !== null && $rangeSheetRef !== $pCellParent->getTitle()) {
                             $refSheet = $pCellParent->getParent()->getSheetByName($rangeSheetRef);
                         }
-                        if ((is_int($startRowColRef)) && (ctype_digit($val)) &&
-                            ($startRowColRef <= 1048576) && ($val <= 1048576)) {
+                        if (
+                            (is_int($startRowColRef)) && (ctype_digit($val)) &&
+                            ($startRowColRef <= 1048576) && ($val <= 1048576)
+                        ) {
                             //    Row range
                             $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestColumn() : 'XFD'; //    Max 16,384 columns for Excel2007
                             $output[count($output) - 1]['value'] = $rangeWS1 . 'A' . $startRowColRef;
                             $val = $rangeWS2 . $endRowColRef . $val;
-                        } elseif ((ctype_alpha($startRowColRef)) && (ctype_alpha($val)) &&
-                            (strlen($startRowColRef) <= 3) && (strlen($val) <= 3)) {
+                        } elseif (
+                            (ctype_alpha($startRowColRef)) && (ctype_alpha($val)) &&
+                            (strlen($startRowColRef) <= 3) && (strlen($val) <= 3)
+                        ) {
                             //    Column range
                             $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestRow() : 1048576; //    Max 1,048,576 rows for Excel2007
                             $output[count($output) - 1]['value'] = $rangeWS1 . strtoupper($startRowColRef) . '1';
@@ -4168,16 +4177,20 @@ class Calculation
                 }
                 //    If we're expecting an operator, but only have a space between the previous and next operands (and both are
                 //        Cell References) then we have an INTERSECTION operator
-                if (($expectingOperator) &&
+                if (
+                    ($expectingOperator) &&
                     ((preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
                         ($output[count($output) - 1]['type'] == 'Cell Reference') ||
                         (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '.*/miu', substr($formula, $index), $match)) &&
                         ($output[count($output) - 1]['type'] == 'Named Range' || $output[count($output) - 1]['type'] == 'Value')
-                    )) {
-                    while ($stack->count() > 0 &&
+                    )
+                ) {
+                    while (
+                        $stack->count() > 0 &&
                         ($o2 = $stack->last()) &&
                         isset(self::$operators[$o2['value']]) &&
-                        @(self::$operatorAssociativity[$opCharacter] ? self::$operatorPrecedence[$opCharacter] < self::$operatorPrecedence[$o2['value']] : self::$operatorPrecedence[$opCharacter] <= self::$operatorPrecedence[$o2['value']])) {
+                        @(self::$operatorAssociativity[$opCharacter] ? self::$operatorPrecedence[$opCharacter] < self::$operatorPrecedence[$o2['value']] : self::$operatorPrecedence[$opCharacter] <= self::$operatorPrecedence[$o2['value']])
+                    ) {
                         $output[] = $stack->pop(); //    Swap operands and higher precedence operators from the stack to the output
                     }
                     $stack->push('Binary Operator', '|'); //    Put an Intersect Operator on the stack
@@ -4252,7 +4265,8 @@ class Calculation
                     $storeValue = end($wrappedItem);
                 }
 
-                if (isset($storeValue)
+                if (
+                    isset($storeValue)
                     && (
                         !$storeValueAsBool
                         || Functions::isError($storeValue)
@@ -4286,7 +4300,8 @@ class Calculation
                     $wrappedItem = end($storeValue);
                     $storeValue = end($wrappedItem);
                 }
-                if (isset($storeValue)
+                if (
+                    isset($storeValue)
                     && (
                         $storeValueAsBool
                         || Functions::isError($storeValue)
@@ -4623,9 +4638,11 @@ class Calculation
                     for ($i = 0; $i < $argCount; ++$i) {
                         $arg = $stack->pop();
                         $a = $argCount - $i - 1;
-                        if (($passByReference) &&
+                        if (
+                            ($passByReference) &&
                             (isset(self::$phpSpreadsheetFunctions[$functionName]['passByReference'][$a])) &&
-                            (self::$phpSpreadsheetFunctions[$functionName]['passByReference'][$a])) {
+                            (self::$phpSpreadsheetFunctions[$functionName]['passByReference'][$a])
+                        ) {
                             if ($arg['reference'] === null) {
                                 $args[] = $cellID;
                                 if ($functionName != 'MKMATRIX') {
@@ -4949,9 +4966,11 @@ class Calculation
                 $result = '#VALUE!';
             }
         } else {
-            if ((Functions::getCompatibilityMode() != Functions::COMPATIBILITY_OPENOFFICE) &&
+            if (
+                (Functions::getCompatibilityMode() != Functions::COMPATIBILITY_OPENOFFICE) &&
                 ((is_string($operand1) && !is_numeric($operand1) && strlen($operand1) > 0) ||
-                    (is_string($operand2) && !is_numeric($operand2) && strlen($operand2) > 0))) {
+                    (is_string($operand2) && !is_numeric($operand2) && strlen($operand2) > 0))
+            ) {
                 $result = Functions::VALUE();
             } else {
                 //    If we're dealing with non-matrix operations, execute the necessary operation

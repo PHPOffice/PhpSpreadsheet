@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PHPUnit\Framework\TestCase;
 
