@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
+use PhpOffice\PhpSpreadsheet\Reader\Xml\PageSettings;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -569,7 +570,7 @@ class Xml extends BaseReader
                                                     $columnReference = $columnNumber;
                                                 }
                                                 //    Bracketed C references are relative to the current column
-                                                if ($columnReference[0] == '[') {
+                                                if (is_string($columnReference) && $columnReference[0] == '[') {
                                                     $columnReference = $columnNumber + trim($columnReference, '[]');
                                                 }
                                                 $A1CellReference = Coordinate::stringFromColumnIndex($columnReference) . $rowReference;
@@ -625,6 +626,11 @@ class Xml extends BaseReader
                     }
 
                     ++$rowID;
+                }
+
+                $xmlX = $worksheet->children($namespaces['x']);
+                if (isset($xmlX->WorksheetOptions)) {
+                    (new PageSettings($xmlX, $namespaces))->loadPageSettings($spreadsheet);
                 }
             }
             ++$worksheetID;

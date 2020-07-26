@@ -11,6 +11,7 @@ use DOMNode;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Reader\Ods\PageSettings;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\Properties as DocumentProperties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -276,7 +277,17 @@ class Ods extends BaseReader
 
         (new DocumentProperties($spreadsheet))->load($xml, $namespacesMeta);
 
-        // Content
+        // Styles
+
+        $dom = new DOMDocument('1.01', 'UTF-8');
+        $dom->loadXML(
+            $this->securityScanner->scan($zip->getFromName('styles.xml')),
+            Settings::getLibXmlLoaderOptions()
+        );
+
+        $pageSettings = new PageSettings($dom);
+
+        // Main Content
 
         $dom = new DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
@@ -288,6 +299,10 @@ class Ods extends BaseReader
         $tableNs = $dom->lookupNamespaceUri('table');
         $textNs = $dom->lookupNamespaceUri('text');
         $xlinkNs = $dom->lookupNamespaceUri('xlink');
+
+        $pageSettings->readStyleCrossReferences($dom);
+
+        // Content
 
         $spreadsheets = $dom->getElementsByTagNameNS($officeNs, 'body')
             ->item(0)
@@ -309,6 +324,8 @@ class Ods extends BaseReader
                     continue;
                 }
 
+                $worksheetStyleName = $worksheetDataSet->getAttributeNS($tableNs, 'style-name');
+
                 // Create sheet
                 if ($worksheetID > 0) {
                     $spreadsheet->createSheet(); // First sheet is added by default
@@ -319,7 +336,7 @@ class Ods extends BaseReader
                     // Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
                     // formula cells... during the load, all formulae should be correct, and we're simply
                     // bringing the worksheet name in line with the formula, not the reverse
-                    $spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
+                    $spreadsheet->getActiveSheet()->setTitle((string) $worksheetName, false, false);
                 }
 
                 // Go through every child of table element
@@ -641,6 +658,7 @@ class Ods extends BaseReader
                             break;
                     }
                 }
+                $pageSettings->setPrintSettingsForWorksheet($spreadsheet->getActiveSheet(), $worksheetStyleName);
                 ++$worksheetID;
             }
         }

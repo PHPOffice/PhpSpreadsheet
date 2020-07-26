@@ -69,6 +69,9 @@ class PageSetup extends BaseParserClass
                 self::boolean((string) $xmlSheet->pageSetup['useFirstPageNumber'])) {
                 $docPageSetup->setFirstPageNumber((int) ($xmlSheet->pageSetup['firstPageNumber']));
             }
+            if (isset($xmlSheet->pageSetup['pageOrder'])) {
+                $docPageSetup->setPageOrder((string) $xmlSheet->pageSetup['pageOrder']);
+            }
 
             $relAttributes = $xmlSheet->pageSetup->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
             if (isset($relAttributes['id'])) {
