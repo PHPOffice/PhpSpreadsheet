@@ -11,6 +11,7 @@ use DOMNode;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\PageSettings;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\Properties as DocumentProperties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
@@ -76,11 +77,9 @@ class Ods extends BaseReader
             }
 
             $zip->close();
-
-            return $mimeType === 'application/vnd.oasis.opendocument.spreadsheet';
         }
 
-        return false;
+        return $mimeType === 'application/vnd.oasis.opendocument.spreadsheet';
     }
 
     /**
@@ -95,8 +94,8 @@ class Ods extends BaseReader
         File::assertFile($pFilename);
 
         $zip = new ZipArchive();
-        if (!$zip->open($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
+        if ($zip->open($pFilename) !== true) {
+            throw new ReaderException('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
 
         $worksheetNames = [];
@@ -149,8 +148,8 @@ class Ods extends BaseReader
         $worksheetInfo = [];
 
         $zip = new ZipArchive();
-        if (!$zip->open($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
+        if ($zip->open($pFilename) !== true) {
+            throw new ReaderException('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
 
         $xml = new XMLReader();
@@ -198,18 +197,18 @@ class Ods extends BaseReader
                             // Step into the row
                             $xml->read();
                             do {
+                                $doread = true;
                                 if ($xml->name == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                     if (!$xml->isEmptyElement) {
                                         ++$currCells;
                                         $xml->next();
-                                    } else {
-                                        $xml->read();
+                                        $doread = false;
                                     }
                                 } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                     $mergeSize = $xml->getAttribute('table:number-columns-repeated');
                                     $currCells += (int) $mergeSize;
-                                    $xml->read();
-                                } else {
+                                }
+                                if ($doread) {
                                     $xml->read();
                                 }
                             } while ($xml->name != 'table:table-row');
@@ -258,13 +257,13 @@ class Ods extends BaseReader
         $GMT = new DateTimeZone('UTC');
 
         $zip = new ZipArchive();
-        if (!$zip->open($pFilename)) {
+        if ($zip->open($pFilename) !== true) {
             throw new Exception("Could not open {$pFilename} for reading! Error opening file.");
         }
 
         // Meta
 
-        $xml = simplexml_load_string(
+        $xml = @simplexml_load_string(
             $this->securityScanner->scan($zip->getFromName('meta.xml')),
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
@@ -465,9 +464,10 @@ class Ods extends BaseReader
                                             $type = DataType::TYPE_NUMERIC;
                                             $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
 
-                                            if (floor($dataValue) == $dataValue) {
-                                                $dataValue = (int) $dataValue;
-                                            }
+                                            // percentage should always be float
+                                            //if (floor($dataValue) == $dataValue) {
+                                            //    $dataValue = (int) $dataValue;
+                                            //}
                                             $formatting = NumberFormat::FORMAT_PERCENTAGE_00;
 
                                             break;
@@ -488,8 +488,6 @@ class Ods extends BaseReader
                                             if (floor($dataValue) == $dataValue) {
                                                 if ($dataValue == (int) $dataValue) {
                                                     $dataValue = (int) $dataValue;
-                                                } else {
-                                                    $dataValue = (float) $dataValue;
                                                 }
                                             }
 

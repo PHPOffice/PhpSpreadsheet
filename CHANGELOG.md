@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing.
+- Improve Coverage for ODS Reader [#1545](https://github.com/phpoffice/phpspreadsheet/pull/1544)
 
 ### Deprecated
 
