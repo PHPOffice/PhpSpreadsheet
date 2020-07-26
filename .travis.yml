@@ -9,7 +9,7 @@ php:
 
 matrix:
   allow_failures:
-    - nightly # Allow all tests to fail for nightly
+  - nightly # Allow all tests to fail for nightly
 
 cache:
   directories:
