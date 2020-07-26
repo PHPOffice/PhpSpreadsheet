@@ -457,11 +457,14 @@ class Properties
      */
     public function setCustomProperty($propertyName, $propertyValue = '', $propertyType = null)
     {
-        if (($propertyType === null) || (!in_array($propertyType, [self::PROPERTY_TYPE_INTEGER,
-            self::PROPERTY_TYPE_FLOAT,
-            self::PROPERTY_TYPE_STRING,
-            self::PROPERTY_TYPE_DATE,
-            self::PROPERTY_TYPE_BOOLEAN, ]))) {
+        if (
+            ($propertyType === null) || (!in_array($propertyType, [self::PROPERTY_TYPE_INTEGER,
+                self::PROPERTY_TYPE_FLOAT,
+                self::PROPERTY_TYPE_STRING,
+                self::PROPERTY_TYPE_DATE,
+                self::PROPERTY_TYPE_BOOLEAN,
+            ]))
+        ) {
             if ($propertyValue === null) {
                 $propertyType = self::PROPERTY_TYPE_STRING;
             } elseif (is_float($propertyValue)) {

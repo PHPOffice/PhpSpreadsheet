@@ -265,6 +265,8 @@ class Cell
             } catch (Exception $ex) {
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
+                } elseif (strpos($ex->getMessage(), 'undefined name') !== false) {
+                    return \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAME();
                 }
 
                 throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(

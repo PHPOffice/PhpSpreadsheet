@@ -18,7 +18,7 @@ before_script:
   - composer install --ignore-platform-reqs
 
 script:
-  - ./vendor/bin/phpunit
+  - ./vendor/bin/phpunit --color=always --coverage-text
 
 jobs:
   include:
@@ -27,7 +27,7 @@ jobs:
       php: 7.4
       script:
         - ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run
-        - ./vendor/bin/phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n
+        - ./vendor/bin/phpcs
 
     - stage: Coverage
       php: 7.4
