@@ -678,6 +678,9 @@ class PageSetup
             throw new PhpSpreadsheetException('Cell coordinate must not be absolute.');
         }
         $value = strtoupper($value);
+        if (!$this->printArea) {
+            $index = 0;
+        }
 
         if ($method == self::SETPRINTRANGE_OVERWRITE) {
             if ($index == 0) {
@@ -695,7 +698,7 @@ class PageSetup
             }
         } elseif ($method == self::SETPRINTRANGE_INSERT) {
             if ($index == 0) {
-                $this->printArea .= ($this->printArea == '') ? $value : ',' . $value;
+                $this->printArea = $this->printArea ? ($this->printArea . ',' . $value) : $value;
             } else {
                 $printAreas = explode(',', $this->printArea);
                 if ($index < 0) {
