@@ -28,14 +28,10 @@
     "scripts": {
         "check": [
             "php-cs-fixer fix --ansi --dry-run --diff",
-            "phpcs",
             "phpunit --color=always"
         ],
         "fix": [
             "php-cs-fixer fix --ansi"
-        ],
-        "versions": [
-            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 7.2- -n"
         ]
     },
     "require": {
@@ -65,9 +61,7 @@
         "friendsofphp/php-cs-fixer": "^2.16",
         "jpgraph/jpgraph": "^4.0",
         "mpdf/mpdf": "^8.0",
-        "phpcompatibility/php-compatibility": "^9.3",
         "phpunit/phpunit": "^8.5",
-        "squizlabs/php_codesniffer": "^3.5",
         "tecnickcom/tcpdf": "^6.3"
     },
     "suggest": {

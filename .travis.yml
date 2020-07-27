@@ -26,7 +26,6 @@ jobs:
       php: 7.4
       script:
         - ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run
-        - ./vendor/bin/phpcs
 
     - stage: Coverage
       php: 7.4
