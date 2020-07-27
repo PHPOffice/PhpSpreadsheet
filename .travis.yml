@@ -7,27 +7,14 @@ php:
   - 7.4
   - nightly
 
+stages:
+  - name: Code style
+  - name: Coverage
+  - name: API documentations
+
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: nightly # Allow tests to fail for nightly
-
-cache:
-  directories:
-    - vendor
-    - $HOME/.composer/cache
-
-before_script:
-  # Deactivate xdebug (nightly isn't built with xdebug yet)
-  - if [[ $TRAVIS_PHP_VERSION != "nightly" ]]; then phpenv config-rm xdebug.ini; fi
-  - composer install --ignore-platform-reqs
-
-script:
-  - ./vendor/bin/phpunit --color=always --coverage-text
-
-jobs:
   include:
-
     - stage: Code style
       php: 7.4
       script:
@@ -55,3 +42,19 @@ jobs:
         skip-cleanup: true
         local-dir: docs/api
         github-token: $GITHUB_TOKEN
+
+  allow_failures:
+    - php: nightly # Allow tests to fail for nightly
+
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
+before_script:
+  # Deactivate xdebug (nightly isn't built with xdebug yet)
+  - if [[ $TRAVIS_PHP_VERSION != "nightly" ]]; then phpenv config-rm xdebug.ini; fi
+  - composer install --ignore-platform-reqs
+
+script:
+  - ./vendor/bin/phpunit --color=always --coverage-text
