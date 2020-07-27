@@ -8,12 +8,15 @@ php:
   - nightly
 
 stages:
+  - name: Tests
   - name: Code style
   - name: Coverage
   - name: API documentations
 
 matrix:
   fast_finish: true
+  allow_failures:
+    - php: nightly # Allow tests to fail for nightly
   include:
     - stage: Code style
       php: 7.4
@@ -42,9 +45,6 @@ matrix:
         skip-cleanup: true
         local-dir: docs/api
         github-token: $GITHUB_TOKEN
-
-  allow_failures:
-    - php: nightly # Allow tests to fail for nightly
 
 cache:
   directories:
