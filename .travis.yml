@@ -13,11 +13,10 @@ matrix:
     - php: nightly # Allow tests to fail for nightly
   include:
     - stage: Tests
-      php:
-        - 7.2
-        - 7.3
-        - 7.4
-        - nightly
+      - php: 7.2
+      - php: 7.3
+      - php: 7.4
+      - php: nightly
       script:
         - ./vendor/bin/phpunit --color=always --coverage-text
     - stage: Code Style
