@@ -2019,11 +2019,12 @@ class Statistical
     public static function LARGE(...$args)
     {
         $aArgs = Functions::flattenArray($args);
-
-        // Calculate
-        $entry = floor(array_pop($aArgs));
+        $entry = array_pop($aArgs);
 
         if ((is_numeric($entry)) && (!is_string($entry))) {
+            $entry = (int) floor($entry);
+
+            // Calculate
             $mArgs = [];
             foreach ($aArgs as $arg) {
                 // Is it a numeric value?
@@ -2032,7 +2033,7 @@ class Statistical
                 }
             }
             $count = self::COUNT($mArgs);
-            $entry = floor(--$entry);
+            --$entry;
             if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
                 return Functions::NAN();
             }
@@ -3169,6 +3170,8 @@ class Statistical
         $entry = array_pop($aArgs);
 
         if ((is_numeric($entry)) && (!is_string($entry))) {
+            $entry = (int) floor($entry);
+
             $mArgs = [];
             foreach ($aArgs as $arg) {
                 // Is it a numeric value?
@@ -3177,7 +3180,7 @@ class Statistical
                 }
             }
             $count = self::COUNT($mArgs);
-            $entry = floor(--$entry);
+            --$entry;
             if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
                 return Functions::NAN();
             }
