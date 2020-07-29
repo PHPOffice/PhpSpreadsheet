@@ -11,8 +11,10 @@ class LogEstTest extends TestCase
      * @dataProvider providerLOGEST
      *
      * @param mixed $expectedResult
-     * @param mixed $values
-     * @param mixed $position
+     * @param mixed $xValues
+     * @param mixed $yValues
+     * @param mixed $const
+     * @param mixed $stats
      */
     public function testLOGEST($expectedResult, $yValues, $xValues, $const, $stats): void
     {

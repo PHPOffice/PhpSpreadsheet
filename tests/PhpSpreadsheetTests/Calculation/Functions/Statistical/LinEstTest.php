@@ -11,8 +11,10 @@ class LinEstTest extends TestCase
      * @dataProvider providerLINEST
      *
      * @param mixed $expectedResult
-     * @param mixed $values
-     * @param mixed $position
+     * @param mixed $xValues
+     * @param mixed $yValues
+     * @param mixed $const
+     * @param mixed $stats
      */
     public function testLINEST($expectedResult, $yValues, $xValues, $const, $stats): void
     {
