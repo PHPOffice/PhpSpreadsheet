@@ -1149,7 +1149,7 @@ class MathTrig
      *
      * Returns the sum of a power series
      *
-     * @param array An array of mixed values for the Data Series
+     * @param mixed[] $args An array of mixed values for the Data Series
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1280,7 +1280,7 @@ class MathTrig
      *            Numbers 101 to 111 shadow the functions of 1 to 11
      *                    but ignore any values in the range that are
      *                    in hidden rows or columns
-     * @param mixed[] An of mixed Data Series
+     * @param mixed[] $args A mixed data series of values
      *
      * @return float|string
      */
