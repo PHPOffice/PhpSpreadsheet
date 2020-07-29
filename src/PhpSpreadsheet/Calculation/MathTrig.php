@@ -871,7 +871,7 @@ class MathTrig
      *
      * Returns the ratio of the factorial of a sum of values to the product of factorials.
      *
-     * @param mixed[] An array of mixed values for the Data Series
+     * @param mixed[] $args An array of mixed values for the Data Series
      *
      * @return float|string The result, or a string containing an error
      */
