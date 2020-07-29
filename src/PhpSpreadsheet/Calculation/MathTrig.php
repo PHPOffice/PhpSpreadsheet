@@ -1273,7 +1273,7 @@ class MathTrig
      *
      * Returns a subtotal in a list or database.
      *
-     * @param integer $functionType
+     * @param int $functionType
      *            A number 1 to 11 that specifies which function to
      *                    use in calculating subtotals within a range
      *                    list
