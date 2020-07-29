@@ -871,7 +871,7 @@ class MathTrig
      *
      * Returns the ratio of the factorial of a sum of values to the product of factorials.
      *
-     * @param array of mixed Data Series
+     * @param array An array of mixed values for the Data Series
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1149,7 +1149,7 @@ class MathTrig
      *
      * Returns the sum of a power series
      *
-     * @param array of mixed Data Series
+     * @param array An array of mixed values for the Data Series
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1273,7 +1273,7 @@ class MathTrig
      *
      * Returns a subtotal in a list or database.
      *
-     * @param int the number 1 to 11 that specifies which function to
+     * @param int A number 1 to 11 that specifies which function to
      *                    use in calculating subtotals within a range
      *                    list
      *            Numbers 101 to 111 shadow the functions of 1 to 11

@@ -98,7 +98,7 @@ class TextData
      *
      * @param string $characters Value
      *
-     * @return int
+     * @return int|string A string if arguments are invalid
      */
     public static function ASCIICODE($characters)
     {
@@ -543,7 +543,7 @@ class TextData
      *
      * @param mixed $value Value to check
      *
-     * @return bool
+     * @return float|int|string A string if arguments are invalid
      */
     public static function VALUE($value = '')
     {
