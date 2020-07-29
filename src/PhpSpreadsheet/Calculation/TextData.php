@@ -543,7 +543,7 @@ class TextData
      *
      * @param mixed $value Value to check
      *
-     * @return float|int|string A string if arguments are invalid
+     * @return \DateTimeInterface|float|int|string A string if arguments are invalid
      */
     public static function VALUE($value = '')
     {

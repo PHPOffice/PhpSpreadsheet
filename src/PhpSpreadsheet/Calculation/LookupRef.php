@@ -160,7 +160,7 @@ class LookupRef
      *
      * @param null|array|string $cellAddress A reference to a range of cells for which you want the row numbers
      *
-     * @return int|int[]|string
+     * @return int|mixed[]|string
      */
     public static function ROW($cellAddress = null)
     {
