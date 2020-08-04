@@ -2321,16 +2321,16 @@ class Engineering
             if ($value == (int) ($value)) {
                 $value = (int) ($value);
                 if (($value > 2 ** 48 - 1) || ($value < 0)) {
-                    throw new Exception(Functions::NAN());
+                    throw new Exception(Functions::NAN()->errorName());
                 }
 
                 return $value;
             }
 
-            throw new Exception(Functions::NAN());
+            throw new Exception(Functions::NAN()->errorName());
         }
 
-        throw new Exception(Functions::VALUE());
+        throw new Exception(Functions::VALUE()->errorName());
     }
 
     /**
@@ -2352,7 +2352,7 @@ class Engineering
             $number1 = self::validateBitwiseArgument($number1);
             $number2 = self::validateBitwiseArgument($number2);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return ExcelException::fromErrorName($e->getMessage());
         }
 
         return $number1 & $number2;
@@ -2377,7 +2377,7 @@ class Engineering
             $number1 = self::validateBitwiseArgument($number1);
             $number2 = self::validateBitwiseArgument($number2);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return ExcelException::fromErrorName($e->getMessage());
         }
 
         return $number1 | $number2;
@@ -2402,7 +2402,7 @@ class Engineering
             $number1 = self::validateBitwiseArgument($number1);
             $number2 = self::validateBitwiseArgument($number2);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return ExcelException::fromErrorName($e->getMessage());
         }
 
         return $number1 ^ $number2;
@@ -2426,7 +2426,7 @@ class Engineering
         try {
             $number = self::validateBitwiseArgument($number);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return ExcelException::fromErrorName($e->getMessage());
         }
 
         $shiftAmount = Functions::flattenSingleValue($shiftAmount);
@@ -2457,7 +2457,7 @@ class Engineering
         try {
             $number = self::validateBitwiseArgument($number);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return ExcelException::fromErrorName($e->getMessage());
         }
 
         $shiftAmount = Functions::flattenSingleValue($shiftAmount);

@@ -1282,7 +1282,7 @@ class MathTrig
      *                    in hidden rows or columns
      * @param mixed[] $args A mixed data series of values
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function SUBTOTAL($functionType, ...$args)
     {

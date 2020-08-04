@@ -145,7 +145,7 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function DAVERAGE($database, $field, $criteria)
     {
