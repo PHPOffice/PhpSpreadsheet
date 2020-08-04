@@ -1,59 +1,61 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // result, message, values, dates, guess
 
 return [
     [
-        '#NUM!',
+        ExcelException::NUM(),
         'If values and dates contain a different number of values, returns the #NUM! error value',
         [4000, -46000],
         ['2015-01-04'],
         0.1,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         'Expects at least one positive cash flow and one negative cash flow; otherwise returns the #NUM! error value',
         [-4000, -46000],
         ['2015-01-04', '2019-06-27'],
         0.1,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         'Expects at least one positive cash flow and one negative cash flow; otherwise returns the #NUM! error value',
         [4000, 46000],
         ['2015-01-04', '2019-06-27'],
         0.1,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'If any number in dates is not a valid date, returns the #VALUE! error value',
         [4000, -46000],
         ['2015-01-04', '2019X06-27'],
         0.1,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'If any entry in values is not numeric, returns the #VALUE! error value',
         ['y', -46000],
         ['2015-01-04', '2019-06-27'],
         0.1,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         'If values is not an array, returns the #NUM! error value',
         -46000,
         ['2015-01-04', '2019-06-27'],
         0.1,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         'If dates is not an array but values is, returns the #NUM! error value',
         [4000, -46000],
         '2015-01-04',
         0.1,
     ],
     [
-        '#N/A',
+        ExcelException::NA(),
         'If neither dates nor values is an array, returns the #N/A error value',
         4000,
         '2015-01-04',
@@ -119,7 +121,7 @@ return [
         0.00000,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         'Can\'t find a result2 that works after FINANCIAL_MAX_ITERATIONS tries, the #NUM! error value is returned',
         [-10000, 10000, -10000, 5],
         ['2010-01-15', '2010-04-16', '2010-07-16', '2010-10-15'],

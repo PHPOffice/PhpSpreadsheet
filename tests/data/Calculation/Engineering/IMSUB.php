@@ -1,8 +1,10 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '12.34+5.67j',
         '123.45+67.89i',
     ],

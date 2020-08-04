@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Reader\Xls\ErrorCode;
 
 class Functions
 {
@@ -147,11 +149,11 @@ class Functions
     /**
      * DIV0.
      *
-     * @return string #Not Yet Implemented
+     * Returns the error value #DIV/0
      */
-    public static function DIV0()
+    public static function DIV0(): ExcelException
     {
-        return self::$errorCodes['divisionbyzero'];
+        return ExcelException::DIV0();
     }
 
     /**
@@ -162,72 +164,60 @@ class Functions
      *
      * Returns the error value #N/A
      *        #N/A is the error value that means "no value is available."
-     *
-     * @return string #N/A!
      */
-    public static function NA()
+    public static function NA(): ExcelException
     {
-        return self::$errorCodes['na'];
+        return ExcelException::NA();
     }
 
     /**
      * NaN.
      *
      * Returns the error value #NUM!
-     *
-     * @return string #NUM!
      */
-    public static function NAN()
+    public static function NAN(): ExcelException
     {
-        return self::$errorCodes['num'];
+        return ExcelException::NUM();
     }
 
     /**
      * NAME.
      *
      * Returns the error value #NAME?
-     *
-     * @return string #NAME?
      */
-    public static function NAME()
+    public static function NAME(): ExcelException
     {
-        return self::$errorCodes['name'];
+        return ExcelException::NAME();
     }
 
     /**
      * REF.
      *
      * Returns the error value #REF!
-     *
-     * @return string #REF!
      */
-    public static function REF()
+    public static function REF(): ExcelException
     {
-        return self::$errorCodes['reference'];
+        return ExcelException::REF();
     }
 
     /**
      * NULL.
      *
      * Returns the error value #NULL!
-     *
-     * @return string #NULL!
      */
-    public static function null()
+    public static function null(): ExcelException
     {
-        return self::$errorCodes['null'];
+        return ExcelException::NULL();
     }
 
     /**
      * VALUE.
      *
      * Returns the error value #VALUE!
-     *
-     * @return string #VALUE!
      */
-    public static function VALUE()
+    public static function VALUE(): ExcelException
     {
-        return self::$errorCodes['value'];
+        return ExcelException::VALUE();
     }
 
     public static function isMatrixValue($idx)
@@ -278,18 +268,14 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @return bool
+     * @return int|ExcelException
      */
     public static function errorType($value = '')
     {
         $value = self::flattenSingleValue($value);
 
-        $i = 1;
-        foreach (self::$errorCodes as $errorCode) {
-            if ($value === $errorCode) {
-                return $i;
-            }
-            ++$i;
+        if ($value instanceof ExcelException) {
+            return $value->code();
         }
 
         return self::NA();
@@ -336,11 +322,11 @@ class Functions
     {
         $value = self::flattenSingleValue($value);
 
-        if (!is_string($value)) {
-            return false;
+        if ($value instanceof ExcelException) {
+            return true;
         }
 
-        return in_array($value, self::$errorCodes);
+        return false;
     }
 
     /**
@@ -354,7 +340,11 @@ class Functions
     {
         $value = self::flattenSingleValue($value);
 
-        return $value === self::NA();
+        if (!is_object($value) || !($value instanceof ExcelException)) {
+            return false;
+        }
+
+        return $value == self::NA();
     }
 
     /**
@@ -362,7 +352,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @return bool|string
+     * @return bool|ExcelException
      */
     public static function isEven($value = null)
     {
@@ -370,6 +360,8 @@ class Functions
 
         if ($value === null) {
             return self::NAME();
+        } elseif ($value instanceof ExcelException) {
+            return $value;
         } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
             return self::VALUE();
         }
@@ -382,7 +374,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @return bool|string
+     * @return bool|ExcelException
      */
     public static function isOdd($value = null)
     {
@@ -390,6 +382,8 @@ class Functions
 
         if ($value === null) {
             return self::NAME();
+        } elseif ($value instanceof ExcelException) {
+            return $value;
         } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
             return self::VALUE();
         }
@@ -440,7 +434,7 @@ class Functions
     {
         $value = self::flattenSingleValue($value);
 
-        return is_string($value) && !self::isError($value);
+        return is_string($value);
     }
 
     /**
@@ -484,9 +478,9 @@ class Functions
                 return $value;
             case 'boolean':
                 return (int) $value;
-            case 'string':
+            case 'object':
                 //    Errors
-                if ((strlen($value) > 0) && ($value[0] == '#')) {
+                if ($value instanceof ExcelException) {
                     return $value;
                 }
 
@@ -513,7 +507,12 @@ class Functions
      */
     public static function TYPE($value = null)
     {
+        if ($value instanceof ExcelException) {
+            return 16;
+        }
+
         $value = self::flattenArrayIndexed($value);
+
         if (is_array($value) && (count($value) > 1)) {
             end($value);
             $a = key($value);
@@ -537,11 +536,6 @@ class Functions
         } elseif (is_array($value)) {
             return 64;
         } elseif (is_string($value)) {
-            //    Errors
-            if ((strlen($value) > 0) && ($value[0] == '#')) {
-                return 16;
-            }
-
             return 2;
         }
 

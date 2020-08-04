@@ -21,7 +21,12 @@ class AccrintMTest extends TestCase
     public function testACCRINTM($expectedResult, ...$args): void
     {
         $result = Financial::ACCRINTM(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerACCRINTM()

@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // nominal_rate, npery, Result
 
 return [
@@ -24,7 +26,7 @@ return [
         2,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         1,
         0,
     ],

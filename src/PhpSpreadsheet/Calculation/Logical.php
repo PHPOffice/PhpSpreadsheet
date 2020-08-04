@@ -94,7 +94,7 @@ class Logical
         $argCount = count($args);
 
         $returnValue = self::countTrueValues($args);
-        if (is_string($returnValue)) {
+        if ($returnValue instanceof ExcelException) {
             return $returnValue;
         }
 
@@ -134,7 +134,7 @@ class Logical
         });
 
         $returnValue = self::countTrueValues($args);
-        if (is_string($returnValue)) {
+        if ($returnValue instanceof ExcelException) {
             return $returnValue;
         }
 
@@ -175,7 +175,7 @@ class Logical
         });
 
         $returnValue = self::countTrueValues($args);
-        if (is_string($returnValue)) {
+        if ($returnValue instanceof ExcelException) {
             return $returnValue;
         }
 

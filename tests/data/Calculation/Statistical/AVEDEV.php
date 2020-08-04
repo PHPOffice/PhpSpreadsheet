@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         1.020408163265,
@@ -39,7 +41,11 @@ return [
     ],
     [
         // When non-numeric strings are passed directly, then a #VALUE! error is raised
-        '#VALUE!',
+        ExcelException::VALUE(),
         [1, '2', 3.4, true, 5, null, 6.7, 'STRING', ''],
+    ],
+    [
+        ExcelException::DIV0(),
+        [1, '2', 3.4, true, 5, null, 6.7, ExcelException::DIV0(), ''],
     ],
 ];

@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 use DateTimeInterface;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -438,13 +439,13 @@ class Date
 
         $dateValueNew = DateTime::DATEVALUE($dateValue);
 
-        if ($dateValueNew === Functions::VALUE()) {
+        if ($dateValueNew instanceof ExcelException && $dateValueNew == Functions::VALUE()) {
             return false;
         }
 
         if (strpos($dateValue, ':') !== false) {
             $timeValue = DateTime::TIMEVALUE($dateValue);
-            if ($timeValue === Functions::VALUE()) {
+            if ($timeValue instanceof ExcelException && $timeValue == Functions::VALUE()) {
                 return false;
             }
             $dateValueNew += $timeValue;

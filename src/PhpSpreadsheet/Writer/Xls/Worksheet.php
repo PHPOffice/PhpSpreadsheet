@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
@@ -832,18 +833,22 @@ class Worksheet extends BIFFwriter
         if (isset($calculatedValue)) {
             // Since we can't yet get the data type of the calculated value,
             // we use best effort to determine data type
-            if (is_bool($calculatedValue)) {
+            if ($calculatedValue instanceof ExcelException) {
+                $errorCodes = DataType::getErrorCodes();
+                if (isset($errorCodes[$calculatedValue->errorName()])) {
+                    // Error value
+                    $num = pack('CCCvCv', 0x02, 0x00, self::mapErrorCode($calculatedValue), 0x00, 0x00, 0xFFFF);
+                } else {
+                    // We are really not supposed to reach here
+                    $num = pack('d', 0x00);                }
+            } elseif (is_bool($calculatedValue)) {
                 // Boolean value
                 $num = pack('CCCvCv', 0x01, 0x00, (int) $calculatedValue, 0x00, 0x00, 0xFFFF);
             } elseif (is_int($calculatedValue) || is_float($calculatedValue)) {
                 // Numeric value
                 $num = pack('d', $calculatedValue);
             } elseif (is_string($calculatedValue)) {
-                $errorCodes = DataType::getErrorCodes();
-                if (isset($errorCodes[$calculatedValue])) {
-                    // Error value
-                    $num = pack('CCCvCv', 0x02, 0x00, self::mapErrorCode($calculatedValue), 0x00, 0x00, 0xFFFF);
-                } elseif ($calculatedValue === '') {
+                if ($calculatedValue === '') {
                     // Empty string (and BIFF8)
                     $num = pack('CCCvCv', 0x03, 0x00, 0x00, 0x00, 0x00, 0xFFFF);
                 } else {

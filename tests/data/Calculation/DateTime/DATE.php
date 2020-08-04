@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     'Year without century specified' => [
         6890, // '11th November 1918'
@@ -222,15 +224,15 @@ return [
         null, 10, null,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         null, null, 10,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -20, null, null,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -20, 6, 15,
     ],
     'Excel Maximum Date' => [
@@ -238,7 +240,7 @@ return [
         9999, 12, 31,
     ],
     'Exceeded Excel Maximum Date' => [
-        '#NUM!',
+        ExcelException::NUM(),
         10000, 1, 1,
     ],
     [
@@ -305,15 +307,15 @@ return [
         2010, 'March', 21,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'ABC', 1, 21,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         2010, 'DEF', 21,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         2010, 3, 'GHI',
     ],
 ];

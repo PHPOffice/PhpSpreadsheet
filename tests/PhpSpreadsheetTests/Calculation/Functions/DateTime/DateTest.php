@@ -27,7 +27,12 @@ class DateTest extends TestCase
     public function testDATE($expectedResult, $year, $month, $day): void
     {
         $result = DateTime::DATE($year, $month, $day);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerDATE()

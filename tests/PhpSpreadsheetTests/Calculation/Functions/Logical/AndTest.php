@@ -21,7 +21,12 @@ class AndTest extends TestCase
     public function testAND($expectedResult, ...$args): void
     {
         $result = Logical::logicalAnd(...$args);
-        self::assertEquals($expectedResult, $result);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEquals($expectedResult, $result);
+        }
     }
 
     public function providerAND()

@@ -48,6 +48,9 @@ class Trend
      */
     private static $trendCache = [];
 
+    /*
+     * @return BestFit|false
+     */
     public static function calculate($trendType = self::TREND_BEST_FIT, $yValues = [], $xValues = [], $const = true)
     {
         //    Calculate number of points in each dataset

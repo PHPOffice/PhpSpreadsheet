@@ -26,7 +26,11 @@ class DateValueTest extends TestCase
     public function testDATEVALUE($expectedResult, $dateValue): void
     {
         $result = DateTime::DATEVALUE($dateValue);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerDATEVALUE()

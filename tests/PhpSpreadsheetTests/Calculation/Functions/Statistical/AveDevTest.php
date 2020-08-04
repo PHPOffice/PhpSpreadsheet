@@ -21,7 +21,12 @@ class AveDevTest extends TestCase
     public function testAVEDEV($expectedResult, ...$args): void
     {
         $result = Statistical::AVEDEV(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        }
     }
 
     public function providerAVEDEV()

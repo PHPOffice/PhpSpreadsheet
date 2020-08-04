@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         0,
@@ -35,8 +37,8 @@ return [
         'XYZ',
     ],
     [
-        '#N/A',
-        '#N/A',
+        ExcelException::NA(),
+        ExcelException::NA(),
         'ABC',
         'XYZ',
     ],

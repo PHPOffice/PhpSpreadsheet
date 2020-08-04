@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         55,
@@ -7,6 +9,6 @@ return [
     ],
     [
         'not found',
-        '#N/A', 'not found',
+        ExcelException::NA(), 'not found',
     ],
 ];

@@ -35,10 +35,15 @@ class ImSubTest extends TestCase
     public function testIMSUB($expectedResult, ...$args): void
     {
         $result = Engineering::IMSUB(...$args);
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertTrue(
+                $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+                $this->complexAssert->getErrorMessage()
+            );
+        }
     }
 
     public function providerIMSUB()

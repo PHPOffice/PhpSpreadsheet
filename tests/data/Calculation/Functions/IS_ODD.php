@@ -1,11 +1,13 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
-        '#NAME?',
+        ExcelException::NAME(),
     ],
     [
-        '#NAME?',
+        ExcelException::NAME(),
         null,
     ],
     [
@@ -37,7 +39,7 @@ return [
         2.5,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '',
     ],
     [
@@ -57,27 +59,27 @@ return [
         '2.5',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'ABC',
     ],
     [
-        '#VALUE!',
-        '#VALUE!',
+        ExcelException::VALUE(),
+        ExcelException::VALUE(),
     ],
     [
-        '#VALUE!',
-        '#N/A',
+        ExcelException::NA(),
+        ExcelException::NA(),
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'TRUE',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         true,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         false,
     ],
 ];

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
@@ -156,6 +157,10 @@ class Html extends BaseWriter
     {
         // Open file
         $this->openFileHandle($pFilename);
+
+        if ($this->preCalculateFormulas) {
+            $this->spreadsheet->getCalculationEngine()->clearCalculationCache();
+        }
 
         // Write html
         fwrite($this->fileHandle, $this->generateHTMLAll());
@@ -1316,6 +1321,9 @@ class Html extends BaseWriter
             $this->generateRowCellDataValueRich($cell, $cellData);
         } else {
             $origData = $this->preCalculateFormulas ? $cell->getCalculatedValue() : $cell->getValue();
+            if ($origData instanceof ExcelException) {
+                $origData = $origData->errorName();
+            }
             $cellData = NumberFormat::toFormattedString(
                 $origData,
                 $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),

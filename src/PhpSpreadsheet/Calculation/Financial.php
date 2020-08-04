@@ -388,10 +388,12 @@ class Financial
         $frequency = (int) Functions::flattenSingleValue($frequency);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
+        $settlement = DateTime::getDateValue($settlement);
+        if ($settlement instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        $maturity = DateTime::getDateValue($maturity);
+        if ($maturity instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -447,10 +449,12 @@ class Financial
         $frequency = (int) Functions::flattenSingleValue($frequency);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
+        $settlement = DateTime::getDateValue($settlement);
+        if ($settlement instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        $maturity = DateTime::getDateValue($maturity);
+        if ($maturity instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -517,10 +521,12 @@ class Financial
         $frequency = (int) Functions::flattenSingleValue($frequency);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
+        $settlement = DateTime::getDateValue($settlement);
+        if ($settlement instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        $maturity = DateTime::getDateValue($maturity);
+        if ($maturity instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -573,10 +579,12 @@ class Financial
         $frequency = (int) Functions::flattenSingleValue($frequency);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
+        $settlement = DateTime::getDateValue($settlement);
+        if ($settlement instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        $maturity = DateTime::getDateValue($maturity);
+        if ($maturity instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -626,10 +634,12 @@ class Financial
         $frequency = (int) Functions::flattenSingleValue($frequency);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
+        $settlement = DateTime::getDateValue($settlement);
+        if ($settlement instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        $maturity = DateTime::getDateValue($maturity);
+        if ($maturity instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -681,10 +691,12 @@ class Financial
         $frequency = (int) Functions::flattenSingleValue($frequency);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
+        $settlement = DateTime::getDateValue($settlement);
+        if ($settlement instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        $maturity = DateTime::getDateValue($maturity);
+        if ($maturity instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -1584,10 +1596,10 @@ class Financial
 
     private static function validatePrice($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis)
     {
-        if (is_string($settlement)) {
+        if ($settlement instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($maturity)) {
+        if ($maturity instanceof ExcelException) {
             return Functions::VALUE();
         }
         if (!is_numeric($rate)) {
@@ -1622,7 +1634,7 @@ class Financial
         $settlement = DateTime::getDateValue($settlement);
         $maturity = DateTime::getDateValue($maturity);
         $rslt = self::validatePrice($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis);
-        if ($rslt) {
+        if ($rslt instanceof ExcelException) {
             return $rslt;
         }
         $rate = (float) $rate;
@@ -2066,7 +2078,12 @@ class Financial
         $maturity = Functions::flattenSingleValue($maturity);
         $discount = Functions::flattenSingleValue($discount);
 
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        $settlement = DateTime::getDateValue($settlement);
+        if ($settlement instanceof ExcelException) {
+            return Functions::VALUE();
+        }
+        $maturity = DateTime::getDateValue($maturity);
+        if ($maturity instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -2315,9 +2332,12 @@ class Financial
         if ($valCount > 1 && ((min($values) > 0) || (max($values) < 0))) {
             return Functions::NAN();
         }
-        $date0 = DateTime::getDateValue($dates[0]);
-        if (is_string($date0)) {
-            return Functions::VALUE();
+
+        foreach($dates as $date) {
+            $date = DateTime::getDateValue($date);
+            if ($date instanceof ExcelException) {
+                return Functions::VALUE();
+            }
         }
 
         return '';

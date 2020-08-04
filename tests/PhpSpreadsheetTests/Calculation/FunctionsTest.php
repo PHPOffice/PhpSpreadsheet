@@ -168,7 +168,12 @@ class FunctionsTest extends TestCase
     public function testErrorType($expectedResult, ...$args): void
     {
         $result = Functions::errorType(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerErrorType()
@@ -264,7 +269,12 @@ class FunctionsTest extends TestCase
     public function testIsEven($expectedResult, ...$args): void
     {
         $result = Functions::isEven(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerIsEven()
@@ -280,7 +290,12 @@ class FunctionsTest extends TestCase
     public function testIsOdd($expectedResult, ...$args): void
     {
         $result = Functions::isOdd(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerIsOdd()
@@ -312,7 +327,12 @@ class FunctionsTest extends TestCase
     public function testN($expectedResult, ...$args): void
     {
         $result = Functions::n(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerN()

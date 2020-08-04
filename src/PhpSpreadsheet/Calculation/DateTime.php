@@ -63,19 +63,22 @@ class DateTime
      *
      * @param mixed $dateValue
      *
-     * @return mixed Excel date/time serial value, or string if error
+     * @return mixed Excel date/time serial value, or ExcelException if error
      */
     public static function getDateValue($dateValue)
     {
         if (!is_numeric($dateValue)) {
-            if ((is_object($dateValue)) && ($dateValue instanceof DateTimeInterface)) {
-                $dateValue = Date::PHPToExcel($dateValue);
-            } else {
-                $saveReturnDateType = Functions::getReturnDateType();
-                Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-                $dateValue = self::DATEVALUE($dateValue);
-                Functions::setReturnDateType($saveReturnDateType);
+            if (is_object($dateValue)) {
+                if ($dateValue instanceof DateTimeInterface) {
+                    return Date::PHPToExcel($dateValue);
+                }
+                return Functions::VALUE();
             }
+
+            $saveReturnDateType = Functions::getReturnDateType();
+            Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
+            $dateValue = self::DATEVALUE($dateValue);
+            Functions::setReturnDateType($saveReturnDateType);
         }
 
         return $dateValue;
@@ -645,10 +648,12 @@ class DateTime
         $endDate = Functions::flattenSingleValue($endDate);
         $unit = strtoupper(Functions::flattenSingleValue($unit));
 
-        if (is_string($startDate = self::getDateValue($startDate))) {
+        $startDate = self::getDateValue($startDate);
+        if ($startDate instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($endDate = self::getDateValue($endDate))) {
+        $endDate = self::getDateValue($endDate);
+        if ($endDate instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -753,12 +758,11 @@ class DateTime
         $endDate = Functions::flattenSingleValue($endDate);
 
         $startDate = self::getDateValue($startDate);
-        if (is_string($startDate)) {
+        if ($startDate instanceof ExcelException) {
             return Functions::VALUE();
         }
-
         $endDate = self::getDateValue($endDate);
-        if (is_string($endDate)) {
+        if ($endDate instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -809,10 +813,12 @@ class DateTime
         $startDate = Functions::flattenSingleValue($startDate);
         $endDate = Functions::flattenSingleValue($endDate);
 
-        if (is_string($startDate = self::getDateValue($startDate))) {
+        $startDate = self::getDateValue($startDate);
+        if ($startDate instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($endDate = self::getDateValue($endDate))) {
+        $endDate = self::getDateValue($endDate);
+        if ($endDate instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -866,10 +872,12 @@ class DateTime
         $endDate = Functions::flattenSingleValue($endDate);
         $method = Functions::flattenSingleValue($method);
 
-        if (is_string($startDate = self::getDateValue($startDate))) {
+        $startDate = self::getDateValue($startDate);
+        if ($startDate instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($endDate = self::getDateValue($endDate))) {
+        $endDate = self::getDateValue($endDate);
+        if ($endDate instanceof ExcelException) {
             return Functions::VALUE();
         }
         if ($startDate > $endDate) {
@@ -963,11 +971,13 @@ class DateTime
         $dateArgs = Functions::flattenArray($dateArgs);
 
         //    Validate the start and end dates
-        if (is_string($startDate = $sDate = self::getDateValue($startDate))) {
+        $startDate = $sDate = self::getDateValue($startDate);
+        if ($startDate instanceof ExcelException) {
             return Functions::VALUE();
         }
         $startDate = (float) floor($startDate);
-        if (is_string($endDate = $eDate = self::getDateValue($endDate))) {
+        $endDate = $eDate = self::getDateValue($endDate);
+        if ($endDate instanceof ExcelException) {
             return Functions::VALUE();
         }
         $endDate = (float) floor($endDate);
@@ -996,7 +1006,8 @@ class DateTime
         //    Test any extra holiday parameters
         $holidayCountedArray = [];
         foreach ($dateArgs as $holidayDate) {
-            if (is_string($holidayDate = self::getDateValue($holidayDate))) {
+            $holidayDate = self::getDateValue($holidayDate);
+            if ($holidayDate instanceof ExcelException) {
                 return Functions::VALUE();
             }
             if (($holidayDate >= $startDate) && ($holidayDate <= $endDate)) {
@@ -1042,7 +1053,8 @@ class DateTime
         //    Get the optional days
         $dateArgs = Functions::flattenArray($dateArgs);
 
-        if ((is_string($startDate = self::getDateValue($startDate))) || (!is_numeric($endDays))) {
+        $startDate = self::getDateValue($startDate);
+        if (($startDate instanceof ExcelException) || (!is_numeric($endDays))) {
             return Functions::VALUE();
         }
         $startDate = (float) floor($startDate);
@@ -1076,7 +1088,8 @@ class DateTime
             $holidayCountedArray = $holidayDates = [];
             foreach ($dateArgs as $holidayDate) {
                 if (($holidayDate !== null) && (trim($holidayDate) > '')) {
-                    if (is_string($holidayDate = self::getDateValue($holidayDate))) {
+                    $holidayDate = self::getDateValue($holidayDate);
+                    if ($holidayDate instanceof ExcelException) {
                         return Functions::VALUE();
                     }
                     if (self::WEEKDAY($holidayDate, 3) < 5) {
@@ -1141,9 +1154,8 @@ class DateTime
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
 
-        if ($dateValue === null) {
-            $dateValue = 1;
-        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = ($dateValue === null) ? 1 : $dateValue = self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -1191,9 +1203,8 @@ class DateTime
         }
         $style = floor($style);
 
-        if ($dateValue === null) {
-            $dateValue = 1;
-        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = ($dateValue === null) ? 1 : $dateValue = self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
             return Functions::NAN();
@@ -1310,11 +1321,10 @@ class DateTime
         }
         $method = self::METHODARR[$method];
 
-        $dateValue = self::getDateValue($dateValue);
-        if (is_string($dateValue)) {
+        $dateValue = ($dateValue === null) ? 1 : $dateValue = self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
-        }
-        if ($dateValue < 0.0) {
+        } elseif ($dateValue < 0.0) {
             return Functions::NAN();
         }
 
@@ -1351,9 +1361,8 @@ class DateTime
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
 
-        if ($dateValue === null) {
-            $dateValue = 1;
-        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = ($dateValue === null) ? 1 : $dateValue = self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
             return Functions::NAN();
@@ -1383,10 +1392,8 @@ class DateTime
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
 
-        if (empty($dateValue)) {
-            $dateValue = 1;
-        }
-        if (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = ($dateValue === null) ? 1 : $dateValue = self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
             return Functions::NAN();
@@ -1416,9 +1423,8 @@ class DateTime
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
 
-        if ($dateValue === null) {
-            $dateValue = 1;
-        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = ($dateValue === null) ? 1 : $dateValue = self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
             return Functions::NAN();
@@ -1456,7 +1462,7 @@ class DateTime
                 }
             }
             $timeValue = self::getTimeValue($timeValue);
-            if (is_string($timeValue)) {
+            if ($timeValue instanceof ExcelException) {
                 return Functions::VALUE();
             }
         }
@@ -1497,7 +1503,7 @@ class DateTime
                 }
             }
             $timeValue = self::getTimeValue($timeValue);
-            if (is_string($timeValue)) {
+            if ($timeValue instanceof ExcelException) {
                 return Functions::VALUE();
             }
         }
@@ -1538,7 +1544,7 @@ class DateTime
                 }
             }
             $timeValue = self::getTimeValue($timeValue);
-            if (is_string($timeValue)) {
+            if ($timeValue instanceof ExcelException) {
                 return Functions::VALUE();
             }
         }
@@ -1583,7 +1589,8 @@ class DateTime
         }
         $adjustmentMonths = floor($adjustmentMonths);
 
-        if (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -1629,7 +1636,8 @@ class DateTime
         }
         $adjustmentMonths = floor($adjustmentMonths);
 
-        if (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         }
 

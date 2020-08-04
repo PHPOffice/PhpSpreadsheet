@@ -27,7 +27,11 @@ class DateDifTest extends TestCase
     public function testDATEDIF($expectedResult, $startDate, $endDate, $unit): void
     {
         $result = DateTime::DATEDIF($startDate, $endDate, $unit);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerDATEDIF()

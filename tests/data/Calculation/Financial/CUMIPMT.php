@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // rate, nper, pv, start_period, end_period, type, result
 
 return [
@@ -67,7 +69,7 @@ return [
         0,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         0.0074999999999999997,
         360,
         125000,
@@ -76,7 +78,7 @@ return [
         0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0.0074999999999999997,
         360,
         125000,

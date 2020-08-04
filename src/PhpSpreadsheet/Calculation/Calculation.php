@@ -3659,6 +3659,10 @@ class Calculation
     private function showTypeDetails($value)
     {
         if ($this->debugLog->getWriteDebugLog()) {
+            if ($value instanceof ExcelException) {
+                return "an Excel {$value->errorName()} Error";
+            }
+
             $testArray = Functions::flattenArray($value);
             if (count($testArray) == 1) {
                 $value = array_pop($testArray);
@@ -3677,8 +3681,6 @@ class Calculation
             } else {
                 if ($value == '') {
                     return 'an empty string';
-                } elseif ($value[0] == '#') {
-                    return 'a ' . $value . ' error';
                 }
                 $typeString = 'a string';
             }
@@ -4039,9 +4041,11 @@ class Calculation
                 $length = strlen($val);
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $val, $matches)) {
                     $val = preg_replace('/\s/u', '', $val);
+                    $reference = null;
                     if (isset(self::$phpSpreadsheetFunctions[strtoupper($matches[1])]) || isset(self::$controlFunctions[strtoupper($matches[1])])) {    // it's a function
                         $valToUpper = strtoupper($val);
                     } else {
+                        $reference = strtoupper($val);
                         $valToUpper = 'NAME.ERROR(';
                     }
                     // here $matches[1] will contain values like "IF"
@@ -4057,7 +4061,7 @@ class Calculation
                         }
                     }
 
-                    $stack->push('Function', $valToUpper, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                    $stack->push('Function', $valToUpper, $reference, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
                     // tests if the function is closed right after opening
                     $ax = preg_match('/^\s*\)/u', substr($formula, $index + $length));
                     if ($ax) {
@@ -4493,7 +4497,7 @@ class Calculation
                                 $result = $matrixResult->getArray();
                             } catch (\Exception $ex) {
                                 $this->debugLog->writeDebugLog('JAMA Matrix Exception: ', $ex->getMessage());
-                                $result = '#VALUE!';
+                                $result = ExcelException::VALUE();
                             }
                         } else {
                             $result = self::FORMULA_STRING_QUOTE . str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2)) . self::FORMULA_STRING_QUOTE;
@@ -4551,7 +4555,7 @@ class Calculation
                         $result = $matrixResult->getArray();
                     } catch (\Exception $ex) {
                         $this->debugLog->writeDebugLog('JAMA Matrix Exception: ', $ex->getMessage());
-                        $result = '#VALUE!';
+                        $result = ExcelException::VALUE();
                     }
                     $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
                     $stack->push('Value', $result);
@@ -4769,6 +4773,13 @@ class Calculation
 
     private function validateBinaryOperand(&$operand, &$stack)
     {
+        if ($operand instanceof ExcelException) {
+            $stack->push('Error', $operand);
+            $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($operand));
+
+            return false;
+        }
+
         if (is_array($operand)) {
             if ((count($operand, COUNT_RECURSIVE) - count($operand)) == 1) {
                 do {
@@ -4793,7 +4804,7 @@ class Calculation
                     return false;
                 } elseif (!Shared\StringHelper::convertToNumberIfFraction($operand)) {
                     //    If not a numeric or a fraction, then it's a text string, and so can't be used in mathematical binary operations
-                    $stack->push('Error', '#VALUE!');
+                    $stack->push('Error', ExcelException::VALUE());
                     $this->debugLog->writeDebugLog('Evaluation Result is a ', $this->showTypeDetails('#VALUE!'));
 
                     return false;
@@ -4992,7 +5003,7 @@ class Calculation
                 $result = $matrixResult->getArray();
             } catch (\Exception $ex) {
                 $this->debugLog->writeDebugLog('JAMA Matrix Exception: ', $ex->getMessage());
-                $result = '#VALUE!';
+                $result = ExcelException::VALUE();
             }
         } else {
             if (
@@ -5023,7 +5034,7 @@ class Calculation
                     case '/':
                         if ($operand2 == 0) {
                             //    Trap for Divide by Zero error
-                            $stack->push('Error', '#DIV/0!');
+                            $stack->push('Error', ExcelException::DIV0());
                             $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails('#DIV/0!'));
 
                             return false;

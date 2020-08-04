@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         false,
@@ -34,12 +36,12 @@ return [
     [
         false,
         'A7',
-        '#VALUE!',
+        ExcelException::VALUE(),
     ],
     [
         false,
         'A8',
-        '#N/A',
+        ExcelException::NA(),
     ],
     [
         false,

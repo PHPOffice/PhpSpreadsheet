@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // rate, nper, pmt, pv, type, Result
 
 return [
@@ -48,7 +50,7 @@ return [
         1,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0.10000000000000001,
         12,
         -100,

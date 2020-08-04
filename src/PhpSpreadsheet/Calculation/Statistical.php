@@ -581,14 +581,20 @@ class Statistical
         $returnValue = 0;
 
         $aMean = self::AVERAGE(...$args);
-        if ($aMean === Functions::DIV0()) {
-            return Functions::NAN();
-        } elseif ($aMean === Functions::VALUE()) {
-            return Functions::VALUE();
+        if ($aMean instanceof ExcelException) {
+            if ($aMean === Functions::DIV0()) {
+                return Functions::NAN();
+            } elseif ($aMean === Functions::VALUE()) {
+                return Functions::VALUE();
+            }
+            return $aMean;
         }
 
         $aCount = 0;
         foreach ($aArgs as $k => $arg) {
+            if ($arg instanceof ExcelException) {
+                return $arg;
+            }
             $arg = self::testAcceptedBoolean($arg, $k);
             // Is it a numeric value?
             // Strings containing numeric values are only counted if they are string literals (not cell values)
@@ -628,6 +634,9 @@ class Statistical
 
         // Loop through arguments
         foreach (Functions::flattenArrayIndexed($args) as $k => $arg) {
+            if ($arg instanceof ExcelException) {
+                return $arg;
+            }
             $arg = self::testAcceptedBoolean($arg, $k);
             // Is it a numeric value?
             // Strings containing numeric values are only counted if they are string literals (not cell values)
@@ -1416,7 +1425,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGE($aArgs);
-        if ($aMean != Functions::DIV0()) {
+        if (!($aMean instanceof ExcelException)) {
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
                 // Is it a numeric value?

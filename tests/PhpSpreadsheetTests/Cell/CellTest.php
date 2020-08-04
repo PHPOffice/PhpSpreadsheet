@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,12 @@ class CellTest extends TestCase
         $cell = $spreadsheet->getActiveSheet()->getCell('A1');
         $cell->setValueExplicit($value, $dataType);
 
-        self::assertSame($expected, $cell->getValue());
+        if ($expected instanceof ExcelException) {
+            // We can't use assertSame when comparing objects, unless they're the same instance
+            self::assertEquals($expected, $cell->getValue());
+        } else {
+            self::assertSame($expected, $cell->getValue());
+        }
     }
 
     public function providerSetValueExplicit()
