@@ -872,7 +872,6 @@ class Worksheet extends BIFFwriter
 
     /**
      * @param $calculatedValue
-     * @return string
      */
     private function packCalculatedValue($calculatedValue): string
     {
