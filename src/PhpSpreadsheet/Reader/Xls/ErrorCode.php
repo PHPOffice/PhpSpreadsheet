@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
-use PhpOffice\PhpSpreadsheet\Exception;
 
 class ErrorCode
 {
