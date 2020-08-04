@@ -827,33 +827,9 @@ class Worksheet extends BIFFwriter
     {
         $record = 0x0006; // Record identifier
         // Initialize possible additional value for STRING record that should be written after the FORMULA record?
-        $stringValue = null;
+        $stringValue = (is_string($calculatedValue) && $calculatedValue !== '') ? $calculatedValue : null;
 
-        $num = pack('d', 0x00);
-        // calculated value
-        if (isset($calculatedValue)) {
-            // Since we can't yet get the data type of the calculated value,
-            // we use best effort to determine data type
-            if ($calculatedValue instanceof ExcelException && isset(DataType::getErrorCodes()[$calculatedValue->errorName()])) {
-                // Error value
-                $num = pack('CCCvCv', 0x02, 0x00, self::mapErrorCode($calculatedValue), 0x00, 0x00, 0xFFFF);
-            } elseif (is_bool($calculatedValue)) {
-                // Boolean value
-                $num = pack('CCCvCv', 0x01, 0x00, (int) $calculatedValue, 0x00, 0x00, 0xFFFF);
-            } elseif (is_int($calculatedValue) || is_float($calculatedValue)) {
-                // Numeric value
-                $num = pack('d', $calculatedValue);
-            } elseif (is_string($calculatedValue)) {
-                if ($calculatedValue === '') {
-                    // Empty string (and BIFF8)
-                    $num = pack('CCCvCv', 0x03, 0x00, 0x00, 0x00, 0x00, 0xFFFF);
-                } else {
-                    // Non-empty string value (or empty string BIFF5)
-                    $stringValue = $calculatedValue;
-                    $num = pack('CCCvCv', 0x00, 0x00, 0x00, 0x00, 0x00, 0xFFFF);
-                }
-            }
-        }
+        $packedResultValue = (isset($calculatedValue)) ? $this->packCalculatedValue($calculatedValue) : pack('d', 0x00);
 
         $grbit = 0x03; // Option flags
         $unknown = 0x0000; // Must be zero
@@ -879,7 +855,7 @@ class Worksheet extends BIFFwriter
             $header = pack('vv', $record, $length);
 
             $data = pack('vvv', $row, $col, $xfIndex)
-                . $num
+                . $packedResultValue
                 . pack('vVv', $grbit, $unknown, $formlen);
             $this->append($header . $data . $formula);
 
@@ -892,6 +868,36 @@ class Worksheet extends BIFFwriter
         } catch (PhpSpreadsheetException $e) {
             return self::WRITE_FORMULA_EXCEPTION;
         }
+    }
+
+    /**
+     * @param $calculatedValue
+     * @return string
+     */
+    private function packCalculatedValue($calculatedValue): string
+    {
+        // Since we can't yet get the data type of the calculated value,
+        // we use best effort to determine data type
+        if ($calculatedValue instanceof ExcelException && isset(DataType::getErrorCodes()[$calculatedValue->errorName()])) {
+            // Error value
+            $packedValue = pack('CCCvCv', 0x02, 0x00, self::mapErrorCode($calculatedValue), 0x00, 0x00, 0xFFFF);
+        } elseif (is_bool($calculatedValue)) {
+            // Boolean value
+            $packedValue = pack('CCCvCv', 0x01, 0x00, (int)$calculatedValue, 0x00, 0x00, 0xFFFF);
+        } elseif (is_int($calculatedValue) || is_float($calculatedValue)) {
+            // Numeric value
+            $packedValue = pack('d', $calculatedValue);
+        } elseif (is_string($calculatedValue)) {
+            if ($calculatedValue === '') {
+                // Empty string (and BIFF8)
+                $packedValue = pack('CCCvCv', 0x03, 0x00, 0x00, 0x00, 0x00, 0xFFFF);
+            } else {
+                // Non-empty string value (or empty string BIFF5)
+                $packedValue = pack('CCCvCv', 0x00, 0x00, 0x00, 0x00, 0x00, 0xFFFF);
+            }
+        }
+
+        return $packedValue;
     }
 
     /**
