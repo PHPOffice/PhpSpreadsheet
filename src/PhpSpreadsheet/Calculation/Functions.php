@@ -454,14 +454,14 @@ class Functions
      *
      * @param null|mixed $value The value you want converted
      *
-     * @return number N converts values listed in the following table
+     * @return number|string N converts values listed in the following table
      *        If value is or refers to N returns
-     *        A number            That number
-     *        A date                The serial number of that date
+     *        A number            The number
+     *        A date              The serial number of that date
      *        TRUE                1
-     *        FALSE                0
-     *        An error value        The error value
-     *        Anything else        0
+     *        FALSE               0
+     *        An error value      The error value (as a string)
+     *        Anything else       0
      */
     public static function n($value = null)
     {
@@ -479,7 +479,7 @@ class Functions
             case 'object':
                 //    Errors
                 if ($value instanceof ExcelException) {
-                    return $value;
+                    return $value->errorName();
                 }
 
                 break;

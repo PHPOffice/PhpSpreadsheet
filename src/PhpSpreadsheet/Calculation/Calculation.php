@@ -4796,13 +4796,7 @@ class Calculation
             }
             //    If the string is a numeric value, we treat it as a numeric, so no further testing
             if (!is_numeric($operand)) {
-                //    If not a numeric, test to see if the value is an Excel error, and so can't be used in normal binary operations
-                if ($operand > '' && $operand[0] == '#') {
-                    $stack->push('Value', $operand);
-                    $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($operand));
-
-                    return false;
-                } elseif (!Shared\StringHelper::convertToNumberIfFraction($operand)) {
+                if (!Shared\StringHelper::convertToNumberIfFraction($operand)) {
                     //    If not a numeric or a fraction, then it's a text string, and so can't be used in mathematical binary operations
                     $stack->push('Error', ExcelException::VALUE());
                     $this->debugLog->writeDebugLog('Evaluation Result is a ', $this->showTypeDetails('#VALUE!'));

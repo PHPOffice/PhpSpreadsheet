@@ -65,9 +65,9 @@ class DataType
         }
 
         if (!isset(ExcelException::ERROR_CODES[$errorCode])) {
-            $errorCode = ExcelException::null();
+            return ExcelException::null();
         }
 
-        return $errorCode;
+        return ExcelException::fromErrorName($errorCode);
     }
 }

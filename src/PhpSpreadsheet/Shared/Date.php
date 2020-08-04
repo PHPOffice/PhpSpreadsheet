@@ -439,13 +439,13 @@ class Date
 
         $dateValueNew = DateTime::DATEVALUE($dateValue);
 
-        if ($dateValueNew instanceof ExcelException && $dateValueNew == Functions::VALUE()) {
+        if ($dateValueNew instanceof ExcelException) {
             return false;
         }
 
         if (strpos($dateValue, ':') !== false) {
             $timeValue = DateTime::TIMEVALUE($dateValue);
-            if ($timeValue instanceof ExcelException && $timeValue == Functions::VALUE()) {
+            if ($timeValue instanceof ExcelException) {
                 return false;
             }
             $dateValueNew += $timeValue;
