@@ -1755,7 +1755,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the argument theta
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function IMARGUMENT($complexNumber)
     {
@@ -1988,7 +1988,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the square root
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMSQRT($complexNumber)
     {
@@ -2012,7 +2012,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the natural logarithm
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMLN($complexNumber)
     {
@@ -2036,7 +2036,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the common logarithm
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMLOG10($complexNumber)
     {
@@ -2060,7 +2060,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the base-2 logarithm
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMLOG2($complexNumber)
     {
@@ -2104,7 +2104,7 @@ class Engineering
      * @param string $complexNumber the complex number you want to raise to a power
      * @param float $realNumber the power to which you want to raise the complex number
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMPOWER($complexNumber, $realNumber)
     {
@@ -2129,7 +2129,7 @@ class Engineering
      * @param string $complexDividend the complex numerator or dividend
      * @param string $complexDivisor the complex denominator or divisor
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMDIV($complexDividend, $complexDivisor)
     {
@@ -2154,7 +2154,7 @@ class Engineering
      * @param string $complexNumber1 the complex number from which to subtract complexNumber2
      * @param string $complexNumber2 the complex number to subtract from complexNumber1
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMSUB($complexNumber1, $complexNumber2)
     {
@@ -2178,7 +2178,7 @@ class Engineering
      *
      * @param string ...$complexNumbers Series of complex numbers to add
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMSUM(...$complexNumbers)
     {
@@ -2208,7 +2208,7 @@ class Engineering
      *
      * @param string ...$complexNumbers Series of complex numbers to multiply
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMPRODUCT(...$complexNumbers)
     {
@@ -2344,7 +2344,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int|string
+     * @return ExcelException|int
      */
     public static function BITAND($number1, $number2)
     {
@@ -2369,7 +2369,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int|string
+     * @return ExcelException|int
      */
     public static function BITOR($number1, $number2)
     {
@@ -2394,7 +2394,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int|string
+     * @return ExcelException|int
      */
     public static function BITXOR($number1, $number2)
     {
@@ -2419,7 +2419,7 @@ class Engineering
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return int|string
+     * @return ExcelException|int
      */
     public static function BITLSHIFT($number, $shiftAmount)
     {
@@ -2450,7 +2450,7 @@ class Engineering
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return int|string
+     * @return ExcelException|int
      */
     public static function BITRSHIFT($number, $shiftAmount)
     {
