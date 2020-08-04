@@ -54,10 +54,11 @@ class ExcelException
         }
 
         $errorType = self::ERROR_TYPES[$value];
+
         return $errorType();
     }
 
-    public static function NULL(): self
+    public static function null(): self
     {
         return new self(self::EXCEL_ERROR_NULL);
     }

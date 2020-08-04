@@ -14,7 +14,7 @@ class ExcelExceptionTest extends TestCase
      * @param string $name
      * @param ExcelException $expectedResult
      */
-    public function testFromErrorName($name, $expectedResult)
+    public function testFromErrorName($name, $expectedResult): void
     {
         $result = ExcelException::fromErrorName($name);
 
@@ -26,7 +26,7 @@ class ExcelExceptionTest extends TestCase
         return require 'tests/data/Calculation/ExcelException.php';
     }
 
-    public function testFromInvalidErrorName()
+    public function testFromInvalidErrorName(): void
     {
         self:$this->expectException(SpreadsheetException::class);
         $result = ExcelException::fromErrorName('#MARK!');

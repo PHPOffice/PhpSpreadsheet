@@ -840,7 +840,8 @@ class Worksheet extends BIFFwriter
                     $num = pack('CCCvCv', 0x02, 0x00, self::mapErrorCode($calculatedValue), 0x00, 0x00, 0xFFFF);
                 } else {
                     // We are really not supposed to reach here
-                    $num = pack('d', 0x00);                }
+                    $num = pack('d', 0x00);
+                }
             } elseif (is_bool($calculatedValue)) {
                 // Boolean value
                 $num = pack('CCCvCv', 0x01, 0x00, (int) $calculatedValue, 0x00, 0x00, 0xFFFF);

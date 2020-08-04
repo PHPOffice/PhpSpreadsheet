@@ -216,7 +216,7 @@ class Content extends WriterPart
                         $objWriter->writeAttribute('office:value-type', 'string');
                     }
                     $objWriter->writeAttribute('office:value', $formulaValue);
-                    $objWriter->writeElement('text:p', $formulaValue instanceof ExcelException ? $formulaValue->errorName() :$formulaValue);
+                    $objWriter->writeElement('text:p', $formulaValue instanceof ExcelException ? $formulaValue->errorName() : $formulaValue);
 
                     break;
                 case DataType::TYPE_INLINE:

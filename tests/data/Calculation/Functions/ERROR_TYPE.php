@@ -32,7 +32,7 @@ return [
     ],
     [
         1,
-        ExcelException::NULL(),
+        ExcelException::null(),
     ],
     [
         2,

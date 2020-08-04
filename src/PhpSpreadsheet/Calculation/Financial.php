@@ -2333,7 +2333,7 @@ class Financial
             return Functions::NAN();
         }
 
-        foreach($dates as $date) {
+        foreach ($dates as $date) {
             $date = DateTime::getDateValue($date);
             if ($date instanceof ExcelException) {
                 return Functions::VALUE();

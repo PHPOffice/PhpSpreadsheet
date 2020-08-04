@@ -2,9 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Reader\Xls\ErrorCode;
 
 class Functions
 {
@@ -207,7 +205,7 @@ class Functions
      */
     public static function null(): ExcelException
     {
-        return ExcelException::NULL();
+        return ExcelException::null();
     }
 
     /**
@@ -268,7 +266,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @return int|ExcelException
+     * @return ExcelException|int
      */
     public static function errorType($value = '')
     {

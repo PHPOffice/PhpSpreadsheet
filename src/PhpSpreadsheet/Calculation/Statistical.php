@@ -587,6 +587,7 @@ class Statistical
             } elseif ($aMean === Functions::VALUE()) {
                 return Functions::VALUE();
             }
+
             return $aMean;
         }
 

@@ -45,7 +45,7 @@ return [
         DataType::TYPE_ERROR,
     ],
     [
-        ExcelException::NULL(),
+        ExcelException::null(),
         'NOT A VALID ERROR TYPE VALUE',
         DataType::TYPE_ERROR,
     ],

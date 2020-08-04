@@ -72,6 +72,7 @@ class DateTime
                 if ($dateValue instanceof DateTimeInterface) {
                     return Date::PHPToExcel($dateValue);
                 }
+
                 return Functions::VALUE();
             }
 

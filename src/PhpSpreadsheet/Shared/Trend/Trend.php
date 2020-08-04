@@ -49,6 +49,11 @@ class Trend
     private static $trendCache = [];
 
     /*
+     * @param mixed $trendType
+     * @param mixed $yValues
+     * @param mixed $xValues
+     * @param mixed $const
+     *
      * @return BestFit|false
      */
     public static function calculate($trendType = self::TREND_BEST_FIT, $yValues = [], $xValues = [], $const = true)
