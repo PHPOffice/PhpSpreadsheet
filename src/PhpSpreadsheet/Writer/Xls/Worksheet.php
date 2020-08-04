@@ -829,6 +829,7 @@ class Worksheet extends BIFFwriter
         // Initialize possible additional value for STRING record that should be written after the FORMULA record?
         $stringValue = null;
 
+        $num = pack('d', 0x00);
         // calculated value
         if (isset($calculatedValue)) {
             // Since we can't yet get the data type of the calculated value,
@@ -851,12 +852,7 @@ class Worksheet extends BIFFwriter
                     $stringValue = $calculatedValue;
                     $num = pack('CCCvCv', 0x00, 0x00, 0x00, 0x00, 0x00, 0xFFFF);
                 }
-            } else {
-                // We are really not supposed to reach here
-                $num = pack('d', 0x00);
             }
-        } else {
-            $num = pack('d', 0x00);
         }
 
         $grbit = 0x03; // Option flags

@@ -4795,14 +4795,12 @@ class Calculation
                 $operand = self::unwrapResult($operand);
             }
             //    If the string is a numeric value, we treat it as a numeric, so no further testing
-            if (!is_numeric($operand)) {
-                if (!Shared\StringHelper::convertToNumberIfFraction($operand)) {
-                    //    If not a numeric or a fraction, then it's a text string, and so can't be used in mathematical binary operations
-                    $stack->push('Error', ExcelException::VALUE());
-                    $this->debugLog->writeDebugLog('Evaluation Result is a ', $this->showTypeDetails('#VALUE!'));
+            if (!is_numeric($operand) && !Shared\StringHelper::convertToNumberIfFraction($operand)) {
+                //    If not a numeric or a fraction, then it's a text string, and so can't be used in mathematical binary operations
+                $stack->push('Error', ExcelException::VALUE());
+                $this->debugLog->writeDebugLog('Evaluation Result is a ', $this->showTypeDetails('#VALUE!'));
 
-                    return false;
-                }
+                return false;
             }
         }
 
