@@ -1606,7 +1606,7 @@ class Statistical
      * @param mixed $yValues array of mixed Data Series Y
      * @param mixed $xValues of mixed Data Series X
      *
-     * @return ExcelException|bool|float
+     * @return bool|ExcelException|float
      */
     public static function FORECAST($xValue, $yValues, $xValues)
     {
@@ -2065,7 +2065,7 @@ class Statistical
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
      * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
-     * @return ExcelException|array|int The result, or an ExcelException containing an error
+     * @return array|ExcelException|int The result, or an ExcelException containing an error
      */
     public static function LINEST($yValues, $xValues = null, $const = true, $stats = false)
     {
@@ -2124,7 +2124,7 @@ class Statistical
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
      * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
-     * @return ExcelException|array|int The result, or an ExcelException containing an error
+     * @return array|ExcelException|int The result, or an ExcelException containing an error
      */
     public static function LOGEST($yValues, $xValues = null, $const = true, $stats = false)
     {
