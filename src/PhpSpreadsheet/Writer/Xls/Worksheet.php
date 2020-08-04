@@ -883,7 +883,7 @@ class Worksheet extends BIFFwriter
             $packedValue = pack('CCCvCv', 0x02, 0x00, self::mapErrorCode($calculatedValue), 0x00, 0x00, 0xFFFF);
         } elseif (is_bool($calculatedValue)) {
             // Boolean value
-            $packedValue = pack('CCCvCv', 0x01, 0x00, (int)$calculatedValue, 0x00, 0x00, 0xFFFF);
+            $packedValue = pack('CCCvCv', 0x01, 0x00, (int) $calculatedValue, 0x00, 0x00, 0xFFFF);
         } elseif (is_int($calculatedValue) || is_float($calculatedValue)) {
             // Numeric value
             $packedValue = pack('d', $calculatedValue);
