@@ -48,7 +48,7 @@ class Trend
      */
     private static $trendCache = [];
 
-    /*
+    /**
      * @param mixed $trendType
      * @param mixed $yValues
      * @param mixed $xValues

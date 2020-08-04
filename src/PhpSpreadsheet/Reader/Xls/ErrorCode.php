@@ -23,7 +23,6 @@ class ErrorCode
      * @param int $code
      *
      * @return bool|ExcelException
-     * @throws Exception
      */
     public static function lookup($code)
     {
