@@ -51,7 +51,7 @@ class EDateTest extends TestCase
         $result = DateTime::EDATE('2012-1-26', -1);
         //    ... of the correct type
         self::assertInstanceOf(DateTimeInterface::class, $result);
-         //   ... with the correct value
+        //   ... with the correct value
         self::assertEquals($result->format('d-M-Y'), '26-Dec-2011');
     }
 }
