@@ -154,7 +154,7 @@ class Financial
                 return Functions::NAN();
             }
             $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
-            if (!is_numeric($daysBetweenIssueAndSettlement)) {
+            if ($daysBetweenIssueAndSettlement instanceof ExcelException) {
                 //    return date error
                 return $daysBetweenIssueAndSettlement;
             }
@@ -203,7 +203,7 @@ class Financial
                 return Functions::NAN();
             }
             $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
-            if (!is_numeric($daysBetweenIssueAndSettlement)) {
+            if ($daysBetweenIssueAndSettlement instanceof ExcelException) {
                 //    return date error
                 return $daysBetweenIssueAndSettlement;
             }
@@ -971,7 +971,7 @@ class Financial
                 return Functions::NAN();
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+            if ($daysBetweenSettlementAndMaturity instanceof ExcelException) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
             }
@@ -1066,7 +1066,7 @@ class Financial
      * @param float $nominal_rate Nominal interest rate
      * @param int $npery Number of compounding payments per year
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function EFFECT($nominal_rate = 0, $npery = 0)
     {
@@ -1100,7 +1100,7 @@ class Financial
      *                                0 or omitted    At the end of the period.
      *                                1                At the beginning of the period.
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function FV($rate = 0, $nper = 0, $pmt = 0, $pv = 0, $type = 0)
     {
@@ -1170,7 +1170,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function INTRATE($settlement, $maturity, $investment, $redemption, $basis = 0)
     {
@@ -1189,7 +1189,7 @@ class Financial
                 return Functions::NAN();
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+            if ($daysBetweenSettlementAndMaturity instanceof ExcelException) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
             }
@@ -1215,7 +1215,7 @@ class Financial
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function IPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
     {
@@ -1258,7 +1258,7 @@ class Financial
      *                                    calculate the internal rate of return.
      * @param float $guess A number that you guess is close to the result of IRR
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function IRR($values, $guess = 0.1)
     {
@@ -1368,7 +1368,7 @@ class Financial
      * @param float $finance_rate The interest rate you pay on the money used in the cash flows
      * @param float $reinvestment_rate The interest rate you receive on the cash flows as you reinvest them
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function MIRR($values, $finance_rate, $reinvestment_rate)
     {
@@ -1410,7 +1410,7 @@ class Financial
      * @param float $effect_rate Effective interest rate
      * @param int $npery Number of compounding payments per year
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function NOMINAL($effect_rate = 0, $npery = 0)
     {
@@ -1437,7 +1437,7 @@ class Financial
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function NPER($rate = 0, $pmt = 0, $pv = 0, $fv = 0, $type = 0)
     {
@@ -1505,7 +1505,7 @@ class Financial
      * @param float $pv Present Value
      * @param float $fv Future Value
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function PDURATION($rate = 0, $pv = 0, $fv = 0)
     {
@@ -1534,7 +1534,7 @@ class Financial
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function PMT($rate = 0, $nper = 0, $pv = 0, $fv = 0, $type = 0)
     {
@@ -1569,7 +1569,7 @@ class Financial
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function PPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
     {
@@ -1687,7 +1687,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function PRICEDISC($settlement, $maturity, $discount, $redemption, $basis = 0)
     {
@@ -1703,7 +1703,7 @@ class Financial
                 return Functions::NAN();
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+            if ($daysBetweenSettlementAndMaturity instanceof ExcelException) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
             }
@@ -1922,7 +1922,7 @@ class Financial
                 return Functions::NAN();
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
+            if ($daysBetweenSettlementAndMaturity instanceof ExcelException) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
             }
