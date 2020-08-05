@@ -51,8 +51,8 @@ class EoMonthTest extends TestCase
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
-        self::assertTrue(is_a($result, 'DateTimeInterface'));
-        //    ... with the correct value
+        self::assertInstanceOf(\DateTimeInterface::class, $result);
+        //   ... with the correct value (using an annotation for what the previous assertion has determined advises Scrutinizer)
         self::assertEquals($result->format('d-M-Y'), '31-Dec-2011');
     }
 }
