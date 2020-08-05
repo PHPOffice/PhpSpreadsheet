@@ -584,8 +584,6 @@ class Statistical
         if ($aMean instanceof ExcelException) {
             if ($aMean === Functions::DIV0()) {
                 return Functions::NAN();
-            } elseif ($aMean === Functions::VALUE()) {
-                return Functions::VALUE();
             }
 
             return $aMean;
