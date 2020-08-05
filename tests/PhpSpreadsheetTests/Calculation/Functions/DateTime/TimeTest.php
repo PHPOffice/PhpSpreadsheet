@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -48,8 +49,8 @@ class TimeTest extends TestCase
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
-        self::assertInstanceOf(\DateTimeInterface::class, $result);
-        //   ... with the correct value (using an annotation for what the previous assertion has determined advises Scrutinizer)
+        self::assertInstanceOf(DateTimeInterface::class, $result);
+        //   ... with the correct value
         self::assertEquals($result->format('H:i:s'), '07:30:20');
     }
 }

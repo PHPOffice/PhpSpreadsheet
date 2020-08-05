@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -49,8 +50,8 @@ class EDateTest extends TestCase
 
         $result = DateTime::EDATE('2012-1-26', -1);
         //    ... of the correct type
-        self::assertInstanceOf(\DateTimeInterface::class, $result);
-         //   ... with the correct value (using an annotation for what the previous assertion has determined advises Scrutinizer)
+        self::assertInstanceOf(DateTimeInterface::class, $result);
+         //   ... with the correct value
         self::assertEquals($result->format('d-M-Y'), '26-Dec-2011');
     }
 }
