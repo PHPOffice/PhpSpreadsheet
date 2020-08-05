@@ -52,7 +52,7 @@ class EDateTest extends TestCase
         self::assertIsObject($result);
         //    ... of the correct type
         self::assertTrue(is_a($result, 'DateTimeInterface'));
-        /**
+        /*
          *    ... with the correct value (using an annotation for what the previous assertion has determined advises Scrutinizer)
          * @var \DateTimeInterface $result
          */
