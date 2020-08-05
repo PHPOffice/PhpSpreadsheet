@@ -865,7 +865,7 @@ class DateTime
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return ExcelException|float fraction of the year, or an ExcelException containing an error
+     * @return ExcelException|float Fraction of the year, or an ExcelException containing an error
      */
     public static function YEARFRAC($startDate = 0, $endDate = 0, $method = 0)
     {

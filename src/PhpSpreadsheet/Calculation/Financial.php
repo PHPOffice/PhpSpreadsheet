@@ -134,9 +134,9 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
-    public static function ACCRINT($issue, $firstinterest, $settlement, $rate, $par = 1000, $frequency = 1, $basis = 0)
+    public static function ACCRINT($issue, $firstinterest, $settlement, $rate, $par = 1000.0, $frequency = 1, $basis = 0)
     {
         $issue = Functions::flattenSingleValue($issue);
         $firstinterest = Functions::flattenSingleValue($firstinterest);
@@ -185,9 +185,9 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
-    public static function ACCRINTM($issue, $settlement, $rate, $par = 1000, $basis = 0)
+    public static function ACCRINTM($issue, $settlement, $rate, $par = 1000.0, $basis = 0)
     {
         $issue = Functions::flattenSingleValue($issue);
         $settlement = Functions::flattenSingleValue($settlement);
@@ -379,7 +379,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function COUPDAYBS($settlement, $maturity, $frequency, $basis = 0)
     {
@@ -440,7 +440,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function COUPDAYS($settlement, $maturity, $frequency, $basis = 0)
     {
@@ -512,7 +512,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function COUPDAYSNC($settlement, $maturity, $frequency, $basis = 0)
     {
@@ -625,7 +625,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return int|string
+     * @return ExcelException|int
      */
     public static function COUPNUM($settlement, $maturity, $frequency, $basis = 0)
     {
@@ -729,7 +729,7 @@ class Financial
      *                                0 or omitted    At the end of the period.
      *                                1                At the beginning of the period.
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function CUMIPMT($rate, $nper, $pv, $start, $end, $type = 0)
     {
@@ -775,7 +775,7 @@ class Financial
      *                                0 or omitted    At the end of the period.
      *                                1                At the beginning of the period.
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function CUMPRINC($rate, $nper, $pv, $start, $end, $type = 0)
     {
@@ -826,7 +826,7 @@ class Financial
      * @param int $month Number of months in the first year. If month is omitted,
      *                                it defaults to 12.
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function DB($cost, $salvage, $life, $period, $month = 12)
     {
@@ -892,7 +892,7 @@ class Financial
      *                                If factor is omitted, it is assumed to be 2 (the
      *                                double-declining balance method).
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function DDB($cost, $salvage, $life, $period, $factor = 2.0)
     {
@@ -952,7 +952,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function DISC($settlement, $maturity, $price, $redemption, $basis = 0)
     {
@@ -995,7 +995,7 @@ class Financial
      * @param float $fractional_dollar Fractional Dollar
      * @param int $fraction Fraction
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function DOLLARDE($fractional_dollar = null, $fraction = 0)
     {
@@ -1031,7 +1031,7 @@ class Financial
      * @param float $decimal_dollar Decimal Dollar
      * @param int $fraction Fraction
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function DOLLARFR($decimal_dollar = null, $fraction = 0)
     {
@@ -1068,7 +1068,7 @@ class Financial
      *
      * @return ExcelException|float
      */
-    public static function EFFECT($nominal_rate = 0, $npery = 0)
+    public static function EFFECT($nominal_rate = 0.0, $npery = 0)
     {
         $nominal_rate = Functions::flattenSingleValue($nominal_rate);
         $npery = (int) Functions::flattenSingleValue($npery);
@@ -1102,7 +1102,7 @@ class Financial
      *
      * @return ExcelException|float
      */
-    public static function FV($rate = 0, $nper = 0, $pmt = 0, $pv = 0, $type = 0)
+    public static function FV($rate = 0, $nper = 0, $pmt = 0.0, $pv = 0.0, $type = 0)
     {
         $rate = Functions::flattenSingleValue($rate);
         $nper = Functions::flattenSingleValue($nper);
@@ -1217,7 +1217,7 @@ class Financial
      *
      * @return ExcelException|float
      */
-    public static function IPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
+    public static function IPMT($rate, $per, $nper, $pv, $fv = 0.0, $type = 0)
     {
         $rate = Functions::flattenSingleValue($rate);
         $per = (int) Functions::flattenSingleValue($per);
@@ -1412,7 +1412,7 @@ class Financial
      *
      * @return ExcelException|float Result, or an ExcelException containing an error
      */
-    public static function NOMINAL($effect_rate = 0, $npery = 0)
+    public static function NOMINAL($effect_rate = 0.0, $npery = 0)
     {
         $effect_rate = Functions::flattenSingleValue($effect_rate);
         $npery = (int) Functions::flattenSingleValue($npery);
@@ -1439,7 +1439,7 @@ class Financial
      *
      * @return ExcelException|float Result, or an ExcelException containing an error
      */
-    public static function NPER($rate = 0, $pmt = 0, $pv = 0, $fv = 0, $type = 0)
+    public static function NPER($rate = 0.0, $pmt = 0, $pv = 0.0, $fv = 0.0, $type = 0)
     {
         $rate = Functions::flattenSingleValue($rate);
         $pmt = Functions::flattenSingleValue($pmt);
@@ -1507,7 +1507,7 @@ class Financial
      *
      * @return ExcelException|float Result, or an ExcelException containing an error
      */
-    public static function PDURATION($rate = 0, $pv = 0, $fv = 0)
+    public static function PDURATION($rate = 0.0, $pv = 0.0, $fv = 0.0)
     {
         $rate = Functions::flattenSingleValue($rate);
         $pv = Functions::flattenSingleValue($pv);
@@ -1536,7 +1536,7 @@ class Financial
      *
      * @return ExcelException|float Result, or an ExcelException containing an error
      */
-    public static function PMT($rate = 0, $nper = 0, $pv = 0, $fv = 0, $type = 0)
+    public static function PMT($rate = 0.0, $nper = 0, $pv = 0.0, $fv = 0.0, $type = 0)
     {
         $rate = Functions::flattenSingleValue($rate);
         $nper = Functions::flattenSingleValue($nper);
@@ -1571,7 +1571,7 @@ class Financial
      *
      * @return ExcelException|float Result, or an ExcelException containing an error
      */
-    public static function PPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
+    public static function PPMT($rate, $per, $nper, $pv, $fv = 0.0, $type = 0)
     {
         $rate = Functions::flattenSingleValue($rate);
         $per = (int) Functions::flattenSingleValue($per);
@@ -1793,7 +1793,7 @@ class Financial
      *
      * @return ExcelException|float Result, or a string containing an error
      */
-    public static function PV($rate = 0, $nper = 0, $pmt = 0, $fv = 0, $type = 0)
+    public static function PV($rate = 0.0, $nper = 0, $pmt = 0.0, $fv = 0.0, $type = 0)
     {
         $rate = Functions::flattenSingleValue($rate);
         $nper = Functions::flattenSingleValue($nper);
@@ -1944,7 +1944,7 @@ class Financial
      *
      * @return ExcelException|float Result, or an ExcelException containing an error
      */
-    public static function RRI($nper = 0, $pv = 0, $fv = 0)
+    public static function RRI($nper = 0.0, $pv = 0.0, $fv = 0.0)
     {
         $nper = Functions::flattenSingleValue($nper);
         $pv = Functions::flattenSingleValue($pv);
@@ -2147,11 +2147,12 @@ class Financial
 
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
                 ++$maturity;
-                $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
+                $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity);
                 if ($daysBetweenSettlementAndMaturity instanceof ExcelException) {
                     //    return date error
                     return $daysBetweenSettlementAndMaturity;
                 }
+                $daysBetweenSettlementAndMaturity *= 360;
             } else {
                 $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
             }
