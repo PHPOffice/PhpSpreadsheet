@@ -28,7 +28,7 @@ class ExcelExceptionTest extends TestCase
 
     public function testFromInvalidErrorName(): void
     {
-        self:$this->expectException(SpreadsheetException::class);
-        $result = ExcelException::fromErrorName('#MARK!');
+        $this->expectException(SpreadsheetException::class);
+        ExcelException::fromErrorName('#MARK!');
     }
 }

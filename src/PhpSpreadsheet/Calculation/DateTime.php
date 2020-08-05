@@ -1155,7 +1155,7 @@ class DateTime
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
 
-        $dateValue = ($dateValue === null) ? 1 : $dateValue = self::getDateValue($dateValue);
+        $dateValue = ($dateValue === null) ? 1 : self::getDateValue($dateValue);
         if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         }
@@ -1204,7 +1204,7 @@ class DateTime
         }
         $style = floor($style);
 
-        $dateValue = ($dateValue === null) ? 1 : $dateValue = self::getDateValue($dateValue);
+        $dateValue = ($dateValue === null) ? 1 : self::getDateValue($dateValue);
         if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
@@ -1322,7 +1322,7 @@ class DateTime
         }
         $method = self::METHODARR[$method];
 
-        $dateValue = ($dateValue === null) ? 1 : $dateValue = self::getDateValue($dateValue);
+        $dateValue = ($dateValue === null) ? 1 : self::getDateValue($dateValue);
         if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
@@ -1362,7 +1362,7 @@ class DateTime
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
 
-        $dateValue = ($dateValue === null) ? 1 : $dateValue = self::getDateValue($dateValue);
+        $dateValue = ($dateValue === null) ? 1 : self::getDateValue($dateValue);
         if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
@@ -1393,7 +1393,7 @@ class DateTime
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
 
-        $dateValue = ($dateValue === null) ? 1 : $dateValue = self::getDateValue($dateValue);
+        $dateValue = ($dateValue === null) ? 1 : self::getDateValue($dateValue);
         if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
@@ -1424,7 +1424,7 @@ class DateTime
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
 
-        $dateValue = ($dateValue === null) ? 1 : $dateValue = self::getDateValue($dateValue);
+        $dateValue = ($dateValue === null) ? 1 : self::getDateValue($dateValue);
         if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
