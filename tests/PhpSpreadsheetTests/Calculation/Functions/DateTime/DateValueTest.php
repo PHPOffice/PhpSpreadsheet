@@ -56,7 +56,11 @@ class DateValueTest extends TestCase
         self::assertIsObject($result);
         //    ... of the correct type
         self::assertInstanceOf(DateTimeInterface::class, $result);
-        //   ... with the correct value
+        /*
+         *    ... with the correct value (using an annotation for what the previous assertion has already determined
+         *             because Scrutinizer simply isn't tha intelligent, and treats that as a major issue)
+         * @var DateTimeInterface $result
+         */
         self::assertEquals($result->format('d-M-Y'), '31-Jan-2012');
     }
 }
