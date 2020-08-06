@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         5,
@@ -94,20 +96,20 @@ return [
         38093, 3,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '3/7/1977', 'A',
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '3/7/1977', 0,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'Invalid',
         1,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -1,
     ],
 ];

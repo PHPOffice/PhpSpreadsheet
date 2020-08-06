@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         1234567.89,
@@ -14,15 +16,15 @@ return [
         ['-1 234 567,890', ',', ' '],
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         ['1 234 567,890-', ',', ' '],
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         ['1,234,567.890,123'],
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         ['1.234.567.890,123'],
     ],
     [
@@ -30,7 +32,7 @@ return [
         ['1.234.567,890', ',', '.'],
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         ['1.234.567,89'],
     ],
     [
@@ -46,7 +48,7 @@ return [
         ['1,234,567.89%%%'],
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         ['1,234,567.89-%'],
     ],
 ];

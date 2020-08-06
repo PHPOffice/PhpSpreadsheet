@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         1,
@@ -42,11 +44,11 @@ return [
         'Dec 2003',
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -10,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'ABCD',
     ],
 ];

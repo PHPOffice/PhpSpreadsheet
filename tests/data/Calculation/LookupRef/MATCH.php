@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     // Third argument = 0
     [
@@ -9,7 +11,7 @@ return [
         0,
     ],
     [
-        '#N/A', // Expected
+        ExcelException::NA(), // Expected
         2, // Input
         [1, 0, 4, 3],
         0,
@@ -73,7 +75,7 @@ return [
         -1,
     ],
     [
-        '#N/A', // Expected
+        ExcelException::NA(), // Expected
         6, // Input
         [3, 5, 6, 8],
         -1,
@@ -125,31 +127,31 @@ return [
         -1,
     ],
     [
-        '#N/A', // Expected
+        ExcelException::NA(), // Expected
         0,
         ['x', true, false],
         -1,
     ],
     [
-        '#N/A', // Expected
+        ExcelException::NA(), // Expected
         true,
         ['a', 'b', 'c'],
         -1,
     ],
     [
-        '#N/A', // Expected
+        ExcelException::NA(), // Expected
         true,
         [0, 1, 2],
         -1,
     ],
     [
-        '#N/A', // Expected
+        ExcelException::NA(), // Expected
         true,
         [0, 1, 2],
         0,
     ],
     [
-        '#N/A', // Expected
+        ExcelException::NA(), // Expected
         true,
         [0, 1, 2],
         1,
@@ -194,13 +196,13 @@ return [
     ],
     // if element of same data type met and it is < than searched one #N/A - no further processing
     [
-        '#N/A', // Expected
+        ExcelException::NA(), // Expected
         6,
         [true, false, 'a', 'z', 2, 888],
         -1,
     ],
     [
-        '#N/A', // Expected
+        ExcelException::NA(), // Expected
         6,
         ['6'],
         -1,
@@ -255,7 +257,7 @@ return [
         0,
     ],
     [
-        '#N/A', // Expected
+        ExcelException::NA(), // Expected
         '?',
         [1, 22, 333],
         0,

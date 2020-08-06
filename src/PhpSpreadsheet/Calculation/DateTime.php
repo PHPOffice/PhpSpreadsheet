@@ -63,7 +63,7 @@ class DateTime
      *
      * @param mixed $dateValue
      *
-     * @return mixed Excel date/time serial value, or ExcelException if error
+     * @return ExcelException|float Excel date/time serial value, or ExcelException if error
      */
     public static function getDateValue($dateValue)
     {
