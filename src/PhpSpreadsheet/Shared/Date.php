@@ -199,8 +199,13 @@ class Date
         }
         $interval = $days . ' days';
 
-        return $baseDate->modify($interval)
+        $returnDate = $baseDate->modify($interval)
             ->setTime((int) $hours, (int) $minutes, (int) $seconds);
+        if ($returnDate === false) {
+            throw new PhpSpreadsheetException('Error converting Excel date to DateTime object');
+        }
+
+        return $returnDate;
     }
 
     /**
