@@ -811,7 +811,8 @@ class DateTime
      *                                        occur on the 31st of a month become equal to the 30th of the
      *                                        same month.
      *
-     * @return ExcelException|int Number of days between start date and end date
+     * @return ExcelException|int
+     *             Number of whoe days between start date and end date, based on the mode used
      */
     public static function DAYS360($startDate = 0, $endDate = 0, $method = false)
     {
@@ -869,7 +870,8 @@ class DateTime
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return ExcelException|float Fraction of the year, or an ExcelException containing an error
+     * @return ExcelException|float
+     *            Fraction of the year, or an ExcelException containing an error
      */
     public static function YEARFRAC($startDate = 0, $endDate = 0, $method = 0)
     {

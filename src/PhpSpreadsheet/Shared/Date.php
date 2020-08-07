@@ -155,7 +155,8 @@ class Date
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
      *
-     * @return \DateTime PHP date/time object
+     * @return DateTimeInterface
+     *             PHP date/time object
      */
     public static function excelToDateTimeObject($excelTimestamp, $timeZone = null)
     {
@@ -202,7 +203,8 @@ class Date
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
      *
-     * @return int Unix timetamp for this date/time
+     * @return int
+     *           Unix timetamp for this date/time
      */
     public static function excelToTimestamp($excelTimestamp, $timeZone = null)
     {
@@ -236,7 +238,8 @@ class Date
      *
      * @param DateTimeInterface $dateValue PHP DateTime object
      *
-     * @return float MS Excel serialized date/time value
+     * @return float
+     *      MS Excel serialized date/time value
      */
     public static function dateTimeToExcel(DateTimeInterface $dateValue)
     {
@@ -276,7 +279,8 @@ class Date
      * @param int $minutes
      * @param int $seconds
      *
-     * @return float Excel date/time value
+     * @return float
+     *      Excel serialized date/time value
      */
     public static function formattedPHPToExcel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0)
     {

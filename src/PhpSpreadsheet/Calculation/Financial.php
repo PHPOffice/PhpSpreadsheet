@@ -134,7 +134,8 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return ExcelException|float Result, or an ExcelException containing an error
+     * @return ExcelException|float
+     *              Result, or an ExcelException containing an error
      */
     public static function ACCRINT($issue, $firstinterest, $settlement, $rate, $par = 1000.0, $frequency = 1, $basis = 0)
     {
@@ -185,7 +186,8 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return ExcelException|float Result, or an ExcelException containing an error
+     * @return ExcelException|float
+     *             The result, or an ExcelException containing an error
      */
     public static function ACCRINTM($issue, $settlement, $rate, $par = 1000.0, $basis = 0)
     {
