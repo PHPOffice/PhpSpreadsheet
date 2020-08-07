@@ -14,7 +14,8 @@ class DateTime
      *
      * @param int|string $year The year to test
      *
-     * @return bool TRUE if the year is a leap year, otherwise FALSE
+     * @return bool
+     *          TRUE if the year is a leap year, otherwise FALSE
      */
     public static function isLeapYear($year)
     {
@@ -32,7 +33,8 @@ class DateTime
      * @param int $endYear Year of the start date
      * @param bool $methodUS Whether to use the US method or the European method of calculation
      *
-     * @return int Number of days between the start date and the end date
+     * @return int
+     *          Number of days between the start date and the end date
      */
     private static function dateDiff360($startDay, $startMonth, $startYear, $endDay, $endMonth, $endYear, $methodUS)
     {
@@ -63,7 +65,8 @@ class DateTime
      *
      * @param mixed $dateValue
      *
-     * @return ExcelException|float Excel date/time serial value, or ExcelException if error
+     * @return ExcelException|float
+     *          Excel date/time serial value, or ExcelException if error
      */
     public static function getDateValue($dateValue)
     {
@@ -90,7 +93,8 @@ class DateTime
      *
      * @param string $timeValue
      *
-     * @return ExcelException|float Excel date/time serial value, or ExcelException if an error
+     * @return ExcelException|float
+     *          Excel date/time serial value, or ExcelException if an error
      */
     private static function getTimeValue($timeValue)
     {
@@ -143,8 +147,9 @@ class DateTime
      * Excel Function:
      *        NOW()
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     * @return mixed
+     *          Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *              depending on the value of the ReturnDateType flag
      */
     public static function DATETIMENOW()
     {
@@ -755,7 +760,8 @@ class DateTime
      * @param DateTimeImmutable|float|int|string $startDate Excel date serial value (float),
      * PHP date timestamp (integer), PHP DateTime object, or a standard date string
      *
-     * @return ExcelException|int Number of days between start date and end date or an error
+     * @return ExcelException|int
+     *          Number of days between start date and end date or an error
      */
     public static function DAYS($endDate = 0, $startDate = 0)
     {

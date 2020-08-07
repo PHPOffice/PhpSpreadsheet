@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use DateTimeInterface;
 use DateTimeZone;
+use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -181,7 +182,7 @@ class Date
             } else {
                 $baseDate = new \DateTime('1899-12-30', $timeZone);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new PhpSpreadsheetException($e->getMessage());
         }
 
@@ -212,8 +213,6 @@ class Date
      *
      * @return int
      *           Unix timetamp for this date/time
-     *
-     * @throws PhpSpreadsheetException
      */
     public static function excelToTimestamp($excelTimestamp, $timeZone = null)
     {
