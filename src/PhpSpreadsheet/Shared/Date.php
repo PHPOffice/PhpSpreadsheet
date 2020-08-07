@@ -9,7 +9,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class Date
@@ -138,8 +137,6 @@ class Date
      *
      * @return DateTimeZone
      *          The timezone as a timezone object
-     *
-     * @throws PhpSpreadsheetException
      */
     private static function validateTimeZone($timeZone)
     {
@@ -163,8 +160,6 @@ class Date
      *
      * @return DateTimeInterface
      *             PHP date/time object
-     *
-     * @throws PhpSpreadsheetException
      */
     public static function excelToDateTimeObject($excelTimestamp, $timeZone = null)
     {
