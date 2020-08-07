@@ -70,7 +70,7 @@ class DateTime
         if (!is_numeric($dateValue)) {
             if (is_object($dateValue)) {
                 if ($dateValue instanceof DateTimeInterface) {
-                    return Date::PHPToExcel($dateValue);
+                    return Date::dateTimeToExcel($dateValue);
                 }
 
                 return Functions::VALUE();
@@ -90,7 +90,7 @@ class DateTime
      *
      * @param string $timeValue
      *
-     * @return mixed Excel date/time serial value, or string if error
+     * @return ExcelException|float Excel date/time serial value, or ExcelException if an error
      */
     private static function getTimeValue($timeValue)
     {
@@ -461,8 +461,10 @@ class DateTime
      *                                    from January 1, 1904, to December 31, 9999. DATEVALUE returns the
      *                                    #VALUE! error value if date_text is out of this range.
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     * @return DateTimeInterface|ExcelException|float|int
+     *             Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
+     *             or an ExcelException if the value cannot be converted
      */
     public static function DATEVALUE($dateValue = 1)
     {
@@ -590,8 +592,10 @@ class DateTime
      *                                    within quotation marks that represent time.
      *                                    Date information in time_text is ignored.
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     * @return DateTimeInterface|ExcelException|float|int
+     *             Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
+     *             or an ExcelException if the value cannot be converted
      */
     public static function TIMEVALUE($timeValue)
     {
