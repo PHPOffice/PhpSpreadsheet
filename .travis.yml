@@ -14,11 +14,14 @@ cache:
 
 before_script:
   # Deactivate xdebug
-  - phpenv config-rm xdebug.ini
+  - if [[ $TRAVIS_PHP_VERSION <> nightly ]]; then phpenv config-rm xdebug.ini; fi
   - composer install --ignore-platform-reqs
 
 script:
   - ./vendor/bin/phpunit --color=always --coverage-text
+
+allow_failures:
+  - php: nightly
 
 jobs:
   include:
