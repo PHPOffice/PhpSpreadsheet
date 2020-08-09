@@ -31,7 +31,7 @@ jobs:
     - stage: Analysis
       php: 7.4
       script:
-        - ./vendor/bin/phpstan
+        - ./vendor/bin/phpstan analyse
 
     - stage: Coverage
       php: 7.4
