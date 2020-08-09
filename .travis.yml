@@ -30,8 +30,8 @@ jobs:
 
     - stage: Analysis
       php: 7.4
-      allow_failures:
-        - php: 7.4
+      before_script:
+        - export TRAVIS_ALLOW_FAILURE=true
       script:
         - ./vendor/bin/phpstan analyse
 
@@ -44,7 +44,7 @@ jobs:
         - wget https://scrutinizer-ci.com/ocular.phar
         - php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml
 
-    - stage: API documentations
+    - stage: API documentation
       if: tag is present
       php: 7.4
       before_script:
