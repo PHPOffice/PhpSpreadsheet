@@ -68,7 +68,8 @@
         "phpcompatibility/php-compatibility": "^9.3",
         "phpunit/phpunit": "^8.5",
         "squizlabs/php_codesniffer": "^3.5",
-        "tecnickcom/tcpdf": "^6.3"
+        "tecnickcom/tcpdf": "^6.3",
+        "phpstan/phpstan": "^0.12.36"
     },
     "suggest": {
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",

@@ -28,6 +28,11 @@ jobs:
         - ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run
         - ./vendor/bin/phpcs
 
+    - stage: Analysis
+      php: 7.4
+      script:
+        - ./vendor/bin/phpstan
+
     - stage: Coverage
       php: 7.4
       script:
