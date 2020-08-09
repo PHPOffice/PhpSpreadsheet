@@ -1445,7 +1445,7 @@ class Statistical
             return $returnValue;
         }
 
-        return self::NA();
+        return Functions::NA();
     }
 
     /**
@@ -1701,7 +1701,6 @@ class Statistical
             $xHi = $alpha * $beta * 5;
 
             $x = $xNew = 1;
-            $error = $pdf = 0;
             $dx = 1024;
             $i = 0;
 
@@ -2019,11 +2018,12 @@ class Statistical
     public static function LARGE(...$args)
     {
         $aArgs = Functions::flattenArray($args);
-
-        // Calculate
-        $entry = floor(array_pop($aArgs));
+        $entry = array_pop($aArgs);
 
         if ((is_numeric($entry)) && (!is_string($entry))) {
+            $entry = (int) floor($entry);
+
+            // Calculate
             $mArgs = [];
             foreach ($aArgs as $arg) {
                 // Is it a numeric value?
@@ -2032,7 +2032,7 @@ class Statistical
                 }
             }
             $count = self::COUNT($mArgs);
-            $entry = floor(--$entry);
+            --$entry;
             if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
                 return Functions::NAN();
             }
@@ -2873,7 +2873,7 @@ class Statistical
      * @param int $value the number whose rank you want to find
      * @param int $significance the number of significant digits for the returned percentage value
      *
-     * @return float
+     * @return float|string (string if result is an error)
      */
     public static function PERCENTRANK($valueSet, $value, $significance = 3)
     {
@@ -3169,6 +3169,8 @@ class Statistical
         $entry = array_pop($aArgs);
 
         if ((is_numeric($entry)) && (!is_string($entry))) {
+            $entry = (int) floor($entry);
+
             $mArgs = [];
             foreach ($aArgs as $arg) {
                 // Is it a numeric value?
@@ -3177,7 +3179,7 @@ class Statistical
                 }
             }
             $count = self::COUNT($mArgs);
-            $entry = floor(--$entry);
+            --$entry;
             if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
                 return Functions::NAN();
             }
@@ -3481,7 +3483,6 @@ class Statistical
             $ttheta = atan2($value, sqrt($tterm));
             $tc = cos($ttheta);
             $ts = sin($ttheta);
-            $tsum = 0;
 
             if (($degrees % 2) == 1) {
                 $ti = 3;
@@ -3657,7 +3658,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string (string if result is an error)
      */
     public static function VARFunc(...$args)
     {
@@ -3699,7 +3700,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string (string if result is an error)
      */
     public static function VARA(...$args)
     {
@@ -3754,7 +3755,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string (string if result is an error)
      */
     public static function VARP(...$args)
     {
@@ -3797,7 +3798,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string (string if result is an error)
      */
     public static function VARPA(...$args)
     {
@@ -3853,7 +3854,7 @@ class Statistical
      * @param float $beta Beta Parameter
      * @param bool $cumulative
      *
-     * @return float
+     * @return float|string (string if result is an error)
      */
     public static function WEIBULL($value, $alpha, $beta, $cumulative)
     {
@@ -3887,7 +3888,7 @@ class Statistical
      * @param float $m0 Alpha Parameter
      * @param float $sigma Beta Parameter
      *
-     * @return float|string
+     * @return float|string (string if result is an error)
      */
     public static function ZTEST($dataSet, $m0, $sigma = null)
     {
