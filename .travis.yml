@@ -30,6 +30,8 @@ jobs:
 
     - stage: Analysis
       php: 7.4
+      allow_failures:
+        - php: 7.4
       script:
         - ./vendor/bin/phpstan analyse
 
