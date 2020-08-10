@@ -18,6 +18,7 @@ class IfNaTest extends TestCase
      *
      * @param mixed $expectedResult
      * @param mixed $value
+     * @param mixed $return
      */
     public function testIFNA($expectedResult, $value, $return): void
     {
