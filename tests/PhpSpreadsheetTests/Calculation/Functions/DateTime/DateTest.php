@@ -21,9 +21,9 @@ class DateTest extends TestCase
      * @dataProvider providerDATE
      *
      * @param mixed $expectedResult
-     * @param $year
-     * @param $month
-     * @param $day
+     * @param mixed $year
+     * @param mixed $month
+     * @param mixed $day
      */
     public function testDATE($expectedResult, $year, $month, $day): void
     {

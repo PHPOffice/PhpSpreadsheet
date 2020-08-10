@@ -20,8 +20,8 @@ class DaysTest extends TestCase
      * @dataProvider providerDAYS
      *
      * @param mixed $expectedResult
-     * @param $endDate
-     * @param $startDate
+     * @param mixed $endDate
+     * @param mixed $startDate
      */
     public function testDAYS($expectedResult, $endDate, $startDate): void
     {

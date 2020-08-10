@@ -21,8 +21,8 @@ class EoMonthTest extends TestCase
      * @dataProvider providerEOMONTH
      *
      * @param mixed $expectedResult
-     * @param $dateValue
-     * @param $adjustmentMonths
+     * @param mixed $dateValue
+     * @param mixed $adjustmentMonths
      */
     public function testEOMONTH($expectedResult, $dateValue, $adjustmentMonths): void
     {

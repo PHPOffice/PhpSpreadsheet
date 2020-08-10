@@ -21,8 +21,8 @@ class EDateTest extends TestCase
      * @dataProvider providerEDATE
      *
      * @param mixed $expectedResult
-     * @param $dateValue
-     * @param $adjustmentMonths
+     * @param mixed $dateValue
+     * @param mixed $adjustmentMonths
      */
     public function testEDATE($expectedResult, $dateValue, $adjustmentMonths): void
     {

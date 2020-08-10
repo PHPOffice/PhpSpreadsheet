@@ -20,7 +20,7 @@ class MonthTest extends TestCase
      * @dataProvider providerMONTH
      *
      * @param mixed $expectedResult
-     * @param $dateTimeValue
+     * @param mixed $dateTimeValue
      */
     public function testMONTH($expectedResult, $dateTimeValue): void
     {

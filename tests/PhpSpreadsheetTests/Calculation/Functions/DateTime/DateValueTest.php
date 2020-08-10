@@ -21,7 +21,7 @@ class DateValueTest extends TestCase
      * @dataProvider providerDATEVALUE
      *
      * @param mixed $expectedResult
-     * @param $dateValue
+     * @param mixed $dateValue
      */
     public function testDATEVALUE($expectedResult, $dateValue): void
     {

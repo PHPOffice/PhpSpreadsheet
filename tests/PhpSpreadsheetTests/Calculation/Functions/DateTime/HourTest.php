@@ -20,7 +20,7 @@ class HourTest extends TestCase
      * @dataProvider providerHOUR
      *
      * @param mixed $expectedResult
-     * @param $dateTimeValue
+     * @param mixed $dateTimeValue
      */
     public function testHOUR($expectedResult, $dateTimeValue): void
     {

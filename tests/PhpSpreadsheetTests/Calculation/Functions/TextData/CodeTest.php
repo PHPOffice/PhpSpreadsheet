@@ -11,7 +11,7 @@ class CodeTest extends TestCase
      * @dataProvider providerCODE
      *
      * @param mixed $expectedResult
-     * @param $character
+     * @param mixed $character
      */
     public function testCODE($expectedResult, $character): void
     {
