@@ -31,6 +31,9 @@
             "phpcs",
             "phpunit --color=always"
         ],
+        "analyse": [
+            "phpstan analyse"
+        ],
         "fix": [
             "php-cs-fixer fix --ansi"
         ],
