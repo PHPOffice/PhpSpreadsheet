@@ -61,7 +61,7 @@ class TextData
             return str_replace(self::$invalidChars, '', trim($stringValue, "\x00..\x1F"));
         }
 
-        return null;
+        return '';
     }
 
     /**
@@ -82,7 +82,7 @@ class TextData
             return trim(preg_replace('/ +/', ' ', trim($stringValue, ' ')), ' ');
         }
 
-        return null;
+        return '';
     }
 
     private static function convertBooleanValue($value)
@@ -97,7 +97,7 @@ class TextData
     /**
      * ASCIICODE.
      *
-     * @param string $characters Value
+     * @param ?string $characters Value
      *
      * @return int|string A string if arguments are invalid
      */
@@ -146,8 +146,8 @@ class TextData
      * This function converts a number to text using currency format, with the decimals rounded to the specified place.
      * The format used is $#,##0.00_);($#,##0.00)..
      *
-     * @param float $value The value to format
-     * @param int $decimals The number of digits to display to the right of the decimal point.
+     * @param ?float $value The value to format
+     * @param ?int $decimals The number of digits to display to the right of the decimal point.
      *                                    If decimals is negative, number is rounded to the left of the decimal point.
      *                                    If you omit decimals, it is assumed to be 2
      *
@@ -166,13 +166,13 @@ class TextData
 
         $mask = '$#,##0';
         if ($decimals > 0) {
-            $mask .= '.' . str_repeat('0', $decimals);
+            $mask .= '.' . str_repeat('0', (int) $decimals);
         } else {
             $round = 10 ** abs($decimals);
             if ($value < 0) {
                 $round = 0 - $round;
             }
-            $value = MathTrig::MROUND($value, $round);
+            $value = MathTrig::MROUND($value, (int) $round);
         }
 
         return NumberFormat::toFormattedString($value, $mask);
@@ -185,7 +185,7 @@ class TextData
      * @param string $haystack The string in which to look
      * @param int $offset Offset within $haystack
      *
-     * @return string
+     * @return ExcelException|int
      */
     public static function SEARCHSENSITIVE($needle, $haystack, $offset = 1)
     {
@@ -220,7 +220,7 @@ class TextData
      * @param string $haystack The string in which to look
      * @param int $offset Offset within $haystack
      *
-     * @return string
+     * @return ExcelException|int
      */
     public static function SEARCHINSENSITIVE($needle, $haystack, $offset = 1)
     {
@@ -544,7 +544,7 @@ class TextData
      *
      * @param mixed $value Value to check
      *
-     * @return DateTimeInterface|float|int|string A string if arguments are invalid
+     * @return DateTimeInterface|ExcelException|float|int An ExcelException if arguments are invalid
      */
     public static function VALUE($value = '')
     {
@@ -592,7 +592,7 @@ class TextData
      * @param string $decimalSeparator decimal separator, defaults to locale defined value
      * @param string $groupSeparator group/thosands separator, defaults to locale defined value
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function NUMBERVALUE($value = '', $decimalSeparator = null, $groupSeparator = null)
     {
@@ -636,8 +636,8 @@ class TextData
      * EXACT is case-sensitive but ignores formatting differences.
      * Use EXACT to test text being entered into a document.
      *
-     * @param $value1
-     * @param $value2
+     * @param mixed $value1
+     * @param mixed $value2
      *
      * @return bool
      */

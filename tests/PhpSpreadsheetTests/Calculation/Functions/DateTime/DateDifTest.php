@@ -20,9 +20,9 @@ class DateDifTest extends TestCase
      * @dataProvider providerDATEDIF
      *
      * @param mixed $expectedResult
-     * @param $startDate
-     * @param $endDate
-     * @param $unit
+     * @param mixed $startDate
+     * @param mixed $endDate
+     * @param mixed $unit
      */
     public function testDATEDIF($expectedResult, $startDate, $endDate, $unit): void
     {

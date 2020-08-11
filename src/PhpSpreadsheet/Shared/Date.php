@@ -159,7 +159,7 @@ class Date
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
      *
-     * @return DateTimeInterface
+     * @return \DateTime
      *             PHP date/time object
      */
     public static function excelToDateTimeObject($excelTimestamp, $timeZone = null)

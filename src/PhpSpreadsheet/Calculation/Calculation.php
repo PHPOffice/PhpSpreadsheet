@@ -216,7 +216,7 @@ class Calculation
      * Excel constant string translations to their PHP equivalents
      * Constant conversion from text name/value to actual (datatyped) value.
      *
-     * @var string[]
+     * @var mixed[]
      */
     private static $excelConstants = [
         'TRUE' => true,
@@ -3687,6 +3687,8 @@ class Calculation
 
             return $typeString . ' with a value of ' . $this->showValue($value);
         }
+
+        return null;
     }
 
     /**

@@ -311,8 +311,8 @@ class CalculationTest extends TestCase
     }
 
     /**
-     * @param $expectedResult
-     * @param $dataArray
+     * @param mixed $expectedResult
+     * @param mixed $dataArray
      * @param string $formula
      * @param string $cellCoordinates where to put the formula
      * @param string[] $shouldBeSetInCacheCells coordinates of cells that must
