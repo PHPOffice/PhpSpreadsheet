@@ -705,7 +705,7 @@ class MathTrig
      *
      * @param array $matrixValues A matrix of values
      *
-     * @return ExcelException|array The result, or an ExcelException containing an error
+     * @return array|ExcelException The result, or an ExcelException containing an error
      */
     public static function MINVERSE($matrixValues)
     {
@@ -755,7 +755,7 @@ class MathTrig
      * @param array $matrixData1 A matrix of values
      * @param array $matrixData2 A matrix of values
      *
-     * @return ExcelException|array The result, or an ExcelException containing an error
+     * @return array|ExcelException The result, or an ExcelException containing an error
      */
     public static function MMULT($matrixData1, $matrixData2)
     {
