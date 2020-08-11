@@ -827,6 +827,9 @@ class Statistical
             while ((($b - $a) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 $guess = ($a + $b) / 2;
                 $result = self::BETADIST($guess, $alpha, $beta);
+                if ($result instanceof ExcelException) {
+                    return $result;
+                }
                 if (($result == $probability) || ($result == 0)) {
                     $b = $a;
                 } elseif ($result > $probability) {
@@ -3007,10 +3010,10 @@ class Statistical
         $aArgs = Functions::flattenArray($args);
 
         // Calculate
-        $entry = floor(array_pop($aArgs));
+        $entry = array_pop($aArgs);
 
         if ((is_numeric($entry)) && (!is_string($entry))) {
-            $entry /= 4;
+            $entry = floor($entry) / 4;
             if (($entry < 0) || ($entry > 1)) {
                 return Functions::NAN();
             }
@@ -3547,6 +3550,9 @@ class Statistical
             while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
                 $result = self::TDIST($x, $degrees, 2);
+                if ($result instanceof ExcelException) {
+                    return $result;
+                }
                 $error = $result - $probability;
                 if ($error == 0.0) {
                     $dx = 0;

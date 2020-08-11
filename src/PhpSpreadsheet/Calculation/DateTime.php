@@ -471,7 +471,7 @@ class DateTime
      *               depending on the value of the ReturnDateType flag
      *             or an ExcelException if the value cannot be converted
      */
-    public static function DATEVALUE($dateValue = 1)
+    public static function DATEVALUE($dateValue = '1')
     {
         $dateValue = trim(Functions::flattenSingleValue($dateValue), '"');
         //    Strip any ordinals because they're allowed in Excel (English only)
@@ -840,14 +840,14 @@ class DateTime
 
         // Execute function
         $PHPStartDateObject = Date::excelToDateTimeObject($startDate);
-        $startDay = $PHPStartDateObject->format('j');
-        $startMonth = $PHPStartDateObject->format('n');
-        $startYear = $PHPStartDateObject->format('Y');
+        $startDay = (int) $PHPStartDateObject->format('j');
+        $startMonth = (int) $PHPStartDateObject->format('n');
+        $startYear = (int) $PHPStartDateObject->format('Y');
 
         $PHPEndDateObject = Date::excelToDateTimeObject($endDate);
-        $endDay = $PHPEndDateObject->format('j');
-        $endMonth = $PHPEndDateObject->format('n');
-        $endYear = $PHPEndDateObject->format('Y');
+        $endDay = (int) $PHPEndDateObject->format('j');
+        $endMonth = (int) $PHPEndDateObject->format('n');
+        $endYear = (int) $PHPEndDateObject->format('Y');
 
         return self::dateDiff360($startDay, $startMonth, $startYear, $endDay, $endMonth, $endYear, !$method);
     }
@@ -1001,11 +1001,11 @@ class DateTime
         }
 
         // Execute function
-        $startDoW = 6 - self::WEEKDAY($startDate, 2);
+        $startDoW = 6 - self::WEEKDAY((int) $startDate, 2);
         if ($startDoW < 0) {
             $startDoW = 0;
         }
-        $endDoW = self::WEEKDAY($endDate, 2);
+        $endDoW = self::WEEKDAY((int) $endDate, 2);
         if ($endDoW >= 6) {
             $endDoW = 0;
         }

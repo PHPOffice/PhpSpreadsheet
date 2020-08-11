@@ -783,7 +783,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
      *                                If $ord < 0, BESSELI returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function BESSELI($x, $ord)
     {
@@ -835,7 +835,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELJ returns the #VALUE! error value.
      *                                If $ord < 0, BESSELJ returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function BESSELJ($x, $ord)
     {
@@ -926,7 +926,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
      *                                If $ord < 0, BESSELK returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function BESSELK($x, $ord)
     {
@@ -1013,7 +1013,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
      *                                If $ord < 0, BESSELK returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function BESSELY($x, $ord)
     {
@@ -1066,7 +1066,7 @@ class Engineering
      *                                If number is not a valid binary number, or if number contains more than
      *                                10 characters (10 bits), BIN2DEC returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function BINTODEC($x)
     {
@@ -1095,7 +1095,7 @@ class Engineering
             return '-' . (512 - bindec($x));
         }
 
-        return bindec($x);
+        return (string) bindec($x);
     }
 
     /**
@@ -1119,7 +1119,7 @@ class Engineering
      *                                If places is nonnumeric, BIN2HEX returns the #VALUE! error value.
      *                                If places is negative, BIN2HEX returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function BINTOHEX($x, $places = null)
     {
@@ -1173,7 +1173,7 @@ class Engineering
      *                                If places is nonnumeric, BIN2OCT returns the #VALUE! error value.
      *                                If places is negative, BIN2OCT returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function BINTOOCT($x, $places = null)
     {
@@ -1230,7 +1230,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2BIN returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2BIN returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function DECTOBIN($x, $places = null)
     {
@@ -1289,7 +1289,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2HEX returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2HEX returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function DECTOHEX($x, $places = null)
     {
@@ -1396,7 +1396,7 @@ class Engineering
      *                                    If places is nonnumeric, HEX2BIN returns the #VALUE! error value.
      *                                    If places is negative, HEX2BIN returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function HEXTOBIN($x, $places = null)
     {
@@ -1430,7 +1430,7 @@ class Engineering
      *                                If number is not a valid hexadecimal number, HEX2DEC returns the
      *                                #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function HEXTODEC($x)
     {
@@ -1457,10 +1457,10 @@ class Engineering
                 $binX[$i] = ($binX[$i] == '1' ? '0' : '1');
             }
 
-            return (bindec($binX) + 1) * -1;
+            return (string) ((bindec($binX) + 1) * -1);
         }
 
-        return bindec($binX);
+        return (string) bindec($binX);
     }
 
     /**
@@ -1492,7 +1492,7 @@ class Engineering
      *                                    value.
      *                                    If places is negative, HEX2OCT returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function HEXTOOCT($x, $places = null)
     {
@@ -1508,7 +1508,7 @@ class Engineering
         }
 
         $decimal = self::HEXTODEC($x);
-        if ($decimal < -536870912 || $decimal > 536870911) {
+        if ((int) $decimal < -536870912 || (int) $decimal > 536870911) {
             return Functions::NAN();
         }
 
@@ -1546,7 +1546,7 @@ class Engineering
      *                                    If places is negative, OCT2BIN returns the #NUM! error
      *                                    value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function OCTTOBIN($x, $places = null)
     {
@@ -1580,7 +1580,7 @@ class Engineering
      *                                If number is not a valid octal number, OCT2DEC returns the
      *                                #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function OCTTODEC($x)
     {
@@ -1602,10 +1602,10 @@ class Engineering
                 $binX[$i] = ($binX[$i] == '1' ? '0' : '1');
             }
 
-            return (bindec($binX) + 1) * -1;
+            return (string) ((bindec($binX) + 1) * -1);
         }
 
-        return bindec($binX);
+        return (string) bindec($binX);
     }
 
     /**
@@ -1634,7 +1634,7 @@ class Engineering
      *                                    If places is nonnumeric, OCT2HEX returns the #VALUE! error value.
      *                                    If places is negative, OCT2HEX returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function OCTTOHEX($x, $places = null)
     {
@@ -1666,7 +1666,7 @@ class Engineering
      * @param string $suffix The suffix for the imaginary component of the complex number.
      *                                        If omitted, the suffix is assumed to be "i".
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function COMPLEX($realNumber = 0.0, $imaginary = 0.0, $suffix = 'i')
     {

@@ -320,7 +320,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return ExcelException|float
      */
     public static function AMORLINC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
     {
@@ -336,7 +336,13 @@ class Financial
         $fCostDelta = $cost - $salvage;
         //    Note, quirky variation for leap years on the YEARFRAC for this function
         $purchasedYear = DateTime::YEAR($purchased);
+        if ($purchasedYear instanceof ExcelException) {
+            return $purchasedYear;
+        }
         $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
+        if ($yearFrac instanceof ExcelException) {
+            return $yearFrac;
+        }
 
         if (($basis == 1) && ($yearFrac < 1) && (DateTime::isLeapYear($purchasedYear))) {
             $yearFrac *= 365 / 366;

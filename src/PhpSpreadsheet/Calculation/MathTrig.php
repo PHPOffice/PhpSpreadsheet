@@ -219,7 +219,7 @@ class MathTrig
      * @param float $number the number you want to round
      * @param float $significance the multiple to which you want to round
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return ExcelException|float Rounded Number, or an ExcelException containing an error
      */
     public static function CEILING($number, $significance = null)
     {
@@ -258,7 +258,7 @@ class MathTrig
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each combination
      *
-     * @return int|string Number of combinations, or a string containing an error
+     * @return ExcelException|float Number of combinations, or an ExcelException containing an error
      */
     public static function COMBIN($numObjs, $numInSet)
     {
@@ -292,7 +292,7 @@ class MathTrig
      *
      * @param float $number Number to round
      *
-     * @return int|string Rounded Number, or a string containing an error
+     * @return ExcelException|int Rounded Number, or an ExcelException containing an error
      */
     public static function EVEN($number)
     {
@@ -324,7 +324,7 @@ class MathTrig
      *
      * @param float $factVal Factorial Value
      *
-     * @return int|string Factorial, or a string containing an error
+     * @return ExcelException|int Factorial, or an ExcelException containing an error
      */
     public static function FACT($factVal)
     {
@@ -363,7 +363,7 @@ class MathTrig
      *
      * @param float $factVal Factorial Value
      *
-     * @return int|string Double Factorial, or a string containing an error
+     * @return ExcelException|int Double Factorial, or an ExcelException containing an error
      */
     public static function FACTDOUBLE($factVal)
     {
@@ -397,7 +397,7 @@ class MathTrig
      * @param float $number Number to round
      * @param float $significance Significance
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return ExcelException|float Rounded Number, or an ExcelException containing an error
      */
     public static function FLOOR($number, $significance = null)
     {
@@ -440,7 +440,7 @@ class MathTrig
      * @param float $significance Significance
      * @param int $mode direction to round negative numbers
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return ExcelException|float Rounded Number, or an ExcelException containing an error
      */
     public static function FLOORMATH($number, $significance = null, $mode = 0)
     {
@@ -478,7 +478,7 @@ class MathTrig
      * @param float $number Number to round
      * @param float $significance Significance
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return ExcelException|float Rounded Number, or an ExcelException containing an error
      */
     public static function FLOORPRECISE($number, $significance = 1)
     {
@@ -547,7 +547,7 @@ class MathTrig
      *
      * @param float $number Number to cast to an integer
      *
-     * @return int|string Integer value, or a string containing an error
+     * @return ExcelException|int Integer value, or an ExcelException containing an error
      */
     public static function INT($number)
     {
@@ -578,7 +578,7 @@ class MathTrig
      *
      * @param mixed ...$args Data values
      *
-     * @return int|string Lowest Common Multiplier, or a string containing an error
+     * @return ExcelException|int Lowest Common Multiplier, or an ExcelException containing an error
      */
     public static function LCM(...$args)
     {
@@ -628,7 +628,7 @@ class MathTrig
      * @param float $number The positive real number for which you want the logarithm
      * @param float $base The base of the logarithm. If base is omitted, it is assumed to be 10.
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function logBase($number = null, $base = 10)
     {
@@ -655,7 +655,7 @@ class MathTrig
      *
      * @param array $matrixValues A matrix of values
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function MDETERM($matrixValues)
     {
@@ -705,7 +705,7 @@ class MathTrig
      *
      * @param array $matrixValues A matrix of values
      *
-     * @return array|string The result, or a string containing an error
+     * @return ExcelException|array The result, or an ExcelException containing an error
      */
     public static function MINVERSE($matrixValues)
     {
@@ -755,7 +755,7 @@ class MathTrig
      * @param array $matrixData1 A matrix of values
      * @param array $matrixData2 A matrix of values
      *
-     * @return array|string The result, or a string containing an error
+     * @return ExcelException|array The result, or an ExcelException containing an error
      */
     public static function MMULT($matrixData1, $matrixData2)
     {
@@ -817,14 +817,14 @@ class MathTrig
      * @param int $a Dividend
      * @param int $b Divisor
      *
-     * @return int|string Remainder, or a string containing an error
+     * @return ExcelException|float Remainder, or an ExcelException containing an error
      */
     public static function MOD($a = 1, $b = 1)
     {
         $a = (float) Functions::flattenSingleValue($a);
         $b = (float) Functions::flattenSingleValue($b);
 
-        if ($b == 0.0) {
+        if ($b === 0.0) {
             return Functions::DIV0();
         } elseif (($a < 0.0) && ($b > 0.0)) {
             return $b - fmod(abs($a), $b);
