@@ -12,7 +12,7 @@ class ImSqrtTest extends TestCase
     const COMPLEX_PRECISION = 1E-8;
 
     /**
-     * @var ?ComplexAssert
+     * @var ComplexAssert
      */
     protected $complexAssert;
 
