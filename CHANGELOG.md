@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Improve Coverage for ODS Reader [#1545](https://github.com/phpoffice/phpspreadsheet/pull/1545)
 - Named formula implementation, and improved handling of Defined Names generally [#1535](https://github.com/PHPOffice/PhpSpreadsheet/pull/1535)
   - fix resolution of relative named range values in the calculation engine; previously all named range values had been treated as absolute.
+- `formatAsDate` correctly matches language metadata, reverting c55272e
 
 ### Deprecated
 
