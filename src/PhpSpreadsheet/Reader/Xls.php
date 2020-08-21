@@ -1290,7 +1290,7 @@ class Xls extends BaseReader
                     }
                 }
                 //    Named Value
-                    //    TODO Provide support for named values
+                //    TODO Provide support for named values
             }
         }
         $this->data = null;
@@ -1302,8 +1302,8 @@ class Xls extends BaseReader
      * Read record data from stream, decrypting as required.
      *
      * @param string $data Data stream to read from
-     * @param int $pos Position to start reading from
-     * @param int $len Record data length
+     * @param int    $pos  Position to start reading from
+     * @param int    $len  Record data length
      *
      * @return string Record data
      */
@@ -1670,8 +1670,8 @@ class Xls extends BaseReader
     }
 
     /**
-     *    The NOTE record specifies a comment associated with a particular cell. In Excel 95 (BIFF7) and earlier versions,
-     *        this record stores a note (cell note). This feature was significantly enhanced in Excel 97.
+     *    The NOTE record specifies a comment associated with a particular cell. In Excel 95 (BIFF7) and earlier
+     *    versions, this record stores a note (cell note). This feature was significantly enhanced in Excel 97.
      */
     private function readNote(): void
     {
@@ -1718,7 +1718,7 @@ class Xls extends BaseReader
             } else {
                 //    Set comment for the cell
                 $this->phpSheet->getComment($cellAddress)->setText($this->parseRichText($noteText));
-//                                                    ->setAuthor($author)
+                //                                                    ->setAuthor($author)
             }
         }
     }
@@ -1850,7 +1850,7 @@ class Xls extends BaseReader
     /**
      * Make an RC4 decryptor for the given block.
      *
-     * @param int $block Block for which to create decrypto
+     * @param int    $block      Block for which to create decrypto
      * @param string $valContext MD5 context state
      *
      * @return Xls\RC4
@@ -1882,11 +1882,11 @@ class Xls extends BaseReader
     /**
      * Verify RC4 file password.
      *
-     * @param string $password Password to check
-     * @param string $docid Document id
-     * @param string $salt_data Salt data
+     * @param string $password        Password to check
+     * @param string $docid           Document id
+     * @param string $salt_data       Salt data
      * @param string $hashedsalt_data Hashed salt data
-     * @param string $valContext Set to the MD5 context of the value
+     * @param string $valContext      Set to the MD5 context of the value
      *
      * @return bool Success
      */
@@ -2974,7 +2974,7 @@ class Xls extends BaseReader
         $pos = 0;
 
         // Limit position, further control for bad SST Length in BIFF8 data
-        $limitpos = 0;
+        $limitposSST = 0;
 
         // get spliced record data
         $splicedRecordData = $this->getSplicedRecordData();
@@ -2994,14 +2994,12 @@ class Xls extends BaseReader
             // it can happen that the string is empty, therefore we need
             // <= and not just <
             if ($pos <= $spliceOffset) {
-                $limitpos = $spliceOffset;
-
-                break;
+                $limitposSST = $spliceOffset;
             }
         }
 
         // loop through the Unicode strings (16-bit length)
-        for ($i = 0; $i < $nm && $pos < $limitpos; ++$i) {
+        for ($i = 0; $i < $nm && $pos < $limitposSST; ++$i) {
             // number of characters in the Unicode string
             $numChars = self::getUInt2d($recordData, $pos);
             $pos += 2;
@@ -3099,7 +3097,7 @@ class Xls extends BaseReader
                         $len = min($charsLeft, $limitpos - $pos);
                         for ($j = 0; $j < $len; ++$j) {
                             $retstr .= $recordData[$pos + $j]
-                            . chr(0);
+                                       . chr(0);
                         }
                         $charsLeft -= $len;
                         $isCompressed = false;
@@ -5317,7 +5315,8 @@ class Xls extends BaseReader
      * Convert formula structure into human readable Excel formula like 'A3+A5*5'.
      *
      * @param string $formulaStructure The complete binary data for the formula
-     * @param string $baseCell Base cell, only needed when formula contains tRefN tokens, e.g. with shared formulas
+     * @param string $baseCell         Base cell, only needed when formula contains tRefN tokens, e.g. with shared
+     *                                 formulas
      *
      * @return string Human readable formula
      */
@@ -5342,9 +5341,10 @@ class Xls extends BaseReader
     /**
      * Take formula data and additional data for formula and return human readable formula.
      *
-     * @param string $formulaData The binary data for the formula itself
+     * @param string $formulaData    The binary data for the formula itself
      * @param string $additionalData Additional binary data going with the formula
-     * @param string $baseCell Base cell, only needed when formula contains tRefN tokens, e.g. with shared formulas
+     * @param string $baseCell       Base cell, only needed when formula contains tRefN tokens, e.g. with shared
+     *                               formulas
      *
      * @return string Human readable formula
      */
@@ -5366,7 +5366,7 @@ class Xls extends BaseReader
     /**
      * Take array of tokens together with additional data for formula and return human readable formula.
      *
-     * @param array $tokens
+     * @param array  $tokens
      * @param string $additionalData Additional binary data going with the formula
      *
      * @return string Human readable formula
@@ -5542,7 +5542,7 @@ class Xls extends BaseReader
      * Fetch next token from binary formula data.
      *
      * @param string $formulaData Formula data
-     * @param string $baseCell Base cell, only needed when formula contains tRefN tokens, e.g. with shared formulas
+     * @param string $baseCell    Base cell, only needed when formula contains tRefN tokens, e.g. with shared formulas
      *
      * @return array
      */
@@ -7758,7 +7758,7 @@ class Xls extends BaseReader
      * OpenOffice.org's Documentation of the Microsoft Excel File Format, section 2.5.3.
      *
      * @param string $subData
-     * @param int $characterCount
+     * @param int    $characterCount
      *
      * @return array
      */
@@ -7865,7 +7865,7 @@ class Xls extends BaseReader
      * Get UTF-8 string from (compressed or uncompressed) UTF-16 string.
      *
      * @param string $string
-     * @param bool $compressed
+     * @param bool   $compressed
      *
      * @return string
      */
@@ -7912,7 +7912,7 @@ class Xls extends BaseReader
      * Read 16-bit unsigned integer.
      *
      * @param string $data
-     * @param int $pos
+     * @param int    $pos
      *
      * @return int
      */
@@ -7925,7 +7925,7 @@ class Xls extends BaseReader
      * Read 16-bit signed integer.
      *
      * @param string $data
-     * @param int $pos
+     * @param int    $pos
      *
      * @return int
      */
@@ -7938,7 +7938,7 @@ class Xls extends BaseReader
      * Read 32-bit signed integer.
      *
      * @param string $data
-     * @param int $pos
+     * @param int    $pos
      *
      * @return int
      */

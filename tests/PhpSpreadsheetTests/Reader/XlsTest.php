@@ -56,6 +56,7 @@ class XlsTest extends AbstractFunctional
         $sheet = $spreadsheet->getActiveSheet();
         $col = $sheet->getHighestColumn();
         $row = $sheet->getHighestRow();
+
         $newspreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
         $newsheet = $newspreadsheet->getActiveSheet();
         $newcol = $newsheet->getHighestColumn();
@@ -66,7 +67,15 @@ class XlsTest extends AbstractFunctional
         self::assertEquals($sheet->getColumnDimensions(), $newsheet->getColumnDimensions());
         self::assertEquals($col, $newcol);
         self::assertEquals($row, $newrow);
-        self::assertEquals($sheet->getCell('A1')->getFormattedValue(), $newsheet->getCell('A1')->getFormattedValue());
-        self::assertEquals($sheet->getCell("$col$row")->getFormattedValue(), $newsheet->getCell("$col$row")->getFormattedValue());
+
+        $rowIterator = $sheet->getRowIterator();
+
+        foreach ($rowIterator as $row) {
+            foreach ($row->getCellIterator() as $cell) {
+                $valOld = $cell->getFormattedValue();
+                $valNew = $newsheet->getCell($cell->getCoordinate())->getFormattedValue();
+                self::assertEquals($valOld, $valNew);
+            }
+        }
     }
 }
