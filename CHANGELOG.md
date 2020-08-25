@@ -48,7 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- PrintArea causes exception [#1544](https://github.com/phpoffice/phpspreadsheet/pull/1544) 
+- PrintArea causes exception [#1544](https://github.com/phpoffice/phpspreadsheet/pull/1544)
+- ROUNDUP and ROUNDDOWN return incorrect results for values of 0 [#1627](https://github.com/phpoffice/phpspreadsheet/pull/1627)
 
 ## 1.14.1 - 2020-07-19
 
