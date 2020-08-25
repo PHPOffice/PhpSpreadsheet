@@ -744,7 +744,7 @@ class Worksheet implements IComparable
                             if ($rangeBoundaries[0] == 1) {
                                 $isMergedButProceed = true;
                             }
-                       }
+                        }
                     }
 
                     // Determine width if cell does not participate in a merge or does and is a value cell of 1-column wide range

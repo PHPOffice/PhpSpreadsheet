@@ -170,7 +170,9 @@ abstract class Coordinate
      */
     public static function rangeBoundaries($pRange)
     {
-        if (isset(self::$_rangeBoundariesCache[$pRange])) return self::$_rangeBoundariesCache[$pRange];
+        if (isset(self::$_rangeBoundariesCache[$pRange])) {
+            return self::$_rangeBoundariesCache[$pRange];
+        }
 
         // Ensure $pRange is a valid range
         if (empty($pRange)) {
@@ -189,7 +191,7 @@ abstract class Coordinate
 
         // Calculate range outer borders
         $rangeStart = self::coordinateFromString($rangeA);
-        $rangeEnd = $rangeA===$rangeB ? $rangeStart : self::coordinateFromString($rangeB);
+        $rangeEnd = $rangeA === $rangeB ? $rangeStart : self::coordinateFromString($rangeB);
 
         // Translate column into index
         $rangeStart[0] = self::columnIndexFromString($rangeStart[0]);
