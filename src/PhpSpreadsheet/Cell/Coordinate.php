@@ -13,7 +13,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
  */
 abstract class Coordinate
 {
-    private static $_rangeBoundariesCache = [];
+
+    /**
+     * Cache for rangeBoundaries.
+     *
+     * @var array
+     */
+	private static $_rangeBoundariesCache = [];
 
     /**
      * Default range variable constant.
