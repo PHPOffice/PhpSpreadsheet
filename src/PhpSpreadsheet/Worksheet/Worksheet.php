@@ -738,13 +738,13 @@ class Worksheet implements IComparable
 
                     //The only exception is if it's a merge range value cell of a 'vertical' randge (1 column wide)
                     if ($isMerged) {
-						$range = $cell->getMergeRange();
-						if ($cell->isMergeRangeValueCell2($range)) {
-							$rangeBoundaries = Coordinate::rangeDimension($range);
-							if ($rangeBoundaries[0] == 1) {
-								$isMergedButProceed = true;
-							}
-						}
+                        $range = $cell->getMergeRange();
+                        if ($cell->isMergeRangeValueCell2($range)) {
+                            $rangeBoundaries = Coordinate::rangeDimension($range);
+                            if ($rangeBoundaries[0] == 1) {
+                                $isMergedButProceed = true;
+                            }
+                       }
                     }
 
                     // Determine width if cell does not participate in a merge or does and is a value cell of 1-column wide range

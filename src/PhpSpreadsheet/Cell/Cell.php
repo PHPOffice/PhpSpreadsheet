@@ -496,7 +496,7 @@ class Cell
     public function isMergeRangeValueCell()
     {
         if ($mergeRange = $this->getMergeRange()) {
-			return $this->isMergeRangeValueCell2($mergeRange);
+            return $this->isMergeRangeValueCell2($mergeRange);
         }
         return false;
     }
@@ -509,9 +509,9 @@ class Cell
      */
     public function isMergeRangeValueCell2($mergeRange)
     {
-		$splittedRanges = Coordinate::splitRange($mergeRange);
-		[$startCell] = $splittedRanges[0];
-		return $this->getCoordinate() === $startCell;
+        $splittedRanges = Coordinate::splitRange($mergeRange);
+        [$startCell] = $splittedRanges[0];
+        return $this->getCoordinate() === $startCell;
     }
 
     /**
@@ -564,12 +564,12 @@ class Cell
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($pRange);
 
         // Verify if cell is in range
-		$myRow = $this->getRow();
-        if( $rangeStart[1] <= $myRow && $rangeEnd[1] >= $myRow ) {
-			$myColumn = Coordinate::columnIndexFromString($this->getColumn());
-			return ($rangeStart[0] <= $myColumn) && ($rangeEnd[0] >= $myColumn);
-		}
-		return false;
+        $myRow = $this->getRow();
+        if ($rangeStart[1] <= $myRow && $rangeEnd[1] >= $myRow) {
+            $myColumn = Coordinate::columnIndexFromString($this->getColumn());
+            return ($rangeStart[0] <= $myColumn) && ($rangeEnd[0] >= $myColumn);
+        }
+        return false;
     }
 
     /**

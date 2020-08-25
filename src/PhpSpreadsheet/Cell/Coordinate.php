@@ -13,6 +13,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
  */
 abstract class Coordinate
 {
+    private static $_rangeBoundariesCache = [];
+
     /**
      * Default range variable constant.
      *
@@ -157,7 +159,6 @@ abstract class Coordinate
         return implode(',', $pRange);
     }
 
-	private static $_rangeBoundariesCache = [];
 
     /**
      * Calculate range boundaries.
@@ -169,9 +170,9 @@ abstract class Coordinate
      */
     public static function rangeBoundaries($pRange)
     {
-		if( isset(self::$_rangeBoundariesCache[$pRange]) ) return self::$_rangeBoundariesCache[$pRange];
+        if (isset(self::$_rangeBoundariesCache[$pRange])) return self::$_rangeBoundariesCache[$pRange];
 
-		// Ensure $pRange is a valid range
+        // Ensure $pRange is a valid range
         if (empty($pRange)) {
             $pRange = self::DEFAULT_RANGE;
         }
@@ -194,7 +195,7 @@ abstract class Coordinate
         $rangeStart[0] = self::columnIndexFromString($rangeStart[0]);
         $rangeEnd[0] = self::columnIndexFromString($rangeEnd[0]);
 
-		self::$_rangeBoundariesCache[$pRange] = [$rangeStart, $rangeEnd];
+        self::$_rangeBoundariesCache[$pRange] = [$rangeStart, $rangeEnd];
         return [$rangeStart, $rangeEnd];
     }
 
