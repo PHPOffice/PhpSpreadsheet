@@ -504,8 +504,8 @@ class Cell
     /**
      * Is this cell the master (top left cell) in a merge range (that holds the actual data value).
      *
-     * @param string $mergeRange
-	 * 
+     * @param string $mergeRange Merge range from getMergeRange().
+     *
      * @return bool
      */
     public function isMergeRangeValueCell2($mergeRange)

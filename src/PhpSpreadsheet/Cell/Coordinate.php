@@ -19,7 +19,7 @@ abstract class Coordinate
      *
      * @var array
      */
-	private static $_rangeBoundariesCache = [];
+    private static $_rangeBoundariesCache = [];
 
     /**
      * Default range variable constant.
