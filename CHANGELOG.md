@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - PrintArea causes exception [#1544](https://github.com/phpoffice/phpspreadsheet/pull/1544) 
+- Fixed PHP8 deprecation warning for libxml_disable_entity_loader() [#1625](https://github.com/phpoffice/phpspreadsheet/pull/1625) 
 
 ## 1.14.1 - 2020-07-19
 
