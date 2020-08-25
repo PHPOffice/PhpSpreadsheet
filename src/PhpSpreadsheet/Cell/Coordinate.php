@@ -13,7 +13,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
  */
 abstract class Coordinate
 {
-
     /**
      * Cache for rangeBoundaries.
      *
@@ -165,7 +164,6 @@ abstract class Coordinate
         return implode(',', $pRange);
     }
 
-
     /**
      * Calculate range boundaries.
      *
@@ -204,6 +202,7 @@ abstract class Coordinate
         $rangeEnd[0] = self::columnIndexFromString($rangeEnd[0]);
 
         self::$_rangeBoundariesCache[$pRange] = [$rangeStart, $rangeEnd];
+
         return [$rangeStart, $rangeEnd];
     }
 

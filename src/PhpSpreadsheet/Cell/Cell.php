@@ -498,13 +498,14 @@ class Cell
         if ($mergeRange = $this->getMergeRange()) {
             return $this->isMergeRangeValueCell2($mergeRange);
         }
+
         return false;
     }
 
     /**
      * Is this cell the master (top left cell) in a merge range (that holds the actual data value).
      *
-     * @param string $mergeRange Merge range from getMergeRange().
+     * @param string $mergeRange merge range from getMergeRange()
      *
      * @return bool
      */
@@ -512,6 +513,7 @@ class Cell
     {
         $splittedRanges = Coordinate::splitRange($mergeRange);
         [$startCell] = $splittedRanges[0];
+
         return $this->getCoordinate() === $startCell;
     }
 
@@ -568,8 +570,10 @@ class Cell
         $myRow = $this->getRow();
         if ($rangeStart[1] <= $myRow && $rangeEnd[1] >= $myRow) {
             $myColumn = Coordinate::columnIndexFromString($this->getColumn());
+
             return ($rangeStart[0] <= $myColumn) && ($rangeEnd[0] >= $myColumn);
         }
+
         return false;
     }
 
