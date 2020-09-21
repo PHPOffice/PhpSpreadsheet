@@ -4377,11 +4377,22 @@ class Xls extends BaseReader
             // offset: 10; size: 2; cached magnification factor in page break preview (in percent); 0 = Default (60%)
             // offset: 12; size: 2; cached magnification factor in normal view (in percent); 0 = Default (100%)
             // offset: 14; size: 4; not used
-            $zoomscaleInPageBreakPreview = self::getUInt2d($recordData, 10);
+            if (!isset($recordData[10])) {
+                $zoomscaleInPageBreakPreview = 0;
+            } else {
+                $zoomscaleInPageBreakPreview = self::getUInt2d($recordData, 10);
+            }
+
             if ($zoomscaleInPageBreakPreview === 0) {
                 $zoomscaleInPageBreakPreview = 60;
             }
-            $zoomscaleInNormalView = self::getUInt2d($recordData, 12);
+
+            if (!isset($recordData[12])) {
+                $zoomscaleInNormalView = 0;
+            } else {
+                $zoomscaleInNormalView = self::getUInt2d($recordData, 12);
+            }
+
             if ($zoomscaleInNormalView === 0) {
                 $zoomscaleInNormalView = 100;
             }
