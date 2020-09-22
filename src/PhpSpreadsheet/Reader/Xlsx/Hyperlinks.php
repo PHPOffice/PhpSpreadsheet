@@ -41,7 +41,7 @@ class Hyperlinks
         foreach (Coordinate::extractAllCellReferencesInRange($hyperlink['ref']) as $cellReference) {
             $cell = $worksheet->getCell($cellReference);
             if (isset($linkRel['id'])) {
-                $hyperlinkUrl = $this->hyperlinks[(string) $linkRel['id']];
+                $hyperlinkUrl = $this->hyperlinks[(string) $linkRel['id']] ?? null;
                 if (isset($hyperlink['location'])) {
                     $hyperlinkUrl .= '#' . (string) $hyperlink['location'];
                 }
