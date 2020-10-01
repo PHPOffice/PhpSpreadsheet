@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - PrintArea causes exception [#1544](https://github.com/phpoffice/phpspreadsheet/pull/1544) 
+- Fix XLSX reader when having a corrupt numeric cell data type [#1664](https://github.com/phpoffice/phpspreadsheet/pull/1664) 
 
 ## 1.14.1 - 2020-07-19
 
