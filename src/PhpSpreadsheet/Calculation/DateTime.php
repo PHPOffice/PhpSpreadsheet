@@ -489,7 +489,7 @@ class DateTime
             if ($yearFound) {
                 array_unshift($t1, 1);
             } else {
-                if ($t1[1] > 29) {
+                if (is_numeric($t1[1]) && $t1[1] > 29) {
                     $t1[1] += 1900;
                     array_unshift($t1, 1);
                 } else {
