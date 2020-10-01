@@ -13,6 +13,26 @@ use PHPUnit\Framework\TestCase;
 
 class AdvancedValueBinderTest extends TestCase
 {
+    private $currencyCode;
+
+    private $decimalSeparator;
+
+    private $thousandsSeparator;
+
+    protected function setUp(): void
+    {
+        $this->currencyCode = StringHelper::getCurrencyCode();
+        $this->decimalSeparator = StringHelper::getDecimalSeparator();
+        $this->thousandsSeparator = StringHelper::getThousandsSeparator();
+    }
+
+    protected function tearDown(): void
+    {
+        StringHelper::setCurrencyCode($this->currencyCode);
+        StringHelper::setDecimalSeparator($this->decimalSeparator);
+        StringHelper::setThousandsSeparator($this->thousandsSeparator);
+    }
+
     public function provider()
     {
         $currencyUSD = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;

@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
+use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Comment;
 
 /**
@@ -22,6 +23,18 @@ class Content extends WriterPart
     const NUMBER_COLS_REPEATED_MAX = 1024;
     const NUMBER_ROWS_REPEATED_MAX = 1048576;
     const CELL_STYLE_PREFIX = 'ce';
+
+    private $formulaConvertor;
+
+    /**
+     * Set parent Ods writer.
+     */
+    public function __construct(Ods $writer)
+    {
+        parent::__construct($writer);
+
+        $this->formulaConvertor = new Formula($this->getParentWriter()->getSpreadsheet()->getDefinedNames());
+    }
 
     /**
      * Write content.xml to XML format.
@@ -90,7 +103,9 @@ class Content extends WriterPart
 
         $this->writeSheets($objWriter);
 
-        $objWriter->writeElement('table:named-expressions');
+        // Defined names (ranges and formulae)
+        (new NamedExpressions($objWriter, $this->getParentWriter()->getSpreadsheet(), $this->formulaConvertor))->write();
+
         $objWriter->endElement();
         $objWriter->endElement();
         $objWriter->endElement();
@@ -193,7 +208,7 @@ class Content extends WriterPart
                             // don't do anything
                         }
                     }
-                    $objWriter->writeAttribute('table:formula', 'of:' . $cell->getValue());
+                    $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValue()));
                     if (is_numeric($formulaValue)) {
                         $objWriter->writeAttribute('office:value-type', 'float');
                     } else {

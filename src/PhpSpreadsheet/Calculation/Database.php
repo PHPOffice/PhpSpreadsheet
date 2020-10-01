@@ -552,7 +552,7 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float
+     * @return float|string (string if result is an error)
      */
     public static function DVAR($database, $field, $criteria)
     {
@@ -591,7 +591,7 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float
+     * @return float|string (string if result is an error)
      */
     public static function DVARP($database, $field, $criteria)
     {

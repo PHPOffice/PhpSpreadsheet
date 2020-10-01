@@ -65,9 +65,14 @@ class PageSetup extends BaseParserClass
             if (isset($xmlSheet->pageSetup['fitToWidth']) && (int) ($xmlSheet->pageSetup['fitToWidth']) >= 0) {
                 $docPageSetup->setFitToWidth((int) ($xmlSheet->pageSetup['fitToWidth']), false);
             }
-            if (isset($xmlSheet->pageSetup['firstPageNumber'], $xmlSheet->pageSetup['useFirstPageNumber']) &&
-                self::boolean((string) $xmlSheet->pageSetup['useFirstPageNumber'])) {
+            if (
+                isset($xmlSheet->pageSetup['firstPageNumber'], $xmlSheet->pageSetup['useFirstPageNumber']) &&
+                self::boolean((string) $xmlSheet->pageSetup['useFirstPageNumber'])
+            ) {
                 $docPageSetup->setFirstPageNumber((int) ($xmlSheet->pageSetup['firstPageNumber']));
+            }
+            if (isset($xmlSheet->pageSetup['pageOrder'])) {
+                $docPageSetup->setPageOrder((string) $xmlSheet->pageSetup['pageOrder']);
             }
 
             $relAttributes = $xmlSheet->pageSetup->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
@@ -84,26 +89,34 @@ class PageSetup extends BaseParserClass
         if ($xmlSheet->headerFooter) {
             $docHeaderFooter = $worksheet->getHeaderFooter();
 
-            if (isset($xmlSheet->headerFooter['differentOddEven']) &&
-                self::boolean((string) $xmlSheet->headerFooter['differentOddEven'])) {
+            if (
+                isset($xmlSheet->headerFooter['differentOddEven']) &&
+                self::boolean((string) $xmlSheet->headerFooter['differentOddEven'])
+            ) {
                 $docHeaderFooter->setDifferentOddEven(true);
             } else {
                 $docHeaderFooter->setDifferentOddEven(false);
             }
-            if (isset($xmlSheet->headerFooter['differentFirst']) &&
-                self::boolean((string) $xmlSheet->headerFooter['differentFirst'])) {
+            if (
+                isset($xmlSheet->headerFooter['differentFirst']) &&
+                self::boolean((string) $xmlSheet->headerFooter['differentFirst'])
+            ) {
                 $docHeaderFooter->setDifferentFirst(true);
             } else {
                 $docHeaderFooter->setDifferentFirst(false);
             }
-            if (isset($xmlSheet->headerFooter['scaleWithDoc']) &&
-                !self::boolean((string) $xmlSheet->headerFooter['scaleWithDoc'])) {
+            if (
+                isset($xmlSheet->headerFooter['scaleWithDoc']) &&
+                !self::boolean((string) $xmlSheet->headerFooter['scaleWithDoc'])
+            ) {
                 $docHeaderFooter->setScaleWithDocument(false);
             } else {
                 $docHeaderFooter->setScaleWithDocument(true);
             }
-            if (isset($xmlSheet->headerFooter['alignWithMargins']) &&
-                !self::boolean((string) $xmlSheet->headerFooter['alignWithMargins'])) {
+            if (
+                isset($xmlSheet->headerFooter['alignWithMargins']) &&
+                !self::boolean((string) $xmlSheet->headerFooter['alignWithMargins'])
+            ) {
                 $docHeaderFooter->setAlignWithMargins(false);
             } else {
                 $docHeaderFooter->setAlignWithMargins(true);

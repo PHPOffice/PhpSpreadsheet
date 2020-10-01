@@ -25,7 +25,7 @@ each worksheet "tab" is shown when the workbook is opened in MS Excel
 (or other appropriate Spreadsheet program). To access a sheet by its
 index, use the `getSheet()` method.
 
-``` php
+```php
 // Get the second sheet in the workbook
 // Note that sheets are indexed from 0
 $spreadsheet->getSheet(1);
@@ -38,7 +38,7 @@ workbook.
 To access a sheet by name, use the `getSheetByName()` method, specifying
 the name of the worksheet that you want to access.
 
-``` php
+```php
 // Retrieve the worksheet called 'Worksheet 1'
 $spreadsheet->getSheetByName('Worksheet 1');
 ```
@@ -48,7 +48,7 @@ and you can access that directly. The currently active worksheet is the
 one that will be active when the workbook is opened in MS Excel (or
 other appropriate Spreadsheet program).
 
-``` php
+```php
 // Retrieve the current active worksheet
 $spreadsheet->getActiveSheet();
 ```
@@ -64,7 +64,7 @@ a new "last" sheet; but you can also specify an index position as an
 argument, and the worksheet will be inserted at that position, shuffling
 all subsequent worksheets in the collection down a place.
 
-``` php
+```php
 $spreadsheet->createSheet();
 ```
 
@@ -76,7 +76,7 @@ Alternatively, you can instantiate a new worksheet (setting the title to
 whatever you choose) and then insert it into your workbook using the
 `addSheet()` method.
 
-``` php
+```php
 // Create a new worksheet called "My Data"
 $myWorkSheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'My Data');
 
@@ -93,7 +93,7 @@ Sheets within the same workbook can be copied by creating a clone of the
 worksheet you wish to copy, and then using the `addSheet()` method to
 insert the clone into the workbook.
 
-``` php
+```php
 $clonedWorksheet = clone $spreadsheet->getSheetByName('Worksheet 1');
 $clonedWorksheet->setTitle('Copy of Worksheet 1');
 $spreadsheet->addSheet($clonedWorksheet);
@@ -117,7 +117,7 @@ duplicate name.
 You can delete a worksheet from a workbook, identified by its index
 position, using the `removeSheetByIndex()` method
 
-``` php
+```php
 $sheetIndex = $spreadsheet->getIndex(
     $spreadsheet->getSheetByName('Worksheet 1')
 );

@@ -7,12 +7,28 @@ use PHPUnit\Framework\TestCase;
 
 class StringHelperTest extends TestCase
 {
+    private $currencyCode;
+
+    private $decimalSeparator;
+
+    private $thousandsSeparator;
+
     protected function setUp(): void
     {
         parent::setUp();
+        $this->currencyCode = StringHelper::getCurrencyCode();
+        $this->decimalSeparator = StringHelper::getDecimalSeparator();
+        $this->thousandsSeparator = StringHelper::getThousandsSeparator();
 
         // Reset Currency Code
         StringHelper::setCurrencyCode(null);
+    }
+
+    protected function tearDown(): void
+    {
+        StringHelper::setCurrencyCode($this->currencyCode);
+        StringHelper::setDecimalSeparator($this->decimalSeparator);
+        StringHelper::setThousandsSeparator($this->thousandsSeparator);
     }
 
     public function testGetIsIconvEnabled(): void

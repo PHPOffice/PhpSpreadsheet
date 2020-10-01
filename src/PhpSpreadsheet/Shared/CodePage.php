@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 class CodePage
 {
+    public const DEFAULT_CODE_PAGE = 'CP1252';
+
     private static $pageArray = [
         0 => 'CP1252', //    CodePage is not always correctly set when the xls file was saved by Apple's Numbers program
         367 => 'ASCII', //    ASCII
@@ -64,6 +66,11 @@ class CodePage
         65000 => 'UTF-7', //    Unicode (UTF-7)
         65001 => 'UTF-8', //    Unicode (UTF-8)
     ];
+
+    public static function validate(string $codePage): bool
+    {
+        return in_array($codePage, self::$pageArray, true);
+    }
 
     /**
      * Convert Microsoft Code Page Identifier to Code Page Name which iconv

@@ -156,6 +156,9 @@ class PageSetup
     const SETPRINTRANGE_OVERWRITE = 'O';
     const SETPRINTRANGE_INSERT = 'I';
 
+    const PAGEORDER_OVER_THEN_DOWN = 'overThenDown';
+    const PAGEORDER_DOWN_THEN_OVER = 'downThenOver';
+
     /**
      * Paper size.
      *
@@ -245,6 +248,8 @@ class PageSetup
      * @var int
      */
     private $firstPageNumber;
+
+    private $pageOrder = self::PAGEORDER_DOWN_THEN_OVER;
 
     /**
      * Create a new PageSetup.
@@ -673,6 +678,9 @@ class PageSetup
             throw new PhpSpreadsheetException('Cell coordinate must not be absolute.');
         }
         $value = strtoupper($value);
+        if (!$this->printArea) {
+            $index = 0;
+        }
 
         if ($method == self::SETPRINTRANGE_OVERWRITE) {
             if ($index == 0) {
@@ -690,7 +698,7 @@ class PageSetup
             }
         } elseif ($method == self::SETPRINTRANGE_INSERT) {
             if ($index == 0) {
-                $this->printArea .= ($this->printArea == '') ? $value : ',' . $value;
+                $this->printArea = $this->printArea ? ($this->printArea . ',' . $value) : $value;
             } else {
                 $printAreas = explode(',', $this->printArea);
                 if ($index < 0) {
@@ -816,6 +824,20 @@ class PageSetup
     public function resetFirstPageNumber()
     {
         return $this->setFirstPageNumber(null);
+    }
+
+    public function getPageOrder(): string
+    {
+        return $this->pageOrder;
+    }
+
+    public function setPageOrder(?string $pageOrder): self
+    {
+        if ($pageOrder === null || $pageOrder === self::PAGEORDER_DOWN_THEN_OVER || $pageOrder === self::PAGEORDER_OVER_THEN_DOWN) {
+            $this->pageOrder = $pageOrder ?? self::PAGEORDER_DOWN_THEN_OVER;
+        }
+
+        return $this;
     }
 
     /**
