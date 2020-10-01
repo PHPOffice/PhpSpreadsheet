@@ -471,7 +471,7 @@ class Gnumeric extends BaseReader
 
                     $endColumn = ($styleAttributes['endCol'] > $maxCol) ? $maxCol : (int) $styleAttributes['endCol'];
                     $endColumn = Coordinate::stringFromColumnIndex($endColumn + 1);
-                    $endRow = ($styleAttributes['endRow'] > $maxRow) ? $maxRow : $styleAttributes['endRow'];
+                    $endRow = ($styleAttributes['endRow'] > $maxRow) ? $maxRow : (int) $styleAttributes['endRow'];
                     ++$endRow;
                     $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
 
