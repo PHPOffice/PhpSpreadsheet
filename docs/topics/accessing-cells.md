@@ -192,7 +192,7 @@ $spreadsheet->getActiveSheet()->getStyle('A6')
     );
 ```
 
-### Setting a number with leading zeroes
+### Setting a number with leading zero
 
 By default, PhpSpreadsheet will automatically detect the value type and
 set it to the appropriate Excel numeric datatype. This type conversion
