@@ -12,7 +12,10 @@ class XmlScannerTest extends TestCase
 {
     protected function setUp(): void
     {
-        libxml_disable_entity_loader(false);
+        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
+        if (\PHP_VERSION_ID < 80000) {
+            libxml_disable_entity_loader(false);
+        }
     }
 
     /**
@@ -24,13 +27,19 @@ class XmlScannerTest extends TestCase
      */
     public function testValidXML($filename, $expectedResult, $libxmlDisableEntityLoader): void
     {
-        $oldDisableEntityLoaderState = libxml_disable_entity_loader($libxmlDisableEntityLoader);
+        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
+        if (\PHP_VERSION_ID < 80000) {
+            $oldDisableEntityLoaderState = libxml_disable_entity_loader($libxmlDisableEntityLoader);
+        }
 
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $result = $reader->scanFile($filename);
         self::assertEquals($expectedResult, $result);
 
-        libxml_disable_entity_loader($oldDisableEntityLoaderState);
+        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
+        if (\PHP_VERSION_ID < 80000) {
+            libxml_disable_entity_loader($oldDisableEntityLoaderState);
+        }
     }
 
     public function providerValidXML()
@@ -56,13 +65,19 @@ class XmlScannerTest extends TestCase
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
-        libxml_disable_entity_loader($libxmlDisableEntityLoader);
+        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
+        if (\PHP_VERSION_ID < 80000) {
+            libxml_disable_entity_loader($libxmlDisableEntityLoader);
+        }
 
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $expectedResult = 'FAILURE: Should throw an Exception rather than return a value';
         $result = $reader->scanFile($filename);
         self::assertEquals($expectedResult, $result);
-        self::assertEquals($libxmlDisableEntityLoader, libxml_disable_entity_loader());
+        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
+        if (\PHP_VERSION_ID < 80000) {
+            self::assertEquals($libxmlDisableEntityLoader, libxml_disable_entity_loader());
+        }
     }
 
     public function providerInvalidXML()
