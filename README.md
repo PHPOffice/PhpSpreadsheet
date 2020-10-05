@@ -8,7 +8,8 @@
 [![License](https://poser.pugx.org/phpoffice/phpspreadsheet/license.png)](https://packagist.org/packages/phpoffice/phpspreadsheet)
 [![Join the chat at https://gitter.im/PHPOffice/PhpSpreadsheet](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/PHPOffice/PhpSpreadsheet)
 
-PhpSpreadsheet is a library written in pure PHP and providing a set of classes that allow you to read from and to write to different spreadsheet file formats, like Excel and LibreOffice Calc.
+PhpSpreadsheet is a library written in pure PHP and offers a set of classes that
+allow you to read and write various spreadsheet file formats such as Excel and LibreOffice Calc.
 
 ## Documentation
 
