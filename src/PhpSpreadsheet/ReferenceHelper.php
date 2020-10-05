@@ -69,7 +69,7 @@ class ReferenceHelper
      */
     public static function columnReverseSort($a, $b)
     {
-        return 1 - strcasecmp(strlen($a) . $a, strlen($b) . $b);
+        return -strcasecmp(strlen($a) . $a, strlen($b) . $b);
     }
 
     /**
@@ -108,7 +108,7 @@ class ReferenceHelper
         [$bc, $br] = sscanf($b, '%[A-Z]%d');
 
         if ($ar === $br) {
-            return 1 - strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
+            return -strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
         }
 
         return ($ar < $br) ? 1 : -1;

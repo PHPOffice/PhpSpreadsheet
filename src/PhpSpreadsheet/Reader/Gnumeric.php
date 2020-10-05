@@ -543,7 +543,8 @@ class Gnumeric extends BaseReader
 
                     $endColumn = ($styleAttributes['endCol'] > $maxCol) ? $maxCol : (int) $styleAttributes['endCol'];
                     $endColumn = Coordinate::stringFromColumnIndex($endColumn + 1);
-                    $endRow = 1 + (($styleAttributes['endRow'] > $maxRow) ? $maxRow : $styleAttributes['endRow']);
+
+                    $endRow = 1 + (($styleAttributes['endRow'] > $maxRow) ? $maxRow : (int) $styleAttributes['endRow']);
                     $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
 
                     $styleAttributes = $styleRegion->Style->attributes();
