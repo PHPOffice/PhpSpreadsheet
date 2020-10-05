@@ -35,7 +35,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Improve Coverage for ODS Reader [#1545](https://github.com/phpoffice/phpspreadsheet/pull/1545)
 - Named formula implementation, and improved handling of Defined Names generally [#1535](https://github.com/PHPOffice/PhpSpreadsheet/pull/1535)
-  - fix resolution of relative named range values in the calculation engine; previously all named range values had been treated as absolute.
+- fix resolution of relative named range values in the calculation engine; previously all named range values had been treated as absolute.
+- Drop $this->spreadSheet null check from Xlsx Writer [#1646](https://github.com/phpoffice/phpspreadsheet/pull/1646)
 
 ### Deprecated
 
@@ -49,7 +50,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - PrintArea causes exception [#1544](https://github.com/phpoffice/phpspreadsheet/pull/1544) 
-- Fixed PHP8 deprecation warning for libxml_disable_entity_loader() [#1625](https://github.com/phpoffice/phpspreadsheet/pull/1625) 
+- Calculation/DateTime Failure With PHP8 [#1661](https://github.com/phpoffice/phpspreadsheet/pull/1661)
+- Reader/Gnumeric Failure with PHP8 [#1662](https://github.com/phpoffice/phpspreadsheet/pull/1662)
+- ReverseSort bug, exposed but not caused by PHP8 [#1660](https://github.com/phpoffice/phpspreadsheet/pull/1660)
+- Bug setting Superscript/Subscript to false [#1567](https://github.com/phpoffice/phpspreadsheet/pull/1567)
 
 ## 1.14.1 - 2020-07-19
 
@@ -556,6 +560,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Ignore inlineStr type if formula element exists - @ncrypthic [#570](https://github.com/PHPOffice/PHPExcel/issues/570)
 - Excel 2007 Reader freezes because of conditional formatting - @rentalhost [#575](https://github.com/PHPOffice/PHPExcel/issues/575)
 - Readers will now parse files containing worksheet titles over 31 characters [#176](https://github.com/PHPOffice/PhpSpreadsheet/pull/176)
+- Fixed PHP8 deprecation warning for libxml_disable_entity_loader() [#1625](https://github.com/phpoffice/phpspreadsheet/pull/1625) 
 
 ### General
 
