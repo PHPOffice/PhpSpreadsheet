@@ -32,7 +32,7 @@ class SettingsTest extends TestCase
     public function testGetXMLSettings(): void
     {
         $result = Settings::getLibXmlLoaderOptions();
-        self::assertTrue((bool)((LIBXML_DTDLOAD | LIBXML_DTDATTR) & $result));
+        self::assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR) & $result));
         // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
         if (\PHP_VERSION_ID < 80000) {
             self::assertFalse(libxml_disable_entity_loader());
@@ -43,7 +43,7 @@ class SettingsTest extends TestCase
     {
         Settings::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID);
         $result = Settings::getLibXmlLoaderOptions();
-        self::assertTrue((bool)((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
+        self::assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
         // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
         if (\PHP_VERSION_ID < 80000) {
             self::assertFalse(libxml_disable_entity_loader());
