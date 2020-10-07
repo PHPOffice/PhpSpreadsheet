@@ -25,12 +25,12 @@ abstract class Coordinate
      *
      * @param string $pCoordinateString eg: 'A1'
      *
-     * @return string[] Array containing column and row (indexes 0 and 1)
+     * @return array{0:string,1:int} Array containing column and row (indexes 0 and 1)
      */
     public static function coordinateFromString($pCoordinateString)
     {
         if (preg_match('/^([$]?[A-Z]{1,3})([$]?\\d{1,7})$/', $pCoordinateString, $matches)) {
-            return [$matches[1], $matches[2]];
+            return [$matches[1], (int) $matches[2]];
         } elseif (self::coordinateIsRange($pCoordinateString)) {
             throw new Exception('Cell coordinate string can not be a range of cells');
         } elseif ($pCoordinateString == '') {
