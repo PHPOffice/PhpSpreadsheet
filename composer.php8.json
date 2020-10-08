@@ -1,0 +1,89 @@
+{
+  "name": "phpoffice/phpspreadsheet",
+  "description": "PHPSpreadsheet - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
+  "keywords": ["PHP", "OpenXML", "Excel", "xlsx", "xls", "ods", "gnumeric", "spreadsheet"],
+  "homepage": "https://github.com/PHPOffice/PhpSpreadsheet",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Maarten Balliauw",
+      "homepage": "https://blog.maartenballiauw.be"
+    },
+    {
+      "name": "Mark Baker",
+      "homepage": "https://markbakeruk.net"
+    },
+    {
+      "name": "Franck Lefevre",
+      "homepage": "https://rootslabs.net"
+    },
+    {
+      "name": "Erik Tilt"
+    },
+    {
+      "name": "Adrien Crivelli"
+    }
+  ],
+  "scripts": {
+    "check": [
+      "php-cs-fixer fix --ansi --dry-run --diff",
+      "phpcs",
+      "phpunit --color=always"
+    ],
+    "fix": [
+      "php-cs-fixer fix --ansi"
+    ],
+    "versions": [
+      "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 7.2- -n"
+    ]
+  },
+  "require": {
+    "php": "^7.2|^8.0",
+    "ext-ctype": "*",
+    "ext-dom": "*",
+    "ext-gd": "*",
+    "ext-iconv": "*",
+    "ext-fileinfo": "*",
+    "ext-libxml": "*",
+    "ext-mbstring": "*",
+    "ext-SimpleXML": "*",
+    "ext-xml": "*",
+    "ext-xmlreader": "*",
+    "ext-xmlwriter": "*",
+    "ext-zip": "*",
+    "ext-zlib": "*",
+    "maennchen/zipstream-php": "^2.1",
+    "markbaker/complex": "^1.5|^2.0",
+    "markbaker/matrix": "^1.2|^2.0",
+    "psr/simple-cache": "^1.0",
+    "psr/http-client": "^1.0",
+    "psr/http-factory": "^1.0"
+  },
+  "require-dev": {
+    "dompdf/dompdf": "^0.8.5",
+    "friendsofphp/php-cs-fixer": "^2.16",
+    "jpgraph/jpgraph": "^4.0",
+    "mpdf/mpdf": "^8.0",
+    "phpcompatibility/php-compatibility": "^9.3",
+    "phpunit/phpunit": "^9.3",
+    "squizlabs/php_codesniffer": "^3.5",
+    "tecnickcom/tcpdf": "^6.3"
+  },
+  "suggest": {
+    "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
+    "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
+    "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer",
+    "jpgraph/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers"
+  },
+  "autoload": {
+    "psr-4": {
+      "PhpOffice\\PhpSpreadsheet\\": "src/PhpSpreadsheet"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PhpOffice\\PhpSpreadsheetTests\\": "tests/PhpSpreadsheetTests"
+    }
+  }
+}

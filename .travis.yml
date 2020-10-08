@@ -15,6 +15,7 @@ cache:
 before_script:
   # Deactivate xdebug
   - if [[ $TRAVIS_PHP_VERSION != nightly ]]; then phpenv config-rm xdebug.ini; fi
+  - if [[ $TRAVIS_PHP_VERSION == nightly ]]; then cp composer.php8.json composer.json; fi
   - composer install --ignore-platform-reqs
 
 script:
