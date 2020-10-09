@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PHPUnit\Framework\TestCase;
+use ZipArchive;
 
 class UnparsedDataCloneTest extends TestCase
 {
@@ -35,7 +36,7 @@ class UnparsedDataCloneTest extends TestCase
         $writer->save($resultFilename);
         $dupname = 'Unable to open saved file';
 
-        $zip = new \ZipArchive();
+        $zip = new ZipArchive();
         if ($zip->open($resultFilename) !== false) {
             $names = [];
             $dupname = '';
