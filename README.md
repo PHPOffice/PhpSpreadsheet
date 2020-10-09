@@ -3,9 +3,9 @@
 [![Build Status](https://travis-ci.org/PHPOffice/PhpSpreadsheet.svg?branch=master)](https://travis-ci.org/PHPOffice/PhpSpreadsheet)
 [![Code Quality](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/?branch=master)
-[![Total Downloads](https://poser.pugx.org/phpoffice/phpspreadsheet/downloads.png)](https://packagist.org/packages/phpoffice/phpspreadsheet)
-[![Latest Stable Version](https://poser.pugx.org/phpoffice/phpspreadsheet/v/stable.png)](https://packagist.org/packages/phpoffice/phpspreadsheet)
-[![License](https://poser.pugx.org/phpoffice/phpspreadsheet/license.png)](https://packagist.org/packages/phpoffice/phpspreadsheet)
+[![Total Downloads](https://img.shields.io/packagist/dt/PHPOffice/PhpSpreadsheet)](https://packagist.org/packages/phpoffice/phpspreadsheet)
+[![Latest Stable Version](https://img.shields.io/github/v/release/PHPOffice/PhpSpreadsheet)](https://packagist.org/packages/phpoffice/phpspreadsheet)
+[![License](https://img.shields.io/github/license/PHPOffice/PhpSpreadsheet)](https://packagist.org/packages/phpoffice/phpspreadsheet)
 [![Join the chat at https://gitter.im/PHPOffice/PhpSpreadsheet](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/PHPOffice/PhpSpreadsheet)
 
 PhpSpreadsheet is a library written in pure PHP and offers a set of classes that
