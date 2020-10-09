@@ -153,6 +153,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $writer->save($filename);
         $filedata = file_get_contents($filename);
         $filedata = preg_replace('/\\r/', '', $filedata);
+        var_dump($filedata);
         $reader = new CsvReader();
         $reader->setDelimiter($delimiter);
         $reader->setEnclosure($enclosure);
