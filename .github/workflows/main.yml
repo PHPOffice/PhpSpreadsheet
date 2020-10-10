@@ -36,7 +36,13 @@ jobs:
       - name: Install dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: Test with phpunit
+      - name: Setup problem matchers for PHP
+        run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+
+      - name: Setup problem matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Test with PHPUnit
         run: ./vendor/bin/phpunit
 
   php-cs-fixer:
@@ -50,6 +56,7 @@ jobs:
         with:
           php-version: 7.4
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, SimpleXML, xml, xmlreader, xmlwriter, zip, zlib
+          tools: cs2pr
 
       - name: Get composer cache directory
         id: composer-cache
@@ -66,7 +73,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Code style with PHP-CS-Fixer
-        run: ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run
+        run: ./vendor/bin/php-cs-fixer fix --format=checkstyle | cs2pr
 
   phpcs:
     runs-on: ubuntu-latest
@@ -79,6 +86,7 @@ jobs:
         with:
           php-version: 7.4
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, SimpleXML, xml, xmlreader, xmlwriter, zip, zlib
+          tools: cs2pr
 
       - name: Get composer cache directory
         id: composer-cache
@@ -95,7 +103,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Code style with PHP_CodeSniffer
-        run: ./vendor/bin/phpcs
+        run: ./vendor/bin/phpcs -q --report=checkstyle | cs2pr
 
   coverage:
     runs-on: ubuntu-latest
