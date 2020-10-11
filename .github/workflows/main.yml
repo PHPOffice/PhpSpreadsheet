@@ -9,6 +9,7 @@ jobs:
           - '7.2'
           - '7.3'
           - '7.4'
+          - '8.0'
 
     name: PHP ${{ matrix.php-version }}
 
@@ -20,7 +21,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, SimpleXML, xml, xmlreader, xmlwriter, zip, zlib
+          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
 
       - name: Get composer cache directory
         id: composer-cache
@@ -33,8 +35,15 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
+      - name: Delete composer lock file
+        id: composer-lock
+        if: ${{ matrix.php-version == '8.0' }}
+        run: |
+          rm composer.lock
+          echo "::set-output name=flags::--ignore-platform-reqs"
+
       - name: Install dependencies
-        run: composer install --no-progress --prefer-dist --optimize-autoloader
+        run: composer install --no-progress --prefer-dist --optimize-autoloader ${{ steps.composer-lock.outputs.flags }}
 
       - name: Setup problem matchers for PHP
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
@@ -55,7 +64,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.4
-          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, SimpleXML, xml, xmlreader, xmlwriter, zip, zlib
+          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
           tools: cs2pr
 
       - name: Get composer cache directory
@@ -85,7 +95,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.4
-          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, SimpleXML, xml, xmlreader, xmlwriter, zip, zlib
+          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
           tools: cs2pr
 
       - name: Get composer cache directory
@@ -115,7 +126,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.4
-          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, SimpleXML, xml, xmlreader, xmlwriter, zip, zlib
+          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: pcov
 
       - name: Get composer cache directory
