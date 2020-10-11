@@ -58,11 +58,14 @@
     <article class="phpdocumentor-element phpdocumentor-class">
         <h2 class="phpdocumentor-content__title">
             NamedRange
+                            <span class="phpdocumentor-class__extends">
+                    extends <a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html"><abbr title="\PhpOffice\PhpSpreadsheet\DefinedName">DefinedName</abbr></a>
+                </span>
                                                         </h2>
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">7</span>
+            <span class="phpdocumentor-element-found-in__line">8</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -70,117 +73,157 @@
 
         <h3>Table of Contents</h3>
         <table class="phpdocumentor-table_of_contents">
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#property_name">$name</a></th>
-                    <td class="phpdocumentor-cell">Range name.</td>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#property_name">$name</a></th>
+                    <td class="phpdocumentor-cell">Name.</td>
                     <td class="phpdocumentor-cell">string</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#property_worksheet">$worksheet</a></th>
-                    <td class="phpdocumentor-cell">Worksheet on which the named range can be resolved.</td>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#property_worksheet">$worksheet</a></th>
+                    <td class="phpdocumentor-cell">Worksheet on which the defined name can be resolved.</td>
                     <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#property_range">$range</a></th>
-                    <td class="phpdocumentor-cell">Range of the referenced cells.</td>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#property_value">$value</a></th>
+                    <td class="phpdocumentor-cell">Value of the named object.</td>
                     <td class="phpdocumentor-cell">string</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#property_localOnly">$localOnly</a></th>
-                    <td class="phpdocumentor-cell">Is the named range local? (i.e. can only be used on $this-&gt;worksheet).</td>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#property_localOnly">$localOnly</a></th>
+                    <td class="phpdocumentor-cell">Is the defined named local? (i.e. can only be used on $this-&gt;worksheet).</td>
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#property_scope">$scope</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#property_scope">$scope</a></th>
                     <td class="phpdocumentor-cell">Scope.</td>
                     <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></td>
                 </tr>
-                                                                <tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#property_isFormula">$isFormula</a></th>
+                    <td class="phpdocumentor-cell">Whether this is a named range or a named formula.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                                        <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method___construct">__construct()</a></th>
-                    <td class="phpdocumentor-cell">Create a new NamedRange.</td>
+                    <td class="phpdocumentor-cell">Create a new Named Range.</td>
                     <td class="phpdocumentor-cell">mixed</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method_getName">getName()</a></th>
-                    <td class="phpdocumentor-cell">Get name.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method_setName">setName()</a></th>
-                    <td class="phpdocumentor-cell">Set name.</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method_getWorksheet">getWorksheet()</a></th>
-                    <td class="phpdocumentor-cell">Get worksheet.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method_setWorksheet">setWorksheet()</a></th>
-                    <td class="phpdocumentor-cell">Set worksheet.</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method_getRange">getRange()</a></th>
-                    <td class="phpdocumentor-cell">Get range.</td>
+                    <td class="phpdocumentor-cell">Get the range value.</td>
                     <td class="phpdocumentor-cell">string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method_setRange">setRange()</a></th>
-                    <td class="phpdocumentor-cell">Set range.</td>
-                    <td class="phpdocumentor-cell">$this</td>
+                    <td class="phpdocumentor-cell">Set the range value.</td>
+                    <td class="phpdocumentor-cell">self</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method_getLocalOnly">getLocalOnly()</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method_getCellsInRange">getCellsInRange()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                                                    <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Create a new Defined Name.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_createInstance">createInstance()</a></th>
+                    <td class="phpdocumentor-cell">Create a new defined name, either a range or a formula.</td>
+                    <td class="phpdocumentor-cell">self</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_testIfFormula">testIfFormula()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_getName">getName()</a></th>
+                    <td class="phpdocumentor-cell">Get name.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_setName">setName()</a></th>
+                    <td class="phpdocumentor-cell">Set name.</td>
+                    <td class="phpdocumentor-cell">self</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_getWorksheet">getWorksheet()</a></th>
+                    <td class="phpdocumentor-cell">Get worksheet.</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_setWorksheet">setWorksheet()</a></th>
+                    <td class="phpdocumentor-cell">Set worksheet.</td>
+                    <td class="phpdocumentor-cell">self</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_getValue">getValue()</a></th>
+                    <td class="phpdocumentor-cell">Get range or formula value.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_setValue">setValue()</a></th>
+                    <td class="phpdocumentor-cell">Set range or formula  value.</td>
+                    <td class="phpdocumentor-cell">self</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_getLocalOnly">getLocalOnly()</a></th>
                     <td class="phpdocumentor-cell">Get localOnly.</td>
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method_setLocalOnly">setLocalOnly()</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_setLocalOnly">setLocalOnly()</a></th>
                     <td class="phpdocumentor-cell">Set localOnly.</td>
-                    <td class="phpdocumentor-cell">$this</td>
+                    <td class="phpdocumentor-cell">self</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method_getScope">getScope()</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_getScope">getScope()</a></th>
                     <td class="phpdocumentor-cell">Get scope.</td>
-                    <td class="phpdocumentor-cell">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method_setScope">setScope()</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_setScope">setScope()</a></th>
                     <td class="phpdocumentor-cell">Set scope.</td>
-                    <td class="phpdocumentor-cell">$this</td>
+                    <td class="phpdocumentor-cell">self</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method_resolveRange">resolveRange()</a></th>
-                    <td class="phpdocumentor-cell">Resolve a named range to a regular cell range.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html"><abbr title="\PhpOffice\PhpSpreadsheet\NamedRange">NamedRange</abbr></a></td>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_isFormula">isFormula()</a></th>
+                    <td class="phpdocumentor-cell">Identify whether this is a named range or a named formula.</td>
+                    <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html#method___clone">__clone()</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method_resolveName">resolveName()</a></th>
+                    <td class="phpdocumentor-cell">Resolve a named range to a regular cell range or formula.</td>
+                    <td class="phpdocumentor-cell">self|null</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-DefinedName.html#method___clone">__clone()</a></th>
                     <td class="phpdocumentor-cell">Implement PHP __clone to create a deep clone, not just a shallow copy.</td>
                     <td class="phpdocumentor-cell">mixed</td>
                 </tr>
-                                            </table>
+                    </table>
 
         
                     <section>
                 <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_name"></a>
+                                                                    <a id="property_name"></a>
 <article
         class="
             phpdocumentor-property
-            phpdocumentor-property--private
+            phpdocumentor-property--protected
                                 "
 >
     <h4 class="phpdocumentor-property__name">$name</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">14</span>
+        <span class="phpdocumentor-element-found-in__line">16</span>
     </aside>
-            <p class="phpdocumentor-summary">Range name.</p>
+            <p class="phpdocumentor-summary">Name.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__visibility">protected</span>
                 <span class="phpdocumentor-signature__type">string</span>
         <span class="phpdocumentor-signature__name">$name</span>
             </code>
@@ -189,58 +232,58 @@
 <article
         class="
             phpdocumentor-property
-            phpdocumentor-property--private
+            phpdocumentor-property--protected
                                 "
 >
     <h4 class="phpdocumentor-property__name">$worksheet</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">21</span>
+        <span class="phpdocumentor-element-found-in__line">23</span>
     </aside>
-            <p class="phpdocumentor-summary">Worksheet on which the named range can be resolved.</p>
+            <p class="phpdocumentor-summary">Worksheet on which the defined name can be resolved.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__visibility">protected</span>
                 <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
         <span class="phpdocumentor-signature__name">$worksheet</span>
             </code>
     </article>
-                                    <a id="property_range"></a>
+                                    <a id="property_value"></a>
 <article
         class="
             phpdocumentor-property
-            phpdocumentor-property--private
+            phpdocumentor-property--protected
                                 "
 >
-    <h4 class="phpdocumentor-property__name">$range</h4>
+    <h4 class="phpdocumentor-property__name">$value</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">28</span>
+        <span class="phpdocumentor-element-found-in__line">30</span>
     </aside>
-            <p class="phpdocumentor-summary">Range of the referenced cells.</p>
+            <p class="phpdocumentor-summary">Value of the named object.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__visibility">protected</span>
                 <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$range</span>
+        <span class="phpdocumentor-signature__name">$value</span>
             </code>
     </article>
                                     <a id="property_localOnly"></a>
 <article
         class="
             phpdocumentor-property
-            phpdocumentor-property--private
+            phpdocumentor-property--protected
                                 "
 >
     <h4 class="phpdocumentor-property__name">$localOnly</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">35</span>
+        <span class="phpdocumentor-element-found-in__line">37</span>
     </aside>
-            <p class="phpdocumentor-summary">Is the named range local? (i.e. can only be used on $this-&gt;worksheet).</p>
+            <p class="phpdocumentor-summary">Is the defined named local? (i.e. can only be used on $this-&gt;worksheet).</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__visibility">protected</span>
                 <span class="phpdocumentor-signature__type">bool</span>
         <span class="phpdocumentor-signature__name">$localOnly</span>
             </code>
@@ -249,23 +292,43 @@
 <article
         class="
             phpdocumentor-property
-            phpdocumentor-property--private
+            phpdocumentor-property--protected
                                 "
 >
     <h4 class="phpdocumentor-property__name">$scope</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">42</span>
+        <span class="phpdocumentor-element-found-in__line">44</span>
     </aside>
             <p class="phpdocumentor-summary">Scope.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__visibility">protected</span>
                 <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
         <span class="phpdocumentor-signature__name">$scope</span>
             </code>
     </article>
-                                                            </section>
+                                    <a id="property_isFormula"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$isFormula</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">51</span>
+    </aside>
+            <p class="phpdocumentor-summary">Whether this is a named range or a named formula.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$isFormula</span>
+            </code>
+    </article>
+                            </section>
         
                     <section>
                 <h3 class="phpdocumentor-methods__header">Methods</h3>
@@ -280,31 +343,31 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">52</span>
+        <span class="phpdocumentor-element-found-in__line">13</span>
     </aside>
-        <p class="phpdocumentor-summary">Create a new NamedRange.</p>
+        <p class="phpdocumentor-summary">Create a new Named Range.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">__construct</span>(
                     <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$pName</span> :
+                            <span class="phpdocumentor-signature__argument__name">$name</span> :
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$pWorksheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
-                            </span>
+            [,                 <span class="phpdocumentor-signature__argument__name">$worksheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                     <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$pRange</span> :
+            [,                 <span class="phpdocumentor-signature__argument__name">$range</span> :
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;A1&#039;</span> ]            </span>
                     <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$pLocalOnly</span> :
+            [,                 <span class="phpdocumentor-signature__argument__name">$localOnly</span> :
                 <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
                     <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$pScope</span> :
-                <span class="phpdocumentor-signature__argument__return-type">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+            [,                 <span class="phpdocumentor-signature__argument__name">$scope</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">mixed</span>
@@ -314,171 +377,35 @@
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pName</span>
+                    <span class="phpdocumentor-signature__argument__name">$name</span>
                     : <span class="phpdocumentor-signature__argument__return-type">string</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pWorksheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
-                                    </dt>
+                    <span class="phpdocumentor-signature__argument__name">$worksheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pRange</span>
+                    <span class="phpdocumentor-signature__argument__name">$range</span>
                     : <span class="phpdocumentor-signature__argument__return-type">string</span>
                      = <span class="phpdocumentor-signature__argument__default-value">&#039;A1&#039;</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pLocalOnly</span>
+                    <span class="phpdocumentor-signature__argument__name">$localOnly</span>
                     : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                      = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pScope</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    <span class="phpdocumentor-signature__argument__name">$scope</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Scope. Only applies when $pLocalOnly = true. Null for global scope.</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_getName"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getName()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">72</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get name.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getName</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                                    <a id="method_setName"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setName()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">84</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set name.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setName</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
-</article>
-                                    <a id="method_getWorksheet"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getWorksheet()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">113</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get worksheet.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getWorksheet</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
-            
-</article>
-                                    <a id="method_setWorksheet"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setWorksheet()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">125</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set worksheet.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setWorksheet</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
-                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
             
 </article>
                                     <a id="method_getRange"></a>
@@ -492,9 +419,9 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">139</span>
+        <span class="phpdocumentor-element-found-in__line">29</span>
     </aside>
-        <p class="phpdocumentor-summary">Get range.</p>
+        <p class="phpdocumentor-summary">Get the range value.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getRange</span>(
@@ -520,18 +447,236 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">151</span>
+        <span class="phpdocumentor-element-found-in__line">37</span>
     </aside>
-        <p class="phpdocumentor-summary">Set range.</p>
+        <p class="phpdocumentor-summary">Set the range value.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">setRange</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$range</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">self</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$range</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            
+</article>
+                                    <a id="method_getCellsInRange"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getCellsInRange()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">46</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getCellsInRange</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">56</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new Defined Name.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$name</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$worksheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$localOnly</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$scope</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$name</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$worksheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$localOnly</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$scope</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_createInstance"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">createInstance()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">84</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create a new defined name, either a range or a formula.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">createInstance</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$name</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$worksheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$localOnly</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$scope</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">self</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$name</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$worksheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$localOnly</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$scope</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            
+</article>
+                                    <a id="method_testIfFormula"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">testIfFormula()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">100</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">testIfFormula</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$value</span> :
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
+        : <span class="phpdocumentor-signature__response_type">bool</span>
     </code>
 
     
@@ -546,7 +691,211 @@
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_getName"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getName()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">127</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get name.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getName</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setName"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setName()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">135</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set name.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setName</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$name</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">self</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$name</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            
+</article>
+                                    <a id="method_getWorksheet"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWorksheet()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">162</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get worksheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWorksheet</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+            
+</article>
+                                    <a id="method_setWorksheet"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setWorksheet()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">170</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set worksheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setWorksheet</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">self</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            
+</article>
+                                    <a id="method_getValue"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getValue()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">180</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get range or formula value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getValue</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setValue"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setValue()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">188</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set range or formula  value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setValue</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">self</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
             
 </article>
                                     <a id="method_getLocalOnly"></a>
@@ -558,9 +907,9 @@
 >
     <h4 class="phpdocumentor-method__name">getLocalOnly()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">165</span>
+        <span class="phpdocumentor-element-found-in__line">198</span>
     </aside>
         <p class="phpdocumentor-summary">Get localOnly.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -586,9 +935,9 @@
 >
     <h4 class="phpdocumentor-method__name">setLocalOnly()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">177</span>
+        <span class="phpdocumentor-element-found-in__line">206</span>
     </aside>
         <p class="phpdocumentor-summary">Set localOnly.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -599,7 +948,7 @@
                 <span class="phpdocumentor-signature__argument__return-type">bool</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
+        : <span class="phpdocumentor-signature__response_type">self</span>
     </code>
 
     
@@ -614,7 +963,7 @@
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
+        <span class="phpdocumentor-signature__response_type">self</span>
             
 </article>
                                     <a id="method_getScope"></a>
@@ -626,23 +975,23 @@
 >
     <h4 class="phpdocumentor-method__name">getScope()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">190</span>
+        <span class="phpdocumentor-element-found-in__line">217</span>
     </aside>
         <p class="phpdocumentor-summary">Get scope.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getScope</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
     </code>
 
     
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
             
 </article>
                                     <a id="method_setScope"></a>
@@ -654,20 +1003,20 @@
 >
     <h4 class="phpdocumentor-method__name">setScope()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">200</span>
+        <span class="phpdocumentor-element-found-in__line">225</span>
     </aside>
         <p class="phpdocumentor-summary">Set scope.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">setScope</span>(
                     <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$value</span> :
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
                 <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
+        : <span class="phpdocumentor-signature__response_type">self</span>
     </code>
 
     
@@ -676,62 +1025,90 @@
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$value</span>
                     : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                                    </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
+        <span class="phpdocumentor-signature__response_type">self</span>
             
 </article>
-                                    <a id="method_resolveRange"></a>
+                                    <a id="method_isFormula"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">isFormula()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">236</span>
+    </aside>
+        <p class="phpdocumentor-summary">Identify whether this is a named range or a named formula.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">isFormula</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_resolveName"></a>
 <article
         class="
             phpdocumentor-method
             phpdocumentor-method--public
                                     phpdocumentor-element--static                    "
 >
-    <h4 class="phpdocumentor-method__name">resolveRange()</h4>
+    <h4 class="phpdocumentor-method__name">resolveName()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">216</span>
+        <span class="phpdocumentor-element-found-in__line">244</span>
     </aside>
-        <p class="phpdocumentor-summary">Resolve a named range to a regular cell range.</p>
+        <p class="phpdocumentor-summary">Resolve a named range to a regular cell range or formula.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">resolveRange</span>(
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">resolveName</span>(
                     <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$pNamedRange</span> :
+                            <span class="phpdocumentor-signature__argument__name">$pDefinedName</span> :
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$pSheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html"><abbr title="\PhpOffice\PhpSpreadsheet\NamedRange">NamedRange</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type">self|null</span>
     </code>
 
     
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pNamedRange</span>
+                    <span class="phpdocumentor-signature__argument__name">$pDefinedName</span>
                     : <span class="phpdocumentor-signature__argument__return-type">string</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Named range</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$pSheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Scope. Use null for global scope</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-NamedRange.html"><abbr title="\PhpOffice\PhpSpreadsheet\NamedRange">NamedRange</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type">self|null</span>
             
 </article>
                                     <a id="method___clone"></a>
@@ -743,9 +1120,9 @@
 >
     <h4 class="phpdocumentor-method__name">__clone()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/NamedRange.php"><a href="../files/src-phpspreadsheet-namedrange.html"><abbr title="src/PhpSpreadsheet/NamedRange.php">NamedRange.php</abbr></a></abbr>
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/DefinedName.php"><a href="../files/src-phpspreadsheet-definedname.html"><abbr title="src/PhpSpreadsheet/DefinedName.php">DefinedName.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">224</span>
+        <span class="phpdocumentor-element-found-in__line">252</span>
     </aside>
         <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -762,7 +1139,7 @@
         <span class="phpdocumentor-signature__response_type">mixed</span>
             
 </article>
-                                                            </section>
+                            </section>
             </article>
             <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
 

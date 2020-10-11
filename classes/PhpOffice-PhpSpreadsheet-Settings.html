@@ -62,7 +62,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">10</span>
+            <span class="phpdocumentor-element-found-in__line">12</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -90,6 +90,16 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph.</td>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Settings.html#property_cache">$cache</a></th>
                     <td class="phpdocumentor-cell">The cache implementation to be used for cell collection.</td>
                     <td class="phpdocumentor-cell"><abbr title="\Psr\SimpleCache\CacheInterface">CacheInterface</abbr></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Settings.html#property_httpClient">$httpClient</a></th>
+                    <td class="phpdocumentor-cell">The HTTP client implementation to be used for network request.</td>
+                    <td class="phpdocumentor-cell">null|<abbr title="\Psr\Http\Client\ClientInterface">ClientInterface</abbr></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Settings.html#property_requestFactory">$requestFactory</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">null|<abbr title="\Psr\Http\Message\RequestFactoryInterface">RequestFactoryInterface</abbr></td>
                 </tr>
                                                                 <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Settings.html#method_setLocale">setLocale()</a></th>
@@ -136,6 +146,31 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph.</td>
                     <td class="phpdocumentor-cell">Gets the implementation of cache that should be used for cell collection.</td>
                     <td class="phpdocumentor-cell"><abbr title="\Psr\SimpleCache\CacheInterface">CacheInterface</abbr></td>
                 </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Settings.html#method_setHttpClient">setHttpClient()</a></th>
+                    <td class="phpdocumentor-cell">Set the HTTP client implementation to be used for network request.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Settings.html#method_unsetHttpClient">unsetHttpClient()</a></th>
+                    <td class="phpdocumentor-cell">Unset the HTTP client configuration.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Settings.html#method_getHttpClient">getHttpClient()</a></th>
+                    <td class="phpdocumentor-cell">Get the HTTP client implementation to be used for network request.</td>
+                    <td class="phpdocumentor-cell"><abbr title="\Psr\Http\Client\ClientInterface">ClientInterface</abbr></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Settings.html#method_getRequestFactory">getRequestFactory()</a></th>
+                    <td class="phpdocumentor-cell">Get the HTTP request factory.</td>
+                    <td class="phpdocumentor-cell"><abbr title="\Psr\Http\Message\RequestFactoryInterface">RequestFactoryInterface</abbr></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Settings.html#method_assertHttpClient">assertHttpClient()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
                                             </table>
 
         
@@ -152,7 +187,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">18</span>
+        <span class="phpdocumentor-element-found-in__line">20</span>
     </aside>
             <p class="phpdocumentor-summary">Class name of the chart renderer used for rendering charts
 eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph.</p>
@@ -173,7 +208,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph.</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">25</span>
+        <span class="phpdocumentor-element-found-in__line">27</span>
     </aside>
             <p class="phpdocumentor-summary">Default options for libxml loader.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -193,7 +228,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph.</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">36</span>
+        <span class="phpdocumentor-element-found-in__line">38</span>
     </aside>
             <p class="phpdocumentor-summary">Allow/disallow libxml_disable_entity_loader() call when not thread safe.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -217,13 +252,52 @@ SECURITY WARNING: Changing this flag is not recommended.</section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">43</span>
+        <span class="phpdocumentor-element-found-in__line">45</span>
     </aside>
             <p class="phpdocumentor-summary">The cache implementation to be used for cell collection.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type"><abbr title="\Psr\SimpleCache\CacheInterface">CacheInterface</abbr></span>
         <span class="phpdocumentor-signature__name">$cache</span>
+            </code>
+    </article>
+                                    <a id="property_httpClient"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$httpClient</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">52</span>
+    </aside>
+            <p class="phpdocumentor-summary">The HTTP client implementation to be used for network request.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">null|<abbr title="\Psr\Http\Client\ClientInterface">ClientInterface</abbr></span>
+        <span class="phpdocumentor-signature__name">$httpClient</span>
+            </code>
+    </article>
+                                    <a id="property_requestFactory"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$requestFactory</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">57</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">null|<abbr title="\Psr\Http\Message\RequestFactoryInterface">RequestFactoryInterface</abbr></span>
+        <span class="phpdocumentor-signature__name">$requestFactory</span>
             </code>
     </article>
                                                             </section>
@@ -241,7 +315,7 @@ SECURITY WARNING: Changing this flag is not recommended.</section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">52</span>
+        <span class="phpdocumentor-element-found-in__line">66</span>
     </aside>
         <p class="phpdocumentor-summary">Set the locale code to use for formula translations and any special formatting.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -282,7 +356,7 @@ SECURITY WARNING: Changing this flag is not recommended.</section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">63</span>
+        <span class="phpdocumentor-element-found-in__line">77</span>
     </aside>
         <p class="phpdocumentor-summary">Identify to PhpSpreadsheet the external library to use for rendering charts.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -321,7 +395,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">78</span>
+        <span class="phpdocumentor-element-found-in__line">92</span>
     </aside>
         <p class="phpdocumentor-summary">Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -351,7 +425,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p></span>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">88</span>
+        <span class="phpdocumentor-element-found-in__line">102</span>
     </aside>
         <p class="phpdocumentor-summary">Set default options for libxml loader.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -389,7 +463,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p></span>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">102</span>
+        <span class="phpdocumentor-element-found-in__line">116</span>
     </aside>
         <p class="phpdocumentor-summary">Get default options for libxml loader.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -419,7 +493,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p></span>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">123</span>
+        <span class="phpdocumentor-element-found-in__line">137</span>
     </aside>
         <p class="phpdocumentor-summary">Enable/Disable the entity loader for libxml loader.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -462,7 +536,7 @@ SECURITY WARNING: Changing this flag to false is not recommended.</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">133</span>
+        <span class="phpdocumentor-element-found-in__line">147</span>
     </aside>
         <p class="phpdocumentor-summary">Return the state of the entity loader (disabled/enabled) for libxml loader.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -491,7 +565,7 @@ SECURITY WARNING: Changing this flag to false is not recommended.</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">141</span>
+        <span class="phpdocumentor-element-found-in__line">155</span>
     </aside>
         <p class="phpdocumentor-summary">Sets the implementation of cache that should be used for cell collection.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -529,7 +603,7 @@ SECURITY WARNING: Changing this flag to false is not recommended.</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">151</span>
+        <span class="phpdocumentor-element-found-in__line">165</span>
     </aside>
         <p class="phpdocumentor-summary">Gets the implementation of cache that should be used for cell collection.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -545,6 +619,160 @@ SECURITY WARNING: Changing this flag to false is not recommended.</p></section>
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\SimpleCache\CacheInterface">CacheInterface</abbr></span>
             
+</article>
+                                    <a id="method_setHttpClient"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">setHttpClient()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">177</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set the HTTP client implementation to be used for network request.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">setHttpClient</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$httpClient</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Client\ClientInterface">ClientInterface</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$requestFactory</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\RequestFactoryInterface">RequestFactoryInterface</abbr></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$httpClient</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Client\ClientInterface">ClientInterface</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$requestFactory</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\RequestFactoryInterface">RequestFactoryInterface</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_unsetHttpClient"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">unsetHttpClient()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">186</span>
+    </aside>
+        <p class="phpdocumentor-summary">Unset the HTTP client configuration.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">unsetHttpClient</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
+</article>
+                                    <a id="method_getHttpClient"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getHttpClient()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">195</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the HTTP client implementation to be used for network request.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getHttpClient</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Client\ClientInterface">ClientInterface</abbr></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Client\ClientInterface">ClientInterface</abbr></span>
+            
+</article>
+                                    <a id="method_getRequestFactory"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getRequestFactory()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">205</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the HTTP request factory.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getRequestFactory</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\RequestFactoryInterface">RequestFactoryInterface</abbr></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\RequestFactoryInterface">RequestFactoryInterface</abbr></span>
+            
+</article>
+                                    <a id="method_assertHttpClient"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">assertHttpClient()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="../files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">212</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">assertHttpClient</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
 </article>
                                                             </section>
             </article>

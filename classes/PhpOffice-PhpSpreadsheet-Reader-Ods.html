@@ -66,7 +66,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">25</span>
+            <span class="phpdocumentor-element-found-in__line">29</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -154,6 +154,31 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_parseRichText">parseRichText()</a></th>
                     <td class="phpdocumentor-cell"></td>
                     <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_convertToExcelAddressValue">convertToExcelAddressValue()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_convertToExcelFormulaValue">convertToExcelFormulaValue()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_readDefinedRanges">readDefinedRanges()</a></th>
+                    <td class="phpdocumentor-cell">Read any Named Ranges that are defined in this spreadsheet.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_readDefinedExpressions">readDefinedExpressions()</a></th>
+                    <td class="phpdocumentor-cell">Read any Named Formulae that are defined in this spreadsheet.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#method_addDefinedName">addDefinedName()</a></th>
+                    <td class="phpdocumentor-cell">Assess scope and store the Defined Name.</td>
+                    <td class="phpdocumentor-cell">void</td>
                 </tr>
                                                     <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method___construct">__construct()</a></th>
@@ -398,7 +423,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">30</span>
+        <span class="phpdocumentor-element-found-in__line">34</span>
     </aside>
         <p class="phpdocumentor-summary">Create a new Ods Reader instance.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -426,7 +451,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">43</span>
+        <span class="phpdocumentor-element-found-in__line">47</span>
     </aside>
         <p class="phpdocumentor-summary">Can the current IReader read the file?</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -466,7 +491,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">92</span>
+        <span class="phpdocumentor-element-found-in__line">94</span>
     </aside>
         <p class="phpdocumentor-summary">Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -506,7 +531,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">144</span>
+        <span class="phpdocumentor-element-found-in__line">146</span>
     </aside>
         <p class="phpdocumentor-summary">Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -546,7 +571,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">236</span>
+        <span class="phpdocumentor-element-found-in__line">238</span>
     </aside>
         <p class="phpdocumentor-summary">Loads PhpSpreadsheet from file.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -586,7 +611,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">252</span>
+        <span class="phpdocumentor-element-found-in__line">254</span>
     </aside>
         <p class="phpdocumentor-summary">Loads PhpSpreadsheet from file into PhpSpreadsheet instance.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -635,7 +660,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">657</span>
+        <span class="phpdocumentor-element-found-in__line">658</span>
     </aside>
         <p class="phpdocumentor-summary">Recursively scan element.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -675,7 +700,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">692</span>
+        <span class="phpdocumentor-element-found-in__line">693</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -702,6 +727,261 @@ This property holds an array of worksheet names to be loaded. If null, then all 
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a></span>
             
+</article>
+                                    <a id="method_convertToExcelAddressValue"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">convertToExcelAddressValue()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">701</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">convertToExcelAddressValue</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$openOfficeAddress</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$openOfficeAddress</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_convertToExcelFormulaValue"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">convertToExcelFormulaValue()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">721</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">convertToExcelFormulaValue</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$openOfficeFormula</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$openOfficeFormula</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_readDefinedRanges"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">readDefinedRanges()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">750</span>
+    </aside>
+        <p class="phpdocumentor-summary">Read any Named Ranges that are defined in this spreadsheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">readDefinedRanges</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$workbookData</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\DOMElement">DOMElement</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$tableNs</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$workbookData</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\DOMElement">DOMElement</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$tableNs</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_readDefinedExpressions"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">readDefinedExpressions()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">768</span>
+    </aside>
+        <p class="phpdocumentor-summary">Read any Named Formulae that are defined in this spreadsheet.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">readDefinedExpressions</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$workbookData</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\DOMElement">DOMElement</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$tableNs</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$workbookData</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\DOMElement">DOMElement</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$tableNs</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_addDefinedName"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">addDefinedName()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Ods.php"><a href="../files/src-phpspreadsheet-reader-ods.html"><abbr title="src/PhpSpreadsheet/Reader/Ods.php">Ods.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">786</span>
+    </aside>
+        <p class="phpdocumentor-summary">Assess scope and store the Defined Name.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">addDefinedName</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$baseAddress</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$definedName</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$baseAddress</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$definedName</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
 </article>
                                                                     <a id="method___construct"></a>
 <article

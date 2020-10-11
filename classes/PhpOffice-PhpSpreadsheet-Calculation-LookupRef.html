@@ -84,17 +84,17 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_COLUMNS">COLUMNS()</a></th>
                     <td class="phpdocumentor-cell">COLUMNS.</td>
-                    <td class="phpdocumentor-cell">int</td>
+                    <td class="phpdocumentor-cell">int|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_ROW">ROW()</a></th>
                     <td class="phpdocumentor-cell">ROW.</td>
-                    <td class="phpdocumentor-cell">int</td>
+                    <td class="phpdocumentor-cell">int|array|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_ROWS">ROWS()</a></th>
                     <td class="phpdocumentor-cell">ROWS.</td>
-                    <td class="phpdocumentor-cell">int</td>
+                    <td class="phpdocumentor-cell">int|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_HYPERLINK">HYPERLINK()</a></th>
@@ -318,7 +318,7 @@ reference of the cell in which the COLUMN function appears; otherwise this funct
                 <span class="phpdocumentor-signature__argument__return-type">null|array|string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">int</span>
+        : <span class="phpdocumentor-signature__response_type">int|string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Returns the number of columns in an array or reference.</p>
@@ -336,8 +336,8 @@ reference of the cell in which the COLUMN function appears; otherwise this funct
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-                    &mdash; <span class="phpdocumentor-description"><p>The number of columns in cellAddress</p></span>
+        <span class="phpdocumentor-signature__response_type">int|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>The number of columns in cellAddress, or a string if arguments are invalid</p></span>
             
 </article>
                                     <a id="method_ROW"></a>
@@ -362,7 +362,7 @@ reference of the cell in which the COLUMN function appears; otherwise this funct
                 <span class="phpdocumentor-signature__argument__return-type">null|array|string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">int</span>
+        : <span class="phpdocumentor-signature__response_type">int|array|string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Returns the row number of the given cell reference
@@ -383,8 +383,7 @@ reference of the cell in which the ROW function appears; otherwise this function
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-                    &mdash; <span class="phpdocumentor-description"><p>or array of integer</p></span>
+        <span class="phpdocumentor-signature__response_type">int|array|string</span>
             
 </article>
                                     <a id="method_ROWS"></a>
@@ -409,7 +408,7 @@ reference of the cell in which the ROW function appears; otherwise this function
                 <span class="phpdocumentor-signature__argument__return-type">null|array|string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">int</span>
+        : <span class="phpdocumentor-signature__response_type">int|string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Returns the number of rows in an array or reference.</p>
@@ -427,8 +426,8 @@ reference of the cell in which the ROW function appears; otherwise this function
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-                    &mdash; <span class="phpdocumentor-description"><p>The number of rows in cellAddress</p></span>
+        <span class="phpdocumentor-signature__response_type">int|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>The number of rows in cellAddress, or a string if arguments are invalid</p></span>
             
 </article>
                                     <a id="method_HYPERLINK"></a>
@@ -565,7 +564,7 @@ References are immediately evaluated to display their contents.</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">343</span>
+        <span class="phpdocumentor-element-found-in__line">345</span>
     </aside>
         <p class="phpdocumentor-summary">OFFSET.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -664,7 +663,7 @@ starting reference).</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">421</span>
+        <span class="phpdocumentor-element-found-in__line">423</span>
     </aside>
         <p class="phpdocumentor-summary">CHOOSE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -709,7 +708,7 @@ Use CHOOSE to select one of up to 254 values based on the lookup_value.</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">461</span>
+        <span class="phpdocumentor-element-found-in__line">463</span>
     </aside>
         <p class="phpdocumentor-summary">MATCH.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -772,7 +771,7 @@ If match_type is 1 or -1, the list has to be ordered.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">617</span>
+        <span class="phpdocumentor-element-found-in__line">620</span>
     </aside>
         <p class="phpdocumentor-summary">INDEX.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -834,7 +833,7 @@ If match_type is 1 or -1, the list has to be ordered.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">675</span>
+        <span class="phpdocumentor-element-found-in__line">678</span>
     </aside>
         <p class="phpdocumentor-summary">TRANSPOSE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -875,7 +874,7 @@ If match_type is 1 or -1, the list has to be ordered.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">695</span>
+        <span class="phpdocumentor-element-found-in__line">698</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -923,7 +922,7 @@ If match_type is 1 or -1, the list has to be ordered.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">719</span>
+        <span class="phpdocumentor-element-found-in__line">722</span>
     </aside>
         <p class="phpdocumentor-summary">VLOOKUP
 The VLOOKUP function searches for value in the left-most column of lookup_array and returns the value in the same row based on the index_number.</p>
@@ -992,7 +991,7 @@ The VLOOKUP function searches for value in the left-most column of lookup_array 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">794</span>
+        <span class="phpdocumentor-element-found-in__line">802</span>
     </aside>
         <p class="phpdocumentor-summary">HLOOKUP
 The HLOOKUP function searches for value in the top-most row of lookup_array and returns the value in the same column based on the index_number.</p>
@@ -1061,7 +1060,7 @@ The HLOOKUP function searches for value in the top-most row of lookup_array and 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">865</span>
+        <span class="phpdocumentor-element-found-in__line">876</span>
     </aside>
         <p class="phpdocumentor-summary">LOOKUP
 The LOOKUP function searches for value either from a one-row or one-column range or from an array.</p>
@@ -1121,7 +1120,7 @@ The LOOKUP function searches for value either from a one-row or one-column range
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">937</span>
+        <span class="phpdocumentor-element-found-in__line">948</span>
     </aside>
         <p class="phpdocumentor-summary">FORMULATEXT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
