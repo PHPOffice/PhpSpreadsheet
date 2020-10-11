@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
     - **Xlsx** (Previously only simple named ranges were supported)
     - **Xls** (Previously neither named ranges nor formulae were supported) - Still not supported, but some parser issues resolved that previously failed to differentiate between a defined name and a function name
     - **Ods** (Previously neither named ranges nor formulae were supported)
+- Support for PHP 8.0
 
 ### Changed
 
@@ -37,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Named formula implementation, and improved handling of Defined Names generally [#1535](https://github.com/PHPOffice/PhpSpreadsheet/pull/1535)
 - fix resolution of relative named range values in the calculation engine; previously all named range values had been treated as absolute.
 - Drop $this->spreadSheet null check from Xlsx Writer [#1646](https://github.com/phpoffice/phpspreadsheet/pull/1646)
+- Improving Coverage for Excel2003 XML Reader [#1557](https://github.com/phpoffice/phpspreadsheet/pull/1557)
 
 ### Deprecated
 
