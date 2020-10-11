@@ -55,6 +55,6 @@ class LocaleFloatsTest extends TestCase
         self::assertArrayHasKey(1, $matches);
         $actual = $matches[1];
         // From PHP8, https://wiki.php.net/rfc/locale_independent_float_to_string applies
-        self::assertEquals((\PHP_VERSION_ID < 80000) ? '1,1' : '1.1', $actual);
+        self::assertEquals('1,1', $actual);
     }
 }
