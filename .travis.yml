@@ -32,12 +32,3 @@ jobs:
       script:
         - ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run
         - ./vendor/bin/phpcs
-
-    - stage: Coverage
-      php: 7.4
-      script:
-        - pecl install pcov
-        - ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
-      after_script:
-        - wget https://scrutinizer-ci.com/ocular.phar
-        - php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml
