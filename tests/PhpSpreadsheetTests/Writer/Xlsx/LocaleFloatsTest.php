@@ -54,6 +54,7 @@ class LocaleFloatsTest extends TestCase
         preg_match('/(?:double|float)\(([^\)]+)\)/mui', ob_get_clean(), $matches);
         self::assertArrayHasKey(1, $matches);
         $actual = $matches[1];
-        self::assertEquals('1,1', $actual);
+        // From PHP8, https://wiki.php.net/rfc/locale_independent_float_to_string applies
+        self::assertEquals((\PHP_VERSION_ID < 80000) ? '1,1' : '1.1', $actual);
     }
 }
