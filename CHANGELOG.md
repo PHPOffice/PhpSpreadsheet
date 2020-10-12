@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing.
+- Ensure that the list of shared formulae is maintained when an xlsx file is chunked with readFilter[Issue #169](https://github.com/PHPOffice/PhpSpreadsheet/issues/1669).
 
 ## 1.15.0 - 2020-10-11
 
