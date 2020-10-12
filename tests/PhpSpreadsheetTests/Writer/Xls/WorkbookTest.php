@@ -22,7 +22,7 @@ class WorkbookTest extends TestCase
         $strUnique = 0;
         $str_table = [];
         $colors = [];
-        $parser = new Parser();
+        $parser = new Parser($spreadsheet);
 
         $this->workbook = new Workbook($spreadsheet, $strTotal, $strUnique, $str_table, $colors, $parser);
     }

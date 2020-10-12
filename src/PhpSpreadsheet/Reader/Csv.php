@@ -523,6 +523,7 @@ class Csv extends BaseReader
         // Attempt to guess mimetype
         $type = mime_content_type($pFilename);
         $supportedTypes = [
+            'application/csv',
             'text/csv',
             'text/plain',
             'inode/x-empty',

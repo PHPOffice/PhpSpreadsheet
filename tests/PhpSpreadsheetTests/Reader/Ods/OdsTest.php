@@ -1,9 +1,10 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Font;
@@ -50,30 +51,66 @@ class OdsTest extends TestCase
 
             // Load into this instance
             $reader = new Ods();
-            $this->spreadsheetData = $reader->loadIntoExisting($filename, new Spreadsheet());
+            $this->spreadsheetData = $reader->load($filename);
         }
 
         return $this->spreadsheetData;
     }
 
-    public function testReadFileProperties(): void
+    public function testLoadWorksheets(): void
+    {
+        $spreadsheet = $this->loadDataFile();
+
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
+
+        self::assertEquals(2, $spreadsheet->getSheetCount());
+
+        $firstSheet = $spreadsheet->getSheet(0);
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
+
+        $secondSheet = $spreadsheet->getSheet(1);
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
+        self::assertEquals('Sheet1', $spreadsheet->getSheet(0)->getTitle());
+        self::assertEquals('Second Sheet', $spreadsheet->getSheet(1)->getTitle());
+    }
+
+    public function testLoadOneWorksheet(): void
     {
         $filename = 'tests/data/Reader/Ods/data.ods';
 
         // Load into this instance
         $reader = new Ods();
+        $reader->setLoadSheetsOnly(['Sheet1']);
+        $spreadsheet = $reader->load($filename);
 
-        // Test "listWorksheetNames" method
+        self::assertEquals(1, $spreadsheet->getSheetCount());
 
-        self::assertEquals([
-            'Sheet1',
-            'Second Sheet',
-        ], $reader->listWorksheetNames($filename));
+        self::assertEquals('Sheet1', $spreadsheet->getSheet(0)->getTitle());
     }
 
-    public function testLoadWorksheets(): void
+    public function testLoadBadFile(): void
     {
-        $spreadsheet = $this->loadDataFile();
+        $this->expectException(ReaderException::class);
+        $reader = new Ods();
+        $spreadsheet = $reader->load(__FILE__);
+
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
+
+        self::assertEquals(2, $spreadsheet->getSheetCount());
+
+        $firstSheet = $spreadsheet->getSheet(0);
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
+
+        $secondSheet = $spreadsheet->getSheet(1);
+        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
+    }
+
+    public function testLoadCorruptFile(): void
+    {
+        $this->expectException(ReaderException::class);
+        $filename = 'tests/data/Reader/Ods/corruptMeta.ods';
+        $reader = new Ods();
+        $spreadsheet = $reader->load($filename);
 
         self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
 

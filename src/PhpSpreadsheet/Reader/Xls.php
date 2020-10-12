@@ -439,6 +439,15 @@ class Xls extends BaseReader
         }
     }
 
+    public function setCodepage(string $codepage): void
+    {
+        if (!CodePage::validate($codepage)) {
+            throw new PhpSpreadsheetException('Unknown codepage: ' . $codepage);
+        }
+
+        $this->codepage = $codepage;
+    }
+
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
@@ -640,7 +649,7 @@ class Xls extends BaseReader
 
         // initialize
         $this->pos = 0;
-        $this->codepage = 'CP1252';
+        $this->codepage = $this->codepage ?: CodePage::DEFAULT_CODE_PAGE;
         $this->formats = [];
         $this->objFonts = [];
         $this->palette = [];
@@ -1266,8 +1275,10 @@ class Xls extends BaseReader
                 // Extract range
                 if (strpos($definedName['formula'], '!') !== false) {
                     $explodes = Worksheet::extractSheetTitle($definedName['formula'], true);
-                    if (($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) ||
-                        ($docSheet = $this->spreadsheet->getSheetByName(trim($explodes[0], "'")))) {
+                    if (
+                        ($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) ||
+                        ($docSheet = $this->spreadsheet->getSheetByName(trim($explodes[0], "'")))
+                    ) {
                         $extractedRange = $explodes[1];
                         $extractedRange = str_replace('$', '', $extractedRange);
 
@@ -3435,6 +3446,9 @@ class Xls extends BaseReader
 
             // offset: 10; size: 2; option flags
 
+            // bit: 0; mask: 0x0001; 0=down then over, 1=over then down
+            $isOverThenDown = (0x0001 & self::getUInt2d($recordData, 10));
+
             // bit: 1; mask: 0x0002; 0=landscape, 1=portrait
             $isPortrait = (0x0002 & self::getUInt2d($recordData, 10)) >> 1;
 
@@ -3444,16 +3458,8 @@ class Xls extends BaseReader
 
             if (!$isNotInit) {
                 $this->phpSheet->getPageSetup()->setPaperSize($paperSize);
-                switch ($isPortrait) {
-                    case 0:
-                        $this->phpSheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
-
-                        break;
-                    case 1:
-                        $this->phpSheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_PORTRAIT);
-
-                        break;
-                }
+                $this->phpSheet->getPageSetup()->setPageOrder(((bool) $isOverThenDown) ? PageSetup::PAGEORDER_OVER_THEN_DOWN : PageSetup::PAGEORDER_DOWN_THEN_OVER);
+                $this->phpSheet->getPageSetup()->setOrientation(((bool) $isPortrait) ? PageSetup::ORIENTATION_PORTRAIT : PageSetup::ORIENTATION_LANDSCAPE);
 
                 $this->phpSheet->getPageSetup()->setScale($scale, false);
                 $this->phpSheet->getPageSetup()->setFitToPage((bool) $this->isFitToPages);
@@ -3622,7 +3628,9 @@ class Xls extends BaseReader
                 $this->phpSheet->getColumnDimensionByColumn($i)->setVisible(!$isHidden);
                 $this->phpSheet->getColumnDimensionByColumn($i)->setOutlineLevel($level);
                 $this->phpSheet->getColumnDimensionByColumn($i)->setCollapsed($isCollapsed);
-                $this->phpSheet->getColumnDimensionByColumn($i)->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                if (isset($this->mapCellXfIndex[$xfIndex])) {
+                    $this->phpSheet->getColumnDimensionByColumn($i)->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                }
             }
         }
     }
@@ -3731,7 +3739,7 @@ class Xls extends BaseReader
             $numValue = self::getIEEE754($rknum);
 
             $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-            if (!$this->readDataOnly) {
+            if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
                 // add style information
                 $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
@@ -3866,7 +3874,7 @@ class Xls extends BaseReader
                 // offset: var; size: 4; RK value
                 $numValue = self::getIEEE754(self::getInt4d($recordData, $offset + 2));
                 $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-                if (!$this->readDataOnly) {
+                if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
                     // add style
                     $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
                 }
@@ -3910,7 +3918,7 @@ class Xls extends BaseReader
             $numValue = self::extractNumber(substr($recordData, 6, 8));
 
             $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-            if (!$this->readDataOnly) {
+            if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
                 // add cell style
                 $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
@@ -3993,21 +4001,27 @@ class Xls extends BaseReader
 
                 // read STRING record
                 $value = $this->readString();
-            } elseif ((ord($recordData[6]) == 1)
+            } elseif (
+                (ord($recordData[6]) == 1)
                 && (ord($recordData[12]) == 255)
-                && (ord($recordData[13]) == 255)) {
+                && (ord($recordData[13]) == 255)
+            ) {
                 // Boolean formula. Result is in +2; 0=false, 1=true
                 $dataType = DataType::TYPE_BOOL;
                 $value = (bool) ord($recordData[8]);
-            } elseif ((ord($recordData[6]) == 2)
+            } elseif (
+                (ord($recordData[6]) == 2)
                 && (ord($recordData[12]) == 255)
-                && (ord($recordData[13]) == 255)) {
+                && (ord($recordData[13]) == 255)
+            ) {
                 // Error formula. Error code is in +2
                 $dataType = DataType::TYPE_ERROR;
                 $value = Xls\ErrorCode::lookup(ord($recordData[8]));
-            } elseif ((ord($recordData[6]) == 3)
+            } elseif (
+                (ord($recordData[6]) == 3)
                 && (ord($recordData[12]) == 255)
-                && (ord($recordData[13]) == 255)) {
+                && (ord($recordData[13]) == 255)
+            ) {
                 // Formula result is a null string
                 $dataType = DataType::TYPE_NULL;
                 $value = '';
@@ -4018,7 +4032,7 @@ class Xls extends BaseReader
             }
 
             $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-            if (!$this->readDataOnly) {
+            if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
                 // add cell style
                 $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
@@ -4156,7 +4170,7 @@ class Xls extends BaseReader
                     break;
             }
 
-            if (!$this->readDataOnly) {
+            if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
                 // add cell style
                 $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
@@ -4194,7 +4208,9 @@ class Xls extends BaseReader
                 // Read cell?
                 if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
                     $xfIndex = self::getUInt2d($recordData, 4 + 2 * $i);
-                    $this->phpSheet->getCell($columnString . ($row + 1))->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                    if (isset($this->mapCellXfIndex[$xfIndex])) {
+                        $this->phpSheet->getCell($columnString . ($row + 1))->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                    }
                 }
             }
         }
@@ -4245,7 +4261,7 @@ class Xls extends BaseReader
                 $cell = $this->phpSheet->getCell($columnString . ($row + 1));
                 $cell->setValueExplicit($value, DataType::TYPE_STRING);
 
-                if (!$this->readDataOnly) {
+                if (!$this->readDataOnly && isset($this->mapCellXfIndex[$xfIndex])) {
                     // add cell style
                     $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
                 }
@@ -4277,7 +4293,7 @@ class Xls extends BaseReader
             $xfIndex = self::getUInt2d($recordData, 4);
 
             // add style information
-            if (!$this->readDataOnly && $this->readEmptyCells) {
+            if (!$this->readDataOnly && $this->readEmptyCells && isset($this->mapCellXfIndex[$xfIndex])) {
                 $this->phpSheet->getCell($columnString . ($row + 1))->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
         }
@@ -4361,11 +4377,22 @@ class Xls extends BaseReader
             // offset: 10; size: 2; cached magnification factor in page break preview (in percent); 0 = Default (60%)
             // offset: 12; size: 2; cached magnification factor in normal view (in percent); 0 = Default (100%)
             // offset: 14; size: 4; not used
-            $zoomscaleInPageBreakPreview = self::getUInt2d($recordData, 10);
+            if (!isset($recordData[10])) {
+                $zoomscaleInPageBreakPreview = 0;
+            } else {
+                $zoomscaleInPageBreakPreview = self::getUInt2d($recordData, 10);
+            }
+
             if ($zoomscaleInPageBreakPreview === 0) {
                 $zoomscaleInPageBreakPreview = 60;
             }
-            $zoomscaleInNormalView = self::getUInt2d($recordData, 12);
+
+            if (!isset($recordData[12])) {
+                $zoomscaleInNormalView = 0;
+            } else {
+                $zoomscaleInNormalView = self::getUInt2d($recordData, 12);
+            }
+
             if ($zoomscaleInNormalView === 0) {
                 $zoomscaleInNormalView = 100;
             }
@@ -4591,8 +4618,10 @@ class Xls extends BaseReader
         if ($this->version == self::XLS_BIFF8 && !$this->readDataOnly) {
             $cellRangeAddressList = $this->readBIFF8CellRangeAddressList($recordData);
             foreach ($cellRangeAddressList['cellRangeAddresses'] as $cellRangeAddress) {
-                if ((strpos($cellRangeAddress, ':') !== false) &&
-                    ($this->includeCellRangeFiltered($cellRangeAddress))) {
+                if (
+                    (strpos($cellRangeAddress, ':') !== false) &&
+                    ($this->includeCellRangeFiltered($cellRangeAddress))
+                ) {
                     $this->phpSheet->mergeCells($cellRangeAddress);
                 }
             }
@@ -4940,6 +4969,7 @@ class Xls extends BaseReader
         // offset: var; size: $sz1; formula data for first condition (without size field)
         $formula1 = substr($recordData, $offset, $sz1);
         $formula1 = pack('v', $sz1) . $formula1; // prepend the length
+
         try {
             $formula1 = $this->getFormulaFromStructure($formula1);
 
@@ -4962,6 +4992,7 @@ class Xls extends BaseReader
         // offset: var; size: $sz2; formula data for second condition (without size field)
         $formula2 = substr($recordData, $offset, $sz2);
         $formula2 = pack('v', $sz2) . $formula2; // prepend the length
+
         try {
             $formula2 = $this->getFormulaFromStructure($formula2);
         } catch (PhpSpreadsheetException $e) {
@@ -5759,6 +5790,7 @@ class Xls extends BaseReader
                 $size = 9;
                 $data = self::extractNumber(substr($formulaData, 1));
                 $data = str_replace(',', '.', (string) $data); // in case non-English locale
+
                 break;
             case 0x20:    //    array constant
             case 0x40:

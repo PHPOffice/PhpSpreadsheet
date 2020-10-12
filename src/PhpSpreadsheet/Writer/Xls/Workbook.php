@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -521,6 +523,57 @@ class Workbook extends BIFFwriter
         $this->writeStyle();
     }
 
+    private function parseDefinedNameValue(DefinedName $pDefinedName): string
+    {
+        $definedRange = $pDefinedName->getValue();
+        $splitCount = preg_match_all(
+            '/' . Calculation::CALCULATION_REGEXP_CELLREF . '/mui',
+            $definedRange,
+            $splitRanges,
+            PREG_OFFSET_CAPTURE
+        );
+
+        $lengths = array_map('strlen', array_column($splitRanges[0], 0));
+        $offsets = array_column($splitRanges[0], 1);
+
+        $worksheets = $splitRanges[2];
+        $columns = $splitRanges[6];
+        $rows = $splitRanges[7];
+
+        while ($splitCount > 0) {
+            --$splitCount;
+            $length = $lengths[$splitCount];
+            $offset = $offsets[$splitCount];
+            $worksheet = $worksheets[$splitCount][0];
+            $column = $columns[$splitCount][0];
+            $row = $rows[$splitCount][0];
+
+            $newRange = '';
+            if (empty($worksheet)) {
+                if (($offset === 0) || ($definedRange[$offset - 1] !== ':')) {
+                    // We need a worksheet
+                    $worksheet = $pDefinedName->getWorksheet()->getTitle();
+                }
+            } else {
+                $worksheet = str_replace("''", "'", trim($worksheet, "'"));
+            }
+            if (!empty($worksheet)) {
+                $newRange = "'" . str_replace("'", "''", $worksheet) . "'!";
+            }
+
+            if (!empty($column)) {
+                $newRange .= "\${$column}";
+            }
+            if (!empty($row)) {
+                $newRange .= "\${$row}";
+            }
+
+            $definedRange = substr($definedRange, 0, $offset) . $newRange . substr($definedRange, $offset + $length);
+        }
+
+        return $definedRange;
+    }
+
     /**
      * Writes all the DEFINEDNAME records (BIFF8).
      * So far this is only used for repeating rows/columns (print titles) and print areas.
@@ -530,20 +583,11 @@ class Workbook extends BIFFwriter
         $chunk = '';
 
         // Named ranges
-        if (count($this->spreadsheet->getNamedRanges()) > 0) {
+        $definedNames = $this->spreadsheet->getDefinedNames();
+        if (count($definedNames) > 0) {
             // Loop named ranges
-            $namedRanges = $this->spreadsheet->getNamedRanges();
-            foreach ($namedRanges as $namedRange) {
-                // Create absolute coordinate
-                $range = Coordinate::splitRange($namedRange->getRange());
-                $iMax = count($range);
-                for ($i = 0; $i < $iMax; ++$i) {
-                    $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . Coordinate::absoluteCoordinate($range[$i][0]);
-                    if (isset($range[$i][1])) {
-                        $range[$i][1] = Coordinate::absoluteCoordinate($range[$i][1]);
-                    }
-                }
-                $range = Coordinate::buildRange($range); // e.g. Sheet1!$A$1:$B$2
+            foreach ($definedNames as $definedName) {
+                $range = $this->parseDefinedNameValue($definedName);
 
                 // parse formula
                 try {
@@ -555,14 +599,14 @@ class Workbook extends BIFFwriter
                         $formulaData = "\x3A" . substr($formulaData, 1);
                     }
 
-                    if ($namedRange->getLocalOnly()) {
+                    if ($definedName->getLocalOnly()) {
                         // local scope
-                        $scope = $this->spreadsheet->getIndex($namedRange->getScope()) + 1;
+                        $scope = $this->spreadsheet->getIndex($definedName->getScope()) + 1;
                     } else {
                         // global scope
                         $scope = 0;
                     }
-                    $chunk .= $this->writeData($this->writeDefinedNameBiff8($namedRange->getName(), $formulaData, $scope, false));
+                    $chunk .= $this->writeData($this->writeDefinedNameBiff8($definedName->getName(), $formulaData, $scope, false));
                 } catch (PhpSpreadsheetException $e) {
                     // do nothing
                 }

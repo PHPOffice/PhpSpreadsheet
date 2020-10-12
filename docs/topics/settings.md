@@ -13,7 +13,7 @@ Read more about [memory saving](./memory_saving.md).
 
 To enable cell caching, you must provide your own implementation of cache like so:
 
-``` php
+```php
 $cache = new MyCustomPsr16Implementation();
 
 \PhpOffice\PhpSpreadsheet\Settings::setCache($cache);
@@ -25,7 +25,7 @@ Some localisation elements have been included in PhpSpreadsheet. You can
 set a locale by changing the settings. To set the locale to Brazilian
 Portuguese you would use:
 
-``` php
+```php
 $locale = 'pt_br';
 $validLocale = \PhpOffice\PhpSpreadsheet\Settings::setLocale($locale);
 if (!$validLocale) {
@@ -43,3 +43,20 @@ More details of the features available once a locale has been set,
 including a list of the languages and locales currently supported, can
 be found in [Locale Settings for
 Formulae](./recipes.md#locale-settings-for-formulae).
+
+## HTTP client
+
+In order to use the `WEBSERVICE` function in formulae, you must configure an
+HTTP client. Assuming you chose Guzzle 7, this can be done like:
+
+
+```php
+use GuzzleHttp\Client;
+use Http\Factory\Guzzle\RequestFactory;
+use PhpOffice\PhpSpreadsheet\Settings;
+
+$client = new Client();
+$requestFactory = new RequestFactory();
+
+Settings::setHttpClient($client, $requestFactory);
+``` 

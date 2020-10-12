@@ -357,14 +357,10 @@ class Font extends Supervisor
     /**
      * Set Superscript.
      *
-     * @param bool $pValue
-     *
      * @return $this
      */
-    public function setSuperscript($pValue)
+    public function setSuperscript(bool $pValue)
     {
-        $pValu2 = !$pValue;
-        $pValue = !$pValu2;
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['superscript' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
@@ -395,14 +391,10 @@ class Font extends Supervisor
     /**
      * Set Subscript.
      *
-     * @param bool $pValue
-     *
      * @return $this
      */
-    public function setSubscript($pValue)
+    public function setSubscript(bool $pValue)
     {
-        $pValu2 = !$pValue;
-        $pValue = !$pValu2;
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['subscript' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);

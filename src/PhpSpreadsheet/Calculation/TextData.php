@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -98,7 +99,7 @@ class TextData
      *
      * @param string $characters Value
      *
-     * @return int
+     * @return int|string A string if arguments are invalid
      */
     public static function ASCIICODE($characters)
     {
@@ -543,7 +544,7 @@ class TextData
      *
      * @param mixed $value Value to check
      *
-     * @return bool
+     * @return DateTimeInterface|float|int|string A string if arguments are invalid
      */
     public static function VALUE($value = '')
     {

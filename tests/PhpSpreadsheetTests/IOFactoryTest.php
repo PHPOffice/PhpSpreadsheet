@@ -123,10 +123,13 @@ class IOFactoryTest extends TestCase
         return [
             ['samples/templates/26template.xlsx', 'Xlsx', Reader\Xlsx::class],
             ['samples/templates/GnumericTest.gnumeric', 'Gnumeric', Reader\Gnumeric::class],
+            ['samples/templates/old.gnumeric', 'Gnumeric', Reader\Gnumeric::class],
             ['samples/templates/30template.xls', 'Xls', Reader\Xls::class],
             ['samples/templates/OOCalcTest.ods', 'Ods', Reader\Ods::class],
             ['samples/templates/SylkTest.slk', 'Slk', Reader\Slk::class],
-            ['samples/templates/Excel2003XMLTest.xml', 'Xml', Reader\Xml::class],
+            ['samples/templates/excel2003.xml', 'Xml', Reader\Xml::class],
+            // Following not readable by Excel.
+            //['samples/templates/Excel2003XMLTest.xml', 'Xml', Reader\Xml::class],
             ['samples/templates/46readHtml.html', 'Html', Reader\Html::class],
         ];
     }

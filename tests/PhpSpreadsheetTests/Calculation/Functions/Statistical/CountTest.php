@@ -8,9 +8,17 @@ use PHPUnit\Framework\TestCase;
 
 class CountTest extends TestCase
 {
+    private $compatibilityMode;
+
     protected function setUp(): void
     {
+        $this->compatibilityMode = Functions::getCompatibilityMode();
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+    }
+
+    protected function tearDown(): void
+    {
+        Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
     /**

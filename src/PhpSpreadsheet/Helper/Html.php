@@ -694,9 +694,9 @@ class Html
         return implode('', $values[0]);
     }
 
-    protected function colourNameLookup($rgb)
+    public static function colourNameLookup(string $rgb): string
     {
-        return self::$colourMap[$rgb];
+        return self::$colourMap[$rgb] ?? '';
     }
 
     protected function startFontTag($tag): void

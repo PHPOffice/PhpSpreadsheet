@@ -22,7 +22,7 @@ The simplest way to load a workbook file is to let PhpSpreadsheet's IO
 Factory identify the file type and load it, calling the static `load()`
 method of the `\PhpOffice\PhpSpreadsheet\IOFactory` class.
 
-``` php
+```php
 $inputFileName = './sampleData/example1.xls';
 
 /** Load $inputFileName to a Spreadsheet Object  **/
@@ -59,7 +59,7 @@ supported filetype by name. However, you may get unpredictable results
 if the file isn't of the right type (e.g. it is a CSV with an extension
 of .xls), although this type of exception should normally be trapped.
 
-``` php
+```php
 $inputFileName = './sampleData/example1.xls';
 
 /** Create a new Xls Reader  **/
@@ -81,7 +81,7 @@ Alternatively, you can use the IO Factory's `createReader()` method to
 instantiate the reader object for you, simply telling it the file type
 of the reader that you want instantiating.
 
-``` php
+```php
 $inputFileType = 'Xls';
 //    $inputFileType = 'Xlsx';
 //    $inputFileType = 'Xml';
@@ -104,7 +104,7 @@ If you're uncertain of the filetype, you can use the `IOFactory::identify()`
 method to identify the reader that you need, before using the
 `createReader()` method to instantiate the reader object.
 
-``` php
+```php
 $inputFileName = './sampleData/example1.xls';
 
 /**  Identify the type of $inputFileName  **/
@@ -131,7 +131,7 @@ need any of the cell formatting information, then you can set the reader
 to read only the data values and any formulae from each cell using the
 `setReadDataOnly()` method.
 
-``` php
+```php
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
@@ -176,7 +176,7 @@ in reading.
 To read a single sheet, you can pass that sheet name as a parameter to
 the `setLoadSheetsOnly()` method.
 
-``` php
+```php
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #2';
@@ -195,7 +195,7 @@ for a working example of this code.
 If you want to read more than just a single sheet, you can pass a list
 of sheet names as an array parameter to the `setLoadSheetsOnly()` method.
 
-``` php
+```php
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 $sheetnames = ['Data Sheet #1','Data Sheet #3'];
@@ -214,7 +214,7 @@ for a working example of this code.
 To reset this option to the default, you can call the `setLoadAllSheets()`
 method.
 
-``` php
+```php
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
@@ -248,7 +248,7 @@ should be read by the loader. A read filter must implement the
 whether a workbook cell identified by those arguments should be read or
 not.
 
-``` php
+```php
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #3';
@@ -286,7 +286,7 @@ a very specific circumstance (when you only want cells in the range
 A1:E7 from your worksheet. A generic Read Filter would probably be more
 useful:
 
-``` php
+```php
 /**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
@@ -324,7 +324,7 @@ to read and process a large workbook in "chunks": an example of this
 usage might be when transferring data from an Excel worksheet to a
 database.
 
-``` php
+```php
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
 
@@ -393,7 +393,7 @@ the `setSheetIndex()` method of the `$reader`, then use the
 `loadIntoExisting()` method rather than the `load()` method to actually read
 the file into that worksheet.
 
-``` php
+```php
 $inputFileType = 'Csv';
 $inputFileNames = [
     './sampleData/example1.csv',
@@ -452,7 +452,7 @@ Class that we defined in [the above section](#reading-only-specific-columns-and-
 and the `setSheetIndex()` method of the `$reader`, we can split the CSV
 file across several individual worksheets.
 
-``` php
+```php
 $inputFileType = 'Csv';
 $inputFileName = './sampleData/example2.csv';
 
@@ -523,7 +523,7 @@ cannot auto-detect, it will default to the comma. If this does not fit your
 use-case, you can manually specify a separator by using the `setDelimiter()`
 method.
 
-``` php
+```php
 $inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.tsv';
 
@@ -585,7 +585,7 @@ it encountered a hyperlink, or HTML markup within a CSV file.
 So using a Value Binder allows a great deal more flexibility in the
 loader logic when reading unformatted text files.
 
-``` php
+```php
 /**  Tell PhpSpreadsheet that we want to use the Advanced Value Binder  **/
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
@@ -619,7 +619,7 @@ manner.
 The PhpSpreadsheet Readers throw a
 `\PhpOffice\PhpSpreadsheet\Reader\Exception`.
 
-``` php
+```php
 $inputFileName = './sampleData/example-1.xls';
 
 try {
@@ -646,7 +646,7 @@ whole file.
 The `listWorksheetNames()` method returns a simple array listing each
 worksheet name within the workbook:
 
-``` php
+```php
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 $worksheetNames = $reader->listWorksheetNames($inputFileName);
@@ -667,7 +667,7 @@ for a working example of this code.
 The `listWorksheetInfo()` method returns a nested array, with each entry
 listing the name and dimensions for a worksheet:
 
-``` php
+```php
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 $worksheetData = $reader->listWorksheetInfo($inputFileName);

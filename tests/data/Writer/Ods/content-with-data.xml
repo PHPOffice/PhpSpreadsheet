@@ -79,7 +79,7 @@
                     <table:table-cell table:style-name="ce0" office:value-type="boolean" office:value="">
                         <text:p></text:p>
                     </table:table-cell>
-                    <table:table-cell table:style-name="ce10" table:formula="of:=IF(A3, CONCATENATE(A1, &quot; &quot;, A2), CONCATENATE(A2, &quot; &quot;, A1))" office:value-type="string" office:value="1 1">
+                    <table:table-cell table:style-name="ce10" table:formula="of:=IF([.A3]; CONCATENATE([.A1]; &quot; &quot;; [.A2]); CONCATENATE([.A2]; &quot; &quot;; [.A1]))" office:value-type="string" office:value="1 1">
                         <text:p>1 1</text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="ce1" office:value-type="float" office:value="42798.572060185">
