@@ -20,6 +20,19 @@
         <ProtectStructure>False</ProtectStructure>
         <ProtectWindows>False</ProtectWindows>
     </ExcelWorkbook>
+    <Styles>
+        <Style ss:ID="ce9">
+            <Alignment ss:Vertical="Bottom" ss:Rotate="0"/>
+            <Borders/>
+            <Font ss:Color="#000000" ss:FontName="Arial1" ss:Size="11"/>
+            <NumberFormat ss:Format="Short Date"/>
+        </Style>
+        <Style ss:ID="ce32">
+            <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1" ss:Rotate="0"/>
+            <Borders/>
+            <Font ss:Color="#000000" ss:FontName="Calibri" ss:Size="11"/>
+        </Style>
+    </Styles>
     <ss:Worksheet ss:Name="Sample Data">
         <Table>
             <Column ss:Width="96.4913"/>
@@ -28,7 +41,7 @@
             <Column ss:Span="6" ss:Width="48.3874"/>
             <Column ss:Index="12" ss:Width="50.2583"/>
             <Column ss:Span="1011" ss:Width="48.3874"/>
-            <Row ss:AutoFitHeight="0" ss:Height="14.9953">
+            <Row ss:Index="8" ss:AutoFitHeight="0" ss:Height="14.9953">
                 <Cell>
                     <ss:Data xmlns="http://www.w3.org/TR/REC-html40" ss:Type="String">Test String 1</ss:Data>
                     <Comment>
@@ -38,7 +51,16 @@
                     </Comment>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="Number">1</Data>
+                    <Data ss:StyleID="ce32" ss:Type="Number">1</Data>
+                </Cell>
+                <Cell ss:Formula="of:=12/1">
+                    <Data ss:Type="Number">12</Data>
+                </Cell>
+                <Cell ss:Formula="of:=[.C8]-[.B8]">
+                    <Data ss:Type="Number">11</Data>
+                </Cell>
+                <Cell ss:StyleID="ce9">
+                    <Data ss:Type="DateTime">1960-12-19T00:00:00.000</Data>
                 </Cell>
             </Row>
         </Table>
