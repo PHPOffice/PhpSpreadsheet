@@ -746,7 +746,7 @@ class Html extends BaseReader
      * @param string $column
      * @param array $attributeArray
      */
-    private function applyInlineStyle(&$sheet, $row, $column, $attributeArray): void
+    protected function applyInlineStyle(&$sheet, $row, $column, $attributeArray): void
     {
         if (!isset($attributeArray['style'])) {
             return;
@@ -936,7 +936,7 @@ class Html extends BaseReader
      * @param array $attributes
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    private function insertImage(Worksheet $sheet, $column, $row, array $attributes): void
+    protected function insertImage(Worksheet $sheet, $column, $row, array $attributes): void
     {
         if (!isset($attributes['src'])) {
             return;
@@ -1014,7 +1014,7 @@ class Html extends BaseReader
      * @param string $styleValue
      * @param string $type
      */
-    private function setBorderStyle(Style $cellStyle, $styleValue, $type): void
+    protected function setBorderStyle(Style $cellStyle, $styleValue, $type): void
     {
         if (trim($styleValue) === Border::BORDER_NONE) {
             $borderStyle = Border::BORDER_NONE;
