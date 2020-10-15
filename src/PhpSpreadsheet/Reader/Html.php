@@ -207,7 +207,6 @@ class Html extends BaseReader
      * @param string $pFilename
      *
      * @return Spreadsheet
-     * @throws Exception
      */
     public function load($pFilename)
     {
@@ -635,7 +634,6 @@ class Html extends BaseReader
      *
      * @param Spreadsheet $spreadsheet
      * @return Spreadsheet
-     * @throws Exception
      */
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
@@ -665,7 +663,6 @@ class Html extends BaseReader
      * @param string $content
      * @param Spreadsheet|null $spreadsheet
      * @return Spreadsheet
-     * @throws Exception
      */
     public function loadFromString($content, ?Spreadsheet $spreadsheet = null): Spreadsheet
     {
@@ -934,7 +931,6 @@ class Html extends BaseReader
      * @param string $column
      * @param int $row
      * @param array $attributes
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     protected function insertImage(Worksheet $sheet, $column, $row, array $attributes): void
     {
