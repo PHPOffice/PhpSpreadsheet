@@ -28,6 +28,17 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Ensure that the list of shared formulae is maintained when an xlsx file is chunked with readFilter[Issue #169](https://github.com/PHPOffice/PhpSpreadsheet/issues/1669).
 - Fix for notice during accessing "cached magnification factor" offset [#1354](https://github.com/PHPOffice/PhpSpreadsheet/pull/1354)
 
+## 1.15.1 - 2020-10-15
+
+### Added
+
+- Missing PHPDoc comments to PhpOffice\PhpSpreadsheet\Reader\Html.php
+
+### Changed
+
+- Change methods ([insertImage](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/src/PhpSpreadsheet/Reader/Html.php#L930), [setBorderStyle](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/src/PhpSpreadsheet/Reader/Html.php#L1008), [applyInlineStyle](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/src/PhpSpreadsheet/Reader/Html.php#L743)) visibility in [PhpOffice\PhpSpreadsheet\Reader\Html.php](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/src/PhpSpreadsheet/Reader/Html.php) from private to protected. [Issue #1654](https://github.com/PHPOffice/PhpSpreadsheet/issues/1654)
+
+
 ## 1.15.0 - 2020-10-11
 
 ### Added
