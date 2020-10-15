@@ -632,7 +632,6 @@ class Html extends BaseReader
      *
      * @param string $pFilename
      *
-     * @param Spreadsheet $spreadsheet
      * @return Spreadsheet
      */
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
@@ -661,8 +660,6 @@ class Html extends BaseReader
      * Spreadsheet from content.
      *
      * @param string $content
-     * @param Spreadsheet|null $spreadsheet
-     * @return Spreadsheet
      */
     public function loadFromString($content, ?Spreadsheet $spreadsheet = null): Spreadsheet
     {
@@ -927,10 +924,8 @@ class Html extends BaseReader
     }
 
     /**
-     * @param Worksheet $sheet
      * @param string $column
      * @param int $row
-     * @param array $attributes
      */
     protected function insertImage(Worksheet $sheet, $column, $row, array $attributes): void
     {
