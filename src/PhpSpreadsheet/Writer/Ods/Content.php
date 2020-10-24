@@ -218,16 +218,14 @@ class Content extends WriterPart
                     $objWriter->writeElement('text:p', $formulaValue);
 
                     break;
-                case DataType::TYPE_INLINE:
-                    throw new Exception('Writing of inline not implemented yet.');
-
-                    break;
                 case DataType::TYPE_NUMERIC:
                     $objWriter->writeAttribute('office:value-type', 'float');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
 
                     break;
+                case DataType::TYPE_INLINE:
+                    // break intentionally omitted
                 case DataType::TYPE_STRING:
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $objWriter->writeElement('text:p', $cell->getValue());
