@@ -196,7 +196,10 @@ class Content extends WriterPart
 
                     break;
                 case DataType::TYPE_ERROR:
-                    throw new Exception('Writing of error not implemented yet.');
+                    $objWriter->writeAttribute('table:formula', 'of:=#NULL!');
+                    $objWriter->writeAttribute('office:value-type', 'string');
+                    $objWriter->writeAttribute('office:string-value', '');
+                    $objWriter->writeElement('text:p', '#NULL!');
 
                     break;
                 case DataType::TYPE_FORMULA:
