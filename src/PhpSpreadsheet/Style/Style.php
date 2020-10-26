@@ -636,4 +636,18 @@ class Style extends Supervisor
     {
         $this->index = $pValue;
     }
+
+    protected function exportArray1(): array
+    {
+        $exportedArray = [];
+        $this->exportArray2($exportedArray, 'alignment', $this->getAlignment());
+        $this->exportArray2($exportedArray, 'borders', $this->getBorders());
+        $this->exportArray2($exportedArray, 'fill', $this->getFill());
+        $this->exportArray2($exportedArray, 'font', $this->getFont());
+        $this->exportArray2($exportedArray, 'numberFormat', $this->getNumberFormat());
+        $this->exportArray2($exportedArray, 'protection', $this->getProtection());
+        $this->exportArray2($exportedArray, 'quotePrefx', $this->getQuotePrefix());
+
+        return $exportedArray;
+    }
 }
