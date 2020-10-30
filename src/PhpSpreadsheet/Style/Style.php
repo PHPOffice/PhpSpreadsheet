@@ -110,7 +110,7 @@ class Style extends Supervisor
      *
      * @return Style
      */
-    public function getSharedComponent()
+    public function getSharedComponent(): Style
     {
         $activeSheet = $this->getActiveSheet();
         $selectedCell = $this->getActiveCell(); // e.g. 'A1'

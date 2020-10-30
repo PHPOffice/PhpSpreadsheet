@@ -27,6 +27,9 @@ class Color extends Supervisor
     const COLOR_YELLOW = 'FFFFFF00';
     const COLOR_DARKYELLOW = 'FF808000';
 
+    const VALIDATE_ARGB = '/^[A-F0-9]{8}$/i';
+    const VALIDATE_RGB = '/^[A-F0-9]{6}$/i';
+
     /**
      * Indexed colors array.
      *
@@ -44,7 +47,7 @@ class Color extends Supervisor
     /**
      * Create a new Color.
      *
-     * @param string $pARGB ARGB value for the colour
+     * @param string $colorValue ARGB value for the colour, or named colour
      * @param bool $isSupervisor Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
@@ -52,14 +55,14 @@ class Color extends Supervisor
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct($pARGB = self::COLOR_BLACK, $isSupervisor = false, $isConditional = false)
+    public function __construct($colorValue = self::COLOR_BLACK, $isSupervisor = false, $isConditional = false)
     {
         //    Supervisor?
         parent::__construct($isSupervisor);
 
         //    Initialise values
         if (!$isConditional) {
-            $this->argb = $pARGB;
+            $this->argb = $this->setARGB($colorValue);
         }
     }
 
@@ -125,7 +128,7 @@ class Color extends Supervisor
      *
      * @return string
      */
-    public function getARGB()
+    public function getARGB(): ?string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getARGB();
@@ -134,23 +137,32 @@ class Color extends Supervisor
         return $this->argb;
     }
 
+    private function validateARGB(string $colorValue): bool
+    {
+        return in_array(ucfirst($colorValue), self::NAMED_COLORS) ||
+            preg_match(self::VALIDATE_ARGB, $colorValue);
+    }
+
     /**
      * Set ARGB.
      *
-     * @param string $pValue see self::COLOR_*
+     * @param string $colorValue  ARGB value, or a named color
      *
      * @return $this
      */
-    public function setARGB($pValue)
+    public function setARGB(string $colorValue)
     {
-        if ($pValue == '') {
-            $pValue = self::COLOR_BLACK;
+        if ($colorValue == '') {
+            $colorValue = self::COLOR_BLACK;
+        } elseif (!$this->validateARGB($colorValue)) {
+            return $this;
         }
+
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['argb' => $pValue]);
+            $styleArray = $this->getStyleArray(['argb' => $colorValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->argb = $pValue;
+            $this->argb = $colorValue;
         }
 
         return $this;
@@ -161,7 +173,7 @@ class Color extends Supervisor
      *
      * @return string
      */
-    public function getRGB()
+    public function getRGB(): ?string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getRGB();
@@ -170,23 +182,32 @@ class Color extends Supervisor
         return substr($this->argb, 2);
     }
 
+    private function validateRGB(string $colorValue): bool
+    {
+        return in_array(ucfirst($colorValue), self::NAMED_COLORS) ||
+            preg_match(self::VALIDATE_RGB, $colorValue);
+    }
+
     /**
      * Set RGB.
      *
-     * @param string $pValue RGB value
+     * @param string $colorValue RGB value, or a named color
      *
      * @return $this
      */
-    public function setRGB($pValue)
+    public function setRGB(string $colorValue)
     {
-        if ($pValue == '') {
-            $pValue = '000000';
+        if ($colorValue == '') {
+            $colorValue = '000000';
+        } elseif (!$this->validateRGB($colorValue)) {
+            return $this;
         }
+
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['argb' => 'FF' . $pValue]);
+            $styleArray = $this->getStyleArray(['argb' => 'FF' . $colorValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->argb = 'FF' . $pValue;
+            $this->argb = 'FF' . $colorValue;
         }
 
         return $this;

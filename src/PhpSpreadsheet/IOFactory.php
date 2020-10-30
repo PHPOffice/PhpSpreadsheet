@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 
 /**
  * Factory to create readers and writers easily.
@@ -41,7 +42,7 @@ abstract class IOFactory
      *
      * @return Writer\IWriter
      */
-    public static function createWriter(Spreadsheet $spreadsheet, $writerType)
+    public static function createWriter(Spreadsheet $spreadsheet, string $writerType): Writer\IWriter
     {
         if (!isset(self::$writers[$writerType])) {
             throw new Writer\Exception("No writer found for type $writerType");
@@ -60,7 +61,7 @@ abstract class IOFactory
      *
      * @return Reader\IReader
      */
-    public static function createReader($readerType)
+    public static function createReader(string $readerType): Reader\IReader
     {
         if (!isset(self::$readers[$readerType])) {
             throw new Reader\Exception("No reader found for type $readerType");
@@ -79,7 +80,7 @@ abstract class IOFactory
      *
      * @return Spreadsheet
      */
-    public static function load($pFilename)
+    public static function load(string $pFilename): Spreadsheet
     {
         $reader = self::createReaderForFile($pFilename);
 
@@ -93,7 +94,7 @@ abstract class IOFactory
      *
      * @return string
      */
-    public static function identify($pFilename)
+    public static function identify(string $pFilename): string
     {
         $reader = self::createReaderForFile($pFilename);
         $className = get_class($reader);
@@ -110,7 +111,7 @@ abstract class IOFactory
      *
      * @return Reader\IReader
      */
-    public static function createReaderForFile($filename)
+    public static function createReaderForFile(string $filename): Reader\IReader
     {
         File::assertFile($filename);
 
@@ -147,7 +148,7 @@ abstract class IOFactory
      *
      * @return null|string
      */
-    private static function getReaderTypeFromExtension($filename)
+    private static function getReaderTypeFromExtension(string $filename): ?string
     {
         $pathinfo = pathinfo($filename);
         if (!isset($pathinfo['extension'])) {
@@ -191,7 +192,7 @@ abstract class IOFactory
      * @param string $writerType
      * @param string $writerClass
      */
-    public static function registerWriter($writerType, $writerClass): void
+    public static function registerWriter(string $writerType, string $writerClass): void
     {
         if (!is_a($writerClass, Writer\IWriter::class, true)) {
             throw new Writer\Exception('Registered writers must implement ' . Writer\IWriter::class);
@@ -206,7 +207,7 @@ abstract class IOFactory
      * @param string $readerType
      * @param string $readerClass
      */
-    public static function registerReader($readerType, $readerClass): void
+    public static function registerReader(string $readerType, string $readerClass): void
     {
         if (!is_a($readerClass, Reader\IReader::class, true)) {
             throw new Reader\Exception('Registered readers must implement ' . Reader\IReader::class);
