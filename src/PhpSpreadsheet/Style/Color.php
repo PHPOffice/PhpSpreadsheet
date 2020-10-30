@@ -150,9 +150,9 @@ class Color extends Supervisor
      *
      * @return $this
      */
-    public function setARGB(string $colorValue)
+    public function setARGB(?string $colorValue)
     {
-        if ($colorValue == '') {
+        if ($colorValue === '' || $colorValue === null) {
             $colorValue = self::COLOR_BLACK;
         } elseif (!$this->validateARGB($colorValue)) {
             return $this;
@@ -195,9 +195,9 @@ class Color extends Supervisor
      *
      * @return $this
      */
-    public function setRGB(string $colorValue)
+    public function setRGB(?string $colorValue)
     {
-        if ($colorValue == '') {
+        if ($colorValue === '' || $colorValue === null) {
             $colorValue = '000000';
         } elseif (!$this->validateRGB($colorValue)) {
             return $this;
