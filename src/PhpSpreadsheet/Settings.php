@@ -158,9 +158,7 @@ class Settings
     }
 
     /**
-     * Gets the implementation of cache that should be used for cell collection.
-     *
-     * @return CacheInterface
+     * Gets the implementation of cache that is being used for cell collection.
      */
     public static function getCache(): CacheInterface
     {

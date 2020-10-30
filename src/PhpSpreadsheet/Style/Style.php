@@ -107,10 +107,8 @@ class Style extends Supervisor
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
-     *
-     * @return Style
      */
-    public function getSharedComponent(): Style
+    public function getSharedComponent(): self
     {
         $activeSheet = $this->getActiveSheet();
         $selectedCell = $this->getActiveCell(); // e.g. 'A1'
