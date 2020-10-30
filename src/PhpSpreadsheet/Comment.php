@@ -239,8 +239,6 @@ class Comment implements IComparable
 
     /**
      * Get Alignment.
-     *
-     * @return string
      */
     public function getAlignment(): string
     {
