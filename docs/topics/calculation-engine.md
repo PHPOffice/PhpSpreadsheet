@@ -456,7 +456,7 @@ has not yet been implemented in PhpSpreadsheet.
 
 #### DCOUNTA
 
-The DCOUNT function returns the count of cells that aren’t blank in a
+The DCOUNTA function returns the count of cells that aren’t blank in a
 column of a list or database and that match conditions that you specify.
 
 ##### Syntax
