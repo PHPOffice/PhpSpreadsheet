@@ -63,7 +63,7 @@ class Color extends Supervisor
 
         //    Initialise values
         if (!$isConditional) {
-            $this->argb = $this->validateColour($colorValue) ? $colorValue : self::COLOR_BLACK;
+            $this->argb = $this->validateColour($colorValue, self::VALIDATE_ARGB_SIZE) ? $colorValue : self::COLOR_BLACK;
         }
     }
 
