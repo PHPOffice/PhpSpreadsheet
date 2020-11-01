@@ -7,6 +7,73 @@ use PHPUnit\Framework\TestCase;
 
 class ColorTest extends TestCase
 {
+    public function testNewColor()
+    {
+        $color = new Color('FF123456');
+        self::assertEquals('FF123456', $color->getARGB());
+        self::assertEquals('123456', $color->getRGB());
+    }
+
+    public function testARGBSetter()
+    {
+        $color = new Color();
+        $color->setARGB('80123456');
+        self::assertEquals('80123456', $color->getARGB());
+        self::assertEquals('123456', $color->getRGB());
+    }
+
+    public function testARGBSetterEmpty()
+    {
+        $color = new Color();
+        $color->setARGB();
+        self::assertEquals(Color::COLOR_BLACK, $color->getARGB());
+    }
+
+    public function testARGBSetterInvalid()
+    {
+        $color = new Color('80123456');
+        $color->setARGB('INVALID COLOR');
+        self::assertEquals('80123456', $color->getARGB());
+    }
+
+    public function testRGBSetter()
+    {
+        $color = new Color();
+        $color->setRGB('123456');
+        self::assertEquals('123456', $color->getRGB());
+        self::assertEquals('FF123456', $color->getARGB());
+    }
+
+    public function testRGBSetterEmpty()
+    {
+        $color = new Color();
+        $color->setRGB();
+        self::assertEquals(Color::COLOR_BLACK, $color->getARGB());
+    }
+
+    public function testRGBSetterInvalid()
+    {
+        $color = new Color('80123456');
+        $color->setRGB('INVALID COLOR');
+        self::assertEquals('123456', $color->getRGB());
+    }
+
+    public function testARGBFromArray()
+    {
+        $color = new Color();
+        $color->applyFromArray(['argb' => '80123456']);
+        self::assertEquals('80123456', $color->getARGB());
+        self::assertEquals('123456', $color->getRGB());
+    }
+
+    public function testRGBFromArray()
+    {
+        $color = new Color();
+        $color->applyFromArray(['rgb' => '123456']);
+        self::assertEquals('123456', $color->getRGB());
+        self::assertEquals('FF123456', $color->getARGB());
+    }
+
     /**
      * @dataProvider providerColorGetRed
      *
@@ -20,7 +87,7 @@ class ColorTest extends TestCase
 
     public function providerColorGetRed()
     {
-        return require 'tests/data/Style/ColorGetRed.php';
+        return require 'tests/data/Style/Color/ColorGetRed.php';
     }
 
     /**
@@ -36,7 +103,7 @@ class ColorTest extends TestCase
 
     public function providerColorGetGreen()
     {
-        return require 'tests/data/Style/ColorGetGreen.php';
+        return require 'tests/data/Style/Color/ColorGetGreen.php';
     }
 
     /**
@@ -52,7 +119,7 @@ class ColorTest extends TestCase
 
     public function providerColorGetBlue()
     {
-        return require 'tests/data/Style/ColorGetBlue.php';
+        return require 'tests/data/Style/Color/ColorGetBlue.php';
     }
 
     /**
@@ -68,6 +135,6 @@ class ColorTest extends TestCase
 
     public function providerColorChangeBrightness()
     {
-        return require 'tests/data/Style/ColorChangeBrightness.php';
+        return require 'tests/data/Style/Color/ColorChangeBrightness.php';
     }
 }

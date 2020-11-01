@@ -104,24 +104,30 @@ class Color extends Supervisor
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFont()->getColor()->applyFromArray(['rgb' => '808080']);
      * </code>
      *
-     * @param array $pStyles Array containing style information
+     * @param array $styles Array containing style information
      *
      * @return $this
      */
-    public function applyFromArray(array $pStyles)
+    public function applyFromArray(array $styles)
     {
         if ($this->isSupervisor) {
-            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styles));
         } else {
-            if (isset($pStyles['rgb'])) {
-                $this->setRGB($pStyles['rgb']);
+            if (isset($styles['rgb'])) {
+                $this->setRGB($styles['rgb']);
             }
-            if (isset($pStyles['argb'])) {
-                $this->setARGB($pStyles['argb']);
+            if (isset($styles['argb'])) {
+                $this->setARGB($styles['argb']);
             }
         }
 
         return $this;
+    }
+
+    private function validateColour(string $colorValue, int $size): bool
+    {
+        return in_array(ucfirst($colorValue), self::NAMED_COLORS) ||
+            preg_match(sprintf(self::VALIDATE_COLOR_VALUE, $size), $colorValue);
     }
 
     /**
@@ -138,12 +144,6 @@ class Color extends Supervisor
         return $this->argb;
     }
 
-    private function validateColour(string $colorValue, int $size): bool
-    {
-        return in_array(ucfirst($colorValue), self::NAMED_COLORS) ||
-            preg_match(sprintf(self::VALIDATE_COLOR_VALUE, $size), $colorValue);
-    }
-
     /**
      * Set ARGB.
      *
@@ -151,7 +151,7 @@ class Color extends Supervisor
      *
      * @return $this
      */
-    public function setARGB(?string $colorValue)
+    public function setARGB(?string $colorValue = self::COLOR_BLACK)
     {
         if ($colorValue === '' || $colorValue === null) {
             $colorValue = self::COLOR_BLACK;
@@ -190,7 +190,7 @@ class Color extends Supervisor
      *
      * @return $this
      */
-    public function setRGB(?string $colorValue)
+    public function setRGB(?string $colorValue = self::COLOR_BLACK)
     {
         if ($colorValue === '' || $colorValue === null) {
             $colorValue = '000000';
@@ -270,18 +270,18 @@ class Color extends Supervisor
     /**
      * Adjust the brightness of a color.
      *
-     * @param string $hex The colour as an RGBA or RGB value (e.g. FF00CCCC or CCDDEE)
+     * @param string $hexColourValue The colour as an RGBA or RGB value (e.g. FF00CCCC or CCDDEE)
      * @param float $adjustPercentage The percentage by which to adjust the colour as a float from -1 to 1
      *
      * @return string The adjusted colour as an RGBA or RGB value (e.g. FF00CCCC or CCDDEE)
      */
-    public static function changeBrightness($hex, $adjustPercentage)
+    public static function changeBrightness($hexColourValue, $adjustPercentage)
     {
-        $rgba = (strlen($hex) === 8);
+        $rgba = (strlen($hexColourValue) === 8);
 
-        $red = self::getRed($hex, false);
-        $green = self::getGreen($hex, false);
-        $blue = self::getBlue($hex, false);
+        $red = self::getRed($hexColourValue, false);
+        $green = self::getGreen($hexColourValue, false);
+        $blue = self::getBlue($hexColourValue, false);
         if ($adjustPercentage > 0) {
             $red += (255 - $red) * $adjustPercentage;
             $green += (255 - $green) * $adjustPercentage;
@@ -320,16 +320,16 @@ class Color extends Supervisor
     /**
      * Get indexed color.
      *
-     * @param int $pIndex Index entry point into the colour array
+     * @param int $colorIndex Index entry point into the colour array
      * @param bool $background Flag to indicate whether default background or foreground colour
-     *                                            should be returned if the indexed colour doesn't exist
+     *                              should be returned if the indexed colour doesn't exist
      *
-     * @return self
+     * @return string
      */
-    public static function indexedColor($pIndex, $background = false)
+    public static function indexedColor($colorIndex, $background = false)
     {
         // Clean parameter
-        $pIndex = (int) $pIndex;
+        $colorIndex = (int) $colorIndex;
 
         // Indexed colors
         if (self::$indexedColors === null) {
@@ -393,15 +393,11 @@ class Color extends Supervisor
             ];
         }
 
-        if (isset(self::$indexedColors[$pIndex])) {
-            return new self(self::$indexedColors[$pIndex]);
+        if (isset(self::$indexedColors[$colorIndex])) {
+            return new self(self::$indexedColors[$colorIndex]);
         }
 
-        if ($background) {
-            return new self(self::COLOR_WHITE);
-        }
-
-        return new self(self::COLOR_BLACK);
+        return ($background) ? new self(self::COLOR_WHITE): new self(self::COLOR_BLACK);
     }
 
     /**
@@ -409,7 +405,7 @@ class Color extends Supervisor
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHashCode();

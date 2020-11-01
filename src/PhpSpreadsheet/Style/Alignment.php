@@ -189,21 +189,21 @@ class Alignment extends Supervisor
     /**
      * Set Horizontal.
      *
-     * @param string $pValue see self::HORIZONTAL_*
+     * @param string $horizontalAlignment see self::HORIZONTAL_*
      *
      * @return $this
      */
-    public function setHorizontal($pValue)
+    public function setHorizontal(string $horizontalAlignment)
     {
-        if ($pValue == '') {
-            $pValue = self::HORIZONTAL_GENERAL;
+        if ($horizontalAlignment == '') {
+            $horizontalAlignment = self::HORIZONTAL_GENERAL;
         }
 
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['horizontal' => $pValue]);
+            $styleArray = $this->getStyleArray(['horizontal' => $horizontalAlignment]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->horizontal = $pValue;
+            $this->horizontal = $horizontalAlignment;
         }
 
         return $this;
@@ -226,21 +226,21 @@ class Alignment extends Supervisor
     /**
      * Set Vertical.
      *
-     * @param string $pValue see self::VERTICAL_*
+     * @param string $verticalAlignment see self::VERTICAL_*
      *
      * @return $this
      */
-    public function setVertical($pValue)
+    public function setVertical($verticalAlignment)
     {
-        if ($pValue == '') {
-            $pValue = self::VERTICAL_BOTTOM;
+        if ($verticalAlignment == '') {
+            $verticalAlignment = self::VERTICAL_BOTTOM;
         }
 
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['vertical' => $pValue]);
+            $styleArray = $this->getStyleArray(['vertical' => $verticalAlignment]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->vertical = $pValue;
+            $this->vertical = $verticalAlignment;
         }
 
         return $this;
@@ -263,24 +263,24 @@ class Alignment extends Supervisor
     /**
      * Set TextRotation.
      *
-     * @param int $pValue
+     * @param int $rotation
      *
      * @return $this
      */
-    public function setTextRotation($pValue)
+    public function setTextRotation($rotation)
     {
         // Excel2007 value 255 => PhpSpreadsheet value -165
-        if ($pValue == 255) {
-            $pValue = -165;
+        if ($rotation == 255) {
+            $rotation = -165;
         }
 
         // Set rotation
-        if (($pValue >= -90 && $pValue <= 90) || $pValue == -165) {
+        if (($rotation >= -90 && $rotation <= 90) || $rotation == -165) {
             if ($this->isSupervisor) {
-                $styleArray = $this->getStyleArray(['textRotation' => $pValue]);
+                $styleArray = $this->getStyleArray(['textRotation' => $rotation]);
                 $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             } else {
-                $this->textRotation = $pValue;
+                $this->textRotation = $rotation;
             }
         } else {
             throw new PhpSpreadsheetException('Text rotation should be a value between -90 and 90.');
@@ -306,20 +306,20 @@ class Alignment extends Supervisor
     /**
      * Set Wrap Text.
      *
-     * @param bool $pValue
+     * @param bool $wrapped
      *
      * @return $this
      */
-    public function setWrapText($pValue)
+    public function setWrapText($wrapped)
     {
-        if ($pValue == '') {
-            $pValue = false;
+        if ($wrapped == '') {
+            $wrapped = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['wrapText' => $pValue]);
+            $styleArray = $this->getStyleArray(['wrapText' => $wrapped]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->wrapText = $pValue;
+            $this->wrapText = $wrapped;
         }
 
         return $this;
@@ -342,20 +342,20 @@ class Alignment extends Supervisor
     /**
      * Set Shrink to fit.
      *
-     * @param bool $pValue
+     * @param bool $shrink
      *
      * @return $this
      */
-    public function setShrinkToFit($pValue)
+    public function setShrinkToFit($shrink)
     {
-        if ($pValue == '') {
-            $pValue = false;
+        if ($shrink == '') {
+            $shrink = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['shrinkToFit' => $pValue]);
+            $styleArray = $this->getStyleArray(['shrinkToFit' => $shrink]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->shrinkToFit = $pValue;
+            $this->shrinkToFit = $shrink;
         }
 
         return $this;
@@ -378,26 +378,26 @@ class Alignment extends Supervisor
     /**
      * Set indent.
      *
-     * @param int $pValue
+     * @param int $indent
      *
      * @return $this
      */
-    public function setIndent($pValue)
+    public function setIndent($indent)
     {
-        if ($pValue > 0) {
+        if ($indent > 0) {
             if (
                 $this->getHorizontal() != self::HORIZONTAL_GENERAL &&
                 $this->getHorizontal() != self::HORIZONTAL_LEFT &&
                 $this->getHorizontal() != self::HORIZONTAL_RIGHT
             ) {
-                $pValue = 0; // indent not supported
+                $indent = 0; // indent not supported
             }
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['indent' => $pValue]);
+            $styleArray = $this->getStyleArray(['indent' => $indent]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->indent = $pValue;
+            $this->indent = $indent;
         }
 
         return $this;
@@ -420,20 +420,20 @@ class Alignment extends Supervisor
     /**
      * Set read order.
      *
-     * @param int $pValue
+     * @param int $readOrder
      *
      * @return $this
      */
-    public function setReadOrder($pValue)
+    public function setReadOrder($readOrder)
     {
-        if ($pValue < 0 || $pValue > 2) {
-            $pValue = 0;
+        if ($readOrder < 0 || $readOrder > 2) {
+            $readOrder = 0;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['readOrder' => $pValue]);
+            $styleArray = $this->getStyleArray(['readOrder' => $readOrder]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->readOrder = $pValue;
+            $this->readOrder = $readOrder;
         }
 
         return $this;
