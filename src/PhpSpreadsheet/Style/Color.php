@@ -397,7 +397,7 @@ class Color extends Supervisor
             return new self(self::$indexedColors[$colorIndex]);
         }
 
-        return ($background) ? new self(self::COLOR_WHITE): new self(self::COLOR_BLACK);
+        return ($background) ? new self(self::COLOR_WHITE) : new self(self::COLOR_BLACK);
     }
 
     /**
