@@ -27,8 +27,9 @@ class Color extends Supervisor
     const COLOR_YELLOW = 'FFFFFF00';
     const COLOR_DARKYELLOW = 'FF808000';
 
-    const VALIDATE_ARGB = '/^[A-F0-9]{8}$/i';
-    const VALIDATE_RGB = '/^[A-F0-9]{6}$/i';
+    const VALIDATE_ARGB_SIZE = 8;
+    const VALIDATE_RGB_SIZE = 6;
+    const VALIDATE_COLOR_VALUE = '/^[A-F0-9]{%d}$/i';
 
     /**
      * Indexed colors array.
@@ -62,7 +63,7 @@ class Color extends Supervisor
 
         //    Initialise values
         if (!$isConditional) {
-            $this->argb = $this->validateARGB($colorValue) ? $colorValue : self::COLOR_BLACK;
+            $this->argb = $this->validateColour($colorValue) ? $colorValue : self::COLOR_BLACK;
         }
     }
 
@@ -137,10 +138,10 @@ class Color extends Supervisor
         return $this->argb;
     }
 
-    private function validateARGB(string $colorValue): bool
+    private function validateColour(string $colorValue, int $size): bool
     {
         return in_array(ucfirst($colorValue), self::NAMED_COLORS) ||
-            preg_match(self::VALIDATE_ARGB, $colorValue);
+            preg_match(sprintf(self::VALIDATE_COLOR_VALUE, $size), $colorValue);
     }
 
     /**
@@ -154,7 +155,7 @@ class Color extends Supervisor
     {
         if ($colorValue === '' || $colorValue === null) {
             $colorValue = self::COLOR_BLACK;
-        } elseif (!$this->validateARGB($colorValue)) {
+        } elseif (!$this->validateColour($colorValue, self::VALIDATE_ARGB_SIZE)) {
             return $this;
         }
 
@@ -182,12 +183,6 @@ class Color extends Supervisor
         return substr($this->argb, 2);
     }
 
-    private function validateRGB(string $colorValue): bool
-    {
-        return in_array(ucfirst($colorValue), self::NAMED_COLORS) ||
-            preg_match(self::VALIDATE_RGB, $colorValue);
-    }
-
     /**
      * Set RGB.
      *
@@ -199,7 +194,7 @@ class Color extends Supervisor
     {
         if ($colorValue === '' || $colorValue === null) {
             $colorValue = '000000';
-        } elseif (!$this->validateRGB($colorValue)) {
+        } elseif (!$this->validateColour($colorValue, self::VALIDATE_RGB_SIZE)) {
             return $this;
         }
 
