@@ -309,9 +309,9 @@ class Color extends Supervisor
      * @param bool $background Flag to indicate whether default background or foreground colour
      *                              should be returned if the indexed colour doesn't exist
      *
-     * @return string
+     * @return Color
      */
-    public static function indexedColor($colorIndex, $background = false)
+    public static function indexedColor($colorIndex, $background = false): self
     {
         // Clean parameter
         $colorIndex = (int) $colorIndex;

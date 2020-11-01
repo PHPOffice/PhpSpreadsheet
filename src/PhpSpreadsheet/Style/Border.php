@@ -162,9 +162,10 @@ class Border extends Supervisor
     {
         if (empty($style)) {
             $style = self::BORDER_NONE;
-        } elseif (is_bool($style) && $style) {
-            $style = self::BORDER_MEDIUM;
+        } elseif (is_bool($style)) {
+            $style = $style ? self::BORDER_MEDIUM : self::BORDER_NONE;
         }
+
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['borderStyle' => $style]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
