@@ -129,13 +129,13 @@ class Comment implements IComparable
     }
 
     /**
-     * Set comment width (CSS style, i.e. XXpx or YYpt).
+     * Set comment width (CSS style, i.e. XXpx or YYpt). Default unit is pt.
      */
     public function setWidth(string $width): self
     {
-        $result = new Size($width);
-        if ($result->valid()) {
-            $this->width = $result->size() . $result->unit();
+        $width = new Size($width);
+        if ($width->valid()) {
+            $this->width = (string) $width;
         }
 
         return $this;
@@ -150,13 +150,13 @@ class Comment implements IComparable
     }
 
     /**
-     * Set comment height (CSS style, i.e. XXpx or YYpt).
+     * Set comment height (CSS style, i.e. XXpx or YYpt). Default unit is pt.
      */
     public function setHeight(string $height): self
     {
-        $result = new Size($height);
-        if ($result->valid()) {
-            $this->height = $result->size() . $result->unit();
+        $height = new Size($height);
+        if ($height->valid()) {
+            $this->height = (string) $height;
         }
 
         return $this;
@@ -171,13 +171,13 @@ class Comment implements IComparable
     }
 
     /**
-     * Set left margin (CSS style, i.e. XXpx or YYpt).
+     * Set left margin (CSS style, i.e. XXpx or YYpt). Default unit is pt.
      */
     public function setMarginLeft(string $margin): self
     {
-        $result = new Size($margin);
-        if ($result->valid()) {
-            $this->marginLeft = $result->size() . $result->unit();
+        $margin = new Size($margin);
+        if ($margin->valid()) {
+            $this->marginLeft = (string) $margin;
         }
 
         return $this;
@@ -192,13 +192,13 @@ class Comment implements IComparable
     }
 
     /**
-     * Set top margin (CSS style, i.e. XXpx or YYpt).
+     * Set top margin (CSS style, i.e. XXpx or YYpt). Default unit is pt.
      */
     public function setMarginTop(string $margin): self
     {
-        $result = new Size($margin);
-        if ($result->valid()) {
-            $this->marginTop = $result->size() . $result->unit();
+        $margin = new Size($margin);
+        if ($margin->valid()) {
+            $this->marginTop = (string) $margin;
         }
 
         return $this;

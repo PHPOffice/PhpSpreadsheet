@@ -35,4 +35,9 @@ class Size
     {
         return $this->unit;
     }
+
+    public function __toString()
+    {
+        return $this->size . $this->unit;
+    }
 }

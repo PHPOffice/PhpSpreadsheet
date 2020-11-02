@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing.
+- Provided a Size Helper class to validate size values (pt, px, em)
 
 ### Changed
 
