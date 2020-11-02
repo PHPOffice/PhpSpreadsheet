@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class CommentTest extends TestCase
 {
-    public function testCreateComment()
+    public function testCreateComment(): void
     {
         $comment = new Comment();
         self::assertEquals('Author', $comment->getAuthor());
@@ -25,49 +25,49 @@ class CommentTest extends TestCase
         self::assertFalse($comment->getVisible());
     }
 
-    public function testSetAuthor()
+    public function testSetAuthor(): void
     {
         $comment = new Comment();
         $comment->setAuthor('Mark Baker');
         self::assertEquals('Mark Baker', $comment->getAuthor());
     }
 
-    public function testSetMarginLeft()
+    public function testSetMarginLeft(): void
     {
         $comment = new Comment();
         $comment->setMarginLeft('20pt');
         self::assertEquals('20pt', $comment->getMarginLeft());
     }
 
-    public function testSetMarginTop()
+    public function testSetMarginTop(): void
     {
         $comment = new Comment();
         $comment->setMarginTop('2.5pt');
         self::assertEquals('2.5pt', $comment->getMarginTop());
     }
 
-    public function testSetWidth()
+    public function testSetWidth(): void
     {
         $comment = new Comment();
         $comment->setWidth('120pt');
         self::assertEquals('120pt', $comment->getWidth());
     }
 
-    public function testSetHeight()
+    public function testSetHeight(): void
     {
         $comment = new Comment();
         $comment->setHeight('60pt');
         self::assertEquals('60pt', $comment->getHeight());
     }
 
-    public function testSetFillColor()
+    public function testSetFillColor(): void
     {
         $comment = new Comment();
         $comment->setFillColor(new Color('RED'));
         self::assertEquals('RED', $comment->getFillColor()->getARGB());
     }
 
-    public function testSetAlignment()
+    public function testSetAlignment(): void
     {
         $comment = new Comment();
         $comment->setAlignment(Alignment::HORIZONTAL_CENTER);
