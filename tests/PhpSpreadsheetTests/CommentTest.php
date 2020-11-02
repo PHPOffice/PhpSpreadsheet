@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\RichText\TextElement;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PHPUnit\Framework\TestCase;
@@ -72,5 +73,14 @@ class CommentTest extends TestCase
         $comment = new Comment();
         $comment->setAlignment(Alignment::HORIZONTAL_CENTER);
         self::assertEquals(Alignment::HORIZONTAL_CENTER, $comment->getAlignment());
+    }
+
+    public function testSetText(): void
+    {
+        $comment = new Comment();
+        $test = new RichText();
+        $test->addText(new TextElement('This is a test comment'));
+        $comment->setText($test);
+        self::assertEquals('This is a test comment', (string) $comment);
     }
 }
