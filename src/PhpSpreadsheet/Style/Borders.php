@@ -408,4 +408,17 @@ class Borders extends Supervisor
             __CLASS__
         );
     }
+
+    protected function exportArray1(): array
+    {
+        $exportedArray = [];
+        $this->exportArray2($exportedArray, 'bottom', $this->getBottom());
+        $this->exportArray2($exportedArray, 'diagonal', $this->getDiagonal());
+        $this->exportArray2($exportedArray, 'diagonalDirection', $this->getDiagonalDirection());
+        $this->exportArray2($exportedArray, 'left', $this->getLeft());
+        $this->exportArray2($exportedArray, 'right', $this->getRight());
+        $this->exportArray2($exportedArray, 'top', $this->getTop());
+
+        return $exportedArray;
+    }
 }

@@ -105,7 +105,7 @@ class CsvTest extends TestCase
     {
         return [
             [false, 'tests/data/Reader/Ods/data.ods'],
-            [false, 'tests/data/Reader/Xml/WithoutStyle.xml'],
+            [false, 'samples/templates/excel2003.xml'],
             [true, 'tests/data/Reader/CSV/enclosure.csv'],
             [true, 'tests/data/Reader/CSV/semicolon_separated.csv'],
             [true, 'tests/data/Reader/CSV/contains_html.csv'],
@@ -255,6 +255,10 @@ EOF;
         self::assertEquals('\'', $reader->getEnclosure());
         $reader->setEnclosure('');
         self::assertEquals('"', $reader->getEnclosure());
+        // following tests from BaseReader
+        self::assertTrue($reader->getReadEmptyCells());
+        self::assertFalse($reader->getIncludeCharts());
+        self::assertNull($reader->getLoadSheetsOnly());
     }
 
     public function testReadEmptyFileName(): void

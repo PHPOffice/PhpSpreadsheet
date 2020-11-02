@@ -74,14 +74,6 @@ class Border extends Supervisor
     public function getSharedComponent()
     {
         switch ($this->parentPropertyName) {
-            case 'allBorders':
-            case 'horizontal':
-            case 'inside':
-            case 'outline':
-            case 'vertical':
-                throw new PhpSpreadsheetException('Cannot get shared component for a pseudo-border.');
-
-                break;
             case 'bottom':
                 return $this->parent->getSharedComponent()->getBottom();
             case 'diagonal':
@@ -93,6 +85,8 @@ class Border extends Supervisor
             case 'top':
                 return $this->parent->getSharedComponent()->getTop();
         }
+
+        throw new PhpSpreadsheetException('Cannot get shared component for a pseudo-border.');
     }
 
     /**
@@ -227,5 +221,14 @@ class Border extends Supervisor
             $this->color->getHashCode() .
             __CLASS__
         );
+    }
+
+    protected function exportArray1(): array
+    {
+        $exportedArray = [];
+        $this->exportArray2($exportedArray, 'borderStyle', $this->getBorderStyle());
+        $this->exportArray2($exportedArray, 'color', $this->getColor());
+
+        return $exportedArray;
     }
 }

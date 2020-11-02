@@ -168,9 +168,9 @@ class Csv extends BaseWriter
      *
      * @return $this
      */
-    public function setEnclosure($pValue)
+    public function setEnclosure($pValue = '"')
     {
-        $this->enclosure = $pValue ? $pValue : '"';
+        $this->enclosure = $pValue;
 
         return $this;
     }
@@ -296,6 +296,20 @@ class Csv extends BaseWriter
         return $this;
     }
 
+    private $enclosureRequired = true;
+
+    public function setEnclosureRequired(bool $value): self
+    {
+        $this->enclosureRequired = $value;
+
+        return $this;
+    }
+
+    public function getEnclosureRequired(): bool
+    {
+        return $this->enclosureRequired;
+    }
+
     /**
      * Write line to CSV file.
      *
@@ -305,24 +319,28 @@ class Csv extends BaseWriter
     private function writeLine($pFileHandle, array $pValues): void
     {
         // No leading delimiter
-        $writeDelimiter = false;
+        $delimiter = '';
 
         // Build the line
         $line = '';
 
         foreach ($pValues as $element) {
-            // Escape enclosures
-            $element = str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
-
             // Add delimiter
-            if ($writeDelimiter) {
-                $line .= $this->delimiter;
-            } else {
-                $writeDelimiter = true;
+            $line .= $delimiter;
+            $delimiter = $this->delimiter;
+            // Escape enclosures
+            $enclosure = $this->enclosure;
+            if ($enclosure) {
+                // If enclosure is not required, use enclosure only if
+                // element contains newline, delimiter, or enclosure.
+                if (!$this->enclosureRequired && strpbrk($element, "$delimiter$enclosure\n") === false) {
+                    $enclosure = '';
+                } else {
+                    $element = str_replace($enclosure, $enclosure . $enclosure, $element);
+                }
             }
-
             // Add enclosed string
-            $line .= $this->enclosure . $element . $this->enclosure;
+            $line .= $enclosure . $element . $enclosure;
         }
 
         // Add line ending

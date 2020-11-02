@@ -314,8 +314,10 @@ class Worksheet extends WriterPart
         }
 
         // Set Zero Height row
-        if ((string) $pSheet->getDefaultRowDimension()->getZeroHeight() === '1' ||
-            strtolower((string) $pSheet->getDefaultRowDimension()->getZeroHeight()) == 'true') {
+        if (
+            (string) $pSheet->getDefaultRowDimension()->getZeroHeight() === '1' ||
+            strtolower((string) $pSheet->getDefaultRowDimension()->getZeroHeight()) == 'true'
+        ) {
             $objWriter->writeAttribute('zeroHeight', '1');
         }
 
@@ -420,26 +422,33 @@ class Worksheet extends WriterPart
         // sheetProtection
         $objWriter->startElement('sheetProtection');
 
-        if ($pSheet->getProtection()->getPassword() !== '') {
-            $objWriter->writeAttribute('password', $pSheet->getProtection()->getPassword());
+        $protection = $pSheet->getProtection();
+
+        if ($protection->getAlgorithm()) {
+            $objWriter->writeAttribute('algorithmName', $protection->getAlgorithm());
+            $objWriter->writeAttribute('hashValue', $protection->getPassword());
+            $objWriter->writeAttribute('saltValue', $protection->getSalt());
+            $objWriter->writeAttribute('spinCount', $protection->getSpinCount());
+        } elseif ($protection->getPassword() !== '') {
+            $objWriter->writeAttribute('password', $protection->getPassword());
         }
 
-        $objWriter->writeAttribute('sheet', ($pSheet->getProtection()->getSheet() ? 'true' : 'false'));
-        $objWriter->writeAttribute('objects', ($pSheet->getProtection()->getObjects() ? 'true' : 'false'));
-        $objWriter->writeAttribute('scenarios', ($pSheet->getProtection()->getScenarios() ? 'true' : 'false'));
-        $objWriter->writeAttribute('formatCells', ($pSheet->getProtection()->getFormatCells() ? 'true' : 'false'));
-        $objWriter->writeAttribute('formatColumns', ($pSheet->getProtection()->getFormatColumns() ? 'true' : 'false'));
-        $objWriter->writeAttribute('formatRows', ($pSheet->getProtection()->getFormatRows() ? 'true' : 'false'));
-        $objWriter->writeAttribute('insertColumns', ($pSheet->getProtection()->getInsertColumns() ? 'true' : 'false'));
-        $objWriter->writeAttribute('insertRows', ($pSheet->getProtection()->getInsertRows() ? 'true' : 'false'));
-        $objWriter->writeAttribute('insertHyperlinks', ($pSheet->getProtection()->getInsertHyperlinks() ? 'true' : 'false'));
-        $objWriter->writeAttribute('deleteColumns', ($pSheet->getProtection()->getDeleteColumns() ? 'true' : 'false'));
-        $objWriter->writeAttribute('deleteRows', ($pSheet->getProtection()->getDeleteRows() ? 'true' : 'false'));
-        $objWriter->writeAttribute('selectLockedCells', ($pSheet->getProtection()->getSelectLockedCells() ? 'true' : 'false'));
-        $objWriter->writeAttribute('sort', ($pSheet->getProtection()->getSort() ? 'true' : 'false'));
-        $objWriter->writeAttribute('autoFilter', ($pSheet->getProtection()->getAutoFilter() ? 'true' : 'false'));
-        $objWriter->writeAttribute('pivotTables', ($pSheet->getProtection()->getPivotTables() ? 'true' : 'false'));
-        $objWriter->writeAttribute('selectUnlockedCells', ($pSheet->getProtection()->getSelectUnlockedCells() ? 'true' : 'false'));
+        $objWriter->writeAttribute('sheet', ($protection->getSheet() ? 'true' : 'false'));
+        $objWriter->writeAttribute('objects', ($protection->getObjects() ? 'true' : 'false'));
+        $objWriter->writeAttribute('scenarios', ($protection->getScenarios() ? 'true' : 'false'));
+        $objWriter->writeAttribute('formatCells', ($protection->getFormatCells() ? 'true' : 'false'));
+        $objWriter->writeAttribute('formatColumns', ($protection->getFormatColumns() ? 'true' : 'false'));
+        $objWriter->writeAttribute('formatRows', ($protection->getFormatRows() ? 'true' : 'false'));
+        $objWriter->writeAttribute('insertColumns', ($protection->getInsertColumns() ? 'true' : 'false'));
+        $objWriter->writeAttribute('insertRows', ($protection->getInsertRows() ? 'true' : 'false'));
+        $objWriter->writeAttribute('insertHyperlinks', ($protection->getInsertHyperlinks() ? 'true' : 'false'));
+        $objWriter->writeAttribute('deleteColumns', ($protection->getDeleteColumns() ? 'true' : 'false'));
+        $objWriter->writeAttribute('deleteRows', ($protection->getDeleteRows() ? 'true' : 'false'));
+        $objWriter->writeAttribute('selectLockedCells', ($protection->getSelectLockedCells() ? 'true' : 'false'));
+        $objWriter->writeAttribute('sort', ($protection->getSort() ? 'true' : 'false'));
+        $objWriter->writeAttribute('autoFilter', ($protection->getAutoFilter() ? 'true' : 'false'));
+        $objWriter->writeAttribute('pivotTables', ($protection->getPivotTables() ? 'true' : 'false'));
+        $objWriter->writeAttribute('selectUnlockedCells', ($protection->getSelectUnlockedCells() ? 'true' : 'false'));
         $objWriter->endElement();
     }
 
@@ -459,9 +468,11 @@ class Worksheet extends WriterPart
 
     private static function writeOtherCondElements(XMLWriter $objWriter, Conditional $conditional, string $cellCoordinate): void
     {
-        if ($conditional->getConditionType() == Conditional::CONDITION_CELLIS
+        if (
+            $conditional->getConditionType() == Conditional::CONDITION_CELLIS
             || $conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
-            || $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION) {
+            || $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
+        ) {
             foreach ($conditional->getConditions() as $formula) {
                 // Formula
                 $objWriter->writeElement('formula', Xlfn::addXlfn($formula));
@@ -784,9 +795,11 @@ class Worksheet extends WriterPart
                         }
 
                         foreach ($rules as $rule) {
-                            if (($column->getFilterType() === Column::AUTOFILTER_FILTERTYPE_FILTER) &&
+                            if (
+                                ($column->getFilterType() === Column::AUTOFILTER_FILTERTYPE_FILTER) &&
                                 ($rule->getOperator() === Rule::AUTOFILTER_COLUMN_RULE_EQUAL) &&
-                                ($rule->getValue() === '')) {
+                                ($rule->getValue() === '')
+                            ) {
                                 //    Filter rule for Blanks
                                 $objWriter->writeAttribute('blank', 1);
                             } elseif ($rule->getRuleType() === Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER) {
@@ -868,6 +881,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('firstPageNumber', $pSheet->getPageSetup()->getFirstPageNumber());
             $objWriter->writeAttribute('useFirstPageNumber', '1');
         }
+        $objWriter->writeAttribute('pageOrder', $pSheet->getPageSetup()->getPageOrder());
 
         $getUnparsedLoadedData = $pSheet->getParent()->getUnparsedLoadedData();
         if (isset($getUnparsedLoadedData['sheets'][$pSheet->getCodeName()]['pageSetupRelId'])) {
@@ -1105,7 +1119,7 @@ class Worksheet extends WriterPart
     {
         $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $pCell->getCalculatedValue() : $cellValue;
         if (is_string($calculatedValue)) {
-            if (substr($calculatedValue, 0, 1) === '#') {
+            if (\PhpOffice\PhpSpreadsheet\Calculation\Functions::isError($calculatedValue)) {
                 $this->writeCellError($objWriter, 'e', $cellValue, $calculatedValue);
 
                 return;
@@ -1133,7 +1147,7 @@ class Worksheet extends WriterPart
             $this->getParentWriter()->getOffice2003Compatibility() === false,
             'v',
             ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue, 0, 1) !== '#')
-            ? StringHelper::formatNumber($calculatedValue) : '0'
+                ? StringHelper::formatNumber($calculatedValue) : '0'
         );
     }
 

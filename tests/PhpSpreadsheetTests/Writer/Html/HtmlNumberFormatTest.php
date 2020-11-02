@@ -10,12 +10,16 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class HtmlNumberFormatTest extends Functional\AbstractFunctional
 {
+    private $currency;
+
     private $decsep;
 
     private $thosep;
 
     protected function setUp(): void
     {
+        $this->currency = StringHelper::getCurrencyCode();
+        StringHelper::setCurrencyCode('$');
         $this->decsep = StringHelper::getDecimalSeparator();
         StringHelper::setDecimalSeparator('.');
         $this->thosep = StringHelper::getThousandsSeparator();
@@ -24,6 +28,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
 
     protected function tearDown(): void
     {
+        StringHelper::setCurrencyCode($this->currency);
         StringHelper::setDecimalSeparator($this->decsep);
         StringHelper::setThousandsSeparator($this->thosep);
     }

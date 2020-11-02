@@ -274,9 +274,11 @@ class DateTime
         $year = ($year !== null) ? StringHelper::testStringAsNumeric($year) : 0;
         $month = ($month !== null) ? StringHelper::testStringAsNumeric($month) : 0;
         $day = ($day !== null) ? StringHelper::testStringAsNumeric($day) : 0;
-        if ((!is_numeric($year)) ||
+        if (
+            (!is_numeric($year)) ||
             (!is_numeric($month)) ||
-            (!is_numeric($day))) {
+            (!is_numeric($day))
+        ) {
             return Functions::VALUE();
         }
         $year = (int) $year;
@@ -487,7 +489,7 @@ class DateTime
             if ($yearFound) {
                 array_unshift($t1, 1);
             } else {
-                if ($t1[1] > 29) {
+                if (is_numeric($t1[1]) && $t1[1] > 29) {
                     $t1[1] += 1900;
                     array_unshift($t1, 1);
                 } else {
@@ -668,30 +670,19 @@ class DateTime
         $endMonths = $PHPEndDateObject->format('n');
         $endYears = $PHPEndDateObject->format('Y');
 
+        $PHPDiffDateObject = $PHPEndDateObject->diff($PHPStartDateObject);
+
         switch ($unit) {
             case 'D':
                 $retVal = (int) $difference;
 
                 break;
             case 'M':
-                $retVal = (int) ($endMonths - $startMonths) + ((int) ($endYears - $startYears) * 12);
-                //    We're only interested in full months
-                if ($endDays < $startDays) {
-                    --$retVal;
-                }
+                $retVal = (int) 12 * $PHPDiffDateObject->format('%y') + $PHPDiffDateObject->format('%m');
 
                 break;
             case 'Y':
-                $retVal = (int) ($endYears - $startYears);
-                //    We're only interested in full months
-                if ($endMonths < $startMonths) {
-                    --$retVal;
-                } elseif (($endMonths == $startMonths) && ($endDays < $startDays)) {
-                    // Remove start month
-                    --$retVal;
-                    // Remove end month
-                    --$retVal;
-                }
+                $retVal = (int) $PHPDiffDateObject->format('%y');
 
                 break;
             case 'MD':
@@ -701,19 +692,12 @@ class DateTime
                     $adjustDays = $PHPEndDateObject->format('j');
                     $retVal += ($adjustDays - $startDays);
                 } else {
-                    $retVal = $endDays - $startDays;
+                    $retVal = (int) $PHPDiffDateObject->format('%d');
                 }
 
                 break;
             case 'YM':
-                $retVal = (int) ($endMonths - $startMonths);
-                if ($retVal < 0) {
-                    $retVal += 12;
-                }
-                //    We're only interested in full months
-                if ($endDays < $startDays) {
-                    --$retVal;
-                }
+                $retVal = (int) $PHPDiffDateObject->format('%m');
 
                 break;
             case 'YD':

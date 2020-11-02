@@ -147,8 +147,10 @@ class MathTrig
         $xCoordinate = ($xCoordinate !== null) ? $xCoordinate : 0.0;
         $yCoordinate = ($yCoordinate !== null) ? $yCoordinate : 0.0;
 
-        if (((is_numeric($xCoordinate)) || (is_bool($xCoordinate))) &&
-            ((is_numeric($yCoordinate))) || (is_bool($yCoordinate))) {
+        if (
+            ((is_numeric($xCoordinate)) || (is_bool($xCoordinate))) &&
+            ((is_numeric($yCoordinate))) || (is_bool($yCoordinate))
+        ) {
             $xCoordinate = (float) $xCoordinate;
             $yCoordinate = (float) $yCoordinate;
 
@@ -224,8 +226,10 @@ class MathTrig
         $number = Functions::flattenSingleValue($number);
         $significance = Functions::flattenSingleValue($significance);
 
-        if (($significance === null) &&
-            (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)) {
+        if (
+            ($significance === null) &&
+            (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)
+        ) {
             $significance = $number / abs($number);
         }
 
@@ -331,8 +335,10 @@ class MathTrig
                 return Functions::NAN();
             }
             $factLoop = floor($factVal);
-            if ((Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) &&
-                ($factVal > $factLoop)) {
+            if (
+                (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) &&
+                ($factVal > $factLoop)
+            ) {
                 return Functions::NAN();
             }
 
@@ -398,8 +404,10 @@ class MathTrig
         $number = Functions::flattenSingleValue($number);
         $significance = Functions::flattenSingleValue($significance);
 
-        if (($significance === null) &&
-            (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)) {
+        if (
+            ($significance === null) &&
+            (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)
+        ) {
             $significance = $number / abs($number);
         }
 
@@ -863,7 +871,7 @@ class MathTrig
      *
      * Returns the ratio of the factorial of a sum of values to the product of factorials.
      *
-     * @param array of mixed Data Series
+     * @param mixed[] $args An array of mixed values for the Data Series
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1141,7 +1149,7 @@ class MathTrig
      *
      * Returns the sum of a power series
      *
-     * @param array of mixed Data Series
+     * @param mixed[] $args An array of mixed values for the Data Series
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1265,21 +1273,22 @@ class MathTrig
      *
      * Returns a subtotal in a list or database.
      *
-     * @param int the number 1 to 11 that specifies which function to
+     * @param int $functionType
+     *            A number 1 to 11 that specifies which function to
      *                    use in calculating subtotals within a range
      *                    list
      *            Numbers 101 to 111 shadow the functions of 1 to 11
      *                    but ignore any values in the range that are
      *                    in hidden rows or columns
-     * @param array of mixed Data Series
+     * @param mixed[] $args A mixed data series of values
      *
      * @return float|string
      */
-    public static function SUBTOTAL(...$args)
+    public static function SUBTOTAL($functionType, ...$args)
     {
         $cellReference = array_pop($args);
         $aArgs = Functions::flattenArrayIndexed($args);
-        $subtotal = array_shift($aArgs);
+        $subtotal = Functions::flattenSingleValue($functionType);
 
         // Calculate
         if ((is_numeric($subtotal)) && (!is_string($subtotal))) {
@@ -1381,8 +1390,10 @@ class MathTrig
             $testCondition = '=' . $arg . $condition;
             $sumValue = array_key_exists($key, $sumArgs) ? $sumArgs[$key] : 0;
 
-            if (is_numeric($sumValue) &&
-                Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (
+                is_numeric($sumValue) &&
+                Calculation::getInstance()->_calculateFormulaValue($testCondition)
+            ) {
                 // Is it a value within our criteria and only numeric can be added to the result
                 $returnValue += $sumValue;
             }
@@ -1532,8 +1543,10 @@ class MathTrig
 
         $result = 0;
         for ($i = 0; $i < $count; ++$i) {
-            if (((is_numeric($array1[$i])) && (!is_string($array1[$i]))) &&
-                ((is_numeric($array2[$i])) && (!is_string($array2[$i])))) {
+            if (
+                ((is_numeric($array1[$i])) && (!is_string($array1[$i]))) &&
+                ((is_numeric($array2[$i])) && (!is_string($array2[$i])))
+            ) {
                 $result += ($array1[$i] * $array1[$i]) - ($array2[$i] * $array2[$i]);
             }
         }
@@ -1557,8 +1570,10 @@ class MathTrig
 
         $result = 0;
         for ($i = 0; $i < $count; ++$i) {
-            if (((is_numeric($array1[$i])) && (!is_string($array1[$i]))) &&
-                ((is_numeric($array2[$i])) && (!is_string($array2[$i])))) {
+            if (
+                ((is_numeric($array1[$i])) && (!is_string($array1[$i]))) &&
+                ((is_numeric($array2[$i])) && (!is_string($array2[$i])))
+            ) {
                 $result += ($array1[$i] * $array1[$i]) + ($array2[$i] * $array2[$i]);
             }
         }
@@ -1582,8 +1597,10 @@ class MathTrig
 
         $result = 0;
         for ($i = 0; $i < $count; ++$i) {
-            if (((is_numeric($array1[$i])) && (!is_string($array1[$i]))) &&
-                ((is_numeric($array2[$i])) && (!is_string($array2[$i])))) {
+            if (
+                ((is_numeric($array1[$i])) && (!is_string($array1[$i]))) &&
+                ((is_numeric($array2[$i])) && (!is_string($array2[$i])))
+            ) {
                 $result += ($array1[$i] - $array2[$i]) * ($array1[$i] - $array2[$i]);
             }
         }

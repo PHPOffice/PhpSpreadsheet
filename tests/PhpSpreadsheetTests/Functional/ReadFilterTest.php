@@ -90,13 +90,13 @@ class ReadFilterTest extends AbstractFunctional
     }
 
     /**
-     * @see \PhpOffice\PhpSpreadsheet\Reader\IReadFilter::readCell()
-     *
      * @param string $column Column address (as a string value like "A", or "IV")
      * @param int $row Row number
      * @param string $worksheetName Optional worksheet name
      *
      * @return bool
+     *
+     * @see \PhpOffice\PhpSpreadsheet\Reader\IReadFilter::readCell()
      */
     public function readFilterReadCell($column, $row, $worksheetName = '')
     {
@@ -112,8 +112,10 @@ class ReadFilterTest extends AbstractFunctional
         }
 
         $col = sprintf('%04s', $column);
-        if ($col > sprintf('%04s', $columnMax) ||
-            $col < sprintf('%04s', $columnMin)) {
+        if (
+            $col > sprintf('%04s', $columnMax) ||
+            $col < sprintf('%04s', $columnMin)
+        ) {
             return false;
         }
 

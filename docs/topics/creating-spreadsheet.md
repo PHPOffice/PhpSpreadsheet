@@ -20,7 +20,7 @@ Details of the different spreadsheet formats supported, and the options
 available to read them into a Spreadsheet object are described fully in
 the [Reading Files](./reading-files.md) document.
 
-``` php
+```php
 $inputFileName = './sampleData/example1.xls';
 
 /** Load $inputFileName to a Spreadsheet object **/
@@ -32,7 +32,7 @@ $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
 If you want to create a new workbook, rather than load one from file,
 then you simply need to instantiate it as a new Spreadsheet object.
 
-``` php
+```php
 /** Create a new Spreadsheet Object **/
 $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 ```
@@ -53,7 +53,7 @@ then you also need to "break" these cyclic references before doing so.
 PhpSpreadsheet provides the `disconnectWorksheets()` method for this
 purpose.
 
-``` php
+```php
 $spreadsheet->disconnectWorksheets();
 unset($spreadsheet);
 ```

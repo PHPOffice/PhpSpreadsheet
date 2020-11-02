@@ -544,8 +544,10 @@ class Worksheet extends BIFFwriter
             // Write ConditionalFormattingTable records
             foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
                 foreach ($conditionalStyles as $conditional) {
-                    if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
-                        || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
+                    if (
+                        $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
+                        || $conditional->getConditionType() == Conditional::CONDITION_CELLIS
+                    ) {
                         if (!isset($arrConditional[$conditional->getHashCode()])) {
                             // This hash code has been handled
                             $arrConditional[$conditional->getHashCode()] = true;
@@ -823,7 +825,6 @@ class Worksheet extends BIFFwriter
     private function writeFormula($row, $col, $formula, $xfIndex, $calculatedValue)
     {
         $record = 0x0006; // Record identifier
-
         // Initialize possible additional value for STRING record that should be written after the FORMULA record?
         $stringValue = null;
 
@@ -1729,11 +1730,12 @@ class Worksheet extends BIFFwriter
         $numFtr = $this->phpSheet->getPageMargins()->getFooter(); // Footer Margin
         $iCopies = 0x01; // Number of copies
 
-        $fLeftToRight = 0x0; // Print over then down
-
+        // Order of printing pages
+        $fLeftToRight = $this->phpSheet->getPageSetup()->getPageOrder() === PageSetup::PAGEORDER_DOWN_THEN_OVER
+            ? 0x1 : 0x0;
         // Page orientation
-        $fLandscape = ($this->phpSheet->getPageSetup()->getOrientation() == PageSetup::ORIENTATION_LANDSCAPE) ?
-            0x0 : 0x1;
+        $fLandscape = ($this->phpSheet->getPageSetup()->getOrientation() == PageSetup::ORIENTATION_LANDSCAPE)
+            ? 0x0 : 0x1;
 
         $fNoPls = 0x0; // Setup not read from printer
         $fNoColor = 0x0; // Print black and white
@@ -3085,7 +3087,8 @@ class Worksheet extends BIFFwriter
             $bFormatFill = 0;
         }
         // Font
-        if ($conditional->getStyle()->getFont()->getName() != null
+        if (
+            $conditional->getStyle()->getFont()->getName() != null
             || $conditional->getStyle()->getFont()->getSize() != null
             || $conditional->getStyle()->getFont()->getBold() != null
             || $conditional->getStyle()->getFont()->getItalic() != null
@@ -3093,7 +3096,8 @@ class Worksheet extends BIFFwriter
             || $conditional->getStyle()->getFont()->getSubscript() != null
             || $conditional->getStyle()->getFont()->getUnderline() != null
             || $conditional->getStyle()->getFont()->getStrikethrough() != null
-            || $conditional->getStyle()->getFont()->getColor()->getARGB() != null) {
+            || $conditional->getStyle()->getFont()->getColor()->getARGB() != null
+        ) {
             $bFormatFont = 1;
         } else {
             $bFormatFont = 0;
@@ -4446,8 +4450,10 @@ class Worksheet extends BIFFwriter
         $arrConditional = [];
         foreach ($this->phpSheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
             foreach ($conditionalStyles as $conditional) {
-                if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
-                    || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
+                if (
+                    $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
+                    || $conditional->getConditionType() == Conditional::CONDITION_CELLIS
+                ) {
                     if (!in_array($conditional->getHashCode(), $arrConditional)) {
                         $arrConditional[] = $conditional->getHashCode();
                     }

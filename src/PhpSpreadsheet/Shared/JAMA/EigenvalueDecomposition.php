@@ -553,8 +553,10 @@ class EigenvalueDecomposition
                     if ($m == $l) {
                         break;
                     }
-                    if (abs($this->H[$m][$m - 1]) * (abs($q) + abs($r)) <
-                        $eps * (abs($p) * (abs($this->H[$m - 1][$m - 1]) + abs($z) + abs($this->H[$m + 1][$m + 1])))) {
+                    if (
+                        abs($this->H[$m][$m - 1]) * (abs($q) + abs($r)) <
+                        $eps * (abs($p) * (abs($this->H[$m - 1][$m - 1]) + abs($z) + abs($this->H[$m + 1][$m + 1])))
+                    ) {
                         break;
                     }
                     --$m;
