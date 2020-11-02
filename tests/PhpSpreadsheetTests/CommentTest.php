@@ -57,8 +57,8 @@ class CommentTest extends TestCase
     public function testSetHeight(): void
     {
         $comment = new Comment();
-        $comment->setHeight('60pt');
-        self::assertEquals('60pt', $comment->getHeight());
+        $comment->setHeight('60px');
+        self::assertEquals('60px', $comment->getHeight());
     }
 
     public function testSetFillColor(): void

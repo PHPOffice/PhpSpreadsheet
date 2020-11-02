@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Helper\Size;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -132,7 +133,10 @@ class Comment implements IComparable
      */
     public function setWidth(string $width): self
     {
-        $this->width = $width;
+        $result = new Size($width);
+        if ($result->valid()) {
+            $this->width = $result->size() . $result->unit();
+        }
 
         return $this;
     }
@@ -150,7 +154,10 @@ class Comment implements IComparable
      */
     public function setHeight(string $height): self
     {
-        $this->height = $height;
+        $result = new Size($height);
+        if ($result->valid()) {
+            $this->height = $result->size() . $result->unit();
+        }
 
         return $this;
     }
@@ -168,7 +175,10 @@ class Comment implements IComparable
      */
     public function setMarginLeft(string $margin): self
     {
-        $this->marginLeft = $margin;
+        $result = new Size($margin);
+        if ($result->valid()) {
+            $this->marginLeft = $result->size() . $result->unit();
+        }
 
         return $this;
     }
@@ -186,7 +196,10 @@ class Comment implements IComparable
      */
     public function setMarginTop(string $margin): self
     {
-        $this->marginTop = $margin;
+        $result = new Size($margin);
+        if ($result->valid()) {
+            $this->marginTop = $result->size() . $result->unit();
+        }
 
         return $this;
     }
