@@ -617,9 +617,11 @@ class Xml extends BaseReader
                     ++$rowID;
                 }
 
-                $xmlX = $worksheet->children($namespaces['x']);
-                if (isset($xmlX->WorksheetOptions)) {
-                    (new PageSettings($xmlX, $namespaces))->loadPageSettings($spreadsheet);
+                if (isset($namespaces['x'])) {
+                    $xmlX = $worksheet->children($namespaces['x']);
+                    if (isset($xmlX->WorksheetOptions)) {
+                        (new PageSettings($xmlX, $namespaces))->loadPageSettings($spreadsheet);
+                    }
                 }
             }
             ++$worksheetID;
