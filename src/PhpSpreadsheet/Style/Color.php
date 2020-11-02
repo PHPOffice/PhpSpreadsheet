@@ -63,7 +63,7 @@ class Color extends Supervisor
 
         //    Initialise values
         if (!$isConditional) {
-            $this->argb = $this->validateColour($colorValue, self::VALIDATE_ARGB_SIZE) ? $colorValue : self::COLOR_BLACK;
+            $this->argb = $this->validateColor($colorValue, self::VALIDATE_ARGB_SIZE) ? $colorValue : self::COLOR_BLACK;
         }
     }
 
@@ -124,9 +124,9 @@ class Color extends Supervisor
         return $this;
     }
 
-    private function validateColour(string $colorValue, int $size): bool
+    private function validateColor(string $colorValue, int $size): bool
     {
-        return in_array(ucfirst($colorValue), self::NAMED_COLORS) ||
+        return in_array(ucfirst(strtolower($colorValue)), self::NAMED_COLORS) ||
             preg_match(sprintf(self::VALIDATE_COLOR_VALUE, $size), $colorValue);
     }
 
@@ -155,7 +155,7 @@ class Color extends Supervisor
     {
         if ($colorValue === '' || $colorValue === null) {
             $colorValue = self::COLOR_BLACK;
-        } elseif (!$this->validateColour($colorValue, self::VALIDATE_ARGB_SIZE)) {
+        } elseif (!$this->validateColor($colorValue, self::VALIDATE_ARGB_SIZE)) {
             return $this;
         }
 
@@ -194,7 +194,7 @@ class Color extends Supervisor
     {
         if ($colorValue === '' || $colorValue === null) {
             $colorValue = '000000';
-        } elseif (!$this->validateColour($colorValue, self::VALIDATE_RGB_SIZE)) {
+        } elseif (!$this->validateColor($colorValue, self::VALIDATE_RGB_SIZE)) {
             return $this;
         }
 
