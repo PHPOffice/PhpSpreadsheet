@@ -21,29 +21,29 @@ class HashTable
     /**
      * Create a new \PhpOffice\PhpSpreadsheet\HashTable.
      *
-     * @param IComparable[] $pSource Optional source array to create HashTable from
+     * @param IComparable[] $source Optional source array to create HashTable from
      */
-    public function __construct($pSource = null)
+    public function __construct($source = null)
     {
-        if ($pSource !== null) {
+        if ($source !== null) {
             // Create HashTable
-            $this->addFromSource($pSource);
+            $this->addFromSource($source);
         }
     }
 
     /**
      * Add HashTable items from source.
      *
-     * @param IComparable[] $pSource Source array to create HashTable from
+     * @param IComparable[] $source Source array to create HashTable from
      */
-    public function addFromSource(?array $pSource = null): void
+    public function addFromSource(?array $source = null): void
     {
         // Check if an array was passed
-        if ($pSource == null) {
+        if ($source == null) {
             return;
         }
 
-        foreach ($pSource as $item) {
+        foreach ($source as $item) {
             $this->add($item);
         }
     }
@@ -51,13 +51,13 @@ class HashTable
     /**
      * Add HashTable item.
      *
-     * @param IComparable $pSource Item to add
+     * @param IComparable $source Item to add
      */
-    public function add(IComparable $pSource): void
+    public function add(IComparable $source): void
     {
-        $hash = $pSource->getHashCode();
+        $hash = $source->getHashCode();
         if (!isset($this->items[$hash])) {
-            $this->items[$hash] = $pSource;
+            $this->items[$hash] = $source;
             $this->keyMap[count($this->items) - 1] = $hash;
         }
     }
@@ -65,11 +65,11 @@ class HashTable
     /**
      * Remove HashTable item.
      *
-     * @param IComparable $pSource Item to remove
+     * @param IComparable $source Item to remove
      */
-    public function remove(IComparable $pSource): void
+    public function remove(IComparable $source): void
     {
-        $hash = $pSource->getHashCode();
+        $hash = $source->getHashCode();
         if (isset($this->items[$hash])) {
             unset($this->items[$hash]);
 
@@ -109,26 +109,26 @@ class HashTable
     /**
      * Get index for hash code.
      *
-     * @param string $pHashCode
+     * @param string $hashCode
      *
      * @return int Index
      */
-    public function getIndexForHashCode($pHashCode)
+    public function getIndexForHashCode($hashCode)
     {
-        return array_search($pHashCode, $this->keyMap);
+        return array_search($hashCode, $this->keyMap);
     }
 
     /**
      * Get by index.
      *
-     * @param int $pIndex
+     * @param int $index
      *
      * @return IComparable
      */
-    public function getByIndex($pIndex)
+    public function getByIndex($index)
     {
-        if (isset($this->keyMap[$pIndex])) {
-            return $this->getByHashCode($this->keyMap[$pIndex]);
+        if (isset($this->keyMap[$index])) {
+            return $this->getByHashCode($this->keyMap[$index]);
         }
 
         return null;
@@ -137,14 +137,14 @@ class HashTable
     /**
      * Get by hashcode.
      *
-     * @param string $pHashCode
+     * @param string $hashCode
      *
      * @return IComparable
      */
-    public function getByHashCode($pHashCode)
+    public function getByHashCode($hashCode)
     {
-        if (isset($this->items[$pHashCode])) {
-            return $this->items[$pHashCode];
+        if (isset($this->items[$hashCode])) {
+            return $this->items[$hashCode];
         }
 
         return null;

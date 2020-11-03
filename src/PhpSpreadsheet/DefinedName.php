@@ -167,9 +167,9 @@ abstract class DefinedName
     /**
      * Set worksheet.
      */
-    public function setWorksheet(?Worksheet $value): self
+    public function setWorksheet(?Worksheet $worksheet): self
     {
-        $this->worksheet = $value;
+        $this->worksheet = $worksheet;
 
         return $this;
     }
@@ -203,10 +203,10 @@ abstract class DefinedName
     /**
      * Set localOnly.
      */
-    public function setLocalOnly(bool $value): self
+    public function setLocalOnly(bool $localScope): self
     {
-        $this->localOnly = $value;
-        $this->scope = $value ? $this->worksheet : null;
+        $this->localOnly = $localScope;
+        $this->scope = $localScope ? $this->worksheet : null;
 
         return $this;
     }
@@ -222,10 +222,10 @@ abstract class DefinedName
     /**
      * Set scope.
      */
-    public function setScope(?Worksheet $value): self
+    public function setScope(?Worksheet $worksheet): self
     {
-        $this->scope = $value;
-        $this->localOnly = $value !== null;
+        $this->scope = $worksheet;
+        $this->localOnly = $worksheet !== null;
 
         return $this;
     }
@@ -241,9 +241,9 @@ abstract class DefinedName
     /**
      * Resolve a named range to a regular cell range or formula.
      */
-    public static function resolveName(string $pDefinedName, Worksheet $pSheet): ?self
+    public static function resolveName(string $definedName, Worksheet $worksheet): ?self
     {
-        return $pSheet->getParent()->getDefinedName($pDefinedName, $pSheet);
+        return $worksheet->getParent()->getDefinedName($definedName, $worksheet);
     }
 
     /**

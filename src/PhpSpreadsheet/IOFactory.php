@@ -69,19 +69,19 @@ abstract class IOFactory
     /**
      * Loads Spreadsheet from file using automatic IReader resolution.
      */
-    public static function load(string $pFilename): Spreadsheet
+    public static function load(string $filename): Spreadsheet
     {
-        $reader = self::createReaderForFile($pFilename);
+        $reader = self::createReaderForFile($filename);
 
-        return $reader->load($pFilename);
+        return $reader->load($filename);
     }
 
     /**
      * Identify file type using automatic IReader resolution.
      */
-    public static function identify(string $pFilename): string
+    public static function identify(string $filename): string
     {
-        $reader = self::createReaderForFile($pFilename);
+        $reader = self::createReaderForFile($filename);
         $className = get_class($reader);
         $classType = explode('\\', $className);
         unset($reader);
