@@ -21,14 +21,14 @@ class Hyperlink
     /**
      * Create a new Hyperlink.
      *
-     * @param string $pUrl Url to link the cell to
-     * @param string $pTooltip Tooltip to display on the hyperlink
+     * @param string $url Url to link the cell to
+     * @param string $tooltip Tooltip to display on the hyperlink
      */
-    public function __construct($pUrl = '', $pTooltip = '')
+    public function __construct($url = '', $tooltip = '')
     {
         // Initialise member variables
-        $this->url = $pUrl;
-        $this->tooltip = $pTooltip;
+        $this->url = $url;
+        $this->tooltip = $tooltip;
     }
 
     /**
@@ -44,13 +44,13 @@ class Hyperlink
     /**
      * Set URL.
      *
-     * @param string $value
+     * @param string $url
      *
      * @return $this
      */
-    public function setUrl($value)
+    public function setUrl($url)
     {
-        $this->url = $value;
+        $this->url = $url;
 
         return $this;
     }
@@ -68,13 +68,13 @@ class Hyperlink
     /**
      * Set tooltip.
      *
-     * @param string $value
+     * @param string $tooltip
      *
      * @return $this
      */
-    public function setTooltip($value)
+    public function setTooltip($tooltip)
     {
-        $this->tooltip = $value;
+        $this->tooltip = $tooltip;
 
         return $this;
     }
