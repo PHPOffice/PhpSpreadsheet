@@ -612,7 +612,6 @@ class Spreadsheet
      * @param null|int $sheetIndex Index where sheet should go (0,1,..., or null for last)
      *
      * @return Worksheet
-     * @throws Exception
      */
     public function addSheet(Worksheet $worksheet, $sheetIndex = null)
     {
