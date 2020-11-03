@@ -71,16 +71,16 @@ class Settings
     /**
      * Identify to PhpSpreadsheet the external library to use for rendering charts.
      *
-     * @param string $rendererClass Class name of the chart renderer
+     * @param string $rendererClassName Class name of the chart renderer
      *    eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph
      */
-    public static function setChartRenderer(string $rendererClass): void
+    public static function setChartRenderer(string $rendererClassName): void
     {
-        if (!is_a($rendererClass, IRenderer::class, true)) {
+        if (!is_a($rendererClassName, IRenderer::class, true)) {
             throw new Exception('Chart renderer must implement ' . IRenderer::class);
         }
 
-        self::$chartRenderer = $rendererClass;
+        self::$chartRenderer = $rendererClassName;
     }
 
     /**
