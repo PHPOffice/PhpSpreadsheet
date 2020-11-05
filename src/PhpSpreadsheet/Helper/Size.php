@@ -14,7 +14,7 @@ class Size
 
     public function __construct(string $size)
     {
-        $this->valid = preg_match(self::REGEXP_SIZE_VALIDATION, $size, $matches);
+        $this->valid = (bool) preg_match(self::REGEXP_SIZE_VALIDATION, $size, $matches);
         if ($this->valid) {
             $this->size = $matches['size'];
             $this->unit = $matches['unit'] ?? 'pt';

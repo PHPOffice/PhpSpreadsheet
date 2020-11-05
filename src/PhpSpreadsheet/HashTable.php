@@ -111,7 +111,7 @@ class HashTable
      *
      * @param string $hashCode
      *
-     * @return int Index
+     * @return false|int Index
      */
     public function getIndexForHashCode($hashCode)
     {
