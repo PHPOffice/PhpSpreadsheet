@@ -73,13 +73,13 @@ class Security
     /**
      * Set LockRevision.
      *
-     * @param bool $pValue
+     * @param bool $locked
      *
      * @return $this
      */
-    public function setLockRevision($pValue)
+    public function setLockRevision($locked)
     {
-        $this->lockRevision = $pValue;
+        $this->lockRevision = $locked;
 
         return $this;
     }
@@ -97,13 +97,13 @@ class Security
     /**
      * Set LockStructure.
      *
-     * @param bool $pValue
+     * @param bool $locked
      *
      * @return $this
      */
-    public function setLockStructure($pValue)
+    public function setLockStructure($locked)
     {
-        $this->lockStructure = $pValue;
+        $this->lockStructure = $locked;
 
         return $this;
     }
@@ -121,13 +121,13 @@ class Security
     /**
      * Set LockWindows.
      *
-     * @param bool $pValue
+     * @param bool $locked
      *
      * @return $this
      */
-    public function setLockWindows($pValue)
+    public function setLockWindows($locked)
     {
-        $this->lockWindows = $pValue;
+        $this->lockWindows = $locked;
 
         return $this;
     }
@@ -145,17 +145,17 @@ class Security
     /**
      * Set RevisionsPassword.
      *
-     * @param string $pValue
-     * @param bool $pAlreadyHashed If the password has already been hashed, set this to true
+     * @param string $password
+     * @param bool $alreadyHashed If the password has already been hashed, set this to true
      *
      * @return $this
      */
-    public function setRevisionsPassword($pValue, $pAlreadyHashed = false)
+    public function setRevisionsPassword($password, $alreadyHashed = false)
     {
-        if (!$pAlreadyHashed) {
-            $pValue = PasswordHasher::hashPassword($pValue);
+        if (!$alreadyHashed) {
+            $password = PasswordHasher::hashPassword($password);
         }
-        $this->revisionsPassword = $pValue;
+        $this->revisionsPassword = $password;
 
         return $this;
     }
@@ -173,17 +173,17 @@ class Security
     /**
      * Set WorkbookPassword.
      *
-     * @param string $pValue
-     * @param bool $pAlreadyHashed If the password has already been hashed, set this to true
+     * @param string $password
+     * @param bool $alreadyHashed If the password has already been hashed, set this to true
      *
      * @return $this
      */
-    public function setWorkbookPassword($pValue, $pAlreadyHashed = false)
+    public function setWorkbookPassword($password, $alreadyHashed = false)
     {
-        if (!$pAlreadyHashed) {
-            $pValue = PasswordHasher::hashPassword($pValue);
+        if (!$alreadyHashed) {
+            $password = PasswordHasher::hashPassword($password);
         }
-        $this->workbookPassword = $pValue;
+        $this->workbookPassword = $password;
 
         return $this;
     }

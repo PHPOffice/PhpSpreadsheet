@@ -92,7 +92,7 @@ class Properties
     /**
      * Custom Properties.
      *
-     * @var string
+     * @var array
      */
     private $customProperties = [];
 
@@ -144,13 +144,13 @@ class Properties
     /**
      * Set Last Modified By.
      *
-     * @param string $pValue
+     * @param string $modifiedBy
      *
      * @return $this
      */
-    public function setLastModifiedBy($pValue)
+    public function setLastModifiedBy($modifiedBy)
     {
-        $this->lastModifiedBy = $pValue;
+        $this->lastModifiedBy = $modifiedBy;
 
         return $this;
     }
@@ -165,26 +165,31 @@ class Properties
         return $this->created;
     }
 
+    private function asTimeStamp($timestamp)
+    {
+        if ($timestamp === null) {
+            return time();
+        } elseif (is_string($timestamp)) {
+            if (is_numeric($timestamp)) {
+                return (int) $timestamp;
+            }
+
+            return strtotime($timestamp);
+        }
+
+        return $timestamp;
+    }
+
     /**
      * Set Created.
      *
-     * @param int|string $time
+     * @param int|string $timestamp
      *
      * @return $this
      */
-    public function setCreated($time)
+    public function setCreated($timestamp)
     {
-        if ($time === null) {
-            $time = time();
-        } elseif (is_string($time)) {
-            if (is_numeric($time)) {
-                $time = (int) $time;
-            } else {
-                $time = strtotime($time);
-            }
-        }
-
-        $this->created = $time;
+        $this->created = $this->asTimeStamp($timestamp);
 
         return $this;
     }
@@ -202,23 +207,13 @@ class Properties
     /**
      * Set Modified.
      *
-     * @param int|string $time
+     * @param int|string $timestamp
      *
      * @return $this
      */
-    public function setModified($time)
+    public function setModified($timestamp)
     {
-        if ($time === null) {
-            $time = time();
-        } elseif (is_string($time)) {
-            if (is_numeric($time)) {
-                $time = (int) $time;
-            } else {
-                $time = strtotime($time);
-            }
-        }
-
-        $this->modified = $time;
+        $this->modified = $this->asTimeStamp($timestamp);
 
         return $this;
     }
@@ -394,7 +389,7 @@ class Properties
     /**
      * Get a List of Custom Property Names.
      *
-     * @return array of string
+     * @return array
      */
     public function getCustomProperties()
     {
@@ -425,6 +420,8 @@ class Properties
         if (isset($this->customProperties[$propertyName])) {
             return $this->customProperties[$propertyName]['value'];
         }
+
+        return null;
     }
 
     /**
@@ -432,13 +429,15 @@ class Properties
      *
      * @param string $propertyName
      *
-     * @return string
+     * @return mixed
      */
     public function getCustomPropertyType($propertyName)
     {
         if (isset($this->customProperties[$propertyName])) {
             return $this->customProperties[$propertyName]['type'];
         }
+
+        return null;
     }
 
     /**

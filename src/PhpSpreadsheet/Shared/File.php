@@ -37,19 +37,19 @@ class File
     /**
      * Verify if a file exists.
      *
-     * @param string $pFilename Filename
+     * @param string $filename Filename
      *
      * @return bool
      */
-    public static function fileExists($pFilename)
+    public static function fileExists($filename)
     {
         // Sick construction, but it seems that
         // file_exists returns strange values when
         // doing the original file_exists on ZIP archives...
-        if (strtolower(substr($pFilename, 0, 3)) == 'zip') {
+        if (strtolower(substr($filename, 0, 3)) == 'zip') {
             // Open ZIP file and verify if the file exists
-            $zipFile = substr($pFilename, 6, strpos($pFilename, '#') - 6);
-            $archiveFile = substr($pFilename, strpos($pFilename, '#') + 1);
+            $zipFile = substr($filename, 6, strpos($filename, '#') - 6);
+            $archiveFile = substr($filename, strpos($filename, '#') + 1);
 
             $zip = new ZipArchive();
             if ($zip->open($zipFile) === true) {
@@ -62,29 +62,29 @@ class File
             return false;
         }
 
-        return file_exists($pFilename);
+        return file_exists($filename);
     }
 
     /**
      * Returns canonicalized absolute pathname, also for ZIP archives.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return string
      */
-    public static function realpath($pFilename)
+    public static function realpath($filename)
     {
         // Returnvalue
         $returnValue = '';
 
         // Try using realpath()
-        if (file_exists($pFilename)) {
-            $returnValue = realpath($pFilename);
+        if (file_exists($filename)) {
+            $returnValue = realpath($filename);
         }
 
         // Found something?
         if ($returnValue == '' || ($returnValue === null)) {
-            $pathArray = explode('/', $pFilename);
+            $pathArray = explode('/', $filename);
             while (in_array('..', $pathArray) && $pathArray[0] != '..') {
                 $iMax = count($pathArray);
                 for ($i = 0; $i < $iMax; ++$i) {

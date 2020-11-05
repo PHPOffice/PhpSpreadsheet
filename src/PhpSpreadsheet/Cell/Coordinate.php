@@ -137,24 +137,24 @@ abstract class Coordinate
     /**
      * Build range from coordinate strings.
      *
-     * @param array $range Array containg one or more arrays containing one or two coordinate strings
+     * @param array $rangea Array containg one or more arrays containing one or two coordinate strings
      *
      * @return string String representation of $pRange
      */
-    public static function buildRange(array $range)
+    public static function buildRange(array $rangea)
     {
         // Verify range
-        if (empty($range) || !is_array($range[0])) {
+        if (empty($rangea) || !is_array($rangea[0])) {
             throw new Exception('Range does not contain any information');
         }
 
         // Build range
-        $counter = count($range);
+        $counter = count($rangea);
         for ($i = 0; $i < $counter; ++$i) {
-            $range[$i] = implode(':', $range[$i]);
+            $rangea[$i] = implode(':', $rangea[$i]);
         }
 
-        return implode(',', $range);
+        return implode(',', $rangea);
     }
 
     /**
