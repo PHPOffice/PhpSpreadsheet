@@ -198,7 +198,6 @@ class Xls
      *               W is the width of the cell
      *               H is the height of the cell
      *
-     * @param Worksheet $worksheet
      * @param string $coordinates E.g. 'A1'
      * @param int $offsetX Horizontal offset in pixels
      * @param int $offsetY Vertical offset in pixels

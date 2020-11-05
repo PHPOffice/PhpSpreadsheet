@@ -396,8 +396,6 @@ class Font
     /**
      * Returns the font path given the font.
      *
-     * @param FontStyle $font
-     *
      * @return string Path to TrueType font file
      */
     public static function getTrueTypeFontFileFromFont(FontStyle $font)
