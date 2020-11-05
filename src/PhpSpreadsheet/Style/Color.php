@@ -104,20 +104,20 @@ class Color extends Supervisor
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFont()->getColor()->applyFromArray(['rgb' => '808080']);
      * </code>
      *
-     * @param array $styles Array containing style information
+     * @param array $styleArray Array containing style information
      *
      * @return $this
      */
-    public function applyFromArray(array $styles)
+    public function applyFromArray(array $styleArray)
     {
         if ($this->isSupervisor) {
-            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styles));
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
         } else {
-            if (isset($styles['rgb'])) {
-                $this->setRGB($styles['rgb']);
+            if (isset($styleArray['rgb'])) {
+                $this->setRGB($styleArray['rgb']);
             }
-            if (isset($styles['argb'])) {
-                $this->setARGB($styles['argb']);
+            if (isset($styleArray['argb'])) {
+                $this->setARGB($styleArray['argb']);
             }
         }
 
@@ -211,16 +211,16 @@ class Color extends Supervisor
     /**
      * Get a specified colour component of an RGB value.
      *
-     * @param string $RGB The colour as an RGB value (e.g. FF00CCCC or CCDDEE
+     * @param string $rgbValue The colour as an RGB value (e.g. FF00CCCC or CCDDEE
      * @param int $offset Position within the RGB value to extract
      * @param bool $hex Flag indicating whether the component should be returned as a hex or a
      *                                    decimal value
      *
      * @return string The extracted colour component
      */
-    private static function getColourComponent($RGB, $offset, $hex = true)
+    private static function getColourComponent($rgbValue, $offset, $hex = true)
     {
-        $colour = substr($RGB, $offset, 2);
+        $colour = substr($rgbValue, $offset, 2);
 
         return ($hex) ? $colour : hexdec($colour);
     }
@@ -228,43 +228,43 @@ class Color extends Supervisor
     /**
      * Get the red colour component of an RGB value.
      *
-     * @param string $RGB The colour as an RGB value (e.g. FF00CCCC or CCDDEE
+     * @param string $rgbValue The colour as an RGB value (e.g. FF00CCCC or CCDDEE
      * @param bool $hex Flag indicating whether the component should be returned as a hex or a
      *                                    decimal value
      *
      * @return string The red colour component
      */
-    public static function getRed($RGB, $hex = true)
+    public static function getRed($rgbValue, $hex = true)
     {
-        return self::getColourComponent($RGB, strlen($RGB) - 6, $hex);
+        return self::getColourComponent($rgbValue, strlen($rgbValue) - 6, $hex);
     }
 
     /**
      * Get the green colour component of an RGB value.
      *
-     * @param string $RGB The colour as an RGB value (e.g. FF00CCCC or CCDDEE
+     * @param string $rgbValue The colour as an RGB value (e.g. FF00CCCC or CCDDEE
      * @param bool $hex Flag indicating whether the component should be returned as a hex or a
      *                                    decimal value
      *
      * @return string The green colour component
      */
-    public static function getGreen($RGB, $hex = true)
+    public static function getGreen($rgbValue, $hex = true)
     {
-        return self::getColourComponent($RGB, strlen($RGB) - 4, $hex);
+        return self::getColourComponent($rgbValue, strlen($rgbValue) - 4, $hex);
     }
 
     /**
      * Get the blue colour component of an RGB value.
      *
-     * @param string $RGB The colour as an RGB value (e.g. FF00CCCC or CCDDEE
+     * @param string $rgbValue The colour as an RGB value (e.g. FF00CCCC or CCDDEE
      * @param bool $hex Flag indicating whether the component should be returned as a hex or a
      *                                    decimal value
      *
      * @return string The blue colour component
      */
-    public static function getBlue($RGB, $hex = true)
+    public static function getBlue($rgbValue, $hex = true)
     {
-        return self::getColourComponent($RGB, strlen($RGB) - 2, $hex);
+        return self::getColourComponent($rgbValue, strlen($rgbValue) - 2, $hex);
     }
 
     /**

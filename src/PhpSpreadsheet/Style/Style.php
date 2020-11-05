@@ -184,12 +184,12 @@ class Style extends Supervisor
      * );
      * </code>
      *
-     * @param array $pStyles Array containing style information
-     * @param bool $pAdvanced advanced mode for setting borders
+     * @param array $styleArray Array containing style information
+     * @param bool $advancedBorders advanced mode for setting borders
      *
      * @return $this
      */
-    public function applyFromArray(array $pStyles, $pAdvanced = true)
+    public function applyFromArray(array $styleArray, $advancedBorders = true)
     {
         if ($this->isSupervisor) {
             $pRange = $this->getSelectedCells();
@@ -221,36 +221,36 @@ class Style extends Supervisor
             }
 
             // ADVANCED MODE:
-            if ($pAdvanced && isset($pStyles['borders'])) {
+            if ($advancedBorders && isset($styleArray['borders'])) {
                 // 'allBorders' is a shorthand property for 'outline' and 'inside' and
                 //        it applies to components that have not been set explicitly
-                if (isset($pStyles['borders']['allBorders'])) {
+                if (isset($styleArray['borders']['allBorders'])) {
                     foreach (['outline', 'inside'] as $component) {
-                        if (!isset($pStyles['borders'][$component])) {
-                            $pStyles['borders'][$component] = $pStyles['borders']['allBorders'];
+                        if (!isset($styleArray['borders'][$component])) {
+                            $styleArray['borders'][$component] = $styleArray['borders']['allBorders'];
                         }
                     }
-                    unset($pStyles['borders']['allBorders']); // not needed any more
+                    unset($styleArray['borders']['allBorders']); // not needed any more
                 }
                 // 'outline' is a shorthand property for 'top', 'right', 'bottom', 'left'
                 //        it applies to components that have not been set explicitly
-                if (isset($pStyles['borders']['outline'])) {
+                if (isset($styleArray['borders']['outline'])) {
                     foreach (['top', 'right', 'bottom', 'left'] as $component) {
-                        if (!isset($pStyles['borders'][$component])) {
-                            $pStyles['borders'][$component] = $pStyles['borders']['outline'];
+                        if (!isset($styleArray['borders'][$component])) {
+                            $styleArray['borders'][$component] = $styleArray['borders']['outline'];
                         }
                     }
-                    unset($pStyles['borders']['outline']); // not needed any more
+                    unset($styleArray['borders']['outline']); // not needed any more
                 }
                 // 'inside' is a shorthand property for 'vertical' and 'horizontal'
                 //        it applies to components that have not been set explicitly
-                if (isset($pStyles['borders']['inside'])) {
+                if (isset($styleArray['borders']['inside'])) {
                     foreach (['vertical', 'horizontal'] as $component) {
-                        if (!isset($pStyles['borders'][$component])) {
-                            $pStyles['borders'][$component] = $pStyles['borders']['inside'];
+                        if (!isset($styleArray['borders'][$component])) {
+                            $styleArray['borders'][$component] = $styleArray['borders']['inside'];
                         }
                     }
-                    unset($pStyles['borders']['inside']); // not needed any more
+                    unset($styleArray['borders']['inside']); // not needed any more
                 }
                 // width and height characteristics of selection, 1, 2, or 3 (for 3 or more)
                 $xMax = min($rangeEnd[0] - $rangeStart[0] + 1, 3);
@@ -299,7 +299,7 @@ class Style extends Supervisor
                         $range = $colStart . $rowStart . ':' . $colEnd . $rowEnd;
 
                         // retrieve relevant style array for region
-                        $regionStyles = $pStyles;
+                        $regionStyles = $styleArray;
                         unset($regionStyles['borders']['inside']);
 
                         // what are the inner edges of the region when looking at the selection
@@ -311,8 +311,8 @@ class Style extends Supervisor
                                 case 'top':
                                 case 'bottom':
                                     // should pick up 'horizontal' border property if set
-                                    if (isset($pStyles['borders']['horizontal'])) {
-                                        $regionStyles['borders'][$innerEdge] = $pStyles['borders']['horizontal'];
+                                    if (isset($styleArray['borders']['horizontal'])) {
+                                        $regionStyles['borders'][$innerEdge] = $styleArray['borders']['horizontal'];
                                     } else {
                                         unset($regionStyles['borders'][$innerEdge]);
                                     }
@@ -321,8 +321,8 @@ class Style extends Supervisor
                                 case 'left':
                                 case 'right':
                                     // should pick up 'vertical' border property if set
-                                    if (isset($pStyles['borders']['vertical'])) {
-                                        $regionStyles['borders'][$innerEdge] = $pStyles['borders']['vertical'];
+                                    if (isset($styleArray['borders']['vertical'])) {
+                                        $regionStyles['borders'][$innerEdge] = $styleArray['borders']['vertical'];
                                     } else {
                                         unset($regionStyles['borders'][$innerEdge]);
                                     }
@@ -388,7 +388,7 @@ class Style extends Supervisor
             foreach ($oldXfIndexes as $oldXfIndex => $dummy) {
                 $style = $workbook->getCellXfByIndex($oldXfIndex);
                 $newStyle = clone $style;
-                $newStyle->applyFromArray($pStyles);
+                $newStyle->applyFromArray($styleArray);
 
                 if ($existingStyle = $workbook->getCellXfByHashCode($newStyle->getHashCode())) {
                     // there is already such cell Xf in our collection
@@ -432,26 +432,26 @@ class Style extends Supervisor
             }
         } else {
             // not a supervisor, just apply the style array directly on style object
-            if (isset($pStyles['fill'])) {
-                $this->getFill()->applyFromArray($pStyles['fill']);
+            if (isset($styleArray['fill'])) {
+                $this->getFill()->applyFromArray($styleArray['fill']);
             }
-            if (isset($pStyles['font'])) {
-                $this->getFont()->applyFromArray($pStyles['font']);
+            if (isset($styleArray['font'])) {
+                $this->getFont()->applyFromArray($styleArray['font']);
             }
-            if (isset($pStyles['borders'])) {
-                $this->getBorders()->applyFromArray($pStyles['borders']);
+            if (isset($styleArray['borders'])) {
+                $this->getBorders()->applyFromArray($styleArray['borders']);
             }
-            if (isset($pStyles['alignment'])) {
-                $this->getAlignment()->applyFromArray($pStyles['alignment']);
+            if (isset($styleArray['alignment'])) {
+                $this->getAlignment()->applyFromArray($styleArray['alignment']);
             }
-            if (isset($pStyles['numberFormat'])) {
-                $this->getNumberFormat()->applyFromArray($pStyles['numberFormat']);
+            if (isset($styleArray['numberFormat'])) {
+                $this->getNumberFormat()->applyFromArray($styleArray['numberFormat']);
             }
-            if (isset($pStyles['protection'])) {
-                $this->getProtection()->applyFromArray($pStyles['protection']);
+            if (isset($styleArray['protection'])) {
+                $this->getProtection()->applyFromArray($styleArray['protection']);
             }
-            if (isset($pStyles['quotePrefix'])) {
-                $this->quotePrefix = $pStyles['quotePrefix'];
+            if (isset($styleArray['quotePrefix'])) {
+                $this->quotePrefix = $styleArray['quotePrefix'];
             }
         }
 
@@ -533,13 +533,13 @@ class Style extends Supervisor
     /**
      * Set Conditional Styles. Only used on supervisor.
      *
-     * @param Conditional[] $pValue Array of conditional styles
+     * @param Conditional[] $conditionalStyleArray Array of conditional styles
      *
      * @return $this
      */
-    public function setConditionalStyles(array $pValue)
+    public function setConditionalStyles(array $conditionalStyleArray)
     {
-        $this->getActiveSheet()->setConditionalStyles($this->getSelectedCells(), $pValue);
+        $this->getActiveSheet()->setConditionalStyles($this->getSelectedCells(), $conditionalStyleArray);
 
         return $this;
     }
@@ -571,20 +571,20 @@ class Style extends Supervisor
     /**
      * Set quote prefix.
      *
-     * @param bool $pValue
+     * @param bool $quotePrefix
      *
      * @return $this
      */
-    public function setQuotePrefix($pValue)
+    public function setQuotePrefix($quotePrefix)
     {
-        if ($pValue == '') {
-            $pValue = false;
+        if ($quotePrefix == '') {
+            $quotePrefix = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = ['quotePrefix' => $pValue];
+            $styleArray = ['quotePrefix' => $quotePrefix];
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->quotePrefix = (bool) $pValue;
+            $this->quotePrefix = (bool) $quotePrefix;
         }
 
         return $this;
@@ -628,11 +628,11 @@ class Style extends Supervisor
     /**
      * Set own index in style collection.
      *
-     * @param int $pValue
+     * @param int $index
      */
-    public function setIndex($pValue): void
+    public function setIndex($index): void
     {
-        $this->index = $pValue;
+        $this->index = $index;
     }
 
     protected function exportArray1(): array

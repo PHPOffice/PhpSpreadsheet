@@ -115,20 +115,20 @@ class Border extends Supervisor
      * );
      * </code>
      *
-     * @param array $pStyles Array containing style information
+     * @param array $styleArray Array containing style information
      *
      * @return $this
      */
-    public function applyFromArray(array $pStyles)
+    public function applyFromArray(array $styleArray)
     {
         if ($this->isSupervisor) {
-            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
         } else {
-            if (isset($pStyles['borderStyle'])) {
-                $this->setBorderStyle($pStyles['borderStyle']);
+            if (isset($styleArray['borderStyle'])) {
+                $this->setBorderStyle($styleArray['borderStyle']);
             }
-            if (isset($pStyles['color'])) {
-                $this->getColor()->applyFromArray($pStyles['color']);
+            if (isset($styleArray['color'])) {
+                $this->getColor()->applyFromArray($styleArray['color']);
             }
         }
 

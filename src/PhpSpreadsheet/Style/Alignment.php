@@ -140,36 +140,36 @@ class Alignment extends Supervisor
      * );
      * </code>
      *
-     * @param array $pStyles Array containing style information
+     * @param array $styleArray Array containing style information
      *
      * @return $this
      */
-    public function applyFromArray(array $pStyles)
+    public function applyFromArray(array $styleArray)
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())
-                ->applyFromArray($this->getStyleArray($pStyles));
+                ->applyFromArray($this->getStyleArray($styleArray));
         } else {
-            if (isset($pStyles['horizontal'])) {
-                $this->setHorizontal($pStyles['horizontal']);
+            if (isset($styleArray['horizontal'])) {
+                $this->setHorizontal($styleArray['horizontal']);
             }
-            if (isset($pStyles['vertical'])) {
-                $this->setVertical($pStyles['vertical']);
+            if (isset($styleArray['vertical'])) {
+                $this->setVertical($styleArray['vertical']);
             }
-            if (isset($pStyles['textRotation'])) {
-                $this->setTextRotation($pStyles['textRotation']);
+            if (isset($styleArray['textRotation'])) {
+                $this->setTextRotation($styleArray['textRotation']);
             }
-            if (isset($pStyles['wrapText'])) {
-                $this->setWrapText($pStyles['wrapText']);
+            if (isset($styleArray['wrapText'])) {
+                $this->setWrapText($styleArray['wrapText']);
             }
-            if (isset($pStyles['shrinkToFit'])) {
-                $this->setShrinkToFit($pStyles['shrinkToFit']);
+            if (isset($styleArray['shrinkToFit'])) {
+                $this->setShrinkToFit($styleArray['shrinkToFit']);
             }
-            if (isset($pStyles['indent'])) {
-                $this->setIndent($pStyles['indent']);
+            if (isset($styleArray['indent'])) {
+                $this->setIndent($styleArray['indent']);
             }
-            if (isset($pStyles['readOrder'])) {
-                $this->setReadOrder($pStyles['readOrder']);
+            if (isset($styleArray['readOrder'])) {
+                $this->setReadOrder($styleArray['readOrder']);
             }
         }
 
@@ -267,24 +267,24 @@ class Alignment extends Supervisor
     /**
      * Set TextRotation.
      *
-     * @param int $rotation
+     * @param int $angleInDegrees
      *
      * @return $this
      */
-    public function setTextRotation($rotation)
+    public function setTextRotation($angleInDegrees)
     {
         // Excel2007 value 255 => PhpSpreadsheet value -165
-        if ($rotation == self::TEXTROTATION_STACK_EXCEL) {
-            $rotation = self::TEXTROTATION_STACK_PHPSPREADSHEET;
+        if ($angleInDegrees == self::TEXTROTATION_STACK_EXCEL) {
+            $angleInDegrees = self::TEXTROTATION_STACK_PHPSPREADSHEET;
         }
 
         // Set rotation
-        if (($rotation >= -90 && $rotation <= 90) || $rotation == self::TEXTROTATION_STACK_PHPSPREADSHEET) {
+        if (($angleInDegrees >= -90 && $angleInDegrees <= 90) || $angleInDegrees == self::TEXTROTATION_STACK_PHPSPREADSHEET) {
             if ($this->isSupervisor) {
-                $styleArray = $this->getStyleArray(['textRotation' => $rotation]);
+                $styleArray = $this->getStyleArray(['textRotation' => $angleInDegrees]);
                 $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             } else {
-                $this->textRotation = $rotation;
+                $this->textRotation = $angleInDegrees;
             }
         } else {
             throw new PhpSpreadsheetException('Text rotation should be a value between -90 and 90.');
