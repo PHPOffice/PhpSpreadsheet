@@ -341,7 +341,7 @@ class Axis extends Properties
         $this->setShadowPresetsProperties((int) $shadowPresets)
             ->setShadowColor(
                 $colorValue === null ? $this->shadowProperties['color']['value'] : $colorValue,
-                $colorAlpha === null ? (int) $this->shadowProperties['color']['alpha'] : $colorAlpha,
+                $colorAlpha === null ? $this->shadowProperties['color']['alpha'] : $colorAlpha,
                 $colorType === null ? $this->shadowProperties['color']['type'] : $colorType
             )
             ->setShadowBlur($blur)
