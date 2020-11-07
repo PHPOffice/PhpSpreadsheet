@@ -19,7 +19,7 @@ class HashTable
     protected $keyMap = [];
 
     /**
-     * Create a new \PhpOffice\PhpSpreadsheet\HashTable.
+     * Create a new HashTable.
      *
      * @param IComparable[] $source Optional source array to create HashTable from
      */
@@ -39,7 +39,7 @@ class HashTable
     public function addFromSource(?array $source = null): void
     {
         // Check if an array was passed
-        if ($source == null) {
+        if ($source === null) {
             return;
         }
 
@@ -109,19 +109,15 @@ class HashTable
     /**
      * Get index for hash code.
      *
-     * @param string $hashCode
-     *
      * @return false|int Index
      */
-    public function getIndexForHashCode($hashCode)
+    public function getIndexForHashCode(string $hashCode)
     {
         return array_search($hashCode, $this->keyMap, true);
     }
 
     /**
      * Get by index.
-     *
-     * @param int $index
      *
      * @return IComparable
      */
@@ -136,8 +132,6 @@ class HashTable
 
     /**
      * Get by hashcode.
-     *
-     * @param string $hashCode
      *
      * @return IComparable
      */
