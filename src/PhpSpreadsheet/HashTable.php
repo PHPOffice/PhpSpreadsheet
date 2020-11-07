@@ -7,14 +7,14 @@ class HashTable
     /**
      * HashTable elements.
      *
-     * @var IComparable[]
+     * @var array<string, IComparable>
      */
     protected $items = [];
 
     /**
      * HashTable key map.
      *
-     * @var string[]
+     * @var array<int, string>
      */
     protected $keyMap = [];
 
@@ -115,7 +115,7 @@ class HashTable
      */
     public function getIndexForHashCode($hashCode)
     {
-        return array_search($hashCode, $this->keyMap);
+        return array_search($hashCode, $this->keyMap, true);
     }
 
     /**
@@ -125,7 +125,7 @@ class HashTable
      *
      * @return IComparable
      */
-    public function getByIndex($index)
+    public function getByIndex(int $index)
     {
         if (isset($this->keyMap[$index])) {
             return $this->getByHashCode($this->keyMap[$index]);
@@ -141,7 +141,7 @@ class HashTable
      *
      * @return IComparable
      */
-    public function getByHashCode($hashCode)
+    public function getByHashCode(string $hashCode)
     {
         if (isset($this->items[$hashCode])) {
             return $this->items[$hashCode];
