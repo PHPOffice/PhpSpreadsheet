@@ -1,16 +1,9 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-error_reporting(E_ALL);
-set_time_limit(0);
-
-date_default_timezone_set('UTC');
-
-// Adjust the path as required to reference the PHPSpreadsheet Bootstrap file
-require_once __DIR__ . '/../Bootstrap.php';
+require __DIR__ . '/../Header.php';
 
 $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->setActiveSheetIndex(0);
@@ -51,13 +44,11 @@ $worksheet
     ->setCellValue("B{$row}", "=SUM(B{$startRow}:B{$endRow})")
     ->setCellValue("C{$row}", "=SUM(C{$startRow}:C{$endRow})");
 
-echo sprintf(
+$helper->log(sprintf(
     'Worked %.2f hours at a rate of %.2f - Charge to the client is %.2f',
     $worksheet->getCell("B{$row}")->getCalculatedValue(),
     $worksheet->getCell('B1')->getValue(),
     $worksheet->getCell("C{$row}")->getCalculatedValue()
-), PHP_EOL;
+));
 
-$outputFileName = 'AbsoluteNamedRange.xlsx';
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-$writer->save($outputFileName);
+$helper->write($spreadsheet, __FILE__, ['Xlsx']);
