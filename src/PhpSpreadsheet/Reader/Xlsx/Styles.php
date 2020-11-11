@@ -143,21 +143,21 @@ class Styles extends BaseParserClass
 
     private static function readAlignmentStyle(Alignment $alignment, SimpleXMLElement $alignmentXml): void
     {
-        $alignment->setHorizontal((string) $alignmentXml->alignment['horizontal']);
-        $alignment->setVertical((string) $alignmentXml->alignment['vertical']);
+        $alignment->setHorizontal((string) $alignmentXml['horizontal']);
+        $alignment->setVertical((string) $alignmentXml['vertical']);
 
         $textRotation = 0;
-        if ((int) $alignmentXml->alignment['textRotation'] <= 90) {
-            $textRotation = (int) $alignmentXml->alignment['textRotation'];
-        } elseif ((int) $alignmentXml->alignment['textRotation'] > 90) {
-            $textRotation = 90 - (int) $alignmentXml->alignment['textRotation'];
+        if ((int) $alignmentXml['textRotation'] <= 90) {
+            $textRotation = (int) $alignmentXml['textRotation'];
+        } elseif ((int) $alignmentXml['textRotation'] > 90) {
+            $textRotation = 90 - (int) $alignmentXml['textRotation'];
         }
 
         $alignment->setTextRotation((int) $textRotation);
-        $alignment->setWrapText(self::boolean((string) $alignmentXml->alignment['wrapText']));
-        $alignment->setShrinkToFit(self::boolean((string) $alignmentXml->alignment['shrinkToFit']));
-        $alignment->setIndent((int) ((string) $alignmentXml->alignment['indent']) > 0 ? (int) ((string) $alignmentXml->alignment['indent']) : 0);
-        $alignment->setReadOrder((int) ((string) $alignmentXml->alignment['readingOrder']) > 0 ? (int) ((string) $alignmentXml->alignment['readingOrder']) : 0);
+        $alignment->setWrapText(self::boolean((string) $alignmentXml['wrapText']));
+        $alignment->setShrinkToFit(self::boolean((string) $alignmentXml['shrinkToFit']));
+        $alignment->setIndent((int) ((string) $alignmentXml['indent']) > 0 ? (int) ((string) $alignmentXml['indent']) : 0);
+        $alignment->setReadOrder((int) ((string) $alignmentXml['readingOrder']) > 0 ? (int) ((string) $alignmentXml['readingOrder']) : 0);
     }
 
     private function readStyle(Style $docStyle, $style): void
