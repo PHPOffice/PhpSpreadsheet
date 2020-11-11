@@ -1,17 +1,10 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\NamedFormula;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-error_reporting(E_ALL);
-set_time_limit(0);
-
-date_default_timezone_set('UTC');
-
-// Adjust the path as required to reference the PHPSpreadsheet Bootstrap file
-require_once __DIR__ . '/../Bootstrap.php';
+require_once __DIR__ . '/../Header.php';
 
 $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->setActiveSheetIndex(0);
@@ -62,13 +55,11 @@ $worksheet
     ->setCellValue("B{$row}", '=COLUMN_TOTALS')
     ->setCellValue("C{$row}", '=COLUMN_TOTALS');
 
-echo sprintf(
+$helper->log(sprintf(
     'Worked %.2f hours at a rate of %.2f - Charge to the client is %.2f',
     $worksheet->getCell("B{$row}")->getCalculatedValue(),
     $worksheet->getCell('B1')->getValue(),
     $worksheet->getCell("C{$row}")->getCalculatedValue()
-), PHP_EOL;
+));
 
-$outputFileName = 'NamedFormulaeAndRanges.xlsx';
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-$writer->save($outputFileName);
+$helper->write($spreadsheet, __FILE__, ['Xlsx']);
