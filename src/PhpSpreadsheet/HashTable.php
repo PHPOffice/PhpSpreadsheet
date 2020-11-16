@@ -113,7 +113,13 @@ class HashTable
      */
     public function getIndexForHashCode(string $hashCode)
     {
-        return array_search($hashCode, $this->keyMap, true);
+        $matched = array_search($hashCode, $this->keyMap, true);
+
+        if ($matched === false) {
+            return $matched;
+        }
+
+        return (int) $matched;
     }
 
     /**

@@ -5117,47 +5117,47 @@ class Calculation
     /**
      * Extract range values.
      *
-     * @param string &$pRange String based range representation
-     * @param Worksheet $pSheet Worksheet
+     * @param string &$range String based range representation
+     * @param null|Worksheet $worksheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractNamedRange(&$pRange = 'A1', ?Worksheet $pSheet = null, $resetLog = true)
+    public function extractNamedRange(&$range = 'A1', ?Worksheet $worksheet = null, $resetLog = true)
     {
         // Return value
         $returnValue = [];
 
-        if ($pSheet !== null) {
-            $pSheetName = $pSheet->getTitle();
-            if (strpos($pRange, '!') !== false) {
-                [$pSheetName, $pRange] = Worksheet::extractSheetTitle($pRange, true);
-                $pSheet = $this->spreadsheet->getSheetByName($pSheetName);
+        if ($worksheet !== null) {
+            $pSheetName = $worksheet->getTitle();
+            if (strpos($range, '!') !== false) {
+                [$pSheetName, $range] = Worksheet::extractSheetTitle($range, true);
+                $worksheet = $this->spreadsheet->getSheetByName($pSheetName);
             }
 
             // Named range?
-            $namedRange = DefinedName::resolveName($pRange, $pSheet);
+            $namedRange = DefinedName::resolveName($range, $worksheet);
             if ($namedRange === null) {
                 return Functions::REF();
             }
 
-            $pSheet = $namedRange->getWorksheet();
-            $pRange = $namedRange->getValue();
-            $splitRange = Coordinate::splitRange($pRange);
+            $worksheet = $namedRange->getWorksheet();
+            $range = $namedRange->getValue();
+            $splitRange = Coordinate::splitRange($range);
             //    Convert row and column references
             if (ctype_alpha($splitRange[0][0])) {
-                $pRange = $splitRange[0][0] . '1:' . $splitRange[0][1] . $namedRange->getWorksheet()->getHighestRow();
+                $range = $splitRange[0][0] . '1:' . $splitRange[0][1] . $namedRange->getWorksheet()->getHighestRow();
             } elseif (ctype_digit($splitRange[0][0])) {
-                $pRange = 'A' . $splitRange[0][0] . ':' . $namedRange->getWorksheet()->getHighestColumn() . $splitRange[0][1];
+                $range = 'A' . $splitRange[0][0] . ':' . $namedRange->getWorksheet()->getHighestColumn() . $splitRange[0][1];
             }
 
             // Extract range
-            $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
+            $aReferences = Coordinate::extractAllCellReferencesInRange($range);
             if (!isset($aReferences[1])) {
                 //    Single cell (or single column or row) in range
                 [$currentCol, $currentRow] = Coordinate::coordinateFromString($aReferences[0]);
-                if ($pSheet->cellExists($aReferences[0])) {
-                    $returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                if ($worksheet->cellExists($aReferences[0])) {
+                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
                 } else {
                     $returnValue[$currentRow][$currentCol] = null;
                 }
@@ -5166,8 +5166,8 @@ class Calculation
                 foreach ($aReferences as $reference) {
                     // Extract range
                     [$currentCol, $currentRow] = Coordinate::coordinateFromString($reference);
-                    if ($pSheet->cellExists($reference)) {
-                        $returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
+                    if ($worksheet->cellExists($reference)) {
+                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
                     } else {
                         $returnValue[$currentRow][$currentCol] = null;
                     }
