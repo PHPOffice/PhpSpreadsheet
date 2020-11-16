@@ -494,13 +494,13 @@ class ReferenceHelper
         $this->adjustColumnDimensions($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: row dimensions
-        $this->adjustRowDimensions($worksheet, $beforeCellAddress, $numberOfColumns, $beforeRow, $numberOfRows);
+        $this->adjustRowDimensions($worksheet, $beforeCellAddress, $numberOfColumns, (int) $beforeRow, $numberOfRows);
 
         //    Update worksheet: page breaks
-        $this->adjustPageBreaks($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows);
+        $this->adjustPageBreaks($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, (int) $beforeRow, $numberOfRows);
 
         //    Update worksheet: comments
-        $this->adjustComments($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows);
+        $this->adjustComments($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, (int) $beforeRow, $numberOfRows);
 
         // Update worksheet: hyperlinks
         $this->adjustHyperlinks($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
