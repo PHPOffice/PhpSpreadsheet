@@ -212,12 +212,10 @@ class ReferenceHelper
      *
      * @param Worksheet $worksheet The worksheet that we're editing
      * @param string $beforeCellAddress Insert/Delete before this cell address (e.g. 'A1')
-     * @param int $beforeColumnIndex Index number of the column we're inserting/deleting before
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
-     * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustHyperlinks($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows): void
+    protected function adjustHyperlinks($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows): void
     {
         $aHyperlinkCollection = $worksheet->getHyperlinkCollection();
         ($numberOfColumns > 0 || $numberOfRows > 0) ?
@@ -237,12 +235,10 @@ class ReferenceHelper
      *
      * @param Worksheet $pSheet The worksheet that we're editing
      * @param string $pBefore Insert/Delete before this cell address (e.g. 'A1')
-     * @param int $beforeColumnIndex Index number of the column we're inserting/deleting before
      * @param int $pNumCols Number of columns to insert/delete (negative values indicate deletion)
-     * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $pNumRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustDataValidations(Worksheet $pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows): void
+    protected function adjustDataValidations(Worksheet $pSheet, $pBefore, $pNumCols, $pNumRows): void
     {
         $aDataValidationCollection = $pSheet->getDataValidationCollection();
         ($pNumCols > 0 || $pNumRows > 0) ?
@@ -262,12 +258,10 @@ class ReferenceHelper
      *
      * @param Worksheet $worksheet The worksheet that we're editing
      * @param string $beforeCellAddress Insert/Delete before this cell address (e.g. 'A1')
-     * @param int $beforeColumnIndex Index number of the column we're inserting/deleting before
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
-     * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustMergeCells(Worksheet $worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows): void
+    protected function adjustMergeCells(Worksheet $worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows): void
     {
         $aMergeCells = $worksheet->getMergeCells();
         $aNewMergeCells = []; // the new array of all merge cells
@@ -283,12 +277,10 @@ class ReferenceHelper
      *
      * @param Worksheet $worksheet The worksheet that we're editing
      * @param string $beforeCellAddress Insert/Delete before this cell address (e.g. 'A1')
-     * @param int $beforeColumnIndex Index number of the column we're inserting/deleting before
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
-     * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustProtectedCells(Worksheet $worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows): void
+    protected function adjustProtectedCells(Worksheet $worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows): void
     {
         $aProtectedCells = $worksheet->getProtectedCells();
         ($numberOfColumns > 0 || $numberOfRows > 0) ?
@@ -307,12 +299,10 @@ class ReferenceHelper
      *
      * @param Worksheet $worksheet The worksheet that we're editing
      * @param string $beforeCellAddress Insert/Delete before this cell address (e.g. 'A1')
-     * @param int $beforeColumnIndex Index number of the column we're inserting/deleting before
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
-     * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustColumnDimensions(Worksheet $worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows): void
+    protected function adjustColumnDimensions(Worksheet $worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows): void
     {
         $aColumnDimensions = array_reverse($worksheet->getColumnDimensions(), true);
         if (!empty($aColumnDimensions)) {
@@ -332,12 +322,11 @@ class ReferenceHelper
      *
      * @param Worksheet $worksheet The worksheet that we're editing
      * @param string $beforeCellAddress Insert/Delete before this cell address (e.g. 'A1')
-     * @param int $beforeColumnIndex Index number of the column we're inserting/deleting before
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
      * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustRowDimensions(Worksheet $worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows): void
+    protected function adjustRowDimensions(Worksheet $worksheet, $beforeCellAddress, $numberOfColumns, $beforeRow, $numberOfRows): void
     {
         $aRowDimensions = array_reverse($worksheet->getRowDimensions(), true);
         if (!empty($aRowDimensions)) {
@@ -502,10 +491,10 @@ class ReferenceHelper
         }
 
         // Update worksheet: column dimensions
-        $this->adjustColumnDimensions($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows);
+        $this->adjustColumnDimensions($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: row dimensions
-        $this->adjustRowDimensions($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows);
+        $this->adjustRowDimensions($worksheet, $beforeCellAddress, $numberOfColumns, $beforeRow, $numberOfRows);
 
         //    Update worksheet: page breaks
         $this->adjustPageBreaks($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows);
@@ -514,16 +503,16 @@ class ReferenceHelper
         $this->adjustComments($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows);
 
         // Update worksheet: hyperlinks
-        $this->adjustHyperlinks($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows);
+        $this->adjustHyperlinks($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: data validations
-        $this->adjustDataValidations($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows);
+        $this->adjustDataValidations($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: merge cells
-        $this->adjustMergeCells($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows);
+        $this->adjustMergeCells($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: protected cells
-        $this->adjustProtectedCells($worksheet, $beforeCellAddress, $beforeColumnIndex, $numberOfColumns, $beforeRow, $numberOfRows);
+        $this->adjustProtectedCells($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: autofilter
         $autoFilter = $worksheet->getAutoFilter();
