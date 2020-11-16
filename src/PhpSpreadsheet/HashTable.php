@@ -109,17 +109,11 @@ class HashTable
     /**
      * Get index for hash code.
      *
-     * @return false|int Index
+     * @return false|int|string Index (return should never be a string, but scrutinizer refuses to recognise that)
      */
     public function getIndexForHashCode(string $hashCode)
     {
-        $matched = array_search($hashCode, $this->keyMap, true);
-
-        if ($matched === false) {
-            return $matched;
-        }
-
-        return (int) $matched;
+        return array_search($hashCode, $this->keyMap, true);
     }
 
     /**
