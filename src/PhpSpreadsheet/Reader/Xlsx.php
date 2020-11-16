@@ -1144,8 +1144,8 @@ class Xlsx extends BaseReader
                                                         $shadow = $objDrawing->getShadow();
                                                         $shadow->setVisible(true);
                                                         $shadow->setBlurRadius(Drawing::EMUToPixels((int) self::getArrayItem($outerShdw->attributes(), 'blurRad')));
-                                                        $shadow->setDistance(Drawing::EMUToPixels(self::getArrayItem($outerShdw->attributes(), 'dist')));
-                                                        $shadow->setDirection(Drawing::angleToDegrees(self::getArrayItem($outerShdw->attributes(), 'dir')));
+                                                        $shadow->setDistance(Drawing::EMUToPixels((int) self::getArrayItem($outerShdw->attributes(), 'dist')));
+                                                        $shadow->setDirection(Drawing::angleToDegrees((int) self::getArrayItem($outerShdw->attributes(), 'dir')));
                                                         $shadow->setAlignment((string) self::getArrayItem($outerShdw->attributes(), 'algn'));
                                                         $clr = isset($outerShdw->srgbClr) ? $outerShdw->srgbClr : $outerShdw->prstClr;
                                                         $shadow->getColor()->setRGB(self::getArrayItem($clr->attributes(), 'val'));

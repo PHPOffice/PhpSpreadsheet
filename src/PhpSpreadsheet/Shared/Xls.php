@@ -77,7 +77,7 @@ class Xls
             // then we have a default row dimension with explicit height
             $defaultRowDimension = $worksheet->getDefaultRowDimension();
             $rowHeight = $defaultRowDimension->getRowHeight();
-            $pixelRowHeight = Drawing::pointsToPixels($rowHeight);
+            $pixelRowHeight = Drawing::pointsToPixels((int) $rowHeight);
         } else {
             // we don't even have any default row dimension. Height depends on default font
             $pointRowHeight = Font::getDefaultRowHeightByFont($font);
