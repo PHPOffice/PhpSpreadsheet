@@ -1138,12 +1138,12 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setWidth(Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cx')));
                                                     $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cy')));
                                                     if ($xfrm) {
-                                                        $objDrawing->setRotation(Drawing::angleToDegrees(self::getArrayItem($xfrm->attributes(), 'rot')));
+                                                        $objDrawing->setRotation(Drawing::angleToDegrees((int) self::getArrayItem($xfrm->attributes(), 'rot')));
                                                     }
                                                     if ($outerShdw) {
                                                         $shadow = $objDrawing->getShadow();
                                                         $shadow->setVisible(true);
-                                                        $shadow->setBlurRadius(Drawing::EMUToPixels(self::getArrayItem($outerShdw->attributes(), 'blurRad')));
+                                                        $shadow->setBlurRadius(Drawing::EMUToPixels((int) self::getArrayItem($outerShdw->attributes(), 'blurRad')));
                                                         $shadow->setDistance(Drawing::EMUToPixels(self::getArrayItem($outerShdw->attributes(), 'dist')));
                                                         $shadow->setDirection(Drawing::angleToDegrees(self::getArrayItem($outerShdw->attributes(), 'dir')));
                                                         $shadow->setAlignment((string) self::getArrayItem($outerShdw->attributes(), 'algn'));
@@ -1563,7 +1563,7 @@ class Xlsx extends BaseReader
         // font
         if (isset($style->font)) {
             $docStyle->getFont()->setName((string) $style->font->name['val']);
-            $docStyle->getFont()->setSize((string) $style->font->sz['val']);
+            $docStyle->getFont()->setSize((float) $style->font->sz['val']);
             if (isset($style->font->b)) {
                 $docStyle->getFont()->setBold(!isset($style->font->b['val']) || self::boolean((string) $style->font->b['val']));
             }
@@ -1676,7 +1676,7 @@ class Xlsx extends BaseReader
 
         // top-level style settings
         if (isset($style->quotePrefix)) {
-            $docStyle->setQuotePrefix($style->quotePrefix);
+            $docStyle->setQuotePrefix((bool) $style->quotePrefix);
         }
     }
 
