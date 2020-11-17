@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class Font
 {
@@ -342,7 +343,7 @@ class Font
 
         // Calculate approximate rotated column width
         if ($rotation !== 0) {
-            if ($rotation == -165) {
+            if ($rotation == Alignment::TEXTROTATION_STACK_PHPSPREADSHEET) {
                 // stacked text
                 $columnWidth = 4; // approximation
             } else {

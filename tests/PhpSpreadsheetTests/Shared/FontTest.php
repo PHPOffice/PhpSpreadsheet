@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\Font;
+use PhpOffice\PhpSpreadsheet\Style\Font as StyleFont;
 use PHPUnit\Framework\TestCase;
 
 class FontTest extends TestCase
@@ -82,5 +83,17 @@ class FontTest extends TestCase
     public function providerCentimeterSizeToPixels()
     {
         return require 'tests/data/Shared/CentimeterSizeToPixels.php';
+    }
+
+    public function testVerdanaRotation(): void
+    {
+        $font = new StyleFont();
+        $font->setName('Verdana')->setSize(10);
+        $width = Font::getTextWidthPixelsApprox('n', $font, 0);
+        self::assertEquals(8, $width);
+        $width = Font::getTextWidthPixelsApprox('n', $font, 45);
+        self::assertEquals(7, $width);
+        $width = Font::getTextWidthPixelsApprox('n', $font, -165);
+        self::assertEquals(4, $width);
     }
 }

@@ -2286,8 +2286,8 @@ class Xls extends BaseReader
                     $rotation = $angle;
                 } elseif ($angle <= 180) {
                     $rotation = 90 - $angle;
-                } elseif ($angle == 255) {
-                    $rotation = -165;
+                } elseif ($angle == Alignment::TEXTROTATION_STACK_EXCEL) {
+                    $rotation = Alignment::TEXTROTATION_STACK_PHPSPREADSHEET;
                 }
                 $objStyle->getAlignment()->setTextRotation($rotation);
 
@@ -2389,7 +2389,7 @@ class Xls extends BaseReader
 
                         break;
                     case 1:
-                        $objStyle->getAlignment()->setTextRotation(-165);
+                        $objStyle->getAlignment()->setTextRotation(Alignment::TEXTROTATION_STACK_PHPSPREADSHEET);
 
                         break;
                     case 2:
