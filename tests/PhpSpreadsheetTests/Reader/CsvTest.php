@@ -284,7 +284,7 @@ EOF;
         $reader = new Csv();
         $reader->setEscapeCharacter($escape);
         $filename = 'tests/data/Reader/CSV/escape.csv';
-        $worksheetinfo = $reader->listWorksheetInfo($filename);
+        $reader->listWorksheetInfo($filename);
         self::assertEquals($delimiter, $reader->getDelimiter());
     }
 
