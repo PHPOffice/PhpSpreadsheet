@@ -7,13 +7,13 @@ class DefaultReadFilter implements IReadFilter
     /**
      * Should this cell be read?
      *
-     * @param string $column Column address (as a string value like "A", or "IV")
+     * @param string $columnAddress Column address (as a string value like "A", or "IV")
      * @param int $row Row number
      * @param string $worksheetName Optional worksheet name
      *
      * @return bool
      */
-    public function readCell($column, $row, $worksheetName = '')
+    public function readCell($columnAddress, $row, $worksheetName = '')
     {
         return true;
     }

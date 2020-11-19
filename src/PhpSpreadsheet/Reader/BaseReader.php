@@ -66,9 +66,9 @@ abstract class BaseReader implements IReader
         return $this->readDataOnly;
     }
 
-    public function setReadDataOnly($pValue)
+    public function setReadDataOnly($readCellValuesOnly)
     {
-        $this->readDataOnly = (bool) $pValue;
+        $this->readDataOnly = (bool) $readCellValuesOnly;
 
         return $this;
     }
@@ -78,9 +78,9 @@ abstract class BaseReader implements IReader
         return $this->readEmptyCells;
     }
 
-    public function setReadEmptyCells($pValue)
+    public function setReadEmptyCells($readEmptyCells)
     {
-        $this->readEmptyCells = (bool) $pValue;
+        $this->readEmptyCells = (bool) $readEmptyCells;
 
         return $this;
     }
@@ -90,9 +90,9 @@ abstract class BaseReader implements IReader
         return $this->includeCharts;
     }
 
-    public function setIncludeCharts($pValue)
+    public function setIncludeCharts($includeCharts)
     {
-        $this->includeCharts = (bool) $pValue;
+        $this->includeCharts = (bool) $includeCharts;
 
         return $this;
     }
@@ -102,13 +102,13 @@ abstract class BaseReader implements IReader
         return $this->loadSheetsOnly;
     }
 
-    public function setLoadSheetsOnly($value)
+    public function setLoadSheetsOnly($sheetList)
     {
-        if ($value === null) {
+        if ($sheetList === null) {
             return $this->setLoadAllSheets();
         }
 
-        $this->loadSheetsOnly = is_array($value) ? $value : [$value];
+        $this->loadSheetsOnly = is_array($sheetList) ? $sheetList : [$sheetList];
 
         return $this;
     }
@@ -125,9 +125,9 @@ abstract class BaseReader implements IReader
         return $this->readFilter;
     }
 
-    public function setReadFilter(IReadFilter $pValue)
+    public function setReadFilter(IReadFilter $readFilter)
     {
-        $this->readFilter = $pValue;
+        $this->readFilter = $readFilter;
 
         return $this;
     }
@@ -140,22 +140,22 @@ abstract class BaseReader implements IReader
     /**
      * Open file for reading.
      *
-     * @param string $pFilename
+     * @param string $filename
      */
-    protected function openFile($pFilename): void
+    protected function openFile($filename): void
     {
-        if ($pFilename) {
-            File::assertFile($pFilename);
+        if ($filename) {
+            File::assertFile($filename);
 
             // Open file
-            $fileHandle = fopen($pFilename, 'rb');
+            $fileHandle = fopen($filename, 'rb');
         } else {
             $fileHandle = false;
         }
         if ($fileHandle !== false) {
             $this->fileHandle = $fileHandle;
         } else {
-            throw new ReaderException('Could not open file ' . $pFilename . ' for reading.');
+            throw new ReaderException('Could not open file ' . $filename . ' for reading.');
         }
     }
 }

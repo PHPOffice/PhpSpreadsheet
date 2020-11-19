@@ -69,18 +69,18 @@ class Xlsx extends BaseReader
     /**
      * Can the current IReader read the file?
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead($filename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($filename);
 
         $result = false;
         $zip = new ZipArchive();
 
-        if ($zip->open($pFilename) === true) {
+        if ($zip->open($filename) === true) {
             $workbookBasename = $this->getWorkbookBaseName($zip);
             $result = !empty($workbookBasename);
 
@@ -311,13 +311,13 @@ class Xlsx extends BaseReader
     /**
      * Loads Spreadsheet from file.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return Spreadsheet
      */
-    public function load($pFilename)
+    public function load($filename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($filename);
 
         // Initialisations
         $excel = new Spreadsheet();
@@ -329,7 +329,7 @@ class Xlsx extends BaseReader
         $unparsedLoadedData = [];
 
         $zip = new ZipArchive();
-        $zip->open($pFilename);
+        $zip->open($filename);
 
         //    Read the theme first, because we need the colour scheme when reading the styles
         //~ http://schemas.openxmlformats.org/package/2006/relationships"
@@ -1036,7 +1036,7 @@ class Xlsx extends BaseReader
                                                     $hfImages[(string) $shape['id']]->setName((string) $imageData['title']);
                                                 }
 
-                                                $hfImages[(string) $shape['id']]->setPath('zip://' . File::realpath($pFilename) . '#' . $drawings[(string) $imageData['relid']], false);
+                                                $hfImages[(string) $shape['id']]->setPath('zip://' . File::realpath($filename) . '#' . $drawings[(string) $imageData['relid']], false);
                                                 $hfImages[(string) $shape['id']]->setResizeProportional(false);
                                                 $hfImages[(string) $shape['id']]->setWidth($style['width']);
                                                 $hfImages[(string) $shape['id']]->setHeight($style['height']);
@@ -1124,7 +1124,7 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setName((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
                                                     $objDrawing->setPath(
-                                                        'zip://' . File::realpath($pFilename) . '#' .
+                                                        'zip://' . File::realpath($filename) . '#' .
                                                         $images[(string) self::getArrayItem(
                                                             $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
                                                             'embed'
@@ -1176,7 +1176,7 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setName((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
                                                     $objDrawing->setPath(
-                                                        'zip://' . File::realpath($pFilename) . '#' .
+                                                        'zip://' . File::realpath($filename) . '#' .
                                                         $images[(string) self::getArrayItem(
                                                             $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
                                                             'embed'

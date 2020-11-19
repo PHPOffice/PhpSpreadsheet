@@ -96,11 +96,11 @@ class Xml extends BaseReader
     /**
      * Can the current IReader read the file?
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead($filename)
     {
         //    Office                    xmlns:o="urn:schemas-microsoft-com:office:office"
         //    Excel                    xmlns:x="urn:schemas-microsoft-com:office:excel"
@@ -118,7 +118,7 @@ class Xml extends BaseReader
         ];
 
         // Open file
-        $data = file_get_contents($pFilename);
+        $data = file_get_contents($filename);
 
         // Why?
         //$data = str_replace("'", '"', $data); // fix headers with single quote
@@ -272,18 +272,18 @@ class Xml extends BaseReader
     /**
      * Loads Spreadsheet from file.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return Spreadsheet
      */
-    public function load($pFilename)
+    public function load($filename)
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $spreadsheet);
+        return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
     private static function identifyFixedStyleValue($styleList, &$styleAttributeValue)

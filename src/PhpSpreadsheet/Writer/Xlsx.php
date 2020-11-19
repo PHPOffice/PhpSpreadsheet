@@ -174,15 +174,15 @@ class Xlsx extends BaseWriter
     /**
      * Save PhpSpreadsheet to file.
      *
-     * @param resource|string $pFilename
+     * @param resource|string $filename
      */
-    public function save($pFilename): void
+    public function save($filename): void
     {
         // garbage collect
         $this->pathNames = [];
         $this->spreadSheet->garbageCollect();
 
-        $this->openFileHandle($pFilename);
+        $this->openFileHandle($filename);
 
         $saveDebugLog = Calculation::getInstance($this->spreadSheet)->getDebugLog()->getWriteDebugLog();
         Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog(false);

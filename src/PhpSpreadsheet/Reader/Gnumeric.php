@@ -63,19 +63,19 @@ class Gnumeric extends BaseReader
     /**
      * Can the current IReader read the file?
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead($filename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($filename);
 
         // Check if gzlib functions are available
         $data = '';
         if (function_exists('gzread')) {
             // Read signature data (first 3 bytes)
-            $fh = fopen($pFilename, 'rb');
+            $fh = fopen($filename, 'rb');
             $data = fread($fh, 2);
             fclose($fh);
         }
@@ -420,18 +420,18 @@ class Gnumeric extends BaseReader
     /**
      * Loads Spreadsheet from file.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return Spreadsheet
      */
-    public function load($pFilename)
+    public function load($filename)
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $spreadsheet);
+        return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
     /**
