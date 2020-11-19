@@ -125,7 +125,7 @@ the Excel file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -242,7 +242,7 @@ in the Excel file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -301,7 +301,7 @@ in the Excel file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -352,7 +352,7 @@ in the SYLK file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -397,7 +397,7 @@ in the Calc file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
