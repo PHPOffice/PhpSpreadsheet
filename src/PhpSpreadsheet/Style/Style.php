@@ -358,7 +358,10 @@ class Style extends Supervisor
                     foreach ($this->getActiveSheet()->getColumnIterator($rangeStart0, $rangeEnd0) as $columnIterator) {
                         $cellIterator = $columnIterator->getCellIterator();
                         foreach ($cellIterator as $columnCell) {
-                            $columnCell->getStyle()->applyFromArray($pStyles);
+                            // Scrutinizer erroneously believes columnCell can be null
+                            if ($columnCell !== null) {
+                                $columnCell->getStyle()->applyFromArray($pStyles);
+                            }
                         }
                     }
 
@@ -372,7 +375,7 @@ class Style extends Supervisor
                             $oldXfIndexes[$this->getActiveSheet()->getRowDimension($row)->getXfIndex()] = true;
                         }
                     }
-                    foreach ($this->getActiveSheet()->getRowIterator($rangeStart[1], $rangeEnd[1]) as $rowIterator) {
+                    foreach ($this->getActiveSheet()->getRowIterator((int) $rangeStart[1], (int) $rangeEnd[1]) as $rowIterator) {
                         $cellIterator = $rowIterator->getCellIterator();
                         foreach ($cellIterator as $rowCell) {
                             $rowCell->getStyle()->applyFromArray($pStyles);

@@ -31,7 +31,7 @@ class StyleTest extends TestCase
                 'bold' => true,
             ],
         ];
-        $cell1style = $sheet->getStyle($cellCoordinates)->applyFromArray($styleArray);
+        $sheet->getStyle($cellCoordinates)->applyFromArray($styleArray);
         $sheet->setCellValue('A1', 'xxxa1');
         $sheet->setCellValue('A2', 'xxxa2');
         $sheet->setCellValue('A3', 'xxxa3');
@@ -46,7 +46,7 @@ class StyleTest extends TestCase
                 'italic' => true,
             ],
         ];
-        $cell1style = $sheet->getStyle($cellCoordinates)->applyFromArray($styleArray);
+        $sheet->getStyle($cellCoordinates)->applyFromArray($styleArray);
         self::assertTrue($sheet->getStyle('A1')->getFont()->getBold());
         self::assertTrue($sheet->getStyle('B2')->getFont()->getBold());
         self::assertFalse($sheet->getStyle('C3')->getFont()->getBold());
@@ -65,7 +65,7 @@ class StyleTest extends TestCase
                 'bold' => true,
             ],
         ];
-        $cell1style = $sheet->getStyle($cellCoordinates)->applyFromArray($styleArray);
+        $sheet->getStyle($cellCoordinates)->applyFromArray($styleArray);
         $sheet->setCellValue('A1', 'xxxa1');
         $sheet->setCellValue('A2', 'xxxa2');
         $sheet->setCellValue('A3', 'xxxa3');
@@ -80,7 +80,7 @@ class StyleTest extends TestCase
                 'italic' => true,
             ],
         ];
-        $cell1style = $sheet->getStyle($cellCoordinates)->applyFromArray($styleArray);
+        $sheet->getStyle($cellCoordinates)->applyFromArray($styleArray);
         self::assertFalse($sheet->getStyle('A1')->getFont()->getBold());
         self::assertTrue($sheet->getStyle('B2')->getFont()->getBold());
         self::assertTrue($sheet->getStyle('C3')->getFont()->getBold());
@@ -143,7 +143,7 @@ class StyleTest extends TestCase
                 'bold' => true,
             ],
         ];
-        $cell1style = $sheet->getStyle($cellCoordinates)->applyFromArray($styleArray);
+        $sheet->getStyle($cellCoordinates)->applyFromArray($styleArray);
         $sheet->setCellValue('A1', 'xxxa1');
         $sheet->setCellValue('A2', 'xxxa2');
         $sheet->setCellValue('A3', 'xxxa3');
