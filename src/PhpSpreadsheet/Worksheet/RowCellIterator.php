@@ -93,11 +93,13 @@ class RowCellIterator extends CellIterator
      */
     public function seek($column = 'A')
     {
+        $columnx = $column;
         $column = Coordinate::columnIndexFromString($column);
-        if (($column < $this->startColumnIndex) || ($column > $this->endColumnIndex)) {
-            throw new PhpSpreadsheetException("Column $column is out of range ({$this->startColumnIndex} - {$this->endColumnIndex})");
-        } elseif ($this->onlyExistingCells && !($this->worksheet->cellExistsByColumnAndRow($column, $this->rowIndex))) {
+        if ($this->onlyExistingCells && !($this->worksheet->cellExistsByColumnAndRow($column, $this->rowIndex))) {
             throw new PhpSpreadsheetException('In "IterateOnlyExistingCells" mode and Cell does not exist');
+        }
+        if (($column < $this->startColumnIndex) || ($column > $this->endColumnIndex)) {
+            throw new PhpSpreadsheetException("Column $columnx is out of range ({$this->startColumnIndex} - {$this->endColumnIndex})");
         }
         $this->currentColumnIndex = $column;
 
@@ -181,14 +183,8 @@ class RowCellIterator extends CellIterator
             while ((!$this->worksheet->cellExistsByColumnAndRow($this->startColumnIndex, $this->rowIndex)) && ($this->startColumnIndex <= $this->endColumnIndex)) {
                 ++$this->startColumnIndex;
             }
-            if ($this->startColumnIndex > $this->endColumnIndex) {
-                throw new PhpSpreadsheetException('No cells exist within the specified range');
-            }
             while ((!$this->worksheet->cellExistsByColumnAndRow($this->endColumnIndex, $this->rowIndex)) && ($this->endColumnIndex >= $this->startColumnIndex)) {
                 --$this->endColumnIndex;
-            }
-            if ($this->endColumnIndex < $this->startColumnIndex) {
-                throw new PhpSpreadsheetException('No cells exist within the specified range');
             }
         }
     }

@@ -92,10 +92,11 @@ class ColumnCellIterator extends CellIterator
      */
     public function seek($row = 1)
     {
+        if ($this->onlyExistingCells && !($this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $row))) {
+            throw new PhpSpreadsheetException('In "IterateOnlyExistingCells" mode and Cell does not exist');
+        }
         if (($row < $this->startRow) || ($row > $this->endRow)) {
             throw new PhpSpreadsheetException("Row $row is out of range ({$this->startRow} - {$this->endRow})");
-        } elseif ($this->onlyExistingCells && !($this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $row))) {
-            throw new PhpSpreadsheetException('In "IterateOnlyExistingCells" mode and Cell does not exist');
         }
         $this->currentRow = $row;
 
@@ -180,17 +181,11 @@ class ColumnCellIterator extends CellIterator
             ) {
                 ++$this->startRow;
             }
-            if ($this->startRow > $this->endRow) {
-                throw new PhpSpreadsheetException('No cells exist within the specified range');
-            }
             while (
                 (!$this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $this->endRow)) &&
                 ($this->endRow >= $this->startRow)
             ) {
                 --$this->endRow;
-            }
-            if ($this->endRow < $this->startRow) {
-                throw new PhpSpreadsheetException('No cells exist within the specified range');
             }
         }
     }

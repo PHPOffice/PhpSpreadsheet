@@ -357,6 +357,7 @@ class Style extends Supervisor
                     }
                     foreach ($this->getActiveSheet()->getColumnIterator($rangeStart0, $rangeEnd0) as $columnIterator) {
                         $cellIterator = $columnIterator->getCellIterator();
+                        $cellIterator->setIterateOnlyExistingCells(true);
                         foreach ($cellIterator as $columnCell) {
                             // Scrutinizer erroneously believes columnCell can be null
                             if ($columnCell !== null) {
@@ -377,6 +378,7 @@ class Style extends Supervisor
                     }
                     foreach ($this->getActiveSheet()->getRowIterator((int) $rangeStart[1], (int) $rangeEnd[1]) as $rowIterator) {
                         $cellIterator = $rowIterator->getCellIterator();
+                        $cellIterator->setIterateOnlyExistingCells(true);
                         foreach ($cellIterator as $rowCell) {
                             $rowCell->getStyle()->applyFromArray($pStyles);
                         }
