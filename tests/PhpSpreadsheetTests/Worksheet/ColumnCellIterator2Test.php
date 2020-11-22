@@ -25,10 +25,7 @@ class ColumnCellIterator2Test extends TestCase
         $lastCoordinate = '';
         $firstCoordinate = '';
         foreach ($iterator as $cell) {
-            // Scrutinizer erroneously believes columnCell can be null
-            if ($cell !== null) {
-                $lastCoordinate = $cell->getCoordinate();
-            }
+            $lastCoordinate = $cell->getCoordinate();
             if (!$firstCoordinate) {
                 $firstCoordinate = $lastCoordinate;
             }

@@ -359,10 +359,7 @@ class Style extends Supervisor
                         $cellIterator = $columnIterator->getCellIterator();
                         $cellIterator->setIterateOnlyExistingCells(true);
                         foreach ($cellIterator as $columnCell) {
-                            // Scrutinizer erroneously believes columnCell can be null
-                            if ($columnCell !== null) {
-                                $columnCell->getStyle()->applyFromArray($pStyles);
-                            }
+                            $columnCell->getStyle()->applyFromArray($pStyles);
                         }
                     }
 
