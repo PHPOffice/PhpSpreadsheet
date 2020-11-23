@@ -58,8 +58,7 @@
         "markbaker/matrix": "^1.2||^2.0",
         "psr/simple-cache": "^1.0",
         "psr/http-client": "^1.0",
-        "psr/http-factory": "^1.0",
-        "voku/anti-xss": "^4.1"
+        "psr/http-factory": "^1.0"
     },
     "require-dev": {
         "dompdf/dompdf": "^0.8.5",
@@ -75,7 +74,8 @@
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer (doesn't yet support PHP8)",
         "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer (doesn't yet support PHP8)",
-        "jpgraph/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers"
+        "jpgraph/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers",
+        "voku/anti-xss": "Option for XSS safety on the HTML Writer"
     },
     "autoload": {
         "psr-4": {

@@ -23,7 +23,6 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use voku\helper\AntiXSS;
 
 class Html extends BaseWriter
 {
@@ -1789,13 +1788,19 @@ class Html extends BaseWriter
     {
         $result = '';
         if (!$this->isPdf && isset($pSheet->getComments()[$coordinate])) {
-            $sanitizer = new AntiXSS();
-            $sanitizedString = $sanitizer->xss_clean($pSheet->getComment($coordinate)->getText()->getPlainText());
-            if (!$sanitizer->isXssFound()) {
-                $result .= '<a class="comment-indicator"></a>';
-                $result .= '<div class="comment">' . nl2br($sanitizedString) . '</div>';
-                $result .= PHP_EOL;
+            $result .= '<a class="comment-indicator"></a>';
+
+            if(class_exists('\voku\helper\AntiXSS')) {
+                $sanitizer = new \voku\helper\AntiXSS();
+                $sanitizedString = $sanitizer->xss_clean($pSheet->getComment($coordinate)->getText()->getPlainText());
+                if (!$sanitizer->isXssFound()) {
+                    $result .= '<div class="comment">' . nl2br($sanitizedString) . '</div>';
+                }
+            } else {
+                $result .= '<div class="comment">' . nl2br($pSheet->getComment($coordinate)->getText()->getPlainText()) . '</div>';
             }
+
+            $result .= PHP_EOL;
         }
 
         return $result;
