@@ -1790,15 +1790,9 @@ class Html extends BaseWriter
         if (!$this->isPdf && isset($pSheet->getComments()[$coordinate])) {
             $result .= '<a class="comment-indicator"></a>';
 
-            if(class_exists('\voku\helper\AntiXSS')) {
-                $sanitizer = new \voku\helper\AntiXSS();
-                $sanitizedString = $sanitizer->xss_clean($pSheet->getComment($coordinate)->getText()->getPlainText());
-                if (!$sanitizer->isXssFound()) {
-                    $result .= '<div class="comment">' . nl2br($sanitizedString) . '</div>';
-                }
-            } else {
-                $result .= '<div class="comment">' . nl2br($pSheet->getComment($coordinate)->getText()->getPlainText()) . '</div>';
-            }
+            $sanitizer = new \HTMLPurifier();
+            $sanitizedString = $sanitizer->purify($pSheet->getComment($coordinate)->getText()->getPlainText());
+            $result .= '<div class="comment">' . nl2br($sanitizedString) . '</div>';
 
             $result .= PHP_EOL;
         }
