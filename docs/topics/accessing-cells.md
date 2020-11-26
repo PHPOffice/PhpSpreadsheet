@@ -422,7 +422,7 @@ foreach ($worksheet->getRowIterator() as $row) {
     $cellIterator = $row->getCellIterator();
     $cellIterator->setIterateOnlyExistingCells(FALSE); // This loops through all cells,
                                                        //    even if a cell value is not set.
-                                                       // For 'true', we loop through cells
+                                                       // For 'TRUE', we loop through cells
                                                        //    only when their value is set.
                                                        // If this method is not called,
                                                        //    the default value is 'false'.
