@@ -137,12 +137,10 @@ class DefinedNameTest extends TestCase
 
         $namedRange = $this->spreadsheet->getDefinedName('XYZ');
         self::assertInstanceOf(NamedRange::class, $namedRange);
-        if ($namedRange instanceof NamedRange) {
-            self::assertEquals('A1', $namedRange->getRange());
-            self::assertEquals('A1', $namedRange->getValue());
-            $namedRange->setRange('A2');
-            self::assertEquals('A2', $namedRange->getValue());
-        }
+        self::assertEquals('A1', $namedRange->getRange());
+        self::assertEquals('A1', $namedRange->getValue());
+        $namedRange->setRange('A2');
+        self::assertEquals('A2', $namedRange->getValue());
     }
 
     public function testChangeWorksheet(): void
