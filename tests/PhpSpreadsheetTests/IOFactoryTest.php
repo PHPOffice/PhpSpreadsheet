@@ -200,6 +200,6 @@ class IOFactoryTest extends TestCase
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
         $filename = __FILE__;
-        $reader = IOFactory::createReaderForFile($filename);
+        IOFactory::createReaderForFile($filename);
     }
 }
