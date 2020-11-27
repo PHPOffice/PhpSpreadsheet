@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\DefinedName;
+use PhpOffice\PhpSpreadsheet\NamedFormula;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -163,5 +164,25 @@ class DefinedNameFormulaTest extends TestCase
             'utf-8 named ranges' => ['Γειά,σου Κόσμε', false],
             'utf-8 named ranges in a formula' => ['Здравствуй+мир', true],
         ];
+    }
+
+    public function testEmptyNamedFormula(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $spreadSheet = new Spreadsheet();
+        $workSheet1 = $spreadSheet->getActiveSheet();
+        new NamedFormula('namedformula', $workSheet1);
+    }
+
+    public function testChangeFormula(): void
+    {
+        $spreadSheet = new Spreadsheet();
+        $workSheet1 = $spreadSheet->getActiveSheet();
+        $namedFormula = new NamedFormula('namedformula', $workSheet1, '=1');
+        self::assertEquals('=1', $namedFormula->getFormula());
+        $namedFormula->setFormula('=2');
+        self::assertEquals('=2', $namedFormula->getFormula());
+        $namedFormula->setFormula('');
+        self::assertEquals('=2', $namedFormula->getFormula());
     }
 }
