@@ -7,13 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class NamedRangeTest extends TestCase
 {
-    protected function setup(): void
-    {
-        $filename = 'tests/data/Reader/XLSX/PageSetup.xlsx';
-        $reader = new Xlsx();
-        $this->spreadsheet = $reader->load($filename);
-    }
-
     public static function testBug1686b(): void
     {
         $xlsxFile = 'tests/data/Reader/XLSX/bug1686b.xlsx';
