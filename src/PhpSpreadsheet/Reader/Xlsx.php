@@ -1398,6 +1398,11 @@ class Xlsx extends BaseReader
                                         $locatedSheet = $excel->getSheetByName($extractedSheetName);
                                     }
 
+                                    // skip if the sheet isn't located
+                                    if ($locatedSheet) {
+                                        break 2;
+                                    }
+
                                     $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $locatedSheet, $definedRange, false));
                                 }
                             }
