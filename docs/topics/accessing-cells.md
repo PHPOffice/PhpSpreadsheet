@@ -422,8 +422,10 @@ foreach ($worksheet->getRowIterator() as $row) {
     $cellIterator = $row->getCellIterator();
     $cellIterator->setIterateOnlyExistingCells(FALSE); // This loops through all cells,
                                                        //    even if a cell value is not set.
-                                                       // By default, only cells that have a value
-                                                       //    set will be iterated.
+                                                       // For 'TRUE', we loop through cells
+                                                       //    only when their value is set.
+                                                       // If this method is not called,
+                                                       //    the default value is 'false'.
     foreach ($cellIterator as $cell) {
         echo '<td>' .
              $cell->getValue() .
