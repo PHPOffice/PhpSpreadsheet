@@ -1280,7 +1280,7 @@ class Xlsx extends BaseReader
                                     }
 
                                     // Valid range?
-                                    if (stripos((string) $definedName, '#REF!') !== false || $extractedRange == '') {
+                                    if ($extractedRange == '') {
                                         continue;
                                     }
 
@@ -1350,7 +1350,7 @@ class Xlsx extends BaseReader
                                 $extractedRange = (string) $definedName;
 
                                 // Valid range?
-                                if (stripos((string) $definedName, '#REF!') !== false || $extractedRange == '') {
+                                if ($extractedRange == '') {
                                     continue;
                                 }
 
@@ -1398,6 +1398,9 @@ class Xlsx extends BaseReader
                                         $locatedSheet = $excel->getSheetByName($extractedSheetName);
                                     }
 
+                                    if ($locatedSheet === null && !DefinedName::testIfFormula($definedRange)) {
+                                        $definedRange = '#REF!';
+                                    }
                                     $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $locatedSheet, $definedRange, false));
                                 }
                             }
