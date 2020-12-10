@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Resolve issue with SLK long filenames [#1612](https://github.com/PHPOffice/PhpSpreadsheet/issues/1612)
 - ROUNDUP and ROUNDDOWN return incorrect results for values of 0 [#1627](https://github.com/phpoffice/phpspreadsheet/pull/1627)
 - Apply Column and Row Styles to Existing Cells [#1712](https://github.com/PHPOffice/PhpSpreadsheet/issues/1712) [PR #1721](https://github.com/PHPOffice/PhpSpreadsheet/pull/1721)
 - Resolve issues with defined names where worksheet doesn't exist (#1686)[https://github.com/PHPOffice/PhpSpreadsheet/issues/1686] and [#1723](https://github.com/PHPOffice/PhpSpreadsheet/issues/1723) - [PR #1742](https://github.com/PHPOffice/PhpSpreadsheet/pull/1742)
