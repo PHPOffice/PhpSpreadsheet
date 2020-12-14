@@ -85,6 +85,18 @@ class Csv extends BaseReader
 
     const UTF8_BOM = "\xEF\xBB\xBF";
     const UTF8_BOM_LEN = 3;
+    const UTF16BE_BOM = "\xfe\xff";
+    const UTF16BE_BOM_LEN = 2;
+    const UTF16BE_LF = "\x00\x0a";
+    const UTF16LE_BOM = "\xff\xfe";
+    const UTF16LE_BOM_LEN = 2;
+    const UTF16LE_LF = "\x0a\x00";
+    const UTF32BE_BOM = "\x00\x00\xfe\xff";
+    const UTF32BE_BOM_LEN = 4;
+    const UTF32BE_LF = "\x00\x00\x00\x0a";
+    const UTF32LE_BOM = "\xff\xfe\x00\x00";
+    const UTF32LE_BOM_LEN = 4;
+    const UTF32LE_LF = "\x0a\x00\x00\x00";
 
     /**
      * Move filepointer past any BOM marker.
@@ -547,10 +559,10 @@ class Csv extends BaseReader
     {
         $encoding = '';
         $contents = file_get_contents($filename);
-        self::guessEncodingTestNoBom($encoding, $contents, "\x00\x00\x00\x0a", 'UTF-32BE');
-        self::guessEncodingTestNoBom($encoding, $contents, "\x0a\x00\x00\x00", 'UTF-32LE');
-        self::guessEncodingTestNoBom($encoding, $contents, "\x00\x0a", 'UTF-16BE');
-        self::guessEncodingTestNoBom($encoding, $contents, "\x0a\x00", 'UTF-16LE');
+        self::guessEncodingTestNoBom($encoding, $contents, self::UTF32BE_LF, 'UTF-32BE');
+        self::guessEncodingTestNoBom($encoding, $contents, self::UTF32LE_LF, 'UTF-32LE');
+        self::guessEncodingTestNoBom($encoding, $contents, self::UTF16BE_LF, 'UTF-16BE');
+        self::guessEncodingTestNoBom($encoding, $contents, self::UTF16LE_LF, 'UTF-16LE');
         if ($encoding === '' && 1 == preg_match('//u', $contents)) {
             $encoding = 'UTF-8';
         }
@@ -573,10 +585,10 @@ class Csv extends BaseReader
         $first4 = file_get_contents($filename, false, null, 0, 4);
         if ($first4 !== false) {
             self::guessEncodingTestBom($encoding, $first4, self::UTF8_BOM, 'UTF-8');
-            self::guessEncodingTestBom($encoding, $first4, "\xfe\xff", 'UTF-16BE');
-            self::guessEncodingTestBom($encoding, $first4, "\x00\x00\xfe\xff", 'UTF-32BE');
-            self::guessEncodingTestBom($encoding, $first4, "\xff\xfe\x00\x00", 'UTF-32LE');
-            self::guessEncodingTestBom($encoding, $first4, "\xff\xfe", 'UTF-16LE');
+            self::guessEncodingTestBom($encoding, $first4, self::UTF16BE_BOM, 'UTF-16BE');
+            self::guessEncodingTestBom($encoding, $first4, self::UTF32BE_BOM, 'UTF-32BE');
+            self::guessEncodingTestBom($encoding, $first4, self::UTF32LE_BOM, 'UTF-32LE');
+            self::guessEncodingTestBom($encoding, $first4, self::UTF16LE_BOM, 'UTF-16LE');
         }
 
         return $encoding;
