@@ -324,6 +324,8 @@ class Xml extends BaseReader
         $xml = $this->trySimpleXMLLoadString($pFilename);
 
         $namespaces = $xml->getNamespaces(true);
+        $namespacesDoc = $xml->getDocNamespaces(true);
+        $namespaces = array_merge($namespaces, $namespacesDoc);
 
         $docProps = $spreadsheet->getProperties();
         if (isset($xml->DocumentProperties[0])) {
