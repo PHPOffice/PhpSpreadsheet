@@ -9,6 +9,21 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Csv extends BaseReader
 {
+    const UTF8_BOM = "\xEF\xBB\xBF";
+    const UTF8_BOM_LEN = 3;
+    const UTF16BE_BOM = "\xfe\xff";
+    const UTF16BE_BOM_LEN = 2;
+    const UTF16BE_LF = "\x00\x0a";
+    const UTF16LE_BOM = "\xff\xfe";
+    const UTF16LE_BOM_LEN = 2;
+    const UTF16LE_LF = "\x0a\x00";
+    const UTF32BE_BOM = "\x00\x00\xfe\xff";
+    const UTF32BE_BOM_LEN = 4;
+    const UTF32BE_LF = "\x00\x00\x00\x0a";
+    const UTF32LE_BOM = "\xff\xfe\x00\x00";
+    const UTF32LE_BOM_LEN = 4;
+    const UTF32LE_LF = "\x0a\x00\x00\x00";
+
     /**
      * Input encoding.
      *
@@ -82,21 +97,6 @@ class Csv extends BaseReader
     {
         return $this->inputEncoding;
     }
-
-    const UTF8_BOM = "\xEF\xBB\xBF";
-    const UTF8_BOM_LEN = 3;
-    const UTF16BE_BOM = "\xfe\xff";
-    const UTF16BE_BOM_LEN = 2;
-    const UTF16BE_LF = "\x00\x0a";
-    const UTF16LE_BOM = "\xff\xfe";
-    const UTF16LE_BOM_LEN = 2;
-    const UTF16LE_LF = "\x0a\x00";
-    const UTF32BE_BOM = "\x00\x00\xfe\xff";
-    const UTF32BE_BOM_LEN = 4;
-    const UTF32BE_LF = "\x00\x00\x00\x0a";
-    const UTF32LE_BOM = "\xff\xfe\x00\x00";
-    const UTF32LE_BOM_LEN = 4;
-    const UTF32LE_LF = "\x0a\x00\x00\x00";
 
     /**
      * Move filepointer past any BOM marker.
@@ -563,7 +563,7 @@ class Csv extends BaseReader
         self::guessEncodingTestNoBom($encoding, $contents, self::UTF32LE_LF, 'UTF-32LE');
         self::guessEncodingTestNoBom($encoding, $contents, self::UTF16BE_LF, 'UTF-16BE');
         self::guessEncodingTestNoBom($encoding, $contents, self::UTF16LE_LF, 'UTF-16LE');
-        if ($encoding === '' && 1 == preg_match('//u', $contents)) {
+        if ($encoding === '' && preg_match('//u', $contents) === 1) {
             $encoding = 'UTF-8';
         }
 
