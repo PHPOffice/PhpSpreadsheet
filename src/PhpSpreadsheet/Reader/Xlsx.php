@@ -1155,13 +1155,27 @@ class Xlsx extends BaseReader
                                                     $this->readHyperLinkDrawing($objDrawing, $oneCellAnchor, $hyperlinks);
 
                                                     $objDrawing->setWorksheet($docSheet);
-                                                } else {
-                                                    //    ? Can charts be positioned with a oneCellAnchor ?
+                                                } elseif ($this->includeCharts && $oneCellAnchor->graphicFrame) {
+                                                    // Exported XLSX from Google Sheets positions charts with a oneCellAnchor
                                                     $coordinates = Coordinate::stringFromColumnIndex(((string) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1);
                                                     $offsetX = Drawing::EMUToPixels($oneCellAnchor->from->colOff);
                                                     $offsetY = Drawing::EMUToPixels($oneCellAnchor->from->rowOff);
                                                     $width = Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cx'));
                                                     $height = Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cy'));
+
+                                                    $graphic = $oneCellAnchor->graphicFrame->children('http://schemas.openxmlformats.org/drawingml/2006/main')->graphic;
+                                                    /** @var SimpleXMLElement $chartRef */
+                                                    $chartRef = $graphic->graphicData->children('http://schemas.openxmlformats.org/drawingml/2006/chart')->chart;
+                                                    $thisChart = (string) $chartRef->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+
+                                                    $chartDetails[$docSheet->getTitle() . '!' . $thisChart] = [
+                                                        'fromCoordinate' => $coordinates,
+                                                        'fromOffsetX' => $offsetX,
+                                                        'fromOffsetY' => $offsetY,
+                                                        'width' => $width,
+                                                        'height' => $height,
+                                                        'worksheetTitle' => $docSheet->getTitle(),
+                                                    ];
                                                 }
                                             }
                                         }
@@ -1508,7 +1522,10 @@ class Xlsx extends BaseReader
                                     $excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart);
                                     $objChart->setWorksheet($excel->getSheetByName($charts[$chartEntryRef]['sheet']));
                                     $objChart->setTopLeftPosition($chartDetails[$chartPositionRef]['fromCoordinate'], $chartDetails[$chartPositionRef]['fromOffsetX'], $chartDetails[$chartPositionRef]['fromOffsetY']);
-                                    $objChart->setBottomRightPosition($chartDetails[$chartPositionRef]['toCoordinate'], $chartDetails[$chartPositionRef]['toOffsetX'], $chartDetails[$chartPositionRef]['toOffsetY']);
+                                    if (array_key_exists('toCoordinate', $chartDetails[$chartPositionRef])) {
+                                        // For oneCellAnchor positioned charts, toCoordinate is not in the data. Does it need to be calculated?
+                                        $objChart->setBottomRightPosition($chartDetails[$chartPositionRef]['toCoordinate'], $chartDetails[$chartPositionRef]['toOffsetX'], $chartDetails[$chartPositionRef]['toOffsetY']);
+                                    }
                                 }
                             }
                         }
