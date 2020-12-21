@@ -98,12 +98,12 @@ class Chart
                                                     case 't':
                                                     case 'b':
                                                         $XaxisLabel = $axisLabel;
-    
+
                                                         break;
                                                     case 'r':
                                                     case 'l':
                                                         $YaxisLabel = $axisLabel;
-    
+
                                                         break;
                                                 }
                                             }

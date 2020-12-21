@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
-use PhpOffice\PhpSpreadsheet\Chart\TrendLine;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PHPUnit\Framework\TestCase;
 
