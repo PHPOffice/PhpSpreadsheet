@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use GdImage;
+
 class Drawing
 {
     /**
@@ -152,7 +154,7 @@ class Drawing
      *
      * @param string $p_sFile Path to Windows DIB (BMP) image
      *
-     * @return resource
+     * @return GdImage|resource
      */
     public static function imagecreatefrombmp($p_sFile)
     {
