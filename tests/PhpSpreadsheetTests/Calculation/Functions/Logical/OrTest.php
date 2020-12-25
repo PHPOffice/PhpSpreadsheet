@@ -21,7 +21,12 @@ class OrTest extends TestCase
     public function testOR($expectedResult, ...$args): void
     {
         $result = Logical::logicalOr(...$args);
-        self::assertEquals($expectedResult, $result);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEquals($expectedResult, $result);
+        }
     }
 
     public function providerOR()

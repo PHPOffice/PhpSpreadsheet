@@ -11,7 +11,7 @@ class UpperTest extends TestCase
      * @dataProvider providerUPPER
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testUPPER($expectedResult, $value): void
     {

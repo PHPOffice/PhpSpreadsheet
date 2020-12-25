@@ -1,10 +1,12 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // result, message, rate, values, dates
 
 return [
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'If rate is not numeric, returns the #VALUE! error value',
         'xyz',
         [0, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000],
@@ -18,49 +20,49 @@ return [
         '2018-06-30',
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         'If different number of elements in values and dates, return NUM',
         0.10,
         [1000.0, 1000.1],
         '2018-06-30',
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         'If minimum value > 0, return NUM',
         0.10,
         [1000.0, 1000.1],
         ['2018-06-30', '2018-07-30'],
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         'If maximum value < 0, return NUM',
         0.10,
         [-1000.0, -1000.1],
         ['2018-06-30', '2018-07-30'],
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'If any value is non-numeric, return VALUE',
         0.10,
         [-1000.0, 1000.1, 'x'],
         ['2018-06-30', '2018-07-30', '2018-08-30'],
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'If first date is non-numeric, return VALUE',
         0.10,
         [-1000.0, 1000.1, 1000.2],
         ['2018-06x30', '2018-07-30', '2018-08-30'],
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'If any other date is non-numeric, return VALUE',
         0.10,
         [-1000.0, 1000.1, 1000.2],
         ['2018-06-30', '2018-07-30', '2018-08z30'],
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         'If any date is before first date, return NUM',
         0.10,
         [-1000.0, 1000.1, 1000.2],

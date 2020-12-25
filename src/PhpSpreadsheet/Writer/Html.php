@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use HTMLPurifier;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
@@ -157,6 +158,10 @@ class Html extends BaseWriter
     {
         // Open file
         $this->openFileHandle($pFilename);
+
+        if ($this->preCalculateFormulas) {
+            $this->spreadsheet->getCalculationEngine()->clearCalculationCache();
+        }
 
         // Write html
         fwrite($this->fileHandle, $this->generateHTMLAll());
@@ -1278,8 +1283,10 @@ class Html extends BaseWriter
         return [$cell, $cssClass, $coordinate];
     }
 
-    private function generateRowCellDataValueRich($cell, &$cellData): void
+    private function generateRowCellDataValueRich($cell)
     {
+        $cellData = '';
+
         // Loop through rich text elements
         $elements = $cell->getValue()->getRichTextElements();
         foreach ($elements as $element) {
@@ -1309,41 +1316,51 @@ class Html extends BaseWriter
                 $cellData .= htmlspecialchars($cellText);
             }
         }
+
+        return $cellData;
     }
 
-    private function generateRowCellDataValue($pSheet, $cell, &$cellData): void
+    private function generateRowCellDataValue($pSheet, $cell)
     {
         if ($cell->getValue() instanceof RichText) {
-            $this->generateRowCellDataValueRich($cell, $cellData);
-        } else {
-            $origData = $this->preCalculateFormulas ? $cell->getCalculatedValue() : $cell->getValue();
-            $cellData = NumberFormat::toFormattedString(
-                $origData,
-                $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),
-                [$this, 'formatColor']
-            );
-            if ($cellData === $origData) {
-                $cellData = htmlspecialchars($cellData);
-            }
-            if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
-                $cellData = '<sup>' . $cellData . '</sup>';
-            } elseif ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubscript()) {
-                $cellData = '<sub>' . $cellData . '</sub>';
-            }
+            return $this->generateRowCellDataValueRich($cell);
         }
+
+        $displayData = $this->preCalculateFormulas ? $cell->getCalculatedValue() : $cell->getValue();
+        if ($displayData instanceof ExcelException) {
+            return $displayData->errorName();
+        }
+
+        $cellData = NumberFormat::toFormattedString(
+            $displayData,
+            $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),
+            [$this, 'formatColor']
+        );
+
+        if ($cellData === $displayData) {
+            $cellData = htmlspecialchars($cellData);
+        }
+
+        if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
+            $cellData = '<sup>' . $cellData . '</sup>';
+        } elseif ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubscript()) {
+            $cellData = '<sub>' . $cellData . '</sub>';
+        }
+
+        return $cellData;
     }
 
     private function generateRowCellData($pSheet, $cell, &$cssClass, $cellType)
     {
         $cellData = '&nbsp;';
+
         if ($cell instanceof Cell) {
-            $cellData = '';
             // Don't know what this does, and no test cases.
             //if ($cell->getParent() === null) {
             //    $cell->attach($pSheet);
             //}
             // Value
-            $this->generateRowCellDataValue($pSheet, $cell, $cellData);
+            $cellData = $this->generateRowCellDataValue($pSheet, $cell);
 
             // Converts the cell content so that spaces occuring at beginning of each new line are replaced by &nbsp;
             // Example: "  Hello\n to the world" is converted to "&nbsp;&nbsp;Hello\n&nbsp;to the world"

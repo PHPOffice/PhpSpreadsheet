@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         true,
@@ -33,35 +35,35 @@ return [
         1.5,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '-1',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '0',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '1',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '2',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '-1.5',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '1.5',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'ABC',
     ],
     [

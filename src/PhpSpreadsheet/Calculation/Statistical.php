@@ -571,7 +571,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function AVEDEV(...$args)
     {
@@ -581,14 +581,19 @@ class Statistical
         $returnValue = 0;
 
         $aMean = self::AVERAGE(...$args);
-        if ($aMean === Functions::DIV0()) {
-            return Functions::NAN();
-        } elseif ($aMean === Functions::VALUE()) {
-            return Functions::VALUE();
+        if ($aMean instanceof ExcelException) {
+            if ($aMean === Functions::DIV0()) {
+                return Functions::NAN();
+            }
+
+            return $aMean;
         }
 
         $aCount = 0;
         foreach ($aArgs as $k => $arg) {
+            if ($arg instanceof ExcelException) {
+                return $arg;
+            }
             $arg = self::testAcceptedBoolean($arg, $k);
             // Is it a numeric value?
             // Strings containing numeric values are only counted if they are string literals (not cell values)
@@ -620,7 +625,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function AVERAGE(...$args)
     {
@@ -628,6 +633,9 @@ class Statistical
 
         // Loop through arguments
         foreach (Functions::flattenArrayIndexed($args) as $k => $arg) {
+            if ($arg instanceof ExcelException) {
+                return $arg;
+            }
             $arg = self::testAcceptedBoolean($arg, $k);
             // Is it a numeric value?
             // Strings containing numeric values are only counted if they are string literals (not cell values)
@@ -659,7 +667,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function AVERAGEA(...$args)
     {
@@ -704,7 +712,7 @@ class Statistical
      * @param string $condition the criteria that defines which cells will be checked
      * @param mixed[] $averageArgs Data values
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function AVERAGEIF($aArgs, $condition, $averageArgs = [])
     {
@@ -754,7 +762,7 @@ class Statistical
      * @param mixed $rMin
      * @param mixed $rMax
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function BETADIST($value, $alpha, $beta, $rMin = 0, $rMax = 1)
     {
@@ -793,7 +801,7 @@ class Statistical
      * @param float $rMin Minimum value
      * @param float $rMax Maximum value
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function BETAINV($probability, $alpha, $beta, $rMin = 0, $rMax = 1)
     {
@@ -819,6 +827,9 @@ class Statistical
             while ((($b - $a) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 $guess = ($a + $b) / 2;
                 $result = self::BETADIST($guess, $alpha, $beta);
+                if ($result instanceof ExcelException) {
+                    return $result;
+                }
                 if (($result == $probability) || ($result == 0)) {
                     $b = $a;
                 } elseif ($result > $probability) {
@@ -851,7 +862,7 @@ class Statistical
      * @param float $probability Probability of success on each trial
      * @param bool $cumulative
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function BINOMDIST($value, $trials, $probability, $cumulative)
     {
@@ -893,7 +904,7 @@ class Statistical
      * @param float $value Value for the function
      * @param float $degrees degrees of freedom
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function CHIDIST($value, $degrees)
     {
@@ -927,7 +938,7 @@ class Statistical
      * @param float $probability Probability for the function
      * @param float $degrees degrees of freedom
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function CHIINV($probability, $degrees)
     {
@@ -988,7 +999,7 @@ class Statistical
      * @param float $stdDev Standard Deviation
      * @param float $size
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function CONFIDENCE($alpha, $stdDev, $size)
     {
@@ -1019,7 +1030,7 @@ class Statistical
      * @param mixed $yValues array of mixed Data Series Y
      * @param null|mixed $xValues array of mixed Data Series X
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function CORREL($yValues, $xValues = null)
     {
@@ -1248,7 +1259,7 @@ class Statistical
      * @param mixed $yValues array of mixed Data Series Y
      * @param mixed $xValues array of mixed Data Series X
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function COVAR($yValues, $xValues)
     {
@@ -1281,7 +1292,7 @@ class Statistical
      * @param float $probability probability of a success on each trial
      * @param float $alpha criterion value
      *
-     * @return int|string
+     * @return ExcelException|int
      *
      * @TODO    Warning. This implementation differs from the algorithm detailed on the MS
      *            web site in that $CumPGuessMinus1 = $CumPGuess - 1 rather than $CumPGuess - $PGuess
@@ -1406,7 +1417,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function DEVSQ(...$args)
     {
@@ -1416,7 +1427,7 @@ class Statistical
         $returnValue = null;
 
         $aMean = self::AVERAGE($aArgs);
-        if ($aMean != Functions::DIV0()) {
+        if (!($aMean instanceof ExcelException)) {
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
                 // Is it a numeric value?
@@ -1459,7 +1470,7 @@ class Statistical
      * @param float $lambda The parameter value
      * @param bool $cumulative
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function EXPONDIST($value, $lambda, $cumulative)
     {
@@ -1507,7 +1518,7 @@ class Statistical
      * @param bool $cumulative If cumulative is TRUE, F.DIST returns the cumulative distribution function;
      *                         if FALSE, it returns the probability density function.
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function FDIST2($value, $u, $v, $cumulative)
     {
@@ -1548,7 +1559,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function FISHER($value)
     {
@@ -1574,7 +1585,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function FISHERINV($value)
     {
@@ -1596,7 +1607,7 @@ class Statistical
      * @param mixed $yValues array of mixed Data Series Y
      * @param mixed $xValues of mixed Data Series X
      *
-     * @return bool|float|string
+     * @return bool|ExcelException|float
      */
     public static function FORECAST($xValue, $yValues, $xValues)
     {
@@ -1627,7 +1638,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function GAMMAFunction($value)
     {
@@ -1651,7 +1662,7 @@ class Statistical
      * @param float $b Parameter to the distribution
      * @param bool $cumulative
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function GAMMADIST($value, $a, $b, $cumulative)
     {
@@ -1684,7 +1695,7 @@ class Statistical
      * @param float $alpha Parameter to the distribution
      * @param float $beta Parameter to the distribution
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function GAMMAINV($probability, $alpha, $beta)
     {
@@ -1744,7 +1755,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function GAMMALN($value)
     {
@@ -1769,7 +1780,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function GAUSS($value)
     {
@@ -1793,7 +1804,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function GEOMEAN(...$args)
     {
@@ -1853,7 +1864,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function HARMEAN(...$args)
     {
@@ -1896,7 +1907,7 @@ class Statistical
      * @param float $populationSuccesses Number of successes in the population
      * @param float $populationNumber Population size
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function HYPGEOMDIST($sampleSuccesses, $sampleNumber, $populationSuccesses, $populationNumber)
     {
@@ -1937,7 +1948,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function INTERCEPT($yValues, $xValues)
     {
@@ -1968,7 +1979,7 @@ class Statistical
      *
      * @param array ...$args Data Series
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function KURT(...$args)
     {
@@ -2013,7 +2024,7 @@ class Statistical
      *
      * @param mixed $args Data values
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function LARGE(...$args)
     {
@@ -2055,7 +2066,7 @@ class Statistical
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
      * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
-     * @return array|int|string The result, or a string containing an error
+     * @return array|ExcelException|int The result, or an ExcelException containing an error
      */
     public static function LINEST($yValues, $xValues = null, $const = true, $stats = false)
     {
@@ -2114,7 +2125,7 @@ class Statistical
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
      * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
-     * @return array|int|string The result, or a string containing an error
+     * @return array|ExcelException|int The result, or an ExcelException containing an error
      */
     public static function LOGEST($yValues, $xValues = null, $const = true, $stats = false)
     {
@@ -2177,7 +2188,7 @@ class Statistical
      * @param float $mean
      * @param float $stdDev
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      *
      * @TODO    Try implementing P J Acklam's refinement algorithm for greater
      *            accuracy if I can get my head round the mathematics
@@ -2210,7 +2221,7 @@ class Statistical
      * @param float $mean
      * @param float $stdDev
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function LOGNORMDIST($value, $mean, $stdDev)
     {
@@ -2240,7 +2251,7 @@ class Statistical
      * @param float $stdDev
      * @param bool $cumulative
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function LOGNORMDIST2($value, $mean, $stdDev, $cumulative = false)
     {
@@ -2406,7 +2417,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function MEDIAN(...$args)
     {
@@ -2627,7 +2638,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function MODE(...$args)
     {
@@ -2664,7 +2675,7 @@ class Statistical
      * @param float $successes Threshold number of Successes
      * @param float $probability Probability of success on each trial
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function NEGBINOMDIST($failures, $successes, $probability)
     {
@@ -2702,7 +2713,7 @@ class Statistical
      * @param float $stdDev Standard Deviation
      * @param bool $cumulative
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function NORMDIST($value, $mean, $stdDev, $cumulative)
     {
@@ -2735,7 +2746,7 @@ class Statistical
      * @param float $mean Mean Value
      * @param float $stdDev Standard Deviation
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function NORMINV($probability, $mean, $stdDev)
     {
@@ -2766,7 +2777,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function NORMSDIST($value)
     {
@@ -2788,7 +2799,7 @@ class Statistical
      * @param float $value
      * @param bool $cumulative
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function NORMSDIST2($value, $cumulative)
     {
@@ -2808,7 +2819,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function NORMSINV($value)
     {
@@ -2825,7 +2836,7 @@ class Statistical
      *
      * @param mixed $args Data values
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function PERCENTILE(...$args)
     {
@@ -2850,7 +2861,7 @@ class Statistical
                 sort($mArgs);
                 $count = self::COUNT($mArgs);
                 $index = $entry * ($count - 1);
-                $iBase = floor($index);
+                $iBase = (int) floor($index);
                 if ($index == $iBase) {
                     return $mArgs[$index];
                 }
@@ -2873,7 +2884,7 @@ class Statistical
      * @param int $value the number whose rank you want to find
      * @param int $significance the number of significant digits for the returned percentage value
      *
-     * @return float|string (string if result is an error)
+     * @return ExcelException|float (ExcelException if result is an error)
      */
     public static function PERCENTRANK($valueSet, $value, $significance = 3)
     {
@@ -2923,7 +2934,7 @@ class Statistical
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each permutation
      *
-     * @return int|string Number of permutations, or a string containing an error
+     * @return ExcelException|int Number of permutations, or an ExcelException containing an error
      */
     public static function PERMUT($numObjs, $numInSet)
     {
@@ -2953,7 +2964,7 @@ class Statistical
      * @param float $mean Mean Value
      * @param bool $cumulative
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function POISSON($value, $mean, $cumulative)
     {
@@ -2992,17 +3003,17 @@ class Statistical
      *
      * @param mixed $args Data values
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function QUARTILE(...$args)
     {
         $aArgs = Functions::flattenArray($args);
 
         // Calculate
-        $entry = floor(array_pop($aArgs));
+        $entry = array_pop($aArgs);
 
         if ((is_numeric($entry)) && (!is_string($entry))) {
-            $entry /= 4;
+            $entry = floor($entry) / 4;
             if (($entry < 0) || ($entry > 1)) {
                 return Functions::NAN();
             }
@@ -3022,7 +3033,7 @@ class Statistical
      * @param float[] $valueSet An array of, or a reference to, a list of numbers
      * @param int $order Order to sort the values in the value set
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function RANK($value, $valueSet, $order = 0)
     {
@@ -3057,7 +3068,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function RSQ($yValues, $xValues)
     {
@@ -3088,7 +3099,7 @@ class Statistical
      *
      * @param array ...$args Data Series
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function SKEW(...$args)
     {
@@ -3127,7 +3138,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function SLOPE($yValues, $xValues)
     {
@@ -3159,7 +3170,7 @@ class Statistical
      *
      * @param mixed $args Data values
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function SMALL(...$args)
     {
@@ -3200,7 +3211,7 @@ class Statistical
      * @param float $mean Mean Value
      * @param float $stdDev Standard Deviation
      *
-     * @return float|string Standardized value, or a string containing an error
+     * @return ExcelException|float Standardized value, or an ExcelException containing an error
      */
     public static function STANDARDIZE($value, $mean, $stdDev)
     {
@@ -3230,7 +3241,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function STDEV(...$args)
     {
@@ -3279,7 +3290,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function STDEVA(...$args)
     {
@@ -3331,7 +3342,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function STDEVP(...$args)
     {
@@ -3378,7 +3389,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function STDEVPA(...$args)
     {
@@ -3428,7 +3439,7 @@ class Statistical
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function STEYX($yValues, $xValues)
     {
@@ -3458,7 +3469,7 @@ class Statistical
      * @param float $degrees degrees of freedom
      * @param float $tails number of tails (1 or 2)
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function TDIST($value, $degrees, $tails)
     {
@@ -3521,7 +3532,7 @@ class Statistical
      * @param float $probability Probability for the function
      * @param float $degrees degrees of freedom
      *
-     * @return float|string The result, or a string containing an error
+     * @return ExcelException|float The result, or an ExcelException containing an error
      */
     public static function TINV($probability, $degrees)
     {
@@ -3539,6 +3550,9 @@ class Statistical
             while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
                 $result = self::TDIST($x, $degrees, 2);
+                if ($result instanceof ExcelException) {
+                    return $result;
+                }
                 $error = $result - $probability;
                 if ($error == 0.0) {
                     $dx = 0;
@@ -3615,7 +3629,7 @@ class Statistical
      *
      * @param mixed $args Data values
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function TRIMMEAN(...$args)
     {
@@ -3658,7 +3672,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string (string if result is an error)
+     * @return ExcelException|float (ExcelException if result is an error)
      */
     public static function VARFunc(...$args)
     {
@@ -3700,7 +3714,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string (string if result is an error)
+     * @return ExcelException|float (ExcelException if result is an error)
      */
     public static function VARA(...$args)
     {
@@ -3755,7 +3769,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string (string if result is an error)
+     * @return ExcelException|float (ExcelException if result is an error)
      */
     public static function VARP(...$args)
     {
@@ -3798,7 +3812,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string (string if result is an error)
+     * @return ExcelException|float (ExcelException if result is an error)
      */
     public static function VARPA(...$args)
     {
@@ -3854,7 +3868,7 @@ class Statistical
      * @param float $beta Beta Parameter
      * @param bool $cumulative
      *
-     * @return float|string (string if result is an error)
+     * @return ExcelException|float (ExcelException if result is an error)
      */
     public static function WEIBULL($value, $alpha, $beta, $cumulative)
     {
@@ -3888,7 +3902,7 @@ class Statistical
      * @param float $m0 Alpha Parameter
      * @param float $sigma Beta Parameter
      *
-     * @return float|string (string if result is an error)
+     * @return ExcelException|float (ExcelException if result is an error)
      */
     public static function ZTEST($dataSet, $m0, $sigma = null)
     {

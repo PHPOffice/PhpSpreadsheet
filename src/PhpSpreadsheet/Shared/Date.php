@@ -4,7 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use DateTimeInterface;
 use DateTimeZone;
+use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -98,7 +100,8 @@ class Date
      *
      * @param DateTimeZone|string $timeZone The timezone to set for all Excel datetimestamp to PHP DateTime Object conversions
      *
-     * @return bool Success or failure
+     * @return bool
+     *           Success or failure
      */
     public static function setDefaultTimezone($timeZone)
     {
@@ -116,7 +119,8 @@ class Date
     /**
      * Return the Default timezone being used for dates.
      *
-     * @return DateTimeZone The timezone being used as default for Excel timestamp to PHP DateTime object
+     * @return DateTimeZone
+     *           The currently timezone being used as default for Excel timestamp to PHP DateTime object
      */
     public static function getDefaultTimezone()
     {
@@ -132,7 +136,8 @@ class Date
      *
      * @param DateTimeZone|string $timeZone The timezone to validate, either as a timezone string or object
      *
-     * @return DateTimeZone The timezone as a timezone object
+     * @return DateTimeZone
+     *          The timezone as a timezone object
      */
     private static function validateTimeZone($timeZone)
     {
@@ -154,26 +159,31 @@ class Date
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
      *
-     * @return \DateTime PHP date/time object
+     * @return \DateTime
+     *             PHP date/time object
      */
     public static function excelToDateTimeObject($excelTimestamp, $timeZone = null)
     {
-        $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
-        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
-            if ($excelTimestamp < 1.0) {
-                // Unix timestamp base date
-                $baseDate = new \DateTime('1970-01-01', $timeZone);
-            } else {
-                // MS Excel calendar base dates
-                if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
-                    // Allow adjustment for 1900 Leap Year in MS Excel
-                    $baseDate = ($excelTimestamp < 60) ? new \DateTime('1899-12-31', $timeZone) : new \DateTime('1899-12-30', $timeZone);
+        try {
+            $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
+            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
+                if ($excelTimestamp < 1.0) {
+                    // Unix timestamp base date
+                    $baseDate = new \DateTime('1970-01-01', $timeZone);
                 } else {
-                    $baseDate = new \DateTime('1904-01-01', $timeZone);
+                    // MS Excel calendar base dates
+                    if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
+                        // Allow adjustment for 1900 Leap Year in MS Excel
+                        $baseDate = ($excelTimestamp < 60) ? new \DateTime('1899-12-31', $timeZone) : new \DateTime('1899-12-30', $timeZone);
+                    } else {
+                        $baseDate = new \DateTime('1904-01-01', $timeZone);
+                    }
                 }
+            } else {
+                $baseDate = new \DateTime('1899-12-30', $timeZone);
             }
-        } else {
-            $baseDate = new \DateTime('1899-12-30', $timeZone);
+        } catch (Exception $e) {
+            throw new PhpSpreadsheetException($e->getMessage());
         }
 
         $days = floor($excelTimestamp);
@@ -189,8 +199,13 @@ class Date
         }
         $interval = $days . ' days';
 
-        return $baseDate->modify($interval)
+        $returnDate = $baseDate->modify($interval)
             ->setTime((int) $hours, (int) $minutes, (int) $seconds);
+        if ($returnDate === false) {
+            throw new PhpSpreadsheetException('Error converting Excel date to DateTime object');
+        }
+
+        return $returnDate;
     }
 
     /**
@@ -201,7 +216,8 @@ class Date
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
      *
-     * @return int Unix timetamp for this date/time
+     * @return int
+     *           Unix timetamp for this date/time
      */
     public static function excelToTimestamp($excelTimestamp, $timeZone = null)
     {
@@ -214,8 +230,8 @@ class Date
      *
      * @param mixed $dateValue Unix Timestamp or PHP DateTime object or a string
      *
-     * @return bool|float Excel date/time value
-     *                                  or boolean FALSE on failure
+     * @return bool|float
+     *      Excel date/time value or boolean FALSE on failure
      */
     public static function PHPToExcel($dateValue)
     {
@@ -235,7 +251,8 @@ class Date
      *
      * @param DateTimeInterface $dateValue PHP DateTime object
      *
-     * @return float MS Excel serialized date/time value
+     * @return float
+     *      MS Excel serialized date/time value
      */
     public static function dateTimeToExcel(DateTimeInterface $dateValue)
     {
@@ -275,7 +292,8 @@ class Date
      * @param int $minutes
      * @param int $seconds
      *
-     * @return float Excel date/time value
+     * @return float
+     *      Excel serialized date/time value
      */
     public static function formattedPHPToExcel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0)
     {
@@ -425,7 +443,8 @@ class Date
      *
      * @param string $dateValue Examples: '2009-12-31', '2009-12-31 15:59', '2009-12-31 15:59:10'
      *
-     * @return false|float Excel date/time serial value
+     * @return false|float
+     *          Excel date/time serial value
      */
     public static function stringToExcel($dateValue)
     {
@@ -438,13 +457,13 @@ class Date
 
         $dateValueNew = DateTime::DATEVALUE($dateValue);
 
-        if ($dateValueNew === Functions::VALUE()) {
+        if ($dateValueNew instanceof ExcelException) {
             return false;
         }
 
         if (strpos($dateValue, ':') !== false) {
             $timeValue = DateTime::TIMEVALUE($dateValue);
-            if ($timeValue === Functions::VALUE()) {
+            if ($timeValue instanceof ExcelException) {
                 return false;
             }
             $dateValueNew += $timeValue;
@@ -454,11 +473,12 @@ class Date
     }
 
     /**
-     * Converts a month name (either a long or a short name) to a month number.
+     * Converts a month name (either a long or a short English language name) to a month number.
      *
-     * @param string $month Month name or abbreviation
+     * @param string $month English language Month name or abbreviation
      *
-     * @return int|string Month number (1 - 12), or the original string argument if it isn't a valid month name
+     * @return int|string
+     *           Month number (1 - 12), or the original string argument if it isn't a valid month name
      */
     public static function monthStringToNumber($month)
     {
@@ -474,11 +494,12 @@ class Date
     }
 
     /**
-     * Strips an ordinal from a numeric value.
+     * Strips an English language ordinal from a numeric value.
      *
-     * @param string $day Day number with an ordinal
+     * @param string $day Day number with or without an English language ordinal
      *
-     * @return int|string The integer value with any ordinal stripped, or the original string argument if it isn't a valid numeric
+     * @return int|string
+     *           The integer value with any ordinal stripped, or the original string argument if it isn't a valid numeric
      */
     public static function dayStringToNumber($day)
     {

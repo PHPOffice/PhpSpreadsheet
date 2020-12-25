@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         0,
@@ -37,12 +39,12 @@ return [
         true,
     ],
     [
-        '#DIV/0!',
-        '#DIV/0!',
+        ExcelException::DIV0(),
+        ExcelException::DIV0(),
     ],
     [
-        '#NUM!',
-        '#NUM!',
+        ExcelException::NUM(),
+        ExcelException::NUM(),
     ],
     [
         0,

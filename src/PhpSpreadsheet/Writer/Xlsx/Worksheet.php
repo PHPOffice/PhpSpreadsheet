@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -1118,12 +1120,11 @@ class Worksheet extends WriterPart
     private function writeCellFormula(XMLWriter $objWriter, string $cellValue, Cell $pCell): void
     {
         $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $pCell->getCalculatedValue() : $cellValue;
-        if (is_string($calculatedValue)) {
-            if (\PhpOffice\PhpSpreadsheet\Calculation\Functions::isError($calculatedValue)) {
-                $this->writeCellError($objWriter, 'e', $cellValue, $calculatedValue);
+        if ($calculatedValue instanceof ExcelException) {
+            $this->writeCellError($objWriter, 'e', $cellValue, $calculatedValue->errorName());
 
-                return;
-            }
+            return;
+        } elseif (is_string($calculatedValue)) {
             $objWriter->writeAttribute('t', 'str');
         } elseif (is_bool($calculatedValue)) {
             $objWriter->writeAttribute('t', 'b');
@@ -1199,7 +1200,7 @@ class Worksheet extends WriterPart
 
                     break;
                 case 'e':            // Error
-                    $this->writeCellError($objWriter, $mappedType, $cellValue);
+                    $this->writeCellError($objWriter, $mappedType, $cellValue instanceof ExcelException ? $cellValue->errorName() : Functions::null());
             }
         }
 

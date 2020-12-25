@@ -20,7 +20,7 @@ class MinuteTest extends TestCase
      * @dataProvider providerMINUTE
      *
      * @param mixed $expectedResult
-     * @param $dateTimeValue
+     * @param mixed $dateTimeValue
      */
     public function testMINUTE($expectedResult, $dateTimeValue): void
     {

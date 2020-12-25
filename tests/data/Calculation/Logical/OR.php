@@ -1,9 +1,11 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     // No arguments
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
     ],
     // NULL
     [
@@ -102,7 +104,7 @@ return [
     ],
     // Non-numeric String
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'ABCD',
         1,
     ],

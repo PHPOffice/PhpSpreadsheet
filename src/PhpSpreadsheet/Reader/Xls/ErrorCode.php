@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 class ErrorCode
 {
     protected static $map = [
@@ -19,12 +21,12 @@ class ErrorCode
      *
      * @param int $code
      *
-     * @return bool|string
+     * @return bool|ExcelException
      */
     public static function lookup($code)
     {
         if (isset(self::$map[$code])) {
-            return self::$map[$code];
+            return ExcelException::fromErrorName(self::$map[$code]);
         }
 
         return false;

@@ -14,7 +14,8 @@ class DateTime
      *
      * @param int|string $year The year to test
      *
-     * @return bool TRUE if the year is a leap year, otherwise FALSE
+     * @return bool
+     *          TRUE if the year is a leap year, otherwise FALSE
      */
     public static function isLeapYear($year)
     {
@@ -32,7 +33,8 @@ class DateTime
      * @param int $endYear Year of the start date
      * @param bool $methodUS Whether to use the US method or the European method of calculation
      *
-     * @return int Number of days between the start date and the end date
+     * @return int
+     *          Number of days between the start date and the end date
      */
     private static function dateDiff360($startDay, $startMonth, $startYear, $endDay, $endMonth, $endYear, $methodUS)
     {
@@ -63,19 +65,24 @@ class DateTime
      *
      * @param mixed $dateValue
      *
-     * @return mixed Excel date/time serial value, or string if error
+     * @return ExcelException|float
+     *          Excel date/time serial value, or ExcelException if error
      */
     public static function getDateValue($dateValue)
     {
         if (!is_numeric($dateValue)) {
-            if ((is_object($dateValue)) && ($dateValue instanceof DateTimeInterface)) {
-                $dateValue = Date::PHPToExcel($dateValue);
-            } else {
-                $saveReturnDateType = Functions::getReturnDateType();
-                Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-                $dateValue = self::DATEVALUE($dateValue);
-                Functions::setReturnDateType($saveReturnDateType);
+            if (is_object($dateValue)) {
+                if ($dateValue instanceof DateTimeInterface) {
+                    return Date::dateTimeToExcel($dateValue);
+                }
+
+                return Functions::VALUE();
             }
+
+            $saveReturnDateType = Functions::getReturnDateType();
+            Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
+            $dateValue = self::DATEVALUE($dateValue);
+            Functions::setReturnDateType($saveReturnDateType);
         }
 
         return $dateValue;
@@ -86,7 +93,8 @@ class DateTime
      *
      * @param string $timeValue
      *
-     * @return mixed Excel date/time serial value, or string if error
+     * @return ExcelException|float
+     *          Excel date/time serial value, or ExcelException if an error
      */
     private static function getTimeValue($timeValue)
     {
@@ -139,8 +147,9 @@ class DateTime
      * Excel Function:
      *        NOW()
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     * @return mixed
+     *          Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *              depending on the value of the ReturnDateType flag
      */
     public static function DATETIMENOW()
     {
@@ -457,10 +466,12 @@ class DateTime
      *                                    from January 1, 1904, to December 31, 9999. DATEVALUE returns the
      *                                    #VALUE! error value if date_text is out of this range.
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     * @return DateTimeInterface|ExcelException|float|int
+     *             Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
+     *             or an ExcelException if the value cannot be converted
      */
-    public static function DATEVALUE($dateValue = 1)
+    public static function DATEVALUE($dateValue = '1')
     {
         $dateValue = trim(Functions::flattenSingleValue($dateValue), '"');
         //    Strip any ordinals because they're allowed in Excel (English only)
@@ -586,8 +597,10 @@ class DateTime
      *                                    within quotation marks that represent time.
      *                                    Date information in time_text is ignored.
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     * @return DateTimeInterface|ExcelException|float|int
+     *             Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
+     *             or an ExcelException if the value cannot be converted
      */
     public static function TIMEVALUE($timeValue)
     {
@@ -637,7 +650,7 @@ class DateTime
      *                                    or a standard date string
      * @param string $unit
      *
-     * @return int|string Interval between the dates
+     * @return ExcelException|int Interval between the dates
      */
     public static function DATEDIF($startDate = 0, $endDate = 0, $unit = 'D')
     {
@@ -645,10 +658,12 @@ class DateTime
         $endDate = Functions::flattenSingleValue($endDate);
         $unit = strtoupper(Functions::flattenSingleValue($unit));
 
-        if (is_string($startDate = self::getDateValue($startDate))) {
+        $startDate = self::getDateValue($startDate);
+        if ($startDate instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($endDate = self::getDateValue($endDate))) {
+        $endDate = self::getDateValue($endDate);
+        if ($endDate instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -678,7 +693,7 @@ class DateTime
 
                 break;
             case 'M':
-                $retVal = (int) 12 * $PHPDiffDateObject->format('%y') + $PHPDiffDateObject->format('%m');
+                $retVal = (int) 12 * ((int) $PHPDiffDateObject->format('%y')) + ((int) $PHPDiffDateObject->format('%m'));
 
                 break;
             case 'Y':
@@ -689,7 +704,7 @@ class DateTime
                 if ($endDays < $startDays) {
                     $retVal = $endDays;
                     $PHPEndDateObject->modify('-' . $endDays . ' days');
-                    $adjustDays = $PHPEndDateObject->format('j');
+                    $adjustDays = (int) $PHPEndDateObject->format('j');
                     $retVal += ($adjustDays - $startDays);
                 } else {
                     $retVal = (int) $PHPDiffDateObject->format('%d');
@@ -745,7 +760,8 @@ class DateTime
      * @param DateTimeImmutable|float|int|string $startDate Excel date serial value (float),
      * PHP date timestamp (integer), PHP DateTime object, or a standard date string
      *
-     * @return int|string Number of days between start date and end date or an error
+     * @return ExcelException|int
+     *          Number of days between start date and end date or an error
      */
     public static function DAYS($endDate = 0, $startDate = 0)
     {
@@ -753,12 +769,11 @@ class DateTime
         $endDate = Functions::flattenSingleValue($endDate);
 
         $startDate = self::getDateValue($startDate);
-        if (is_string($startDate)) {
+        if ($startDate instanceof ExcelException) {
             return Functions::VALUE();
         }
-
         $endDate = self::getDateValue($endDate);
-        if (is_string($endDate)) {
+        if ($endDate instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -802,17 +817,20 @@ class DateTime
      *                                        occur on the 31st of a month become equal to the 30th of the
      *                                        same month.
      *
-     * @return int|string Number of days between start date and end date
+     * @return ExcelException|int
+     *             Number of whoe days between start date and end date, based on the mode used
      */
     public static function DAYS360($startDate = 0, $endDate = 0, $method = false)
     {
         $startDate = Functions::flattenSingleValue($startDate);
         $endDate = Functions::flattenSingleValue($endDate);
 
-        if (is_string($startDate = self::getDateValue($startDate))) {
+        $startDate = self::getDateValue($startDate);
+        if ($startDate instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($endDate = self::getDateValue($endDate))) {
+        $endDate = self::getDateValue($endDate);
+        if ($endDate instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -822,14 +840,14 @@ class DateTime
 
         // Execute function
         $PHPStartDateObject = Date::excelToDateTimeObject($startDate);
-        $startDay = $PHPStartDateObject->format('j');
-        $startMonth = $PHPStartDateObject->format('n');
-        $startYear = $PHPStartDateObject->format('Y');
+        $startDay = (int) $PHPStartDateObject->format('j');
+        $startMonth = (int) $PHPStartDateObject->format('n');
+        $startYear = (int) $PHPStartDateObject->format('Y');
 
         $PHPEndDateObject = Date::excelToDateTimeObject($endDate);
-        $endDay = $PHPEndDateObject->format('j');
-        $endMonth = $PHPEndDateObject->format('n');
-        $endYear = $PHPEndDateObject->format('Y');
+        $endDay = (int) $PHPEndDateObject->format('j');
+        $endMonth = (int) $PHPEndDateObject->format('n');
+        $endYear = (int) $PHPEndDateObject->format('Y');
 
         return self::dateDiff360($startDay, $startMonth, $startYear, $endDay, $endMonth, $endYear, !$method);
     }
@@ -858,7 +876,8 @@ class DateTime
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float|string fraction of the year, or a string containing an error
+     * @return ExcelException|float
+     *            Fraction of the year, or an ExcelException containing an error
      */
     public static function YEARFRAC($startDate = 0, $endDate = 0, $method = 0)
     {
@@ -866,10 +885,12 @@ class DateTime
         $endDate = Functions::flattenSingleValue($endDate);
         $method = Functions::flattenSingleValue($method);
 
-        if (is_string($startDate = self::getDateValue($startDate))) {
+        $startDate = self::getDateValue($startDate);
+        if ($startDate instanceof ExcelException) {
             return Functions::VALUE();
         }
-        if (is_string($endDate = self::getDateValue($endDate))) {
+        $endDate = self::getDateValue($endDate);
+        if ($endDate instanceof ExcelException) {
             return Functions::VALUE();
         }
         if ($startDate > $endDate) {
@@ -952,7 +973,7 @@ class DateTime
      * @param mixed $endDate Excel date serial value (float), PHP date timestamp (integer),
      *                                            PHP DateTime object, or a standard date string
      *
-     * @return int|string Interval between the dates
+     * @return ExcelException|int Interval between the dates
      */
     public static function NETWORKDAYS($startDate, $endDate, ...$dateArgs)
     {
@@ -963,11 +984,13 @@ class DateTime
         $dateArgs = Functions::flattenArray($dateArgs);
 
         //    Validate the start and end dates
-        if (is_string($startDate = $sDate = self::getDateValue($startDate))) {
+        $startDate = $sDate = self::getDateValue($startDate);
+        if ($startDate instanceof ExcelException) {
             return Functions::VALUE();
         }
         $startDate = (float) floor($startDate);
-        if (is_string($endDate = $eDate = self::getDateValue($endDate))) {
+        $endDate = $eDate = self::getDateValue($endDate);
+        if ($endDate instanceof ExcelException) {
             return Functions::VALUE();
         }
         $endDate = (float) floor($endDate);
@@ -978,11 +1001,11 @@ class DateTime
         }
 
         // Execute function
-        $startDoW = 6 - self::WEEKDAY($startDate, 2);
+        $startDoW = 6 - self::WEEKDAY((int) $startDate, 2);
         if ($startDoW < 0) {
             $startDoW = 0;
         }
-        $endDoW = self::WEEKDAY($endDate, 2);
+        $endDoW = self::WEEKDAY((int) $endDate, 2);
         if ($endDoW >= 6) {
             $endDoW = 0;
         }
@@ -996,7 +1019,8 @@ class DateTime
         //    Test any extra holiday parameters
         $holidayCountedArray = [];
         foreach ($dateArgs as $holidayDate) {
-            if (is_string($holidayDate = self::getDateValue($holidayDate))) {
+            $holidayDate = self::getDateValue($holidayDate);
+            if ($holidayDate instanceof ExcelException) {
                 return Functions::VALUE();
             }
             if (($holidayDate >= $startDate) && ($holidayDate <= $endDate)) {
@@ -1042,7 +1066,8 @@ class DateTime
         //    Get the optional days
         $dateArgs = Functions::flattenArray($dateArgs);
 
-        if ((is_string($startDate = self::getDateValue($startDate))) || (!is_numeric($endDays))) {
+        $startDate = self::getDateValue($startDate);
+        if (($startDate instanceof ExcelException) || (!is_numeric($endDays))) {
             return Functions::VALUE();
         }
         $startDate = (float) floor($startDate);
@@ -1076,7 +1101,8 @@ class DateTime
             $holidayCountedArray = $holidayDates = [];
             foreach ($dateArgs as $holidayDate) {
                 if (($holidayDate !== null) && (trim($holidayDate) > '')) {
-                    if (is_string($holidayDate = self::getDateValue($holidayDate))) {
+                    $holidayDate = self::getDateValue($holidayDate);
+                    if ($holidayDate instanceof ExcelException) {
                         return Functions::VALUE();
                     }
                     if (self::WEEKDAY($holidayDate, 3) < 5) {
@@ -1135,15 +1161,14 @@ class DateTime
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int|string Day of the month
+     * @return ExcelException|int Day of the month
      */
     public static function DAYOFMONTH($dateValue = 1)
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
 
-        if ($dateValue === null) {
-            $dateValue = 1;
-        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = ($dateValue === null) ? 1 : self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -1177,7 +1202,7 @@ class DateTime
      *                                        2                Numbers 1 (Monday) through 7 (Sunday).
      *                                        3                Numbers 0 (Monday) through 6 (Sunday).
      *
-     * @return int|string Day of the week value
+     * @return ExcelException|int Day of the week value
      */
     public static function WEEKDAY($dateValue = 1, $style = 1)
     {
@@ -1191,9 +1216,8 @@ class DateTime
         }
         $style = floor($style);
 
-        if ($dateValue === null) {
-            $dateValue = 1;
-        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = ($dateValue === null) ? 1 : self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
             return Functions::NAN();
@@ -1294,7 +1318,7 @@ class DateTime
      *                                        17               Week begins on Sunday.
      *                                        21               ISO (Jan. 4 is week 1, begins on Monday).
      *
-     * @return int|string Week Number
+     * @return ExcelException|int Week Number
      */
     public static function WEEKNUM($dateValue = 1, $method = self::STARTWEEK_SUNDAY)
     {
@@ -1310,11 +1334,10 @@ class DateTime
         }
         $method = self::METHODARR[$method];
 
-        $dateValue = self::getDateValue($dateValue);
-        if (is_string($dateValue)) {
+        $dateValue = ($dateValue === null) ? 1 : self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
-        }
-        if ($dateValue < 0.0) {
+        } elseif ($dateValue < 0.0) {
             return Functions::NAN();
         }
 
@@ -1345,15 +1368,14 @@ class DateTime
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int|string Week Number
+     * @return ExcelException|int Week Number
      */
     public static function ISOWEEKNUM($dateValue = 1)
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
 
-        if ($dateValue === null) {
-            $dateValue = 1;
-        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = ($dateValue === null) ? 1 : self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
             return Functions::NAN();
@@ -1377,16 +1399,14 @@ class DateTime
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int|string Month of the year
+     * @return ExcelException|int Month of the year
      */
     public static function MONTHOFYEAR($dateValue = 1)
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
 
-        if (empty($dateValue)) {
-            $dateValue = 1;
-        }
-        if (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = ($dateValue === null) ? 1 : self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
             return Functions::NAN();
@@ -1410,15 +1430,14 @@ class DateTime
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int|string Year
+     * @return ExcelException|int Year
      */
     public static function YEAR($dateValue = 1)
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
 
-        if ($dateValue === null) {
-            $dateValue = 1;
-        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = ($dateValue === null) ? 1 : self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         } elseif ($dateValue < 0.0) {
             return Functions::NAN();
@@ -1442,7 +1461,7 @@ class DateTime
      * @param mixed $timeValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard time string
      *
-     * @return int|string Hour
+     * @return ExcelException|int Hour
      */
     public static function HOUROFDAY($timeValue = 0)
     {
@@ -1456,7 +1475,7 @@ class DateTime
                 }
             }
             $timeValue = self::getTimeValue($timeValue);
-            if (is_string($timeValue)) {
+            if ($timeValue instanceof ExcelException) {
                 return Functions::VALUE();
             }
         }
@@ -1483,7 +1502,7 @@ class DateTime
      * @param mixed $timeValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard time string
      *
-     * @return int|string Minute
+     * @return ExcelException|int Minute
      */
     public static function MINUTE($timeValue = 0)
     {
@@ -1497,7 +1516,7 @@ class DateTime
                 }
             }
             $timeValue = self::getTimeValue($timeValue);
-            if (is_string($timeValue)) {
+            if ($timeValue instanceof ExcelException) {
                 return Functions::VALUE();
             }
         }
@@ -1524,7 +1543,7 @@ class DateTime
      * @param mixed $timeValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard time string
      *
-     * @return int|string Second
+     * @return ExcelException|int Second
      */
     public static function SECOND($timeValue = 0)
     {
@@ -1538,7 +1557,7 @@ class DateTime
                 }
             }
             $timeValue = self::getTimeValue($timeValue);
-            if (is_string($timeValue)) {
+            if ($timeValue instanceof ExcelException) {
                 return Functions::VALUE();
             }
         }
@@ -1583,7 +1602,8 @@ class DateTime
         }
         $adjustmentMonths = floor($adjustmentMonths);
 
-        if (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         }
 
@@ -1629,7 +1649,8 @@ class DateTime
         }
         $adjustmentMonths = floor($adjustmentMonths);
 
-        if (is_string($dateValue = self::getDateValue($dateValue))) {
+        $dateValue = self::getDateValue($dateValue);
+        if ($dateValue instanceof ExcelException) {
             return Functions::VALUE();
         }
 

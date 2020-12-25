@@ -1,10 +1,12 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // Result, Settlement, Maturity, Rate, Yield, Redemption, Frequency, Basis
 
 return [
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'xyz',
         '15-Nov-2017',
         0.0575,
@@ -14,7 +16,7 @@ return [
         0,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '15-Feb-2008',
         'xyz',
         0.0575,
@@ -24,7 +26,7 @@ return [
         0,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '15-Feb-2008',
         '15-Nov-2017',
         'xyz',
@@ -34,7 +36,7 @@ return [
         0,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '15-Feb-2008',
         '15-Nov-2017',
         0.0575,
@@ -44,7 +46,7 @@ return [
         0,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '15-Feb-2008',
         '15-Nov-2017',
         0.0575,
@@ -54,7 +56,7 @@ return [
         0,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '15-Feb-2008',
         '15-Nov-2017',
         0.0575,
@@ -64,7 +66,7 @@ return [
         0,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '15-Feb-2008',
         '15-Nov-2017',
         0.0575,
@@ -74,7 +76,7 @@ return [
         'xyz',
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '15-Feb-2008',
         '15-Nov-2017',
         0.0575,
@@ -84,7 +86,7 @@ return [
         -1, // invalid basis
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '15-Feb-2008',
         '15-Nov-2017',
         0.0575,
@@ -94,7 +96,7 @@ return [
         5, // invalid basis
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '15-Nov-2017', // maturity before settlement
         '15-Feb-2008',
         0.0575,
@@ -104,7 +106,7 @@ return [
         0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '15-Feb-2008',
         '15-Nov-2017',
         0.0575,
@@ -114,7 +116,7 @@ return [
         0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '15-Feb-2008',
         '15-Nov-2017',
         0.0575,
@@ -124,7 +126,7 @@ return [
         0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '15-Feb-2008',
         '15-Nov-2017',
         0.0575,

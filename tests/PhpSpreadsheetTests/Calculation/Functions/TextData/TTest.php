@@ -11,7 +11,7 @@ class TTest extends TestCase
      * @dataProvider providerT
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testT($expectedResult, $value): void
     {

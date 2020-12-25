@@ -1,14 +1,16 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 //  Date String, Result
 
 return [
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '25-Dec-1899',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '31-Dec-1899',
     ],
     [
@@ -20,12 +22,12 @@ return [
         '1900/2/28',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '29-02-1900',
     ],
     // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '29th February 1900',
     ],
     [
@@ -135,7 +137,7 @@ return [
     ],
     // Should fail because it's an invalid date, but PhpSpreadsheet currently adjusts to 1-3-2007 - FIX NEEDED
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '29-2-2007',
     ],
     [
@@ -156,7 +158,7 @@ return [
         '1st March 2007',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'The 1st day of March 2007',
     ],
     // 01/01 of the current year
@@ -193,27 +195,27 @@ return [
         '10/32',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         11,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         true,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         false,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         1,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         12345,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         12,
     ],
     [
@@ -260,7 +262,7 @@ return [
         '1st-Feb-2010',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '1me Fev 2010',
     ],
     // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
@@ -274,11 +276,11 @@ return [
         '2nd Feb 2010',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'Second Feb 2010',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'First August 2010',
     ],
     // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
@@ -291,7 +293,7 @@ return [
         '15:30:25',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'ABCDEFGHIJKMNOPQRSTUVWXYZ',
     ],
 ];

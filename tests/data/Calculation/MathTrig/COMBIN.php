@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // NumObjs, NumInSet, Result
 
 return [
@@ -29,22 +31,22 @@ return [
         3,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -7,
         -10,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -7,
         10,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         7,
         -10,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         2,
         3,
     ],
@@ -69,7 +71,7 @@ return [
         2,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'ABCD',
         'EFGH',
     ],
@@ -119,7 +121,7 @@ return [
         6,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         6,
         7,
     ],

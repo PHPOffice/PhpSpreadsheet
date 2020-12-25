@@ -20,14 +20,18 @@ class DateDifTest extends TestCase
      * @dataProvider providerDATEDIF
      *
      * @param mixed $expectedResult
-     * @param $startDate
-     * @param $endDate
-     * @param $unit
+     * @param mixed $startDate
+     * @param mixed $endDate
+     * @param mixed $unit
      */
     public function testDATEDIF($expectedResult, $startDate, $endDate, $unit): void
     {
         $result = DateTime::DATEDIF($startDate, $endDate, $unit);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerDATEDIF()

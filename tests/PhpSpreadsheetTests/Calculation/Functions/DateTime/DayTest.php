@@ -37,17 +37,27 @@ class DayTest extends TestCase
      *
      * @param mixed $expectedResultExcel
      * @param mixed $expectedResultOpenOffice
-     * @param $dateTimeValue
+     * @param mixed $dateTimeValue
      */
     public function testDAY($expectedResultExcel, $expectedResultOpenOffice, $dateTimeValue): void
     {
         $resultExcel = DateTime::DAYOFMONTH($dateTimeValue);
-        self::assertEqualsWithDelta($expectedResultExcel, $resultExcel, 1E-8);
+
+        if (is_object($expectedResultExcel)) {
+            self::assertEquals($expectedResultExcel, $resultExcel);
+        } else {
+            self::assertEqualsWithDelta($expectedResultExcel, $resultExcel, 1E-8);
+        }
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
         $resultOpenOffice = DateTime::DAYOFMONTH($dateTimeValue);
-        self::assertEqualsWithDelta($expectedResultOpenOffice, $resultOpenOffice, 1E-8);
+
+        if (is_object($expectedResultOpenOffice)) {
+            self::assertEquals($expectedResultOpenOffice, $resultOpenOffice);
+        } else {
+            self::assertEqualsWithDelta($expectedResultOpenOffice, $resultOpenOffice, 1E-8);
+        }
     }
 
     public function providerDAY()

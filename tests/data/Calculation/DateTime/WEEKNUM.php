@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         52,
@@ -46,23 +48,23 @@ return [
         '3/7/1977',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '3/7/1977', 'A',
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '3/7/1977', 0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '3/7/1977', -1,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'Invalid', 1,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -1,
     ],
     [
@@ -74,11 +76,11 @@ return [
         '2019-12-29', 2,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '2019-12-29', 3,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '2019-12-29', 10,
     ],
     [
@@ -110,15 +112,15 @@ return [
         '2019-12-29', 17,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '2019-12-29', 18,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '2019-12-29', 20,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '2019-12-29', 22,
     ],
     [

@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         0,
@@ -38,7 +40,7 @@ return [
         '9:44:55 pm',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         12,
     ],
     [
@@ -50,7 +52,7 @@ return [
         '33:45',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '13:01PM',
     ],
 ];

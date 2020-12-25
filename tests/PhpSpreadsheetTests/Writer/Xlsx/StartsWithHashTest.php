@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
 use PhpOffice\PhpSpreadsheet\Settings;
@@ -31,9 +32,11 @@ class StartsWithHashTest extends TestCase
         unlink($outputFilename);
 
         self::assertSame('#define M', $sheet->getActiveSheet()->getCell('A1')->getValue());
+        self::assertSame('s', $sheet->getActiveSheet()->getCell('A1')->getDataType());
         self::assertSame('#define M', $sheet->getActiveSheet()->getCell('A2')->getCalculatedValue());
-        self::assertSame('f', $sheet->getActiveSheet()->getCell('A3')->getDataType());
-        self::assertSame('#NAME?', $sheet->getActiveSheet()->getCell('A3')->getCalculatedValue());
+        self::assertSame('f', $sheet->getActiveSheet()->getCell('A2')->getDataType());
+        self::assertInstanceOf(ExcelException::class, $sheet->getActiveSheet()->getCell('A3')->getCalculatedValue());
+        self::assertSame('#NAME?', $sheet->getActiveSheet()->getCell('A3')->getCalculatedValue()->errorName());
         self::assertSame('f', $sheet->getActiveSheet()->getCell('A3')->getDataType());
     }
 

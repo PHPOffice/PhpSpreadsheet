@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         1800,
@@ -30,11 +32,11 @@ return [
         [45000, 7500, 10],
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         [10000, 1000, -1],
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         ['INVALID', 1000, -1],
     ],
 ];

@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         '1.13290930735019+0.187055234944717j',
@@ -58,7 +60,7 @@ return [
         'i',
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '0',
     ],
     [

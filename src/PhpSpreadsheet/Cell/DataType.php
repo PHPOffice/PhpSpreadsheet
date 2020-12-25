@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
@@ -18,28 +19,13 @@ class DataType
     const TYPE_ERROR = 'e';
 
     /**
-     * List of error codes.
-     *
-     * @var array
-     */
-    private static $errorCodes = [
-        '#NULL!' => 0,
-        '#DIV/0!' => 1,
-        '#VALUE!' => 2,
-        '#REF!' => 3,
-        '#NAME?' => 4,
-        '#NUM!' => 5,
-        '#N/A' => 6,
-    ];
-
-    /**
      * Get list of error codes.
      *
      * @return array
      */
     public static function getErrorCodes()
     {
-        return self::$errorCodes;
+        return ExcelException::ERROR_CODES;
     }
 
     /**
@@ -66,20 +52,22 @@ class DataType
     }
 
     /**
-     * Check a value that it is a valid error code.
+     * Check that a value is a valid error object.
      *
-     * @param mixed $pValue Value to sanitize to an Excel error code
+     * @param ExcelException|string $errorCode Value to sanitize as an Excel error object
      *
-     * @return string Sanitized value
+     * @return ExcelException Sanitized value
      */
-    public static function checkErrorCode($pValue)
+    public static function checkErrorCode($errorCode): ExcelException
     {
-        $pValue = (string) $pValue;
-
-        if (!isset(self::$errorCodes[$pValue])) {
-            $pValue = '#NULL!';
+        if ($errorCode instanceof ExcelException) {
+            return $errorCode;
         }
 
-        return $pValue;
+        if (!isset(ExcelException::ERROR_CODES[$errorCode])) {
+            return ExcelException::null();
+        }
+
+        return ExcelException::fromErrorName($errorCode);
     }
 }

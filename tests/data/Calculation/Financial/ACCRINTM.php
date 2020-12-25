@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // Issue date, Settlement, Rate, Par, Basis, Result
 
 return [
@@ -19,7 +21,7 @@ return [
         10000,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '2008-03-05',
         '2008-08-31',
         -0.10000000000000001,
@@ -27,7 +29,7 @@ return [
         2,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'Invalid Date',
         '2008-08-31',
         0.10000000000000001,
@@ -35,7 +37,7 @@ return [
         2,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '2008-03-01',
         '2008-08-31',
         'ABC',

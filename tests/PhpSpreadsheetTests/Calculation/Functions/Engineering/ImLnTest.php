@@ -36,10 +36,15 @@ class ImLnTest extends TestCase
     public function testIMLN($expectedResult, $value): void
     {
         $result = Engineering::IMLN($value);
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertTrue(
+                $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+                $this->complexAssert->getErrorMessage()
+            );
+        }
     }
 
     public function providerIMLN()

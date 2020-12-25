@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 return [
@@ -39,12 +40,12 @@ return [
         DataType::TYPE_NUMERIC,
     ],
     [
-        '#DIV/0!',
-        '#DIV/0!',
+        ExcelException::DIV0(),
+        ExcelException::DIV0(),
         DataType::TYPE_ERROR,
     ],
     [
-        '#NULL!',
+        ExcelException::null(),
         'NOT A VALID ERROR TYPE VALUE',
         DataType::TYPE_ERROR,
     ],

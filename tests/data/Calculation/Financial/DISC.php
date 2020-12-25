@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // settlement, maturity, price, redemption, basis, result
 
 return [
@@ -19,21 +21,21 @@ return [
         100,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '2010-04-01',
         '2015-03-31',
         0,
         100,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '2010-04-01',
         '2015-03-31',
         'ABC',
         100,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'Invalid Date',
         '2007-06-15',
         97.974999999999994,

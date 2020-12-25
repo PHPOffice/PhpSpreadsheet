@@ -35,10 +35,15 @@ class ImDivTest extends TestCase
     public function testIMDIV($expectedResult, ...$args): void
     {
         $result = Engineering::IMDIV(...$args);
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertTrue(
+                $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+                $this->complexAssert->getErrorMessage()
+            );
+        }
     }
 
     public function providerIMDIV()

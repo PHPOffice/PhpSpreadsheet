@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -20,8 +21,8 @@ class EDateTest extends TestCase
      * @dataProvider providerEDATE
      *
      * @param mixed $expectedResult
-     * @param $dateValue
-     * @param $adjustmentMonths
+     * @param mixed $dateValue
+     * @param mixed $adjustmentMonths
      */
     public function testEDATE($expectedResult, $dateValue, $adjustmentMonths): void
     {
@@ -48,11 +49,13 @@ class EDateTest extends TestCase
         Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
 
         $result = DateTime::EDATE('2012-1-26', -1);
-        //    Must return an object...
-        self::assertIsObject($result);
         //    ... of the correct type
-        self::assertTrue(is_a($result, 'DateTimeInterface'));
-        //    ... with the correct value
+        self::assertInstanceOf(DateTimeInterface::class, $result);
+        /*
+         *    ... with the correct value (using an annotation for what the previous assertion has already determined
+         *             because Scrutinizer simply isn't tha intelligent, and treats that as a major issue)
+         * @var DateTimeInterface $result
+         */
         self::assertEquals($result->format('d-M-Y'), '26-Dec-2011');
     }
 }

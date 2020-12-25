@@ -783,7 +783,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
      *                                If $ord < 0, BESSELI returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function BESSELI($x, $ord)
     {
@@ -835,7 +835,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELJ returns the #VALUE! error value.
      *                                If $ord < 0, BESSELJ returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function BESSELJ($x, $ord)
     {
@@ -926,7 +926,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
      *                                If $ord < 0, BESSELK returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function BESSELK($x, $ord)
     {
@@ -1013,7 +1013,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
      *                                If $ord < 0, BESSELK returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return ExcelException|float Result, or an ExcelException containing an error
      */
     public static function BESSELY($x, $ord)
     {
@@ -1066,7 +1066,7 @@ class Engineering
      *                                If number is not a valid binary number, or if number contains more than
      *                                10 characters (10 bits), BIN2DEC returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function BINTODEC($x)
     {
@@ -1095,7 +1095,7 @@ class Engineering
             return '-' . (512 - bindec($x));
         }
 
-        return bindec($x);
+        return (string) bindec($x);
     }
 
     /**
@@ -1119,7 +1119,7 @@ class Engineering
      *                                If places is nonnumeric, BIN2HEX returns the #VALUE! error value.
      *                                If places is negative, BIN2HEX returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function BINTOHEX($x, $places = null)
     {
@@ -1173,7 +1173,7 @@ class Engineering
      *                                If places is nonnumeric, BIN2OCT returns the #VALUE! error value.
      *                                If places is negative, BIN2OCT returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function BINTOOCT($x, $places = null)
     {
@@ -1230,7 +1230,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2BIN returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2BIN returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function DECTOBIN($x, $places = null)
     {
@@ -1289,7 +1289,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2HEX returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2HEX returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function DECTOHEX($x, $places = null)
     {
@@ -1396,7 +1396,7 @@ class Engineering
      *                                    If places is nonnumeric, HEX2BIN returns the #VALUE! error value.
      *                                    If places is negative, HEX2BIN returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function HEXTOBIN($x, $places = null)
     {
@@ -1430,7 +1430,7 @@ class Engineering
      *                                If number is not a valid hexadecimal number, HEX2DEC returns the
      *                                #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function HEXTODEC($x)
     {
@@ -1457,10 +1457,10 @@ class Engineering
                 $binX[$i] = ($binX[$i] == '1' ? '0' : '1');
             }
 
-            return (bindec($binX) + 1) * -1;
+            return (string) ((bindec($binX) + 1) * -1);
         }
 
-        return bindec($binX);
+        return (string) bindec($binX);
     }
 
     /**
@@ -1492,7 +1492,7 @@ class Engineering
      *                                    value.
      *                                    If places is negative, HEX2OCT returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function HEXTOOCT($x, $places = null)
     {
@@ -1508,7 +1508,7 @@ class Engineering
         }
 
         $decimal = self::HEXTODEC($x);
-        if ($decimal < -536870912 || $decimal > 536870911) {
+        if ((int) $decimal < -536870912 || (int) $decimal > 536870911) {
             return Functions::NAN();
         }
 
@@ -1546,7 +1546,7 @@ class Engineering
      *                                    If places is negative, OCT2BIN returns the #NUM! error
      *                                    value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function OCTTOBIN($x, $places = null)
     {
@@ -1580,7 +1580,7 @@ class Engineering
      *                                If number is not a valid octal number, OCT2DEC returns the
      *                                #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function OCTTODEC($x)
     {
@@ -1602,10 +1602,10 @@ class Engineering
                 $binX[$i] = ($binX[$i] == '1' ? '0' : '1');
             }
 
-            return (bindec($binX) + 1) * -1;
+            return (string) ((bindec($binX) + 1) * -1);
         }
 
-        return bindec($binX);
+        return (string) bindec($binX);
     }
 
     /**
@@ -1634,7 +1634,7 @@ class Engineering
      *                                    If places is nonnumeric, OCT2HEX returns the #VALUE! error value.
      *                                    If places is negative, OCT2HEX returns the #NUM! error value.
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function OCTTOHEX($x, $places = null)
     {
@@ -1666,7 +1666,7 @@ class Engineering
      * @param string $suffix The suffix for the imaginary component of the complex number.
      *                                        If omitted, the suffix is assumed to be "i".
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function COMPLEX($realNumber = 0.0, $imaginary = 0.0, $suffix = 'i')
     {
@@ -1755,7 +1755,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the argument theta
      *
-     * @return float|string
+     * @return ExcelException|float
      */
     public static function IMARGUMENT($complexNumber)
     {
@@ -1988,7 +1988,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the square root
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMSQRT($complexNumber)
     {
@@ -2012,7 +2012,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the natural logarithm
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMLN($complexNumber)
     {
@@ -2036,7 +2036,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the common logarithm
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMLOG10($complexNumber)
     {
@@ -2060,7 +2060,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the base-2 logarithm
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMLOG2($complexNumber)
     {
@@ -2104,7 +2104,7 @@ class Engineering
      * @param string $complexNumber the complex number you want to raise to a power
      * @param float $realNumber the power to which you want to raise the complex number
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMPOWER($complexNumber, $realNumber)
     {
@@ -2129,7 +2129,7 @@ class Engineering
      * @param string $complexDividend the complex numerator or dividend
      * @param string $complexDivisor the complex denominator or divisor
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMDIV($complexDividend, $complexDivisor)
     {
@@ -2154,7 +2154,7 @@ class Engineering
      * @param string $complexNumber1 the complex number from which to subtract complexNumber2
      * @param string $complexNumber2 the complex number to subtract from complexNumber1
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMSUB($complexNumber1, $complexNumber2)
     {
@@ -2178,7 +2178,7 @@ class Engineering
      *
      * @param string ...$complexNumbers Series of complex numbers to add
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMSUM(...$complexNumbers)
     {
@@ -2208,7 +2208,7 @@ class Engineering
      *
      * @param string ...$complexNumbers Series of complex numbers to multiply
      *
-     * @return string
+     * @return ExcelException|string
      */
     public static function IMPRODUCT(...$complexNumbers)
     {
@@ -2321,16 +2321,16 @@ class Engineering
             if ($value == (int) ($value)) {
                 $value = (int) ($value);
                 if (($value > 2 ** 48 - 1) || ($value < 0)) {
-                    throw new Exception(Functions::NAN());
+                    throw new Exception(Functions::NAN()->errorName());
                 }
 
                 return $value;
             }
 
-            throw new Exception(Functions::NAN());
+            throw new Exception(Functions::NAN()->errorName());
         }
 
-        throw new Exception(Functions::VALUE());
+        throw new Exception(Functions::VALUE()->errorName());
     }
 
     /**
@@ -2344,7 +2344,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int|string
+     * @return ExcelException|int
      */
     public static function BITAND($number1, $number2)
     {
@@ -2352,7 +2352,7 @@ class Engineering
             $number1 = self::validateBitwiseArgument($number1);
             $number2 = self::validateBitwiseArgument($number2);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return ExcelException::fromErrorName($e->getMessage());
         }
 
         return $number1 & $number2;
@@ -2369,7 +2369,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int|string
+     * @return ExcelException|int
      */
     public static function BITOR($number1, $number2)
     {
@@ -2377,7 +2377,7 @@ class Engineering
             $number1 = self::validateBitwiseArgument($number1);
             $number2 = self::validateBitwiseArgument($number2);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return ExcelException::fromErrorName($e->getMessage());
         }
 
         return $number1 | $number2;
@@ -2394,7 +2394,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int|string
+     * @return ExcelException|int
      */
     public static function BITXOR($number1, $number2)
     {
@@ -2402,7 +2402,7 @@ class Engineering
             $number1 = self::validateBitwiseArgument($number1);
             $number2 = self::validateBitwiseArgument($number2);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return ExcelException::fromErrorName($e->getMessage());
         }
 
         return $number1 ^ $number2;
@@ -2419,14 +2419,14 @@ class Engineering
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return int|string
+     * @return ExcelException|int
      */
     public static function BITLSHIFT($number, $shiftAmount)
     {
         try {
             $number = self::validateBitwiseArgument($number);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return ExcelException::fromErrorName($e->getMessage());
         }
 
         $shiftAmount = Functions::flattenSingleValue($shiftAmount);
@@ -2450,14 +2450,14 @@ class Engineering
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return int|string
+     * @return ExcelException|int
      */
     public static function BITRSHIFT($number, $shiftAmount)
     {
         try {
             $number = self::validateBitwiseArgument($number);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return ExcelException::fromErrorName($e->getMessage());
         }
 
         $shiftAmount = Functions::flattenSingleValue($shiftAmount);

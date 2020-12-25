@@ -21,7 +21,12 @@ class FinancialTest extends TestCase
     public function testAMORDEGRC($expectedResult, ...$args): void
     {
         $result = Financial::AMORDEGRC(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerAMORDEGRC()
@@ -37,7 +42,12 @@ class FinancialTest extends TestCase
     public function testAMORLINC($expectedResult, ...$args): void
     {
         $result = Financial::AMORLINC(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerAMORLINC()
@@ -53,7 +63,12 @@ class FinancialTest extends TestCase
     public function testCOUPDAYBS($expectedResult, ...$args): void
     {
         $result = Financial::COUPDAYBS(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerCOUPDAYBS()
@@ -69,7 +84,12 @@ class FinancialTest extends TestCase
     public function testCOUPDAYS($expectedResult, ...$args): void
     {
         $result = Financial::COUPDAYS(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerCOUPDAYS()
@@ -85,7 +105,12 @@ class FinancialTest extends TestCase
     public function testCOUPDAYSNC($expectedResult, ...$args): void
     {
         $result = Financial::COUPDAYSNC(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerCOUPDAYSNC()
@@ -101,7 +126,12 @@ class FinancialTest extends TestCase
     public function testCOUPNCD($expectedResult, ...$args): void
     {
         $result = Financial::COUPNCD(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerCOUPNCD()
@@ -117,7 +147,12 @@ class FinancialTest extends TestCase
     public function testCOUPNUM($expectedResult, ...$args): void
     {
         $result = Financial::COUPNUM(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerCOUPNUM()
@@ -133,7 +168,12 @@ class FinancialTest extends TestCase
     public function testCOUPPCD($expectedResult, ...$args): void
     {
         $result = Financial::COUPPCD(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerCOUPPCD()
@@ -149,7 +189,12 @@ class FinancialTest extends TestCase
     public function testCUMIPMT($expectedResult, ...$args): void
     {
         $result = Financial::CUMIPMT(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerCUMIPMT()
@@ -165,7 +210,12 @@ class FinancialTest extends TestCase
     public function testCUMPRINC($expectedResult, ...$args): void
     {
         $result = Financial::CUMPRINC(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerCUMPRINC()
@@ -181,7 +231,12 @@ class FinancialTest extends TestCase
     public function testDB($expectedResult, ...$args): void
     {
         $result = Financial::DB(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerDB()
@@ -197,7 +252,12 @@ class FinancialTest extends TestCase
     public function testDDB($expectedResult, ...$args): void
     {
         $result = Financial::DDB(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerDDB()
@@ -213,7 +273,12 @@ class FinancialTest extends TestCase
     public function testDISC($expectedResult, ...$args): void
     {
         $result = Financial::DISC(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerDISC()
@@ -229,7 +294,12 @@ class FinancialTest extends TestCase
     public function testDOLLARDE($expectedResult, ...$args): void
     {
         $result = Financial::DOLLARDE(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerDOLLARDE()
@@ -245,7 +315,12 @@ class FinancialTest extends TestCase
     public function testDOLLARFR($expectedResult, ...$args): void
     {
         $result = Financial::DOLLARFR(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerDOLLARFR()
@@ -261,7 +336,12 @@ class FinancialTest extends TestCase
     public function testEFFECT($expectedResult, ...$args): void
     {
         $result = Financial::EFFECT(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerEFFECT()
@@ -277,7 +357,12 @@ class FinancialTest extends TestCase
     public function testFV($expectedResult, ...$args): void
     {
         $result = Financial::FV(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerFV()
@@ -293,7 +378,12 @@ class FinancialTest extends TestCase
     public function testFVSCHEDULE($expectedResult, ...$args): void
     {
         $result = Financial::FVSCHEDULE(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerFVSCHEDULE()
@@ -309,7 +399,12 @@ class FinancialTest extends TestCase
     public function testINTRATE($expectedResult, ...$args): void
     {
         $result = Financial::INTRATE(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerINTRATE()
@@ -325,7 +420,12 @@ class FinancialTest extends TestCase
     public function testIPMT($expectedResult, ...$args): void
     {
         $result = Financial::IPMT(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerIPMT()
@@ -341,7 +441,12 @@ class FinancialTest extends TestCase
     public function testIRR($expectedResult, ...$args): void
     {
         $result = Financial::IRR(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerIRR()
@@ -357,7 +462,12 @@ class FinancialTest extends TestCase
     public function testISPMT($expectedResult, ...$args): void
     {
         $result = Financial::ISPMT(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerISPMT()
@@ -373,7 +483,12 @@ class FinancialTest extends TestCase
     public function testMIRR($expectedResult, ...$args): void
     {
         $result = Financial::MIRR(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerMIRR()
@@ -389,7 +504,12 @@ class FinancialTest extends TestCase
     public function testNOMINAL($expectedResult, ...$args): void
     {
         $result = Financial::NOMINAL(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerNOMINAL()
@@ -405,7 +525,12 @@ class FinancialTest extends TestCase
     public function testNPER($expectedResult, ...$args): void
     {
         $result = Financial::NPER(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerNPER()
@@ -421,12 +546,38 @@ class FinancialTest extends TestCase
     public function testNPV($expectedResult, ...$args): void
     {
         $result = Financial::NPV(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerNPV()
     {
         return require 'tests/data/Calculation/Financial/NPV.php';
+    }
+
+    /**
+     * @dataProvider providerPDURATION
+     *
+     * @param mixed $expectedResult
+     */
+    public function testPDURATION($expectedResult, array $args): void
+    {
+        $result = Financial::PDURATION(...$args);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
+    }
+
+    public function providerPDURATION()
+    {
+        return require 'tests/data/Calculation/Financial/PDURATION.php';
     }
 
     /**
@@ -437,7 +588,12 @@ class FinancialTest extends TestCase
     public function testPRICE($expectedResult, ...$args): void
     {
         $result = Financial::PRICE(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
+        }
     }
 
     public function providerPRICE()
@@ -456,7 +612,12 @@ class FinancialTest extends TestCase
         // agree with published algorithm, LibreOffice, and Gnumeric.
         // They do not agree with Excel.
         $result = Financial::PRICE(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
+        }
     }
 
     public function providerPRICE3()
@@ -472,7 +633,12 @@ class FinancialTest extends TestCase
     public function testPRICEDISC($expectedResult, array $args): void
     {
         $result = Financial::PRICEDISC(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerPRICEDISC()
@@ -488,7 +654,12 @@ class FinancialTest extends TestCase
     public function testPV($expectedResult, array $args): void
     {
         $result = Financial::PV(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerPV()
@@ -504,12 +675,80 @@ class FinancialTest extends TestCase
     public function testRATE($expectedResult, ...$args): void
     {
         $result = Financial::RATE(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerRATE()
     {
         return require 'tests/data/Calculation/Financial/RATE.php';
+    }
+
+    /**
+     * @dataProvider providerRRI
+     *
+     * @param mixed $expectedResult
+     */
+    public function testRRI($expectedResult, array $args): void
+    {
+        $result = Financial::RRI(...$args);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
+    }
+
+    public function providerRRI()
+    {
+        return require 'tests/data/Calculation/Financial/RRI.php';
+    }
+
+    /**
+     * @dataProvider providerSLN
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSLN($expectedResult, array $args): void
+    {
+        $result = Financial::SLN(...$args);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
+    }
+
+    public function providerSLN()
+    {
+        return require 'tests/data/Calculation/Financial/SLN.php';
+    }
+
+    /**
+     * @dataProvider providerSYD
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSYD($expectedResult, array $args): void
+    {
+        $result = Financial::SYD(...$args);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
+    }
+
+    public function providerSYD()
+    {
+        return require 'tests/data/Calculation/Financial/SYD.php';
     }
 
     /**
@@ -560,69 +799,5 @@ class FinancialTest extends TestCase
     public function providerXNPV()
     {
         return require 'tests/data/Calculation/Financial/XNPV.php';
-    }
-
-    /**
-     * @dataProvider providerPDURATION
-     *
-     * @param mixed $expectedResult
-     */
-    public function testPDURATION($expectedResult, array $args): void
-    {
-        $result = Financial::PDURATION(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
-    }
-
-    public function providerPDURATION()
-    {
-        return require 'tests/data/Calculation/Financial/PDURATION.php';
-    }
-
-    /**
-     * @dataProvider providerRRI
-     *
-     * @param mixed $expectedResult
-     */
-    public function testRRI($expectedResult, array $args): void
-    {
-        $result = Financial::RRI(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
-    }
-
-    public function providerRRI()
-    {
-        return require 'tests/data/Calculation/Financial/RRI.php';
-    }
-
-    /**
-     * @dataProvider providerSLN
-     *
-     * @param mixed $expectedResult
-     */
-    public function testSLN($expectedResult, array $args): void
-    {
-        $result = Financial::SLN(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
-    }
-
-    public function providerSLN()
-    {
-        return require 'tests/data/Calculation/Financial/SLN.php';
-    }
-
-    /**
-     * @dataProvider providerSYD
-     *
-     * @param mixed $expectedResult
-     */
-    public function testSYD($expectedResult, array $args): void
-    {
-        $result = Financial::SYD(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
-    }
-
-    public function providerSYD()
-    {
-        return require 'tests/data/Calculation/Financial/SYD.php';
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // decimal_dollar, fraction, result
 
 return [
@@ -39,12 +41,12 @@ return [
         32,
     ],
     [
-        '#DIV/0!',
+        ExcelException::DIV0(),
         1.2344999999999999,
         0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         1.2344999999999999,
         -2,
     ],

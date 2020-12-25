@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // values, guess, Result
 
 return [
@@ -56,6 +58,13 @@ return [
                 34.560000000000002,
                 41.469999999999999,
             ],
+        ],
+    ],
+    [
+        ExcelException::VALUE(),
+        [
+            -100,
+            20,
         ],
     ],
 ];

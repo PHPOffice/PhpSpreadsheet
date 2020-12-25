@@ -1,59 +1,61 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
-        '#N/A',
+        ExcelException::NA(),
     ],
     [
-        '#N/A',
+        ExcelException::NA(),
         null,
     ],
     [
-        '#N/A',
+        ExcelException::NA(),
         -1,
     ],
     [
-        '#N/A',
+        ExcelException::NA(),
         1.25,
     ],
     [
-        '#N/A',
+        ExcelException::NA(),
         '',
     ],
     [
-        '#N/A',
+        ExcelException::NA(),
         '2.5',
     ],
     [
-        '#N/A',
+        ExcelException::NA(),
         true,
     ],
     [
         1,
-        '#NULL!',
+        ExcelException::null(),
     ],
     [
         2,
-        '#DIV/0!',
+        ExcelException::DIV0(),
     ],
     [
         3,
-        '#VALUE!',
+        ExcelException::VALUE(),
     ],
     [
         4,
-        '#REF!',
+        ExcelException::REF(),
     ],
     [
         5,
-        '#NAME?',
+        ExcelException::NAME(),
     ],
     [
         6,
-        '#NUM!',
+        ExcelException::NUM(),
     ],
     [
         7,
-        '#N/A',
+        ExcelException::NA(),
     ],
 ];

@@ -32,7 +32,7 @@ class ValueTest extends TestCase
      * @dataProvider providerVALUE
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testVALUE($expectedResult, $value): void
     {

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\DefinedName;
@@ -250,7 +251,7 @@ class Xlsx extends BaseReader
 
     private static function castToError($c)
     {
-        return isset($c->v) ? (string) $c->v : null;
+        return isset($c->v) ? ExcelException::fromErrorName((string) $c->v) : null;
     }
 
     private static function castToString($c)

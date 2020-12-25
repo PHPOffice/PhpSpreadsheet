@@ -1,14 +1,16 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // number, base, result
 
 return [
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'ABC',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '123ABC',
     ],
     [
@@ -16,42 +18,42 @@ return [
         1.2344999999999999,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -1.5,
         -0.75,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0,
         -0.75,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         3.75,
         -0.75,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -1.5,
         0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0,
         0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         3.75,
         0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         0.75,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0,
         0.75,
     ],
@@ -86,12 +88,12 @@ return [
         0.75,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         1.5,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0,
         1.5,
     ],
@@ -126,12 +128,12 @@ return [
         1.5,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         2.25,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0,
         2.25,
     ],
@@ -166,12 +168,12 @@ return [
         2.25,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         3,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0,
         3,
     ],
@@ -206,12 +208,12 @@ return [
         3,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         3.75,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0,
         3.75,
     ],
@@ -246,12 +248,12 @@ return [
         3.75,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         4.5,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0,
         4.5,
     ],

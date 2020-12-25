@@ -36,10 +36,15 @@ class ImLog10Test extends TestCase
     public function testIMLOG10($expectedResult, $value): void
     {
         $result = Engineering::IMLOG10($value);
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertTrue(
+                $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+                $this->complexAssert->getErrorMessage()
+            );
+        }
     }
 
     public function providerIMLOG10()

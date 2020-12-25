@@ -1,8 +1,10 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'ABC',
     ],
     [
@@ -26,15 +28,15 @@ return [
         -M_PI / 2,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.1,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0.0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0.1,
     ],
     [

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+
 class Logical
 {
     /**
@@ -41,14 +43,14 @@ class Logical
         foreach ($args as $arg) {
             // Is it a boolean value?
             if (is_bool($arg)) {
-                $returnValue += $arg;
+                $returnValue += (int) $arg;
             } elseif ((is_numeric($arg)) && (!is_string($arg))) {
                 $returnValue += ((int) $arg != 0);
             } elseif (is_string($arg)) {
-                $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
+                $arg = StringHelper::strToUpper($arg);
+                if (($arg === 'TRUE') || ($arg === Calculation::getTRUE())) {
                     $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
+                } elseif (($arg === 'FALSE') || ($arg === Calculation::getFALSE())) {
                     $arg = false;
                 } else {
                     return Functions::VALUE();
@@ -78,7 +80,7 @@ class Logical
      *
      * @param mixed ...$args Data values
      *
-     * @return bool|string the logical AND of the arguments
+     * @return bool|ExcelException the logical AND of the arguments
      */
     public static function logicalAnd(...$args)
     {
@@ -94,7 +96,7 @@ class Logical
         $argCount = count($args);
 
         $returnValue = self::countTrueValues($args);
-        if (is_string($returnValue)) {
+        if ($returnValue instanceof ExcelException) {
             return $returnValue;
         }
 
@@ -119,7 +121,7 @@ class Logical
      *
      * @param mixed $args Data values
      *
-     * @return bool|string the logical OR of the arguments
+     * @return bool|ExcelException the logical OR of the arguments
      */
     public static function logicalOr(...$args)
     {
@@ -134,7 +136,7 @@ class Logical
         });
 
         $returnValue = self::countTrueValues($args);
-        if (is_string($returnValue)) {
+        if ($returnValue instanceof ExcelException) {
             return $returnValue;
         }
 
@@ -160,7 +162,7 @@ class Logical
      *
      * @param mixed $args Data values
      *
-     * @return bool|string the logical XOR of the arguments
+     * @return bool|ExcelException the logical XOR of the arguments
      */
     public static function logicalXor(...$args)
     {
@@ -175,7 +177,7 @@ class Logical
         });
 
         $returnValue = self::countTrueValues($args);
-        if (is_string($returnValue)) {
+        if ($returnValue instanceof ExcelException) {
             return $returnValue;
         }
 
@@ -199,7 +201,7 @@ class Logical
      *
      * @param mixed $logical A value or expression that can be evaluated to TRUE or FALSE
      *
-     * @return bool|string the boolean inverse of the argument
+     * @return bool|ExcelException the boolean inverse of the argument
      */
     public static function NOT($logical = false)
     {

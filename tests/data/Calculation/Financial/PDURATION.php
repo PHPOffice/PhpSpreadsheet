@@ -1,16 +1,18 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         ['ABC', 'DEF', 'GHI'],
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         [0.0, 0.0, 0.0],
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         [0.05, 10.0, -2.0],
     ],
     [

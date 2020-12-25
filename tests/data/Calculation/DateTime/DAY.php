@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 //  Date Value, Result
 
 return [
@@ -29,12 +31,12 @@ return [
         '28-Feb-1904',
     ],
     [
-        '#VALUE!', // Result for Excel
-        '#VALUE!', // Result for OpenOffice
+        ExcelException::VALUE(), // Result for Excel
+        ExcelException::VALUE(), // Result for OpenOffice
         'Invalid',
     ],
     [
-        '#NUM!', // Result for Excel
+        ExcelException::NUM(), // Result for Excel
         29, // Result for OpenOffice
         -1,
     ],

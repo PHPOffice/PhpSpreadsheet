@@ -17,7 +17,7 @@ class IntTest extends TestCase
      * @dataProvider providerINT
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testINT($expectedResult, $value): void
     {

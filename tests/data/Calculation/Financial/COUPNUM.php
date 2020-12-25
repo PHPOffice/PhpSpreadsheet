@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // Settlement, Maturity, Frequency, Basis, Result
 
 return [
@@ -18,21 +20,21 @@ return [
         0,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'Invalid Date',
         '15-Nov-2008',
         2,
         1,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '25-Jan-2007',
         'Invalid Date',
         2,
         1,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '25-Jan-2007',
         '15-Nov-2008',
         3,
@@ -46,7 +48,7 @@ return [
         1,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '24-Dec-2000',
         '24-Dec-2000',
         4,

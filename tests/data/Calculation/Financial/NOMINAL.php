@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // effect_rate, npery, result
 
 return [
@@ -24,7 +26,7 @@ return [
         12,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.025000000000000001,
         12,
     ],

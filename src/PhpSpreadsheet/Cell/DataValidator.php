@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Exception;
 
@@ -65,7 +66,9 @@ class DataValidator
                 try {
                     $result = $calculation->calculateFormula($matchFormula, $cell->getCoordinate(), $cell);
 
-                    return $result !== Functions::NA();
+                    if ($result instanceof ExcelException) {
+                        return $result != Functions::NA();
+                    }
                 } catch (Exception $ex) {
                     return false;
                 }

@@ -1,18 +1,20 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -1.5,
         -1.5,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         -1.5,
     ],
     [
-        '#DIV/0!',
+        ExcelException::DIV0(),
         0,
         -1.5,
     ],
@@ -47,17 +49,17 @@ return [
         -1.5,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -1.5,
         -0.75,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         -0.75,
     ],
     [
-        '#DIV/0!',
+        ExcelException::DIV0(),
         0,
         -0.75,
     ],
@@ -102,7 +104,7 @@ return [
         0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0,
         0,
     ],
@@ -137,12 +139,12 @@ return [
         0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -1.5,
         0.75,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         0.75,
     ],
@@ -182,12 +184,12 @@ return [
         0.75,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -1.5,
         1.5,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         1.5,
     ],
@@ -227,12 +229,12 @@ return [
         1.5,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -1.5,
         2.25,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         2.25,
     ],
@@ -317,12 +319,12 @@ return [
         3,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -1.5,
         3.75,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         3.75,
     ],
@@ -362,12 +364,12 @@ return [
         3.75,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -1.5,
         4.5,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -0.75,
         4.5,
     ],

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -215,7 +216,7 @@ class Content extends WriterPart
                         $objWriter->writeAttribute('office:value-type', 'string');
                     }
                     $objWriter->writeAttribute('office:value', $formulaValue);
-                    $objWriter->writeElement('text:p', $formulaValue);
+                    $objWriter->writeElement('text:p', $formulaValue instanceof ExcelException ? $formulaValue->errorName() : $formulaValue);
 
                     break;
                 case DataType::TYPE_INLINE:

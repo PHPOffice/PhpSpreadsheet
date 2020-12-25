@@ -17,7 +17,7 @@ class FactDoubleTest extends TestCase
      * @dataProvider providerFACTDOUBLE
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testFACTDOUBLE($expectedResult, $value): void
     {

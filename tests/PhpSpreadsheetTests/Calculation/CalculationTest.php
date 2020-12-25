@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -310,8 +311,8 @@ class CalculationTest extends TestCase
     }
 
     /**
-     * @param $expectedResult
-     * @param $dataArray
+     * @param mixed $expectedResult
+     * @param mixed $dataArray
      * @param string $formula
      * @param string $cellCoordinates where to put the formula
      * @param string[] $shouldBeSetInCacheCells coordinates of cells that must
@@ -371,9 +372,11 @@ class CalculationTest extends TestCase
         $sheet->setCellValue('A2', '=mode.gzorg(1)');
         $sheet->setCellValue('A3', '=gzorg(1,2)');
         $sheet->setCellValue('A4', '=3+IF(gzorg(),1,2)');
-        self::assertEquals('#NAME?', $sheet->getCell('A1')->getCalculatedValue());
-        self::assertEquals('#NAME?', $sheet->getCell('A2')->getCalculatedValue());
-        self::assertEquals('#NAME?', $sheet->getCell('A3')->getCalculatedValue());
-        self::assertEquals('#NAME?', $sheet->getCell('A4')->getCalculatedValue());
+        $sheet->setCellValue('A5', '=3+IFERROR(gzorg(),2)');
+        self::assertEquals(ExcelException::NAME(), $sheet->getCell('A1')->getCalculatedValue());
+        self::assertEquals(ExcelException::NAME(), $sheet->getCell('A2')->getCalculatedValue());
+        self::assertEquals(ExcelException::NAME(), $sheet->getCell('A3')->getCalculatedValue());
+        self::assertEquals(ExcelException::NAME(), $sheet->getCell('A4')->getCalculatedValue());
+        self::assertEquals(5, $sheet->getCell('A5')->getCalculatedValue());
     }
 }

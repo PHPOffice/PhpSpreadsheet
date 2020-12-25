@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // Periods, Payment, Present Value, Future Value, Type, Guess, Result
 
 return [
@@ -70,13 +72,13 @@ return [
         0,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         0,
         1,
         8000,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         208,
         -700,
         8000,

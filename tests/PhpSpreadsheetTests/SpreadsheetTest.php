@@ -44,8 +44,8 @@ class SpreadsheetTest extends TestCase
     }
 
     /**
-     * @param $index
-     * @param $sheetName
+     * @param int $index
+     * @param string $sheetName
      *
      * @dataProvider dataProviderForSheetNames
      */

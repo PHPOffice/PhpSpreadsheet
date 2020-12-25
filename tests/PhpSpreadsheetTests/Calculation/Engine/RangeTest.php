@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -37,7 +38,13 @@ class RangeTest extends TestCase
         $workSheet->setCellValue('E1', $formula);
 
         $actualRresult = $workSheet->getCell('E1')->getCalculatedValue();
-        self::assertSame($expectedResult, $actualRresult);
+
+        if ($expectedResult instanceof ExcelException) {
+            // We can't use assertSame when comparing objects, unless they're the same instance
+            self::assertEquals($expectedResult, $actualRresult);
+        } else {
+            self::assertSame($expectedResult, $actualRresult);
+        }
     }
 
     public function providerRangeEvaluation()

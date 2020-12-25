@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -20,7 +21,7 @@ class TimeValueTest extends TestCase
      * @dataProvider providerTIMEVALUE
      *
      * @param mixed $expectedResult
-     * @param $timeValue
+     * @param mixed $timeValue
      */
     public function testTIMEVALUE($expectedResult, $timeValue): void
     {
@@ -50,8 +51,12 @@ class TimeValueTest extends TestCase
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
-        self::assertTrue(is_a($result, 'DateTimeInterface'));
-        //    ... with the correct value
+        self::assertInstanceOf(DateTimeInterface::class, $result);
+        /*
+         *    ... with the correct value (using an annotation for what the previous assertion has already determined
+         *             because Scrutinizer simply isn't tha intelligent, and treats that as a major issue)
+         * @var DateTimeInterface $result
+         */
         self::assertEquals($result->format('H:i:s'), '07:30:20');
     }
 }

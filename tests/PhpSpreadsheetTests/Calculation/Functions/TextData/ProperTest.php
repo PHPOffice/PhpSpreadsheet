@@ -11,7 +11,7 @@ class ProperTest extends TestCase
      * @dataProvider providerPROPER
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testPROPER($expectedResult, $value): void
     {

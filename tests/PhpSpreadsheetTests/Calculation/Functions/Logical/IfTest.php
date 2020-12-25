@@ -21,7 +21,12 @@ class IfTest extends TestCase
     public function testIF($expectedResult, ...$args): void
     {
         $result = Logical::statementIf(...$args);
-        self::assertEquals($expectedResult, $result);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEquals($expectedResult, $result);
+        }
     }
 
     public function providerIF()

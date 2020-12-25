@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use ArrayObject;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -2522,7 +2523,10 @@ class Worksheet implements IComparable
                             $returnValue[$rRef][$cRef] = $cell->getValue()->getPlainText();
                         } else {
                             if ($calculateFormulas) {
-                                $returnValue[$rRef][$cRef] = $cell->getCalculatedValue();
+                                $calculatedValue = $cell->getCalculatedValue();
+                                $returnValue[$rRef][$cRef] = $calculatedValue instanceof ExcelException
+                                    ? $calculatedValue->errorName()
+                                    : $calculatedValue;
                             } else {
                                 $returnValue[$rRef][$cRef] = $cell->getValue();
                             }

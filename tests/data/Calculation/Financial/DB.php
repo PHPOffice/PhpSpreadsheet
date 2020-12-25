@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 // cost, salvage, life, period, month, result
 
 return [
@@ -116,7 +118,7 @@ return [
         6,
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         -1000,
         100,
         5,
@@ -124,7 +126,7 @@ return [
         6,
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'ABC',
         100,
         5,

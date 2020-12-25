@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -20,14 +21,19 @@ class DateTest extends TestCase
      * @dataProvider providerDATE
      *
      * @param mixed $expectedResult
-     * @param $year
-     * @param $month
-     * @param $day
+     * @param mixed $year
+     * @param mixed $month
+     * @param mixed $day
      */
     public function testDATE($expectedResult, $year, $month, $day): void
     {
         $result = DateTime::DATE($year, $month, $day);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+
+        if (is_object($expectedResult)) {
+            self::assertEquals($expectedResult, $result);
+        } else {
+            self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        }
     }
 
     public function providerDATE()
@@ -52,8 +58,12 @@ class DateTest extends TestCase
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
-        self::assertTrue(is_a($result, 'DateTimeInterface'));
-        //    ... with the correct value
+        self::assertInstanceOf(DateTimeInterface::class, $result);
+        /*
+         *    ... with the correct value (using an annotation for what the previous assertion has already determined
+         *             because Scrutinizer simply isn't tha intelligent, and treats that as a major issue)
+         * @var DateTimeInterface $result
+         */
         self::assertEquals($result->format('d-M-Y'), '31-Jan-2012');
     }
 

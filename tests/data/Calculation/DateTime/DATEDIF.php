@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\ExcelException;
+
 return [
     [
         365,
@@ -22,19 +24,19 @@ return [
         '2017-01-01', '2018-12-31', 'YD',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         'ABC', '2007-1-10', 'Y',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '2007-1-1', 'DEF', 'Y',
     ],
     [
-        '#VALUE!',
+        ExcelException::VALUE(),
         '2007-1-1', '2007-1-10', 'XYZ',
     ],
     [
-        '#NUM!',
+        ExcelException::NUM(),
         '2007-1-10', '2007-1-1', 'Y',
     ],
     [
