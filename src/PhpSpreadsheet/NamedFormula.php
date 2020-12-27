@@ -18,7 +18,7 @@ class NamedFormula extends DefinedName
     ) {
         // Validate data
         if (empty($formula)) {
-            throw new Exception('Tou must specify a Formula value for a Named Formula');
+            throw new Exception('You must specify a Formula value for a Named Formula');
         }
         parent::__construct($name, $worksheet, $formula, $localOnly, $scope);
     }

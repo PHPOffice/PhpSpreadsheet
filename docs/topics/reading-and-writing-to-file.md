@@ -458,6 +458,24 @@ $reader->setSheetIndex(0);
 
 $spreadsheet = $reader->load("sample.csv");
 ```
+You may also let PhpSpreadsheet attempt to guess the input encoding.
+It will do so based on a test for BOM (UTF-8, UTF-16BE, UTF-16LE, UTF-32BE,
+or UTF-32LE),
+or by doing heuristic tests for those encodings, falling back to a
+specifiable encoding (default is CP1252) if all of those tests fail.
+
+```php
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+$encoding = \PhpOffice\PhpSpreadsheet\Reader\Csv::guessEncoding('sample.csv');
+// or, e.g. $encoding = \PhpOffice\PhpSpreadsheet\Reader\Csv::guessEncoding(
+//                      'sample.csv', 'ISO-8859-2');
+$reader->setInputEncoding($encoding);
+$reader->setDelimiter(';');
+$reader->setEnclosure('');
+$reader->setSheetIndex(0);
+
+$spreadsheet = $reader->load('sample.csv');
+```
 
 #### Read a specific worksheet
 

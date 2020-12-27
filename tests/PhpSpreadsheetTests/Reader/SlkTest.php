@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Slk;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
@@ -11,6 +12,16 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 class SlkTest extends \PHPUnit\Framework\TestCase
 {
     private static $testbook = __DIR__ . '/../../../samples/templates/SylkTest.slk';
+
+    private $filename = '';
+
+    protected function teardown(): void
+    {
+        if ($this->filename) {
+            unlink($this->filename);
+            $this->filename = '';
+        }
+    }
 
     public function testInfo(): void
     {
@@ -129,6 +140,19 @@ class SlkTest extends \PHPUnit\Framework\TestCase
         $sheet = $spreadsheet->setActiveSheetIndex($sheetIndex);
         self::assertEquals('SylkTest', $sheet->getTitle());
 
+        self::assertEquals('FFFF0000', $sheet->getCell('A1')->getStyle()->getFont()->getColor()->getARGB());
+    }
+
+    public function testLongName(): void
+    {
+        $contents = file_get_contents(self::$testbook);
+        $this->filename = File::sysGetTempDir()
+            . '/123456789a123456789b123456789c12345.slk';
+        file_put_contents($this->filename, $contents);
+        $reader = new Slk();
+        $spreadsheet = $reader->load($this->filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertEquals('123456789a123456789b123456789c1', $sheet->getTitle());
         self::assertEquals('FFFF0000', $sheet->getCell('A1')->getStyle()->getFont()->getColor()->getARGB());
     }
 }

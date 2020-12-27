@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use HTMLPurifier;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -23,7 +24,6 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use voku\helper\AntiXSS;
 
 class Html extends BaseWriter
 {
@@ -1789,9 +1789,9 @@ class Html extends BaseWriter
     {
         $result = '';
         if (!$this->isPdf && isset($pSheet->getComments()[$coordinate])) {
-            $sanitizer = new AntiXSS();
-            $sanitizedString = $sanitizer->xss_clean($pSheet->getComment($coordinate)->getText()->getPlainText());
-            if (!$sanitizer->isXssFound()) {
+            $sanitizer = new HTMLPurifier();
+            $sanitizedString = $sanitizer->purify($pSheet->getComment($coordinate)->getText()->getPlainText());
+            if ($sanitizedString !== '') {
                 $result .= '<a class="comment-indicator"></a>';
                 $result .= '<div class="comment">' . nl2br($sanitizedString) . '</div>';
                 $result .= PHP_EOL;

@@ -666,7 +666,7 @@ class Spreadsheet
         // Adjust active sheet index if necessary
         if (
             ($this->activeSheetIndex >= $sheetIndex) &&
-            ($sheetIndex > count($this->workSheetCollection) - 1)
+            ($this->activeSheetIndex > 0 || $numSheets <= 1)
         ) {
             --$this->activeSheetIndex;
         }
