@@ -151,12 +151,12 @@ class Html extends BaseWriter
     /**
      * Save Spreadsheet to file.
      *
-     * @param resource|string $pFilename
+     * @param resource|string $filename
      */
-    public function save($pFilename): void
+    public function save($filename): void
     {
         // Open file
-        $this->openFileHandle($pFilename);
+        $this->openFileHandle($filename);
 
         // Write html
         fwrite($this->fileHandle, $this->generateHTMLAll());

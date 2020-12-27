@@ -18,7 +18,7 @@ $helper->logWrite($writer, $filename, $callStartTime);
 
 class MyReadFilter implements IReadFilter
 {
-    public function readCell($column, $row, $worksheetName = '')
+    public function readCell($columnAddress, $row, $worksheetName = '')
     {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {

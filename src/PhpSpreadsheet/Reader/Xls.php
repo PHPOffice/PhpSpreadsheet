@@ -418,20 +418,20 @@ class Xls extends BaseReader
     /**
      * Can the current IReader read the file?
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead($filename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($filename);
 
         try {
             // Use ParseXL for the hard work.
             $ole = new OLERead();
 
             // get excel data
-            $ole->read($pFilename);
+            $ole->read($filename);
 
             return true;
         } catch (PhpSpreadsheetException $e) {
@@ -621,14 +621,14 @@ class Xls extends BaseReader
     /**
      * Loads PhpSpreadsheet from file.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return Spreadsheet
      */
-    public function load($pFilename)
+    public function load($filename)
     {
         // Read the OLE file
-        $this->loadOLE($pFilename);
+        $this->loadOLE($filename);
 
         // Initialisations
         $this->spreadsheet = new Spreadsheet();
