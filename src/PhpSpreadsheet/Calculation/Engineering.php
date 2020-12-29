@@ -1882,6 +1882,8 @@ class Engineering
      *    getConversionGroups
      * Returns a list of the different conversion groups for UOM conversions.
      *
+     * @Deprecated Use the getConversionCategories() method in the getConversionCategories class instead
+     *
      * @return array
      */
     public static function getConversionGroups()
@@ -1892,6 +1894,8 @@ class Engineering
     /**
      *    getConversionGroupUnits
      * Returns an array of units of measure, for a specified conversion group, or for all groups.
+     *
+     * @Deprecated Use the getConversionCategoryUnits() method in the getConversionCategories class instead
      *
      * @param null|mixed $category
      *
@@ -1904,6 +1908,8 @@ class Engineering
 
     /**
      * getConversionGroupUnitDetails.
+     *
+     * @Deprecated Use the getConversionCategoryUnitDetails() method in the getConversionCategories class instead
      *
      * @param null|mixed $category
      *
@@ -1918,6 +1924,8 @@ class Engineering
      *    getConversionMultipliers
      * Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().
      *
+     * @Deprecated Use the getConversionMultipliers() method in the getConversionCategories class instead
+     *
      * @return array of mixed
      */
     public static function getConversionMultipliers()
@@ -1928,6 +1936,8 @@ class Engineering
     /**
      *    getBinaryConversionMultipliers
      * Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure in CONVERTUOM().
+     *
+     * @Deprecated Use the getBinaryConversionMultipliers() method in the getConversionCategories class instead
      *
      * @return array of mixed
      */
@@ -1946,7 +1956,9 @@ class Engineering
      *    Excel Function:
      *        CONVERT(value,fromUOM,toUOM)
      *
-     * @param float $value the value in fromUOM to convert
+     * @Deprecated Use the CONVERTUOM() method in the getConversionCategories class instead
+     *
+     * @param int|float $value the value in fromUOM to convert
      * @param string $fromUOM the units for value
      * @param string $toUOM the units for the result
      *

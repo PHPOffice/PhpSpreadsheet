@@ -518,7 +518,7 @@ class ConvertUOM
      *    Excel Function:
      *        CONVERT(value,fromUOM,toUOM)
      *
-     * @param float $value the value in fromUOM to convert
+     * @param int|float $value the value in fromUOM to convert
      * @param string $fromUOM the units for value
      * @param string $toUOM the units for the result
      *
