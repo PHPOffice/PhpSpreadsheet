@@ -671,9 +671,12 @@ class ConvertUOM
     private static function resolveTemperatureSynonyms(string $uom)
     {
         switch ($uom) {
-            case 'fah': return 'F';
-            case 'cel': return 'C';
-            case 'kel': return 'K';
+            case 'fah':
+                return 'F';
+            case 'cel':
+                return 'C';
+            case 'kel':
+                return 'K';
         }
 
         return $uom;
