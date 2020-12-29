@@ -197,11 +197,12 @@ class Xlsx extends BaseReader
                         ];
 
                         $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id')];
+                        $fileWorksheetPath = strpos($fileWorksheet, '/') === 0 ? substr($fileWorksheet, 1) : "$dir/$fileWorksheet";
 
                         $xml = new XMLReader();
                         $xml->xml(
                             $this->securityScanner->scanFile(
-                                'zip://' . File::realpath($pFilename) . '#' . "$dir/$fileWorksheet"
+                                'zip://' . File::realpath($pFilename) . '#' . $fileWorksheetPath
                             ),
                             null,
                             Settings::getLibXmlLoaderOptions()
@@ -470,9 +471,10 @@ class Xlsx extends BaseReader
                     }
 
                     $xpath = self::getArrayItem($relsWorkbook->xpath("rel:Relationship[@Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles']"));
+                    $xpathPath = strpos($xpath['Target'], '/') === 0 ? substr($xpath['Target'], 1) : "$dir/$xpath[Target]";
                     //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                     $xmlStyles = simplexml_load_string(
-                        $this->securityScanner->scan($this->getFromZipArchive($zip, "$dir/$xpath[Target]")),
+                        $this->securityScanner->scan($this->getFromZipArchive($zip, $xpathPath)),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
                     );
