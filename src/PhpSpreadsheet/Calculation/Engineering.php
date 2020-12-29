@@ -1893,7 +1893,7 @@ class Engineering
      *    getConversionGroupUnits
      * Returns an array of units of measure, for a specified conversion group, or for all groups.
      *
-     * @param string $group The group whose units of measure you want to retrieve
+     * @param null|mixed $category
      *
      * @return array
      */
@@ -1905,7 +1905,7 @@ class Engineering
     /**
      * getConversionGroupUnitDetails.
      *
-     * @param string $group The group whose units of measure you want to retrieve
+     * @param null|mixed $category
      *
      * @return array
      */

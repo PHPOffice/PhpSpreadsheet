@@ -423,7 +423,7 @@ class ConvertUOM
             'mph' => 2.23693629205440E+00,
             'admkn' => 1.94260256941567E+00,
             'kn' => 1.94384449244060E+00,
-        ]
+        ],
     ];
 
     /**
@@ -556,6 +556,7 @@ class ConvertUOM
         }
 
         $baseValue = $value * (1.0 / self::$unitConversions[$fromCategory][$fromUOM]);
+
         return ($baseValue * self::$unitConversions[$fromCategory][$toUOM]) / $toMultiplier;
     }
 
@@ -563,47 +564,50 @@ class ConvertUOM
     {
         if (isset(self::$conversionUnits[$uom])) {
             $unitCategory = self::$conversionUnits[$uom]['Group'];
-            return [$uom, $unitCategory, 1.0] ;
-        } else {
-            $multiplierType = substr($uom, 0, 1);
-            $uom = substr($uom, 1);
-            if (isset(self::$conversionUnits[$uom]) && isset(self::$conversionMultipliers[$multiplierType])) {
-                if (self::$conversionUnits[$uom]['AllowPrefix'] === false) {
-                    throw new Exception('Prefix not allowed for UoM');
-                }
-                $unitCategory = self::$conversionUnits[$uom]['Group'];
-                return [$uom, $unitCategory, self::$conversionMultipliers[$multiplierType]['multiplier']];
-            } else {
-                $multiplierType .= substr($uom, 0, 1);
-                $uom = substr($uom, 1);
-                if (isset(self::$conversionUnits[$uom]) && isset(self::$conversionMultipliers[$multiplierType])) {
-                    if (self::$conversionUnits[$uom]['AllowPrefix'] === false) {
-                        throw new Exception('Prefix not allowed for UoM');
-                    }
-                    $unitCategory = self::$conversionUnits[$uom]['Group'];
-                    return [$uom, $unitCategory, self::$conversionMultipliers[$multiplierType]['multiplier']];
-                } else {
-                    if (isset(self::$conversionUnits[$uom]) && isset(self::$binaryConversionMultipliers[$multiplierType])) {
-                        if (self::$conversionUnits[$uom]['AllowPrefix'] === false) {
-                            throw new Exception('Prefix not allowed for UoM');
-                        }
-                        $unitCategory = self::$conversionUnits[$uom]['Group'];
-                        if ($unitCategory !== 'Information') {
-                            throw new Exception('Binary Prefix is only allowed for Information UoM');
-                        }
-                        return [$uom, $unitCategory, self::$binaryConversionMultipliers[$multiplierType]['multiplier']];
-                    }
-                }
+
+            return [$uom, $unitCategory, 1.0];
+        }
+
+        $multiplierType = substr($uom, 0, 1);
+        $uom = substr($uom, 1);
+        if (isset(self::$conversionUnits[$uom], self::$conversionMultipliers[$multiplierType])) {
+            if (self::$conversionUnits[$uom]['AllowPrefix'] === false) {
+                throw new Exception('Prefix not allowed for UoM');
             }
+            $unitCategory = self::$conversionUnits[$uom]['Group'];
+
+            return [$uom, $unitCategory, self::$conversionMultipliers[$multiplierType]['multiplier']];
+        }
+
+        $multiplierType .= substr($uom, 0, 1);
+        $uom = substr($uom, 1);
+        if (isset(self::$conversionUnits[$uom], self::$conversionMultipliers[$multiplierType])) {
+            if (self::$conversionUnits[$uom]['AllowPrefix'] === false) {
+                throw new Exception('Prefix not allowed for UoM');
+            }
+            $unitCategory = self::$conversionUnits[$uom]['Group'];
+
+            return [$uom, $unitCategory, self::$conversionMultipliers[$multiplierType]['multiplier']];
+        }
+
+        if (isset(self::$conversionUnits[$uom], self::$binaryConversionMultipliers[$multiplierType])) {
+            if (self::$conversionUnits[$uom]['AllowPrefix'] === false) {
+                throw new Exception('Prefix not allowed for UoM');
+            }
+            $unitCategory = self::$conversionUnits[$uom]['Group'];
+            if ($unitCategory !== 'Information') {
+                throw new Exception('Binary Prefix is only allowed for Information UoM');
+            }
+
+            return [$uom, $unitCategory, self::$binaryConversionMultipliers[$multiplierType]['multiplier']];
         }
 
         throw new Exception('UoM Not Found');
     }
 
     /**
-     * @param string $fromUOM
-     * @param string $toUOM
      * @param float|int $value
+     *
      * @return float|int
      */
     protected static function convertTemperature(string $fromUOM, string $toUOM, $value)
