@@ -106,12 +106,14 @@ class ConvertUOM
         'T' => ['Group' => self::CATEGORY_MAGNETISM, 'Unit Name' => 'Tesla', 'AllowPrefix' => true],
         'ga' => ['Group' => self::CATEGORY_MAGNETISM, 'Unit Name' => 'Gauss', 'AllowPrefix' => true],
         // Temperature
-        'C' => ['Group' => self::CATEGORY_TEMPERATURE, 'Unit Name' => 'Celsius', 'AllowPrefix' => false],
-        'cel' => ['Group' => self::CATEGORY_TEMPERATURE, 'Unit Name' => 'Celsius', 'AllowPrefix' => false],
-        'F' => ['Group' => self::CATEGORY_TEMPERATURE, 'Unit Name' => 'Fahrenheit', 'AllowPrefix' => false],
-        'fah' => ['Group' => self::CATEGORY_TEMPERATURE, 'Unit Name' => 'Fahrenheit', 'AllowPrefix' => false],
+        'C' => ['Group' => self::CATEGORY_TEMPERATURE, 'Unit Name' => 'Degrees Celsius', 'AllowPrefix' => false],
+        'cel' => ['Group' => self::CATEGORY_TEMPERATURE, 'Unit Name' => 'Degrees Celsius', 'AllowPrefix' => false],
+        'F' => ['Group' => self::CATEGORY_TEMPERATURE, 'Unit Name' => 'Degrees Fahrenheit', 'AllowPrefix' => false],
+        'fah' => ['Group' => self::CATEGORY_TEMPERATURE, 'Unit Name' => 'Degrees Fahrenheit', 'AllowPrefix' => false],
         'K' => ['Group' => self::CATEGORY_TEMPERATURE, 'Unit Name' => 'Kelvin', 'AllowPrefix' => false],
         'kel' => ['Group' => self::CATEGORY_TEMPERATURE, 'Unit Name' => 'Kelvin', 'AllowPrefix' => false],
+        'Rank' => ['Group' => self::CATEGORY_TEMPERATURE, 'Unit Name' => 'Degrees Rankine', 'AllowPrefix' => false],
+        'Reau' => ['Group' => self::CATEGORY_TEMPERATURE, 'Unit Name' => 'Degrees Réaumur', 'AllowPrefix' => false],
         // Volume
         'l' => ['Group' => self::CATEGORY_VOLUME, 'Unit Name' => 'Litre', 'AllowPrefix' => true],
         'L' => ['Group' => self::CATEGORY_VOLUME, 'Unit Name' => 'Litre', 'AllowPrefix' => true],
@@ -568,6 +570,7 @@ class ConvertUOM
             return [$uom, $unitCategory, 1.0];
         }
 
+        // Check 1-character standard metric multiplier prefixes
         $multiplierType = substr($uom, 0, 1);
         $uom = substr($uom, 1);
         if (isset(self::$conversionUnits[$uom], self::$conversionMultipliers[$multiplierType])) {
@@ -581,6 +584,8 @@ class ConvertUOM
 
         $multiplierType .= substr($uom, 0, 1);
         $uom = substr($uom, 1);
+
+        // Check 2-character standard metric multiplier prefixes
         if (isset(self::$conversionUnits[$uom], self::$conversionMultipliers[$multiplierType])) {
             if (self::$conversionUnits[$uom]['AllowPrefix'] === false) {
                 throw new Exception('Prefix not allowed for UoM');
@@ -590,6 +595,7 @@ class ConvertUOM
             return [$uom, $unitCategory, self::$conversionMultipliers[$multiplierType]['multiplier']];
         }
 
+        // Check 2-character binary multiplier prefixes
         if (isset(self::$conversionUnits[$uom], self::$binaryConversionMultipliers[$multiplierType])) {
             if (self::$conversionUnits[$uom]['AllowPrefix'] === false) {
                 throw new Exception('Prefix not allowed for UoM');
@@ -612,38 +618,64 @@ class ConvertUOM
      */
     protected static function convertTemperature(string $fromUOM, string $toUOM, $value)
     {
-        if (($fromUOM == 'F') || ($fromUOM == 'fah')) {
-            if (($toUOM == 'F') || ($toUOM == 'fah')) {
-                return $value;
-            }
-            $value = (($value - 32) / 1.8);
-            if (($toUOM == 'K') || ($toUOM == 'kel')) {
+        $fromUOM = self::resolveTemperatureSynonyms($fromUOM);
+        $toUOM = self::resolveTemperatureSynonyms($toUOM);
+
+        if ($fromUOM === $toUOM) {
+            return $value;
+        }
+
+        // Convert to Kelvin
+        switch ($fromUOM) {
+            case 'F':
+                $value = ($value - 32) / 1.8 + 273.15;
+
+                break;
+            case 'C':
                 $value += 273.15;
-            }
 
-            return $value;
-        } elseif (
-            (($fromUOM == 'K') || ($fromUOM == 'kel')) &&
-            (($toUOM == 'K') || ($toUOM == 'kel'))
-        ) {
-            return $value;
-        } elseif (
-            (($fromUOM == 'C') || ($fromUOM == 'cel')) &&
-            (($toUOM == 'C') || ($toUOM == 'cel'))
-        ) {
-            return $value;
+                break;
+            case 'Rank':
+                $value /= 1.8;
+
+                break;
+            case 'Reau':
+                $value = $value * 1.25 + 273.15;
+
+                break;
         }
-        if (($toUOM == 'F') || ($toUOM == 'fah')) {
-            if (($fromUOM == 'K') || ($fromUOM == 'kel')) {
+
+        // Convert from Kelvin
+        switch ($toUOM) {
+            case 'F':
+                $value = ($value - 273.15) * 1.8 + 32.00;
+
+                break;
+            case 'C':
                 $value -= 273.15;
-            }
 
-            return ($value * 1.8) + 32;
-        }
-        if (($toUOM == 'C') || ($toUOM == 'cel')) {
-            return $value - 273.15;
+                break;
+            case 'Rank':
+                $value *= 1.8;
+
+                break;
+            case 'Reau':
+                $value = ($value - 273.15) * 0.80000;
+
+                break;
         }
 
-        return $value + 273.15;
+        return $value;
+    }
+
+    private static function resolveTemperatureSynonyms(string $uom)
+    {
+        switch ($uom) {
+            case 'fah': return 'F';
+            case 'cel': return 'C';
+            case 'kel': return 'K';
+        }
+
+        return $uom;
     }
 }

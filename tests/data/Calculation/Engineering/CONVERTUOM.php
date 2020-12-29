@@ -55,7 +55,7 @@ return [
         'um',
         'kang',
     ],
-    [
+    'Prefixed metric to 2-character prefixed metric, same unit' => [
         1000.0,
         100.0,
         'hl',
@@ -92,40 +92,76 @@ return [
         'F',
     ],
     [
-        295.14999999999998,
+        -273.15,
+        0,
+        'K',
+        'C',
+    ],
+    [
+        -459.67,
+        0,
+        'K',
+        'F',
+    ],
+    [
+        295.15,
         22,
         'C',
         'K',
     ],
     [
         22.5,
-        295.64999999999998,
+        295.65,
         'K',
         'C',
     ],
-    [
-        '#VALUE!',
-        'three',
-        'ft',
-        'yds',
+    'Melting Point of Titanium (K to C)' => [
+        1667.85,
+        1941,
+        'K',
+        'C',
     ],
-    [
+    'Melting Point of Titanium (K to F)' => [
+        3034.13,
+        1941,
+        'K',
+        'F',
+    ],
+    'Melting Point of Titanium (K to Rankine)' => [
+        3493.8,
+        1941,
+        'K',
+        'Rank',
+    ],
+    'Melting Point of Titanium (K to Réaumur)' => [
+        1334.28,
+        1941,
+        'K',
+        'Reau',
+    ],
+    'Temperature synonyms (K)' => [
         123.45,
         123.45,
         'K',
         'kel',
     ],
-    [
+    'Temperature synonyms (C)' => [
         123.45,
         123.45,
         'C',
         'cel',
     ],
-    [
+    'Temperature synonyms (F)' => [
         123.45,
         123.45,
         'F',
         'fah',
+    ],
+    'Invalid value to conver' => [
+        '#VALUE!',
+        'three',
+        'ft',
+        'yds',
     ],
     'Prefixed metric to binary prefixed metric' => [
         '#N/A',
@@ -151,19 +187,19 @@ return [
         'lt',
         'kpt',
     ],
-    [
+    'Invalid from unit' => [
         '#N/A',
         234.56,
-        'sm',
+        'xxxx',
         'm',
     ],
-    [
+    'Invalid to unit' => [
         '#N/A',
         234.56,
         'm',
-        'sm',
+        'xxxx',
     ],
-    [
+    'Basic Information conversion' => [
         2,
         16,
         'bit',
