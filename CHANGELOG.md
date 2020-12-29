@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing.
+- Updated the CONVERT() function to support all current MS Excel categories and Units of Measure.
 
 ### Deprecated
 
