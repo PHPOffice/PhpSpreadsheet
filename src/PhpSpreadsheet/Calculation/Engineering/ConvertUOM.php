@@ -227,14 +227,14 @@ class ConvertUOM
      * @var mixed[]
      */
     private static $binaryConversionMultipliers = [
-        'Yi' => ['multiplier' => 2**80, 'name' => 'yobi'],
-        'Zi' => ['multiplier' => 2**70, 'name' => 'zebi'],
-        'Ei' => ['multiplier' => 2**60, 'name' => 'exbi'],
-        'Pi' => ['multiplier' => 2**50, 'name' => 'pebi'],
-        'Ti' => ['multiplier' => 2**40, 'name' => 'tebi'],
-        'Gi' => ['multiplier' => 2**30, 'name' => 'gibi'],
-        'Mi' => ['multiplier' => 2**20, 'name' => 'mebi'],
-        'ki' => ['multiplier' => 2**10, 'name' => 'kibi'],
+        'Yi' => ['multiplier' => 2 ** 80, 'name' => 'yobi'],
+        'Zi' => ['multiplier' => 2 ** 70, 'name' => 'zebi'],
+        'Ei' => ['multiplier' => 2 ** 60, 'name' => 'exbi'],
+        'Pi' => ['multiplier' => 2 ** 50, 'name' => 'pebi'],
+        'Ti' => ['multiplier' => 2 ** 40, 'name' => 'tebi'],
+        'Gi' => ['multiplier' => 2 ** 30, 'name' => 'gibi'],
+        'Mi' => ['multiplier' => 2 ** 20, 'name' => 'mebi'],
+        'ki' => ['multiplier' => 2 ** 10, 'name' => 'kibi'],
     ];
 
     /**
@@ -397,7 +397,7 @@ class ConvertUOM
             'ly^2' => 1.11725076312873E-28,
             'm2' => 1.0E+04,
             'm^2' => 1.0E+04,
-            'Morgen' => 4.0+00,
+            'Morgen' => 4.0E+00,
             'mi2' => 3.86102158542446E-03,
             'mi^2' => 3.86102158542446E-03,
             'Nmi2' => 2.91553349598123E-03,
