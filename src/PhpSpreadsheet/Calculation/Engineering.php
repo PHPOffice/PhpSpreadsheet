@@ -1882,7 +1882,7 @@ class Engineering
      *    getConversionGroups
      * Returns a list of the different conversion groups for UOM conversions.
      *
-     * @Deprecated Use the getConversionCategories() method in the getConversionCategories class instead
+     * @Deprecated Use the getConversionCategories() method in the ConvertUOM class instead
      *
      * @return array
      */
@@ -1895,7 +1895,7 @@ class Engineering
      *    getConversionGroupUnits
      * Returns an array of units of measure, for a specified conversion group, or for all groups.
      *
-     * @Deprecated Use the getConversionCategoryUnits() method in the getConversionCategories class instead
+     * @Deprecated Use the getConversionCategoryUnits() method in the ConvertUOM class instead
      *
      * @param null|mixed $category
      *
@@ -1909,7 +1909,7 @@ class Engineering
     /**
      * getConversionGroupUnitDetails.
      *
-     * @Deprecated Use the getConversionCategoryUnitDetails() method in the getConversionCategories class instead
+     * @Deprecated Use the getConversionCategoryUnitDetails() method in the ConvertUOM class instead
      *
      * @param null|mixed $category
      *
@@ -1924,7 +1924,7 @@ class Engineering
      *    getConversionMultipliers
      * Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().
      *
-     * @Deprecated Use the getConversionMultipliers() method in the getConversionCategories class instead
+     * @Deprecated Use the getConversionMultipliers() method in the ConvertUOM class instead
      *
      * @return array of mixed
      */
@@ -1937,7 +1937,7 @@ class Engineering
      *    getBinaryConversionMultipliers
      * Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure in CONVERTUOM().
      *
-     * @Deprecated Use the getBinaryConversionMultipliers() method in the getConversionCategories class instead
+     * @Deprecated Use the getBinaryConversionMultipliers() method in the ConvertUOM class instead
      *
      * @return array of mixed
      */
@@ -1956,7 +1956,7 @@ class Engineering
      *    Excel Function:
      *        CONVERT(value,fromUOM,toUOM)
      *
-     * @Deprecated Use the CONVERTUOM() method in the getConversionCategories class instead
+     * @Deprecated Use the CONVERT() method in the ConvertUOM class instead
      *
      * @param float|int $value the value in fromUOM to convert
      * @param string $fromUOM the units for value
@@ -1966,6 +1966,6 @@ class Engineering
      */
     public static function CONVERTUOM($value, $fromUOM, $toUOM)
     {
-        return Engineering\ConvertUOM::CONVERTUOM($value, $fromUOM, $toUOM);
+        return Engineering\ConvertUOM::CONVERT($value, $fromUOM, $toUOM);
     }
 }

@@ -509,7 +509,7 @@ class ConvertUOM
     }
 
     /**
-     * CONVERTUOM.
+     * CONVERT.
      *
      * Converts a number from one measurement system to another.
      *    For example, CONVERT can translate a table of distances in miles to a table of distances
@@ -524,7 +524,7 @@ class ConvertUOM
      *
      * @return float|string
      */
-    public static function CONVERTUOM($value, $fromUOM, $toUOM)
+    public static function CONVERT($value, $fromUOM, $toUOM)
     {
         $value = Functions::flattenSingleValue($value);
         $fromUOM = Functions::flattenSingleValue($fromUOM);
