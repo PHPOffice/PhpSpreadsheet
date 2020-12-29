@@ -1958,7 +1958,7 @@ class Engineering
      *
      * @Deprecated Use the CONVERTUOM() method in the getConversionCategories class instead
      *
-     * @param int|float $value the value in fromUOM to convert
+     * @param float|int $value the value in fromUOM to convert
      * @param string $fromUOM the units for value
      * @param string $toUOM the units for the result
      *
