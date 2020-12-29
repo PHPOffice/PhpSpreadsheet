@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - CSV Reader - Best Guess for Encoding, and Handle Null-string Escape [#1647](https://github.com/PHPOffice/PhpSpreadsheet/issues/1647)
+- Support for absolute path in "Target=" for worksheet [#907](https://github.com/PHPOffice/PhpSpreadsheet/issues/907)
 
 ### Changed
 
