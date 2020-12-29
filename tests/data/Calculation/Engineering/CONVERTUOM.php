@@ -1,17 +1,71 @@
 <?php
 
 return [
-    [
-        0.45359230974880999,
+    'Imperial from and to (mass)' => [
+        1.942559385723E-03,
+        1.0,
+        'ozm',
+        'sg',
+    ],
+    'Same prefixed metric UoM' => [
+        5.0,
+        5.0,
+        'kg',
+        'kg',
+    ],
+    'Imperial to prefixed metric' => [
+        4.5359237E-01,
         1.0,
         'lbm',
         'kg',
     ],
+    'Prefixed metric to prefixed metric, same unit' => [
+        0.2,
+        2.0,
+        'hg',
+        'kg',
+    ],
+    'Unprefixed metric to prefixed metric, same unit' => [
+        12.345000000000001,
+        12345,
+        'm',
+        'km',
+    ],
+    'Prefixed metric to unprefixed metric, same unit' => [
+        12345,
+        12.345000000000001,
+        'km',
+        'm',
+    ],
+    'Prefixed metric to imperial' => [
+        0.62137119223732995,
+        1,
+        'km',
+        'mi',
+    ],
+    'Prefixed metric to alternative metric' => [
+        1.23450000000000E+05,
+        12.345,
+        'um',
+        'ang',
+    ],
+    'Prefixed metric to alternative prefixed metric' => [
+        1.23450000000000E+02,
+        12.345,
+        'um',
+        'kang',
+    ],
     [
-        123.45,
-        123.45,
-        'kg',
-        'kg',
+        1000.0,
+        100.0,
+        'hl',
+        'dal',
+    ],
+    'Imperial to Imperial (distance)' => [
+        1.0,
+        3.0,
+        'ft',
+        'yd',
     ],
     [
         20,
@@ -50,30 +104,6 @@ return [
         'C',
     ],
     [
-        '#N/A',
-        2.5,
-        'ft',
-        'sec',
-    ],
-    [
-        12.345000000000001,
-        12345,
-        'm',
-        'km',
-    ],
-    [
-        12345,
-        12.345000000000001,
-        'km',
-        'm',
-    ],
-    [
-        0.62137119223732995,
-        1,
-        'km',
-        'mi',
-    ],
-    [
         '#VALUE!',
         'three',
         'ft',
@@ -97,29 +127,29 @@ return [
         'F',
         'fah',
     ],
-    [
+    'Prefixed metric to binary prefixed metric' => [
+        '#N/A',
+        12.345,
+        'um',
+        'kiang',
+    ],
+    'Mismatched categories' => [
         '#N/A',
         1,
         'ft',
         'day',
     ],
-    [
-        123.45,
-        123.45,
-        'm',
-        'm',
-    ],
-    [
-        234.56,
-        234.56,
-        'km',
-        'km',
-    ],
-    [
+    'From Prefixed imperial (Invalid)' => [
         '#N/A',
         234.56,
         'kpt',
         'lt',
+    ],
+    'To prefixed imperial (Invalid)' => [
+        '#N/A',
+        234.56,
+        'lt',
+        'kpt',
     ],
     [
         '#N/A',
@@ -130,19 +160,25 @@ return [
     [
         '#N/A',
         234.56,
-        'lt',
-        'kpt',
-    ],
-    [
-        '#N/A',
-        234.56,
         'm',
         'sm',
     ],
     [
-        12345000,
-        12.345000000000001,
-        'km',
-        'mm',
+        2,
+        16,
+        'bit',
+        'byte',
+    ],
+    'Information with standard metric prefix' => [
+        1000,
+        1,
+        'kbyte',
+        'byte',
+    ],
+    'Information with binary prefix' => [
+        1024,
+        1,
+        'kibyte',
+        'byte',
     ],
 ];
