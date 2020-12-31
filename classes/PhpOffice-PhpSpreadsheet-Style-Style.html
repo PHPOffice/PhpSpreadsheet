@@ -100,11 +100,6 @@
                     <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\NumberFormat">NumberFormat</abbr></a></td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html#property_conditionalStyles">$conditionalStyles</a></th>
-                    <td class="phpdocumentor-cell">Conditional styles.</td>
-                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\Style\Conditional[]</td>
-                </tr>
-                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html#property_protection">$protection</a></th>
                     <td class="phpdocumentor-cell">Protection.</td>
                     <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Protection.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Protection">Protection</abbr></a></td>
@@ -229,6 +224,12 @@
                     <td class="phpdocumentor-cell">Set own index in style collection.</td>
                     <td class="phpdocumentor-cell">void</td>
                 </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html#method_exportArray1">exportArray1()</a></th>
+                    <td class="phpdocumentor-cell">Abstract method to be implemented in anything which
+extends this class.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
                                                     <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method___construct">__construct()</a></th>
                     <td class="phpdocumentor-cell">Create a new Supervisor.</td>
@@ -263,6 +264,22 @@
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method___clone">__clone()</a></th>
                     <td class="phpdocumentor-cell">Implement PHP __clone to create a deep clone, not just a shallow copy.</td>
                     <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_exportArray">exportArray()</a></th>
+                    <td class="phpdocumentor-cell">Export style as array.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_exportArray1">exportArray1()</a></th>
+                    <td class="phpdocumentor-cell">Abstract method to be implemented in anything which
+extends this class.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_exportArray2">exportArray2()</a></th>
+                    <td class="phpdocumentor-cell">Populate array from exportArray1.</td>
+                    <td class="phpdocumentor-cell">void</td>
                 </tr>
                     </table>
 
@@ -369,26 +386,6 @@
         <span class="phpdocumentor-signature__name">$numberFormat</span>
             </code>
     </article>
-                                    <a id="property_conditionalStyles"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$conditionalStyles</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">50</span>
-    </aside>
-            <p class="phpdocumentor-summary">Conditional styles.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">\PhpOffice\PhpSpreadsheet\Style\Conditional[]</span>
-        <span class="phpdocumentor-signature__name">$conditionalStyles</span>
-            </code>
-    </article>
                                     <a id="property_protection"></a>
 <article
         class="
@@ -400,7 +397,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">57</span>
+        <span class="phpdocumentor-element-found-in__line">50</span>
     </aside>
             <p class="phpdocumentor-summary">Protection.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -420,7 +417,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">64</span>
+        <span class="phpdocumentor-element-found-in__line">57</span>
     </aside>
             <p class="phpdocumentor-summary">Index of style in collection. Only used for real style.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -440,7 +437,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">71</span>
+        <span class="phpdocumentor-element-found-in__line">64</span>
     </aside>
             <p class="phpdocumentor-summary">Use Quote Prefix when displaying in cell editor. Only used for real style.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -524,7 +521,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">83</span>
+        <span class="phpdocumentor-element-found-in__line">76</span>
     </aside>
         <p class="phpdocumentor-summary">Create a new Style.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -577,7 +574,7 @@ its ramifications are</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">113</span>
+        <span class="phpdocumentor-element-found-in__line">105</span>
     </aside>
         <p class="phpdocumentor-summary">Get the shared style component for the currently active cell in currently active sheet.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -606,7 +603,7 @@ its ramifications are</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">132</span>
+        <span class="phpdocumentor-element-found-in__line">124</span>
     </aside>
         <p class="phpdocumentor-summary">Get parent. Only used for style supervisor.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -634,7 +631,7 @@ its ramifications are</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">144</span>
+        <span class="phpdocumentor-element-found-in__line">136</span>
     </aside>
         <p class="phpdocumentor-summary">Build style array from subcomponents.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -674,7 +671,7 @@ its ramifications are</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">194</span>
+        <span class="phpdocumentor-element-found-in__line">186</span>
     </aside>
         <p class="phpdocumentor-summary">Apply styles from array.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -759,7 +756,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">468</span>
+        <span class="phpdocumentor-element-found-in__line">476</span>
     </aside>
         <p class="phpdocumentor-summary">Get Fill.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -787,7 +784,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">478</span>
+        <span class="phpdocumentor-element-found-in__line">486</span>
     </aside>
         <p class="phpdocumentor-summary">Get Font.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -815,7 +812,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">488</span>
+        <span class="phpdocumentor-element-found-in__line">496</span>
     </aside>
         <p class="phpdocumentor-summary">Set font.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -855,7 +852,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">500</span>
+        <span class="phpdocumentor-element-found-in__line">508</span>
     </aside>
         <p class="phpdocumentor-summary">Get Borders.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -883,7 +880,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">510</span>
+        <span class="phpdocumentor-element-found-in__line">518</span>
     </aside>
         <p class="phpdocumentor-summary">Get Alignment.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -911,7 +908,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">520</span>
+        <span class="phpdocumentor-element-found-in__line">528</span>
     </aside>
         <p class="phpdocumentor-summary">Get Number Format.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -939,7 +936,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">530</span>
+        <span class="phpdocumentor-element-found-in__line">538</span>
     </aside>
         <p class="phpdocumentor-summary">Get Conditional Styles. Only used on supervisor.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -967,7 +964,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">542</span>
+        <span class="phpdocumentor-element-found-in__line">550</span>
     </aside>
         <p class="phpdocumentor-summary">Set Conditional Styles. Only used on supervisor.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1007,7 +1004,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">554</span>
+        <span class="phpdocumentor-element-found-in__line">562</span>
     </aside>
         <p class="phpdocumentor-summary">Get Protection.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1035,7 +1032,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">564</span>
+        <span class="phpdocumentor-element-found-in__line">572</span>
     </aside>
         <p class="phpdocumentor-summary">Get quote prefix.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1063,7 +1060,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">580</span>
+        <span class="phpdocumentor-element-found-in__line">588</span>
     </aside>
         <p class="phpdocumentor-summary">Set quote prefix.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1103,7 +1100,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">600</span>
+        <span class="phpdocumentor-element-found-in__line">608</span>
     </aside>
         <p class="phpdocumentor-summary">Get hash code.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1132,7 +1129,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">625</span>
+        <span class="phpdocumentor-element-found-in__line">627</span>
     </aside>
         <p class="phpdocumentor-summary">Get own index in style collection.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1160,7 +1157,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">635</span>
+        <span class="phpdocumentor-element-found-in__line">637</span>
     </aside>
         <p class="phpdocumentor-summary">Set own index in style collection.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1186,6 +1183,38 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;applyFromArray(
     
         
     
+</article>
+                                    <a id="method_exportArray1"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">exportArray1()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Style.php"><a href="../files/src-phpspreadsheet-style-style.html"><abbr title="src/PhpSpreadsheet/Style/Style.php">Style.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">642</span>
+    </aside>
+        <p class="phpdocumentor-summary">Abstract method to be implemented in anything which
+extends this class.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">exportArray1</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>This method invokes exportArray2 with the names and values
+of all properties to be included in output array,
+returning that array to exportArray, then to caller.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
 </article>
                                                                     <a id="method___construct"></a>
 <article
@@ -1421,6 +1450,130 @@ its ramifications are</p></section></dd>
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">mixed</span>
             
+</article>
+                                    <a id="method_exportArray"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                phpdocumentor-element--final        "
+>
+    <h4 class="phpdocumentor-method__name">exportArray()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">125</span>
+    </aside>
+        <p class="phpdocumentor-summary">Export style as array.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__final">final</span>                <span class="phpdocumentor-signature__name">exportArray</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Available to anything which extends this class:
+Alignment, Border, Borders, Color, Fill, Font,
+NumberFormat, Protection, and Style.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                    <a id="method_exportArray1"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">exportArray1()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">138</span>
+    </aside>
+        <p class="phpdocumentor-summary">Abstract method to be implemented in anything which
+extends this class.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">exportArray1</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>This method invokes exportArray2 with the names and values
+of all properties to be included in output array,
+returning that array to exportArray, then to caller.</p></section>
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                    <a id="method_exportArray2"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                phpdocumentor-element--final        "
+>
+    <h4 class="phpdocumentor-method__name">exportArray2()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Supervisor.php"><a href="../files/src-phpspreadsheet-style-supervisor.html"><abbr title="src/PhpSpreadsheet/Style/Supervisor.php">Supervisor.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">150</span>
+    </aside>
+        <p class="phpdocumentor-summary">Populate array from exportArray1.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__final">final</span>                <span class="phpdocumentor-signature__name">exportArray2</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$exportedArray</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$index</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$objOrValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>This method is available to anything which extends this class.
+The parameter index is the key to be added to the array.
+The parameter objOrValue is either a primitive type,
+which is the value added to the array,
+or a Style object to be recursively added via exportArray.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$exportedArray</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$index</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$objOrValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
 </article>
                             </section>
             </article>

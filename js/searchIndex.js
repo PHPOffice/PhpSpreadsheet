@@ -1051,6 +1051,141 @@ Search.appendIndex(
             "summary": "The\u0020calculation\u0020engine\u0020cell\u0020reference\u0020stack.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-Logger.html#property_cellStack"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM",
+            "name": "ConvertUOM",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003AgetConversionCategories\u0028\u0029",
+            "name": "getConversionCategories",
+            "summary": "getConversionGroups\nReturns\u0020a\u0020list\u0020of\u0020the\u0020different\u0020conversion\u0020groups\u0020for\u0020UOM\u0020conversions.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategories"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003AgetConversionCategoryUnits\u0028\u0029",
+            "name": "getConversionCategoryUnits",
+            "summary": "getConversionGroupUnits\nReturns\u0020an\u0020array\u0020of\u0020units\u0020of\u0020measure,\u0020for\u0020a\u0020specified\u0020conversion\u0020group,\u0020or\u0020for\u0020all\u0020groups.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategoryUnits"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003AgetConversionCategoryUnitDetails\u0028\u0029",
+            "name": "getConversionCategoryUnitDetails",
+            "summary": "getConversionGroupUnitDetails.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategoryUnitDetails"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003AgetConversionMultipliers\u0028\u0029",
+            "name": "getConversionMultipliers",
+            "summary": "getConversionMultipliers\nReturns\u0020an\u0020array\u0020of\u0020the\u0020Multiplier\u0020prefixes\u0020that\u0020can\u0020be\u0020used\u0020with\u0020Units\u0020of\u0020Measure\u0020in\u0020CONVERTUOM\u0028\u0029.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionMultipliers"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003AgetBinaryConversionMultipliers\u0028\u0029",
+            "name": "getBinaryConversionMultipliers",
+            "summary": "getBinaryConversionMultipliers\nReturns\u0020an\u0020array\u0020of\u0020the\u0020additional\u0020Multiplier\u0020prefixes\u0020that\u0020can\u0020be\u0020used\u0020with\u0020Information\u0020Units\u0020of\u0020Measure\u0020in\u0020CONVERTUOM\u0028\u0029.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getBinaryConversionMultipliers"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACONVERT\u0028\u0029",
+            "name": "CONVERT",
+            "summary": "CONVERT.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_CONVERT"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003AgetUOMDetails\u0028\u0029",
+            "name": "getUOMDetails",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getUOMDetails"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003AconvertTemperature\u0028\u0029",
+            "name": "convertTemperature",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_convertTemperature"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003AresolveTemperatureSynonyms\u0028\u0029",
+            "name": "resolveTemperatureSynonyms",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_resolveTemperatureSynonyms"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_WEIGHT_AND_MASS",
+            "name": "CATEGORY_WEIGHT_AND_MASS",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_WEIGHT_AND_MASS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_DISTANCE",
+            "name": "CATEGORY_DISTANCE",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_DISTANCE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_TIME",
+            "name": "CATEGORY_TIME",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_TIME"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_PRESSURE",
+            "name": "CATEGORY_PRESSURE",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_PRESSURE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_FORCE",
+            "name": "CATEGORY_FORCE",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_FORCE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_ENERGY",
+            "name": "CATEGORY_ENERGY",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_ENERGY"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_POWER",
+            "name": "CATEGORY_POWER",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_POWER"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_MAGNETISM",
+            "name": "CATEGORY_MAGNETISM",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_MAGNETISM"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_TEMPERATURE",
+            "name": "CATEGORY_TEMPERATURE",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_TEMPERATURE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_VOLUME",
+            "name": "CATEGORY_VOLUME",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_VOLUME"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_AREA",
+            "name": "CATEGORY_AREA",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_AREA"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_INFORMATION",
+            "name": "CATEGORY_INFORMATION",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_INFORMATION"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003ACATEGORY_SPEED",
+            "name": "CATEGORY_SPEED",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_SPEED"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003A\u0024conversionUnits",
+            "name": "conversionUnits",
+            "summary": "Details\u0020of\u0020the\u0020Units\u0020of\u0020measure\u0020that\u0020can\u0020be\u0020used\u0020in\u0020CONVERTUOM\u0028\u0029.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_conversionUnits"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003A\u0024conversionMultipliers",
+            "name": "conversionMultipliers",
+            "summary": "Details\u0020of\u0020the\u0020Multiplier\u0020prefixes\u0020that\u0020can\u0020be\u0020used\u0020with\u0020Units\u0020of\u0020Measure\u0020in\u0020CONVERTUOM\u0028\u0029.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_conversionMultipliers"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003A\u0024binaryConversionMultipliers",
+            "name": "binaryConversionMultipliers",
+            "summary": "Details\u0020of\u0020the\u0020Multiplier\u0020prefixes\u0020that\u0020can\u0020be\u0020used\u0020with\u0020Units\u0020of\u0020Measure\u0020in\u0020CONVERTUOM\u0028\u0029.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_binaryConversionMultipliers"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM\u003A\u003A\u0024unitConversions",
+            "name": "unitConversions",
+            "summary": "Details\u0020of\u0020the\u0020Units\u0020of\u0020measure\u0020conversion\u0020factors,\u0020organised\u0020by\u0020group.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_unitConversions"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering",
             "name": "Engineering",
             "summary": "",
@@ -1381,6 +1516,11 @@ Search.appendIndex(
             "summary": "getConversionMultipliers\nReturns\u0020an\u0020array\u0020of\u0020the\u0020Multiplier\u0020prefixes\u0020that\u0020can\u0020be\u0020used\u0020with\u0020Units\u0020of\u0020Measure\u0020in\u0020CONVERTUOM\u0028\u0029.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_getConversionMultipliers"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003AgetBinaryConversionMultipliers\u0028\u0029",
+            "name": "getBinaryConversionMultipliers",
+            "summary": "getBinaryConversionMultipliers\nReturns\u0020an\u0020array\u0020of\u0020the\u0020additional\u0020Multiplier\u0020prefixes\u0020that\u0020can\u0020be\u0020used\u0020with\u0020Information\u0020Units\u0020of\u0020Measure\u0020in\u0020CONVERTUOM\u0028\u0029.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_getBinaryConversionMultipliers"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003ACONVERTUOM\u0028\u0029",
             "name": "CONVERTUOM",
             "summary": "CONVERTUOM.",
@@ -1390,21 +1530,6 @@ Search.appendIndex(
             "name": "EULER",
             "summary": "EULER.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#constant_EULER"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003A\u0024conversionUnits",
-            "name": "conversionUnits",
-            "summary": "Details\u0020of\u0020the\u0020Units\u0020of\u0020measure\u0020that\u0020can\u0020be\u0020used\u0020in\u0020CONVERTUOM\u0028\u0029.",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#property_conversionUnits"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003A\u0024conversionMultipliers",
-            "name": "conversionMultipliers",
-            "summary": "Details\u0020of\u0020the\u0020Multiplier\u0020prefixes\u0020that\u0020can\u0020be\u0020used\u0020with\u0020Units\u0020of\u0020Measure\u0020in\u0020CONVERTUOM\u0028\u0029.",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#property_conversionMultipliers"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003A\u0024unitConversions",
-            "name": "unitConversions",
-            "summary": "Details\u0020of\u0020the\u0020Units\u0020of\u0020measure\u0020conversion\u0020factors,\u0020organised\u0020by\u0020group.",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#property_unitConversions"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003A\u0024twoSqrtPi",
             "name": "twoSqrtPi",
@@ -8065,6 +8190,101 @@ Search.appendIndex(
             "name": "canRead",
             "summary": "Can\u0020the\u0020current\u0020IReader\u0020read\u0020the\u0020file\u003F",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_canRead"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AguessEncodingTestNoBom\u0028\u0029",
+            "name": "guessEncodingTestNoBom",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_guessEncodingTestNoBom"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AguessEncodingNoBom\u0028\u0029",
+            "name": "guessEncodingNoBom",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_guessEncodingNoBom"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AguessEncodingTestBom\u0028\u0029",
+            "name": "guessEncodingTestBom",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_guessEncodingTestBom"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AguessEncodingBom\u0028\u0029",
+            "name": "guessEncodingBom",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_guessEncodingBom"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AguessEncoding\u0028\u0029",
+            "name": "guessEncoding",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#method_guessEncoding"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF8_BOM",
+            "name": "UTF8_BOM",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF8_BOM"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF8_BOM_LEN",
+            "name": "UTF8_BOM_LEN",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF8_BOM_LEN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF16BE_BOM",
+            "name": "UTF16BE_BOM",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF16BE_BOM"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF16BE_BOM_LEN",
+            "name": "UTF16BE_BOM_LEN",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF16BE_BOM_LEN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF16BE_LF",
+            "name": "UTF16BE_LF",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF16BE_LF"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF16LE_BOM",
+            "name": "UTF16LE_BOM",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF16LE_BOM"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF16LE_BOM_LEN",
+            "name": "UTF16LE_BOM_LEN",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF16LE_BOM_LEN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF16LE_LF",
+            "name": "UTF16LE_LF",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF16LE_LF"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF32BE_BOM",
+            "name": "UTF32BE_BOM",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF32BE_BOM"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF32BE_BOM_LEN",
+            "name": "UTF32BE_BOM_LEN",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF32BE_BOM_LEN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF32BE_LF",
+            "name": "UTF32BE_LF",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF32BE_LF"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF32LE_BOM",
+            "name": "UTF32LE_BOM",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF32LE_BOM"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF32LE_BOM_LEN",
+            "name": "UTF32LE_BOM_LEN",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF32LE_BOM_LEN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003AUTF32LE_LF",
+            "name": "UTF32LE_LF",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Csv.html#constant_UTF32LE_LF"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Csv\u003A\u003A\u0024inputEncoding",
             "name": "inputEncoding",
@@ -15976,6 +16196,11 @@ Search.appendIndex(
             "summary": "Get\u0020hash\u0020code.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#method_getHashCode"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Alignment\u003A\u003AexportArray1\u0028\u0029",
+            "name": "exportArray1",
+            "summary": "Abstract\u0020method\u0020to\u0020be\u0020implemented\u0020in\u0020anything\u0020which\nextends\u0020this\u0020class.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#method_exportArray1"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Alignment\u003A\u003AHORIZONTAL_GENERAL",
             "name": "HORIZONTAL_GENERAL",
             "summary": "",
@@ -16055,6 +16280,16 @@ Search.appendIndex(
             "name": "READORDER_RTL",
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_READORDER_RTL"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Alignment\u003A\u003ATEXTROTATION_STACK_EXCEL",
+            "name": "TEXTROTATION_STACK_EXCEL",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_TEXTROTATION_STACK_EXCEL"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Alignment\u003A\u003ATEXTROTATION_STACK_PHPSPREADSHEET",
+            "name": "TEXTROTATION_STACK_PHPSPREADSHEET",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_TEXTROTATION_STACK_PHPSPREADSHEET"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Alignment\u003A\u003A\u0024horizontal",
             "name": "horizontal",
@@ -16140,6 +16375,11 @@ Search.appendIndex(
             "name": "getHashCode",
             "summary": "Get\u0020hash\u0020code.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Border.html#method_getHashCode"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Border\u003A\u003AexportArray1\u0028\u0029",
+            "name": "exportArray1",
+            "summary": "Abstract\u0020method\u0020to\u0020be\u0020implemented\u0020in\u0020anything\u0020which\nextends\u0020this\u0020class.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Border.html#method_exportArray1"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Border\u003A\u003ABORDER_NONE",
             "name": "BORDER_NONE",
@@ -16316,6 +16556,11 @@ Search.appendIndex(
             "summary": "Get\u0020hash\u0020code.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Borders.html#method_getHashCode"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Borders\u003A\u003AexportArray1\u0028\u0029",
+            "name": "exportArray1",
+            "summary": "Abstract\u0020method\u0020to\u0020be\u0020implemented\u0020in\u0020anything\u0020which\nextends\u0020this\u0020class.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Borders.html#method_exportArray1"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Borders\u003A\u003ADIAGONAL_NONE",
             "name": "DIAGONAL_NONE",
             "summary": "",
@@ -16470,6 +16715,11 @@ Search.appendIndex(
             "name": "getHashCode",
             "summary": "Get\u0020hash\u0020code.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Color.html#method_getHashCode"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Color\u003A\u003AexportArray1\u0028\u0029",
+            "name": "exportArray1",
+            "summary": "Abstract\u0020method\u0020to\u0020be\u0020implemented\u0020in\u0020anything\u0020which\nextends\u0020this\u0020class.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Color.html#method_exportArray1"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Color\u003A\u003ANAMED_COLORS",
             "name": "NAMED_COLORS",
@@ -16816,6 +17066,11 @@ Search.appendIndex(
             "summary": "Get\u0020hash\u0020code.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_getHashCode"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Fill\u003A\u003AexportArray1\u0028\u0029",
+            "name": "exportArray1",
+            "summary": "Abstract\u0020method\u0020to\u0020be\u0020implemented\u0020in\u0020anything\u0020which\nextends\u0020this\u0020class.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_exportArray1"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Fill\u003A\u003AFILL_NONE",
             "name": "FILL_NONE",
             "summary": "",
@@ -17071,6 +17326,11 @@ Search.appendIndex(
             "summary": "Get\u0020hash\u0020code.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Font.html#method_getHashCode"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Font\u003A\u003AexportArray1\u0028\u0029",
+            "name": "exportArray1",
+            "summary": "Abstract\u0020method\u0020to\u0020be\u0020implemented\u0020in\u0020anything\u0020which\nextends\u0020this\u0020class.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Font.html#method_exportArray1"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Font\u003A\u003AUNDERLINE_NONE",
             "name": "UNDERLINE_NONE",
             "summary": "",
@@ -17275,6 +17535,11 @@ Search.appendIndex(
             "name": "toFormattedString",
             "summary": "Convert\u0020a\u0020value\u0020in\u0020a\u0020pre\u002Ddefined\u0020format\u0020to\u0020a\u0020PHP\u0020string.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_toFormattedString"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\NumberFormat\u003A\u003AexportArray1\u0028\u0029",
+            "name": "exportArray1",
+            "summary": "Abstract\u0020method\u0020to\u0020be\u0020implemented\u0020in\u0020anything\u0020which\nextends\u0020this\u0020class.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_exportArray1"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\NumberFormat\u003A\u003AFORMAT_GENERAL",
             "name": "FORMAT_GENERAL",
@@ -17536,6 +17801,11 @@ Search.appendIndex(
             "summary": "Get\u0020hash\u0020code.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Protection.html#method_getHashCode"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Protection\u003A\u003AexportArray1\u0028\u0029",
+            "name": "exportArray1",
+            "summary": "Abstract\u0020method\u0020to\u0020be\u0020implemented\u0020in\u0020anything\u0020which\nextends\u0020this\u0020class.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Protection.html#method_exportArray1"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Protection\u003A\u003APROTECTION_INHERIT",
             "name": "PROTECTION_INHERIT",
             "summary": "Protection\u0020styles",
@@ -17661,6 +17931,11 @@ Search.appendIndex(
             "summary": "Set\u0020own\u0020index\u0020in\u0020style\u0020collection.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Style.html#method_setIndex"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Style\u003A\u003AexportArray1\u0028\u0029",
+            "name": "exportArray1",
+            "summary": "Abstract\u0020method\u0020to\u0020be\u0020implemented\u0020in\u0020anything\u0020which\nextends\u0020this\u0020class.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Style.html#method_exportArray1"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Style\u003A\u003A\u0024font",
             "name": "font",
             "summary": "Font.",
@@ -17685,11 +17960,6 @@ Search.appendIndex(
             "name": "numberFormat",
             "summary": "Number\u0020Format.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Style.html#property_numberFormat"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Style\u003A\u003A\u0024conditionalStyles",
-            "name": "conditionalStyles",
-            "summary": "Conditional\u0020styles.",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Style.html#property_conditionalStyles"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Style\u003A\u003A\u0024protection",
             "name": "protection",
@@ -17745,6 +18015,21 @@ Search.appendIndex(
             "name": "__clone",
             "summary": "Implement\u0020PHP\u0020__clone\u0020to\u0020create\u0020a\u0020deep\u0020clone,\u0020not\u0020just\u0020a\u0020shallow\u0020copy.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method___clone"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Supervisor\u003A\u003AexportArray\u0028\u0029",
+            "name": "exportArray",
+            "summary": "Export\u0020style\u0020as\u0020array.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_exportArray"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Supervisor\u003A\u003AexportArray1\u0028\u0029",
+            "name": "exportArray1",
+            "summary": "Abstract\u0020method\u0020to\u0020be\u0020implemented\u0020in\u0020anything\u0020which\nextends\u0020this\u0020class.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_exportArray1"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Supervisor\u003A\u003AexportArray2\u0028\u0029",
+            "name": "exportArray2",
+            "summary": "Populate\u0020array\u0020from\u0020exportArray1.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_exportArray2"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Supervisor\u003A\u003A\u0024isSupervisor",
             "name": "isSupervisor",
@@ -25530,6 +25815,11 @@ Search.appendIndex(
             "name": "Engine",
             "summary": "",
             "url": "../namespaces/phpoffice-phpspreadsheet-calculation-engine.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering",
+            "name": "Engineering",
+            "summary": "",
+            "url": "../namespaces/phpoffice-phpspreadsheet-calculation-engineering.html"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Token",
             "name": "Token",

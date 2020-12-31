@@ -63,7 +63,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">8</span>
+            <span class="phpdocumentor-element-found-in__line">9</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -77,21 +77,6 @@
                     <td class="phpdocumentor-cell">2.718281828459045</td>
                 </tr>
                                         <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#property_conversionUnits">$conversionUnits</a></th>
-                    <td class="phpdocumentor-cell">Details of the Units of measure that can be used in CONVERTUOM().</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#property_conversionMultipliers">$conversionMultipliers</a></th>
-                    <td class="phpdocumentor-cell">Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#property_unitConversions">$unitConversions</a></th>
-                    <td class="phpdocumentor-cell">Details of the Units of measure conversion factors, organised by group.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#property_twoSqrtPi">$twoSqrtPi</a></th>
                     <td class="phpdocumentor-cell"></td>
                     <td class="phpdocumentor-cell"><a href=""><abbr title=""></abbr></a></td>
@@ -430,6 +415,12 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
                     <td class="phpdocumentor-cell">array</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_getBinaryConversionMultipliers">getBinaryConversionMultipliers()</a></th>
+                    <td class="phpdocumentor-cell">getBinaryConversionMultipliers
+Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure in CONVERTUOM().</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_CONVERTUOM">CONVERTUOM()</a></th>
                     <td class="phpdocumentor-cell">CONVERTUOM.</td>
                     <td class="phpdocumentor-cell">float|string</td>
@@ -450,7 +441,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">13</span>
+        <span class="phpdocumentor-element-found-in__line">14</span>
     </aside>
             <p class="phpdocumentor-summary">EULER.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -464,66 +455,6 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
         
                     <section>
                 <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_conversionUnits"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$conversionUnits</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">20</span>
-    </aside>
-            <p class="phpdocumentor-summary">Details of the Units of measure that can be used in CONVERTUOM().</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$conversionUnits</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;g&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Mass&#039;, &#039;Unit Name&#039; =&gt; &#039;Gram&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;sg&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Mass&#039;, &#039;Unit Name&#039; =&gt; &#039;Slug&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;lbm&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Mass&#039;, &#039;Unit Name&#039; =&gt; &#039;Pound mass (avoirdupois)&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;u&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Mass&#039;, &#039;Unit Name&#039; =&gt; &#039;U (atomic mass unit)&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;ozm&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Mass&#039;, &#039;Unit Name&#039; =&gt; &#039;Ounce mass (avoirdupois)&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;m&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Distance&#039;, &#039;Unit Name&#039; =&gt; &#039;Meter&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;mi&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Distance&#039;, &#039;Unit Name&#039; =&gt; &#039;Statute mile&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;Nmi&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Distance&#039;, &#039;Unit Name&#039; =&gt; &#039;Nautical mile&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;in&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Distance&#039;, &#039;Unit Name&#039; =&gt; &#039;Inch&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;ft&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Distance&#039;, &#039;Unit Name&#039; =&gt; &#039;Foot&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;yd&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Distance&#039;, &#039;Unit Name&#039; =&gt; &#039;Yard&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;ang&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Distance&#039;, &#039;Unit Name&#039; =&gt; &#039;Angstrom&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;Pica&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Distance&#039;, &#039;Unit Name&#039; =&gt; &#039;Pica (1/72 in)&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;yr&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Time&#039;, &#039;Unit Name&#039; =&gt; &#039;Year&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;day&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Time&#039;, &#039;Unit Name&#039; =&gt; &#039;Day&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;hr&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Time&#039;, &#039;Unit Name&#039; =&gt; &#039;Hour&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;mn&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Time&#039;, &#039;Unit Name&#039; =&gt; &#039;Minute&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;sec&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Time&#039;, &#039;Unit Name&#039; =&gt; &#039;Second&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;Pa&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Pressure&#039;, &#039;Unit Name&#039; =&gt; &#039;Pascal&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;p&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Pressure&#039;, &#039;Unit Name&#039; =&gt; &#039;Pascal&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;atm&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Pressure&#039;, &#039;Unit Name&#039; =&gt; &#039;Atmosphere&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;at&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Pressure&#039;, &#039;Unit Name&#039; =&gt; &#039;Atmosphere&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;mmHg&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Pressure&#039;, &#039;Unit Name&#039; =&gt; &#039;mm of Mercury&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;N&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Force&#039;, &#039;Unit Name&#039; =&gt; &#039;Newton&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;dyn&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Force&#039;, &#039;Unit Name&#039; =&gt; &#039;Dyne&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;dy&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Force&#039;, &#039;Unit Name&#039; =&gt; &#039;Dyne&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;lbf&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Force&#039;, &#039;Unit Name&#039; =&gt; &#039;Pound force&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;J&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;Joule&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;e&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;Erg&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;c&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;Thermodynamic calorie&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;cal&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;IT calorie&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;eV&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;Electron volt&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;ev&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;Electron volt&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;HPh&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;Horsepower-hour&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;hh&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;Horsepower-hour&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;Wh&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;Watt-hour&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;wh&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;Watt-hour&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;flb&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;Foot-pound&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;BTU&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;BTU&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;btu&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Energy&#039;, &#039;Unit Name&#039; =&gt; &#039;BTU&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;HP&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Power&#039;, &#039;Unit Name&#039; =&gt; &#039;Horsepower&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;h&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Power&#039;, &#039;Unit Name&#039; =&gt; &#039;Horsepower&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;W&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Power&#039;, &#039;Unit Name&#039; =&gt; &#039;Watt&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;w&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Power&#039;, &#039;Unit Name&#039; =&gt; &#039;Watt&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;T&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Magnetism&#039;, &#039;Unit Name&#039; =&gt; &#039;Tesla&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;ga&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Magnetism&#039;, &#039;Unit Name&#039; =&gt; &#039;Gauss&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;C&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Temperature&#039;, &#039;Unit Name&#039; =&gt; &#039;Celsius&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;cel&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Temperature&#039;, &#039;Unit Name&#039; =&gt; &#039;Celsius&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;F&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Temperature&#039;, &#039;Unit Name&#039; =&gt; &#039;Fahrenheit&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;fah&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Temperature&#039;, &#039;Unit Name&#039; =&gt; &#039;Fahrenheit&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;K&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Temperature&#039;, &#039;Unit Name&#039; =&gt; &#039;Kelvin&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;kel&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Temperature&#039;, &#039;Unit Name&#039; =&gt; &#039;Kelvin&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;tsp&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Liquid&#039;, &#039;Unit Name&#039; =&gt; &#039;Teaspoon&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;tbs&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Liquid&#039;, &#039;Unit Name&#039; =&gt; &#039;Tablespoon&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;oz&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Liquid&#039;, &#039;Unit Name&#039; =&gt; &#039;Fluid Ounce&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;cup&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Liquid&#039;, &#039;Unit Name&#039; =&gt; &#039;Cup&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;pt&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Liquid&#039;, &#039;Unit Name&#039; =&gt; &#039;U.S. Pint&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;us_pt&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Liquid&#039;, &#039;Unit Name&#039; =&gt; &#039;U.S. Pint&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;uk_pt&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Liquid&#039;, &#039;Unit Name&#039; =&gt; &#039;U.K. Pint&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;qt&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Liquid&#039;, &#039;Unit Name&#039; =&gt; &#039;Quart&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;gal&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Liquid&#039;, &#039;Unit Name&#039; =&gt; &#039;Gallon&#039;, &#039;AllowPrefix&#039; =&gt; false], &#039;l&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Liquid&#039;, &#039;Unit Name&#039; =&gt; &#039;Litre&#039;, &#039;AllowPrefix&#039; =&gt; true], &#039;lt&#039; =&gt; [&#039;Group&#039; =&gt; &#039;Liquid&#039;, &#039;Unit Name&#039; =&gt; &#039;Litre&#039;, &#039;AllowPrefix&#039; =&gt; true]]</span>    </code>
-    </article>
-                                    <a id="property_conversionMultipliers"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$conversionMultipliers</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">91</span>
-    </aside>
-            <p class="phpdocumentor-summary">Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$conversionMultipliers</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;Y&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E+24, &#039;name&#039; =&gt; &#039;yotta&#039;], &#039;Z&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E+21, &#039;name&#039; =&gt; &#039;zetta&#039;], &#039;E&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E+18, &#039;name&#039; =&gt; &#039;exa&#039;], &#039;P&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000000000000000.0, &#039;name&#039; =&gt; &#039;peta&#039;], &#039;T&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000000000000.0, &#039;name&#039; =&gt; &#039;tera&#039;], &#039;G&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000000000.0, &#039;name&#039; =&gt; &#039;giga&#039;], &#039;M&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000000.0, &#039;name&#039; =&gt; &#039;mega&#039;], &#039;k&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000.0, &#039;name&#039; =&gt; &#039;kilo&#039;], &#039;h&#039; =&gt; [&#039;multiplier&#039; =&gt; 100.0, &#039;name&#039; =&gt; &#039;hecto&#039;], &#039;e&#039; =&gt; [&#039;multiplier&#039; =&gt; 10.0, &#039;name&#039; =&gt; &#039;deka&#039;], &#039;d&#039; =&gt; [&#039;multiplier&#039; =&gt; 0.1, &#039;name&#039; =&gt; &#039;deci&#039;], &#039;c&#039; =&gt; [&#039;multiplier&#039; =&gt; 0.01, &#039;name&#039; =&gt; &#039;centi&#039;], &#039;m&#039; =&gt; [&#039;multiplier&#039; =&gt; 0.001, &#039;name&#039; =&gt; &#039;milli&#039;], &#039;u&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-6, &#039;name&#039; =&gt; &#039;micro&#039;], &#039;n&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-9, &#039;name&#039; =&gt; &#039;nano&#039;], &#039;p&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-12, &#039;name&#039; =&gt; &#039;pico&#039;], &#039;f&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-15, &#039;name&#039; =&gt; &#039;femto&#039;], &#039;a&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-18, &#039;name&#039; =&gt; &#039;atto&#039;], &#039;z&#039; =&gt; [&#039;multiplier&#039; =&gt; 9.999999999999999E-22, &#039;name&#039; =&gt; &#039;zepto&#039;], &#039;y&#039; =&gt; [&#039;multiplier&#039; =&gt; 9.999999999999999E-25, &#039;name&#039; =&gt; &#039;yocto&#039;]]</span>    </code>
-    </article>
-                                    <a id="property_unitConversions"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$unitConversions</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">119</span>
-    </aside>
-            <p class="phpdocumentor-summary">Details of the Units of measure conversion factors, organised by group.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$unitConversions</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;Mass&#039; =&gt; [&#039;g&#039; =&gt; [&#039;g&#039; =&gt; 1.0, &#039;sg&#039; =&gt; 6.85220500053478E-5, &#039;lbm&#039; =&gt; 0.00220462291469134, &#039;u&#039; =&gt; 6.02217E+23, &#039;ozm&#039; =&gt; 0.0352739718003627], &#039;sg&#039; =&gt; [&#039;g&#039; =&gt; 14593.8424189287, &#039;sg&#039; =&gt; 1.0, &#039;lbm&#039; =&gt; 32.1739194101647, &#039;u&#039; =&gt; 8.788659999999999E+27, &#039;ozm&#039; =&gt; 514.782785944229], &#039;lbm&#039; =&gt; [&#039;g&#039; =&gt; 453.5923097488115, &#039;sg&#039; =&gt; 0.0310810749306493, &#039;lbm&#039; =&gt; 1.0, &#039;u&#039; =&gt; 2.73161E+26, &#039;ozm&#039; =&gt; 16.000002342941], &#039;u&#039; =&gt; [&#039;g&#039; =&gt; 1.66053100460465E-24, &#039;sg&#039; =&gt; 1.1378298853295E-28, &#039;lbm&#039; =&gt; 3.66084470330684E-27, &#039;u&#039; =&gt; 1.0, &#039;ozm&#039; =&gt; 5.85735238300524E-26], &#039;ozm&#039; =&gt; [&#039;g&#039; =&gt; 28.3495152079732, &#039;sg&#039; =&gt; 0.00194256689870811, &#039;lbm&#039; =&gt; 0.0624999908478882, &#039;u&#039; =&gt; 1.707256E+25, &#039;ozm&#039; =&gt; 1.0]], &#039;Distance&#039; =&gt; [&#039;m&#039; =&gt; [&#039;m&#039; =&gt; 1.0, &#039;mi&#039; =&gt; 0.000621371192237334, &#039;Nmi&#039; =&gt; 0.000539956803455724, &#039;in&#039; =&gt; 39.3700787401575, &#039;ft&#039; =&gt; 3.28083989501312, &#039;yd&#039; =&gt; 1.09361329797891, &#039;ang&#039; =&gt; 10000000000.0, &#039;Pica&#039; =&gt; 2834.64566929116], &#039;mi&#039; =&gt; [&#039;m&#039; =&gt; 1609.344, &#039;mi&#039; =&gt; 1.0, &#039;Nmi&#039; =&gt; 0.868976241900648, &#039;in&#039; =&gt; 63360.0, &#039;ft&#039; =&gt; 5280.0, &#039;yd&#039; =&gt; 1760.0, &#039;ang&#039; =&gt; 16093440000000.0, &#039;Pica&#039; =&gt; 4561919.99999971], &#039;Nmi&#039; =&gt; [&#039;m&#039; =&gt; 1852.0, &#039;mi&#039; =&gt; 1.15077944802354, &#039;Nmi&#039; =&gt; 1.0, &#039;in&#039; =&gt; 72913.3858267717, &#039;ft&#039; =&gt; 6076.1154855643, &#039;yd&#039; =&gt; 2025.37182785694, &#039;ang&#039; =&gt; 18520000000000.0, &#039;Pica&#039; =&gt; 5249763.77952723], &#039;in&#039; =&gt; [&#039;m&#039; =&gt; 0.0254, &#039;mi&#039; =&gt; 1.57828282828283E-5, &#039;Nmi&#039; =&gt; 1.37149028077754E-5, &#039;in&#039; =&gt; 1.0, &#039;ft&#039; =&gt; 0.0833333333333333, &#039;yd&#039; =&gt; 0.0277777777686643, &#039;ang&#039; =&gt; 254000000.0, &#039;Pica&#039; =&gt; 71.9999999999955], &#039;ft&#039; =&gt; [&#039;m&#039; =&gt; 0.3048, &#039;mi&#039; =&gt; 0.000189393939393939, &#039;Nmi&#039; =&gt; 0.000164578833693305, &#039;in&#039; =&gt; 12.0, &#039;ft&#039; =&gt; 1.0, &#039;yd&#039; =&gt; 0.333333333223972, &#039;ang&#039; =&gt; 3048000000.0, &#039;Pica&#039; =&gt; 863.999999999946], &#039;yd&#039; =&gt; [&#039;m&#039; =&gt; 0.9144000003, &#039;mi&#039; =&gt; 0.00056818181836823, &#039;Nmi&#039; =&gt; 0.000493736501241901, &#039;in&#039; =&gt; 36.000000011811, &#039;ft&#039; =&gt; 3.0, &#039;yd&#039; =&gt; 1.0, &#039;ang&#039; =&gt; 9144000003.0, &#039;Pica&#039; =&gt; 2592.00000085023], &#039;ang&#039; =&gt; [&#039;m&#039; =&gt; 1.0E-10, &#039;mi&#039; =&gt; 6.213711922373341E-14, &#039;Nmi&#039; =&gt; 5.39956803455724E-14, &#039;in&#039; =&gt; 3.93700787401575E-9, &#039;ft&#039; =&gt; 3.28083989501312E-10, &#039;yd&#039; =&gt; 1.09361329797891E-10, &#039;ang&#039; =&gt; 1.0, &#039;Pica&#039; =&gt; 2.83464566929116E-7], &#039;Pica&#039; =&gt; [&#039;m&#039; =&gt; 0.0003527777777778, &#039;mi&#039; =&gt; 2.19205948372629E-7, &#039;Nmi&#039; =&gt; 1.90484761219114E-7, &#039;in&#039; =&gt; 0.0138888888888898, &#039;ft&#039; =&gt; 0.00115740740740748, &#039;yd&#039; =&gt; 0.000385802469009251, &#039;ang&#039; =&gt; 3527777.777778, &#039;Pica&#039; =&gt; 1.0]], &#039;Time&#039; =&gt; [&#039;yr&#039; =&gt; [&#039;yr&#039; =&gt; 1.0, &#039;day&#039; =&gt; 365.25, &#039;hr&#039; =&gt; 8766.0, &#039;mn&#039; =&gt; 525960.0, &#039;sec&#039; =&gt; 31557600.0], &#039;day&#039; =&gt; [&#039;yr&#039; =&gt; 0.0027378507871321, &#039;day&#039; =&gt; 1.0, &#039;hr&#039; =&gt; 24.0, &#039;mn&#039; =&gt; 1440.0, &#039;sec&#039; =&gt; 86400.0], &#039;hr&#039; =&gt; [&#039;yr&#039; =&gt; 0.000114077116130504, &#039;day&#039; =&gt; 0.0416666666666667, &#039;hr&#039; =&gt; 1.0, &#039;mn&#039; =&gt; 60.0, &#039;sec&#039; =&gt; 3600.0], &#039;mn&#039; =&gt; [&#039;yr&#039; =&gt; 1.90128526884174E-6, &#039;day&#039; =&gt; 0.000694444444444444, &#039;hr&#039; =&gt; 0.0166666666666667, &#039;mn&#039; =&gt; 1.0, &#039;sec&#039; =&gt; 60.0], &#039;sec&#039; =&gt; [&#039;yr&#039; =&gt; 3.16880878140289E-8, &#039;day&#039; =&gt; 1.15740740740741E-5, &#039;hr&#039; =&gt; 0.000277777777777778, &#039;mn&#039; =&gt; 0.0166666666666667, &#039;sec&#039; =&gt; 1.0]], &#039;Pressure&#039; =&gt; [&#039;Pa&#039; =&gt; [&#039;Pa&#039; =&gt; 1.0, &#039;p&#039; =&gt; 1.0, &#039;atm&#039; =&gt; 9.86923299998193E-6, &#039;at&#039; =&gt; 9.86923299998193E-6, &#039;mmHg&#039; =&gt; 0.00750061707998627], &#039;p&#039; =&gt; [&#039;Pa&#039; =&gt; 1.0, &#039;p&#039; =&gt; 1.0, &#039;atm&#039; =&gt; 9.86923299998193E-6, &#039;at&#039; =&gt; 9.86923299998193E-6, &#039;mmHg&#039; =&gt; 0.00750061707998627], &#039;atm&#039; =&gt; [&#039;Pa&#039; =&gt; 101324.996583, &#039;p&#039; =&gt; 101324.996583, &#039;atm&#039; =&gt; 1.0, &#039;at&#039; =&gt; 1.0, &#039;mmHg&#039; =&gt; 760.0], &#039;at&#039; =&gt; [&#039;Pa&#039; =&gt; 101324.996583, &#039;p&#039; =&gt; 101324.996583, &#039;atm&#039; =&gt; 1.0, &#039;at&#039; =&gt; 1.0, &#039;mmHg&#039; =&gt; 760.0], &#039;mmHg&#039; =&gt; [&#039;Pa&#039; =&gt; 133.322363925, &#039;p&#039; =&gt; 133.322363925, &#039;atm&#039; =&gt; 0.00131578947368421, &#039;at&#039; =&gt; 0.00131578947368421, &#039;mmHg&#039; =&gt; 1.0]], &#039;Force&#039; =&gt; [&#039;N&#039; =&gt; [&#039;N&#039; =&gt; 1.0, &#039;dyn&#039; =&gt; 100000.0, &#039;dy&#039; =&gt; 100000.0, &#039;lbf&#039; =&gt; 0.224808923655339], &#039;dyn&#039; =&gt; [&#039;N&#039; =&gt; 1.0E-5, &#039;dyn&#039; =&gt; 1.0, &#039;dy&#039; =&gt; 1.0, &#039;lbf&#039; =&gt; 2.24808923655339E-6], &#039;dy&#039; =&gt; [&#039;N&#039; =&gt; 1.0E-5, &#039;dyn&#039; =&gt; 1.0, &#039;dy&#039; =&gt; 1.0, &#039;lbf&#039; =&gt; 2.24808923655339E-6], &#039;lbf&#039; =&gt; [&#039;N&#039; =&gt; 4.448222, &#039;dyn&#039; =&gt; 444822.2, &#039;dy&#039; =&gt; 444822.2, &#039;lbf&#039; =&gt; 1.0]], &#039;Energy&#039; =&gt; [&#039;J&#039; =&gt; [&#039;J&#039; =&gt; 1.0, &#039;e&#039; =&gt; 9999995.193432311, &#039;c&#039; =&gt; 0.239006249473467, &#039;cal&#039; =&gt; 0.238846190642017, &#039;eV&#039; =&gt; 6.241457E+18, &#039;ev&#039; =&gt; 6.241457E+18, &#039;HPh&#039; =&gt; 3.72506430801E-7, &#039;hh&#039; =&gt; 3.72506430801E-7, &#039;Wh&#039; =&gt; 0.000277777916238711, &#039;wh&#039; =&gt; 0.000277777916238711, &#039;flb&#039; =&gt; 23.7304222192651, &#039;BTU&#039; =&gt; 0.000947815067349015, &#039;btu&#039; =&gt; 0.000947815067349015], &#039;e&#039; =&gt; [&#039;J&#039; =&gt; 1.000000480657E-7, &#039;e&#039; =&gt; 1.0, &#039;c&#039; =&gt; 2.39006364353494E-8, &#039;cal&#039; =&gt; 2.38846305445111E-8, &#039;eV&#039; =&gt; 624146000000.0, &#039;ev&#039; =&gt; 624146000000.0, &#039;HPh&#039; =&gt; 3.72506609848824E-14, &#039;hh&#039; =&gt; 3.72506609848824E-14, &#039;Wh&#039; =&gt; 2.77778049754611E-11, &#039;wh&#039; =&gt; 2.77778049754611E-11, &#039;flb&#039; =&gt; 2.37304336254586E-6, &#039;BTU&#039; =&gt; 9.47815522922962E-11, &#039;btu&#039; =&gt; 9.47815522922962E-11], &#039;c&#039; =&gt; [&#039;J&#039; =&gt; 4.18399101363672, &#039;e&#039; =&gt; 41839890.0257312, &#039;c&#039; =&gt; 1.0, &#039;cal&#039; =&gt; 0.999330315287563, &#039;eV&#039; =&gt; 2.61142E+19, &#039;ev&#039; =&gt; 2.61142E+19, &#039;HPh&#039; =&gt; 1.55856355899327E-6, &#039;hh&#039; =&gt; 1.55856355899327E-6, &#039;Wh&#039; =&gt; 0.0011622203053295, &#039;wh&#039; =&gt; 0.0011622203053295, &#039;flb&#039; =&gt; 99.28787331521021, &#039;BTU&#039; =&gt; 0.00396564972437776, &#039;btu&#039; =&gt; 0.00396564972437776], &#039;cal&#039; =&gt; [&#039;J&#039; =&gt; 4.18679484613929, &#039;e&#039; =&gt; 41867928.3372801, &#039;c&#039; =&gt; 1.00067013349059, &#039;cal&#039; =&gt; 1.0, &#039;eV&#039; =&gt; 2.61317E+19, &#039;ev&#039; =&gt; 2.61317E+19, &#039;HPh&#039; =&gt; 1.55960800463137E-6, &#039;hh&#039; =&gt; 1.55960800463137E-6, &#039;Wh&#039; =&gt; 0.00116299914807955, &#039;wh&#039; =&gt; 0.00116299914807955, &#039;flb&#039; =&gt; 99.3544094443283, &#039;BTU&#039; =&gt; 0.00396830723907002, &#039;btu&#039; =&gt; 0.00396830723907002], &#039;eV&#039; =&gt; [&#039;J&#039; =&gt; 1.60219000146921E-19, &#039;e&#039; =&gt; 1.60218923136574E-12, &#039;c&#039; =&gt; 3.82933423195043E-20, &#039;cal&#039; =&gt; 3.82676978535648E-20, &#039;eV&#039; =&gt; 1.0, &#039;ev&#039; =&gt; 1.0, &#039;HPh&#039; =&gt; 5.968260789123441E-26, &#039;hh&#039; =&gt; 5.968260789123441E-26, &#039;Wh&#039; =&gt; 4.45053000026614E-23, &#039;wh&#039; =&gt; 4.45053000026614E-23, &#039;flb&#039; =&gt; 3.80206452103492E-18, &#039;BTU&#039; =&gt; 1.51857982414846E-22, &#039;btu&#039; =&gt; 1.51857982414846E-22], &#039;ev&#039; =&gt; [&#039;J&#039; =&gt; 1.60219000146921E-19, &#039;e&#039; =&gt; 1.60218923136574E-12, &#039;c&#039; =&gt; 3.82933423195043E-20, &#039;cal&#039; =&gt; 3.82676978535648E-20, &#039;eV&#039; =&gt; 1.0, &#039;ev&#039; =&gt; 1.0, &#039;HPh&#039; =&gt; 5.968260789123441E-26, &#039;hh&#039; =&gt; 5.968260789123441E-26, &#039;Wh&#039; =&gt; 4.45053000026614E-23, &#039;wh&#039; =&gt; 4.45053000026614E-23, &#039;flb&#039; =&gt; 3.80206452103492E-18, &#039;BTU&#039; =&gt; 1.51857982414846E-22, &#039;btu&#039; =&gt; 1.51857982414846E-22], &#039;HPh&#039; =&gt; [&#039;J&#039; =&gt; 2684517.4131617, &#039;e&#039; =&gt; 26845161228302.4, &#039;c&#039; =&gt; 641616.438565991, &#039;cal&#039; =&gt; 641186.7578458349, &#039;eV&#039; =&gt; 1.67553E+25, &#039;ev&#039; =&gt; 1.67553E+25, &#039;HPh&#039; =&gt; 1.0, &#039;hh&#039; =&gt; 1.0, &#039;Wh&#039; =&gt; 745.6996531345929, &#039;wh&#039; =&gt; 745.6996531345929, &#039;flb&#039; =&gt; 63704731.6692964, &#039;BTU&#039; =&gt; 2544.42605275546, &#039;btu&#039; =&gt; 2544.42605275546], &#039;hh&#039; =&gt; [&#039;J&#039; =&gt; 2684517.4131617, &#039;e&#039; =&gt; 26845161228302.4, &#039;c&#039; =&gt; 641616.438565991, &#039;cal&#039; =&gt; 641186.7578458349, &#039;eV&#039; =&gt; 1.67553E+25, &#039;ev&#039; =&gt; 1.67553E+25, &#039;HPh&#039; =&gt; 1.0, &#039;hh&#039; =&gt; 1.0, &#039;Wh&#039; =&gt; 745.6996531345929, &#039;wh&#039; =&gt; 745.6996531345929, &#039;flb&#039; =&gt; 63704731.6692964, &#039;BTU&#039; =&gt; 2544.42605275546, &#039;btu&#039; =&gt; 2544.42605275546], &#039;Wh&#039; =&gt; [&#039;J&#039; =&gt; 3599.9982055472, &#039;e&#039; =&gt; 35999964751.8369, &#039;c&#039; =&gt; 860.422069219046, &#039;cal&#039; =&gt; 859.845857713046, &#039;eV&#039; =&gt; 2.2469234E+22, &#039;ev&#039; =&gt; 2.2469234E+22, &#039;HPh&#039; =&gt; 0.00134102248243839, &#039;hh&#039; =&gt; 0.00134102248243839, &#039;Wh&#039; =&gt; 1.0, &#039;wh&#039; =&gt; 1.0, &#039;flb&#039; =&gt; 85429.4774062316, &#039;BTU&#039; =&gt; 3.41213254164705, &#039;btu&#039; =&gt; 3.41213254164705], &#039;wh&#039; =&gt; [&#039;J&#039; =&gt; 3599.9982055472, &#039;e&#039; =&gt; 35999964751.8369, &#039;c&#039; =&gt; 860.422069219046, &#039;cal&#039; =&gt; 859.845857713046, &#039;eV&#039; =&gt; 2.2469234E+22, &#039;ev&#039; =&gt; 2.2469234E+22, &#039;HPh&#039; =&gt; 0.00134102248243839, &#039;hh&#039; =&gt; 0.00134102248243839, &#039;Wh&#039; =&gt; 1.0, &#039;wh&#039; =&gt; 1.0, &#039;flb&#039; =&gt; 85429.4774062316, &#039;BTU&#039; =&gt; 3.41213254164705, &#039;btu&#039; =&gt; 3.41213254164705], &#039;flb&#039; =&gt; [&#039;J&#039; =&gt; 0.0421400003236424, &#039;e&#039; =&gt; 421399.80068766, &#039;c&#039; =&gt; 0.0100717234301644, &#039;cal&#039; =&gt; 0.0100649785509554, &#039;eV&#039; =&gt; 2.63015E+17, &#039;ev&#039; =&gt; 2.63015E+17, &#039;HPh&#039; =&gt; 1.5697421114513E-8, &#039;hh&#039; =&gt; 1.5697421114513E-8, &#039;Wh&#039; =&gt; 1.17055614802E-5, &#039;wh&#039; =&gt; 1.17055614802E-5, &#039;flb&#039; =&gt; 1.0, &#039;BTU&#039; =&gt; 3.99409272448406E-5, &#039;btu&#039; =&gt; 3.99409272448406E-5], &#039;BTU&#039; =&gt; [&#039;J&#039; =&gt; 1055.05813786749, &#039;e&#039; =&gt; 10550576307.4665, &#039;c&#039; =&gt; 252.165488508168, &#039;cal&#039; =&gt; 251.99661713551, &#039;eV&#039; =&gt; 6.5851E+21, &#039;ev&#039; =&gt; 6.5851E+21, &#039;HPh&#039; =&gt; 0.000393015941224568, &#039;hh&#039; =&gt; 0.000393015941224568, &#039;Wh&#039; =&gt; 0.293071851047526, &#039;wh&#039; =&gt; 0.293071851047526, &#039;flb&#039; =&gt; 25036.9750774671, &#039;BTU&#039; =&gt; 1.0, &#039;btu&#039; =&gt; 1.0], &#039;btu&#039; =&gt; [&#039;J&#039; =&gt; 1055.05813786749, &#039;e&#039; =&gt; 10550576307.4665, &#039;c&#039; =&gt; 252.165488508168, &#039;cal&#039; =&gt; 251.99661713551, &#039;eV&#039; =&gt; 6.5851E+21, &#039;ev&#039; =&gt; 6.5851E+21, &#039;HPh&#039; =&gt; 0.000393015941224568, &#039;hh&#039; =&gt; 0.000393015941224568, &#039;Wh&#039; =&gt; 0.293071851047526, &#039;wh&#039; =&gt; 0.293071851047526, &#039;flb&#039; =&gt; 25036.9750774671, &#039;BTU&#039; =&gt; 1.0, &#039;btu&#039; =&gt; 1.0]], &#039;Power&#039; =&gt; [&#039;HP&#039; =&gt; [&#039;HP&#039; =&gt; 1.0, &#039;h&#039; =&gt; 1.0, &#039;W&#039; =&gt; 745.701, &#039;w&#039; =&gt; 745.701], &#039;h&#039; =&gt; [&#039;HP&#039; =&gt; 1.0, &#039;h&#039; =&gt; 1.0, &#039;W&#039; =&gt; 745.701, &#039;w&#039; =&gt; 745.701], &#039;W&#039; =&gt; [&#039;HP&#039; =&gt; 0.00134102006031908, &#039;h&#039; =&gt; 0.00134102006031908, &#039;W&#039; =&gt; 1.0, &#039;w&#039; =&gt; 1.0], &#039;w&#039; =&gt; [&#039;HP&#039; =&gt; 0.00134102006031908, &#039;h&#039; =&gt; 0.00134102006031908, &#039;W&#039; =&gt; 1.0, &#039;w&#039; =&gt; 1.0]], &#039;Magnetism&#039; =&gt; [&#039;T&#039; =&gt; [&#039;T&#039; =&gt; 1.0, &#039;ga&#039; =&gt; 10000.0], &#039;ga&#039; =&gt; [&#039;T&#039; =&gt; 0.0001, &#039;ga&#039; =&gt; 1.0]], &#039;Liquid&#039; =&gt; [&#039;tsp&#039; =&gt; [&#039;tsp&#039; =&gt; 1.0, &#039;tbs&#039; =&gt; 0.333333333333333, &#039;oz&#039; =&gt; 0.166666666666667, &#039;cup&#039; =&gt; 0.0208333333333333, &#039;pt&#039; =&gt; 0.0104166666666667, &#039;us_pt&#039; =&gt; 0.0104166666666667, &#039;uk_pt&#039; =&gt; 0.008675585168219599, &#039;qt&#039; =&gt; 0.00520833333333333, &#039;gal&#039; =&gt; 0.00130208333333333, &#039;l&#039; =&gt; 0.0049299940840071, &#039;lt&#039; =&gt; 0.0049299940840071], &#039;tbs&#039; =&gt; [&#039;tsp&#039; =&gt; 3.0, &#039;tbs&#039; =&gt; 1.0, &#039;oz&#039; =&gt; 0.5, &#039;cup&#039; =&gt; 0.0625, &#039;pt&#039; =&gt; 0.03125, &#039;us_pt&#039; =&gt; 0.03125, &#039;uk_pt&#039; =&gt; 0.0260267555046588, &#039;qt&#039; =&gt; 0.015625, &#039;gal&#039; =&gt; 0.00390625, &#039;l&#039; =&gt; 0.0147899822520213, &#039;lt&#039; =&gt; 0.0147899822520213], &#039;oz&#039; =&gt; [&#039;tsp&#039; =&gt; 6.0, &#039;tbs&#039; =&gt; 2.0, &#039;oz&#039; =&gt; 1.0, &#039;cup&#039; =&gt; 0.125, &#039;pt&#039; =&gt; 0.0625, &#039;us_pt&#039; =&gt; 0.0625, &#039;uk_pt&#039; =&gt; 0.0520535110093176, &#039;qt&#039; =&gt; 0.03125, &#039;gal&#039; =&gt; 0.0078125, &#039;l&#039; =&gt; 0.0295799645040426, &#039;lt&#039; =&gt; 0.0295799645040426], &#039;cup&#039; =&gt; [&#039;tsp&#039; =&gt; 48.0, &#039;tbs&#039; =&gt; 16.0, &#039;oz&#039; =&gt; 8.0, &#039;cup&#039; =&gt; 1.0, &#039;pt&#039; =&gt; 0.5, &#039;us_pt&#039; =&gt; 0.5, &#039;uk_pt&#039; =&gt; 0.416428088074541, &#039;qt&#039; =&gt; 0.25, &#039;gal&#039; =&gt; 0.0625, &#039;l&#039; =&gt; 0.236639716032341, &#039;lt&#039; =&gt; 0.236639716032341], &#039;pt&#039; =&gt; [&#039;tsp&#039; =&gt; 96.0, &#039;tbs&#039; =&gt; 32.0, &#039;oz&#039; =&gt; 16.0, &#039;cup&#039; =&gt; 2.0, &#039;pt&#039; =&gt; 1.0, &#039;us_pt&#039; =&gt; 1.0, &#039;uk_pt&#039; =&gt; 0.832856176149081, &#039;qt&#039; =&gt; 0.5, &#039;gal&#039; =&gt; 0.125, &#039;l&#039; =&gt; 0.473279432064682, &#039;lt&#039; =&gt; 0.473279432064682], &#039;us_pt&#039; =&gt; [&#039;tsp&#039; =&gt; 96.0, &#039;tbs&#039; =&gt; 32.0, &#039;oz&#039; =&gt; 16.0, &#039;cup&#039; =&gt; 2.0, &#039;pt&#039; =&gt; 1.0, &#039;us_pt&#039; =&gt; 1.0, &#039;uk_pt&#039; =&gt; 0.832856176149081, &#039;qt&#039; =&gt; 0.5, &#039;gal&#039; =&gt; 0.125, &#039;l&#039; =&gt; 0.473279432064682, &#039;lt&#039; =&gt; 0.473279432064682], &#039;uk_pt&#039; =&gt; [&#039;tsp&#039; =&gt; 115.266, &#039;tbs&#039; =&gt; 38.422, &#039;oz&#039; =&gt; 19.211, &#039;cup&#039; =&gt; 2.401375, &#039;pt&#039; =&gt; 1.2006875, &#039;us_pt&#039; =&gt; 1.2006875, &#039;uk_pt&#039; =&gt; 1.0, &#039;qt&#039; =&gt; 0.60034375, &#039;gal&#039; =&gt; 0.1500859375, &#039;l&#039; =&gt; 0.568260698087162, &#039;lt&#039; =&gt; 0.568260698087162], &#039;qt&#039; =&gt; [&#039;tsp&#039; =&gt; 192.0, &#039;tbs&#039; =&gt; 64.0, &#039;oz&#039; =&gt; 32.0, &#039;cup&#039; =&gt; 4.0, &#039;pt&#039; =&gt; 2.0, &#039;us_pt&#039; =&gt; 2.0, &#039;uk_pt&#039; =&gt; 1.66571235229816, &#039;qt&#039; =&gt; 1.0, &#039;gal&#039; =&gt; 0.25, &#039;l&#039; =&gt; 0.946558864129363, &#039;lt&#039; =&gt; 0.946558864129363], &#039;gal&#039; =&gt; [&#039;tsp&#039; =&gt; 768.0, &#039;tbs&#039; =&gt; 256.0, &#039;oz&#039; =&gt; 128.0, &#039;cup&#039; =&gt; 16.0, &#039;pt&#039; =&gt; 8.0, &#039;us_pt&#039; =&gt; 8.0, &#039;uk_pt&#039; =&gt; 6.66284940919265, &#039;qt&#039; =&gt; 4.0, &#039;gal&#039; =&gt; 1.0, &#039;l&#039; =&gt; 3.78623545651745, &#039;lt&#039; =&gt; 3.78623545651745], &#039;l&#039; =&gt; [&#039;tsp&#039; =&gt; 202.84, &#039;tbs&#039; =&gt; 67.6133333333333, &#039;oz&#039; =&gt; 33.8066666666667, &#039;cup&#039; =&gt; 4.22583333333333, &#039;pt&#039; =&gt; 2.11291666666667, &#039;us_pt&#039; =&gt; 2.11291666666667, &#039;uk_pt&#039; =&gt; 1.75975569552166, &#039;qt&#039; =&gt; 1.05645833333333, &#039;gal&#039; =&gt; 0.264114583333333, &#039;l&#039; =&gt; 1.0, &#039;lt&#039; =&gt; 1.0], &#039;lt&#039; =&gt; [&#039;tsp&#039; =&gt; 202.84, &#039;tbs&#039; =&gt; 67.6133333333333, &#039;oz&#039; =&gt; 33.8066666666667, &#039;cup&#039; =&gt; 4.22583333333333, &#039;pt&#039; =&gt; 2.11291666666667, &#039;us_pt&#039; =&gt; 2.11291666666667, &#039;uk_pt&#039; =&gt; 1.75975569552166, &#039;qt&#039; =&gt; 1.05645833333333, &#039;gal&#039; =&gt; 0.264114583333333, &#039;l&#039; =&gt; 1.0, &#039;lt&#039; =&gt; 1.0]]]</span>    </code>
-    </article>
                                     <a id="property_twoSqrtPi"></a>
 <article
         class="
@@ -535,7 +466,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2282</span>
+        <span class="phpdocumentor-element-found-in__line">1579</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -554,7 +485,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2526</span>
+        <span class="phpdocumentor-element-found-in__line">1823</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -577,7 +508,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">730</span>
+        <span class="phpdocumentor-element-found-in__line">27</span>
     </aside>
         <p class="phpdocumentor-summary">parseComplex.</p>
         <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
@@ -626,7 +557,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">749</span>
+        <span class="phpdocumentor-element-found-in__line">46</span>
     </aside>
         <p class="phpdocumentor-summary">Formats a number base string value with leading zeroes.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -676,7 +607,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">788</span>
+        <span class="phpdocumentor-element-found-in__line">85</span>
     </aside>
         <p class="phpdocumentor-summary">BESSELI.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -734,7 +665,7 @@ If $ord &lt; 0, BESSELI returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">840</span>
+        <span class="phpdocumentor-element-found-in__line">137</span>
     </aside>
         <p class="phpdocumentor-summary">BESSELJ.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -790,7 +721,7 @@ If $ord &lt; 0, BESSELJ returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">878</span>
+        <span class="phpdocumentor-element-found-in__line">175</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -829,7 +760,7 @@ If $ord &lt; 0, BESSELJ returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">896</span>
+        <span class="phpdocumentor-element-found-in__line">193</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -868,7 +799,7 @@ If $ord &lt; 0, BESSELJ returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">931</span>
+        <span class="phpdocumentor-element-found-in__line">228</span>
     </aside>
         <p class="phpdocumentor-summary">BESSELK.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -925,7 +856,7 @@ If $ord &lt; 0, BESSELK returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">967</span>
+        <span class="phpdocumentor-element-found-in__line">264</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -964,7 +895,7 @@ If $ord &lt; 0, BESSELK returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">986</span>
+        <span class="phpdocumentor-element-found-in__line">283</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -1003,7 +934,7 @@ If $ord &lt; 0, BESSELK returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1018</span>
+        <span class="phpdocumentor-element-found-in__line">315</span>
     </aside>
         <p class="phpdocumentor-summary">BESSELY.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1059,7 +990,7 @@ If $ord &lt; 0, BESSELK returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1071</span>
+        <span class="phpdocumentor-element-found-in__line">368</span>
     </aside>
         <p class="phpdocumentor-summary">BINTODEC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1107,7 +1038,7 @@ If number is not a valid binary number, or if number contains more than
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1124</span>
+        <span class="phpdocumentor-element-found-in__line">421</span>
     </aside>
         <p class="phpdocumentor-summary">BINTOHEX.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1169,7 +1100,7 @@ If places is negative, BIN2HEX returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1178</span>
+        <span class="phpdocumentor-element-found-in__line">475</span>
     </aside>
         <p class="phpdocumentor-summary">BINTOOCT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1231,7 +1162,7 @@ If places is negative, BIN2OCT returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1235</span>
+        <span class="phpdocumentor-element-found-in__line">532</span>
     </aside>
         <p class="phpdocumentor-summary">DECTOBIN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1297,7 +1228,7 @@ If places is zero or negative, DEC2BIN returns the #NUM! error value.</p></secti
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1294</span>
+        <span class="phpdocumentor-element-found-in__line">591</span>
     </aside>
         <p class="phpdocumentor-summary">DECTOHEX.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1363,7 +1294,7 @@ If places is zero or negative, DEC2HEX returns the #NUM! error value.</p></secti
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1347</span>
+        <span class="phpdocumentor-element-found-in__line">644</span>
     </aside>
         <p class="phpdocumentor-summary">DECTOOCT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1429,7 +1360,7 @@ If places is zero or negative, DEC2OCT returns the #NUM! error value.</p></secti
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1401</span>
+        <span class="phpdocumentor-element-found-in__line">698</span>
     </aside>
         <p class="phpdocumentor-summary">HEXTOBIN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1495,7 +1426,7 @@ If places is negative, HEX2BIN returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1435</span>
+        <span class="phpdocumentor-element-found-in__line">732</span>
     </aside>
         <p class="phpdocumentor-summary">HEXTODEC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1544,7 +1475,7 @@ If number is not a valid hexadecimal number, HEX2DEC returns the</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1497</span>
+        <span class="phpdocumentor-element-found-in__line">794</span>
     </aside>
         <p class="phpdocumentor-summary">HEXTOOCT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1614,7 +1545,7 @@ If places is negative, HEX2OCT returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1551</span>
+        <span class="phpdocumentor-element-found-in__line">848</span>
     </aside>
         <p class="phpdocumentor-summary">OCTTOBIN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1686,7 +1617,7 @@ value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1585</span>
+        <span class="phpdocumentor-element-found-in__line">882</span>
     </aside>
         <p class="phpdocumentor-summary">OCTTODEC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1735,7 +1666,7 @@ If number is not a valid octal number, OCT2DEC returns the</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1639</span>
+        <span class="phpdocumentor-element-found-in__line">936</span>
     </aside>
         <p class="phpdocumentor-summary">OCTTOHEX.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1802,7 +1733,7 @@ If places is negative, OCT2HEX returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1671</span>
+        <span class="phpdocumentor-element-found-in__line">968</span>
     </aside>
         <p class="phpdocumentor-summary">COMPLEX.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1864,7 +1795,7 @@ If omitted, the suffix is assumed to be &quot;i&quot;.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1702</span>
+        <span class="phpdocumentor-element-found-in__line">999</span>
     </aside>
         <p class="phpdocumentor-summary">IMAGINARY.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1908,7 +1839,7 @@ coefficient</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1721</span>
+        <span class="phpdocumentor-element-found-in__line">1018</span>
     </aside>
         <p class="phpdocumentor-summary">IMREAL.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1951,7 +1882,7 @@ IMREAL(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1740</span>
+        <span class="phpdocumentor-element-found-in__line">1037</span>
     </aside>
         <p class="phpdocumentor-summary">IMABS.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1994,7 +1925,7 @@ IMABS(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1760</span>
+        <span class="phpdocumentor-element-found-in__line">1057</span>
     </aside>
         <p class="phpdocumentor-summary">IMARGUMENT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2038,7 +1969,7 @@ IMARGUMENT(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1784</span>
+        <span class="phpdocumentor-element-found-in__line">1081</span>
     </aside>
         <p class="phpdocumentor-summary">IMCONJUGATE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2081,7 +2012,7 @@ IMCONJUGATE(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1803</span>
+        <span class="phpdocumentor-element-found-in__line">1100</span>
     </aside>
         <p class="phpdocumentor-summary">IMCOS.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2124,7 +2055,7 @@ IMCOS(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1822</span>
+        <span class="phpdocumentor-element-found-in__line">1119</span>
     </aside>
         <p class="phpdocumentor-summary">IMCOSH.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2167,7 +2098,7 @@ IMCOSH(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1841</span>
+        <span class="phpdocumentor-element-found-in__line">1138</span>
     </aside>
         <p class="phpdocumentor-summary">IMCOT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2210,7 +2141,7 @@ IMCOT(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1860</span>
+        <span class="phpdocumentor-element-found-in__line">1157</span>
     </aside>
         <p class="phpdocumentor-summary">IMCSC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2253,7 +2184,7 @@ IMCSC(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1879</span>
+        <span class="phpdocumentor-element-found-in__line">1176</span>
     </aside>
         <p class="phpdocumentor-summary">IMCSCH.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2296,7 +2227,7 @@ IMCSCH(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1898</span>
+        <span class="phpdocumentor-element-found-in__line">1195</span>
     </aside>
         <p class="phpdocumentor-summary">IMSIN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2339,7 +2270,7 @@ IMSIN(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1917</span>
+        <span class="phpdocumentor-element-found-in__line">1214</span>
     </aside>
         <p class="phpdocumentor-summary">IMSINH.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2382,7 +2313,7 @@ IMSINH(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1936</span>
+        <span class="phpdocumentor-element-found-in__line">1233</span>
     </aside>
         <p class="phpdocumentor-summary">IMSEC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2425,7 +2356,7 @@ IMSEC(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1955</span>
+        <span class="phpdocumentor-element-found-in__line">1252</span>
     </aside>
         <p class="phpdocumentor-summary">IMSECH.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2468,7 +2399,7 @@ IMSECH(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1974</span>
+        <span class="phpdocumentor-element-found-in__line">1271</span>
     </aside>
         <p class="phpdocumentor-summary">IMTAN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2511,7 +2442,7 @@ IMTAN(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1993</span>
+        <span class="phpdocumentor-element-found-in__line">1290</span>
     </aside>
         <p class="phpdocumentor-summary">IMSQRT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2554,7 +2485,7 @@ IMSQRT(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2017</span>
+        <span class="phpdocumentor-element-found-in__line">1314</span>
     </aside>
         <p class="phpdocumentor-summary">IMLN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2597,7 +2528,7 @@ IMLN(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2041</span>
+        <span class="phpdocumentor-element-found-in__line">1338</span>
     </aside>
         <p class="phpdocumentor-summary">IMLOG10.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2640,7 +2571,7 @@ IMLOG10(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2065</span>
+        <span class="phpdocumentor-element-found-in__line">1362</span>
     </aside>
         <p class="phpdocumentor-summary">IMLOG2.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2683,7 +2614,7 @@ IMLOG2(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2089</span>
+        <span class="phpdocumentor-element-found-in__line">1386</span>
     </aside>
         <p class="phpdocumentor-summary">IMEXP.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2726,7 +2657,7 @@ IMEXP(complexNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2109</span>
+        <span class="phpdocumentor-element-found-in__line">1406</span>
     </aside>
         <p class="phpdocumentor-summary">IMPOWER.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2778,7 +2709,7 @@ IMPOWER(complexNumber,realNumber)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2134</span>
+        <span class="phpdocumentor-element-found-in__line">1431</span>
     </aside>
         <p class="phpdocumentor-summary">IMDIV.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2830,7 +2761,7 @@ IMDIV(complexDividend,complexDivisor)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2159</span>
+        <span class="phpdocumentor-element-found-in__line">1456</span>
     </aside>
         <p class="phpdocumentor-summary">IMSUB.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2882,7 +2813,7 @@ IMSUB(complexNumber1,complexNumber2)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2183</span>
+        <span class="phpdocumentor-element-found-in__line">1480</span>
     </aside>
         <p class="phpdocumentor-summary">IMSUM.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2925,7 +2856,7 @@ IMSUM(complexNumber[,complexNumber[,...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2213</span>
+        <span class="phpdocumentor-element-found-in__line">1510</span>
     </aside>
         <p class="phpdocumentor-summary">IMPRODUCT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2968,7 +2899,7 @@ IMPRODUCT(complexNumber[,complexNumber[,...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2247</span>
+        <span class="phpdocumentor-element-found-in__line">1544</span>
     </aside>
         <p class="phpdocumentor-summary">DELTA.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3023,7 +2954,7 @@ DELTA(a[,b])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2271</span>
+        <span class="phpdocumentor-element-found-in__line">1568</span>
     </aside>
         <p class="phpdocumentor-summary">GESTEP.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3078,7 +3009,7 @@ If you omit a value for step, GESTEP uses zero.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2284</span>
+        <span class="phpdocumentor-element-found-in__line">1581</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -3117,7 +3048,7 @@ If you omit a value for step, GESTEP uses zero.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2314</span>
+        <span class="phpdocumentor-element-found-in__line">1611</span>
     </aside>
         <p class="phpdocumentor-summary">Validate arguments passed to the bitwise functions.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3157,7 +3088,7 @@ If you omit a value for step, GESTEP uses zero.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2349</span>
+        <span class="phpdocumentor-element-found-in__line">1646</span>
     </aside>
         <p class="phpdocumentor-summary">BITAND.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3209,7 +3140,7 @@ BITAND(number1, number2)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2374</span>
+        <span class="phpdocumentor-element-found-in__line">1671</span>
     </aside>
         <p class="phpdocumentor-summary">BITOR.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3261,7 +3192,7 @@ BITOR(number1, number2)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2399</span>
+        <span class="phpdocumentor-element-found-in__line">1696</span>
     </aside>
         <p class="phpdocumentor-summary">BITXOR.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3313,7 +3244,7 @@ BITXOR(number1, number2)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2424</span>
+        <span class="phpdocumentor-element-found-in__line">1721</span>
     </aside>
         <p class="phpdocumentor-summary">BITLSHIFT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3365,7 +3296,7 @@ BITLSHIFT(number, shift_amount)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2455</span>
+        <span class="phpdocumentor-element-found-in__line">1752</span>
     </aside>
         <p class="phpdocumentor-summary">BITRSHIFT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3417,7 +3348,7 @@ BITRSHIFT(number, shift_amount)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2487</span>
+        <span class="phpdocumentor-element-found-in__line">1784</span>
     </aside>
         <p class="phpdocumentor-summary">ERF.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3474,7 +3405,7 @@ If omitted, ERF integrates between zero and lower_limit</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2516</span>
+        <span class="phpdocumentor-element-found-in__line">1813</span>
     </aside>
         <p class="phpdocumentor-summary">ERFPRECISE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3517,7 +3448,7 @@ ERF.PRECISE(limit)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2528</span>
+        <span class="phpdocumentor-element-found-in__line">1825</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -3556,7 +3487,7 @@ ERF.PRECISE(limit)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2573</span>
+        <span class="phpdocumentor-element-found-in__line">1870</span>
     </aside>
         <p class="phpdocumentor-summary">ERFC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3603,7 +3534,7 @@ ERFC(x)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2590</span>
+        <span class="phpdocumentor-element-found-in__line">1889</span>
     </aside>
         <p class="phpdocumentor-summary">getConversionGroups
 Returns a list of the different conversion groups for UOM conversions.</p>
@@ -3616,7 +3547,14 @@ Returns a list of the different conversion groups for UOM conversions.</p>
 
     
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the getConversionCategories() method in the ConvertUOM class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array</span>
             
@@ -3632,7 +3570,7 @@ Returns a list of the different conversion groups for UOM conversions.</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2608</span>
+        <span class="phpdocumentor-element-found-in__line">1904</span>
     </aside>
         <p class="phpdocumentor-summary">getConversionGroupUnits
 Returns an array of units of measure, for a specified conversion group, or for all groups.</p>
@@ -3640,8 +3578,8 @@ Returns an array of units of measure, for a specified conversion group, or for a
         <span class="phpdocumentor-signature__visibility">public</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionGroupUnits</span>(
                     <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$group</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
+            [                <span class="phpdocumentor-signature__argument__name">$category</span> :
+                <span class="phpdocumentor-signature__argument__return-type">null|mixed</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">array</span>
@@ -3651,13 +3589,20 @@ Returns an array of units of measure, for a specified conversion group, or for a
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$group</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                    <span class="phpdocumentor-signature__argument__name">$category</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|mixed</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The group whose units of measure you want to retrieve</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the getConversionCategoryUnits() method in the ConvertUOM class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array</span>
             
@@ -3673,15 +3618,15 @@ Returns an array of units of measure, for a specified conversion group, or for a
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2627</span>
+        <span class="phpdocumentor-element-found-in__line">1918</span>
     </aside>
         <p class="phpdocumentor-summary">getConversionGroupUnitDetails.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionGroupUnitDetails</span>(
                     <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$group</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
+            [                <span class="phpdocumentor-signature__argument__name">$category</span> :
+                <span class="phpdocumentor-signature__argument__return-type">null|mixed</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">array</span>
@@ -3691,13 +3636,20 @@ Returns an array of units of measure, for a specified conversion group, or for a
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$group</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                    <span class="phpdocumentor-signature__argument__name">$category</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|mixed</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The group whose units of measure you want to retrieve</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the getConversionCategoryUnitDetails() method in the ConvertUOM class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array</span>
             
@@ -3713,7 +3665,7 @@ Returns an array of units of measure, for a specified conversion group, or for a
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2648</span>
+        <span class="phpdocumentor-element-found-in__line">1931</span>
     </aside>
         <p class="phpdocumentor-summary">getConversionMultipliers
 Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</p>
@@ -3726,7 +3678,51 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
 
     
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the getConversionMultipliers() method in the ConvertUOM class instead</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>of mixed</p></span>
+            
+</article>
+                                    <a id="method_getBinaryConversionMultipliers"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getBinaryConversionMultipliers()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1944</span>
+    </aside>
+        <p class="phpdocumentor-summary">getBinaryConversionMultipliers
+Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure in CONVERTUOM().</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getBinaryConversionMultipliers</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the getBinaryConversionMultipliers() method in the ConvertUOM class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array</span>
                     &mdash; <span class="phpdocumentor-description"><p>of mixed</p></span>
@@ -3743,7 +3739,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering.php"><a href="../files/src-phpspreadsheet-calculation-engineering.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering.php">Engineering.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2669</span>
+        <span class="phpdocumentor-element-found-in__line">1967</span>
     </aside>
         <p class="phpdocumentor-summary">CONVERTUOM.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3751,7 +3747,7 @@ Returns an array of the Multiplier prefixes that can be used with Units of Measu
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">CONVERTUOM</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                <span class="phpdocumentor-signature__argument__return-type">float|int</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$fromUOM</span> :
@@ -3775,7 +3771,7 @@ CONVERT(value,fromUOM,toUOM)</p></section>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float|int</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>the value in fromUOM to convert</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -3790,7 +3786,14 @@ CONVERT(value,fromUOM,toUOM)</p></section>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>the units for the result</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the CONVERT() method in the ConvertUOM class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
             
