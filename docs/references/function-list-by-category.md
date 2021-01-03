@@ -14,7 +14,7 @@ CUBEVALUE           | **Not yet Implemented**
 
 ## CATEGORY_DATABASE
 
-Excel Function      | PhpSpreadsheet Function
+Excel Function      | PhpSpreadsheet Function                                      
 --------------------|-------------------------------------------
 DAVERAGE            | \PhpOffice\PhpSpreadsheet\Calculation\Database::DAVERAGE
 DCOUNT              | \PhpOffice\PhpSpreadsheet\Calculation\Database::DCOUNT
@@ -229,6 +229,7 @@ AREAS               | **Not yet Implemented**
 CHOOSE              | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::CHOOSE
 COLUMN              | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::COLUMN
 COLUMNS             | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::COLUMNS
+FILTER              | **Not yet Implemented**
 FORMULATEXT         | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::FORMULATEXT
 GETPIVOTDATA        | **Not yet Implemented**
 HLOOKUP             | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::HLOOKUP
@@ -241,8 +242,13 @@ OFFSET              | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::OFFSET
 ROW                 | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::ROW
 ROWS                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::ROWS
 RTD                 | **Not yet Implemented**
+SORT                | **Not yet Implemented**
+SORTBY              | **Not yet Implemented**
 TRANSPOSE           | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::TRANSPOSE
+UNIQUE              | **Not yet Implemented**
 VLOOKUP             | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::VLOOKUP
+XLOOKUP             | **Not yet Implemented**
+XMATCH              | **Not yet Implemented**
 
 ## CATEGORY_MATH_AND_TRIG
 
@@ -253,6 +259,7 @@ ACOS                | acos
 ACOSH               | acosh
 ACOT                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ACOT
 ACOTH               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ACOTH
+AGGREGATE           | **Not yet Implemented**
 ARABIC              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ARABIC
 ASIN                | asin
 ASINH               | asinh
@@ -261,13 +268,17 @@ ATAN2               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ATAN2
 ATANH               | atanh
 BASE                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::BASE
 CEILING             | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::CEILING
+CEILING.MATH        | **Not yet Implemented**
+CEILING.PRECISE     | **Not yet Implemented**
 COMBIN              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::COMBIN
+COMBINA             | **Not yet Implemented**
 COS                 | cos
 COSH                | cosh
 COT                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::COT
 COTH                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::COTH
 CSC                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::CSC
 CSCH                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::CSCH
+DECIMAL             | **Not yet Implemented**
 DEGREES             | rad2deg
 EVEN                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::EVEN
 EXP                 | exp
@@ -278,6 +289,7 @@ FLOOR.MATH          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORMATH
 FLOOR.PRECISE       | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORPRECISE
 GCD                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::GCD
 INT                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::INT
+ISO.CEILING         | **Not yet Implemented**
 LCM                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::LCM
 LN                  | log
 LOG                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::logBase
@@ -288,6 +300,7 @@ MMULT               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MMULT
 MOD                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MOD
 MROUND              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MROUND
 MULTINOMIAL         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MULTINOMIAL
+MUNIT               | **Not yet Implemented**
 ODD                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ODD
 PI                  | pi
 POWER               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::POWER
@@ -295,6 +308,7 @@ PRODUCT             | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::PRODUCT
 QUOTIENT            | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::QUOTIENT
 RADIANS             | deg2rad
 RAND                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::RAND
+RANDARRAY           | **Not yet Implemented**
 RANDBETWEEN         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::RAND
 ROMAN               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ROMAN
 ROUND               | round
@@ -303,6 +317,7 @@ ROUNDUP             | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ROUNDUP
 SEC                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SEC
 SECH                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SECH
 SERIESSUM           | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SERIESSUM
+SEQUENCE            | **Not yet Implemented**
 SIGN                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SIGN
 SIN                 | sin
 SINH                | sinh
@@ -323,99 +338,157 @@ TRUNC               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::TRUNC
 
 ## CATEGORY_STATISTICAL
 
-Excel Function      | PhpSpreadsheet Function
---------------------|-------------------------------------------
-AVEDEV              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVEDEV
-AVERAGE             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGE
-AVERAGEA            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGEA
-AVERAGEIF           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGEIF
-AVERAGEIFS          | **Not yet Implemented**
-BETADIST            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BETADIST
-BETAINV             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BETAINV
-BINOMDIST           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BINOMDIST
-CHIDIST             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CHIDIST
-CHIINV              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CHIINV
-CHITEST             | **Not yet Implemented**
-CONFIDENCE          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CONFIDENCE
-CORREL              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CORREL
-COUNT               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNT
-COUNTA              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTA
-COUNTBLANK          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTBLANK
-COUNTIF             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIF
-COUNTIFS            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIFS
-COVAR               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COVAR
-CRITBINOM           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CRITBINOM
-DEVSQ               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::DEVSQ
-EXPONDIST           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::EXPONDIST
-FDIST               | **Not yet Implemented**
-FINV                | **Not yet Implemented**
-FISHER              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FISHER
-FISHERINV           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FISHERINV
-FORECAST            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FORECAST
-FREQUENCY           | **Not yet Implemented**
-FTEST               | **Not yet Implemented**
-GAMMADIST           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMADIST
-GAMMAINV            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMAINV
-GAMMALN             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMALN
-GEOMEAN             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GEOMEAN
-GROWTH              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GROWTH
-HARMEAN             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::HARMEAN
-HYPGEOMDIST         | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::HYPGEOMDIST
-INTERCEPT           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::INTERCEPT
-KURT                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::KURT
-LARGE               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LARGE
-LINEST              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LINEST
-LOGEST              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGEST
-LOGINV              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGINV
-LOGNORMDIST         | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGNORMDIST
-MAX                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAX
-MAXA                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAXA
-MAXIFS              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAXIFS
-MEDIAN              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MEDIAN
-MEDIANIF            | **Not yet Implemented**
-MIN                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MIN
-MINA                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINA
-MINIFS              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINIFS
-MODE                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MODE
-MODE.SNGL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MODE
-NEGBINOMDIST        | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NEGBINOMDIST
-NORMDIST            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMDIST
-NORMINV             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMINV
-NORMSDIST           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSDIST
-NORMSINV            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSINV
-PEARSON             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CORREL
-PERCENTILE          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERCENTILE
-PERCENTRANK         | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERCENTRANK
-PERMUT              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERMUT
-POISSON             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::POISSON
-PROB                | **Not yet Implemented**
-QUARTILE            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::QUARTILE
-RANK                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::RANK
-RSQ                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::RSQ
-SKEW                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::SKEW
-SLOPE               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::SLOPE
-SMALL               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::SMALL
-STANDARDIZE         | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STANDARDIZE
-STDEV               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEV
-STDEV.P             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVP
-STDEV.S             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEV
-STDEVA              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVA
-STDEVP              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVP
-STDEVPA             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVPA
-STEYX               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STEYX
-TDIST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TDIST
-TINV                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TINV
-TREND               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TREND
-TRIMMEAN            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TRIMMEAN
-TTEST               | **Not yet Implemented**
-VAR                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARFunc
-VAR.P               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARP
-VAR.S               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARFunc
-VARA                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARA
-VARP                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARP
-VARPA               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARPA
-WEIBULL             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::WEIBULL
-ZTEST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::ZTEST
+Excel Function           | PhpSpreadsheet Function
+-------------------------|-------------------------------------------
+AVEDEV                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVEDEV
+AVERAGE                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGE
+AVERAGEA                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGEA
+AVERAGEIF                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGEIF
+AVERAGEIFS               | **Not yet Implemented**
+BETADIST                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BETADIST
+BETA.DIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BETADIST
+BETAINV                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BETAINV
+BETA.INV                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BETAINV
+BINOMDIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BINOMDIST
+BINOM.DIST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BINOMDIST
+BINOM.DIST.RANGE         | **Not yet Implemented**
+BINOM.INV                | **Not yet Implemented**
+CHIDIST                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CHIDIST
+CHISQ.DIST               | **Not yet Implemented**
+CHISQ.DIST.RT            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CHIDIST
+CHIINV                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CHIINV
+CHISQ.INV                | **Not yet Implemented**
+CHISQ.INV.RT             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CHIINV
+CHITEST                  | **Not yet Implemented**
+CHISQ.TEST               | **Not yet Implemented**
+CONFIDENCE               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CONFIDENCE
+CONFIDENCE.NORM          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CONFIDENCE
+CONFIDENCE.T             | **Not yet Implemented**
+CORREL                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CORREL
+COUNT                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNT
+COUNTA                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTA
+COUNTBLANK               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTBLANK
+COUNTIF                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIF
+COUNTIFS                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIFS
+COVAR                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COVAR
+COVARIANCE.P             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COVAR
+COVARIANCE.S             | **Not yet Implemented**
+CRITBINOM                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CRITBINOM
+DEVSQ                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::DEVSQ
+EXPONDIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::EXPONDIST
+EXPON.DIST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::EXPONDIST
+FDIST                    | **Not yet Implemented**
+F.DIST                   | **Not yet Implemented**
+F.DIST.RT                | **Not yet Implemented**
+FINV                     | **Not yet Implemented**
+F.INV                    | **Not yet Implemented**
+F.INV.RT                 | **Not yet Implemented**
+F.TEST                   | **Not yet Implemented**
+FISHER                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FISHER
+FISHERINV                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FISHERINV
+FORECAST                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FORECAST
+FORECAST.ETS             | **Not yet Implemented**
+FORECAST.ETS.CONFINT     | **Not yet Implemented**
+FORECAST.ETS.SEASONALITY | **Not yet Implemented**
+FORECAST.ETS.STAT        | **Not yet Implemented**
+FORECAST.LINEAR          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FORECAST
+FREQUENCY                | **Not yet Implemented**
+FTEST                    | **Not yet Implemented**
+GAMMA                    | **Not yet Implemented**
+GAMMADIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMADIST
+GAMMA.DIST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMADIST
+GAMMAINV                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMAINV
+GAMMA.INV                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMAINV
+GAMMALN                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMALN
+GAMMALN.PRECISE          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMALN
+GAUSS                    | **Not yet Implemented**
+GEOMEAN                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GEOMEAN
+GROWTH                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GROWTH
+HARMEAN                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::HARMEAN
+HYPGEOMDIST              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::HYPGEOMDIST
+INTERCEPT                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::INTERCEPT
+KURT                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::KURT
+LARGE                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LARGE
+LINEST                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LINEST
+LOGEST                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGEST
+LOGINV                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGINV
+LOGNORMDIST              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGNORMDIST
+LOGNORM.DIST             | **Not yet Implemented**
+LOGNORM.INV              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGINV
+MAX                      | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAX
+MAXA                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAXA
+MAXIFS                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAXIFS
+MEDIAN                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MEDIAN
+MEDIANIF                 | **Not yet Implemented**
+MIN                      | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MIN
+MINA                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINA
+MINIFS                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINIFS
+MODE                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MODE
+MODE.MULT                | **Not yet Implemented**
+MODE.SNGL                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MODE
+NEGBINOMDIST             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NEGBINOMDIST
+NEGBINOM.DIST            | **Not yet Implemented**
+NORMDIST                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMDIST
+NORM.DIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMDIST
+NORMINV                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMINV
+NORM.INV                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMINV
+NORMSDIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSDIST
+NORM.S.DIST              | **Not yet Implemented**
+NORMSINV                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSINV
+NORM.S.INV               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSINV
+PEARSON                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CORREL
+PERCENTILE               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERCENTILE
+PERCENTILE.EXC           | **Not yet Implemented**
+PERCENTILE.INC           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERCENTILE
+PERCENTRANK              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERCENTRANK
+PERCENTRANK.EXC          | **Not yet Implemented**
+PERCENTRANK.INC          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERCENTRANK
+PERMUT                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERMUT
+PERMUTATIONA             | **Not yet Implemented**
+PHI                      | **Not yet Implemented**
+POISSON                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::POISSON
+POISSON.DIST             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::POISSON
+PROB                     | **Not yet Implemented**
+QUARTILE                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::QUARTILE
+QUARTILE.EXC             | **Not yet Implemented**
+QUARTILE.INC             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::QUARTILE
+RANK                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::RANK
+RANK.AVG                 | **Not yet Implemented**
+RANK.EQ                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::RANK
+RSQ                      | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::RSQ
+SKEW                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::SKEW
+SKEW.P                   | **Not yet Implemented**
+SLOPE                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::SLOPE
+SMALL                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::SMALL
+STANDARDIZE              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STANDARDIZE
+STDEV                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEV
+STDEV.P                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVP
+STDEV.S                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEV
+STDEVA                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVA
+STDEVP                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVP
+STDEVPA                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVPA
+STEYX                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STEYX
+TDIST                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TDIST
+T.DIST                   | **Not yet Implemented**
+T.DIST.2T                | **Not yet Implemented**
+T.DIST.RT                | **Not yet Implemented**
+TINV                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TINV
+T.INV                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TINV
+T.INV.2T                 | **Not yet Implemented**
+TREND                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TREND
+TRIMMEAN                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TRIMMEAN
+TTEST                    | **Not yet Implemented**
+T.TEST                   | **Not yet Implemented**
+VAR                      | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARFunc
+VAR.P                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARP
+VAR.S                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARFunc
+VARA                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARA
+VARP                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARP
+VARPA                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARPA
+WEIBULL                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::WEIBULL
+WEIBULL.DIST             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::WEIBULL
+ZTEST                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::ZTEST
+Z.TEST                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::ZTEST
 
 ## CATEGORY_TEXT_AND_DATA
 
@@ -428,6 +501,7 @@ CLEAN               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::TRIMNONPRI
 CODE                | \PhpOffice\PhpSpreadsheet\Calculation\TextData::ASCIICODE
 CONCAT              | \PhpOffice\PhpSpreadsheet\Calculation\TextData::CONCATENATE
 CONCATENATE         | \PhpOffice\PhpSpreadsheet\Calculation\TextData::CONCATENATE
+DBCS                | **Not yet Implemented**
 DOLLAR              | \PhpOffice\PhpSpreadsheet\Calculation\TextData::DOLLAR
 EXACT               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::EXACT
 FIND                | \PhpOffice\PhpSpreadsheet\Calculation\TextData::SEARCHSENSITIVE
@@ -460,3 +534,11 @@ UNICHAR             | \PhpOffice\PhpSpreadsheet\Calculation\TextData::CHARACTER
 UNICODE             | \PhpOffice\PhpSpreadsheet\Calculation\TextData::ASCIICODE
 UPPER               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::UPPERCASE
 VALUE               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::VALUE
+
+## CATEGORY_WEB
+
+Excel Function      | PhpSpreadsheet Function
+--------------------|-------------------------------------------
+ENCODEURL           | **Not yet Implemented**
+FILTERXML           | **Not yet Implemented**
+WEBSERVICE          | \PhpOffice\PhpSpreadsheet\Calculation\Web::WEBSERVICE

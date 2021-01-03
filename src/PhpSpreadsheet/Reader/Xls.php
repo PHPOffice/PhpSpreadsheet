@@ -1275,8 +1275,10 @@ class Xls extends BaseReader
                 // Extract range
                 if (strpos($definedName['formula'], '!') !== false) {
                     $explodes = Worksheet::extractSheetTitle($definedName['formula'], true);
-                    if (($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) ||
-                        ($docSheet = $this->spreadsheet->getSheetByName(trim($explodes[0], "'")))) {
+                    if (
+                        ($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) ||
+                        ($docSheet = $this->spreadsheet->getSheetByName(trim($explodes[0], "'")))
+                    ) {
                         $extractedRange = $explodes[1];
                         $extractedRange = str_replace('$', '', $extractedRange);
 
@@ -3444,6 +3446,9 @@ class Xls extends BaseReader
 
             // offset: 10; size: 2; option flags
 
+            // bit: 0; mask: 0x0001; 0=down then over, 1=over then down
+            $isOverThenDown = (0x0001 & self::getUInt2d($recordData, 10));
+
             // bit: 1; mask: 0x0002; 0=landscape, 1=portrait
             $isPortrait = (0x0002 & self::getUInt2d($recordData, 10)) >> 1;
 
@@ -3453,16 +3458,8 @@ class Xls extends BaseReader
 
             if (!$isNotInit) {
                 $this->phpSheet->getPageSetup()->setPaperSize($paperSize);
-                switch ($isPortrait) {
-                    case 0:
-                        $this->phpSheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
-
-                        break;
-                    case 1:
-                        $this->phpSheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_PORTRAIT);
-
-                        break;
-                }
+                $this->phpSheet->getPageSetup()->setPageOrder(((bool) $isOverThenDown) ? PageSetup::PAGEORDER_OVER_THEN_DOWN : PageSetup::PAGEORDER_DOWN_THEN_OVER);
+                $this->phpSheet->getPageSetup()->setOrientation(((bool) $isPortrait) ? PageSetup::ORIENTATION_PORTRAIT : PageSetup::ORIENTATION_LANDSCAPE);
 
                 $this->phpSheet->getPageSetup()->setScale($scale, false);
                 $this->phpSheet->getPageSetup()->setFitToPage((bool) $this->isFitToPages);
@@ -4004,21 +4001,27 @@ class Xls extends BaseReader
 
                 // read STRING record
                 $value = $this->readString();
-            } elseif ((ord($recordData[6]) == 1)
+            } elseif (
+                (ord($recordData[6]) == 1)
                 && (ord($recordData[12]) == 255)
-                && (ord($recordData[13]) == 255)) {
+                && (ord($recordData[13]) == 255)
+            ) {
                 // Boolean formula. Result is in +2; 0=false, 1=true
                 $dataType = DataType::TYPE_BOOL;
                 $value = (bool) ord($recordData[8]);
-            } elseif ((ord($recordData[6]) == 2)
+            } elseif (
+                (ord($recordData[6]) == 2)
                 && (ord($recordData[12]) == 255)
-                && (ord($recordData[13]) == 255)) {
+                && (ord($recordData[13]) == 255)
+            ) {
                 // Error formula. Error code is in +2
                 $dataType = DataType::TYPE_ERROR;
                 $value = Xls\ErrorCode::lookup(ord($recordData[8]));
-            } elseif ((ord($recordData[6]) == 3)
+            } elseif (
+                (ord($recordData[6]) == 3)
                 && (ord($recordData[12]) == 255)
-                && (ord($recordData[13]) == 255)) {
+                && (ord($recordData[13]) == 255)
+            ) {
                 // Formula result is a null string
                 $dataType = DataType::TYPE_NULL;
                 $value = '';
@@ -4604,8 +4607,10 @@ class Xls extends BaseReader
         if ($this->version == self::XLS_BIFF8 && !$this->readDataOnly) {
             $cellRangeAddressList = $this->readBIFF8CellRangeAddressList($recordData);
             foreach ($cellRangeAddressList['cellRangeAddresses'] as $cellRangeAddress) {
-                if ((strpos($cellRangeAddress, ':') !== false) &&
-                    ($this->includeCellRangeFiltered($cellRangeAddress))) {
+                if (
+                    (strpos($cellRangeAddress, ':') !== false) &&
+                    ($this->includeCellRangeFiltered($cellRangeAddress))
+                ) {
                     $this->phpSheet->mergeCells($cellRangeAddress);
                 }
             }

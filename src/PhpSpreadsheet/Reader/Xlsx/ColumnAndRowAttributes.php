@@ -94,8 +94,10 @@ class ColumnAndRowAttributes extends BaseParserClass
         // set columns/rows attributes
         $columnsAttributesAreSet = [];
         foreach ($columnsAttributes as $columnCoordinate => $columnAttributes) {
-            if ($readFilter === null ||
-                !$this->isFilteredColumn($readFilter, $columnCoordinate, $rowsAttributes)) {
+            if (
+                $readFilter === null ||
+                !$this->isFilteredColumn($readFilter, $columnCoordinate, $rowsAttributes)
+            ) {
                 if (!isset($columnsAttributesAreSet[$columnCoordinate])) {
                     $this->setColumnAttributes($columnCoordinate, $columnAttributes);
                     $columnsAttributesAreSet[$columnCoordinate] = true;
@@ -105,8 +107,10 @@ class ColumnAndRowAttributes extends BaseParserClass
 
         $rowsAttributesAreSet = [];
         foreach ($rowsAttributes as $rowCoordinate => $rowAttributes) {
-            if ($readFilter === null ||
-                !$this->isFilteredRow($readFilter, $rowCoordinate, $columnsAttributes)) {
+            if (
+                $readFilter === null ||
+                !$this->isFilteredRow($readFilter, $rowCoordinate, $columnsAttributes)
+            ) {
                 if (!isset($rowsAttributesAreSet[$rowCoordinate])) {
                     $this->setRowAttributes($rowCoordinate, $rowAttributes);
                     $rowsAttributesAreSet[$rowCoordinate] = true;

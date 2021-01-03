@@ -21,7 +21,7 @@ class FormulaAsStringTest extends TestCase
         $workSheet->setCellValue('A2', 20);
         $workSheet->setCellValue('A3', 30);
         $workSheet->setCellValue('A4', 40);
-        $spreadsheet->addNamedRange(new \PhpOffice\PhpSpreadsheet\NamedRange('namedCell', $workSheet, 'A4'));
+        $spreadsheet->addNamedRange(new \PhpOffice\PhpSpreadsheet\NamedRange('namedCell', $workSheet, '$A$4'));
         $workSheet->setCellValue('B1', 'uPPER');
         $workSheet->setCellValue('B2', '=TRUE()');
         $workSheet->setCellValue('B3', '=FALSE()');
@@ -30,7 +30,7 @@ class FormulaAsStringTest extends TestCase
         $ws2->setCellValue('A1', 100);
         $ws2->setCellValue('A2', 200);
         $ws2->setTitle('Sheet2');
-        $spreadsheet->addNamedRange(new \PhpOffice\PhpSpreadsheet\NamedRange('A2B', $ws2, 'A2'));
+        $spreadsheet->addNamedRange(new \PhpOffice\PhpSpreadsheet\NamedRange('A2B', $ws2, '$A$2'));
 
         $spreadsheet->setActiveSheetIndex(0);
         $cell2 = $workSheet->getCell('D1');

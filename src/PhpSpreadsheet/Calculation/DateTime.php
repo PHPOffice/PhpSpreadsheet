@@ -274,9 +274,11 @@ class DateTime
         $year = ($year !== null) ? StringHelper::testStringAsNumeric($year) : 0;
         $month = ($month !== null) ? StringHelper::testStringAsNumeric($month) : 0;
         $day = ($day !== null) ? StringHelper::testStringAsNumeric($day) : 0;
-        if ((!is_numeric($year)) ||
+        if (
+            (!is_numeric($year)) ||
             (!is_numeric($month)) ||
-            (!is_numeric($day))) {
+            (!is_numeric($day))
+        ) {
             return Functions::VALUE();
         }
         $year = (int) $year;
@@ -487,7 +489,7 @@ class DateTime
             if ($yearFound) {
                 array_unshift($t1, 1);
             } else {
-                if ($t1[1] > 29) {
+                if (is_numeric($t1[1]) && $t1[1] > 29) {
                     $t1[1] += 1900;
                     array_unshift($t1, 1);
                 } else {

@@ -144,13 +144,6 @@ class Protection
     private $algorithm = '';
 
     /**
-     * Hash value.
-     *
-     * @var string
-     */
-    private $hash = '';
-
-    /**
      * Salt value.
      *
      * @var string

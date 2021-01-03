@@ -126,7 +126,7 @@ class LookupRef
      *
      * @param null|array|string $cellAddress An array or array formula, or a reference to a range of cells for which you want the number of columns
      *
-     * @return int The number of columns in cellAddress
+     * @return int|string The number of columns in cellAddress, or a string if arguments are invalid
      */
     public static function COLUMNS($cellAddress = null)
     {
@@ -160,7 +160,7 @@ class LookupRef
      *
      * @param null|array|string $cellAddress A reference to a range of cells for which you want the row numbers
      *
-     * @return int or array of integer
+     * @return int|mixed[]|string
      */
     public static function ROW($cellAddress = null)
     {
@@ -203,7 +203,7 @@ class LookupRef
      *
      * @param null|array|string $cellAddress An array or array formula, or a reference to a range of cells for which you want the number of rows
      *
-     * @return int The number of rows in cellAddress
+     * @return int|string The number of rows in cellAddress, or a string if arguments are invalid
      */
     public static function ROWS($cellAddress = null)
     {
@@ -286,9 +286,11 @@ class LookupRef
             [$cellAddress1, $cellAddress2] = explode(':', $cellAddress);
         }
 
-        if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
-            (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))) {
-            if (!preg_match('/^' . Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $cellAddress1, $matches)) {
+        if (
+            (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
+            (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))
+        ) {
+            if (!preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $cellAddress1, $matches)) {
                 return Functions::REF();
             }
 
@@ -495,7 +497,8 @@ class LookupRef
         // Lookup_array should contain only number, text, or logical values, or empty (null) cells
         foreach ($lookupArray as $i => $lookupArrayValue) {
             //    check the type of the value
-            if ((!is_numeric($lookupArrayValue)) && (!is_string($lookupArrayValue)) &&
+            if (
+                (!is_numeric($lookupArrayValue)) && (!is_string($lookupArrayValue)) &&
                 (!is_bool($lookupArrayValue)) && ($lookupArrayValue !== null)
             ) {
                 return Functions::NA();
@@ -750,18 +753,23 @@ class LookupRef
             $firstLower = StringHelper::strToLower($rowData[$firstColumn]);
 
             // break if we have passed possible keys
-            if ((is_numeric($lookup_value) && is_numeric($rowData[$firstColumn]) && ($rowData[$firstColumn] > $lookup_value)) ||
-                (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]) && ($firstLower > $lookupLower))) {
+            if (
+                (is_numeric($lookup_value) && is_numeric($rowData[$firstColumn]) && ($rowData[$firstColumn] > $lookup_value)) ||
+                (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]) && ($firstLower > $lookupLower))
+            ) {
                 break;
             }
             // remember the last key, but only if datatypes match
-            if ((is_numeric($lookup_value) && is_numeric($rowData[$firstColumn])) ||
-                (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]))) {
+            if (
+                (is_numeric($lookup_value) && is_numeric($rowData[$firstColumn])) ||
+                (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]))
+            ) {
                 if ($not_exact_match) {
                     $rowNumber = $rowKey;
 
                     continue;
-                } elseif (($firstLower == $lookupLower)
+                } elseif (
+                    ($firstLower == $lookupLower)
                     // Spreadsheets software returns first exact match,
                     // we have sorted and we might have broken key orders
                     // we want the first one (by its initial index)
@@ -823,10 +831,12 @@ class LookupRef
             $lookupLower = StringHelper::strToLower($lookup_value);
             $rowDataLower = StringHelper::strToLower($rowData);
 
-            if ($not_exact_match && (
+            if (
+                $not_exact_match && (
                 ($bothNumeric && $rowData > $lookup_value) ||
                 ($bothNotNumeric && $rowDataLower > $lookupLower)
-                )) {
+                )
+            ) {
                 break;
             }
 
@@ -836,7 +846,8 @@ class LookupRef
                     $rowNumber = $rowKey;
 
                     continue;
-                } elseif ($rowDataLower === $lookupLower
+                } elseif (
+                    $rowDataLower === $lookupLower
                     && ($rowNumber === null || $rowKey < $rowNumber)
                 ) {
                     $rowNumber = $rowKey;

@@ -28,7 +28,7 @@
     "scripts": {
         "check": [
             "php-cs-fixer fix --ansi --dry-run --diff",
-            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PSR2 -n",
+            "phpcs",
             "phpunit --color=always"
         ],
         "fix": [
@@ -39,7 +39,7 @@
         ]
     },
     "require": {
-        "php": "^7.2",
+        "php": "^7.2|^8.0",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-gd": "*",
@@ -54,8 +54,8 @@
         "ext-zip": "*",
         "ext-zlib": "*",
         "maennchen/zipstream-php": "^2.1",
-        "markbaker/complex": "^1.4",
-        "markbaker/matrix": "^1.2",
+        "markbaker/complex": "^1.5|^2.0",
+        "markbaker/matrix": "^1.2|^2.0",
         "psr/simple-cache": "^1.0",
         "psr/http-client": "^1.0",
         "psr/http-factory": "^1.0"
@@ -66,14 +66,14 @@
         "jpgraph/jpgraph": "^4.0",
         "mpdf/mpdf": "^8.0",
         "phpcompatibility/php-compatibility": "^9.3",
-        "phpunit/phpunit": "^8.5",
+        "phpunit/phpunit": "^8.5|^9.3",
         "squizlabs/php_codesniffer": "^3.5",
         "tecnickcom/tcpdf": "^6.3"
     },
     "suggest": {
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
-        "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
-        "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer",
+        "dompdf/dompdf": "Option for rendering PDF with PDF Writer (doesn't yet support PHP8)",
+        "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer (doesn't yet support PHP8)",
         "jpgraph/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers"
     },
     "autoload": {
