@@ -21,8 +21,6 @@ use ScatterPlot;
 use Spline;
 use StockPlot;
 
-require_once __DIR__ . '/Polyfill.php';
-
 class JpGraph implements IRenderer
 {
     private static $width = 640;

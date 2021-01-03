@@ -2,27 +2,30 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PHPUnit\Framework\TestCase;
 
 class ValueTest extends TestCase
 {
+    private $currencyCode;
+
+    private $decimalSeparator;
+
+    private $thousandsSeparator;
+
     protected function setUp(): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        StringHelper::setDecimalSeparator('.');
-        StringHelper::setThousandsSeparator(',');
-        StringHelper::setCurrencyCode('$');
+        $this->currencyCode = StringHelper::getCurrencyCode();
+        $this->decimalSeparator = StringHelper::getDecimalSeparator();
+        $this->thousandsSeparator = StringHelper::getThousandsSeparator();
     }
 
     protected function tearDown(): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        StringHelper::setDecimalSeparator('.');
-        StringHelper::setThousandsSeparator(',');
-        StringHelper::setCurrencyCode('$');
+        StringHelper::setCurrencyCode($this->currencyCode);
+        StringHelper::setDecimalSeparator($this->decimalSeparator);
+        StringHelper::setThousandsSeparator($this->thousandsSeparator);
     }
 
     /**

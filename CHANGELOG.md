@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## 1.14.1 - 2020-07-19
+
+### Added
+
+- nothing
+
+### Fixed
+
+- WEBSERVICE is HTTP client agnostic and must be configured via `Settings::setHttpClient()` [#1562](https://github.com/PHPOffice/PhpSpreadsheet/issues/1562)
+- Borders were not complete on rowspanned columns using HTML reader [#1473](https://github.com/PHPOffice/PhpSpreadsheet/pull/1473)
+
+### Changed
+
+- nothing
+
 ## [1.14.0] - 2020-06-29
 
 ### Added
