@@ -183,4 +183,13 @@ class Protection extends Supervisor
             __CLASS__
         );
     }
+
+    protected function exportArray1(): array
+    {
+        $exportedArray = [];
+        $this->exportArray2($exportedArray, 'locked', $this->getLocked());
+        $this->exportArray2($exportedArray, 'hidden', $this->getHidden());
+
+        return $exportedArray;
+    }
 }

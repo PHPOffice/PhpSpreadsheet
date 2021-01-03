@@ -161,4 +161,45 @@ class IOFactoryTest extends TestCase
 
         IOFactory::registerReader('foo', 'bar');
     }
+
+    public function testCreateInvalidWriter(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Writer\Exception::class);
+        $spreadsheet = new Spreadsheet();
+        IOFactory::createWriter($spreadsheet, 'bad');
+    }
+
+    public function testCreateInvalidReader(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        IOFactory::createReader('bad');
+    }
+
+    public function testCreateReaderUnknownExtension(): void
+    {
+        $filename = 'samples/Reader/sampleData/example1.tsv';
+        $reader = IOFactory::createReaderForFile($filename);
+        self::assertEquals('PhpOffice\\PhpSpreadsheet\\Reader\\Csv', get_class($reader));
+    }
+
+    public function testCreateReaderCsvExtension(): void
+    {
+        $filename = 'samples/Reader/sampleData/example1.csv';
+        $reader = IOFactory::createReaderForFile($filename);
+        self::assertEquals('PhpOffice\\PhpSpreadsheet\\Reader\\Csv', get_class($reader));
+    }
+
+    public function testCreateReaderNoExtension(): void
+    {
+        $filename = 'samples/Reader/sampleData/example1xls';
+        $reader = IOFactory::createReaderForFile($filename);
+        self::assertEquals('PhpOffice\\PhpSpreadsheet\\Reader\\Xls', get_class($reader));
+    }
+
+    public function testCreateReaderNotSpreadsheet(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $filename = __FILE__;
+        IOFactory::createReaderForFile($filename);
+    }
 }

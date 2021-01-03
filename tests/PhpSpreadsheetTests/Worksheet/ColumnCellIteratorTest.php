@@ -71,9 +71,19 @@ class ColumnCellIteratorTest extends TestCase
     public function testSeekOutOfRange(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
-
+        $this->expectExceptionMessage('Row 1 is out of range');
         $iterator = new ColumnCellIterator($this->mockWorksheet, 'A', 2, 4);
         $iterator->seek(1);
+    }
+
+    public function testSeekNotExisting(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectExceptionMessage('Cell does not exist');
+
+        $iterator = new ColumnCellIterator($this->mockWorksheet, 'A', 2, 4);
+        $iterator->setIterateOnlyExistingCells(true);
+        $iterator->seek(2);
     }
 
     public function testPrevOutOfRange(): void

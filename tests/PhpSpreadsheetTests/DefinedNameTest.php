@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\DefinedName;
+use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
@@ -120,5 +121,84 @@ class DefinedNameTest extends TestCase
             '=A1',
             $this->spreadsheet->getDefinedName('foo')->getValue()
         );
+    }
+
+    public function testDefinedNameNoWorksheetNoScope(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        new NamedRange('xyz');
+    }
+
+    public function testSetAndGetRange(): void
+    {
+        $this->spreadsheet->addDefinedName(
+            DefinedName::createInstance('xyz', $this->spreadsheet->getActiveSheet(), 'A1')
+        );
+
+        $namedRange = $this->spreadsheet->getDefinedName('XYZ');
+        self::assertInstanceOf(NamedRange::class, $namedRange);
+        self::assertEquals('A1', $namedRange->getRange());
+        self::assertEquals('A1', $namedRange->getValue());
+        $namedRange->setRange('A2');
+        self::assertEquals('A2', $namedRange->getValue());
+    }
+
+    public function testChangeWorksheet(): void
+    {
+        $sheet1 = $this->spreadsheet->getSheetByName('Sheet #1');
+        $sheet2 = $this->spreadsheet->getSheetByName('Sheet #2');
+        $sheet1->getCell('A1')->setValue(1);
+        $sheet2->getCell('A1')->setValue(2);
+        $namedRange = new NamedRange('xyz', $sheet2, '$A$1');
+        $namedRange->setWorksheet($sheet1);
+        $this->spreadsheet->addNamedRange($namedRange);
+        $sheet1->getCell('B2')->setValue('=XYZ');
+        self::assertEquals(1, $sheet1->getCell('B2')->getCalculatedValue());
+        $sheet2->getCell('B2')->setValue('=XYZ');
+        self::assertEquals(1, $sheet2->getCell('B2')->getCalculatedValue());
+    }
+
+    public function testLocalOnly(): void
+    {
+        $sheet1 = $this->spreadsheet->getSheetByName('Sheet #1');
+        $sheet2 = $this->spreadsheet->getSheetByName('Sheet #2');
+        $sheet1->getCell('A1')->setValue(1);
+        $sheet2->getCell('A1')->setValue(2);
+        $namedRange = new NamedRange('abc', $sheet2, '$A$1');
+        $namedRange->setWorksheet($sheet1)->setLocalOnly(true);
+        $this->spreadsheet->addNamedRange($namedRange);
+        $sheet1->getCell('C2')->setValue('=ABC');
+        self::assertEquals(1, $sheet1->getCell('C2')->getCalculatedValue());
+        $sheet2->getCell('C2')->setValue('=ABC');
+        self::assertEquals('#NAME?', $sheet2->getCell('C2')->getCalculatedValue());
+    }
+
+    public function testScope(): void
+    {
+        $sheet1 = $this->spreadsheet->getSheetByName('Sheet #1');
+        $sheet2 = $this->spreadsheet->getSheetByName('Sheet #2');
+        $sheet1->getCell('A1')->setValue(1);
+        $sheet2->getCell('A1')->setValue(2);
+        $namedRange = new NamedRange('abc', $sheet2, '$A$1');
+        $namedRange->setScope($sheet1);
+        $this->spreadsheet->addNamedRange($namedRange);
+        $sheet1->getCell('C2')->setValue('=ABC');
+        self::assertEquals(2, $sheet1->getCell('C2')->getCalculatedValue());
+        $sheet2->getCell('C2')->setValue('=ABC');
+        self::assertEquals('#NAME?', $sheet2->getCell('C2')->getCalculatedValue());
+    }
+
+    public function testClone(): void
+    {
+        $sheet1 = $this->spreadsheet->getSheetByName('Sheet #1');
+        $sheet2 = $this->spreadsheet->getSheetByName('Sheet #2');
+        $sheet1->getCell('A1')->setValue(1);
+        $sheet2->getCell('A1')->setValue(2);
+        $namedRange = new NamedRange('abc', $sheet2, '$A$1');
+        $namedRangeClone = clone $namedRange;
+        $ss1 = $namedRange->getWorksheet();
+        $ss2 = $namedRangeClone->getWorksheet();
+        self::assertNotSame($ss1, $ss2);
+        self::assertEquals($ss1->getTitle(), $ss2->getTitle());
     }
 }

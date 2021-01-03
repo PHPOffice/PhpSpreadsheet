@@ -114,4 +114,45 @@ abstract class Supervisor implements IComparable
             }
         }
     }
+
+    /**
+     * Export style as array.
+     *
+     * Available to anything which extends this class:
+     * Alignment, Border, Borders, Color, Fill, Font,
+     * NumberFormat, Protection, and Style.
+     */
+    final public function exportArray(): array
+    {
+        return $this->exportArray1();
+    }
+
+    /**
+     * Abstract method to be implemented in anything which
+     * extends this class.
+     *
+     * This method invokes exportArray2 with the names and values
+     * of all properties to be included in output array,
+     * returning that array to exportArray, then to caller.
+     */
+    abstract protected function exportArray1(): array;
+
+    /**
+     * Populate array from exportArray1.
+     * This method is available to anything which extends this class.
+     * The parameter index is the key to be added to the array.
+     * The parameter objOrValue is either a primitive type,
+     * which is the value added to the array,
+     * or a Style object to be recursively added via exportArray.
+     *
+     * @param mixed $objOrValue
+     */
+    final protected function exportArray2(array &$exportedArray, string $index, $objOrValue): void
+    {
+        if ($objOrValue instanceof self) {
+            $exportedArray[$index] = $objOrValue->exportArray();
+        } else {
+            $exportedArray[$index] = $objOrValue;
+        }
+    }
 }

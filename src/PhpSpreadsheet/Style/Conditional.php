@@ -189,7 +189,7 @@ class Conditional implements IComparable
     /**
      * Set Conditions.
      *
-     * @param string[] $pValue Condition
+     * @param bool|float|int|string|string[] $pValue Condition
      *
      * @return $this
      */

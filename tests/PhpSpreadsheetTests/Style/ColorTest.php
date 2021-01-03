@@ -70,4 +70,21 @@ class ColorTest extends TestCase
     {
         return require 'tests/data/Style/ColorChangeBrightness.php';
     }
+
+    public function testDefaultColor(): void
+    {
+        $color = new Color();
+        $color->setARGB('FFFF0000');
+        self::assertEquals('FFFF0000', $color->getARGB());
+        self::assertEquals('FF0000', $color->getRGB());
+        $color->setARGB('');
+        self::assertEquals(Color::COLOR_BLACK, $color->getARGB());
+        self::assertEquals('000000', $color->getRGB());
+        $color->setARGB('FFFF0000');
+        self::assertEquals('FFFF0000', $color->getARGB());
+        self::assertEquals('FF0000', $color->getRGB());
+        $color->setRGB('');
+        self::assertEquals(Color::COLOR_BLACK, $color->getARGB());
+        self::assertEquals('000000', $color->getRGB());
+    }
 }
