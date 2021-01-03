@@ -10,7 +10,7 @@ class ImAbsTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-8;
 
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -21,14 +21,14 @@ class ImAbsTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMABS($expectedResult, $value)
+    public function testIMABS($expectedResult, $value): void
     {
         $result = Engineering::IMABS($value);
-        $this->assertEquals($expectedResult, $result, '', self::COMPLEX_PRECISION);
+        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
     public function providerIMABS()
     {
-        return require 'data/Calculation/Engineering/IMABS.php';
+        return require 'tests/data/Calculation/Engineering/IMABS.php';
     }
 }

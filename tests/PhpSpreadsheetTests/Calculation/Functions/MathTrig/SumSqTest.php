@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class SumSqTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class SumSqTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSUMSQ($expectedResult, ...$args)
+    public function testSUMSQ($expectedResult, ...$args): void
     {
         $result = MathTrig::SUMSQ(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSUMSQ()
     {
-        return require 'data/Calculation/MathTrig/SUMSQ.php';
+        return require 'tests/data/Calculation/MathTrig/SUMSQ.php';
     }
 }

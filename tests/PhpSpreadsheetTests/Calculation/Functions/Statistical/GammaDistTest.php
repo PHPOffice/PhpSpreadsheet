@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class GammaDistTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class GammaDistTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testGAMMADIST($expectedResult, ...$args)
+    public function testGAMMADIST($expectedResult, ...$args): void
     {
         $result = Statistical::GAMMADIST(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerGAMMADIST()
     {
-        return require 'data/Calculation/Statistical/GAMMADIST.php';
+        return require 'tests/data/Calculation/Statistical/GAMMADIST.php';
     }
 }

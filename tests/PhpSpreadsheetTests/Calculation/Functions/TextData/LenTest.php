@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class LenTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class LenTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -31,14 +31,14 @@ class LenTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testLEN($expectedResult, $value)
+    public function testLEN($expectedResult, $value): void
     {
         $result = TextData::STRINGLENGTH($value);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerLEN()
     {
-        return require 'data/Calculation/TextData/LEN.php';
+        return require 'tests/data/Calculation/TextData/LEN.php';
     }
 }

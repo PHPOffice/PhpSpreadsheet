@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class SecondTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -22,14 +22,14 @@ class SecondTest extends TestCase
      * @param mixed $expectedResult
      * @param $dateTimeValue
      */
-    public function testSECOND($expectedResult, $dateTimeValue)
+    public function testSECOND($expectedResult, $dateTimeValue): void
     {
         $result = DateTime::SECOND($dateTimeValue);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerSECOND()
     {
-        return require 'data/Calculation/DateTime/SECOND.php';
+        return require 'tests/data/Calculation/DateTime/SECOND.php';
     }
 }

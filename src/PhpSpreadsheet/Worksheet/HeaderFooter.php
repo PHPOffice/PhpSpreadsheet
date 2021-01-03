@@ -400,7 +400,6 @@ class HeaderFooter
     /**
      * Add header/footer image.
      *
-     * @param HeaderFooterDrawing $image
      * @param string $location
      *
      * @return $this

@@ -200,6 +200,8 @@ ISREF               | **Not yet Implemented**
 ISTEXT              | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isText
 N                   | \PhpOffice\PhpSpreadsheet\Calculation\Functions::n
 NA                  | \PhpOffice\PhpSpreadsheet\Calculation\Functions::NA
+SHEET               | **Not yet Implemented**
+SHEETS              | **Not yet Implemented**
 TYPE                | \PhpOffice\PhpSpreadsheet\Calculation\Functions::TYPE
 
 ## CATEGORY_LOGICAL
@@ -272,6 +274,8 @@ EXP                 | exp
 FACT                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FACT
 FACTDOUBLE          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FACTDOUBLE
 FLOOR               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOOR
+FLOOR.MATH          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORMATH
+FLOOR.PRECISE       | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORPRECISE
 GCD                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::GCD
 INT                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::INT
 LCM                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::LCM

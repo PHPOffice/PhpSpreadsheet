@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class BetaInvTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class BetaInvTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBETAINV($expectedResult, ...$args)
+    public function testBETAINV($expectedResult, ...$args): void
     {
         $result = Statistical::BETAINV(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerBETAINV()
     {
-        return require 'data/Calculation/Statistical/BETAINV.php';
+        return require 'tests/data/Calculation/Statistical/BETAINV.php';
     }
 }

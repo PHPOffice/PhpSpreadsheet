@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class MedianTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class MedianTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMEDIAN($expectedResult, ...$args)
+    public function testMEDIAN($expectedResult, ...$args): void
     {
         $result = Statistical::MEDIAN(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerMEDIAN()
     {
-        return require 'data/Calculation/Statistical/MEDIAN.php';
+        return require 'tests/data/Calculation/Statistical/MEDIAN.php';
     }
 }

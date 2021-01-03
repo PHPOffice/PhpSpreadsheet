@@ -20,7 +20,7 @@ class ActiveSheetTest extends AbstractFunctional
      *
      * @param string $format
      */
-    public function testActiveSheet($format)
+    public function testActiveSheet($format): void
     {
         $spreadsheet = new Spreadsheet();
 

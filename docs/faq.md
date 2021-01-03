@@ -23,7 +23,7 @@ When you make use of any of the worksheet protection features (e.g. cell
 range protection, prohibiting deleting rows, ...), make sure you enable
 worksheet security. This can for example be done like this:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
 ```
 

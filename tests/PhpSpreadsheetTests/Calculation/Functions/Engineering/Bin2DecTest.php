@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class Bin2DecTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class Bin2DecTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBIN2DEC($expectedResult, ...$args)
+    public function testBIN2DEC($expectedResult, ...$args): void
     {
         $result = Engineering::BINTODEC(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBIN2DEC()
     {
-        return require 'data/Calculation/Engineering/BIN2DEC.php';
+        return require 'tests/data/Calculation/Engineering/BIN2DEC.php';
     }
 }

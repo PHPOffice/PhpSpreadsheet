@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class DollarTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class DollarTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -30,14 +30,14 @@ class DollarTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDOLLAR($expectedResult, ...$args)
+    public function testDOLLAR($expectedResult, ...$args): void
     {
         $result = TextData::DOLLAR(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerDOLLAR()
     {
-        return require 'data/Calculation/TextData/DOLLAR.php';
+        return require 'tests/data/Calculation/TextData/DOLLAR.php';
     }
 }

@@ -16,13 +16,13 @@ class ImSecTest extends TestCase
      */
     protected $complexAssert;
 
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         $this->complexAssert = null;
     }
@@ -33,10 +33,10 @@ class ImSecTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMSEC($expectedResult, $value)
+    public function testIMSEC($expectedResult, $value): void
     {
         $result = Engineering::IMSEC($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -44,6 +44,6 @@ class ImSecTest extends TestCase
 
     public function providerIMSEC()
     {
-        return require 'data/Calculation/Engineering/IMSEC.php';
+        return require 'tests/data/Calculation/Engineering/IMSEC.php';
     }
 }

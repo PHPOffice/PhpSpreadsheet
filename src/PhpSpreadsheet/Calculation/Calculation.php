@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use ReflectionMethod;
 
 class Calculation
 {
@@ -35,6 +36,10 @@ class Calculation
     const RETURN_ARRAY_AS_ERROR = 'error';
     const RETURN_ARRAY_AS_VALUE = 'value';
     const RETURN_ARRAY_AS_ARRAY = 'array';
+
+    const FORMULA_OPEN_FUNCTION_BRACE = '{';
+    const FORMULA_CLOSE_FUNCTION_BRACE = '}';
+    const FORMULA_STRING_QUOTE = '"';
 
     private static $returnArrayAsType = self::RETURN_ARRAY_AS_VALUE;
 
@@ -1853,6 +1858,16 @@ class Calculation
             'functionCall' => [MathTrig::class, 'SERIESSUM'],
             'argumentCount' => '4',
         ],
+        'SHEET' => [
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '0,1',
+        ],
+        'SHEETS' => [
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '0,1',
+        ],
         'SIGN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig::class, 'SIGN'],
@@ -2247,18 +2262,22 @@ class Calculation
             'argumentCount' => '*',
             'functionCall' => [__CLASS__, 'mkMatrix'],
         ],
+        'NAME.ERROR' => [
+            'argumentCount' => '*',
+            'functionCall' => [Functions::class, 'NAME'],
+        ],
     ];
 
-    public function __construct(Spreadsheet $spreadsheet = null)
+    public function __construct(?Spreadsheet $spreadsheet = null)
     {
-        $this->delta = 1 * pow(10, 0 - ini_get('precision'));
+        $this->delta = 1 * 10 ** (0 - ini_get('precision'));
 
         $this->spreadsheet = $spreadsheet;
         $this->cyclicReferenceStack = new CyclicReferenceStack();
         $this->debugLog = new Logger($this->cyclicReferenceStack);
     }
 
-    private static function loadLocales()
+    private static function loadLocales(): void
     {
         $localeFileDirectory = __DIR__ . '/locale/';
         foreach (glob($localeFileDirectory . '*', GLOB_ONLYDIR) as $filename) {
@@ -2277,7 +2296,7 @@ class Calculation
      *
      * @return Calculation
      */
-    public static function getInstance(Spreadsheet $spreadsheet = null)
+    public static function getInstance(?Spreadsheet $spreadsheet = null)
     {
         if ($spreadsheet !== null) {
             $instance = $spreadsheet->getCalculationEngine();
@@ -2297,7 +2316,7 @@ class Calculation
      * Flush the calculation cache for any existing instance of this class
      *        but only if a Calculation instance exists.
      */
-    public function flushInstance()
+    public function flushInstance(): void
     {
         $this->clearCalculationCache();
         $this->clearBranchStore();
@@ -2315,8 +2334,6 @@ class Calculation
 
     /**
      * __clone implementation. Cloning should not be allowed in a Singleton!
-     *
-     * @throws Exception
      */
     final public function __clone()
     {
@@ -2388,7 +2405,7 @@ class Calculation
      *
      * @param bool $pValue
      */
-    public function setCalculationCacheEnabled($pValue)
+    public function setCalculationCacheEnabled($pValue): void
     {
         $this->calculationCacheEnabled = $pValue;
         $this->clearCalculationCache();
@@ -2397,7 +2414,7 @@ class Calculation
     /**
      * Enable calculation cache.
      */
-    public function enableCalculationCache()
+    public function enableCalculationCache(): void
     {
         $this->setCalculationCacheEnabled(true);
     }
@@ -2405,7 +2422,7 @@ class Calculation
     /**
      * Disable calculation cache.
      */
-    public function disableCalculationCache()
+    public function disableCalculationCache(): void
     {
         $this->setCalculationCacheEnabled(false);
     }
@@ -2413,7 +2430,7 @@ class Calculation
     /**
      * Clear calculation cache.
      */
-    public function clearCalculationCache()
+    public function clearCalculationCache(): void
     {
         $this->calculationCache = [];
     }
@@ -2423,7 +2440,7 @@ class Calculation
      *
      * @param string $worksheetName
      */
-    public function clearCalculationCacheForWorksheet($worksheetName)
+    public function clearCalculationCacheForWorksheet($worksheetName): void
     {
         if (isset($this->calculationCache[$worksheetName])) {
             unset($this->calculationCache[$worksheetName]);
@@ -2436,7 +2453,7 @@ class Calculation
      * @param string $fromWorksheetName
      * @param string $toWorksheetName
      */
-    public function renameCalculationCacheForWorksheet($fromWorksheetName, $toWorksheetName)
+    public function renameCalculationCacheForWorksheet($fromWorksheetName, $toWorksheetName): void
     {
         if (isset($this->calculationCache[$fromWorksheetName])) {
             $this->calculationCache[$toWorksheetName] = &$this->calculationCache[$fromWorksheetName];
@@ -2447,25 +2464,24 @@ class Calculation
     /**
      * Enable/disable calculation cache.
      *
-     * @param bool $pValue
      * @param mixed $enabled
      */
-    public function setBranchPruningEnabled($enabled)
+    public function setBranchPruningEnabled($enabled): void
     {
         $this->branchPruningEnabled = $enabled;
     }
 
-    public function enableBranchPruning()
+    public function enableBranchPruning(): void
     {
         $this->setBranchPruningEnabled(true);
     }
 
-    public function disableBranchPruning()
+    public function disableBranchPruning(): void
     {
         $this->setBranchPruningEnabled(false);
     }
 
-    public function clearBranchStore()
+    public function clearBranchStore(): void
     {
         $this->branchStoreKeyCounter = 0;
     }
@@ -2581,11 +2597,11 @@ class Calculation
         for ($i = 0; $i < $strlen; ++$i) {
             $chr = mb_substr($formula, $i, 1);
             switch ($chr) {
-                case '{':
+                case self::FORMULA_OPEN_FUNCTION_BRACE:
                     $inBraces = true;
 
                     break;
-                case '}':
+                case self::FORMULA_CLOSE_FUNCTION_BRACE:
                     $inBraces = false;
 
                     break;
@@ -2614,10 +2630,10 @@ class Calculation
         if (self::$localeLanguage !== 'en_us') {
             $inBraces = false;
             //    If there is the possibility of braces within a quoted string, then we don't treat those as matrix indicators
-            if (strpos($formula, '"') !== false) {
+            if (strpos($formula, self::FORMULA_STRING_QUOTE) !== false) {
                 //    So instead we skip replacing in any quoted strings by only replacing in every other array element after we've exploded
                 //        the formula
-                $temp = explode('"', $formula);
+                $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
                 $i = false;
                 foreach ($temp as &$value) {
                     //    Only count/replace in alternating array entries
@@ -2628,7 +2644,7 @@ class Calculation
                 }
                 unset($value);
                 //    Then rebuild the formula string
-                $formula = implode('"', $temp);
+                $formula = implode(self::FORMULA_STRING_QUOTE, $temp);
             } else {
                 //    If there's no quoted strings, then we do a simple count/replace
                 $formula = preg_replace($from, $to, $formula);
@@ -2729,7 +2745,7 @@ class Calculation
                 return $value;
             }
             //    Return strings wrapped in quotes
-            return '"' . $value . '"';
+            return self::FORMULA_STRING_QUOTE . $value . self::FORMULA_STRING_QUOTE;
         //    Convert numeric errors to NaN error
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
             return Functions::NAN();
@@ -2748,7 +2764,7 @@ class Calculation
     public static function unwrapResult($value)
     {
         if (is_string($value)) {
-            if ((isset($value[0])) && ($value[0] == '"') && (substr($value, -1) == '"')) {
+            if ((isset($value[0])) && ($value[0] == self::FORMULA_STRING_QUOTE) && (substr($value, -1) == self::FORMULA_STRING_QUOTE)) {
                 return substr($value, 1, -1);
             }
             //    Convert numeric errors to NAN error
@@ -2765,11 +2781,9 @@ class Calculation
      *
      * @param Cell $pCell Cell to calculate
      *
-     * @throws Exception
-     *
      * @return mixed
      */
-    public function calculate(Cell $pCell = null)
+    public function calculate(?Cell $pCell = null)
     {
         try {
             return $this->calculateCellValue($pCell);
@@ -2784,11 +2798,9 @@ class Calculation
      * @param Cell $pCell Cell to calculate
      * @param bool $resetLog Flag indicating whether the debug log should be reset or not
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     *
      * @return mixed
      */
-    public function calculateCellValue(Cell $pCell = null, $resetLog = true)
+    public function calculateCellValue(?Cell $pCell = null, $resetLog = true)
     {
         if ($pCell === null) {
             return null;
@@ -2888,11 +2900,9 @@ class Calculation
      * @param string $cellID Address of the cell to calculate
      * @param Cell $pCell Cell to calculate
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     *
      * @return mixed
      */
-    public function calculateFormula($formula, $cellID = null, Cell $pCell = null)
+    public function calculateFormula($formula, $cellID = null, ?Cell $pCell = null)
     {
         //    Initialise the logging settings
         $this->formulaError = null;
@@ -2951,7 +2961,7 @@ class Calculation
      * @param string $cellReference
      * @param mixed $cellValue
      */
-    public function saveValueToCache($cellReference, $cellValue)
+    public function saveValueToCache($cellReference, $cellValue): void
     {
         if ($this->calculationCacheEnabled) {
             $this->calculationCache[$cellReference] = $cellValue;
@@ -2965,11 +2975,9 @@ class Calculation
      * @param string $cellID The ID (e.g. A3) of the cell that we are calculating
      * @param Cell $pCell Cell to calculate
      *
-     * @throws Exception
-     *
      * @return mixed
      */
-    public function _calculateFormulaValue($formula, $cellID = null, Cell $pCell = null)
+    public function _calculateFormulaValue($formula, $cellID = null, ?Cell $pCell = null)
     {
         $cellValue = null;
 
@@ -3115,7 +3123,7 @@ class Calculation
      * @param int $matrix2Rows Row size of second matrix operand
      * @param int $matrix2Columns Column size of second matrix operand
      */
-    private static function resizeMatricesShrink(&$matrix1, &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns)
+    private static function resizeMatricesShrink(&$matrix1, &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns): void
     {
         if (($matrix2Columns < $matrix1Columns) || ($matrix2Rows < $matrix1Rows)) {
             if ($matrix2Rows < $matrix1Rows) {
@@ -3158,7 +3166,7 @@ class Calculation
      * @param int $matrix2Rows Row size of second matrix operand
      * @param int $matrix2Columns Column size of second matrix operand
      */
-    private static function resizeMatricesExtend(&$matrix1, &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns)
+    private static function resizeMatricesExtend(&$matrix1, &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns): void
     {
         if (($matrix2Columns < $matrix1Columns) || ($matrix2Rows < $matrix1Rows)) {
             if ($matrix2Columns < $matrix1Columns) {
@@ -3223,8 +3231,8 @@ class Calculation
                 }
 
                 return '{ ' . implode($rpad, $returnMatrix) . ' }';
-            } elseif (is_string($value) && (trim($value, '"') == $value)) {
-                return '"' . $value . '"';
+            } elseif (is_string($value) && (trim($value, self::FORMULA_STRING_QUOTE) == $value)) {
+                return self::FORMULA_STRING_QUOTE . $value . self::FORMULA_STRING_QUOTE;
             } elseif (is_bool($value)) {
                 return ($value) ? self::$localeBoolean['TRUE'] : self::$localeBoolean['FALSE'];
             }
@@ -3278,34 +3286,34 @@ class Calculation
      */
     private function convertMatrixReferences($formula)
     {
-        static $matrixReplaceFrom = ['{', ';', '}'];
+        static $matrixReplaceFrom = [self::FORMULA_OPEN_FUNCTION_BRACE, ';', self::FORMULA_CLOSE_FUNCTION_BRACE];
         static $matrixReplaceTo = ['MKMATRIX(MKMATRIX(', '),MKMATRIX(', '))'];
 
         //    Convert any Excel matrix references to the MKMATRIX() function
-        if (strpos($formula, '{') !== false) {
+        if (strpos($formula, self::FORMULA_OPEN_FUNCTION_BRACE) !== false) {
             //    If there is the possibility of braces within a quoted string, then we don't treat those as matrix indicators
-            if (strpos($formula, '"') !== false) {
+            if (strpos($formula, self::FORMULA_STRING_QUOTE) !== false) {
                 //    So instead we skip replacing in any quoted strings by only replacing in every other array element after we've exploded
                 //        the formula
-                $temp = explode('"', $formula);
+                $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
                 //    Open and Closed counts used for trapping mismatched braces in the formula
                 $openCount = $closeCount = 0;
                 $i = false;
                 foreach ($temp as &$value) {
                     //    Only count/replace in alternating array entries
                     if ($i = !$i) {
-                        $openCount += substr_count($value, '{');
-                        $closeCount += substr_count($value, '}');
+                        $openCount += substr_count($value, self::FORMULA_OPEN_FUNCTION_BRACE);
+                        $closeCount += substr_count($value, self::FORMULA_CLOSE_FUNCTION_BRACE);
                         $value = str_replace($matrixReplaceFrom, $matrixReplaceTo, $value);
                     }
                 }
                 unset($value);
                 //    Then rebuild the formula string
-                $formula = implode('"', $temp);
+                $formula = implode(self::FORMULA_STRING_QUOTE, $temp);
             } else {
                 //    If there's no quoted strings, then we do a simple count/replace
-                $openCount = substr_count($formula, '{');
-                $closeCount = substr_count($formula, '}');
+                $openCount = substr_count($formula, self::FORMULA_OPEN_FUNCTION_BRACE);
+                $closeCount = substr_count($formula, self::FORMULA_CLOSE_FUNCTION_BRACE);
                 $formula = str_replace($matrixReplaceFrom, $matrixReplaceTo, $formula);
             }
             //    Trap for mismatched braces and trigger an appropriate error
@@ -3367,11 +3375,10 @@ class Calculation
 
     /**
      * @param string $formula
-     * @param null|\PhpOffice\PhpSpreadsheet\Cell\Cell $pCell
      *
      * @return bool
      */
-    private function _parseFormula($formula, Cell $pCell = null)
+    private function _parseFormula($formula, ?Cell $pCell = null)
     {
         if (($formula = $this->convertMatrixReferences(trim($formula))) === false) {
             return false;
@@ -3449,10 +3456,8 @@ class Calculation
             if ((isset(self::$comparisonOperators[$opCharacter])) && (strlen($formula) > $index) && (isset(self::$comparisonOperators[$formula[$index + 1]]))) {
                 $opCharacter .= $formula[++$index];
             }
-
             //    Find out if we're currently at the beginning of a number, variable, cell reference, function, parenthesis or operand
             $isOperandOrFunction = preg_match($regexpMatchString, substr($formula, $index), $match);
-
             if ($opCharacter == '-' && !$expectingOperator) {                //    Is it a negation instead of a minus?
                 //    Put a negation on the stack
                 $stack->push('Unary Operator', '~', null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
@@ -3465,7 +3470,7 @@ class Calculation
                 ++$index; //    Drop the redundant plus symbol
             } elseif ((($opCharacter == '~') || ($opCharacter == '|')) && (!$isOperandOrFunction)) {    //    We have to explicitly deny a tilde or pipe, because they are legal
                 return $this->raiseFormulaError("Formula Error: Illegal character '~'"); //        on the stack but not in the input expression
-            } elseif ((isset(self::$operators[$opCharacter]) or $isOperandOrFunction) && $expectingOperator) {    //    Are we putting an operator on the stack?
+            } elseif ((isset(self::$operators[$opCharacter]) || $isOperandOrFunction) && $expectingOperator) {    //    Are we putting an operator on the stack?
                 while ($stack->count() > 0 &&
                     ($o2 = $stack->last()) &&
                     isset(self::$operators[$o2['value']]) &&
@@ -3491,7 +3496,7 @@ class Calculation
                 // Branch pruning we decrease the depth whether is it a function
                 // call or a parenthesis
                 if (!empty($pendingStoreKey)) {
-                    $parenthesisDepthMap[$pendingStoreKey] -= 1;
+                    --$parenthesisDepthMap[$pendingStoreKey];
                 }
 
                 if (is_array($d) && preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $d['value'], $matches)) {    //    Did this parenthesis just close a function?
@@ -3505,7 +3510,7 @@ class Calculation
                         }
                         $expectingThenMap[$pendingStoreKey] = false;
                         $expectingElseMap[$pendingStoreKey] = false;
-                        $parenthesisDepthMap[$pendingStoreKey] -= 1;
+                        --$parenthesisDepthMap[$pendingStoreKey];
                         array_pop($pendingStoreKeysStack);
                         unset($pendingStoreKey);
                     }
@@ -3611,7 +3616,7 @@ class Calculation
                 ++$index;
             } elseif ($opCharacter == '(' && !$expectingOperator) {
                 if (!empty($pendingStoreKey)) { // Branch pruning: we go deeper
-                    $parenthesisDepthMap[$pendingStoreKey] += 1;
+                    ++$parenthesisDepthMap[$pendingStoreKey];
                 }
                 $stack->push('Brace', '(', null, $currentCondition, $currentOnlyIf, $currentOnlyIf);
                 ++$index;
@@ -3625,33 +3630,33 @@ class Calculation
                     $val = preg_replace('/\s/u', '', $val);
                     if (isset(self::$phpSpreadsheetFunctions[strtoupper($matches[1])]) || isset(self::$controlFunctions[strtoupper($matches[1])])) {    // it's a function
                         $valToUpper = strtoupper($val);
-                        // here $matches[1] will contain values like "IF"
-                        // and $val "IF("
-                        if ($this->branchPruningEnabled && ($valToUpper == 'IF(')) { // we handle a new if
-                            $pendingStoreKey = $this->getUnusedBranchStoreKey();
-                            $pendingStoreKeysStack[] = $pendingStoreKey;
-                            $expectingConditionMap[$pendingStoreKey] = true;
-                            $parenthesisDepthMap[$pendingStoreKey] = 0;
-                        } else { // this is not a if but we good deeper
-                            if (!empty($pendingStoreKey) && array_key_exists($pendingStoreKey, $parenthesisDepthMap)) {
-                                $parenthesisDepthMap[$pendingStoreKey] += 1;
-                            }
-                        }
-
-                        $stack->push('Function', $valToUpper, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
-                        // tests if the function is closed right after opening
-                        $ax = preg_match('/^\s*(\s*\))/ui', substr($formula, $index + $length), $amatch);
-                        if ($ax) {
-                            $stack->push('Operand Count for Function ' . $valToUpper . ')', 0, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
-                            $expectingOperator = true;
-                        } else {
-                            $stack->push('Operand Count for Function ' . $valToUpper . ')', 1, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
-                            $expectingOperator = false;
-                        }
-                        $stack->push('Brace', '(');
-                    } else {    // it's a var w/ implicit multiplication
-                        $output[] = ['type' => 'Value', 'value' => $matches[1], 'reference' => null];
+                    } else {
+                        $valToUpper = 'NAME.ERROR(';
                     }
+                    // here $matches[1] will contain values like "IF"
+                    // and $val "IF("
+                    if ($this->branchPruningEnabled && ($valToUpper == 'IF(')) { // we handle a new if
+                        $pendingStoreKey = $this->getUnusedBranchStoreKey();
+                        $pendingStoreKeysStack[] = $pendingStoreKey;
+                        $expectingConditionMap[$pendingStoreKey] = true;
+                        $parenthesisDepthMap[$pendingStoreKey] = 0;
+                    } else { // this is not an if but we go deeper
+                        if (!empty($pendingStoreKey) && array_key_exists($pendingStoreKey, $parenthesisDepthMap)) {
+                            ++$parenthesisDepthMap[$pendingStoreKey];
+                        }
+                    }
+
+                    $stack->push('Function', $valToUpper, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                    // tests if the function is closed right after opening
+                    $ax = preg_match('/^\s*\)/u', substr($formula, $index + $length));
+                    if ($ax) {
+                        $stack->push('Operand Count for Function ' . $valToUpper . ')', 0, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                        $expectingOperator = true;
+                    } else {
+                        $stack->push('Operand Count for Function ' . $valToUpper . ')', 1, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                        $expectingOperator = false;
+                    }
+                    $stack->push('Brace', '(');
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $val, $matches)) {
                     //    Watch for this case-change when modifying to allow cell references in different worksheets...
                     //    Should only be applied to the actual cell column, not the worksheet name
@@ -3712,9 +3717,9 @@ class Calculation
                     }
 
                     $localeConstant = false;
-                    if ($opCharacter == '"') {
+                    if ($opCharacter == self::FORMULA_STRING_QUOTE) {
                         //    UnEscape any quotes within the string
-                        $val = self::wrapResult(str_replace('""', '"', self::unwrapResult($val)));
+                        $val = self::wrapResult(str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($val)));
                     } elseif (is_numeric($val)) {
                         if ((strpos($val, '.') !== false) || (stripos($val, 'e') !== false) || ($val > PHP_INT_MAX) || ($val < -PHP_INT_MAX)) {
                             $val = (float) $val;
@@ -3769,8 +3774,12 @@ class Calculation
                 }
                 //    If we're expecting an operator, but only have a space between the previous and next operands (and both are
                 //        Cell References) then we have an INTERSECTION operator
-                if (($expectingOperator) && (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
-                    ($output[count($output) - 1]['type'] == 'Cell Reference')) {
+                if (($expectingOperator) &&
+                    ((preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
+                        ($output[count($output) - 1]['type'] == 'Cell Reference') ||
+                        (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '.*/Ui', substr($formula, $index), $match)) &&
+                            ($output[count($output) - 1]['type'] == 'Named Range' || $output[count($output) - 1]['type'] == 'Value')
+                    )) {
                     while ($stack->count() > 0 &&
                         ($o2 = $stack->last()) &&
                         isset(self::$operators[$o2['value']]) &&
@@ -3814,11 +3823,10 @@ class Calculation
     /**
      * @param mixed $tokens
      * @param null|string $cellID
-     * @param null|Cell $pCell
      *
      * @return bool
      */
-    private function processTokenStack($tokens, $cellID = null, Cell $pCell = null)
+    private function processTokenStack($tokens, $cellID = null, ?Cell $pCell = null)
     {
         if ($tokens == false) {
             return false;
@@ -4056,7 +4064,7 @@ class Calculation
                                 $result = '#VALUE!';
                             }
                         } else {
-                            $result = '"' . str_replace('""', '"', self::unwrapResult($operand1) . self::unwrapResult($operand2)) . '"';
+                            $result = self::FORMULA_STRING_QUOTE . str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2)) . self::FORMULA_STRING_QUOTE;
                         }
                         $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
                         $stack->push('Value', $result);
@@ -4076,9 +4084,15 @@ class Calculation
                                 $cellIntersect[$row] = array_intersect_key($operand1[$row], $operand2[$row]);
                             }
                         }
-                        $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
-                        $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
-                        $stack->push('Value', $cellIntersect, $cellRef);
+                        if (count(Functions::flattenArray($cellIntersect)) === 0) {
+                            $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
+                            $stack->push('Error', Functions::null(), null);
+                        } else {
+                            $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' .
+                                Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
+                            $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
+                            $stack->push('Value', $cellIntersect, $cellRef);
+                        }
 
                         break;
                 }
@@ -4282,7 +4296,7 @@ class Calculation
                         $branchStore[$storeKey] = self::$excelConstants[$excelConstant];
                     }
                     $this->debugLog->writeDebugLog('Evaluating Constant ', $excelConstant, ' as ', $this->showTypeDetails(self::$excelConstants[$excelConstant]));
-                } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == '"') || ($token[0] == '#')) {
+                } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) {
                     $stack->push('Value', $token);
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $token;
@@ -4327,7 +4341,7 @@ class Calculation
         if (is_string($operand)) {
             //    We only need special validations for the operand if it is a string
             //    Start by stripping off the quotation marks we use to identify true excel string values internally
-            if ($operand > '' && $operand[0] == '"') {
+            if ($operand > '' && $operand[0] == self::FORMULA_STRING_QUOTE) {
                 $operand = self::unwrapResult($operand);
             }
             //    If the string is a numeric value, we treat it as a numeric, so no further testing
@@ -4340,7 +4354,7 @@ class Calculation
                     return false;
                 } elseif (!Shared\StringHelper::convertToNumberIfFraction($operand)) {
                     //    If not a numeric or a fraction, then it's a text string, and so can't be used in mathematical binary operations
-                    $stack->push('Value', '#VALUE!');
+                    $stack->push('Error', '#VALUE!');
                     $this->debugLog->writeDebugLog('Evaluation Result is a ', $this->showTypeDetails('#VALUE!'));
 
                     return false;
@@ -4357,7 +4371,6 @@ class Calculation
      * @param mixed $operand1
      * @param mixed $operand2
      * @param string $operation
-     * @param Stack $stack
      * @param bool $recursingArrays
      *
      * @return mixed
@@ -4401,10 +4414,10 @@ class Calculation
         }
 
         //    Simple validate the two operands if they are string values
-        if (is_string($operand1) && $operand1 > '' && $operand1[0] == '"') {
+        if (is_string($operand1) && $operand1 > '' && $operand1[0] == self::FORMULA_STRING_QUOTE) {
             $operand1 = self::unwrapResult($operand1);
         }
-        if (is_string($operand2) && $operand2 > '' && $operand2[0] == '"') {
+        if (is_string($operand2) && $operand2 > '' && $operand2[0] == self::FORMULA_STRING_QUOTE) {
             $operand2 = self::unwrapResult($operand2);
         }
 
@@ -4569,7 +4582,7 @@ class Calculation
                     case '/':
                         if ($operand2 == 0) {
                             //    Trap for Divide by Zero error
-                            $stack->push('Value', '#DIV/0!');
+                            $stack->push('Error', '#DIV/0!');
                             $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails('#DIV/0!'));
 
                             return false;
@@ -4579,7 +4592,7 @@ class Calculation
                         break;
                     //    Power
                     case '^':
-                        $result = pow($operand1, $operand2);
+                        $result = $operand1 ** $operand2;
 
                         break;
                 }
@@ -4616,7 +4629,7 @@ class Calculation
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractCellRange(&$pRange = 'A1', Worksheet $pSheet = null, $resetLog = true)
+    public function extractCellRange(&$pRange = 'A1', ?Worksheet $pSheet = null, $resetLog = true)
     {
         // Return value
         $returnValue = [];
@@ -4669,7 +4682,7 @@ class Calculation
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractNamedRange(&$pRange = 'A1', Worksheet $pSheet = null, $resetLog = true)
+    public function extractNamedRange(&$pRange = 'A1', ?Worksheet $pSheet = null, $resetLog = true)
     {
         // Return value
         $returnValue = [];
@@ -4769,21 +4782,19 @@ class Calculation
     /**
      * Add cell reference if needed while making sure that it is the last argument.
      *
-     * @param array $args
      * @param bool $passCellReference
      * @param array|string $functionCall
-     * @param null|Cell $pCell
      *
      * @return array
      */
-    private function addCellReference(array $args, $passCellReference, $functionCall, Cell $pCell = null)
+    private function addCellReference(array $args, $passCellReference, $functionCall, ?Cell $pCell = null)
     {
         if ($passCellReference) {
             if (is_array($functionCall)) {
                 $className = $functionCall[0];
                 $methodName = $functionCall[1];
 
-                $reflectionMethod = new \ReflectionMethod($className, $methodName);
+                $reflectionMethod = new ReflectionMethod($className, $methodName);
                 $argumentCount = count($reflectionMethod->getParameters());
                 while (count($args) < $argumentCount - 1) {
                     $args[] = null;

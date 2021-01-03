@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CscTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -19,14 +19,14 @@ class CscTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $angle
      */
-    public function testCSC($expectedResult, $angle)
+    public function testCSC($expectedResult, $angle): void
     {
         $result = MathTrig::CSC($angle);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCSC()
     {
-        return require 'data/Calculation/MathTrig/CSC.php';
+        return require 'tests/data/Calculation/MathTrig/CSC.php';
     }
 }

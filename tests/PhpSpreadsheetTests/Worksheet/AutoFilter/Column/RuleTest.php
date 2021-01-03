@@ -11,7 +11,7 @@ class RuleTest extends TestCase
 
     private $mockAutoFilterColumnObject;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->mockAutoFilterColumnObject = $this->getMockBuilder(Column::class)
             ->disableOriginalConstructor()
@@ -22,13 +22,13 @@ class RuleTest extends TestCase
         );
     }
 
-    public function testGetRuleType()
+    public function testGetRuleType(): void
     {
         $result = $this->testAutoFilterRuleObject->getRuleType();
         self::assertEquals(Column\Rule::AUTOFILTER_RULETYPE_FILTER, $result);
     }
 
-    public function testSetRuleType()
+    public function testSetRuleType(): void
     {
         $expectedResult = Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP;
 
@@ -40,7 +40,7 @@ class RuleTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSetValue()
+    public function testSetValue(): void
     {
         $expectedResult = 100;
 
@@ -52,13 +52,13 @@ class RuleTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testGetOperator()
+    public function testGetOperator(): void
     {
         $result = $this->testAutoFilterRuleObject->getOperator();
         self::assertEquals(Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL, $result);
     }
 
-    public function testSetOperator()
+    public function testSetOperator(): void
     {
         $expectedResult = Column\Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN;
 
@@ -70,7 +70,7 @@ class RuleTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSetGrouping()
+    public function testSetGrouping(): void
     {
         $expectedResult = Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP_MONTH;
 
@@ -82,20 +82,20 @@ class RuleTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testGetParent()
+    public function testGetParent(): void
     {
         $result = $this->testAutoFilterRuleObject->getParent();
         self::assertInstanceOf(Column::class, $result);
     }
 
-    public function testSetParent()
+    public function testSetParent(): void
     {
         //    Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterRuleObject->setParent($this->mockAutoFilterColumnObject);
         self::assertInstanceOf(Column\Rule::class, $result);
     }
 
-    public function testClone()
+    public function testClone(): void
     {
         $result = clone $this->testAutoFilterRuleObject;
         self::assertInstanceOf(Column\Rule::class, $result);

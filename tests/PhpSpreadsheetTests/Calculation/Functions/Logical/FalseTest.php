@@ -8,14 +8,14 @@ use PHPUnit\Framework\TestCase;
 
 class FalseTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-    public function testFALSE()
+    public function testFALSE(): void
     {
         $result = Logical::FALSE();
-        $this->assertFalse($result);
+        self::assertFalse($result);
     }
 }

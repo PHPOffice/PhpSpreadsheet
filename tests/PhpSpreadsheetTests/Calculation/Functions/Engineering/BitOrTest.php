@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class BitOrTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -19,14 +19,14 @@ class BitOrTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed[] $args
      */
-    public function testBITOR($expectedResult, array $args)
+    public function testBITOR($expectedResult, array $args): void
     {
         $result = Engineering::BITOR(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerBITOR()
     {
-        return require 'data/Calculation/Engineering/BITOR.php';
+        return require 'tests/data/Calculation/Engineering/BITOR.php';
     }
 }

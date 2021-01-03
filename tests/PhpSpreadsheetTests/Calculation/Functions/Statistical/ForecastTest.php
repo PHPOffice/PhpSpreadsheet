@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ForecastTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class ForecastTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFORECAST($expectedResult, ...$args)
+    public function testFORECAST($expectedResult, ...$args): void
     {
         $result = Statistical::FORECAST(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerFORECAST()
     {
-        return require 'data/Calculation/Statistical/FORECAST.php';
+        return require 'tests/data/Calculation/Statistical/FORECAST.php';
     }
 }

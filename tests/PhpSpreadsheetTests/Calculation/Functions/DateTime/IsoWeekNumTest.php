@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class IsoWeekNumTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -22,14 +22,14 @@ class IsoWeekNumTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $dateValue
      */
-    public function testISOWEEKNUM($expectedResult, $dateValue)
+    public function testISOWEEKNUM($expectedResult, $dateValue): void
     {
         $result = DateTime::ISOWEEKNUM($dateValue);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerISOWEEKNUM()
     {
-        return require 'data/Calculation/DateTime/ISOWEEKNUM.php';
+        return require 'tests/data/Calculation/DateTime/ISOWEEKNUM.php';
     }
 }

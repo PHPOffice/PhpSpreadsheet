@@ -16,13 +16,13 @@ class ImExpTest extends TestCase
      */
     protected $complexAssert;
 
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         $this->complexAssert = null;
     }
@@ -33,10 +33,10 @@ class ImExpTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMEXP($expectedResult, $value)
+    public function testIMEXP($expectedResult, $value): void
     {
         $result = Engineering::IMEXP($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -44,6 +44,6 @@ class ImExpTest extends TestCase
 
     public function providerIMEXP()
     {
-        return require 'data/Calculation/Engineering/IMEXP.php';
+        return require 'tests/data/Calculation/Engineering/IMEXP.php';
     }
 }

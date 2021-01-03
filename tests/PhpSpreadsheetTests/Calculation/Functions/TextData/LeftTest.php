@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class LeftTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class LeftTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -30,14 +30,14 @@ class LeftTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testLEFT($expectedResult, ...$args)
+    public function testLEFT($expectedResult, ...$args): void
     {
         $result = TextData::LEFT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerLEFT()
     {
-        return require 'data/Calculation/TextData/LEFT.php';
+        return require 'tests/data/Calculation/TextData/LEFT.php';
     }
 }

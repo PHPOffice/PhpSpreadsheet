@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls\Workbook;
+namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\NamedRange;
@@ -9,15 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class FormulaErrTest extends TestCase
 {
-    public function tearDown()
-    {
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
-        if (file_exists($filename)) {
-            unlink($filename);
-        }
-    }
-
-    public function testFormulaError()
+    public function testFormulaError(): void
     {
         $obj = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet0 = $obj->setActiveSheetIndex(0);
@@ -31,6 +23,7 @@ class FormulaErrTest extends TestCase
         $writer->save($filename);
         $reader = IOFactory::createReader('Xls');
         $robj = $reader->load($filename);
+        unlink($filename);
         $sheet0 = $robj->setActiveSheetIndex(0);
         $a1 = $sheet0->getCell('A1')->getCalculatedValue();
         self::assertEquals(2, $a1);

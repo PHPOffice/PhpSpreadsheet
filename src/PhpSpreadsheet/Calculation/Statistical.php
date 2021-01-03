@@ -397,10 +397,10 @@ class Statistical
             for ($i = 1; $i <= $n; ++$i) {
                 $divisor *= ($a + $i);
             }
-            $summer += (pow($x, $n) / $divisor);
+            $summer += ($x ** $n / $divisor);
         }
 
-        return pow($x, $a) * exp(0 - $x) * $summer;
+        return $x ** $a * exp(0 - $x) * $summer;
     }
 
     //
@@ -565,8 +565,6 @@ class Statistical
      * Excel Function:
      *        AVEDEV(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string
@@ -616,8 +614,6 @@ class Statistical
      * Excel Function:
      *        AVERAGE(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string
@@ -656,8 +652,6 @@ class Statistical
      *
      * Excel Function:
      *        AVERAGEA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -699,8 +693,6 @@ class Statistical
      *
      * Excel Function:
      *        AVERAGEIF(value1[,value2[, ...]],condition)
-     *
-     * @category Mathematical and Trigonometric Functions
      *
      * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be checked
@@ -874,13 +866,13 @@ class Statistical
                 if ($cumulative) {
                     $summer = 0;
                     for ($i = 0; $i <= $value; ++$i) {
-                        $summer += MathTrig::COMBIN($trials, $i) * pow($probability, $i) * pow(1 - $probability, $trials - $i);
+                        $summer += MathTrig::COMBIN($trials, $i) * $probability ** $i * (1 - $probability) ** ($trials - $i);
                     }
 
                     return $summer;
                 }
 
-                return MathTrig::COMBIN($trials, $value) * pow($probability, $value) * pow(1 - $probability, $trials - $value);
+                return MathTrig::COMBIN($trials, $value) * $probability ** $value * (1 - $probability) ** ($trials - $value);
             }
         }
 
@@ -1053,8 +1045,6 @@ class Statistical
      * Excel Function:
      *        COUNT(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return int
@@ -1086,8 +1076,6 @@ class Statistical
      * Excel Function:
      *        COUNTA(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return int
@@ -1116,8 +1104,6 @@ class Statistical
      * Excel Function:
      *        COUNTBLANK(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return int
@@ -1145,8 +1131,6 @@ class Statistical
      *
      * Excel Function:
      *        COUNTIF(value1[,value2[, ...]],condition)
-     *
-     * @category Statistical Functions
      *
      * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be counted
@@ -1187,8 +1171,6 @@ class Statistical
      *
      * Excel Function:
      *        COUNTIFS(criteria_range1, criteria1, [criteria_range2, criteria2]…)
-     *
-     * @category Statistical Functions
      *
      * @param mixed $args Criterias
      *
@@ -1295,7 +1277,7 @@ class Statistical
      *
      * @return int|string
      *
-     * @todo    Warning. This implementation differs from the algorithm detailed on the MS
+     * @TODO    Warning. This implementation differs from the algorithm detailed on the MS
      *            web site in that $CumPGuessMinus1 = $CumPGuess - 1 rather than $CumPGuess - $PGuess
      *            This eliminates a potential endless loop error, but may have an adverse affect on the
      *            accuracy of the function (although all my tests have so far returned correct results).
@@ -1320,7 +1302,7 @@ class Statistical
                 $t = sqrt(log(1 / ($alpha * $alpha)));
                 $trialsApprox = 0 - ($t + (2.515517 + 0.802853 * $t + 0.010328 * $t * $t) / (1 + 1.432788 * $t + 0.189269 * $t * $t + 0.001308 * $t * $t * $t));
             } else {
-                $t = sqrt(log(1 / pow(1 - $alpha, 2)));
+                $t = sqrt(log(1 / (1 - $alpha) ** 2));
                 $trialsApprox = $t - (2.515517 + 0.802853 * $t + 0.010328 * $t * $t) / (1 + 1.432788 * $t + 0.189269 * $t * $t + 0.001308 * $t * $t * $t);
             }
 
@@ -1416,8 +1398,6 @@ class Statistical
      * Excel Function:
      *        DEVSQ(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string
@@ -1441,9 +1421,9 @@ class Statistical
                 }
                 if ((is_numeric($arg)) && (!is_string($arg))) {
                     if ($returnValue === null) {
-                        $returnValue = pow(($arg - $aMean), 2);
+                        $returnValue = ($arg - $aMean) ** 2;
                     } else {
-                        $returnValue += pow(($arg - $aMean), 2);
+                        $returnValue += ($arg - $aMean) ** 2;
                     }
                     ++$aCount;
                 }
@@ -1603,7 +1583,7 @@ class Statistical
                     return self::incompleteGamma($a, $value / $b) / self::gamma($a);
                 }
 
-                return (1 / (pow($b, $a) * self::gamma($a))) * pow($value, $a - 1) * exp(0 - ($value / $b));
+                return (1 / ($b ** $a * self::gamma($a))) * $value ** ($a - 1) * exp(0 - ($value / $b));
             }
         }
 
@@ -1707,8 +1687,6 @@ class Statistical
      * Excel Function:
      *        GEOMEAN(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string
@@ -1721,7 +1699,7 @@ class Statistical
         if (is_numeric($aMean) && ($aMean > 0)) {
             $aCount = self::COUNT($aArgs);
             if (self::MIN($aArgs) > 0) {
-                return pow($aMean, (1 / $aCount));
+                return $aMean ** (1 / $aCount);
             }
         }
 
@@ -1768,8 +1746,6 @@ class Statistical
      *
      * Excel Function:
      *        HARMEAN(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -1900,7 +1876,7 @@ class Statistical
                 } else {
                     // Is it a numeric value?
                     if ((is_numeric($arg)) && (!is_string($arg))) {
-                        $summer += pow((($arg - $mean) / $stdDev), 4);
+                        $summer += (($arg - $mean) / $stdDev) ** 4;
                         ++$count;
                     }
                 }
@@ -1908,7 +1884,7 @@ class Statistical
 
             // Return
             if ($count > 3) {
-                return $summer * ($count * ($count + 1) / (($count - 1) * ($count - 2) * ($count - 3))) - (3 * pow($count - 1, 2) / (($count - 2) * ($count - 3)));
+                return $summer * ($count * ($count + 1) / (($count - 1) * ($count - 2) * ($count - 3))) - (3 * ($count - 1) ** 2 / (($count - 2) * ($count - 3)));
             }
         }
 
@@ -1924,10 +1900,7 @@ class Statistical
      * Excel Function:
      *        LARGE(value1[,value2[, ...]],entry)
      *
-     * @category Statistical Functions
-     *
      * @param mixed $args Data values
-     * @param int $entry Position (ordered from the largest) in the array or range of data to return
      *
      * @return float|string The result, or a string containing an error
      */
@@ -2013,9 +1986,9 @@ class Statistical
         }
 
         return [
-                $bestFitLinear->getSlope(),
-                $bestFitLinear->getIntersect(),
-            ];
+            $bestFitLinear->getSlope(),
+            $bestFitLinear->getIntersect(),
+        ];
     }
 
     /**
@@ -2078,9 +2051,9 @@ class Statistical
         }
 
         return [
-                $bestFitExponential->getSlope(),
-                $bestFitExponential->getIntersect(),
-            ];
+            $bestFitExponential->getSlope(),
+            $bestFitExponential->getIntersect(),
+        ];
     }
 
     /**
@@ -2094,7 +2067,7 @@ class Statistical
      *
      * @return float|string The result, or a string containing an error
      *
-     * @todo    Try implementing P J Acklam's refinement algorithm for greater
+     * @TODO    Try implementing P J Acklam's refinement algorithm for greater
      *            accuracy if I can get my head round the mathematics
      *            (as described at) http://home.online.no/~pjacklam/notes/invnorm/
      */
@@ -2153,8 +2126,6 @@ class Statistical
      * Excel Function:
      *        MAX(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float
@@ -2188,8 +2159,6 @@ class Statistical
      *
      * Excel Function:
      *        MAXA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -2229,8 +2198,6 @@ class Statistical
      *
      * Excel Function:
      *        MAXIFS(max_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
-     *
-     * @category Statistical Functions
      *
      * @param mixed $args Data range and criterias
      *
@@ -2289,8 +2256,6 @@ class Statistical
      * Excel Function:
      *        MEDIAN(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string The result, or a string containing an error
@@ -2333,8 +2298,6 @@ class Statistical
      * Excel Function:
      *        MIN(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float
@@ -2368,8 +2331,6 @@ class Statistical
      *
      * Excel Function:
      *        MINA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -2409,8 +2370,6 @@ class Statistical
      *
      * Excel Function:
      *        MINIFS(min_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
-     *
-     * @category Statistical Functions
      *
      * @param mixed $args Data range and criterias
      *
@@ -2468,11 +2427,27 @@ class Statistical
     private static function modeCalc($data)
     {
         $frequencyArray = [];
+        $index = 0;
+        $maxfreq = 0;
+        $maxfreqkey = '';
+        $maxfreqdatum = '';
         foreach ($data as $datum) {
             $found = false;
+            ++$index;
             foreach ($frequencyArray as $key => $value) {
                 if ((string) $value['value'] == (string) $datum) {
                     ++$frequencyArray[$key]['frequency'];
+                    $freq = $frequencyArray[$key]['frequency'];
+                    if ($freq > $maxfreq) {
+                        $maxfreq = $freq;
+                        $maxfreqkey = $key;
+                        $maxfreqdatum = $datum;
+                    } elseif ($freq == $maxfreq) {
+                        if ($frequencyArray[$key]['index'] < $frequencyArray[$maxfreqkey]['index']) {
+                            $maxfreqkey = $key;
+                            $maxfreqdatum = $datum;
+                        }
+                    }
                     $found = true;
 
                     break;
@@ -2482,21 +2457,16 @@ class Statistical
                 $frequencyArray[] = [
                     'value' => $datum,
                     'frequency' => 1,
+                    'index' => $index,
                 ];
             }
         }
 
-        foreach ($frequencyArray as $key => $value) {
-            $frequencyList[$key] = $value['frequency'];
-            $valueList[$key] = $value['value'];
-        }
-        array_multisort($frequencyList, SORT_DESC, $valueList, SORT_ASC, SORT_NUMERIC, $frequencyArray);
-
-        if ($frequencyArray[0]['frequency'] == 1) {
+        if ($maxfreq <= 1) {
             return Functions::NA();
         }
 
-        return $frequencyArray[0]['value'];
+        return $maxfreqdatum;
     }
 
     /**
@@ -2506,8 +2476,6 @@ class Statistical
      *
      * Excel Function:
      *        MODE(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -2568,7 +2536,7 @@ class Statistical
                 }
             }
 
-            return (MathTrig::COMBIN($failures + $successes - 1, $successes - 1)) * (pow($probability, $successes)) * (pow(1 - $probability, $failures));
+            return (MathTrig::COMBIN($failures + $successes - 1, $successes - 1)) * ($probability ** $successes) * ((1 - $probability) ** $failures);
         }
 
         return Functions::VALUE();
@@ -2603,7 +2571,7 @@ class Statistical
                     return 0.5 * (1 + Engineering::erfVal(($value - $mean) / ($stdDev * sqrt(2))));
                 }
 
-                return (1 / (self::SQRT2PI * $stdDev)) * exp(0 - (pow($value - $mean, 2) / (2 * ($stdDev * $stdDev))));
+                return (1 / (self::SQRT2PI * $stdDev)) * exp(0 - (($value - $mean) ** 2 / (2 * ($stdDev * $stdDev))));
             }
         }
 
@@ -2681,10 +2649,7 @@ class Statistical
      * Excel Function:
      *        PERCENTILE(value1[,value2[, ...]],entry)
      *
-     * @category Statistical Functions
-     *
      * @param mixed $args Data values
-     * @param float $entry Percentile value in the range 0..1, inclusive.
      *
      * @return float|string The result, or a string containing an error
      */
@@ -2830,13 +2795,13 @@ class Statistical
                     $summer = 0;
                     $floor = floor($value);
                     for ($i = 0; $i <= $floor; ++$i) {
-                        $summer += pow($mean, $i) / MathTrig::FACT($i);
+                        $summer += $mean ** $i / MathTrig::FACT($i);
                     }
 
                     return exp(0 - $mean) * $summer;
                 }
 
-                return (exp(0 - $mean) * pow($mean, $value)) / MathTrig::FACT($value);
+                return (exp(0 - $mean) * $mean ** $value) / MathTrig::FACT($value);
             }
         }
 
@@ -2851,10 +2816,7 @@ class Statistical
      * Excel Function:
      *        QUARTILE(value1[,value2[, ...]],entry)
      *
-     * @category Statistical Functions
-     *
      * @param mixed $args Data values
-     * @param int $entry Quartile value in the range 1..3, inclusive.
      *
      * @return float|string The result, or a string containing an error
      */
@@ -2968,7 +2930,7 @@ class Statistical
             } else {
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $summer += pow((($arg - $mean) / $stdDev), 3);
+                    $summer += (($arg - $mean) / $stdDev) ** 3;
                     ++$count;
                 }
             }
@@ -3019,10 +2981,7 @@ class Statistical
      * Excel Function:
      *        SMALL(value1[,value2[, ...]],entry)
      *
-     * @category Statistical Functions
-     *
      * @param mixed $args Data values
-     * @param int $entry Position (ordered from the smallest) in the array or range of data to return
      *
      * @return float|string The result, or a string containing an error
      */
@@ -3091,8 +3050,6 @@ class Statistical
      * Excel Function:
      *        STDEV(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string The result, or a string containing an error
@@ -3115,9 +3072,9 @@ class Statistical
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
                     if ($returnValue === null) {
-                        $returnValue = pow(($arg - $aMean), 2);
+                        $returnValue = ($arg - $aMean) ** 2;
                     } else {
-                        $returnValue += pow(($arg - $aMean), 2);
+                        $returnValue += ($arg - $aMean) ** 2;
                     }
                     ++$aCount;
                 }
@@ -3139,8 +3096,6 @@ class Statistical
      *
      * Excel Function:
      *        STDEVA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -3167,9 +3122,9 @@ class Statistical
                             $arg = 0;
                         }
                         if ($returnValue === null) {
-                            $returnValue = pow(($arg - $aMean), 2);
+                            $returnValue = ($arg - $aMean) ** 2;
                         } else {
-                            $returnValue += pow(($arg - $aMean), 2);
+                            $returnValue += ($arg - $aMean) ** 2;
                         }
                         ++$aCount;
                     }
@@ -3192,8 +3147,6 @@ class Statistical
      * Excel Function:
      *        STDEVP(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string
@@ -3215,9 +3168,9 @@ class Statistical
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
                     if ($returnValue === null) {
-                        $returnValue = pow(($arg - $aMean), 2);
+                        $returnValue = ($arg - $aMean) ** 2;
                     } else {
-                        $returnValue += pow(($arg - $aMean), 2);
+                        $returnValue += ($arg - $aMean) ** 2;
                     }
                     ++$aCount;
                 }
@@ -3238,8 +3191,6 @@ class Statistical
      *
      * Excel Function:
      *        STDEVPA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -3266,9 +3217,9 @@ class Statistical
                             $arg = 0;
                         }
                         if ($returnValue === null) {
-                            $returnValue = pow(($arg - $aMean), 2);
+                            $returnValue = ($arg - $aMean) ** 2;
                         } else {
-                            $returnValue += pow(($arg - $aMean), 2);
+                            $returnValue += ($arg - $aMean) ** 2;
                         }
                         ++$aCount;
                     }
@@ -3477,10 +3428,7 @@ class Statistical
      * Excel Function:
      *        TRIMEAN(value1[,value2[, ...]], $discard)
      *
-     * @category Statistical Functions
-     *
      * @param mixed $args Data values
-     * @param float $discard Percentage to discard
      *
      * @return float|string
      */
@@ -3523,8 +3471,6 @@ class Statistical
      * Excel Function:
      *        VAR(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float
@@ -3566,8 +3512,6 @@ class Statistical
      *
      * Excel Function:
      *        VARA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -3620,8 +3564,6 @@ class Statistical
      * Excel Function:
      *        VARP(value1[,value2[, ...]])
      *
-     * @category Statistical Functions
-     *
      * @param mixed ...$args Data values
      *
      * @return float
@@ -3664,8 +3606,6 @@ class Statistical
      *
      * Excel Function:
      *        VARPA(value1[,value2[, ...]])
-     *
-     * @category Statistical Functions
      *
      * @param mixed ...$args Data values
      *
@@ -3735,10 +3675,10 @@ class Statistical
             }
             if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
                 if ($cumulative) {
-                    return 1 - exp(0 - pow($value / $beta, $alpha));
+                    return 1 - exp(0 - ($value / $beta) ** $alpha);
                 }
 
-                return ($alpha / pow($beta, $alpha)) * pow($value, $alpha - 1) * exp(0 - pow($value / $beta, $alpha));
+                return ($alpha / $beta ** $alpha) * $value ** ($alpha - 1) * exp(0 - ($value / $beta) ** $alpha);
             }
         }
 

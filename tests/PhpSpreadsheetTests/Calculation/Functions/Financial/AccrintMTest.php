@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class AccrintMTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class AccrintMTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testACCRINTM($expectedResult, ...$args)
+    public function testACCRINTM($expectedResult, ...$args): void
     {
         $result = Financial::ACCRINTM(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerACCRINTM()
     {
-        return require 'data/Calculation/Financial/ACCRINTM.php';
+        return require 'tests/data/Calculation/Financial/ACCRINTM.php';
     }
 }

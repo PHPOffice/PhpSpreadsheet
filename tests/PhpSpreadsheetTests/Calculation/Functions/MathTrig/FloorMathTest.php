@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class FloorMathTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class FloorMathTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFLOORMATH($expectedResult, ...$args)
+    public function testFLOORMATH($expectedResult, ...$args): void
     {
         $result = MathTrig::FLOORMATH(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerFLOORMATH()
     {
-        return require 'data/Calculation/MathTrig/FLOORMATH.php';
+        return require 'tests/data/Calculation/MathTrig/FLOORMATH.php';
     }
 }

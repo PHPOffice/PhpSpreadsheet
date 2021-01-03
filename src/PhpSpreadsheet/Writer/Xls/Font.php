@@ -22,8 +22,6 @@ class Font
 
     /**
      * Constructor.
-     *
-     * @param \PhpOffice\PhpSpreadsheet\Style\Font $font
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Style\Font $font)
     {
@@ -36,7 +34,7 @@ class Font
      *
      * @param int $colorIndex
      */
-    public function setColorIndex($colorIndex)
+    public function setColorIndex($colorIndex): void
     {
         $this->colorIndex = $colorIndex;
     }

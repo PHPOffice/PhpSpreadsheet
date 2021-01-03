@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class Dec2OctTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class Dec2OctTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDEC2OCT($expectedResult, ...$args)
+    public function testDEC2OCT($expectedResult, ...$args): void
     {
         $result = Engineering::DECTOOCT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerDEC2OCT()
     {
-        return require 'data/Calculation/Engineering/DEC2OCT.php';
+        return require 'tests/data/Calculation/Engineering/DEC2OCT.php';
     }
 }

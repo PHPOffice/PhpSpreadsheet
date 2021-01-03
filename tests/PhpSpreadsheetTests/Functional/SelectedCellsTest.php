@@ -20,7 +20,7 @@ class SelectedCellsTest extends AbstractFunctional
      *
      * @param string $format
      */
-    public function testSelectedCells($format)
+    public function testSelectedCells($format): void
     {
         $spreadsheet = new Spreadsheet();
 

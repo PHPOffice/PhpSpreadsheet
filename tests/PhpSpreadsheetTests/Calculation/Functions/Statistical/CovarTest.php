@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CovarTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class CovarTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOVAR($expectedResult, ...$args)
+    public function testCOVAR($expectedResult, ...$args): void
     {
         $result = Statistical::COVAR(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCOVAR()
     {
-        return require 'data/Calculation/Statistical/COVAR.php';
+        return require 'tests/data/Calculation/Statistical/COVAR.php';
     }
 }

@@ -2,8 +2,24 @@
 
 namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 
+use AccBarPlot;
+use AccLinePlot;
+use BarPlot;
+use ContourPlot;
+use Graph;
+use GroupBarPlot;
+use LinePlot;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PieGraph;
+use PiePlot;
+use PiePlot3D;
+use PiePlotC;
+use RadarGraph;
+use RadarPlot;
+use ScatterPlot;
+use Spline;
+use StockPlot;
 
 require_once __DIR__ . '/Polyfill.php';
 
@@ -33,8 +49,6 @@ class JpGraph implements IRenderer
 
     /**
      * Create a new jpgraph.
-     *
-     * @param Chart $chart
      */
     public function __construct(Chart $chart)
     {
@@ -43,7 +57,7 @@ class JpGraph implements IRenderer
         $this->chart = $chart;
     }
 
-    private static function init()
+    private static function init(): void
     {
         static $loaded = false;
         if ($loaded) {
@@ -179,7 +193,7 @@ class JpGraph implements IRenderer
         return $caption;
     }
 
-    private function renderTitle()
+    private function renderTitle(): void
     {
         $title = $this->getCaption($this->chart->getTitle());
         if ($title !== null) {
@@ -187,7 +201,7 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderLegend()
+    private function renderLegend(): void
     {
         $legend = $this->chart->getLegend();
         if ($legend !== null) {
@@ -220,9 +234,9 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderCartesianPlotArea($type = 'textlin')
+    private function renderCartesianPlotArea($type = 'textlin'): void
     {
-        $this->graph = new \Graph(self::$width, self::$height);
+        $this->graph = new Graph(self::$width, self::$height);
         $this->graph->SetScale($type);
 
         $this->renderTitle();
@@ -257,22 +271,22 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderPiePlotArea()
+    private function renderPiePlotArea(): void
     {
-        $this->graph = new \PieGraph(self::$width, self::$height);
+        $this->graph = new PieGraph(self::$width, self::$height);
 
         $this->renderTitle();
     }
 
-    private function renderRadarPlotArea()
+    private function renderRadarPlotArea(): void
     {
-        $this->graph = new \RadarGraph(self::$width, self::$height);
+        $this->graph = new RadarGraph(self::$width, self::$height);
         $this->graph->SetScale('lin');
 
         $this->renderTitle();
     }
 
-    private function renderPlotLine($groupID, $filled = false, $combination = false, $dimensions = '2d')
+    private function renderPlotLine($groupID, $filled = false, $combination = false, $dimensions = '2d'): void
     {
         $grouping = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
 
@@ -308,7 +322,7 @@ class JpGraph implements IRenderer
                 ++$testCurrentIndex;
             }
 
-            $seriesPlot = new \LinePlot($dataValues);
+            $seriesPlot = new LinePlot($dataValues);
             if ($combination) {
                 $seriesPlot->SetBarCenter();
             }
@@ -330,12 +344,12 @@ class JpGraph implements IRenderer
         if ($grouping == 'standard') {
             $groupPlot = $seriesPlots;
         } else {
-            $groupPlot = new \AccLinePlot($seriesPlots);
+            $groupPlot = new AccLinePlot($seriesPlots);
         }
         $this->graph->Add($groupPlot);
     }
 
-    private function renderPlotBar($groupID, $dimensions = '2d')
+    private function renderPlotBar($groupID, $dimensions = '2d'): void
     {
         $rotation = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotDirection();
         //    Rotate for bar rather than column chart
@@ -385,7 +399,7 @@ class JpGraph implements IRenderer
             if ($rotation == 'bar') {
                 $dataValues = array_reverse($dataValues);
             }
-            $seriesPlot = new \BarPlot($dataValues);
+            $seriesPlot = new BarPlot($dataValues);
             $seriesPlot->SetColor('black');
             $seriesPlot->SetFillColor(self::$colourSet[self::$plotColour++]);
             if ($dimensions == '3d') {
@@ -406,11 +420,11 @@ class JpGraph implements IRenderer
         }
 
         if ($grouping == 'clustered') {
-            $groupPlot = new \GroupBarPlot($seriesPlots);
+            $groupPlot = new GroupBarPlot($seriesPlots);
         } elseif ($grouping == 'standard') {
-            $groupPlot = new \GroupBarPlot($seriesPlots);
+            $groupPlot = new GroupBarPlot($seriesPlots);
         } else {
-            $groupPlot = new \AccBarPlot($seriesPlots);
+            $groupPlot = new AccBarPlot($seriesPlots);
             if ($dimensions == '3d') {
                 $groupPlot->SetShadow();
             }
@@ -419,7 +433,7 @@ class JpGraph implements IRenderer
         $this->graph->Add($groupPlot);
     }
 
-    private function renderPlotScatter($groupID, $bubble)
+    private function renderPlotScatter($groupID, $bubble): void
     {
         $grouping = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
         $scatterStyle = $bubbleSize = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotStyle();
@@ -436,14 +450,14 @@ class JpGraph implements IRenderer
                 $dataValuesY[$k] = $k;
             }
 
-            $seriesPlot = new \ScatterPlot($dataValuesX, $dataValuesY);
+            $seriesPlot = new ScatterPlot($dataValuesX, $dataValuesY);
             if ($scatterStyle == 'lineMarker') {
                 $seriesPlot->SetLinkPoints();
                 $seriesPlot->link->SetColor(self::$colourSet[self::$plotColour]);
             } elseif ($scatterStyle == 'smoothMarker') {
-                $spline = new \Spline($dataValuesY, $dataValuesX);
+                $spline = new Spline($dataValuesY, $dataValuesX);
                 [$splineDataY, $splineDataX] = $spline->Get(count($dataValuesX) * self::$width / 20);
-                $lplot = new \LinePlot($splineDataX, $splineDataY);
+                $lplot = new LinePlot($splineDataX, $splineDataY);
                 $lplot->SetColor(self::$colourSet[self::$plotColour]);
 
                 $this->graph->Add($lplot);
@@ -464,7 +478,7 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderPlotRadar($groupID)
+    private function renderPlotRadar($groupID): void
     {
         $radarStyle = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotStyle();
 
@@ -488,7 +502,7 @@ class JpGraph implements IRenderer
 
             $this->graph->SetTitles(array_reverse($dataValues));
 
-            $seriesPlot = new \RadarPlot(array_reverse($dataValuesX));
+            $seriesPlot = new RadarPlot(array_reverse($dataValuesX));
 
             $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($i)->getDataValue();
             $seriesPlot->SetColor(self::$colourSet[self::$plotColour++]);
@@ -502,7 +516,7 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderPlotContour($groupID)
+    private function renderPlotContour($groupID): void
     {
         $contourStyle = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotStyle();
 
@@ -517,12 +531,12 @@ class JpGraph implements IRenderer
 
             $dataValues[$i] = $dataValuesX;
         }
-        $seriesPlot = new \ContourPlot($dataValues);
+        $seriesPlot = new ContourPlot($dataValues);
 
         $this->graph->Add($seriesPlot);
     }
 
-    private function renderPlotStock($groupID)
+    private function renderPlotStock($groupID): void
     {
         $seriesCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
         $plotOrder = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotOrder();
@@ -556,13 +570,13 @@ class JpGraph implements IRenderer
             $this->graph->xaxis->SetTickLabels($datasetLabels);
         }
 
-        $seriesPlot = new \StockPlot($dataValuesPlot);
+        $seriesPlot = new StockPlot($dataValuesPlot);
         $seriesPlot->SetWidth(20);
 
         $this->graph->Add($seriesPlot);
     }
 
-    private function renderAreaChart($groupCount, $dimensions = '2d')
+    private function renderAreaChart($groupCount, $dimensions = '2d'): void
     {
         $this->renderCartesianPlotArea();
 
@@ -571,7 +585,7 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderLineChart($groupCount, $dimensions = '2d')
+    private function renderLineChart($groupCount, $dimensions = '2d'): void
     {
         $this->renderCartesianPlotArea();
 
@@ -580,7 +594,7 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderBarChart($groupCount, $dimensions = '2d')
+    private function renderBarChart($groupCount, $dimensions = '2d'): void
     {
         $this->renderCartesianPlotArea();
 
@@ -589,7 +603,7 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderScatterChart($groupCount)
+    private function renderScatterChart($groupCount): void
     {
         $this->renderCartesianPlotArea('linlin');
 
@@ -598,7 +612,7 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderBubbleChart($groupCount)
+    private function renderBubbleChart($groupCount): void
     {
         $this->renderCartesianPlotArea('linlin');
 
@@ -607,7 +621,7 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderPieChart($groupCount, $dimensions = '2d', $doughnut = false, $multiplePlots = false)
+    private function renderPieChart($groupCount, $dimensions = '2d', $doughnut = false, $multiplePlots = false): void
     {
         $this->renderPiePlotArea();
 
@@ -643,12 +657,12 @@ class JpGraph implements IRenderer
                 }
 
                 if ($dimensions == '3d') {
-                    $seriesPlot = new \PiePlot3D($dataValues);
+                    $seriesPlot = new PiePlot3D($dataValues);
                 } else {
                     if ($doughnut) {
-                        $seriesPlot = new \PiePlotC($dataValues);
+                        $seriesPlot = new PiePlotC($dataValues);
                     } else {
-                        $seriesPlot = new \PiePlot($dataValues);
+                        $seriesPlot = new PiePlot($dataValues);
                     }
                 }
 
@@ -679,7 +693,7 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderRadarChart($groupCount)
+    private function renderRadarChart($groupCount): void
     {
         $this->renderRadarPlotArea();
 
@@ -688,7 +702,7 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderStockChart($groupCount)
+    private function renderStockChart($groupCount): void
     {
         $this->renderCartesianPlotArea('intint');
 
@@ -697,7 +711,7 @@ class JpGraph implements IRenderer
         }
     }
 
-    private function renderContourChart($groupCount, $dimensions)
+    private function renderContourChart($groupCount, $dimensions): void
     {
         $this->renderCartesianPlotArea('intint');
 

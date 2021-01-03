@@ -776,8 +776,6 @@ class Engineering
      *    Excel Function:
      *        BESSELI(x,ord)
      *
-     * @category Engineering Functions
-     *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELI returns the #VALUE! error value.
      * @param int $ord The order of the Bessel function.
@@ -799,7 +797,7 @@ class Engineering
             }
 
             if (abs($x) <= 30) {
-                $fResult = $fTerm = pow($x / 2, $ord) / MathTrig::FACT($ord);
+                $fResult = $fTerm = ($x / 2) ** $ord / MathTrig::FACT($ord);
                 $ordK = 1;
                 $fSqrX = ($x * $x) / 4;
                 do {
@@ -831,8 +829,6 @@ class Engineering
      *    Excel Function:
      *        BESSELJ(x,ord)
      *
-     * @category Engineering Functions
-     *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELJ returns the #VALUE! error value.
      * @param int $ord The order of the Bessel function. If n is not an integer, it is truncated.
@@ -854,7 +850,7 @@ class Engineering
 
             $fResult = 0;
             if (abs($x) <= 30) {
-                $fResult = $fTerm = pow($x / 2, $ord) / MathTrig::FACT($ord);
+                $fResult = $fTerm = ($x / 2) ** $ord / MathTrig::FACT($ord);
                 $ordK = 1;
                 $fSqrX = ($x * $x) / -4;
                 do {
@@ -923,8 +919,6 @@ class Engineering
      *
      *    Excel Function:
      *        BESSELK(x,ord)
-     *
-     * @category Engineering Functions
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
@@ -1013,8 +1007,6 @@ class Engineering
      *    Excel Function:
      *        BESSELY(x,ord)
      *
-     * @category Engineering Functions
-     *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
      * @param int $ord The order of the Bessel function. If n is not an integer, it is truncated.
@@ -1067,8 +1059,6 @@ class Engineering
      * Excel Function:
      *        BIN2DEC(x)
      *
-     * @category Engineering Functions
-     *
      * @param string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
      *                                bit of number is the sign bit. The remaining 9 bits are magnitude bits.
@@ -1115,8 +1105,6 @@ class Engineering
      *
      * Excel Function:
      *        BIN2HEX(x[,places])
-     *
-     * @category Engineering Functions
      *
      * @param string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -1172,8 +1160,6 @@ class Engineering
      * Excel Function:
      *        BIN2OCT(x[,places])
      *
-     * @category Engineering Functions
-     *
      * @param string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
      *                                bit of number is the sign bit. The remaining 9 bits are magnitude bits.
@@ -1226,8 +1212,6 @@ class Engineering
      *
      * Excel Function:
      *        DEC2BIN(x[,places])
-     *
-     * @category Engineering Functions
      *
      * @param string $x The decimal integer you want to convert. If number is negative,
      *                                valid place values are ignored and DEC2BIN returns a 10-character
@@ -1288,8 +1272,6 @@ class Engineering
      * Excel Function:
      *        DEC2HEX(x[,places])
      *
-     * @category Engineering Functions
-     *
      * @param string $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2HEX returns a 10-character (40-bit)
      *                                hexadecimal number in which the most significant bit is the sign
@@ -1342,8 +1324,6 @@ class Engineering
      *
      * Excel Function:
      *        DEC2OCT(x[,places])
-     *
-     * @category Engineering Functions
      *
      * @param string $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2OCT returns a 10-character (30-bit)
@@ -1399,8 +1379,6 @@ class Engineering
      * Excel Function:
      *        HEX2BIN(x[,places])
      *
-     * @category Engineering Functions
-     *
      * @param string $x the hexadecimal number you want to convert.
      *                  Number cannot contain more than 10 characters.
      *                  The most significant bit of number is the sign bit (40th bit from the right).
@@ -1443,8 +1421,6 @@ class Engineering
      *
      * Excel Function:
      *        HEX2DEC(x)
-     *
-     * @category Engineering Functions
      *
      * @param string $x The hexadecimal number you want to convert. This number cannot
      *                                contain more than 10 characters (40 bits). The most significant
@@ -1494,8 +1470,6 @@ class Engineering
      *
      * Excel Function:
      *        HEX2OCT(x[,places])
-     *
-     * @category Engineering Functions
      *
      * @param string $x The hexadecimal number you want to convert. Number cannot
      *                                    contain more than 10 characters. The most significant bit of
@@ -1549,8 +1523,6 @@ class Engineering
      * Excel Function:
      *        OCT2BIN(x[,places])
      *
-     * @category Engineering Functions
-     *
      * @param string $x The octal number you want to convert. Number may not
      *                                    contain more than 10 characters. The most significant
      *                                    bit of number is the sign bit. The remaining 29 bits
@@ -1600,8 +1572,6 @@ class Engineering
      * Excel Function:
      *        OCT2DEC(x)
      *
-     * @category Engineering Functions
-     *
      * @param string $x The octal number you want to convert. Number may not contain
      *                                more than 10 octal characters (30 bits). The most significant
      *                                bit of number is the sign bit. The remaining 29 bits are
@@ -1645,8 +1615,6 @@ class Engineering
      *
      * Excel Function:
      *        OCT2HEX(x[,places])
-     *
-     * @category Engineering Functions
      *
      * @param string $x The octal number you want to convert. Number may not contain
      *                                    more than 10 octal characters (30 bits). The most significant
@@ -1693,8 +1661,6 @@ class Engineering
      * Excel Function:
      *        COMPLEX(realNumber,imaginary[,suffix])
      *
-     * @category Engineering Functions
-     *
      * @param float $realNumber the real coefficient of the complex number
      * @param float $imaginary the imaginary coefficient of the complex number
      * @param string $suffix The suffix for the imaginary component of the complex number.
@@ -1727,8 +1693,6 @@ class Engineering
      * Excel Function:
      *        IMAGINARY(complexNumber)
      *
-     * @category Engineering Functions
-     *
      * @param string $complexNumber the complex number for which you want the imaginary
      *                                         coefficient
      *
@@ -1748,8 +1712,6 @@ class Engineering
      *
      * Excel Function:
      *        IMREAL(complexNumber)
-     *
-     * @category Engineering Functions
      *
      * @param string $complexNumber the complex number for which you want the real coefficient
      *
@@ -2346,8 +2308,6 @@ class Engineering
      *
      * @param mixed $value
      *
-     * @throws Exception
-     *
      * @return int
      */
     private static function validateBitwiseArgument($value)
@@ -2359,7 +2319,7 @@ class Engineering
         } elseif (is_numeric($value)) {
             if ($value == (int) ($value)) {
                 $value = (int) ($value);
-                if (($value > pow(2, 48) - 1) || ($value < 0)) {
+                if (($value > 2 ** 48 - 1) || ($value < 0)) {
                     throw new Exception(Functions::NAN());
                 }
 
@@ -2379,8 +2339,6 @@ class Engineering
      *
      * Excel Function:
      *        BITAND(number1, number2)
-     *
-     * @category Engineering Functions
      *
      * @param int $number1
      * @param int $number2
@@ -2407,8 +2365,6 @@ class Engineering
      * Excel Function:
      *        BITOR(number1, number2)
      *
-     * @category Engineering Functions
-     *
      * @param int $number1
      * @param int $number2
      *
@@ -2433,8 +2389,6 @@ class Engineering
      *
      * Excel Function:
      *        BITXOR(number1, number2)
-     *
-     * @category Engineering Functions
      *
      * @param int $number1
      * @param int $number2
@@ -2461,8 +2415,6 @@ class Engineering
      * Excel Function:
      *        BITLSHIFT(number, shift_amount)
      *
-     * @category Engineering Functions
-     *
      * @param int $number
      * @param int $shiftAmount
      *
@@ -2479,7 +2431,7 @@ class Engineering
         $shiftAmount = Functions::flattenSingleValue($shiftAmount);
 
         $result = $number << $shiftAmount;
-        if ($result > pow(2, 48) - 1) {
+        if ($result > 2 ** 48 - 1) {
             return Functions::NAN();
         }
 
@@ -2493,8 +2445,6 @@ class Engineering
      *
      * Excel Function:
      *        BITRSHIFT(number, shift_amount)
-     *
-     * @category Engineering Functions
      *
      * @param int $number
      * @param int $shiftAmount

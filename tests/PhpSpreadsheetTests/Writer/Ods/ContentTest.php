@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Writer\Ods\Content;
+namespace PhpOffice\PhpSpreadsheetTests\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -16,14 +16,14 @@ use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
 {
-    private $samplesPath = __DIR__ . '/../../../data/Writer/Ods';
+    private $samplesPath = 'tests/data/Writer/Ods';
 
     /**
      * @var string
      */
     private $compatibilityMode;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -31,13 +31,13 @@ class ContentTest extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
-    public function testWriteEmptySpreadsheet()
+    public function testWriteEmptySpreadsheet(): void
     {
         $content = new Content(new Ods(new Spreadsheet()));
         $xml = $content->write();
@@ -45,7 +45,7 @@ class ContentTest extends TestCase
         self::assertXmlStringEqualsXmlFile($this->samplesPath . '/content-empty.xml', $xml);
     }
 
-    public function testWriteSpreadsheet()
+    public function testWriteSpreadsheet(): void
     {
         $workbook = new Spreadsheet();
 

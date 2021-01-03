@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class MonthTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
@@ -22,14 +22,14 @@ class MonthTest extends TestCase
      * @param mixed $expectedResult
      * @param $dateTimeValue
      */
-    public function testMONTH($expectedResult, $dateTimeValue)
+    public function testMONTH($expectedResult, $dateTimeValue): void
     {
         $result = DateTime::MONTHOFYEAR($dateTimeValue);
-        $this->assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerMONTH()
     {
-        return require 'data/Calculation/DateTime/MONTH.php';
+        return require 'tests/data/Calculation/DateTime/MONTH.php';
     }
 }

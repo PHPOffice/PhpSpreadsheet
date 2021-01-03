@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class RightTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class RightTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -30,14 +30,14 @@ class RightTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testRIGHT($expectedResult, ...$args)
+    public function testRIGHT($expectedResult, ...$args): void
     {
         $result = TextData::RIGHT(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerRIGHT()
     {
-        return require 'data/Calculation/TextData/RIGHT.php';
+        return require 'tests/data/Calculation/TextData/RIGHT.php';
     }
 }

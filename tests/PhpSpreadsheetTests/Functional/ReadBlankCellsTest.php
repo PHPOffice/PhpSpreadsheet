@@ -22,10 +22,9 @@ class ReadBlankCellsTest extends AbstractFunctional
      *
      * @dataProvider providerSheetFormat
      *
-     * @param array $arrayData
      * @param mixed $format
      */
-    public function testXlsxLoadWithNoBlankCells($format)
+    public function testXlsxLoadWithNoBlankCells($format): void
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->getCell('B2')->setValue('');
@@ -33,15 +32,15 @@ class ReadBlankCellsTest extends AbstractFunctional
         $spreadsheet->getActiveSheet()->getCell('C3')->setValue('C3');
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format);
-        $this->assertTrue($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('B2'));
-        $this->assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C2'));
-        $this->assertTrue($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C3'));
+        self::assertTrue($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('B2'));
+        self::assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C2'));
+        self::assertTrue($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C3'));
 
-        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function ($reader) {
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function ($reader): void {
             $reader->setReadEmptyCells(false);
         });
-        $this->assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('B2'));
-        $this->assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C2'));
-        $this->assertTrue($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C3'));
+        self::assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('B2'));
+        self::assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C2'));
+        self::assertTrue($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C3'));
     }
 }

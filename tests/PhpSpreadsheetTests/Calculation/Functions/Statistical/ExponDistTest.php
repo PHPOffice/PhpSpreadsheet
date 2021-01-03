@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ExponDistTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class ExponDistTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testEXPONDIST($expectedResult, ...$args)
+    public function testEXPONDIST($expectedResult, ...$args): void
     {
         $result = Statistical::EXPONDIST(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerEXPONDIST()
     {
-        return require 'data/Calculation/Statistical/EXPONDIST.php';
+        return require 'tests/data/Calculation/Statistical/EXPONDIST.php';
     }
 }

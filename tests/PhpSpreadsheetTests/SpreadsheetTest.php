@@ -11,7 +11,7 @@ class SpreadsheetTest extends TestCase
     /** @var Spreadsheet */
     private $object;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->object = new Spreadsheet();
@@ -49,8 +49,8 @@ class SpreadsheetTest extends TestCase
      *
      * @dataProvider dataProviderForSheetNames
      */
-    public function testGetSheetByName($index, $sheetName)
+    public function testGetSheetByName($index, $sheetName): void
     {
-        $this->assertEquals($this->object->getSheet($index), $this->object->getSheetByName($sheetName));
+        self::assertEquals($this->object->getSheet($index), $this->object->getSheetByName($sheetName));
     }
 }

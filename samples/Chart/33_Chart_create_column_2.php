@@ -15,20 +15,20 @@ $spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
-            ['', '', 'Budget', 'Forecast', 'Actual'],
-            ['2010', 'Q1', 47, 44, 43],
-            ['', 'Q2', 56, 53, 50],
-            ['', 'Q3', 52, 46, 45],
-            ['', 'Q4', 45, 40, 40],
-            ['2011', 'Q1', 51, 42, 46],
-            ['', 'Q2', 53, 58, 56],
-            ['', 'Q3', 64, 66, 69],
-            ['', 'Q4', 54, 55, 56],
-            ['2012', 'Q1', 49, 52, 58],
-            ['', 'Q2', 68, 73, 86],
-            ['', 'Q3', 72, 78, 0],
-            ['', 'Q4', 50, 60, 0],
-        ]
+        ['', '', 'Budget', 'Forecast', 'Actual'],
+        ['2010', 'Q1', 47, 44, 43],
+        ['', 'Q2', 56, 53, 50],
+        ['', 'Q3', 52, 46, 45],
+        ['', 'Q4', 45, 40, 40],
+        ['2011', 'Q1', 51, 42, 46],
+        ['', 'Q2', 53, 58, 56],
+        ['', 'Q3', 64, 66, 69],
+        ['', 'Q4', 54, 55, 56],
+        ['2012', 'Q1', 49, 52, 58],
+        ['', 'Q2', 68, 73, 86],
+        ['', 'Q3', 72, 78, 0],
+        ['', 'Q4', 50, 60, 0],
+    ]
 );
 
 // Set the Labels for each data series we want to plot
@@ -95,7 +95,7 @@ $chart = new Chart(
     $legend, // legend
     $plotArea, // plotArea
     true, // plotVisibleOnly
-    0, // displayBlanksAs
+    DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     $xAxisLabel, // xAxisLabel
     $yAxisLabel  // yAxisLabel
 );

@@ -16,13 +16,13 @@ class ImCosTest extends TestCase
      */
     protected $complexAssert;
 
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         $this->complexAssert = null;
     }
@@ -33,10 +33,10 @@ class ImCosTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMCOS($expectedResult, $value)
+    public function testIMCOS($expectedResult, $value): void
     {
         $result = Engineering::IMCOS($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -44,6 +44,6 @@ class ImCosTest extends TestCase
 
     public function providerIMCOS()
     {
-        return require 'data/Calculation/Engineering/IMCOS.php';
+        return require 'tests/data/Calculation/Engineering/IMCOS.php';
     }
 }

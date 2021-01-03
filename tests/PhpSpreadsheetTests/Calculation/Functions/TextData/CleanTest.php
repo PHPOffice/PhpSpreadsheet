@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class CleanTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class CleanTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -31,14 +31,14 @@ class CleanTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testCLEAN($expectedResult, $value)
+    public function testCLEAN($expectedResult, $value): void
     {
         $result = TextData::TRIMNONPRINTABLE($value);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerCLEAN()
     {
-        return require 'data/Calculation/TextData/CLEAN.php';
+        return require 'tests/data/Calculation/TextData/CLEAN.php';
     }
 }

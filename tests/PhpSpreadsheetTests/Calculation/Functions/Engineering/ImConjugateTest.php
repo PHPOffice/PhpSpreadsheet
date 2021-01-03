@@ -16,13 +16,13 @@ class ImConjugateTest extends TestCase
      */
     protected $complexAssert;
 
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         $this->complexAssert = null;
     }
@@ -33,10 +33,10 @@ class ImConjugateTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMCONJUGATE($expectedResult, $value)
+    public function testIMCONJUGATE($expectedResult, $value): void
     {
         $result = Engineering::IMCONJUGATE($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -44,6 +44,6 @@ class ImConjugateTest extends TestCase
 
     public function providerIMCONJUGATE()
     {
-        return require 'data/Calculation/Engineering/IMCONJUGATE.php';
+        return require 'tests/data/Calculation/Engineering/IMCONJUGATE.php';
     }
 }

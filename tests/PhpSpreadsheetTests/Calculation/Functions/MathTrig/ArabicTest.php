@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ArabicTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -19,14 +19,14 @@ class ArabicTest extends TestCase
      * @param mixed $expectedResult
      * @param string $romanNumeral
      */
-    public function testARABIC($expectedResult, $romanNumeral)
+    public function testARABIC($expectedResult, $romanNumeral): void
     {
         $result = MathTrig::ARABIC($romanNumeral);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerARABIC()
     {
-        return require 'data/Calculation/MathTrig/ARABIC.php';
+        return require 'tests/data/Calculation/MathTrig/ARABIC.php';
     }
 }

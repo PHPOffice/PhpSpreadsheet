@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase
 {
-    public function testGetUseUploadTempDirectory()
+    public function testGetUseUploadTempDirectory(): void
     {
         $expectedResult = false;
 
@@ -15,7 +15,7 @@ class FileTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSetUseUploadTempDirectory()
+    public function testSetUseUploadTempDirectory(): void
     {
         $useUploadTempDirectoryValues = [
             true,

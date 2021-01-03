@@ -103,7 +103,7 @@ class FormulaToken
      *
      * @param string $value
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = $value;
     }
@@ -123,7 +123,7 @@ class FormulaToken
      *
      * @param string $value
      */
-    public function setTokenType($value)
+    public function setTokenType($value): void
     {
         $this->tokenType = $value;
     }
@@ -143,7 +143,7 @@ class FormulaToken
      *
      * @param string $value
      */
-    public function setTokenSubType($value)
+    public function setTokenSubType($value): void
     {
         $this->tokenSubType = $value;
     }

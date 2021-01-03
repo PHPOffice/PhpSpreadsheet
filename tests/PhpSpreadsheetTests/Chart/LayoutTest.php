@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class LayoutTest extends TestCase
 {
-    public function testSetLayoutTarget()
+    public function testSetLayoutTarget(): void
     {
         $LayoutTargetValue = 'String';
 
@@ -17,7 +17,7 @@ class LayoutTest extends TestCase
         self::assertInstanceOf(Layout::class, $result);
     }
 
-    public function testGetLayoutTarget()
+    public function testGetLayoutTarget(): void
     {
         $LayoutTargetValue = 'String';
 

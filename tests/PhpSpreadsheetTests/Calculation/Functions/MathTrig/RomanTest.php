@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class RomanTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class RomanTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testROMAN($expectedResult, ...$args)
+    public function testROMAN($expectedResult, ...$args): void
     {
         $result = MathTrig::ROMAN(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerROMAN()
     {
-        return require 'data/Calculation/MathTrig/ROMAN.php';
+        return require 'tests/data/Calculation/MathTrig/ROMAN.php';
     }
 }

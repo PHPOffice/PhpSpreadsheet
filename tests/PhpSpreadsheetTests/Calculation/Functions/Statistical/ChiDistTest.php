@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ChiDistTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class ChiDistTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCHIDIST($expectedResult, ...$args)
+    public function testCHIDIST($expectedResult, ...$args): void
     {
         $result = Statistical::CHIDIST(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCHIDIST()
     {
-        return require 'data/Calculation/Statistical/CHIDIST.php';
+        return require 'tests/data/Calculation/Statistical/CHIDIST.php';
     }
 }

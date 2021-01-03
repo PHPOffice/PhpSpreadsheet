@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class NumberValueTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class NumberValueTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -29,16 +29,15 @@ class NumberValueTest extends TestCase
      * @dataProvider providerNUMBERVALUE
      *
      * @param mixed $expectedResult
-     * @param array $args
      */
-    public function testNUMBERVALUE($expectedResult, array $args)
+    public function testNUMBERVALUE($expectedResult, array $args): void
     {
         $result = TextData::NUMBERVALUE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerNUMBERVALUE()
     {
-        return require 'data/Calculation/TextData/NUMBERVALUE.php';
+        return require 'tests/data/Calculation/TextData/NUMBERVALUE.php';
     }
 }

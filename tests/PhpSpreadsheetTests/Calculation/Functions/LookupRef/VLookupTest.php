@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class VLookupTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class VLookupTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testVLOOKUP($expectedResult, ...$args)
+    public function testVLOOKUP($expectedResult, ...$args): void
     {
         $result = LookupRef::VLOOKUP(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerVLOOKUP()
     {
-        return require 'data/Calculation/LookupRef/VLOOKUP.php';
+        return require 'tests/data/Calculation/LookupRef/VLOOKUP.php';
     }
 }

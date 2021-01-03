@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CothTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -19,14 +19,14 @@ class CothTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $angle
      */
-    public function testCOTH($expectedResult, $angle)
+    public function testCOTH($expectedResult, $angle): void
     {
         $result = MathTrig::COTH($angle);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCOTH()
     {
-        return require 'data/Calculation/MathTrig/COTH.php';
+        return require 'tests/data/Calculation/MathTrig/COTH.php';
     }
 }

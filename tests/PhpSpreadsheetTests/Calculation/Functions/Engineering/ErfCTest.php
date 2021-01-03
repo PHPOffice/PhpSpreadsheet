@@ -10,7 +10,7 @@ class ErfCTest extends TestCase
 {
     const ERF_PRECISION = 1E-12;
 
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -20,14 +20,15 @@ class ErfCTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testERFC($expectedResult, ...$args)
+    public function testERFC($expectedResult, ...$args): void
     {
         $result = Engineering::ERFC(...$args);
-        $this->assertEquals($expectedResult, $result, '', self::ERF_PRECISION);
+        self::assertEquals($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
     public function providerERFC()
     {
-        return require 'data/Calculation/Engineering/ERFC.php';
+        return require 'tests/data/Calculation/Engineering/ERFC.php';
     }
 }

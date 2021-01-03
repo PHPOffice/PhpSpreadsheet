@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class EvenTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -19,14 +19,14 @@ class EvenTest extends TestCase
      * @param mixed $expectedResult
      * @param $value
      */
-    public function testEVEN($expectedResult, $value)
+    public function testEVEN($expectedResult, $value): void
     {
         $result = MathTrig::EVEN($value);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerEVEN()
     {
-        return require 'data/Calculation/MathTrig/EVEN.php';
+        return require 'tests/data/Calculation/MathTrig/EVEN.php';
     }
 }

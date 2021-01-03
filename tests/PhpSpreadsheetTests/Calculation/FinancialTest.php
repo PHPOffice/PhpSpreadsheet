@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class FinancialTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,15 +18,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testAMORDEGRC($expectedResult, ...$args)
+    public function testAMORDEGRC($expectedResult, ...$args): void
     {
         $result = Financial::AMORDEGRC(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerAMORDEGRC()
     {
-        return require 'data/Calculation/Financial/AMORDEGRC.php';
+        return require 'tests/data/Calculation/Financial/AMORDEGRC.php';
     }
 
     /**
@@ -34,15 +34,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testAMORLINC($expectedResult, ...$args)
+    public function testAMORLINC($expectedResult, ...$args): void
     {
         $result = Financial::AMORLINC(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerAMORLINC()
     {
-        return require 'data/Calculation/Financial/AMORLINC.php';
+        return require 'tests/data/Calculation/Financial/AMORLINC.php';
     }
 
     /**
@@ -50,15 +50,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUPDAYBS($expectedResult, ...$args)
+    public function testCOUPDAYBS($expectedResult, ...$args): void
     {
         $result = Financial::COUPDAYBS(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerCOUPDAYBS()
     {
-        return require 'data/Calculation/Financial/COUPDAYBS.php';
+        return require 'tests/data/Calculation/Financial/COUPDAYBS.php';
     }
 
     /**
@@ -66,15 +66,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUPDAYS($expectedResult, ...$args)
+    public function testCOUPDAYS($expectedResult, ...$args): void
     {
         $result = Financial::COUPDAYS(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerCOUPDAYS()
     {
-        return require 'data/Calculation/Financial/COUPDAYS.php';
+        return require 'tests/data/Calculation/Financial/COUPDAYS.php';
     }
 
     /**
@@ -82,15 +82,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUPDAYSNC($expectedResult, ...$args)
+    public function testCOUPDAYSNC($expectedResult, ...$args): void
     {
         $result = Financial::COUPDAYSNC(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerCOUPDAYSNC()
     {
-        return require 'data/Calculation/Financial/COUPDAYSNC.php';
+        return require 'tests/data/Calculation/Financial/COUPDAYSNC.php';
     }
 
     /**
@@ -98,15 +98,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUPNCD($expectedResult, ...$args)
+    public function testCOUPNCD($expectedResult, ...$args): void
     {
         $result = Financial::COUPNCD(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerCOUPNCD()
     {
-        return require 'data/Calculation/Financial/COUPNCD.php';
+        return require 'tests/data/Calculation/Financial/COUPNCD.php';
     }
 
     /**
@@ -114,15 +114,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUPNUM($expectedResult, ...$args)
+    public function testCOUPNUM($expectedResult, ...$args): void
     {
         $result = Financial::COUPNUM(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerCOUPNUM()
     {
-        return require 'data/Calculation/Financial/COUPNUM.php';
+        return require 'tests/data/Calculation/Financial/COUPNUM.php';
     }
 
     /**
@@ -130,15 +130,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOUPPCD($expectedResult, ...$args)
+    public function testCOUPPCD($expectedResult, ...$args): void
     {
         $result = Financial::COUPPCD(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerCOUPPCD()
     {
-        return require 'data/Calculation/Financial/COUPPCD.php';
+        return require 'tests/data/Calculation/Financial/COUPPCD.php';
     }
 
     /**
@@ -146,15 +146,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCUMIPMT($expectedResult, ...$args)
+    public function testCUMIPMT($expectedResult, ...$args): void
     {
         $result = Financial::CUMIPMT(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerCUMIPMT()
     {
-        return require 'data/Calculation/Financial/CUMIPMT.php';
+        return require 'tests/data/Calculation/Financial/CUMIPMT.php';
     }
 
     /**
@@ -162,15 +162,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCUMPRINC($expectedResult, ...$args)
+    public function testCUMPRINC($expectedResult, ...$args): void
     {
         $result = Financial::CUMPRINC(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerCUMPRINC()
     {
-        return require 'data/Calculation/Financial/CUMPRINC.php';
+        return require 'tests/data/Calculation/Financial/CUMPRINC.php';
     }
 
     /**
@@ -178,15 +178,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDB($expectedResult, ...$args)
+    public function testDB($expectedResult, ...$args): void
     {
         $result = Financial::DB(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDB()
     {
-        return require 'data/Calculation/Financial/DB.php';
+        return require 'tests/data/Calculation/Financial/DB.php';
     }
 
     /**
@@ -194,15 +194,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDDB($expectedResult, ...$args)
+    public function testDDB($expectedResult, ...$args): void
     {
         $result = Financial::DDB(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDDB()
     {
-        return require 'data/Calculation/Financial/DDB.php';
+        return require 'tests/data/Calculation/Financial/DDB.php';
     }
 
     /**
@@ -210,15 +210,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDISC($expectedResult, ...$args)
+    public function testDISC($expectedResult, ...$args): void
     {
         $result = Financial::DISC(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDISC()
     {
-        return require 'data/Calculation/Financial/DISC.php';
+        return require 'tests/data/Calculation/Financial/DISC.php';
     }
 
     /**
@@ -226,15 +226,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDOLLARDE($expectedResult, ...$args)
+    public function testDOLLARDE($expectedResult, ...$args): void
     {
         $result = Financial::DOLLARDE(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDOLLARDE()
     {
-        return require 'data/Calculation/Financial/DOLLARDE.php';
+        return require 'tests/data/Calculation/Financial/DOLLARDE.php';
     }
 
     /**
@@ -242,15 +242,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testDOLLARFR($expectedResult, ...$args)
+    public function testDOLLARFR($expectedResult, ...$args): void
     {
         $result = Financial::DOLLARFR(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerDOLLARFR()
     {
-        return require 'data/Calculation/Financial/DOLLARFR.php';
+        return require 'tests/data/Calculation/Financial/DOLLARFR.php';
     }
 
     /**
@@ -258,15 +258,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testEFFECT($expectedResult, ...$args)
+    public function testEFFECT($expectedResult, ...$args): void
     {
         $result = Financial::EFFECT(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerEFFECT()
     {
-        return require 'data/Calculation/Financial/EFFECT.php';
+        return require 'tests/data/Calculation/Financial/EFFECT.php';
     }
 
     /**
@@ -274,15 +274,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFV($expectedResult, ...$args)
+    public function testFV($expectedResult, ...$args): void
     {
         $result = Financial::FV(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerFV()
     {
-        return require 'data/Calculation/Financial/FV.php';
+        return require 'tests/data/Calculation/Financial/FV.php';
     }
 
     /**
@@ -290,15 +290,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFVSCHEDULE($expectedResult, ...$args)
+    public function testFVSCHEDULE($expectedResult, ...$args): void
     {
         $result = Financial::FVSCHEDULE(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerFVSCHEDULE()
     {
-        return require 'data/Calculation/Financial/FVSCHEDULE.php';
+        return require 'tests/data/Calculation/Financial/FVSCHEDULE.php';
     }
 
     /**
@@ -306,15 +306,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testINTRATE($expectedResult, ...$args)
+    public function testINTRATE($expectedResult, ...$args): void
     {
         $result = Financial::INTRATE(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerINTRATE()
     {
-        return require 'data/Calculation/Financial/INTRATE.php';
+        return require 'tests/data/Calculation/Financial/INTRATE.php';
     }
 
     /**
@@ -322,15 +322,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIPMT($expectedResult, ...$args)
+    public function testIPMT($expectedResult, ...$args): void
     {
         $result = Financial::IPMT(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIPMT()
     {
-        return require 'data/Calculation/Financial/IPMT.php';
+        return require 'tests/data/Calculation/Financial/IPMT.php';
     }
 
     /**
@@ -338,15 +338,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIRR($expectedResult, ...$args)
+    public function testIRR($expectedResult, ...$args): void
     {
         $result = Financial::IRR(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerIRR()
     {
-        return require 'data/Calculation/Financial/IRR.php';
+        return require 'tests/data/Calculation/Financial/IRR.php';
     }
 
     /**
@@ -354,15 +354,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testISPMT($expectedResult, ...$args)
+    public function testISPMT($expectedResult, ...$args): void
     {
         $result = Financial::ISPMT(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerISPMT()
     {
-        return require 'data/Calculation/Financial/ISPMT.php';
+        return require 'tests/data/Calculation/Financial/ISPMT.php';
     }
 
     /**
@@ -370,15 +370,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMIRR($expectedResult, ...$args)
+    public function testMIRR($expectedResult, ...$args): void
     {
         $result = Financial::MIRR(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerMIRR()
     {
-        return require 'data/Calculation/Financial/MIRR.php';
+        return require 'tests/data/Calculation/Financial/MIRR.php';
     }
 
     /**
@@ -386,15 +386,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNOMINAL($expectedResult, ...$args)
+    public function testNOMINAL($expectedResult, ...$args): void
     {
         $result = Financial::NOMINAL(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerNOMINAL()
     {
-        return require 'data/Calculation/Financial/NOMINAL.php';
+        return require 'tests/data/Calculation/Financial/NOMINAL.php';
     }
 
     /**
@@ -402,15 +402,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNPER($expectedResult, ...$args)
+    public function testNPER($expectedResult, ...$args): void
     {
         $result = Financial::NPER(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerNPER()
     {
-        return require 'data/Calculation/Financial/NPER.php';
+        return require 'tests/data/Calculation/Financial/NPER.php';
     }
 
     /**
@@ -418,15 +418,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNPV($expectedResult, ...$args)
+    public function testNPV($expectedResult, ...$args): void
     {
         $result = Financial::NPV(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerNPV()
     {
-        return require 'data/Calculation/Financial/NPV.php';
+        return require 'tests/data/Calculation/Financial/NPV.php';
     }
 
     /**
@@ -434,17 +434,34 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPRICE($expectedResult, ...$args)
+    public function testPRICE($expectedResult, ...$args): void
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $result = Financial::PRICE(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
     }
 
     public function providerPRICE()
     {
-        return require 'data/Calculation/Financial/PRICE.php';
+        return require 'tests/data/Calculation/Financial/PRICE.php';
+    }
+
+    /**
+     * @dataProvider providerPRICE3
+     *
+     * @param mixed $expectedResult
+     */
+    public function testPRICE3($expectedResult, ...$args): void
+    {
+        // These results (PRICE function with basis codes 2 and 3)
+        // agree with published algorithm, LibreOffice, and Gnumeric.
+        // They do not agree with Excel.
+        $result = Financial::PRICE(...$args);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
+    }
+
+    public function providerPRICE3()
+    {
+        return require 'tests/data/Calculation/Financial/PRICE3.php';
     }
 
     /**
@@ -452,15 +469,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPRICEDISC($expectedResult, array $args)
+    public function testPRICEDISC($expectedResult, array $args): void
     {
         $result = Financial::PRICEDISC(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerPRICEDISC()
     {
-        return require 'data/Calculation/Financial/PRICEDISC.php';
+        return require 'tests/data/Calculation/Financial/PRICEDISC.php';
     }
 
     /**
@@ -468,15 +485,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPV($expectedResult, array $args)
+    public function testPV($expectedResult, array $args): void
     {
         $result = Financial::PV(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerPV()
     {
-        return require 'data/Calculation/Financial/PV.php';
+        return require 'tests/data/Calculation/Financial/PV.php';
     }
 
     /**
@@ -484,17 +501,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testRATE($expectedResult, ...$args)
+    public function testRATE($expectedResult, ...$args): void
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $result = Financial::RATE(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerRATE()
     {
-        return require 'data/Calculation/Financial/RATE.php';
+        return require 'tests/data/Calculation/Financial/RATE.php';
     }
 
     /**
@@ -503,15 +518,48 @@ class FinancialTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $message
      */
-    public function testXIRR($expectedResult, $message, ...$args)
+    public function testXIRR($expectedResult, $message, ...$args): void
     {
         $result = Financial::XIRR(...$args);
-        self::assertEquals($expectedResult, $result, $message, Financial::FINANCIAL_PRECISION);
+        if (is_numeric($result) && is_numeric($expectedResult)) {
+            if ($expectedResult != 0) {
+                $frac = $result / $expectedResult;
+                if ($frac > 0.999999 && $frac < 1.000001) {
+                    $result = $expectedResult;
+                }
+            }
+        }
+        self::assertEquals($expectedResult, $result, $message);
     }
 
     public function providerXIRR()
     {
-        return require 'data/Calculation/Financial/XIRR.php';
+        return require 'tests/data/Calculation/Financial/XIRR.php';
+    }
+
+    /**
+     * @dataProvider providerXNPV
+     *
+     * @param mixed $expectedResult
+     * @param mixed $message
+     */
+    public function testXNPV($expectedResult, $message, ...$args): void
+    {
+        $result = Financial::XNPV(...$args);
+        if (is_numeric($result) && is_numeric($expectedResult)) {
+            if ($expectedResult != 0) {
+                $frac = $result / $expectedResult;
+                if ($frac > 0.999999 && $frac < 1.000001) {
+                    $result = $expectedResult;
+                }
+            }
+        }
+        self::assertEquals($expectedResult, $result, $message);
+    }
+
+    public function providerXNPV()
+    {
+        return require 'tests/data/Calculation/Financial/XNPV.php';
     }
 
     /**
@@ -519,15 +567,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testPDURATION($expectedResult, array $args)
+    public function testPDURATION($expectedResult, array $args): void
     {
         $result = Financial::PDURATION(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerPDURATION()
     {
-        return require 'data/Calculation/Financial/PDURATION.php';
+        return require 'tests/data/Calculation/Financial/PDURATION.php';
     }
 
     /**
@@ -535,15 +583,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testRRI($expectedResult, array $args)
+    public function testRRI($expectedResult, array $args): void
     {
         $result = Financial::RRI(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerRRI()
     {
-        return require 'data/Calculation/Financial/RRI.php';
+        return require 'tests/data/Calculation/Financial/RRI.php';
     }
 
     /**
@@ -551,15 +599,15 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSLN($expectedResult, array $args)
+    public function testSLN($expectedResult, array $args): void
     {
         $result = Financial::SLN(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerSLN()
     {
-        return require 'data/Calculation/Financial/SLN.php';
+        return require 'tests/data/Calculation/Financial/SLN.php';
     }
 
     /**
@@ -567,14 +615,14 @@ class FinancialTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSYD($expectedResult, array $args)
+    public function testSYD($expectedResult, array $args): void
     {
         $result = Financial::SYD(...$args);
-        self::assertEquals($expectedResult, $result, '', 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
     public function providerSYD()
     {
-        return require 'data/Calculation/Financial/SYD.php';
+        return require 'tests/data/Calculation/Financial/SYD.php';
     }
 }

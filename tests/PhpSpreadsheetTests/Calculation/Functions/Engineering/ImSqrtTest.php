@@ -16,13 +16,13 @@ class ImSqrtTest extends TestCase
      */
     protected $complexAssert;
 
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         $this->complexAssert = null;
     }
@@ -33,10 +33,10 @@ class ImSqrtTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testIMSQRT($expectedResult, $value)
+    public function testIMSQRT($expectedResult, $value): void
     {
         $result = Engineering::IMSQRT($value);
-        $this->assertTrue(
+        self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
         );
@@ -44,6 +44,6 @@ class ImSqrtTest extends TestCase
 
     public function providerIMSQRT()
     {
-        return require 'data/Calculation/Engineering/IMSQRT.php';
+        return require 'tests/data/Calculation/Engineering/IMSQRT.php';
     }
 }

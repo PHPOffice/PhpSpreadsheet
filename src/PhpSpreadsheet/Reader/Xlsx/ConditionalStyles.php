@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use SimpleXMLElement;
 
 class ConditionalStyles
 {
@@ -13,14 +14,14 @@ class ConditionalStyles
 
     private $dxfs;
 
-    public function __construct(Worksheet $workSheet, \SimpleXMLElement $worksheetXml, array $dxfs = [])
+    public function __construct(Worksheet $workSheet, SimpleXMLElement $worksheetXml, array $dxfs = [])
     {
         $this->worksheet = $workSheet;
         $this->worksheetXml = $worksheetXml;
         $this->dxfs = $dxfs;
     }
 
-    public function load()
+    public function load(): void
     {
         $this->setConditionalStyles(
             $this->worksheet,
@@ -48,7 +49,7 @@ class ConditionalStyles
         return $conditionals;
     }
 
-    private function setConditionalStyles(Worksheet $worksheet, array $conditionals)
+    private function setConditionalStyles(Worksheet $worksheet, array $conditionals): void
     {
         foreach ($conditionals as $ref => $cfRules) {
             ksort($cfRules);

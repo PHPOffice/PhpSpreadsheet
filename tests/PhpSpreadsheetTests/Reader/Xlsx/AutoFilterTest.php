@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter as WorksheetAutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
+use SimpleXMLElement;
 
 class AutoFilterTest extends TestCase
 {
@@ -18,7 +19,7 @@ class AutoFilterTest extends TestCase
 
     private function getXMLInstance($ref)
     {
-        return new \SimpleXMLElement(
+        return new SimpleXMLElement(
             '<?xml version="1.0" encoding="UTF-8"?>' .
             '<root>' .
                 '<autoFilter ref="' . $ref . '"></autoFilter>' .
@@ -50,15 +51,15 @@ class AutoFilterTest extends TestCase
      * @param int $expectedReadAutoFilterCalled
      * @param string $expectedRef
      */
-    public function testLoad($ref, $expectedReadAutoFilterCalled, $expectedRef)
+    public function testLoad($ref, $expectedReadAutoFilterCalled, $expectedRef): void
     {
         $worksheetAutoFilter = $this->getAutoFilterInstance();
-        $worksheetAutoFilter->expects($this->exactly($expectedReadAutoFilterCalled ? 1 : 0))
+        $worksheetAutoFilter->expects(self::exactly($expectedReadAutoFilterCalled ? 1 : 0))
             ->method('setRange')
             ->with($expectedRef);
 
         $worksheet = $this->getWorksheetInstance();
-        $worksheet->expects($this->exactly($expectedReadAutoFilterCalled ? 1 : 0))
+        $worksheet->expects(self::exactly($expectedReadAutoFilterCalled ? 1 : 0))
             ->method('getAutoFilter')
             ->willReturn($worksheetAutoFilter);
 

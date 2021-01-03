@@ -8,7 +8,7 @@ topic lists some of the options to access a cell.
 Setting a cell value by coordinate can be done using the worksheet's
 `setCellValue()` method.
 
-``` php
+```php
 // Set cell A1 with a string value
 $spreadsheet->getActiveSheet()->setCellValue('A1', 'PhpSpreadsheet');
 
@@ -28,7 +28,7 @@ $spreadsheet->getActiveSheet()->setCellValue(
 Alternatively, you can retrieve the cell object, and then call the
 cell’s `setValue()` method:
 
-``` php
+```php
 $spreadsheet->getActiveSheet()
     ->getCell('B8')
     ->setValue('Some value');
@@ -56,7 +56,7 @@ the cell object will still retain its data values.
 
 What does this mean? Consider the following code:
 
-```
+```php
 $spreadSheet = new Spreadsheet();
 $workSheet = $spreadSheet->getActiveSheet();
 
@@ -74,7 +74,7 @@ $cellA1 = $workSheet->getCell('A1');
 echo 'Value: ', $cellA1->getValue(), '; Address: ', $cellA1->getCoordinate(), PHP_EOL;
 
 echo 'Value: ', $cellC1->getValue(), '; Address: ', $cellC1->getCoordinate(), PHP_EOL;
-``` 
+```
 
 The call to `getCell('C1')` returns the cell at `C1` containing its value (`3`),
 together with its link to the collection (used to identify its
@@ -153,7 +153,7 @@ was a formula.
 
 To do this, you need to "escape" the value by setting it as "quoted text".
 
-```
+```php
 // Set cell A4 with a formula
 $spreadsheet->getActiveSheet()->setCellValue(
     'A4',
@@ -175,7 +175,7 @@ point value), and a number format mask is used to show how that value
 should be formatted; so if we want to store a date in a cell, we need to
 calculate the correct Excel timestamp, and set a number format mask.
 
-``` php
+```php
 // Get the current date/time and convert to an Excel date/time
 $dateTimeNow = time();
 $excelDateValue = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel( $dateTimeNow );
@@ -210,7 +210,7 @@ behaviour.
 Firstly, you can set the datatype explicitly as a string so that it is
 not converted to a number.
 
-``` php
+```php
 // Set cell A8 with a numeric value, but tell PhpSpreadsheet it should be treated as a string
 $spreadsheet->getActiveSheet()->setCellValueExplicit(
     'A8',
@@ -222,7 +222,7 @@ $spreadsheet->getActiveSheet()->setCellValueExplicit(
 Alternatively, you can use a number format mask to display the value
 with leading zeroes.
 
-``` php
+```php
 // Set cell A9 with a numeric value
 $spreadsheet->getActiveSheet()->setCellValue('A9', 1513789642);
 // Set a number format mask to display the value as 11 digits with leading zeroes
@@ -236,7 +236,7 @@ $spreadsheet->getActiveSheet()->getStyle('A9')
 With number format masking, you can even break up the digits into groups
 to make the value more easily readable.
 
-``` php
+```php
 // Set cell A10 with a numeric value
 $spreadsheet->getActiveSheet()->setCellValue('A10', 1513789642);
 // Set a number format mask to display the value as 11 digits with leading zeroes
@@ -259,7 +259,7 @@ writers (Xlsx and Xls).
 It is also possible to set a range of cell values in a single call by
 passing an array of values to the `fromArray()` method.
 
-``` php
+```php
 $arrayData = [
     [NULL, 2010, 2011, 2012],
     ['Q1',   12,   15,   21],
@@ -282,7 +282,7 @@ If you pass a 2-d array, then this will be treated as a series of rows
 and columns. A 1-d array will be treated as a single row, which is
 particularly useful if you're fetching an array of data from a database.
 
-``` php
+```php
 $rowArray = ['Value1', 'Value2', 'Value3', 'Value4'];
 $spreadsheet->getActiveSheet()
     ->fromArray(
@@ -299,7 +299,7 @@ If you have a simple 1-d array, and want to write it as a column, then
 the following will convert it into an appropriately structured 2-d array
 that can be fed to the `fromArray()` method:
 
-``` php
+```php
 $rowArray = ['Value1', 'Value2', 'Value3', 'Value4'];
 $columnArray = array_chunk($rowArray, 1);
 $spreadsheet->getActiveSheet()
@@ -319,7 +319,7 @@ To retrieve the value of a cell, the cell should first be retrieved from
 the worksheet using the `getCell()` method. A cell's value can be read
 using the `getValue()` method.
 
-``` php
+```php
 // Get the value from cell A1
 $cellValue = $spreadsheet->getActiveSheet()->getCell('A1')->getValue();
 ```
@@ -331,7 +331,7 @@ value rather than the formula itself, then use the cell's
 `getCalculatedValue()` method. This is further explained in
 [the calculation engine](./calculation-engine.md).
 
-``` php
+```php
 // Get the value from cell A4
 $cellValue = $spreadsheet->getActiveSheet()->getCell('A4')->getCalculatedValue();
 ```
@@ -340,7 +340,7 @@ Alternatively, if you want to see the value with any cell formatting
 applied (e.g. for a human-readable date or time value), then you can use
 the cell's `getFormattedValue()` method.
 
-``` php
+```php
 // Get the value from cell A6
 $cellValue = $spreadsheet->getActiveSheet()->getCell('A6')->getFormattedValue();
 ```
@@ -350,7 +350,7 @@ $cellValue = $spreadsheet->getActiveSheet()->getCell('A6')->getFormattedValue();
 Setting a cell value by coordinate can be done using the worksheet's
 `setCellValueByColumnAndRow()` method.
 
-``` php
+```php
 // Set cell A5 with a string value
 $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(1, 5, 'PhpSpreadsheet');
 ```
@@ -363,7 +363,7 @@ To retrieve the value of a cell, the cell should first be retrieved from
 the worksheet using the `getCellByColumnAndRow()` method. A cell’s value can
 be read again using the following line of code:
 
-``` php
+```php
 // Get the value from cell B5
 $cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, 5)->getValue();
 ```
@@ -371,7 +371,7 @@ $cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, 5)->getVal
 If you need the calculated value of a cell, use the following code. This
 is further explained in [the calculation engine](./calculation-engine.md).
 
-``` php
+```php
 // Get the value from cell A4
 $cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, 4)->getCalculatedValue();
 ```
@@ -382,7 +382,7 @@ It is also possible to retrieve a range of cell values to an array in a
 single call using the `toArray()`, `rangeToArray()` or
 `namedRangeToArray()` methods.
 
-``` php
+```php
 $dataArray = $spreadsheet->getActiveSheet()
     ->rangeToArray(
         'C3:E5',     // The worksheet range that we want to retrieve
@@ -409,7 +409,7 @@ cells within a row.
 Below is an example where we read all the values in a worksheet and
 display them in a table.
 
-``` php
+```php
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $reader->setReadDataOnly(TRUE);
 $spreadsheet = $reader->load("test.xlsx");
@@ -456,7 +456,7 @@ loops.
 Below is an example where we read all the values in a worksheet and
 display them in a table.
 
-``` php
+```php
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $reader->setReadDataOnly(TRUE);
 $spreadsheet = $reader->load("test.xlsx");
@@ -482,7 +482,7 @@ echo '</table>' . PHP_EOL;
 Alternatively, you can take advantage of PHP's "Perl-style" character
 incrementors to loop through the cells by coordinate:
 
-``` php
+```php
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $reader->setReadDataOnly(TRUE);
 $spreadsheet = $reader->load("test.xlsx");
@@ -528,7 +528,7 @@ dates entered as strings to the correct format, also setting the cell's
 style information. The following example demonstrates how to set the
 value binder in PhpSpreadsheet:
 
-``` php
+```php
 /** PhpSpreadsheet */
 require_once 'src/Boostrap.php';
 

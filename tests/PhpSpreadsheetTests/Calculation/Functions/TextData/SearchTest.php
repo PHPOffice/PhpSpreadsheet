@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class SearchTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -17,7 +17,7 @@ class SearchTest extends TestCase
         StringHelper::setCurrencyCode('$');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         StringHelper::setDecimalSeparator('.');
@@ -30,14 +30,14 @@ class SearchTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSEARCH($expectedResult, ...$args)
+    public function testSEARCH($expectedResult, ...$args): void
     {
         $result = TextData::SEARCHINSENSITIVE(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerSEARCH()
     {
-        return require 'data/Calculation/TextData/SEARCH.php';
+        return require 'tests/data/Calculation/TextData/SEARCH.php';
     }
 }

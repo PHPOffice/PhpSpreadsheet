@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class SeriesSumTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class SeriesSumTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSERIESSUM($expectedResult, ...$args)
+    public function testSERIESSUM($expectedResult, ...$args): void
     {
         $result = MathTrig::SERIESSUM(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSERIESSUM()
     {
-        return require 'data/Calculation/MathTrig/SERIESSUM.php';
+        return require 'tests/data/Calculation/MathTrig/SERIESSUM.php';
     }
 }

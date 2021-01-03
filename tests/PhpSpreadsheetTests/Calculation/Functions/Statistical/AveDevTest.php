@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class AveDevTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class AveDevTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testAVEDEV($expectedResult, ...$args)
+    public function testAVEDEV($expectedResult, ...$args): void
     {
         $result = Statistical::AVEDEV(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerAVEDEV()
     {
-        return require 'data/Calculation/Statistical/AVEDEV.php';
+        return require 'tests/data/Calculation/Statistical/AVEDEV.php';
     }
 }

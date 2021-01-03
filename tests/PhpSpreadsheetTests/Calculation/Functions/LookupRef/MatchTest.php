@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class MatchTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class MatchTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testMATCH($expectedResult, ...$args)
+    public function testMATCH($expectedResult, ...$args): void
     {
         $result = LookupRef::MATCH(...$args);
-        $this->assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerMATCH()
     {
-        return require 'data/Calculation/LookupRef/MATCH.php';
+        return require 'tests/data/Calculation/LookupRef/MATCH.php';
     }
 }

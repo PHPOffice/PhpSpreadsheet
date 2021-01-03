@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class SumX2PY2Test extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
@@ -18,14 +18,14 @@ class SumX2PY2Test extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testSUMX2PY2($expectedResult, ...$args)
+    public function testSUMX2PY2($expectedResult, ...$args): void
     {
         $result = MathTrig::SUMX2PY2(...$args);
-        $this->assertEquals($expectedResult, $result, '', 1E-12);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerSUMX2PY2()
     {
-        return require 'data/Calculation/MathTrig/SUMX2PY2.php';
+        return require 'tests/data/Calculation/MathTrig/SUMX2PY2.php';
     }
 }
