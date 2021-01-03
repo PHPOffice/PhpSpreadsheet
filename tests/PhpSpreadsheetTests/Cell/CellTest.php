@@ -46,4 +46,23 @@ class CellTest extends TestCase
     {
         return require 'tests/data/Cell/SetValueExplicitException.php';
     }
+
+    public function testNoChangeToActiveSheet(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet1 = $spreadsheet->getActiveSheet();
+        $sheet1->setTitle('Sheet 1');
+        $sheet3 = $spreadsheet->createSheet();
+        $sheet3->setTitle('Sheet 3');
+        $sheet1->setCellValue('C1', 123);
+        $sheet1->setCellValue('D1', 124);
+        $sheet3->setCellValue('A1', "='Sheet 1'!C1+'Sheet 1'!D1");
+        $sheet1->setCellValue('A1', "='Sheet 3'!A1");
+        $cell = 'A1';
+        $spreadsheet->setActiveSheetIndex(0);
+        self::assertEquals(0, $spreadsheet->getActiveSheetIndex());
+        $value = $spreadsheet->getActiveSheet()->getCell($cell)->getCalculatedValue();
+        self::assertEquals(0, $spreadsheet->getActiveSheetIndex());
+        self::assertEquals(247, $value);
+    }
 }

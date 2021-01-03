@@ -97,6 +97,20 @@ return [
         -1,
     ],
 
+    // match on ranges with empty cells
+    [
+        3, // Expected
+        4, // Input
+        [1, null, 4, null, 8],
+        1,
+    ],
+    [
+        3, // Expected
+        5, // Input
+        [1, null, 4, null, null],
+        1,
+    ],
+
     // 0s are causing errors, because things like 0 == 'x' is true. Thanks PHP!
     [
         3,
@@ -164,6 +178,19 @@ return [
         6,
         [true, false, 'a', 'z', 222222, 2, 99999999],
         -1,
+    ],
+    // when mixing numeric types
+    [
+        4, // Expected
+        4.6,
+        [1, 2, 3, 4, 5],
+        1,
+    ],
+    [
+        4, // Expected
+        4,
+        [1, 2, 3, 3.8, 5],
+        1,
     ],
     // if element of same data type met and it is < than searched one #N/A - no further processing
     [

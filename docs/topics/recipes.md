@@ -976,7 +976,7 @@ $spreadsheet->getActiveSheet()->getStyle('B1')
 
 ## Reading protected spreadsheet
 
-Spreadsheets that are protected the as described above can always be read by
+Spreadsheets that are protected as described above can always be read by
 PhpSpreadsheet. There is no need to know the password or do anything special in
 order to read a protected file.
 

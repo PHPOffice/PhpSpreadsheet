@@ -1112,7 +1112,7 @@ class Worksheet extends WriterPart
     {
         $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $pCell->getCalculatedValue() : $cellValue;
         if (is_string($calculatedValue)) {
-            if (substr($calculatedValue, 0, 1) === '#') {
+            if (\PhpOffice\PhpSpreadsheet\Calculation\Functions::isError($calculatedValue)) {
                 $this->writeCellError($objWriter, 'e', $cellValue, $calculatedValue);
 
                 return;
