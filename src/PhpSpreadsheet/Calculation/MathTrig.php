@@ -851,7 +851,7 @@ class MathTrig
         $multiple = Functions::flattenSingleValue($multiple);
 
         if ((is_numeric($number)) && (is_numeric($multiple))) {
-            if ($multiple == 0) {
+            if ($number == 0 || $multiple == 0) {
                 return 0;
             }
             if ((self::SIGN($number)) == (self::SIGN($multiple))) {
