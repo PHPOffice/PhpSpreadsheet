@@ -126,6 +126,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Column width and Row height styles in the Html Reader when the value includes a unit of measure. [Issue #2145](https://github.com/PHPOffice/PhpSpreadsheet/issues/2145).
 - Data Validation flags not set correctly when reading XLSX files. [Issue #2224](https://github.com/PHPOffice/PhpSpreadsheet/issues/2224) [PR #2225](https://github.com/PHPOffice/PhpSpreadsheet/pull/2225)
 - Reading XLSX files without styles.xml throws an exception. [Issue #2246](https://github.com/PHPOffice/PhpSpreadsheet/issues/2246) 
+- Improved performance of `Style::applyFromArray()` when applied to several cells. [PR #1785](https://github.com/PHPOffice/PhpSpreadsheet/issues/1785).
 
 ## 1.18.0 - 2021-05-31
 
