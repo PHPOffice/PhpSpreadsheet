@@ -39,6 +39,13 @@ class MathTrig
         return ($num - ($num % $n)) / $n;
     }
 
+    private static function strSplit(string $roman): array
+    {
+        $rslt = str_split($roman);
+
+        return is_array($rslt) ? $rslt : [];
+    }
+
     /**
      * ARABIC.
      *
@@ -66,7 +73,7 @@ class MathTrig
         }
 
         try {
-            $arabic = self::calculateArabic(str_split($roman));
+            $arabic = self::calculateArabic(self::strSplit($roman));
         } catch (Exception $e) {
             return Functions::VALUE(); // Invalid character detected
         }

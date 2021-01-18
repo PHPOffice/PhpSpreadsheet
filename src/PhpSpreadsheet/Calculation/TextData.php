@@ -162,7 +162,7 @@ class TextData
         if (!is_numeric($value) || !is_numeric($decimals)) {
             return Functions::VALUE();
         }
-        $decimals = floor($decimals);
+        $decimals = (int) $decimals;
 
         $mask = '$#,##0';
         if ($decimals > 0) {

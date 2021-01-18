@@ -44,6 +44,6 @@ class TanTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getCell('A1')->setValue($formula);
         $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertTrue(abs($result) > 1E15);
+        self::assertTrue(abs((float) $result) > 1E15);
     }
 }
