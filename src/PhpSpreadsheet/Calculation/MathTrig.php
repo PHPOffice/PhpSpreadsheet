@@ -2218,7 +2218,7 @@ class MathTrig
             return Functions::VALUE();
         }
 
-        return tan($number);
+        return (abs(cos($number)) > 1.0E-12) ? tan($number) : Functions::DIV0();
     }
 
     /**

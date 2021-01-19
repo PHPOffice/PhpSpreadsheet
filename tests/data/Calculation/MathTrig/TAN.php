@@ -7,5 +7,7 @@ return [
     [1.557408, 1],
     [-2.185040, 2],
     [1, M_PI / 4],
-    //[0, M_PI / 2], // Should be infinity, but just gets very large number
+    ['#DIV/0!', M_PI_2],
+    ['#DIV/0!', -M_PI_2],
+    ['#DIV/0!', 3 * M_PI_2],
 ];
