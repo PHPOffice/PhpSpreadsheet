@@ -191,7 +191,7 @@ class Xml extends BaseReader
 
         $xml_ss = $xml->children($namespaces['ss']);
         foreach ($xml_ss->Worksheet as $worksheet) {
-            $worksheet_ss = $worksheet->attributes($namespaces['ss']);
+            $worksheet_ss = self::getAttributes($worksheet, $namespaces['ss']);
             $worksheetNames[] = (string) $worksheet_ss['Name'];
         }
 
@@ -381,13 +381,13 @@ class Xml extends BaseReader
         }
         if (isset($xml->CustomDocumentProperties)) {
             foreach ($xml->CustomDocumentProperties[0] as $propertyName => $propertyValue) {
-                $propertyAttributes = $propertyValue->attributes($namespaces['dt']);
+                $propertyAttributes = self::getAttributes($propertyValue, $namespaces['dt']);
                 $propertyName = preg_replace_callback('/_x([0-9a-f]{4})_/i', ['self', 'hex2str'], $propertyName);
                 $propertyType = Properties::PROPERTY_TYPE_UNKNOWN;
                 switch ((string) $propertyAttributes) {
                     case 'string':
                         $propertyType = Properties::PROPERTY_TYPE_STRING;
-                        $propertyValue = trim($propertyValue);
+                        $propertyValue = trim((string) $propertyValue);
 
                         break;
                     case 'boolean':
@@ -444,7 +444,7 @@ class Xml extends BaseReader
             // locally scoped defined names
             if (isset($worksheet->Names[0])) {
                 foreach ($worksheet->Names[0] as $definedName) {
-                    $definedName_ss = $definedName->attributes($namespaces['ss']);
+                    $definedName_ss = self::getAttributes($definedName, $namespaces['ss']);
                     $name = (string) $definedName_ss['Name'];
                     $definedValue = (string) $definedName_ss['RefersTo'];
                     $convertedValue = AddressHelper::convertFormulaToA1($definedValue);
@@ -458,7 +458,7 @@ class Xml extends BaseReader
             $columnID = 'A';
             if (isset($worksheet->Table->Column)) {
                 foreach ($worksheet->Table->Column as $columnData) {
-                    $columnData_ss = $columnData->attributes($namespaces['ss']);
+                    $columnData_ss = self::getAttributes($columnData, $namespaces['ss']);
                     if (isset($columnData_ss['Index'])) {
                         $columnID = Coordinate::stringFromColumnIndex((int) $columnData_ss['Index']);
                     }
@@ -475,14 +475,14 @@ class Xml extends BaseReader
                 $additionalMergedCells = 0;
                 foreach ($worksheet->Table->Row as $rowData) {
                     $rowHasData = false;
-                    $row_ss = $rowData->attributes($namespaces['ss']);
+                    $row_ss = self::getAttributes($rowData, $namespaces['ss']);
                     if (isset($row_ss['Index'])) {
                         $rowID = (int) $row_ss['Index'];
                     }
 
                     $columnID = 'A';
                     foreach ($rowData->Cell as $cell) {
-                        $cell_ss = $cell->attributes($namespaces['ss']);
+                        $cell_ss = self::getAttributes($cell, $namespaces['ss']);
                         if (isset($cell_ss['Index'])) {
                             $columnID = Coordinate::stringFromColumnIndex((int) $cell_ss['Index']);
                         }
@@ -587,7 +587,7 @@ class Xml extends BaseReader
                                 $author = (string) $commentAttributes->Author;
                             }
                             $node = $cell->Comment->Data->asXML();
-                            $annotation = strip_tags($node);
+                            $annotation = strip_tags((string) $node);
                             $spreadsheet->getActiveSheet()->getComment($columnID . $rowID)->setAuthor($author)->setText($this->parseRichText($annotation));
                         }
 
@@ -610,7 +610,7 @@ class Xml extends BaseReader
                     if ($rowHasData) {
                         if (isset($row_ss['Height'])) {
                             $rowHeight = $row_ss['Height'];
-                            $spreadsheet->getActiveSheet()->getRowDimension($rowID)->setRowHeight($rowHeight);
+                            $spreadsheet->getActiveSheet()->getRowDimension($rowID)->setRowHeight((float) $rowHeight);
                         }
                     }
 
@@ -662,10 +662,11 @@ class Xml extends BaseReader
         }
 
         foreach ($xml->Styles[0] as $style) {
-            $style_ss = $style->attributes($namespaces['ss']);
+            $style_ss = self::getAttributes($style, $namespaces['ss']);
             $styleID = (string) $style_ss['ID'];
             $this->styles[$styleID] = (isset($this->styles['Default'])) ? $this->styles['Default'] : [];
-            foreach ($style as $styleType => $styleData) {
+            foreach ($style as $styleType => $styleDatax) {
+                $styleData = $styleDatax ?? new SimpleXMLElement();
                 $styleAttributes = $styleData->attributes($namespaces['ss']);
                 switch ($styleType) {
                     case 'Alignment':
@@ -750,15 +751,16 @@ class Xml extends BaseReader
         $diagonalDirection = '';
         $borderPosition = '';
         foreach ($styleData->Border as $borderStyle) {
-            $borderAttributes = $borderStyle->attributes($namespaces['ss']);
+            $borderAttributes = self::getAttributes($borderStyle, $namespaces['ss']);
             $thisBorder = [];
             $style = (string) $borderAttributes->Weight;
             $style .= strtolower((string) $borderAttributes->LineStyle);
             $thisBorder['borderStyle'] = self::$mappings['borderStyle'][$style] ?? Border::BORDER_NONE;
-            foreach ($borderAttributes as $borderStyleKey => $borderStyleValue) {
+            foreach ($borderAttributes as $borderStyleKey => $borderStyleValuex) {
+                $borderStyleValue = (string) $borderStyleValuex;
                 switch ($borderStyleKey) {
                     case 'Position':
-                        $borderStyleValue = strtolower((string) $borderStyleValue);
+                        $borderStyleValue = strtolower($borderStyleValue);
                         if (in_array($borderStyleValue, self::$borderPositions)) {
                             $borderPosition = $borderStyleValue;
                         } elseif ($borderStyleValue == 'diagonalleft') {
@@ -782,6 +784,11 @@ class Xml extends BaseReader
                 $this->styles[$styleID]['borders']['diagonal'] = $thisBorder;
             }
         }
+    }
+
+    private static function getAttributes(?SimpleXMLElement $simple, string $node): SimpleXMLElement
+    {
+        return ($simple === null) ? new SimpleXMLElement() : $simple->attributes($node);
     }
 
     private static $underlineStyles = [
@@ -854,7 +861,8 @@ class Xml extends BaseReader
      */
     private function parseStyleInterior($styleID, SimpleXMLElement $styleAttributes): void
     {
-        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
+        foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValuex) {
+            $styleAttributeValue = (string) $styleAttributeValuex;
             switch ($styleAttributeKey) {
                 case 'Color':
                     $this->styles[$styleID]['fill']['endColor']['rgb'] = substr($styleAttributeValue, 1);
