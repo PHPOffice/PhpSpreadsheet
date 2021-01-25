@@ -28,7 +28,7 @@ class Hyperlinks
 
     public function setHyperlinks(SimpleXMLElement $worksheetXml): void
     {
-        foreach ($worksheetXml->hyperlink as $hyperlink) {
+        foreach ($worksheetXml->hyperlink->children() as $hyperlink) {
             $this->setHyperlink($hyperlink, $this->worksheet);
         }
     }
