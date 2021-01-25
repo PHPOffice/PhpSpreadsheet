@@ -221,7 +221,7 @@ class Xml extends BaseReader
         $worksheetID = 1;
         $xml_ss = $xml->children($namespaces['ss']);
         foreach ($xml_ss->Worksheet as $worksheet) {
-            $worksheet_ss = $worksheet->attributes($namespaces['ss']);
+            $worksheet_ss = self::getAttributes($worksheet, $namespaces['ss']);
 
             $tmpInfo = [];
             $tmpInfo['worksheetName'] = '';
@@ -407,7 +407,7 @@ class Xml extends BaseReader
                         break;
                     case 'dateTime.tz':
                         $propertyType = Properties::PROPERTY_TYPE_DATE;
-                        $propertyValue = strtotime(trim($propertyValue));
+                        $propertyValue = strtotime(trim((string) $propertyValue));
 
                         break;
                 }
@@ -421,7 +421,7 @@ class Xml extends BaseReader
         $xml_ss = $xml->children($namespaces['ss']);
 
         foreach ($xml_ss->Worksheet as $worksheet) {
-            $worksheet_ss = $worksheet->attributes($namespaces['ss']);
+            $worksheet_ss = self::getAttributes($worksheet, $namespaces['ss']);
 
             if (
                 (isset($this->loadSheetsOnly)) && (isset($worksheet_ss['Name'])) &&
@@ -524,7 +524,7 @@ class Xml extends BaseReader
                             $cellData = $cell->Data;
                             $cellValue = (string) $cellData;
                             $type = DataType::TYPE_NULL;
-                            $cellData_ss = $cellData->attributes($namespaces['ss']);
+                            $cellData_ss = self::getAttributes($cellData, $namespaces['ss']);
                             if (isset($cellData_ss['Type'])) {
                                 $cellDataType = $cellData_ss['Type'];
                                 switch ($cellDataType) {
@@ -631,7 +631,7 @@ class Xml extends BaseReader
         $activeWorksheet = $spreadsheet->setActiveSheetIndex(0);
         if (isset($xml->Names[0])) {
             foreach ($xml->Names[0] as $definedName) {
-                $definedName_ss = $definedName->attributes($namespaces['ss']);
+                $definedName_ss = self::getAttributes($definedName, $namespaces['ss']);
                 $name = (string) $definedName_ss['Name'];
                 $definedValue = (string) $definedName_ss['RefersTo'];
                 $convertedValue = AddressHelper::convertFormulaToA1($definedValue);
@@ -666,7 +666,7 @@ class Xml extends BaseReader
             $styleID = (string) $style_ss['ID'];
             $this->styles[$styleID] = (isset($this->styles['Default'])) ? $this->styles['Default'] : [];
             foreach ($style as $styleType => $styleDatax) {
-                $styleData = $styleDatax ?? new SimpleXMLElement();
+                $styleData = $styleDatax ?? new SimpleXMLElement('<xml></xml>');
                 $styleAttributes = $styleData->attributes($namespaces['ss']);
                 switch ($styleType) {
                     case 'Alignment':
@@ -788,7 +788,7 @@ class Xml extends BaseReader
 
     private static function getAttributes(?SimpleXMLElement $simple, string $node): SimpleXMLElement
     {
-        return ($simple === null) ? new SimpleXMLElement() : $simple->attributes($node);
+        return ($simple === null) ? new SimpleXMLElement('<xml></xml>') : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
     }
 
     private static $underlineStyles = [
