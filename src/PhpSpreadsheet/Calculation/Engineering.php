@@ -444,7 +444,7 @@ class Engineering
             //    Two's Complement
             return str_repeat('F', 8) . substr(strtoupper(dechex((int) bindec(substr($x, -9)))), -2);
         }
-        $hexVal = (string) strtoupper(dechex(bindec($x)));
+        $hexVal = (string) strtoupper(dechex((int) bindec($x)));
 
         return self::nbrConversionFormat($hexVal, $places);
     }
@@ -497,7 +497,7 @@ class Engineering
             //    Two's Complement
             return str_repeat('7', 7) . substr(strtoupper(decoct((int) bindec(substr($x, -9)))), -3);
         }
-        $octVal = (string) decoct(bindec($x));
+        $octVal = (string) decoct((int) bindec($x));
 
         return self::nbrConversionFormat($octVal, $places);
     }
@@ -546,7 +546,7 @@ class Engineering
             return Functions::VALUE();
         }
 
-        $x = floor((float) $x);
+        $x = (int) floor((float) $x);
         if ($x < -512 || $x > 511) {
             return Functions::NAN();
         }
@@ -604,7 +604,7 @@ class Engineering
         if (strlen($x) > preg_match_all('/[-0123456789.]/', $x, $out)) {
             return Functions::VALUE();
         }
-        $x = (string) floor((float) $x);
+        $x = (int) floor((float) $x);
         $r = strtoupper(dechex($x));
         if (strlen($r) == 8) {
             //    Two's Complement
@@ -658,7 +658,7 @@ class Engineering
         if (strlen($x) > preg_match_all('/[-0123456789.]/', $x, $out)) {
             return Functions::VALUE();
         }
-        $x = (string) floor((float) $x);
+        $x = (int) floor((float) $x);
         $r = decoct($x);
         if (strlen($r) == 11) {
             //    Two's Complement
@@ -945,7 +945,7 @@ class Engineering
         if (preg_match_all('/[01234567]/', $x, $out) != strlen($x)) {
             return Functions::NAN();
         }
-        $hexVal = strtoupper(dechex(self::OCTTODEC((int) $x)));
+        $hexVal = strtoupper(dechex((int) self::OCTTODEC((int) $x)));
 
         return self::nbrConversionFormat($hexVal, $places);
     }
