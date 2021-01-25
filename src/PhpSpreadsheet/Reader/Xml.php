@@ -420,7 +420,8 @@ class Xml extends BaseReader
         $worksheetID = 0;
         $xml_ss = $xml->children($namespaces['ss']);
 
-        foreach ($xml_ss->Worksheet as $worksheet) {
+        foreach ($xml_ss->Worksheet as $worksheetx) {
+            $worksheet = ($worksheetx === null) ? new SimpleXMLElement('<xml></xml>') : $worksheetx;
             $worksheet_ss = self::getAttributes($worksheet, $namespaces['ss']);
 
             if (
