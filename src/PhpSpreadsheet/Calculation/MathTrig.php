@@ -1673,7 +1673,7 @@ class MathTrig
 
         $result = cos($angle);
 
-        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+        return self::verySmallDivisor($result) ? Functions::DIV0() : (1 / $result);
     }
 
     /**
@@ -1717,7 +1717,7 @@ class MathTrig
 
         $result = sin($angle);
 
-        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+        return self::verySmallDivisor($result) ? Functions::DIV0() : (1 / $result);
     }
 
     /**
@@ -1759,9 +1759,9 @@ class MathTrig
             return Functions::VALUE();
         }
 
-        $result = tan($angle);
+        $result = sin($angle);
 
-        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+        return self::verySmallDivisor($result) ? Functions::DIV0() : (cos($angle) / $result);
     }
 
     /**
@@ -2218,7 +2218,7 @@ class MathTrig
             return Functions::VALUE();
         }
 
-        return (abs(cos($number)) > 1.0E-12) ? tan($number) : Functions::DIV0();
+        return self::verySmallDivisor(cos($number)) ? Functions::DIV0() : tan($number);
     }
 
     /**
@@ -2239,5 +2239,10 @@ class MathTrig
         }
 
         return tanh($number);
+    }
+
+    private static function verySmallDivisor(float $number): bool
+    {
+        return abs($number) < 1.0E-12;
     }
 }
