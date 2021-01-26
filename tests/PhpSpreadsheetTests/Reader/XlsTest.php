@@ -43,4 +43,39 @@ class XlsTest extends AbstractFunctional
         self::assertEquals($sheet->getCell('A1')->getFormattedValue(), $newsheet->getCell('A1')->getFormattedValue());
         self::assertEquals($sheet->getCell("$col$row")->getFormattedValue(), $newsheet->getCell("$col$row")->getFormattedValue());
     }
+
+    /**
+     * Test load Xls file with invalid length in SST map.
+     */
+    public function testLoadXlsBug1592(): void
+    {
+        $filename = 'tests/data/Reader/XLS/bug1592.xls';
+        $reader = new Xls();
+        // When no fix applied, spreadsheet is not loaded
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        $col = $sheet->getHighestColumn();
+        $row = $sheet->getHighestRow();
+
+        $newspreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
+        $newsheet = $newspreadsheet->getActiveSheet();
+        $newcol = $newsheet->getHighestColumn();
+        $newrow = $newsheet->getHighestRow();
+
+        self::assertEquals($spreadsheet->getSheetCount(), $newspreadsheet->getSheetCount());
+        self::assertEquals($sheet->getTitle(), $newsheet->getTitle());
+        self::assertEquals($sheet->getColumnDimensions(), $newsheet->getColumnDimensions());
+        self::assertEquals($col, $newcol);
+        self::assertEquals($row, $newrow);
+
+        $rowIterator = $sheet->getRowIterator();
+
+        foreach ($rowIterator as $row) {
+            foreach ($row->getCellIterator() as $cell) {
+                $valOld = $cell->getFormattedValue();
+                $valNew = $newsheet->getCell($cell->getCoordinate())->getFormattedValue();
+                self::assertEquals($valOld, $valNew);
+            }
+        }
+    }
 }

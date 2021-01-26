@@ -311,4 +311,15 @@ class Fill extends Supervisor
             __CLASS__
         );
     }
+
+    protected function exportArray1(): array
+    {
+        $exportedArray = [];
+        $this->exportArray2($exportedArray, 'endColor', $this->getEndColor());
+        $this->exportArray2($exportedArray, 'fillType', $this->getFillType());
+        $this->exportArray2($exportedArray, 'rotation', $this->getRotation());
+        $this->exportArray2($exportedArray, 'startColor', $this->getStartColor());
+
+        return $exportedArray;
+    }
 }
