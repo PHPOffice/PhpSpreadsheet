@@ -337,7 +337,13 @@ class Html extends BaseReader
                     ->getText()
                     ->createTextRun($child->textContent);
             }
+            if ($cellContent > '') {
+                $cellContent .= ' ';
+            }
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
+            if ($cellContent > '') {
+                $cellContent .= ' ';
+            }
 
             if (isset($this->formats[$child->nodeName])) {
                 $sheet->getStyle($column . $row)->applyFromArray($this->formats[$child->nodeName]);
