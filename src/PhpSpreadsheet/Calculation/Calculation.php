@@ -228,7 +228,7 @@ class Calculation
     private static $phpSpreadsheetFunctions = [
         'ABS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'abs',
+            'functionCall' => [MathTrig::class, 'builtinABS'],
             'argumentCount' => '1',
         ],
         'ACCRINT' => [
@@ -243,12 +243,12 @@ class Calculation
         ],
         'ACOS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'acos',
+            'functionCall' => [MathTrig::class, 'builtinACOS'],
             'argumentCount' => '1',
         ],
         'ACOSH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'acosh',
+            'functionCall' => [MathTrig::class, 'builtinACOSH'],
             'argumentCount' => '1',
         ],
         'ACOT' => [
@@ -303,17 +303,17 @@ class Calculation
         ],
         'ASIN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'asin',
+            'functionCall' => [MathTrig::class, 'builtinASIN'],
             'argumentCount' => '1',
         ],
         'ASINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'asinh',
+            'functionCall' => [MathTrig::class, 'builtinASINH'],
             'argumentCount' => '1',
         ],
         'ATAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'atan',
+            'functionCall' => [MathTrig::class, 'builtinATAN'],
             'argumentCount' => '1',
         ],
         'ATAN2' => [
@@ -323,7 +323,7 @@ class Calculation
         ],
         'ATANH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'atanh',
+            'functionCall' => [MathTrig::class, 'builtinATANH'],
             'argumentCount' => '1',
         ],
         'AVEDEV' => [
@@ -604,12 +604,12 @@ class Calculation
         ],
         'COS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'cos',
+            'functionCall' => [MathTrig::class, 'builtinCOS'],
             'argumentCount' => '1',
         ],
         'COSH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'cosh',
+            'functionCall' => [MathTrig::class, 'builtinCOSH'],
             'argumentCount' => '1',
         ],
         'COT' => [
@@ -834,7 +834,7 @@ class Calculation
         ],
         'DEGREES' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'rad2deg',
+            'functionCall' => [MathTrig::class, 'builtinDEGREES'],
             'argumentCount' => '1',
         ],
         'DELTA' => [
@@ -974,7 +974,7 @@ class Calculation
         ],
         'EXP' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'exp',
+            'functionCall' => [MathTrig::class, 'builtinEXP'],
             'argumentCount' => '1',
         ],
         'EXPONDIST' => [
@@ -1565,7 +1565,7 @@ class Calculation
         ],
         'LN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'log',
+            'functionCall' => [MathTrig::class, 'builtinLN'],
             'argumentCount' => '1',
         ],
         'LOG' => [
@@ -1575,7 +1575,7 @@ class Calculation
         ],
         'LOG10' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'log10',
+            'functionCall' => [MathTrig::class, 'builtinLOG10'],
             'argumentCount' => '1',
         ],
         'LOGEST' => [
@@ -2037,7 +2037,7 @@ class Calculation
         ],
         'RADIANS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'deg2rad',
+            'functionCall' => [MathTrig::class, 'builtinRADIANS'],
             'argumentCount' => '1',
         ],
         'RAND' => [
@@ -2092,7 +2092,7 @@ class Calculation
         ],
         'REPT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => 'str_repeat',
+            'functionCall' => [TextData::class, 'builtinREPT'],
             'argumentCount' => '2',
         ],
         'RIGHT' => [
@@ -2112,7 +2112,7 @@ class Calculation
         ],
         'ROUND' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'round',
+            'functionCall' => [MathTrig::class, 'builtinROUND'],
             'argumentCount' => '2',
         ],
         'ROUNDDOWN' => [
@@ -2203,12 +2203,12 @@ class Calculation
         ],
         'SIN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'sin',
+            'functionCall' => [MathTrig::class, 'builtinSIN'],
             'argumentCount' => '1',
         ],
         'SINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'sinh',
+            'functionCall' => [MathTrig::class, 'builtinSINH'],
             'argumentCount' => '1',
         ],
         'SKEW' => [
@@ -2248,7 +2248,7 @@ class Calculation
         ],
         'SQRT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'sqrt',
+            'functionCall' => [MathTrig::class, 'builtinSQRT'],
             'argumentCount' => '1',
         ],
         'SQRTPI' => [
@@ -2364,12 +2364,12 @@ class Calculation
         ],
         'TAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'tan',
+            'functionCall' => [MathTrig::class, 'builtinTAN'],
             'argumentCount' => '1',
         ],
         'TANH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'tanh',
+            'functionCall' => [MathTrig::class, 'builtinTANH'],
             'argumentCount' => '1',
         ],
         'TBILLEQ' => [

@@ -39,6 +39,13 @@ class MathTrig
         return ($num - ($num % $n)) / $n;
     }
 
+    private static function strSplit(string $roman): array
+    {
+        $rslt = str_split($roman);
+
+        return is_array($rslt) ? $rslt : [];
+    }
+
     /**
      * ARABIC.
      *
@@ -66,7 +73,7 @@ class MathTrig
         }
 
         try {
-            $arabic = self::calculateArabic(str_split($roman));
+            $arabic = self::calculateArabic(self::strSplit($roman));
         } catch (Exception $e) {
             return Functions::VALUE(); // Invalid character detected
         }
@@ -1666,7 +1673,7 @@ class MathTrig
 
         $result = cos($angle);
 
-        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+        return self::verySmallDivisor($result) ? Functions::DIV0() : (1 / $result);
     }
 
     /**
@@ -1710,7 +1717,7 @@ class MathTrig
 
         $result = sin($angle);
 
-        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+        return self::verySmallDivisor($result) ? Functions::DIV0() : (1 / $result);
     }
 
     /**
@@ -1752,9 +1759,9 @@ class MathTrig
             return Functions::VALUE();
         }
 
-        $result = tan($angle);
+        $result = sin($angle);
 
-        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+        return self::verySmallDivisor($result) ? Functions::DIV0() : (cos($angle) / $result);
     }
 
     /**
@@ -1800,6 +1807,18 @@ class MathTrig
     }
 
     /**
+     * Return NAN or value depending on argument.
+     *
+     * @param float $result Number
+     *
+     * @return float|string
+     */
+    public static function numberOrNan($result)
+    {
+        return is_nan($result) ? Functions::NAN() : $result;
+    }
+
+    /**
      * ACOTH.
      *
      * Returns the hyperbolic arccotangent of a number.
@@ -1818,6 +1837,412 @@ class MathTrig
 
         $result = log(($number + 1) / ($number - 1)) / 2;
 
-        return is_nan($result) ? Functions::NAN() : $result;
+        return self::numberOrNan($result);
+    }
+
+    /**
+     * ROUND.
+     *
+     * Returns the result of builtin function round after validating args.
+     *
+     * @param mixed $number Should be numeric
+     * @param mixed $precision Should be int
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinROUND($number, $precision)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number) || !is_numeric($precision)) {
+            return Functions::VALUE();
+        }
+
+        return round($number, $precision);
+    }
+
+    /**
+     * ABS.
+     *
+     * Returns the result of builtin function abs after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|int|string Rounded number
+     */
+    public static function builtinABS($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return abs($number);
+    }
+
+    /**
+     * ACOS.
+     *
+     * Returns the result of builtin function acos after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinACOS($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return self::numberOrNan(acos($number));
+    }
+
+    /**
+     * ACOSH.
+     *
+     * Returns the result of builtin function acosh after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinACOSH($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return self::numberOrNan(acosh($number));
+    }
+
+    /**
+     * ASIN.
+     *
+     * Returns the result of builtin function asin after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinASIN($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return self::numberOrNan(asin($number));
+    }
+
+    /**
+     * ASINH.
+     *
+     * Returns the result of builtin function asinh after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinASINH($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return asinh($number);
+    }
+
+    /**
+     * ASIN.
+     *
+     * Returns the result of builtin function atan after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinATAN($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return self::numberOrNan(atan($number));
+    }
+
+    /**
+     * ATANH.
+     *
+     * Returns the result of builtin function atanh after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinATANH($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return atanh($number);
+    }
+
+    /**
+     * COS.
+     *
+     * Returns the result of builtin function cos after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinCOS($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return cos($number);
+    }
+
+    /**
+     * COSH.
+     *
+     * Returns the result of builtin function cos after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinCOSH($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return cosh($number);
+    }
+
+    /**
+     * DEGREES.
+     *
+     * Returns the result of builtin function rad2deg after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinDEGREES($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return rad2deg($number);
+    }
+
+    /**
+     * EXP.
+     *
+     * Returns the result of builtin function exp after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinEXP($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return exp($number);
+    }
+
+    /**
+     * LN.
+     *
+     * Returns the result of builtin function log after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinLN($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return log($number);
+    }
+
+    /**
+     * LOG10.
+     *
+     * Returns the result of builtin function log after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinLOG10($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return log10($number);
+    }
+
+    /**
+     * RADIANS.
+     *
+     * Returns the result of builtin function deg2rad after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinRADIANS($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return deg2rad($number);
+    }
+
+    /**
+     * SIN.
+     *
+     * Returns the result of builtin function sin after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinSIN($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return sin($number);
+    }
+
+    /**
+     * SINH.
+     *
+     * Returns the result of builtin function sinh after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinSINH($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return sinh($number);
+    }
+
+    /**
+     * SQRT.
+     *
+     * Returns the result of builtin function sqrt after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinSQRT($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return self::numberOrNan(sqrt($number));
+    }
+
+    /**
+     * TAN.
+     *
+     * Returns the result of builtin function tan after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinTAN($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return self::verySmallDivisor(cos($number)) ? Functions::DIV0() : tan($number);
+    }
+
+    /**
+     * TANH.
+     *
+     * Returns the result of builtin function sinh after validating args.
+     *
+     * @param mixed $number Should be numeric
+     *
+     * @return float|string Rounded number
+     */
+    public static function builtinTANH($number)
+    {
+        $number = Functions::flattenSingleValue($number);
+
+        if (!is_numeric($number)) {
+            return Functions::VALUE();
+        }
+
+        return tanh($number);
+    }
+
+    private static function verySmallDivisor(float $number): bool
+    {
+        return abs($number) < 1.0E-12;
     }
 }
