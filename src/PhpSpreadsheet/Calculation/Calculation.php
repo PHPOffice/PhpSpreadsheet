@@ -2697,10 +2697,8 @@ class Calculation
      *
      * @param ?Spreadsheet $spreadsheet Injected spreadsheet for working with a PhpSpreadsheet Spreadsheet object,
      *                                    or NULL to create a standalone claculation engine
-     *
-     * @return Calculation
      */
-    public static function getInstance(?Spreadsheet $spreadsheet = null): Calculation
+    public static function getInstance(?Spreadsheet $spreadsheet = null): self
     {
         if ($spreadsheet !== null) {
             $instance = $spreadsheet->getCalculationEngine();
@@ -2738,8 +2736,6 @@ class Calculation
 
     /**
      * __clone implementation. Cloning should not be allowed in a Singleton!
-     *
-     * @throws Exception
      */
     final public function __clone()
     {
