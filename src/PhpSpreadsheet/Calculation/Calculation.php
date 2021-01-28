@@ -2695,12 +2695,12 @@ class Calculation
     /**
      * Get an instance of this class.
      *
-     * @param Spreadsheet $spreadsheet Injected spreadsheet for working with a PhpSpreadsheet Spreadsheet object,
+     * @param ?Spreadsheet $spreadsheet Injected spreadsheet for working with a PhpSpreadsheet Spreadsheet object,
      *                                    or NULL to create a standalone claculation engine
      *
      * @return Calculation
      */
-    public static function getInstance(?Spreadsheet $spreadsheet = null)
+    public static function getInstance(?Spreadsheet $spreadsheet = null): Calculation
     {
         if ($spreadsheet !== null) {
             $instance = $spreadsheet->getCalculationEngine();
@@ -2738,6 +2738,8 @@ class Calculation
 
     /**
      * __clone implementation. Cloning should not be allowed in a Singleton!
+     *
+     * @throws Exception
      */
     final public function __clone()
     {
@@ -2749,7 +2751,7 @@ class Calculation
      *
      * @return string locale-specific translation of TRUE
      */
-    public static function getTRUE()
+    public static function getTRUE(): string
     {
         return self::$localeBoolean['TRUE'];
     }
@@ -2759,7 +2761,7 @@ class Calculation
      *
      * @return string locale-specific translation of FALSE
      */
-    public static function getFALSE()
+    public static function getFALSE(): string
     {
         return self::$localeBoolean['FALSE'];
     }
