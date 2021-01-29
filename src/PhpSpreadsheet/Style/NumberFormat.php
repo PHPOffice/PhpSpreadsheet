@@ -870,4 +870,12 @@ class NumberFormat extends Supervisor
 
         return $value;
     }
+
+    protected function exportArray1(): array
+    {
+        $exportedArray = [];
+        $this->exportArray2($exportedArray, 'formatCode', $this->getFormatCode());
+
+        return $exportedArray;
+    }
 }

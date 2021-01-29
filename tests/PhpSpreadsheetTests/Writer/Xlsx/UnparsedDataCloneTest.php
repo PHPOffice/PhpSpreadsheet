@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PHPUnit\Framework\TestCase;
+use ZipArchive;
 
 class UnparsedDataCloneTest extends TestCase
 {
@@ -34,19 +35,20 @@ class UnparsedDataCloneTest extends TestCase
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
         $writer->save($resultFilename);
         $dupname = 'Unable to open saved file';
-        $zip = zip_open($resultFilename);
-        if (is_resource($zip)) {
+
+        $zip = new ZipArchive();
+        if ($zip->open($resultFilename) !== false) {
             $names = [];
             $dupname = '';
-            while ($zip_entry = zip_read($zip)) {
-                $zipname = zip_entry_name($zip_entry);
-                if (in_array($zipname, $names)) {
-                    $dupname .= "$zipname,";
+            for ($index = 0; $index < $zip->numFiles; ++$index) {
+                $filename = $zip->getNameIndex($index);
+                if (in_array($filename, $names)) {
+                    $dupname .= "$filename,";
                 } else {
-                    $names[] = $zipname;
+                    $names[] = $filename;
                 }
             }
-            zip_close($zip);
+            $zip->close();
         }
         unlink($resultFilename);
         self::assertEquals('', $dupname);

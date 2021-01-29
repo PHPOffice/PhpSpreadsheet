@@ -9,6 +9,21 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Csv extends BaseReader
 {
+    const UTF8_BOM = "\xEF\xBB\xBF";
+    const UTF8_BOM_LEN = 3;
+    const UTF16BE_BOM = "\xfe\xff";
+    const UTF16BE_BOM_LEN = 2;
+    const UTF16BE_LF = "\x00\x0a";
+    const UTF16LE_BOM = "\xff\xfe";
+    const UTF16LE_BOM_LEN = 2;
+    const UTF16LE_LF = "\x0a\x00";
+    const UTF32BE_BOM = "\x00\x00\xfe\xff";
+    const UTF32BE_BOM_LEN = 4;
+    const UTF32BE_LF = "\x00\x00\x00\x0a";
+    const UTF32LE_BOM = "\xff\xfe\x00\x00";
+    const UTF32LE_BOM_LEN = 4;
+    const UTF32LE_LF = "\x0a\x00\x00\x00";
+
     /**
      * Input encoding.
      *
@@ -90,12 +105,8 @@ class Csv extends BaseReader
     {
         rewind($this->fileHandle);
 
-        switch ($this->inputEncoding) {
-            case 'UTF-8':
-                fgets($this->fileHandle, 4) == "\xEF\xBB\xBF" ?
-                    fseek($this->fileHandle, 3) : fseek($this->fileHandle, 0);
-
-                break;
+        if (fgets($this->fileHandle, self::UTF8_BOM_LEN + 1) !== self::UTF8_BOM) {
+            rewind($this->fileHandle);
         }
     }
 
@@ -213,7 +224,9 @@ class Csv extends BaseReader
     private function getNextLine()
     {
         $line = '';
-        $enclosure = '(?<!' . preg_quote($this->escapeCharacter, '/') . ')' . preg_quote($this->enclosure, '/');
+        $enclosure = ($this->escapeCharacter === '' ? ''
+            : ('(?<!' . preg_quote($this->escapeCharacter, '/') . ')'))
+            . preg_quote($this->enclosure, '/');
 
         do {
             // Get the next line in the file
@@ -307,7 +320,7 @@ class Csv extends BaseReader
             $this->fileHandle = fopen('php://memory', 'r+b');
             $data = StringHelper::convertEncoding($entireFile, 'UTF-8', $this->inputEncoding);
             fwrite($this->fileHandle, $data);
-            rewind($this->fileHandle);
+            $this->skipBOM();
         }
     }
 
@@ -523,11 +536,71 @@ class Csv extends BaseReader
         // Attempt to guess mimetype
         $type = mime_content_type($pFilename);
         $supportedTypes = [
+            'application/csv',
             'text/csv',
             'text/plain',
             'inode/x-empty',
         ];
 
         return in_array($type, $supportedTypes, true);
+    }
+
+    private static function guessEncodingTestNoBom(string &$encoding, string &$contents, string $compare, string $setEncoding): void
+    {
+        if ($encoding === '') {
+            $pos = strpos($contents, $compare);
+            if ($pos !== false && $pos % strlen($compare) === 0) {
+                $encoding = $setEncoding;
+            }
+        }
+    }
+
+    private static function guessEncodingNoBom(string $filename): string
+    {
+        $encoding = '';
+        $contents = file_get_contents($filename);
+        self::guessEncodingTestNoBom($encoding, $contents, self::UTF32BE_LF, 'UTF-32BE');
+        self::guessEncodingTestNoBom($encoding, $contents, self::UTF32LE_LF, 'UTF-32LE');
+        self::guessEncodingTestNoBom($encoding, $contents, self::UTF16BE_LF, 'UTF-16BE');
+        self::guessEncodingTestNoBom($encoding, $contents, self::UTF16LE_LF, 'UTF-16LE');
+        if ($encoding === '' && preg_match('//u', $contents) === 1) {
+            $encoding = 'UTF-8';
+        }
+
+        return $encoding;
+    }
+
+    private static function guessEncodingTestBom(string &$encoding, string $first4, string $compare, string $setEncoding): void
+    {
+        if ($encoding === '') {
+            if ($compare === substr($first4, 0, strlen($compare))) {
+                $encoding = $setEncoding;
+            }
+        }
+    }
+
+    private static function guessEncodingBom(string $filename): string
+    {
+        $encoding = '';
+        $first4 = file_get_contents($filename, false, null, 0, 4);
+        if ($first4 !== false) {
+            self::guessEncodingTestBom($encoding, $first4, self::UTF8_BOM, 'UTF-8');
+            self::guessEncodingTestBom($encoding, $first4, self::UTF16BE_BOM, 'UTF-16BE');
+            self::guessEncodingTestBom($encoding, $first4, self::UTF32BE_BOM, 'UTF-32BE');
+            self::guessEncodingTestBom($encoding, $first4, self::UTF32LE_BOM, 'UTF-32LE');
+            self::guessEncodingTestBom($encoding, $first4, self::UTF16LE_BOM, 'UTF-16LE');
+        }
+
+        return $encoding;
+    }
+
+    public static function guessEncoding(string $filename, string $dflt = 'CP1252'): string
+    {
+        $encoding = self::guessEncodingBom($filename);
+        if ($encoding === '') {
+            $encoding = self::guessEncodingNoBom($filename);
+        }
+
+        return ($encoding === '') ? $dflt : $encoding;
     }
 }

@@ -43,13 +43,6 @@ class Style extends Supervisor
     protected $numberFormat;
 
     /**
-     * Conditional styles.
-     *
-     * @var Conditional[]
-     */
-    protected $conditionalStyles;
-
-    /**
      * Protection.
      *
      * @var Protection
@@ -85,7 +78,6 @@ class Style extends Supervisor
         parent::__construct($isSupervisor);
 
         // Initialise values
-        $this->conditionalStyles = [];
         $this->font = new Font($isSupervisor, $isConditional);
         $this->fill = new Fill($isSupervisor, $isConditional);
         $this->borders = new Borders($isSupervisor, $isConditional);
@@ -212,6 +204,8 @@ class Style extends Supervisor
             $rangeEnd = Coordinate::coordinateFromString($rangeB);
 
             // Translate column into index
+            $rangeStart0 = $rangeStart[0];
+            $rangeEnd0 = $rangeEnd[0];
             $rangeStart[0] = Coordinate::columnIndexFromString($rangeStart[0]);
             $rangeEnd[0] = Coordinate::columnIndexFromString($rangeEnd[0]);
 
@@ -361,6 +355,13 @@ class Style extends Supervisor
                     for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
                         $oldXfIndexes[$this->getActiveSheet()->getColumnDimensionByColumn($col)->getXfIndex()] = true;
                     }
+                    foreach ($this->getActiveSheet()->getColumnIterator($rangeStart0, $rangeEnd0) as $columnIterator) {
+                        $cellIterator = $columnIterator->getCellIterator();
+                        $cellIterator->setIterateOnlyExistingCells(true);
+                        foreach ($cellIterator as $columnCell) {
+                            $columnCell->getStyle()->applyFromArray($pStyles);
+                        }
+                    }
 
                     break;
                 case 'ROW':
@@ -370,6 +371,13 @@ class Style extends Supervisor
                             $oldXfIndexes[0] = true; // row without explicit style should be formatted based on default style
                         } else {
                             $oldXfIndexes[$this->getActiveSheet()->getRowDimension($row)->getXfIndex()] = true;
+                        }
+                    }
+                    foreach ($this->getActiveSheet()->getRowIterator((int) $rangeStart[1], (int) $rangeEnd[1]) as $rowIterator) {
+                        $cellIterator = $rowIterator->getCellIterator();
+                        $cellIterator->setIterateOnlyExistingCells(true);
+                        foreach ($cellIterator as $rowCell) {
+                            $rowCell->getStyle()->applyFromArray($pStyles);
                         }
                     }
 
@@ -599,18 +607,12 @@ class Style extends Supervisor
      */
     public function getHashCode()
     {
-        $hashConditionals = '';
-        foreach ($this->conditionalStyles as $conditional) {
-            $hashConditionals .= $conditional->getHashCode();
-        }
-
         return md5(
             $this->fill->getHashCode() .
             $this->font->getHashCode() .
             $this->borders->getHashCode() .
             $this->alignment->getHashCode() .
             $this->numberFormat->getHashCode() .
-            $hashConditionals .
             $this->protection->getHashCode() .
             ($this->quotePrefix ? 't' : 'f') .
             __CLASS__
@@ -635,5 +637,19 @@ class Style extends Supervisor
     public function setIndex($pValue): void
     {
         $this->index = $pValue;
+    }
+
+    protected function exportArray1(): array
+    {
+        $exportedArray = [];
+        $this->exportArray2($exportedArray, 'alignment', $this->getAlignment());
+        $this->exportArray2($exportedArray, 'borders', $this->getBorders());
+        $this->exportArray2($exportedArray, 'fill', $this->getFill());
+        $this->exportArray2($exportedArray, 'font', $this->getFont());
+        $this->exportArray2($exportedArray, 'numberFormat', $this->getNumberFormat());
+        $this->exportArray2($exportedArray, 'protection', $this->getProtection());
+        $this->exportArray2($exportedArray, 'quotePrefx', $this->getQuotePrefix());
+
+        return $exportedArray;
     }
 }

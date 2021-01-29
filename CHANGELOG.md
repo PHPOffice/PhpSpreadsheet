@@ -9,6 +9,73 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Implemented DataBar for conditional formatting in Xlsx, providing read/write and creation of (type, value, direction, fills, border, axis position, color settings) as DataBar options in Excel. [#1754](https://github.com/PHPOffice/PhpSpreadsheet/pull/1754)
+
+### Changed
+
+- Formula functions that previously called PHP functions directly are now processed through the Excel Functions classes; resolving issues with PHP8 stricter typing. [#1789](https://github.com/PHPOffice/PhpSpreadsheet/issues/1789)
+
+  The following MathTrig functions are affected:
+  `ABS()`, `ACOS()`, `ACOSH()`, `ASIN()`, `ASINH()`, `ATAN()`, `ATANH()`,
+  `COS()`, `COSH()`, `DEGREES()` (rad2deg), `EXP()`, `LN()` (log), `LOG10()`,
+  `RADIANS()` (deg2rad), `SIN()`, `SINH()`, `SQRT()`, `TAN()`, `TANH()`.
+  
+  One TextData function is also affected: `REPT()` (str_repeat).
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Fix For Null Exception on ODS Read of Page Settings. [#1772](https://github.com/PHPOffice/PhpSpreadsheet/issues/1772)
+- Fix Xlsx reader overriding manually set number format with builtin number format. [PR #1805](https://github.com/PHPOffice/PhpSpreadsheet/pull/1805)
+
+## 1.16.0 - 2020-12-31
+
+### Added
+
+- CSV Reader - Best Guess for Encoding, and Handle Null-string Escape [#1647](https://github.com/PHPOffice/PhpSpreadsheet/issues/1647)
+
+### Changed
+
+- Updated the CONVERT() function to support all current MS Excel categories and Units of Measure.
+- `formatAsDate` correctly matches language metadata, reverting c55272e
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Fix for Xls Reader when SST has a bad length [#1592](https://github.com/PHPOffice/PhpSpreadsheet/issues/1592)
+- Resolve Xlsx loader issue whe hyperlinks don't have a destination
+- Resolve issues when printer settings resources IDs clash with drawing IDs
+- Resolve issue with SLK long filenames [#1612](https://github.com/PHPOffice/PhpSpreadsheet/issues/1612)
+- ROUNDUP and ROUNDDOWN return incorrect results for values of 0 [#1627](https://github.com/phpoffice/phpspreadsheet/pull/1627)
+- Apply Column and Row Styles to Existing Cells [#1712](https://github.com/PHPOffice/PhpSpreadsheet/issues/1712) [PR #1721](https://github.com/PHPOffice/PhpSpreadsheet/pull/1721)
+- Resolve issues with defined names where worksheet doesn't exist (#1686)[https://github.com/PHPOffice/PhpSpreadsheet/issues/1686] and [#1723](https://github.com/PHPOffice/PhpSpreadsheet/issues/1723) - [PR #1742](https://github.com/PHPOffice/PhpSpreadsheet/pull/1742)
+- Fix for issue [#1735](https://github.com/PHPOffice/PhpSpreadsheet/issues/1735) Incorrect activeSheetIndex after RemoveSheetByIndex - [PR #1743](https://github.com/PHPOffice/PhpSpreadsheet/pull/1743)
+- Ensure that the list of shared formulae is maintained when an xlsx file is chunked with readFilter[Issue #169](https://github.com/PHPOffice/PhpSpreadsheet/issues/1669).
+- Fix for notice during accessing "cached magnification factor" offset [#1354](https://github.com/PHPOffice/PhpSpreadsheet/pull/1354)
+- Fix compatibility with ext-gd on php 8
+
+### Security Fix (CVE-2020-7776)
+
+- Prevent XSS through cell comments in the HTML Writer.
+
+## 1.15.0 - 2020-10-11
+
+### Added
+
 - Implemented Page Order for Xlsx and Xls Readers, and provided Page Settings (Orientation, Scale, Horizontal/Vertical Centering, Page Order, Margins) support for Ods, Gnumeric and Xls Readers [#1559](https://github.com/PHPOffice/PhpSpreadsheet/pull/1559)
 - Implementation of the Excel `LOGNORM.DIST()`, `NORM.S.DIST()`, `GAMMA()` and `GAUSS()` functions. [#1588](https://github.com/PHPOffice/PhpSpreadsheet/pull/1588)
 - Named formula implementation, and improved handling of Defined Names generally [#1535](https://github.com/PHPOffice/PhpSpreadsheet/pull/1535)
@@ -30,13 +97,15 @@ and this project adheres to [Semantic Versioning](https://semver.org).
     - **Xlsx** (Previously only simple named ranges were supported)
     - **Xls** (Previously neither named ranges nor formulae were supported) - Still not supported, but some parser issues resolved that previously failed to differentiate between a defined name and a function name
     - **Ods** (Previously neither named ranges nor formulae were supported)
+- Support for PHP 8.0
 
 ### Changed
 
 - Improve Coverage for ODS Reader [#1545](https://github.com/phpoffice/phpspreadsheet/pull/1545)
 - Named formula implementation, and improved handling of Defined Names generally [#1535](https://github.com/PHPOffice/PhpSpreadsheet/pull/1535)
-  - fix resolution of relative named range values in the calculation engine; previously all named range values had been treated as absolute.
-- `formatAsDate` correctly matches language metadata, reverting c55272e
+- fix resolution of relative named range values in the calculation engine; previously all named range values had been treated as absolute.
+- Drop $this->spreadSheet null check from Xlsx Writer [#1646](https://github.com/phpoffice/phpspreadsheet/pull/1646)
+- Improving Coverage for Excel2003 XML Reader [#1557](https://github.com/phpoffice/phpspreadsheet/pull/1557)
 
 ### Deprecated
 
@@ -49,7 +118,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- PrintArea causes exception [#1544](https://github.com/phpoffice/phpspreadsheet/pull/1544) 
+- PrintArea causes exception [#1544](https://github.com/phpoffice/phpspreadsheet/pull/1544)
+- Calculation/DateTime Failure With PHP8 [#1661](https://github.com/phpoffice/phpspreadsheet/pull/1661)
+- Reader/Gnumeric Failure with PHP8 [#1662](https://github.com/phpoffice/phpspreadsheet/pull/1662)
+- ReverseSort bug, exposed but not caused by PHP8 [#1660](https://github.com/phpoffice/phpspreadsheet/pull/1660)
+- Bug setting Superscript/Subscript to false [#1567](https://github.com/phpoffice/phpspreadsheet/pull/1567)
 
 ## 1.14.1 - 2020-07-19
 
@@ -556,6 +629,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Ignore inlineStr type if formula element exists - @ncrypthic [#570](https://github.com/PHPOffice/PHPExcel/issues/570)
 - Excel 2007 Reader freezes because of conditional formatting - @rentalhost [#575](https://github.com/PHPOffice/PHPExcel/issues/575)
 - Readers will now parse files containing worksheet titles over 31 characters [#176](https://github.com/PHPOffice/PhpSpreadsheet/pull/176)
+- Fixed PHP8 deprecation warning for libxml_disable_entity_loader() [#1625](https://github.com/phpoffice/phpspreadsheet/pull/1625) 
 
 ### General
 

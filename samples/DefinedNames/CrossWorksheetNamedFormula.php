@@ -1,18 +1,11 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\NamedFormula;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-error_reporting(E_ALL);
-set_time_limit(0);
-
-date_default_timezone_set('UTC');
-
-// Adjust the path as required to reference the PHPSpreadsheet Bootstrap file
-require_once __DIR__ . '/../Bootstrap.php';
+require_once __DIR__ . '/../Header.php';
 
 $spreadsheet = new Spreadsheet();
 
@@ -91,9 +84,7 @@ for ($row = 2; $row <= 7; ++$row) {
     $growth = $worksheet->getCell("B{$row}")->getFormattedValue();
     $profitGrowth = $worksheet->getCell("C{$row}")->getFormattedValue();
 
-    echo "Growth for {$month} is {$growth}, with a Profit Growth of {$profitGrowth}", PHP_EOL;
+    $helper->log("Growth for {$month} is {$growth}, with a Profit Growth of {$profitGrowth}");
 }
 
-$outputFileName = 'CrossWorksheetNamedFormula.xlsx';
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-$writer->save($outputFileName);
+$helper->write($spreadsheet, __FILE__, ['Xlsx']);

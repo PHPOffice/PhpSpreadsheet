@@ -650,7 +650,7 @@ class Html extends BaseReader
             $loaded = false;
         }
         if ($loaded === false) {
-            throw new Exception('Failed to load ' . $pFilename . ' as a DOM Document');
+            throw new Exception('Failed to load ' . $pFilename . ' as a DOM Document', 0, $e ?? null);
         }
 
         return $this->loadDocument($dom, $spreadsheet);
@@ -672,7 +672,7 @@ class Html extends BaseReader
             $loaded = false;
         }
         if ($loaded === false) {
-            throw new Exception('Failed to load content as a DOM Document');
+            throw new Exception('Failed to load content as a DOM Document', 0, $e ?? null);
         }
 
         return $this->loadDocument($dom, $spreadsheet ?? new Spreadsheet());
