@@ -17,6 +17,9 @@ class RankTest extends TestCase
      * @dataProvider providerRANK
      *
      * @param mixed $expectedResult
+     * @param mixed $value
+     * @param mixed[] $valueSet
+     * @param mixed $order
      */
     public function testRANK($expectedResult, $value, $valueSet, $order = 0): void
     {

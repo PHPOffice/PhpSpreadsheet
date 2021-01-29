@@ -17,6 +17,9 @@ class PercentRankTest extends TestCase
      * @dataProvider providerPERCENTRANK
      *
      * @param mixed $expectedResult
+     * @param mixed[] $valueSet
+     * @param mixed $value
+     * @param mixed $digits
      */
     public function testPERCENTRANK($expectedResult, $valueSet, $value, $digits = 3): void
     {
