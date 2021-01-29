@@ -2868,6 +2868,9 @@ class Statistical
      * PERCENTRANK.
      *
      * Returns the rank of a value in a data set as a percentage of the data set.
+     * Note that the returned rank is simply rounded to the appropriate significant digits,
+     *      rather than floored (as MS Excel), so value 3 for a value set of  1, 2, 3, 4 will return
+     *      0.667 rather than 0.666
      *
      * @param float[] $valueSet An array of, or a reference to, a list of numbers
      * @param int $value the number whose rank you want to find
@@ -3037,10 +3040,11 @@ class Statistical
         }
 
         if ($order == 0) {
-            rsort($valueSet, SORT_NUMERIC);
-        } else {
             sort($valueSet, SORT_NUMERIC);
+        } else {
+            rsort($valueSet, SORT_NUMERIC);
         }
+
         $pos = array_search($value, $valueSet);
         if ($pos === false) {
             return Functions::NA();
