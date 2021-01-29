@@ -3000,11 +3000,11 @@ class Statistical
     public static function QUARTILE(...$args)
     {
         $aArgs = Functions::flattenArray($args);
+        $entry = array_pop($aArgs);
 
         // Calculate
-        $entry = floor(array_pop($aArgs));
-
         if ((is_numeric($entry)) && (!is_string($entry))) {
+            $entry = floor($entry);
             $entry /= 4;
             if (($entry < 0) || ($entry > 1)) {
                 return Functions::NAN();
