@@ -44,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Changed
 
 - Updated the CONVERT() function to support all current MS Excel categories and Units of Measure.
+- `formatAsDate` correctly matches language metadata, reverting c55272e
 
 ### Deprecated
 
