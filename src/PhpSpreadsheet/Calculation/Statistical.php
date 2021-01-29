@@ -765,13 +765,13 @@ class Statistical
         $rMax = Functions::flattenSingleValue($rMax);
 
         if ((is_numeric($value)) && (is_numeric($alpha)) && (is_numeric($beta)) && (is_numeric($rMin)) && (is_numeric($rMax))) {
-            if (($value < $rMin) || ($value > $rMax) || ($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax)) {
-                return Functions::NAN();
-            }
             if ($rMin > $rMax) {
                 $tmp = $rMin;
                 $rMin = $rMax;
                 $rMax = $tmp;
+            }
+            if (($value < $rMin) || ($value > $rMax) || ($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax)) {
+                return Functions::NAN();
             }
             $value -= $rMin;
             $value /= ($rMax - $rMin);
@@ -804,13 +804,13 @@ class Statistical
         $rMax = Functions::flattenSingleValue($rMax);
 
         if ((is_numeric($probability)) && (is_numeric($alpha)) && (is_numeric($beta)) && (is_numeric($rMin)) && (is_numeric($rMax))) {
-            if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0) || ($probability > 1)) {
-                return Functions::NAN();
-            }
             if ($rMin > $rMax) {
                 $tmp = $rMin;
                 $rMin = $rMax;
                 $rMax = $tmp;
+            }
+            if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0) || ($probability > 1)) {
+                return Functions::NAN();
             }
             $a = 0;
             $b = 2;
@@ -3000,11 +3000,11 @@ class Statistical
     public static function QUARTILE(...$args)
     {
         $aArgs = Functions::flattenArray($args);
+        $entry = array_pop($aArgs);
 
         // Calculate
-        $entry = floor(array_pop($aArgs));
-
         if ((is_numeric($entry)) && (!is_string($entry))) {
+            $entry = floor($entry);
             $entry /= 4;
             if (($entry < 0) || ($entry > 1)) {
                 return Functions::NAN();
