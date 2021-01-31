@@ -58,6 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Resolve Google Sheets Xlsx charts issue. Google Sheets uses oneCellAnchor positioning and does not include *Cache values in the exported Xlsx.
 - Fix for Xls Reader when SST has a bad length [#1592](https://github.com/PHPOffice/PhpSpreadsheet/issues/1592)
 - Resolve Xlsx loader issue whe hyperlinks don't have a destination
 - Resolve issues when printer settings resources IDs clash with drawing IDs

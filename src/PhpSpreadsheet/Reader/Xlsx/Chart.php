@@ -328,26 +328,51 @@ class Chart
     {
         if (isset($seriesDetail->strRef)) {
             $seriesSource = (string) $seriesDetail->strRef->f;
-            $seriesData = self::chartDataSeriesValues($seriesDetail->strRef->strCache->children($namespacesChartMeta['c']), 's');
+            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker);
 
-            return new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker);
+            if (isset($seriesDetail->strRef->strCache)) {
+                $seriesData = self::chartDataSeriesValues($seriesDetail->strRef->strCache->children($namespacesChartMeta['c']), 's');
+                $seriesValues
+                    ->setFormatCode($seriesData['formatCode'])
+                    ->setDataValues($seriesData['dataValues']);
+            }
+
+            return $seriesValues;
         } elseif (isset($seriesDetail->numRef)) {
             $seriesSource = (string) $seriesDetail->numRef->f;
-            $seriesData = self::chartDataSeriesValues($seriesDetail->numRef->numCache->children($namespacesChartMeta['c']));
+            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, $seriesSource, null, null, null, $marker);
+            if (isset($seriesDetail->strRef->strCache)) {
+                $seriesData = self::chartDataSeriesValues($seriesDetail->numRef->numCache->children($namespacesChartMeta['c']));
+                $seriesValues
+                    ->setFormatCode($seriesData['formatCode'])
+                    ->setDataValues($seriesData['dataValues']);
+            }
 
-            return new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker);
+            return $seriesValues;
         } elseif (isset($seriesDetail->multiLvlStrRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlStrRef->f;
-            $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlStrRef->multiLvlStrCache->children($namespacesChartMeta['c']), 's');
-            $seriesData['pointCount'] = count($seriesData['dataValues']);
+            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker);
 
-            return new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker);
+            if (isset($seriesDetail->multiLvlStrRef->multiLvlStrCache)) {
+                $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlStrRef->multiLvlStrCache->children($namespacesChartMeta['c']), 's');
+                $seriesValues
+                    ->setFormatCode($seriesData['formatCode'])
+                    ->setDataValues($seriesData['dataValues']);
+            }
+
+            return $seriesValues;
         } elseif (isset($seriesDetail->multiLvlNumRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlNumRef->f;
-            $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlNumRef->multiLvlNumCache->children($namespacesChartMeta['c']), 's');
-            $seriesData['pointCount'] = count($seriesData['dataValues']);
+            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker);
 
-            return new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker);
+            if (isset($seriesDetail->multiLvlNumRef->multiLvlNumCache)) {
+                $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlNumRef->multiLvlNumCache->children($namespacesChartMeta['c']), 's');
+                $seriesValues
+                    ->setFormatCode($seriesData['formatCode'])
+                    ->setDataValues($seriesData['dataValues']);
+            }
+
+            return $seriesValues;
         }
 
         return null;
