@@ -596,6 +596,7 @@ class AutoFilter
         }
 
         $slice = array_slice($dataValues, 0, $ruleValue);
+
         return array_pop($slice);
     }
 
