@@ -4,8 +4,9 @@
     <office:font-face-decls />
     <office:automatic-styles>
         <style:style style:name="ce0" style:family="table-cell" style:parent-style-name="Default">
+            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt" />
-            <style:table-cell-properties style:rotation-align="none" />
         </style:style>
     </office:automatic-styles>
     <office:body>
