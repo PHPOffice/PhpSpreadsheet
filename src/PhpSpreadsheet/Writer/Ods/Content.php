@@ -355,7 +355,7 @@ class Content extends WriterPart
             if (!empty($hAlign)) {
                 $hAlign = $this->mapHorizontalAlignment($hAlign);
                 $writer->startElement('style:paragraph-properties');
-                    $writer->writeAttribute('fo:text-align', $hAlign);
+                $writer->writeAttribute('fo:text-align', $hAlign);
                 $writer->endElement();
             }
 
