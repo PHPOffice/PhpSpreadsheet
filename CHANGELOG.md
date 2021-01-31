@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Fix for Xlsx Chart axis titles mapping to correct X or Y axis label when only one is present.
+- Resolve Google Sheets Xlsx charts issue. Google Sheets uses oneCellAnchor positioning and does not include *Cache values in the exported Xlsx.
 - Fix For Null Exception on ODS Read of Page Settings. [#1772](https://github.com/PHPOffice/PhpSpreadsheet/issues/1772)
 - Fix Xlsx reader overriding manually set number format with builtin number format. [PR #1805](https://github.com/PHPOffice/PhpSpreadsheet/pull/1805)
 - Fix Xlsx reader cell alignment. [PR #1710](https://github.com/PHPOffice/PhpSpreadsheet/pull/1710)
@@ -58,7 +60,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Resolve Google Sheets Xlsx charts issue. Google Sheets uses oneCellAnchor positioning and does not include *Cache values in the exported Xlsx.
 - Fix for Xls Reader when SST has a bad length [#1592](https://github.com/PHPOffice/PhpSpreadsheet/issues/1592)
 - Resolve Xlsx loader issue whe hyperlinks don't have a destination
 - Resolve issues when printer settings resources IDs clash with drawing IDs

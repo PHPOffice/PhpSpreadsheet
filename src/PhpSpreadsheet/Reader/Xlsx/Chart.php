@@ -91,7 +91,21 @@ class Chart
                                             break;
                                         case 'valAx':
                                             if (isset($chartDetail->title)) {
-                                                $YaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
+                                                $axisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
+                                                $axPos = self::getAttribute($chartDetail->axPos, 'val', 'string');
+
+                                                switch ($axPos) {
+                                                    case 't':
+                                                    case 'b':
+                                                        $XaxisLabel = $axisLabel;
+
+                                                        break;
+                                                    case 'r':
+                                                    case 'l':
+                                                        $YaxisLabel = $axisLabel;
+
+                                                        break;
+                                                }
                                             }
 
                                             break;
