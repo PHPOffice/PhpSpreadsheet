@@ -2037,7 +2037,7 @@ class Financial
             return Functions::VALUE();
         }
 
-        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
+        if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
             ++$maturity;
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
         } else {
@@ -2076,7 +2076,7 @@ class Financial
                 return Functions::NAN();
             }
 
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
+            if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
                 ++$maturity;
                 $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
                 if (!is_numeric($daysBetweenSettlementAndMaturity)) {
@@ -2087,7 +2087,7 @@ class Financial
                 $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
             }
 
-            if ($daysBetweenSettlementAndMaturity > 360) {
+            if ($daysBetweenSettlementAndMaturity > self::daysPerYear(DateTime::YEAR($maturity), 1)) {
                 return Functions::NAN();
             }
 

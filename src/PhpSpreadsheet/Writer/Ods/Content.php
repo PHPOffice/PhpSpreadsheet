@@ -196,7 +196,10 @@ class Content extends WriterPart
 
                     break;
                 case DataType::TYPE_ERROR:
-                    throw new Exception('Writing of error not implemented yet.');
+                    $objWriter->writeAttribute('table:formula', 'of:=#NULL!');
+                    $objWriter->writeAttribute('office:value-type', 'string');
+                    $objWriter->writeAttribute('office:string-value', '');
+                    $objWriter->writeElement('text:p', '#NULL!');
 
                     break;
                 case DataType::TYPE_FORMULA:
@@ -218,16 +221,14 @@ class Content extends WriterPart
                     $objWriter->writeElement('text:p', $formulaValue);
 
                     break;
-                case DataType::TYPE_INLINE:
-                    throw new Exception('Writing of inline not implemented yet.');
-
-                    break;
                 case DataType::TYPE_NUMERIC:
                     $objWriter->writeAttribute('office:value-type', 'float');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
 
                     break;
+                case DataType::TYPE_INLINE:
+                    // break intentionally omitted
                 case DataType::TYPE_STRING:
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $objWriter->writeElement('text:p', $cell->getValue());
