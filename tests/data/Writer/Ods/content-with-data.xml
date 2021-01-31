@@ -4,48 +4,59 @@
     <office:font-face-decls/>
     <office:automatic-styles>
         <style:style style:family="table-cell" style:name="ce0" style:parent-style-name="Default">
+            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt"/>
-            <style:table-cell-properties style:rotation-align="none"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce1" style:parent-style-name="Default">
+            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt"/>
-            <style:table-cell-properties style:rotation-align="none"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce2" style:parent-style-name="Default">
+            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties style:font-weight-asian="bold" style:font-weight-complex="bold" fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt" fo:font-weight="bold"/>
-            <style:table-cell-properties style:rotation-align="none"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce3" style:parent-style-name="Default">
+            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt" fo:font-style="italic"/>
-            <style:table-cell-properties style:rotation-align="none"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce4" style:parent-style-name="Default">
+            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#000000" fo:font-family="Courier" fo:font-size="11.0pt"/>
-            <style:table-cell-properties style:rotation-align="none"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce5" style:parent-style-name="Default">
+            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#000000" fo:font-family="Courier" fo:font-size="14.0pt"/>
-            <style:table-cell-properties style:rotation-align="none"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce6" style:parent-style-name="Default">
+            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#0000FF" fo:font-family="Courier" fo:font-size="14.0pt"/>
-            <style:table-cell-properties style:rotation-align="none"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce7" style:parent-style-name="Default">
+            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" fo:background-color="#ffffff"/>
+            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#0000FF" fo:font-family="Courier" fo:font-size="14.0pt"/>
-            <style:table-cell-properties style:rotation-align="none" fo:background-color="#ffffff"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce8" style:parent-style-name="Default">
+            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" fo:background-color="#ff0000"/>
+            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties fo:color="#0000FF" fo:font-family="Courier" fo:font-size="14.0pt"/>
-            <style:table-cell-properties style:rotation-align="none" fo:background-color="#ff0000"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce9" style:parent-style-name="Default">
+            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" fo:background-color="#ff0000"/>
+            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties style:text-underline-color="font-color" style:text-underline-style="solid" style:text-underline-type="single" style:text-underline-width="auto" fo:color="#0000FF" fo:font-family="Courier" fo:font-size="14.0pt"/>
-            <style:table-cell-properties style:rotation-align="none" fo:background-color="#ff0000"/>
         </style:style>
         <style:style style:family="table-cell" style:name="ce10" style:parent-style-name="Default">
+            <style:table-cell-properties style:rotation-align="none" style:vertical-align="bottom" />
+            <style:paragraph-properties fo:text-align="start" />
             <style:text-properties style:text-underline-color="font-color" style:text-underline-style="solid" style:text-underline-type="double" style:text-underline-width="auto" fo:color="#000000" fo:font-family="Calibri" fo:font-size="11.0pt"/>
-            <style:table-cell-properties style:rotation-align="none"/>
         </style:style>
     </office:automatic-styles>
     <office:body>

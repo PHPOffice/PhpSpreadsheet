@@ -318,8 +318,9 @@ class Content extends WriterPart
             $hAlign = $style->getAlignment()->getHorizontal();
             $vAlign = $style->getAlignment()->getVertical();
             $wrap = $style->getAlignment()->getWrapText();
+
+            $writer->startElement('style:table-cell-properties');
             if (!empty($vAlign) || $wrap) {
-                $writer->startElement('style:table-cell-properties');
                 if (!empty($vAlign)) {
                     $vAlign = $this->mapVerticalAlignment($vAlign);
                     $writer->writeAttribute('style:vertical-align', $vAlign);
@@ -327,8 +328,30 @@ class Content extends WriterPart
                 if ($wrap) {
                     $writer->writeAttribute('fo:wrap-option', 'wrap');
                 }
-                $writer->endElement();
             }
+            $writer->writeAttribute('style:rotation-align', 'none');
+
+            // Fill
+            if ($fill = $style->getFill()) {
+                switch ($fill->getFillType()) {
+                    case Fill::FILL_SOLID:
+                        $writer->writeAttribute('fo:background-color', sprintf(
+                            '#%s',
+                            strtolower($fill->getStartColor()->getRGB())
+                        ));
+
+                        break;
+                    case Fill::FILL_GRADIENT_LINEAR:
+                    case Fill::FILL_GRADIENT_PATH:
+                        /// TODO :: To be implemented
+                        break;
+                    case Fill::FILL_NONE:
+                    default:
+                }
+            }
+
+            $writer->endElement();
+
             if (!empty($hAlign)) {
                 $hAlign = $this->mapHorizontalAlignment($hAlign);
                 $writer->startElement('style:paragraph-properties');
@@ -384,34 +407,7 @@ class Content extends WriterPart
 
             $writer->endElement(); // Close style:text-properties
 
-            // style:table-cell-properties
-
-            $writer->startElement('style:table-cell-properties');
-            $writer->writeAttribute('style:rotation-align', 'none');
-
-            // Fill
-            if ($fill = $style->getFill()) {
-                switch ($fill->getFillType()) {
-                    case Fill::FILL_SOLID:
-                        $writer->writeAttribute('fo:background-color', sprintf(
-                            '#%s',
-                            strtolower($fill->getStartColor()->getRGB())
-                        ));
-
-                        break;
-                    case Fill::FILL_GRADIENT_LINEAR:
-                    case Fill::FILL_GRADIENT_PATH:
-                        /// TODO :: To be implemented
-                        break;
-                    case Fill::FILL_NONE:
-                    default:
-                }
-            }
-
-            $writer->endElement(); // Close style:table-cell-properties
-
             // End
-
             $writer->endElement(); // Close style:style
         }
     }
