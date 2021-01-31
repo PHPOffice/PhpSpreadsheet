@@ -539,4 +539,20 @@ class Font extends Supervisor
             __CLASS__
         );
     }
+
+    protected function exportArray1(): array
+    {
+        $exportedArray = [];
+        $this->exportArray2($exportedArray, 'bold', $this->getBold());
+        $this->exportArray2($exportedArray, 'color', $this->getColor());
+        $this->exportArray2($exportedArray, 'italic', $this->getItalic());
+        $this->exportArray2($exportedArray, 'name', $this->getName());
+        $this->exportArray2($exportedArray, 'size', $this->getSize());
+        $this->exportArray2($exportedArray, 'strikethrough', $this->getStrikethrough());
+        $this->exportArray2($exportedArray, 'subscript', $this->getSubscript());
+        $this->exportArray2($exportedArray, 'superscript', $this->getSuperscript());
+        $this->exportArray2($exportedArray, 'underline', $this->getUnderline());
+
+        return $exportedArray;
+    }
 }

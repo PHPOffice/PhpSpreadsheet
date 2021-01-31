@@ -765,13 +765,13 @@ class Statistical
         $rMax = Functions::flattenSingleValue($rMax);
 
         if ((is_numeric($value)) && (is_numeric($alpha)) && (is_numeric($beta)) && (is_numeric($rMin)) && (is_numeric($rMax))) {
-            if (($value < $rMin) || ($value > $rMax) || ($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax)) {
-                return Functions::NAN();
-            }
             if ($rMin > $rMax) {
                 $tmp = $rMin;
                 $rMin = $rMax;
                 $rMax = $tmp;
+            }
+            if (($value < $rMin) || ($value > $rMax) || ($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax)) {
+                return Functions::NAN();
             }
             $value -= $rMin;
             $value /= ($rMax - $rMin);
@@ -804,13 +804,13 @@ class Statistical
         $rMax = Functions::flattenSingleValue($rMax);
 
         if ((is_numeric($probability)) && (is_numeric($alpha)) && (is_numeric($beta)) && (is_numeric($rMin)) && (is_numeric($rMax))) {
-            if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0) || ($probability > 1)) {
-                return Functions::NAN();
-            }
             if ($rMin > $rMax) {
                 $tmp = $rMin;
                 $rMin = $rMax;
                 $rMax = $tmp;
+            }
+            if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0) || ($probability > 1)) {
+                return Functions::NAN();
             }
             $a = 0;
             $b = 2;
@@ -2868,6 +2868,9 @@ class Statistical
      * PERCENTRANK.
      *
      * Returns the rank of a value in a data set as a percentage of the data set.
+     * Note that the returned rank is simply rounded to the appropriate significant digits,
+     *      rather than floored (as MS Excel), so value 3 for a value set of  1, 2, 3, 4 will return
+     *      0.667 rather than 0.666
      *
      * @param float[] $valueSet An array of, or a reference to, a list of numbers
      * @param int $value the number whose rank you want to find
@@ -2997,11 +3000,11 @@ class Statistical
     public static function QUARTILE(...$args)
     {
         $aArgs = Functions::flattenArray($args);
+        $entry = array_pop($aArgs);
 
         // Calculate
-        $entry = floor(array_pop($aArgs));
-
         if ((is_numeric($entry)) && (!is_string($entry))) {
+            $entry = floor($entry);
             $entry /= 4;
             if (($entry < 0) || ($entry > 1)) {
                 return Functions::NAN();
@@ -3037,10 +3040,11 @@ class Statistical
         }
 
         if ($order == 0) {
-            rsort($valueSet, SORT_NUMERIC);
-        } else {
             sort($valueSet, SORT_NUMERIC);
+        } else {
+            rsort($valueSet, SORT_NUMERIC);
         }
+
         $pos = array_search($value, $valueSet);
         if ($pos === false) {
             return Functions::NA();

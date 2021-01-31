@@ -469,7 +469,7 @@ class NumberFormat extends Supervisor
         // general syntax: [$<Currency string>-<language info>]
         // language info is in hexadecimal
         // strip off chinese part like [DBNum1][$-804]
-        $format = preg_replace('/^(\[[0-9A-Za-z]*\])*(\[\$[A-Z]*-[0-9A-F]*\])/i', '', $format);
+        $format = preg_replace('/^(\[DBNum\d\])*(\[\$[^\]]*\])/i', '', $format);
 
         // OpenOffice.org uses upper-case number formats, e.g. 'YYYY', convert to lower-case;
         //    but we don't want to change any quoted strings
@@ -869,5 +869,13 @@ class NumberFormat extends Supervisor
         }
 
         return $value;
+    }
+
+    protected function exportArray1(): array
+    {
+        $exportedArray = [];
+        $this->exportArray2($exportedArray, 'formatCode', $this->getFormatCode());
+
+        return $exportedArray;
     }
 }

@@ -587,6 +587,13 @@ execution whenever you are setting more than one style property. But the
 difference may barely be measurable unless you have many different
 styles in your workbook.
 
+You can perform the opposite function, exporting a Style as an array,
+as follows:
+
+``` php
+$styleArray = $spreadsheet->getActiveSheet()->getStyle('A3')->exportArray();
+```
+
 ### Number formats
 
 You often want to format numbers in Excel. For example you may want a
@@ -753,69 +760,74 @@ another style array.
 
 Array key    | Maps to property
 -------------|-------------------
-fill         | getFill()
-font         | getFont()
-borders      | getBorders()
-alignment    | getAlignment()
-numberFormat | getNumberFormat()
-protection   | getProtection()
-
-**\PhpOffice\PhpSpreadsheet\Style\Fill**
-
-Array key  | Maps to property
------------|-------------------
-fillType   | setFillType()
-rotation   | setRotation()
-startColor | getStartColor()
-endColor   | getEndColor()
-color      | getStartColor()
-
-**\PhpOffice\PhpSpreadsheet\Style\Font**
-
-Array key   | Maps to property
-------------|-------------------
-name        | setName()
-bold        | setBold()
-italic      | setItalic()
-underline   | setUnderline()
-strikethrough | setStrikethrough()
-color       | getColor()
-size        | setSize()
-superscript | setSuperscript()
-subscript   | setSubscript()
-
-**\PhpOffice\PhpSpreadsheet\Style\Borders**
-
-Array key         | Maps to property
-------------------|-------------------
-allBorders        | getLeft(); getRight(); getTop(); getBottom()
-left              | getLeft()
-right             | getRight()
-top               | getTop()
-bottom            | getBottom()
-diagonal          | getDiagonal()
-vertical          | getVertical()
-horizontal        | getHorizontal()
-diagonalDirection | setDiagonalDirection()
-outline           | setOutline()
-
-**\PhpOffice\PhpSpreadsheet\Style\Border**
-
-Array key   | Maps to property
-------------|-------------------
-borderStyle | setBorderStyle()
-color       | getColor()
+alignment    | setAlignment()
+borders      | setBorders()
+fill         | setFill()
+font         | setFont()
+numberFormat | setNumberFormat()
+protection   | setProtection()
+quotePrefix  | setQuotePrefix()
 
 **\PhpOffice\PhpSpreadsheet\Style\Alignment**
 
 Array key   | Maps to property
 ------------|-------------------
 horizontal  | setHorizontal()
-vertical    | setVertical()
-textRotation| setTextRotation()
-wrapText    | setWrapText()
-shrinkToFit | setShrinkToFit()
 indent      | setIndent()
+readOrder   | setReadOrder()
+shrinkToFit | setShrinkToFit()
+textRotation| setTextRotation()
+vertical    | setVertical()
+wrapText    | setWrapText()
+
+**\PhpOffice\PhpSpreadsheet\Style\Border**
+
+Array key   | Maps to property
+------------|-------------------
+borderStyle | setBorderStyle()
+color       | setColor()
+
+**\PhpOffice\PhpSpreadsheet\Style\Borders**
+
+Array key         | Maps to property
+------------------|-------------------
+allBorders        | setLeft(); setRight(); setTop(); setBottom()
+bottom            | setBottom()
+diagonal          | setDiagonal()
+diagonalDirection | setDiagonalDirection()
+left              | setLeft()
+right             | setRight()
+top               | setTop()
+
+**\PhpOffice\PhpSpreadsheet\Style\Color**
+
+Array key   | Maps to property
+------------|-------------------
+argb        | setARGB()
+
+**\PhpOffice\PhpSpreadsheet\Style\Fill**
+
+Array key  | Maps to property
+-----------|-------------------
+color      | getStartColor()
+endColor   | getEndColor()
+fillType   | setFillType()
+rotation   | setRotation()
+startColor | getStartColor()
+
+**\PhpOffice\PhpSpreadsheet\Style\Font**
+
+Array key   | Maps to property
+------------|-------------------
+bold        | setBold()
+color       | getColor()
+italic      | setItalic()
+name        | setName()
+size        | setSize()
+strikethrough | setStrikethrough()
+subscript   | setSubscript()
+superscript | setSuperscript()
+underline   | setUnderline()
 
 **\PhpOffice\PhpSpreadsheet\Style\NumberFormat**
 
@@ -871,6 +883,44 @@ $spreadsheet->getActiveSheet()
         'B3:B7'
     );
 ```
+
+### DataBar of Conditional formatting
+The basics are the same as conditional formatting.
+Additional DataBar object to conditional formatting.
+
+For example, the following code will result in the conditional formatting shown in the image.
+```php
+$conditional = new Conditional();
+$conditional->setConditionType(Conditional::CONDITION_DATABAR);
+$conditional->setDataBar(new ConditionalDataBar());
+$conditional->getDataBar()
+            ->setMinimumConditionalFormatValueObject(new ConditionalFormatValueObject('num', '2'))
+            ->setMaximumConditionalFormatValueObject(new ConditionalFormatValueObject('max'))
+            ->setColor('FFFF555A');
+$ext = $conditional
+    ->getDataBar()
+    ->setConditionalFormattingRuleExt(new ConditionalFormattingRuleExtension())
+    ->getConditionalFormattingRuleExt();
+    
+$ext->setCfRule('dataBar');
+$ext->setSqref('A1:A5'); // target CellCoordinates
+$ext->setDataBarExt(new ConditionalDataBarExtension());
+$ext->getDataBarExt()
+    ->setMinimumConditionalFormatValueObject(new ConditionalFormatValueObject('num', '2'))
+    ->setMaximumConditionalFormatValueObject(new ConditionalFormatValueObject('autoMax'))
+    ->setMinLength(0)
+    ->setMaxLength(100)
+    ->setBorder(true)
+    ->setDirection('rightToLeft')
+    ->setNegativeBarBorderColorSameAsPositive(false)
+    ->setBorderColor('FFFF555A')
+    ->setNegativeFillColor('FFFF0000')
+    ->setNegativeBorderColor('FFFF0000')
+    ->setAxisColor('FF000000');
+
+```
+
+![10-databar-of-conditional-formatting.png](./images/10-databar-of-conditional-formatting.png)
 
 ## Add a comment to a cell
 

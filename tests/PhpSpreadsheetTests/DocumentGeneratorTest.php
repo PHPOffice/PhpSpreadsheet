@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical;
 use PhpOffice\PhpSpreadsheet\DocumentGenerator;
 use PHPUnit\Framework\TestCase;
+use UnexpectedValueException;
 
 class DocumentGeneratorTest extends TestCase
 {
@@ -136,5 +137,14 @@ EXPECTED
 
             ],
         ];
+    }
+
+    public function testGenerateFunctionBadArray(): void
+    {
+        $this->expectException(UnexpectedValueException::class);
+        $phpSpreadsheetFunctions = [
+            'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 1],
+        ];
+        DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions);
     }
 }

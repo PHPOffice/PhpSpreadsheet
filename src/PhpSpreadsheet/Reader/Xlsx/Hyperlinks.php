@@ -29,7 +29,9 @@ class Hyperlinks
     public function setHyperlinks(SimpleXMLElement $worksheetXml): void
     {
         foreach ($worksheetXml->hyperlink as $hyperlink) {
-            $this->setHyperlink($hyperlink, $this->worksheet);
+            if ($hyperlink !== null) {
+                $this->setHyperlink($hyperlink, $this->worksheet);
+            }
         }
     }
 
@@ -41,7 +43,7 @@ class Hyperlinks
         foreach (Coordinate::extractAllCellReferencesInRange($hyperlink['ref']) as $cellReference) {
             $cell = $worksheet->getCell($cellReference);
             if (isset($linkRel['id'])) {
-                $hyperlinkUrl = $this->hyperlinks[(string) $linkRel['id']];
+                $hyperlinkUrl = $this->hyperlinks[(string) $linkRel['id']] ?? null;
                 if (isset($hyperlink['location'])) {
                     $hyperlinkUrl .= '#' . (string) $hyperlink['location'];
                 }

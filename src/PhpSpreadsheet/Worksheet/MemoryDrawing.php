@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use GdImage;
+
 class MemoryDrawing extends BaseDrawing
 {
     // Rendering functions
@@ -19,7 +21,7 @@ class MemoryDrawing extends BaseDrawing
     /**
      * Image resource.
      *
-     * @var resource
+     * @var GdImage|resource
      */
     private $imageResource;
 
@@ -62,7 +64,7 @@ class MemoryDrawing extends BaseDrawing
     /**
      * Get image resource.
      *
-     * @return resource
+     * @return GdImage|resource
      */
     public function getImageResource()
     {
@@ -72,7 +74,7 @@ class MemoryDrawing extends BaseDrawing
     /**
      * Set image resource.
      *
-     * @param resource $value
+     * @param GdImage|resource $value
      *
      * @return $this
      */
