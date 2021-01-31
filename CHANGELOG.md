@@ -34,7 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Fix For Null Exception on ODS Read of Page Settings. [#1772](https://github.com/PHPOffice/PhpSpreadsheet/issues/1772)
 - Fix Xlsx reader overriding manually set number format with builtin number format. [PR #1805](https://github.com/PHPOffice/PhpSpreadsheet/pull/1805)
-- Fix for not yet implemented data-types in Open Documend writer [Issue #1674](https://github.com/PHPOffice/PhpSpreadsheet/issues/1674)
+- Fix Xlsx reader cell alignment. [PR #1710](https://github.com/PHPOffice/PhpSpreadsheet/pull/1710)
+- Fix for not yet implemented data-types in Open Document writer [Issue #1674](https://github.com/PHPOffice/PhpSpreadsheet/issues/1674)
 
 ## 1.16.0 - 2020-12-31
 
