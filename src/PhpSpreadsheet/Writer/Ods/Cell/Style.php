@@ -70,13 +70,8 @@ class Style
         }
     }
 
-    public function write(CellStyle $style): void
+    private function writeCellProperties(CellStyle $style): void
     {
-        $this->writer->startElement('style:style');
-        $this->writer->writeAttribute('style:name', self::CELL_STYLE_PREFIX . $style->getIndex());
-        $this->writer->writeAttribute('style:family', 'table-cell');
-        $this->writer->writeAttribute('style:parent-style-name', 'Default');
-
         // Align
         $hAlign = $style->getAlignment()->getHorizontal();
         $vAlign = $style->getAlignment()->getVertical();
@@ -107,9 +102,10 @@ class Style
             $this->writer->writeAttribute('fo:text-align', $hAlign);
             $this->writer->endElement();
         }
+    }
 
-        // style:text-properties
-
+    protected function writeTextProperties(CellStyle $style): void
+    {
         // Font
         $this->writer->startElement('style:text-properties');
 
@@ -155,6 +151,20 @@ class Style
         }
 
         $this->writer->endElement(); // Close style:text-properties
+    }
+
+    public function write(CellStyle $style): void
+    {
+        $this->writer->startElement('style:style');
+        $this->writer->writeAttribute('style:name', self::CELL_STYLE_PREFIX . $style->getIndex());
+        $this->writer->writeAttribute('style:family', 'table-cell');
+        $this->writer->writeAttribute('style:parent-style-name', 'Default');
+
+        // Alignment, fill colour, etc
+        $this->writeCellProperties($style);
+
+        // style:text-properties
+        $this->writeTextProperties($style);
 
         // End
         $this->writer->endElement(); // Close style:style
