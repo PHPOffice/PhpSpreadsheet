@@ -504,7 +504,7 @@ class Xf
      */
     private static function mapLocked($locked)
     {
-        return array_key_exists($locked, self::LOCK_ARRAY) ? LOCK_ARRAY[$locked] : 1;
+        return array_key_exists($locked, self::LOCK_ARRAY) ? self::LOCK_ARRAY[$locked] : 1;
     }
 
     private const HIDDEN_ARRAY = [
@@ -522,6 +522,6 @@ class Xf
      */
     private static function mapHidden($hidden)
     {
-        return array_key_exists($hidden, self::HIDDEN_ARRAY) ? HIDDEN_ARRAY[$hidden] : 0;
+        return array_key_exists($hidden, self::HIDDEN_ARRAY) ? self::HIDDEN_ARRAY[$hidden] : 0;
     }
 }
