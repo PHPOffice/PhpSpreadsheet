@@ -154,7 +154,6 @@ class Style
 
             $underline = $this->mapUnderlineStyle($font);
             $this->writer->writeAttribute('style:text-underline-type', $underline);
-
         }
 
         $this->writer->endElement(); // Close style:text-properties
