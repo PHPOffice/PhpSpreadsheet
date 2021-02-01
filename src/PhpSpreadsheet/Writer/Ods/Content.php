@@ -21,7 +21,6 @@ class Content extends WriterPart
 {
     const NUMBER_COLS_REPEATED_MAX = 1024;
     const NUMBER_ROWS_REPEATED_MAX = 1048576;
-    const CELL_STYLE_PREFIX = 'ce';
 
     private $formulaConvertor;
 
@@ -274,8 +273,9 @@ class Content extends WriterPart
      */
     private function writeXfStyles(XMLWriter $writer, Spreadsheet $spreadsheet): void
     {
+        $styleWriter = new Style($writer);
         foreach ($spreadsheet->getCellXfCollection() as $style) {
-            Style::write($writer, $style);
+            $styleWriter->write($style);
         }
     }
 

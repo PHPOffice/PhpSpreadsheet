@@ -12,7 +12,14 @@ class Style
 {
     public const CELL_STYLE_PREFIX = 'ce';
 
-    private static function mapHorizontalAlignment(string $horizontalAlignment): string
+    private $writer;
+
+    public function __construct(XMLWriter $writer)
+    {
+        $this->writer = $writer;
+    }
+
+    private function mapHorizontalAlignment(string $horizontalAlignment): string
     {
         switch ($horizontalAlignment) {
             case Alignment::HORIZONTAL_CENTER:
@@ -29,7 +36,7 @@ class Style
         return 'start';
     }
 
-    private static function mapVerticalAlignment(string $verticalAlignment): string
+    private function mapVerticalAlignment(string $verticalAlignment): string
     {
         switch ($verticalAlignment) {
             case Alignment::VERTICAL_TOP:
@@ -44,11 +51,11 @@ class Style
         return 'bottom';
     }
 
-    public static function writeFillStyle(XMLWriter $writer, Fill $fill): void
+    private function writeFillStyle(Fill $fill): void
     {
         switch ($fill->getFillType()) {
             case Fill::FILL_SOLID:
-                $writer->writeAttribute('fo:background-color', sprintf(
+                $this->writer->writeAttribute('fo:background-color', sprintf(
                     '#%s',
                     strtolower($fill->getStartColor()->getRGB())
                 ));
@@ -63,93 +70,93 @@ class Style
         }
     }
 
-    public static function write(XMLWriter $writer, CellStyle $style): void
+    public function write(CellStyle $style): void
     {
-        $writer->startElement('style:style');
-        $writer->writeAttribute('style:name', self::CELL_STYLE_PREFIX . $style->getIndex());
-        $writer->writeAttribute('style:family', 'table-cell');
-        $writer->writeAttribute('style:parent-style-name', 'Default');
+        $this->writer->startElement('style:style');
+        $this->writer->writeAttribute('style:name', self::CELL_STYLE_PREFIX . $style->getIndex());
+        $this->writer->writeAttribute('style:family', 'table-cell');
+        $this->writer->writeAttribute('style:parent-style-name', 'Default');
 
         // Align
         $hAlign = $style->getAlignment()->getHorizontal();
         $vAlign = $style->getAlignment()->getVertical();
         $wrap = $style->getAlignment()->getWrapText();
 
-        $writer->startElement('style:table-cell-properties');
+        $this->writer->startElement('style:table-cell-properties');
         if (!empty($vAlign) || $wrap) {
             if (!empty($vAlign)) {
-                $vAlign = self::mapVerticalAlignment($vAlign);
-                $writer->writeAttribute('style:vertical-align', $vAlign);
+                $vAlign = $this->mapVerticalAlignment($vAlign);
+                $this->writer->writeAttribute('style:vertical-align', $vAlign);
             }
             if ($wrap) {
-                $writer->writeAttribute('fo:wrap-option', 'wrap');
+                $this->writer->writeAttribute('fo:wrap-option', 'wrap');
             }
         }
-        $writer->writeAttribute('style:rotation-align', 'none');
+        $this->writer->writeAttribute('style:rotation-align', 'none');
 
         // Fill
         if ($fill = $style->getFill()) {
-            self::writeFillStyle($writer, $fill);
+            self::writeFillStyle($fill);
         }
 
-        $writer->endElement();
+        $this->writer->endElement();
 
         if (!empty($hAlign)) {
-            $hAlign = self::mapHorizontalAlignment($hAlign);
-            $writer->startElement('style:paragraph-properties');
-            $writer->writeAttribute('fo:text-align', $hAlign);
-            $writer->endElement();
+            $hAlign = $this->mapHorizontalAlignment($hAlign);
+            $this->writer->startElement('style:paragraph-properties');
+            $this->writer->writeAttribute('fo:text-align', $hAlign);
+            $this->writer->endElement();
         }
 
         // style:text-properties
 
         // Font
-        $writer->startElement('style:text-properties');
+        $this->writer->startElement('style:text-properties');
 
         $font = $style->getFont();
 
         if ($font->getBold()) {
-            $writer->writeAttribute('fo:font-weight', 'bold');
-            $writer->writeAttribute('style:font-weight-complex', 'bold');
-            $writer->writeAttribute('style:font-weight-asian', 'bold');
+            $this->writer->writeAttribute('fo:font-weight', 'bold');
+            $this->writer->writeAttribute('style:font-weight-complex', 'bold');
+            $this->writer->writeAttribute('style:font-weight-asian', 'bold');
         }
 
         if ($font->getItalic()) {
-            $writer->writeAttribute('fo:font-style', 'italic');
+            $this->writer->writeAttribute('fo:font-style', 'italic');
         }
 
         if ($color = $font->getColor()) {
-            $writer->writeAttribute('fo:color', sprintf('#%s', $color->getRGB()));
+            $this->writer->writeAttribute('fo:color', sprintf('#%s', $color->getRGB()));
         }
 
         if ($family = $font->getName()) {
-            $writer->writeAttribute('fo:font-family', $family);
+            $this->writer->writeAttribute('fo:font-family', $family);
         }
 
         if ($size = $font->getSize()) {
-            $writer->writeAttribute('fo:font-size', sprintf('%.1Fpt', $size));
+            $this->writer->writeAttribute('fo:font-size', sprintf('%.1Fpt', $size));
         }
 
         if ($font->getUnderline() && $font->getUnderline() != Font::UNDERLINE_NONE) {
-            $writer->writeAttribute('style:text-underline-style', 'solid');
-            $writer->writeAttribute('style:text-underline-width', 'auto');
-            $writer->writeAttribute('style:text-underline-color', 'font-color');
+            $this->writer->writeAttribute('style:text-underline-style', 'solid');
+            $this->writer->writeAttribute('style:text-underline-width', 'auto');
+            $this->writer->writeAttribute('style:text-underline-color', 'font-color');
 
             switch ($font->getUnderline()) {
                 case Font::UNDERLINE_DOUBLE:
-                    $writer->writeAttribute('style:text-underline-type', 'double');
+                    $this->writer->writeAttribute('style:text-underline-type', 'double');
 
                     break;
                 case Font::UNDERLINE_SINGLE:
-                    $writer->writeAttribute('style:text-underline-type', 'single');
+                    $this->writer->writeAttribute('style:text-underline-type', 'single');
 
                     break;
             }
         }
 
-        $writer->endElement(); // Close style:text-properties
+        $this->writer->endElement(); // Close style:text-properties
 
         // End
-        $writer->endElement(); // Close style:style
+        $this->writer->endElement(); // Close style:style
     }
 }
