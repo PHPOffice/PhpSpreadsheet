@@ -128,6 +128,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Reader/Gnumeric Failure with PHP8 [#1662](https://github.com/phpoffice/phpspreadsheet/pull/1662)
 - ReverseSort bug, exposed but not caused by PHP8 [#1660](https://github.com/phpoffice/phpspreadsheet/pull/1660)
 - Bug setting Superscript/Subscript to false [#1567](https://github.com/phpoffice/phpspreadsheet/pull/1567)
+- Fix XLSX reader when having a corrupt numeric cell data type [#1664](https://github.com/phpoffice/phpspreadsheet/pull/1664) 
 
 ## 1.14.1 - 2020-07-19
 

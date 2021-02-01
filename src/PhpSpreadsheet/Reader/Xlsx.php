@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
@@ -735,6 +736,10 @@ class Xlsx extends BaseReader
                                             $cell = $docSheet->getCell($r);
                                             // Assign value
                                             if ($cellDataType != '') {
+                                                // it is possible, that datatype is numeric but with an empty string, which result in an error
+                                                if ($cellDataType === DataType::TYPE_NUMERIC && $value === '') {
+                                                    $cellDataType = DataType::TYPE_STRING;
+                                                }
                                                 $cell->setValueExplicit($value, $cellDataType);
                                             } else {
                                                 $cell->setValue($value);
