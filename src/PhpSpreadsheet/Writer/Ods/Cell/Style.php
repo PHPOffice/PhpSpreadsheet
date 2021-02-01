@@ -91,7 +91,7 @@ class Style
 
         // Fill
         if ($fill = $style->getFill()) {
-            self::writeFillStyle($fill);
+            $this->writeFillStyle($fill);
         }
 
         $this->writer->endElement();
@@ -102,6 +102,20 @@ class Style
             $this->writer->writeAttribute('fo:text-align', $hAlign);
             $this->writer->endElement();
         }
+    }
+
+    protected function mapUnderlineStyle(Font $font): string
+    {
+        switch ($font->getUnderline()) {
+            case Font::UNDERLINE_DOUBLE:
+            case Font::UNDERLINE_DOUBLEACCOUNTING:
+                return'double';
+            case Font::UNDERLINE_SINGLE:
+            case Font::UNDERLINE_SINGLEACCOUNTING:
+                return'single';
+        }
+
+        return 'none';
     }
 
     protected function writeTextProperties(CellStyle $style): void
@@ -133,21 +147,14 @@ class Style
             $this->writer->writeAttribute('fo:font-size', sprintf('%.1Fpt', $size));
         }
 
-        if ($font->getUnderline() && $font->getUnderline() != Font::UNDERLINE_NONE) {
+        if ($font->getUnderline() && $font->getUnderline() !== Font::UNDERLINE_NONE) {
             $this->writer->writeAttribute('style:text-underline-style', 'solid');
             $this->writer->writeAttribute('style:text-underline-width', 'auto');
             $this->writer->writeAttribute('style:text-underline-color', 'font-color');
 
-            switch ($font->getUnderline()) {
-                case Font::UNDERLINE_DOUBLE:
-                    $this->writer->writeAttribute('style:text-underline-type', 'double');
+            $underline = $this->mapUnderlineStyle($font);
+            $this->writer->writeAttribute('style:text-underline-type', $underline);
 
-                    break;
-                case Font::UNDERLINE_SINGLE:
-                    $this->writer->writeAttribute('style:text-underline-type', 'single');
-
-                    break;
-            }
         }
 
         $this->writer->endElement(); // Close style:text-properties
