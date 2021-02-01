@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Implemented DataBar for conditional formatting in Xlsx, providing read/write and creation of (type, value, direction, fills, border, axis position, color settings) as DataBar options in Excel. [#1754](https://github.com/PHPOffice/PhpSpreadsheet/pull/1754)
+- Alignment for ODS Writer [#1796](https://github.com/PHPOffice/PhpSpreadsheet/issues/1796)
 
 ### Changed
 
@@ -21,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   `RADIANS()` (deg2rad), `SIN()`, `SINH()`, `SQRT()`, `TAN()`, `TANH()`.
   
   One TextData function is also affected: `REPT()` (str_repeat).
+- `formatAsDate` correctly matches language metadata, reverting c55272e
 
 ### Deprecated
 
@@ -44,13 +46,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Alignment for ODS Writer [#1796](https://github.com/PHPOffice/PhpSpreadsheet/issues/1796)
 - CSV Reader - Best Guess for Encoding, and Handle Null-string Escape [#1647](https://github.com/PHPOffice/PhpSpreadsheet/issues/1647)
 
 ### Changed
 
 - Updated the CONVERT() function to support all current MS Excel categories and Units of Measure.
-- `formatAsDate` correctly matches language metadata, reverting c55272e
 
 ### Deprecated
 
