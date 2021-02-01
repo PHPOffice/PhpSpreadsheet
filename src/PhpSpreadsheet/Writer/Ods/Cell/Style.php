@@ -3,10 +3,10 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
 
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-use PhpOffice\PhpSpreadsheet\Style\Style as CellStyle;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Style\Style as CellStyle;
 
 class Style
 {
