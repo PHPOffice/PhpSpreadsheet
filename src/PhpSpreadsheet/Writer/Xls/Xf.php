@@ -489,6 +489,12 @@ class Xf
         return 90 - $textRotation;
     }
 
+    private const LOCK_ARRAY = [
+        Protection::PROTECTION_INHERIT => 1,
+        Protection::PROTECTION_PROTECTED => 1,
+        Protection::PROTECTION_UNPROTECTED => 0,
+    ];
+
     /**
      * Map locked.
      *
@@ -498,13 +504,14 @@ class Xf
      */
     private static function mapLocked($locked)
     {
-        switch ($locked) {
-            case Protection::PROTECTION_UNPROTECTED:
-                return 0;
-        }
-
-        return 1;
+        return array_key_exists($locked, self::LOCK_ARRAY) ? LOCK_ARRAY[$locked] : 1;
     }
+
+    private const HIDDEN_ARRAY = [
+        Protection::PROTECTION_INHERIT => 0,
+        Protection::PROTECTION_PROTECTED => 1,
+        Protection::PROTECTION_UNPROTECTED => 0,
+    ];
 
     /**
      * Map hidden.
@@ -515,11 +522,6 @@ class Xf
      */
     private static function mapHidden($hidden)
     {
-        switch ($hidden) {
-            case Protection::PROTECTION_PROTECTED:
-                return 1;
-        }
-
-        return 0;
+        return array_key_exists($hidden, self::HIDDEN_ARRAY) ? HIDDEN_ARRAY[$hidden] : 0;
     }
 }
