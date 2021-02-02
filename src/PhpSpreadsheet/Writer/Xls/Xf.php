@@ -496,7 +496,7 @@ class Xf
     ];
 
     /**
-     * Map locked.
+     * Map locked values.
      *
      * @param string $locked
      *
