@@ -6,40 +6,23 @@ use NumberFormatter;
 
 class Accounting extends Currency
 {
+    protected const FORMAT_STYLE = Number::FORMAT_STYLE_ACCOUNTING;
+
     protected $wrapNegativeValuesInBraces;
 
-    public function __construct(string $locale = 'en_US', string $currencyCode = null)
+    public function __construct(string $locale = 'en_US', ?string $currencyCode = null)
     {
-        $locale = new Locale($locale);
-        $countryCode = $locale->getCountryCode() ?? 'US';
-        $this->locale = $locale->getLocale();
-
-        if ($currencyCode === null) {
-            $currencyCode = CurrencyLookup::lookup($countryCode);
-        }
-        $this->currencyCode = $currencyCode;
+        $this->setLocale($locale);
+        $currencyCode = $this->setCurrencyCode($currencyCode);
 
         $mask = '#,##0.##';
-        $locale = "{$locale}.UTF8@currency={$currencyCode}";
-        $currencyFormatter = $this->internationalFormatter($locale, Number::FORMAT_STYLE_ACCOUNTING);
-        if ($currencyFormatter !== null) {
-            $this->currencySymbol = $currencyFormatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
-            $this->intlMask = $currencyFormatter->getPattern();
-            $this->wrapNegativeValuesInBraces = strpos($this->intlMask, '(') !== false;
-            $this->identifySignPosition();
-            $this->identifyCurrencySymbolPosition();
-            $mask = $this->intlMask;
+        $formatterLocale = "{$this->locale}.UTF8@currency={$currencyCode}";
+        $accountingFormatter = $this->internationalFormatter($formatterLocale);
+        if ($accountingFormatter !== null) {
+            $mask = $this->internationalCurrencySettings($accountingFormatter);
+            $this->wrapNegativeValuesInBraces = strpos($mask, '(') !== false;
         }
-
-        if ($this->currencySymbol === null || $this->currencySymbol === false) {
-            $this->currencySymbol = CurrencySymbolLookup::lookup($currencyCode) ?? self::CURRENCYCODE_PLACEHOLDER;
-        }
-
-        $this->useThousandsSeparator(strpos($mask, ',') !== false);
-        $decimalMatch = (bool) (preg_match('/\.[0|#]+/', $mask, $decimals));
-        $this->setDecimals($decimalMatch ? strlen($decimals[0]) - 1 : 0);
-
-        $this->mask = $mask;
+        $this->baseNumberSettings($mask, $currencyCode);
     }
 
     public function wrapNegativeValues(bool $inBraces): void

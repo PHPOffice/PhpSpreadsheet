@@ -7,7 +7,9 @@ class Locale
     public const LOCALE_SEPARATOR = '_';
 
     protected $locale;
+
     protected $language;
+
     protected $countryCode;
 
     public function __construct(string $locale = 'en_US')

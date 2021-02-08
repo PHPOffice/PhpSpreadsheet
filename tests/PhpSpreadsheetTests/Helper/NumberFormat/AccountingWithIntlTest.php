@@ -18,11 +18,11 @@ class AccountingWithIntlTest extends TestCase
      * @group intl
      * @dataProvider accountingMaskWithIntlData
      */
-    public function testAccountingMaskWithIntl(string $expectedResult, ...$args)
+    public function testAccountingMaskWithIntl(string $expectedResult, ...$args): void
     {
         $currencyFormatter = new Accounting(...$args);
         $currencyFormatMask = $currencyFormatter->format();
-        $this->assertSame($expectedResult, $currencyFormatMask);
+        self::assertSame($expectedResult, $currencyFormatMask);
     }
 
     public function accountingMaskWithIntlData()

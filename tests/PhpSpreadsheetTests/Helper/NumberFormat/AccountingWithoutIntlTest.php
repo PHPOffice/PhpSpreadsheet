@@ -18,11 +18,11 @@ class AccountingWithoutIntlTest extends TestCase
      * @group intl
      * @dataProvider accountingMaskWithoutIntlData
      */
-    public function testAccountingMaskWithoutIntl(string $expectedResult, ...$args)
+    public function testAccountingMaskWithoutIntl(string $expectedResult, ...$args): void
     {
         $AccountingFormatter = new Accounting(...$args);
         $AccountingFormatMask = $AccountingFormatter->format();
-        $this->assertSame($expectedResult, $AccountingFormatMask);
+        self::assertSame($expectedResult, $AccountingFormatMask);
     }
 
     public function accountingMaskWithoutIntlData()

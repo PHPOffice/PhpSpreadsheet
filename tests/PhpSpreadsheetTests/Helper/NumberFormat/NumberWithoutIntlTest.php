@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Helper\NumberFormat;
 
-use PhpOffice\PhpSpreadsheet\Helper\NumberFormat\Currency;
 use PhpOffice\PhpSpreadsheet\Helper\NumberFormat\Number;
 use PHPUnit\Framework\TestCase;
 
@@ -19,11 +18,11 @@ class NumberWithoutIntlTest extends TestCase
      * @group intl
      * @dataProvider numberMaskWithoutIntlData
      */
-    public function testNumberMaskWithIntl(string $expectedResult, ...$args)
+    public function testNumberMaskWithIntl(string $expectedResult, ...$args): void
     {
         $numberFormatter = new Number(...$args);
         $numberFormatMask = $numberFormatter->format();
-        $this->assertSame($expectedResult, $numberFormatMask);
+        self::assertSame($expectedResult, $numberFormatMask);
     }
 
     public function numberMaskWithoutIntlData()
@@ -43,7 +42,7 @@ class NumberWithoutIntlTest extends TestCase
      * @group intl
      * @dataProvider numberMaskWithoutIntlDataManualOverrides
      */
-    public function testNumberMaskWithoutIntlManualOverrides(string $expectedResult, string $locale, array $args)
+    public function testNumberMaskWithoutIntlManualOverrides(string $expectedResult, string $locale, array $args): void
     {
         $numberFormatter = new Number($locale);
 
@@ -52,7 +51,7 @@ class NumberWithoutIntlTest extends TestCase
         }
 
         $numberFormatMask = $numberFormatter->format();
-        $this->assertSame($expectedResult, $numberFormatMask);
+        self::assertSame($expectedResult, $numberFormatMask);
     }
 
     public function numberMaskWithoutIntlDataManualOverrides()
@@ -76,7 +75,7 @@ class NumberWithoutIntlTest extends TestCase
                 '0.00',
                 'en_US',
                 [
-                    'useThousandsSeparator' => [false]
+                    'useThousandsSeparator' => [false],
                 ],
             ],
             'Trailing negative' => [
@@ -87,14 +86,14 @@ class NumberWithoutIntlTest extends TestCase
                 ],
             ],
             'Trailing negative with separator' => [
-                '#,##0.00;#,##0.00 -',
+                '#,##0.00;#,##0.00 -',
                 'en_US',
                 [
                     'trailingSign' => [true, Number::NON_BREAKING_SPACE],
                 ],
             ],
             'Leading negative with separator' => [
-                '#,##0.00;- #,##0.00',
+                '#,##0.00;- #,##0.00',
                 'en_US',
                 [
                     'trailingSign' => [false, Number::NON_BREAKING_SPACE],
@@ -108,7 +107,7 @@ class NumberWithoutIntlTest extends TestCase
                 ],
             ],
             'Leading sign with separator' => [
-                '+ #,##0.00;- #,##0.00;#,##0.00',
+                '+ #,##0.00;- #,##0.00;#,##0.00',
                 'en_US',
                 [
                     'trailingSign' => [false, Number::NON_BREAKING_SPACE],
@@ -116,7 +115,7 @@ class NumberWithoutIntlTest extends TestCase
                 ],
             ],
             'Trailing sign with separator' => [
-                '#,##0.00 +;#,##0.00 -;#,##0.00',
+                '#,##0.00 +;#,##0.00 -;#,##0.00',
                 'en_US',
                 [
                     'trailingSign' => [true, Number::NON_BREAKING_SPACE],
@@ -128,7 +127,7 @@ class NumberWithoutIntlTest extends TestCase
                 'en_US',
                 [
                     'setDecimals' => [3],
-                    'useThousandsSeparator' => [false]
+                    'useThousandsSeparator' => [false],
                 ],
             ],
         ];

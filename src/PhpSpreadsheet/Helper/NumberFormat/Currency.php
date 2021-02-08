@@ -6,38 +6,37 @@ use NumberFormatter;
 
 class Currency extends Number
 {
+    protected const FORMAT_STYLE = Number::FORMAT_STYLE_CURRENCY;
+
     public const CURRENCYCODE_PLACEHOLDER = '¤';
 
     public const CURRENCY_SYMBOL_LEADING = true;
     public const CURRENCY_SYMBOL_TRAILING = false;
 
     protected $currencyCode;
+
     protected $currencySymbol;
+
     protected $currencySeparator = '';
+
     protected $leading = self::CURRENCY_SYMBOL_LEADING;
 
-    public function __construct(string $locale = 'en_US', string $currencyCode = null)
+    public function __construct(string $locale = 'en_US', ?string $currencyCode = null)
     {
-        $locale = new Locale($locale);
-        $countryCode = $locale->getCountryCode() ?? 'US';
-        $this->locale = $locale->getLocale();
-
-        if ($currencyCode === null) {
-            $currencyCode = CurrencyLookup::lookup($countryCode);
-        }
-        $this->currencyCode = $currencyCode;
+        $countryCode = $this->setLocale($locale);
+        $currencyCode = $this->setCurrencyCode($currencyCode);
 
         $mask = in_array($countryCode, self::LAKH_COUNTRIES, true) ? '#,##,##0.##' : '#,##0.##';
-        $locale = "{$locale}.UTF8@currency={$currencyCode}";
-        $currencyFormatter = $this->internationalFormatter($locale, Number::FORMAT_STYLE_CURRENCY);
+        $formatterLocale = "{$this->locale}.UTF8@currency={$currencyCode}";
+        $currencyFormatter = $this->internationalFormatter($formatterLocale);
         if ($currencyFormatter !== null) {
-            $this->currencySymbol = $currencyFormatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
-            $this->intlMask = $currencyFormatter->getPattern();
-            $this->identifySignPosition();
-            $this->identifyCurrencySymbolPosition();
-            $mask = $this->intlMask;
+            $mask = $this->internationalCurrencySettings($currencyFormatter);
         }
+        $this->baseNumberSettings($mask, $currencyCode);
+    }
 
+    protected function baseNumberSettings(string $mask, ?string $currencyCode = null)
+    {
         if ($this->currencySymbol === null || $this->currencySymbol === false) {
             $this->currencySymbol = CurrencySymbolLookup::lookup($currencyCode) ?? self::CURRENCYCODE_PLACEHOLDER;
         }
@@ -47,6 +46,26 @@ class Currency extends Number
         $this->setDecimals($decimalMatch ? strlen($decimals[0]) - 1 : 0);
 
         $this->mask = $mask;
+    }
+
+    protected function internationalCurrencySettings(NumberFormatter $intlFormatter): string
+    {
+        $this->currencySymbol = $intlFormatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
+        $this->intlMask = $intlFormatter->getPattern();
+        $this->identifySignPosition();
+        $this->identifyCurrencySymbolPosition();
+
+        return $this->intlMask;
+    }
+
+    protected function setCurrencyCode(?string $currencyCode = null): ?string
+    {
+        if ($currencyCode === null) {
+            $currencyCode = CurrencyLookup::lookup($this->locale->getCountryCode());
+        }
+        $this->currencyCode = $currencyCode;
+
+        return $currencyCode;
     }
 
     private const IDENTIFY_LEADING_SIGN = '/' .

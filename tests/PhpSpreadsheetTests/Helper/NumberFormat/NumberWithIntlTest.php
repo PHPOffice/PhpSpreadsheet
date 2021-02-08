@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Helper\NumberFormat;
 
-use PhpOffice\PhpSpreadsheet\Helper\NumberFormat\Currency;
 use PhpOffice\PhpSpreadsheet\Helper\NumberFormat\Number;
 use PHPUnit\Framework\TestCase;
 
@@ -19,11 +18,11 @@ class NumberWithIntlTest extends TestCase
      * @group intl
      * @dataProvider numberMaskWithIntlData
      */
-    public function testNumberMaskWithIntl(string $expectedResult, ...$args)
+    public function testNumberMaskWithIntl(string $expectedResult, ...$args): void
     {
         $numberFormatter = new Number(...$args);
         $numberFormatMask = $numberFormatter->format();
-        $this->assertSame($expectedResult, $numberFormatMask);
+        self::assertSame($expectedResult, $numberFormatMask);
     }
 
     public function numberMaskWithIntlData()
@@ -44,7 +43,7 @@ class NumberWithIntlTest extends TestCase
      * @group intl
      * @dataProvider numberMaskWithIntlDataManualOverrides
      */
-    public function testNumberMaskWithIntlManualOverrides(string $expectedResult, string $locale, array $args)
+    public function testNumberMaskWithIntlManualOverrides(string $expectedResult, string $locale, array $args): void
     {
         $numberFormatter = new Number($locale);
 
@@ -53,7 +52,7 @@ class NumberWithIntlTest extends TestCase
         }
 
         $numberFormatMask = $numberFormatter->format();
-        $this->assertSame($expectedResult, $numberFormatMask);
+        self::assertSame($expectedResult, $numberFormatMask);
     }
 
     public function numberMaskWithIntlDataManualOverrides()
@@ -77,7 +76,7 @@ class NumberWithIntlTest extends TestCase
                 '0.00',
                 'en_US',
                 [
-                    'useThousandsSeparator' => [false]
+                    'useThousandsSeparator' => [false],
                 ],
             ],
             'Trailing negative' => [
@@ -129,7 +128,7 @@ class NumberWithIntlTest extends TestCase
                 'en_US',
                 [
                     'setDecimals' => [3],
-                    'useThousandsSeparator' => [false]
+                    'useThousandsSeparator' => [false],
                 ],
             ],
         ];

@@ -19,11 +19,11 @@ class CurrencyWithIntlTest extends TestCase
      * @group intl
      * @dataProvider currencyMaskWithIntlData
      */
-    public function testCurrencyMaskWithIntl(string $expectedResult, ...$args)
+    public function testCurrencyMaskWithIntl(string $expectedResult, ...$args): void
     {
         $currencyFormatter = new Currency(...$args);
         $currencyFormatMask = $currencyFormatter->format();
-        $this->assertSame($expectedResult, $currencyFormatMask);
+        self::assertSame($expectedResult, $currencyFormatMask);
     }
 
     public function currencyMaskWithIntlData()
@@ -48,7 +48,7 @@ class CurrencyWithIntlTest extends TestCase
      * @group intl
      * @dataProvider currencyMaskWithIntlDataManualOverrides
      */
-    public function testCurrencyMaskWithIntlManualOverrides(string $expectedResult, string $locale, array $args)
+    public function testCurrencyMaskWithIntlManualOverrides(string $expectedResult, string $locale, array $args): void
     {
         $currencyFormatter = new Currency($locale);
 
@@ -57,7 +57,7 @@ class CurrencyWithIntlTest extends TestCase
         }
 
         $currencyFormatMask = $currencyFormatter->format();
-        $this->assertSame($expectedResult, $currencyFormatMask);
+        self::assertSame($expectedResult, $currencyFormatMask);
     }
 
     public function currencyMaskWithIntlDataManualOverrides()

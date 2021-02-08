@@ -19,11 +19,11 @@ class CurrencyWithoutIntlTest extends TestCase
      * @group intl
      * @dataProvider currencyMaskWithoutIntlData
      */
-    public function testCurrencyMaskWithoutIntl(string $expectedResult, ...$args)
+    public function testCurrencyMaskWithoutIntl(string $expectedResult, ...$args): void
     {
         $currencyFormatter = new Currency(...$args);
         $currencyFormatMask = $currencyFormatter->format();
-        $this->assertSame($expectedResult, $currencyFormatMask);
+        self::assertSame($expectedResult, $currencyFormatMask);
     }
 
     public function currencyMaskWithoutIntlData()
@@ -43,7 +43,7 @@ class CurrencyWithoutIntlTest extends TestCase
      * @group intl
      * @dataProvider currencyMaskWithoutIntlDataManualOverrides
      */
-    public function testCurrencyMaskWithoutIntlManualOverrides(string $expectedResult, string $locale, array $args)
+    public function testCurrencyMaskWithoutIntlManualOverrides(string $expectedResult, string $locale, array $args): void
     {
         $currencyFormatter = new Currency($locale);
 
@@ -52,14 +52,14 @@ class CurrencyWithoutIntlTest extends TestCase
         }
 
         $currencyFormatMask = $currencyFormatter->format();
-        $this->assertSame($expectedResult, $currencyFormatMask);
+        self::assertSame($expectedResult, $currencyFormatMask);
     }
 
     public function currencyMaskWithoutIntlDataManualOverrides()
     {
         return [
             'GBP, with Leading Pound Sterling and separator' => [
-                '[$£-en-GB] #,##0.00',
+                '[$£-en-GB] #,##0.00',
                 'en_GB',
                 [
                     'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_LEADING, Number::NON_BREAKING_SPACE],
@@ -73,14 +73,14 @@ class CurrencyWithoutIntlTest extends TestCase
                 ],
             ],
             'GBP, with Leading Pound Sterling and space separator' => [
-                '[$£-en-GB] #,##0.00',
+                '[$£-en-GB] #,##0.00',
                 'en_GB',
                 [
                     'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_LEADING, Number::NON_BREAKING_SPACE],
                 ],
             ],
             'GBP, with Trailing Pound Sterling and separator' => [
-                '#,##0.00 [$£-en-GB]',
+                '#,##0.00 [$£-en-GB]',
                 'en_GB',
                 [
                     'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_TRAILING, Number::NON_BREAKING_SPACE],

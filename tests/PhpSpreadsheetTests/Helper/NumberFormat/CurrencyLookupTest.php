@@ -13,10 +13,10 @@ class CurrencyLookupTest extends TestCase
      * @param $expectedResult
      * @param $countryCode
      */
-    public function testLookup(string $countryCode, string $expectedResult)
+    public function testLookup(string $countryCode, string $expectedResult): void
     {
         $currencyCode = CurrencyLookup::lookup($countryCode);
-        $this->assertSame($expectedResult, $currencyCode);
+        self::assertSame($expectedResult, $currencyCode);
     }
 
     public function countryCodeLookup()
@@ -28,10 +28,9 @@ class CurrencyLookupTest extends TestCase
         ];
     }
 
-    public function testLookupInvalidCode()
+    public function testLookupInvalidCode(): void
     {
         $currencyCode = CurrencyLookup::lookup('ZZ');
-        $this->assertNull($currencyCode);
+        self::assertNull($currencyCode);
     }
 }
-

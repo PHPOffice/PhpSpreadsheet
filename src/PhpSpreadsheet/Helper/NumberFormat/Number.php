@@ -3,10 +3,11 @@
 namespace PhpOffice\PhpSpreadsheet\Helper\NumberFormat;
 
 use NumberFormatter;
-use function Symfony\Component\String\s;
 
 class Number
 {
+    protected const FORMAT_STYLE = Number::FORMAT_STYLE_DECIMAL;
+
     protected const FORMAT_STYLE_DECIMAL = 1;
     protected const FORMAT_STYLE_CURRENCY = 2;
     protected const FORMAT_STYLE_ACCOUNTING = 4;
@@ -25,9 +26,9 @@ class Number
     protected const MASK_ZERO_VALUE = 2;
 
     /**
-     * Note that not all language groups in these countries use lakh,
-     *      and there are other contries like Myanmar and Nepal where some minority language groups do use lakh
-     *      but to distinguish at that level, we need full Intl support enabled
+     * Note that not all language communities in these countries use lakh,
+     *      and there are other countries like Myanmar and Nepal where some minority language communities do use lakh
+     *      but to distinguish at that level, we need full Intl support enabled.
      */
     protected const LAKH_COUNTRIES = [
         'BD',   // Bangladesh
@@ -38,24 +39,28 @@ class Number
     ];
 
     protected $decimals = 0;
+
     protected $thousands = true;
+
     protected $trailingSign = false;
+
     protected $displayPositiveSign = false;
+
     protected $signSeparator = '';
 
     protected $locale;
+
     protected $intlMask;
+
     protected $mask;
 
     public function __construct(string $locale = 'en_US', int $decimals = 2, bool $thousandsSeparator = true)
     {
-        $locale = new Locale($locale);
-        $countryCode = $locale->getCountryCode();
-        $this->locale = $locale->getLocale();
+        $countryCode = $this->setLocale($locale);
 
         $mask = in_array($countryCode, self::LAKH_COUNTRIES, true) ? '#,##,##0.###' : '#,##0.###';
-        $locale = "{$locale}.UTF8";
-        $numberFormatter = $this->internationalFormatter($locale, self::FORMAT_STYLE_DECIMAL);
+        $formatterLocale = "{$this->locale}.UTF8";
+        $numberFormatter = $this->internationalFormatter($formatterLocale);
         if ($numberFormatter !== null) {
             $this->intlMask = $numberFormatter->getPattern();
             $mask = $this->intlMask;
@@ -66,9 +71,16 @@ class Number
         $this->useThousandsSeparator($thousandsSeparator);
     }
 
-    private function internationalFormatterStyle(int $style)
+    protected function setLocale(string $locale): string
     {
-        switch ($style) {
+        $this->locale = new Locale($locale);
+
+        return $this->locale->getCountryCode();
+    }
+
+    private function internationalFormatterStyle()
+    {
+        switch (static::FORMAT_STYLE) {
             case self::FORMAT_STYLE_ACCOUNTING:
                 return NumberFormatter::CURRENCY_ACCOUNTING;
             case self::FORMAT_STYLE_CURRENCY:
@@ -78,10 +90,10 @@ class Number
         return NumberFormatter::DECIMAL;
     }
 
-    protected function internationalFormatter(string $locale, int $style): ?NumberFormatter
+    protected function internationalFormatter(string $locale): ?NumberFormatter
     {
         if (extension_loaded('intl')) {
-            $intlStyle = $this->internationalFormatterStyle($style);
+            $intlStyle = $this->internationalFormatterStyle();
             $intlFormatter = new NumberFormatter($locale, $intlStyle);
             if ($intlFormatter !== false) {
                 return $intlFormatter;
