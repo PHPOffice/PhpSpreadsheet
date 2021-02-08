@@ -833,6 +833,14 @@ class NumberFormat extends Supervisor
             return $value;
         }
 
+        $format = preg_replace_callback(
+            '/(["])(?:(?=(\\\\?))\\2.)*?\\1/u',
+            function ($matches) {
+                return str_replace('.', chr(0x00), $matches[0]);
+            },
+            $format
+        );
+
         // Convert any other escaped characters to quoted strings, e.g. (\T to "T")
         $format = preg_replace('/(\\\(((.)(?!((AM\/PM)|(A\/P))))|([^ ])))(?=(?:[^"]|"[^"]*")*$)/u', '"${2}"', $format);
 
@@ -867,6 +875,8 @@ class NumberFormat extends Supervisor
             [$writerInstance, $function] = $callBack;
             $value = $writerInstance->$function($value, $colors);
         }
+
+        $value = str_replace(chr(0x00), '.', $value);
 
         return $value;
     }
