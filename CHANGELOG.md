@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Nothing.
 
 ### Fixed
-
+- Fix possible endless loop in NumberFormat Masks [#1792](https://github.com/PHPOffice/PhpSpreadsheet/issues/1792)
 - Fix problem resulting from  literal dot inside quotes in number format masks. [PR #1830](https://github.com/PHPOffice/PhpSpreadsheet/pull/1830)
 - Resolve Google Sheets Xlsx charts issue. Google Sheets uses oneCellAnchor positioning and does not include *Cache values in the exported Xlsx. [PR #1761](https://github.com/PHPOffice/PhpSpreadsheet/pull/1761)
 - Fix for Xlsx Chart axis titles mapping to correct X or Y axis label when only one is present. [PR #1760](https://github.com/PHPOffice/PhpSpreadsheet/pull/1760)
