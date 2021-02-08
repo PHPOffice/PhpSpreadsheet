@@ -1,0 +1,116 @@
+<?php
+
+namespace PhpOffice\PhpSpreadsheetTests\Helper\NumberFormat;
+
+use PhpOffice\PhpSpreadsheet\Helper\NumberFormat\Currency;
+use PhpOffice\PhpSpreadsheet\Helper\NumberFormat\Number;
+use PHPUnit\Framework\TestCase;
+
+class CurrencyWithoutIntlTest extends TestCase
+{
+    public static function setUpBeforeClass(): void
+    {
+        if (extension_loaded('intl')) {
+            self::markTestSkipped('The Intl extension is available, cannot test for fallback');
+        }
+    }
+
+    /**
+     * @group intl
+     * @dataProvider currencyMaskWithoutIntlData
+     */
+    public function testCurrencyMaskWithoutIntl(string $expectedResult, ...$args)
+    {
+        $currencyFormatter = new Currency(...$args);
+        $currencyFormatMask = $currencyFormatter->format();
+        $this->assertSame($expectedResult, $currencyFormatMask);
+    }
+
+    public function currencyMaskWithoutIntlData()
+    {
+        return [
+            'Default' => ['[$$-en-US]#,##0.00'],
+            'English Language, DefaultCountry' => ['[$$-en-US]#,##0.00', 'en'],
+            'English, US, Guess Currency' => ['[$$-en-US]#,##0.00', 'en_US'],
+            'English, UK/GB, Guess Currency' => ['[$£-en-GB]#,##0.00', 'en_GB'],
+            'English, UK/GB, Specify Currency' => ['[$£-en-GB]#,##0.00', 'en_GB', 'GBP'],
+            'English, Canada' => ['[$CA$-en-CA]#,##0.00', 'en_CA', 'CAD'],
+            'German, Germany, Guess Currency)' => ['[$€-de-DE]#,##0.00', 'de_DE'],
+        ];
+    }
+
+    /**
+     * @group intl
+     * @dataProvider currencyMaskWithoutIntlDataManualOverrides
+     */
+    public function testCurrencyMaskWithoutIntlManualOverrides(string $expectedResult, string $locale, array $args)
+    {
+        $currencyFormatter = new Currency($locale);
+
+        foreach ($args as $methodName => $methodArgs) {
+            $currencyFormatter->{$methodName}(...$methodArgs);
+        }
+
+        $currencyFormatMask = $currencyFormatter->format();
+        $this->assertSame($expectedResult, $currencyFormatMask);
+    }
+
+    public function currencyMaskWithoutIntlDataManualOverrides()
+    {
+        return [
+            'GBP, with Leading Pound Sterling and separator' => [
+                '[$£-en-GB] #,##0.00',
+                'en_GB',
+                [
+                    'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_LEADING, Number::NON_BREAKING_SPACE],
+                ],
+            ],
+            'GBP, with Leading Pound Sterling and no separator' => [
+                '[$£-en-GB]#,##0.00',
+                'en_GB',
+                [
+                    'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_LEADING],
+                ],
+            ],
+            'GBP, with Leading Pound Sterling and space separator' => [
+                '[$£-en-GB] #,##0.00',
+                'en_GB',
+                [
+                    'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_LEADING, Number::NON_BREAKING_SPACE],
+                ],
+            ],
+            'GBP, with Trailing Pound Sterling and separator' => [
+                '#,##0.00 [$£-en-GB]',
+                'en_GB',
+                [
+                    'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_TRAILING, Number::NON_BREAKING_SPACE],
+                ],
+            ],
+            'Euro, Integer with Leading Sign and no separator' => [
+                '[$€-en-US]#,##0',
+                'en_US',
+                [
+                    'setDecimals' => [0],
+                    'setCurrencySymbol' => ['€'],
+                ],
+            ],
+            'Euro, No decimals, and with trailing negative sign' => [
+                '[$€-nl-NL]#,##0;[$€-nl-NL]#,##0-',
+                'nl_NL',
+                [
+                    'setDecimals' => [0],
+                    'trailingSign' => [true],
+                ],
+            ],
+            'Euro, No decimals, and with trailing positive or negative sign' => [
+                '[$€-nl-NL]#,##0+;[$€-nl-NL]#,##0-;[$€-nl-NL]#,##0',
+                'nl_NL',
+                [
+                    'setDecimals' => [0],
+                    'trailingSign' => [true],
+                    'displayPositiveSign' => [true],
+                ],
+            ],
+        ];
+    }
+}
