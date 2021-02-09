@@ -127,41 +127,12 @@ class Currency extends Number
         return $this->currencySymbol;
     }
 
-    protected function maskSign(string $maskSet): string
-    {
-        // TODO Adjustments for negative values (associated with value or with currency; before/after; split pattern)
-        $masks = explode(self::MASK_SEPARATOR, $maskSet);
-
-        $negativeMask = (array_key_exists(self::MASK_NEGATIVE_VALUE, $masks))
-            ? $masks[self::MASK_NEGATIVE_VALUE] : $masks[self::MASK_POSITIVE_VALUE];
-
-        if (strpos($negativeMask, self::SIGN_NEGATIVE) !== false) {
-            $negativeMask = str_replace(self::SIGN_NEGATIVE, '', $negativeMask);
-        }
-
-        $masks[self::MASK_NEGATIVE_VALUE] = $this->trailingSign
-            ? $negativeMask . $this->signSeparator . self::SIGN_NEGATIVE
-            : self::SIGN_NEGATIVE . $this->signSeparator . $negativeMask;
-
-        if ($this->displayPositiveSign === true) {
-            $masks[self::MASK_ZERO_VALUE] = $masks[self::MASK_POSITIVE_VALUE];
-            $masks[self::MASK_POSITIVE_VALUE] = $this->trailingSign
-                ? $masks[self::MASK_POSITIVE_VALUE] . $this->signSeparator . self::SIGN_POSITIVE
-                : self::SIGN_POSITIVE . $this->signSeparator . $masks[self::MASK_POSITIVE_VALUE];
-        }
-
-        ksort($masks);
-
-        return implode(self::MASK_SEPARATOR, $masks);
-    }
-
     protected const SYMBOL_PATTERN_MASK = '/' .
         Number::NON_BREAKING_SPACE . '?' . self::CURRENCYCODE_PLACEHOLDER . Number::NON_BREAKING_SPACE . '?' .
         '/u';
 
-    protected function maskSymbol(string $maskSet): string
+    protected function setSymbolMask(string $maskSet): string
     {
-        // TODO Override of Separator between value and Currency Symbol
         $masks = explode(self::MASK_SEPARATOR, $maskSet);
 
         $paddedCurrencySymbol = ($this->leading === self::CURRENCY_SYMBOL_LEADING)
@@ -181,16 +152,12 @@ class Currency extends Number
     protected function useIntlFormatMask(): string
     {
         $mask = $this->intlMask;
-        $mask = $this->setThousandsInMask($mask);
-        $mask = $this->setDecimalsInMask($mask);
-
-        // Set positive/negative signs in the correct position, with the correct padding
-        if ($this->trailingSign === true || $this->displayPositiveSign === true || $this->signSeparator !== '') {
-            $mask = $this->maskSign($mask);
-        }
+        $mask = $this->setThousandsMasking($mask);
+        $mask = $this->setDecimalsMasking($mask);
+        $mask = $this->setSignMasking($mask);
 
         // Set the currency symbol in the required position, with required padding
-        $mask = $this->maskSymbol($mask);
+        $mask = $this->setSymbolMask($mask);
 
         return $mask;
     }
@@ -198,19 +165,9 @@ class Currency extends Number
     protected function buildMask(): string
     {
         $maskSet = Number::format();
+        $mask = $this->setSymbolMask($maskSet);
 
-        $paddedCurrencySymbol = ($this->leading === self::CURRENCY_SYMBOL_LEADING)
-            ? $this->localeAwareCurrencySymbol() . $this->currencySeparator
-            : $this->currencySeparator . $this->localeAwareCurrencySymbol();
-
-        $masks = explode(self::MASK_SEPARATOR, $maskSet);
-        foreach ($masks as &$mask) {
-            $mask = ($this->leading === self::CURRENCY_SYMBOL_LEADING)
-                ? $paddedCurrencySymbol . $mask
-                : $mask . $paddedCurrencySymbol;
-        }
-
-        return implode(self::MASK_SEPARATOR, $masks);
+        return $mask;
     }
 
     public function format(): string

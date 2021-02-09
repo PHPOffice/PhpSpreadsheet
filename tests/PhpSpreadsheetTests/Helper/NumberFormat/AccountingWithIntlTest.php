@@ -87,11 +87,19 @@ class AccountingWithIntlTest extends TestCase
                     'wrapNegativeValues' => [true],
                 ],
             ],
-            'Denmark, Krone, Trailing sign' => [
-                '#,##0.00_[$kr.-da-DK];#,##0.00-_[$kr.-da-DK]',
+            'Denmark, Krone, Trailing negative sign' => [
+                '#,##0.00_[$kr.-da-DK];#,##0.00_-_[$kr.-da-DK]',
                 'da_DK',
                 [
                     'trailingSign' => [true, Number::NON_BREAKING_SPACE],
+                ],
+            ],
+            'Denmark, Krone, Trailing sign' => [
+                '#,##0.00_+_[$kr.-da-DK];#,##0.00_-_[$kr.-da-DK];#,##0.00_[$kr.-da-DK]',
+                'da_DK',
+                [
+                    'trailingSign' => [true, Number::NON_BREAKING_SPACE],
+                    'displayPositiveSign' => [true],
                 ],
             ],
         ];

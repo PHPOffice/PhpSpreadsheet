@@ -129,7 +129,7 @@ class Number
     '(?:0\\' . self::DECIMAL_SEPARATOR . ')(0*)' .
     '/u';
 
-    protected function setDecimalsInMask(string $mask): string
+    protected function setDecimalsMasking(string $mask): string
     {
         $mask = rtrim($mask, '#');
 
@@ -141,7 +141,7 @@ class Number
         return preg_replace(self::DECIMAL_PATTERN_MASK, $decimalReplacement, $mask);
     }
 
-    protected function setThousandsInMask(string $mask): string
+    protected function setThousandsMasking(string $mask): string
     {
         if ($this->thousands === false) {
             $mask = str_replace(self::THOUSANDS_SEPARATOR, '', $mask);
@@ -151,28 +151,48 @@ class Number
         return $mask;
     }
 
-    public function format(): string
-    {
-        $mask = $this->mask;
-        $mask = $this->setDecimalsInMask($mask);
-        $mask = $this->setThousandsInMask($mask);
+    protected const SIGN_PATTERN_MASK = '/' .
+        self::NON_BREAKING_SPACE . '?[-+]' . self::NON_BREAKING_SPACE . '?' .
+        '/u';
 
+    protected const SIGN_TRAILING_MASK = '/([0#])(?!.*[0#])/u';
+
+    protected const SIGN_LEADING_MASK = '/([0#])/u';
+
+    protected function setSignMasking(string $maskSet): string
+    {
+        $masks = explode(self::MASK_SEPARATOR, $maskSet);
+
+        $mask = $masks[self::MASK_POSITIVE_VALUE];
+        $mask = preg_replace(self::SIGN_PATTERN_MASK, '', $mask);
         $masks[self::MASK_POSITIVE_VALUE] = $mask;
+
         if ($this->displayPositiveSign === true) {
             $masks[self::MASK_ZERO_VALUE] = $mask;
             $masks[self::MASK_POSITIVE_VALUE] = $this->trailingSign
-                ? $mask . $this->signSeparator . self::SIGN_POSITIVE
-                : self::SIGN_POSITIVE . $this->signSeparator . $mask;
+                ? preg_replace(self::SIGN_TRAILING_MASK, '$1' . $this->signSeparator . self::SIGN_POSITIVE, $mask)
+                : preg_replace(self::SIGN_LEADING_MASK, self::SIGN_POSITIVE . $this->signSeparator . '$1', $mask, 1);
         }
 
         if ($this->trailingSign === true || $this->displayPositiveSign === true || $this->signSeparator !== '') {
             $masks[self::MASK_NEGATIVE_VALUE] = $this->trailingSign
-                ? $mask . $this->signSeparator . self::SIGN_NEGATIVE
-                : self::SIGN_NEGATIVE . $this->signSeparator . $mask;
+                ? preg_replace(self::SIGN_TRAILING_MASK, '$1' . $this->signSeparator . self::SIGN_NEGATIVE, $mask)
+                : preg_replace(self::SIGN_LEADING_MASK, self::SIGN_NEGATIVE . $this->signSeparator . '$1', $mask, 1);
         }
+
         ksort($masks);
 
-        return str_replace(self::NON_BREAKING_SPACE, '_', implode(self::MASK_SEPARATOR, $masks));
+        return implode(self::MASK_SEPARATOR, $masks);
+    }
+
+    public function format(): string
+    {
+        $mask = $this->mask;
+        $mask = $this->setDecimalsMasking($mask);
+        $mask = $this->setThousandsMasking($mask);
+        $mask = $this->setSignMasking($mask);
+
+        return str_replace(self::NON_BREAKING_SPACE, '_', $mask);
     }
 
     public function __toString(): string
