@@ -58,11 +58,11 @@ class CurrencyWithoutIntlTest extends TestCase
     public function currencyMaskWithoutIntlDataManualOverrides()
     {
         return [
-            'GBP, with Leading Pound Sterling and separator' => [
-                '[$£-en-GB] #,##0.00',
+            'GBP, with Leading Pound Sterling and space separator' => [
+                '[$£-en-GB]_#,##0.00',
                 'en_GB',
                 [
-                    'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_LEADING, Number::NON_BREAKING_SPACE],
+                    'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_LEADING, ' '],
                 ],
             ],
             'GBP, with Leading Pound Sterling and no separator' => [
@@ -72,15 +72,15 @@ class CurrencyWithoutIntlTest extends TestCase
                     'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_LEADING],
                 ],
             ],
-            'GBP, with Leading Pound Sterling and space separator' => [
-                '[$£-en-GB] #,##0.00',
+            'GBP, with Leading Pound Sterling and separator' => [
+                '[$£-en-GB]_#,##0.00',
                 'en_GB',
                 [
                     'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_LEADING, Number::NON_BREAKING_SPACE],
                 ],
             ],
             'GBP, with Trailing Pound Sterling and separator' => [
-                '#,##0.00 [$£-en-GB]',
+                '#,##0.00_[$£-en-GB]',
                 'en_GB',
                 [
                     'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_TRAILING, Number::NON_BREAKING_SPACE],

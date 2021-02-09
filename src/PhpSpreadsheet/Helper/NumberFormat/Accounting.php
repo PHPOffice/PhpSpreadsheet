@@ -8,7 +8,7 @@ class Accounting extends Currency
 {
     protected const FORMAT_STYLE = Number::FORMAT_STYLE_ACCOUNTING;
 
-    protected $wrapNegativeValuesInBraces;
+    protected $wrapNegativeValuesInBraces = false;
 
     public function __construct(string $locale = 'en_US', ?string $currencyCode = null)
     {
@@ -16,6 +16,7 @@ class Accounting extends Currency
         $currencyCode = $this->setCurrencyCode($currencyCode);
 
         $mask = '#,##0.##';
+
         $formatterLocale = "{$this->locale}.UTF8@currency={$currencyCode}";
         $accountingFormatter = $this->internationalFormatter($formatterLocale);
         if ($accountingFormatter !== null) {
@@ -36,7 +37,6 @@ class Accounting extends Currency
 
         $negativeMask = (array_key_exists(self::MASK_NEGATIVE_VALUE, $masks))
             ? $masks[self::MASK_NEGATIVE_VALUE] : $masks[self::MASK_POSITIVE_VALUE];
-
         $masks[self::MASK_NEGATIVE_VALUE] = "({$negativeMask})";
 
         ksort($masks);
@@ -69,15 +69,11 @@ class Accounting extends Currency
     protected function useIntlFormatMask(): string
     {
         $mask = $this->intlMask;
-
-        // Set requested number of decimal places
-        $decimalReplacement = ($this->decimals === 0)
-            ? '0'
-            : '0' . self::DECIMAL_SEPARATOR . str_repeat('0', $this->decimals);
-        $mask = preg_replace(self::DECIMAL_PATTERN_MASK, $decimalReplacement, $mask);
+        $mask = $this->setThousandsInMask($mask);
+        $mask = $this->setDecimalsInMask($mask);
 
         if ($this->wrapNegativeValuesInBraces === true) {
-            $this->maskBraces($mask);
+            $mask = $this->maskBraces($mask);
         } elseif ($this->trailingSign === true || $this->displayPositiveSign === true || $this->signSeparator !== '') {
             // Set positive/negative signs in the correct position, with the correct padding
             $mask = $this->maskSign($mask);
@@ -96,10 +92,20 @@ class Accounting extends Currency
         $paddedCurrencySymbol = ($this->leading === self::CURRENCY_SYMBOL_LEADING)
             ? $this->localeAwareCurrencySymbol() . $this->currencySeparator
             : $this->currencySeparator . $this->localeAwareCurrencySymbol();
+        $this->maskSign($maskSet);
 
         $masks = explode(self::MASK_SEPARATOR, $maskSet);
+
+        if ($this->wrapNegativeValuesInBraces === true || $leading = self::CURRENCY_SYMBOL_TRAILING) {
+            $negativeMask = (array_key_exists(self::MASK_NEGATIVE_VALUE, $masks))
+                ? $masks[self::MASK_NEGATIVE_VALUE] : $masks[self::MASK_POSITIVE_VALUE];
+            $masks[self::MASK_NEGATIVE_VALUE] = $this->wrapNegativeValuesInBraces
+                ? "({$negativeMask})"
+                : $negativeMask;
+        }
+
         foreach ($masks as &$mask) {
-            $bracesRequired = $this->wrapNegativeValuesInBraces && strpos($mask, '(') !== false;
+            $bracesRequired = $this->wrapNegativeValuesInBraces === true && strpos($mask, '(') !== false;
             $mask = ($bracesRequired) ? trim($mask, '()') : $mask;
             $mask = ($this->leading === self::CURRENCY_SYMBOL_LEADING)
                 ? $paddedCurrencySymbol . $mask

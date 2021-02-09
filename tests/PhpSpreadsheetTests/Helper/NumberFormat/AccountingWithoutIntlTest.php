@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Helper\NumberFormat;
 
 use PhpOffice\PhpSpreadsheet\Helper\NumberFormat\Accounting;
+use PhpOffice\PhpSpreadsheet\Helper\NumberFormat\Currency;
+use PhpOffice\PhpSpreadsheet\Helper\NumberFormat\Number;
 use PHPUnit\Framework\TestCase;
 
 class AccountingWithoutIntlTest extends TestCase
@@ -35,6 +37,61 @@ class AccountingWithoutIntlTest extends TestCase
             'English, UK/GB, Specify Accounting' => ['[$£-en-GB]#,##0.00', 'en_GB', 'GBP'],
             'English, Canada' => ['[$CA$-en-CA]#,##0.00', 'en_CA', 'CAD'],
             'German, Germany, Guess Accounting)' => ['[$€-de-DE]#,##0.00', 'de_DE'],
+        ];
+    }
+
+    /**
+     * @group intl
+     * @dataProvider accountingMaskWithoutIntlDataManualOverrides
+     */
+    public function testAccountingMaskWithoutIntlManualOverrides(string $expectedResult, string $locale, array $args): void
+    {
+        $currencyFormatter = new Accounting($locale);
+
+        foreach ($args as $methodName => $methodArgs) {
+            $currencyFormatter->{$methodName}(...$methodArgs);
+        }
+
+        $currencyFormatMask = $currencyFormatter->format();
+        self::assertSame($expectedResult, $currencyFormatMask);
+    }
+
+    public function accountingMaskWithoutIntlDataManualOverrides()
+    {
+        return [
+            'Dutch Euro, 3 decimals' => [
+                '[$€-nl-NL]#,##0.000;([$€-nl-NL]#,##0.000)',
+                'nl_NL',
+                [
+                    'setDecimals' => [3],
+                    'wrapNegativeValues' => [true],
+                ],
+            ],
+            'Dutch Euro, trailing currency symbol' => [
+                '#,##0.00_[$€-nl-NL];(#,##0.00_[$€-nl-NL])',
+                'nl_NL',
+                [
+                    'setCurrencySymbol' => ['€', Currency::CURRENCY_SYMBOL_TRAILING, Number::NON_BREAKING_SPACE],
+                    'wrapNegativeValues' => [true],
+                ],
+            ],
+            'Spanish Euro (Trailing currency symbol), No decimals, Negative in brackets' => [
+                '#,##0_[$€-es-ES];(#,##0_[$€-es-ES])',
+                'es_ES',
+                [
+                    'setDecimals' => [0],
+                    'setCurrencySymbol' => ['€', Currency::CURRENCY_SYMBOL_TRAILING, Number::NON_BREAKING_SPACE],
+                    'wrapNegativeValues' => [true],
+                ],
+            ],
+            'Denmark, Krone, Trailing sign, Trailing currency symbol' => [
+                '#,##0.00_[$kr.-da-DK];#,##0.00-_[$kr.-da-DK]',
+                'da_DK',
+                [
+                    'trailingSign' => [true],
+                    'setCurrencySymbol' => ['kr.', Currency::CURRENCY_SYMBOL_TRAILING, Number::NON_BREAKING_SPACE],
+                ],
+            ],
         ];
     }
 }

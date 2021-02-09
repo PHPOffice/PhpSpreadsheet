@@ -87,14 +87,14 @@ class NumberWithIntlTest extends TestCase
                 ],
             ],
             'Trailing negative with separator' => [
-                '#,##0.00;#,##0.00 -',
+                '#,##0.00;#,##0.00_-',
                 'en_US',
                 [
                     'trailingSign' => [true, Number::NON_BREAKING_SPACE],
                 ],
             ],
             'Leading negative with separator' => [
-                '#,##0.00;- #,##0.00',
+                '#,##0.00;-_#,##0.00',
                 'en_US',
                 [
                     'trailingSign' => [false, Number::NON_BREAKING_SPACE],
@@ -108,7 +108,7 @@ class NumberWithIntlTest extends TestCase
                 ],
             ],
             'Leading sign with separator' => [
-                '+ #,##0.00;- #,##0.00;#,##0.00',
+                '+_#,##0.00;-_#,##0.00;#,##0.00',
                 'en_US',
                 [
                     'trailingSign' => [false, Number::NON_BREAKING_SPACE],
@@ -116,7 +116,7 @@ class NumberWithIntlTest extends TestCase
                 ],
             ],
             'Trailing sign with separator' => [
-                '#,##0.00 +;#,##0.00 -;#,##0.00',
+                '#,##0.00_+;#,##0.00_-;#,##0.00',
                 'en_US',
                 [
                     'trailingSign' => [true, Number::NON_BREAKING_SPACE],

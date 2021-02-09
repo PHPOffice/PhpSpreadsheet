@@ -10,6 +10,7 @@ class CurrencySymbolLookup
         'ARS' => '$',   // Argentine Peso
         'AUD' => '$',   // Australian Dollar
         'CAD' => 'CA$', // Canadian Dollars
+        'DKK' => 'kr.', // Danish Krone
         'EUR' => '€',   // Euro
         'GBP' => '£',   // Pounds Sterling
         'USD' => '$',   // US Dollars

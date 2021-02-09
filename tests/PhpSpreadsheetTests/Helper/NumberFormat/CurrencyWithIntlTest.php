@@ -33,14 +33,14 @@ class CurrencyWithIntlTest extends TestCase
             'English, US (Default)' => ['[$$-en-US]#,##0.00', 'en_US'],
             'English, UK/GB' => ['[$£-en-GB]#,##0.00', 'en_GB'],
             'English, IE, Euros' => ['[$€-en-IE]#,##0.00', 'en_IE', 'EUR'],
-            'Dutch, Netherlands' => ['[$€-nl-NL] #,##0.00;[$€-nl-NL] -#,##0.00', 'nl_NL'],
-            'West Frisian, Netherlands' => ['[$€-fy-NL] #,##0.00;[$€-fy-NL] #,##0.00-', 'fy_NL'],
-            'Spanish, Spain' => ['#,##0.00 [$€-es-ES]', 'es_ES'],
+            'Dutch, Netherlands' => ['[$€-nl-NL]_#,##0.00;[$€-nl-NL]_-#,##0.00', 'nl_NL'],
+            'West Frisian, Netherlands' => ['[$€-fy-NL]_#,##0.00;[$€-fy-NL]_#,##0.00-', 'fy_NL'],
+            'Spanish, Spain' => ['#,##0.00_[$€-es-ES]', 'es_ES'],
             'English, Canada' => ['[$CA$-en-CA]#,##0.00', 'en_CA'],
-            'French, Canada' => ['#,##0.00 [$$CA-fr-CA]', 'fr_CA'],
+            'French, Canada' => ['#,##0.00_[$$CA-fr-CA]', 'fr_CA'],
             'English, Canada, US Dollars' => ['[$$-en-CA]#,##0.00', 'en_CA', 'USD'],
-            'French, Canada, US Dollars' => ['#,##0.00 [$$US-fr-CA]', 'fr_CA', 'USD'],
-            'Pashto, Afghanistan' => ['#,##0 [$؋-ps-AF]', 'ps_AF'],
+            'French, Canada, US Dollars' => ['#,##0.00_[$$US-fr-CA]', 'fr_CA', 'USD'],
+            'Pashto, Afghanistan' => ['#,##0_[$؋-ps-AF]', 'ps_AF'],
         ];
     }
 
@@ -64,21 +64,21 @@ class CurrencyWithIntlTest extends TestCase
     {
         return [
             'Dutch Euro, 3 decimals' => [
-                '[$€-nl-NL] #,##0.000;[$€-nl-NL] -#,##0.000',
+                '[$€-nl-NL]_#,##0.000;[$€-nl-NL]_-#,##0.000',
                 'nl_NL',
                 [
                     'setDecimals' => [3],
                 ],
             ],
             'Dutch Euro, trailing currency symbol' => [
-                '#,##0.00 [$€-nl-NL];-#,##0.00 [$€-nl-NL]',
+                '#,##0.00_[$€-nl-NL];-#,##0.00_[$€-nl-NL]',
                 'nl_NL',
                 [
                     'setCurrencySymbol' => ['€', Currency::CURRENCY_SYMBOL_TRAILING, Number::NON_BREAKING_SPACE],
                 ],
             ],
             'Euro, No decimals, and with trailing negative sign' => [
-                '[$€-nl-NL] #,##0;[$€-nl-NL] #,##0-',
+                '[$€-nl-NL]_#,##0;[$€-nl-NL]_#,##0-',
                 'nl_NL',
                 [
                     'setDecimals' => [0],
@@ -86,7 +86,7 @@ class CurrencyWithIntlTest extends TestCase
                 ],
             ],
             'Euro, No decimals, and with trailing negative sign and separator' => [
-                '[$€-nl-NL] #,##0;[$€-nl-NL] #,##0 -',
+                '[$€-nl-NL]_#,##0;[$€-nl-NL]_#,##0_-',
                 'nl_NL',
                 [
                     'setDecimals' => [0],
@@ -94,7 +94,7 @@ class CurrencyWithIntlTest extends TestCase
                 ],
             ],
             'Euro, No decimals, and with trailing positive or negative sign' => [
-                '[$€-nl-NL] #,##0+;[$€-nl-NL] #,##0-;[$€-nl-NL] #,##0',
+                '[$€-nl-NL]_#,##0+;[$€-nl-NL]_#,##0-;[$€-nl-NL]_#,##0',
                 'nl_NL',
                 [
                     'setDecimals' => [0],

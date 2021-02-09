@@ -38,27 +38,23 @@ class Number
         'PK',   // Pakistan
     ];
 
-    protected $decimals = 0;
-
+    protected $decimals = 2;
     protected $thousands = true;
 
     protected $trailingSign = false;
-
     protected $displayPositiveSign = false;
-
     protected $signSeparator = '';
 
     protected $locale;
-
     protected $intlMask;
-
     protected $mask;
 
     public function __construct(string $locale = 'en_US', int $decimals = 2, bool $thousandsSeparator = true)
     {
-        $countryCode = $this->setLocale($locale);
+        $countryCode = $this->setLocale($locale)->getCountryCode();
 
         $mask = in_array($countryCode, self::LAKH_COUNTRIES, true) ? '#,##,##0.###' : '#,##0.###';
+
         $formatterLocale = "{$this->locale}.UTF8";
         $numberFormatter = $this->internationalFormatter($formatterLocale);
         if ($numberFormatter !== null) {
@@ -71,14 +67,14 @@ class Number
         $this->useThousandsSeparator($thousandsSeparator);
     }
 
-    protected function setLocale(string $locale): string
+    protected function setLocale(string $locale): Locale
     {
         $this->locale = new Locale($locale);
 
-        return $this->locale->getCountryCode();
+        return $this->locale;
     }
 
-    private function internationalFormatterStyle()
+    private function internationalFormatterStyle(): int
     {
         switch (static::FORMAT_STYLE) {
             case self::FORMAT_STYLE_ACCOUNTING:
@@ -103,7 +99,7 @@ class Number
         return null;
     }
 
-    public function hasIntlMask(): bool
+    public function usingIntl(): bool
     {
         return $this->intlMask !== null;
     }
@@ -129,16 +125,37 @@ class Number
         $this->displayPositiveSign = $displayPositiveSign;
     }
 
-    public function format(): string
+    protected const DECIMAL_PATTERN_MASK = '/' .
+    '(?:0\\' . self::DECIMAL_SEPARATOR . ')(0*)' .
+    '/u';
+
+    protected function setDecimalsInMask(string $mask): string
     {
-        $mask = rtrim($this->mask, '.#');
+        $mask = rtrim($mask, '#');
+
+        // Set requested number of decimal places
+        $decimalReplacement = ($this->decimals === 0)
+            ? '0'
+            : '0' . self::DECIMAL_SEPARATOR . str_repeat('0', $this->decimals);
+
+        return preg_replace(self::DECIMAL_PATTERN_MASK, $decimalReplacement, $mask);
+    }
+
+    protected function setThousandsInMask(string $mask): string
+    {
         if ($this->thousands === false) {
             $mask = str_replace(self::THOUSANDS_SEPARATOR, '', $mask);
             $mask = preg_replace('/#+0/', '0', $mask);
         }
-        if ($this->decimals > 0) {
-            $mask .= self::DECIMAL_SEPARATOR . str_repeat('0', $this->decimals);
-        }
+
+        return $mask;
+    }
+
+    public function format(): string
+    {
+        $mask = $this->mask;
+        $mask = $this->setDecimalsInMask($mask);
+        $mask = $this->setThousandsInMask($mask);
 
         $masks[self::MASK_POSITIVE_VALUE] = $mask;
         if ($this->displayPositiveSign === true) {
@@ -155,7 +172,7 @@ class Number
         }
         ksort($masks);
 
-        return implode(self::MASK_SEPARATOR, $masks);
+        return str_replace(self::NON_BREAKING_SPACE, '_', implode(self::MASK_SEPARATOR, $masks));
     }
 
     public function __toString(): string

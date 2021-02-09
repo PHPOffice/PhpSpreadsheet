@@ -248,4 +248,11 @@ class CurrencyLookup
 
         return array_key_exists($countryCode, self::$countryCurrencies) ? self::$countryCurrencies[$countryCode] : null;
     }
+
+    public static function symbolLookup(string $countryCode): ?string
+    {
+        $currencyCode = self::lookup($countryCode);
+
+        return CurrencySymbolLookup::lookup($currencyCode);
+    }
 }
