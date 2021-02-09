@@ -14,7 +14,9 @@ class Currency extends Number
     public const CURRENCY_SYMBOL_TRAILING = false;
 
     protected $currencyCode;
+
     protected $currencySymbol;
+
     protected $currencySeparator = '';
 
     protected $leading = self::CURRENCY_SYMBOL_LEADING;

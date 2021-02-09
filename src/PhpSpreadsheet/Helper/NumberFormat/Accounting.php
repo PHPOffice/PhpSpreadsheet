@@ -2,13 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Helper\NumberFormat;
 
-use NumberFormatter;
-
 class Accounting extends Currency
 {
     protected const FORMAT_STYLE = Number::FORMAT_STYLE_ACCOUNTING;
 
     protected $wrapNegativeValuesInBraces = false;
+
     protected $suppressSign = false;
 
     public function __construct(string $locale = 'en_US', ?string $currencyCode = null)

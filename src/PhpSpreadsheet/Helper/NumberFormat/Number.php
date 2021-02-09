@@ -6,7 +6,7 @@ use NumberFormatter;
 
 class Number
 {
-    protected const FORMAT_STYLE = Number::FORMAT_STYLE_DECIMAL;
+    protected const FORMAT_STYLE = self::FORMAT_STYLE_DECIMAL;
 
     protected const FORMAT_STYLE_DECIMAL = 1;
     protected const FORMAT_STYLE_CURRENCY = 2;
@@ -39,14 +39,19 @@ class Number
     ];
 
     protected $decimals = 2;
+
     protected $thousands = true;
 
     protected $trailingSign = false;
+
     protected $displayPositiveSign = false;
+
     protected $signSeparator = '';
 
     protected $locale;
+
     protected $intlMask;
+
     protected $mask;
 
     public function __construct(string $locale = 'en_US', int $decimals = 2, bool $thousandsSeparator = true)
