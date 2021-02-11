@@ -230,28 +230,19 @@ class MathTrig
      */
     public static function CEILING($number, $significance = null)
     {
-        $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
+        self::nullFalseTrueToNumber($number);
         $significance = Functions::flattenSingleValue($significance);
 
         if ($significance === null) {
-            $compatibility = Functions::getCompatibilityMode();
-            if ($compatibility === Functions::COMPATIBILITY_EXCEL) {
-                throw new Exception('Excel requires 2 arguments for CEILING');
-            }
-            if (is_numeric($number)) {
-                $significance = ($number < 0) ? -1 : 1;
-            }
+            self::floorCheck1Arg();
+            $significance = ((float) $number < 0) ? -1 : 1;
         }
 
         if ((is_numeric($number)) && (is_numeric($significance))) {
-            if (($number == 0.0) || ($significance == 0.0)) {
+            if (empty($number * $significance)) {
                 return 0.0;
-            } elseif (self::SIGN($number) == self::SIGN($significance)) {
+            }
+            if (self::SIGN($number) == self::SIGN($significance)) {
                 return ceil($number / $significance) * $significance;
             }
 
@@ -277,25 +268,19 @@ class MathTrig
      */
     public static function CEILINGMATH($number, $significance = null, $mode = 0)
     {
-        $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
+        self::nullFalseTrueToNumber($number);
         $significance = Functions::flattenSingleValue($significance);
         $mode = Functions::flattenSingleValue($mode);
 
-        if (is_numeric($number) && $significance === null) {
-            $significance = ($number < 0) ? -1 : 1;
+        if ($significance === null) {
+            $significance = ((float) $number < 0) ? -1 : 1;
         }
 
         if (is_numeric($number) && is_numeric($significance) && is_numeric($mode)) {
-            if ($significance == 0.0) {
+            if (empty($significance * $number)) {
                 return 0.0;
-            } elseif ($number == 0.0) {
-                return 0.0;
-            } elseif (self::SIGN($significance) == -1 || (self::SIGN($number) == -1 && !empty($mode))) {
+            }
+            if (self::ceilingMathTest($significance, $number, $mode)) {
                 return floor($number / $significance) * $significance;
             }
 
@@ -303,6 +288,20 @@ class MathTrig
         }
 
         return Functions::VALUE();
+    }
+
+    /**
+     * Let CEILINGMATH complexity pass Scrutinizer.
+     *
+     * @param mixed $number Number to round
+     * @param mixed $significance Significance
+     * @param mixed $mode direction to round negative numbers
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     */
+    private static function ceilingMathTest($significance, $number, $mode): bool
+    {
+        return self::SIGN($significance) == -1 || (self::SIGN($number) == -1 && !empty($mode));
     }
 
     /**
@@ -320,12 +319,7 @@ class MathTrig
      */
     public static function CEILINGPRECISE($number, $significance = 1)
     {
-        $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
+        self::nullFalseTrueToNumber($number);
         $significance = Functions::flattenSingleValue($significance);
 
         if ((is_numeric($number)) && (is_numeric($significance))) {
@@ -480,6 +474,14 @@ class MathTrig
         return Functions::VALUE();
     }
 
+    private static function floorCheck1Arg(): void
+    {
+        $compatibility = Functions::getCompatibilityMode();
+        if ($compatibility === Functions::COMPATIBILITY_EXCEL) {
+            throw new Exception('Excel requires 2 arguments for FLOOR/CEILING');
+        }
+    }
+
     /**
      * FLOOR.
      *
@@ -495,22 +497,12 @@ class MathTrig
      */
     public static function FLOOR($number, $significance = null)
     {
-        $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
+        self::nullFalseTrueToNumber($number);
         $significance = Functions::flattenSingleValue($significance);
 
         if ($significance === null) {
-            $compatibility = Functions::getCompatibilityMode();
-            if ($compatibility === Functions::COMPATIBILITY_EXCEL) {
-                throw new Exception('Excel requires 2 arguments for FLOOR');
-            }
-            if (is_numeric($number)) {
-                $significance = ($number < 0) ? -1 : 1;
-            }
+            self::floorCheck1Arg();
+            $significance = ((float) $number < 0) ? -1 : 1;
         }
 
         if ((is_numeric($number)) && (is_numeric($significance))) {
@@ -546,17 +538,12 @@ class MathTrig
      */
     public static function FLOORMATH($number, $significance = null, $mode = 0)
     {
-        $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
+        self::nullFalseTrueToNumber($number);
         $significance = Functions::flattenSingleValue($significance);
         $mode = Functions::flattenSingleValue($mode);
 
-        if (is_numeric($number) && $significance === null) {
-            $significance = ($number < 0) ? -1 : 1;
+        if ($significance === null) {
+            $significance = ((float) $number < 0) ? -1 : 1;
         }
 
         if (is_numeric($number) && is_numeric($significance) && is_numeric($mode)) {
@@ -564,7 +551,7 @@ class MathTrig
                 return Functions::DIV0();
             } elseif ($number == 0.0) {
                 return 0.0;
-            } elseif (self::SIGN($significance) == -1 || (self::SIGN($number) == -1 && !empty($mode))) {
+            } elseif (self::ceilingMathTest($significance, $number, $mode)) {
                 return ceil($number / $significance) * $significance;
             }
 
@@ -589,12 +576,7 @@ class MathTrig
      */
     public static function FLOORPRECISE($number, $significance = 1)
     {
-        $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
+        self::nullFalseTrueToNumber($number);
         $significance = Functions::flattenSingleValue($significance);
 
         if ((is_numeric($number)) && (is_numeric($significance))) {
@@ -663,13 +645,7 @@ class MathTrig
      */
     public static function INT($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if ($number === null) {
-            return 0;
-        } elseif (is_bool($number)) {
-            return (int) $number;
-        }
+        self::nullFalseTrueToNumber($number);
         if (is_numeric($number)) {
             return (int) floor($number);
         }
@@ -1220,12 +1196,7 @@ class MathTrig
      */
     public static function ROUNDUP($number, $digits)
     {
-        $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
+        self::nullFalseTrueToNumber($number);
         $digits = Functions::flattenSingleValue($digits);
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
@@ -1255,12 +1226,7 @@ class MathTrig
      */
     public static function ROUNDDOWN($number, $digits)
     {
-        $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
+        self::nullFalseTrueToNumber($number);
         $digits = Functions::flattenSingleValue($digits);
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
@@ -1754,13 +1720,8 @@ class MathTrig
      */
     public static function TRUNC($value = 0, $digits = 0)
     {
-        $value = Functions::flattenSingleValue($value);
+        self::nullFalseTrueToNumber($value);
         $digits = Functions::flattenSingleValue($digits);
-        if ($value === null) {
-            return 0;
-        } elseif (is_bool($value)) {
-            return (int) $value;
-        }
 
         // Validate parameters
         if ((!is_numeric($value)) || (!is_numeric($digits))) {
@@ -1976,12 +1937,7 @@ class MathTrig
      */
     public static function builtinROUND($number, $precision)
     {
-        $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
+        self::nullFalseTrueToNumber($number);
 
         if (!is_numeric($number) || !is_numeric($precision)) {
             return Functions::VALUE();
@@ -2373,5 +2329,20 @@ class MathTrig
     private static function verySmallDivisor(float $number): bool
     {
         return abs($number) < 1.0E-12;
+    }
+
+    /**
+     * Many functions accept null/false/true argument treated as 0/0/1.
+     *
+     * @param mixed $number
+     */
+    private static function nullFalseTrueToNumber(&$number): void
+    {
+        $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        } elseif (is_bool($number)) {
+            $number = (int) $number;
+        }
     }
 }
