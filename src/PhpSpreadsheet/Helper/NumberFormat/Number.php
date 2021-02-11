@@ -179,7 +179,7 @@ class Number
             $pattern = $this->trailingSign
                 ? $this->signSeparator . self::SIGN_POSITIVE
                 : self::SIGN_POSITIVE . $this->signSeparator;
-            $pattern = '/' . preg_quote($pattern) .'/u';
+            $pattern = '/' . preg_quote($pattern) . '/u';
             $mask = preg_replace($pattern, '', $mask);
         }
 
@@ -234,7 +234,12 @@ class Number
 
         $negativeMask = $this->trailingSign
             ? preg_replace(self::SIGN_TRAILING_MASK, '$1' . $this->signSeparator . self::SIGN_NEGATIVE, $positiveMask)
-            : preg_replace(self::SIGN_LEADING_MASK, self::SIGN_NEGATIVE . $this->signSeparator . '$1', $positiveMask, 1);
+            : preg_replace(
+                self::SIGN_LEADING_MASK,
+                self::SIGN_NEGATIVE . $this->signSeparator . '$1',
+                $positiveMask,
+                1
+            );
 
         return $negativeMask;
     }
