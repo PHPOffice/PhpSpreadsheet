@@ -38,17 +38,18 @@ class AccountingWithIntlTest extends TestCase
     public function accountingMaskWithIntlData()
     {
         return [
-            'Default' => [PHP_VERSION >= 80000 ? '[$$-en-US]#,##0.00': '[$$-en-US]#,##0.00;([$$-en-US]#,##0.00)'],
-            'English, US (Default)' => [PHP_VERSION >= 80000 ? '[$$-en-US]#,##0.00' : '[$$-en-US]#,##0.00;([$$-en-US]#,##0.00)', 'en_US'],
-            'English, UK/GB' => [PHP_VERSION >= 80000 ? '[$£-en-GB]#,##0.00' : '[$£-en-GB]#,##0.00;([$£-en-GB]#,##0.00)', 'en_GB'],
-            'English, IE, Euros' => [PHP_VERSION >= 80000 ? '[$€-en-IE]#,##0.00' : '[$€-en-IE]#,##0.00;([$€-en-IE]#,##0.00)', 'en_IE', 'EUR'],
-            'Dutch, Netherlands' => [PHP_VERSION >= 80000 ? '[$€-nl-NL] #,##0.00' : '[$€-nl-NL] #,##0.00;([$€-nl-NL] #,##0.00)', 'nl_NL'],
-            'West Frisian, Netherlands' => [PHP_VERSION >= 80000 ? '[$€-fy-NL] #,##0.00' : '[$€-fy-NL] #,##0.00;([$€-fy-NL] #,##0.00)', 'fy_NL'],
+            'Default' => ['[$$-en-US]#,##0.00;([$$-en-US]#,##0.00)'],
+            'English, US (Default)' => ['[$$-en-US]#,##0.00;([$$-en-US]#,##0.00)', 'en_US'],
+            'English, UK/GB' => ['[$£-en-GB]#,##0.00;([$£-en-GB]#,##0.00)', 'en_GB'],
+            'English, IE, Euros' => ['[$€-en-IE]#,##0.00;([$€-en-IE]#,##0.00)', 'en_IE', 'EUR'],
+            'Dutch, Netherlands' => ['[$€-nl-NL] #,##0.00;([$€-nl-NL] #,##0.00)', 'nl_NL'],
+            'West Frisian, Netherlands' => ['[$€-fy-NL] #,##0.00;([$€-fy-NL] #,##0.00)', 'fy_NL'],
             'Spanish, Spain' => ['#,##0.00 [$€-es-ES]', 'es_ES'],
-            'English, Canada' => [PHP_VERSION >= 80000 ? '[$CA$-en-CA]#,##0.00' : '[$CA$-en-CA]#,##0.00;([$CA$-en-CA]#,##0.00)', 'en_CA'],
-            'French, Canada' => [PHP_VERSION >= 80000 ? '#,##0.00 [$$CA-fr-CA]' : '#,##0.00 [$$CA-fr-CA];(#,##0.00 [$$CA-fr-CA])', 'fr_CA'],
-            'English, Canada, US Dollars' => [PHP_VERSION >= 80000 ? '[$$-en-CA]#,##0.00' : '[$$-en-CA]#,##0.00;([$$-en-CA]#,##0.00)', 'en_CA', 'USD'],
-            'French, Canada, US Dollars' => [PHP_VERSION >= 80000 ? '#,##0.00 [$$US-fr-CA]' : '#,##0.00 [$$US-fr-CA];(#,##0.00 [$$US-fr-CA])', 'fr_CA', 'USD'],
+            'English, Canada' => ['[$CA$-en-CA]#,##0.00;([$CA$-en-CA]#,##0.00)', 'en_CA'],
+            'French, Canada' => ['#,##0.00 [$$CA-fr-CA];(#,##0.00 [$$CA-fr-CA])', 'fr_CA'],
+            'English, Canada, US Dollars' => ['[$$-en-CA]#,##0.00;([$$-en-CA]#,##0.00)', 'en_CA', 'USD'],
+            'French, Canada, US Dollars' => ['#,##0.00 [$$US-fr-CA];(#,##0.00 [$$US-fr-CA])', 'fr_CA', 'USD'],
+            'Pashto, Afghanistan' => ['[$؋-ps-AF]#,##0;([$؋-ps-AF]#,##0)', 'ps_AF'],
             'Danish, Denmark, Krone' => ['#,##0.00 [$kr.-da-DK]', 'da_DK', 'DKK'],
         ];
     }
@@ -73,14 +74,14 @@ class AccountingWithIntlTest extends TestCase
     {
         return [
             'Dutch Euro, 3 decimals' => [
-                PHP_VERSION >= 80000 ? '[$€-nl-NL] #,##0.000' : '[$€-nl-NL] #,##0.000;([$€-nl-NL] #,##0.000)',
+                '[$€-nl-NL] #,##0.000;([$€-nl-NL] #,##0.000)',
                 'nl_NL',
                 [
                     'setDecimals' => [3],
                 ],
             ],
             'Dutch Euro, trailing currency symbol' => [
-                PHP_VERSION >= 80000 ? '#,##0.00 [$€-nl-NL]' : '#,##0.00 [$€-nl-NL];(#,##0.00 [$€-nl-NL])',
+                '#,##0.00 [$€-nl-NL];(#,##0.00 [$€-nl-NL])',
                 'nl_NL',
                 [
                     'setCurrencySymbol' => ['€', Currency::CURRENCY_SYMBOL_TRAILING, Number::NON_BREAKING_SPACE],

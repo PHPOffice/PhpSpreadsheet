@@ -104,7 +104,6 @@ class Number
 
     private function internationalFormatterStyle(): int
     {
-        $this->icuVersion();
         switch (static::FORMAT_STYLE) {
             case self::FORMAT_STYLE_ACCOUNTING:
                 return (phpversion(PHP_VERSION_ID < 70400) || self::icuVersion() >= 53.0)
@@ -124,6 +123,9 @@ class Number
             $intlStyle = $this->internationalFormatterStyle();
             $intlFormatter = new NumberFormatter($locale, $intlStyle);
             if ($intlFormatter !== false) {
+                if (static::FORMAT_STYLE === self::FORMAT_STYLE_ACCOUNTING) {
+                    var_dump($locale, $this->intlMask);
+                }
                 return $intlFormatter;
             }
         }
