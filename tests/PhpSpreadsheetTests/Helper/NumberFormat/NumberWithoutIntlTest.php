@@ -153,14 +153,14 @@ class NumberWithoutIntlTest extends TestCase
     {
         return [
             '/Red/' => [
-                '#,##0.00;[Red]#,##0.00',
+                '#,##0.00;[Red]-#,##0.00',
                 'nl_NL',
                 [
                     'setColors' => [null, 'Red'],
                 ],
             ],
             'Green/Red/Orange' => [
-                '[Green]#,##0.00;[Red]#,##0.00;[Orange]0.00',
+                '[Green]#,##0.00;[Red]-#,##0.00;[Orange]0.00',
                 'nl_NL',
                 [
                     'setColors' => ['Green', 'Red', 'Orange'],

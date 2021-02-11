@@ -148,21 +148,21 @@ class CurrencyWithoutIntlTest extends TestCase
                 ],
             ],
             'ES /Red/' => [
-                '[$€-es-ES]#,##0.00;[Red][$€-es-ES]#,##0.00',
+                '[$€-es-ES]#,##0.00;[Red][$€-es-ES]-#,##0.00',
                 'es_ES',
                 [
                     'setColors' => [null, 'Red'],
                 ],
             ],
             'ES Green/Red/Orange' => [
-                '[Green][$€-es-ES]#,##0.00;[Red][$€-es-ES]#,##0.00;[Orange][$€-es-ES]0.00',
+                '[Green][$€-es-ES]#,##0.00;[Red][$€-es-ES]-#,##0.00;[Orange][$€-es-ES]0.00',
                 'es_ES',
                 [
                     'setColors' => ['Green', 'Red', 'Orange'],
                 ],
             ],
             'ES /Red/, Trailing symbol' => [
-                '#,##0.00[$€-es-ES];[Red]#,##0.00[$€-es-ES]',
+                '#,##0.00[$€-es-ES];[Red]-#,##0.00[$€-es-ES]',
                 'es_ES',
                 [
                     'setCurrencySymbol' => ['€', Currency::CURRENCY_SYMBOL_TRAILING],
@@ -170,7 +170,7 @@ class CurrencyWithoutIntlTest extends TestCase
                 ],
             ],
             'ES Green/Red/Orange, Trailing symbol' => [
-                '[Green]#,##0.00[$€-es-ES];[Red]#,##0.00[$€-es-ES];[Orange]0.00[$€-es-ES]',
+                '[Green]#,##0.00[$€-es-ES];[Red]-#,##0.00[$€-es-ES];[Orange]0.00[$€-es-ES]',
                 'es_ES',
                 [
                     'setCurrencySymbol' => ['€', Currency::CURRENCY_SYMBOL_TRAILING],

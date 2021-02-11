@@ -139,14 +139,14 @@ class CurrencyWithIntlTest extends TestCase
                 ],
             ],
             'ES /Red/' => [
-                '#,##0.00 [$€-es-ES];[Red]#,##0.00 [$€-es-ES]',
+                '#,##0.00 [$€-es-ES];[Red]-#,##0.00 [$€-es-ES]',
                 'es_ES',
                 [
                     'setColors' => [null, 'Red'],
                 ],
             ],
             'ES Green/Red/Orange' => [
-                '[Green]#,##0.00 [$€-es-ES];[Red]#,##0.00 [$€-es-ES];[Orange]0.00 [$€-es-ES]',
+                '[Green]#,##0.00 [$€-es-ES];[Red]-#,##0.00 [$€-es-ES];[Orange]0.00 [$€-es-ES]',
                 'es_ES',
                 [
                     'setColors' => ['Green', 'Red', 'Orange'],

@@ -218,6 +218,25 @@ class Number
 
     protected const SIGN_LEADING_MASK = '/([0#])/u';
 
+    protected function setNegativeValueMask(string $positiveMask): string
+    {
+        if ($this->displayPositiveSign === true) {
+            $stripPositiveSign = $this->trailingSign
+                ? $this->signSeparator . '?' . self::SIGN_POSITIVE
+                : self::SIGN_POSITIVE . $this->signSeparator . '?';
+            $replaceNegatveSign = $this->trailingSign
+                ? $this->signSeparator . self::SIGN_NEGATIVE
+                : self::SIGN_NEGATIVE . $this->signSeparator;
+            return preg_replace('/' . preg_quote($stripPositiveSign) . '/u', $replaceNegatveSign, $positiveMask);
+        }
+
+        $negativeMask = $this->trailingSign
+            ? preg_replace(self::SIGN_TRAILING_MASK, '$1' . $this->signSeparator . self::SIGN_NEGATIVE, $positiveMask)
+            : preg_replace(self::SIGN_LEADING_MASK, self::SIGN_NEGATIVE . $this->signSeparator . '$1', $positiveMask, 1);
+
+        return $negativeMask;
+    }
+
     protected function setSignMasking(string $maskSet): string
     {
         $masks = explode(self::MASK_SEPARATOR, $maskSet);
@@ -254,7 +273,7 @@ class Number
 
         $masks[self::MASK_NEGATIVE_VALUE] = (array_key_exists(self::MASK_NEGATIVE_VALUE, $masks))
             ? $masks[self::MASK_NEGATIVE_VALUE]
-            : $masks[self::MASK_POSITIVE_VALUE];
+            : $this->setNegativeValueMask($masks[self::MASK_POSITIVE_VALUE]);
 
         $masks[self::MASK_ZERO_VALUE] = (array_key_exists(self::MASK_ZERO_VALUE, $masks))
             ? $masks[self::MASK_ZERO_VALUE]
