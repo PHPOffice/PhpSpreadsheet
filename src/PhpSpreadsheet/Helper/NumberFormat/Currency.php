@@ -157,7 +157,6 @@ class Currency extends Number
         $mask = $this->setThousandsMasking($mask);
         $mask = $this->setDecimalsMasking($mask);
         $mask = $this->setSignMasking($mask);
-
         // Set the currency symbol in the required position, with required padding
         $mask = $this->setSymbolMask($mask);
 
@@ -166,19 +165,19 @@ class Currency extends Number
 
     protected function buildMask(): string
     {
-        $maskSet = Number::format();
-        $mask = $this->setSymbolMask($maskSet);
+        $mask = Number::format();
+        $mask = $this->setSymbolMask($mask);
 
         return $mask;
     }
 
     public function format(): string
     {
-        return str_replace(
-            self::NON_BREAKING_SPACE,
-            '_',
-            ($this->intlMask === null) ? $this->buildMask() : $this->useIntlFormatMask()
-        );
+        $mask = ($this->intlMask === null) ? $this->buildMask() : $this->useIntlFormatMask();
+
+        $mask = $this->setColorMasking($mask);
+
+        return $mask;
     }
 
     protected function localeAwareCurrencySymbol(): string

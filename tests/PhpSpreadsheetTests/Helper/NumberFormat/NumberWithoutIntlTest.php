@@ -86,28 +86,28 @@ class NumberWithoutIntlTest extends TestCase
                 ],
             ],
             'Trailing negative with separator' => [
-                '#,##0.00;#,##0.00_-',
+                '#,##0.00;#,##0.00 -',
                 'en_US',
                 [
                     'trailingSign' => [true, Number::NON_BREAKING_SPACE],
                 ],
             ],
             'Leading negative with separator' => [
-                '#,##0.00;-_#,##0.00',
+                '#,##0.00;- #,##0.00',
                 'en_US',
                 [
                     'trailingSign' => [false, Number::NON_BREAKING_SPACE],
                 ],
             ],
             'Leading sign without separator' => [
-                '+#,##0.00;-#,##0.00;#,##0.00',
+                '+#,##0.00;-#,##0.00;0.00',
                 'en_US',
                 [
                     'displayPositiveSign' => [true],
                 ],
             ],
             'Leading sign with separator' => [
-                '+_#,##0.00;-_#,##0.00;#,##0.00',
+                '+ #,##0.00;- #,##0.00;0.00',
                 'en_US',
                 [
                     'trailingSign' => [false, Number::NON_BREAKING_SPACE],
@@ -115,7 +115,7 @@ class NumberWithoutIntlTest extends TestCase
                 ],
             ],
             'Trailing sign with separator' => [
-                '#,##0.00_+;#,##0.00_-;#,##0.00',
+                '#,##0.00 +;#,##0.00 -;0.00',
                 'en_US',
                 [
                     'trailingSign' => [true, Number::NON_BREAKING_SPACE],
@@ -128,6 +128,42 @@ class NumberWithoutIntlTest extends TestCase
                 [
                     'setDecimals' => [3],
                     'useThousandsSeparator' => [false],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @group intl
+     * @dataProvider numberMaskWithoutIntlColors
+     */
+    public function testNumberMaskWithoutIntlColors(string $expectedResult, string $locale, array $args): void
+    {
+        $numberFormatter = new Number($locale);
+
+        foreach ($args as $methodName => $methodArgs) {
+            $numberFormatter->{$methodName}(...$methodArgs);
+        }
+
+        $numberFormatMask = $numberFormatter->format();
+        self::assertSame($expectedResult, $numberFormatMask);
+    }
+
+    public function numberMaskWithoutIntlColors()
+    {
+        return [
+            '/Red/' => [
+                '#,##0.00;[Red]#,##0.00',
+                'nl_NL',
+                [
+                    'setColors' => [null, 'Red'],
+                ],
+            ],
+            'Green/Red/Orange' => [
+                '[Green]#,##0.00;[Red]#,##0.00;[Orange]0.00',
+                'nl_NL',
+                [
+                    'setColors' => ['Green', 'Red', 'Orange'],
                 ],
             ],
         ];

@@ -47,13 +47,16 @@ class Accounting extends Currency
         return implode(self::MASK_SEPARATOR, $masks);
     }
 
+    protected function zeroValueMask(): string
+    {
+        return ($this->decimals === 0)
+            ? '"-"'
+            : '"-"' . str_repeat('?', $this->decimals);
+    }
+
     protected function useIntlFormatMask(): string
     {
-        $mask = $this->intlMask;
-        $mask = $this->setThousandsMasking($mask);
-        $mask = $this->setDecimalsMasking($mask);
-        $mask = $this->setSignMasking($mask);
-        $mask = $this->setSymbolMask($mask);
+        $mask = parent::useIntlFormatMask();
 
         if ($this->wrapNegativeValuesInBraces === true) {
             $mask = $this->setNegativeBracesMasking($mask);

@@ -68,7 +68,7 @@ class AccountingWithoutIntlTest extends TestCase
                 ],
             ],
             'Dutch Euro, trailing currency symbol' => [
-                '#,##0.00_[$€-nl-NL];(#,##0.00_[$€-nl-NL])',
+                '#,##0.00 [$€-nl-NL];(#,##0.00 [$€-nl-NL])',
                 'nl_NL',
                 [
                     'setCurrencySymbol' => ['€', Currency::CURRENCY_SYMBOL_TRAILING, Number::NON_BREAKING_SPACE],
@@ -76,7 +76,7 @@ class AccountingWithoutIntlTest extends TestCase
                 ],
             ],
             'Spanish Euro (Trailing currency symbol), No decimals, Negative in brackets' => [
-                '#,##0_[$€-es-ES];(#,##0_[$€-es-ES])',
+                '#,##0 [$€-es-ES];(#,##0 [$€-es-ES])',
                 'es_ES',
                 [
                     'setDecimals' => [0],
@@ -85,7 +85,7 @@ class AccountingWithoutIntlTest extends TestCase
                 ],
             ],
             'Denmark, Krone, Trailing negative sign, Trailing currency symbol' => [
-                '#,##0.00_[$kr.-da-DK];#,##0.00-_[$kr.-da-DK]',
+                '#,##0.00 [$kr.-da-DK];#,##0.00- [$kr.-da-DK]',
                 'da_DK',
                 [
                     'trailingSign' => [true],
@@ -93,7 +93,7 @@ class AccountingWithoutIntlTest extends TestCase
                 ],
             ],
             'Denmark, Krone, Trailing sign, Trailing currency symbol' => [
-                '#,##0.00+_[$kr.-da-DK];#,##0.00-_[$kr.-da-DK];#,##0.00_[$kr.-da-DK]',
+                '#,##0.00+ [$kr.-da-DK];#,##0.00- [$kr.-da-DK];"-"?? [$kr.-da-DK]',
                 'da_DK',
                 [
                     'trailingSign' => [true],

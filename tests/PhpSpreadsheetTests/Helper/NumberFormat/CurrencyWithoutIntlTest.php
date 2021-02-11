@@ -59,7 +59,7 @@ class CurrencyWithoutIntlTest extends TestCase
     {
         return [
             'GBP, with Leading Pound Sterling and space separator' => [
-                '[$£-en-GB]_#,##0.00',
+                '[$£-en-GB] #,##0.00',
                 'en_GB',
                 [
                     'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_LEADING, ' '],
@@ -73,14 +73,14 @@ class CurrencyWithoutIntlTest extends TestCase
                 ],
             ],
             'GBP, with Leading Pound Sterling and separator' => [
-                '[$£-en-GB]_#,##0.00',
+                '[$£-en-GB] #,##0.00',
                 'en_GB',
                 [
                     'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_LEADING, Number::NON_BREAKING_SPACE],
                 ],
             ],
             'GBP, with Trailing Pound Sterling and separator' => [
-                '#,##0.00_[$£-en-GB]',
+                '#,##0.00 [$£-en-GB]',
                 'en_GB',
                 [
                     'setCurrencySymbol' => ['£', Currency::CURRENCY_SYMBOL_TRAILING, Number::NON_BREAKING_SPACE],
@@ -103,12 +103,78 @@ class CurrencyWithoutIntlTest extends TestCase
                 ],
             ],
             'Euro, No decimals, and with trailing positive or negative sign' => [
-                '[$€-nl-NL]#,##0+;[$€-nl-NL]#,##0-;[$€-nl-NL]#,##0',
+                '[$€-nl-NL]#,##0+;[$€-nl-NL]#,##0-;[$€-nl-NL]0',
                 'nl_NL',
                 [
                     'setDecimals' => [0],
                     'trailingSign' => [true],
                     'displayPositiveSign' => [true],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @group intl
+     * @dataProvider currencyMaskWithoutIntlColors
+     */
+    public function testCurrencyMaskWithoutIntlColors(string $expectedResult, string $locale, array $args): void
+    {
+        $numberFormatter = new Currency($locale);
+
+        foreach ($args as $methodName => $methodArgs) {
+            $numberFormatter->{$methodName}(...$methodArgs);
+        }
+
+        $numberFormatMask = $numberFormatter->format();
+        self::assertSame($expectedResult, $numberFormatMask);
+    }
+
+    public function currencyMaskWithoutIntlColors()
+    {
+        return [
+            'NL /Red/' => [
+                '[$€-nl-NL]#,##0.00;[Red][$€-nl-NL]-#,##0.00',
+                'nl_NL',
+                [
+                    'setColors' => [null, 'Red'],
+                ],
+            ],
+            'NL Green/Red/Orange' => [
+                '[Green][$€-nl-NL]#,##0.00;[Red][$€-nl-NL]-#,##0.00;[Orange][$€-nl-NL]0.00',
+                'nl_NL',
+                [
+                    'setColors' => ['Green', 'Red', 'Orange'],
+                ],
+            ],
+            'ES /Red/' => [
+                '[$€-es-ES]#,##0.00;[Red][$€-es-ES]#,##0.00',
+                'es_ES',
+                [
+                    'setColors' => [null, 'Red'],
+                ],
+            ],
+            'ES Green/Red/Orange' => [
+                '[Green][$€-es-ES]#,##0.00;[Red][$€-es-ES]#,##0.00;[Orange][$€-es-ES]0.00',
+                'es_ES',
+                [
+                    'setColors' => ['Green', 'Red', 'Orange'],
+                ],
+            ],
+            'ES /Red/, Trailing symbol' => [
+                '#,##0.00[$€-es-ES];[Red]#,##0.00[$€-es-ES]',
+                'es_ES',
+                [
+                    'setCurrencySymbol' => ['€', Currency::CURRENCY_SYMBOL_TRAILING],
+                    'setColors' => [null, 'Red'],
+                ],
+            ],
+            'ES Green/Red/Orange, Trailing symbol' => [
+                '[Green]#,##0.00[$€-es-ES];[Red]#,##0.00[$€-es-ES];[Orange]0.00[$€-es-ES]',
+                'es_ES',
+                [
+                    'setCurrencySymbol' => ['€', Currency::CURRENCY_SYMBOL_TRAILING],
+                    'setColors' => ['Green', 'Red', 'Orange'],
                 ],
             ],
         ];

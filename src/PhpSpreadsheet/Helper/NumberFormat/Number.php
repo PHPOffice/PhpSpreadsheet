@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Helper\NumberFormat;
 
 use NumberFormatter;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class Number
 {
@@ -53,6 +54,10 @@ class Number
     protected $intlMask;
 
     protected $mask;
+
+    protected $colors = [
+
+    ];
 
     public function __construct(string $locale = 'en_US', int $decimals = 2, bool $thousandsSeparator = true)
     {
@@ -130,6 +135,55 @@ class Number
         $this->displayPositiveSign = $displayPositiveSign;
     }
 
+    protected function validateColor($color = null)
+    {
+        if ($color === null) {
+            return $color;
+        }
+
+        if (is_numeric($color) && $color >= 1 && $color <= 56) {
+            $color = (int) $color;
+            return "Color{$color}";
+        }
+
+        $color = ucfirst(strtolower($color));
+        if (!in_array($color, Color::NAMED_COLORS, true)) {
+            return null;
+        }
+
+        return $color;
+    }
+
+    public function setColors($positiveColor, $negativeColor = null, $zeroColor = null)
+    {
+        $this->colors[self::MASK_POSITIVE_VALUE] = $positiveColor;
+        $this->colors[self::MASK_NEGATIVE_VALUE] = $negativeColor;
+        $this->colors[self::MASK_ZERO_VALUE] = $zeroColor;
+    }
+
+    protected function zeroValueMask(): string
+    {
+        return ($this->decimals === 0)
+            ? '0'
+            : '0' . self::DECIMAL_SEPARATOR . str_repeat('0', $this->decimals);
+    }
+
+    protected function setZeroValueMask(string $positiveMask): string
+    {
+        $zeroMask = $this->zeroValueMask();
+        $mask = preg_replace('/((?:[#,]*0)(?:\.[0#]*)?)/u', $zeroMask, $positiveMask);
+
+        if ($this->displayPositiveSign) {
+            $pattern = $this->trailingSign
+                ? $this->signSeparator . self::SIGN_POSITIVE
+                : self::SIGN_POSITIVE . $this->signSeparator;
+            $pattern = '/' . preg_quote($pattern) .'/u';
+            $mask = preg_replace($pattern, '', $mask);
+        }
+
+        return $mask;
+    }
+
     protected const DECIMAL_PATTERN_MASK = '/' .
     '(?:0\\' . self::DECIMAL_SEPARATOR . ')(0*)' .
     '/u';
@@ -173,7 +227,7 @@ class Number
         $masks[self::MASK_POSITIVE_VALUE] = $mask;
 
         if ($this->displayPositiveSign === true) {
-            $masks[self::MASK_ZERO_VALUE] = $mask;
+            $masks[self::MASK_ZERO_VALUE] = $this->setZeroValueMask($masks[self::MASK_POSITIVE_VALUE]);
             $masks[self::MASK_POSITIVE_VALUE] = $this->trailingSign
                 ? preg_replace(self::SIGN_TRAILING_MASK, '$1' . $this->signSeparator . self::SIGN_POSITIVE, $mask)
                 : preg_replace(self::SIGN_LEADING_MASK, self::SIGN_POSITIVE . $this->signSeparator . '$1', $mask, 1);
@@ -190,6 +244,37 @@ class Number
         return implode(self::MASK_SEPARATOR, $masks);
     }
 
+    protected function setColorMasking(string $maskSet): string
+    {
+        if (empty(array_filter($this->colors))) {
+            return $maskSet;
+        }
+        $masks = preg_replace('/\[([a-z]*|Color[0-9]+)?\]/ui', '', $maskSet);
+        $masks = explode(self::MASK_SEPARATOR, $masks);
+
+        $masks[self::MASK_NEGATIVE_VALUE] = (array_key_exists(self::MASK_NEGATIVE_VALUE, $masks))
+            ? $masks[self::MASK_NEGATIVE_VALUE]
+            : $masks[self::MASK_POSITIVE_VALUE];
+
+        $masks[self::MASK_ZERO_VALUE] = (array_key_exists(self::MASK_ZERO_VALUE, $masks))
+            ? $masks[self::MASK_ZERO_VALUE]
+            : $this->setZeroValueMask($masks[self::MASK_POSITIVE_VALUE]);
+
+        for ($colorMaskIndex = self::MASK_POSITIVE_VALUE; $colorMaskIndex <= self::MASK_ZERO_VALUE; ++$colorMaskIndex) {
+            if (isset($this->colors[$colorMaskIndex])) {
+                $masks[$colorMaskIndex] = "[{$this->colors[$colorMaskIndex]}]{$masks[$colorMaskIndex]}";
+            }
+        }
+
+        if ($this->colors[self::MASK_ZERO_VALUE] === $this->colors[self::MASK_POSITIVE_VALUE]) {
+            unset($masks[self::MASK_ZERO_VALUE]);
+        }
+
+        ksort($masks);
+
+        return implode(self::MASK_SEPARATOR, $masks);
+    }
+
     public function format(): string
     {
         $mask = $this->mask;
@@ -197,7 +282,9 @@ class Number
         $mask = $this->setThousandsMasking($mask);
         $mask = $this->setSignMasking($mask);
 
-        return str_replace(self::NON_BREAKING_SPACE, '_', $mask);
+        $mask = $this->setColorMasking($mask);
+
+        return $mask;
     }
 
     public function __toString(): string
