@@ -297,7 +297,7 @@ class MathTrig
      * @param mixed $significance Significance
      * @param mixed $mode direction to round negative numbers
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return bool
      */
     private static function ceilingMathTest($significance, $number, $mode): bool
     {
