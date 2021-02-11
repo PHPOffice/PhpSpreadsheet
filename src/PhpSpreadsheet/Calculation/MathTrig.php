@@ -231,13 +231,21 @@ class MathTrig
     public static function CEILING($number, $significance = null)
     {
         $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        } elseif (is_bool($number)) {
+            $number = (int) $number;
+        }
         $significance = Functions::flattenSingleValue($significance);
 
-        if (
-            ($significance === null) &&
-            (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)
-        ) {
-            $significance = $number / abs($number);
+        if ($significance === null) {
+            $compatibility = Functions::getCompatibilityMode();
+            if ($compatibility === Functions::COMPATIBILITY_EXCEL) {
+                throw new Exception('Excel requires 2 arguments for CEILING');
+            }
+            if (is_numeric($number)) {
+                $significance = ($number < 0) ? -1 : 1;
+            }
         }
 
         if ((is_numeric($number)) && (is_numeric($significance))) {
@@ -248,6 +256,85 @@ class MathTrig
             }
 
             return Functions::NAN();
+        }
+
+        return Functions::VALUE();
+    }
+
+    /**
+     * CEILING.MATH.
+     *
+     * Round a number down to the nearest integer or to the nearest multiple of significance.
+     *
+     * Excel Function:
+     *        CEILING.MATH(number[,significance[,mode]])
+     *
+     * @param mixed $number Number to round
+     * @param mixed $significance Significance
+     * @param int $mode direction to round negative numbers
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     */
+    public static function CEILINGMATH($number, $significance = null, $mode = 0)
+    {
+        $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        } elseif (is_bool($number)) {
+            $number = (int) $number;
+        }
+        $significance = Functions::flattenSingleValue($significance);
+        $mode = Functions::flattenSingleValue($mode);
+
+        if (is_numeric($number) && $significance === null) {
+            $significance = ($number < 0) ? -1 : 1;
+        }
+
+        if (is_numeric($number) && is_numeric($significance) && is_numeric($mode)) {
+            if ($significance == 0.0) {
+                return 0.0;
+            } elseif ($number == 0.0) {
+                return 0.0;
+            } elseif (self::SIGN($significance) == -1 || (self::SIGN($number) == -1 && !empty($mode))) {
+                return floor($number / $significance) * $significance;
+            }
+
+            return ceil($number / $significance) * $significance;
+        }
+
+        return Functions::VALUE();
+    }
+
+    /**
+     * CEILING.PRECISE.
+     *
+     * Rounds number up, away from zero, to the nearest multiple of significance.
+     *
+     * Excel Function:
+     *        CEILING.PRECISE(number[,significance])
+     *
+     * @param mixed $number the number you want to round
+     * @param float $significance the multiple to which you want to round
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     */
+    public static function CEILINGPRECISE($number, $significance = 1)
+    {
+        $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        } elseif (is_bool($number)) {
+            $number = (int) $number;
+        }
+        $significance = Functions::flattenSingleValue($significance);
+
+        if ((is_numeric($number)) && (is_numeric($significance))) {
+            if ($significance == 0.0) {
+                return 0.0;
+            }
+            $result = $number / abs($significance);
+
+            return ceil($result) * $significance * (($significance < 0) ? -1 : 1);
         }
 
         return Functions::VALUE();
@@ -409,13 +496,21 @@ class MathTrig
     public static function FLOOR($number, $significance = null)
     {
         $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        } elseif (is_bool($number)) {
+            $number = (int) $number;
+        }
         $significance = Functions::flattenSingleValue($significance);
 
-        if (
-            ($significance === null) &&
-            (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)
-        ) {
-            $significance = $number / abs($number);
+        if ($significance === null) {
+            $compatibility = Functions::getCompatibilityMode();
+            if ($compatibility === Functions::COMPATIBILITY_EXCEL) {
+                throw new Exception('Excel requires 2 arguments for FLOOR');
+            }
+            if (is_numeric($number)) {
+                $significance = ($number < 0) ? -1 : 1;
+            }
         }
 
         if ((is_numeric($number)) && (is_numeric($significance))) {
@@ -443,8 +538,8 @@ class MathTrig
      * Excel Function:
      *        FLOOR.MATH(number[,significance[,mode]])
      *
-     * @param float $number Number to round
-     * @param float $significance Significance
+     * @param mixed $number Number to round
+     * @param mixed $significance Significance
      * @param int $mode direction to round negative numbers
      *
      * @return float|string Rounded Number, or a string containing an error
@@ -452,11 +547,16 @@ class MathTrig
     public static function FLOORMATH($number, $significance = null, $mode = 0)
     {
         $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        } elseif (is_bool($number)) {
+            $number = (int) $number;
+        }
         $significance = Functions::flattenSingleValue($significance);
         $mode = Functions::flattenSingleValue($mode);
 
         if (is_numeric($number) && $significance === null) {
-            $significance = $number / abs($number);
+            $significance = ($number < 0) ? -1 : 1;
         }
 
         if (is_numeric($number) && is_numeric($significance) && is_numeric($mode)) {
@@ -490,6 +590,11 @@ class MathTrig
     public static function FLOORPRECISE($number, $significance = 1)
     {
         $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        } elseif (is_bool($number)) {
+            $number = (int) $number;
+        }
         $significance = Functions::flattenSingleValue($significance);
 
         if ((is_numeric($number)) && (is_numeric($significance))) {
@@ -855,6 +960,10 @@ class MathTrig
     public static function MROUND($number, $multiple)
     {
         $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        }
+
         $multiple = Functions::flattenSingleValue($multiple);
 
         if ((is_numeric($number)) && (is_numeric($multiple))) {
@@ -1112,6 +1221,11 @@ class MathTrig
     public static function ROUNDUP($number, $digits)
     {
         $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        } elseif (is_bool($number)) {
+            $number = (int) $number;
+        }
         $digits = Functions::flattenSingleValue($digits);
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
@@ -1142,6 +1256,11 @@ class MathTrig
     public static function ROUNDDOWN($number, $digits)
     {
         $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        } elseif (is_bool($number)) {
+            $number = (int) $number;
+        }
         $digits = Functions::flattenSingleValue($digits);
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
@@ -1637,6 +1756,11 @@ class MathTrig
     {
         $value = Functions::flattenSingleValue($value);
         $digits = Functions::flattenSingleValue($digits);
+        if ($value === null) {
+            return 0;
+        } elseif (is_bool($value)) {
+            return (int) $value;
+        }
 
         // Validate parameters
         if ((!is_numeric($value)) || (!is_numeric($digits))) {
@@ -1853,6 +1977,11 @@ class MathTrig
     public static function builtinROUND($number, $precision)
     {
         $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        } elseif (is_bool($number)) {
+            $number = (int) $number;
+        }
 
         if (!is_numeric($number) || !is_numeric($precision)) {
             return Functions::VALUE();
