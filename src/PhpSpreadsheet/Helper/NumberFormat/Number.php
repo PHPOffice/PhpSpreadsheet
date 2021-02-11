@@ -124,7 +124,7 @@ class Number
             $intlFormatter = new NumberFormatter($locale, $intlStyle);
             if ($intlFormatter !== false) {
                 if (static::FORMAT_STYLE === self::FORMAT_STYLE_ACCOUNTING) {
-                    var_dump($locale, $this->intlMask);
+                    var_dump($locale, $intlFormatter->getPattern());
                 }
                 return $intlFormatter;
             }
