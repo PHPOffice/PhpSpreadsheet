@@ -82,11 +82,32 @@ class Number
         return $this->locale;
     }
 
+    public static function icuVersion(): ?float
+    {
+        if (!extension_loaded('intl')) {
+            return null;
+        }
+
+        try {
+            $reflector = new \ReflectionExtension('intl');
+            ob_start();
+            $reflector->info();
+            $intlInfo = strip_tags(ob_get_clean());
+            preg_match('/^ICU version (?:=>)?(.*)$/m', $intlInfo, $matches);
+            $icuVersion = (float) trim($matches[1]);
+        } catch (\ReflectionException $e) {
+            $icuVersion = null;
+        }
+
+        return $icuVersion;
+    }
+
     private function internationalFormatterStyle(): int
     {
+        $this->icuVersion();
         switch (static::FORMAT_STYLE) {
             case self::FORMAT_STYLE_ACCOUNTING:
-                return (phpversion(PHP_VERSION_ID < 70400) || !defined(NumberFormatter::CURRENCY_ACCOUNTING))
+                return (phpversion(PHP_VERSION_ID < 70400) || self::icuVersion() >= 53.0)
                     // CURRENCY_ACCOUNTING requires PHP 7.4 and ICU 53; default to CURRENCY if it isn't available.
                     ? NumberFormatter::CURRENCY
                     : NumberFormatter::CURRENCY_ACCOUNTING;
