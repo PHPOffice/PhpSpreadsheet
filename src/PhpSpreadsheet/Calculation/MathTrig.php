@@ -299,7 +299,7 @@ class MathTrig
      *
      * @return bool
      */
-    private static function ceilingMathTest($significance, $number, $mode): bool
+    private static function ceilingMathTest($significance, $number, $mode)
     {
         return self::SIGN($significance) == -1 || (self::SIGN($number) == -1 && !empty($mode));
     }
