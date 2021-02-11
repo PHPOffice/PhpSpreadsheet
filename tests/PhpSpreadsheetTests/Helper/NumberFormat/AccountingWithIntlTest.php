@@ -18,6 +18,10 @@ class AccountingWithIntlTest extends TestCase
         if (PHP_VERSION < '70400') {
             self::markTestSkipped('The Intl extension does not support Accounting below PHP 7.4');
         }
+
+        if (!defined('NumberFormatter::CURRENCY_ACCOUNTING')) {
+            self::markTestSkipped('The Intl extension does not support Accounting Formats without ICU 53');
+        }
     }
 
     /**
