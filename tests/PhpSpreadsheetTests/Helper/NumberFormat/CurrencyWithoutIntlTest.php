@@ -140,11 +140,11 @@ class CurrencyWithoutIntlTest extends TestCase
                     'setColors' => [null, 'Red'],
                 ],
             ],
-            'NL Green/Red/Orange' => [
-                '[Green][$€-nl-NL]#,##0.00;[Red][$€-nl-NL]-#,##0.00;[Orange][$€-nl-NL]0.00',
+            'NL Green/Red/Blue' => [
+                '[Green][$€-nl-NL]#,##0.00;[Red][$€-nl-NL]-#,##0.00;[Blue][$€-nl-NL]0.00',
                 'nl_NL',
                 [
-                    'setColors' => ['Green', 'Red', 'Orange'],
+                    'setColors' => ['Green', 'Red', 'Blue'],
                 ],
             ],
             'ES /Red/' => [
@@ -154,11 +154,11 @@ class CurrencyWithoutIntlTest extends TestCase
                     'setColors' => [null, 'Red'],
                 ],
             ],
-            'ES Green/Red/Orange' => [
-                '[Green][$€-es-ES]#,##0.00;[Red][$€-es-ES]-#,##0.00;[Orange][$€-es-ES]0.00',
+            'ES Green/Red/Blue' => [
+                '[Green][$€-es-ES]#,##0.00;[Red][$€-es-ES]-#,##0.00;[Blue][$€-es-ES]0.00',
                 'es_ES',
                 [
-                    'setColors' => ['Green', 'Red', 'Orange'],
+                    'setColors' => ['Green', 'Red', 'Blue'],
                 ],
             ],
             'ES /Red/, Trailing symbol' => [
@@ -169,12 +169,12 @@ class CurrencyWithoutIntlTest extends TestCase
                     'setColors' => [null, 'Red'],
                 ],
             ],
-            'ES Green/Red/Orange, Trailing symbol' => [
-                '[Green]#,##0.00[$€-es-ES];[Red]-#,##0.00[$€-es-ES];[Orange]0.00[$€-es-ES]',
+            'ES Green/Red/Blue, Trailing symbol' => [
+                '[Green]#,##0.00[$€-es-ES];[Red]-#,##0.00[$€-es-ES];[Blue]0.00[$€-es-ES]',
                 'es_ES',
                 [
                     'setCurrencySymbol' => ['€', Currency::CURRENCY_SYMBOL_TRAILING],
-                    'setColors' => ['Green', 'Red', 'Orange'],
+                    'setColors' => ['Green', 'Red', 'Blue'],
                 ],
             ],
         ];

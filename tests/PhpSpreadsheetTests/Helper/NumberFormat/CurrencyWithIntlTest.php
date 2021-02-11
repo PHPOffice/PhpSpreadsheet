@@ -131,11 +131,11 @@ class CurrencyWithIntlTest extends TestCase
                     'setColors' => [null, 'Red'],
                 ],
             ],
-            'NL Green/Red/Orange' => [
-                '[Green][$€-nl-NL] #,##0.00;[Red][$€-nl-NL] -#,##0.00;[Orange][$€-nl-NL] 0.00',
+            'NL Green/Red/Blue' => [
+                '[Green][$€-nl-NL] #,##0.00;[Red][$€-nl-NL] -#,##0.00;[Blue][$€-nl-NL] 0.00',
                 'nl_NL',
                 [
-                    'setColors' => ['Green', 'Red', 'Orange'],
+                    'setColors' => ['Green', 'Red', 'Blue'],
                 ],
             ],
             'ES /Red/' => [
@@ -145,11 +145,11 @@ class CurrencyWithIntlTest extends TestCase
                     'setColors' => [null, 'Red'],
                 ],
             ],
-            'ES Green/Red/Orange' => [
-                '[Green]#,##0.00 [$€-es-ES];[Red]-#,##0.00 [$€-es-ES];[Orange]0.00 [$€-es-ES]',
+            'ES Green/Red/Blue' => [
+                '[Green]#,##0.00 [$€-es-ES];[Red]-#,##0.00 [$€-es-ES];[Blue]0.00 [$€-es-ES]',
                 'es_ES',
                 [
-                    'setColors' => ['Green', 'Red', 'Orange'],
+                    'setColors' => ['Green', 'Red', 'Blue'],
                 ],
             ],
         ];
