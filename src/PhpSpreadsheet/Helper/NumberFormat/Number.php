@@ -88,7 +88,9 @@ class Number
     {
         switch (static::FORMAT_STYLE) {
             case self::FORMAT_STYLE_ACCOUNTING:
-                return NumberFormatter::CURRENCY_ACCOUNTING;
+                return (phpversion(PHP_VERSION_ID >= 70400))
+                    ? NumberFormatter::CURRENCY_ACCOUNTING
+                    : NumberFormatter::CURRENCY;
             case self::FORMAT_STYLE_CURRENCY:
                 return NumberFormatter::CURRENCY;
         }
