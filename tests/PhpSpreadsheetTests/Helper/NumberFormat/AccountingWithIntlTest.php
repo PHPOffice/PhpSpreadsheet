@@ -14,6 +14,10 @@ class AccountingWithIntlTest extends TestCase
         if (!extension_loaded('intl')) {
             self::markTestSkipped('The Intl extension is not available');
         }
+
+        if (PHP_VERSION < '70400') {
+            self::markTestSkipped('The Intl extension does not support Accounting below PHP 7.4');
+        }
     }
 
     /**
