@@ -85,7 +85,6 @@ class Number
     public static function icuVersion(): ?float
     {
         if (!extension_loaded('intl')) {
-            var_dump('Intl not loaedd');
             return null;
         }
 
@@ -94,12 +93,9 @@ class Number
             ob_start();
             $reflector->info();
             $intlInfo = strip_tags(ob_get_clean());
-            var_dump($intlInfo);
             preg_match('/^ICU version (?:=>)?(.*)$/m', $intlInfo, $matches);
             $icuVersion = (float) trim($matches[1]);
-            var_dump($icuVersion);
         } catch (\ReflectionException $e) {
-            var_dump($e->getMessage());
             $icuVersion = null;
         }
 
