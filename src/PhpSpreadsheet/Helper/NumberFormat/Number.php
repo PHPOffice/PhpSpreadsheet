@@ -55,9 +55,7 @@ class Number
 
     protected $mask;
 
-    protected $colors = [
-
-    ];
+    protected $colors = [];
 
     public function __construct(string $locale = 'en_US', int $decimals = 2, bool $thousandsSeparator = true)
     {
@@ -88,9 +86,10 @@ class Number
     {
         switch (static::FORMAT_STYLE) {
             case self::FORMAT_STYLE_ACCOUNTING:
-                return (phpversion(PHP_VERSION_ID >= 70400))
-                    ? NumberFormatter::CURRENCY_ACCOUNTING
-                    : NumberFormatter::CURRENCY;
+                return (phpversion(PHP_VERSION_ID < 70400) || !defined(NumberFormatter::CURRENCY_ACCOUNTING))
+                    // CURRENCY_ACCOUNTING requires PHP 7.4 and ICU 53; default to CURRENCY if it isn't available.
+                    ? NumberFormatter::CURRENCY
+                    : NumberFormatter::CURRENCY_ACCOUNTING;
             case self::FORMAT_STYLE_CURRENCY:
                 return NumberFormatter::CURRENCY;
         }
@@ -137,7 +136,7 @@ class Number
         $this->displayPositiveSign = $displayPositiveSign;
     }
 
-    protected function validateColor($color = null)
+    protected function validateColor($color = null): ?string
     {
         if ($color === null) {
             return $color;
@@ -145,6 +144,7 @@ class Number
 
         if (is_numeric($color) && $color >= 1 && $color <= 56) {
             $color = (int) $color;
+
             return "Color{$color}";
         }
 
@@ -156,11 +156,11 @@ class Number
         return $color;
     }
 
-    public function setColors($positiveColor, $negativeColor = null, $zeroColor = null)
+    public function setColors($positiveColor, $negativeColor = null, $zeroColor = null): void
     {
-        $this->colors[self::MASK_POSITIVE_VALUE] = $positiveColor;
-        $this->colors[self::MASK_NEGATIVE_VALUE] = $negativeColor;
-        $this->colors[self::MASK_ZERO_VALUE] = $zeroColor;
+        $this->colors[self::MASK_POSITIVE_VALUE] = $this->validateColor($positiveColor);
+        $this->colors[self::MASK_NEGATIVE_VALUE] = $this->validateColor($negativeColor);
+        $this->colors[self::MASK_ZERO_VALUE] = $this->validateColor($zeroColor);
     }
 
     protected function zeroValueMask(): string
@@ -229,6 +229,7 @@ class Number
             $replaceNegatveSign = $this->trailingSign
                 ? $this->signSeparator . self::SIGN_NEGATIVE
                 : self::SIGN_NEGATIVE . $this->signSeparator;
+
             return preg_replace('/' . preg_quote($stripPositiveSign) . '/u', $replaceNegatveSign, $positiveMask);
         }
 
