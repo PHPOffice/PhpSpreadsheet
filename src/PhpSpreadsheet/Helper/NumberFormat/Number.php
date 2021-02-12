@@ -90,16 +90,8 @@ class Number
             return null;
         }
 
-        try {
-            $reflector = new ReflectionExtension('intl');
-            ob_start();
-            $reflector->info();
-            $intlInfo = strip_tags(ob_get_clean());
-            preg_match('/^ICU version (?:=>)?(.*)$/m', $intlInfo, $matches);
-            $icuVersion = (float) trim($matches[1]);
-        } catch (ReflectionException $e) {
-            $icuVersion = null;
-        }
+        [$major, $minor] = explode('.', INTL_ICU_VERSION);
+        $icuVersion = (float) "{$major}.{$minor}";
 
         return $icuVersion;
     }
@@ -108,8 +100,8 @@ class Number
     {
         switch (static::FORMAT_STYLE) {
             case self::FORMAT_STYLE_ACCOUNTING:
-                return (phpversion(PHP_VERSION_ID < 70401) || self::icuVersion() >= 53.0)
-                    // CURRENCY_ACCOUNTING requires PHP 7.4 and ICU 53; default to CURRENCY if it isn't available.
+                return (PHP_VERSION < 70401 || self::icuVersion() >= 53.0)
+                    // CURRENCY_ACCOUNTING requires PHP 7.4.1 and ICU 53; default to CURRENCY if it isn't available.
                     ? NumberFormatter::CURRENCY
                     : NumberFormatter::CURRENCY_ACCOUNTING;
             case self::FORMAT_STYLE_CURRENCY:
@@ -124,13 +116,8 @@ class Number
         if (extension_loaded('intl')) {
             $intlStyle = $this->internationalFormatterStyle();
             $intlFormatter = new NumberFormatter($locale, $intlStyle);
-            if ($intlFormatter !== false) {
-                if (static::FORMAT_STYLE === self::FORMAT_STYLE_ACCOUNTING) {
-                    var_dump($locale, $intlFormatter->getPattern());
-                }
 
-                return $intlFormatter;
-            }
+            return $intlFormatter;
         }
 
         return null;
