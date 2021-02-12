@@ -1,8 +1,10 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Calculation;
+namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-class RomanStyles
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+
+class Roman
 {
     private const VALUES = [
         45 => ['VL'],
@@ -766,7 +768,7 @@ class RomanStyles
         3998 => ['MMMLMVLIII', 'MMMXMVIII', 'MMMVMIII'],
         3999 => ['MMMLMVLIV', 'MMMXMIX', 'MMMVMIV', 'MMMIM'],
     ];
-    private const THOUSANDS = ['', 'M', 'MM', 'MMM', 'MMMM', 'MMMMM'];
+    private const THOUSANDS = ['', 'M', 'MM', 'MMM'];
     private const HUNDREDS = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'];
     private const TENS = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'];
     private const ONES = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
@@ -807,5 +809,45 @@ class RomanStyles
     public static function calculateRoman(int $aValue, int $style): string
     {
         return ($style < 0 || $style > self::MAX_ROMAN_STYLE) ? Functions::VALUE() : self::styleOk($aValue, $style);
+    }
+
+    /**
+     * ROMAN.
+     *
+     * Converts a number to Roman numeral
+     *
+     * @param mixed $aValue Number to convert
+     * @param mixed $style Number indicating one of five possible forms
+     *
+     * @return string Roman numeral, or a string containing an error
+     */
+    public static function funcRoman($aValue, $style = 0)
+    {
+        $aValue = Functions::flattenSingleValue($aValue);
+        self::nullFalseTrueToNumber($aValue);
+        $style = Functions::flattenSingleValue($style);
+        if (is_bool($style)) {
+            $style = $style ? 0 : 4;
+        }
+        if (!is_numeric($aValue) || !is_numeric($style)) {
+            return Functions::VALUE();
+        }
+
+        return self::calculateRoman((int) $aValue, (int) $style);
+    }
+
+    /**
+     * Many functions accept null/false/true argument treated as 0/0/1.
+     *
+     * @param mixed $number
+     */
+    private static function nullFalseTrueToNumber(&$number): void
+    {
+        $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        } elseif (is_bool($number)) {
+            $number = (int) $number;
+        }
     }
 }

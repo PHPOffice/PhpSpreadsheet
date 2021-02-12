@@ -2107,7 +2107,7 @@ class Calculation
         ],
         'ROMAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'ROMAN'],
+            'functionCall' => [MathTrig\Roman::class, 'funcRoman'],
             'argumentCount' => '1,2',
         ],
         'ROUND' => [

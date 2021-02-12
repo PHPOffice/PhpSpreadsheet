@@ -1062,20 +1062,6 @@ class MathTrig
         return mt_rand($min, $max);
     }
 
-    public static function ROMAN($aValue, $style = 0)
-    {
-        $aValue = Functions::flattenSingleValue($aValue);
-        $style = Functions::flattenSingleValue($style);
-        if (is_bool($style)) {
-            $style = $style ? 0 : 4;
-        }
-        if (!is_numeric($aValue) || !is_numeric($style)) {
-            return Functions::VALUE();
-        }
-
-        return RomanStyles::calculateRoman((int) $aValue, (int) $style);
-    }
-
     /**
      * ROUNDUP.
      *
