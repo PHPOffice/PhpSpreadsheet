@@ -587,11 +587,11 @@ class ConvertBase
      * Formats a number base string value with leading zeroes.
      *
      * @param string $xVal The "number" to pad
-     * @param int $places The length that we want to pad this value
+     * @param ?int $places The length that we want to pad this value
      *
      * @return string The padded "number"
      */
-    private static function nbrConversionFormat(string $xVal, int $places): string
+    private static function nbrConversionFormat(string $xVal, ?int $places): string
     {
         if ($places !== null) {
             if (is_numeric($places)) {
