@@ -106,7 +106,7 @@ class Number
     {
         switch (static::FORMAT_STYLE) {
             case self::FORMAT_STYLE_ACCOUNTING:
-                return (phpversion(PHP_VERSION_ID < 70400) || self::icuVersion() >= 53.0)
+                return (phpversion(PHP_VERSION_ID < 70401) || self::icuVersion() >= 53.0)
                     // CURRENCY_ACCOUNTING requires PHP 7.4 and ICU 53; default to CURRENCY if it isn't available.
                     ? NumberFormatter::CURRENCY
                     : NumberFormatter::CURRENCY_ACCOUNTING;

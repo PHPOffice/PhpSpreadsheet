@@ -15,12 +15,17 @@ class AccountingWithIntlTest extends TestCase
             self::markTestSkipped('The Intl extension is not available');
         }
 
-        if (PHP_VERSION < '70400') {
+        if (PHP_VERSION < '70401') {
             self::markTestSkipped('The Intl extension does not support Accounting below PHP 7.4');
         }
 
         if (Number::icuVersion() < 53.0) {
             self::markTestSkipped('The Intl extension does not support Accounting Formats without ICU 53');
+        }
+
+        $mask = (new NumberFormatter('en_US.UTF8@currency=USD', NumberFormatter::CURRENCY_ACCOUNTING))->getPattern();
+        if (strpos($mask, '(') === false) {
+            self::markTestSkipped('The Intl extension does not support bracketed Accounting Formats');
         }
     }
 
