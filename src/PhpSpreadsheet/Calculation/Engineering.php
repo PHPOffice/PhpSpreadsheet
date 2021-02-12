@@ -148,10 +148,10 @@ class Engineering
      * @Deprecated 2.0.0 Use the BESSELY() method in the Engineering\BesselY class instead
      *
      * @param float $x The value at which to evaluate the function.
-     *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
+     *                                If x is nonnumeric, BESSELY returns the #VALUE! error value.
      * @param int $ord The order of the Bessel function. If n is not an integer, it is truncated.
-     *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
-     *                                If $ord < 0, BESSELK returns the #NUM! error value.
+     *                                If $ord is nonnumeric, BESSELY returns the #VALUE! error value.
+     *                                If $ord < 0, BESSELY returns the #NUM! error value.
      *
      * @return float|string Result, or a string containing an error
      */
