@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 use Complex\Complex;
 use Complex\Exception as ComplexException;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Bessel;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertUOM;
 
 class Engineering
@@ -19,7 +20,7 @@ class Engineering
      *
      * Parses a complex number into its real and imaginary parts, and an I or J suffix
      *
-     * @deprecated 2.0.0 No longer used by internal code. Please use the Complex\Complex class instead
+     * @deprecated 2.0.0 No longer used by internal code. Please use the \Complex\Complex class instead
      *
      * @param string $complexNumber The complex number
      *
@@ -1414,41 +1415,14 @@ class Engineering
     }
 
     /**
-     * Validate arguments passed to the bitwise functions.
-     *
-     * @param mixed $value
-     *
-     * @return int
-     */
-    private static function validateBitwiseArgument($value)
-    {
-        $value = Functions::flattenSingleValue($value);
-
-        if (is_int($value)) {
-            return $value;
-        } elseif (is_numeric($value)) {
-            if ($value == (int) ($value)) {
-                $value = (int) ($value);
-                if (($value > 2 ** 48 - 1) || ($value < 0)) {
-                    throw new Exception(Functions::NAN());
-                }
-
-                return $value;
-            }
-
-            throw new Exception(Functions::NAN());
-        }
-
-        throw new Exception(Functions::VALUE());
-    }
-
-    /**
      * BITAND.
      *
      * Returns the bitwise AND of two integer values.
      *
      * Excel Function:
      *        BITAND(number1, number2)
+     *
+     * @Deprecated 2.0.0 Use the BITAND() method in the Engineering\BitWise class instead
      *
      * @param int $number1
      * @param int $number2
@@ -1457,14 +1431,7 @@ class Engineering
      */
     public static function BITAND($number1, $number2)
     {
-        try {
-            $number1 = self::validateBitwiseArgument($number1);
-            $number2 = self::validateBitwiseArgument($number2);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-
-        return $number1 & $number2;
+        return BitWise::BITAND($number1, $number2);
     }
 
     /**
@@ -1475,6 +1442,8 @@ class Engineering
      * Excel Function:
      *        BITOR(number1, number2)
      *
+     * @Deprecated 2.0.0 Use the BITOR() method in the Engineering\BitWise class instead
+     *
      * @param int $number1
      * @param int $number2
      *
@@ -1482,14 +1451,7 @@ class Engineering
      */
     public static function BITOR($number1, $number2)
     {
-        try {
-            $number1 = self::validateBitwiseArgument($number1);
-            $number2 = self::validateBitwiseArgument($number2);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-
-        return $number1 | $number2;
+        return BitWise::BITOR($number1, $number2);
     }
 
     /**
@@ -1500,6 +1462,8 @@ class Engineering
      * Excel Function:
      *        BITXOR(number1, number2)
      *
+     * @Deprecated 2.0.0 Use the BITXOR() method in the Engineering\BitWise class instead
+     *
      * @param int $number1
      * @param int $number2
      *
@@ -1507,14 +1471,7 @@ class Engineering
      */
     public static function BITXOR($number1, $number2)
     {
-        try {
-            $number1 = self::validateBitwiseArgument($number1);
-            $number2 = self::validateBitwiseArgument($number2);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-
-        return $number1 ^ $number2;
+        return BitWise::BITXOR($number1, $number2);
     }
 
     /**
@@ -1525,6 +1482,8 @@ class Engineering
      * Excel Function:
      *        BITLSHIFT(number, shift_amount)
      *
+     * @Deprecated 2.0.0 Use the BITLSHIFT() method in the Engineering\BitWise class instead
+     *
      * @param int $number
      * @param int $shiftAmount
      *
@@ -1532,20 +1491,7 @@ class Engineering
      */
     public static function BITLSHIFT($number, $shiftAmount)
     {
-        try {
-            $number = self::validateBitwiseArgument($number);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-
-        $shiftAmount = Functions::flattenSingleValue($shiftAmount);
-
-        $result = $number << $shiftAmount;
-        if ($result > 2 ** 48 - 1) {
-            return Functions::NAN();
-        }
-
-        return $result;
+        return BitWise::BITLSHIFT($number, $shiftAmount);
     }
 
     /**
@@ -1556,6 +1502,8 @@ class Engineering
      * Excel Function:
      *        BITRSHIFT(number, shift_amount)
      *
+     * @Deprecated 2.0.0 Use the BITRSHIFT() method in the Engineering\BitWise class instead
+     *
      * @param int $number
      * @param int $shiftAmount
      *
@@ -1563,15 +1511,7 @@ class Engineering
      */
     public static function BITRSHIFT($number, $shiftAmount)
     {
-        try {
-            $number = self::validateBitwiseArgument($number);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-
-        $shiftAmount = Functions::flattenSingleValue($shiftAmount);
-
-        return $number >> $shiftAmount;
+        return BitWise::BITRSHIFT($number, $shiftAmount);
     }
 
     /**
