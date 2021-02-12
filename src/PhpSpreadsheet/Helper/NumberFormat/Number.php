@@ -4,8 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Helper\NumberFormat;
 
 use NumberFormatter;
 use PhpOffice\PhpSpreadsheet\Style\Color;
-use ReflectionException;
-use ReflectionExtension;
 
 class Number
 {
