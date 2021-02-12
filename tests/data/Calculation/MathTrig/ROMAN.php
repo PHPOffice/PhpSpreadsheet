@@ -63,6 +63,7 @@ return [
     ['#VALUE!', '46, "ABC"'],
     ['MMMCMXCIX', '3999'],
     ['MMMIM', '3999, 4'],
+    ['MMMIM', '"3999", "4"'],
     ['I', 'true'],
     ['', 'false'],
 ];
