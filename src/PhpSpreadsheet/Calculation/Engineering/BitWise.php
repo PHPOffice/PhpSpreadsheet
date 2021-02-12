@@ -144,8 +144,6 @@ class BitWise
      *
      * @param mixed $value
      *
-     * @throws Exception If the value is not valid for the bitwise functions
-     *
      * @return int
      */
     private static function validateBitwiseArgument($value)
@@ -169,5 +167,4 @@ class BitWise
 
         throw new Exception(Functions::VALUE());
     }
-
 }
