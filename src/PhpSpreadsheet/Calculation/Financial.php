@@ -253,6 +253,10 @@ class Financial
         $period = floor(Functions::flattenSingleValue($period));
         $rate = Functions::flattenSingleValue($rate);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
+        if (is_string($yearFrac)) {
+            return $yearFrac;
+        }
 
         //    The depreciation coefficients are:
         //    Life of assets (1/rate)        Depreciation coefficient
@@ -272,7 +276,7 @@ class Financial
         }
 
         $rate *= $amortiseCoeff;
-        $fNRate = round(DateTime::YEARFRAC($purchased, $firstPeriod, $basis) * $rate * $cost, 0);
+        $fNRate = round($yearFrac * $rate * $cost, 0);
         $cost -= $fNRate;
         $fRest = $cost - $salvage;
 
@@ -335,6 +339,9 @@ class Financial
         //    Note, quirky variation for leap years on the YEARFRAC for this function
         $purchasedYear = DateTime::YEAR($purchased);
         $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
+        if (is_string($yearFrac)) {
+            return $yearFrac;
+        }
 
         if (($basis == 1) && ($yearFrac < 1) && (DateTime::isLeapYear($purchasedYear))) {
             $yearFrac *= 365 / 366;
@@ -739,7 +746,12 @@ class Financial
         // Calculate
         $interest = 0;
         for ($per = $start; $per <= $end; ++$per) {
-            $interest += self::IPMT($rate, $per, $nper, $pv, 0, $type);
+            $ipmt = self::IPMT($rate, $per, $nper, $pv, 0, $type);
+            if (is_string($ipmt)) {
+                return $ipmt;
+            }
+
+            $interest += $ipmt;
         }
 
         return $interest;
@@ -785,7 +797,12 @@ class Financial
         // Calculate
         $principal = 0;
         for ($per = $start; $per <= $end; ++$per) {
-            $principal += self::PPMT($rate, $per, $nper, $pv, 0, $type);
+            $ppmt = self::PPMT($rate, $per, $nper, $pv, 0, $type);
+            if (is_string($ppmt)) {
+                return $ppmt;
+            }
+
+            $principal += $ppmt;
         }
 
         return $principal;
@@ -1219,7 +1236,7 @@ class Financial
             return Functions::NAN();
         }
         if ($per <= 0 || $per > $nper) {
-            return Functions::VALUE();
+            return Functions::NAN();
         }
 
         // Calculate
@@ -1573,7 +1590,7 @@ class Financial
             return Functions::NAN();
         }
         if ($per <= 0 || $per > $nper) {
-            return Functions::VALUE();
+            return Functions::NAN();
         }
 
         // Calculate
