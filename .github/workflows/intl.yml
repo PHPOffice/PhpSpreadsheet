@@ -1,4 +1,4 @@
-name: main
+name: intl
 on: [ push, pull_request ]
 jobs:
   test:
