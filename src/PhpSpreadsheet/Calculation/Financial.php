@@ -242,7 +242,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string (string containing the error type if there is an error)
      */
     public static function AMORDEGRC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
     {
@@ -322,7 +322,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string (string containing the error type if there is an error)
      */
     public static function AMORLINC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
     {
