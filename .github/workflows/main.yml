@@ -5,12 +5,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        experimental:
+          - false
         php-version:
           - '7.2'
           - '7.3'
           - '7.4'
           - '8.0'
-          - '8.1'
+
+        include:
+          - php-version: '8.1'
+            experimental: true
 
     name: PHP ${{ matrix.php-version }}
 
@@ -52,8 +57,10 @@ jobs:
       - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-      - name: Test with PHPUnit
-        run: ./vendor/bin/phpunit
+      - name: "Run PHPUnit tests (Experimental: ${{ matrix.experimental }})"
+        env:
+          FAILURE_ACTION: "${{ matrix.experimental == true }}"
+        run: vendor/bin/phpunit --verbose || $FAILURE_ACTION
 
   php-cs-fixer:
     runs-on: ubuntu-latest
