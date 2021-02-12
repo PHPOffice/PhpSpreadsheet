@@ -403,17 +403,17 @@ class Calculation
         ],
         'BIN2DEC' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'BINTODEC'],
+            'functionCall' => [Engineering\ConvertBase::class, 'BINTODEC'],
             'argumentCount' => '1',
         ],
         'BIN2HEX' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'BINTOHEX'],
+            'functionCall' => [Engineering\ConvertBase::class, 'BINTOHEX'],
             'argumentCount' => '1,2',
         ],
         'BIN2OCT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'BINTOOCT'],
+            'functionCall' => [Engineering\ConvertBase::class, 'BINTOOCT'],
             'argumentCount' => '1,2',
         ],
         'BINOMDIST' => [
@@ -814,17 +814,17 @@ class Calculation
         ],
         'DEC2BIN' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'DECTOBIN'],
+            'functionCall' => [Engineering\ConvertBase::class, 'DECTOBIN'],
             'argumentCount' => '1,2',
         ],
         'DEC2HEX' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'DECTOHEX'],
+            'functionCall' => [Engineering\ConvertBase::class, 'DECTOHEX'],
             'argumentCount' => '1,2',
         ],
         'DEC2OCT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'DECTOOCT'],
+            'functionCall' => [Engineering\ConvertBase::class, 'DECTOOCT'],
             'argumentCount' => '1,2',
         ],
         'DECIMAL' => [
@@ -1216,17 +1216,17 @@ class Calculation
         ],
         'HEX2BIN' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'HEXTOBIN'],
+            'functionCall' => [Engineering\ConvertBase::class, 'HEXTOBIN'],
             'argumentCount' => '1,2',
         ],
         'HEX2DEC' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'HEXTODEC'],
+            'functionCall' => [Engineering\ConvertBase::class, 'HEXTODEC'],
             'argumentCount' => '1',
         ],
         'HEX2OCT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'HEXTOOCT'],
+            'functionCall' => [Engineering\ConvertBase::class, 'HEXTOOCT'],
             'argumentCount' => '1,2',
         ],
         'HLOOKUP' => [
@@ -1840,17 +1840,17 @@ class Calculation
         ],
         'OCT2BIN' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'OCTTOBIN'],
+            'functionCall' => [Engineering\ConvertBase::class, 'OCTTOBIN'],
             'argumentCount' => '1,2',
         ],
         'OCT2DEC' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'OCTTODEC'],
+            'functionCall' => [Engineering\ConvertBase::class, 'OCTTODEC'],
             'argumentCount' => '1',
         ],
         'OCT2HEX' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'OCTTOHEX'],
+            'functionCall' => [Engineering\ConvertBase::class, 'OCTTOHEX'],
             'argumentCount' => '1,2',
         ],
         'ODD' => [
