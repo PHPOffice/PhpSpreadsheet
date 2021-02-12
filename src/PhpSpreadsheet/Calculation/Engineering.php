@@ -74,7 +74,7 @@ class Engineering
      *    Excel Function:
      *        BESSELI(x,ord)
      *
-     * @Deprecated Use the BESSELI() method in the Bessel class instead
+     * @Deprecated 2.0.0 Use the BESSELI() method in the Engineering\BesselI class instead
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELI returns the #VALUE! error value.
@@ -87,7 +87,7 @@ class Engineering
      */
     public static function BESSELI($x, $ord)
     {
-        return Bessel::BESSELI($x, $ord);
+        return Engineering\BesselI::BESSELI($x, $ord);
     }
 
     /**
@@ -98,7 +98,7 @@ class Engineering
      *    Excel Function:
      *        BESSELJ(x,ord)
      *
-     * @Deprecated Use the BESSELJ() method in the Bessel class instead
+     * @Deprecated 2.0.0 Use the BESSELJ() method in the Engineering\BesselJ class instead
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELJ returns the #VALUE! error value.
@@ -110,7 +110,7 @@ class Engineering
      */
     public static function BESSELJ($x, $ord)
     {
-        return Bessel::BESSELJ($x, $ord);
+        return Engineering\BesselJ::BESSELJ($x, $ord);
     }
 
     /**
@@ -122,7 +122,7 @@ class Engineering
      *    Excel Function:
      *        BESSELK(x,ord)
      *
-     * @Deprecated Use the BESSELK() method in the Bessel class instead
+     * @Deprecated 2.0.0 Use the BESSELK() method in the Engineering\BesselK class instead
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
@@ -134,7 +134,7 @@ class Engineering
      */
     public static function BESSELK($x, $ord)
     {
-        return Bessel::BESSELK($x, $ord);
+        return Engineering\BesselK::BESSELK($x, $ord);
     }
 
     /**
@@ -145,7 +145,7 @@ class Engineering
      *    Excel Function:
      *        BESSELY(x,ord)
      *
-     * @Deprecated Use the BESSELY() method in the Bessel class instead
+     * @Deprecated 2.0.0 Use the BESSELY() method in the Engineering\BesselY class instead
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
@@ -157,7 +157,7 @@ class Engineering
      */
     public static function BESSELY($x, $ord)
     {
-        return Bessel::BESSELY($x, $ord);
+        return Engineering\BesselY::BESSELY($x, $ord);
     }
 
     /**
@@ -1694,7 +1694,7 @@ class Engineering
      *    getConversionGroups
      * Returns a list of the different conversion groups for UOM conversions.
      *
-     * @Deprecated Use the getConversionCategories() method in the ConvertUOM class instead
+     * @Deprecated 2.0.0 Use the getConversionCategories() method in the Engineering\ConvertUOM class instead
      *
      * @return array
      */

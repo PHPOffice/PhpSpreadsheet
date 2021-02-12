@@ -363,22 +363,22 @@ class Calculation
         ],
         'BESSELI' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\Bessel::class, 'BESSELI'],
+            'functionCall' => [Engineering\BesselI::class, 'BESSELI'],
             'argumentCount' => '2',
         ],
         'BESSELJ' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\Bessel::class, 'BESSELJ'],
+            'functionCall' => [Engineering\BesselJ::class, 'BESSELJ'],
             'argumentCount' => '2',
         ],
         'BESSELK' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\Bessel::class, 'BESSELK'],
+            'functionCall' => [Engineering\BesselK::class, 'BESSELK'],
             'argumentCount' => '2',
         ],
         'BESSELY' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\Bessel::class, 'BESSELY'],
+            'functionCall' => [Engineering\BesselY::class, 'BESSELY'],
             'argumentCount' => '2',
         ],
         'BETADIST' => [
