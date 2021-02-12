@@ -594,7 +594,7 @@ class Calculation
         ],
         'CONVERT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ConvertUOM::class, 'CONVERTUOM'],
+            'functionCall' => [Engineering\ConvertUOM::class, 'CONVERT'],
             'argumentCount' => '3',
         ],
         'CORREL' => [
