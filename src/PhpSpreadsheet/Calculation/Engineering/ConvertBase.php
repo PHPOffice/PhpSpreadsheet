@@ -25,15 +25,11 @@ class ConvertBase
     public static function BINTODEC($value): string
     {
         try {
-            $value = self::validateValue(Functions::flattenSingleValue($value));
+            $value = self::validateValue(Functions::flattenSingleValue($value), true);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
-            $value = floor((float) $value);
-        }
-        $value = (string) $value;
         if (strlen($value) > preg_match_all('/[01]/', $value, $out)) {
             return Functions::NAN();
         }
@@ -73,16 +69,12 @@ class ConvertBase
     public static function BINTOHEX($value, $places = null): string
     {
         try {
-            $value = self::validateValue(Functions::flattenSingleValue($value));
+            $value = self::validateValue(Functions::flattenSingleValue($value), true);
             $places = self::validatePlaces(Functions::flattenSingleValue($places));
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
-            $value = floor((float) $value);
-        }
-        $value = (string) $value;
         if (strlen($value) > preg_match_all('/[01]/', $value, $out)) {
             return Functions::NAN();
         }
@@ -121,16 +113,12 @@ class ConvertBase
     public static function BINTOOCT($value, $places = null): string
     {
         try {
-            $value = self::validateValue(Functions::flattenSingleValue($value));
+            $value = self::validateValue(Functions::flattenSingleValue($value), true);
             $places = self::validatePlaces(Functions::flattenSingleValue($places));
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
-            $value = floor((float) $value);
-        }
-        $value = (string) $value;
         if (strlen($value) > preg_match_all('/[01]/', $value, $out)) {
             return Functions::NAN();
         }
@@ -179,7 +167,6 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        $value = (string) $value;
         if (strlen($value) > preg_match_all('/[-0123456789.]/', $value, $out)) {
             return Functions::VALUE();
         }
@@ -233,7 +220,6 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        $value = (string) $value;
         if (strlen($value) > preg_match_all('/[-0123456789.]/', $value, $out)) {
             return Functions::VALUE();
         }
@@ -281,7 +267,6 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        $value = (string) $value;
         if (strlen($value) > preg_match_all('/[-0123456789.]/', $value, $out)) {
             return Functions::VALUE();
         }
@@ -329,7 +314,6 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        $value = (string) $value;
         if (strlen($value) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($value), $out)) {
             return Functions::NAN();
         }
@@ -361,7 +345,6 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        $value = (string) $value;
         if (strlen($value) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($value), $out)) {
             return Functions::NAN();
         }
@@ -423,7 +406,6 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        $value = (string) $value;
         if (strlen($value) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($value), $out)) {
             return Functions::NAN();
         }
@@ -476,7 +458,6 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        $value = (string) $value;
         if (preg_match_all('/[01234567]/', $value, $out) != strlen($value)) {
             return Functions::NAN();
         }
@@ -508,7 +489,6 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        $value = (string) $value;
         if (preg_match_all('/[01234567]/', $value, $out) != strlen($value)) {
             return Functions::NAN();
         }
@@ -562,7 +542,6 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        $value = (string) $value;
         if (preg_match_all('/[01234567]/', $value, $out) != strlen($value)) {
             return Functions::NAN();
         }
@@ -571,7 +550,7 @@ class ConvertBase
         return self::nbrConversionFormat($hexVal, $places);
     }
 
-    private static function validateValue($value)
+    private static function validateValue($value, bool $gnumericCheck = false): string
     {
         if (is_bool($value)) {
             if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE) {
@@ -580,7 +559,11 @@ class ConvertBase
             $value = (int) $value;
         }
 
-        return $value;
+        if ($gnumericCheck && Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
+            $value = floor((float) $value);
+        }
+
+        return (string) $value;
     }
 
     private static function validatePlaces($places = null): ?int
