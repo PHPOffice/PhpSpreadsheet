@@ -30,7 +30,7 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        if (strlen($value) > preg_match_all('/[01]/', $value, $out)) {
+        if (strlen($value) > preg_match_all('/[01]/', $value)) {
             return Functions::NAN();
         }
         if (strlen($value) > 10) {
@@ -75,7 +75,7 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        if (strlen($value) > preg_match_all('/[01]/', $value, $out)) {
+        if (strlen($value) > preg_match_all('/[01]/', $value)) {
             return Functions::NAN();
         }
         if (strlen($value) > 10) {
@@ -119,7 +119,7 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        if (strlen($value) > preg_match_all('/[01]/', $value, $out)) {
+        if (strlen($value) > preg_match_all('/[01]/', $value)) {
             return Functions::NAN();
         }
         if (strlen($value) > 10) {
@@ -167,7 +167,7 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        if (strlen($value) > preg_match_all('/[-0123456789.]/', $value, $out)) {
+        if (strlen($value) > preg_match_all('/[-0123456789.]/', $value)) {
             return Functions::VALUE();
         }
 
@@ -220,7 +220,7 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        if (strlen($value) > preg_match_all('/[-0123456789.]/', $value, $out)) {
+        if (strlen($value) > preg_match_all('/[-0123456789.]/', $value)) {
             return Functions::VALUE();
         }
         $value = (int) floor((float) $value);
@@ -267,7 +267,7 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        if (strlen($value) > preg_match_all('/[-0123456789.]/', $value, $out)) {
+        if (strlen($value) > preg_match_all('/[-0123456789.]/', $value)) {
             return Functions::VALUE();
         }
         $value = (int) floor((float) $value);
@@ -314,7 +314,7 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        if (strlen($value) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($value), $out)) {
+        if (strlen($value) > preg_match_all('/[0123456789ABCDEF]/', $value)) {
             return Functions::NAN();
         }
 
@@ -345,7 +345,7 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        if (strlen($value) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($value), $out)) {
+        if (strlen($value) > preg_match_all('/[0123456789ABCDEF]/', $value)) {
             return Functions::NAN();
         }
 
@@ -406,7 +406,7 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        if (strlen($value) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($value), $out)) {
+        if (strlen($value) > preg_match_all('/[0123456789ABCDEF]/', $value)) {
             return Functions::NAN();
         }
 
@@ -458,7 +458,7 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        if (preg_match_all('/[01234567]/', $value, $out) != strlen($value)) {
+        if (strlen($value) > preg_match_all('/[01234567]/', $value)) {
             return Functions::NAN();
         }
 
@@ -489,7 +489,7 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        if (preg_match_all('/[01234567]/', $value, $out) != strlen($value)) {
+        if (strlen($value) > preg_match_all('/[01234567]/', $value)) {
             return Functions::NAN();
         }
         $binX = '';
@@ -542,7 +542,7 @@ class ConvertBase
             return $e->getMessage();
         }
 
-        if (preg_match_all('/[01234567]/', $value, $out) != strlen($value)) {
+        if (strlen($value) > preg_match_all('/[01234567]/', $value)) {
             return Functions::NAN();
         }
         $hexVal = strtoupper(dechex((int) self::OCTTODEC((int) $value)));
@@ -563,7 +563,7 @@ class ConvertBase
             $value = floor((float) $value);
         }
 
-        return (string) $value;
+        return strtoupper((string) $value);
     }
 
     private static function validatePlaces($places = null): ?int
