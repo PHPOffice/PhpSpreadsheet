@@ -27,7 +27,7 @@ class IOFactoryTest extends TestCase
     public function providerCreateWriter()
     {
         return [
-            ['Xls', Writer\Xlsx::class],
+            ['Xls', Writer\Xls::class],
             ['Xlsx', Writer\Xlsx::class],
             ['Ods', Writer\Ods::class],
             ['Csv', Writer\Csv::class],
