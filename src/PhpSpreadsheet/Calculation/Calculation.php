@@ -438,27 +438,27 @@ class Calculation
         ],
         'BITAND' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'BITAND'],
+            'functionCall' => [Engineering\BitWise::class, 'BITAND'],
             'argumentCount' => '2',
         ],
         'BITOR' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'BITOR'],
+            'functionCall' => [Engineering\BitWise::class, 'BITOR'],
             'argumentCount' => '2',
         ],
         'BITXOR' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'BITOR'],
+            'functionCall' => [Engineering\BitWise::class, 'BITOR'],
             'argumentCount' => '2',
         ],
         'BITLSHIFT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'BITLSHIFT'],
+            'functionCall' => [Engineering\BitWise::class, 'BITLSHIFT'],
             'argumentCount' => '2',
         ],
         'BITRSHIFT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'BITRSHIFT'],
+            'functionCall' => [Engineering\BitWise::class, 'BITRSHIFT'],
             'argumentCount' => '2',
         ],
         'CEILING' => [
