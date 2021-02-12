@@ -4,6 +4,8 @@ namespace PhpOffice\PhpSpreadsheet\Helper\NumberFormat;
 
 use NumberFormatter;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use ReflectionException;
+use ReflectionExtension;
 
 class Number
 {
@@ -89,13 +91,13 @@ class Number
         }
 
         try {
-            $reflector = new \ReflectionExtension('intl');
+            $reflector = new ReflectionExtension('intl');
             ob_start();
             $reflector->info();
             $intlInfo = strip_tags(ob_get_clean());
             preg_match('/^ICU version (?:=>)?(.*)$/m', $intlInfo, $matches);
             $icuVersion = (float) trim($matches[1]);
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException $e) {
             $icuVersion = null;
         }
 
@@ -126,6 +128,7 @@ class Number
                 if (static::FORMAT_STYLE === self::FORMAT_STYLE_ACCOUNTING) {
                     var_dump($locale, $intlFormatter->getPattern());
                 }
+
                 return $intlFormatter;
             }
         }
