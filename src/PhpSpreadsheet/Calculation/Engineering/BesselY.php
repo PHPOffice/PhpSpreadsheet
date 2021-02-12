@@ -25,7 +25,7 @@ class BesselY
     public static function BESSELY($x, $ord)
     {
         $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
-        $ord = ($ord === null) ? 0.0 : Functions::flattenSingleValue($ord);
+        $ord = ($ord === null) ? 0 : Functions::flattenSingleValue($ord);
 
         if ((is_numeric($x)) && (is_numeric($ord))) {
             if (($ord < 0) || ($x == 0.0)) {

@@ -31,7 +31,7 @@ class BesselI
         $ord = ($ord === null) ? 0.0 : Functions::flattenSingleValue($ord);
 
         if ((is_numeric($x)) && (is_numeric($ord))) {
-            $ord = floor($ord);
+            $ord = (int) floor($ord);
             if ($ord < 0) {
                 return Functions::NAN();
             }
