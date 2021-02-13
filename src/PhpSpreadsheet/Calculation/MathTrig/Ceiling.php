@@ -44,9 +44,6 @@ class Ceiling
     /**
      * Avoid Scrutinizer problems concerning complexity.
      *
-     * @param float $number the number for which you want the ceiling
-     * @param float $significance Significance
-     *
      * @return float|string
      */
     private static function argumentsOk(float $number, float $significance)

@@ -41,13 +41,9 @@ class FloorMath
     /**
      * Avoid Scrutinizer complexity problems.
      *
-     * @param float $number Number to round
-     * @param float $significance Significance
-     * @param int $mode direction to round negative numbers
-     *
      * @return float|string Rounded Number, or a string containing an error
      */
-    private static function argsOk($number, $significance, $mode)
+    private static function argsOk(float $number, float $significance, int $mode)
     {
         if (!$significance) {
             return Functions::DIV0();
@@ -63,9 +59,9 @@ class FloorMath
     }
 
     /**
-     * Let CEILINGMATH complexity pass Scrutinizer.
+     * Let FLOORMATH complexity pass Scrutinizer.
      */
-    private static function floorMathTest(float $number, float $significance, int $mode)
+    private static function floorMathTest(float $number, float $significance, int $mode): bool
     {
         return mathTrig::returnSign($significance) == -1 || (mathTrig::returnSign($number) == -1 && !empty($mode));
     }

@@ -35,7 +35,7 @@ class CeilingMath
             if (empty($significance * $number)) {
                 return 0.0;
             }
-            if (self::ceilingMathTest($significance, $number, $mode)) {
+            if (self::ceilingMathTest((float) $significance, (float) $number, (int) $mode)) {
                 return floor($number / $significance) * $significance;
             }
 
@@ -47,14 +47,8 @@ class CeilingMath
 
     /**
      * Let CEILINGMATH complexity pass Scrutinizer.
-     *
-     * @param mixed $number Number to round
-     * @param mixed $significance Significance
-     * @param mixed $mode direction to round negative numbers
-     *
-     * @return bool
      */
-    private static function ceilingMathTest($significance, $number, $mode)
+    private static function ceilingMathTest(float $significance, float $number, int $mode): bool
     {
         return ((float) $significance < 0) || ((float) $number < 0 && !empty($mode));
     }

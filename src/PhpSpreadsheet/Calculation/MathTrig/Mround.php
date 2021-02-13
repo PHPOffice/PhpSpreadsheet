@@ -20,9 +20,7 @@ class Mround
     public static function funcMround($number, $multiple)
     {
         $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        }
+        $number = $number ?? 0;
 
         $multiple = Functions::flattenSingleValue($multiple);
 

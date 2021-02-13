@@ -213,6 +213,31 @@ class MathTrig
     }
 
     /**
+     * CEILING.
+     *
+     * Returns number rounded up, away from zero, to the nearest multiple of significance.
+     *        For example, if you want to avoid using pennies in your prices and your product is
+     *        priced at $4.42, use the formula =CEILING(4.42,0.05) to round prices up to the
+     *        nearest nickel.
+     *
+     * Excel Function:
+     *        CEILING(number[,significance])
+     *
+     * @Deprecated 2.0.0 Use the funcCeiling method in the MathTrig\Ceiling class instead
+     *
+     * @param float $number the number you want to round
+     * @param float $significance the multiple to which you want to round
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     *
+     * @codeCoverageIgnore
+     */
+    public static function CEILING($number, $significance = null)
+    {
+        return MathTrig\Ceiling::funcCeiling($number, $significance);
+    }
+
+    /**
      * COMBIN.
      *
      * Returns the number of combinations for a given number of items. Use COMBIN to
@@ -357,9 +382,97 @@ class MathTrig
         return Functions::VALUE();
     }
 
+    /**
+     * FLOOR.
+     *
+     * Rounds number down, toward zero, to the nearest multiple of significance.
+     *
+     * Excel Function:
+     *        FLOOR(number[,significance])
+     *
+     * @Deprecated 2.0.0 Use the funcFloor method in the MathTrig\Floor class instead
+     *
+     * @param float $number Number to round
+     * @param float $significance Significance
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     *
+     * @codeCoverageIgnore
+     */
+    public static function FLOOR($number, $significance = null)
+    {
+        return MathTrig\Floor::funcFloor($number, $significance);
+    }
+
+    /**
+     * FLOOR.MATH.
+     *
+     * Round a number down to the nearest integer or to the nearest multiple of significance.
+     *
+     * Excel Function:
+     *        FLOOR.MATH(number[,significance[,mode]])
+     *
+     * @Deprecated 2.0.0 Use the funcFloorMath method in the MathTrig\FloorMath class instead
+     *
+     * @param float $number Number to round
+     * @param float $significance Significance
+     * @param int $mode direction to round negative numbers
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     *
+     * @codeCoverageIgnore
+     */
+    public static function FLOORMATH($number, $significance = null, $mode = 0)
+    {
+        return MathTrig\FloorMath::funcFloorMath($number, $significance, $mode);
+    }
+
+    /**
+     * FLOOR.PRECISE.
+     *
+     * Rounds number down, toward zero, to the nearest multiple of significance.
+     *
+     * Excel Function:
+     *        FLOOR.PRECISE(number[,significance])
+     *
+     * @Deprecated 2.0.0 Use the funcFloorPrecise method in the MathTrig\FloorPrecise class instead
+     *
+     * @param float $number Number to round
+     * @param float $significance Significance
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     *
+     * @codeCoverageIgnore
+     */
+    public static function FLOORPRECISE($number, $significance = 1)
+    {
+        return MathTrig\FloorPrecise::funcFloorPrecise($number, $significance);
+    }
+
     private static function evaluateGCD($a, $b)
     {
         return $b ? self::evaluateGCD($b, $a % $b) : $a;
+    }
+
+    /**
+     * INT.
+     *
+     * Casts a floating point value to an integer
+     *
+     * Excel Function:
+     *        INT(number)
+     *
+     * @Deprecated 2.0.0 Use the funcInt method in the MathTrig\IntClass class instead
+     *
+     * @param float $number Number to cast to an integer
+     *
+     * @return int|string Integer value, or a string containing an error
+     *
+     * @codeCoverageIgnore
+     */
+    public static function INT($number)
+    {
+        return MathTrig\IntClass::funcInt($number);
     }
 
     /**
@@ -667,6 +780,25 @@ class MathTrig
     }
 
     /**
+     * MROUND.
+     *
+     * Rounds a number to the nearest multiple of a specified value
+     *
+     * @Deprecated 2.0.0 Use the funcMround method in the MathTrig\Mround class instead
+     *
+     * @param float $number Number to round
+     * @param int $multiple Multiple to which you want to round $number
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     *
+     * @codeCoverageIgnore
+     */
+    public static function MROUND($number, $multiple)
+    {
+        return MathTrig\Mround::funcMround($number, $multiple);
+    }
+
+    /**
      * MULTINOMIAL.
      *
      * Returns the ratio of the factorial of a sum of values to the product of factorials.
@@ -893,6 +1025,44 @@ class MathTrig
         $aValue %= 10;
 
         return $roman . $mill[$m] . $cent[$c] . $tens[$t] . $ones[$aValue];
+    }
+
+    /**
+     * ROUNDUP.
+     *
+     * Rounds a number up to a specified number of decimal places
+     *
+     * @Deprecated 2.0.0 Use the funcRoundUp method in the MathTrig\RoundUp class instead
+     *
+     * @param float $number Number to round
+     * @param int $digits Number of digits to which you want to round $number
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     *
+     * @codeCoverageIgnore
+     */
+    public static function ROUNDUP($number, $digits)
+    {
+        return MathTrig\RoundUp::funcRoundUp($number, $digits);
+    }
+
+    /**
+     * ROUNDDOWN.
+     *
+     * Rounds a number down to a specified number of decimal places
+     *
+     * @Deprecated 2.0.0 Use the funcRoundDown method in the MathTrig\RoundDown class instead
+     *
+     * @param float $number Number to round
+     * @param int $digits Number of digits to which you want to round $number
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     *
+     * @codeCoverageIgnore
+     */
+    public static function ROUNDDOWN($number, $digits)
+    {
+        return MathTrig\RoundDown::funcRoundDown($number, $digits);
     }
 
     /**
@@ -1361,6 +1531,25 @@ class MathTrig
     }
 
     /**
+     * TRUNC.
+     *
+     * Truncates value to the number of fractional digits by number_digits.
+     *
+     * @Deprecated 2.0.0 Use the funcTrunc method in the MathTrig\Trunc class instead
+     *
+     * @param float $value
+     * @param int $digits
+     *
+     * @return float|string Truncated value, or a string containing an error
+     *
+     * @codeCoverageIgnore
+     */
+    public static function TRUNC($value = 0, $digits = 0)
+    {
+        return MathTrig\Trunc::funcTrunc($value, $digits);
+    }
+
+    /**
      * SEC.
      *
      * Returns the secant of an angle.
@@ -1544,6 +1733,25 @@ class MathTrig
         $result = log(($number + 1) / ($number - 1)) / 2;
 
         return self::numberOrNan($result);
+    }
+
+    /**
+     * ROUND.
+     *
+     * Returns the result of builtin function round after validating args.
+     *
+     * @Deprecated 2.0.0 Use the builtinRound method in the MathTrig\Round class instead
+     *
+     * @param mixed $number Should be numeric
+     * @param mixed $precision Should be int
+     *
+     * @return float|string Rounded number
+     *
+     * @codeCoverageIgnore
+     */
+    public static function builtinROUND($number, $precision)
+    {
+        return MathTrig\Round::builtinRound($number, $precision);
     }
 
     /**
