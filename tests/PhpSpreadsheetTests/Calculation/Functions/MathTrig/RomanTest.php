@@ -31,4 +31,11 @@ class RomanTest extends TestCase
     {
         return require 'tests/data/Calculation/MathTrig/ROMAN.php';
     }
+
+    // Confirm that deprecated stub left in MathTrig works.
+    // Delete this test when stub is finally deleted.
+    public function testDeprecated(): void
+    {
+        self::assertEquals('I', \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ROMAN(1));
+    }
 }

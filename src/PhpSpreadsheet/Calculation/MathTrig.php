@@ -1063,6 +1063,25 @@ class MathTrig
     }
 
     /**
+     * ROMAN.
+     *
+     * Converts a number to Roman numeral
+     *
+     * @Deprecated 2.0.0 Use the funcRoman method in the MathTrig\Roman class instead
+     *
+     * @param mixed $aValue Number to convert
+     * @param mixed $style Number indicating one of five possible forms
+     *
+     * @return string Roman numeral, or a string containing an error
+     *
+     * @codeCoverageIgnore
+     */
+    public static function ROMAN($aValue, $style = 0)
+    {
+        return MathTrig\Roman::funcRoman($aValue, $style);
+    }
+
+    /**
      * ROUNDUP.
      *
      * Rounds a number up to a specified number of decimal places
