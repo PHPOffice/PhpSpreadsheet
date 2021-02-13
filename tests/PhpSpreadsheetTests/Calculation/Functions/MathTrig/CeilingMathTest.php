@@ -6,15 +6,15 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
-class RoundDownTest extends TestCase
+class CeilingMathTest extends TestCase
 {
     /**
-     * @dataProvider providerRoundDown
+     * @dataProvider providerCEILINGMATH
      *
      * @param mixed $expectedResult
-     * @param mixed $formula
+     * @param string $formula
      */
-    public function testRoundDown($expectedResult, $formula): void
+    public function testCEILINGMATH($expectedResult, $formula): void
     {
         if ($expectedResult === 'exception') {
             $this->expectException(CalcExp::class);
@@ -25,13 +25,13 @@ class RoundDownTest extends TestCase
         $sheet->setCellValue('A3', 2.7);
         $sheet->setCellValue('A4', -3.8);
         $sheet->setCellValue('A5', -5.2);
-        $sheet->getCell('A1')->setValue("=ROUNDDOWN($formula)");
+        $sheet->getCell('A1')->setValue("=CEILING.MATH($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerRoundDown()
+    public function providerCEILINGMATH()
     {
-        return require 'tests/data/Calculation/MathTrig/ROUNDDOWN.php';
+        return require 'tests/data/Calculation/MathTrig/CEILINGMATH.php';
     }
 }
