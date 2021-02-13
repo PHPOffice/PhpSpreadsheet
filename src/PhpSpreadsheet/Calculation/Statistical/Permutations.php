@@ -23,7 +23,6 @@ class Permutations
      */
     public static function PERMUT($numObjs, $numInSet)
     {
-
         $numObjs = Functions::flattenSingleValue($numObjs);
         $numInSet = Functions::flattenSingleValue($numInSet);
 
