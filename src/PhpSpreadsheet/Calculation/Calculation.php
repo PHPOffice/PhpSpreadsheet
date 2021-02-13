@@ -2107,7 +2107,7 @@ class Calculation
         ],
         'ROMAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'ROMAN'],
+            'functionCall' => [MathTrig\Roman::class, 'funcRoman'],
             'argumentCount' => '1,2',
         ],
         'ROUND' => [
@@ -4895,7 +4895,7 @@ class Calculation
                 if (is_numeric($operand1) && is_numeric($operand2)) {
                     $result = (abs($operand1 - $operand2) < $this->delta);
                 } else {
-                    $result = strcmp($operand1, $operand2) == 0;
+                    $result = $this->strcmpAllowNull($operand1, $operand2) == 0;
                 }
 
                 break;
@@ -4906,7 +4906,7 @@ class Calculation
                 } elseif ($useLowercaseFirstComparison) {
                     $result = $this->strcmpLowercaseFirst($operand1, $operand2) >= 0;
                 } else {
-                    $result = strcmp($operand1, $operand2) >= 0;
+                    $result = $this->strcmpAllowNull($operand1, $operand2) >= 0;
                 }
 
                 break;
@@ -4917,7 +4917,7 @@ class Calculation
                 } elseif ($useLowercaseFirstComparison) {
                     $result = $this->strcmpLowercaseFirst($operand1, $operand2) <= 0;
                 } else {
-                    $result = strcmp($operand1, $operand2) <= 0;
+                    $result = $this->strcmpAllowNull($operand1, $operand2) <= 0;
                 }
 
                 break;
@@ -4926,7 +4926,7 @@ class Calculation
                 if (is_numeric($operand1) && is_numeric($operand2)) {
                     $result = (abs($operand1 - $operand2) > 1E-14);
                 } else {
-                    $result = strcmp($operand1, $operand2) != 0;
+                    $result = $this->strcmpAllowNull($operand1, $operand2) != 0;
                 }
 
                 break;
@@ -4943,8 +4943,8 @@ class Calculation
     /**
      * Compare two strings in the same way as strcmp() except that lowercase come before uppercase letters.
      *
-     * @param string $str1 First string value for the comparison
-     * @param string $str2 Second string value for the comparison
+     * @param null|string $str1 First string value for the comparison
+     * @param null|string $str2 Second string value for the comparison
      *
      * @return int
      */
@@ -4953,7 +4953,20 @@ class Calculation
         $inversedStr1 = Shared\StringHelper::strCaseReverse($str1);
         $inversedStr2 = Shared\StringHelper::strCaseReverse($str2);
 
-        return strcmp($inversedStr1, $inversedStr2);
+        return strcmp($inversedStr1 ?? '', $inversedStr2 ?? '');
+    }
+
+    /**
+     * PHP8.1 deprecates passing null to strcmp.
+     *
+     * @param null|string $str1 First string value for the comparison
+     * @param null|string $str2 Second string value for the comparison
+     *
+     * @return int
+     */
+    private function strcmpAllowNull($str1, $str2)
+    {
+        return strcmp($str1 ?? '', $str2 ?? '');
     }
 
     /**

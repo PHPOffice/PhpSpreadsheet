@@ -34,11 +34,6 @@ class MathTrig
         return [(int) $value];
     }
 
-    private static function romanCut($num, $n)
-    {
-        return ($num - ($num % $n)) / $n;
-    }
-
     private static function strSplit(string $roman): array
     {
         $rslt = str_split($roman);
@@ -995,36 +990,23 @@ class MathTrig
         return mt_rand($min, $max);
     }
 
+    /**
+     * ROMAN.
+     *
+     * Converts a number to Roman numeral
+     *
+     * @Deprecated 2.0.0 Use the funcRoman method in the MathTrig\Roman class instead
+     *
+     * @param mixed $aValue Number to convert
+     * @param mixed $style Number indicating one of five possible forms
+     *
+     * @return string Roman numeral, or a string containing an error
+     *
+     * @codeCoverageIgnore
+     */
     public static function ROMAN($aValue, $style = 0)
     {
-        $aValue = Functions::flattenSingleValue($aValue);
-        $style = ($style === null) ? 0 : (int) Functions::flattenSingleValue($style);
-        if ((!is_numeric($aValue)) || ($aValue < 0) || ($aValue >= 4000)) {
-            return Functions::VALUE();
-        }
-        $aValue = (int) $aValue;
-        if ($aValue == 0) {
-            return '';
-        }
-
-        $mill = ['', 'M', 'MM', 'MMM', 'MMMM', 'MMMMM'];
-        $cent = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'];
-        $tens = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'];
-        $ones = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
-
-        $roman = '';
-        while ($aValue > 5999) {
-            $roman .= 'M';
-            $aValue -= 1000;
-        }
-        $m = self::romanCut($aValue, 1000);
-        $aValue %= 1000;
-        $c = self::romanCut($aValue, 100);
-        $aValue %= 100;
-        $t = self::romanCut($aValue, 10);
-        $aValue %= 10;
-
-        return $roman . $mill[$m] . $cent[$c] . $tens[$t] . $ones[$aValue];
+        return MathTrig\Roman::funcRoman($aValue, $style);
     }
 
     /**
