@@ -839,7 +839,7 @@ class Calculation
         ],
         'DELTA' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'DELTA'],
+            'functionCall' => [Engineering\Compare::class, 'DELTA'],
             'argumentCount' => '1,2',
         ],
         'DEVSQ' => [
@@ -954,7 +954,7 @@ class Calculation
         ],
         'ERFC.PRECISE' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'ERFC'],
+            'functionCall' => [Engineering\ErfC::class, 'ERFC'],
             'argumentCount' => '1',
         ],
         'ERROR.TYPE' => [
@@ -1196,7 +1196,7 @@ class Calculation
         ],
         'GESTEP' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'GESTEP'],
+            'functionCall' => [Engineering\Compare::class, 'GESTEP'],
             'argumentCount' => '1,2',
         ],
         'GETPIVOTDATA' => [
