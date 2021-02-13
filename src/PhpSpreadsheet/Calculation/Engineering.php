@@ -1135,34 +1135,6 @@ class Engineering
         return (int) ($number >= $step);
     }
 
-    //
-    //    Private method to calculate the erf value
-    //
-    private static $twoSqrtPi = 1.128379167095512574;
-
-    public static function erfVal($x)
-    {
-        if (abs($x) > 2.2) {
-            return 1 - self::erfcVal($x);
-        }
-        $sum = $term = $x;
-        $xsqr = ($x * $x);
-        $j = 1;
-        do {
-            $term *= $xsqr / $j;
-            $sum -= $term / (2 * $j + 1);
-            ++$j;
-            $term *= $xsqr / $j;
-            $sum += $term / (2 * $j + 1);
-            ++$j;
-            if ($sum == 0.0) {
-                break;
-            }
-        } while (abs($term / $sum) > Functions::PRECISION);
-
-        return self::$twoSqrtPi * $sum;
-    }
-
     /**
      * BITAND.
      *
@@ -1276,6 +1248,8 @@ class Engineering
      *    Excel Function:
      *        ERF(lower[,upper])
      *
+     * @Deprecated 2.0.0 Use the ERF() method in the Engineering\Erf class instead
+     *
      * @param float $lower lower bound for integrating ERF
      * @param float $upper upper bound for integrating ERF.
      *                                If omitted, ERF integrates between zero and lower_limit
@@ -1284,19 +1258,7 @@ class Engineering
      */
     public static function ERF($lower, $upper = null)
     {
-        $lower = Functions::flattenSingleValue($lower);
-        $upper = Functions::flattenSingleValue($upper);
-
-        if (is_numeric($lower)) {
-            if ($upper === null) {
-                return self::erfVal($lower);
-            }
-            if (is_numeric($upper)) {
-                return self::erfVal($upper) - self::erfVal($lower);
-            }
-        }
-
-        return Functions::VALUE();
+        return Engineering\Erf::ERF($lower, $upper);
     }
 
     /**
@@ -1307,48 +1269,15 @@ class Engineering
      *    Excel Function:
      *        ERF.PRECISE(limit)
      *
+     * @Deprecated 2.0.0 Use the ERFPRECISE() method in the Engineering\Erf class instead
+     *
      * @param float $limit bound for integrating ERF
      *
      * @return float|string
      */
     public static function ERFPRECISE($limit)
     {
-        $limit = Functions::flattenSingleValue($limit);
-
-        return self::ERF($limit);
-    }
-
-    //
-    //    Private method to calculate the erfc value
-    //
-    private static $oneSqrtPi = 0.564189583547756287;
-
-    private static function erfcVal($x)
-    {
-        if (abs($x) < 2.2) {
-            return 1 - self::erfVal($x);
-        }
-        if ($x < 0) {
-            return 2 - self::ERFC(-$x);
-        }
-        $a = $n = 1;
-        $b = $c = $x;
-        $d = ($x * $x) + 0.5;
-        $q1 = $q2 = $b / $d;
-        $t = 0;
-        do {
-            $t = $a * $n + $b * $x;
-            $a = $b;
-            $b = $t;
-            $t = $c * $n + $d * $x;
-            $c = $d;
-            $d = $t;
-            $n += 0.5;
-            $q1 = $q2;
-            $q2 = $b / $d;
-        } while ((abs($q1 - $q2) / $q2) > Functions::PRECISION);
-
-        return self::$oneSqrtPi * exp(-$x * $x) * $q2;
+        return Engineering\Erf::ERFPRECISE($limit);
     }
 
     /**
@@ -1364,19 +1293,15 @@ class Engineering
      *    Excel Function:
      *        ERFC(x)
      *
+     * @Deprecated 2.0.0 Use the ERFC() method in the Engineering\ErfC class instead
+     *
      * @param float $x The lower bound for integrating ERFC
      *
      * @return float|string
      */
     public static function ERFC($x)
     {
-        $x = Functions::flattenSingleValue($x);
-
-        if (is_numeric($x)) {
-            return self::erfcVal($x);
-        }
-
-        return Functions::VALUE();
+        return Engineering\ErfC::ERFC($x);
     }
 
     /**

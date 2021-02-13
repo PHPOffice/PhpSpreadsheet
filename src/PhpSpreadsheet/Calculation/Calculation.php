@@ -939,17 +939,17 @@ class Calculation
         ],
         'ERF' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'ERF'],
+            'functionCall' => [Engineering\Erf::class, 'ERF'],
             'argumentCount' => '1,2',
         ],
         'ERF.PRECISE' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'ERFPRECISE'],
+            'functionCall' => [Engineering\Erf::class, 'ERFPRECISE'],
             'argumentCount' => '1',
         ],
         'ERFC' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'ERFC'],
+            'functionCall' => [Engineering\ErfC::class, 'ERFC'],
             'argumentCount' => '1',
         ],
         'ERFC.PRECISE' => [
