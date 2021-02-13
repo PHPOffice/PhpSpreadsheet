@@ -271,12 +271,17 @@ class MathTrig
         }
 
         if (is_numeric($number)) {
-            $significance = 2 * self::SIGN($number);
-
-            return (int) MathTrig\Ceiling::funcCeiling($number, $significance);
+            return self::getEven((float) $number);
         }
 
         return Functions::VALUE();
+    }
+
+    public static function getEven(float $number): int
+    {
+        $significance = 2 * self::returnSign($number);
+
+        return (int) MathTrig\Ceiling::funcCeiling($number, $significance);
     }
 
     /**
@@ -716,13 +721,16 @@ class MathTrig
         } elseif (is_bool($number)) {
             return 1;
         } elseif (is_numeric($number)) {
-            $significance = self::SIGN($number);
+            $significance = self::returnSign($number);
             if ($significance == 0) {
                 return 1;
             }
 
             $result = MathTrig\Ceiling::funcCeiling($number, $significance);
-            if ($result == self::EVEN($result)) {
+            if (is_string($result)) {
+                return $result;
+            }
+            if ($result == self::getEven((float) $result)) {
                 $result += $significance;
             }
 
