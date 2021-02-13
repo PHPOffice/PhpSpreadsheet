@@ -1091,24 +1091,23 @@ class Engineering
      * DELTA.
      *
      * Tests whether two values are equal. Returns 1 if number1 = number2; returns 0 otherwise.
-     *    Use this function to filter a set of values. For example, by summing several DELTA
-     *    functions you calculate the count of equal pairs. This function is also known as the
-     * Kronecker Delta function.
+     * Use this function to filter a set of values. For example, by summing several DELTA
+     *     functions you calculate the count of equal pairs. This function is also known as the
+     *     Kronecker Delta function.
      *
      *    Excel Function:
      *        DELTA(a[,b])
      *
+     * @Deprecated 2.0.0 Use the DELTA() method in the Engineering\Compare class instead
+     *
      * @param float $a the first number
      * @param float $b The second number. If omitted, b is assumed to be zero.
      *
-     * @return int
+     * @return int|string (string in the event of an error)
      */
     public static function DELTA($a, $b = 0)
     {
-        $a = Functions::flattenSingleValue($a);
-        $b = Functions::flattenSingleValue($b);
-
-        return (int) ($a == $b);
+        return Engineering\Compare::DELTA($a, $b);
     }
 
     /**
@@ -1119,20 +1118,18 @@ class Engineering
      *
      *    Returns 1 if number >= step; returns 0 (zero) otherwise
      *    Use this function to filter a set of values. For example, by summing several GESTEP
-     * functions you calculate the count of values that exceed a threshold.
+     *        functions you calculate the count of values that exceed a threshold.
+     *
+     * @Deprecated 2.0.0 Use the GESTEP() method in the Engineering\Compare class instead
      *
      * @param float $number the value to test against step
-     * @param float $step The threshold value.
-     *                                    If you omit a value for step, GESTEP uses zero.
+     * @param float $step The threshold value. If you omit a value for step, GESTEP uses zero.
      *
-     * @return int
+     * @return int|string (string in the event of an error)
      */
     public static function GESTEP($number, $step = 0)
     {
-        $number = Functions::flattenSingleValue($number);
-        $step = Functions::flattenSingleValue($step);
-
-        return (int) ($number >= $step);
+        return Engineering\Compare::GESTEP($number, $step);
     }
 
     /**
