@@ -1103,7 +1103,7 @@ class Engineering
      * @param float $a the first number
      * @param float $b The second number. If omitted, b is assumed to be zero.
      *
-     * @return int
+     * @return int|string (string in the event of an error)
      */
     public static function DELTA($a, $b = 0)
     {
@@ -1125,7 +1125,7 @@ class Engineering
      * @param float $number the value to test against step
      * @param float $step The threshold value. If you omit a value for step, GESTEP uses zero.
      *
-     * @return int
+     * @return int|string (string in the event of an error)
      */
     public static function GESTEP($number, $step = 0)
     {
