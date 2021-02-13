@@ -140,6 +140,11 @@ class Xlfn
         . '|unique'
         . '|xlookup'
         . '|xmatch'
+        . '|arraytotext'
+        . '|call'
+        . '|let'
+        . '|register[.]id'
+        . '|valuetotext'
         . ')(?=\\s*[(])/i';
 
     /**
