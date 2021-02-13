@@ -4,9 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use Complex\Complex;
 use Complex\Exception as ComplexException;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Bessel;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertUOM;
 
 class Engineering
 {
@@ -35,35 +32,6 @@ class Engineering
             'imaginary' => $complex->getImaginary(),
             'suffix' => $complex->getSuffix(),
         ];
-    }
-
-    /**
-     * Formats a number base string value with leading zeroes.
-     *
-     * @param string $xVal The "number" to pad
-     * @param int $places The length that we want to pad this value
-     *
-     * @return string The padded "number"
-     */
-    private static function nbrConversionFormat($xVal, $places)
-    {
-        if ($places !== null) {
-            if (is_numeric($places)) {
-                $places = (int) $places;
-            } else {
-                return Functions::VALUE();
-            }
-            if ($places < 0) {
-                return Functions::NAN();
-            }
-            if (strlen($xVal) <= $places) {
-                return substr(str_pad($xVal, $places, '0', STR_PAD_LEFT), -10);
-            }
-
-            return Functions::NAN();
-        }
-
-        return substr($xVal, -10);
     }
 
     /**
@@ -169,6 +137,8 @@ class Engineering
      * Excel Function:
      *        BIN2DEC(x)
      *
+     * @Deprecated 2.0.0 Use the toDecimal() method in the Engineering\ConvertBinary class instead
+     *
      * @param string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
      *                                bit of number is the sign bit. The remaining 9 bits are magnitude bits.
@@ -180,32 +150,7 @@ class Engineering
      */
     public static function BINTODEC($x)
     {
-        $x = Functions::flattenSingleValue($x);
-
-        if (is_bool($x)) {
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $x = (int) $x;
-            } else {
-                return Functions::VALUE();
-            }
-        }
-        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
-            $x = floor((float) $x);
-        }
-        $x = (string) $x;
-        if (strlen($x) > preg_match_all('/[01]/', $x, $out)) {
-            return Functions::NAN();
-        }
-        if (strlen($x) > 10) {
-            return Functions::NAN();
-        } elseif (strlen($x) == 10) {
-            //    Two's Complement
-            $x = substr($x, -9);
-
-            return '-' . (512 - bindec($x));
-        }
-
-        return bindec($x);
+        return Engineering\ConvertBinary::toDecimal($x);
     }
 
     /**
@@ -215,6 +160,8 @@ class Engineering
      *
      * Excel Function:
      *        BIN2HEX(x[,places])
+     *
+     * @Deprecated 2.0.0 Use the toHex() method in the Engineering\ConvertBinary class instead
      *
      * @param string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -233,33 +180,7 @@ class Engineering
      */
     public static function BINTOHEX($x, $places = null)
     {
-        $x = Functions::flattenSingleValue($x);
-        $places = Functions::flattenSingleValue($places);
-
-        // Argument X
-        if (is_bool($x)) {
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $x = (int) $x;
-            } else {
-                return Functions::VALUE();
-            }
-        }
-        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
-            $x = floor((float) $x);
-        }
-        $x = (string) $x;
-        if (strlen($x) > preg_match_all('/[01]/', $x, $out)) {
-            return Functions::NAN();
-        }
-        if (strlen($x) > 10) {
-            return Functions::NAN();
-        } elseif (strlen($x) == 10) {
-            //    Two's Complement
-            return str_repeat('F', 8) . substr(strtoupper(dechex((int) bindec(substr($x, -9)))), -2);
-        }
-        $hexVal = (string) strtoupper(dechex((int) bindec($x)));
-
-        return self::nbrConversionFormat($hexVal, $places);
+        return Engineering\ConvertBinary::toHex($x, $places);
     }
 
     /**
@@ -269,6 +190,8 @@ class Engineering
      *
      * Excel Function:
      *        BIN2OCT(x[,places])
+     *
+     * @Deprecated 2.0.0 Use the toOctal() method in the Engineering\ConvertBinary class instead
      *
      * @param string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -287,32 +210,7 @@ class Engineering
      */
     public static function BINTOOCT($x, $places = null)
     {
-        $x = Functions::flattenSingleValue($x);
-        $places = Functions::flattenSingleValue($places);
-
-        if (is_bool($x)) {
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $x = (int) $x;
-            } else {
-                return Functions::VALUE();
-            }
-        }
-        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
-            $x = floor((float) $x);
-        }
-        $x = (string) $x;
-        if (strlen($x) > preg_match_all('/[01]/', $x, $out)) {
-            return Functions::NAN();
-        }
-        if (strlen($x) > 10) {
-            return Functions::NAN();
-        } elseif (strlen($x) == 10) {
-            //    Two's Complement
-            return str_repeat('7', 7) . substr(strtoupper(decoct((int) bindec(substr($x, -9)))), -3);
-        }
-        $octVal = (string) decoct((int) bindec($x));
-
-        return self::nbrConversionFormat($octVal, $places);
+        return Engineering\ConvertBinary::toOctal($x, $places);
     }
 
     /**
@@ -322,6 +220,8 @@ class Engineering
      *
      * Excel Function:
      *        DEC2BIN(x[,places])
+     *
+     * @Deprecated 2.0.0 Use the toBinary() method in the Engineering\ConvertDecimal class instead
      *
      * @param string $x The decimal integer you want to convert. If number is negative,
      *                                valid place values are ignored and DEC2BIN returns a 10-character
@@ -344,34 +244,7 @@ class Engineering
      */
     public static function DECTOBIN($x, $places = null)
     {
-        $x = Functions::flattenSingleValue($x);
-        $places = Functions::flattenSingleValue($places);
-
-        if (is_bool($x)) {
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $x = (int) $x;
-            } else {
-                return Functions::VALUE();
-            }
-        }
-        $x = (string) $x;
-        if (strlen($x) > preg_match_all('/[-0123456789.]/', $x, $out)) {
-            return Functions::VALUE();
-        }
-
-        $x = (int) floor((float) $x);
-        if ($x < -512 || $x > 511) {
-            return Functions::NAN();
-        }
-
-        $r = decbin($x);
-        // Two's Complement
-        $r = substr($r, -10);
-        if (strlen($r) >= 11) {
-            return Functions::NAN();
-        }
-
-        return self::nbrConversionFormat($r, $places);
+        return Engineering\ConvertDecimal::toBinary($x, $places);
     }
 
     /**
@@ -381,6 +254,8 @@ class Engineering
      *
      * Excel Function:
      *        DEC2HEX(x[,places])
+     *
+     * @Deprecated 2.0.0 Use the toHex() method in the Engineering\ConvertDecimal class instead
      *
      * @param string $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2HEX returns a 10-character (40-bit)
@@ -403,28 +278,7 @@ class Engineering
      */
     public static function DECTOHEX($x, $places = null)
     {
-        $x = Functions::flattenSingleValue($x);
-        $places = Functions::flattenSingleValue($places);
-
-        if (is_bool($x)) {
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $x = (int) $x;
-            } else {
-                return Functions::VALUE();
-            }
-        }
-        $x = (string) $x;
-        if (strlen($x) > preg_match_all('/[-0123456789.]/', $x, $out)) {
-            return Functions::VALUE();
-        }
-        $x = (int) floor((float) $x);
-        $r = strtoupper(dechex($x));
-        if (strlen($r) == 8) {
-            //    Two's Complement
-            $r = 'FF' . $r;
-        }
-
-        return self::nbrConversionFormat($r, $places);
+        return Engineering\ConvertDecimal::toHex($x, $places);
     }
 
     /**
@@ -434,6 +288,8 @@ class Engineering
      *
      * Excel Function:
      *        DEC2OCT(x[,places])
+     *
+     * @Deprecated 2.0.0 Use the toOctal() method in the Engineering\ConvertDecimal class instead
      *
      * @param string $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2OCT returns a 10-character (30-bit)
@@ -456,29 +312,7 @@ class Engineering
      */
     public static function DECTOOCT($x, $places = null)
     {
-        $xorig = $x;
-        $x = Functions::flattenSingleValue($x);
-        $places = Functions::flattenSingleValue($places);
-
-        if (is_bool($x)) {
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $x = (int) $x;
-            } else {
-                return Functions::VALUE();
-            }
-        }
-        $x = (string) $x;
-        if (strlen($x) > preg_match_all('/[-0123456789.]/', $x, $out)) {
-            return Functions::VALUE();
-        }
-        $x = (int) floor((float) $x);
-        $r = decoct($x);
-        if (strlen($r) == 11) {
-            //    Two's Complement
-            $r = substr($r, -10);
-        }
-
-        return self::nbrConversionFormat($r, $places);
+        return Engineering\ConvertDecimal::toOctal($x, $places);
     }
 
     /**
@@ -488,6 +322,8 @@ class Engineering
      *
      * Excel Function:
      *        HEX2BIN(x[,places])
+     *
+     * @Deprecated 2.0.0 Use the toBinary() method in the Engineering\ConvertHex class instead
      *
      * @param string $x the hexadecimal number you want to convert.
      *                  Number cannot contain more than 10 characters.
@@ -510,18 +346,7 @@ class Engineering
      */
     public static function HEXTOBIN($x, $places = null)
     {
-        $x = Functions::flattenSingleValue($x);
-        $places = Functions::flattenSingleValue($places);
-
-        if (is_bool($x)) {
-            return Functions::VALUE();
-        }
-        $x = (string) $x;
-        if (strlen($x) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($x), $out)) {
-            return Functions::NAN();
-        }
-
-        return self::DECTOBIN(self::HEXTODEC($x), $places);
+        return Engineering\ConvertHex::toBinary($x, $places);
     }
 
     /**
@@ -531,6 +356,8 @@ class Engineering
      *
      * Excel Function:
      *        HEX2DEC(x)
+     *
+     * @Deprecated 2.0.0 Use the toDecimal() method in the Engineering\ConvertHex class instead
      *
      * @param string $x The hexadecimal number you want to convert. This number cannot
      *                                contain more than 10 characters (40 bits). The most significant
@@ -544,33 +371,7 @@ class Engineering
      */
     public static function HEXTODEC($x)
     {
-        $x = Functions::flattenSingleValue($x);
-
-        if (is_bool($x)) {
-            return Functions::VALUE();
-        }
-        $x = (string) $x;
-        if (strlen($x) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($x), $out)) {
-            return Functions::NAN();
-        }
-
-        if (strlen($x) > 10) {
-            return Functions::NAN();
-        }
-
-        $binX = '';
-        foreach (str_split($x) as $char) {
-            $binX .= str_pad(base_convert($char, 16, 2), 4, '0', STR_PAD_LEFT);
-        }
-        if (strlen($binX) == 40 && $binX[0] == '1') {
-            for ($i = 0; $i < 40; ++$i) {
-                $binX[$i] = ($binX[$i] == '1' ? '0' : '1');
-            }
-
-            return (bindec($binX) + 1) * -1;
-        }
-
-        return bindec($binX);
+        return Engineering\ConvertHex::toDecimal($x);
     }
 
     /**
@@ -580,6 +381,8 @@ class Engineering
      *
      * Excel Function:
      *        HEX2OCT(x[,places])
+     *
+     * @Deprecated 2.0.0 Use the toOctal() method in the Engineering\ConvertHex class instead
      *
      * @param string $x The hexadecimal number you want to convert. Number cannot
      *                                    contain more than 10 characters. The most significant bit of
@@ -606,23 +409,7 @@ class Engineering
      */
     public static function HEXTOOCT($x, $places = null)
     {
-        $x = Functions::flattenSingleValue($x);
-        $places = Functions::flattenSingleValue($places);
-
-        if (is_bool($x)) {
-            return Functions::VALUE();
-        }
-        $x = (string) $x;
-        if (strlen($x) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($x), $out)) {
-            return Functions::NAN();
-        }
-
-        $decimal = self::HEXTODEC($x);
-        if ($decimal < -536870912 || $decimal > 536870911) {
-            return Functions::NAN();
-        }
-
-        return self::DECTOOCT($decimal, $places);
+        return Engineering\ConvertHex::toOctal($x, $places);
     }
 
     /**
@@ -632,6 +419,8 @@ class Engineering
      *
      * Excel Function:
      *        OCT2BIN(x[,places])
+     *
+     * @Deprecated 2.0.0 Use the toBinary() method in the Engineering\ConvertOctal class instead
      *
      * @param string $x The octal number you want to convert. Number may not
      *                                    contain more than 10 characters. The most significant
@@ -660,18 +449,7 @@ class Engineering
      */
     public static function OCTTOBIN($x, $places = null)
     {
-        $x = Functions::flattenSingleValue($x);
-        $places = Functions::flattenSingleValue($places);
-
-        if (is_bool($x)) {
-            return Functions::VALUE();
-        }
-        $x = (string) $x;
-        if (preg_match_all('/[01234567]/', $x, $out) != strlen($x)) {
-            return Functions::NAN();
-        }
-
-        return self::DECTOBIN(self::OCTTODEC($x), $places);
+        return Engineering\ConvertOctal::toBinary($x, $places);
     }
 
     /**
@@ -681,6 +459,8 @@ class Engineering
      *
      * Excel Function:
      *        OCT2DEC(x)
+     *
+     * @Deprecated 2.0.0 Use the toDecimal() method in the Engineering\ConvertOctal class instead
      *
      * @param string $x The octal number you want to convert. Number may not contain
      *                                more than 10 octal characters (30 bits). The most significant
@@ -694,28 +474,7 @@ class Engineering
      */
     public static function OCTTODEC($x)
     {
-        $x = Functions::flattenSingleValue($x);
-
-        if (is_bool($x)) {
-            return Functions::VALUE();
-        }
-        $x = (string) $x;
-        if (preg_match_all('/[01234567]/', $x, $out) != strlen($x)) {
-            return Functions::NAN();
-        }
-        $binX = '';
-        foreach (str_split($x) as $char) {
-            $binX .= str_pad(decbin((int) $char), 3, '0', STR_PAD_LEFT);
-        }
-        if (strlen($binX) == 30 && $binX[0] == '1') {
-            for ($i = 0; $i < 30; ++$i) {
-                $binX[$i] = ($binX[$i] == '1' ? '0' : '1');
-            }
-
-            return (bindec($binX) + 1) * -1;
-        }
-
-        return bindec($binX);
+        return Engineering\ConvertOctal::toDecimal($x);
     }
 
     /**
@@ -725,6 +484,8 @@ class Engineering
      *
      * Excel Function:
      *        OCT2HEX(x[,places])
+     *
+     * @Deprecated 2.0.0 Use the toHex() method in the Engineering\ConvertOctal class instead
      *
      * @param string $x The octal number you want to convert. Number may not contain
      *                                    more than 10 octal characters (30 bits). The most significant
@@ -748,19 +509,7 @@ class Engineering
      */
     public static function OCTTOHEX($x, $places = null)
     {
-        $x = Functions::flattenSingleValue($x);
-        $places = Functions::flattenSingleValue($places);
-
-        if (is_bool($x)) {
-            return Functions::VALUE();
-        }
-        $x = (string) $x;
-        if (preg_match_all('/[01234567]/', $x, $out) != strlen($x)) {
-            return Functions::NAN();
-        }
-        $hexVal = strtoupper(dechex((int) self::OCTTODEC((int) $x)));
-
-        return self::nbrConversionFormat($hexVal, $places);
+        return Engineering\ConvertOctal::toHex($x, $places);
     }
 
     /**
@@ -1431,7 +1180,7 @@ class Engineering
      */
     public static function BITAND($number1, $number2)
     {
-        return BitWise::BITAND($number1, $number2);
+        return Engineering\BitWise::BITAND($number1, $number2);
     }
 
     /**
@@ -1451,7 +1200,7 @@ class Engineering
      */
     public static function BITOR($number1, $number2)
     {
-        return BitWise::BITOR($number1, $number2);
+        return Engineering\BitWise::BITOR($number1, $number2);
     }
 
     /**
@@ -1471,7 +1220,7 @@ class Engineering
      */
     public static function BITXOR($number1, $number2)
     {
-        return BitWise::BITXOR($number1, $number2);
+        return Engineering\BitWise::BITXOR($number1, $number2);
     }
 
     /**
@@ -1491,7 +1240,7 @@ class Engineering
      */
     public static function BITLSHIFT($number, $shiftAmount)
     {
-        return BitWise::BITLSHIFT($number, $shiftAmount);
+        return Engineering\BitWise::BITLSHIFT($number, $shiftAmount);
     }
 
     /**
@@ -1511,7 +1260,7 @@ class Engineering
      */
     public static function BITRSHIFT($number, $shiftAmount)
     {
-        return BitWise::BITRSHIFT($number, $shiftAmount);
+        return Engineering\BitWise::BITRSHIFT($number, $shiftAmount);
     }
 
     /**
