@@ -23,19 +23,19 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   
   One TextData function is also affected: `REPT()` (str_repeat).
 - `formatAsDate` correctly matches language metadata, reverting c55272e
-
 - Formulae that previously crashed on sub function call returning excel error value now return said value.
   The following functions are affected `CUMPRINC()`, `CUMIPMT()`, `AMORLINC()`,
   `AMORDEGRC()`.
-  
 - Adapt some function error return value to match excel's error.
   The following functions are affected `PPMT()`, `IPMT()`.
-  
-- All related unit tests have been updated to test for those modifications.
 
 ### Deprecated
 
-- Nothing.
+- Calling many of the Excel formula functions directly rather than through the Calculation Engine.
+
+  The logic for these Functions is now being moved out of the categorised `Database`, `DateTime`, `Engineering`, `Financial`, `Logical`, `LookupRef`, `MathTrig`, `Statistical`, `TextData` and `Web` classes into small, dedicated classes for individual functions or related groups of functions.
+
+  This makes the logic in these classes easier to maintain; and will reduce the memory footprint required to execute formulae when calling these functions.
 
 ### Removed
 
@@ -51,8 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix Xlsx reader cell alignment. [PR #1710](https://github.com/PHPOffice/PhpSpreadsheet/pull/1710)
 - Fix for not yet implemented data-types in Open Document writer [Issue #1674](https://github.com/PHPOffice/PhpSpreadsheet/issues/1674)
 - Fix XLSX reader when having a corrupt numeric cell data type [PR #1664](https://github.com/phpoffice/phpspreadsheet/pull/1664)
-- Fix on `CUMPRINC()`, `CUMIPMT()`, `AMORLINC()`, `AMORDEGRC()` usage. When those functions called one of `YEARFRAC()`, `PPMT()`, `IPMT()` and they would get back an error 
-value (represented as a string), trying to use numeral operands (`+`, `/`, `-`, `*`) on said return value and a number (`float or `int`) would fail.
+- Fix on `CUMPRINC()`, `CUMIPMT()`, `AMORLINC()`, `AMORDEGRC()` usage. When those functions called one of `YEARFRAC()`, `PPMT()`, `IPMT()` and they would get back an error value (represented as a string), trying to use numeral operands (`+`, `/`, `-`, `*`) on said return value and a number (`float or `int`) would fail.
 
 ## 1.16.0 - 2020-12-31
 
