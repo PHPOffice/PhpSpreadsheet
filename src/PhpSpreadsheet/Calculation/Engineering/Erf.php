@@ -34,10 +34,10 @@ class Erf
 
         if (is_numeric($lower)) {
             if ($upper === null) {
-                return self::erfVal($lower);
+                return self::erfValue($lower);
             }
             if (is_numeric($upper)) {
-                return self::erfVal($upper) - self::erfVal($lower);
+                return self::erfValue($upper) - self::erfValue($lower);
             }
         }
 
@@ -66,7 +66,7 @@ class Erf
     //
     //    Private method to calculate the erf value
     //
-    public static function erfVal($value)
+    public static function erfValue($value)
     {
         if (abs($value) > 2.2) {
             return 1 - ErfC::ERFC($value);

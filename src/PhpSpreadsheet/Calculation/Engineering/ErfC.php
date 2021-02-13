@@ -28,7 +28,7 @@ class ErfC
         $value = Functions::flattenSingleValue($value);
 
         if (is_numeric($value)) {
-            return self::erfcVal($value);
+            return self::erfcValue($value);
         }
 
         return Functions::VALUE();
@@ -39,10 +39,10 @@ class ErfC
     //
     private static $oneSqrtPi = 0.564189583547756287;
 
-    private static function erfcVal($value)
+    private static function erfcValue($value)
     {
         if (abs($value) < 2.2) {
-            return 1 - Erf::erfVal($value);
+            return 1 - Erf::erfValue($value);
         }
         if ($value < 0) {
             return 2 - self::ERFC(-$value);
