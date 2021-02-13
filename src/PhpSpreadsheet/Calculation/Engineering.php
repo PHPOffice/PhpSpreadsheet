@@ -137,7 +137,7 @@ class Engineering
      * Excel Function:
      *        BIN2DEC(x)
      *
-     * @Deprecated 2.0.0 Use the BINTODEC() method in the Engineering\ConvertBase class instead
+     * @Deprecated 2.0.0 Use the toDecimal() method in the Engineering\ConvertBinary class instead
      *
      * @param string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -150,7 +150,7 @@ class Engineering
      */
     public static function BINTODEC($x)
     {
-        return Engineering\ConvertBase::BINTODEC($x);
+        return Engineering\ConvertBinary::toDecimal($x);
     }
 
     /**
@@ -161,7 +161,7 @@ class Engineering
      * Excel Function:
      *        BIN2HEX(x[,places])
      *
-     * @Deprecated 2.0.0 Use the BINTOHEX() method in the Engineering\ConvertBase class instead
+     * @Deprecated 2.0.0 Use the toHex() method in the Engineering\ConvertBinary class instead
      *
      * @param string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -180,7 +180,7 @@ class Engineering
      */
     public static function BINTOHEX($x, $places = null)
     {
-        return Engineering\ConvertBase::BINTOHEX($x, $places);
+        return Engineering\ConvertBinary::toHex($x, $places);
     }
 
     /**
@@ -191,7 +191,7 @@ class Engineering
      * Excel Function:
      *        BIN2OCT(x[,places])
      *
-     * @Deprecated 2.0.0 Use the BINTOOCT() method in the Engineering\ConvertBase class instead
+     * @Deprecated 2.0.0 Use the toOctal() method in the Engineering\ConvertBinary class instead
      *
      * @param string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -210,7 +210,7 @@ class Engineering
      */
     public static function BINTOOCT($x, $places = null)
     {
-        return Engineering\ConvertBase::BINTOOCT($x, $places);
+        return Engineering\ConvertBinary::toOctal($x, $places);
     }
 
     /**
@@ -221,7 +221,7 @@ class Engineering
      * Excel Function:
      *        DEC2BIN(x[,places])
      *
-     * @Deprecated 2.0.0 Use the DECTOBIN() method in the Engineering\ConvertBase class instead
+     * @Deprecated 2.0.0 Use the toBinary() method in the Engineering\ConvertDecimal class instead
      *
      * @param string $x The decimal integer you want to convert. If number is negative,
      *                                valid place values are ignored and DEC2BIN returns a 10-character
@@ -244,7 +244,7 @@ class Engineering
      */
     public static function DECTOBIN($x, $places = null)
     {
-        return Engineering\ConvertBase::DECTOBIN($x, $places);
+        return Engineering\ConvertDecimal::toBinary($x, $places);
     }
 
     /**
@@ -255,7 +255,7 @@ class Engineering
      * Excel Function:
      *        DEC2HEX(x[,places])
      *
-     * @Deprecated 2.0.0 Use the DECTOHEX() method in the Engineering\ConvertBase class instead
+     * @Deprecated 2.0.0 Use the toHex() method in the Engineering\ConvertDecimal class instead
      *
      * @param string $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2HEX returns a 10-character (40-bit)
@@ -278,7 +278,7 @@ class Engineering
      */
     public static function DECTOHEX($x, $places = null)
     {
-        return Engineering\ConvertBase::DECTOHEX($x, $places);
+        return Engineering\ConvertDecimal::toHex($x, $places);
     }
 
     /**
@@ -289,7 +289,7 @@ class Engineering
      * Excel Function:
      *        DEC2OCT(x[,places])
      *
-     * @Deprecated 2.0.0 Use the DECTOOCT() method in the Engineering\ConvertBase class instead
+     * @Deprecated 2.0.0 Use the toOctal() method in the Engineering\ConvertDecimal class instead
      *
      * @param string $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2OCT returns a 10-character (30-bit)
@@ -312,7 +312,7 @@ class Engineering
      */
     public static function DECTOOCT($x, $places = null)
     {
-        return Engineering\ConvertBase::DECTOOCT($x, $places);
+        return Engineering\ConvertDecimal::toOctal($x, $places);
     }
 
     /**
@@ -323,7 +323,7 @@ class Engineering
      * Excel Function:
      *        HEX2BIN(x[,places])
      *
-     * @Deprecated 2.0.0 Use the HEXTOBIN() method in the Engineering\ConvertBase class instead
+     * @Deprecated 2.0.0 Use the toBinary() method in the Engineering\ConvertHex class instead
      *
      * @param string $x the hexadecimal number you want to convert.
      *                  Number cannot contain more than 10 characters.
@@ -346,7 +346,7 @@ class Engineering
      */
     public static function HEXTOBIN($x, $places = null)
     {
-        return Engineering\ConvertBase::HEXTOBIN($x, $places);
+        return Engineering\ConvertHex::toBinary($x, $places);
     }
 
     /**
@@ -357,7 +357,7 @@ class Engineering
      * Excel Function:
      *        HEX2DEC(x)
      *
-     * @Deprecated 2.0.0 Use the HEXTODEC() method in the Engineering\ConvertBase class instead
+     * @Deprecated 2.0.0 Use the toDecimal() method in the Engineering\ConvertHex class instead
      *
      * @param string $x The hexadecimal number you want to convert. This number cannot
      *                                contain more than 10 characters (40 bits). The most significant
@@ -371,7 +371,7 @@ class Engineering
      */
     public static function HEXTODEC($x)
     {
-        return Engineering\ConvertBase::HEXTODEC($x);
+        return Engineering\ConvertHex::toDecimal($x);
     }
 
     /**
@@ -382,7 +382,7 @@ class Engineering
      * Excel Function:
      *        HEX2OCT(x[,places])
      *
-     * @Deprecated 2.0.0 Use the HEXTOOCT() method in the Engineering\ConvertBase class instead
+     * @Deprecated 2.0.0 Use the toOctal() method in the Engineering\ConvertHex class instead
      *
      * @param string $x The hexadecimal number you want to convert. Number cannot
      *                                    contain more than 10 characters. The most significant bit of
@@ -409,7 +409,7 @@ class Engineering
      */
     public static function HEXTOOCT($x, $places = null)
     {
-        return Engineering\ConvertBase::HEXTOOCT($x, $places);
+        return Engineering\ConvertHex::toOctal($x, $places);
     }
 
     /**
@@ -420,7 +420,7 @@ class Engineering
      * Excel Function:
      *        OCT2BIN(x[,places])
      *
-     * @Deprecated 2.0.0 Use the OCTTOBIN() method in the Engineering\ConvertBase class instead
+     * @Deprecated 2.0.0 Use the toBinary() method in the Engineering\ConvertOctal class instead
      *
      * @param string $x The octal number you want to convert. Number may not
      *                                    contain more than 10 characters. The most significant
@@ -449,7 +449,7 @@ class Engineering
      */
     public static function OCTTOBIN($x, $places = null)
     {
-        return Engineering\ConvertBase::OCTTOBIN($x, $places);
+        return Engineering\ConvertOctal::toBinary($x, $places);
     }
 
     /**
@@ -460,7 +460,7 @@ class Engineering
      * Excel Function:
      *        OCT2DEC(x)
      *
-     * @Deprecated 2.0.0 Use the OCTTODEC() method in the Engineering\ConvertBase class instead
+     * @Deprecated 2.0.0 Use the toDecimal() method in the Engineering\ConvertOctal class instead
      *
      * @param string $x The octal number you want to convert. Number may not contain
      *                                more than 10 octal characters (30 bits). The most significant
@@ -474,7 +474,7 @@ class Engineering
      */
     public static function OCTTODEC($x)
     {
-        return Engineering\ConvertBase::OCTTODEC($x);
+        return Engineering\ConvertOctal::toDecimal($x);
     }
 
     /**
@@ -485,7 +485,7 @@ class Engineering
      * Excel Function:
      *        OCT2HEX(x[,places])
      *
-     * @Deprecated 2.0.0 Use the OCTTOHEX() method in the Engineering\ConvertBase class instead
+     * @Deprecated 2.0.0 Use the toHex() method in the Engineering\ConvertOctal class instead
      *
      * @param string $x The octal number you want to convert. Number may not contain
      *                                    more than 10 octal characters (30 bits). The most significant
@@ -509,7 +509,7 @@ class Engineering
      */
     public static function OCTTOHEX($x, $places = null)
     {
-        return Engineering\ConvertBase::OCTTOHEX($x, $places);
+        return Engineering\ConvertOctal::toHex($x, $places);
     }
 
     /**
