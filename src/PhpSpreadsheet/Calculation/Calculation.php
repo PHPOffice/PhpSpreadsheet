@@ -1932,12 +1932,12 @@ class Calculation
         ],
         'PERMUT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'PERMUT'],
+            'functionCall' => [Statistical\Permutations::class, 'PERMUT'],
             'argumentCount' => '2',
         ],
         'PERMUTATIONA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Permutations::class, 'PERMUTATIONA'],
             'argumentCount' => '2',
         ],
         'PHONETIC' => [
