@@ -27,6 +27,10 @@ class Compare
         $a = Functions::flattenSingleValue($a);
         $b = Functions::flattenSingleValue($b);
 
+        if (!is_numeric($a) || !is_numeric($b)) {
+            return Functions::VALUE();
+        }
+
         return (int) ($a == $b);
     }
 
@@ -49,6 +53,10 @@ class Compare
     {
         $number = Functions::flattenSingleValue($number);
         $step = Functions::flattenSingleValue($step);
+
+        if (!is_numeric($number) || !is_numeric($step)) {
+            return Functions::VALUE();
+        }
 
         return (int) ($number >= $step);
     }
