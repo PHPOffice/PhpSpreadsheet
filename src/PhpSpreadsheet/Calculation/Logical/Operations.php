@@ -167,16 +167,19 @@ class Operations
         return !$logical;
     }
 
+    /**
+     * @return int|string
+     */
     private static function countTrueValues(array $args)
     {
-        $returnValue = 0;
+        $trueValueCount = 0;
 
         foreach ($args as $arg) {
             // Is it a boolean value?
             if (is_bool($arg)) {
-                $returnValue += $arg;
+                $trueValueCount += $arg;
             } elseif ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue += ((int) $arg != 0);
+                $trueValueCount += ((int) $arg != 0);
             } elseif (is_string($arg)) {
                 $arg = mb_strtoupper($arg, 'UTF-8');
                 if (($arg == 'TRUE') || ($arg == Calculation::getTRUE())) {
@@ -186,10 +189,10 @@ class Operations
                 } else {
                     return Functions::VALUE();
                 }
-                $returnValue += ($arg != 0);
+                $trueValueCount += ($arg != 0);
             }
         }
 
-        return $returnValue;
+        return $trueValueCount;
     }
 }

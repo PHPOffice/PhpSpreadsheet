@@ -14,7 +14,7 @@ class Boolean
      *
      * @return bool True
      */
-    public static function TRUE(): bool
+    public static function true(): bool
     {
         return true;
     }
@@ -29,7 +29,7 @@ class Boolean
      *
      * @return bool False
      */
-    public static function FALSE(): bool
+    public static function false(): bool
     {
         return false;
     }
