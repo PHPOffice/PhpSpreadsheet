@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Permutations;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
 class Statistical
@@ -2923,7 +2924,10 @@ class Statistical
      *        combinations, for which the internal order is not significant. Use this function
      *        for lottery-style probability calculations.
      *
-     * @Deprecated 2.0.0 Use the PERMUT() method in the Statistical\Permutations class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Permutations::PERMUT()
+     * Use the PERMUT() method in the Statistical\Permutations class instead
      *
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each permutation

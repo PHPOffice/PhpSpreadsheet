@@ -4,6 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
+/**
+ * @deprecated 1.17.0
+ */
 class Logical
 {
     /**
@@ -14,7 +17,10 @@ class Logical
      * Excel Function:
      *        =TRUE()
      *
-     * @Deprecated Use the TRUE() method in the Logical\Boolean class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Logical\Boolean::TRUE()
+     * Use the TRUE() method in the Logical\Boolean class instead
      *
      * @return bool True
      */
@@ -31,7 +37,10 @@ class Logical
      * Excel Function:
      *        =FALSE()
      *
-     * @Deprecated Use the FALSE() method in the Logical\Boolean class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Logical\Boolean::FALSE()
+     * Use the FALSE() method in the Logical\Boolean class instead
      *
      * @return bool False
      */
@@ -56,7 +65,10 @@ class Logical
      *        If any argument value is a string, or a Null, the function returns a #VALUE! error, unless the string
      *            holds the value TRUE or FALSE, in which case it is evaluated as the corresponding boolean value
      *
-     * @Deprecated Use the logicalAnd() method in the Logical\Operations class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Logical\Operations::logicalAnd()
+     * Use the logicalAnd() method in the Logical\Operations class instead
      *
      * @param mixed ...$args Data values
      *
@@ -83,7 +95,10 @@ class Logical
      *        If any argument value is a string, or a Null, the function returns a #VALUE! error, unless the string
      *            holds the value TRUE or FALSE, in which case it is evaluated as the corresponding boolean value
      *
-     * @Deprecated Use the logicalOr() method in the Logical\Operations class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Logical\Operations::logicalOr()
+     * Use the logicalOr() method in the Logical\Operations class instead
      *
      * @param mixed $args Data values
      *
@@ -112,7 +127,10 @@ class Logical
      *        If any argument value is a string, or a Null, the function returns a #VALUE! error, unless the string
      *            holds the value TRUE or FALSE, in which case it is evaluated as the corresponding boolean value
      *
-     * @Deprecated Use the logicalXor() method in the Logical\Operations class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Logical\Operations::logicalXor()
+     * Use the logicalXor() method in the Logical\Operations class instead
      *
      * @param mixed $args Data values
      *
@@ -138,7 +156,10 @@ class Logical
      *        If any argument value is a string, or a Null, the function returns a #VALUE! error, unless the string
      *            holds the value TRUE or FALSE, in which case it is evaluated as the corresponding boolean value
      *
-     * @Deprecated Use the NOT() method in the Logical\Operations class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Logical\Operations::NOT()
+     * Use the NOT() method in the Logical\Operations class instead
      *
      * @param mixed $logical A value or expression that can be evaluated to TRUE or FALSE
      *
@@ -174,7 +195,10 @@ class Logical
      *            If condition is FALSE and ReturnIfFalse is blank, then the value 0 (zero) is returned.
      *            ReturnIfFalse can be another formula.
      *
-     * @Deprecated Use the statementIf() method in the Logical\Conditional class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Logical\Conditional::statementIf()
+     * Use the statementIf() method in the Logical\Conditional class instead
      *
      * @param mixed $condition Condition to evaluate
      * @param mixed $returnIfTrue Value to return when condition is true
@@ -207,7 +231,10 @@ class Logical
      *              Optional. It is the default to return if expression does not match any of the values
      *              (value1, value2, ... value_n).
      *
-     * @Deprecated Use the statementSwitch() method in the Logical\Conditional class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Logical\Conditional::statementSwitch()
+     * Use the statementSwitch() method in the Logical\Conditional class instead
      *
      * @param mixed $arguments Statement arguments
      *
@@ -224,7 +251,10 @@ class Logical
      * Excel Function:
      *        =IFERROR(testValue,errorpart)
      *
-     * @Deprecated Use the IFERROR() method in the Logical\Conditional class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Logical\Conditional::IFERROR()
+     * Use the IFERROR() method in the Logical\Conditional class instead
      *
      * @param mixed $testValue Value to check, is also the value returned when no error
      * @param mixed $errorpart Value to return when testValue is an error condition
@@ -242,7 +272,10 @@ class Logical
      * Excel Function:
      *        =IFNA(testValue,napart)
      *
-     * @Deprecated Use the IFNA() method in the Logical\Conditional class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Logical\Conditional::IFNA()
+     * Use the IFNA() method in the Logical\Conditional class instead
      *
      * @param mixed $testValue Value to check, is also the value returned when not an NA
      * @param mixed $napart Value to return when testValue is an NA condition
@@ -265,7 +298,10 @@ class Logical
      *         returnIfTrue1 ... returnIfTrue_n
      *             Value returned if corresponding testValue (nth) was true
      *
-     * @Deprecated Use the IFS() method in the Logical\Conditional class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Logical\Conditional::IFS()
+     * Use the IFS() method in the Logical\Conditional class instead
      *
      * @param mixed ...$arguments Statement arguments
      *

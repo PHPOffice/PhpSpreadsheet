@@ -218,7 +218,9 @@ class MathTrig
      * Excel Function:
      *        CEILING(number[,significance])
      *
-     * @Deprecated 2.0.0 Use the funcCeiling method in the MathTrig\Ceiling class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the funcCeiling() method in the MathTrig\Ceiling class instead
      *
      * @param float $number the number you want to round
      * @param float $significance the multiple to which you want to round
@@ -385,7 +387,9 @@ class MathTrig
      * Excel Function:
      *        FLOOR(number[,significance])
      *
-     * @Deprecated 2.0.0 Use the funcFloor method in the MathTrig\Floor class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the funcFloor() method in the MathTrig\Floor class instead
      *
      * @param float $number Number to round
      * @param float $significance Significance
@@ -407,7 +411,9 @@ class MathTrig
      * Excel Function:
      *        FLOOR.MATH(number[,significance[,mode]])
      *
-     * @Deprecated 2.0.0 Use the funcFloorMath method in the MathTrig\FloorMath class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the funcFloorMath() method in the MathTrig\FloorMath class instead
      *
      * @param float $number Number to round
      * @param float $significance Significance
@@ -430,7 +436,9 @@ class MathTrig
      * Excel Function:
      *        FLOOR.PRECISE(number[,significance])
      *
-     * @Deprecated 2.0.0 Use the funcFloorPrecise method in the MathTrig\FloorPrecise class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the funcFloorPrecise() method in the MathTrig\FloorPrecise class instead
      *
      * @param float $number Number to round
      * @param float $significance Significance
@@ -457,7 +465,9 @@ class MathTrig
      * Excel Function:
      *        INT(number)
      *
-     * @Deprecated 2.0.0 Use the funcInt method in the MathTrig\IntClass class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the funcInt() method in the MathTrig\IntClass class instead
      *
      * @param float $number Number to cast to an integer
      *
@@ -779,7 +789,9 @@ class MathTrig
      *
      * Rounds a number to the nearest multiple of a specified value
      *
-     * @Deprecated 2.0.0 Use the funcMround method in the MathTrig\Mround class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the funcMround() method in the MathTrig\Mround class instead
      *
      * @param float $number Number to round
      * @param int $multiple Multiple to which you want to round $number
@@ -995,7 +1007,9 @@ class MathTrig
      *
      * Converts a number to Roman numeral
      *
-     * @Deprecated 2.0.0 Use the funcRoman method in the MathTrig\Roman class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the funcRoman() method in the MathTrig\Roman class instead
      *
      * @param mixed $aValue Number to convert
      * @param mixed $style Number indicating one of five possible forms
@@ -1014,7 +1028,9 @@ class MathTrig
      *
      * Rounds a number up to a specified number of decimal places
      *
-     * @Deprecated 2.0.0 Use the funcRoundUp method in the MathTrig\RoundUp class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the funcRoundUp() method in the MathTrig\RoundUp class instead
      *
      * @param float $number Number to round
      * @param int $digits Number of digits to which you want to round $number
@@ -1033,7 +1049,9 @@ class MathTrig
      *
      * Rounds a number down to a specified number of decimal places
      *
-     * @Deprecated 2.0.0 Use the funcRoundDown method in the MathTrig\RoundDown class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the funcRoundDown() method in the MathTrig\RoundDown class instead
      *
      * @param float $number Number to round
      * @param int $digits Number of digits to which you want to round $number
@@ -1517,7 +1535,9 @@ class MathTrig
      *
      * Truncates value to the number of fractional digits by number_digits.
      *
-     * @Deprecated 2.0.0 Use the funcTrunc method in the MathTrig\Trunc class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the funcTrunc() method in the MathTrig\Trunc class instead
      *
      * @param float $value
      * @param int $digits
@@ -1722,7 +1742,9 @@ class MathTrig
      *
      * Returns the result of builtin function round after validating args.
      *
-     * @Deprecated 2.0.0 Use the builtinRound method in the MathTrig\Round class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the builtinRound() method in the MathTrig\Round class instead
      *
      * @param mixed $number Should be numeric
      * @param mixed $precision Should be int
