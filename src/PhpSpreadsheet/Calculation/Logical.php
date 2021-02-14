@@ -19,11 +19,10 @@ class Logical
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the TRUE() method in the Logical\Boolean class instead
+     * @see Logical\Boolean::TRUE()
+     * Use the TRUE() method in the Logical\Boolean class instead
      *
      * @return bool True
-     *
-     * @codeCoverageIgnore
      */
     public static function true(): bool
     {
@@ -40,11 +39,10 @@ class Logical
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the FALSE() method in the Logical\Boolean class instead
+     * @see Logical\Boolean::FALSE()
+     * Use the FALSE() method in the Logical\Boolean class instead
      *
      * @return bool False
-     *
-     * @codeCoverageIgnore
      */
     public static function false(): bool
     {
@@ -69,13 +67,12 @@ class Logical
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the logicalAnd() method in the Logical\Operations class instead
+     * @see Logical\Operations::logicalAnd()
+     * Use the logicalAnd() method in the Logical\Operations class instead
      *
      * @param mixed ...$args Data values
      *
      * @return bool|string the logical AND of the arguments
-     *
-     * @codeCoverageIgnore
      */
     public static function logicalAnd(...$args)
     {
@@ -100,13 +97,12 @@ class Logical
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the logicalOr() method in the Logical\Operations class instead
+     * @see Logical\Operations::logicalOr()
+     * Use the logicalOr() method in the Logical\Operations class instead
      *
      * @param mixed $args Data values
      *
      * @return bool|string the logical OR of the arguments
-     *
-     * @codeCoverageIgnore
      */
     public static function logicalOr(...$args)
     {
@@ -133,13 +129,12 @@ class Logical
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the logicalXor() method in the Logical\Operations class instead
+     * @see Logical\Operations::logicalXor()
+     * Use the logicalXor() method in the Logical\Operations class instead
      *
      * @param mixed $args Data values
      *
      * @return bool|string the logical XOR of the arguments
-     *
-     * @codeCoverageIgnore
      */
     public static function logicalXor(...$args)
     {
@@ -163,13 +158,12 @@ class Logical
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the NOT() method in the Logical\Operations class instead
+     * @see Logical\Operations::NOT()
+     * Use the NOT() method in the Logical\Operations class instead
      *
      * @param mixed $logical A value or expression that can be evaluated to TRUE or FALSE
      *
      * @return bool|string the boolean inverse of the argument
-     *
-     * @codeCoverageIgnore
      */
     public static function NOT($logical = false)
     {
@@ -203,15 +197,14 @@ class Logical
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the statementIf() method in the Logical\Conditional class instead
+     * @see Logical\Conditional::statementIf()
+     * Use the statementIf() method in the Logical\Conditional class instead
      *
      * @param mixed $condition Condition to evaluate
      * @param mixed $returnIfTrue Value to return when condition is true
      * @param mixed $returnIfFalse Optional value to return when condition is false
      *
      * @return mixed The value of returnIfTrue or returnIfFalse determined by condition
-     *
-     * @codeCoverageIgnore
      */
     public static function statementIf($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
@@ -240,13 +233,12 @@ class Logical
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the statementSwitch() method in the Logical\Conditional class instead
+     * @see Logical\Conditional::statementSwitch()
+     * Use the statementSwitch() method in the Logical\Conditional class instead
      *
      * @param mixed $arguments Statement arguments
      *
      * @return mixed The value of matched expression
-     *
-     * @codeCoverageIgnore
      */
     public static function statementSwitch(...$arguments)
     {
@@ -261,14 +253,13 @@ class Logical
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the IFERROR() method in the Logical\Conditional class instead
+     * @see Logical\Conditional::IFERROR()
+     * Use the IFERROR() method in the Logical\Conditional class instead
      *
      * @param mixed $testValue Value to check, is also the value returned when no error
      * @param mixed $errorpart Value to return when testValue is an error condition
      *
      * @return mixed The value of errorpart or testValue determined by error condition
-     *
-     * @codeCoverageIgnore
      */
     public static function IFERROR($testValue = '', $errorpart = '')
     {
@@ -283,14 +274,13 @@ class Logical
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the IFNA() method in the Logical\Conditional class instead
+     * @see Logical\Conditional::IFNA()
+     * Use the IFNA() method in the Logical\Conditional class instead
      *
      * @param mixed $testValue Value to check, is also the value returned when not an NA
      * @param mixed $napart Value to return when testValue is an NA condition
      *
      * @return mixed The value of errorpart or testValue determined by error condition
-     *
-     * @codeCoverageIgnore
      */
     public static function IFNA($testValue = '', $napart = '')
     {
@@ -310,13 +300,12 @@ class Logical
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the IFS() method in the Logical\Conditional class instead
+     * @see Logical\Conditional::IFS()
+     * Use the IFS() method in the Logical\Conditional class instead
      *
      * @param mixed ...$arguments Statement arguments
      *
      * @return mixed|string The value of returnIfTrue_n, if testValue_n was true. #N/A if none of testValues was true
-     *
-     * @codeCoverageIgnore
      */
     public static function IFS(...$arguments)
     {

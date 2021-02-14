@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Permutations;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
 class Statistical
@@ -2925,14 +2926,13 @@ class Statistical
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the PERMUT() method in the Statistical\Permutations class instead
+     * @see Statistical\Permutations::PERMUT()
+     * Use the PERMUT() method in the Statistical\Permutations class instead
      *
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each permutation
      *
      * @return int|string Number of permutations, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function PERMUT($numObjs, $numInSet)
     {

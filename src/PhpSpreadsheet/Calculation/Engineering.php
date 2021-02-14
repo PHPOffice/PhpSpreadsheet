@@ -17,13 +17,11 @@ class Engineering
      *
      * Parses a complex number into its real and imaginary parts, and an I or J suffix
      *
-     * @deprecated No longer used by internal code. Please use the \Complex\Complex class instead
+     * @deprecated 1.12.0 No longer used by internal code. Please use the \Complex\Complex class instead
      *
      * @param string $complexNumber The complex number
      *
      * @return mixed[] Indexed on "real", "imaginary" and "suffix"
-     *
-     * @codeCoverageIgnore
      */
     public static function parseComplex($complexNumber)
     {
@@ -57,8 +55,6 @@ class Engineering
      *                                If $ord < 0, BESSELI returns the #NUM! error value.
      *
      * @return float|string Result, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function BESSELI($x, $ord)
     {
@@ -84,8 +80,6 @@ class Engineering
      *                                If $ord < 0, BESSELJ returns the #NUM! error value.
      *
      * @return float|string Result, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function BESSELJ($x, $ord)
     {
@@ -112,8 +106,6 @@ class Engineering
      *                                If $ord < 0, BESSELK returns the #NUM! error value.
      *
      * @return float|string Result, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function BESSELK($x, $ord)
     {
@@ -139,8 +131,6 @@ class Engineering
      *                                If $ord < 0, BESSELY returns the #NUM! error value.
      *
      * @return float|string Result, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function BESSELY($x, $ord)
     {
@@ -167,8 +157,6 @@ class Engineering
      *                                10 characters (10 bits), BIN2DEC returns the #NUM! error value.
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public static function BINTODEC($x)
     {
@@ -201,8 +189,6 @@ class Engineering
      *                                If places is negative, BIN2HEX returns the #NUM! error value.
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public static function BINTOHEX($x, $places = null)
     {
@@ -235,8 +221,6 @@ class Engineering
      *                                If places is negative, BIN2OCT returns the #NUM! error value.
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public static function BINTOOCT($x, $places = null)
     {
@@ -273,8 +257,6 @@ class Engineering
      *                                If places is zero or negative, DEC2BIN returns the #NUM! error value.
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public static function DECTOBIN($x, $places = null)
     {
@@ -311,8 +293,6 @@ class Engineering
      *                                If places is zero or negative, DEC2HEX returns the #NUM! error value.
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public static function DECTOHEX($x, $places = null)
     {
@@ -349,8 +329,6 @@ class Engineering
      *                                If places is zero or negative, DEC2OCT returns the #NUM! error value.
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public static function DECTOOCT($x, $places = null)
     {
@@ -387,8 +365,6 @@ class Engineering
      *                                    If places is negative, HEX2BIN returns the #NUM! error value.
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public static function HEXTOBIN($x, $places = null)
     {
@@ -416,8 +392,6 @@ class Engineering
      *                                #NUM! error value.
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public static function HEXTODEC($x)
     {
@@ -458,8 +432,6 @@ class Engineering
      *                                    If places is negative, HEX2OCT returns the #NUM! error value.
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public static function HEXTOOCT($x, $places = null)
     {
@@ -502,8 +474,6 @@ class Engineering
      *                                    value.
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public static function OCTTOBIN($x, $places = null)
     {
@@ -531,8 +501,6 @@ class Engineering
      *                                #NUM! error value.
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public static function OCTTODEC($x)
     {
@@ -570,8 +538,6 @@ class Engineering
      *                                    If places is negative, OCT2HEX returns the #NUM! error value.
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public static function OCTTOHEX($x, $places = null)
     {
@@ -1172,8 +1138,6 @@ class Engineering
      * @param float $b The second number. If omitted, b is assumed to be zero.
      *
      * @return int|string (string in the event of an error)
-     *
-     * @codeCoverageIgnore
      */
     public static function DELTA($a, $b = 0)
     {
@@ -1198,8 +1162,6 @@ class Engineering
      * @param float $step The threshold value. If you omit a value for step, GESTEP uses zero.
      *
      * @return int|string (string in the event of an error)
-     *
-     * @codeCoverageIgnore
      */
     public static function GESTEP($number, $step = 0)
     {
@@ -1222,8 +1184,6 @@ class Engineering
      * @param int $number2
      *
      * @return int|string
-     *
-     * @codeCoverageIgnore
      */
     public static function BITAND($number1, $number2)
     {
@@ -1246,8 +1206,6 @@ class Engineering
      * @param int $number2
      *
      * @return int|string
-     *
-     * @codeCoverageIgnore
      */
     public static function BITOR($number1, $number2)
     {
@@ -1270,8 +1228,6 @@ class Engineering
      * @param int $number2
      *
      * @return int|string
-     *
-     * @codeCoverageIgnore
      */
     public static function BITXOR($number1, $number2)
     {
@@ -1294,8 +1250,6 @@ class Engineering
      * @param int $shiftAmount
      *
      * @return int|string
-     *
-     * @codeCoverageIgnore
      */
     public static function BITLSHIFT($number, $shiftAmount)
     {
@@ -1318,8 +1272,6 @@ class Engineering
      * @param int $shiftAmount
      *
      * @return int|string
-     *
-     * @codeCoverageIgnore
      */
     public static function BITRSHIFT($number, $shiftAmount)
     {
@@ -1348,8 +1300,6 @@ class Engineering
      *                                If omitted, ERF integrates between zero and lower_limit
      *
      * @return float|string
-     *
-     * @codeCoverageIgnore
      */
     public static function ERF($lower, $upper = null)
     {
@@ -1371,8 +1321,6 @@ class Engineering
      * @param float $limit bound for integrating ERF
      *
      * @return float|string
-     *
-     * @codeCoverageIgnore
      */
     public static function ERFPRECISE($limit)
     {
@@ -1399,8 +1347,6 @@ class Engineering
      * @param float $x The lower bound for integrating ERFC
      *
      * @return float|string
-     *
-     * @codeCoverageIgnore
      */
     public static function ERFC($x)
     {
@@ -1416,8 +1362,6 @@ class Engineering
      * @see Use the getConversionCategories() method in the Engineering\ConvertUOM class instead
      *
      * @return array
-     *
-     * @codeCoverageIgnore
      */
     public static function getConversionGroups()
     {
@@ -1435,8 +1379,6 @@ class Engineering
      * @param null|mixed $category
      *
      * @return array
-     *
-     * @codeCoverageIgnore
      */
     public static function getConversionGroupUnits($category = null)
     {
@@ -1453,8 +1395,6 @@ class Engineering
      * @param null|mixed $category
      *
      * @return array
-     *
-     * @codeCoverageIgnore
      */
     public static function getConversionGroupUnitDetails($category = null)
     {
@@ -1470,8 +1410,6 @@ class Engineering
      * @see Use the getConversionMultipliers() method in the ConvertUOM class instead
      *
      * @return array of mixed
-     *
-     * @codeCoverageIgnore
      */
     public static function getConversionMultipliers()
     {
@@ -1489,8 +1427,6 @@ class Engineering
      * @see Use the getBinaryConversionMultipliers() method in the ConvertUOM class instead
      *
      * @return array of mixed
-     *
-     * @codeCoverageIgnore
      */
     public static function getBinaryConversionMultipliers()
     {
@@ -1516,8 +1452,6 @@ class Engineering
      * @param string $toUOM the units for the result
      *
      * @return float|string
-     *
-     * @codeCoverageIgnore
      */
     public static function CONVERTUOM($value, $fromUOM, $toUOM)
     {
