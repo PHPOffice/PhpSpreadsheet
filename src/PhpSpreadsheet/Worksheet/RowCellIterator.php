@@ -173,6 +173,21 @@ class RowCellIterator extends CellIterator
     {
         return $this->currentColumnIndex;
     }
+    
+     /**
+     * Return the current Cell by Column position.
+     * Row Iterator already knows the current $rowIndex
+     * @param string $column The column address for the cell
+     * Edited Shahroz BUTT
+     * Email : shahroz.butt@yahoo.com
+     *
+     * @return Cell
+     */
+    public function getCellByColumn($column)
+    {
+        $column = Coordinate::columnIndexFromString($column);
+        return $this->worksheet->getCellByColumnAndRow($column, $this->rowIndex);
+    }
 
     /**
      * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary.
