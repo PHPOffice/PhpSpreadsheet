@@ -172,7 +172,7 @@ class TextData
             if ($value < 0) {
                 $round = 0 - $round;
             }
-            $value = MathTrig::MROUND($value, $round);
+            $value = MathTrig\Mround::funcMround($value, $round);
         }
         $mask = "$mask;($mask)";
 

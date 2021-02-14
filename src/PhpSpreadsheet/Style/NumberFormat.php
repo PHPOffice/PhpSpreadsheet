@@ -563,9 +563,11 @@ class NumberFormat extends Supervisor
 
         do {
             $tempMask = array_pop($masks);
-            $postDecimalMasks[] = $tempMask;
-            $decimalCount -= strlen($tempMask);
-        } while ($decimalCount > 0);
+            if ($tempMask !== null) {
+                $postDecimalMasks[] = $tempMask;
+                $decimalCount -= strlen($tempMask);
+            }
+        } while ($tempMask !== null && $decimalCount > 0);
 
         return [
             implode('.', $masks),

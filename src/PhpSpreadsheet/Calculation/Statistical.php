@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Permutations;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
 class Statistical
@@ -2716,7 +2717,7 @@ class Statistical
             }
             if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
                 if ($cumulative) {
-                    return 0.5 * (1 + Engineering::erfVal(($value - $mean) / ($stdDev * sqrt(2))));
+                    return 0.5 * (1 + Engineering\Erf::erfValue(($value - $mean) / ($stdDev * sqrt(2))));
                 }
 
                 return (1 / (self::SQRT2PI * $stdDev)) * exp(0 - (($value - $mean) ** 2 / (2 * ($stdDev * $stdDev))));
@@ -2923,6 +2924,11 @@ class Statistical
      *        combinations, for which the internal order is not significant. Use this function
      *        for lottery-style probability calculations.
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Permutations::PERMUT()
+     * Use the PERMUT() method in the Statistical\Permutations class instead
+     *
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each permutation
      *
@@ -2930,19 +2936,7 @@ class Statistical
      */
     public static function PERMUT($numObjs, $numInSet)
     {
-        $numObjs = Functions::flattenSingleValue($numObjs);
-        $numInSet = Functions::flattenSingleValue($numInSet);
-
-        if ((is_numeric($numObjs)) && (is_numeric($numInSet))) {
-            $numInSet = floor($numInSet);
-            if ($numObjs < $numInSet) {
-                return Functions::NAN();
-            }
-
-            return round(MathTrig::FACT($numObjs) / MathTrig::FACT($numObjs - $numInSet));
-        }
-
-        return Functions::VALUE();
+        return Statistical\Permutations::PERMUT($numObjs, $numInSet);
     }
 
     /**

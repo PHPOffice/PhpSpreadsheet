@@ -1323,7 +1323,7 @@ class Html extends BaseWriter
                 [$this, 'formatColor']
             );
             if ($cellData === $origData) {
-                $cellData = htmlspecialchars($cellData);
+                $cellData = htmlspecialchars($cellData ?? '');
             }
             if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
                 $cellData = '<sup>' . $cellData . '</sup>';
