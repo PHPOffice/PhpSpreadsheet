@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Helper\NumberFormat;
 
-use NumberFormatter;
 use PhpOffice\PhpSpreadsheet\Helper\NumberFormat\Accounting;
 use PhpOffice\PhpSpreadsheet\Helper\NumberFormat\Currency;
 use PhpOffice\PhpSpreadsheet\Helper\NumberFormat\Number;
