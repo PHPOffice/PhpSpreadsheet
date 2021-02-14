@@ -17,11 +17,13 @@ class Engineering
      *
      * Parses a complex number into its real and imaginary parts, and an I or J suffix
      *
-     * @deprecated 2.0.0 No longer used by internal code. Please use the \Complex\Complex class instead
+     * @deprecated No longer used by internal code. Please use the \Complex\Complex class instead
      *
      * @param string $complexNumber The complex number
      *
      * @return mixed[] Indexed on "real", "imaginary" and "suffix"
+     *
+     * @codeCoverageIgnore
      */
     public static function parseComplex($complexNumber)
     {
@@ -43,7 +45,9 @@ class Engineering
      *    Excel Function:
      *        BESSELI(x,ord)
      *
-     * @Deprecated 2.0.0 Use the BESSELI() method in the Engineering\BesselI class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the BESSELI() method in the Engineering\BesselI class instead
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELI returns the #VALUE! error value.
@@ -53,6 +57,8 @@ class Engineering
      *                                If $ord < 0, BESSELI returns the #NUM! error value.
      *
      * @return float|string Result, or a string containing an error
+     *
+     * @codeCoverageIgnore
      */
     public static function BESSELI($x, $ord)
     {
@@ -67,7 +73,9 @@ class Engineering
      *    Excel Function:
      *        BESSELJ(x,ord)
      *
-     * @Deprecated 2.0.0 Use the BESSELJ() method in the Engineering\BesselJ class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the BESSELJ() method in the Engineering\BesselJ class instead
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELJ returns the #VALUE! error value.
@@ -76,6 +84,8 @@ class Engineering
      *                                If $ord < 0, BESSELJ returns the #NUM! error value.
      *
      * @return float|string Result, or a string containing an error
+     *
+     * @codeCoverageIgnore
      */
     public static function BESSELJ($x, $ord)
     {
@@ -91,7 +101,9 @@ class Engineering
      *    Excel Function:
      *        BESSELK(x,ord)
      *
-     * @Deprecated 2.0.0 Use the BESSELK() method in the Engineering\BesselK class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the BESSELK() method in the Engineering\BesselK class instead
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
@@ -100,6 +112,8 @@ class Engineering
      *                                If $ord < 0, BESSELK returns the #NUM! error value.
      *
      * @return float|string Result, or a string containing an error
+     *
+     * @codeCoverageIgnore
      */
     public static function BESSELK($x, $ord)
     {
@@ -114,7 +128,9 @@ class Engineering
      *    Excel Function:
      *        BESSELY(x,ord)
      *
-     * @Deprecated 2.0.0 Use the BESSELY() method in the Engineering\BesselY class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the BESSELY() method in the Engineering\BesselY class instead
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELY returns the #VALUE! error value.
@@ -123,6 +139,8 @@ class Engineering
      *                                If $ord < 0, BESSELY returns the #NUM! error value.
      *
      * @return float|string Result, or a string containing an error
+     *
+     * @codeCoverageIgnore
      */
     public static function BESSELY($x, $ord)
     {
@@ -137,7 +155,9 @@ class Engineering
      * Excel Function:
      *        BIN2DEC(x)
      *
-     * @Deprecated 2.0.0 Use the toDecimal() method in the Engineering\ConvertBinary class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the toDecimal() method in the Engineering\ConvertBinary class instead
      *
      * @param string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -147,6 +167,8 @@ class Engineering
      *                                10 characters (10 bits), BIN2DEC returns the #NUM! error value.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public static function BINTODEC($x)
     {
@@ -161,7 +183,9 @@ class Engineering
      * Excel Function:
      *        BIN2HEX(x[,places])
      *
-     * @Deprecated 2.0.0 Use the toHex() method in the Engineering\ConvertBinary class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the toHex() method in the Engineering\ConvertBinary class instead
      *
      * @param string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -177,6 +201,8 @@ class Engineering
      *                                If places is negative, BIN2HEX returns the #NUM! error value.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public static function BINTOHEX($x, $places = null)
     {
@@ -191,7 +217,9 @@ class Engineering
      * Excel Function:
      *        BIN2OCT(x[,places])
      *
-     * @Deprecated 2.0.0 Use the toOctal() method in the Engineering\ConvertBinary class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the toOctal() method in the Engineering\ConvertBinary class instead
      *
      * @param string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -207,6 +235,8 @@ class Engineering
      *                                If places is negative, BIN2OCT returns the #NUM! error value.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public static function BINTOOCT($x, $places = null)
     {
@@ -221,7 +251,9 @@ class Engineering
      * Excel Function:
      *        DEC2BIN(x[,places])
      *
-     * @Deprecated 2.0.0 Use the toBinary() method in the Engineering\ConvertDecimal class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the toBinary() method in the Engineering\ConvertDecimal class instead
      *
      * @param string $x The decimal integer you want to convert. If number is negative,
      *                                valid place values are ignored and DEC2BIN returns a 10-character
@@ -241,6 +273,8 @@ class Engineering
      *                                If places is zero or negative, DEC2BIN returns the #NUM! error value.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public static function DECTOBIN($x, $places = null)
     {
@@ -255,7 +289,9 @@ class Engineering
      * Excel Function:
      *        DEC2HEX(x[,places])
      *
-     * @Deprecated 2.0.0 Use the toHex() method in the Engineering\ConvertDecimal class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the toHex() method in the Engineering\ConvertDecimal class instead
      *
      * @param string $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2HEX returns a 10-character (40-bit)
@@ -275,6 +311,8 @@ class Engineering
      *                                If places is zero or negative, DEC2HEX returns the #NUM! error value.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public static function DECTOHEX($x, $places = null)
     {
@@ -289,7 +327,9 @@ class Engineering
      * Excel Function:
      *        DEC2OCT(x[,places])
      *
-     * @Deprecated 2.0.0 Use the toOctal() method in the Engineering\ConvertDecimal class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the toOctal() method in the Engineering\ConvertDecimal class instead
      *
      * @param string $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2OCT returns a 10-character (30-bit)
@@ -309,6 +349,8 @@ class Engineering
      *                                If places is zero or negative, DEC2OCT returns the #NUM! error value.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public static function DECTOOCT($x, $places = null)
     {
@@ -323,7 +365,9 @@ class Engineering
      * Excel Function:
      *        HEX2BIN(x[,places])
      *
-     * @Deprecated 2.0.0 Use the toBinary() method in the Engineering\ConvertHex class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the toBinary() method in the Engineering\ConvertHex class instead
      *
      * @param string $x the hexadecimal number you want to convert.
      *                  Number cannot contain more than 10 characters.
@@ -343,6 +387,8 @@ class Engineering
      *                                    If places is negative, HEX2BIN returns the #NUM! error value.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public static function HEXTOBIN($x, $places = null)
     {
@@ -357,7 +403,9 @@ class Engineering
      * Excel Function:
      *        HEX2DEC(x)
      *
-     * @Deprecated 2.0.0 Use the toDecimal() method in the Engineering\ConvertHex class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the toDecimal() method in the Engineering\ConvertHex class instead
      *
      * @param string $x The hexadecimal number you want to convert. This number cannot
      *                                contain more than 10 characters (40 bits). The most significant
@@ -368,6 +416,8 @@ class Engineering
      *                                #NUM! error value.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public static function HEXTODEC($x)
     {
@@ -382,7 +432,9 @@ class Engineering
      * Excel Function:
      *        HEX2OCT(x[,places])
      *
-     * @Deprecated 2.0.0 Use the toOctal() method in the Engineering\ConvertHex class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the toOctal() method in the Engineering\ConvertHex class instead
      *
      * @param string $x The hexadecimal number you want to convert. Number cannot
      *                                    contain more than 10 characters. The most significant bit of
@@ -406,6 +458,8 @@ class Engineering
      *                                    If places is negative, HEX2OCT returns the #NUM! error value.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public static function HEXTOOCT($x, $places = null)
     {
@@ -420,7 +474,9 @@ class Engineering
      * Excel Function:
      *        OCT2BIN(x[,places])
      *
-     * @Deprecated 2.0.0 Use the toBinary() method in the Engineering\ConvertOctal class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the toBinary() method in the Engineering\ConvertOctal class instead
      *
      * @param string $x The octal number you want to convert. Number may not
      *                                    contain more than 10 characters. The most significant
@@ -446,6 +502,8 @@ class Engineering
      *                                    value.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public static function OCTTOBIN($x, $places = null)
     {
@@ -460,7 +518,9 @@ class Engineering
      * Excel Function:
      *        OCT2DEC(x)
      *
-     * @Deprecated 2.0.0 Use the toDecimal() method in the Engineering\ConvertOctal class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the toDecimal() method in the Engineering\ConvertOctal class instead
      *
      * @param string $x The octal number you want to convert. Number may not contain
      *                                more than 10 octal characters (30 bits). The most significant
@@ -471,6 +531,8 @@ class Engineering
      *                                #NUM! error value.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public static function OCTTODEC($x)
     {
@@ -485,7 +547,9 @@ class Engineering
      * Excel Function:
      *        OCT2HEX(x[,places])
      *
-     * @Deprecated 2.0.0 Use the toHex() method in the Engineering\ConvertOctal class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the toHex() method in the Engineering\ConvertOctal class instead
      *
      * @param string $x The octal number you want to convert. Number may not contain
      *                                    more than 10 octal characters (30 bits). The most significant
@@ -506,6 +570,8 @@ class Engineering
      *                                    If places is negative, OCT2HEX returns the #NUM! error value.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public static function OCTTOHEX($x, $places = null)
     {
@@ -1098,12 +1164,16 @@ class Engineering
      *    Excel Function:
      *        DELTA(a[,b])
      *
-     * @Deprecated 2.0.0 Use the DELTA() method in the Engineering\Compare class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the DELTA() method in the Engineering\Compare class instead
      *
      * @param float $a the first number
      * @param float $b The second number. If omitted, b is assumed to be zero.
      *
      * @return int|string (string in the event of an error)
+     *
+     * @codeCoverageIgnore
      */
     public static function DELTA($a, $b = 0)
     {
@@ -1120,12 +1190,16 @@ class Engineering
      *    Use this function to filter a set of values. For example, by summing several GESTEP
      *        functions you calculate the count of values that exceed a threshold.
      *
-     * @Deprecated 2.0.0 Use the GESTEP() method in the Engineering\Compare class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the GESTEP() method in the Engineering\Compare class instead
      *
      * @param float $number the value to test against step
      * @param float $step The threshold value. If you omit a value for step, GESTEP uses zero.
      *
      * @return int|string (string in the event of an error)
+     *
+     * @codeCoverageIgnore
      */
     public static function GESTEP($number, $step = 0)
     {
@@ -1140,12 +1214,16 @@ class Engineering
      * Excel Function:
      *        BITAND(number1, number2)
      *
-     * @Deprecated 2.0.0 Use the BITAND() method in the Engineering\BitWise class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the BITAND() method in the Engineering\BitWise class instead
      *
      * @param int $number1
      * @param int $number2
      *
      * @return int|string
+     *
+     * @codeCoverageIgnore
      */
     public static function BITAND($number1, $number2)
     {
@@ -1160,12 +1238,16 @@ class Engineering
      * Excel Function:
      *        BITOR(number1, number2)
      *
-     * @Deprecated 2.0.0 Use the BITOR() method in the Engineering\BitWise class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the BITOR() method in the Engineering\BitWise class instead
      *
      * @param int $number1
      * @param int $number2
      *
      * @return int|string
+     *
+     * @codeCoverageIgnore
      */
     public static function BITOR($number1, $number2)
     {
@@ -1180,12 +1262,16 @@ class Engineering
      * Excel Function:
      *        BITXOR(number1, number2)
      *
-     * @Deprecated 2.0.0 Use the BITXOR() method in the Engineering\BitWise class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the BITXOR() method in the Engineering\BitWise class instead
      *
      * @param int $number1
      * @param int $number2
      *
      * @return int|string
+     *
+     * @codeCoverageIgnore
      */
     public static function BITXOR($number1, $number2)
     {
@@ -1200,12 +1286,16 @@ class Engineering
      * Excel Function:
      *        BITLSHIFT(number, shift_amount)
      *
-     * @Deprecated 2.0.0 Use the BITLSHIFT() method in the Engineering\BitWise class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the BITLSHIFT() method in the Engineering\BitWise class instead
      *
      * @param int $number
      * @param int $shiftAmount
      *
      * @return int|string
+     *
+     * @codeCoverageIgnore
      */
     public static function BITLSHIFT($number, $shiftAmount)
     {
@@ -1220,12 +1310,16 @@ class Engineering
      * Excel Function:
      *        BITRSHIFT(number, shift_amount)
      *
-     * @Deprecated 2.0.0 Use the BITRSHIFT() method in the Engineering\BitWise class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the BITRSHIFT() method in the Engineering\BitWise class instead
      *
      * @param int $number
      * @param int $shiftAmount
      *
      * @return int|string
+     *
+     * @codeCoverageIgnore
      */
     public static function BITRSHIFT($number, $shiftAmount)
     {
@@ -1245,13 +1339,17 @@ class Engineering
      *    Excel Function:
      *        ERF(lower[,upper])
      *
-     * @Deprecated 2.0.0 Use the ERF() method in the Engineering\Erf class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the ERF() method in the Engineering\Erf class instead
      *
      * @param float $lower lower bound for integrating ERF
      * @param float $upper upper bound for integrating ERF.
      *                                If omitted, ERF integrates between zero and lower_limit
      *
      * @return float|string
+     *
+     * @codeCoverageIgnore
      */
     public static function ERF($lower, $upper = null)
     {
@@ -1266,11 +1364,15 @@ class Engineering
      *    Excel Function:
      *        ERF.PRECISE(limit)
      *
-     * @Deprecated 2.0.0 Use the ERFPRECISE() method in the Engineering\Erf class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the ERFPRECISE() method in the Engineering\Erf class instead
      *
      * @param float $limit bound for integrating ERF
      *
      * @return float|string
+     *
+     * @codeCoverageIgnore
      */
     public static function ERFPRECISE($limit)
     {
@@ -1290,11 +1392,15 @@ class Engineering
      *    Excel Function:
      *        ERFC(x)
      *
-     * @Deprecated 2.0.0 Use the ERFC() method in the Engineering\ErfC class instead
+     * @Deprecated 1.17.0
+     *
+     * @see Use the ERFC() method in the Engineering\ErfC class instead
      *
      * @param float $x The lower bound for integrating ERFC
      *
      * @return float|string
+     *
+     * @codeCoverageIgnore
      */
     public static function ERFC($x)
     {
@@ -1305,9 +1411,13 @@ class Engineering
      *    getConversionGroups
      * Returns a list of the different conversion groups for UOM conversions.
      *
-     * @Deprecated 2.0.0 Use the getConversionCategories() method in the Engineering\ConvertUOM class instead
+     * @Deprecated 1.16.0
+     *
+     * @see Use the getConversionCategories() method in the Engineering\ConvertUOM class instead
      *
      * @return array
+     *
+     * @codeCoverageIgnore
      */
     public static function getConversionGroups()
     {
@@ -1318,11 +1428,15 @@ class Engineering
      *    getConversionGroupUnits
      * Returns an array of units of measure, for a specified conversion group, or for all groups.
      *
-     * @Deprecated Use the getConversionCategoryUnits() method in the ConvertUOM class instead
+     * @Deprecated 1.16.0
+     *
+     * @see Use the getConversionCategoryUnits() method in the ConvertUOM class instead
      *
      * @param null|mixed $category
      *
      * @return array
+     *
+     * @codeCoverageIgnore
      */
     public static function getConversionGroupUnits($category = null)
     {
@@ -1332,11 +1446,15 @@ class Engineering
     /**
      * getConversionGroupUnitDetails.
      *
-     * @Deprecated Use the getConversionCategoryUnitDetails() method in the ConvertUOM class instead
+     * @Deprecated 1.16.0
+     *
+     * @see Use the getConversionCategoryUnitDetails() method in the ConvertUOM class instead
      *
      * @param null|mixed $category
      *
      * @return array
+     *
+     * @codeCoverageIgnore
      */
     public static function getConversionGroupUnitDetails($category = null)
     {
@@ -1347,9 +1465,13 @@ class Engineering
      *    getConversionMultipliers
      * Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().
      *
-     * @Deprecated Use the getConversionMultipliers() method in the ConvertUOM class instead
+     * @Deprecated 1.16.0
+     *
+     * @see Use the getConversionMultipliers() method in the ConvertUOM class instead
      *
      * @return array of mixed
+     *
+     * @codeCoverageIgnore
      */
     public static function getConversionMultipliers()
     {
@@ -1357,12 +1479,18 @@ class Engineering
     }
 
     /**
-     *    getBinaryConversionMultipliers
-     * Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure in CONVERTUOM().
+     *    getBinaryConversionMultipliers.
      *
-     * @Deprecated Use the getBinaryConversionMultipliers() method in the ConvertUOM class instead
+     * Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure
+     *     in CONVERTUOM().
+     *
+     * @Deprecated 1.16.0
+     *
+     * @see Use the getBinaryConversionMultipliers() method in the ConvertUOM class instead
      *
      * @return array of mixed
+     *
+     * @codeCoverageIgnore
      */
     public static function getBinaryConversionMultipliers()
     {
@@ -1379,13 +1507,17 @@ class Engineering
      *    Excel Function:
      *        CONVERT(value,fromUOM,toUOM)
      *
-     * @Deprecated Use the CONVERT() method in the ConvertUOM class instead
+     * @Deprecated 1.16.0
+     *
+     * @see Use the CONVERT() method in the ConvertUOM class instead
      *
      * @param float|int $value the value in fromUOM to convert
      * @param string $fromUOM the units for value
      * @param string $toUOM the units for the result
      *
      * @return float|string
+     *
+     * @codeCoverageIgnore
      */
     public static function CONVERTUOM($value, $fromUOM, $toUOM)
     {
