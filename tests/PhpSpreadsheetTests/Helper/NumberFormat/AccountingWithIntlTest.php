@@ -24,11 +24,11 @@ class AccountingWithIntlTest extends TestCase
             self::markTestSkipped('The Intl extension does not support Accounting Formats without ICU 53');
         }
 
-        $mask = (new NumberFormatter('en_US.UTF8@currency=USD', NumberFormatter::CURRENCY_ACCOUNTING))
-            ->getPattern();
-        if (strpos($mask, '(') === false) {
-            self::markTestSkipped('The Intl extension does not support bracketed Accounting Formats');
-        }
+//        $mask = (new NumberFormatter('en_US.UTF8@currency=USD', NumberFormatter::CURRENCY_ACCOUNTING))
+//            ->getPattern();
+//        if (strpos($mask, '(') === false) {
+//            self::markTestSkipped('The Intl extension does not support bracketed Accounting Formats');
+//        }
     }
 
     /**
