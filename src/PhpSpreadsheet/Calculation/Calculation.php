@@ -283,7 +283,7 @@ class Calculation
         ],
         'AND' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical::class, 'logicalAnd'],
+            'functionCall' => [Logical\Operations::class, 'logicalAnd'],
             'argumentCount' => '1+',
         ],
         'ARABIC' => [
@@ -999,7 +999,7 @@ class Calculation
         ],
         'FALSE' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical::class, 'FALSE'],
+            'functionCall' => [Logical\Boolean::class, 'FALSE'],
             'argumentCount' => '0',
         ],
         'FDIST' => [
@@ -1815,7 +1815,7 @@ class Calculation
         ],
         'NOT' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical::class, 'NOT'],
+            'functionCall' => [Logical\Operations::class, 'NOT'],
             'argumentCount' => '1',
         ],
         'NOW' => [
@@ -1887,7 +1887,7 @@ class Calculation
         ],
         'OR' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical::class, 'logicalOr'],
+            'functionCall' => [Logical\Operations::class, 'logicalOr'],
             'argumentCount' => '1+',
         ],
         'PDURATION' => [
@@ -2619,7 +2619,7 @@ class Calculation
         ],
         'XOR' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical::class, 'logicalXor'],
+            'functionCall' => [Logical\Operations::class, 'logicalXor'],
             'argumentCount' => '1+',
         ],
         'YEAR' => [
