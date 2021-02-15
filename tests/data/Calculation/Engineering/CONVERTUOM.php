@@ -139,6 +139,24 @@ return [
         'K',
         'Reau',
     ],
+    'Melting Point of Titanium (Rankine to K)' => [
+        1941,
+        3493.8,
+        'Rank',
+        'K',
+    ],
+    'Melting Point of Titanium (K to Réaumur)' => [
+        1334.28,
+        1941,
+        'K',
+        'Reau',
+    ],
+    'Melting Point of Titanium (Réaumur to K)' => [
+        1941,
+        1334.28,
+        'Reau',
+        'K',
+    ],
     'Temperature synonyms (K)' => [
         123.45,
         123.45,
@@ -216,5 +234,17 @@ return [
         1,
         'kibyte',
         'byte',
+    ],
+    '2-character-binary prefix Slug (invalid) to slug' => [
+        '#N/A',
+        100.0,
+        'Yisg',
+        'sg',
+    ],
+    '2-character prefix Slug (invalid) to slug' => [
+        '#N/A',
+        100.0,
+        'dasg',
+        'sg',
     ],
 ];

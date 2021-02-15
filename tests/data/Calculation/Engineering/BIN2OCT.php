@@ -17,26 +17,22 @@ return [
     // Leading places
     [
         '011',
-        '1001',
-        3,
+        '1001, 3',
     ],
     // Leading places as a float
     [
         '0011',
-        '1001',
-        4.75,
+        '1001, 4.75',
     ],
     // Leading places negative
     [
         '#NUM!',
-        '1001',
-        -1,
+        '1001, -1',
     ],
     // Leading places non-numeric
     [
         '#VALUE!',
-        '1001',
-        'ABC',
+        '1001, "ABC"',
     ],
     [
         '2',
@@ -59,10 +55,15 @@ return [
         '#NUM!',
         '21',
     ],
-    // Non string
+    // Boolean okay for ODS, not for others
     [
         '#VALUE!',
-        true,
+        'true',
+    ],
+    // Boolean okay for ODS, not for others
+    [
+        '#VALUE!',
+        'false',
     ],
     // 2's Complement
     [
@@ -74,4 +75,14 @@ return [
         '7777777777',
         '1111111111',
     ],
+    ['0003', '11, 4'],
+    ['#NUM!', '11, 0'],
+    ['#NUM!', '11, -1'],
+    ['#NUM!', '11, 14'],
+    ['#NUM!', '10001, 1'],
+    ['21', '10001, 2'],
+    [5, 'A2'],
+    ['#NUM!', '"A2"'],
+    [0, 'A3'],
+    ['exception', ''],
 ];
