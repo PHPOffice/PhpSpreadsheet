@@ -70,11 +70,11 @@ class Currency extends Number
     }
 
     private const IDENTIFY_LEADING_SIGN = '/' .
-        '-' . Number::NON_BREAKING_SPACE . '?[0|#]' .
+        '-' . self::NON_BREAKING_SPACE . '?[0|#]' .
         '/u';
 
     private const IDENTIFY_TRAILING_SIGN = '/' .
-        '[0|#]' . Number::NON_BREAKING_SPACE . '?-' .
+        '[0|#]' . self::NON_BREAKING_SPACE . '?-' .
         '/u';
 
     protected function identifySignPosition(): void
@@ -87,16 +87,16 @@ class Currency extends Number
         $padded = !empty($matches) && mb_strlen($matches[0]) > 2;
 
         if ($hasLeadingSign || $hasTrailingSign) {
-            $this->trailingSign($hasTrailingSign, $padded ? Number::NON_BREAKING_SPACE : '');
+            $this->trailingSign($hasTrailingSign, $padded ? self::NON_BREAKING_SPACE : '');
         }
     }
 
     private const IDENTIFY_LEADING_SYMBOL = '/' .
-        self::CURRENCYCODE_PLACEHOLDER . Number::NON_BREAKING_SPACE . '?' . '[-|0|#]' .
+        self::CURRENCYCODE_PLACEHOLDER . self::NON_BREAKING_SPACE . '?' . '[-|0|#]' .
         '/u';
 
     private const IDENTIFY_TRAILING_SYMBOL = '/' .
-        '[-|0|#]' . Number::NON_BREAKING_SPACE . '?' . self::CURRENCYCODE_PLACEHOLDER .
+        '[-|0|#]' . self::NON_BREAKING_SPACE . '?' . self::CURRENCYCODE_PLACEHOLDER .
         '/u';
 
     protected function identifyCurrencySymbolPosition(): void
@@ -108,7 +108,7 @@ class Currency extends Number
         $padded = !empty($matches) && mb_strlen($matches[0]) > 2;
 
         $this->leading = $hasLeadingSymbol;
-        $this->currencySeparator = $padded ? Number::NON_BREAKING_SPACE : '';
+        $this->currencySeparator = $padded ? self::NON_BREAKING_SPACE : '';
     }
 
     public function setCurrencySymbol(string $symbol, ?bool $leading = null, ?string $separator = null): void
@@ -130,7 +130,7 @@ class Currency extends Number
     }
 
     protected const SYMBOL_PATTERN_MASK = '/' .
-        Number::NON_BREAKING_SPACE . '?' . self::CURRENCYCODE_PLACEHOLDER . Number::NON_BREAKING_SPACE . '?' .
+        self::NON_BREAKING_SPACE . '?' . self::CURRENCYCODE_PLACEHOLDER . self::NON_BREAKING_SPACE . '?' .
         '/u';
 
     protected function setSymbolMask(string $maskSet): string

@@ -51,7 +51,7 @@ class Accounting extends Currency
     {
         return ($this->decimals === 0)
             ? '"-"'
-            : '"-"' . str_repeat('?', $this->decimals);
+            : '"-"' . str_repeat(self::DIGIT_POSITIONAL, $this->decimals);
     }
 
     protected function useIntlFormatMask(): string

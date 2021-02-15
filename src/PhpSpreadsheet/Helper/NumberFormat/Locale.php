@@ -23,10 +23,10 @@ class Locale
         }
 
         $this->language = $language;
-        $this->countryCode = strtoupper($countryCode);
 
         $this->locale = $language;
         if ($countryCode !== null) {
+            $this->countryCode = strtoupper($countryCode);
             $this->locale .= self::LOCALE_SEPARATOR . $this->countryCode;
         }
     }
@@ -41,7 +41,7 @@ class Locale
         return $this->language;
     }
 
-    public function getCountryCode(): string
+    public function getCountryCode(): ?string
     {
         return $this->countryCode;
     }
