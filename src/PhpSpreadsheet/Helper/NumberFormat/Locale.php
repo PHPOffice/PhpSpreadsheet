@@ -10,14 +10,13 @@ class Locale
 
     protected $language;
 
-    protected $countryCode;
+    protected $countryCode = 'US';
 
     public function __construct(string $locale = 'en_US')
     {
         $locale = strtolower(strtok($locale, '@. '));
 
         $language = $locale;
-        $countryCode = 'US';
         if (strpos($locale, self::LOCALE_SEPARATOR) !== false) {
             [$language, $countryCode] = explode(self::LOCALE_SEPARATOR, $locale);
         }
@@ -25,7 +24,7 @@ class Locale
         $this->language = $language;
 
         $this->locale = $language;
-        if ($countryCode !== null) {
+        if (!empty($countryCode)) {
             $this->countryCode = strtoupper($countryCode);
             $this->locale .= self::LOCALE_SEPARATOR . $this->countryCode;
         }
@@ -41,7 +40,7 @@ class Locale
         return $this->language;
     }
 
-    public function getCountryCode(): ?string
+    public function getCountryCode(): string
     {
         return $this->countryCode;
     }

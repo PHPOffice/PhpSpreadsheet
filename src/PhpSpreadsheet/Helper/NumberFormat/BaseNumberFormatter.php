@@ -21,6 +21,8 @@ abstract class BaseNumberFormatter
     protected const MASK_NEGATIVE_VALUE = 1;
     protected const MASK_ZERO_VALUE = 2;
 
+    abstract protected function zeroValueMask(): string;
+
     protected function setZeroValueMask(string $positiveMask): string
     {
         $zeroMask = $this->zeroValueMask();
