@@ -359,7 +359,9 @@ class Style extends Supervisor
                         $cellIterator = $columnIterator->getCellIterator();
                         $cellIterator->setIterateOnlyExistingCells(true);
                         foreach ($cellIterator as $columnCell) {
-                            $columnCell->getStyle()->applyFromArray($pStyles);
+                            if ($columnCell !== null) {
+                                $columnCell->getStyle()->applyFromArray($pStyles);
+                            }
                         }
                     }
 
@@ -377,7 +379,9 @@ class Style extends Supervisor
                         $cellIterator = $rowIterator->getCellIterator();
                         $cellIterator->setIterateOnlyExistingCells(true);
                         foreach ($cellIterator as $rowCell) {
-                            $rowCell->getStyle()->applyFromArray($pStyles);
+                            if ($rowCell !== null) {
+                                $rowCell->getStyle()->applyFromArray($pStyles);
+                            }
                         }
                     }
 
