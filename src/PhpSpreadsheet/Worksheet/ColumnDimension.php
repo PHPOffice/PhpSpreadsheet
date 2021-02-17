@@ -63,8 +63,6 @@ class ColumnDimension extends Dimension
 
     /**
      * Get Width.
-     *
-     * @return float
      */
     public function getWidth(): float
     {
@@ -73,8 +71,6 @@ class ColumnDimension extends Dimension
 
     /**
      * Set Width.
-     *
-     * @param float $width
      *
      * @return $this
      */
