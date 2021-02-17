@@ -47,8 +47,6 @@ class Iterator implements \Iterator
 
     /**
      * Current Worksheet.
-     *
-     * @return Worksheet
      */
     public function current(): Worksheet
     {
@@ -57,8 +55,6 @@ class Iterator implements \Iterator
 
     /**
      * Current key.
-     *
-     * @return int
      */
     public function key(): int
     {

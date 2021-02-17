@@ -41,8 +41,6 @@ class Row
 
     /**
      * Get row index.
-     *
-     * @return int
      */
     public function getRowIndex(): int
     {
@@ -64,8 +62,6 @@ class Row
 
     /**
      * Returns bound worksheet.
-     *
-     * @return Worksheet
      */
     public function getWorksheet(): Worksheet
     {

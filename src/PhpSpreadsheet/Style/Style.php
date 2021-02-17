@@ -367,7 +367,7 @@ class Style extends Supervisor
                 case 'ROW':
                     $oldXfIndexes = [];
                     for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
-                        if ($this->getActiveSheet()->getRowDimension($row)->getXfIndex() == null) {
+                        if ($this->getActiveSheet()->getRowDimension($row)->getXfIndex() === null) {
                             $oldXfIndexes[0] = true; // row without explicit style should be formatted based on default style
                         } else {
                             $oldXfIndexes[$this->getActiveSheet()->getRowDimension($row)->getXfIndex()] = true;

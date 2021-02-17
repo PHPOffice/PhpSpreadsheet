@@ -43,8 +43,6 @@ class RowDimension extends Dimension
 
     /**
      * Get Row Index.
-     *
-     * @return int
      */
     public function getRowIndex(): int
     {
@@ -53,8 +51,6 @@ class RowDimension extends Dimension
 
     /**
      * Set Row Index.
-     *
-     * @param int $index
      *
      * @return $this
      */
@@ -91,8 +87,6 @@ class RowDimension extends Dimension
 
     /**
      * Get ZeroHeight.
-     *
-     * @return bool
      */
     public function getZeroHeight(): bool
     {
@@ -101,8 +95,6 @@ class RowDimension extends Dimension
 
     /**
      * Set ZeroHeight.
-     *
-     * @param bool $pValue
      *
      * @return $this
      */

@@ -47,8 +47,6 @@ abstract class Dimension
 
     /**
      * Get Visible.
-     *
-     * @return bool
      */
     public function getVisible(): bool
     {
@@ -57,8 +55,6 @@ abstract class Dimension
 
     /**
      * Set Visible.
-     *
-     * @param bool $visible
      *
      * @return $this
      */
@@ -71,8 +67,6 @@ abstract class Dimension
 
     /**
      * Get Outline Level.
-     *
-     * @return int
      */
     public function getOutlineLevel(): int
     {
@@ -82,8 +76,6 @@ abstract class Dimension
     /**
      * Set Outline Level.
      * Value must be between 0 and 7.
-     *
-     * @param int $level
      *
      * @return $this
      */
@@ -100,8 +92,6 @@ abstract class Dimension
 
     /**
      * Get Collapsed.
-     *
-     * @return bool
      */
     public function getCollapsed(): bool
     {
@@ -110,8 +100,6 @@ abstract class Dimension
 
     /**
      * Set Collapsed.
-     *
-     * @param bool $collapsed
      *
      * @return $this
      */
@@ -134,8 +122,6 @@ abstract class Dimension
 
     /**
      * Set index to cellXf.
-     *
-     * @param int $pValue
      *
      * @return $this
      */

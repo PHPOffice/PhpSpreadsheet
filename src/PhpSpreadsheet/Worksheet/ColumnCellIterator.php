@@ -114,18 +114,14 @@ class ColumnCellIterator extends CellIterator
 
     /**
      * Return the current cell in this worksheet column.
-     *
-     * @return \PhpOffice\PhpSpreadsheet\Cell\Cell
      */
-    public function current(): Cell
+    public function current(): ?Cell
     {
         return $this->worksheet->getCellByColumnAndRow($this->columnIndex, $this->currentRow);
     }
 
     /**
      * Return the current iterator key.
-     *
-     * @return int
      */
     public function key(): int
     {
@@ -162,8 +158,6 @@ class ColumnCellIterator extends CellIterator
 
     /**
      * Indicate if more rows exist in the worksheet range of rows that we're iterating.
-     *
-     * @return bool
      */
     public function valid(): bool
     {

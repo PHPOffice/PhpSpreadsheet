@@ -117,18 +117,14 @@ class RowCellIterator extends CellIterator
 
     /**
      * Return the current cell in this worksheet row.
-     *
-     * @return Cell
      */
-    public function current(): Cell
+    public function current(): ?Cell
     {
         return $this->worksheet->getCellByColumnAndRow($this->currentColumnIndex, $this->rowIndex);
     }
 
     /**
      * Return the current iterator key.
-     *
-     * @return string
      */
     public function key(): string
     {
@@ -167,8 +163,6 @@ class RowCellIterator extends CellIterator
 
     /**
      * Return the current iterator position.
-     *
-     * @return int
      */
     public function getCurrentColumnIndex(): int
     {

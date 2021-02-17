@@ -133,8 +133,6 @@ class RowIterator implements Iterator
 
     /**
      * Return the current iterator key.
-     *
-     * @return int
      */
     public function key(): int
     {
@@ -159,8 +157,6 @@ class RowIterator implements Iterator
 
     /**
      * Indicate if more rows exist in the worksheet range of rows that we're iterating.
-     *
-     * @return bool
      */
     public function valid(): bool
     {

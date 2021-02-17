@@ -43,8 +43,6 @@ class ColumnDimension extends Dimension
 
     /**
      * Get column index as string eg: 'A'.
-     *
-     * @return string
      */
     public function getColumnIndex(): string
     {
@@ -53,8 +51,6 @@ class ColumnDimension extends Dimension
 
     /**
      * Set column index as string eg: 'A'.
-     *
-     * @param string $index
      *
      * @return $this
      */
@@ -91,8 +87,6 @@ class ColumnDimension extends Dimension
 
     /**
      * Get Auto Size.
-     *
-     * @return bool
      */
     public function getAutoSize(): bool
     {
@@ -101,8 +95,6 @@ class ColumnDimension extends Dimension
 
     /**
      * Set Auto Size.
-     *
-     * @param bool $autosizeEnabled
      *
      * @return $this
      */

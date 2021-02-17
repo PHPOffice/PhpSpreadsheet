@@ -140,8 +140,6 @@ class ColumnIterator implements Iterator
 
     /**
      * Return the current iterator key.
-     *
-     * @return string
      */
     public function key(): string
     {
@@ -166,8 +164,6 @@ class ColumnIterator implements Iterator
 
     /**
      * Indicate if more columns exist in the worksheet range of columns that we're iterating.
-     *
-     * @return bool
      */
     public function valid(): bool
     {

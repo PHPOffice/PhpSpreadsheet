@@ -41,8 +41,6 @@ class Column
 
     /**
      * Get column index as string eg: 'A'.
-     *
-     * @return string
      */
     public function getColumnIndex(): string
     {

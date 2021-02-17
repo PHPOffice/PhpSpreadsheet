@@ -30,8 +30,6 @@ abstract class CellIterator implements Iterator
 
     /**
      * Get loop only existing cells.
-     *
-     * @return bool
      */
     public function getIterateOnlyExistingCells(): bool
     {
@@ -45,8 +43,6 @@ abstract class CellIterator implements Iterator
 
     /**
      * Set the iterator to loop only existing cells.
-     *
-     * @param bool $value
      */
     public function setIterateOnlyExistingCells(bool $value): void
     {
