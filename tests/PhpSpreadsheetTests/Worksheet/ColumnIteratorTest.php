@@ -81,4 +81,13 @@ class ColumnIteratorTest extends TestCase
         $iterator->prev();
         self::assertFalse($iterator->valid());
     }
+
+
+    public function testResetStartOutOfRange(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
+        $iterator = new ColumnIterator($this->mockWorksheet, 'B', 'D');
+        $iterator->resetStart('H');
+    }
 }
