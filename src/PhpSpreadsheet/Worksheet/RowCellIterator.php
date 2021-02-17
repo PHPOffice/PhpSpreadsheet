@@ -78,7 +78,7 @@ class RowCellIterator extends CellIterator
      */
     public function resetEnd($endColumn = null)
     {
-        $endColumn = $endColumn ? $endColumn : $this->worksheet->getHighestColumn();
+        $endColumn = $endColumn ?: $this->worksheet->getHighestColumn();
         $this->endColumnIndex = Coordinate::columnIndexFromString($endColumn);
         $this->adjustForExistingOnlyRange();
 

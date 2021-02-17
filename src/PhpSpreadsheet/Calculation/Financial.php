@@ -2270,7 +2270,7 @@ class Financial
         // create an initial range, with a root somewhere between 0 and guess
         $guess = Functions::flattenSingleValue($guess);
         $x1 = 0.0;
-        $x2 = $guess ? $guess : 0.1;
+        $x2 = $guess ?: 0.1;
         $f1 = self::xnpvOrdered($x1, $values, $dates, false);
         $f2 = self::xnpvOrdered($x2, $values, $dates, false);
         $found = false;
@@ -2306,12 +2306,12 @@ class Financial
      *
      * @param float $rate the discount rate to apply to the cash flows
      * @param float[] $values     A series of cash flows that corresponds to a schedule of payments in dates.
-     *                                         The first payment is optional and corresponds to a cost or payment that occurs at the beginning of the investment.
-     *                                         If the first value is a cost or payment, it must be a negative value. All succeeding payments are discounted based on a 365-day year.
-     *                                         The series of values must contain at least one positive value and one negative value.
+     *                                 The first payment is optional and corresponds to a cost or payment that occurs at the beginning of the investment.
+     *                                 If the first value is a cost or payment, it must be a negative value. All succeeding payments are discounted based on a 365-day year.
+     *                                 The series of values must contain at least one positive value and one negative value.
      * @param mixed[] $dates      A schedule of payment dates that corresponds to the cash flow payments.
-     *                                         The first payment date indicates the beginning of the schedule of payments.
-     *                                         All other dates must be later than this date, but they may occur in any order.
+     *                                 The first payment date indicates the beginning of the schedule of payments.
+     *                                 All other dates must be later than this date, but they may occur in any order.
      *
      * @return float|mixed|string
      */

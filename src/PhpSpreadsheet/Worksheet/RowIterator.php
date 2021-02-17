@@ -91,7 +91,7 @@ class RowIterator implements Iterator
      */
     public function resetEnd($endRow = null)
     {
-        $this->endRow = ($endRow) ? $endRow : $this->subject->getHighestRow();
+        $this->endRow = $endRow ?: $this->subject->getHighestRow();
 
         return $this;
     }

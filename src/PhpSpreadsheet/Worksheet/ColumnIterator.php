@@ -94,7 +94,7 @@ class ColumnIterator implements Iterator
      */
     public function resetEnd($endColumn = null)
     {
-        $endColumn = $endColumn ? $endColumn : $this->worksheet->getHighestColumn();
+        $endColumn = $endColumn ?: $this->worksheet->getHighestColumn();
         $this->endColumnIndex = Coordinate::columnIndexFromString($endColumn);
 
         return $this;
