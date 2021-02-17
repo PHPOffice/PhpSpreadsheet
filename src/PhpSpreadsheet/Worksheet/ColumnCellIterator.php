@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
@@ -59,7 +60,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function resetStart($startRow = 1)
+    public function resetStart(int $startRow = 1)
     {
         $this->startRow = $startRow;
         $this->adjustForExistingOnlyRange();
@@ -90,7 +91,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function seek($row = 1)
+    public function seek(int $row = 1)
     {
         if ($this->onlyExistingCells && !($this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $row))) {
             throw new PhpSpreadsheetException('In "IterateOnlyExistingCells" mode and Cell does not exist');
@@ -116,7 +117,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @return \PhpOffice\PhpSpreadsheet\Cell\Cell
      */
-    public function current()
+    public function current(): Cell
     {
         return $this->worksheet->getCellByColumnAndRow($this->columnIndex, $this->currentRow);
     }
@@ -126,7 +127,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @return int
      */
-    public function key()
+    public function key(): int
     {
         return $this->currentRow;
     }
@@ -164,7 +165,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->currentRow <= $this->endRow && $this->currentRow >= $this->startRow;
     }

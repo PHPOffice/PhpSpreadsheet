@@ -33,7 +33,7 @@ abstract class CellIterator implements Iterator
      *
      * @return bool
      */
-    public function getIterateOnlyExistingCells()
+    public function getIterateOnlyExistingCells(): bool
     {
         return $this->onlyExistingCells;
     }
@@ -48,7 +48,7 @@ abstract class CellIterator implements Iterator
      *
      * @param bool $value
      */
-    public function setIterateOnlyExistingCells($value): void
+    public function setIterateOnlyExistingCells(bool $value): void
     {
         $this->onlyExistingCells = (bool) $value;
 

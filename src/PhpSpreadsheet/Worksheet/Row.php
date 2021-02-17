@@ -44,7 +44,7 @@ class Row
      *
      * @return int
      */
-    public function getRowIndex()
+    public function getRowIndex(): int
     {
         return $this->rowIndex;
     }
@@ -67,7 +67,7 @@ class Row
      *
      * @return Worksheet
      */
-    public function getWorksheet()
+    public function getWorksheet(): Worksheet
     {
         return $this->worksheet;
     }

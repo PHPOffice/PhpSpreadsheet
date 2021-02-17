@@ -67,11 +67,13 @@ class ColumnIterator implements Iterator
      *
      * @return $this
      */
-    public function resetStart($startColumn = 'A')
+    public function resetStart(string $startColumn = 'A')
     {
         $startColumnIndex = Coordinate::columnIndexFromString($startColumn);
         if ($startColumnIndex > Coordinate::columnIndexFromString($this->worksheet->getHighestColumn())) {
-            throw new Exception("Start column ({$startColumn}) is beyond highest column ({$this->worksheet->getHighestColumn()})");
+            throw new Exception(
+                "Start column ({$startColumn}) is beyond highest column ({$this->worksheet->getHighestColumn()})"
+            );
         }
 
         $this->startColumnIndex = $startColumnIndex;
@@ -105,11 +107,13 @@ class ColumnIterator implements Iterator
      *
      * @return $this
      */
-    public function seek($column = 'A')
+    public function seek(string $column = 'A')
     {
         $column = Coordinate::columnIndexFromString($column);
         if (($column < $this->startColumnIndex) || ($column > $this->endColumnIndex)) {
-            throw new PhpSpreadsheetException("Column $column is out of range ({$this->startColumnIndex} - {$this->endColumnIndex})");
+            throw new PhpSpreadsheetException(
+                "Column $column is out of range ({$this->startColumnIndex} - {$this->endColumnIndex})"
+            );
         }
         $this->currentColumnIndex = $column;
 
@@ -139,7 +143,7 @@ class ColumnIterator implements Iterator
      *
      * @return string
      */
-    public function key()
+    public function key(): string
     {
         return Coordinate::stringFromColumnIndex($this->currentColumnIndex);
     }
@@ -165,7 +169,7 @@ class ColumnIterator implements Iterator
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->currentColumnIndex <= $this->endColumnIndex && $this->currentColumnIndex >= $this->startColumnIndex;
     }

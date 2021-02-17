@@ -59,9 +59,9 @@ class SubTotalTest extends TestCase
 
     protected function rowVisibility()
     {
-        $data = [1 => false, 2 => true, 3 => false, 4 => true, 5 => false, 6 => false, 7 => false, 8 => true, 9 => false, 10 => true, 11 => true];
-        foreach ($data as $k => $v) {
-            yield $k => $v;
+        $data = [1 => false, 2 => true, 3 => false, 4 => true, 5 => false, 6 => false, 7 => false, 8 => true, 9 => false, 10 => true, 11 => true, 12 => false];
+        foreach ($data as $row => $visibility) {
+            yield $row => $visibility;
         }
     }
 

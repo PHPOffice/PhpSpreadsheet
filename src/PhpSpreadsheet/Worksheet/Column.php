@@ -44,7 +44,7 @@ class Column
      *
      * @return string
      */
-    public function getColumnIndex()
+    public function getColumnIndex(): string
     {
         return $this->columnIndex;
     }
