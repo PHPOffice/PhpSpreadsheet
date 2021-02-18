@@ -200,6 +200,7 @@ class AdvancedValueBinderTest extends TestCase
             ['10%', 0.1, NumberFormat::FORMAT_PERCENTAGE_00],
             ['-12%', -0.12, NumberFormat::FORMAT_PERCENTAGE_00],
             ['120%', 1.2, NumberFormat::FORMAT_PERCENTAGE_00],
+            ['12.5%', 0.125, NumberFormat::FORMAT_PERCENTAGE_00],
         ];
     }
 
