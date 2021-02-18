@@ -77,7 +77,7 @@ class RowIteratorTest extends TestCase
         while ($iterator->valid() !== false) {
             $iterator->next();
             $lastRow = $iterator->key();
-        };
+        }
         self::assertSame(6, $lastRow);
     }
 

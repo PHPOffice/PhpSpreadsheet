@@ -79,7 +79,7 @@ class ColumnIteratorTest extends TestCase
         while ($iterator->valid() !== false) {
             $iterator->next();
             $lastColumn = $iterator->key();
-        };
+        }
         self::assertSame('F', $lastColumn);
     }
 
