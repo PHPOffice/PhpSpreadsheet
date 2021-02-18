@@ -33,7 +33,7 @@ class Database
         }
         $key = array_search($field, $fieldNames);
 
-        return ($key) ? $key : null;
+        return $key ?: null;
     }
 
     /**

@@ -43,10 +43,8 @@ class ColumnDimension extends Dimension
 
     /**
      * Get column index as string eg: 'A'.
-     *
-     * @return string
      */
-    public function getColumnIndex()
+    public function getColumnIndex(): string
     {
         return $this->columnIndex;
     }
@@ -54,23 +52,19 @@ class ColumnDimension extends Dimension
     /**
      * Set column index as string eg: 'A'.
      *
-     * @param string $pValue
-     *
      * @return $this
      */
-    public function setColumnIndex($pValue)
+    public function setColumnIndex(string $index)
     {
-        $this->columnIndex = $pValue;
+        $this->columnIndex = $index;
 
         return $this;
     }
 
     /**
      * Get Width.
-     *
-     * @return float
      */
-    public function getWidth()
+    public function getWidth(): float
     {
         return $this->width;
     }
@@ -78,23 +72,19 @@ class ColumnDimension extends Dimension
     /**
      * Set Width.
      *
-     * @param float $pValue
-     *
      * @return $this
      */
-    public function setWidth($pValue)
+    public function setWidth(float $width)
     {
-        $this->width = $pValue;
+        $this->width = $width;
 
         return $this;
     }
 
     /**
      * Get Auto Size.
-     *
-     * @return bool
      */
-    public function getAutoSize()
+    public function getAutoSize(): bool
     {
         return $this->autoSize;
     }
@@ -102,13 +92,11 @@ class ColumnDimension extends Dimension
     /**
      * Set Auto Size.
      *
-     * @param bool $pValue
-     *
      * @return $this
      */
-    public function setAutoSize($pValue)
+    public function setAutoSize(bool $autosizeEnabled)
     {
-        $this->autoSize = $pValue;
+        $this->autoSize = $autosizeEnabled;
 
         return $this;
     }

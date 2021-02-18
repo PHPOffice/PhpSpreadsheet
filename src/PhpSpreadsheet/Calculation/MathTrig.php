@@ -146,8 +146,8 @@ class MathTrig
         $xCoordinate = Functions::flattenSingleValue($xCoordinate);
         $yCoordinate = Functions::flattenSingleValue($yCoordinate);
 
-        $xCoordinate = ($xCoordinate !== null) ? $xCoordinate : 0.0;
-        $yCoordinate = ($yCoordinate !== null) ? $yCoordinate : 0.0;
+        $xCoordinate = $xCoordinate ?? 0.0;
+        $yCoordinate = $yCoordinate ?? 0.0;
 
         if (
             ((is_numeric($xCoordinate)) || (is_bool($xCoordinate))) &&

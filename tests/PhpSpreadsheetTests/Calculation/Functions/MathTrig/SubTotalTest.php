@@ -57,11 +57,10 @@ class SubTotalTest extends TestCase
         return require 'tests/data/Calculation/MathTrig/SUBTOTAL.php';
     }
 
-    protected function rowVisibility()
+    protected function rowVisibility($data)
     {
-        $data = [1 => false, 2 => true, 3 => false, 4 => true, 5 => false, 6 => false, 7 => false, 8 => true, 9 => false, 10 => true, 11 => true];
-        foreach ($data as $k => $v) {
-            yield $k => $v;
+        foreach ($data as $row => $visibility) {
+            yield $row => $visibility;
         }
     }
 
@@ -69,10 +68,11 @@ class SubTotalTest extends TestCase
      * @dataProvider providerHiddenSUBTOTAL
      *
      * @param mixed $expectedResult
+     * @param mixed $hiddenRows
      */
-    public function testHiddenSUBTOTAL($expectedResult, ...$args): void
+    public function testHiddenSUBTOTAL($expectedResult, $hiddenRows, ...$args): void
     {
-        $visibilityGenerator = $this->rowVisibility();
+        $visibilityGenerator = $this->rowVisibility($hiddenRows);
 
         $rowDimension = $this->getMockBuilder(RowDimension::class)
             ->setMethods(['getVisible'])

@@ -65,10 +65,12 @@ class RowIterator implements Iterator
      *
      * @return $this
      */
-    public function resetStart($startRow = 1)
+    public function resetStart(int $startRow = 1)
     {
         if ($startRow > $this->subject->getHighestRow()) {
-            throw new PhpSpreadsheetException("Start row ({$startRow}) is beyond highest row ({$this->subject->getHighestRow()})");
+            throw new PhpSpreadsheetException(
+                "Start row ({$startRow}) is beyond highest row ({$this->subject->getHighestRow()})"
+            );
         }
 
         $this->startRow = $startRow;
@@ -89,7 +91,7 @@ class RowIterator implements Iterator
      */
     public function resetEnd($endRow = null)
     {
-        $this->endRow = ($endRow) ? $endRow : $this->subject->getHighestRow();
+        $this->endRow = $endRow ?: $this->subject->getHighestRow();
 
         return $this;
     }
@@ -101,7 +103,7 @@ class RowIterator implements Iterator
      *
      * @return $this
      */
-    public function seek($row = 1)
+    public function seek(int $row = 1)
     {
         if (($row < $this->startRow) || ($row > $this->endRow)) {
             throw new PhpSpreadsheetException("Row $row is out of range ({$this->startRow} - {$this->endRow})");
@@ -131,10 +133,8 @@ class RowIterator implements Iterator
 
     /**
      * Return the current iterator key.
-     *
-     * @return int
      */
-    public function key()
+    public function key(): int
     {
         return $this->position;
     }
@@ -157,10 +157,8 @@ class RowIterator implements Iterator
 
     /**
      * Indicate if more rows exist in the worksheet range of rows that we're iterating.
-     *
-     * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->position <= $this->endRow && $this->position >= $this->startRow;
     }
