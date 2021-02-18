@@ -1703,7 +1703,8 @@ class Xls extends BaseReader
                 //        max 2048 bytes will probably throw a wobbly.
                 $row = self::getUInt2d($recordData, 0);
                 $extension = true;
-                $cellAddress = array_pop(array_keys($this->phpSheet->getComments()));
+                $arrayKeys = array_keys($this->phpSheet->getComments());
+                $cellAddress = array_pop($arrayKeys);
             }
 
             $cellAddress = str_replace('$', '', $cellAddress);

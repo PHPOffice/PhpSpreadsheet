@@ -427,8 +427,8 @@ class Style extends Supervisor
                 case 'ROW':
                     for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
                         $rowDimension = $this->getActiveSheet()->getRowDimension($row);
-                        $oldXfIndex = $rowDimension->getXfIndex() === null ?
-                            0 : $rowDimension->getXfIndex(); // row without explicit style should be formatted based on default style
+                        // row without explicit style should be formatted based on default style
+                        $oldXfIndex = $rowDimension->getXfIndex() ?? 0;
                         $rowDimension->setXfIndex($newXfIndexes[$oldXfIndex]);
                     }
 

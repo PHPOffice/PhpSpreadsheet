@@ -657,7 +657,7 @@ class Gnumeric extends BaseReader
         $column = $columnAttributes['No'];
         $columnWidth = ((float) $columnAttributes['Unit']) / 5.4;
         $hidden = (isset($columnAttributes['Hidden'])) && ((string) $columnAttributes['Hidden'] == '1');
-        $columnCount = (isset($columnAttributes['Count'])) ? $columnAttributes['Count'] : 1;
+        $columnCount = $columnAttributes['Count'] ?? 1;
         while ($c < $column) {
             $this->spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c + 1))->setWidth($defaultWidth);
             ++$c;
@@ -696,7 +696,7 @@ class Gnumeric extends BaseReader
         $row = $rowAttributes['No'];
         $rowHeight = (float) $rowAttributes['Unit'];
         $hidden = (isset($rowAttributes['Hidden'])) && ((string) $rowAttributes['Hidden'] == '1');
-        $rowCount = (isset($rowAttributes['Count'])) ? $rowAttributes['Count'] : 1;
+        $rowCount = $rowAttributes['Count'] ?? 1;
         while ($r < $row) {
             ++$r;
             $this->spreadsheet->getActiveSheet()->getRowDimension($r)->setRowHeight($defaultHeight);

@@ -516,7 +516,7 @@ class Xlsx extends BaseReader
                             }
 
                             $style = (object) [
-                                'numFmt' => $numFmt === null ? NumberFormat::FORMAT_GENERAL : $numFmt,
+                                'numFmt' => $numFmt ?? NumberFormat::FORMAT_GENERAL,
                                 'font' => $xmlStyles->fonts->font[(int) ($xf['fontId'])],
                                 'fill' => $xmlStyles->fills->fill[(int) ($xf['fillId'])],
                                 'border' => $xmlStyles->borders->border[(int) ($xf['borderId'])],

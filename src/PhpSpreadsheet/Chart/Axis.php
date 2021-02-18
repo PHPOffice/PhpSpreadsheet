@@ -340,9 +340,9 @@ class Axis extends Properties
     {
         $this->setShadowPresetsProperties((int) $sh_presets)
             ->setShadowColor(
-                $sh_color_value === null ? $this->shadowProperties['color']['value'] : $sh_color_value,
-                $sh_color_alpha === null ? (int) $this->shadowProperties['color']['alpha'] : $sh_color_alpha,
-                $sh_color_type === null ? $this->shadowProperties['color']['type'] : $sh_color_type
+                $sh_color_value ?? $this->shadowProperties['color']['value'],
+                $sh_color_alpha ?? (int) $this->shadowProperties['color']['alpha'],
+                $sh_color_type ?? $this->shadowProperties['color']['type']
             )
             ->setShadowBlur($sh_blur)
             ->setShadowAngle($sh_angle)
@@ -482,9 +482,9 @@ class Axis extends Properties
     {
         $this->setGlowSize($size)
             ->setGlowColor(
-                $color_value === null ? $this->glowProperties['color']['value'] : $color_value,
-                $color_alpha === null ? (int) $this->glowProperties['color']['alpha'] : $color_alpha,
-                $color_type === null ? $this->glowProperties['color']['type'] : $color_type
+                $color_value ?? $this->glowProperties['color']['value'],
+                $color_alpha ?? (int) $this->glowProperties['color']['alpha'],
+                $color_type ?? $this->glowProperties['color']['type']
             );
     }
 
