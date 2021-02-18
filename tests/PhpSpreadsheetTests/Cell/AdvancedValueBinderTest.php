@@ -33,25 +33,8 @@ class AdvancedValueBinderTest extends TestCase
         StringHelper::setThousandsSeparator($this->thousandsSeparator);
     }
 
-    public function provider()
-    {
-        $currencyUSD = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
-        $currencyEURO = str_replace('$', '€', NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
-
-        return [
-            ['10%', 0.1, NumberFormat::FORMAT_PERCENTAGE_00, ',', '.', '$'],
-            ['$10.11', 10.11, $currencyUSD, ',', '.', '$'],
-            ['$1,010.12', 1010.12, $currencyUSD, ',', '.', '$'],
-            ['$20,20', 20.2, $currencyUSD, '.', ',', '$'],
-            ['$2.020,20', 2020.2, $currencyUSD, '.', ',', '$'],
-            ['€2.020,20', 2020.2, $currencyEURO, '.', ',', '€'],
-            ['€ 2.020,20', 2020.2, $currencyEURO, '.', ',', '€'],
-            ['€2,020.22', 2020.22, $currencyEURO, ',', '.', '€'],
-        ];
-    }
-
     /**
-     * @dataProvider provider
+     * @dataProvider currencyProvider
      *
      * @param mixed $value
      * @param mixed $valueBinded
@@ -95,5 +78,174 @@ class AdvancedValueBinderTest extends TestCase
         $binder = new AdvancedValueBinder();
         $binder->bindValue($cell, $value);
         self::assertEquals($valueBinded, $cell->getValue());
+    }
+
+    public function currencyProvider()
+    {
+        $currencyUSD = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+        $currencyEURO = str_replace('$', '€', NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+
+        return [
+            ['$10.11', 10.11, $currencyUSD, ',', '.', '$'],
+            ['$1,010.12', 1010.12, $currencyUSD, ',', '.', '$'],
+            ['$20,20', 20.2, $currencyUSD, '.', ',', '$'],
+            ['$2.020,20', 2020.2, $currencyUSD, '.', ',', '$'],
+            ['€2.020,20', 2020.2, $currencyEURO, '.', ',', '€'],
+            ['€ 2.020,20', 2020.2, $currencyEURO, '.', ',', '€'],
+            ['€2,020.22', 2020.22, $currencyEURO, ',', '.', '€'],
+        ];
+    }
+
+    /**
+     * @dataProvider fractionProvider
+     *
+     * @param mixed $value
+     * @param mixed $valueBinded
+     * @param mixed $format
+     */
+    public function testFractions($value, $valueBinded, $format): void
+    {
+        $sheet = $this->getMockBuilder(Worksheet::class)
+            ->setMethods(['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCollection'])
+            ->getMock();
+
+        $cellCollection = $this->getMockBuilder(Cells::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cellCollection->expects(self::any())
+            ->method('getParent')
+            ->willReturn($sheet);
+
+        $sheet->expects(self::once())
+            ->method('getStyle')
+            ->willReturnSelf();
+        $sheet->expects(self::once())
+            ->method('getNumberFormat')
+            ->willReturnSelf();
+        $sheet->expects(self::once())
+            ->method('setFormatCode')
+            ->with($format)
+            ->willReturnSelf();
+        $sheet->expects(self::any())
+            ->method('getCellCollection')
+            ->willReturn($cellCollection);
+
+        $cell = new Cell(null, DataType::TYPE_STRING, $sheet);
+
+        $binder = new AdvancedValueBinder();
+        $binder->bindValue($cell, $value);
+        self::assertEquals($valueBinded, $cell->getValue());
+    }
+
+    public function fractionProvider()
+    {
+        return [
+            ['1/5', 0.2, '?/?'],
+            ['-1/5', -0.2, '?/?'],
+            ['12/5', 2.4, '??/?'],
+            ['2/100', 0.02, '?/???'],
+            ['15/12', 1.25, '??/??'],
+            ['20/100', 0.2, '??/???'],
+            ['1 3/5', 1.6, '# ?/?'],
+            ['-1 3/5', -1.6, '# ?/?'],
+            ['1 4/20', 1.2, '# ?/??'],
+            ['1 16/20', 1.8, '# ??/??'],
+            ['12 20/100', 12.2, '# ??/???'],
+        ];
+    }
+
+    /**
+     * @dataProvider percentageProvider
+     *
+     * @param mixed $value
+     * @param mixed $valueBinded
+     * @param mixed $format
+     */
+    public function testPercentages($value, $valueBinded, $format): void
+    {
+        $sheet = $this->getMockBuilder(Worksheet::class)
+            ->setMethods(['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCollection'])
+            ->getMock();
+        $cellCollection = $this->getMockBuilder(Cells::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cellCollection->expects(self::any())
+            ->method('getParent')
+            ->willReturn($sheet);
+
+        $sheet->expects(self::once())
+            ->method('getStyle')
+            ->willReturnSelf();
+        $sheet->expects(self::once())
+            ->method('getNumberFormat')
+            ->willReturnSelf();
+        $sheet->expects(self::once())
+            ->method('setFormatCode')
+            ->with($format)
+            ->willReturnSelf();
+        $sheet->expects(self::any())
+            ->method('getCellCollection')
+            ->willReturn($cellCollection);
+
+        $cell = new Cell(null, DataType::TYPE_STRING, $sheet);
+
+        $binder = new AdvancedValueBinder();
+        $binder->bindValue($cell, $value);
+        self::assertEquals($valueBinded, $cell->getValue());
+    }
+
+    public function percentageProvider()
+    {
+        return [
+            ['10%', 0.1, NumberFormat::FORMAT_PERCENTAGE_00],
+            ['-12%', -0.12, NumberFormat::FORMAT_PERCENTAGE_00],
+            ['120%', 1.2, NumberFormat::FORMAT_PERCENTAGE_00],
+        ];
+    }
+
+    /**
+     * @dataProvider stringProvider
+     *
+     * @param mixed $value
+     * @param mixed $wrapped
+     */
+    public function testStringWrapping(string $value, bool $wrapped): void
+    {
+        $sheet = $this->getMockBuilder(Worksheet::class)
+            ->setMethods(['getStyle', 'getAlignment', 'setWrapText', 'getCellCollection'])
+            ->getMock();
+        $cellCollection = $this->getMockBuilder(Cells::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cellCollection->expects(self::any())
+            ->method('getParent')
+            ->willReturn($sheet);
+
+        $sheet->expects($wrapped ? self::once() : self::never())
+            ->method('getStyle')
+            ->willReturnSelf();
+        $sheet->expects($wrapped ? self::once() : self::never())
+            ->method('getAlignment')
+            ->willReturnSelf();
+        $sheet->expects($wrapped ? self::once() : self::never())
+            ->method('setWrapText')
+            ->with($wrapped)
+            ->willReturnSelf();
+        $sheet->expects(self::any())
+            ->method('getCellCollection')
+            ->willReturn($cellCollection);
+
+        $cell = new Cell(null, DataType::TYPE_STRING, $sheet);
+
+        $binder = new AdvancedValueBinder();
+        $binder->bindValue($cell, $value);
+    }
+
+    public function stringProvider()
+    {
+        return [
+            ['Hello World', false],
+            ["Hello\nWorld", true],
+        ];
     }
 }
