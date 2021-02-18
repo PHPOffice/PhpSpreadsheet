@@ -202,4 +202,50 @@ class AdvancedValueBinderTest extends TestCase
             ['120%', 1.2, NumberFormat::FORMAT_PERCENTAGE_00],
         ];
     }
+
+    /**
+     * @dataProvider stringProvider
+     *
+     * @param mixed $value
+     * @param mixed $wrapped
+     */
+    public function testStringWrapping(string $value, bool $wrapped): void
+    {
+        $sheet = $this->getMockBuilder(Worksheet::class)
+            ->setMethods(['getStyle', 'getAlignment', 'setWrapText', 'getCellCollection'])
+            ->getMock();
+        $cellCollection = $this->getMockBuilder(Cells::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cellCollection->expects(self::any())
+            ->method('getParent')
+            ->willReturn($sheet);
+
+        $sheet->expects($wrapped ? self::once() : self::never())
+            ->method('getStyle')
+            ->willReturnSelf();
+        $sheet->expects($wrapped ? self::once() : self::never())
+            ->method('getAlignment')
+            ->willReturnSelf();
+        $sheet->expects($wrapped ? self::once() : self::never())
+            ->method('setWrapText')
+            ->with($wrapped)
+            ->willReturnSelf();
+        $sheet->expects(self::any())
+            ->method('getCellCollection')
+            ->willReturn($cellCollection);
+
+        $cell = new Cell(null, DataType::TYPE_STRING, $sheet);
+
+        $binder = new AdvancedValueBinder();
+        $binder->bindValue($cell, $value);
+    }
+
+    public function stringProvider()
+    {
+        return [
+            ['Hello World', false],
+            ["Hello\nWorld", true],
+        ];
+    }
 }
