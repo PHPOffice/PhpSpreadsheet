@@ -41,50 +41,16 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 return true;
             }
 
-            // Check for number in scientific format
-            if (preg_match('/^' . Calculation::CALCULATION_REGEXP_NUMBER . '$/', $value)) {
-                $cell->setValueExplicit((float) $value, DataType::TYPE_NUMERIC);
-
-                return true;
-            }
-
             // Check for fraction
             if (preg_match('/^([+-]?)\s*(\d+)\s?\/\s*(\d+)$/', $value, $matches)) {
-                // Convert value to number
-                $value = $matches[2] / $matches[3];
-                if ($matches[1] == '-') {
-                    $value = 0 - $value;
-                }
-                $cell->setValueExplicit((float) $value, DataType::TYPE_NUMERIC);
-                // Set style
-                $cell->getWorksheet()->getStyle($cell->getCoordinate())
-                    ->getNumberFormat()->setFormatCode('??/??');
-
-                return true;
+                return $this->setProperFraction($matches, $value, $cell);
             } elseif (preg_match('/^([+-]?)(\d*) +(\d*)\s?\/\s*(\d*)$/', $value, $matches)) {
-                // Convert value to number
-                $value = $matches[2] + ($matches[3] / $matches[4]);
-                if ($matches[1] == '-') {
-                    $value = 0 - $value;
-                }
-                $cell->setValueExplicit((float) $value, DataType::TYPE_NUMERIC);
-                // Set style
-                $cell->getWorksheet()->getStyle($cell->getCoordinate())
-                    ->getNumberFormat()->setFormatCode('# ??/??');
-
-                return true;
+                return $this->setImproperFraction($matches, $value, $cell);
             }
 
             // Check for percentage
             if (preg_match('/^\-?\d*\.?\d*\s?\%$/', $value)) {
-                // Convert value to number
-                $value = (float) str_replace('%', '', $value) / 100;
-                $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
-                // Set style
-                $cell->getWorksheet()->getStyle($cell->getCoordinate())
-                    ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
-
-                return true;
+                return $this->setPercentage($value, $cell);
             }
 
             // Check for currency
@@ -170,5 +136,58 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
 
         // Not bound yet? Use parent...
         return parent::bindValue($cell, $value);
+    }
+
+    protected function setImproperFraction(array $matches, string $value, Cell $cell): bool
+    {
+        // Convert value to number
+        $value = $matches[2] + ($matches[3] / $matches[4]);
+        if ($matches[1] === '-') {
+            $value = 0 - $value;
+        }
+        $cell->setValueExplicit((float) $value, DataType::TYPE_NUMERIC);
+
+        // Build the number format mask based on the size of the matched values
+        $dividend = str_repeat('?', strlen($matches[3]));
+        $divisor = str_repeat('?', strlen($matches[4]));
+        $fractionMask = "# {$dividend}/{$divisor}";
+        // Set style
+        $cell->getWorksheet()->getStyle($cell->getCoordinate())
+            ->getNumberFormat()->setFormatCode($fractionMask);
+
+        return true;
+    }
+
+    protected function setProperFraction(array $matches, string $value, Cell $cell): bool
+    {
+        // Convert value to number
+        $value = $matches[2] / $matches[3];
+        if ($matches[1] === '-') {
+            $value = 0 - $value;
+        }
+        $cell->setValueExplicit((float) $value, DataType::TYPE_NUMERIC);
+
+        // Build the number format mask based on the size of the matched values
+        $dividend = str_repeat('?', strlen($matches[2]));
+        $divisor = str_repeat('?', strlen($matches[3]));
+        $fractionMask = "{$dividend}/{$divisor}";
+        // Set style
+        $cell->getWorksheet()->getStyle($cell->getCoordinate())
+            ->getNumberFormat()->setFormatCode($fractionMask);
+
+        return true;
+    }
+
+    protected function setPercentage(string $value, Cell $cell): bool
+    {
+        // Convert value to number
+        $value = ((float) str_replace('%', '', $value)) / 100;
+        $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
+
+        // Set style
+        $cell->getWorksheet()->getStyle($cell->getCoordinate())
+            ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
+
+        return true;
     }
 }
