@@ -83,29 +83,12 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
 
             // Check for time without seconds e.g. '9:45', '09:45'
             if (preg_match('/^(\d|[0-1]\d|2[0-3]):[0-5]\d$/', $value)) {
-                // Convert value to number
-                [$h, $m] = explode(':', $value);
-                $days = $h / 24 + $m / 1440;
-                $cell->setValueExplicit($days, DataType::TYPE_NUMERIC);
-                // Set style
-                $cell->getWorksheet()->getStyle($cell->getCoordinate())
-                    ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_TIME3);
-
-                return true;
+                return $this->setTimeHoursMinutes($value, $cell);
             }
 
             // Check for time with seconds '9:45:59', '09:45:59'
             if (preg_match('/^(\d|[0-1]\d|2[0-3]):[0-5]\d:[0-5]\d$/', $value)) {
-                // Convert value to number
-                [$h, $m, $s] = explode(':', $value);
-                $days = $h / 24 + $m / 1440 + $s / 86400;
-                // Convert value to number
-                $cell->setValueExplicit($days, DataType::TYPE_NUMERIC);
-                // Set style
-                $cell->getWorksheet()->getStyle($cell->getCoordinate())
-                    ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_TIME4);
-
-                return true;
+                return $this->setTimeHoursMinutesSeconds($value, $cell);
             }
 
             // Check for datetime, e.g. '2008-12-31', '2008-12-31 15:59', '2008-12-31 15:59:10'
@@ -188,6 +171,34 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         // Set style
         $cell->getWorksheet()->getStyle($cell->getCoordinate())
             ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
+
+        return true;
+    }
+
+    protected function setTimeHoursMinutes(string $value, Cell $cell): bool
+    {
+        // Convert value to number
+        [$hours, $minutes] = explode(':', $value);
+        $days = ($hours / 24) + ($minutes / 1440);
+        $cell->setValueExplicit($days, DataType::TYPE_NUMERIC);
+
+        // Set style
+        $cell->getWorksheet()->getStyle($cell->getCoordinate())
+            ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_TIME3);
+
+        return true;
+    }
+
+    protected function setTimeHoursMinutesSeconds(string $value, Cell $cell): bool
+    {
+        // Convert value to number
+        [$hours, $minutes, $seconds] = explode(':', $value);
+        $days = ($hours / 24) + ($minutes / 1440) + ($seconds / 86400);
+        $cell->setValueExplicit($days, DataType::TYPE_NUMERIC);
+
+        // Set style
+        $cell->getWorksheet()->getStyle($cell->getCoordinate())
+            ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_TIME4);
 
         return true;
     }

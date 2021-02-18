@@ -200,6 +200,59 @@ class AdvancedValueBinderTest extends TestCase
             ['10%', 0.1, NumberFormat::FORMAT_PERCENTAGE_00],
             ['-12%', -0.12, NumberFormat::FORMAT_PERCENTAGE_00],
             ['120%', 1.2, NumberFormat::FORMAT_PERCENTAGE_00],
+            ['12.5%', 0.125, NumberFormat::FORMAT_PERCENTAGE_00],
+        ];
+    }
+
+    /**
+     * @dataProvider timeProvider
+     *
+     * @param mixed $value
+     * @param mixed $valueBinded
+     * @param mixed $format
+     */
+    public function testTimes($value, $valueBinded, $format): void
+    {
+        $sheet = $this->getMockBuilder(Worksheet::class)
+            ->setMethods(['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCollection'])
+            ->getMock();
+
+        $cellCollection = $this->getMockBuilder(Cells::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cellCollection->expects(self::any())
+            ->method('getParent')
+            ->willReturn($sheet);
+
+        $sheet->expects(self::once())
+            ->method('getStyle')
+            ->willReturnSelf();
+        $sheet->expects(self::once())
+            ->method('getNumberFormat')
+            ->willReturnSelf();
+        $sheet->expects(self::once())
+            ->method('setFormatCode')
+            ->with($format)
+            ->willReturnSelf();
+        $sheet->expects(self::any())
+            ->method('getCellCollection')
+            ->willReturn($cellCollection);
+
+        $cell = new Cell(null, DataType::TYPE_STRING, $sheet);
+
+        $binder = new AdvancedValueBinder();
+        $binder->bindValue($cell, $value);
+        self::assertEquals($valueBinded, $cell->getValue());
+    }
+
+    public function timeProvider()
+    {
+        return [
+            ['1:20', 0.05555555556, NumberFormat::FORMAT_DATE_TIME3],
+            ['09:17', 0.386805555556, NumberFormat::FORMAT_DATE_TIME3],
+            ['15:00', 0.625, NumberFormat::FORMAT_DATE_TIME3],
+            ['17:12:35', 0.71707175926, NumberFormat::FORMAT_DATE_TIME4],
+            ['23:58:20', 0.99884259259, NumberFormat::FORMAT_DATE_TIME4],
         ];
     }
 
