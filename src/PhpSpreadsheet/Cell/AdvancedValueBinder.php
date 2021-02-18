@@ -189,12 +189,6 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         return true;
     }
 
-    /**
-     * @param string $value
-     * @param Cell $cell
-     * @return bool
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     */
     protected function setTimeHoursMinutesSeconds(string $value, Cell $cell): bool
     {
         // Convert value to number
