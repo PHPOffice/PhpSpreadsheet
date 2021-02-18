@@ -139,6 +139,18 @@ return [
         'K',
         'Reau',
     ],
+    'Melting Point of Titanium (Rankine to K)' => [
+        1941,
+        3493.8,
+        'Rank',
+        'K',
+    ],
+    'Melting Point of Titanium (Réaumur to K)' => [
+        1941,
+        1334.28,
+        'Reau',
+        'K',
+    ],
     'Temperature synonyms (K)' => [
         123.45,
         123.45,
@@ -175,17 +187,29 @@ return [
         'ft',
         'day',
     ],
-    'From Prefixed imperial (Invalid)' => [
+    'From prefixed Imperial (Invalid)' => [
         '#N/A',
         234.56,
         'kpt',
         'lt',
     ],
-    'To prefixed imperial (Invalid)' => [
+    'To prefixed Imperial (Invalid)' => [
         '#N/A',
         234.56,
         'lt',
         'kpt',
+    ],
+    'From binary prefixed Imperial (Invalid)' => [
+        '#N/A',
+        234.56,
+        'kilt',
+        'pt',
+    ],
+    'To binary prefixed Imperial (Invalid)' => [
+        '#N/A',
+        234.56,
+        'pt',
+        'kilt',
     ],
     'Invalid from unit' => [
         '#N/A',
