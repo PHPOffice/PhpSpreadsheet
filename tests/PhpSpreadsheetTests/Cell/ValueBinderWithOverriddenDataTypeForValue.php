@@ -8,10 +8,10 @@ class ValueBinderWithOverriddenDataTypeForValue extends DefaultValueBinder
 {
     public static $called = false;
 
-    public static function dataTypeForValue($pValue)
+    public static function dataTypeForValue($value)
     {
         self::$called = true;
 
-        return parent::dataTypeForValue($pValue);
+        return parent::dataTypeForValue($value);
     }
 }

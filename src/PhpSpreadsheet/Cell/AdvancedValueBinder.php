@@ -20,8 +20,10 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
      */
     public function bindValue(Cell $cell, $value = null)
     {
-        // sanitize UTF-8 strings
-        if (is_string($value)) {
+        if ($value === null) {
+            return parent::bindValue($cell, $value);
+        } elseif (is_string($value)) {
+            // sanitize UTF-8 strings
             $value = StringHelper::sanitizeUTF8($value);
         }
 
@@ -41,11 +43,11 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 return true;
             }
 
-            // Check for fraction
+            // Check for fractions
             if (preg_match('/^([+-]?)\s*(\d+)\s?\/\s*(\d+)$/', $value, $matches)) {
-                return $this->setProperFraction($matches, $value, $cell);
+                return $this->setProperFraction($matches, $cell);
             } elseif (preg_match('/^([+-]?)(\d*) +(\d*)\s?\/\s*(\d*)$/', $value, $matches)) {
-                return $this->setImproperFraction($matches, $value, $cell);
+                return $this->setImproperFraction($matches, $cell);
             }
 
             // Check for percentage
@@ -138,7 +140,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         return parent::bindValue($cell, $value);
     }
 
-    protected function setImproperFraction(array $matches, string $value, Cell $cell): bool
+    protected function setImproperFraction(array $matches, Cell $cell): bool
     {
         // Convert value to number
         $value = $matches[2] + ($matches[3] / $matches[4]);
@@ -158,7 +160,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         return true;
     }
 
-    protected function setProperFraction(array $matches, string $value, Cell $cell): bool
+    protected function setProperFraction(array $matches, Cell $cell): bool
     {
         // Convert value to number
         $value = $matches[2] / $matches[3];
