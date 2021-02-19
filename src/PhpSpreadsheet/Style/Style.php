@@ -359,7 +359,9 @@ class Style extends Supervisor
                         $cellIterator = $columnIterator->getCellIterator();
                         $cellIterator->setIterateOnlyExistingCells(true);
                         foreach ($cellIterator as $columnCell) {
-                            $columnCell->getStyle()->applyFromArray($pStyles);
+                            if ($columnCell !== null) {
+                                $columnCell->getStyle()->applyFromArray($pStyles);
+                            }
                         }
                     }
 
@@ -367,7 +369,7 @@ class Style extends Supervisor
                 case 'ROW':
                     $oldXfIndexes = [];
                     for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
-                        if ($this->getActiveSheet()->getRowDimension($row)->getXfIndex() == null) {
+                        if ($this->getActiveSheet()->getRowDimension($row)->getXfIndex() === null) {
                             $oldXfIndexes[0] = true; // row without explicit style should be formatted based on default style
                         } else {
                             $oldXfIndexes[$this->getActiveSheet()->getRowDimension($row)->getXfIndex()] = true;
@@ -377,7 +379,9 @@ class Style extends Supervisor
                         $cellIterator = $rowIterator->getCellIterator();
                         $cellIterator->setIterateOnlyExistingCells(true);
                         foreach ($cellIterator as $rowCell) {
-                            $rowCell->getStyle()->applyFromArray($pStyles);
+                            if ($rowCell !== null) {
+                                $rowCell->getStyle()->applyFromArray($pStyles);
+                            }
                         }
                     }
 
@@ -423,8 +427,8 @@ class Style extends Supervisor
                 case 'ROW':
                     for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
                         $rowDimension = $this->getActiveSheet()->getRowDimension($row);
-                        $oldXfIndex = $rowDimension->getXfIndex() === null ?
-                            0 : $rowDimension->getXfIndex(); // row without explicit style should be formatted based on default style
+                        // row without explicit style should be formatted based on default style
+                        $oldXfIndex = $rowDimension->getXfIndex() ?? 0;
                         $rowDimension->setXfIndex($newXfIndexes[$oldXfIndex]);
                     }
 

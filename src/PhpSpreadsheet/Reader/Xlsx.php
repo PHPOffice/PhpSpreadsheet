@@ -516,7 +516,7 @@ class Xlsx extends BaseReader
                             }
 
                             $style = (object) [
-                                'numFmt' => $numFmt === null ? NumberFormat::FORMAT_GENERAL : $numFmt,
+                                'numFmt' => $numFmt ?? NumberFormat::FORMAT_GENERAL,
                                 'font' => $xmlStyles->fonts->font[(int) ($xf['fontId'])],
                                 'fill' => $xmlStyles->fills->fill[(int) ($xf['fillId'])],
                                 'border' => $xmlStyles->borders->border[(int) ($xf['borderId'])],
@@ -721,6 +721,10 @@ class Xlsx extends BaseReader
                                                 } else {
                                                     // Formula
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToString');
+                                                    if (isset($c->f['t'])) {
+                                                        $attributes = $c->f['t'];
+                                                        $docSheet->getCell($r)->setFormulaAttributes(['t' => (string) $attributes]);
+                                                    }
                                                 }
 
                                                 break;

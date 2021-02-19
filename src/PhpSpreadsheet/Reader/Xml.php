@@ -421,7 +421,7 @@ class Xml extends BaseReader
         $xml_ss = $xml->children($namespaces['ss']);
 
         foreach ($xml_ss->Worksheet as $worksheetx) {
-            $worksheet = ($worksheetx === null) ? new SimpleXMLElement('<xml></xml>') : $worksheetx;
+            $worksheet = $worksheetx ?? new SimpleXMLElement('<xml></xml>');
             $worksheet_ss = self::getAttributes($worksheet, $namespaces['ss']);
 
             if (
@@ -665,7 +665,7 @@ class Xml extends BaseReader
         foreach ($xml->Styles[0] as $style) {
             $style_ss = self::getAttributes($style, $namespaces['ss']);
             $styleID = (string) $style_ss['ID'];
-            $this->styles[$styleID] = (isset($this->styles['Default'])) ? $this->styles['Default'] : [];
+            $this->styles[$styleID] = $this->styles['Default'] ?? [];
             foreach ($style as $styleType => $styleDatax) {
                 $styleData = $styleDatax ?? new SimpleXMLElement('<xml></xml>');
                 $styleAttributes = $styleData->attributes($namespaces['ss']);

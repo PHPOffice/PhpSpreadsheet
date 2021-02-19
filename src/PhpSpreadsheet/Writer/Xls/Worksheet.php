@@ -1715,9 +1715,7 @@ class Worksheet extends BIFFwriter
         $length = 0x0022; // Number of bytes to follow
 
         $iPaperSize = $this->phpSheet->getPageSetup()->getPaperSize(); // Paper size
-
-        $iScale = $this->phpSheet->getPageSetup()->getScale() ?
-            $this->phpSheet->getPageSetup()->getScale() : 100; // Print scaling factor
+        $iScale = $this->phpSheet->getPageSetup()->getScale() ?: 100; // Print scaling factor
 
         $iPageStart = 0x01; // Starting page number
         $iFitWidth = (int) $this->phpSheet->getPageSetup()->getFitToWidth(); // Fit to number of pages wide

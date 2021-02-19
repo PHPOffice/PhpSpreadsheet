@@ -47,20 +47,16 @@ class Iterator implements \Iterator
 
     /**
      * Current Worksheet.
-     *
-     * @return Worksheet
      */
-    public function current()
+    public function current(): Worksheet
     {
         return $this->subject->getSheet($this->position);
     }
 
     /**
      * Current key.
-     *
-     * @return int
      */
-    public function key()
+    public function key(): int
     {
         return $this->position;
     }
