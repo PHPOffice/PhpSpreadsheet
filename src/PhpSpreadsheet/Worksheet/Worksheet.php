@@ -1186,7 +1186,8 @@ class Worksheet implements IComparable
         if (strpos($pCoordinate, '!') !== false) {
             $worksheetReference = self::extractSheetTitle($pCoordinate, true);
 
-            return $this->parent->getSheetByName($worksheetReference[0])->getCell(strtoupper($worksheetReference[1]), $createIfNotExists);
+            return $this->parent->getSheetByName($worksheetReference[0])
+                ->getCell(strtoupper($worksheetReference[1]), $createIfNotExists);
         }
 
         // Named range?
@@ -1196,7 +1197,7 @@ class Worksheet implements IComparable
         ) {
             $namedRange = DefinedName::resolveName($pCoordinate, $this);
             if ($namedRange !== null) {
-                $pCoordinate = $namedRange->getValue();
+                $pCoordinate = str_replace('$', '', $namedRange->getValue());
 
                 return $namedRange->getWorksheet()->getCell($pCoordinate, $createIfNotExists);
             }
@@ -1296,7 +1297,7 @@ class Worksheet implements IComparable
         ) {
             $namedRange = DefinedName::resolveName($pCoordinate, $this);
             if ($namedRange !== null) {
-                $pCoordinate = $namedRange->getValue();
+                $pCoordinate = str_replace('$', '', $namedRange->getValue());
                 if ($this->getHashCode() != $namedRange->getWorksheet()->getHashCode()) {
                     if (!$namedRange->getLocalOnly()) {
                         return $namedRange->getWorksheet()->cellExists($pCoordinate);
@@ -2567,7 +2568,7 @@ class Worksheet implements IComparable
         $namedRange = DefinedName::resolveName($pNamedRange, $this);
         if ($namedRange !== null) {
             $pWorkSheet = $namedRange->getWorksheet();
-            $pCellRange = $namedRange->getValue();
+            $pCellRange = str_replace('$', '', $namedRange->getValue());
 
             return $pWorkSheet->rangeToArray($pCellRange, $nullValue, $calculateFormulas, $formatData, $returnCellRef);
         }
