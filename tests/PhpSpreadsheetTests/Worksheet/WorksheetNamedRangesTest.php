@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Settings;
 use PHPUnit\Framework\TestCase;
 
 class WorksheetNamedRangesTest extends TestCase
@@ -11,6 +12,8 @@ class WorksheetNamedRangesTest extends TestCase
 
     public function setUp(): void
     {
+        Settings::setLibXmlLoaderOptions(null); // reset to default options
+
         $reader = new Xlsx();
         $this->spreadsheet = $reader->load('tests/data/Worksheet/namedRangeTest.xlsx');
     }
