@@ -169,11 +169,17 @@ return [
         'F',
         'fah',
     ],
-    'Invalid value to conver' => [
+    'Invalid value to convert' => [
         '#VALUE!',
         'three',
         'ft',
         'yds',
+    ],
+    'Imperial to 2-character prefixed imperial, same unit' => [
+        '#N/A',
+        100.0,
+        'pt',
+        'dapt',
     ],
     'Prefixed metric to binary prefixed metric' => [
         '#N/A',
@@ -202,14 +208,26 @@ return [
     'From binary prefixed Imperial (Invalid)' => [
         '#N/A',
         234.56,
-        'kilt',
+        'kiqt',
         'pt',
     ],
     'To binary prefixed Imperial (Invalid)' => [
         '#N/A',
         234.56,
         'pt',
-        'kilt',
+        'kiqt',
+    ],
+    'From prefixed Imperial 2 (Invalid)' => [
+        '#N/A',
+        12345.6,
+        'baton',
+        'cwt',
+    ],
+    'To prefixed Imperial 2 (Invalid)' => [
+        '#N/A',
+        12345.6,
+        'cwt',
+        'baton',
     ],
     'Invalid from unit' => [
         '#N/A',
