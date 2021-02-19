@@ -50,8 +50,8 @@ class WorksheetNamedRangesTest extends TestCase
     {
         $namedRange = 'Range1';
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage('Cell coordinate can not be a range of cells');
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Cell coordinate can not be a range of cells');
 
         $worksheet = $this->spreadsheet->getActiveSheet();
         $worksheet->cellExists($namedRange);
@@ -70,8 +70,8 @@ class WorksheetNamedRangesTest extends TestCase
     {
         $namedCell = 'GOODBYE';
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage("Invalid cell coordinate {$namedCell}");
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Invalid cell coordinate {$namedCell}");
 
         $worksheet = $this->spreadsheet->getActiveSheet();
         $worksheet->getCell($namedCell);
@@ -82,11 +82,11 @@ class WorksheetNamedRangesTest extends TestCase
         $namedCell = 'Result';
         $ucNamedCell = strtoupper($namedCell);
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage("Invalid cell coordinate {$ucNamedCell}");
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Invalid cell coordinate {$ucNamedCell}");
 
         $worksheet = $this->spreadsheet->getActiveSheet();
-        $cell = $worksheet->getCell($namedCell);
+        $worksheet->getCell($namedCell);
     }
 
     public function testGetCellLocalScoped(): void
@@ -113,11 +113,11 @@ class WorksheetNamedRangesTest extends TestCase
     {
         $namedCell = 'Range1';
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage('Cell coordinate can not be a range of cells');
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Cell coordinate can not be a range of cells');
 
         $worksheet = $this->spreadsheet->getActiveSheet();
-        $cell = $worksheet->getCell($namedCell);
+        $worksheet->getCell($namedCell);
     }
 
     public function testNamedRangeToArray(): void
@@ -133,8 +133,8 @@ class WorksheetNamedRangesTest extends TestCase
     {
         $namedRange = 'Range2';
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage("Named Range {$namedRange} does not exist");
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Named Range {$namedRange} does not exist");
 
         $worksheet = $this->spreadsheet->getActiveSheet();
         $rangeData = $worksheet->namedRangeToArray($namedRange);
