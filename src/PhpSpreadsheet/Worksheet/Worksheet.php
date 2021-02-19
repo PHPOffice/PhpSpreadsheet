@@ -1195,11 +1195,12 @@ class Worksheet implements IComparable
             (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $pCoordinate, $matches)) &&
             (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $pCoordinate, $matches))
         ) {
-            $namedRange = DefinedName::resolveName($pCoordinate, $this);
+            $namedRange = $this->validateNamedRange($pCoordinate, true);
             if ($namedRange !== null) {
-                $pCoordinate = str_replace('$', '', $namedRange->getValue());
+                $cellCoordinate = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
+                $cellCoordinate = str_replace('$', '', $cellCoordinate);
 
-                return $namedRange->getWorksheet()->getCell($pCoordinate, $createIfNotExists);
+                return $namedRange->getWorksheet()->getCell($cellCoordinate, $createIfNotExists);
             }
         }
 
@@ -1295,18 +1296,12 @@ class Worksheet implements IComparable
             (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $pCoordinate, $matches)) &&
             (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $pCoordinate, $matches))
         ) {
-            $namedRange = DefinedName::resolveName($pCoordinate, $this);
+            $namedRange = $this->validateNamedRange($pCoordinate, true);
             if ($namedRange !== null) {
-                $pCoordinate = str_replace('$', '', $namedRange->getValue());
-                if ($this->getHashCode() != $namedRange->getWorksheet()->getHashCode()) {
-                    if (!$namedRange->getLocalOnly()) {
-                        return $namedRange->getWorksheet()->cellExists($pCoordinate);
-                    }
+                $cellCoordinate = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
+                $cellCoordinate = str_replace('$', '', $cellCoordinate);
 
-                    throw new Exception('Named range ' . $namedRange->getName() . ' is not accessible from within sheet ' . $this->getTitle());
-                }
-            } else {
-                return false;
+                return $namedRange->getWorksheet()->cellExists($cellCoordinate);
             }
         }
 
@@ -2551,10 +2546,42 @@ class Worksheet implements IComparable
         return $returnValue;
     }
 
+    private function validateNamedRange(string $definedName, bool $returnNullIfInvalid = false): ?DefinedName
+    {
+        $namedRange = DefinedName::resolveName($definedName, $this);
+        if ($namedRange === null) {
+            if ($returnNullIfInvalid) {
+                return null;
+            }
+
+            throw new Exception('Named Range ' . $definedName . ' does not exist.');
+        }
+
+        if ($namedRange->isFormula()) {
+            if ($returnNullIfInvalid) {
+                return null;
+            }
+
+            throw new Exception('Defined Named ' . $definedName . ' is a formula, not a range or cell.');
+        }
+
+        if ($namedRange->getLocalOnly() && $this->getHashCode() !== $namedRange->getWorksheet()->getHashCode()) {
+            if ($returnNullIfInvalid) {
+                return null;
+            }
+
+            throw new Exception(
+                'Named range ' . $definedName . ' is not accessible from within sheet ' . $this->getTitle()
+            );
+        }
+
+        return $namedRange;
+    }
+
     /**
      * Create array from a range of cells.
      *
-     * @param string $pNamedRange Name of the Named Range
+     * @param string $definedName The Named Range that should be returned
      * @param mixed $nullValue Value returned in the array entry if a cell doesn't exist
      * @param bool $calculateFormulas Should formulas be calculated?
      * @param bool $formatData Should formatting be applied to cell values?
@@ -2563,17 +2590,14 @@ class Worksheet implements IComparable
      *
      * @return array
      */
-    public function namedRangeToArray($pNamedRange, $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false)
+    public function namedRangeToArray(string $definedName, $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false)
     {
-        $namedRange = DefinedName::resolveName($pNamedRange, $this);
-        if ($namedRange !== null) {
-            $pWorkSheet = $namedRange->getWorksheet();
-            $pCellRange = str_replace('$', '', $namedRange->getValue());
+        $namedRange = $this->validateNamedRange($definedName);
+        $workSheet = $namedRange->getWorksheet();
+        $cellRange = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
+        $cellRange = str_replace('$', '', $cellRange);
 
-            return $pWorkSheet->rangeToArray($pCellRange, $nullValue, $calculateFormulas, $formatData, $returnCellRef);
-        }
-
-        throw new Exception('Named Range ' . $pNamedRange . ' does not exist.');
+        return $workSheet->rangeToArray($cellRange, $nullValue, $calculateFormulas, $formatData, $returnCellRef);
     }
 
     /**
