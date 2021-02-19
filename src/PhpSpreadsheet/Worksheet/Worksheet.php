@@ -1197,7 +1197,8 @@ class Worksheet implements IComparable
         ) {
             $namedRange = $this->validateNamedRange($pCoordinate, true);
             if ($namedRange !== null) {
-                $cellCoordinate = str_replace('$', '', $namedRange->getValue());
+                $cellCoordinate = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
+                $cellCoordinate = str_replace('$', '', $cellCoordinate);
 
                 return $namedRange->getWorksheet()->getCell($cellCoordinate, $createIfNotExists);
             }
@@ -1296,8 +1297,12 @@ class Worksheet implements IComparable
             (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $pCoordinate, $matches))
         ) {
             $namedRange = $this->validateNamedRange($pCoordinate, true);
+            if ($namedRange !== null) {
+                $cellCoordinate = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
+                $cellCoordinate = str_replace('$', '', $cellCoordinate);
 
-            return ($namedRange !== null) ? $namedRange->getWorksheet()->cellExists($pCoordinate) : false;
+                return $namedRange->getWorksheet()->cellExists($cellCoordinate);
+            }
         }
 
         // Uppercase coordinate
@@ -2589,7 +2594,8 @@ class Worksheet implements IComparable
     {
         $namedRange = $this->validateNamedRange($definedName);
         $workSheet = $namedRange->getWorksheet();
-        $cellRange = str_replace('$', '', $namedRange->getValue());
+        $cellRange = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
+        $cellRange = str_replace('$', '', $cellRange);
 
         return $workSheet->rangeToArray($cellRange, $nullValue, $calculateFormulas, $formatData, $returnCellRef);
     }
