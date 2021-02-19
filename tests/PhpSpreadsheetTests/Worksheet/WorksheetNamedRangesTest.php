@@ -10,7 +10,7 @@ class WorksheetNamedRangesTest extends TestCase
 {
     protected $spreadsheet;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         Settings::setLibXmlLoaderOptions(null); // reset to default options
 
@@ -18,21 +18,21 @@ class WorksheetNamedRangesTest extends TestCase
         $this->spreadsheet = $reader->load('tests/data/Worksheet/namedRangeTest.xlsx');
     }
 
-    public function testCellExists()
+    public function testCellExists(): void
     {
         $worksheet = $this->spreadsheet->getActiveSheet();
         $cellExists = $worksheet->cellExists('GREETING');
         self::assertTrue($cellExists);
     }
 
-    public function testGetCell()
+    public function testGetCell(): void
     {
         $worksheet = $this->spreadsheet->getActiveSheet();
         $cell = $worksheet->getCell('GREETING');
         self::assertSame('Hello', $cell->getValue());
     }
 
-    public function testNamedRangeToArray()
+    public function testNamedRangeToArray(): void
     {
         $worksheet = $this->spreadsheet->getActiveSheet();
         $rangeData = $worksheet->namedRangeToArray('Range1');
