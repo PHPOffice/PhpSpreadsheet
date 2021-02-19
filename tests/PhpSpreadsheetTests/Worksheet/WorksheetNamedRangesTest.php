@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PHPUnit\Framework\TestCase;
@@ -20,22 +21,123 @@ class WorksheetNamedRangesTest extends TestCase
 
     public function testCellExists(): void
     {
+        $namedCell = 'GREETING';
+
         $worksheet = $this->spreadsheet->getActiveSheet();
-        $cellExists = $worksheet->cellExists('GREETING');
+        $cellExists = $worksheet->cellExists($namedCell);
         self::assertTrue($cellExists);
+    }
+
+    public function testCellNotExists(): void
+    {
+        $namedCell = 'GOODBYE';
+
+        $worksheet = $this->spreadsheet->getActiveSheet();
+        $cellExists = $worksheet->cellExists($namedCell);
+        self::assertFalse($cellExists);
+    }
+
+    public function testCellExistsInvalidScope(): void
+    {
+        $namedCell = 'Result';
+
+        $worksheet = $this->spreadsheet->getActiveSheet();
+        $cellExists = $worksheet->cellExists($namedCell);
+        self::assertFalse($cellExists);
+    }
+
+    public function testCellExistsRange(): void
+    {
+        $namedRange = 'Range1';
+
+        self::expectException(Exception::class);
+        self::expectExceptionMessage('Cell coordinate can not be a range of cells');
+
+        $worksheet = $this->spreadsheet->getActiveSheet();
+        $worksheet->cellExists($namedRange);
     }
 
     public function testGetCell(): void
     {
+        $namedCell = 'GREETING';
+
         $worksheet = $this->spreadsheet->getActiveSheet();
-        $cell = $worksheet->getCell('GREETING');
+        $cell = $worksheet->getCell($namedCell);
         self::assertSame('Hello', $cell->getValue());
+    }
+
+    public function testGetCellNotExists(): void
+    {
+        $namedCell = 'GOODBYE';
+
+        self::expectException(Exception::class);
+        self::expectExceptionMessage("Invalid cell coordinate {$namedCell}");
+
+        $worksheet = $this->spreadsheet->getActiveSheet();
+        $worksheet->getCell($namedCell);
+    }
+
+    public function testGetCellInvalidScope(): void
+    {
+        $namedCell = 'Result';
+        $ucNamedCell = strtoupper($namedCell);
+
+        self::expectException(Exception::class);
+        self::expectExceptionMessage("Invalid cell coordinate {$ucNamedCell}");
+
+        $worksheet = $this->spreadsheet->getActiveSheet();
+        $cell = $worksheet->getCell($namedCell);
+    }
+
+    public function testGetCellLocalScoped(): void
+    {
+        $namedCell = 'Result';
+
+        $this->spreadsheet->setActiveSheetIndexByName('Sheet2');
+        $worksheet = $this->spreadsheet->getActiveSheet();
+        $cell = $worksheet->getCell($namedCell);
+        self::assertSame(8, $cell->getCalculatedValue());
+    }
+
+    public function testGetCellNamedFormula(): void
+    {
+        $namedCell = 'Result';
+
+        $this->spreadsheet->setActiveSheetIndexByName('Sheet2');
+        $worksheet = $this->spreadsheet->getActiveSheet();
+        $cell = $worksheet->getCell($namedCell);
+        self::assertSame(8, $cell->getCalculatedValue());
+    }
+
+    public function testGetCellWithNamedRange(): void
+    {
+        $namedCell = 'Range1';
+
+        self::expectException(Exception::class);
+        self::expectExceptionMessage('Cell coordinate can not be a range of cells');
+
+        $worksheet = $this->spreadsheet->getActiveSheet();
+        $cell = $worksheet->getCell($namedCell);
     }
 
     public function testNamedRangeToArray(): void
     {
+        $namedRange = 'Range1';
+
         $worksheet = $this->spreadsheet->getActiveSheet();
-        $rangeData = $worksheet->namedRangeToArray('Range1');
+        $rangeData = $worksheet->namedRangeToArray($namedRange);
+        self::assertSame([[1, 2, 3]], $rangeData);
+    }
+
+    public function testInvalidNamedRangeToArray(): void
+    {
+        $namedRange = 'Range2';
+
+        self::expectException(Exception::class);
+        self::expectExceptionMessage("Named Range {$namedRange} does not exist");
+
+        $worksheet = $this->spreadsheet->getActiveSheet();
+        $rangeData = $worksheet->namedRangeToArray($namedRange);
         self::assertSame([[1, 2, 3]], $rangeData);
     }
 }
