@@ -15,6 +15,19 @@ use PHPUnit\Framework\TestCase;
  */
 class OdsTest extends TestCase
 {
+    private $timeZone;
+
+    protected function setUp(): void
+    {
+        $this->timeZone = date_default_timezone_get();
+        date_default_timezone_set('UTC');
+    }
+
+    protected function tearDown(): void
+    {
+        date_default_timezone_set($this->timeZone);
+    }
+
     /**
      * @var Spreadsheet
      */
@@ -153,13 +166,13 @@ class OdsTest extends TestCase
         self::assertEquals(0, $firstSheet->getCell('G10')->getValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A10')->getDataType()); // Date
-        self::assertEquals(22269.0, $firstSheet->getCell('A10')->getValue());
+        self::assertEquals('19-Dec-60', $firstSheet->getCell('A10')->getFormattedValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A13')->getDataType()); // Time
-        self::assertEquals(25569.0625, $firstSheet->getCell('A13')->getValue());
+        self::assertEquals('2:30:00', $firstSheet->getCell('A13')->getFormattedValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A15')->getDataType()); // Date + Time
-        self::assertEquals(22269.0625, $firstSheet->getCell('A15')->getValue());
+        self::assertEquals('19-Dec-60 1:30:00', $firstSheet->getCell('A15')->getFormattedValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A11')->getDataType()); // Fraction
 

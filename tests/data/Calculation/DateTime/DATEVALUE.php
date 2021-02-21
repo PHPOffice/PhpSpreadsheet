@@ -20,12 +20,12 @@ return [
         '1900/2/28',
     ],
     [
-        '#VALUE!',
+        '60',
         '29-02-1900',
     ],
     // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
-        '#VALUE!',
+        '60',
         '29th February 1900',
     ],
     [
@@ -159,30 +159,32 @@ return [
         '#VALUE!',
         'The 1st day of March 2007',
     ],
-    // 01/01 of the current year
+    // Jan 1 of the current year
     [
-        44197,
+        'Y-01-01',
         '1 Jan',
     ],
-    // 31/12 of the current year
+    // Dec 31 of the current year
     [
-        44561,
+        'Y-12-31',
         '31/12',
     ],
-    // Excel reads as 1st December 1931, not 31st December in current year
+    // Excel reads as 1st December 1931, not 31st December in current year.
+    // This result is locale-dependent in Excel, in a manner not
+    // supported by PhpSpreadsheet.
     [
         11658,
         '12/31',
     ],
-    // 05/07 of the current year
+    // July 5 of the current year
     [
-        44382,
+        'Y-07-05',
         '5-JUL',
     ],
-    // 05/07 of the current year
+    // July 5 of the current year
     [
-        44382,
-        '5 Jul',
+        'Y-07-05',
+        '5 July',
     ],
     [
         39783,
@@ -215,6 +217,11 @@ return [
     [
         '#VALUE!',
         12,
+    ],
+    // implicit day of month is 1
+    [
+        40210,
+        'Feb-2010',
     ],
     [
         40221,
@@ -294,4 +301,16 @@ return [
         '#VALUE!',
         'ABCDEFGHIJKMNOPQRSTUVWXYZ',
     ],
+    [
+        '#VALUE!',
+        '1999',
+    ],
+    ['#VALUE!', '32/32'],
+    ['#VALUE!', '1910-'],
+    ['#VALUE!', '10--'],
+    ['#VALUE!', '--10'],
+    ['#VALUE!', '--1910'],
+    //['#VALUE!', '-JUL-1910'], We can parse this, Excel can't
+    ['#VALUE!', '2008-08-'],
+    [36751, '0-08-13'],
 ];
