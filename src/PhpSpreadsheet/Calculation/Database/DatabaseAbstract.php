@@ -23,10 +23,8 @@ abstract class DatabaseAbstract
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
      *                                        the first column, 2 for the second column, and so on.
-     *
-     * @return null|string
      */
-    protected static function fieldExtract($database, $field)
+    protected static function fieldExtract(array $database, $field): ?string
     {
         $field = strtoupper(Functions::flattenSingleValue($field));
         $fieldNames = array_map('strtoupper', array_shift($database));
@@ -59,7 +57,7 @@ abstract class DatabaseAbstract
      *
      * @return array of mixed
      */
-    protected static function filter($database, $criteria)
+    protected static function filter(array $database, array $criteria): array
     {
         $fieldNames = array_shift($database);
         $criteriaNames = array_shift($criteria);
@@ -71,7 +69,7 @@ abstract class DatabaseAbstract
         return self::executeQuery($database, $query, $criteriaNames, $fieldNames);
     }
 
-    protected static function getFilteredColumn($database, $field, $criteria)
+    protected static function getFilteredColumn(array $database, $field, array $criteria): array
     {
         //    reduce the database to a set of rows that match all the criteria
         $database = self::filter($database, $criteria);
