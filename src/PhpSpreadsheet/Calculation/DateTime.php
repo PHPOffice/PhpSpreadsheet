@@ -147,7 +147,7 @@ class DateTime
         $dti = new DateTimeImmutable();
         $dateArray = date_parse($dti->format('c'));
 
-        return self::returnIn3FormatsArray($dateArray ?: []);
+        return is_array($dateArray) ? self::returnIn3FormatsArray($dateArray) : Functions::VALUE();
     }
 
     /**
@@ -172,7 +172,7 @@ class DateTime
         $dti = new DateTimeImmutable();
         $dateArray = date_parse($dti->format('c'));
 
-        return self::returnIn3FormatsArray($dateArray ?: [], true);
+        return is_array($dateArray) ? self::returnIn3FormatsArray($dateArray, true) : Functions::VALUE();
     }
 
     /**
@@ -489,7 +489,7 @@ class DateTime
             if (!checkdate($month, $day, $year)) {
                 return ($year === 1900 && $month === 2 && $day === 29) ? self::returnIn3FormatsFloat(60.0) : Functions::VALUE();
             }
-            $retValue = self::returnIn3FormatsArray($PHPDateArray ?: [], true);
+            $retValue = is_array($PHPDateArray) ? self::returnIn3FormatsArray($PHPDateArray, true) : Functions::VALUE();
         }
 
         return $retValue;
@@ -1230,7 +1230,6 @@ class DateTime
                 if ($DoW === 0) {
                     $DoW = 7;
                 }
-                $firstDay = 0;
                 --$DoW;
 
                 break;
