@@ -147,7 +147,7 @@ class DateTime
         $dti = new DateTimeImmutable();
         $dateArray = date_parse($dti->format('c'));
 
-        return self::returnIn3FormatsArray($dateArray);
+        return self::returnIn3FormatsArray($dateArray ?: []);
     }
 
     /**
@@ -172,7 +172,7 @@ class DateTime
         $dti = new DateTimeImmutable();
         $dateArray = date_parse($dti->format('c'));
 
-        return self::returnIn3FormatsArray($dateArray, true);
+        return self::returnIn3FormatsArray($dateArray ?: [], true);
     }
 
     /**
@@ -421,6 +421,7 @@ class DateTime
 
         $yearFound = false;
         $t1 = explode(' ', $dateValue);
+        $t = '';
         foreach ($t1 as &$t) {
             if ((is_numeric($t)) && ($t > 31)) {
                 if ($yearFound) {
@@ -486,17 +487,12 @@ class DateTime
             $day = (int) $PHPDateArray['day'];
             $year = (int) $PHPDateArray['year'];
             if (!checkdate($month, $day, $year)) {
-                return self::check19000229($year, $month, $day);
+                return ($year === 1900 && $month === 2 && $day === 29) ? self::returnIn3FormatsFloat(60.0) : Functions::VALUE();
             }
-            $retValue = self::returnIn3FormatsArray($PHPDateArray, true);
+            $retValue = self::returnIn3FormatsArray($PHPDateArray ?: [], true);
         }
 
         return $retValue;
-    }
-
-    private static function check19000229(int $year, int $month, int $day): string
-    {
-        return ($year === 1900 && $month === 2 && $day === 29) ? self::returnIn3FormatsFloat(60.0) : Functions::VALUE();
     }
 
     /**
@@ -1184,7 +1180,7 @@ class DateTime
      * Excel Function:
      *        WEEKDAY(dateValue[,style])
      *
-     * @param int $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     * @param float|int|string $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      * @param int $style A number that determines the type of return value
      *                                        1 or omitted    Numbers 1 (Sunday) through 7 (Saturday).
@@ -1219,7 +1215,6 @@ class DateTime
         self::silly1900($PHPDateObject);
         $DoW = (int) $PHPDateObject->format('w');
 
-        $firstDay = 1;
         switch ($style) {
             case 1:
                 ++$DoW;
