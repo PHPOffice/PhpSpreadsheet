@@ -58,6 +58,12 @@ class DAverageTest extends TestCase
                 3,
                 $this->database(),
             ],
+            [
+                null,
+                $this->database(),
+                null,
+                $this->database(),
+            ],
         ];
     }
 }

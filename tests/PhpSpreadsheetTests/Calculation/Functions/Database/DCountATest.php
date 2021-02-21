@@ -52,6 +52,12 @@ class DCountATest extends TestCase
                     ['=Apple', '>10', '<16'],
                 ],
             ],
+            [
+                null,
+                $this->database(),
+                null,
+                $this->database(),
+            ],
         ];
     }
 }

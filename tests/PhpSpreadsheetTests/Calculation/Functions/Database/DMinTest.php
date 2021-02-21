@@ -53,6 +53,12 @@ class DMinTest extends TestCase
                     ['=Pear', '>12', null],
                 ],
             ],
+            [
+                null,
+                $this->database(),
+                null,
+                $this->database(),
+            ],
         ];
     }
 }

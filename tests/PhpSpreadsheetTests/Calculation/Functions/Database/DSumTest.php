@@ -62,6 +62,12 @@ class DSumTest extends TestCase
                     ['=Pear', null, null],
                 ],
             ],
+            [
+                null,
+                $this->database(),
+                null,
+                $this->database(),
+            ],
         ];
     }
 }

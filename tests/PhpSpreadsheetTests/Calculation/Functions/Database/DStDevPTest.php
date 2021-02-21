@@ -53,6 +53,12 @@ class DStDevPTest extends TestCase
                     ['=Pear'],
                 ],
             ],
+            [
+                null,
+                $this->database(),
+                null,
+                $this->database(),
+            ],
         ];
     }
 }
