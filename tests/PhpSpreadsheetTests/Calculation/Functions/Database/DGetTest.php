@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database\DGet;
+use PhpOffice\PhpSpreadsheet\Calculation\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -17,10 +17,13 @@ class DGetTest extends TestCase
      * @dataProvider providerDGet
      *
      * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
      */
-    public function testDGet($expectedResult, $database, $field, $criteria)
+    public function testDGet($expectedResult, $database, $field, $criteria): void
     {
-        $result = DGet::evaluate($database, $field, $criteria);
+        $result = Database::DGET($database, $field, $criteria);
         self::assertSame($expectedResult, $result);
     }
 
@@ -47,7 +50,7 @@ class DGetTest extends TestCase
                 [
                     ['Tree'],
                     ['=Apple'],
-                    ['=Pear']
+                    ['=Pear'],
                 ],
             ],
             [
@@ -57,7 +60,7 @@ class DGetTest extends TestCase
                 [
                     ['Tree', 'Height', 'Height'],
                     ['=Apple', '>10', '<16'],
-                    ['=Pear', '>12', null]
+                    ['=Pear', '>12', null],
                 ],
             ],
         ];

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database\DProduct;
+use PhpOffice\PhpSpreadsheet\Calculation\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -17,10 +17,13 @@ class DProductTest extends TestCase
      * @dataProvider providerDProduct
      *
      * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
      */
-    public function testDProduct($expectedResult, $database, $field, $criteria)
+    public function testDProduct($expectedResult, $database, $field, $criteria): void
     {
-        $result = DProduct::evaluate($database, $field, $criteria);
+        $result = Database::DPRODUCT($database, $field, $criteria);
         self::assertSame($expectedResult, $result);
     }
 
@@ -47,7 +50,7 @@ class DProductTest extends TestCase
                 [
                     ['Tree', 'Height', 'Height'],
                     ['=Apple', '>10', '<16'],
-                    ['=Pear', null, null]
+                    ['=Pear', null, null],
                 ],
             ],
         ];

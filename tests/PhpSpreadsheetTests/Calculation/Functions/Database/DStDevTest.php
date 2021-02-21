@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database\DStDev;
+use PhpOffice\PhpSpreadsheet\Calculation\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -17,10 +17,13 @@ class DStDevTest extends TestCase
      * @dataProvider providerDStDev
      *
      * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
      */
-    public function testDStDev($expectedResult, $database, $field, $criteria)
+    public function testDStDev($expectedResult, $database, $field, $criteria): void
     {
-        $result = DStDev::evaluate($database, $field, $criteria);
+        $result = Database::DSTDEV($database, $field, $criteria);
         self::assertSame($expectedResult, $result);
     }
 
@@ -47,7 +50,7 @@ class DStDevTest extends TestCase
                 [
                     ['Tree'],
                     ['=Apple'],
-                    ['=Pear']
+                    ['=Pear'],
                 ],
             ],
         ];

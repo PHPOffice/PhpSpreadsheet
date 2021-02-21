@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database\DMax;
+use PhpOffice\PhpSpreadsheet\Calculation\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -17,10 +17,13 @@ class DMaxTest extends TestCase
      * @dataProvider providerDMax
      *
      * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
      */
-    public function testDMax($expectedResult, $database, $field, $criteria)
+    public function testDMax($expectedResult, $database, $field, $criteria): void
     {
-        $result = DMax::evaluate($database, $field, $criteria);
+        $result = Database::DMAX($database, $field, $criteria);
         self::assertSame($expectedResult, $result);
     }
 
@@ -47,7 +50,7 @@ class DMaxTest extends TestCase
                 [
                     ['Tree', 'Height', 'Height'],
                     ['=Apple', '>10', '<16'],
-                    ['=Pear', null, null]
+                    ['=Pear', null, null],
                 ],
             ],
         ];

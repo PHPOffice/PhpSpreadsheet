@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database\DAverage;
+use PhpOffice\PhpSpreadsheet\Calculation\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -13,14 +13,17 @@ class DAverageTest extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-        /**
-         * @dataProvider providerDAverage
-         *
-         * @param mixed $expectedResult
-         */
-    public function testDAverage($expectedResult, $database, $field, $criteria)
+    /**
+     * @dataProvider providerDAverage
+     *
+     * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
+     */
+    public function testDAverage($expectedResult, $database, $field, $criteria): void
     {
-        $result = DAverage::evaluate($database, $field, $criteria);
+        $result = Database::DAVERAGE($database, $field, $criteria);
         self::assertSame($expectedResult, $result);
     }
 

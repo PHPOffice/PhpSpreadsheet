@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database\DVarP;
+use PhpOffice\PhpSpreadsheet\Calculation\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -17,10 +17,13 @@ class DVarPTest extends TestCase
      * @dataProvider providerDVarP
      *
      * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
      */
-    public function testDVarP($expectedResult, $database, $field, $criteria)
+    public function testDVarP($expectedResult, $database, $field, $criteria): void
     {
-        $result = DVarP::evaluate($database, $field, $criteria);
+        $result = Database::DVARP($database, $field, $criteria);
         self::assertSame($expectedResult, $result);
     }
 
@@ -47,7 +50,7 @@ class DVarPTest extends TestCase
                 [
                     ['Tree'],
                     ['=Apple'],
-                    ['=Pear']
+                    ['=Pear'],
                 ],
             ],
         ];

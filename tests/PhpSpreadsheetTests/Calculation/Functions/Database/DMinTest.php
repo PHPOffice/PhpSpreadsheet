@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database\DMin;
+use PhpOffice\PhpSpreadsheet\Calculation\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -17,10 +17,13 @@ class DMinTest extends TestCase
      * @dataProvider providerDMin
      *
      * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
      */
-    public function testDMin($expectedResult, $database, $field, $criteria)
+    public function testDMin($expectedResult, $database, $field, $criteria): void
     {
-        $result = DMin::evaluate($database, $field, $criteria);
+        $result = Database::DMIN($database, $field, $criteria);
         self::assertSame($expectedResult, $result);
     }
 
@@ -47,7 +50,7 @@ class DMinTest extends TestCase
                 [
                     ['Tree', 'Height', 'Height'],
                     ['=Apple', '>10', '<16'],
-                    ['=Pear', '>12', null]
+                    ['=Pear', '>12', null],
                 ],
             ],
         ];

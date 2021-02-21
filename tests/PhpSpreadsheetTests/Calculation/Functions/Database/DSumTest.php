@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database\DSum;
+use PhpOffice\PhpSpreadsheet\Calculation\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -17,10 +17,13 @@ class DSumTest extends TestCase
      * @dataProvider providerDSum
      *
      * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
      */
-    public function testDSum($expectedResult, $database, $field, $criteria)
+    public function testDSum($expectedResult, $database, $field, $criteria): void
     {
-        $result = DSum::evaluate($database, $field, $criteria);
+        $result = Database::DSUM($database, $field, $criteria);
         self::assertSame($expectedResult, $result);
     }
 
@@ -56,7 +59,7 @@ class DSumTest extends TestCase
                 [
                     ['Tree', 'Height', 'Height'],
                     ['=Apple', '>10', '<16'],
-                    ['=Pear', null, null]
+                    ['=Pear', null, null],
                 ],
             ],
         ];

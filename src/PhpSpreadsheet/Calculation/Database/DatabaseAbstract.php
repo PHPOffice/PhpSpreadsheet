@@ -99,7 +99,7 @@ abstract class DatabaseAbstract
 
         $rowQuery = array_map(
             function ($rowValue) {
-                return (count($rowValue) > 1) ? 'AND(' . implode(',', $rowValue) . ')': $rowValue[0];
+                return (count($rowValue) > 1) ? 'AND(' . implode(',', $rowValue) . ')' : $rowValue[0];
             },
             $baseQuery
         );
@@ -108,11 +108,8 @@ abstract class DatabaseAbstract
     }
 
     /**
-     * @param array $database
-     * @param string $query
      * @param $criteriaNames
      * @param $fieldNames
-     * @return array
      */
     private static function executeQuery(array $database, string $query, $criteriaNames, $fieldNames): array
     {
