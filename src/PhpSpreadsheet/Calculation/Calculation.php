@@ -769,7 +769,7 @@ class Calculation
         ],
         'DAVERAGE' => [
             'category' => Category::CATEGORY_DATABASE,
-            'functionCall' => [Database::class, 'DAVERAGE'],
+            'functionCall' => [Database\DAverage::class, 'evaluate'],
             'argumentCount' => '3',
         ],
         'DAY' => [
@@ -799,12 +799,12 @@ class Calculation
         ],
         'DCOUNT' => [
             'category' => Category::CATEGORY_DATABASE,
-            'functionCall' => [Database::class, 'DCOUNT'],
+            'functionCall' => [Database\DCount::class, 'evaluate'],
             'argumentCount' => '3',
         ],
         'DCOUNTA' => [
             'category' => Category::CATEGORY_DATABASE,
-            'functionCall' => [Database::class, 'DCOUNTA'],
+            'functionCall' => [Database\DCountA::class, 'evaluate'],
             'argumentCount' => '3',
         ],
         'DDB' => [
@@ -849,7 +849,7 @@ class Calculation
         ],
         'DGET' => [
             'category' => Category::CATEGORY_DATABASE,
-            'functionCall' => [Database::class, 'DGET'],
+            'functionCall' => [Database\DGet::class, 'evaluate'],
             'argumentCount' => '3',
         ],
         'DISC' => [
@@ -859,12 +859,12 @@ class Calculation
         ],
         'DMAX' => [
             'category' => Category::CATEGORY_DATABASE,
-            'functionCall' => [Database::class, 'DMAX'],
+            'functionCall' => [Database\DMax::class, 'evaluate'],
             'argumentCount' => '3',
         ],
         'DMIN' => [
             'category' => Category::CATEGORY_DATABASE,
-            'functionCall' => [Database::class, 'DMIN'],
+            'functionCall' => [Database\DMin::class, 'evaluate'],
             'argumentCount' => '3',
         ],
         'DOLLAR' => [
@@ -884,22 +884,22 @@ class Calculation
         ],
         'DPRODUCT' => [
             'category' => Category::CATEGORY_DATABASE,
-            'functionCall' => [Database::class, 'DPRODUCT'],
+            'functionCall' => [Database\DProduct::class, 'evaluate'],
             'argumentCount' => '3',
         ],
         'DSTDEV' => [
             'category' => Category::CATEGORY_DATABASE,
-            'functionCall' => [Database::class, 'DSTDEV'],
+            'functionCall' => [Database\DStDev::class, 'evaluate'],
             'argumentCount' => '3',
         ],
         'DSTDEVP' => [
             'category' => Category::CATEGORY_DATABASE,
-            'functionCall' => [Database::class, 'DSTDEVP'],
+            'functionCall' => [Database\DStDevP::class, 'evaluate'],
             'argumentCount' => '3',
         ],
         'DSUM' => [
             'category' => Category::CATEGORY_DATABASE,
-            'functionCall' => [Database::class, 'DSUM'],
+            'functionCall' => [Database\DSum::class, 'evaluate'],
             'argumentCount' => '3',
         ],
         'DURATION' => [
@@ -909,12 +909,12 @@ class Calculation
         ],
         'DVAR' => [
             'category' => Category::CATEGORY_DATABASE,
-            'functionCall' => [Database::class, 'DVAR'],
+            'functionCall' => [Database\DVar::class, 'evaluate'],
             'argumentCount' => '3',
         ],
         'DVARP' => [
             'category' => Category::CATEGORY_DATABASE,
-            'functionCall' => [Database::class, 'DVARP'],
+            'functionCall' => [Database\DVarP::class, 'evaluate'],
             'argumentCount' => '3',
         ],
         'EDATE' => [
@@ -3437,6 +3437,7 @@ class Calculation
         $this->debugLog->writeDebugLog('Formula for cell ', $wsCellReference, ' is ', $formula);
         //    Parse the formula onto the token stack and calculate the value
         $this->cyclicReferenceStack->push($wsCellReference);
+
         $cellValue = $this->processTokenStack($this->internalParseFormula($formula, $pCell), $cellID, $pCell);
         $this->cyclicReferenceStack->pop();
 
