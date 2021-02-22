@@ -83,8 +83,6 @@ abstract class DatabaseAbstract
     }
 
     /**
-     * @TODO Support for Dates (including handling for >, <=, etc)
-     * @TODO Suport for formatted numerics (e.g. '>12.5%' => '>0.125')
      * @TODO Suport for wildcard ? and * in strings (includng escaping)
      */
     private static function buildQuery(array $criteriaNames, array $criteria): string
@@ -121,7 +119,9 @@ abstract class DatabaseAbstract
             $testConditionList = $query;
             foreach ($criteriaNames as $key => $criteriaName) {
                 $key = array_search($criteriaName, $fieldNames, true);
-                if (isset($dataValues[$key])) {
+                if (is_bool($dataValues[$key])) {
+                    $dataValue = ($dataValues[$key]) ? 'TRUE' : 'FALSE';
+                } elseif ($dataValues[$key] !== null) {
                     $dataValue = $dataValues[$key];
                     $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
                 } else {
@@ -129,7 +129,6 @@ abstract class DatabaseAbstract
                 }
                 $testConditionList = str_replace('[:' . $criteriaName . ']', $dataValue, $testConditionList);
             }
-
             //    evaluate the criteria against the row data
             $result = Calculation::getInstance()->_calculateFormulaValue('=' . $testConditionList);
             //    If the row failed to meet the criteria, remove it from the database

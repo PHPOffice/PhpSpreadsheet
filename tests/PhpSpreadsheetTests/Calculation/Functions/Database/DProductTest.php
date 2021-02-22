@@ -73,8 +73,6 @@ class DProductTest extends TestCase
                     ['=Pear', null, null],
                 ],
             ],
-            /*
-             * We don't yet support date handling in the search query
             [
                 36,
                 $this->database2(),
@@ -93,7 +91,6 @@ class DProductTest extends TestCase
                     ['Test1', '<05-Jan-2017'],
                 ],
             ],
-             */
             [
                 null,
                 $this->database1(),
