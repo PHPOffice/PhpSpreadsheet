@@ -38,7 +38,6 @@ class DProduct extends DatabaseAbstract
             return null;
         }
 
-        // Return
         return MathTrig::PRODUCT(
             self::getFilteredColumn($database, $field, $criteria)
         );

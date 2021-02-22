@@ -27,7 +27,7 @@ class DAverageTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    protected function database()
+    protected function database1()
     {
         return [
             ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
@@ -40,12 +40,35 @@ class DAverageTest extends TestCase
         ];
     }
 
+    protected function database2()
+    {
+        return [
+            ['Quarter', 'Area', 'Sales Rep.', 'Sales'],
+            [1, 'North', 'Jeff', 223000],
+            [1, 'North', 'Chris', 125000],
+            [1, 'South', 'Carol', 456000],
+            [1, 'South', 'Tina', 289000],
+            [2, 'North', 'Jeff', 322000],
+            [2, 'North', 'Chris', 340000],
+            [2, 'South', 'Carol', 198000],
+            [2, 'South', 'Tina', 222000],
+            [3, 'North', 'Jeff', 310000],
+            [3, 'North', 'Chris', 250000],
+            [3, 'South', 'Carol', 460000],
+            [3, 'South', 'Tina', 395000],
+            [4, 'North', 'Jeff', 261000],
+            [4, 'North', 'Chris', 389000],
+            [4, 'South', 'Carol', 305000],
+            [4, 'South', 'Tina', 188000],
+        ];
+    }
+
     public function providerDAverage()
     {
         return [
             [
                 12,
-                $this->database(),
+                $this->database1(),
                 'Yield',
                 [
                     ['Tree', 'Height'],
@@ -54,15 +77,33 @@ class DAverageTest extends TestCase
             ],
             [
                 13,
-                $this->database(),
+                $this->database1(),
                 3,
-                $this->database(),
+                $this->database1(),
+            ],
+            [
+                268333.333333333333,
+                $this->database2(),
+                'Sales',
+                [
+                    ['Quarter', 'Sales Rep.'],
+                    ['>1', 'Tina'],
+                ],
+            ],
+            [
+                372500,
+                $this->database2(),
+                'Sales',
+                [
+                    ['Quarter', 'Area'],
+                    ['1', 'South'],
+                ],
             ],
             [
                 null,
-                $this->database(),
+                $this->database1(),
                 null,
-                $this->database(),
+                $this->database1(),
             ],
         ];
     }

@@ -76,12 +76,17 @@ abstract class DatabaseAbstract
         //    extract an array of values for the requested column
         $columnData = [];
         foreach ($database as $row) {
-            $columnData[] = $row[$field];
+            $columnData[] = ($field !== null) ? $row[$field] : true;
         }
 
         return $columnData;
     }
 
+    /**
+     * @TODO Support for Dates (including handling for >, <=, etc)
+     * @TODO Suport for formatted numerics (e.g. '>12.5%' => '>0.125')
+     * @TODO Suport for wildcard ? and * in strings (includng escaping)
+     */
     private static function buildQuery(array $criteriaNames, array $criteria): string
     {
         $baseQuery = [];
@@ -115,12 +120,14 @@ abstract class DatabaseAbstract
             //    Substitute actual values from the database row for our [:placeholders]
             $testConditionList = $query;
             foreach ($criteriaNames as $key => $criteriaName) {
-                $k = array_search($criteriaName, $fieldNames);
-                if (isset($dataValues[$k])) {
-                    $dataValue = $dataValues[$k];
+                $key = array_search($criteriaName, $fieldNames, true);
+                if (isset($dataValues[$key])) {
+                    $dataValue = $dataValues[$key];
                     $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
-                    $testConditionList = str_replace('[:' . $criteriaName . ']', $dataValue, $testConditionList);
+                } else {
+                    $dataValue = 'NULL';
                 }
+                $testConditionList = str_replace('[:' . $criteriaName . ']', $dataValue, $testConditionList);
             }
 
             //    evaluate the criteria against the row data

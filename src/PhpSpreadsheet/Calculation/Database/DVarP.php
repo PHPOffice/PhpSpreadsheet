@@ -39,7 +39,6 @@ class DVarP extends DatabaseAbstract
             return null;
         }
 
-        // Return
         return Statistical::VARP(
             self::getFilteredColumn($database, $field, $criteria)
         );

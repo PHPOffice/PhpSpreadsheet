@@ -39,7 +39,6 @@ class DMin extends DatabaseAbstract
             return null;
         }
 
-        // Return
         return Statistical::MIN(
             self::getFilteredColumn($database, $field, $criteria)
         );

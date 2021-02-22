@@ -27,7 +27,7 @@ class DCountTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    protected function database()
+    protected function database1()
     {
         return [
             ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
@@ -40,12 +40,31 @@ class DCountTest extends TestCase
         ];
     }
 
+    protected function database2()
+    {
+        return [
+            ['Name', 'Gender', 'Age', 'Subject', 'Score'],
+            ['Amy', 'Female', 8, 'Math', 0.63],
+            ['Amy', 'Female', 8, 'English', 0.78],
+            ['Amy', 'Female', 8, 'Science', 0.39],
+            ['Bill', 'Male', 8, 'Math', 0.55],
+            ['Bill', 'Male', 8, 'English', 0.71],
+            ['Bill', 'Male', 8, 'Science', 'awaiting'],
+            ['Sue', 'Female', 9, 'Math', null],
+            ['Sue', 'Female', 9, 'English', 0.52],
+            ['Sue', 'Female', 9, 'Science', 0.48],
+            ['Tom', 'Male', 9, 'Math', 0.78],
+            ['Tom', 'Male', 9, 'English', 0.69],
+            ['Tom', 'Male', 9, 'Science', 0.65],
+        ];
+    }
+
     public function providerDCount()
     {
         return [
             [
                 1,
-                $this->database(),
+                $this->database1(),
                 'Age',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -53,10 +72,31 @@ class DCountTest extends TestCase
                 ],
             ],
             [
+                1,
+                $this->database2(),
+                'Score',
+                [
+                    ['Subject', 'Gender'],
+                    ['Science', 'Male'],
+                ],
+            ],
+            [
+                1,
+                $this->database2(),
+                'Score',
+                [
+                    ['Subject', 'Gender'],
+                    ['Math', 'Female'],
+                ],
+            ],
+            [
+                3,
+                $this->database2(),
                 null,
-                $this->database(),
-                null,
-                $this->database(),
+                [
+                    ['Subject', 'Score'],
+                    ['English', '>0.63'],
+                ],
             ],
         ];
     }

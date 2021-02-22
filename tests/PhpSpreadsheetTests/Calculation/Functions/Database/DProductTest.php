@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -27,7 +28,7 @@ class DProductTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    protected function database()
+    protected function database1()
     {
         return [
             ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
@@ -40,12 +41,31 @@ class DProductTest extends TestCase
         ];
     }
 
+    protected function database2()
+    {
+        return [
+            ['Name', 'Date', 'Test', 'Score'],
+            ['Gary', DateTime::getDateValue('01-Jan-2017'), 'Test1', 4],
+            ['Gary', DateTime::getDateValue('01-Jan-2017'), 'Test2', 4],
+            ['Gary', DateTime::getDateValue('01-Jan-2017'), 'Test3', 3],
+            ['Gary', DateTime::getDateValue('05-Jan-2017'), 'Test1', 3],
+            ['Gary', DateTime::getDateValue('05-Jan-2017'), 'Test2', 4],
+            ['Gary', DateTime::getDateValue('05-Jan-2017'), 'Test3', 3],
+            ['Kev', DateTime::getDateValue('02-Jan-2017'), 'Test1', 2],
+            ['Kev', DateTime::getDateValue('02-Jan-2017'), 'Test2', 3],
+            ['Kev', DateTime::getDateValue('02-Jan-2017'), 'Test3', 5],
+            ['Kev', DateTime::getDateValue('05-Jan-2017'), 'Test1', 3],
+            ['Kev', DateTime::getDateValue('05-Jan-2017'), 'Test2', 2],
+            ['Kev', DateTime::getDateValue('05-Jan-2017'), 'Test3', 5],
+        ];
+    }
+
     public function providerDProduct()
     {
         return [
             [
                 800,
-                $this->database(),
+                $this->database1(),
                 'Yield',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -53,11 +73,32 @@ class DProductTest extends TestCase
                     ['=Pear', null, null],
                 ],
             ],
+            /*
+             * We don't yet support date handling in the search query
+            [
+                36,
+                $this->database2(),
+                'Score',
+                [
+                    ['Name', 'Date'],
+                    ['Gary', '05-Jan-2017'],
+                ],
+            ],
+            [
+                8,
+                $this->database2(),
+                'Score',
+                [
+                    ['Test', 'Date'],
+                    ['Test1', '<05-Jan-2017'],
+                ],
+            ],
+             */
             [
                 null,
-                $this->database(),
+                $this->database1(),
                 null,
-                $this->database(),
+                $this->database1(),
             ],
         ];
     }

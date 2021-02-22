@@ -39,7 +39,6 @@ class DGet extends DatabaseAbstract
             return null;
         }
 
-        // Return
         $columnData = self::getFilteredColumn($database, $field, $criteria);
         if (count($columnData) > 1) {
             return Functions::NAN();

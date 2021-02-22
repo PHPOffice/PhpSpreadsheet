@@ -27,7 +27,7 @@ class DCountATest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    protected function database()
+    protected function database1()
     {
         return [
             ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
@@ -40,12 +40,31 @@ class DCountATest extends TestCase
         ];
     }
 
+    protected function database2()
+    {
+        return [
+            ['Name', 'Gender', 'Age', 'Subject', 'Score'],
+            ['Amy', 'Female', 8, 'Math', 0.63],
+            ['Amy', 'Female', 8, 'English', 0.78],
+            ['Amy', 'Female', 8, 'Science', 0.39],
+            ['Bill', 'Male', 8, 'Math', 0.55],
+            ['Bill', 'Male', 8, 'English', 0.71],
+            ['Bill', 'Male', 8, 'Science', 'awaiting'],
+            ['Sue', 'Female', 9, 'Math', null],
+            ['Sue', 'Female', 9, 'English', 0.52],
+            ['Sue', 'Female', 9, 'Science', 0.48],
+            ['Tom', 'Male', 9, 'Math', 0.78],
+            ['Tom', 'Male', 9, 'English', 0.69],
+            ['Tom', 'Male', 9, 'Science', 0.65],
+        ];
+    }
+
     public function providerDCountA()
     {
         return [
             [
                 1,
-                $this->database(),
+                $this->database1(),
                 'Profit',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -53,10 +72,36 @@ class DCountATest extends TestCase
                 ],
             ],
             [
-                null,
-                $this->database(),
-                null,
-                $this->database(),
+                2,
+                $this->database2(),
+                'Score',
+                [
+                    ['Subject', 'Gender'],
+                    ['Science', 'Male'],
+                ],
+            ],
+            /*
+             * Null value in datacolumn behaviour for DCOUNTA... will include not include a null value in the count
+             *      if it is an actual cell value; but it will be included if it is a literal... this test case is
+             *      currently passing literals
+            [
+                1,
+                $this->database2(),
+                'Score',
+                [
+                    ['Subject', 'Gender'],
+                    ['Math', 'Female'],
+                ],
+            ],
+             */
+            [
+                3,
+                $this->database2(),
+                'Score',
+                [
+                    ['Subject', 'Score'],
+                    ['English', '>0.60'],
+                ],
             ],
         ];
     }

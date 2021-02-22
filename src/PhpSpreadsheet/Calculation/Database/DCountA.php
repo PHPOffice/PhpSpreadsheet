@@ -30,18 +30,11 @@ class DCountA extends DatabaseAbstract
      *                                        column.
      *
      * @return int
-     *
-     * @TODO    The field argument is optional. If field is omitted, DCOUNTA counts all records in the
-     *            database that match the criteria.
      */
     public static function evaluate($database, $field, $criteria)
     {
         $field = self::fieldExtract($database, $field);
-        if ($field === null) {
-            return null;
-        }
 
-        // Return
         return Statistical::COUNTA(
             self::getFilteredColumn($database, $field, $criteria)
         );

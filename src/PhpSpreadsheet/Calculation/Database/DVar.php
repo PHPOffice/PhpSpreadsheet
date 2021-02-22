@@ -39,7 +39,6 @@ class DVar extends DatabaseAbstract
             return null;
         }
 
-        // Return
         return Statistical::VARFunc(
             self::getFilteredColumn($database, $field, $criteria)
         );

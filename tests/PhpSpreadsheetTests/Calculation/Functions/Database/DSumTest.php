@@ -27,7 +27,7 @@ class DSumTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    protected function database()
+    protected function database1()
     {
         return [
             ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
@@ -40,12 +40,35 @@ class DSumTest extends TestCase
         ];
     }
 
+    protected function database2()
+    {
+        return [
+            ['Quarter', 'Area', 'Sales Rep.', 'Sales'],
+            [1, 'North', 'Jeff', 223000],
+            [1, 'North', 'Chris', 125000],
+            [1, 'South', 'Carol', 456000],
+            [1, 'South', 'Tina', 289000],
+            [2, 'North', 'Jeff', 322000],
+            [2, 'North', 'Chris', 340000],
+            [2, 'South', 'Carol', 198000],
+            [2, 'South', 'Tina', 222000],
+            [3, 'North', 'Jeff', 310000],
+            [3, 'North', 'Chris', 250000],
+            [3, 'South', 'Carol', 460000],
+            [3, 'South', 'Tina', 395000],
+            [4, 'North', 'Jeff', 261000],
+            [4, 'North', 'Chris', 389000],
+            [4, 'South', 'Carol', 305000],
+            [4, 'South', 'Tina', 188000],
+        ];
+    }
+
     public function providerDSum()
     {
         return [
             [
                 225,
-                $this->database(),
+                $this->database1(),
                 'Profit',
                 [
                     ['Tree'],
@@ -54,7 +77,7 @@ class DSumTest extends TestCase
             ],
             [
                 248,
-                $this->database(),
+                $this->database1(),
                 'Profit',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -63,10 +86,31 @@ class DSumTest extends TestCase
                 ],
             ],
             [
+                1210000,
+                $this->database2(),
+                'Sales',
+                [
+                    ['Quarter', 'Area'],
+                    ['>2', 'North'],
+                ],
+            ],
+            /*
+             * We don't yet support woldcards in text search fields
+            [
+                710000,
+                $this->database2(),
+                'Sales',
+                [
+                    ['Quarter', 'Sales Rep.'],
+                    ['3', 'C*'],
+                ],
+            ],
+             */
+            [
                 null,
-                $this->database(),
+                $this->database1(),
                 null,
-                $this->database(),
+                $this->database1(),
             ],
         ];
     }

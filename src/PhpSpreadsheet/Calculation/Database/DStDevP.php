@@ -39,7 +39,6 @@ class DStDevP extends DatabaseAbstract
             return null;
         }
 
-        // Return
         return Statistical::STDEVP(
             self::getFilteredColumn($database, $field, $criteria)
         );
