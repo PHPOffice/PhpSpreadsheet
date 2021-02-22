@@ -83,8 +83,7 @@ abstract class DatabaseAbstract
     }
 
     /**
-     * @TODO Support for Dates (including handling for >, <=, etc)
-     * @TODO Suport for formatted numerics (e.g. '>12.5%' => '>0.125')
+     * @TODO Suport for booleans
      * @TODO Suport for wildcard ? and * in strings (includng escaping)
      */
     private static function buildQuery(array $criteriaNames, array $criteria): string
@@ -94,8 +93,10 @@ abstract class DatabaseAbstract
             foreach ($criterion as $field => $value) {
                 $criterionName = $criteriaNames[$field];
                 if ($value !== null && $value !== '') {
+//                    var_dump($value);
                     $condition = '[:' . $criterionName . ']' . Functions::ifCondition($value);
                     $baseQuery[$key][] = $condition;
+//                    var_dump($condition);
                 }
             }
         }

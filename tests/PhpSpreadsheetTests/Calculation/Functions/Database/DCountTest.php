@@ -95,7 +95,7 @@ class DCountTest extends TestCase
                 null,
                 [
                     ['Subject', 'Score'],
-                    ['English', '>0.63'],
+                    ['English', '>63%'],
                 ],
             ],
         ];

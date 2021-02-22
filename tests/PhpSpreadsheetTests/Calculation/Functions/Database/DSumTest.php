@@ -95,7 +95,7 @@ class DSumTest extends TestCase
                 ],
             ],
             /*
-             * We don't yet support woldcards in text search fields
+             * We don't yet support wildcards in text search fields
             [
                 710000,
                 $this->database2(),

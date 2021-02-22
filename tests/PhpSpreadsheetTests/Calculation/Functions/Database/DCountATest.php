@@ -100,7 +100,7 @@ class DCountATest extends TestCase
                 'Score',
                 [
                     ['Subject', 'Score'],
-                    ['English', '>0.60'],
+                    ['English', '>60%'],
                 ],
             ],
         ];
