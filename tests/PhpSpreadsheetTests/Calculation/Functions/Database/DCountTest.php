@@ -59,6 +59,21 @@ class DCountTest extends TestCase
         ];
     }
 
+    protected function database3()
+    {
+        return [
+            ['Status', 'Value'],
+            [false, 1],
+            [true, 2],
+            [true, 4],
+            [false, 8],
+            [true, 16],
+            [false, 32],
+            [false, 64],
+            [false, 128],
+        ];
+    }
+
     public function providerDCount()
     {
         return [
@@ -96,6 +111,24 @@ class DCountTest extends TestCase
                 [
                     ['Subject', 'Score'],
                     ['English', '>63%'],
+                ],
+            ],
+            [
+                3,
+                $this->database3(),
+                'Value',
+                [
+                    ['Status'],
+                    [true],
+                ],
+            ],
+            [
+                5,
+                $this->database3(),
+                'Value',
+                [
+                    ['Status'],
+                    ['<>true'],
                 ],
             ],
         ];

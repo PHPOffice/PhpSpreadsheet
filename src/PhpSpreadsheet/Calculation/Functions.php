@@ -255,7 +255,9 @@ class Functions
         }
         if (!is_string($condition) || !in_array($condition[0], ['>', '<', '='])) {
             $condition = self::operandSpecialHandling($condition);
-            if (!is_numeric($condition)) {
+            if (is_bool($condition)) {
+                return '=' . ($condition ? 'TRUE' : 'FALSE');
+            } elseif (!is_numeric($condition)) {
                 $condition = Calculation::wrapResult(strtoupper($condition));
             }
 
@@ -265,10 +267,9 @@ class Functions
         [, $operator, $operand] = $matches;
 
         $operand = self::operandSpecialHandling($operand);
-
         if (is_numeric(trim($operand, '"'))) {
             $operand = trim($operand, '"');
-        } elseif (!is_numeric($operand)) {
+        } elseif (!is_numeric($operand) && $operand !== 'FALSE' && $operand !== 'TRUE') {
             $operand = str_replace('"', '""', $operand);
             $operand = Calculation::wrapResult(strtoupper($operand));
         }
@@ -276,10 +277,12 @@ class Functions
         return str_replace('""""', '""', $operator . $operand);
     }
 
-    private static function operandSpecialHandling(string $operand)
+    private static function operandSpecialHandling($operand)
     {
-        if (is_numeric($operand)) {
+        if (is_numeric($operand) || is_bool($operand)) {
             return $operand;
+        } elseif (strtoupper($operand) === Calculation::getTRUE() || strtoupper($operand) === Calculation::getFALSE()) {
+            return strtoupper($operand);
         }
 
         // Check for percentage
