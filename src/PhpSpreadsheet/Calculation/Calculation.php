@@ -2663,11 +2663,15 @@ class Calculation
     private static $controlFunctions = [
         'MKMATRIX' => [
             'argumentCount' => '*',
-            'functionCall' => [__CLASS__, 'mkMatrix'],
+            'functionCall' => [Internal\MakeMatrix::class, 'make'],
         ],
         'NAME.ERROR' => [
             'argumentCount' => '*',
             'functionCall' => [Functions::class, 'NAME'],
+        ],
+        'WILDCARDMATCH' => [
+            'argumentCount' => '2',
+            'functionCall' => [Internal\WildcardMatch::class, 'compare'],
         ],
     ];
 
@@ -3740,11 +3744,6 @@ class Calculation
         }
 
         return $formula;
-    }
-
-    private static function mkMatrix(...$args)
-    {
-        return $args;
     }
 
     //    Binary Operators

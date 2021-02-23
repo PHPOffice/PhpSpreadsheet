@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 
 abstract class DatabaseAbstract
 {
@@ -82,9 +83,6 @@ abstract class DatabaseAbstract
         return $columnData;
     }
 
-    /**
-     * @TODO Suport for wildcard ? and * in strings (includng escaping)
-     */
     private static function buildQuery(array $criteriaNames, array $criteria): string
     {
         $baseQuery = [];
@@ -92,7 +90,7 @@ abstract class DatabaseAbstract
             foreach ($criterion as $field => $value) {
                 $criterionName = $criteriaNames[$field];
                 if ($value !== null && $value !== '') {
-                    $condition = '[:' . $criterionName . ']' . Functions::ifCondition($value);
+                    $condition = self::evaluateCondition($value, $criterionName);
                     $baseQuery[$key][] = $condition;
                 }
             }
@@ -108,29 +106,47 @@ abstract class DatabaseAbstract
         return (count($rowQuery) > 1) ? 'OR(' . implode(',', $rowQuery) . ')' : $rowQuery[0];
     }
 
-    /**
-     * @param $criteriaNames
-     * @param $fieldNames
-     */
-    private static function executeQuery(array $database, string $query, $criteriaNames, $fieldNames): array
+    private static function evaluateCondition($value, $criterionName): string
+    {
+        $ifCondition = Functions::ifCondition($value);
+
+        // Check for wildcard characters used in the condition
+        $result = preg_match('/(?<operator>[^"]*)(?<operand>".*[*?].*")/ui', $ifCondition, $matches);
+        if ($result !== 1) {
+            return "[:{$criterionName}]{$ifCondition}";
+        }
+
+        $trueFalse = ($matches['operator'] !== '<>');
+        $wildcard = WildcardMatch::wildcard($matches['operand']);
+        $condition = "WILDCARDMATCH([:{$criterionName}],{$wildcard})";
+        if ($trueFalse === false) {
+            $condition = "NOT({$condition})";
+        }
+
+        return $condition;
+    }
+
+    private static function executeQuery(array $database, string $query, array $criteriaNames, array $fieldNames): array
     {
         foreach ($database as $dataRow => $dataValues) {
             //    Substitute actual values from the database row for our [:placeholders]
-            $testConditionList = $query;
-            foreach ($criteriaNames as $key => $criteriaName) {
+            $testConditions = $query;
+            foreach ($criteriaNames as $criteriaName) {
                 $key = array_search($criteriaName, $fieldNames, true);
+
+                $dataValue = 'NULL';
                 if (is_bool($dataValues[$key])) {
                     $dataValue = ($dataValues[$key]) ? 'TRUE' : 'FALSE';
                 } elseif ($dataValues[$key] !== null) {
                     $dataValue = $dataValues[$key];
                     $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
-                } else {
-                    $dataValue = 'NULL';
                 }
-                $testConditionList = str_replace('[:' . $criteriaName . ']', $dataValue, $testConditionList);
+
+                $testConditions = str_replace('[:' . $criteriaName . ']', $dataValue, $testConditions);
             }
+
             //    evaluate the criteria against the row data
-            $result = Calculation::getInstance()->_calculateFormulaValue('=' . $testConditionList);
+            $result = Calculation::getInstance()->_calculateFormulaValue('=' . $testConditions);
             //    If the row failed to meet the criteria, remove it from the database
 
             if ($result !== true) {

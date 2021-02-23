@@ -94,8 +94,6 @@ class DSumTest extends TestCase
                     ['>2', 'North'],
                 ],
             ],
-            /*
-             * We don't yet support wildcards in text search fields
             [
                 710000,
                 $this->database2(),
@@ -105,7 +103,6 @@ class DSumTest extends TestCase
                     ['3', 'C*'],
                 ],
             ],
-             */
             [
                 null,
                 $this->database1(),
