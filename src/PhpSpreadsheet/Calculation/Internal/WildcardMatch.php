@@ -5,17 +5,17 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Internal;
 class WildcardMatch
 {
     private const SEARCH_SET = [
-        '/(?<![^~])?\*/ui',
-        //        '/~\*/ui',
-        '/(?<![^~])?\?/ui',
-        //        '/~\?/ui',
+        '/(?<!~)\*/ui',
+        '/~\*/ui',
+        '/(?<!~)\?/ui',
+        '/~\?/ui',
     ];
 
     private const REPLACEMENT_SET = [
         '${1}.*',
-        //        '\*',
+        '\*',
         '${1}.',
-        //        '\?',
+        '\?',
     ];
 
     public static function wildcard(string $wildcard): string

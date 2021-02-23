@@ -23,12 +23,12 @@ return [
     ],
     [
         2,
-        [6, 3, 4, 'X', ''],
+        [6, 3, 4, 'X', '', null],
         '<=4',
     ],
     [
         2,
-        [6, 3, 4, 'X', ''],
+        [6, 3, 4, 31, 'X', '', null],
         '<="4"',
     ],
     [
@@ -60,5 +60,10 @@ return [
         2,
         ['apples', 'oranges', 'peaches', 'apples'],
         '?????es',
+    ],
+    [
+        2,
+        ['great * ratings', 'bad * ratings', 'films * wars', 'films * trek', 'music * radio'],
+        '*~* ra*s',
     ],
 ];
