@@ -18,17 +18,17 @@ class WildcardMatch
         '\?',
     ];
 
-    public static function wildcard($wildcard)
+    public static function wildcard(string $wildcard): string
     {
         return preg_replace(self::SEARCH_SET, self::REPLACEMENT_SET, $wildcard);
     }
 
-    public static function compare($value, $wildcard)
+    public static function compare($value, string $wildcard): bool
     {
         if ($value === '') {
             return true;
         }
 
-        return preg_match("/{$wildcard}/ui", $value);
+        return (bool) preg_match("/{$wildcard}/ui", $value);
     }
 }
