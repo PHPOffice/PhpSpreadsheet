@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 
 abstract class DatabaseAbstract
 {
@@ -82,9 +83,6 @@ abstract class DatabaseAbstract
         return $columnData;
     }
 
-    /**
-     * @TODO Suport for wildcard ? and * in strings (includng escaping)
-     */
     private static function buildQuery(array $criteriaNames, array $criteria): string
     {
         $baseQuery = [];
@@ -92,7 +90,7 @@ abstract class DatabaseAbstract
             foreach ($criterion as $field => $value) {
                 $criterionName = $criteriaNames[$field];
                 if ($value !== null && $value !== '') {
-                    $condition = '[:' . $criterionName . ']' . Functions::ifCondition($value);
+                    $condition = self::buildCondition($value, $criterionName);
                     $baseQuery[$key][] = $condition;
                 }
             }
@@ -108,36 +106,59 @@ abstract class DatabaseAbstract
         return (count($rowQuery) > 1) ? 'OR(' . implode(',', $rowQuery) . ')' : $rowQuery[0];
     }
 
-    /**
-     * @param $criteriaNames
-     * @param $fieldNames
-     */
-    private static function executeQuery(array $database, string $query, $criteriaNames, $fieldNames): array
+    private static function buildCondition($criterion, string $criterionName): string
+    {
+        $ifCondition = Functions::ifCondition($criterion);
+
+        // Check for wildcard characters used in the condition
+        $result = preg_match('/(?<operator>[^"]*)(?<operand>".*[*?].*")/ui', $ifCondition, $matches);
+        if ($result !== 1) {
+            return "[:{$criterionName}]{$ifCondition}";
+        }
+
+        $trueFalse = ($matches['operator'] !== '<>');
+        $wildcard = WildcardMatch::wildcard($matches['operand']);
+        $condition = "WILDCARDMATCH([:{$criterionName}],{$wildcard})";
+        if ($trueFalse === false) {
+            $condition = "NOT({$condition})";
+        }
+
+        return $condition;
+    }
+
+    private static function executeQuery(array $database, string $query, array $criteria, array $fields): array
     {
         foreach ($database as $dataRow => $dataValues) {
             //    Substitute actual values from the database row for our [:placeholders]
-            $testConditionList = $query;
-            foreach ($criteriaNames as $key => $criteriaName) {
-                $key = array_search($criteriaName, $fieldNames, true);
-                if (is_bool($dataValues[$key])) {
-                    $dataValue = ($dataValues[$key]) ? 'TRUE' : 'FALSE';
-                } elseif ($dataValues[$key] !== null) {
-                    $dataValue = $dataValues[$key];
-                    $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
-                } else {
-                    $dataValue = 'NULL';
-                }
-                $testConditionList = str_replace('[:' . $criteriaName . ']', $dataValue, $testConditionList);
+            $conditions = $query;
+            foreach ($criteria as $criterion) {
+                $conditions = self::processCondition($criterion, $fields, $dataValues, $conditions);
             }
-            //    evaluate the criteria against the row data
-            $result = Calculation::getInstance()->_calculateFormulaValue('=' . $testConditionList);
-            //    If the row failed to meet the criteria, remove it from the database
 
+            //    evaluate the criteria against the row data
+            $result = Calculation::getInstance()->_calculateFormulaValue('=' . $conditions);
+
+            //    If the row failed to meet the criteria, remove it from the database
             if ($result !== true) {
                 unset($database[$dataRow]);
             }
         }
 
         return $database;
+    }
+
+    private static function processCondition(string $criterion, array $fields, array $dataValues, string $conditions)
+    {
+        $key = array_search($criterion, $fields, true);
+
+        $dataValue = 'NULL';
+        if (is_bool($dataValues[$key])) {
+            $dataValue = ($dataValues[$key]) ? 'TRUE' : 'FALSE';
+        } elseif ($dataValues[$key] !== null) {
+            $dataValue = $dataValues[$key];
+            $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
+        }
+
+        return str_replace('[:' . $criterion . ']', $dataValue, $conditions);
     }
 }
