@@ -1139,6 +1139,10 @@ class Statistical
      * Excel Function:
      *        COUNTIF(value1[,value2[, ...]],condition)
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Use the COUNTIF() method in the Statistical\Conditional class instead
+     *
      * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be counted
      *
@@ -1146,29 +1150,7 @@ class Statistical
      */
     public static function COUNTIF($aArgs, $condition)
     {
-        $returnValue = 0;
-
-        $aArgs = Functions::flattenArray($aArgs);
-        $condition = Functions::ifCondition($condition);
-        $conditionIsNumeric = strpos($condition, '"') === false;
-        // Loop through arguments
-        foreach ($aArgs as $arg) {
-            if (!is_numeric($arg)) {
-                if ($conditionIsNumeric) {
-                    continue;
-                }
-                $arg = Calculation::wrapResult(strtoupper($arg));
-            } elseif (!$conditionIsNumeric) {
-                continue;
-            }
-            $testCondition = '=' . $arg . $condition;
-            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                // Is it a value within our criteria
-                ++$returnValue;
-            }
-        }
-
-        return $returnValue;
+        return Statistical\Conditional::COUNTIF($aArgs, $condition);
     }
 
     /**
