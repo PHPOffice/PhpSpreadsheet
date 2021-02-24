@@ -343,7 +343,7 @@ class Calculation
         ],
         'AVERAGEIF' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'AVERAGEIF'],
+            'functionCall' => [Statistical\Conditional::class, 'AVERAGEIF'],
             'argumentCount' => '2,3',
         ],
         'AVERAGEIFS' => [
@@ -639,12 +639,12 @@ class Calculation
         ],
         'COUNTIF' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'COUNTIF'],
+            'functionCall' => [Statistical\Conditional::class, 'COUNTIF'],
             'argumentCount' => '2',
         ],
         'COUNTIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'COUNTIFS'],
+            'functionCall' => [Statistical\Conditional::class, 'COUNTIFS'],
             'argumentCount' => '2+',
         ],
         'COUPDAYBS' => [

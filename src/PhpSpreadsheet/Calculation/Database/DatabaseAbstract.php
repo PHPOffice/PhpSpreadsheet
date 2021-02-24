@@ -35,7 +35,7 @@ abstract class DatabaseAbstract
 
             return $keys[$field - 1];
         }
-        $key = array_search($field, $fieldNames);
+        $key = array_search($field, $fieldNames, true);
 
         return $key ?: null;
     }

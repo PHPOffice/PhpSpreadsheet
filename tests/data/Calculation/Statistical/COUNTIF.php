@@ -57,6 +57,14 @@ return [
         '*p*s*',
     ],
     [
+        4,
+        [
+            ['apples', 'oranges', 'peaches', 'apples'],
+            ['bananas', 'mangoes', 'grapes', 'cherries'],
+        ],
+        '*p*e*',
+    ],
+    [
         2,
         ['apples', 'oranges', 'peaches', 'apples'],
         '?????es',
