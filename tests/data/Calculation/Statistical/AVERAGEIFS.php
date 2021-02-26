@@ -2,7 +2,7 @@
 
 return [
     [
-        75,
+        80.5,
         [75, 94, 86, 'incomplete'],
         [75, 94, 86, 'incomplete'],
         '>70',

@@ -36,9 +36,9 @@ abstract class DatabaseAbstract
         if (is_numeric($field)) {
             return ((int) $field) - 1;
         }
-        $key = array_search($field, array_values($fieldNames));
+        $key = array_search($field, array_values($fieldNames), true);
 
-        return ($key !== false) ? $key : null;
+        return ($key !== false) ? (int) $key : null;
     }
 
     /**
