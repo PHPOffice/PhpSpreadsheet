@@ -710,7 +710,7 @@ class Statistical
      * @param string $condition the criteria that defines which cells will be checked
      * @param mixed[] $averageRange Data values
      *
-     * @return float|string
+     * @return null|float|string
      */
     public static function AVERAGEIF($range, $condition, $averageRange = [])
     {

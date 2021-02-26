@@ -20,11 +20,11 @@ class Conditional
      * Excel Function:
      *        AVERAGEIF(range,condition[, average_range])
      *
-     * @param mixed $range Data values
+     * @param mixed[] $range Data values
      * @param string $condition the criteria that defines which cells will be checked
      * @param mixed[] $averageRange Data values
      *
-     * @return float|string
+     * @return null|float|string
      */
     public static function AVERAGEIF($range, $condition, $averageRange = [])
     {
@@ -55,12 +55,12 @@ class Conditional
      *
      * @param mixed $args Pairs of Ranges and Criteria
      *
-     * @return int
+     * @return null|float|string
      */
     public static function AVERAGEIFS(...$args)
     {
         if (empty($args)) {
-            return 0;
+            return 0.0;
         } elseif (count($args) === 3) {
             return self::AVERAGEIF($args[2], $args[1], $args[0]);
         }
@@ -96,7 +96,7 @@ class Conditional
      * Excel Function:
      *        COUNTIF(range,condition)
      *
-     * @param mixed $range Data values
+     * @param mixed[] $range Data values
      * @param string $condition the criteria that defines which cells will be counted
      *
      * @return int
