@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Permutations;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
@@ -2256,53 +2257,18 @@ class Statistical
      * Excel Function:
      *        MAXIFS(max_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Conditional::MAXIFS()
+     *      Use the MAXIFS() method in the Statistical\Conditional class instead
+     *
      * @param mixed $args Data range and criterias
      *
      * @return float
      */
     public static function MAXIFS(...$args)
     {
-        $arrayList = $args;
-
-        // Return value
-        $returnValue = null;
-
-        $maxArgs = Functions::flattenArray(array_shift($arrayList));
-        $aArgsArray = [];
-        $conditions = [];
-
-        while (count($arrayList) > 0) {
-            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
-            $conditions[] = Functions::ifCondition(array_shift($arrayList));
-        }
-
-        // Loop through each arg and see if arguments and conditions are true
-        foreach ($maxArgs as $index => $value) {
-            $valid = true;
-
-            foreach ($conditions as $cidx => $condition) {
-                $arg = $aArgsArray[$cidx][$index];
-
-                // Loop through arguments
-                if (!is_numeric($arg)) {
-                    $arg = Calculation::wrapResult(strtoupper($arg));
-                }
-                $testCondition = '=' . $arg . $condition;
-                if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                    // Is not a value within our criteria
-                    $valid = false;
-
-                    break; // if false found, don't need to check other conditions
-                }
-            }
-
-            if ($valid) {
-                $returnValue = $returnValue === null ? $value : max($value, $returnValue);
-            }
-        }
-
-        // Return
-        return $returnValue;
+        return Conditional::MAXIFS(...$args);
     }
 
     /**
@@ -2428,53 +2394,18 @@ class Statistical
      * Excel Function:
      *        MINIFS(min_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Conditional::MINIFS()
+     *      Use the MINIFS() method in the Statistical\Conditional class instead
+     *
      * @param mixed $args Data range and criterias
      *
      * @return float
      */
     public static function MINIFS(...$args)
     {
-        $arrayList = $args;
-
-        // Return value
-        $returnValue = null;
-
-        $minArgs = Functions::flattenArray(array_shift($arrayList));
-        $aArgsArray = [];
-        $conditions = [];
-
-        while (count($arrayList) > 0) {
-            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
-            $conditions[] = Functions::ifCondition(array_shift($arrayList));
-        }
-
-        // Loop through each arg and see if arguments and conditions are true
-        foreach ($minArgs as $index => $value) {
-            $valid = true;
-
-            foreach ($conditions as $cidx => $condition) {
-                $arg = $aArgsArray[$cidx][$index];
-
-                // Loop through arguments
-                if (!is_numeric($arg)) {
-                    $arg = Calculation::wrapResult(strtoupper($arg));
-                }
-                $testCondition = '=' . $arg . $condition;
-                if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                    // Is not a value within our criteria
-                    $valid = false;
-
-                    break; // if false found, don't need to check other conditions
-                }
-            }
-
-            if ($valid) {
-                $returnValue = $returnValue === null ? $value : min($value, $returnValue);
-            }
-        }
-
-        // Return
-        return $returnValue;
+        return Conditional::MINIFS(...$args);
     }
 
     //

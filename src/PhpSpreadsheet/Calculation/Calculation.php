@@ -1630,7 +1630,7 @@ class Calculation
         ],
         'MAXIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MAXIFS'],
+            'functionCall' => [Statistical\Conditional::class, 'MAXIFS'],
             'argumentCount' => '3+',
         ],
         'MDETERM' => [
@@ -1675,7 +1675,7 @@ class Calculation
         ],
         'MINIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MINIFS'],
+            'functionCall' => [Statistical\Conditional::class, 'MINIFS'],
             'argumentCount' => '3+',
         ],
         'MINUTE' => [

@@ -4,6 +4,8 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DAverage;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DCount;
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DMax;
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DMin;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Conditional
@@ -51,7 +53,7 @@ class Conditional
      * Counts the number of cells that contain numbers within the list of arguments
      *
      * Excel Function:
-     *        AVERAGEIFS(criteria_range1, criteria1, [criteria_range2, criteria2]…)
+     *        AVERAGEIFS(average_range, criteria_range1, criteria1, [criteria_range2, criteria2]…)
      *
      * @param mixed $args Pairs of Ranges and Criteria
      *
@@ -152,5 +154,105 @@ class Conditional
         $database = array_map(null, ...$database);
 
         return DCount::evaluate($database, null, $conditions);
+    }
+
+    /**
+     * MAXIFS.
+     *
+     * Returns the maximum value within a range of cells that contain numbers within the list of arguments
+     *
+     * Excel Function:
+     *        MAXIFS(max_range, criteria_range1, criteria1, [criteria_range2, criteria2]…)
+     *
+     * @param mixed $args Pairs of Ranges and Criteria
+     *
+     * @return null|float|string
+     */
+    public static function MAXIFS(...$args)
+    {
+        if (empty($args)) {
+            return 0.0;
+        }
+
+        $database = [];
+        $database[] = array_merge(
+            [self::VALUE_COLUMN_NAME],
+            Functions::flattenArray(array_shift($args))
+        );
+
+        $conditions = [];
+        $pairCount = 1;
+        while (count($args) > 0) {
+            $conditions[] = array_merge([sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)], [array_pop($args)]);
+            $database[] = array_merge(
+                [sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)],
+                Functions::flattenArray(array_pop($args))
+            );
+            ++$pairCount;
+        }
+
+        if (count($conditions) === 1) {
+            $conditions = array_map(
+                function ($value) {
+                    return [$value];
+                },
+                $conditions[0]
+            );
+        } else {
+            $conditions = array_map(null, ...$conditions);
+        }
+        $database = array_map(null, ...$database);
+
+        return DMax::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
+    }
+
+    /**
+     * MINIFS.
+     *
+     * Returns the minimum value within a range of cells that contain numbers within the list of arguments
+     *
+     * Excel Function:
+     *        MINIFS(min_range, criteria_range1, criteria1, [criteria_range2, criteria2]…)
+     *
+     * @param mixed $args Pairs of Ranges and Criteria
+     *
+     * @return null|float|string
+     */
+    public static function MINIFS(...$args)
+    {
+        if (empty($args)) {
+            return 0.0;
+        }
+
+        $database = [];
+        $database[] = array_merge(
+            [self::VALUE_COLUMN_NAME],
+            Functions::flattenArray(array_shift($args))
+        );
+
+        $conditions = [];
+        $pairCount = 1;
+        while (count($args) > 0) {
+            $conditions[] = array_merge([sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)], [array_pop($args)]);
+            $database[] = array_merge(
+                [sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)],
+                Functions::flattenArray(array_pop($args))
+            );
+            ++$pairCount;
+        }
+
+        if (count($conditions) === 1) {
+            $conditions = array_map(
+                function ($value) {
+                    return [$value];
+                },
+                $conditions[0]
+            );
+        } else {
+            $conditions = array_map(null, ...$conditions);
+        }
+        $database = array_map(null, ...$database);
+
+        return DMin::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
 }
