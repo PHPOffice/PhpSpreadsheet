@@ -44,6 +44,8 @@ class DGet extends DatabaseAbstract
             return Functions::NAN();
         }
 
-        return $columnData[0];
+        $row = array_pop($columnData);
+
+        return array_pop($row);
     }
 }

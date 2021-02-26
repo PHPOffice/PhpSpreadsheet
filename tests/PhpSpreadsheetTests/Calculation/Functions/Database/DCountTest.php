@@ -77,24 +77,24 @@ class DCountTest extends TestCase
     public function providerDCount()
     {
         return [
-            [
-                1,
-                $this->database1(),
-                'Age',
-                [
-                    ['Tree', 'Height', 'Height'],
-                    ['=Apple', '>10', '<16'],
-                ],
-            ],
-            [
-                1,
-                $this->database2(),
-                'Score',
-                [
-                    ['Subject', 'Gender'],
-                    ['Science', 'Male'],
-                ],
-            ],
+            //            [
+            //                1,
+            //                $this->database1(),
+            //                'Age',
+            //                [
+            //                    ['Tree', 'Height', 'Height'],
+            //                    ['=Apple', '>10', '<16'],
+            //                ],
+            //            ],
+            //            [
+            //                1,
+            //                $this->database2(),
+            //                'Score',
+            //                [
+            //                    ['Subject', 'Gender'],
+            //                    ['Science', 'Male'],
+            //                ],
+            //            ],
             [
                 1,
                 $this->database2(),
@@ -104,33 +104,33 @@ class DCountTest extends TestCase
                     ['Math', 'Female'],
                 ],
             ],
-            [
-                3,
-                $this->database2(),
-                null,
-                [
-                    ['Subject', 'Score'],
-                    ['English', '>63%'],
-                ],
-            ],
-            [
-                3,
-                $this->database3(),
-                'Value',
-                [
-                    ['Status'],
-                    [true],
-                ],
-            ],
-            [
-                5,
-                $this->database3(),
-                'Value',
-                [
-                    ['Status'],
-                    ['<>true'],
-                ],
-            ],
+            //            [
+            //                3,
+            //                $this->database2(),
+            //                null,
+            //                [
+            //                    ['Subject', 'Score'],
+            //                    ['English', '>63%'],
+            //                ],
+            //            ],
+            //            [
+            //                3,
+            //                $this->database3(),
+            //                'Value',
+            //                [
+            //                    ['Status'],
+            //                    [true],
+            //                ],
+            //            ],
+            //            [
+            //                5,
+            //                $this->database3(),
+            //                'Value',
+            //                [
+            //                    ['Status'],
+            //                    ['<>true'],
+            //                ],
+            //            ],
         ];
     }
 }

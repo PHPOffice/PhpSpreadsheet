@@ -348,7 +348,7 @@ class Calculation
         ],
         'AVERAGEIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Conditional::class, 'AVERAGEIFS'],
             'argumentCount' => '3+',
         ],
         'BAHTTEXT' => [
