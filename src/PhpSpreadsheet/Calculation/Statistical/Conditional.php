@@ -67,8 +67,8 @@ class Conditional
             return self::AVERAGEIF($args[2], $args[1], $args[0]);
         }
 
-        $conditions = self::buildConditionSetForRange(...$args);
-        $database = self::buildDatabaseWithRange(...$args);
+        $conditions = self::buildConditionSetForValueRange(...$args);
+        $database = self::buildDatabaseWithValueRange(...$args);
 
         return DAverage::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
@@ -146,8 +146,8 @@ class Conditional
             return 0.0;
         }
 
-        $conditions = self::buildConditionSetForRange(...$args);
-        $database = self::buildDatabaseWithRange(...$args);
+        $conditions = self::buildConditionSetForValueRange(...$args);
+        $database = self::buildDatabaseWithValueRange(...$args);
 
         return DMax::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
@@ -170,8 +170,8 @@ class Conditional
             return 0.0;
         }
 
-        $conditions = self::buildConditionSetForRange(...$args);
-        $database = self::buildDatabaseWithRange(...$args);
+        $conditions = self::buildConditionSetForValueRange(...$args);
+        $database = self::buildDatabaseWithValueRange(...$args);
 
         return DMin::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
@@ -183,7 +183,7 @@ class Conditional
         return array_map(null, ...$conditions);
     }
 
-    private static function buildConditionSetForRange(...$args): array
+    private static function buildConditionSetForValueRange(...$args): array
     {
         $conditions = self::buildConditions(2, ...$args);
 
@@ -220,7 +220,7 @@ class Conditional
         return self::buildDataSet(0, $database, ...$args);
     }
 
-    private static function buildDatabaseWithRange(...$args): array
+    private static function buildDatabaseWithValueRange(...$args): array
     {
         $database = [];
         $database[] = array_merge(
