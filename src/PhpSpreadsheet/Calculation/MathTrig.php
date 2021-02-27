@@ -1281,7 +1281,7 @@ class MathTrig
     /**
      * SUMIF.
      *
-     * Counts the number of cells that contain numbers within the list of arguments
+     * Totals the values of cells that contain numbers within the list of arguments
      *
      * Excel Function:
      *        SUMIF(value1[,value2[, ...]],condition)
@@ -1327,7 +1327,7 @@ class MathTrig
     /**
      * SUMIFS.
      *
-     *    Counts the number of cells that contain numbers within the list of arguments
+     *    Totals the values of cells that contain numbers within the list of arguments
      *
      *    Excel Function:
      *        SUMIFS(value1[,value2[, ...]],condition)
