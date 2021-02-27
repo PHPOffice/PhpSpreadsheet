@@ -89,4 +89,33 @@ class HtmlLoadStringTest extends TestCase
         $spreadsheet = $reader->loadFromString($html, $spreadsheet);
         self::assertEquals(2, $spreadsheet->getSheetCount());
     }
+
+    public function testCanLoadDuplicateTitle(): void
+    {
+        $html = <<<'EOF'
+<html>
+<head>
+<title>Sheet</title>
+</head>
+<body>
+<table><tr><td>1</td></tr></table>
+</body>
+</html>
+EOF;
+        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+        $spreadsheet = $reader->loadFromString($html);
+        $reader->setSheetIndex(1);
+        $reader->loadFromString($html, $spreadsheet);
+        $reader->setSheetIndex(2);
+        $reader->loadFromString($html, $spreadsheet);
+        $sheet = $spreadsheet->getSheet(0);
+        self::assertEquals(1, $sheet->getCell('A1')->getValue());
+        self::assertEquals('Sheet', $sheet->getTitle());
+        $sheet = $spreadsheet->getSheet(1);
+        self::assertEquals(1, $sheet->getCell('A1')->getValue());
+        self::assertEquals('Sheet 1', $sheet->getTitle());
+        $sheet = $spreadsheet->getSheet(2);
+        self::assertEquals(1, $sheet->getCell('A1')->getValue());
+        self::assertEquals('Sheet 2', $sheet->getTitle());
+    }
 }
