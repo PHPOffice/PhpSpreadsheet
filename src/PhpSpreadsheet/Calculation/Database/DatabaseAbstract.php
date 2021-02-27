@@ -25,19 +25,20 @@ abstract class DatabaseAbstract
      *                                        represents the position of the column within the list: 1 for
      *                                        the first column, 2 for the second column, and so on.
      */
-    protected static function fieldExtract(array $database, $field): ?string
+    protected static function fieldExtract(array $database, $field): ?int
     {
         $field = strtoupper(Functions::flattenSingleValue($field));
-        $fieldNames = array_map('strtoupper', array_shift($database));
-
-        if (is_numeric($field)) {
-            $keys = array_keys($fieldNames);
-
-            return $keys[$field - 1];
+        if ($field === '') {
+            return null;
         }
-        $key = array_search($field, $fieldNames);
 
-        return $key ?: null;
+        $fieldNames = array_map('strtoupper', array_shift($database));
+        if (is_numeric($field)) {
+            return ((int) $field) - 1;
+        }
+        $key = array_search($field, array_values($fieldNames), true);
+
+        return ($key !== false) ? (int) $key : null;
     }
 
     /**
@@ -70,14 +71,19 @@ abstract class DatabaseAbstract
         return self::executeQuery($database, $query, $criteriaNames, $fieldNames);
     }
 
-    protected static function getFilteredColumn(array $database, $field, array $criteria): array
+    protected static function getFilteredColumn(array $database, ?int $field, array $criteria): array
     {
         //    reduce the database to a set of rows that match all the criteria
         $database = self::filter($database, $criteria);
+        $defaultReturnColumnValue = ($field === null) ? 1 : null;
+
         //    extract an array of values for the requested column
         $columnData = [];
-        foreach ($database as $row) {
-            $columnData[] = ($field !== null) ? $row[$field] : true;
+        foreach ($database as $rowKey => $row) {
+            $keys = array_keys($row);
+            $key = $keys[$field] ?? null;
+            $columnKey = $key ?? 'A';
+            $columnData[$rowKey][$columnKey] = $row[$key] ?? $defaultReturnColumnValue;
         }
 
         return $columnData;

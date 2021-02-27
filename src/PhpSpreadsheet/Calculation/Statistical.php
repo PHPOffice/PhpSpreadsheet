@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Permutations;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
@@ -701,47 +702,20 @@ class Statistical
      * Excel Function:
      *        AVERAGEIF(value1[,value2[, ...]],condition)
      *
-     * @param mixed $aArgs Data values
-     * @param string $condition the criteria that defines which cells will be checked
-     * @param mixed[] $averageArgs Data values
+     * @Deprecated 1.17.0
      *
-     * @return float|string
+     * @see Statistical\Conditional::AVERAGEIF()
+     *      Use the AVERAGEIF() method in the Statistical\Conditional class instead
+     *
+     * @param mixed $range Data values
+     * @param string $condition the criteria that defines which cells will be checked
+     * @param mixed[] $averageRange Data values
+     *
+     * @return null|float|string
      */
-    public static function AVERAGEIF($aArgs, $condition, $averageArgs = [])
+    public static function AVERAGEIF($range, $condition, $averageRange = [])
     {
-        $returnValue = 0;
-
-        $aArgs = Functions::flattenArray($aArgs);
-        $averageArgs = Functions::flattenArray($averageArgs);
-        if (empty($averageArgs)) {
-            $averageArgs = $aArgs;
-        }
-        $condition = Functions::ifCondition($condition);
-        $conditionIsNumeric = strpos($condition, '"') === false;
-
-        // Loop through arguments
-        $aCount = 0;
-        foreach ($aArgs as $key => $arg) {
-            if (!is_numeric($arg)) {
-                if ($conditionIsNumeric) {
-                    continue;
-                }
-                $arg = Calculation::wrapResult(strtoupper($arg));
-            } elseif (!$conditionIsNumeric) {
-                continue;
-            }
-            $testCondition = '=' . $arg . $condition;
-            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                $returnValue += $averageArgs[$key];
-                ++$aCount;
-            }
-        }
-
-        if ($aCount > 0) {
-            return $returnValue / $aCount;
-        }
-
-        return Functions::DIV0();
+        return Statistical\Conditional::AVERAGEIF($range, $condition, $averageRange);
     }
 
     /**
@@ -1137,38 +1111,21 @@ class Statistical
      * Counts the number of cells that contain numbers within the list of arguments
      *
      * Excel Function:
-     *        COUNTIF(value1[,value2[, ...]],condition)
+     *        COUNTIF(range,condition)
      *
-     * @param mixed $aArgs Data values
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Conditional::COUNTIF()
+     *      Use the COUNTIF() method in the Statistical\Conditional class instead
+     *
+     * @param mixed $range Data values
      * @param string $condition the criteria that defines which cells will be counted
      *
      * @return int
      */
-    public static function COUNTIF($aArgs, $condition)
+    public static function COUNTIF($range, $condition)
     {
-        $returnValue = 0;
-
-        $aArgs = Functions::flattenArray($aArgs);
-        $condition = Functions::ifCondition($condition);
-        $conditionIsNumeric = strpos($condition, '"') === false;
-        // Loop through arguments
-        foreach ($aArgs as $arg) {
-            if (!is_numeric($arg)) {
-                if ($conditionIsNumeric) {
-                    continue;
-                }
-                $arg = Calculation::wrapResult(strtoupper($arg));
-            } elseif (!$conditionIsNumeric) {
-                continue;
-            }
-            $testCondition = '=' . $arg . $condition;
-            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                // Is it a value within our criteria
-                ++$returnValue;
-            }
-        }
-
-        return $returnValue;
+        return Statistical\Conditional::COUNTIF($range, $condition);
     }
 
     /**
@@ -1179,66 +1136,18 @@ class Statistical
      * Excel Function:
      *        COUNTIFS(criteria_range1, criteria1, [criteria_range2, criteria2]…)
      *
-     * @param mixed $args Criterias
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Conditional::COUNTIFS()
+     *      Use the COUNTIFS() method in the Statistical\Conditional class instead
+     *
+     * @param mixed $args Pairs of Ranges and Criteria
      *
      * @return int
      */
     public static function COUNTIFS(...$args)
     {
-        $arrayList = $args;
-
-        // Return value
-        $returnValue = 0;
-
-        if (empty($arrayList)) {
-            return $returnValue;
-        }
-
-        $aArgsArray = [];
-        $conditions = [];
-
-        while (count($arrayList) > 0) {
-            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
-            $conditions[] = Functions::ifCondition(array_shift($arrayList));
-        }
-
-        // Loop through each arg and see if arguments and conditions are true
-        foreach (array_keys($aArgsArray[0]) as $index) {
-            $valid = true;
-
-            foreach ($conditions as $cidx => $condition) {
-                $conditionIsNumeric = strpos($condition, '"') === false;
-                $arg = $aArgsArray[$cidx][$index];
-
-                // Loop through arguments
-                if (!is_numeric($arg)) {
-                    if ($conditionIsNumeric) {
-                        $valid = false;
-
-                        break; // if false found, don't need to check other conditions
-                    }
-                    $arg = Calculation::wrapResult(strtoupper($arg));
-                } elseif (!$conditionIsNumeric) {
-                    $valid = false;
-
-                    break; // if false found, don't need to check other conditions
-                }
-                $testCondition = '=' . $arg . $condition;
-                if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                    // Is not a value within our criteria
-                    $valid = false;
-
-                    break; // if false found, don't need to check other conditions
-                }
-            }
-
-            if ($valid) {
-                ++$returnValue;
-            }
-        }
-
-        // Return
-        return $returnValue;
+        return Statistical\Conditional::COUNTIFS(...$args);
     }
 
     /**
@@ -2348,53 +2257,18 @@ class Statistical
      * Excel Function:
      *        MAXIFS(max_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Conditional::MAXIFS()
+     *      Use the MAXIFS() method in the Statistical\Conditional class instead
+     *
      * @param mixed $args Data range and criterias
      *
      * @return float
      */
     public static function MAXIFS(...$args)
     {
-        $arrayList = $args;
-
-        // Return value
-        $returnValue = null;
-
-        $maxArgs = Functions::flattenArray(array_shift($arrayList));
-        $aArgsArray = [];
-        $conditions = [];
-
-        while (count($arrayList) > 0) {
-            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
-            $conditions[] = Functions::ifCondition(array_shift($arrayList));
-        }
-
-        // Loop through each arg and see if arguments and conditions are true
-        foreach ($maxArgs as $index => $value) {
-            $valid = true;
-
-            foreach ($conditions as $cidx => $condition) {
-                $arg = $aArgsArray[$cidx][$index];
-
-                // Loop through arguments
-                if (!is_numeric($arg)) {
-                    $arg = Calculation::wrapResult(strtoupper($arg));
-                }
-                $testCondition = '=' . $arg . $condition;
-                if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                    // Is not a value within our criteria
-                    $valid = false;
-
-                    break; // if false found, don't need to check other conditions
-                }
-            }
-
-            if ($valid) {
-                $returnValue = $returnValue === null ? $value : max($value, $returnValue);
-            }
-        }
-
-        // Return
-        return $returnValue;
+        return Conditional::MAXIFS(...$args);
     }
 
     /**
@@ -2520,53 +2394,18 @@ class Statistical
      * Excel Function:
      *        MINIFS(min_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Conditional::MINIFS()
+     *      Use the MINIFS() method in the Statistical\Conditional class instead
+     *
      * @param mixed $args Data range and criterias
      *
      * @return float
      */
     public static function MINIFS(...$args)
     {
-        $arrayList = $args;
-
-        // Return value
-        $returnValue = null;
-
-        $minArgs = Functions::flattenArray(array_shift($arrayList));
-        $aArgsArray = [];
-        $conditions = [];
-
-        while (count($arrayList) > 0) {
-            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
-            $conditions[] = Functions::ifCondition(array_shift($arrayList));
-        }
-
-        // Loop through each arg and see if arguments and conditions are true
-        foreach ($minArgs as $index => $value) {
-            $valid = true;
-
-            foreach ($conditions as $cidx => $condition) {
-                $arg = $aArgsArray[$cidx][$index];
-
-                // Loop through arguments
-                if (!is_numeric($arg)) {
-                    $arg = Calculation::wrapResult(strtoupper($arg));
-                }
-                $testCondition = '=' . $arg . $condition;
-                if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                    // Is not a value within our criteria
-                    $valid = false;
-
-                    break; // if false found, don't need to check other conditions
-                }
-            }
-
-            if ($valid) {
-                $returnValue = $returnValue === null ? $value : min($value, $returnValue);
-            }
-        }
-
-        // Return
-        return $returnValue;
+        return Conditional::MINIFS(...$args);
     }
 
     //

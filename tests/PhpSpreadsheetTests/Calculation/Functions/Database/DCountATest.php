@@ -80,10 +80,6 @@ class DCountATest extends TestCase
                     ['Science', 'Male'],
                 ],
             ],
-            /*
-             * Null value in datacolumn behaviour for DCOUNTA... will include not include a null value in the count
-             *      if it is an actual cell value; but it will be included if it is a literal... this test case is
-             *      currently passing literals
             [
                 1,
                 $this->database2(),
@@ -93,7 +89,6 @@ class DCountATest extends TestCase
                     ['Math', 'Female'],
                 ],
             ],
-             */
             [
                 3,
                 $this->database2(),
