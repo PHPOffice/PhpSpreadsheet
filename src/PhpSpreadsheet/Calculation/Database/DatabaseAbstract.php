@@ -75,6 +75,7 @@ abstract class DatabaseAbstract
     {
         //    reduce the database to a set of rows that match all the criteria
         $database = self::filter($database, $criteria);
+        $defaultReturnColumnValue = ($field === null) ? 1 : null;
 
         //    extract an array of values for the requested column
         $columnData = [];
@@ -82,7 +83,7 @@ abstract class DatabaseAbstract
             $keys = array_keys($row);
             $key = $keys[$field] ?? null;
             $columnKey = $key ?? 'A';
-            $columnData[$rowKey][$columnKey] = $row[$key] ?? 1;
+            $columnData[$rowKey][$columnKey] = $row[$key] ?? $defaultReturnColumnValue;
         }
 
         return $columnData;
