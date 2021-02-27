@@ -160,7 +160,7 @@ class Date
     {
         $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
-            if ($excelTimestamp < 1.0) {
+            if ($excelTimestamp < 1 && self::$excelCalendar === self::CALENDAR_WINDOWS_1900) {
                 // Unix timestamp base date
                 $baseDate = new \DateTime('1970-01-01', $timeZone);
             } else {

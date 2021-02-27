@@ -9,11 +9,21 @@ use PHPUnit\Framework\TestCase;
 
 class DateTest extends TestCase
 {
+    private $returnDateType;
+
+    private $excelCalendar;
+
     protected function setUp(): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        $this->returnDateType = Functions::getReturnDateType();
+        $this->excelCalendar = Date::getExcelCalendar();
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
+    }
+
+    protected function tearDown(): void
+    {
+        Functions::setReturnDateType($this->returnDateType);
+        Date::setExcelCalendar($this->excelCalendar);
     }
 
     /**
