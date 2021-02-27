@@ -67,8 +67,8 @@ class Conditional
             return self::AVERAGEIF($args[2], $args[1], $args[0]);
         }
 
-        $conditions = self::buildConditionSet(...$args);
-        $database = self::buildDatabase(...$args);
+        $conditions = self::buildConditionsForRange(...$args);
+        $database = self::buildDatabaseWithRange(...$args);
 
         return DAverage::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
@@ -122,25 +122,8 @@ class Conditional
             return self::COUNTIF(...$args);
         }
 
-        $conditions = $database = [];
-        $argumentCount = count($args);
-        $pairCount = 1;
-        for ($argument = 0; $argument < $argumentCount; $argument += 2) {
-            $database[] = array_merge(
-                [sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)],
-                Functions::flattenArray($args[$argument])
-            );
-            ++$pairCount;
-        }
-
-        $pairCount = 1;
-        for ($argument = 1; $argument < $argumentCount; $argument += 2) {
-            $conditions[] = array_merge([sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)], [$args[$argument]]);
-            ++$pairCount;
-        }
-
-        $conditions = array_map(null, ...$conditions);
-        $database = array_map(null, ...$database);
+        $database = self::buildDatabase(...$args);
+        $conditions = self::buildConditions(...$args);
 
         return DCount::evaluate($database, null, $conditions);
     }
@@ -163,8 +146,8 @@ class Conditional
             return 0.0;
         }
 
-        $conditions = self::buildConditionSet(...$args);
-        $database = self::buildDatabase(...$args);
+        $conditions = self::buildConditionsForRange(...$args);
+        $database = self::buildDatabaseWithRange(...$args);
 
         return DMax::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
@@ -187,15 +170,28 @@ class Conditional
             return 0.0;
         }
 
-        $conditions = self::buildConditionSet(...$args);
-        $database = self::buildDatabase(...$args);
+        $conditions = self::buildConditionsForRange(...$args);
+        $database = self::buildDatabaseWithRange(...$args);
 
         return DMin::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
 
-    private static function buildConditionSet(...$args): array
+    private static function buildConditions(...$args): array
+    {
+        $pairCount = 1;
+        $argumentCount = count($args);
+        for ($argument = 1; $argument < $argumentCount; $argument += 2) {
+            $conditions[] = array_merge([sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)], [$args[$argument]]);
+            ++$pairCount;
+        }
+
+        return array_map(null, ...$conditions);
+    }
+
+    private static function buildConditionsForRange(...$args): array
     {
         $conditions = [];
+
         $pairCount = 1;
         $argumentCount = count($args);
         for ($argument = 2; $argument < $argumentCount; $argument += 2) {
@@ -216,6 +212,23 @@ class Conditional
     }
 
     private static function buildDatabase(...$args): array
+    {
+        $database = [];
+
+        $pairCount = 1;
+        $argumentCount = count($args);
+        for ($argument = 0; $argument < $argumentCount; $argument += 2) {
+            $database[] = array_merge(
+                [sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)],
+                Functions::flattenArray($args[$argument])
+            );
+            ++$pairCount;
+        }
+
+        return array_map(null, ...$database);
+    }
+
+    private static function buildDatabaseWithRange(...$args): array
     {
         $database = [];
         $database[] = array_merge(
