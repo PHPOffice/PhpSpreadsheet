@@ -123,13 +123,19 @@ class Conditional
         }
 
         $conditions = $database = [];
+        $argumentCount = count($args);
         $pairCount = 1;
-        while (count($args) > 0) {
-            $conditions[] = array_merge([sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)], [array_pop($args)]);
+        for ($argument = 0; $argument < $argumentCount; $argument += 2) {
             $database[] = array_merge(
                 [sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)],
-                Functions::flattenArray(array_pop($args))
+                Functions::flattenArray($args[$argument])
             );
+            ++$pairCount;
+        }
+
+        $pairCount = 1;
+        for ($argument = 1; $argument < $argumentCount; $argument += 2) {
+            $conditions[] = array_merge([sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)], [$args[$argument]]);
             ++$pairCount;
         }
 
