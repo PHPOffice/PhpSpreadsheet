@@ -20,6 +20,10 @@ class WildcardMatch
 
     public static function wildcard(string $wildcard): string
     {
+        $wildcard = str_replace(['*', '?'], [0x1A, 0x1B], $wildcard);
+        $wildcard = preg_quote($wildcard);
+        $wildcard = str_replace([0x1A, 0x1B], ['*', '?'], $wildcard);
+
         return preg_replace(self::SEARCH_SET, self::REPLACEMENT_SET, $wildcard);
     }
 
@@ -29,6 +33,6 @@ class WildcardMatch
             return true;
         }
 
-        return (bool) preg_match("/^{$wildcard}\$/ui", $value);
+        return (bool) preg_match("/^{$wildcard}\$/mui", $value);
     }
 }

@@ -104,6 +104,15 @@ class DSumTest extends TestCase
                 ],
             ],
             [
+                705000,
+                $this->database2(),
+                'Sales',
+                [
+                    ['Quarter', 'Sales Rep.'],
+                    ['3', '<>C*'],
+                ],
+            ],
+            [
                 null,
                 $this->database1(),
                 null,

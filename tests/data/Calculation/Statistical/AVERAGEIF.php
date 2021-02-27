@@ -69,4 +69,16 @@ return [
         '???th',
         [1, 2, 3, 4, 5, 6, 7, 8],
     ],
+    [
+        16733.5,
+        ['East', 'West', 'North', 'South (New Office)', 'Midwest'],
+        '=*West',
+        [45678, 23789, -4789, 0, 9678],
+    ],
+    [
+        18589,
+        ['East', 'West', 'North', 'South (New Office)', 'Midwest'],
+        '<>*(New Office)',
+        [45678, 23789, -4789, 0, 9678],
+    ],
 ];
