@@ -67,25 +67,8 @@ class Conditional
             return self::AVERAGEIF($args[2], $args[1], $args[0]);
         }
 
-        $database = [];
-        $database[] = array_merge(
-            [self::VALUE_COLUMN_NAME],
-            Functions::flattenArray(array_shift($args))
-        );
-
-        $conditions = [];
-        $pairCount = 1;
-        while (count($args) > 0) {
-            $conditions[] = array_merge([sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)], [array_pop($args)]);
-            $database[] = array_merge(
-                [sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)],
-                Functions::flattenArray(array_pop($args))
-            );
-            ++$pairCount;
-        }
-
-        $conditions = array_map(null, ...$conditions);
-        $database = array_map(null, ...$database);
+        $conditions = self::buildConditionSet(...$args);
+        $database = self::buildDatabase(...$args);
 
         return DAverage::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
@@ -174,34 +157,8 @@ class Conditional
             return 0.0;
         }
 
-        $database = [];
-        $database[] = array_merge(
-            [self::VALUE_COLUMN_NAME],
-            Functions::flattenArray(array_shift($args))
-        );
-
-        $conditions = [];
-        $pairCount = 1;
-        while (count($args) > 0) {
-            $conditions[] = array_merge([sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)], [array_pop($args)]);
-            $database[] = array_merge(
-                [sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)],
-                Functions::flattenArray(array_pop($args))
-            );
-            ++$pairCount;
-        }
-
-        if (count($conditions) === 1) {
-            $conditions = array_map(
-                function ($value) {
-                    return [$value];
-                },
-                $conditions[0]
-            );
-        } else {
-            $conditions = array_map(null, ...$conditions);
-        }
-        $database = array_map(null, ...$database);
+        $conditions = self::buildConditionSet(...$args);
+        $database = self::buildDatabase(...$args);
 
         return DMax::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
@@ -224,16 +181,47 @@ class Conditional
             return 0.0;
         }
 
+        $conditions = self::buildConditionSet(...$args);
+        $database = self::buildDatabase(...$args);
+
+        return DMin::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
+    }
+
+    private static function buildConditionSet(...$args): array
+    {
+        array_shift($args);
+
+        $conditions = [];
+        $pairCount = 1;
+        while (count($args) > 0) {
+            $conditions[] = array_merge([sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)], [array_pop($args)]);
+            array_pop($args);
+            ++$pairCount;
+        }
+
+        if (count($conditions) === 1) {
+            return array_map(
+                function ($value) {
+                    return [$value];
+                },
+                $conditions[0]
+            );
+        }
+
+        return array_map(null, ...$conditions);
+    }
+
+    private static function buildDatabase(...$args): array
+    {
         $database = [];
         $database[] = array_merge(
             [self::VALUE_COLUMN_NAME],
             Functions::flattenArray(array_shift($args))
         );
 
-        $conditions = [];
         $pairCount = 1;
         while (count($args) > 0) {
-            $conditions[] = array_merge([sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)], [array_pop($args)]);
+            array_pop($args);
             $database[] = array_merge(
                 [sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)],
                 Functions::flattenArray(array_pop($args))
@@ -241,18 +229,6 @@ class Conditional
             ++$pairCount;
         }
 
-        if (count($conditions) === 1) {
-            $conditions = array_map(
-                function ($value) {
-                    return [$value];
-                },
-                $conditions[0]
-            );
-        } else {
-            $conditions = array_map(null, ...$conditions);
-        }
-        $database = array_map(null, ...$database);
-
-        return DMin::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
+        return array_map(null, ...$database);
     }
 }
