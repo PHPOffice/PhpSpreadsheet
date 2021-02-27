@@ -20,6 +20,7 @@ class WildcardMatch
 
     public static function wildcard(string $wildcard): string
     {
+        // Preg Escape the wildcard, but protecting the Excel * and ? search characters
         $wildcard = str_replace(['*', '?'], [0x1A, 0x1B], $wildcard);
         $wildcard = preg_quote($wildcard);
         $wildcard = str_replace([0x1A, 0x1B], ['*', '?'], $wildcard);
