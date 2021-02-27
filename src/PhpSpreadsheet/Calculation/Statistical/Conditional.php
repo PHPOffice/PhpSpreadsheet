@@ -189,13 +189,11 @@ class Conditional
 
     private static function buildConditionSet(...$args): array
     {
-        array_shift($args);
-
         $conditions = [];
         $pairCount = 1;
-        while (count($args) > 0) {
-            $conditions[] = array_merge([sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)], [array_pop($args)]);
-            array_pop($args);
+        $argumentCount = count($args);
+        for ($argument = 2; $argument < $argumentCount; $argument += 2) {
+            $conditions[] = array_merge([sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)], [$args[$argument]]);
             ++$pairCount;
         }
 
@@ -216,15 +214,15 @@ class Conditional
         $database = [];
         $database[] = array_merge(
             [self::VALUE_COLUMN_NAME],
-            Functions::flattenArray(array_shift($args))
+            Functions::flattenArray($args[0])
         );
 
         $pairCount = 1;
-        while (count($args) > 0) {
-            array_pop($args);
+        $argumentCount = count($args);
+        for ($argument = 1; $argument < $argumentCount; $argument += 2) {
             $database[] = array_merge(
                 [sprintf(self::CONDITIONAL_COLUMN_NAME, $pairCount)],
-                Functions::flattenArray(array_pop($args))
+                Functions::flattenArray($args[$argument])
             );
             ++$pairCount;
         }
