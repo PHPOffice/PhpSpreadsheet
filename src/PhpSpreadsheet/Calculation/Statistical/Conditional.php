@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Database\DAverage;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DCount;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DMax;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DMin;
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DSum;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Conditional
@@ -174,6 +175,65 @@ class Conditional
         $database = self::buildDatabaseWithValueRange(...$args);
 
         return DMin::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
+    }
+
+    /**
+     * SUMIF.
+     *
+     * Totals the values of cells that contain numbers within the list of arguments
+     *
+     * Excel Function:
+     *        SUMIF(range, criteria, [sum_range])
+     *
+     * @param mixed $range Data values
+     * @param mixed $sumRange
+     * @param mixed $condition
+     *
+     * @return float
+     */
+    public static function SUMIF($range, $condition, $sumRange = [])
+    {
+        $range = Functions::flattenArray($range);
+        $sumRange = Functions::flattenArray($sumRange);
+        if (empty($sumRange)) {
+            $sumRange = $range;
+        }
+
+        $database = array_map(
+            null,
+            array_merge([self::CONDITION_COLUMN_NAME], $range),
+            array_merge([self::VALUE_COLUMN_NAME], $sumRange)
+        );
+
+        $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];
+
+        return DSum::evaluate($database, self::VALUE_COLUMN_NAME, $condition);
+    }
+
+    /**
+     * SUMIFS.
+     *
+     * Counts the number of cells that contain numbers within the list of arguments
+     *
+     * Excel Function:
+     *        SUMIFS(average_range, criteria_range1, criteria1, [criteria_range2, criteria2]…)
+     *
+     * @param mixed $args Pairs of Ranges and Criteria
+     *
+     * @return null|float|string
+     */
+    public static function SUMIFS(...$args)
+    {
+        if (empty($args)) {
+            return 0.0;
+        } elseif (count($args) === 3) {
+            return self::SUMIF($args[2], $args[1], $args[0]);
+        }
+
+        $conditions = self::buildConditionSetForValueRange(...$args);
+        $database = self::buildDatabaseWithValueRange(...$args);
+
+        return DSum::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
 
     private static function buildConditionSet(...$args): array

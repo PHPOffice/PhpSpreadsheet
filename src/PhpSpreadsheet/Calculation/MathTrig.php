@@ -1284,44 +1284,22 @@ class MathTrig
      * Totals the values of cells that contain numbers within the list of arguments
      *
      * Excel Function:
-     *        SUMIF(value1[,value2[, ...]],condition)
+     *        SUMIF(range, criteria, [sum_range])
      *
-     * @param mixed $aArgs Data values
-     * @param string $condition the criteria that defines which cells will be summed
-     * @param mixed $sumArgs
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Conditional::SUMIF()
+     *      Use the SUMIF() method in the Statistical\Conditional class instead
+     *
+     * @param mixed $range Data values
+     * @param string $criteria the criteria that defines which cells will be summed
+     * @param mixed $sumRange
      *
      * @return float
      */
-    public static function SUMIF($aArgs, $condition, $sumArgs = [])
+    public static function SUMIF($range, $criteria, $sumRange = [])
     {
-        $returnValue = 0;
-
-        $aArgs = Functions::flattenArray($aArgs);
-        $sumArgs = Functions::flattenArray($sumArgs);
-        if (empty($sumArgs)) {
-            $sumArgs = $aArgs;
-        }
-        $condition = Functions::ifCondition($condition);
-        // Loop through arguments
-        foreach ($aArgs as $key => $arg) {
-            if (!is_numeric($arg)) {
-                $arg = str_replace('"', '""', $arg);
-                $arg = Calculation::wrapResult(strtoupper($arg));
-            }
-
-            $testCondition = '=' . $arg . $condition;
-            $sumValue = array_key_exists($key, $sumArgs) ? $sumArgs[$key] : 0;
-
-            if (
-                is_numeric($sumValue) &&
-                Calculation::getInstance()->_calculateFormulaValue($testCondition)
-            ) {
-                // Is it a value within our criteria and only numeric can be added to the result
-                $returnValue += $sumValue;
-            }
-        }
-
-        return $returnValue;
+        return Statistical\Conditional::SUMIF($range, $criteria, $sumRange);
     }
 
     /**
@@ -1330,7 +1308,12 @@ class MathTrig
      *    Totals the values of cells that contain numbers within the list of arguments
      *
      *    Excel Function:
-     *        SUMIFS(value1[,value2[, ...]],condition)
+     *        SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
+     *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Conditional::SUMIFS()
+     *      Use the SUMIFS() method in the Statistical\Conditional class instead
      *
      * @param mixed $args Data values
      *
@@ -1338,47 +1321,7 @@ class MathTrig
      */
     public static function SUMIFS(...$args)
     {
-        $arrayList = $args;
-
-        // Return value
-        $returnValue = 0;
-
-        $sumArgs = Functions::flattenArray(array_shift($arrayList));
-        $aArgsArray = [];
-        $conditions = [];
-
-        while (count($arrayList) > 0) {
-            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
-            $conditions[] = Functions::ifCondition(array_shift($arrayList));
-        }
-
-        // Loop through each sum and see if arguments and conditions are true
-        foreach ($sumArgs as $index => $value) {
-            $valid = true;
-
-            foreach ($conditions as $cidx => $condition) {
-                $arg = $aArgsArray[$cidx][$index];
-
-                // Loop through arguments
-                if (!is_numeric($arg)) {
-                    $arg = Calculation::wrapResult(strtoupper($arg));
-                }
-                $testCondition = '=' . $arg . $condition;
-                if (!Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
-                    // Is not a value within our criteria
-                    $valid = false;
-
-                    break; // if false found, don't need to check other conditions
-                }
-            }
-
-            if ($valid) {
-                $returnValue += $value;
-            }
-        }
-
-        // Return
-        return $returnValue;
+        return Statistical\Conditional::SUMIFS(...$args);
     }
 
     /**

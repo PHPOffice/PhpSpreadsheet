@@ -162,6 +162,10 @@ abstract class DatabaseAbstract
             $dataValue = ($dataValues[$key]) ? 'TRUE' : 'FALSE';
         } elseif ($dataValues[$key] !== null) {
             $dataValue = $dataValues[$key];
+            // escape quotes if we have a string containing quotes
+            if (is_string($dataValue) && strpos($dataValue, '"') !== false) {
+                $dataValue = str_replace('"', '""', $dataValue);
+            }
             $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
         }
 
