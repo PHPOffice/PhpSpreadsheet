@@ -31,18 +31,7 @@ class Conditional
      */
     public static function AVERAGEIF($range, $condition, $averageRange = [])
     {
-        $range = Functions::flattenArray($range);
-        $averageRange = Functions::flattenArray($averageRange);
-        if (empty($averageRange)) {
-            $averageRange = $range;
-        }
-
-        $database = array_map(
-            null,
-            array_merge([self::CONDITION_COLUMN_NAME], $range),
-            array_merge([self::VALUE_COLUMN_NAME], $averageRange)
-        );
-
+        $database = self::databaseFromRangeAndValue($range, $averageRange);
         $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];
 
         return DAverage::evaluate($database, self::VALUE_COLUMN_NAME, $condition);
@@ -193,18 +182,7 @@ class Conditional
      */
     public static function SUMIF($range, $condition, $sumRange = [])
     {
-        $range = Functions::flattenArray($range);
-        $sumRange = Functions::flattenArray($sumRange);
-        if (empty($sumRange)) {
-            $sumRange = $range;
-        }
-
-        $database = array_map(
-            null,
-            array_merge([self::CONDITION_COLUMN_NAME], $range),
-            array_merge([self::VALUE_COLUMN_NAME], $sumRange)
-        );
-
+        $database = self::databaseFromRangeAndValue($range, $sumRange);
         $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];
 
         return DSum::evaluate($database, self::VALUE_COLUMN_NAME, $condition);
@@ -304,5 +282,28 @@ class Conditional
         }
 
         return array_map(null, ...$database);
+    }
+
+    /**
+     * @param array $range
+     * @param array $averageRange
+     * @return array
+     */
+    private static function databaseFromRangeAndValue(array $range, array $valueRange = []): array
+    {
+        $range = Functions::flattenArray($range);
+
+        $valueRange = Functions::flattenArray($valueRange);
+        if (empty($valueRange)) {
+            $valueRange = $range;
+        }
+
+        $database = array_map(
+            null,
+            array_merge([self::CONDITION_COLUMN_NAME], $range),
+            array_merge([self::VALUE_COLUMN_NAME], $valueRange)
+        );
+
+        return $database;
     }
 }
