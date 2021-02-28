@@ -26,6 +26,7 @@ class TranslationTest extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
         Functions::setReturnDateType($this->returnDate);
     }
+
     /**
      * @dataProvider providerTranslations
      */

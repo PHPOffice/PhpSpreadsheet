@@ -2,11 +2,6 @@
 
 return [
     [
-        '=JOURS360(DATE(2010;2;5);DATE(2010;12;31);VRAI)',
-        'fr',
-        '=DAYS360(DATE(2010,2,5),DATE(2010,12,31),TRUE)',
-    ],
-    [
         '=DAGEN360(DATUM(2010;2;5);DATUM(2010;12;31);WAAR)',
         'nl',
         '=DAYS360(DATE(2010,2,5),DATE(2010,12,31),TRUE)',
@@ -20,5 +15,15 @@ return [
         '=ДНЕЙ360(ДАТА(2010;2;5);ДАТА(2010;12;31);ИСТИНА)',
         'ru',
         '=DAYS360(DATE(2010,2,5),DATE(2010,12,31),TRUE)',
+    ],
+    [
+        '=TEKST.SAMENVOEGEN(A1; " "; B1)',
+        'nl',
+        '=CONCATENATE(A1, " ", B1)',
+    ],
+    [
+        '=TEKST.SAMENVOEGEN("""Hello "; B1; ""","; " I said.")',
+        'nl',
+        '=CONCATENATE("""Hello ", B1, """,", " I said.")',
     ],
 ];
