@@ -44,5 +44,5 @@ return [
                 "a Leap Year"
             )
         )',
-    ]
+    ],
 ];
