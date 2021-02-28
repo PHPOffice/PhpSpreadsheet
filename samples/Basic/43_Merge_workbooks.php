@@ -18,6 +18,10 @@ $helper->logRead('Xlsx', $filename2, $callStartTime);
 
 foreach ($spreadsheet2->getSheetNames() as $sheetName) {
     $sheet = $spreadsheet2->getSheetByName($sheetName);
+    if ($sheet === null) {
+        continue;
+    }
+
     $sheet->setTitle($sheet->getTitle() . ' copied');
     $spreadsheet1->addExternalSheet($sheet);
 }
