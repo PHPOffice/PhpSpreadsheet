@@ -284,11 +284,6 @@ class Conditional
         return array_map(null, ...$database);
     }
 
-    /**
-     * @param array $range
-     * @param array $averageRange
-     * @return array
-     */
     private static function databaseFromRangeAndValue(array $range, array $valueRange = []): array
     {
         $range = Functions::flattenArray($range);
