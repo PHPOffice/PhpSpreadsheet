@@ -26,4 +26,9 @@ return [
         'nl',
         '=CONCATENATE("""Hello ", B1, """,", " I said.")',
     ],
+    [
+        '=TEKST.SAMENVOEGEN(JAAR(VANDAAG()); " is "; ALS(DAYS(DATUM(JAAR(VANDAAG())+1; 1; 1);DATUM(JAAR(VANDAAG()); 1; 1)) = 365;"NOT a Leap Year"; "a Leap Year"))',
+        'nl',
+        '=CONCATENATE(YEAR(TODAY()), " is ", IF(DAYS(DATE(YEAR(TODAY())+1, 1, 1),DATE(YEAR(TODAY()), 1, 1)) = 365,"NOT a Leap Year", "a Leap Year"))',
+    ]
 ];
