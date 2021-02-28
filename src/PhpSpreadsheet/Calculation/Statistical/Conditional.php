@@ -54,7 +54,7 @@ class Conditional
         if (empty($args)) {
             return 0.0;
         } elseif (count($args) === 3) {
-            return self::AVERAGEIF($args[2], $args[1], $args[0]);
+            return self::AVERAGEIF($args[1], $args[2], $args[0]);
         }
 
         $conditions = self::buildConditionSetForValueRange(...$args);
@@ -205,7 +205,7 @@ class Conditional
         if (empty($args)) {
             return 0.0;
         } elseif (count($args) === 3) {
-            return self::SUMIF($args[2], $args[1], $args[0]);
+            return self::SUMIF($args[1], $args[2], $args[0]);
         }
 
         $conditions = self::buildConditionSetForValueRange(...$args);
