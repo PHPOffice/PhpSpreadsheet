@@ -328,17 +328,17 @@ class Calculation
         ],
         'AVEDEV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'AVEDEV'],
+            'functionCall' => [Statistical\Averages::class, 'AVEDEV'],
             'argumentCount' => '1+',
         ],
         'AVERAGE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'AVERAGE'],
+            'functionCall' => [Statistical\Averages::class, 'AVERAGE'],
             'argumentCount' => '1+',
         ],
         'AVERAGEA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'AVERAGEA'],
+            'functionCall' => [Statistical\Averages::class, 'AVERAGEA'],
             'argumentCount' => '1+',
         ],
         'AVERAGEIF' => [
@@ -624,17 +624,17 @@ class Calculation
         ],
         'COUNT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'COUNT'],
+            'functionCall' => [Statistical\Counts::class, 'COUNT'],
             'argumentCount' => '1+',
         ],
         'COUNTA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'COUNTA'],
+            'functionCall' => [Statistical\Counts::class, 'COUNTA'],
             'argumentCount' => '1+',
         ],
         'COUNTBLANK' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'COUNTBLANK'],
+            'functionCall' => [Statistical\Counts::class, 'COUNTBLANK'],
             'argumentCount' => '1',
         ],
         'COUNTIF' => [

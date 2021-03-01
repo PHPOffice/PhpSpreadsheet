@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Counts;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Permutations;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
@@ -571,45 +573,18 @@ class Statistical
      * Excel Function:
      *        AVEDEV(value1[,value2[, ...]])
      *
+     * @Deprecated 1.17.0
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string
+     *
+     *@see Statistical\Averages::AVEDEV()
+     *      Use the AVEDEV() method in the Statistical\Averages class instead
      */
     public static function AVEDEV(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed($args);
-
-        // Return value
-        $returnValue = 0;
-
-        $aMean = self::AVERAGE(...$args);
-        if ($aMean === Functions::DIV0()) {
-            return Functions::NAN();
-        } elseif ($aMean === Functions::VALUE()) {
-            return Functions::VALUE();
-        }
-
-        $aCount = 0;
-        foreach ($aArgs as $k => $arg) {
-            $arg = self::testAcceptedBoolean($arg, $k);
-            // Is it a numeric value?
-            // Strings containing numeric values are only counted if they are string literals (not cell values)
-            //    and then only in MS Excel and in Open Office, not in Gnumeric
-            if ((is_string($arg)) && (!is_numeric($arg)) && (!Functions::isCellValue($k))) {
-                return Functions::VALUE();
-            }
-            if (self::isAcceptedCountable($arg, $k)) {
-                $returnValue += abs($arg - $aMean);
-                ++$aCount;
-            }
-        }
-
-        // Return
-        if ($aCount === 0) {
-            return Functions::DIV0();
-        }
-
-        return $returnValue / $aCount;
+        return Averages::AVEDEV(...$args);
     }
 
     /**
@@ -620,35 +595,18 @@ class Statistical
      * Excel Function:
      *        AVERAGE(value1[,value2[, ...]])
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Averages::AVERAGE()
+     *      Use the AVERAGE() method in the Statistical\Averages class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string
      */
     public static function AVERAGE(...$args)
     {
-        $returnValue = $aCount = 0;
-
-        // Loop through arguments
-        foreach (Functions::flattenArrayIndexed($args) as $k => $arg) {
-            $arg = self::testAcceptedBoolean($arg, $k);
-            // Is it a numeric value?
-            // Strings containing numeric values are only counted if they are string literals (not cell values)
-            //    and then only in MS Excel and in Open Office, not in Gnumeric
-            if ((is_string($arg)) && (!is_numeric($arg)) && (!Functions::isCellValue($k))) {
-                return Functions::VALUE();
-            }
-            if (self::isAcceptedCountable($arg, $k)) {
-                $returnValue += $arg;
-                ++$aCount;
-            }
-        }
-
-        // Return
-        if ($aCount > 0) {
-            return $returnValue / $aCount;
-        }
-
-        return Functions::DIV0();
+        return Averages::AVERAGE(...$args);
     }
 
     /**
@@ -659,39 +617,18 @@ class Statistical
      * Excel Function:
      *        AVERAGEA(value1[,value2[, ...]])
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Averages::AVERAGEA()
+     *      Use the AVERAGEA() method in the Statistical\Averages class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string
      */
     public static function AVERAGEA(...$args)
     {
-        $returnValue = null;
-
-        $aCount = 0;
-        // Loop through arguments
-        foreach (Functions::flattenArrayIndexed($args) as $k => $arg) {
-            if (
-                (is_bool($arg)) &&
-                (!Functions::isMatrixValue($k))
-            ) {
-            } else {
-                if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
-                    if (is_bool($arg)) {
-                        $arg = (int) $arg;
-                    } elseif (is_string($arg)) {
-                        $arg = 0;
-                    }
-                    $returnValue += $arg;
-                    ++$aCount;
-                }
-            }
-        }
-
-        if ($aCount > 0) {
-            return $returnValue / $aCount;
-        }
-
-        return Functions::DIV0();
+        return Averages::AVERAGEA(...$args);
     }
 
     /**
@@ -1026,27 +963,18 @@ class Statistical
      * Excel Function:
      *        COUNT(value1[,value2[, ...]])
      *
+     * @Deprecated 1.17.0
+     *
      * @param mixed ...$args Data values
      *
      * @return int
+     *
+     *@see Statistical\Counts::COUNT()
+     *      Use the COUNT() method in the Statistical\Counts class instead
      */
     public static function COUNT(...$args)
     {
-        $returnValue = 0;
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArrayIndexed($args);
-        foreach ($aArgs as $k => $arg) {
-            $arg = self::testAcceptedBoolean($arg, $k);
-            // Is it a numeric value?
-            // Strings containing numeric values are only counted if they are string literals (not cell values)
-            //    and then only in MS Excel and in Open Office, not in Gnumeric
-            if (self::isAcceptedCountable($arg, $k)) {
-                ++$returnValue;
-            }
-        }
-
-        return $returnValue;
+        return Counts::COUNT(...$args);
     }
 
     /**
@@ -1057,24 +985,18 @@ class Statistical
      * Excel Function:
      *        COUNTA(value1[,value2[, ...]])
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Counts::COUNTA()
+     *      Use the COUNTA() method in the Statistical\Counts class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return int
      */
     public static function COUNTA(...$args)
     {
-        $returnValue = 0;
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArrayIndexed($args);
-        foreach ($aArgs as $k => $arg) {
-            // Nulls are counted if literals, but not if cell values
-            if ($arg !== null || (!Functions::isCellValue($k))) {
-                ++$returnValue;
-            }
-        }
-
-        return $returnValue;
+        return Counts::COUNTA(...$args);
     }
 
     /**
@@ -1085,24 +1007,18 @@ class Statistical
      * Excel Function:
      *        COUNTBLANK(value1[,value2[, ...]])
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Counts::COUNTBLANK()
+     *      Use the COUNTBLANK() method in the Statistical\Counts class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return int
      */
     public static function COUNTBLANK(...$args)
     {
-        $returnValue = 0;
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        foreach ($aArgs as $arg) {
-            // Is it a blank cell?
-            if (($arg === null) || ((is_string($arg)) && ($arg == ''))) {
-                ++$returnValue;
-            }
-        }
-
-        return $returnValue;
+        return Counts::COUNTBLANK(...$args);
     }
 
     /**
