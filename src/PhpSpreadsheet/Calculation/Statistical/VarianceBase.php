@@ -2,8 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
-use function PHPUnit\Framework\returnValue;
-
 abstract class VarianceBase
 {
     protected static function datatypeAdjustmentAllowStrings($value)
