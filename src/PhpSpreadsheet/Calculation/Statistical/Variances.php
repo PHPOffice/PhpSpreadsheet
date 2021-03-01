@@ -40,6 +40,7 @@ class Variances extends VarianceBase
         if ($aCount > 1) {
             $summerA *= $aCount;
             $summerB *= $summerB;
+
             return ($summerA - $summerB) / ($aCount * ($aCount - 1));
         }
 
@@ -85,6 +86,7 @@ class Variances extends VarianceBase
         if ($aCount > 1) {
             $summerA *= $aCount;
             $summerB *= $summerB;
+
             return ($summerA - $summerB) / ($aCount * ($aCount - 1));
         }
 
@@ -126,6 +128,7 @@ class Variances extends VarianceBase
         if ($aCount > 0) {
             $summerA *= $aCount;
             $summerB *= $summerB;
+
             return ($summerA - $summerB) / ($aCount * $aCount);
         }
 
@@ -171,6 +174,7 @@ class Variances extends VarianceBase
         if ($aCount > 0) {
             $summerA *= $aCount;
             $summerB *= $summerB;
+
             return ($summerA - $summerB) / ($aCount * $aCount);
         }
 
