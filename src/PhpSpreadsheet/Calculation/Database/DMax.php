@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Maximum;
 
 class DMax extends DatabaseAbstract
 {
@@ -39,7 +39,7 @@ class DMax extends DatabaseAbstract
             return null;
         }
 
-        return Statistical::MAX(
+        return Maximum::MAX(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

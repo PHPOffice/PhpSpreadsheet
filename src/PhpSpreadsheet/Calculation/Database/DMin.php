@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Minimum;
 
 class DMin extends DatabaseAbstract
 {
@@ -39,7 +39,7 @@ class DMin extends DatabaseAbstract
             return null;
         }
 
-        return Statistical::MIN(
+        return Minimum::MIN(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

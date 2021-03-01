@@ -1222,27 +1222,27 @@ class MathTrig
             $aArgs = self::filterFormulaArgs($cellReference, $aArgs);
             switch ($subtotal) {
                 case 1:
-                    return Statistical::AVERAGE($aArgs);
+                    return Statistical\Averages::AVERAGE($aArgs);
                 case 2:
-                    return Statistical::COUNT($aArgs);
+                    return Statistical\Counts::COUNT($aArgs);
                 case 3:
-                    return Statistical::COUNTA($aArgs);
+                    return Statistical\Counts::COUNTA($aArgs);
                 case 4:
-                    return Statistical::MAX($aArgs);
+                    return Statistical\Maximum::MAX($aArgs);
                 case 5:
-                    return Statistical::MIN($aArgs);
+                    return Statistical\Minimum::MIN($aArgs);
                 case 6:
                     return self::PRODUCT($aArgs);
                 case 7:
-                    return Statistical::STDEV($aArgs);
+                    return Statistical\StandardDeviations::STDEV($aArgs);
                 case 8:
-                    return Statistical::STDEVP($aArgs);
+                    return Statistical\StandardDeviations::STDEVP($aArgs);
                 case 9:
                     return self::SUM($aArgs);
                 case 10:
-                    return Statistical::VARFunc($aArgs);
+                    return Statistical\Variances::VAR($aArgs);
                 case 11:
-                    return Statistical::VARP($aArgs);
+                    return Statistical\Variances::VARP($aArgs);
             }
         }
 

@@ -2263,22 +2263,22 @@ class Calculation
         ],
         'STDEV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STDEV'],
+            'functionCall' => [Statistical\StandardDeviations::class, 'STDEV'],
             'argumentCount' => '1+',
         ],
         'STDEV.S' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STDEV'],
+            'functionCall' => [Statistical\StandardDeviations::class, 'STDEV'],
             'argumentCount' => '1+',
         ],
         'STDEV.P' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STDEVP'],
+            'functionCall' => [Statistical\StandardDeviations::class, 'STDEVP'],
             'argumentCount' => '1+',
         ],
         'STDEVA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STDEVA'],
+            'functionCall' => [Statistical\StandardDeviations::class, 'STDEVA'],
             'argumentCount' => '1+',
         ],
         'STDEVP' => [
@@ -2524,32 +2524,32 @@ class Calculation
         ],
         'VAR' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'VARFunc'],
+            'functionCall' => [Statistical\Variances::class, 'VAR'],
             'argumentCount' => '1+',
         ],
         'VAR.P' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'VARP'],
+            'functionCall' => [Statistical\Variances::class, 'VARP'],
             'argumentCount' => '1+',
         ],
         'VAR.S' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'VARFunc'],
+            'functionCall' => [Statistical\Variances::class, 'VAR'],
             'argumentCount' => '1+',
         ],
         'VARA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'VARA'],
+            'functionCall' => [Statistical\Variances::class, 'VARA'],
             'argumentCount' => '1+',
         ],
         'VARP' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'VARP'],
+            'functionCall' => [Statistical\Variances::class, 'VARP'],
             'argumentCount' => '1+',
         ],
         'VARPA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'VARPA'],
+            'functionCall' => [Statistical\Variances::class, 'VARPA'],
             'argumentCount' => '1+',
         ],
         'VDB' => [

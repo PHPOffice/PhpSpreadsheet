@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 
 class DAverage extends DatabaseAbstract
 {
@@ -38,7 +38,7 @@ class DAverage extends DatabaseAbstract
             return null;
         }
 
-        return Statistical::AVERAGE(
+        return Averages::AVERAGE(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

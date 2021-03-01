@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances;
 
 class DVarP extends DatabaseAbstract
 {
@@ -39,7 +39,7 @@ class DVarP extends DatabaseAbstract
             return null;
         }
 
-        return Statistical::VARP(
+        return Variances::VARP(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
