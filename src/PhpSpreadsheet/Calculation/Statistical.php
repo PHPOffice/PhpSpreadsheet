@@ -3206,9 +3206,9 @@ class Statistical
      * @param mixed ...$args Data values
      *
      * @return float|string (string if result is an error)
+     *
      *@see Statistical\Variances::VAR()
      *      Use the VAR() method in the Statistical\Variances class instead
-     *
      */
     public static function VARFunc(...$args)
     {
