@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class Variances
+class Variances extends VarianceBase
 {
     /**
      * VARFunc.
@@ -28,9 +28,7 @@ class Variances
         $aArgs = Functions::flattenArray($args);
         $aCount = 0;
         foreach ($aArgs as $arg) {
-            if (is_bool($arg)) {
-                $arg = (int) $arg;
-            }
+            $arg = self::datatypeAdjustmentBooleans();
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
                 $summerA += ($arg * $arg);
@@ -70,23 +68,13 @@ class Variances
         $aArgs = Functions::flattenArrayIndexed($args);
         $aCount = 0;
         foreach ($aArgs as $k => $arg) {
-            if (
-                (is_string($arg)) &&
-                (Functions::isValue($k))
-            ) {
+            if ((is_string($arg)) && (Functions::isValue($k))) {
                 return Functions::VALUE();
-            } elseif (
-                (is_string($arg)) &&
-                (!Functions::isMatrixValue($k))
-            ) {
+            } elseif ((is_string($arg)) && (!Functions::isMatrixValue($k))) {
             } else {
                 // Is it a numeric value?
                 if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) & ($arg != '')))) {
-                    if (is_bool($arg)) {
-                        $arg = (int) $arg;
-                    } elseif (is_string($arg)) {
-                        $arg = 0;
-                    }
+                    $arg = self::datatypeAdjustmentAllowStrings($arg);
                     $summerA += ($arg * $arg);
                     $summerB += $arg;
                     ++$aCount;
@@ -126,9 +114,7 @@ class Variances
         $aArgs = Functions::flattenArray($args);
         $aCount = 0;
         foreach ($aArgs as $arg) {
-            if (is_bool($arg)) {
-                $arg = (int) $arg;
-            }
+            $arg = self::datatypeAdjustmentBooleans();
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
                 $summerA += ($arg * $arg);
@@ -168,23 +154,13 @@ class Variances
         $aArgs = Functions::flattenArrayIndexed($args);
         $aCount = 0;
         foreach ($aArgs as $k => $arg) {
-            if (
-                (is_string($arg)) &&
-                (Functions::isValue($k))
-            ) {
+            if ((is_string($arg)) && (Functions::isValue($k))) {
                 return Functions::VALUE();
-            } elseif (
-                (is_string($arg)) &&
-                (!Functions::isMatrixValue($k))
-            ) {
+            } elseif ((is_string($arg)) && (!Functions::isMatrixValue($k))) {
             } else {
                 // Is it a numeric value?
                 if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) & ($arg != '')))) {
-                    if (is_bool($arg)) {
-                        $arg = (int) $arg;
-                    } elseif (is_string($arg)) {
-                        $arg = 0;
-                    }
+                    $arg = self::datatypeAdjustmentAllowStrings($arg);
                     $summerA += ($arg * $arg);
                     $summerB += $arg;
                     ++$aCount;
