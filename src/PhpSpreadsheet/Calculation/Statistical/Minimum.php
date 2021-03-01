@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class Minimum
+class Minimum extends MaxMinBase
 {
     /**
      * MIN.
@@ -62,11 +62,7 @@ class Minimum
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
-                if (is_bool($arg)) {
-                    $arg = (int) $arg;
-                } elseif (is_string($arg)) {
-                    $arg = 0;
-                }
+                $arg = self::datatypeAdjustmentAllowStrings($arg);
                 if (($returnValue === null) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
