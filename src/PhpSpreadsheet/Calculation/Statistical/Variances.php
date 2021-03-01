@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 class Variances extends VarianceBase
 {
     /**
-     * VARFunc.
+     * VAR.
      *
      * Estimates variance based on a sample.
      *
@@ -22,7 +22,7 @@ class Variances extends VarianceBase
     {
         $returnValue = Functions::DIV0();
 
-        $summerA = $summerB = 0;
+        $summerA = $summerB = 0.0;
 
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
@@ -40,7 +40,7 @@ class Variances extends VarianceBase
         if ($aCount > 1) {
             $summerA *= $aCount;
             $summerB *= $summerB;
-            $returnValue = ($summerA - $summerB) / ($aCount * ($aCount - 1));
+            return ($summerA - $summerB) / ($aCount * ($aCount - 1));
         }
 
         return $returnValue;
@@ -62,7 +62,7 @@ class Variances extends VarianceBase
     {
         $returnValue = Functions::DIV0();
 
-        $summerA = $summerB = 0;
+        $summerA = $summerB = 0.0;
 
         // Loop through arguments
         $aArgs = Functions::flattenArrayIndexed($args);
@@ -85,7 +85,7 @@ class Variances extends VarianceBase
         if ($aCount > 1) {
             $summerA *= $aCount;
             $summerB *= $summerB;
-            $returnValue = ($summerA - $summerB) / ($aCount * ($aCount - 1));
+            return ($summerA - $summerB) / ($aCount * ($aCount - 1));
         }
 
         return $returnValue;
@@ -108,7 +108,7 @@ class Variances extends VarianceBase
         // Return value
         $returnValue = Functions::DIV0();
 
-        $summerA = $summerB = 0;
+        $summerA = $summerB = 0.0;
 
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
@@ -126,7 +126,7 @@ class Variances extends VarianceBase
         if ($aCount > 0) {
             $summerA *= $aCount;
             $summerB *= $summerB;
-            $returnValue = ($summerA - $summerB) / ($aCount * $aCount);
+            return ($summerA - $summerB) / ($aCount * $aCount);
         }
 
         return $returnValue;
@@ -148,7 +148,7 @@ class Variances extends VarianceBase
     {
         $returnValue = Functions::DIV0();
 
-        $summerA = $summerB = 0;
+        $summerA = $summerB = 0.0;
 
         // Loop through arguments
         $aArgs = Functions::flattenArrayIndexed($args);
@@ -171,7 +171,7 @@ class Variances extends VarianceBase
         if ($aCount > 0) {
             $summerA *= $aCount;
             $summerB *= $summerB;
-            $returnValue = ($summerA - $summerB) / ($aCount * $aCount);
+            return ($summerA - $summerB) / ($aCount * $aCount);
         }
 
         return $returnValue;

@@ -17,7 +17,7 @@ class Averages extends AggregateBase
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return float|string (string if result is an error)
      */
     public static function AVEDEV(...$args)
     {
@@ -66,7 +66,7 @@ class Averages extends AggregateBase
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return float|string (string if result is an error)
      */
     public static function AVERAGE(...$args)
     {
@@ -105,7 +105,7 @@ class Averages extends AggregateBase
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return float|string (string if result is an error)
      */
     public static function AVERAGEA(...$args)
     {

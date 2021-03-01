@@ -28,6 +28,7 @@ class StandardDeviations extends VarianceBase
         if (!is_string($aMean)) {
             $returnValue = 0.0;
             $aCount = -1;
+
             foreach ($aArgs as $k => $arg) {
                 if (
                     (is_bool($arg)) &&
@@ -66,19 +67,17 @@ class StandardDeviations extends VarianceBase
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 
-        $returnValue = 0.0;
-
         $aMean = Averages::AVERAGEA($aArgs);
+
         if (!is_string($aMean)) {
+            $returnValue = 0.0;
             $aCount = -1;
+
             foreach ($aArgs as $k => $arg) {
-                if (
-                    (is_bool($arg)) &&
-                    (!Functions::isMatrixValue($k))
-                ) {
+                if ((is_bool($arg)) && (!Functions::isMatrixValue($k))) {
                 } else {
                     // Is it a numeric value?
-                    if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) & ($arg != '')))) {
+                    if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
                         $arg = self::datatypeAdjustmentAllowStrings($arg);
                         $returnValue += ($arg - $aMean) ** 2;
                         ++$aCount;
@@ -110,11 +109,12 @@ class StandardDeviations extends VarianceBase
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 
-        $returnValue = 0.0;
-
         $aMean = Averages::AVERAGE($aArgs);
+
         if (!is_string($aMean)) {
+            $returnValue = 0.0;
             $aCount = 0;
+
             foreach ($aArgs as $k => $arg) {
                 if (
                     (is_bool($arg)) &&
@@ -153,19 +153,17 @@ class StandardDeviations extends VarianceBase
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 
-        $returnValue = 0.0;
-
         $aMean = Averages::AVERAGEA($aArgs);
+
         if (!is_string($aMean)) {
+            $returnValue = 0.0;
             $aCount = 0;
+
             foreach ($aArgs as $k => $arg) {
-                if (
-                    (is_bool($arg)) &&
-                    (!Functions::isMatrixValue($k))
-                ) {
+                if ((is_bool($arg)) && (!Functions::isMatrixValue($k))) {
                 } else {
                     // Is it a numeric value?
-                    if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) & ($arg != '')))) {
+                    if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
                         $arg = self::datatypeAdjustmentAllowStrings($arg);
                         $returnValue += ($arg - $aMean) ** 2;
                         ++$aCount;
