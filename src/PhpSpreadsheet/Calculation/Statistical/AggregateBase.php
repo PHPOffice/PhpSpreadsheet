@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class Base
+abstract class AggregateBase
 {
     /**
      * MS Excel does not count Booleans if passed as cell values, but they are counted if passed as literals.

@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class Averages extends Base
+class Averages extends AggregateBase
 {
     /**
      * AVEDEV.

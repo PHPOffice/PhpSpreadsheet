@@ -5,6 +5,8 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Counts;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Maximum;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Minimum;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Permutations;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
@@ -523,48 +525,6 @@ class Statistical
     }
 
     /**
-     * MS Excel does not count Booleans if passed as cell values, but they are counted if passed as literals.
-     * OpenOffice Calc always counts Booleans.
-     * Gnumeric never counts Booleans.
-     *
-     * @param mixed $arg
-     * @param mixed $k
-     *
-     * @return int|mixed
-     */
-    private static function testAcceptedBoolean($arg, $k)
-    {
-        if (
-            (is_bool($arg)) &&
-            ((!Functions::isCellValue($k) && (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL)) ||
-                (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE))
-        ) {
-            $arg = (int) $arg;
-        }
-
-        return $arg;
-    }
-
-    /**
-     * @param mixed $arg
-     * @param mixed $k
-     *
-     * @return bool
-     */
-    private static function isAcceptedCountable($arg, $k)
-    {
-        if (
-            ((is_numeric($arg)) && (!is_string($arg))) ||
-                ((is_numeric($arg)) && (!Functions::isCellValue($k)) &&
-                    (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_GNUMERIC))
-        ) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * AVEDEV.
      *
      * Returns the average of the absolute deviations of data points from their mean.
@@ -575,12 +535,12 @@ class Statistical
      *
      * @Deprecated 1.17.0
      *
+     * @see Statistical\Averages::AVEDEV()
+     *      Use the AVEDEV() method in the Statistical\Averages class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string
-     *
-     *@see Statistical\Averages::AVEDEV()
-     *      Use the AVEDEV() method in the Statistical\Averages class instead
      */
     public static function AVEDEV(...$args)
     {
@@ -965,12 +925,12 @@ class Statistical
      *
      * @Deprecated 1.17.0
      *
+     * @see Statistical\Counts::COUNT()
+     *      Use the COUNT() method in the Statistical\Counts class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return int
-     *
-     *@see Statistical\Counts::COUNT()
-     *      Use the COUNT() method in the Statistical\Counts class instead
      */
     public static function COUNT(...$args)
     {
@@ -2100,30 +2060,18 @@ class Statistical
      * Excel Function:
      *        MAX(value1[,value2[, ...]])
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Maximum::MAX()
+     *      Use the MAX() method in the Statistical\Maximum class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float
      */
     public static function MAX(...$args)
     {
-        $returnValue = null;
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        foreach ($aArgs as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                if (($returnValue === null) || ($arg > $returnValue)) {
-                    $returnValue = $arg;
-                }
-            }
-        }
-
-        if ($returnValue === null) {
-            return 0;
-        }
-
-        return $returnValue;
+        return Maximum::MAX(...$args);
     }
 
     /**
@@ -2134,35 +2082,18 @@ class Statistical
      * Excel Function:
      *        MAXA(value1[,value2[, ...]])
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Maximum::MAXA()
+     *      Use the MAXA() method in the Statistical\Maximum class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float
      */
     public static function MAXA(...$args)
     {
-        $returnValue = null;
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        foreach ($aArgs as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
-                if (is_bool($arg)) {
-                    $arg = (int) $arg;
-                } elseif (is_string($arg)) {
-                    $arg = 0;
-                }
-                if (($returnValue === null) || ($arg > $returnValue)) {
-                    $returnValue = $arg;
-                }
-            }
-        }
-
-        if ($returnValue === null) {
-            return 0;
-        }
-
-        return $returnValue;
+        return Maximum::MAXA(...$args);
     }
 
     /**
@@ -2237,30 +2168,18 @@ class Statistical
      * Excel Function:
      *        MIN(value1[,value2[, ...]])
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Minimum::MIN()
+     *      Use the MIN() method in the Statistical\Minimum class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float
      */
     public static function MIN(...$args)
     {
-        $returnValue = null;
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        foreach ($aArgs as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                if (($returnValue === null) || ($arg < $returnValue)) {
-                    $returnValue = $arg;
-                }
-            }
-        }
-
-        if ($returnValue === null) {
-            return 0;
-        }
-
-        return $returnValue;
+        return Minimum::MIN(...$args);
     }
 
     /**
@@ -2271,35 +2190,18 @@ class Statistical
      * Excel Function:
      *        MINA(value1[,value2[, ...]])
      *
+     * @Deprecated 1.17.0
+     *
+     * @see Statistical\Minimum::MINA()
+     *      Use the MINA() method in the Statistical\Minimum class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float
      */
     public static function MINA(...$args)
     {
-        $returnValue = null;
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        foreach ($aArgs as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
-                if (is_bool($arg)) {
-                    $arg = (int) $arg;
-                } elseif (is_string($arg)) {
-                    $arg = 0;
-                }
-                if (($returnValue === null) || ($arg < $returnValue)) {
-                    $returnValue = $arg;
-                }
-            }
-        }
-
-        if ($returnValue === null) {
-            return 0;
-        }
-
-        return $returnValue;
+        return Minimum::MINA(...$args);
     }
 
     /**
@@ -2691,7 +2593,7 @@ class Statistical
      */
     public static function PERMUT($numObjs, $numInSet)
     {
-        return Statistical\Permutations::PERMUT($numObjs, $numInSet);
+        return Permutations::PERMUT($numObjs, $numInSet);
     }
 
     /**

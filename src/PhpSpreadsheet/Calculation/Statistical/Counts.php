@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class Counts extends Base
+class Counts extends AggregateBase
 {
     /**
      * COUNT.
