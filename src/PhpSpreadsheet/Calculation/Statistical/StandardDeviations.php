@@ -24,7 +24,7 @@ class StandardDeviations
         $aArgs = Functions::flattenArrayIndexed($args);
 
         // Return value
-        $returnValue = null;
+        $returnValue = 0.0;
 
         $aMean = Averages::AVERAGE($aArgs);
         if ($aMean !== null) {
@@ -38,17 +38,12 @@ class StandardDeviations
                 }
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if ($returnValue === null) {
-                        $returnValue = ($arg - $aMean) ** 2;
-                    } else {
-                        $returnValue += ($arg - $aMean) ** 2;
-                    }
+                    $returnValue += ($arg - $aMean) ** 2;
                     ++$aCount;
                 }
             }
 
-            // Return
-            if (($aCount > 0) && ($returnValue >= 0)) {
+            if ($aCount > 0) {
                 return sqrt($returnValue / $aCount);
             }
         }
@@ -72,7 +67,7 @@ class StandardDeviations
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 
-        $returnValue = null;
+        $returnValue = 0.0;
 
         $aMean = Averages::AVERAGEA($aArgs);
         if ($aMean !== null) {
@@ -90,17 +85,13 @@ class StandardDeviations
                         } elseif (is_string($arg)) {
                             $arg = 0;
                         }
-                        if ($returnValue === null) {
-                            $returnValue = ($arg - $aMean) ** 2;
-                        } else {
-                            $returnValue += ($arg - $aMean) ** 2;
-                        }
+                        $returnValue += ($arg - $aMean) ** 2;
                         ++$aCount;
                     }
                 }
             }
 
-            if (($aCount > 0) && ($returnValue >= 0)) {
+            if ($aCount > 0) {
                 return sqrt($returnValue / $aCount);
             }
         }
@@ -124,7 +115,7 @@ class StandardDeviations
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 
-        $returnValue = null;
+        $returnValue = 0.0;
 
         $aMean = Averages::AVERAGE($aArgs);
         if ($aMean !== null) {
@@ -138,16 +129,12 @@ class StandardDeviations
                 }
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if ($returnValue === null) {
-                        $returnValue = ($arg - $aMean) ** 2;
-                    } else {
-                        $returnValue += ($arg - $aMean) ** 2;
-                    }
+                    $returnValue += ($arg - $aMean) ** 2;
                     ++$aCount;
                 }
             }
 
-            if (($aCount > 0) && ($returnValue >= 0)) {
+            if ($aCount > 0) {
                 return sqrt($returnValue / $aCount);
             }
         }
@@ -171,7 +158,7 @@ class StandardDeviations
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 
-        $returnValue = null;
+        $returnValue = 0.0;
 
         $aMean = Averages::AVERAGEA($aArgs);
         if ($aMean !== null) {
@@ -189,17 +176,13 @@ class StandardDeviations
                         } elseif (is_string($arg)) {
                             $arg = 0;
                         }
-                        if ($returnValue === null) {
-                            $returnValue = ($arg - $aMean) ** 2;
-                        } else {
-                            $returnValue += ($arg - $aMean) ** 2;
-                        }
+                        $returnValue += ($arg - $aMean) ** 2;
                         ++$aCount;
                     }
                 }
             }
 
-            if (($aCount > 0) && ($returnValue >= 0)) {
+            if ($aCount > 0) {
                 return sqrt($returnValue / $aCount);
             }
         }
