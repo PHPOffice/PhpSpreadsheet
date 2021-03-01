@@ -23,11 +23,10 @@ class StandardDeviations extends VarianceBase
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 
-        // Return value
-        $returnValue = 0.0;
-
         $aMean = Averages::AVERAGE($aArgs);
-        if ($aMean !== null) {
+
+        if (!is_string($aMean)) {
+            $returnValue = 0.0;
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
                 if (
@@ -70,7 +69,7 @@ class StandardDeviations extends VarianceBase
         $returnValue = 0.0;
 
         $aMean = Averages::AVERAGEA($aArgs);
-        if ($aMean !== null) {
+        if (!is_string($aMean)) {
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
                 if (
@@ -114,7 +113,7 @@ class StandardDeviations extends VarianceBase
         $returnValue = 0.0;
 
         $aMean = Averages::AVERAGE($aArgs);
-        if ($aMean !== null) {
+        if (!is_string($aMean)) {
             $aCount = 0;
             foreach ($aArgs as $k => $arg) {
                 if (
@@ -157,7 +156,7 @@ class StandardDeviations extends VarianceBase
         $returnValue = 0.0;
 
         $aMean = Averages::AVERAGEA($aArgs);
-        if ($aMean !== null) {
+        if (!is_string($aMean)) {
             $aCount = 0;
             foreach ($aArgs as $k => $arg) {
                 if (
