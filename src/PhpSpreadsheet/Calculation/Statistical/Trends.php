@@ -174,7 +174,7 @@ class Trends
         $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
         $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
         if ($xValues === null) {
-            $xValues = range(1, count(Functions::flattenArray($yValues)));
+            $xValues = $yValues;
         }
 
         try {
@@ -185,20 +185,27 @@ class Trends
         }
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
+
         if ($stats) {
             return [
                 [
                     $bestFitLinear->getSlope(),
-                    $bestFitLinear->getSlopeSE(),
-                    $bestFitLinear->getGoodnessOfFit(),
-                    $bestFitLinear->getF(),
-                    $bestFitLinear->getSSRegression(),
+                    $bestFitLinear->getIntersect(),
                 ],
                 [
-                    $bestFitLinear->getIntersect(),
+                    $bestFitLinear->getSlopeSE(),
                     $bestFitLinear->getIntersectSE(),
+                ],
+                [
+                    $bestFitLinear->getGoodnessOfFit(),
                     $bestFitLinear->getStdevOfResiduals(),
+                ],
+                [
+                    $bestFitLinear->getF(),
                     $bestFitLinear->getDFResiduals(),
+                ],
+                [
+                    $bestFitLinear->getSSRegression(),
                     $bestFitLinear->getSSResiduals(),
                 ],
             ];
@@ -228,7 +235,7 @@ class Trends
         $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
         $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
         if ($xValues === null) {
-            $xValues = range(1, count(Functions::flattenArray($yValues)));
+            $xValues = $yValues;
         }
 
         try {
@@ -245,20 +252,27 @@ class Trends
         }
 
         $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
+
         if ($stats) {
             return [
                 [
                     $bestFitExponential->getSlope(),
-                    $bestFitExponential->getSlopeSE(),
-                    $bestFitExponential->getGoodnessOfFit(),
-                    $bestFitExponential->getF(),
-                    $bestFitExponential->getSSRegression(),
+                    $bestFitExponential->getIntersect(),
                 ],
                 [
-                    $bestFitExponential->getIntersect(),
+                    $bestFitExponential->getSlopeSE(),
                     $bestFitExponential->getIntersectSE(),
+                ],
+                [
+                    $bestFitExponential->getGoodnessOfFit(),
                     $bestFitExponential->getStdevOfResiduals(),
+                ],
+                [
+                    $bestFitExponential->getF(),
                     $bestFitExponential->getDFResiduals(),
+                ],
+                [
+                    $bestFitExponential->getSSRegression(),
                     $bestFitExponential->getSSResiduals(),
                 ],
             ];
