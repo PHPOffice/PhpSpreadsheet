@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances;
 
 class DVar extends DatabaseAbstract
 {
@@ -39,7 +39,7 @@ class DVar extends DatabaseAbstract
             return null;
         }
 
-        return Statistical::VARFunc(
+        return Variances::VAR(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

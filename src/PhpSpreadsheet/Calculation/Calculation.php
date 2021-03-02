@@ -328,17 +328,17 @@ class Calculation
         ],
         'AVEDEV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'AVEDEV'],
+            'functionCall' => [Statistical\Averages::class, 'AVEDEV'],
             'argumentCount' => '1+',
         ],
         'AVERAGE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'AVERAGE'],
+            'functionCall' => [Statistical\Averages::class, 'AVERAGE'],
             'argumentCount' => '1+',
         ],
         'AVERAGEA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'AVERAGEA'],
+            'functionCall' => [Statistical\Averages::class, 'AVERAGEA'],
             'argumentCount' => '1+',
         ],
         'AVERAGEIF' => [
@@ -624,17 +624,17 @@ class Calculation
         ],
         'COUNT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'COUNT'],
+            'functionCall' => [Statistical\Counts::class, 'COUNT'],
             'argumentCount' => '1+',
         ],
         'COUNTA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'COUNTA'],
+            'functionCall' => [Statistical\Counts::class, 'COUNTA'],
             'argumentCount' => '1+',
         ],
         'COUNTBLANK' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'COUNTBLANK'],
+            'functionCall' => [Statistical\Counts::class, 'COUNTBLANK'],
             'argumentCount' => '1',
         ],
         'COUNTIF' => [
@@ -1620,12 +1620,12 @@ class Calculation
         ],
         'MAX' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MAX'],
+            'functionCall' => [Statistical\Maximum::class, 'MAX'],
             'argumentCount' => '1+',
         ],
         'MAXA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MAXA'],
+            'functionCall' => [Statistical\Maximum::class, 'MAXA'],
             'argumentCount' => '1+',
         ],
         'MAXIFS' => [
@@ -1665,12 +1665,12 @@ class Calculation
         ],
         'MIN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MIN'],
+            'functionCall' => [Statistical\Minimum::class, 'MIN'],
             'argumentCount' => '1+',
         ],
         'MINA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MINA'],
+            'functionCall' => [Statistical\Minimum::class, 'MINA'],
             'argumentCount' => '1+',
         ],
         'MINIFS' => [
@@ -2263,22 +2263,22 @@ class Calculation
         ],
         'STDEV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STDEV'],
+            'functionCall' => [Statistical\StandardDeviations::class, 'STDEV'],
             'argumentCount' => '1+',
         ],
         'STDEV.S' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STDEV'],
+            'functionCall' => [Statistical\StandardDeviations::class, 'STDEV'],
             'argumentCount' => '1+',
         ],
         'STDEV.P' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STDEVP'],
+            'functionCall' => [Statistical\StandardDeviations::class, 'STDEVP'],
             'argumentCount' => '1+',
         ],
         'STDEVA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STDEVA'],
+            'functionCall' => [Statistical\StandardDeviations::class, 'STDEVA'],
             'argumentCount' => '1+',
         ],
         'STDEVP' => [
@@ -2524,32 +2524,32 @@ class Calculation
         ],
         'VAR' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'VARFunc'],
+            'functionCall' => [Statistical\Variances::class, 'VAR'],
             'argumentCount' => '1+',
         ],
         'VAR.P' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'VARP'],
+            'functionCall' => [Statistical\Variances::class, 'VARP'],
             'argumentCount' => '1+',
         ],
         'VAR.S' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'VARFunc'],
+            'functionCall' => [Statistical\Variances::class, 'VAR'],
             'argumentCount' => '1+',
         ],
         'VARA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'VARA'],
+            'functionCall' => [Statistical\Variances::class, 'VARA'],
             'argumentCount' => '1+',
         ],
         'VARP' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'VARP'],
+            'functionCall' => [Statistical\Variances::class, 'VARP'],
             'argumentCount' => '1+',
         ],
         'VARPA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'VARPA'],
+            'functionCall' => [Statistical\Variances::class, 'VARPA'],
             'argumentCount' => '1+',
         ],
         'VDB' => [

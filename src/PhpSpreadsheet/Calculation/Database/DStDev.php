@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations;
 
 class DStDev extends DatabaseAbstract
 {
@@ -39,7 +39,7 @@ class DStDev extends DatabaseAbstract
             return null;
         }
 
-        return Statistical::STDEV(
+        return StandardDeviations::STDEV(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

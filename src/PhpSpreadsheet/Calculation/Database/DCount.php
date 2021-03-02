@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Counts;
 
 class DCount extends DatabaseAbstract
 {
@@ -36,7 +36,7 @@ class DCount extends DatabaseAbstract
     {
         $field = self::fieldExtract($database, $field);
 
-        return Statistical::COUNT(
+        return Counts::COUNT(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
