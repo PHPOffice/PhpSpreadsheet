@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
@@ -38,6 +39,18 @@ class Trends
         return true;
     }
 
+    protected static function validateArrays(array $yValues, array $xValues): void
+    {
+        $yValueCount = count($yValues);
+        $xValueCount = count($xValues);
+
+        if (($yValueCount === 0) || ($yValueCount !== $xValueCount)) {
+            throw new Exception(Functions::NA());
+        } elseif ($yValueCount === 1) {
+            throw new Exception(Functions::DIV0());
+        }
+    }
+
     /**
      * CORREL.
      *
@@ -56,13 +69,11 @@ class Trends
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
 
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
+        try {
+            self::validateArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
@@ -85,13 +96,11 @@ class Trends
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
 
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
+        try {
+            self::validateArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
@@ -118,13 +127,11 @@ class Trends
         } elseif (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
 
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
+        try {
+            self::validateArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
@@ -147,13 +154,11 @@ class Trends
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
 
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
+        try {
+            self::validateArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
@@ -185,13 +190,11 @@ class Trends
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
 
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return 0;
+        try {
+            self::validateArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
@@ -244,8 +247,6 @@ class Trends
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
 
         foreach ($yValues as $value) {
             if ($value <= 0.0) {
@@ -253,10 +254,10 @@ class Trends
             }
         }
 
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return 1;
+        try {
+            self::validateArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
@@ -300,13 +301,11 @@ class Trends
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
 
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
+        try {
+            self::validateArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
@@ -329,13 +328,11 @@ class Trends
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
 
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
+        try {
+            self::validateArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
@@ -358,13 +355,11 @@ class Trends
         if (!self::checkTrendArrays($yValues, $xValues)) {
             return Functions::VALUE();
         }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
 
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
+        try {
+            self::validateArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);

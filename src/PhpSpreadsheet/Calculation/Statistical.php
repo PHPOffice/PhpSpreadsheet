@@ -22,33 +22,6 @@ class Statistical
     const MAX_ITERATIONS = 256;
     const SQRT2PI = 2.5066282746310005024157652848110452530069867406099;
 
-    private static function checkTrendArrays(&$array1, &$array2)
-    {
-        if (!is_array($array1)) {
-            $array1 = [$array1];
-        }
-        if (!is_array($array2)) {
-            $array2 = [$array2];
-        }
-
-        $array1 = Functions::flattenArray($array1);
-        $array2 = Functions::flattenArray($array2);
-        foreach ($array1 as $key => $value) {
-            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
-                unset($array1[$key], $array2[$key]);
-            }
-        }
-        foreach ($array2 as $key => $value) {
-            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
-                unset($array1[$key], $array2[$key]);
-            }
-        }
-        $array1 = array_merge($array1);
-        $array2 = array_merge($array2);
-
-        return true;
-    }
-
     /**
      * Incomplete beta function.
      *
