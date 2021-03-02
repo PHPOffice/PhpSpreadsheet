@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Nothing.
 
-## 1.17.0 - 2021-03-01
+## 1.17.1 - 2021-03-01
 
 ### Added
 
