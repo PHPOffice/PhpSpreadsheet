@@ -18,7 +18,7 @@ class ColumnTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCOLUMN($expectedResult, $cellReference): void
+    public function testCOLUMN($expectedResult, string $cellReference): void
     {
         $result = LookupRef::COLUMN($cellReference);
         self::assertSame($expectedResult, $result);
